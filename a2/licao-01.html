@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | Lição 01: The Past - Regular & Irregular</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="../enhanced-styles.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .flip-card { background-color: transparent; width: 300px; min-height: 220px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); padding: 2rem;
+            font-size: 1.1rem; line-height: 1.5;
+        }
+        .flip-card-front { background-color: #fff; border: 1px solid #e5e7eb; }
+        .flip-card-back { background-color: #fef9c3; transform: rotateY(180deg); font-size: 1.25rem; }
+
+        input.correct { border-color: #22c55e; background-color: #f0fdf4; }
+        input.incorrect { border-color: #ef4444; background-color: #fef2f2; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.5rem; }
+        .answer-btn:hover { color: #db2777; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to A2 Module</a>
+            <h1 class="text-xl font-semibold text-center">A2 - Lesson 01: The Past</h1>
+            <div class="w-40"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 120px); overflow-y: auto;">
+
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-5xl font-bold mb-8 text-orange-700"><i class="fas fa-history text-yellow-500"></i> Warm-up: About Last Weekend</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">Let's talk about what you did!</p>
+                    <div class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
+                        <p><strong class="text-blue-600">Teacher:</strong> "Hi! How was your weekend?"</p>
+                        <p><strong class="text-orange-600">Student:</strong> "It was great, thanks!"</p>
+                        <p><strong class="text-blue-600">Teacher:</strong> "Nice! What did you do on Saturday?"</p>
+                        <p><strong class="text-orange-600">Student:</strong> "On Saturday, I watched a movie with my family."</p>
+                        <p><strong class="text-blue-600">Teacher:</strong> "Sounds fun! Did you go out?"</p>
+                        <p><strong class="text-orange-600">Student:</strong> "Yes, I went to a restaurant with my friends."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-book-open text-pink-500"></i> Grammar: The Simple Past</h2>
+            <div class="max-w-6xl mx-auto space-y-6">
+                <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
+                    <h3 class="text-3xl font-semibold mb-4 text-blue-600">Using the Simple Past</h3>
+                    <p class="mb-6 text-xl">We use the Simple Past to talk about completed actions in the past. The action is finished.</p>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-2xl font-semibold mb-3 text-gray-700">Regular Verbs</h4>
+                            <p class="mb-4">For regular verbs, we add <strong class="font-bold">-ed</strong> to the base form.</p>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li>work → work<strong class="text-green-600">ed</strong></li>
+                                <li>study → stud<strong class="text-green-600">ied</strong></li>
+                                <li>watch → watch<strong class="text-green-600">ed</strong></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-2xl font-semibold mb-3 text-gray-700">Irregular Verbs</h4>
+                            <p class="mb-4">Irregular verbs have a special past form that you need to memorize.</p>
+                             <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li>go → <strong class="text-red-600">went</strong></li>
+                                <li>have → <strong class="text-red-600">had</strong></li>
+                                <li>eat → <strong class="text-red-600">ate</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
+                    <h3 class="text-3xl font-semibold mb-4 text-blue-600">Sentence Structure</h3>
+                     <p class="mb-6 text-xl">For ALL verbs (regular and irregular), the structure for negatives and questions is the same.</p>
+                     <table class="w-full text-center">
+                        <thead>
+                            <tr class="text-xl">
+                                <th class="p-2">Form</th>
+                                <th class="p-2">Structure</th>
+                                <th class="p-2">Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-gray-50"><td class="p-2 font-bold">(+)</td><td class="p-2">Subject + Verb in Past</td><td class="p-2">She <strong class="text-green-600">worked</strong>. / She <strong class="text-red-600">went</strong>.</td></tr>
+                            <tr class="bg-gray-100"><td class="p-2 font-bold">(-)</td><td class="p-2">Subject + <strong class="text-red-600">didn't</strong> + Verb (base)</td><td class="p-2">She <strong class="text-red-600">didn't work</strong>. / She <strong class="text-red-600">didn't go</strong>.</td></tr>
+                            <tr class="bg-gray-50"><td class="p-2 font-bold">(?)</td><td class="p-2"><strong class="text-purple-600">Did</strong> + Subject + Verb (base)?</td><td class="p-2"><strong class="text-purple-600">Did</strong> she <strong class="text-purple-600">work</strong>? / <strong class="text-purple-600">Did</strong> she <strong class="text-purple-600">go</strong>?</td></tr>
+                        </tbody>
+                     </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-calendar-alt text-purple-500"></i> Vocabulary: Past Activities</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-12 max-w-5xl mx-auto">
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Watched a movie</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Assisti um filme</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Listened to music</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Ouvi música</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Played video games</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Joguei videogame</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Went to the park</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Fui ao parque</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Ate pizza</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Comi pizza</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Read a book</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Li um livro</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Visited my family</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Visitei minha família</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Slept a lot</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Dormi muito</h3></div></div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-pencil-alt text-teal-500"></i> Practice 1: Complete the Sentences</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">Use a forma correta do verbo entre parênteses no Simple Past.</p>
+                    <div id="practice-sentences" class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-random text-cyan-500"></i> Practice 2: Order the Words</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">Coloque as palavras na ordem correta.</p>
+                    <div id="practice-unscramble" class="text-left text-2xl space-y-6 bg-gray-50 p-8 rounded-lg">
+                         </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-search-minus text-indigo-500"></i> Practice 3: Find and Fix the Error</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">Encontre o erro e reescreva a frase corretamente.</p>
+                    <div id="practice-fix-error" class="text-left text-2xl space-y-6 bg-gray-50 p-8 rounded-lg">
+                         </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-5xl font-bold mb-6 text-center text-orange-700"><i class="fas fa-music text-red-500"></i> Music Time: The Beatles</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/10" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <p class="text-3xl my-6 text-gray-600 text-center">Listen to "Yesterday" and fill in the blanks.</p>
+                <div class="text-2xl space-y-4 bg-gray-50 p-6 rounded-lg border-l-4 border-orange-500 text-center">
+                     <p>Yesterday, all my troubles seemed so far <input type="text" class="w-32 border-b-2 text-center bg-transparent" data-answer="away"><button class="answer-btn" data-answer="away"><i class="fas fa-eye"></i></button></p>
+                     <p>Now it looks as though they're here to <input type="text" class="w-32 border-b-2 text-center bg-transparent" data-answer="stay"><button class="answer-btn" data-answer="stay"><i class="fas fa-eye"></i></button></p>
+                     <p>Oh, I believe in yesterday</p>
+                     <p>Suddenly, I'm not half the man I <input type="text" class="w-32 border-b-2 text-center bg-transparent" data-answer="used"><button class="answer-btn" data-answer="used"><i class="fas fa-eye"></i></button> to be</p>
+                     <p>There's a shadow hanging over <input type="text" class="w-32 border-b-2 text-center bg-transparent" data-answer="me"><button class="answer-btn" data-answer="me"><i class="fas fa-eye"></i></button></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+             <div class="text-center">
+                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-home text-blue-500"></i> Homework</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">Write a short paragraph about what you did last weekend. Use at least 5 different verbs in the past.</p>
+                    <div class="text-left text-xl mt-4 bg-gray-50 p-6 rounded-lg">
+                        <textarea class="w-full mt-2 p-3 border-2 rounded-lg text-xl" rows="6" placeholder="Last weekend, I went to... I watched... Then, I ate..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <i class="fas fa-check-circle text-green-500 text-8xl mb-6"></i>
+                <h2 class="text-6xl font-bold mb-6 text-gray-800">Lesson 1 Complete!</h2>
+                <p class="text-4xl text-gray-600 max-w-3xl">Great job talking about the past! Every lesson is a step towards your future fluency.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Previous</button>
+            <button id="next-btn" class="bg-orange-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-orange-700">Next</button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finish Lesson</button>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            let currentSlide = 0;
+
+            function updateSlideView() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+                const progressBar = document.getElementById('progress-bar');
+                progressBar.style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+                finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+            }
+
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; updateSlideView(); } });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; updateSlideView(); } });
+
+            finishLessonBtn.addEventListener('click', () => {
+                if (window.parent && typeof window.parent.markLessonAsComplete === 'function') {
+                    window.parent.markLessonAsComplete('a2', 'licao-01');
+                } else {
+                    alert('Lição Finalizada! (Progresso não salvo fora do painel)');
+                    window.location.href = 'a2.html';
+                }
+            });
+
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation(); 
+                    const inputField = button.previousElementSibling;
+                    if(inputField && inputField.tagName === 'INPUT') {
+                        inputField.value = button.dataset.answer;
+                        checkAnswer(inputField);
+                    }
+                });
+            });
+
+            function checkAnswer(input) {
+                const userAnswer = input.value.trim().toLowerCase().replace(/\.$/, '');
+                const correctAnswer = input.dataset.answer.toLowerCase().replace(/\.$/, '');
+                input.classList.remove('correct', 'incorrect');
+                if(userAnswer.length === 0) return;
+                input.classList.toggle('correct', userAnswer === correctAnswer);
+                input.classList.toggle('incorrect', userAnswer !== correctAnswer);
+            }
+
+            document.querySelectorAll('.flip-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('flipped');
+                });
+            });
+
+            // Atividade 1: Complete the Sentences
+            function createPracticeSentences() {
+                const container = document.getElementById('practice-sentences');
+                if (!container) return;
+                const sentences = [
+                    { question: "I ___ a great movie yesterday. (watch)", answer: "watched" },
+                    { question: "She ___ to Paris last year. (go)", answer: "went" },
+                    { question: "They ___ pizza for dinner. (eat)", answer: "ate" },
+                    { question: "He ___ for the test. (study)", answer: "studied" },
+                    { question: "We ___ (not / play) soccer on the weekend.", answer: "didn't play" },
+                    { question: "___ you ___ your homework? (finish)", answer: "did you finish" }
+                ];
+                container.innerHTML = sentences.map(item => `
+                    <p>${item.question.replace('___', `<input data-answer="${item.answer}" class="w-64 p-1 border-b-2 text-2xl bg-transparent text-center">`)}</p>
+                `).join('');
+                 container.querySelectorAll('input').forEach(input => input.addEventListener('blur', () => checkAnswer(input)));
+            }
+
+            // Atividade 2: Order the Words
+            function createUnscrambleActivity() {
+                const container = document.getElementById('practice-unscramble');
+                if (!container) return;
+                const sentences = [
+                    { question: "to the cinema / I / last night / went", answer: "I went to the cinema last night." },
+                    { question: "a book / she / read / yesterday", answer: "She read a book yesterday." },
+                    { question: "you / what / do / did / on Sunday", answer: "What did you do on Sunday?" },
+                    { question: "he / his homework / didn't / do", answer: "He didn't do his homework." },
+                    { question: "a new car / they / bought / last month", answer: "They bought a new car last month." }
+                ];
+                container.innerHTML = sentences.map(item => `
+                    <div>
+                        <p class="text-gray-800">${item.question}</p>
+                        <input data-answer="${item.answer}" class="w-full p-1 border-b-2 text-2xl bg-transparent" placeholder="Write the correct sentence...">
+                    </div>
+                `).join('');
+                container.querySelectorAll('input').forEach(input => input.addEventListener('blur', () => checkAnswer(input)));
+            }
+
+            // Atividade 3: Fix the Error
+            function createFixErrorActivity() {
+                const container = document.getElementById('practice-fix-error');
+                if (!container) return;
+                const sentences = [
+                    { question: "I did went to the party.", answer: "I went to the party." },
+                    { question: "She no liked the movie.", answer: "She didn't like the movie." },
+                    { question: "Did you saw my email?", answer: "Did you see my email?" },
+                    { question: "They studyed a lot.", answer: "They studied a lot." },
+                    { question: "He not called me yesterday.", answer: "He didn't call me yesterday." }
+                ];
+                container.innerHTML = sentences.map(item => `
+                    <div>
+                        <p class="text-gray-800 font-semibold">Frase com erro: <span class="font-normal">${item.question}</span></p>
+                        <input data-answer="${item.answer}" class="w-full p-1 border-b-2 text-2xl bg-transparent" placeholder="Write the correct sentence...">
+                    </div>
+                `).join('');
+                 container.querySelectorAll('input').forEach(input => input.addEventListener('blur', () => checkAnswer(input)));
+            }
+
+            createPracticeSentences();
+            createUnscrambleActivity();
+            createFixErrorActivity();
+            updateSlideView();
+        });
+    </script>
+</body>
+</html>

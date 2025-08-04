@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation Class - Lesson 7: Travel & Adventure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #4a5568; }
+        .flashcard-front { background-color: #2d3748; color: #a0aec0; text-align: center; }
+        .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
+        .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
+        .lyrics-box { max-height: 300px; overflow-y: auto; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="conversation.html" class="text-lg font-bold text-teal-400 hover:text-teal-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
+            <h1 class="text-xl font-semibold text-center">Lesson 7: Travel & Adventure</h1>
+            <div class="w-32"></div>
+        </div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-teal-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+
+        <div class="slide active">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-teal-300"><i class="fas fa-plane-departure text-yellow-400"></i> Warm-up: Let's Travel</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6 text-2xl">
+                <p class="font-semibold text-gray-300">Let's start our conversation:</p>
+                <p><i class="fas fa-arrow-right mr-2 text-teal-400"></i> What’s the most interesting place you’ve visited?</p>
+                <p><i class="fas fa-arrow-right mr-2 text-teal-400"></i> If you could go anywhere tomorrow, where would you go?</p>
+                <p><i class="fas fa-arrow-right mr-2 text-teal-400"></i> Do you prefer traveling alone or with others?</p>
+            </div></div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-teal-300"><i class="fas fa-comments text-cyan-400"></i> Key Vocabulary & Expressions</h2><p class="text-2xl mb-8 text-gray-300 max-w-3xl mx-auto">Click the cards to explore ideas about travel.</p><div class="flashcard-grid max-w-6xl mx-auto">
+                <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To hit the road</h4></div><div class="flashcard-back"><p class="text-xl">To begin a journey or a trip.</p></div></div></div>
+                <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Wanderlust</h4></div><div class="flashcard-back"><p class="text-xl">A strong desire to travel and explore the world.</p></div></div></div>
+                <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Off the beaten path</h4></div><div class="flashcard-back"><p class="text-xl">A place that is not well-known or popular with tourists.</p></div></div></div>
+                <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">A change of scenery</h4></div><div class="flashcard-back"><p class="text-xl">Moving to a different place to have a new environment.</p></div></div></div>
+                <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To travel light</h4></div><div class="flashcard-back"><p class="text-xl">To travel with very little luggage.</p></div></div></div>
+                <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">A once-in-a-lifetime trip</h4></div><div class="flashcard-back"><p class="text-xl">A special trip that you will probably only take once.</p></div></div></div>
+            </div></div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-teal-300"><i class="fas fa-car-side text-red-500"></i> Music Time: Road Trippin'</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/56" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-teal-500">
+                    <p>Road trippin' with my two favorite <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="allies"><i class="fas fa-eye"></i></button></p>
+                    <p>Fully loaded we got snacks and <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="supplies"><i class="fas fa-eye"></i></button></p>
+                    <p>It's time to leave this town, it's time to steal <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="away"><i class="fas fa-eye"></i></button></p>
+                    <p>Let's go get lost anywhere in the U.S.A.</p>
+                    <p>Let's go get <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="lost"><i class="fas fa-eye"></i></button>, let's go get lost</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-teal-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                <p>This song is about a road trip. What are the best things about traveling by car?</p>
+                <p>Who are your "two favorite allies" to travel with?</p>
+            </div></div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-teal-300"><i class="fas fa-road text-red-500"></i> Music Time: Runnin' Down a Dream</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4g3t2C3zOKf2ktS5B9p5c6?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-teal-500">
+                    <p>It was a beautiful <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="day"><i class="fas fa-eye"></i></button>, the sun beat down</p>
+                    <p>I had the radio on, I was drivin'</p>
+                    <p>Trees flew by, me and Del were singin' little <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="Runaway"><i class="fas fa-eye"></i></button></p>
+                    <p>I was flyin'</p>
+                    <p>Yeah, runnin' down a <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="dream"><i class="fas fa-eye"></i></button></p>
+                    <p>That never would come to me</p>
+                    <p>Workin' on a mystery, goin' wherever it <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="leads"><i class="fas fa-eye"></i></button></p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-teal-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                <p>The song says "runnin' down a dream". How is a journey similar to following a dream?</p>
+                <p>Have you ever taken a trip that felt like a mystery or an adventure?</p>
+            </div></div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-teal-300"><i class="fas fa-rocket text-red-500"></i> Music Time: Don't Stop Me Now</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5T8EDUDqKcs6OSOwBzSep8?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-teal-500">
+                    <p>Tonight, I'm gonna have myself a real good <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="time"><i class="fas fa-eye"></i></button></p>
+                    <p>I feel alive, and the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="world"><i class="fas fa-eye"></i></button> I'll turn it inside out, yeah</p>
+                    <p>I'm floating around in ecstasy</p>
+                    <p>So, don't <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="stop"><i class="fas fa-eye"></i></button> me now</p>
+                    <p>'Cause I'm having a good time, having a good time</p>
+                    <p>I'm a shooting <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="star"><i class="fas fa-eye"></i></button> leaping through the sky</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-teal-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                <p>This song has incredible energy. How does it relate to the feeling of freedom and adventure?</p>
+                <p>What does it mean to be "a shooting star leaping through the sky"?</p>
+            </div></div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-teal-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="matching-activity" class="space-y-4"></div><button id="check-answers-btn" class="mt-8 bg-teal-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-teal-700">Check Answers</button></div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-teal-300"><i class="fas fa-home text-blue-400"></i>Homework</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto"><p class="text-2xl mb-6 text-gray-300">Describe your dream vacation. Where would you go and what would you do? Use at least one expression from this lesson.</p><div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg"><p><strong>Example:</strong> "My dream vacation is to... I have a real wanderlust for... I would travel light and go..."</p></div></div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center flex flex-col items-center justify-center h-full"><i class="fas fa-suitcase-rolling text-yellow-300 text-7xl mb-6"></i><h2 class="text-5xl font-bold mb-4 text-gray-100">Lesson Complete!</h2><p class="text-2xl italic text-gray-400 max-w-2xl mx-auto">"I haven't been everywhere, but it's on my list."</p></div>
+        </div>
+        <div id="custom-alert-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center transition-opacity duration-300"></div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20"><div class="container mx-auto px-8 h-20 flex justify-between items-center"><button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button><button id="next-btn" class="bg-teal-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-teal-700">Próximo</button><button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finalizar Aula</button></div></footer>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/progress-manager.js"></script>
+    <script>
+        function showCustomAlert(message,type='success',callback){const modal=document.getElementById('custom-alert-modal');if(!modal)return;modal.innerHTML=`<div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 text-center transform transition-all scale-95 opacity-0" id="custom-alert-box"><i id="custom-alert-icon" class="fas text-6xl mb-5"></i><h3 id="custom-alert-title" class="text-3xl font-bold mb-3"></h3><p id="custom-alert-message" class="text-lg text-gray-300 mb-8"></p><button id="custom-alert-close-btn" class="text-white font-bold py-3 px-10 rounded-lg text-lg transition-transform duration-200 hover:scale-105"></button></div>`;const box=document.getElementById('custom-alert-box'),icon=document.getElementById('custom-alert-icon'),title=document.getElementById('custom-alert-title'),messageEl=document.getElementById('custom-alert-message'),closeBtn=document.getElementById('custom-alert-close-btn');icon.className='fas text-6xl mb-5';title.className='text-3xl font-bold mb-3';closeBtn.className='text-white font-bold py-3 px-10 rounded-lg text-lg transition-transform duration-200 hover:scale-105';if(type==='success'){icon.classList.add('fa-check-circle','text-green-400');title.textContent='Success!';title.classList.add('text-green-300');closeBtn.textContent='OK';closeBtn.classList.add('bg-green-600','hover:bg-green-700')}else{icon.classList.add('fa-times-circle','text-red-400');title.textContent='Error!';title.classList.add('text-red-300');closeBtn.textContent='Try Again';closeBtn.classList.add('bg-red-600','hover:bg-red-700')}messageEl.textContent=message;modal.style.display='flex';setTimeout(()=>{modal.classList.add('opacity-100');box.classList.remove('scale-95','opacity-0');box.classList.add('scale-100','opacity-100')},10);closeBtn.onclick=()=>{modal.style.display='none';if(callback)callback()}}
+        document.addEventListener('DOMContentLoaded',()=>{const slides=document.querySelectorAll('.slide');const prevBtn=document.getElementById('prev-btn'),nextBtn=document.getElementById('next-btn'),finishLessonBtn=document.getElementById('finish-lesson-btn');let currentSlide=0;function showSlide(index){slides.forEach(s=>s.classList.remove('active'));if(slides[index]){slides[index].classList.add('active')}
+        const progressBar=document.getElementById('progress-bar');progressBar.style.width=`${((index+1)/slides.length)*100}%`;prevBtn.disabled=index===0;if(index===slides.length-1){nextBtn.classList.add('hidden');finishLessonBtn.classList.remove('hidden')}else{nextBtn.classList.remove('hidden');finishLessonBtn.classList.add('hidden')}}
+        prevBtn.addEventListener('click',()=>{if(currentSlide>0)showSlide(--currentSlide)});nextBtn.addEventListener('click',()=>{if(currentSlide<slides.length-1)showSlide(++currentSlide)});finishLessonBtn.addEventListener('click',()=>{if(typeof markLessonAsComplete==='function')markLessonAsComplete()});
+        document.querySelectorAll('.answer-btn').forEach(button=>{button.addEventListener('click',()=>{const inputField=button.previousElementSibling;const correctAnswer=button.dataset.answer;inputField.value=correctAnswer;inputField.classList.add('text-teal-400','font-bold')})});
+        
+        const activityContainer=document.getElementById('matching-activity'),checkAnswersBtn=document.getElementById('check-answers-btn');const expressions=[{id:'hit_road',text:'To hit the road'},{id:'wanderlust',text:'Wanderlust'},{id:'off_beaten_path',text:'Off the beaten path'},{id:'change_scenery',text:'A change of scenery'},{id:'travel_light',text:'To travel light'},{id:'once_in_lifetime',text:'A once-in-a-lifetime trip'}];const situations=[{text:"I'm tired of the city. I need to go to the beach for a...",answer:'change_scenery'},{text:"We're going backpacking for a month, so we need to...",answer:'travel_light'},{text:"I don't like tourist traps. I prefer to explore places that are...",answer:'off_beaten_path'},{text:"Visiting the pyramids in Egypt was a...",answer:'once_in_lifetime'},{text:"She has a strong desire to see the world. She has a real case of...",answer:'wanderlust'},{text:"We have a long drive tomorrow, so we should... early in the morning.",answer:'hit_road'}];
+        function shuffle(array){for(let i=array.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[array[i],array[j]]=[array[j],array[i]]}return array}
+        function createActivity(){const shuffledSituations=shuffle(situations);let html='';shuffledSituations.forEach((sit,index)=>{html+=`<div id="q-${index}" class="p-4 rounded-lg bg-gray-800 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300"><p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p><select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg shadow-sm text-lg focus:border-teal-400 focus:ring focus:ring-teal-300 focus:ring-opacity-50"><option value="">Select an expression...</option>${shuffle([...expressions]).map(exp=>`<option value="${exp.id}">${exp.text}</option>`).join('')}</select></div>`});activityContainer.innerHTML=html}
+        if(activityContainer){createActivity();checkAnswersBtn.addEventListener('click',()=>{const selects=activityContainer.querySelectorAll('select');selects.forEach((select,index)=>{const questionDiv=document.getElementById(`q-${index}`);questionDiv.classList.remove('bg-green-900/50','border-green-500','bg-red-900/50','border-red-500');if(select.value===select.dataset.answer){questionDiv.classList.add('bg-green-900/50','border-green-500')}else{questionDiv.classList.add('bg-red-900/50','border-red-500')}})})};
+        showSlide(0)
+        });
+    </script>
+    <script src="../js/lesson-handler.js"></script>
+</body>
+</html>

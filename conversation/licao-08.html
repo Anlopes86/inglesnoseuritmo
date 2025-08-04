@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation Class - Lesson 8: Work & Career</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #4a5568; }
+        .flashcard-front { background-color: #2d3748; color: #a0aec0; text-align: center; }
+        .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
+        .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
+        .lyrics-box { max-height: 300px; overflow-y: auto; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="conversation.html" class="text-lg font-bold text-blue-400 hover:text-blue-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
+            <h1 class="text-xl font-semibold text-center">Lesson 8: Work & Career</h1>
+            <div class="w-32"></div>
+        </div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-blue-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+
+        <div class="slide active">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-300"><i class="fas fa-briefcase text-yellow-400"></i> Warm-up: About Work</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6 text-2xl">
+                <p class="font-semibold text-gray-300">Let's start our conversation:</p>
+                <p><i class="fas fa-arrow-right mr-2 text-blue-400"></i> What's your dream job?</p>
+                <p><i class="fas fa-arrow-right mr-2 text-blue-400"></i> Is it more important to have a job you love or a job that pays well?</p>
+                <p><i class="fas fa-arrow-right mr-2 text-blue-400"></i> Do you think people work too much nowadays?</p>
+            </div></div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-300"><i class="fas fa-comments text-teal-400"></i> Key Vocabulary & Expressions</h2><p class="text-2xl mb-8 text-gray-300 max-w-3xl mx-auto">Click the cards to explore ideas about work and career.</p><div class="flashcard-grid max-w-6xl mx-auto">
+                <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">A nine-to-five job</h4></div><div class="flashcard-back"><p class="text-xl">A job with regular, traditional hours.</p></div></div></div>
+                <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To climb the corporate ladder</h4></div><div class="flashcard-back"><p class="text-xl">To advance in one's career to higher positions.</p></div></div></div>
+                <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">A dead-end job</h4></div><div class="flashcard-back"><p class="text-xl">A job with no opportunities for promotion.</p></div></div></div>
+                <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Work-life balance</h4></div><div class="flashcard-back"><p class="text-xl">The balance between time spent working and personal life.</p></div></div></div>
+                <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To be your own boss</h4></div><div class="flashcard-back"><p class="text-xl">To be self-employed or have your own business.</p></div></div></div>
+                <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To burn out</h4></div><div class="flashcard-back"><p class="text-xl">To become extremely tired or sick from working too hard.</p></div></div></div>
+            </div></div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-blue-300"><i class="fas fa-music text-red-500"></i> Music Time: Working Class Hero</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/71" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-blue-500">
+                    <p>As soon as you're <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="born"><i class="fas fa-eye"></i></button> they make you feel small</p>
+                    <p>By giving you no time instead of it <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="all"><i class="fas fa-eye"></i></button></p>
+                    <p>Till the pain is so big you feel nothing at all</p>
+                    <p>A working class <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="hero"><i class="fas fa-eye"></i></button> is something to be</p>
+                    <p>They hurt you at <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="home"><i class="fas fa-eye"></i></button> and they hit you at school</p>
+                    <p>They hate you if you're clever and they despise a fool</p>
+                    <p>Till you're so fucking crazy you can't follow their <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="rules"><i class="fas fa-eye"></i></button></p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                <p>This song has a very critical view of society and work. Do you agree with its message?</p>
+                <p>What does it mean to be a "working class hero"?</p>
+            </div></div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-blue-300"><i class="fas fa-music text-red-500"></i> Music Time: 9 to 5</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/72" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-blue-500">
+                    <p>Tumble outta <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="bed"><i class="fas fa-eye"></i></button> and I stumble to the kitchen</p>
+                    <p>Pour myself a cup of <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="ambition"><i class="fas fa-eye"></i></button></p>
+                    <p>Yawn and stretch and try to come to life</p>
+                    <p>Jump in the shower and the blood starts pumpin'</p>
+                    <p>Out on the streets, the traffic starts <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="jumpin'"><i class="fas fa-eye"></i></button></p>
+                    <p>With folks like me on the job from 9 to 5</p>
+                    <p>Working 9 to 5, what a way to make a <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="livin'"><i class="fas fa-eye"></i></button></p>
+                    <p>Barely gettin' by, it's all takin' and no <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="givin'"><i class="fas fa-eye"></i></button></p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                <p>The song describes a "9 to 5" routine. Do you think this routine is still common today?</p>
+                <p>What does the line "it's all takin' and no givin'" say about the job?</p>
+            </div></div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="matching-activity" class="space-y-4"></div><button id="check-answers-btn" class="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Check Answers</button></div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-300"><i class="fas fa-home text-teal-400"></i>Homework</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto"><p class="text-2xl mb-6 text-gray-300">Describe your dream job in 3-4 sentences. What would you do? Why would you love it?</p><div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg"><p><strong>Example:</strong> "My dream job is to be a... because I love... I think it's important to have good work-life balance..."</p></div></div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center flex flex-col items-center justify-center h-full"><i class="fas fa-dollar-sign text-yellow-300 text-7xl mb-6"></i><h2 class="text-5xl font-bold mb-4 text-gray-100">Lesson Complete!</h2><p class="text-2xl italic text-gray-400 max-w-2xl mx-auto">"Choose a job you love, and you will never have to work a day in your life." - Confucius</p></div>
+        </div>
+        <div id="custom-alert-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center transition-opacity duration-300"></div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20"><div class="container mx-auto px-8 h-20 flex justify-between items-center"><button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button><button id="next-btn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Próximo</button><button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finalizar Aula</button></div></footer>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/progress-manager.js"></script>
+    <script>
+        function showCustomAlert(message,type='success',callback){const modal=document.getElementById('custom-alert-modal');if(!modal)return;modal.innerHTML=`<div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 text-center transform transition-all scale-95 opacity-0" id="custom-alert-box"><i id="custom-alert-icon" class="fas text-6xl mb-5"></i><h3 id="custom-alert-title" class="text-3xl font-bold mb-3"></h3><p id="custom-alert-message" class="text-lg text-gray-300 mb-8"></p><button id="custom-alert-close-btn" class="text-white font-bold py-3 px-10 rounded-lg text-lg transition-transform duration-200 hover:scale-105"></button></div>`;const box=document.getElementById('custom-alert-box'),icon=document.getElementById('custom-alert-icon'),title=document.getElementById('custom-alert-title'),messageEl=document.getElementById('custom-alert-message'),closeBtn=document.getElementById('custom-alert-close-btn');icon.className='fas text-6xl mb-5';title.className='text-3xl font-bold mb-3';closeBtn.className='text-white font-bold py-3 px-10 rounded-lg text-lg transition-transform duration-200 hover:scale-105';if(type==='success'){icon.classList.add('fa-check-circle','text-green-400');title.textContent='Success!';title.classList.add('text-green-300');closeBtn.textContent='OK';closeBtn.classList.add('bg-green-600','hover:bg-green-700')}else{icon.classList.add('fa-times-circle','text-red-400');title.textContent='Error!';title.classList.add('text-red-300');closeBtn.textContent='Try Again';closeBtn.classList.add('bg-red-600','hover:bg-red-700')}messageEl.textContent=message;modal.style.display='flex';setTimeout(()=>{modal.classList.add('opacity-100');box.classList.remove('scale-95','opacity-0');box.classList.add('scale-100','opacity-100')},10);closeBtn.onclick=()=>{modal.style.display='none';if(callback)callback()}}
+        document.addEventListener('DOMContentLoaded',()=>{const slides=document.querySelectorAll('.slide');const prevBtn=document.getElementById('prev-btn'),nextBtn=document.getElementById('next-btn'),finishLessonBtn=document.getElementById('finish-lesson-btn');let currentSlide=0;function showSlide(index){slides.forEach(s=>s.classList.remove('active'));if(slides[index]){slides[index].classList.add('active')}
+        const progressBar=document.getElementById('progress-bar');progressBar.style.width=`${((index+1)/slides.length)*100}%`;prevBtn.disabled=index===0;if(index===slides.length-1){nextBtn.classList.add('hidden');finishLessonBtn.classList.remove('hidden')}else{nextBtn.classList.remove('hidden');finishLessonBtn.classList.add('hidden')}}
+        prevBtn.addEventListener('click',()=>{if(currentSlide>0)showSlide(--currentSlide)});nextBtn.addEventListener('click',()=>{if(currentSlide<slides.length-1)showSlide(++currentSlide)});finishLessonBtn.addEventListener('click',()=>{if(typeof markLessonAsComplete==='function')markLessonAsComplete()});
+        document.querySelectorAll('.answer-btn').forEach(button=>{button.addEventListener('click',()=>{const inputField=button.previousElementSibling;const correctAnswer=button.dataset.answer;inputField.value=correctAnswer;inputField.classList.add('text-blue-400','font-bold')})});
+        
+        const activityContainer=document.getElementById('matching-activity'),checkAnswersBtn=document.getElementById('check-answers-btn');const expressions=[{id:'nine_five',text:'A nine-to-five job'},{id:'climb_ladder',text:'To climb the corporate ladder'},{id:'dead_end',text:'A dead-end job'},{id:'work_life',text:'Work-life balance'},{id:'own_boss',text:'To be your own boss'},{id:'burn_out',text:'To burn out'}];const situations=[{text:"He started as an intern and now he is the CEO. He really knows how...",answer:'climb_ladder'},{text:"I don't want to be an employee forever. My dream is to have my own company and...",answer:'own_boss'},{text:"This position has no future. It's a...",answer:'dead_end'},{text:"I work from 9 AM to 5 PM every day. It's a classic...",answer:'nine_five'},{text:"She was so stressed and overworked that she had to take a long vacation to avoid a...",answer:'burn_out'},{text:"I want a job that allows me to have time for my family and hobbies. I need good...",answer:'work_life'}];
+        function shuffle(array){for(let i=array.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[array[i],array[j]]=[array[j],array[i]]}return array}
+        function createActivity(){const shuffledSituations=shuffle(situations);let html='';shuffledSituations.forEach((sit,index)=>{html+=`<div id="q-${index}" class="p-4 rounded-lg bg-gray-800 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300"><p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p><select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg shadow-sm text-lg focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50"><option value="">Select an expression...</option>${shuffle([...expressions]).map(exp=>`<option value="${exp.id}">${exp.text}</option>`).join('')}</select></div>`});activityContainer.innerHTML=html}
+        if(activityContainer){createActivity();checkAnswersBtn.addEventListener('click',()=>{const selects=activityContainer.querySelectorAll('select');selects.forEach((select,index)=>{const questionDiv=document.getElementById(`q-${index}`);questionDiv.classList.remove('bg-green-900/50','border-green-500','bg-red-900/50','border-red-500');if(select.value===select.dataset.answer){questionDiv.classList.add('bg-green-900/50','border-green-500')}else{questionDiv.classList.add('bg-red-900/50','border-red-500')}})})};
+        showSlide(0)
+        });
+    </script>
+    <script src="../js/lesson-handler.js"></script>
+</body>
+</html>

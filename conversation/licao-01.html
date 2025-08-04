@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation 1: Dreams & Ambitions | Inglês no seu Ritmo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; overflow: hidden; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 200px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
+        .flashcard-front { background-color: white; color: #1e40af; }
+        .flashcard-back { background-color: #1e40af; color: white; transform: rotateY(180deg); }
+        .flashcard-back p { font-size: 1.05rem; }
+        .flashcard-back em { font-size: 0.95rem; color: #dbeafe; }
+        .lyrics-box { max-height: 250px; overflow-y: auto; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="conversation.html" class="text-lg font-bold text-blue-600 hover:text-blue-800 flex items-center gap-2">
+                <i class="fas fa-chevron-left"></i> Painel
+            </a>
+            <h1 class="text-xl font-semibold">Conversation: Dreams & Ambitions</h1>
+            <div class="w-24"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-1.5">
+            <div id="progress-bar" class="bg-blue-600 h-1.5 transition-all duration-300 ease-in-out"></div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 150px);">
+        
+        <div class="slide active">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-700 flex items-center justify-center gap-4"><i class="fas fa-fire-alt text-orange-500"></i>Warm-up Questions</h2><div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto"><p class="text-xl mb-8 text-gray-600">Let's start our conversation. Think about these questions and share your thoughts.</p><ul class="space-y-6 text-2xl text-left"><li class="flex items-start gap-4"><i class="fas fa-child text-blue-500 mt-1.5"></i><span>What did you want to be when you were a child?</span></li><li class="flex items-start gap-4"><i class="fas fa-star text-yellow-500 mt-1.5"></i><span>What’s your biggest dream today?</span></li><li class="flex items-start gap-4"><i class="fas fa-road text-green-500 mt-1.5"></i><span>Should people follow their dreams no matter what?</span></li></ul></div></div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-700 flex items-center justify-center gap-4"><i class="fas fa-comments text-purple-500"></i>Useful Expressions</h2><p class="text-xl mb-8 text-gray-600 max-w-3xl mx-auto">Click on the cards to flip them and see the meaning.</p><div class="flashcard-grid max-w-5xl mx-auto"><div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">To shoot for the stars</h4></div><div class="flashcard-back"><p>To aim for a very high or ambitious goal.</p><em class="mt-2">"She's always shooting for the stars."</em></div></div></div><div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">A lifelong dream</h4></div><div class="flashcard-back"><p>A dream you've had for your entire life.</p><em class="mt-2">"Visiting Japan is a lifelong dream of mine."</em></div></div></div><div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">To come true</h4></div><div class="flashcard-back"><p>When a dream becomes a reality.</p><em class="mt-2">"His dream finally came true."</em></div></div></div><div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">To set a goal</h4></div><div class="flashcard-back"><p>To decide on something you want to achieve.</p><em class="mt-2">"I've set a goal to run a marathon."</em></div></div></div></div></div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-blue-700 flex items-center justify-center gap-4"><i class="fas fa-music text-red-500"></i>Music: Dream On</h2><div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto"><iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/7" width="100%" height="90" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe><div class="mt-4 lyrics-box pr-4"><p class="text-xl mb-4 text-gray-600">Listen to the song and complete the lyrics below.</p><div class="text-lg space-y-2 bg-gray-50 p-4 rounded-lg border-l-4 border-blue-500"><p>Every time that I look in the mirror</p><p>All these lines on my face getting clearer</p><p>The past is gone</p><p>It went by, like dusk to <input type="text" class="w-28 border-b-2 text-center bg-transparent text-lg"> (1) dawn</p><p>...</p><p>Sing with me, sing for the year</p><p>Sing for the laughter, sing for the <input type="text" class="w-28 border-b-2 text-center bg-transparent text-lg"> (2) tear</p><p>...</p><p>Dream on, dream on, dream on</p><p>Dream until your dream comes <input type="text" class="w-28 border-b-2 text-center bg-transparent text-lg"> (3) true</p></div></div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-700 flex items-center justify-center gap-4"><i class="fas fa-comments text-blue-500"></i>Let's Discuss "Dream On"</h2><div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto"><ul class="space-y-6 text-2xl text-left"><li class="flex items-start gap-4"><i class="fas fa-quote-left text-gray-400 mt-1.5"></i><span>The lyrics say "The past is gone / It went by, like dusk to dawn". What does this mean to you?</span></li><li class="flex items-start gap-4"><i class="fas fa-adjust text-gray-400 mt-1.5"></i><span>Is this song optimistic or pessimistic about dreams? Why do you think so?</span></li></ul></div></div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-600 flex items-center justify-center gap-4"><i class="fas fa-music text-red-500"></i>Music: Don't Stop Believin'</h2><div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto"><iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/8" width="100%" height="90" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe><div class="mt-4 lyrics-box pr-4"><p class="text-xl mb-4 text-gray-600">Listen to the song and complete the lyrics below.</p><div class="text-lg space-y-2 bg-gray-50 p-4 rounded-lg border-l-4 border-yellow-500"><p>Just a small town girl, livin' in a <input type="text" class="w-28 border-b-2 text-center bg-transparent text-lg"> (1) lonely</p><p>She took the midnight train goin' anywhere</p><p>Just a city boy, born and raised in South Detroit</p><p>...</p><p>Workin' hard to get my fill, everybody <input type="text" class="w-28 border-b-2 text-center bg-transparent text-lg"> (2) wants</p><p>...</p><p>Don't stop <input type="text" class="w-28 border-b-2 text-center bg-transparent text-lg"> (3) believin'</p><p>Hold on to that feelin'</p></div></div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-600 flex items-center justify-center gap-4"><i class="fas fa-comments text-yellow-500"></i>Let's Discuss "Don't Stop..."</h2><div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto"><ul class="space-y-6 text-2xl text-left"><li class="flex items-start gap-4"><i class="fas fa-train text-gray-400 mt-1.5"></i><span>The song is about a 'small town girl' and a 'city boy'. How do their stories represent chasing a dream?</span></li><li class="flex items-start gap-4"><i class="fas fa-heart text-gray-400 mt-1.5"></i><span>Why do you think the message "Don't stop believin'" is so powerful and popular?</span></li></ul></div></div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-600 flex items-center justify-center gap-4"><i class="fas fa-music text-red-500"></i>Music: Hall of Fame</h2><div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto"><iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/9" width="100%" height="90" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe><div class="mt-4 lyrics-box pr-4"><p class="text-xl mb-4 text-gray-600">Listen to the song and complete the lyrics below.</p><div class="text-lg space-y-2 bg-gray-50 p-4 rounded-lg border-l-4 border-green-500"><p>You can be a master, don't wait for <input type="text" class="w-28 border-b-2 text-center bg-transparent text-lg"> (1) luck</p><p>Dedicate yourself and you gon' find yourself</p><p>...</p><p>You can go the distance, you can <input type="text" class="w-28 border-b-2 text-center bg-transparent text-lg"> (2) run</p><p>You can walk straight through hell with a smile</p><p>...</p><p>And the world's gonna know your <input type="text" class="w-28 border-b-2 text-center bg-transparent text-lg"> (3) name</p></div></div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-600 flex items-center justify-center gap-4"><i class="fas fa-comments text-green-500"></i>Let's Discuss "Hall of Fame"</h2><div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto"><ul class="space-y-6 text-2xl text-left"><li class="flex items-start gap-4"><i class="fas fa-trophy text-gray-400 mt-1.5"></i><span>The lyrics say "You can be a hero". What kind of 'hero' do you think the song is talking about?</span></li><li class="flex items-start gap-4"><i class="fas fa-lightbulb text-gray-400 mt-1.5"></i><span>Does motivational music like this help you feel more inspired to follow your goals?</span></li></ul></div></div>
+        </div>
+        
+        <div class="slide">
+             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-700 flex items-center justify-center gap-4"><i class="fas fa-pencil-alt text-orange-500"></i>Homework</h2><div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto"><p class="text-xl mb-6 text-gray-600">Time to practice! Write a short paragraph (3-4 sentences) about one of your personal dreams.</p><p class="text-xl text-gray-600">Try to use at least <strong>two</strong> of the expressions we learned today:</p><ul class="my-4 text-left text-lg list-disc list-inside bg-gray-50 p-4 rounded-lg"><li>To shoot for the stars</li><li>A lifelong dream</li><li>To come true</li><li>To set a goal</li></ul></div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center flex flex-col items-center justify-center h-full"><i class="fas fa-glass-cheers text-yellow-400 text-7xl mb-6"></i><h2 class="text-5xl font-bold mb-4 text-gray-800">Great class today!</h2><p class="text-2xl text-gray-600">"The future belongs to those who believe in the beauty of their dreams."</p></div>
+        </div>
+        
+        <div id="custom-alert-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center transition-opacity duration-300"></div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"><i class="fas fa-arrow-left mr-2"></i> Previous</button>
+            <button id="next-btn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Next <i class="fas fa-arrow-right ml-2"></i></button>
+            <button id="finish-lesson-btn" class="hidden bg-yellow-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-yellow-600">Finalizar Aula</button>
+        </div>
+    </footer>
+
+    <script src="../js/lesson-handler.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+                const progress = slides.length > 1 ? ((index) / (slides.length - 1)) * 100 : 100;
+                progressBar.style.width = `${progress}%`;
+                prevBtn.disabled = index === 0;
+                
+                const isLastSlide = index === slides.length - 1;
+                nextBtn.classList.toggle('hidden', isLastSlide);
+                finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    showSlide(--currentSlide);
+                }
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < slides.length - 1) {
+                    showSlide(++currentSlide);
+                }
+            });
+
+            finishLessonBtn.addEventListener('click', () => {
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete();
+                } else {
+                    console.error("Função markLessonAsComplete não encontrada.");
+                    alert("Erro ao salvar o progresso.");
+                }
+            });
+
+            showSlide(currentSlide);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 - Lesson 4: O Alfabeto e Números | Inglês no seu Ritmo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 150px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
+        .flashcard-front { background-color: white; color: #4f46e5; text-align: center; }
+        .flashcard-back { background-color: #4f46e5; color: white; transform: rotateY(180deg); text-align: center; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
+        .answer-btn:hover { color: #4f46e5; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="a1.html" class="text-lg font-bold text-blue-600 hover:text-blue-800 flex items-center gap-2">
+                <i class="fas fa-chevron-left"></i> Voltar para A1
+            </a>
+            <h1 class="text-xl font-semibold text-center">A1 - Lesson 4: The Alphabet & Numbers</h1>
+            <div class="w-24"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-1.5">
+            <div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-300 ease-in-out"></div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+        
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-bullseye text-yellow-500"></i> Lesson 4: The Alphabet & Numbers</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-700">Objetivos da aula:</h3>
+                    <ul class="text-left text-xl space-y-3">
+                        <li>✔️ Aprender o alfabeto em inglês.</li>
+                        <li>✔️ Aprender os números de 0 a 20.</li>
+                        <li>✔️ Aprender a soletrar o próprio nome e outras palavras.</li>
+                        <li>✔️ Aprender a perguntar como se soletra uma palavra.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-lightbulb text-purple-500"></i> Useful Expressions</h2>
+                <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Clique nos cartões para ver expressões úteis.</p>
+                <div class="flashcard-grid max-w-5xl mx-auto">
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">How do you spell...?</h4></div><div class="flashcard-back"><p class="text-lg">Como você soletra...?</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">Can you repeat, please?</h4></div><div class="flashcard-back"><p class="text-lg">Você pode repetir, por favor?</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">What's this in English?</h4></div><div class="flashcard-back"><p class="text-lg">O que é isto em inglês?</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">I don't understand.</h4></div><div class="flashcard-back"><p class="text-lg">Eu não entendo.</p></div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-font text-blue-500"></i> Vocabulary: The Alphabet</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-2xl mb-6 text-gray-600">Ouça e repita o alfabeto. Preste atenção na pronúncia.</p>
+                    <div class="text-3xl font-bold tracking-widest p-4 rounded-lg bg-gray-50">
+                        <span class="text-red-600">A</span>-B-C-D-<span class="text-red-600">E</span>-F-<span class="text-red-600">G</span>-<span class="text-red-600">H</span>-<span class="text-red-600">I</span>-J-K-L-M-N-O-P-Q-<span class="text-red-600">R</span>-S-T-U-V-W-X-Y-Z
+                    </div>
+                    <p class="text-lg mt-4 text-gray-500 italic">
+                        (ei) - bi - ci - di - (i) - éf - (dgi) - (eitch) - (ai) - dgei - kei - él - ém - én - ou - pi - kiu - (ar) - és - ti - iu - vi - dâbliu - éks - uai - zi
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-sort-numeric-up text-orange-500"></i> Vocabulary: Numbers 0-20</h2>
+                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-2xl mb-6 text-gray-600">Agora, vamos aprender os números. Repita comigo.</p>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4 text-2xl text-left font-semibold">
+                        <div class="p-3 bg-gray-50 rounded-lg"><strong>0</strong> - zero</div> <div class="p-3 bg-gray-50 rounded-lg"><strong>11</strong> - eleven</div>
+                        <div class="p-3 bg-gray-50 rounded-lg"><strong>1</strong> - one</div> <div class="p-3 bg-gray-50 rounded-lg"><strong>12</strong> - twelve</div>
+                        <div class="p-3 bg-gray-50 rounded-lg"><strong>2</strong> - two</div> <div class="p-3 bg-gray-50 rounded-lg"><strong>13</strong> - thirteen</div>
+                        <div class="p-3 bg-gray-50 rounded-lg"><strong>3</strong> - three</div> <div class="p-3 bg-gray-50 rounded-lg"><strong>14</strong> - fourteen</div>
+                        <div class="p-3 bg-gray-50 rounded-lg"><strong>4</strong> - four</div> <div class="p-3 bg-gray-50 rounded-lg"><strong>15</strong> - fifteen</div>
+                        <div class="p-3 bg-gray-50 rounded-lg"><strong>5</strong> - five</div> <div class="p-3 bg-gray-50 rounded-lg"><strong>16</strong> - sixteen</div>
+                        <div class="p-3 bg-gray-50 rounded-lg"><strong>6</strong> - six</div> <div class="p-3 bg-gray-50 rounded-lg"><strong>17</strong> - seventeen</div>
+                        <div class="p-3 bg-gray-50 rounded-lg"><strong>7</strong> - seven</div> <div class="p-3 bg-gray-50 rounded-lg"><strong>18</strong> - eighteen</div>
+                        <div class="p-3 bg-gray-50 rounded-lg"><strong>8</strong> - eight</div> <div class="p-3 bg-gray-50 rounded-lg"><strong>19</strong> - nineteen</div>
+                        <div class="p-3 bg-gray-50 rounded-lg"><strong>9</strong> - nine</div> <div class="p-3 bg-gray-50 rounded-lg"><strong>20</strong> - twenty</div>
+                        <div class="p-3 bg-gray-50 rounded-lg"><strong>10</strong> - ten</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-pencil-alt text-orange-500"></i> Writing: Unscramble the Sentences</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto" id="unscramble-activity">
+                    <p class="text-2xl mb-8 text-gray-600">Coloque as palavras na ordem correta para formar frases.</p>
+                    <div class="space-y-6 text-2xl">
+                        <div class="p-4 bg-gray-100 rounded-lg"><p class="text-gray-800 italic mb-2">Organize: spell / you / how / name / your / do / ?</p><input class="w-full p-2 border-2 rounded-lg text-center" data-answer="How do you spell your name?"></div>
+                        <div class="p-4 bg-gray-100 rounded-lg"><p class="text-gray-800 italic mb-2">Organize: is / number / what / phone / your / ?</p><input class="w-full p-2 border-2 rounded-lg text-center" data-answer="What is your phone number?"></div>
+                        <div class="p-4 bg-gray-100 rounded-lg"><p class="text-gray-800 italic mb-2">Organize: my / ten / number / is</p><input class="w-full p-2 border-2 rounded-lg text-center" data-answer="My number is ten"></div>
+                    </div>
+                    <button class="mt-6 bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700" onclick="checkAnswers(this.parentElement)">Checar Respostas</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-700"><i class="fas fa-music text-red-500"></i> Music Time: "ABC"</h2>
+            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="http://googleusercontent.com/spotify.com/4" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4">
+                    <p class="text-2xl mb-4 text-gray-600">Ouça o clássico e complete a letra.</p>
+                    <div class="text-xl space-y-3 bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
+                        <p>You went to school to learn, girl</p>
+                        <p>Things you never, never knew before</p>
+                        <p>Like 'I' before 'E' except after 'C'</p>
+                        <p>And why two plus <input type="text" class="w-20 border-b-2 text-center bg-transparent mx-1" data-answer="two"><button class="answer-btn" data-answer="two"><i class="fas fa-eye"></i></button> makes four</p>
+                        <br>
+                        <p>Now, now, now, I'm gonna teach you</p>
+                        <p>All about <input type="text" class="w-20 border-b-2 text-center bg-transparent mx-1" data-answer="love"><button class="answer-btn" data-answer="love"><i class="fas fa-eye"></i></button>, dear</p>
+                        <p>Sit yourself down, take a seat</p>
+                        <p>All you gotta do is repeat after me</p>
+                        <br>
+                        <p>A B C, It's easy as</p>
+                        <p>
+                            <input type="text" class="w-12 border-b-2 text-center bg-transparent mx-1" data-answer="1"><button class="answer-btn" data-answer="1"><i class="fas fa-eye"></i></button>,
+                            <input type="text" class="w-12 border-b-2 text-center bg-transparent mx-1" data-answer="2"><button class="answer-btn" data-answer="2"><i class="fas fa-eye"></i></button>,
+                            <input type="text" class="w-12 border-b-2 text-center bg-transparent mx-1" data-answer="3"><button class="answer-btn" data-answer="3"><i class="fas fa-eye"></i></button>
+                            , as simple as Do Re Mi
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+             <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-home text-blue-500"></i>Homework</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <p class="text-2xl mb-6 text-gray-600">Encontre 3 celebridades que você gosta e escreva como soletrar o nome completo delas.</p>
+                    <div class="text-left text-xl space-y-2 mt-4 bg-gray-50 p-4 rounded-lg">
+                        <p class="font-bold">Exemplo:</p>
+                        <p>Michael Jackson = M-I-C-H-A-E-L / J-A-C-K-S-O-N</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center flex flex-col items-center justify-center h-full">
+                <i class="fas fa-spell-check text-indigo-500 text-7xl mb-6"></i>
+                <h2 class="text-5xl font-bold mb-4 text-gray-800">You've cracked the code!</h2>
+                <p class="text-3xl text-gray-600">Every name has a story. Now you know how to spell it.</p>
+            </div>
+        </div>
+
+        <div id="custom-alert-modal" class="fixed inset-0 bg-gray-900 bg-opacity-60 z-50 hidden items-center justify-center transition-opacity duration-300"></div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Próximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finalizar Aula</button>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                const progressBar = document.getElementById('progress-bar');
+                progressBar.style.width = slides.length > 1 ? `${(index / (slides.length - 1)) * 100}%` : '100%';
+                prevBtn.disabled = index === 0;
+                nextBtn.classList.toggle('hidden', index === slides.length - 1);
+                finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
+            }
+
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            
+            // ✅ CORREÇÃO: Ação do botão "Finalizar" agora chama a função externa
+            finishLessonBtn.addEventListener('click', () => {
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(); // Esta função está em lesson-handler.js
+                } else {
+                    console.error('Erro: a função markLessonAsComplete() não foi encontrada. Verifique se o script lesson-handler.js está sendo importado corretamente.');
+                    showCustomAlert('Erro crítico ao salvar o progresso. Contacte o suporte.', 'error');
+                }
+            });
+            
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const inputField = button.previousElementSibling;
+                    const correctAnswer = button.dataset.answer;
+                    if(inputField && inputField.tagName === 'INPUT') {
+                        inputField.value = correctAnswer;
+                        inputField.classList.remove('border-red-500');
+                        inputField.classList.add('border-green-500', 'font-bold');
+                    }
+                });
+            });
+
+            showSlide(0);
+        });
+
+        function checkAnswers(container) {
+            const inputs = container.querySelectorAll('input[data-answer]');
+            let allCorrect = true;
+            inputs.forEach(input => {
+                const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
+                input.classList.remove('border-red-500', 'border-green-500');
+                input.classList.add('border-2'); 
+
+                if (isCorrect) {
+                    input.classList.add('border-green-500');
+                } else {
+                    input.classList.add('border-red-500');
+                    allCorrect = false;
+                }
+            });
+            if (allCorrect) {
+                showCustomAlert('Parabéns! Todas as respostas estão corretas!', 'success');
+            } else {
+                showCustomAlert('Algumas respostas estão incorretas. Tente novamente!', 'error');
+            }
+        }
+
+        function showCustomAlert(message, type = 'success', callback) {
+            const modal = document.getElementById('custom-alert-modal');
+            if (!modal) return;
+            
+            // Recria o HTML para garantir que não haja listeners duplicados
+            modal.innerHTML = `<div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 text-center transform transition-all scale-95 opacity-0" id="custom-alert-box"><i id="custom-alert-icon" class="fas text-6xl mb-5"></i><h3 id="custom-alert-title" class="text-3xl font-bold mb-3"></h3><p id="custom-alert-message" class="text-lg text-gray-600 mb-8"></p><button id="custom-alert-close-btn" class="text-white font-bold py-3 px-10 rounded-lg text-lg transition-transform duration-200 hover:scale-105"></button></div>`;
+            
+            const box = document.getElementById('custom-alert-box'),
+                  icon = document.getElementById('custom-alert-icon'),
+                  title = document.getElementById('custom-alert-title'),
+                  messageEl = document.getElementById('custom-alert-message'),
+                  closeBtn = document.getElementById('custom-alert-close-btn');
+
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle text-green-500 text-6xl mb-5';
+                title.textContent = 'Sucesso!';
+                closeBtn.textContent = 'OK';
+                closeBtn.className += ' bg-green-600 hover:bg-green-700';
+            } else {
+                icon.className = 'fas fa-times-circle text-red-500 text-6xl mb-5';
+                title.textContent = 'Atenção!';
+                closeBtn.textContent = 'Tentar Novamente';
+                closeBtn.className += ' bg-red-600 hover:bg-red-700';
+            }
+            messageEl.textContent = message;
+            modal.style.display = 'flex';
+
+            setTimeout(() => { 
+                if(box) {
+                    box.closest('.fixed').classList.add('opacity-100');
+                    box.classList.remove('scale-95', 'opacity-0');
+                }
+            }, 10);
+
+            closeBtn.onclick = () => {
+                modal.style.display = 'none';
+                if (callback) callback();
+            }
+        }
+    </script>
+    
+    <script src="../js/lesson-handler.js"></script>
+
+</body>
+</html>

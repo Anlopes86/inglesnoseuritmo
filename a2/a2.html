@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo A2 - Pre-Intermediate | Inglês no seu Ritmo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="../enhanced-styles.css" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f7fafc; /* bg-gray-100 */
+        }
+        .lesson-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn forwards 0.5s ease-out;
+        }
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        /* Animation delay for each card */
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+        .delay-6 { animation-delay: 0.6s; }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-8">
+
+        <header class="mb-10 text-center relative">
+             <a href="../index.html" class="absolute top-0 left-0 enhanced-btn bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-700 transition-all duration-300 flex items-center gap-2">
+                <i class="fas fa-arrow-left"></i>Voltar
+            </a>
+            <h1 class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-500">
+                Módulo A2: Pre-Intermediate
+            </h1>
+            <p class="text-lg text-gray-500 mt-2">Expandindo vocabulário e estruturas.</p>
+        </header>
+
+        <main>
+            <div id="lesson-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                </div>
+        </main>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const lessons = [
+                { id: 'licao-01', title: 'Rotina Diária e Hábitos' },
+                { id: 'licao-02', title: 'Descrevendo Pessoas e Aparência' },
+                { id: 'licao-03', title: 'Comida e Bebida' },
+                { id: 'licao-04', title: 'Lugares na Cidade e Direções' },
+                { id: 'licao-05', title: 'Passatempos e Interesses' },
+                { id: 'licao-06', title: 'Compras e Dinheiro' },
+                { id: 'licao-07', title: 'Planos Futuros e Intenções' },
+                { id: 'licao-08', title: 'Experiências Passadas' },
+                { id: 'licao-09', title: 'Saúde e Bem-estar' },
+                { id: 'licao-10', title: 'Viagens e Férias' },
+                { id: 'licao-11', title: 'Educação e Aprendizagem' },
+                { id: 'licao-12', title: 'Trabalho e Profissões' },
+                { id: 'licao-13', title: 'Tecnologia e Internet' },
+                { id: 'licao-14', title: 'Sentimentos e Emoções' },
+                { id: 'licao-15', title: 'Roupas e Moda' },
+                { id: 'licao-16', title: 'Celebrações e Feriados' },
+                { id: 'licao-17', title: 'Música e Filmes' },
+                { id: 'licao-18', title: 'Esportes e Atividades Físicas' },
+                { id: 'licao-19', title: 'Notícias e Eventos Atuais' },
+                { id: 'licao-20', title: 'O Meio Ambiente' },
+                { id: 'licao-21', title: 'Relações Interpessoais' },
+                { id: 'licao-22', title: 'Serviços Comunitários' },
+                { id: 'licao-23', title: 'Fazendo Pedidos e Reclamações' },
+                { id: 'licao-24', title: 'Cultura e Tradições' },
+                { id: 'licao-25', title: 'Histórias e Narrativas' },
+                { id: 'licao-26', title: 'Opiniões e Debates' },
+                { id: 'licao-27', title: 'Conselhos e Sugestões' },
+                { id: 'licao-28', title: 'Comparando Culturas' },
+                { id: 'licao-29', title: 'Reservas de Hotel e Viagem' },
+                { id: 'licao-30', title: 'Clima e Estações do Ano' },
+                { id: 'licao-31', title: 'Rotina de Estudos e Trabalho' },
+                { id: 'licao-32', title: 'Revisão Geral A2' }
+            ];
+
+            const grid = document.getElementById('lesson-grid');
+            lessons.forEach((lesson, index) => {
+                const lessonNumber = (index + 1).toString().padStart(2, '0');
+                const card = `
+                    <a href="${lesson.id}.html" class="lesson-card bg-white rounded-xl shadow-md overflow-hidden block p-6 delay-${(index % 6) + 1}">
+                        <div class="flex items-center gap-4">
+                            <div class="bg-gradient-to-br from-orange-100 to-yellow-100 p-3 rounded-xl">
+                                <i class="fas fa-rocket icon-lg text-orange-600"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-orange-600">Lição ${lessonNumber}</p>
+                                <h3 class="text-lg font-bold text-gray-800">${lesson.title}</h3>
+                            </div>
+                        </div>
+                    </a>
+                `;
+                grid.innerHTML += card;
+            });
+        });
+    </script>
+</body>
+</html>

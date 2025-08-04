@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 - Lesson 20: Where is the Bank? | Inglês no seu Ritmo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Flashcards */
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 200px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
+        .flashcard-front { background-color: white; color: #0d9488; text-align: center; }
+        .flashcard-back { background-color: #0d9488; color: white; transform: rotateY(180deg); text-align: center; }
+
+        /* Drag & Drop */
+        .draggable { cursor: grab; }
+        .drop-zone { border-style: dashed; }
+        .drop-zone.over { background-color: #ccfbf1; border-color: #0d9488; }
+        
+        /* Answer Button */
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.5rem; }
+        .answer-btn:hover { color: #4f46e5; }
+        input[data-answer].correct { background-color: #ccfbf1; border-color: #0d9488; }
+        input[data-answer] { transition: all 0.3s; }
+
+        /* Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        .modal-content { background: white; padding: 2.5rem; border-radius: 1rem; max-width: 500px; width: 90%; transform: scale(0.95); transition: transform 0.3s ease; }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="a1.html" class="text-lg font-bold text-teal-600 hover:text-teal-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
+            <h1 class="text-xl font-semibold text-center">A1 - Lesson 20: Where is the Bank?</h1>
+            <div class="w-24"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-teal-600 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+        
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-teal-700"><i class="fas fa-comments text-yellow-500"></i> Warm-up: Around Your House</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-2xl mb-6 text-gray-600">Let's talk about your neighborhood.</p>
+                    <div class="text-left text-xl space-y-4 bg-gray-50 p-6 rounded-lg">
+                        <p><strong class="text-blue-600">Professor:</strong> "Good to see you! In our last class, you described your house. <strong class="font-bold">Is there a table in your kitchen?</strong>" (Review)</p>
+                        <p><strong class="text-orange-600">Aluno:</strong> "Yes, there is a table in my kitchen."</p>
+                        <p><strong class="text-blue-600">Professor:</strong> "Perfect. Now, think about the street. What is near your house? Is there a supermarket?"</p>
+                        <p><strong class="text-orange-600">Aluno:</strong> "Yes, there is a supermarket near my house."</p>
+                        <p><strong class="text-blue-600">Professor:</strong> "That's useful! And a park? <strong class="font-bold">Is there a park?</strong>"</p>
+                        <p><strong class="text-orange-600">Aluno:</strong> "No, there isn't a park."</p>
+                        <p><strong class="text-blue-600">Professor:</strong> "Okay! Today we will learn to describe exactly where these places are. Let's go!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-teal-700"><i class="fas fa-map-marker-alt text-teal-500"></i> Vocabulary: Places and Prepositions</h2>
+                <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Click on the cards to learn new words!</p>
+                <div class="flashcard-grid max-w-6xl mx-auto">
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A Bank</h3></div><div class="flashcard-back"><p class="text-2xl">You get money here.</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A Supermarket</h3></div><div class="flashcard-back"><p class="text-2xl">You buy food here.</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A School</h3></div><div class="flashcard-back"><p class="text-2xl">Children study here.</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A Park</h3></div><div class="flashcard-back"><p class="text-2xl">A green area to relax or play.</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Next to</h3></div><div class="flashcard-back"><p class="text-2xl">Ao lado de</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Between</h3></div><div class="flashcard-back"><p class="text-2xl">Entre (duas coisas)</p></div></div></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+             <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-teal-700"><i class="fas fa-book-open text-purple-500"></i> Grammar: Prepositions of Place</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto text-left">
+                    <p class="text-2xl mb-6 text-gray-600 text-center">Use prepositions to describe a location.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg">
+                        <div class="bg-teal-50 p-4 rounded-lg">
+                            <p class="font-bold">Next to (ao lado de)</p>
+                            <p>"The bank is <strong class="font-semibold">next to</strong> the supermarket."</p>
+                        </div>
+                         <div class="bg-teal-50 p-4 rounded-lg">
+                            <p class="font-bold">Between (entre)</p>
+                            <p>"The school is <strong class="font-semibold">between</strong> the park and the bank."</p>
+                        </div>
+                        <div class="bg-teal-50 p-4 rounded-lg">
+                            <p class="font-bold">Opposite (em frente, do outro lado)</p>
+                            <p>"The park is <strong class="font-semibold">opposite</strong> the bank."</p>
+                        </div>
+                        <div class="bg-teal-50 p-4 rounded-lg">
+                            <p class="font-bold">On the corner (na esquina)</p>
+                            <p>"The restaurant is <strong class="font-semibold">on the corner</strong>."</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-r-lg">
+                        <h4 class="font-bold text-xl"><i class="fas fa-lightbulb"></i> Question:</h4>
+                        <p class="text-lg">"Excuse me, <strong class="font-semibold">where is</strong> the bank?"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-teal-700"><i class="fas fa-map-signs text-orange-500"></i>Practice: Giving Directions</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-xl mb-6 text-gray-600">Look at the map below and complete the sentences.</p>
+                    <div class="flex justify-center mb-6">
+                        <div class="grid grid-cols-3 gap-2 border-4 border-gray-300 p-2 rounded-lg bg-gray-100 w-full max-w-md">
+                            <div class="bg-red-300 p-4 rounded text-center font-bold">BANK</div>
+                            <div class="bg-blue-300 p-4 rounded text-center font-bold">PARK</div>
+                            <div class="bg-green-300 p-4 rounded text-center font-bold">SCHOOL</div>
+                            <div class="col-span-3 h-4 bg-gray-500"></div> <div class="bg-yellow-300 p-4 rounded text-center font-bold">SUPERMARKET</div>
+                             <div class="col-span-2"></div>
+                        </div>
+                    </div>
+                    <div class="text-left text-xl space-y-4">
+                        <p>1. The park is <input data-answer="between" class="w-32 p-1 border-b-2 text-center"> the bank and the school. <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p>2. The bank is <input data-answer="next to" class="w-32 p-1 border-b-2 text-center"> the park. <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p>3. The supermarket is <input data-answer="opposite" class="w-32 p-1 border-b-2 text-center"> the bank. <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-teal-700"><i class="fas fa-headphones text-cyan-500"></i>Listening: Find the Place</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-xl mb-6 text-gray-600">Listen to the directions and answer the question.</p>
+                    <button id="show-script-btn" class="bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition hover:bg-cyan-700 mb-8"><i class="fas fa-file-alt mr-2"></i> Show Teacher's Script</button>
+                    <div class="text-left mt-6 text-lg space-y-6">
+                        <div>
+                            <label for="q1" class="font-bold block mb-2">1. Where is the restaurant?</label>
+                            <textarea id="q1" rows="3" class="w-full p-2 border-2 rounded-lg" placeholder="Write the location here..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-teal-700"><i class="fas fa-music text-red-500"></i> Music Time: Where The Streets Have No Name</h2>
+            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/8" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-6 text-center">
+                    <p class="text-xl mb-4 text-gray-600">Listen to the U2 song and complete the lyrics.</p>
+                    <div class="text-xl inline-block text-left space-y-3 bg-gray-50 p-6 rounded-lg border-l-4 border-teal-500">
+                         <p>I want to run, I want to <input data-answer="hide" class="w-24 p-1 border-b-2 text-center bg-transparent"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                         <p>I want to tear down the walls</p>
+                         <p>That hold me <input data-answer="inside" class="w-24 p-1 border-b-2 text-center bg-transparent"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                         <p>I wanna reach out and touch the flame</p>
+                         <p>Where the streets have no <input data-answer="name" class="w-24 p-1 border-b-2 text-center bg-transparent"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-6 text-center text-teal-700"><i class="fas fa-puzzle-piece text-blue-500"></i> Practice: Describe the Street</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-5xl mx-auto">
+                <p class="text-xl mb-8 text-gray-600 text-center">Drag the correct preposition to complete the sentence.</p>
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-6 items-center">
+                    <div class="md:col-span-2 flex flex-wrap gap-4 justify-center">
+                        <div id="prep-next" class="draggable bg-teal-100 text-teal-800 p-3 rounded-lg shadow font-semibold" draggable="true">next to</div>
+                        <div id="prep-between" class="draggable bg-blue-100 text-blue-800 p-3 rounded-lg shadow font-semibold" draggable="true">between</div>
+                        <div id="prep-opposite" class="draggable bg-yellow-100 text-yellow-800 p-3 rounded-lg shadow font-semibold" draggable="true">opposite</div>
+                    </div>
+                    <div class="md:col-span-3 space-y-4 text-left">
+                        <div class="flex items-center gap-3"><span class="w-3/5 text-lg">The school is... the park.</span> <div data-match="prep-next" class="drop-zone w-2/5 p-4 border-2 border-gray-300 rounded-lg min-h-[50px]"></div></div>
+                        <div class="flex items-center gap-3"><span class="w-3/5 text-lg">The park is... the school and the bank.</span> <div data-match="prep-between" class="drop-zone w-2/5 p-4 border-2 border-gray-300 rounded-lg min-h-[50px]"></div></div>
+                        <div class="flex items-center gap-3"><span class="w-3/5 text-lg">The supermarket is... the school.</span> <div data-match="prep-opposite" class="drop-zone w-2/5 p-4 border-2 border-gray-300 rounded-lg min-h-[50px]"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-teal-700"><i class="fas fa-home text-green-500"></i>Homework: My Street</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <p class="text-xl mb-6 text-gray-600">Write a short paragraph describing a street in your city.</p>
+                    <div class="text-left text-lg space-y-2 mt-4 bg-gray-50 p-6 rounded-lg">
+                        <p class="font-bold">Use prepositions of place and include:</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>At least 3 places (e.g., a bank, a park).</li>
+                            <li>At least 2 prepositions (e.g., "next to", "between").</li>
+                            <li>Example: "On my street, there is a bank. The bank is next to a big park..."</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center flex flex-col items-center justify-center h-full">
+                <i class="fas fa-road text-teal-600 text-7xl mb-6"></i>
+                <h2 class="text-5xl font-bold mb-4 text-gray-800">A city is not gauged by its length and width...</h2>
+                <p class="text-3xl text-gray-600 max-w-2xl">...but by the broadness of its vision and the height of its dreams.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-30">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-teal-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-teal-700">Próximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Finalizar Aula</button>
+        </div>
+    </footer>
+
+    <div id="script-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 class="text-2xl font-bold mb-4 text-cyan-700">Listening Activity Script</h3>
+            <p class="text-lg italic leading-relaxed">
+                "Excuse me, where is the restaurant? Well, go down this street. The restaurant is opposite the big park, and it's between the bank and the school. You can't miss it!"
+            </p>
+            <button id="close-script-btn" class="mt-6 bg-gray-600 text-white font-bold py-2 px-6 rounded-lg w-full transition hover:bg-gray-700">Close</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                const progressBar = document.getElementById('progress-bar');
+                progressBar.style.width = slides.length > 1 ? `${(index / (slides.length - 1)) * 100}%` : '100%';
+                prevBtn.disabled = index === 0;
+                nextBtn.classList.toggle('hidden', index === slides.length - 1);
+                finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
+            }
+
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            finishLessonBtn.addEventListener('click', () => {
+                alert('Lição Finalizada com Sucesso!');
+                window.location.href = 'a1.html';
+            });
+
+            // Drag and Drop Logic
+            const draggables = document.querySelectorAll('.draggable');
+            let draggedItem = null;
+
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', (e) => {
+                    draggedItem = e.target;
+                    setTimeout(() => e.target.style.display = 'none', 0);
+                });
+                draggable.addEventListener('dragend', (e) => {
+                    setTimeout(() => {
+                        if (draggedItem) {
+                           draggedItem.style.display = 'inline-flex';
+                        }
+                        draggedItem = null;
+                    }, 0);
+                });
+            });
+
+            document.querySelectorAll('.drop-zone').forEach(zone => {
+                zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
+                zone.addEventListener('dragleave', e => { zone.classList.remove('over'); });
+                zone.addEventListener('drop', e => {
+                    e.preventDefault();
+                    if (draggedItem && zone.dataset.match === draggedItem.id) {
+                        zone.innerHTML = '';
+                        draggedItem.style.display = 'inline-flex';
+                        zone.appendChild(draggedItem);
+                        zone.classList.remove('over');
+                        draggedItem.classList.remove('draggable');
+                        draggedItem.style.cursor = 'default';
+                        zone.style.borderColor = '#0d9488';
+                        zone.style.borderStyle = 'solid';
+                        draggedItem = null;
+                    } else {
+                         zone.classList.remove('over');
+                    }
+                });
+            });
+
+            // Individual Answer Button Logic
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    let prev = button.previousElementSibling;
+                    while (prev) {
+                        if (prev.tagName === 'INPUT' && prev.dataset.answer) {
+                            prev.value = prev.dataset.answer;
+                            prev.classList.add('text-indigo-600', 'font-bold', 'correct');
+                            if (!prev.previousElementSibling || prev.previousElementSibling.tagName !== 'INPUT') {
+                                break;
+                            }
+                        }
+                        prev = prev.previousElementSibling;
+                    }
+                });
+            });
+            
+            // Modal Logic
+            const modal = document.getElementById('script-modal');
+            document.getElementById('show-script-btn').addEventListener('click', () => modal.classList.add('active'));
+            document.getElementById('close-script-btn').addEventListener('click', () => modal.classList.remove('active'));
+            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>

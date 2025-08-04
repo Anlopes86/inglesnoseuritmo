@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 - Lesson 29: Questions in the Past | Inglês no seu Ritmo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Flashcards */
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 200px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
+        .flashcard-front { background-color: white; color: #e11d48; text-align: center; }
+        .flashcard-back { background-color: #e11d48; color: white; transform: rotateY(180deg); text-align: center; }
+
+        /* Drag & Drop */
+        .draggable { cursor: grab; }
+        .drop-zone { border-style: dashed; }
+        .drop-zone.over { background-color: #ffe4e6; border-color: #e11d48; }
+        
+        /* Answer Button */
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.5rem; }
+        .answer-btn:hover { color: #be123c; }
+        input[data-answer].correct { background-color: #ffe4e6; border-color: #e11d48; }
+        input[data-answer] { transition: all 0.3s; }
+
+        /* Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        .modal-content { background: white; padding: 2.5rem; border-radius: 1rem; max-width: 500px; width: 90%; transform: scale(0.95); transition: transform 0.3s ease; }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="a1.html" class="text-lg font-bold text-rose-600 hover:text-rose-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
+            <h1 class="text-xl font-semibold text-center">A1 - Lesson 29: Questions in the Past</h1>
+            <div class="w-24"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-rose-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+        
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-rose-700"><i class="fas fa-comments text-yellow-500"></i> Warm-up: Affirmative vs. Negative</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-2xl mb-6 text-gray-600">Let's check what you did.</p>
+                    <div class="text-left text-xl space-y-4 bg-gray-50 p-6 rounded-lg">
+                        <p><strong class="text-blue-600">Professor:</strong> "Hello! Last class, we talked about yesterday. Tell me one thing you did yesterday." (Review)</p>
+                        <p><strong class="text-orange-600">Aluno:</strong> "I <strong class="font-bold">watched</strong> a movie."</p>
+                        <p><strong class="text-blue-600">Professor:</strong> "Great! And what about studying? Did you study?"</p>
+                        <p><strong class="text-orange-600">Aluno:</strong> "No. I... not studied."</p>
+                        <p><strong class="text-blue-600">Professor:</strong> "Good try! To make a negative sentence in the past, we say: 'I <strong class="font-bold">did not (didn't) study</strong>'. And to ask a question, I say: '<strong class="font-bold">Did you</strong> study?'. Let's learn this today!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-rose-700"><i class="fas fa-bolt text-rose-500"></i> Vocabulary: Action Verbs Review</h2>
+                <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Let's remember some important verbs.</p>
+                <div class="flashcard-grid max-w-6xl mx-auto">
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">To go</h3></div><div class="flashcard-back"><p class="text-2xl">Ir</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">To see</h3></div><div class="flashcard-back"><p class="text-2xl">Ver</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">To eat</h3></div><div class="flashcard-back"><p class="text-2xl">Comer</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">To do</h3></div><div class="flashcard-back"><p class="text-2xl">Fazer</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">To have</h3></div><div class="flashcard-back"><p class="text-2xl">Ter</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">To talk</h3></div><div class="flashcard-back"><p class="text-2xl">Conversar</p></div></div></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+             <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-rose-700"><i class="fas fa-book-open text-purple-500"></i> Grammar: Past Simple (Questions & Negatives)</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto text-left">
+                    <p class="text-2xl mb-6 text-gray-600 text-center">We use the auxiliary verb <strong class="font-bold">DID</strong> for questions and negatives.</p>
+                    
+                    <h3 class="font-bold text-xl text-red-700 mb-2">Negative Sentences</h3>
+                    <div class="bg-red-50 p-4 rounded-lg text-lg">
+                        <p class="font-semibold">Structure: Subject + did not (didn't) + Verb (base form)</p>
+                        <p>I <strong class="font-semibold">didn't work</strong> yesterday. (NOT: I didn't worked)</p>
+						<p>She <strong class="font-semibold">didn't study</strong> for the test.</p>
+                    </div>
+
+                    <h3 class="font-bold text-xl text-green-700 mt-6 mb-2">Questions</h3>
+                     <div class="bg-green-50 p-4 rounded-lg text-lg">
+                        <p class="font-semibold">Structure: Did + Subject + Verb (base form)?</p>
+                        <p><strong class="font-semibold">Did you</strong> watch the movie? -> Yes, I did. / No, I didn't.</p>
+						<p><strong class="font-semibold">Did he</strong> visit his family? -> Yes, he did. / No, he didn't.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-rose-700"><i class="fas fa-pencil-alt text-green-500"></i>Practice: A Conversation</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-xl mb-6 text-gray-600">Complete the conversation using the verbs in parentheses.</p>
+                    <div class="text-left text-xl space-y-4">
+                        <p><strong>A:</strong> <input data-answer="Did you watch" class="w-40 p-1 border-b-2 text-center"> (you/watch) the game last night? <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p><strong>B:</strong> No, I <input data-answer="didn't watch" class="w-40 p-1 border-b-2 text-center"> (not/watch) it. I <input data-answer="studied" class="w-28 p-1 border-b-2 text-center"> (study) for my test. <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p><strong>A:</strong> Oh, okay. <input data-answer="Did you talk" class="w-36 p-1 border-b-2 text-center"> (you/talk) to Maria? <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p><strong>B:</strong> Yes, I did. We <input data-answer="talked" class="w-24 p-1 border-b-2 text-center"> (talk) this morning. <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-rose-700"><i class="fas fa-headphones text-cyan-500"></i>Listening: My Weekend</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-xl mb-6 text-gray-600">Listen to Marco. What did he do? What didn't he do?</p>
+                    <button id="show-script-btn" class="bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition hover:bg-cyan-700 mb-8"><i class="fas fa-file-alt mr-2"></i> Show Teacher's Script</button>
+                    <div class="text-left mt-6 text-lg space-y-6">
+                        <div>
+                            <label for="q1" class="font-bold block mb-2">1. Did he visit his parents?</label>
+                            <textarea id="q1" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="Yes, ... / No, ..."></textarea>
+                        </div>
+                        <div>
+                            <label for="q2" class="font-bold block mb-2">2. Did he watch a movie?</label>
+                            <textarea id="q2" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="Yes, ... / No, ..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-rose-700"><i class="fas fa-music text-purple-500"></i> Music Time: Haven't Met You Yet</h2>
+            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/24" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-6 text-center">
+                    <p class="text-xl mb-4 text-gray-600">Listen to Michael Bublé. He uses a clear negative in the past.</p>
+                    <div class="text-xl inline-block text-left space-y-3 bg-gray-50 p-6 rounded-lg border-l-4 border-rose-500">
+                         <p>I'm not surprised, not everything lasts</p>
+						 <p>I've broken my heart so many times</p>
+						 <p>I <input data-answer="stopped" class="w-28 p-1 border-b-2 text-center bg-transparent"> keeping track <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+						 <p>Talk myself in, I talk myself out</p>
+						 <p>I get all worked up, and then I let myself down</p>
+						 <p>I know I <input data-answer="didn't give" class="w-32 p-1 border-b-2 text-center bg-transparent"> enough <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-6 text-center text-rose-700"><i class="fas fa-puzzle-piece text-blue-500"></i> Practice: Question or Answer?</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-5xl mx-auto">
+                <p class="text-xl mb-8 text-gray-600 text-center">Match the questions to the correct answers.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <div class="flex flex-col items-center gap-4">
+                        <h3 class="font-bold text-xl">Questions</h3>
+                        <div id="q-watch" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">Did you watch TV?</div>
+                        <div id="q-work" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">Did she work yesterday?</div>
+                        <div id="q-play" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">Did they play soccer?</div>
+                    </div>
+                    <div class="space-y-4 text-left">
+                        <div class="flex items-center gap-3"><span class="w-1/2 text-lg">Yes, she did.</span> <div data-match="q-work" class="drop-zone w-1/2 p-4 border-2 border-gray-300 rounded-lg min-h-[50px]"></div></div>
+                        <div class="flex items-center gap-3"><span class="w-1/2 text-lg">No, they didn't.</span> <div data-match="q-play" class="drop-zone w-1/2 p-4 border-2 border-gray-300 rounded-lg min-h-[50px]"></div></div>
+                        <div class="flex items-center gap-3"><span class="w-1/2 text-lg">Yes, I did.</span> <div data-match="q-watch" class="drop-zone w-1/2 p-4 border-2 border-gray-300 rounded-lg min-h-[50px]"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-rose-700"><i class="fas fa-home text-green-500"></i>Homework: Your Weekend</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <p class="text-xl mb-6 text-gray-600">Write about your last weekend. Ask two questions and write two negative sentences.</p>
+                    <div class="text-left text-lg space-y-2 mt-4 bg-gray-50 p-6 rounded-lg">
+                        <p class="font-bold">Examples:</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>"Did you go to the beach?"</li>
+                            <li>"I didn't work last Sunday."</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center flex flex-col items-center justify-center h-full">
+                <i class="fas fa-question-circle text-rose-600 text-7xl mb-6"></i>
+                <h2 class="text-5xl font-bold mb-4 text-gray-800">The important thing is not to stop questioning.</h2>
+                <p class="text-3xl text-gray-600 max-w-2xl">- Albert Einstein</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-30">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-rose-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-rose-600">Próximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Finalizar Aula</button>
+        </div>
+    </footer>
+
+    <div id="script-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 class="text-2xl font-bold mb-4 text-cyan-700">Listening Activity Script</h3>
+            <p class="text-lg italic leading-relaxed">
+                "My weekend was okay. I visited my parents on Saturday. We talked a lot. On Sunday, I didn't watch a movie, I studied for my English test."
+            </p>
+            <button id="close-script-btn" class="mt-6 bg-gray-600 text-white font-bold py-2 px-6 rounded-lg w-full transition hover:bg-gray-700">Close</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                const progressBar = document.getElementById('progress-bar');
+                progressBar.style.width = slides.length > 1 ? `${(index / (slides.length - 1)) * 100}%` : '100%';
+                prevBtn.disabled = index === 0;
+                nextBtn.classList.toggle('hidden', index === slides.length - 1);
+                finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
+            }
+
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            finishLessonBtn.addEventListener('click', () => {
+                alert('Lição Finalizada com Sucesso!');
+                window.location.href = 'a1.html';
+            });
+
+            // Drag and Drop Logic
+            const draggables = document.querySelectorAll('.draggable');
+            let draggedItem = null;
+
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', (e) => {
+                    draggedItem = e.target;
+                    setTimeout(() => e.target.style.display = 'none', 0);
+                });
+                draggable.addEventListener('dragend', (e) => {
+                    setTimeout(() => {
+                        if (draggedItem) {
+                           draggedItem.style.display = 'inline-flex';
+                        }
+                        draggedItem = null;
+                    }, 0);
+                });
+            });
+
+            document.querySelectorAll('.drop-zone').forEach(zone => {
+                zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
+                zone.addEventListener('dragleave', e => { zone.classList.remove('over'); });
+                zone.addEventListener('drop', e => {
+                    e.preventDefault();
+                    if (draggedItem && zone.dataset.match.includes(draggedItem.id)) {
+                        draggedItem.style.display = 'inline-flex';
+                        zone.appendChild(draggedItem);
+                        zone.classList.remove('over');
+                        draggedItem.classList.remove('draggable');
+                        draggedItem.style.cursor = 'default';
+                        
+                        const requiredItems = zone.dataset.match.split(' ').length;
+                        if (zone.children.length === requiredItems) {
+                             zone.style.borderColor = '#22c55e';
+                             zone.style.borderStyle = 'solid';
+                        }
+                        draggedItem = null;
+                    } else {
+                         zone.classList.remove('over');
+                    }
+                });
+            });
+
+            // Individual Answer Button Logic for complex lines
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const parentP = button.closest('p');
+                    if (parentP) {
+                        parentP.querySelectorAll('input[data-answer]').forEach(inputField => {
+                            inputField.value = inputField.dataset.answer;
+                            inputField.classList.add('text-rose-600', 'font-bold', 'correct');
+                        });
+                    }
+                });
+            });
+            
+            // Modal Logic
+            const modal = document.getElementById('script-modal');
+            const showScriptBtn = document.getElementById('show-script-btn');
+            
+            if (showScriptBtn) {
+                showScriptBtn.addEventListener('click', () => modal.classList.add('active'));
+            }
+            document.getElementById('close-script-btn').addEventListener('click', () => modal.classList.remove('active'));
+            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>

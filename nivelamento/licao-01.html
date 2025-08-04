@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Nivelamento | Inglês no seu Ritmo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .option-btn { transition: all 0.2s ease-in-out; text-align: left; padding: 1rem; border-width: 2px; border-radius: 0.75rem; }
+        .option-btn:disabled { cursor: not-allowed; }
+        .option-btn.selected { background-color: #4f46e5; color: white; border-color: #4f46e5; transform: scale(1.02); }
+        .option-btn.correct { background-color: #22c55e; color: white; border-color: #22c55e; }
+        .option-btn.incorrect { background-color: #ef4444; color: white; border-color: #ef4444; }
+        .question-block { background-color: white; padding: 2rem; border-radius: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.07); margin-bottom: 1.5rem; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 999; display: none; justify-content: center; align-items: center; }
+        .modal-content { background-color: white; padding: 2rem; border-radius: 1rem; max-width: 500px; width: 90%; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .modal-close-btn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #6b7280; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="nivelamento.html" class="text-lg font-bold text-purple-600 hover:text-purple-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar</a>
+            <h1 class="text-xl font-semibold text-center">Teste de Nivelamento</h1>
+            <div class="w-24"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-2"><div id="progress-bar" class="bg-purple-600 h-2 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-8 relative">
+        
+        <div class="slide active">
+            <div class="text-center py-8">
+                <h2 class="text-4xl font-bold mb-6 text-purple-700">Teste de Nivelamento</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto text-left text-xl space-y-4">
+                    <p>Este teste avaliará suas habilidades em diferentes níveis. A dificuldade aumentará gradualmente.</p>
+                    <p>✔️ Responda a todas as questões da melhor forma que puder.</p>
+                    <p class="text-center font-bold pt-4">Boa sorte!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-3xl font-bold mb-6 text-gray-700">Seção 1: Nível A1</h2></div>
+            <div class="max-w-3xl mx-auto">
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">1. Choose the correct sentence:</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">He are a teacher.</button><button class="option-btn font-medium" data-correct="true">He is a teacher.</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">2. I have ___ apple and ___ banana.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">an / a</button><button class="option-btn font-medium">a / an</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">3. We ____ from Brazil.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">is</button><button class="option-btn font-medium" data-correct="true">are</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">4. What is ____ name?</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">your</button><button class="option-btn font-medium">you</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">5. They ____ live in London.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">don't</button><button class="option-btn font-medium">doesn't</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">6. Qual palavra descreve a imagem?</p>
+                    <div class="flex justify-center mb-4"><i class="fas fa-car text-6xl text-blue-500"></i></div>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">House</button><button class="option-btn font-medium" data-correct="true">Car</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">7. The book is ____ the table.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">at</button><button class="option-btn font-medium" data-correct="true">on</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">8. ____ she work here?</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">Does</button><button class="option-btn font-medium">Do</button></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center"><h2 class="text-3xl font-bold mb-6 text-gray-700">Seção 2: Nível A2</h2></div>
+            <div class="max-w-3xl mx-auto">
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">9. Sarah ___ to Italy last year.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4"><button class="option-btn font-medium">goes</button><button class="option-btn font-medium" data-correct="true">went</button><button class="option-btn font-medium">gone</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">10. This car is ___ than that one.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">more expensive</button><button class="option-btn font-medium">expensiver</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">11. ___ you like to go to the movies tomorrow?</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">Do</button><button class="option-btn font-medium" data-correct="true">Would</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">12. I was watching TV when the phone ___.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">ringed</button><button class="option-btn font-medium" data-correct="true">rang</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">13. He is the ____ student in the class.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">tallest</button><button class="option-btn font-medium">most tall</button></div>
+                </div>
+                 <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">14. There isn't ____ sugar in my coffee.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">some</button><button class="option-btn font-medium" data-correct="true">any</button></div>
+                </div>
+                 <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">15. I'm ____ to visit my family next weekend.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">going</button><button class="option-btn font-medium">will</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">16. Complete the sentence: I work hard ____ I can buy a new car.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">but</button><button class="option-btn font-medium" data-correct="true">so</button></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center"><h2 class="text-3xl font-bold mb-6 text-gray-700">Seção 3: Listening</h2></div>
+            <div class="max-w-3xl mx-auto question-block">
+                <p class="text-xl mb-4 text-gray-600 text-center">Ouça o professor e responda.</p>
+                <div class="text-center">
+                    <button onclick="openModal('Question 17: Excuse me, could you tell me where the nearest bank is?<br><br>Question 18: I\'ve already finished my homework.<br><br>Question 19: If I had known you were coming, I would have baked a cake.')" class="mb-6 bg-indigo-100 text-indigo-700 font-bold py-2 px-4 rounded-lg hover:bg-indigo-200"><i class="fas fa-user-secret"></i> Ver Roteiro</button>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">17. What is the person asking for?</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">The time</button><button class="option-btn font-medium" data-correct="true">Directions</button></div>
+                </div>
+                <div class="question-block">
+                     <p class="text-lg mb-4 text-gray-600 font-semibold">18. What did the person finish?</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">Their homework</button><button class="option-btn font-medium">Their lunch</button></div>
+                </div>
+                <div class="question-block">
+                     <p class="text-lg mb-4 text-gray-600 font-semibold">19. The speaker feels...</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">Angry about a surprise.</button><button class="option-btn font-medium" data-correct="true">Regret for not being prepared for a visitor.</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-3xl font-bold mb-6 text-gray-700">Seção 4: Nível B1</h2></div>
+            <div class="max-w-3xl mx-auto">
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">20. He ___ in this company since 2020.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4"><button class="option-btn font-medium">worked</button><button class="option-btn font-medium" data-correct="true">has worked</button><button class="option-btn font-medium">is working</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">21. If I ___ more money, I would travel the world.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4"><button class="option-btn font-medium" data-correct="true">had</button><button class="option-btn font-medium">have</button><button class="option-btn font-medium">will have</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">22. This task must ____ by the end of the day.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">finish</button><button class="option-btn font-medium" data-correct="true">be finished</button></div>
+                </div>
+                 <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">23. I suggest ____ a taxi to the airport.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">taking</button><button class="option-btn font-medium">to take</button></div>
+                </div>
+                 <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">24. Have you ____ been to Japan?</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">already</button><button class="option-btn font-medium" data-correct="true">ever</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">25. She is the woman ____ son is a famous actor.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">who</button><button class="option-btn font-medium" data-correct="true">whose</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">26. You ____ smoke in here. It's forbidden.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">mustn't</button><button class="option-btn font-medium">don't have to</button></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center"><h2 class="text-3xl font-bold mb-6 text-gray-700">Seção 5: Tradução (PT-EN)</h2></div>
+            <div class="max-w-3xl mx-auto">
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">27. Traduza: "Eu costumava jogar futebol todos os dias."</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">I am used to play football every day.</button><button class="option-btn font-medium">I was playing football every day.</button><button class="option-btn font-medium" data-correct="true">I used to play football every day.</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">28. Traduza: "Ela me perguntou se eu falava inglês."</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">She asked me if I spoke English.</button><button class="option-btn font-medium">She asked me do you speak English.</button><button class="option-btn font-medium">She asked me that I spoke English.</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">29. Traduza: "Não vale a pena se preocupar com isso."</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">It's not worth to worry about it.</button><button class="option-btn font-medium" data-correct="true">It's not worth worrying about it.</button><button class="option-btn font-medium">It doesn't worth to worry about it.</button></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center"><h2 class="text-3xl font-bold mb-6 text-gray-700">Seção 6: Tradução (EN-PT)</h2></div>
+            <div class="max-w-3xl mx-auto">
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">30. Traduza: "Despite the rain, we went to the beach."</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">Apesar da chuva, nós fomos à praia.</button><button class="option-btn font-medium">Porque choveu, nós fomos à praia.</button><button class="option-btn font-medium">Enquanto chovia, nós estávamos na praia.</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">31. Traduza: "I'm looking forward to meeting you."</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">Eu estou olhando para encontrar você.</button><button class="option-btn font-medium" data-correct="true">Estou ansioso(a) para te conhecer.</button><button class="option-btn font-medium">Eu vou te encontrar em breve.</button></div>
+                </div>
+                 <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">32. Traduza: "He is likely to be late."</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">É provável que ele se atrase.</button><button class="option-btn font-medium">Ele gosta de se atrasar.</button><button class="option-btn font-medium">Ele pode se atrasar.</button></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+             <div class="text-center"><h2 class="text-3xl font-bold mb-6 text-gray-700">Seção 7: Leitura</h2></div>
+             <div class="max-w-3xl mx-auto question-block">
+                <p class="text-lg mb-4 text-gray-600 font-semibold">Leia o texto e responda:</p>
+                <div class="text-left p-6 border rounded-lg bg-gray-50 mb-6">
+                    <p class="text-base leading-relaxed">The rise of remote work, accelerated by recent global events, has fundamentally altered the corporate landscape. While it offers unprecedented flexibility, it also poses significant challenges regarding team cohesion and corporate culture. Companies are now scrambling to find innovative ways to maintain employee engagement and foster a sense of belonging among a dispersed workforce.</p>
+                </div>
+                <div class="question-block">
+                     <p class="text-lg mb-4 text-gray-600 font-semibold">33. What is the main challenge mentioned for companies?</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">Finding new employees.</button><button class="option-btn font-medium" data-correct="true">Maintaining team cohesion and culture.</button><button class="option-btn font-medium">Reducing operational costs.</button></div>
+                </div>
+                <div class="question-block">
+                     <p class="text-lg mb-4 text-gray-600 font-semibold">34. The word "scrambling" in this context means:</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">Making a lot of effort to do something quickly.</button><button class="option-btn font-medium">Moving in a disorganized way.</button><button class="option-btn font-medium">Climbing up somewhere.</button></div>
+                </div>
+                <div class="question-block">
+                     <p class="text-lg mb-4 text-gray-600 font-semibold">35. What does the text suggest about corporate culture?</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">It has become less important.</button><button class="option-btn font-medium" data-correct="true">It is harder to maintain with remote teams.</button><button class="option-btn font-medium">It has improved with remote work.</button></div>
+                </div>
+             </div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center"><h2 class="text-3xl font-bold mb-6 text-gray-700">Seção 8: Nível B2</h2></div>
+            <div class="max-w-3xl mx-auto">
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">36. If she ____ about the traffic, she would have left earlier.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">had known</button><button class="option-btn font-medium">knew</button><button class="option-btn font-medium">would know</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">37. By this time next year, I ____ my degree.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">will finish</button><button class="option-btn font-medium" data-correct="true">will have finished</button><button class="option-btn font-medium">am finishing</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">38. ____ the fact that he was tired, he finished the race.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">Although</button><button class="option-btn font-medium" data-correct="true">Despite</button></div>
+                </div>
+                 <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">39. He wishes he ____ more attention in class.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">had paid</button><button class="option-btn font-medium">paid</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">40. The project was difficult, but they managed to ____.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">pull it off</button><button class="option-btn font-medium">pull it over</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">41. It's high time you ____ thinking about your future.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">start</button><button class="option-btn font-medium" data-correct="true">started</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-3xl font-bold mb-6 text-gray-700">Seção 9: Nível C1</h2></div>
+            <div class="max-w-3xl mx-auto">
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">42. Not only ____ late, but he also forgot the documents.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">he was</button><button class="option-btn font-medium" data-correct="true">was he</button><button class="option-btn font-medium">he has been</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">43. The decision was controversial and caused a public ____.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">outcry</button><button class="option-btn font-medium">outcome</button><button class="option-btn font-medium">outlet</button></div>
+                </div>
+                 <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">44. Her arguments were so ____ that we were all convinced.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">plausible</button><button class="option-btn font-medium" data-correct="true">cogent</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">45. He ____ his keys; he can't find them anywhere.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">should have lost</button><button class="option-btn font-medium" data-correct="true">must have lost</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">46. The new policy will have ____ implications for the economy.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">far-reaching</button><button class="option-btn font-medium">long-distance</button></div>
+                </div>
+                <div class="question-block">
+                    <p class="text-lg mb-4 text-gray-600 font-semibold">47. ____ you to change your mind, please let me know.</p>
+                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">If</button><button class="option-btn font-medium" data-correct="true">Were</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center flex flex-col items-center justify-center min-h-[70vh]">
+                <i class="fas fa-award text-amber-500 text-8xl mb-6"></i>
+                <h2 class="text-5xl font-bold mb-4 text-gray-800">Teste Finalizado!</h2>
+                <p id="result-text" class="text-3xl text-gray-600 max-w-2xl">Calculando seu resultado...</p>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="teacher-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="modal-close-btn" class="modal-close-btn">&times;</button>
+            <h3 class="text-2xl font-bold mb-4">Roteiro do Professor (Listening)</h3>
+            <div id="modal-script" class="text-lg space-y-3"></div>
+        </div>
+    </div>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-30">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-purple-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-purple-700">Próximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Finalizar e Ver Resultado</button>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const totalQuestions = document.querySelectorAll('.question-block > .grid').length;
+            let currentSlide = 0;
+            let score = 0;
+
+            function showSlide(index) {
+                window.scrollTo(0, 0);
+
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                const progressBar = document.getElementById('progress-bar');
+                progressBar.style.width = slides.length > 1 ? `${(index / (slides.length - 1)) * 100}%` : '0%';
+                prevBtn.disabled = index === 0;
+                nextBtn.classList.toggle('hidden', index === slides.length - 1);
+                finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
+            }
+
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            
+            finishLessonBtn.addEventListener('click', () => {
+                let recommendation = 'A1 (Iniciante)';
+                const percentage = (score / totalQuestions) * 100;
+                
+                if (percentage >= 85) { // ~40 acertos
+                    recommendation = 'C1 (Avançado)';
+                } else if (percentage >= 65) { // ~31 acertos
+                    recommendation = 'B2 (Intermediário Superior)';
+                } else if (percentage >= 40) { // ~19 acertos
+                    recommendation = 'B1 (Intermediário)';
+                } else if (percentage >= 20) { // ~9 acertos
+                    recommendation = 'A2 (Básico)';
+                }
+
+                const resultText = document.getElementById('result-text');
+                resultText.innerHTML = `Acertos: <strong>${score}</strong> de ${totalQuestions}. <br><br> Módulo recomendado: <strong class="text-purple-700">${recommendation}</strong>.`;
+                
+                document.querySelector('footer').remove();
+            });
+
+            document.querySelectorAll('.option-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const questionGroup = button.parentElement;
+                    if (questionGroup.dataset.answered) return; 
+
+                    questionGroup.dataset.answered = 'true';
+                    const allOptions = questionGroup.querySelectorAll('.option-btn');
+                    
+                    allOptions.forEach(btn => btn.disabled = true );
+                    button.classList.add('selected');
+
+                    if (button.dataset.correct) {
+                        score++;
+                        button.classList.add('correct');
+                    } else {
+                        button.classList.add('incorrect');
+                        const correctBtn = questionGroup.querySelector('[data-correct="true"]');
+                        if (correctBtn) correctBtn.classList.add('correct');
+                    }
+                });
+            });
+
+            const modal = document.getElementById('teacher-modal');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+            const modalScript = document.getElementById('modal-script');
+
+            window.openModal = (script) => {
+                modalScript.innerHTML = script;
+                modal.style.display = 'flex';
+            }
+
+            modalCloseBtn.addEventListener('click', () => { modal.style.display = 'none'; });
+            modal.addEventListener('click', (e) => { if(e.target === modal) modal.style.display = 'none'; });
+
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>

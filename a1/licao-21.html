@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 - Lesson 21: How much / How many? | Inglês no seu Ritmo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Flashcards */
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 200px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
+        .flashcard-front { background-color: white; color: #f97316; text-align: center; }
+        .flashcard-back { background-color: #f97316; color: white; transform: rotateY(180deg); text-align: center; }
+
+        /* Drag & Drop */
+        .draggable { cursor: grab; }
+        .drop-zone { border-style: dashed; }
+        .drop-zone.over { background-color: #ffedd5; border-color: #f97316; }
+        
+        /* Answer Button */
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.5rem; }
+        .answer-btn:hover { color: #4f46e5; }
+        input[data-answer].correct { background-color: #ffedd5; border-color: #f97316; }
+        input[data-answer] { transition: all 0.3s; }
+
+        /* Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        .modal-content { background: white; padding: 2.5rem; border-radius: 1rem; max-width: 500px; width: 90%; transform: scale(0.95); transition: transform 0.3s ease; }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="a1.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
+            <h1 class="text-xl font-semibold text-center">A1 - Lesson 21: How much/many?</h1>
+            <div class="w-24"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+        
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-orange-700"><i class="fas fa-comments text-yellow-500"></i> Warm-up: Your City</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-2xl mb-6 text-gray-600">Let's talk about quantities.</p>
+                    <div class="text-left text-xl space-y-4 bg-gray-50 p-6 rounded-lg">
+                        <p><strong class="text-blue-600">Professor:</strong> "Hello! Last class, we talked about prepositions. <strong class="font-bold">Where is the bank</strong> in your city?" (Review)</p>
+                        <p><strong class="text-orange-600">Aluno:</strong> "The bank is next to the supermarket."</p>
+                        <p><strong class="text-blue-600">Professor:</strong> "Great! Now, let's think about numbers. Are there banks in your city? One, two, ten?"</p>
+                        <p><strong class="text-orange-600">Aluno:</strong> "Yes, there are many banks."</p>
+                        <p><strong class="text-blue-600">Professor:</strong> "And what about water? Is there water in your city? A river, a lake?"</p>
+                        <p><strong class="text-orange-600">Aluno:</strong> "Yes, there is a river."</p>
+                        <p><strong class="text-blue-600">Professor:</strong> "Perfect! Today we'll learn how to ask about quantity, for things we can count, like banks, and things we can't count, like water."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-orange-700"><i class="fas fa-balance-scale text-orange-500"></i> Vocabulary: Countable vs. Uncountable</h2>
+                <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Some things we can count, others we can't. Click to learn!</p>
+                <div class="flashcard-grid max-w-6xl mx-auto">
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Apples</h3></div><div class="flashcard-back"><p class="text-2xl">Countable<br>(One apple, two apples...)</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Water</h3></div><div class="flashcard-back"><p class="text-2xl">Uncountable<br>(We don't say "one water")</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Friends</h3></div><div class="flashcard-back"><p class="text-2xl">Countable<br>(One friend, two friends...)</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Money</h3></div><div class="flashcard-back"><p class="text-2xl">Uncountable<br>(We count dollars, but not "moneys")</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Books</h3></div><div class="flashcard-back"><p class="text-2xl">Countable<br>(One book, two books...)</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Time</h3></div><div class="flashcard-back"><p class="text-2xl">Uncountable<br>(We count hours, but not "times")</p></div></div></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+             <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-orange-700"><i class="fas fa-book-open text-purple-500"></i> Grammar: How much? vs. How many?</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto text-left">
+                    <p class="text-2xl mb-6 text-gray-600 text-center">Let's learn when to use each one.</p>
+                    
+                    <h3 class="font-bold text-xl text-blue-700 mb-2">How many? (+ Countable Nouns)</h3>
+                    <div class="bg-blue-50 p-4 rounded-lg text-lg">
+                        <p>We use <strong class="font-semibold">How many</strong> for things we can count (friends, books, cars).</p>
+                        <p><strong class="font-semibold">(?)</strong> <strong class="font-semibold">How many</strong> brothers do you have?</p>
+                        <p><strong class="font-semibold">(A)</strong> I have <strong class="font-semibold">two brothers</strong>.</p>
+                    </div>
+
+                    <h3 class="font-bold text-xl text-green-700 mt-6 mb-2">How much? (+ Uncountable Nouns)</h3>
+                     <div class="bg-green-50 p-4 rounded-lg text-lg">
+                        <p>We use <strong class="font-semibold">How much</strong> for things we cannot count (water, time, money, sugar).</p>
+                        <p><strong class="font-semibold">(?)</strong> <strong class="font-semibold">How much</strong> water do you drink?</p>
+                        <p><strong class="font-semibold">(A)</strong> I drink <strong class="font-semibold">a lot of</strong> water.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-orange-700"><i class="fas fa-pencil-alt text-blue-500"></i>Practice: Choose the Right Question</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-xl mb-6 text-gray-600">Complete the questions with <strong class="font-bold">How much</strong> or <strong class="font-bold">How many</strong>.</p>
+                    <div class="text-left text-xl space-y-4">
+                        <p>1. <input data-answer="How many" class="w-40 p-1 border-b-2 text-center"> friends do you have? <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p>2. <input data-answer="How much" class="w-40 p-1 border-b-2 text-center"> money is in your wallet? <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p>3. <input data-answer="How many" class="w-40 p-1 border-b-2 text-center"> books are on the table? <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p>4. <input data-answer="How much" class="w-40 p-1 border-b-2 text-center"> time do we have? <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p>5. <input data-answer="How many" class="w-40 p-1 border-b-2 text-center"> people are in your family? <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-orange-700"><i class="fas fa-headphones text-cyan-500"></i>Listening: In My Fridge</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-xl mb-6 text-gray-600">Listen to the description of a fridge and answer the questions.</p>
+                    <button id="show-script-btn" class="bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition hover:bg-cyan-700 mb-8"><i class="fas fa-file-alt mr-2"></i> Show Teacher's Script</button>
+                    <div class="text-left mt-6 text-lg space-y-6">
+                        <div>
+                            <label for="q1" class="font-bold block mb-2">1. How many eggs are there?</label>
+                            <textarea id="q1" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="Write your answer here..."></textarea>
+                        </div>
+                        <div>
+                            <label for="q2" class="font-bold block mb-2">2. How much milk is there?</label>
+                            <textarea id="q2" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="Write your answer here..."></textarea>
+                        </div>
+                        <div>
+                            <label for="q3" class="font-bold block mb-2">3. How many apples are there?</label>
+                            <textarea id="q3" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="Write your answer here..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-orange-700"><i class="fas fa-music text-red-500"></i> Music Time: Counting Stars</h2>
+            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/10" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-6 text-center">
+                    <p class="text-xl mb-4 text-gray-600">Listen to the song by OneRepublic. "Stars" are countable!</p>
+                    <div class="text-xl inline-block text-left space-y-3 bg-gray-50 p-6 rounded-lg border-l-4 border-orange-500">
+                         <p>Lately, I've been, I've been losing <input data-answer="sleep" class="w-24 p-1 border-b-2 text-center bg-transparent"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                         <p>Dreaming about the things that we could <input data-answer="be" class="w-24 p-1 border-b-2 text-center bg-transparent"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                         <p>But baby, I've been, I've been praying <input data-answer="hard" class="w-24 p-1 border-b-2 text-center bg-transparent"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                         <p>Said, "No more counting <input data-answer="dollars" class="w-28 p-1 border-b-2 text-center bg-transparent"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                         <p>We'll be counting <input data-answer="stars" class="w-24 p-1 border-b-2 text-center bg-transparent">" <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-6 text-center text-orange-700"><i class="fas fa-puzzle-piece text-blue-500"></i> Practice: Sort The Words</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-5xl mx-auto">
+                <p class="text-xl mb-8 text-gray-600 text-center">Drag the words to the correct category.</p>
+                <div class="flex flex-wrap gap-4 justify-center mb-8">
+                    <div id="word-cars" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">cars</div>
+                    <div id="word-water" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">water</div>
+                    <div id="word-people" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">people</div>
+                    <div id="word-time" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">time</div>
+                    <div id="word-sugar" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">sugar</div>
+                    <div id="word-chairs" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">chairs</div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-blue-100 p-4 rounded-lg">
+                        <h3 class="font-bold text-xl text-blue-800 mb-2 text-center">Countable (How many?)</h3>
+                        <div data-match="word-cars word-people word-chairs" class="drop-zone space-y-2 p-4 border-2 border-gray-300 rounded-lg min-h-[150px]"></div>
+                    </div>
+                    <div class="bg-green-100 p-4 rounded-lg">
+                        <h3 class="font-bold text-xl text-green-800 mb-2 text-center">Uncountable (How much?)</h3>
+                        <div data-match="word-water word-time word-sugar" class="drop-zone space-y-2 p-4 border-2 border-gray-300 rounded-lg min-h-[150px]"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-orange-700"><i class="fas fa-home text-green-500"></i>Homework: My Life in Numbers</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <p class="text-xl mb-6 text-gray-600">Write 4 questions about your life. Two with "how many" and two with "how much", and answer them.</p>
+                    <div class="text-left text-lg space-y-2 mt-4 bg-gray-50 p-6 rounded-lg">
+                        <p class="font-bold">Examples:</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>"How many books do you have? I have many books."</li>
+                            <li>"How much free time do you have? I don't have much free time."</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center flex flex-col items-center justify-center h-full">
+                <i class="fas fa-infinity text-orange-600 text-7xl mb-6"></i>
+                <h2 class="text-5xl font-bold mb-4 text-gray-800">Not everything that can be counted counts...</h2>
+                <p class="text-3xl text-gray-600 max-w-2xl">...and not everything that counts can be counted.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-30">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-orange-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-orange-600">Próximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Finalizar Aula</button>
+        </div>
+    </footer>
+
+    <div id="script-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 class="text-2xl font-bold mb-4 text-cyan-700">Listening Activity Script</h3>
+            <p class="text-lg italic leading-relaxed">
+                "Okay, let's see what is in my fridge. There are six eggs. There isn't much milk, only a little. And there are three apples. I need to go to the supermarket!"
+            </p>
+            <button id="close-script-btn" class="mt-6 bg-gray-600 text-white font-bold py-2 px-6 rounded-lg w-full transition hover:bg-gray-700">Close</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                const progressBar = document.getElementById('progress-bar');
+                progressBar.style.width = slides.length > 1 ? `${(index / (slides.length - 1)) * 100}%` : '100%';
+                prevBtn.disabled = index === 0;
+                nextBtn.classList.toggle('hidden', index === slides.length - 1);
+                finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
+            }
+
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            finishLessonBtn.addEventListener('click', () => {
+                alert('Lição Finalizada com Sucesso!');
+                window.location.href = 'a1.html';
+            });
+
+            // Drag and Drop Logic
+            const draggables = document.querySelectorAll('.draggable');
+            let draggedItem = null;
+
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', (e) => {
+                    draggedItem = e.target;
+                    setTimeout(() => e.target.style.display = 'none', 0);
+                });
+                draggable.addEventListener('dragend', (e) => {
+                    setTimeout(() => {
+                        if (draggedItem) {
+                           draggedItem.style.display = 'inline-flex';
+                        }
+                        draggedItem = null;
+                    }, 0);
+                });
+            });
+
+            document.querySelectorAll('.drop-zone').forEach(zone => {
+                zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
+                zone.addEventListener('dragleave', e => { zone.classList.remove('over'); });
+                zone.addEventListener('drop', e => {
+                    e.preventDefault();
+                    if (draggedItem && zone.dataset.match.includes(draggedItem.id)) {
+                        draggedItem.style.display = 'inline-flex';
+                        zone.appendChild(draggedItem);
+                        zone.classList.remove('over');
+                        draggedItem.classList.remove('draggable');
+                        draggedItem.style.cursor = 'default';
+                        
+                        const requiredItems = zone.dataset.match.split(' ').length;
+                        if (zone.children.length === requiredItems) {
+                             zone.style.borderColor = '#22c55e';
+                             zone.style.borderStyle = 'solid';
+                        }
+                        draggedItem = null;
+                    } else {
+                         zone.classList.remove('over');
+                    }
+                });
+            });
+
+            // Individual Answer Button Logic
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    let prev = button.previousElementSibling;
+                    while (prev) {
+                        if (prev.tagName === 'INPUT' && prev.dataset.answer) {
+                            prev.value = prev.dataset.answer;
+                            prev.classList.add('text-indigo-600', 'font-bold', 'correct');
+                            if (!prev.previousElementSibling || prev.previousElementSibling.tagName !== 'INPUT') {
+                                break;
+                            }
+                        }
+                        prev = prev.previousElementSibling;
+                    }
+                });
+            });
+            
+            // Modal Logic
+            const modal = document.getElementById('script-modal');
+            document.getElementById('show-script-btn').addEventListener('click', () => modal.classList.add('active'));
+            document.getElementById('close-script-btn').addEventListener('click', () => modal.classList.remove('active'));
+            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>

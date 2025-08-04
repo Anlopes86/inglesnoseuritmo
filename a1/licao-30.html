@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 - Lesson 30: Future Plans | Inglês no seu Ritmo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Flashcards */
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 200px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
+        .flashcard-front { background-color: white; color: #0891b2; text-align: center; }
+        .flashcard-back { background-color: #0891b2; color: white; transform: rotateY(180deg); text-align: center; }
+
+        /* Drag & Drop */
+        .draggable { cursor: grab; }
+        .drop-zone { border-style: dashed; }
+        .drop-zone.over { background-color: #cffafe; border-color: #0891b2; }
+        
+        /* Answer Button */
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.5rem; }
+        .answer-btn:hover { color: #0e7490; }
+        input[data-answer].correct { background-color: #cffafe; border-color: #0891b2; }
+        input[data-answer] { transition: all 0.3s; }
+
+        /* Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        .modal-content { background: white; padding: 2.5rem; border-radius: 1rem; max-width: 500px; width: 90%; transform: scale(0.95); transition: transform 0.3s ease; }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="a1.html" class="text-lg font-bold text-cyan-600 hover:text-cyan-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
+            <h1 class="text-xl font-semibold text-center">A1 - Lesson 30: Future Plans</h1>
+            <div class="w-24"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-cyan-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+        
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-cyan-700"><i class="fas fa-comments text-yellow-500"></i> Warm-up: Yesterday vs. Tomorrow</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-2xl mb-6 text-gray-600">Let's connect the past and the future.</p>
+                    <div class="text-left text-xl space-y-4 bg-gray-50 p-6 rounded-lg">
+                        <p><strong class="text-blue-600">Professor:</strong> "Hello! Let's start by looking back. <strong class="font-bold">Did you</strong> watch a movie yesterday?" (Review)</p>
+                        <p><strong class="text-orange-600">Aluno:</strong> "Yes, I watched a movie." / "No, I didn't watch a movie."</p>
+                        <p><strong class="text-blue-600">Professor:</strong> "Great! That was yesterday. Now, what about tomorrow? Do you have plans for tomorrow?"</p>
+                        <p><strong class="text-orange-600">Aluno:</strong> "Yes, I will... work."</p>
+                        <p><strong class="text-blue-600">Professor:</strong> "Good! A great way to say this is: 'I <strong class="font-bold">am going to</strong> work tomorrow.' Today we will learn all about talking about our future plans!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-cyan-700"><i class="fas fa-calendar-alt text-cyan-500"></i> Vocabulary: Future Time & Plans</h2>
+                <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Words for talking about the future. Click the cards!</p>
+                <div class="flashcard-grid max-w-6xl mx-auto">
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Tomorrow</h3></div><div class="flashcard-back"><p class="text-2xl">Amanhã</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Next week</h3></div><div class="flashcard-back"><p class="text-2xl">Próxima semana</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Next weekend</h3></div><div class="flashcard-back"><p class="text-2xl">Próximo fim de semana</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Next year</h3></div><div class="flashcard-back"><p class="text-2xl">Próximo ano</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">To travel</h3></div><div class="flashcard-back"><p class="text-2xl">Viajar</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">To visit</h3></div><div class="flashcard-back"><p class="text-2xl">Visitar</p></div></div></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+             <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-cyan-700"><i class="fas fa-book-open text-purple-500"></i> Grammar: Future with "going to"</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto text-left">
+                    <p class="text-2xl mb-6 text-gray-600 text-center">Use for plans and intentions.</p>
+                    <h3 class="font-bold text-xl text-blue-700 mb-2">Structure: <strong class="font-semibold">Verb to be + going to + Main Verb</strong></h3>
+                    <div class="bg-blue-50 p-4 rounded-lg text-lg space-y-2">
+                        <p><strong class="font-semibold">(+)</strong> I <strong class="font-semibold">am going to travel</strong> next month.</p>
+						<p><strong class="font-semibold">(+)</strong> She <strong class="font-semibold">is going to visit</strong> her friend.</p>
+                        <p><strong class="font-semibold">(-)</strong> He <strong class="font-semibold">is not (isn't) going to work</strong> tomorrow.</p>
+						<p><strong class="font-semibold">(-)</strong> They <strong class="font-semibold">are not (aren't) going to study</strong>.</p>
+                        <p><strong class="font-semibold">(?)</strong> <strong class="font-semibold">Are you going to</strong> watch the movie? -> Yes, I am. / No, I'm not.</p>
+						<p><strong class="font-semibold">(?)</strong> What <strong class="font-semibold">are you going to do</strong> tonight?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-cyan-700"><i class="fas fa-pencil-alt text-green-500"></i>Practice: My Plans</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-xl mb-6 text-gray-600">Complete the sentences about future plans.</p>
+                    <div class="text-left text-xl space-y-4">
+                        <p>1. I <input data-answer="am going to visit" class="w-48 p-1 border-b-2 text-center"> my parents next weekend. (visit) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p>2. She <input data-answer="is not going to cook" class="w-56 p-1 border-b-2 text-center"> dinner tonight. (not / cook) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p>3. They <input data-answer="are going to travel" class="w-52 p-1 border-b-2 text-center"> to Japan next year. (travel) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p>4. <strong>A:</strong> What <input data-answer="are you going to do" class="w-52 p-1 border-b-2 text-center"> tomorrow? (you / do) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+						<p>   <strong>B:</strong> I <input data-answer="am going to play" class="w-48 p-1 border-b-2 text-center"> soccer. (play) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-cyan-700"><i class="fas fa-headphones text-blue-500"></i>Listening: New Year's Resolutions</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-xl mb-6 text-gray-600">Listen to Clara's plans for next year.</p>
+                    <button id="show-script-btn" class="bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition hover:bg-cyan-700 mb-8"><i class="fas fa-file-alt mr-2"></i> Show Teacher's Script</button>
+                    <div class="text-left mt-6 text-lg space-y-6">
+                        <div>
+                            <label for="q1" class="font-bold block mb-2">1. What is she going to start?</label>
+                            <textarea id="q1" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="She is going to..."></textarea>
+                        </div>
+                        <div>
+                            <label for="q2" class="font-bold block mb-2">2. Where is she going to travel?</label>
+                            <textarea id="q2" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="She is going to..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-cyan-700"><i class="fas fa-music text-purple-500"></i> Music Time: I'm Gonna Be (500 Miles)</h2>
+            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/23" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-6 text-center">
+                    <p class="text-xl mb-4 text-gray-600">Listen to The Proclaimers. "Gonna" is a common way to say "going to".</p>
+                    <div class="text-xl inline-block text-left space-y-3 bg-gray-50 p-6 rounded-lg border-l-4 border-cyan-500">
+                         <p>When I wake up, well I know I'm <input data-answer="gonna be" class="w-32 p-1 border-b-2 text-center bg-transparent"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                         <p>I'm <input data-answer="gonna be" class="w-32 p-1 border-b-2 text-center bg-transparent"> the man who wakes up next to you <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                         <p>When I go out, yeah, I know I'm <input data-answer="gonna be" class="w-32 p-1 border-b-2 text-center bg-transparent"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                         <p>I'm <input data-answer="gonna be" class="w-32 p-1 border-b-2 text-center bg-transparent"> the man who goes along with you <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-6 text-center text-cyan-700"><i class="fas fa-puzzle-piece text-green-500"></i> Practice: Plan Your Year</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-5xl mx-auto">
+                <p class="text-xl mb-8 text-gray-600 text-center">Drag the activity to the time you are going to do it.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <div class="flex flex-col items-center gap-4">
+                        <h3 class="font-bold text-xl">Activities:</h3>
+                        <div id="act-work" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">Work</div>
+                        <div id="act-travel" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">Travel to the beach</div>
+                        <div id="act-visit" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">Visit my family</div>
+                    </div>
+                    <div class="space-y-4 text-left">
+                        <div class="flex items-center gap-3"><p class="w-1/2 text-lg">Tomorrow, I'm going to...</p> <div data-match="act-work" class="drop-zone w-1/2 p-4 border-2 border-gray-300 rounded-lg min-h-[50px]"></div></div>
+                        <div class="flex items-center gap-3"><p class="w-1/2 text-lg">Next weekend, I'm going to...</p> <div data-match="act-visit" class="drop-zone w-1/2 p-4 border-2 border-gray-300 rounded-lg min-h-[50px]"></div></div>
+                        <div class="flex items-center gap-3"><p class="w-1/2 text-lg">Next year, I'm going to...</p> <div data-match="act-travel" class="drop-zone w-1/2 p-4 border-2 border-gray-300 rounded-lg min-h-[50px]"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-cyan-700"><i class="fas fa-home text-green-500"></i>Homework: Your Resolutions</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <p class="text-xl mb-6 text-gray-600">Write about your plans for next week or next year.</p>
+                    <div class="text-left text-lg space-y-2 mt-4 bg-gray-50 p-6 rounded-lg">
+                        <p class="font-bold">Write at least 3 plans using "going to":</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>Example: "Next week, I am going to study English every day."</li>
+                            <li>"I'm not going to watch TV."</li>
+                            <li>"My family and I are going to visit my grandmother."</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center flex flex-col items-center justify-center h-full">
+                <i class="fas fa-paper-plane text-cyan-600 text-7xl mb-6"></i>
+                <h2 class="text-5xl font-bold mb-4 text-gray-800">The best way to predict the future...</h2>
+                <p class="text-3xl text-gray-600 max-w-2xl">...is to create it.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-30">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-cyan-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-cyan-600">Próximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Finalizar Aula</button>
+        </div>
+    </footer>
+
+    <div id="script-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 class="text-2xl font-bold mb-4 text-cyan-700">Listening Activity Script</h3>
+            <p class="text-lg italic leading-relaxed">
+                "Hi! My name is Clara and I have big plans for next year. I am going to start a new job in a different city. I am also going to travel to Italy with my sister. It's going to be a great year!"
+            </p>
+            <button id="close-script-btn" class="mt-6 bg-gray-600 text-white font-bold py-2 px-6 rounded-lg w-full transition hover:bg-gray-700">Close</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                const progressBar = document.getElementById('progress-bar');
+                progressBar.style.width = slides.length > 1 ? `${(index / (slides.length - 1)) * 100}%` : '100%';
+                prevBtn.disabled = index === 0;
+                nextBtn.classList.toggle('hidden', index === slides.length - 1);
+                finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
+            }
+
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            finishLessonBtn.addEventListener('click', () => {
+                alert('Lição Finalizada com Sucesso!');
+                window.location.href = 'a1.html';
+            });
+
+            // Drag and Drop Logic
+            const draggables = document.querySelectorAll('.draggable');
+            let draggedItem = null;
+
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', (e) => {
+                    draggedItem = e.target;
+                    setTimeout(() => e.target.style.display = 'none', 0);
+                });
+                draggable.addEventListener('dragend', (e) => {
+                    setTimeout(() => {
+                        if (draggedItem) {
+                           draggedItem.style.display = 'inline-flex';
+                        }
+                        draggedItem = null;
+                    }, 0);
+                });
+            });
+
+            document.querySelectorAll('.drop-zone').forEach(zone => {
+                zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
+                zone.addEventListener('dragleave', e => { zone.classList.remove('over'); });
+                zone.addEventListener('drop', e => {
+                    e.preventDefault();
+                    if (draggedItem && zone.dataset.match.includes(draggedItem.id)) {
+                        draggedItem.style.display = 'inline-flex';
+                        zone.appendChild(draggedItem);
+                        zone.classList.remove('over');
+                        draggedItem.classList.remove('draggable');
+                        draggedItem.style.cursor = 'default';
+                        
+                        const requiredItems = zone.dataset.match.split(' ').length;
+                        if (zone.children.length === requiredItems) {
+                             zone.style.borderColor = '#22c55e';
+                             zone.style.borderStyle = 'solid';
+                        }
+                        draggedItem = null;
+                    } else {
+                         zone.classList.remove('over');
+                    }
+                });
+            });
+
+            // Individual Answer Button Logic
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const parentP = button.closest('p');
+                    if (parentP) {
+                        parentP.querySelectorAll('input[data-answer]').forEach(inputField => {
+                            inputField.value = inputField.dataset.answer;
+                            inputField.classList.add('text-cyan-600', 'font-bold', 'correct');
+                        });
+                    }
+                });
+            });
+            
+            // Modal Logic
+            const modal = document.getElementById('script-modal');
+            const showScriptBtn = document.getElementById('show-script-btn');
+            
+            if (showScriptBtn) {
+                showScriptBtn.addEventListener('click', () => modal.classList.add('active'));
+            }
+            document.getElementById('close-script-btn').addEventListener('click', () => modal.classList.remove('active'));
+            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>

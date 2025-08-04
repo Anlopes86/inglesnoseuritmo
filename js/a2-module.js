@@ -1,0 +1,40 @@
+// js/a2-module.js (CÓDIGO CORRETO)
+
+const module = {
+    id: 'a2',
+    name: 'Módulo A2 - Pre-Intermediate',
+    lessons: [
+        { id: 'licao-01', title: 'Rotina Diária e Hábitos', url: 'licao-01.html' },
+        { id: 'licao-02', title: 'Descrevendo Pessoas e Aparência', url: 'licao-02.html' },
+        { id: 'licao-03', title: 'Comida e Bebida', url: 'licao-03.html' },
+        { id: 'licao-04', title: 'Lugares na Cidade e Direções', url: 'licao-04.html' },
+        { id: 'licao-05', title: 'Passatempos e Interesses', url: 'licao-05.html' },
+        { id: 'licao-06', title: 'Compras e Dinheiro', url: 'licao-06.html' },
+        { id: 'licao-07', title: 'Planos Futuros e Intenções', url: 'licao-07.html' },
+        { id: 'licao-08', title: 'Experiências Passadas', url: 'licao-08.html' },
+        { id: 'licao-09', title: 'Saúde e Bem-estar', url: 'licao-09.html' },
+        { id: 'licao-10', title: 'Viagens e Férias', url: 'licao-10.html' },
+        { id: 'licao-11', title: 'Educação e Aprendizagem', url: 'licao-11.html' },
+        { id: 'licao-12', title: 'Trabalho e Profissões', url: 'licao-12.html' },
+        { id: 'licao-13', title: 'Tecnologia e Internet', url: 'licao-13.html' },
+        { id: 'licao-14', title: 'Sentimentos e Emoções', url: 'licao-14.html' },
+        { id: 'licao-15', title: 'Roupas e Moda', url: 'licao-15.html' },
+        { id: 'licao-16', title: 'Celebrações e Feriados', url: 'licao-16.html' },
+        { id: 'licao-17', title: 'Música e Filmes', url: 'licao-17.html' },
+        { id: 'licao-18', title: 'Esportes e Atividades Físicas', url: 'licao-18.html' },
+        { id: 'licao-19', title: 'Notícias e Eventos Atuais', url: 'licao-19.html' },
+        { id: 'licao-20', title: 'O Meio Ambiente', url: 'licao-20.html' },
+        { id: 'licao-21', title: 'Relações Interpessoais', url: 'licao-21.html' },
+        { id: 'licao-22', title: 'Serviços Comunitários', url: 'licao-22.html' },
+        { id: 'licao-23', title: 'Fazendo Pedidos e Reclamações', url: 'licao-23.html' },
+        { id: 'licao-24', title: 'Cultura e Tradições', url: 'licao-24.html' },
+        { id: 'licao-25', title: 'Histórias e Narrativas', url: 'licao-25.html' },
+        { id: 'licao-26', title: 'Opiniões e Debates', url: 'licao-26.html' },
+        { id: 'licao-27', title: 'Conselhos e Sugestões', url: 'licao-27.html' },
+        { id: 'licao-28', title: 'Comparando Culturas', url: 'licao-28.html' },
+        { id: 'licao-29', title: 'Reservas de Hotel e Viagem', url: 'licao-29.html' },
+        { id: 'licao-30', title: 'Clima e Estações do Ano', url: 'licao-30.html' },
+        { id: 'licao-31', title: 'Rotina de Estudos e Trabalho', url: 'licao-31.html' },
+        { id: 'licao-32', title: 'Revisão Geral A2', url: 'licao-32.html' }
+    ]
+};
