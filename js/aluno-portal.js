@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ponto de Entrada Principal
     auth.onAuthStateChanged(user => {
         if (!user) {
-            const loginPath = window.location.pathname.includes('/aluno/') ? '../login.html' : 'login.html';
+            const loginPath = window.location.pathname.includes('/aluno/') ? 'login.html' : 'login.html';
             window.location.href = loginPath;
             return;
         }
@@ -478,7 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (logoutBtnContainer && !logoutBtnContainer.querySelector('#logout-btn')) {
              logoutBtnContainer.innerHTML = `<button id="logout-btn" class="w-full text-left enhanced-btn bg-red-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 transition"><i class="fas fa-sign-out-alt nav-icon"></i>Sair</button>`;
              document.getElementById('logout-btn').addEventListener('click', () => { 
-                auth.signOut().then(() => { localStorage.clear(); window.location.href = '../login.html'; }); 
+                auth.signOut().then(() => { localStorage.clear(); window.location.href = 'login.html'; }); 
             });
         }
         const backBtn = document.getElementById('back-to-index-btn');
