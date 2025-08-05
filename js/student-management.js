@@ -1,153 +1,130 @@
-// Funcionalidades de gerenciamento de alunos
 document.addEventListener('DOMContentLoaded', () => {
-    const addStudentBtn = document.getElementById('add-student-btn');
-    const deleteStudentBtn = document.getElementById('delete-student-btn');
-    
-    if (addStudentBtn) {
-        addStudentBtn.addEventListener('click', addStudent);
+    // A configuração do Firebase já deve estar no seu app.js ou firebase-config.js
+    // mas garantimos a inicialização aqui também.
+    if (!firebase.apps.length) {
+        console.error("Firebase não foi inicializado. Verifique seus scripts.");
+        return;
     }
-    
-    if (deleteStudentBtn) {
-        deleteStudentBtn.addEventListener('click', deleteStudent);
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+
+    // --- Seletores de Elementos ---
+    const addStudentBtn = document.getElementById('add-student-btn');
+    const studentNameInput = document.getElementById('new-student-fullname');
+    const studentUsernameInput = document.getElementById('new-student-username');
+    const studentPasswordInput = document.getElementById('new-student-password');
+    const studentTypeSelect = document.getElementById('new-student-type');
+    const studentSelect = document.getElementById('student-select');
+    const deleteStudentBtn = document.getElementById('delete-student-btn');
+
+    // --- Lógica para Adicionar Aluno ---
+    if (addStudentBtn) {
+        addStudentBtn.addEventListener('click', async () => {
+            const fullName = studentNameInput.value.trim();
+            const username = studentUsernameInput.value.trim();
+            const password = studentPasswordInput.value.trim();
+            const studentType = studentTypeSelect.value;
+
+            if (!fullName || !username || !password) {
+                alert('Por favor, preencha todos os campos para adicionar um aluno.');
+                return;
+            }
+
+            // O Firebase Auth usa e-mail para login. Criamos um e-mail "fictício" para o aluno.
+            // O aluno fará login com o nome de utilizador, mas o sistema usará este e-mail por trás.
+            const email = `${username}@aluno.com`;
+
+            addStudentBtn.classList.add('btn-loading');
+            addStudentBtn.disabled = true;
+
+            try {
+                // Passo 1: Criar o usuário no Firebase Authentication
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const newUserId = userCredential.user.uid;
+
+                // Passo 2: Salvar os detalhes do aluno no Firestore
+                await db.collection('students').doc(newUserId).set({
+                    name: fullName,
+                    username: username,
+                    email: email,
+                    studentType: studentType, // Salva o tipo de curso (ex: 'business')
+                    role: 'aluno',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    progress: { // Inicializa o progresso para todos os módulos
+                        a1: {},
+                        conversation: {},
+                        business: {}
+                    }
+                });
+
+                alert(`Aluno "${fullName}" adicionado com sucesso!`);
+                
+                // Limpa os campos do formulário
+                studentNameInput.value = '';
+                studentUsernameInput.value = '';
+                studentPasswordInput.value = '';
+                studentTypeSelect.value = 'a1';
+
+            } catch (error) {
+                console.error("Erro ao adicionar aluno: ", error);
+                if (error.code === 'auth/email-already-in-use') {
+                    alert('Erro: Este nome de utilizador já existe. Por favor, escolha outro.');
+                } else if (error.code === 'auth/weak-password') {
+                    alert('Erro: A senha deve ter no mínimo 6 caracteres.');
+                } else {
+                    alert('Ocorreu um erro ao criar o aluno. Verifique a consola para mais detalhes.');
+                }
+            } finally {
+                // Volta ao estado normal do botão
+                addStudentBtn.classList.remove('btn-loading');
+                addStudentBtn.disabled = false;
+            }
+        });
+    }
+
+    // --- Lógica para Excluir Aluno ---
+    if (deleteStudentBtn && studentSelect) {
+        deleteStudentBtn.addEventListener('click', async () => {
+            const studentId = studentSelect.value;
+            if (!studentId) {
+                alert('Por favor, selecione um aluno para excluir.');
+                return;
+            }
+
+            const studentName = studentSelect.options[studentSelect.selectedIndex].text;
+            if (confirm(`Tem a certeza de que deseja excluir o aluno "${studentName}"?\nEsta ação não pode ser desfeita.`)) {
+                try {
+                    // Aqui estamos a excluir apenas o documento do Firestore.
+                    // A exclusão do usuário de autenticação é mais complexa e requer um ambiente de back-end.
+                    // Para este projeto, remover do Firestore é suficiente para que ele desapareça da sua lista.
+                    await db.collection('students').doc(studentId).delete();
+                    alert('Aluno excluído com sucesso.');
+                    // A lista de alunos será atualizada automaticamente pelo listener do app.js
+                } catch (error) {
+                    console.error("Erro ao excluir aluno: ", error);
+                    alert('Ocorreu um erro ao excluir o aluno.');
+                }
+            }
+        });
     }
 });
 
-// Função para adicionar aluno
-async function addStudent() {
-    const fullname = document.getElementById('new-student-fullname').value.trim();
-    const username = document.getElementById('new-student-username').value.trim();
-    const password = document.getElementById('new-student-password').value;
-    const type = document.getElementById('new-student-type').value;
-    const addBtn = document.getElementById('add-student-btn');
-
-    if (!fullname || !username || !password) {
-        showMessage('Por favor, preencha todos os campos obrigatórios.', 'error');
-        return;
-    }
-
-    // Validar nome de usuário (apenas letras, números e underscore)
-    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
-        showMessage('Nome de utilizador deve conter apenas letras, números e underscore.', 'error');
-        return;
-    }
-
-    // Mostrar estado de carregamento
-    addBtn.classList.add('btn-loading');
-    addBtn.disabled = true;
-
-    try {
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-        
-        // Criar email baseado no username
-        const email = `${username.toLowerCase()}@inglesnoseuritmo.com`;
-        
-        // Verificar se o username já existe
-        const existingUser = await db.collection('students')
-            .where('username', '==', username.toLowerCase())
-            .get();
-            
-        if (!existingUser.empty) {
-            throw new Error('Nome de utilizador já existe. Escolha outro.');
-        }
-
-        // Criar usuário no Firebase Auth
-        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-        const user = userCredential.user;
-
-        // Salvar dados do aluno no Firestore
-        await db.collection('students').doc(user.uid).set({
-            name: fullname,
-            username: username.toLowerCase(),
-            email: email,
-            role: 'aluno',
-            courseType: type,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-            progress: {
-                a1: { completed: 0, total: 32 },
-                conversation: { completed: 0, total: 18 }
-            }
-        });
-
-        // Limpar formulário
-        document.getElementById('new-student-fullname').value = '';
-        document.getElementById('new-student-username').value = '';
-        document.getElementById('new-student-password').value = '';
-        document.getElementById('new-student-type').value = 'a1';
-
-        showMessage(`Aluno ${fullname} adicionado com sucesso!`, 'success');
-
-    } catch (error) {
-        console.error('Erro ao adicionar aluno:', error);
-        showMessage(error.message || 'Erro ao adicionar aluno. Tente novamente.', 'error');
-    } finally {
-        // Remover estado de carregamento
-        addBtn.classList.remove('btn-loading');
-        addBtn.disabled = false;
-    }
-}
-
-// Função para excluir aluno
-async function deleteStudent() {
-    const studentSelect = document.getElementById('student-select');
-    const selectedStudentId = studentSelect.value;
-    const selectedStudentName = studentSelect.options[studentSelect.selectedIndex].text;
-
-    if (!selectedStudentId) {
-        showMessage('Por favor, selecione um aluno para excluir.', 'error');
-        return;
-    }
-
-    // Confirmar exclusão
-    if (!confirm(`Tem certeza que deseja excluir o aluno "${selectedStudentName}"? Esta ação não pode ser desfeita.`)) {
-        return;
-    }
-
-    const deleteBtn = document.getElementById('delete-student-btn');
-    deleteBtn.classList.add('btn-loading');
-    deleteBtn.disabled = true;
-
-    try {
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-
-        // Excluir dados do Firestore
-        await db.collection('students').doc(selectedStudentId).delete();
-
-        // Limpar seleção
-        studentSelect.value = '';
-        studentSelect.dispatchEvent(new Event('change'));
-
-        showMessage(`Aluno "${selectedStudentName}" excluído com sucesso.`, 'success');
-
-    } catch (error) {
-        console.error('Erro ao excluir aluno:', error);
-        showMessage('Erro ao excluir aluno. Tente novamente.', 'error');
-    } finally {
-        deleteBtn.classList.remove('btn-loading');
-        deleteBtn.disabled = false;
-    }
-}
-
-// Função para buscar alunos (melhorada com filtro)
+// --- Lógica para Filtrar Alunos (função global chamada pelo oninput do HTML) ---
 function filterStudents() {
     const searchInput = document.getElementById('student-search');
     const studentSelect = document.getElementById('student-select');
-    
-    if (!searchInput || !studentSelect) return;
-    
-    const searchTerm = searchInput.value.toLowerCase();
-    const options = studentSelect.querySelectorAll('option');
-    
-    options.forEach(option => {
-        if (option.value === '') return; // Manter opção padrão
-        
-        const studentName = option.textContent.toLowerCase();
-        if (studentName.includes(searchTerm)) {
-            option.style.display = '';
-        } else {
-            option.style.display = 'none';
-        }
-    });
-}
+    const filter = searchInput.value.toLowerCase();
+    const options = studentSelect.options;
 
+    for (let i = 0; i < options.length; i++) {
+        const option = options[i];
+        const text = option.text.toLowerCase();
+        if (option.value === "") continue; // Sempre mostrar "Selecione um aluno..."
+        
+        if (text.includes(filter)) {
+            option.style.display = "";
+        } else {
+            option.style.display = "none";
+        }
+    }
+}

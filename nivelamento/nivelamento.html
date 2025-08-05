@@ -3,59 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo de Nivelamento | Inglês no seu Ritmo</title>
+    <title>Inglês para Negócios | Inglês no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../enhanced-styles.css" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .lesson-card {
-            transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn forwards 0.5s ease-out;
+        .lesson-card-wrapper {
+             opacity: 0;
+             transform: translateY(20px);
+             animation: fadeIn forwards 0.5s ease-out;
+             height: 100%;
         }
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        .lesson-card-wrapper:nth-child(n+4) { animation-delay: 0.1s; }
+        .lesson-card-wrapper:nth-child(n+8) { animation-delay: 0.2s; }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+
+        .lesson-card { transition: all 0.3s ease; border: 2px solid transparent; }
+        .lesson-card.locked { background-color: #f3f4f6; color: #9ca3af; cursor: not-allowed; }
+        .lesson-card.locked:hover { transform: none; box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px -1px rgba(0,0,0,.1); }
+        .lesson-card.completed { border-color: #22c55e; background-color: #f0fdf4; }
+        .lesson-card.next { border-color: #3b82f6; animation: pulse-blue 2s infinite; }
+        @keyframes pulse-blue { 0% { box-shadow: 0 0 0 0 rgba(59,130,246,0.4); } 70% { box-shadow: 0 0 0 10px rgba(59,130,246,0); } 100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); } }
+        
+        .completed-badge, .locked-badge { font-weight: 600; font-size: 0.875rem; padding: 0.25rem 0.75rem; border-radius: 9999px; }
+        .completed-badge { color: #166534; background-color: #dcfce7; }
+        .locked-badge { color: #4b5563; background-color: #e5e7eb; }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
 
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="../aluno.html" class="text-lg font-bold text-gray-600 hover:text-gray-800 flex items-center gap-2">
-                <i class="fas fa-chevron-left"></i> Voltar ao Portal
+            <a href="../index.html" class="text-lg font-bold text-gray-600 hover:text-gray-800 flex items-center gap-2">
+                <i class="fas fa-chevron-left"></i> Voltar ao Painel
             </a>
-            <h1 id="header-title" class="text-2xl font-semibold text-center">Teste de Nivelamento</h1>
-            <div class="w-40 hidden md:block"></div>
         </div>
     </header>
 
     <main class="container mx-auto p-8 mt-4">
         <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-700">Bem-vindo ao Teste de Nivelamento</h2>
-            <p class="text-lg text-gray-500 mt-2">Vamos descobrir qual é o módulo ideal para você começar sua jornada!</p>
+            <h2 id="page-title" class="text-3xl font-bold text-gray-700">Carregando Módulo...</h2>
+            <p id="page-subtitle" class="text-lg text-gray-500 mt-2">Aguarde um momento.</p>
         </div>
-        <div id="lessons-grid" class="flex justify-center">
-            <a href="licao-01.html" class="lesson-card bg-white p-6 rounded-2xl shadow-md border-2 border-transparent hover:border-purple-500 hover:shadow-lg w-full max-w-sm">
-                <div>
-                    <div class="flex items-center justify-between mb-2">
-                        <h3 class="text-2xl font-bold text-gray-400">Teste</h3>
-                        <i class="fas fa-play-circle text-purple-500 text-3xl"></i>
-                    </div>
-                    <p class="text-xl font-semibold text-gray-800 lesson-title">Placement Test</p>
-                </div>
-                <div class="mt-6">
-                    <span class="w-full text-center block text-white font-bold py-3 px-6 rounded-lg transition duration-300 bg-purple-600 hover:bg-purple-700">
-                        Iniciar Teste
-                    </span>
-                </div>
-            </a>
+
+        <div id="loading-message" class="text-center text-gray-500">
+             <i class="fas fa-spinner fa-spin mr-2"></i> Carregando aulas...
         </div>
+
+        <div id="lessons-grid" data-module="nivelamento" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12" style="visibility: hidden;">
+            </div>
     </main>
-</body>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/prompts.js"></script> <script src="../js/module-loader.js"></script> </body>
 </html>

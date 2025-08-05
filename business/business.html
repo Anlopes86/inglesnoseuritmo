@@ -11,97 +11,93 @@
         body { font-family: 'Inter', sans-serif; }
         .lesson-card {
             transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn forwards 0.5s ease-out;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
-        .lesson-card:nth-child(odd) { animation-delay: 0.1s; }
-        .lesson-card:nth-child(even) { animation-delay: 0.2s; }
-        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+        .lesson-card:not(.locked):hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* ESTADOS VISUAIS */
+        .lesson-card.locked {
+            background-color: #f3f4f6;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .lesson-card.locked .lesson-title, .lesson-card.locked .lesson-number { color: #6b7280; }
+
+        .lesson-card.completed {
+            border-color: #22c55e;
+            background-color: #f0fdf4;
+        }
+
+        .lesson-card.next {
+            border-color: #3b82f6;
+            animation: pulse-blue 2s infinite;
+        }
+        @keyframes pulse-blue {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body data-module="business" class="bg-gray-100">
 
     <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="container mx-auto px-6 py-4">
             <a href="../index.html" class="text-lg font-bold text-gray-600 hover:text-gray-800 flex items-center gap-2">
                 <i class="fas fa-chevron-left"></i> Voltar ao Painel
             </a>
-            <h1 id="header-title" class="text-2xl font-semibold text-center">Inglês para Negócios</h1>
-            <div class="w-40 hidden md:block"></div>
         </div>
     </header>
 
     <main class="container mx-auto p-8 mt-4">
         <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-700">Tópicos Essenciais para o Sucesso Profissional</h2>
-            <p class="text-lg text-gray-500 mt-2">Domine o inglês para se destacar no mercado de trabalho.</p>
+            <h2 class="text-3xl font-bold text-gray-700">Inglês para Negócios</h2>
+            <p class="text-lg text-gray-500 mt-2">Tópicos Essenciais para o Sucesso Profissional.</p>
         </div>
 
         <h3 class="text-2xl font-bold text-blue-800 mb-6 border-l-4 border-blue-800 pl-4">Bloco 1: Landing the Job</h3>
-        <div id="lessons-grid-1" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <a href="licao-01.html" class="lesson-card bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1">
-                <p class="font-bold text-blue-600">Lição 01</p><p class="text-xl font-semibold text-gray-800">The Job Interview</p>
-            </a>
-            <a href="#" class="lesson-card bg-white p-6 rounded-xl shadow-md text-gray-400 cursor-not-allowed">
-                <p class="font-bold">Lição 02</p><p class="text-xl font-semibold">Describing Skills</p>
-            </a>
-            <a href="#" class="lesson-card bg-white p-6 rounded-xl shadow-md text-gray-400 cursor-not-allowed">
-                <p class="font-bold">Lição 03</p><p class="text-xl font-semibold">Answering Questions</p>
-            </a>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <a href="licao-01.html" data-lesson="1" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-blue-600">Lição 01</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">The Job Interview</p></a>
+            <a href="licao-02.html" data-lesson="2" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-blue-600">Lição 02</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Describing Skills</p></a>
+            <a href="licao-03.html" data-lesson="3" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-blue-600">Lição 03</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Answering Questions</p></a>
         </div>
         
         <h3 class="text-2xl font-bold text-purple-800 mb-6 border-l-4 border-purple-800 pl-4">Bloco 2: Daily Communication</h3>
-        <div id="lessons-grid-2" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <a href="#" class="lesson-card bg-white p-6 rounded-xl shadow-md text-gray-400 cursor-not-allowed">
-                <p class="font-bold">Lição 04</p><p class="text-xl font-semibold">Networking & Small Talk</p>
-            </a>
-            <a href="#" class="lesson-card bg-white p-6 rounded-xl shadow-md text-gray-400 cursor-not-allowed">
-                <p class="font-bold">Lição 05</p><p class="text-xl font-semibold">Professional Emails</p>
-            </a>
-            <a href="#" class="lesson-card bg-white p-6 rounded-xl shadow-md text-gray-400 cursor-not-allowed">
-                <p class="font-bold">Lição 06</p><p class="text-xl font-semibold">Business Phone Calls</p>
-            </a>
-            <a href="#" class="lesson-card bg-white p-6 rounded-xl shadow-md text-gray-400 cursor-not-allowed">
-                <p class="font-bold">Lição 07</p><p class="text-xl font-semibold">Participating in Meetings</p>
-            </a>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <a href="licao-04.html" data-lesson="4" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 04</p><p class="lesson-title flex-grow text-xl font-semibold">Networking & Small Talk</p></a>
+            <a href="licao-05.html" data-lesson="5" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 05</p><p class="lesson-title flex-grow text-xl font-semibold">Professional Emails</p></a>
+            <a href="licao-06.html" data-lesson="6" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 06</p><p class="lesson-title flex-grow text-xl font-semibold">Business Phone Calls</p></a>
+            <a href="licao-07.html" data-lesson="7" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 07</p><p class="lesson-title flex-grow text-xl font-semibold">Participating in Meetings</p></a>
         </div>
         
         <h3 class="text-2xl font-bold text-green-800 mb-6 border-l-4 border-green-800 pl-4">Bloco 3: Presenting & Persuading</h3>
-        <div id="lessons-grid-3" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <a href="#" class="lesson-card bg-white p-6 rounded-xl shadow-md text-gray-400 cursor-not-allowed">
-                <p class="font-bold">Lição 08</p><p class="text-xl font-semibold">Giving a Presentation</p>
-            </a>
-            <a href="#" class="lesson-card bg-white p-6 rounded-xl shadow-md text-gray-400 cursor-not-allowed">
-                <p class="font-bold">Lição 09</p><p class="text-xl font-semibold">Describing Trends & Data</p>
-            </a>
-            <a href="#" class="lesson-card bg-white p-6 rounded-xl shadow-md text-gray-400 cursor-not-allowed">
-                <p class="font-bold">Lição 10</p><p class="text-xl font-semibold">The Art of Negotiation</p>
-            </a>
-            <a href="#" class="lesson-card bg-white p-6 rounded-xl shadow-md text-gray-400 cursor-not-allowed">
-                <p class="font-bold">Lição 11</p><p class="text-xl font-semibold">Describing Your Company</p>
-            </a>
-            <a href="#" class="lesson-card bg-white p-6 rounded-xl shadow-md text-gray-400 cursor-not-allowed">
-                <p class="font-bold">Lição 12</p><p class="text-xl font-semibold">Marketing & Branding</p>
-            </a>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+             <a href="licao-08.html" data-lesson="8" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-green-600">Lição 08</p><p class="lesson-title flex-grow text-xl font-semibold">Giving a Presentation</p></a>
+             <a href="licao-09.html" data-lesson="9" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-green-600">Lição 09</p><p class="lesson-title flex-grow text-xl font-semibold">Describing Trends & Data</p></a>
+             <a href="licao-10.html" data-lesson="10" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-green-600">Lição 10</p><p class="lesson-title flex-grow text-xl font-semibold">The Art of Negotiation</p></a>
+             <a href="licao-11.html" data-lesson="11" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-green-600">Lição 11</p><p class="lesson-title flex-grow text-xl font-semibold">Describing Your Company</p></a>
+             <a href="licao-12.html" data-lesson="12" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-green-600">Lição 12</p><p class="lesson-title flex-grow text-xl font-semibold">Marketing & Branding</p></a>
         </div>
 
-        <h3 class="text-2xl font-bold text-orange-800 mb-6 border-l-4 border-orange-800 pl-4">Bloco 4: Leadership & Strategy</h3>
-        <div id="lessons-grid-4" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <a href="#" class="lesson-card bg-white p-6 rounded-xl shadow-md text-gray-400 cursor-not-allowed">
-                <p class="font-bold">Lição 13</p><p class="text-xl font-semibold">Talking About Finance</p>
-            </a>
-            <a href="#" class="lesson-card bg-white p-6 rounded-xl shadow-md text-gray-400 cursor-not-allowed">
-                <p class="font-bold">Lição 14</p><p class="text-xl font-semibold">Problem-Solving</p>
-            </a>
-            <a href="#" class="lesson-card bg-white p-6 rounded-xl shadow-md text-gray-400 cursor-not-allowed">
-                <p class="font-bold">Lição 15</p><p class="text-xl font-semibold">Intercultural Communication</p>
-            </a>
-             <a href="#" class="lesson-card bg-white p-6 rounded-xl shadow-md text-gray-400 cursor-not-allowed">
-                <p class="font-bold">Lição 16</p><p class="text-xl font-semibold">Leadership Styles</p>
-            </a>
+         <h3 class="text-2xl font-bold text-orange-800 mb-6 border-l-4 border-orange-800 pl-4">Bloco 4: Leadership & Strategy</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <a href="licao-13.html" data-lesson="13" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-orange-600">Lição 13</p><p class="lesson-title flex-grow text-xl font-semibold">Talking About Finance</p></a>
+            <a href="licao-14.html" data-lesson="14" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-orange-600">Lição 14</p><p class="lesson-title flex-grow text-xl font-semibold">Problem-Solving</p></a>
+            <a href="licao-15.html" data-lesson="15" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-orange-600">Lição 15</p><p class="lesson-title flex-grow text-xl font-semibold">Intercultural Communication</p></a>
+            <a href="licao-16.html" data-lesson="16" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-orange-600">Lição 16</p><p class="lesson-title flex-grow text-xl font-semibold">Leadership Styles</p></a>
         </div>
-
     </main>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/status-updater.js"></script>
 </body>
 </html>

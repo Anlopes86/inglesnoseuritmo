@@ -199,3 +199,48 @@ h4 { font-size: 1.25rem; font-weight: 500; }
     white-space: pre-wrap;
     word-wrap: break-word;
 }
+/* === ESTILOS PARA OS CARDS DE LIÇÃO NAS PÁGINAS DE MÓDULO === */
+.lesson-card {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #ffffff;
+}
+.lesson-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+.lesson-card .lesson-title {
+    flex-grow: 1; /* Garante que o card ocupe todo o espaço vertical */
+}
+
+/* ESTADOS VISUAIS DOS CARDS */
+.lesson-card.locked {
+    background-color: #f3f4f6;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+.lesson-card.locked:hover { 
+    transform: none; 
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.lesson-card.locked .lesson-title, .lesson-card.locked .lesson-number { 
+    color: #6b7280; 
+}
+
+.lesson-card.completed {
+    border-color: #22c55e;
+    background-color: #f0fdf4;
+}
+
+.lesson-card.next {
+    border-color: #3b82f6;
+    animation: pulse-blue 2s infinite;
+}
+@keyframes pulse-blue {
+    0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+}

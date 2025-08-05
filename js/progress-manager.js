@@ -1,4 +1,4 @@
-// js/progress-manager.js (VERSÃO FINAL, SIMPLES E CORRETA)
+// js/progress-manager.js
 
 async function updateStudentData(studentId, dataToUpdate) {
   const db = firebase.firestore();
@@ -18,7 +18,6 @@ async function updateStudentData(studentId, dataToUpdate) {
 async function markLessonAsComplete(moduleId, lessonId) {
   const auth = firebase.auth();
   
-  // Garante que o módulo e a lição foram informados
   if (!moduleId || !lessonId) {
       alert("Erro crítico: Módulo ou Lição não foram identificados. O progresso não pôde ser salvo.");
       console.error("markLessonAsComplete foi chamada sem moduleId ou lessonId.");
@@ -47,9 +46,10 @@ async function markLessonAsComplete(moduleId, lessonId) {
     await updateStudentData(studentId, progressUpdate);
     alert("Parabéns! Você concluiu a lição.");
     
-    // Constrói um caminho absoluto para o redirecionamento.
-    // Ex: Se o moduleId for 'a1', ele redireciona para '/a1/a1.html'
-    window.location.href = `/${moduleId}/${moduleId}.html`;
+    // CORREÇÃO AQUI: Redirecionamento para um caminho relativo e mais seguro.
+    // Isso assume que a página da lição (ex: licao-06.html) está na mesma pasta
+    // que a página principal do módulo (ex: conversation.html).
+    window.location.href = `${moduleId}.html`;
 
   } catch (error) {
     console.error("Erro ao salvar progresso:", error);
