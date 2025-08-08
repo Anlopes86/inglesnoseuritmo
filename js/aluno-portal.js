@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (lastCompletedNum > 0) {
             const moduleInfo = lessonData[studentType];
             const lessonTitle = moduleInfo.titles[lastCompletedNum] || `Lição ${lastCompletedNum}`;
-            const lessonUrl = `../${studentType}/licao-${String(lastCompletedNum).padStart(2, '0')}.html`;
+            const lessonUrl = `${studentType}/licao-${String(lastCompletedNum).padStart(2, '0')}.html`;
             card.innerHTML = `<div class="md:w-1/4 flex justify-center mb-4 md:mb-0"><i class="fas fa-history text-7xl text-white opacity-80"></i></div><div class="md:w-3/4 text-center md:text-left"><h3 class="text-2xl font-bold mb-2">Revise sua Última Aula</h3><p class="text-lg opacity-90 mb-6">Sua última lição foi: <strong>${lessonTitle}</strong></p><a href="${lessonUrl}" class="w-full md:w-auto inline-block bg-white text-purple-600 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-100 shadow-md">Revisar Agora</a></div>`;
         } else {
              card.innerHTML = `<div class="text-center w-full"><i class="fas fa-book-open text-7xl text-white opacity-80 mb-4"></i><h3 class="text-2xl font-bold mb-2">Tudo a postos!</h3><p class="text-lg opacity-90">Complete a sua primeira lição para começar a jornada.</p></div>`;
