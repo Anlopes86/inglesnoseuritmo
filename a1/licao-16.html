@@ -25,7 +25,7 @@
         <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
-    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+    <main class="container mx-auto p-8">
         
         <div class="slide active">
             <div class="text-center">
@@ -48,7 +48,7 @@
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
                     <p class="text-2xl mb-8 text-gray-600">Combine os opostos.</p>
                     <div id="practice-1" class="grid grid-cols-2 gap-4 text-xl">
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
                     <p class="text-2xl mb-8 text-gray-600">Use o que aprendeu para completar a história.</p>
                     <div id="practice-2" class="text-left text-lg space-y-3 bg-gray-50 p-6 rounded-lg">
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -81,7 +81,7 @@
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
                     <p class="text-2xl mb-8 text-gray-600">Reescreva as frases de acordo com a instrução.</p>
                     <div id="practice-4" class="space-y-6 text-lg">
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -137,40 +137,65 @@
         </div>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- CONFIGURAÇÃO DA LIÇÃO ---
+            const moduleId = 'a1';
+            const lessonNumber = 16;
+            // ---------------------------------------------------------
+
+            // --- LÓGICA PADRÃO DE NAVEGAÇÃO E SALVAMENTO ---
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            if (finishLessonBtn) {
+                finishLessonBtn.addEventListener('click', () => {
+                    finishLessonBtn.disabled = true;
+                    finishLessonBtn.textContent = "Salvando...";
+                    if (typeof markLessonAsComplete === 'function') {
+                        markLessonAsComplete(moduleId, lessonNumber); 
+                    } else {
+                        console.error("A função markLessonAsComplete não foi encontrada.");
+                        alert("Erro ao salvar progresso.");
+                    }
+                });
+            }
+
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
             let currentSlide = 0;
 
             function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                const progressBar = document.getElementById('progress-bar');
-                progressBar.style.width = slides.length > 1 ? `${(index / (slides.length - 1)) * 100}%` : '100%';
-                prevBtn.disabled = index === 0;
-                nextBtn.classList.toggle('hidden', index === slides.length - 1);
-                finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
+                if (progressBar) {
+                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
+                    progressBar.style.width = `${progressPercentage}%`;
+                }
+                if (prevBtn) prevBtn.disabled = index === 0;
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
             }
 
-            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            
-            finishLessonBtn.addEventListener('click', () => {
-                if (typeof markLessonAsComplete === 'function') { markLessonAsComplete(); } 
-                else { alert('Lição Finalizada!'); window.location.href = 'a1.html'; }
-            });
+            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
 
+            // --- LÓGICA ESPECÍFICA DA LIÇÃO 16 ---
             function addInputListeners(container) {
-                container.querySelectorAll('input').forEach(input => {
+                container.querySelectorAll('input[data-answer]').forEach(input => {
                     input.addEventListener('blur', () => {
-                        const userAnswer = input.value.trim().replace(/[.?]/g, '').toLowerCase();
-                        const correctAnswer = input.dataset.answer.replace(/[.?]/g, '').toLowerCase();
-                        input.classList.remove('border-green-500', 'border-red-500', 'font-bold');
+                        const userAnswer = input.value.trim().replace(/[.?']/g, '').toLowerCase();
+                        const correctAnswer = input.dataset.answer.replace(/[.?']/g, '').toLowerCase();
+                        input.classList.remove('border-green-500', 'border-red-500');
                         if(userAnswer.length === 0) return;
-                        if (userAnswer === correctAnswer) {
-                            input.classList.add('border-green-500', 'font-bold');
+                        if(userAnswer === correctAnswer) {
+                            input.classList.add('border-green-500');
                         } else {
                             input.classList.add('border-red-500');
                         }
@@ -178,29 +203,23 @@
                 });
             }
 
-            // --- Vocabulary Activity ---
             const vocabContainer = document.getElementById('practice-1');
             const vocabItems = [ { word: 'always', answer: 'never' }, { word: 'good', answer: 'bad' }, { word: 'boring', answer: 'interesting' }, { word: 'morning', answer: 'evening' } ];
-            function createVocabActivity() {
-                if(!vocabContainer) return;
+            if (vocabContainer) {
                 let html = '';
                 vocabItems.forEach(item => { html += `<div class="flex items-center justify-between p-2 bg-gray-100 rounded-lg"><span>${item.word}</span><i class="fas fa-arrows-alt-h"></i><input data-answer="${item.answer}" class="w-40 p-1 border-b-2 text-center text-xl outline-none focus:border-blue-500 transition"></div>`; });
                 vocabContainer.innerHTML = html;
                 addInputListeners(vocabContainer);
             }
 
-            // --- Grammar Activity 1 ---
             const dialogueContainer = document.getElementById('practice-2');
-            function createDialogueActivity() {
-                if(!dialogueContainer) return;
+            if (dialogueContainer) {
                 dialogueContainer.innerHTML = `<p>This is my friend, John. He <input data-answer="is" class="w-16 p-1 border-b-2 text-center bg-transparent"> a doctor. He <input data-answer="works" class="w-24 p-1 border-b-2 text-center bg-transparent"> at a big hospital. Every day, he <input data-answer="wakes up" class="w-32 p-1 border-b-2 text-center bg-transparent"> very early. He <input data-answer="doesn't" class="w-28 p-1 border-b-2 text-center bg-transparent"> have breakfast at home because he is <input data-answer="always" class="w-24 p-1 border-b-2 text-center bg-transparent"> busy. <input data-answer="Do" class="w-16 p-1 border-b-2 text-center bg-transparent"> you know <input data-answer="him" class="w-16 p-1 border-b-2 text-center bg-transparent">? I sometimes have lunch with <input data-answer="him" class="w-16 p-1 border-b-2 text-center bg-transparent">.</p>`;
                 addInputListeners(dialogueContainer);
             }
 
-            // --- Grammar Activity 2 ---
             const checkpointContainer = document.getElementById('practice-3');
-            function createCheckpointActivity() {
-                if(!checkpointContainer) return;
+            if (checkpointContainer) {
                  checkpointContainer.innerHTML = `
                     <p>1. My sister <input data-answer="doesn't" class="w-24 p-1 border-b-2 text-center bg-transparent"> like to watch TV. She thinks <input data-answer="it" class="w-16 p-1 border-b-2 text-center bg-transparent"> is boring.</p>
                     <p>2. <input data-answer="Do" class="w-16 p-1 border-b-2 text-center bg-transparent"> you have <input data-answer="my" class="w-16 p-1 border-b-2 text-center bg-transparent"> keys? I can't find <input data-answer="them" class="w-20 p-1 border-b-2 text-center bg-transparent">.</p>
@@ -209,21 +228,15 @@
                 addInputListeners(checkpointContainer);
             }
 
-            // --- Sentence Transformation Activity ---
             const transformContainer = document.getElementById('practice-4');
-            const transformSentences = [ { instruction: 'Mude para negativo:', original: 'He likes coffee.', answer: 'He doesn\'t like coffee.'}, { instruction: 'Faça uma pergunta:', original: 'They play sports.', answer: 'Do they play sports?'}, { instruction: 'Troque por pronome objeto:', original: 'I call my mother.', answer: 'I call her.'}, { instruction: 'Mude para negativo:', original: 'She studies French.', answer: 'She doesn\'t study French.'} ];
-            function createTransformActivity() {
-                if(!transformContainer) return;
+            const transformSentences = [ { instruction: 'Mude para negativo:', original: 'He likes coffee.', answer: "He doesn't like coffee."}, { instruction: 'Faça uma pergunta:', original: 'They play sports.', answer: 'Do they play sports?'}, { instruction: 'Troque por pronome objeto:', original: 'I call my mother.', answer: 'I call her.'}, { instruction: 'Mude para negativo:', original: 'She studies French.', answer: "She doesn't study French."} ];
+            if (transformContainer) {
                 let html = '';
                 transformSentences.forEach(item => { html += `<div class="p-4 bg-gray-100 rounded-lg"><p class="text-gray-500 italic mb-2">${item.instruction} "${item.original}"</p><input data-answer="${item.answer}" class="w-full p-2 border-2 rounded-lg text-center text-xl outline-none focus:border-blue-500 transition"></div>`; });
                 transformContainer.innerHTML = html;
                 addInputListeners(transformContainer);
             }
-
-            createVocabActivity();
-            createDialogueActivity();
-            createCheckpointActivity();
-            createTransformActivity();
+            
             showSlide(0);
         });
     </script>

@@ -186,115 +186,68 @@
         </div>
     </footer>
 
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- CONFIGURAÇÃO DA LIÇÃO (ÚNICA PARTE QUE VOCÊ MUDA) ---
+            const moduleId = 'a1';      // Ex: 'a1', 'conversation', 'business'
+            const lessonNumber = 4;     // Ex: 1, 2, 3, etc.
+            // ---------------------------------------------------------
+
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            if (finishLessonBtn) {
+                finishLessonBtn.addEventListener('click', () => {
+                    finishLessonBtn.disabled = true;
+                    finishLessonBtn.textContent = "Salvando...";
+                    if (typeof markLessonAsComplete === 'function') {
+                        markLessonAsComplete(moduleId, lessonNumber); 
+                    } else {
+                        console.error("A função markLessonAsComplete não foi encontrada.");
+                        alert("Erro ao salvar progresso.");
+                    }
+                });
+            }
+
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
             let currentSlide = 0;
 
             function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                const progressBar = document.getElementById('progress-bar');
-                progressBar.style.width = slides.length > 1 ? `${(index / (slides.length - 1)) * 100}%` : '100%';
-                prevBtn.disabled = index === 0;
-                nextBtn.classList.toggle('hidden', index === slides.length - 1);
-                finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
+                
+                if (progressBar) {
+                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
+                    progressBar.style.width = `${progressPercentage}%`;
+                }
+                
+                if (prevBtn) prevBtn.disabled = index === 0;
+
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
             }
 
-            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
             
-            // ✅ CORREÇÃO: Ação do botão "Finalizar" agora chama a função externa
-            finishLessonBtn.addEventListener('click', () => {
-                if (typeof markLessonAsComplete === 'function') {
-                    markLessonAsComplete(); // Esta função está em lesson-handler.js
-                } else {
-                    console.error('Erro: a função markLessonAsComplete() não foi encontrada. Verifique se o script lesson-handler.js está sendo importado corretamente.');
-                    showCustomAlert('Erro crítico ao salvar o progresso. Contacte o suporte.', 'error');
-                }
+            // Lógica Específica da Aula (atividades, flashcards, etc.)
+            // Esta parte deve ser mantida ou adicionada conforme a necessidade de cada lição.
+            document.querySelectorAll('.flashcard').forEach(card => {
+                card.addEventListener('click', () => card.classList.toggle('flipped'));
             });
             
-            document.querySelectorAll('.answer-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const inputField = button.previousElementSibling;
-                    const correctAnswer = button.dataset.answer;
-                    if(inputField && inputField.tagName === 'INPUT') {
-                        inputField.value = correctAnswer;
-                        inputField.classList.remove('border-red-500');
-                        inputField.classList.add('border-green-500', 'font-bold');
-                    }
-                });
-            });
-
             showSlide(0);
         });
-
-        function checkAnswers(container) {
-            const inputs = container.querySelectorAll('input[data-answer]');
-            let allCorrect = true;
-            inputs.forEach(input => {
-                const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
-                input.classList.remove('border-red-500', 'border-green-500');
-                input.classList.add('border-2'); 
-
-                if (isCorrect) {
-                    input.classList.add('border-green-500');
-                } else {
-                    input.classList.add('border-red-500');
-                    allCorrect = false;
-                }
-            });
-            if (allCorrect) {
-                showCustomAlert('Parabéns! Todas as respostas estão corretas!', 'success');
-            } else {
-                showCustomAlert('Algumas respostas estão incorretas. Tente novamente!', 'error');
-            }
-        }
-
-        function showCustomAlert(message, type = 'success', callback) {
-            const modal = document.getElementById('custom-alert-modal');
-            if (!modal) return;
-            
-            // Recria o HTML para garantir que não haja listeners duplicados
-            modal.innerHTML = `<div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 text-center transform transition-all scale-95 opacity-0" id="custom-alert-box"><i id="custom-alert-icon" class="fas text-6xl mb-5"></i><h3 id="custom-alert-title" class="text-3xl font-bold mb-3"></h3><p id="custom-alert-message" class="text-lg text-gray-600 mb-8"></p><button id="custom-alert-close-btn" class="text-white font-bold py-3 px-10 rounded-lg text-lg transition-transform duration-200 hover:scale-105"></button></div>`;
-            
-            const box = document.getElementById('custom-alert-box'),
-                  icon = document.getElementById('custom-alert-icon'),
-                  title = document.getElementById('custom-alert-title'),
-                  messageEl = document.getElementById('custom-alert-message'),
-                  closeBtn = document.getElementById('custom-alert-close-btn');
-
-            if (type === 'success') {
-                icon.className = 'fas fa-check-circle text-green-500 text-6xl mb-5';
-                title.textContent = 'Sucesso!';
-                closeBtn.textContent = 'OK';
-                closeBtn.className += ' bg-green-600 hover:bg-green-700';
-            } else {
-                icon.className = 'fas fa-times-circle text-red-500 text-6xl mb-5';
-                title.textContent = 'Atenção!';
-                closeBtn.textContent = 'Tentar Novamente';
-                closeBtn.className += ' bg-red-600 hover:bg-red-700';
-            }
-            messageEl.textContent = message;
-            modal.style.display = 'flex';
-
-            setTimeout(() => { 
-                if(box) {
-                    box.closest('.fixed').classList.add('opacity-100');
-                    box.classList.remove('scale-95', 'opacity-0');
-                }
-            }, 10);
-
-            closeBtn.onclick = () => {
-                modal.style.display = 'none';
-                if (callback) callback();
-            }
-        }
     </script>
-    
-    <script src="js/lesson-handler.js"></script>
 
 </body>
 </html>

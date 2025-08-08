@@ -171,73 +171,65 @@
         </div>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- CONFIGURAÇÃO DA LIÇÃO (ÚNICA PARTE QUE VOCÊ MUDA) ---
+            const moduleId = 'a1';      // Ex: 'a1', 'conversation', 'business'
+            const lessonNumber = 5;     // Ex: 1, 2, 3, etc.
+            // ---------------------------------------------------------
+
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            if (finishLessonBtn) {
+                finishLessonBtn.addEventListener('click', () => {
+                    finishLessonBtn.disabled = true;
+                    finishLessonBtn.textContent = "Salvando...";
+                    if (typeof markLessonAsComplete === 'function') {
+                        markLessonAsComplete(moduleId, lessonNumber); 
+                    } else {
+                        console.error("A função markLessonAsComplete não foi encontrada.");
+                        alert("Erro ao salvar progresso.");
+                    }
+                });
+            }
+
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
             let currentSlide = 0;
 
             function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                const progressBar = document.getElementById('progress-bar');
-                progressBar.style.width = slides.length > 1 ? `${(index / (slides.length - 1)) * 100}%` : '100%';
-                prevBtn.disabled = index === 0;
-                nextBtn.classList.toggle('hidden', index === slides.length - 1);
-                finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
+                
+                if (progressBar) {
+                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
+                    progressBar.style.width = `${progressPercentage}%`;
+                }
+                
+                if (prevBtn) prevBtn.disabled = index === 0;
+
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
             }
 
-            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
             
-            finishLessonBtn.addEventListener('click', () => {
-                if (typeof markLessonAsComplete === 'function') { markLessonAsComplete(); } 
-                else { alert('Lição Finalizada!'); window.location.href = 'a1.html'; }
+            // Lógica Específica da Aula (atividades, flashcards, etc.)
+            // Esta parte deve ser mantida ou adicionada conforme a necessidade de cada lição.
+            document.querySelectorAll('.flashcard').forEach(card => {
+                card.addEventListener('click', () => card.classList.toggle('flipped'));
             });
             
-            document.querySelectorAll('.answer-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const inputField = button.previousElementSibling;
-                    const correctAnswer = button.dataset.answer;
-                    if(inputField && inputField.tagName === 'INPUT') {
-                        inputField.value = correctAnswer;
-                    }
-                });
-            });
-
-            // Practice Activity: Unscramble the sentences
-            const practiceContainer = document.getElementById('practice-1');
-            const practiceSentences = [
-                { words: ['your', 'name', 'what\'s', '?'], answer: 'What\'s your name?' },
-                { words: ['is', 'phone', 'what', 'number', 'your', '?'], answer: 'What is your phone number?' },
-                { words: ['email', 'address', 'your', 'what\'s', '?'], answer: 'What\'s your email address?' }
-            ];
-
-            function createPracticeActivity() {
-                if(!practiceContainer) return;
-                let html = '';
-                practiceSentences.forEach((item) => {
-                    html += `<div class="p-4 bg-gray-100 rounded-lg"><p class="text-gray-500 italic mb-2">Organize: ${item.words.join(' / ')}</p><input data-answer="${item.answer}" class="w-full p-2 border-2 rounded-lg text-center text-xl outline-none focus:border-blue-500 transition"></div>`;
-                });
-                practiceContainer.innerHTML = html;
-
-                practiceContainer.querySelectorAll('input').forEach(input => {
-                    input.addEventListener('blur', () => {
-                        const userAnswer = input.value.trim().replace(/[?]/g, '').toLowerCase();
-                        const correctAnswer = input.dataset.answer.replace(/[?]/g, '').toLowerCase();
-                        input.classList.remove('border-green-500', 'border-red-500');
-                        if(userAnswer.length === 0) return;
-                        if (userAnswer === correctAnswer) {
-                            input.classList.add('border-green-500');
-                        } else {
-                            input.classList.add('border-red-500');
-                        }
-                    });
-                });
-            }
-            
-            createPracticeActivity();
             showSlide(0);
         });
     </script>

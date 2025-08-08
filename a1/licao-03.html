@@ -238,73 +238,64 @@
     </div>
     
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- CONFIGURAÇÃO DA LIÇÃO (ÚNICA PARTE QUE VOCÊ MUDA) ---
+            const moduleId = 'a1';      // Ex: 'a1', 'conversation', 'business'
+            const lessonNumber = 3;     // Ex: 1, 2, 3, etc.
+            // ---------------------------------------------------------
+
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            if (finishLessonBtn) {
+                finishLessonBtn.addEventListener('click', () => {
+                    finishLessonBtn.disabled = true;
+                    finishLessonBtn.textContent = "Salvando...";
+                    if (typeof markLessonAsComplete === 'function') {
+                        markLessonAsComplete(moduleId, lessonNumber); 
+                    } else {
+                        console.error("A função markLessonAsComplete não foi encontrada.");
+                        alert("Erro ao salvar progresso.");
+                    }
+                });
+            }
+
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
             let currentSlide = 0;
 
             function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                const progressBar = document.getElementById('progress-bar');
-                progressBar.style.width = slides.length > 1 ? `${(index / (slides.length - 1)) * 100}%` : '100%';
-                prevBtn.disabled = index === 0;
-                nextBtn.classList.toggle('hidden', index === slides.length - 1);
-                finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
-            }
-
-            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            
-            // SCRIPT DE SALVAMENTO CORRIGIDO
-            const firebaseConfig = {
-                apiKey: "AIzaSyA4srp5nACEhOLLD8Yd4cwe5_rZ8izcm1Y",
-                authDomain: "inglesnoseuritmo-bae14.firebaseapp.com",
-                projectId: "inglesnoseuritmo-bae14",
-                storageBucket: "inglesnoseuritmo-bae14.appspot.com",
-                messagingSenderId: "112615489735",
-                appId: "1:112615489735:web:9ee215ab9a2246f3a13ee2"
-            };
-
-            if (!firebase.apps.length) {
-                firebase.initializeApp(firebaseConfig);
-            }
-            const db = firebase.firestore();
-
-            function markLessonAsComplete() {
-                const studentId = localStorage.getItem('selectedStudentId');
-                if (!studentId) {
-                    alert("Nenhum aluno selecionado. Por favor, selecione um aluno no painel principal.");
-                    // LINK CORRIGIDO: Volta para o painel na pasta raiz
-                    window.location.href = 'index.html'; 
-                    return;
+                
+                if (progressBar) {
+                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
+                    progressBar.style.width = `${progressPercentage}%`;
                 }
+                
+                if (prevBtn) prevBtn.disabled = index === 0;
 
-                const lessonId = 3; // ID desta lição
-                const studentRef = db.collection("students").doc(studentId);
-                const progressUpdate = {};
-                progressUpdate[`progress.a1.lesson_${lessonId}`] = true;
-
-                studentRef.update(progressUpdate)
-                    .then(() => {
-                        alert('Lição 3 concluída com sucesso!');
-                        // LINK CORRIGIDO: Volta para a página do módulo A1 que está na mesma pasta
-                        window.location.href = 'a1.html'; 
-                    })
-                    .catch((error) => {
-                        console.error("Erro ao salvar o progresso: ", error);
-                        alert("Ocorreu um erro ao salvar seu progresso. Tente novamente.");
-                    });
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
             }
 
-            finishLessonBtn.addEventListener('click', markLessonAsComplete);
-
-            // Resto do seu código JS da página
-            // ... (código dos botões de resposta, drag & drop, modal, etc.)
-
+            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            
+            // Lógica Específica da Aula (atividades, flashcards, etc.)
+            // Esta parte deve ser mantida ou adicionada conforme a necessidade de cada lição.
+            document.querySelectorAll('.flashcard').forEach(card => {
+                card.addEventListener('click', () => card.classList.toggle('flipped'));
+            });
+            
             showSlide(0);
         });
     </script>

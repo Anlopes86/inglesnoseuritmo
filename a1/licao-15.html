@@ -158,77 +158,59 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- CONFIGURAÇÃO DA LIÇÃO (ÚNICA PARTE QUE VOCÊ MUDA) ---
+            const moduleId = 'a1';      // Ex: 'a1', 'conversation', 'business'
+            const lessonNumber = 15;     // Ex: 1, 2, 3, etc.
+            // ---------------------------------------------------------
+
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            if (finishLessonBtn) {
+                finishLessonBtn.addEventListener('click', () => {
+                    finishLessonBtn.disabled = true;
+                    finishLessonBtn.textContent = "Salvando...";
+                    if (typeof markLessonAsComplete === 'function') {
+                        markLessonAsComplete(moduleId, lessonNumber); 
+                    } else {
+                        console.error("A função markLessonAsComplete não foi encontrada.");
+                        alert("Erro ao salvar progresso.");
+                    }
+                });
+            }
+
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
             let currentSlide = 0;
 
             function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                const progressBar = document.getElementById('progress-bar');
-                progressBar.style.width = slides.length > 1 ? `${(index / (slides.length - 1)) * 100}%` : '100%';
-                prevBtn.disabled = index === 0;
-                nextBtn.classList.toggle('hidden', index === slides.length - 1);
-                finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
+                
+                if (progressBar) {
+                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
+                    progressBar.style.width = `${progressPercentage}%`;
+                }
+                
+                if (prevBtn) prevBtn.disabled = index === 0;
+
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
             }
 
-            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
             
-            finishLessonBtn.addEventListener('click', () => {
-                if (typeof markLessonAsComplete === 'function') { markLessonAsComplete(); } 
-                else { alert('Lição Finalizada!'); window.location.href = 'a1.html'; }
+            // Lógica Específica da Aula (atividades, flashcards, etc.)
+            // Esta parte deve ser mantida ou adicionada conforme a necessidade de cada lição.
+            document.querySelectorAll('.flashcard').forEach(card => {
+                card.addEventListener('click', () => card.classList.toggle('flipped'));
             });
             
-            document.querySelectorAll('.flashcard').forEach(fc => {
-                fc.addEventListener('click', () => fc.classList.toggle('flipped'));
-            });
-
-            document.querySelectorAll('.answer-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const inputField = button.previousElementSibling;
-                    const correctAnswer = button.dataset.answer;
-                    if(inputField && inputField.tagName === 'INPUT') {
-                        inputField.value = correctAnswer;
-                    }
-                });
-            });
-
-            const practiceContainer = document.getElementById('practice-1');
-            const practiceSentences = [
-                { time: '3:00', answer: 'It\'s three o\'clock.' },
-                { time: '10:30', answer: 'It\'s half past ten.' },
-                { time: '4:15', answer: 'It\'s a quarter past four.' },
-                { time: '1:45', answer: 'It\'s a quarter to two.' }
-            ];
-
-            function createPracticeActivity() {
-                if(!practiceContainer) return;
-                let html = '';
-                practiceSentences.forEach((item, index) => {
-                    html += `<div class="p-4 bg-gray-100 rounded-lg"><p class="text-gray-500 italic mb-2">What time is it? (${item.time})</p><input data-answer="${item.answer}" class="w-full p-2 border-2 rounded-lg text-center text-xl outline-none focus:border-blue-500 transition"></div>`;
-                });
-                practiceContainer.innerHTML = html;
-
-                practiceContainer.querySelectorAll('input').forEach(input => {
-                    input.addEventListener('blur', () => {
-                        const userAnswer = input.value.trim().replace(/[.]/g, '').toLowerCase();
-                        const correctAnswer = input.dataset.answer.replace(/[.]/g, '').toLowerCase();
-                        input.classList.remove('text-green-500', 'text-red-500', 'font-bold');
-                        if(userAnswer.length === 0) return;
-                        if (userAnswer === correctAnswer) {
-                            input.classList.add('text-green-500', 'font-bold');
-                        } else {
-                            input.classList.add('text-red-500');
-                        }
-                    });
-                });
-            }
-            
-            createPracticeActivity();
             showSlide(0);
         });
     </script>
+
 </body>
 </html>

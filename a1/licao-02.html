@@ -174,84 +174,67 @@
         </div>
     </footer>
 
+   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- CONFIGURAÇÃO DA LIÇÃO (ÚNICA PARTE QUE VOCÊ MUDA) ---
+            const moduleId = 'a1';      // Ex: 'a1', 'conversation', 'business'
+            const lessonNumber = 2;     // Ex: 1, 2, 3, etc.
+            // ---------------------------------------------------------
+
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            if (finishLessonBtn) {
+                finishLessonBtn.addEventListener('click', () => {
+                    finishLessonBtn.disabled = true;
+                    finishLessonBtn.textContent = "Salvando...";
+                    if (typeof markLessonAsComplete === 'function') {
+                        markLessonAsComplete(moduleId, lessonNumber); 
+                    } else {
+                        console.error("A função markLessonAsComplete não foi encontrada.");
+                        alert("Erro ao salvar progresso.");
+                    }
+                });
+            }
+
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
             let currentSlide = 0;
 
             function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                const progressBar = document.getElementById('progress-bar');
-                progressBar.style.width = slides.length > 1 ? `${(index / (slides.length - 1)) * 100}%` : '100%';
-                prevBtn.disabled = index === 0;
-                nextBtn.classList.toggle('hidden', index === slides.length - 1);
-                finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
-            }
-
-            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            
-            finishLessonBtn.addEventListener('click', () => {
-                if (typeof markLessonAsComplete === 'function') { markLessonAsComplete(); } 
-                else { 
-                    console.error('Erro: a função markLessonAsComplete() não foi encontrada. Verifique se o script lesson-handler.js está sendo importado.');
-                    alert('Erro ao salvar progresso.');
+                
+                if (progressBar) {
+                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
+                    progressBar.style.width = `${progressPercentage}%`;
                 }
-            });
-            
-            document.querySelectorAll('.answer-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const inputField = button.previousElementSibling;
-                    const correctAnswer = button.dataset.answer;
-                    if(inputField && inputField.tagName === 'INPUT') {
-                        inputField.value = correctAnswer;
-                    }
-                });
-            });
+                
+                if (prevBtn) prevBtn.disabled = index === 0;
 
-            const practiceContainer = document.getElementById('practice-1');
-            const practiceSentences = [
-                { text: ['She', 'from Japan. She is Japanese.'], answer: 'is' },
-                { text: ['He', 'from Brazil. He is Australian.'], answer: 'isn\'t' },
-                { text: ['He', 'from Canada. He is Canadian.'], answer: 'is' },
-                { text: ['she Italian? Yes, she', '.'], q: ['Is', 'is'] }
-            ];
-
-            function createPracticeActivity() {
-                if(!practiceContainer) return;
-                let html = '';
-                practiceSentences.forEach((item, index) => {
-                    if(item.q) {
-                        html += `<div class="flex items-center justify-center gap-2">${index + 1}. <input data-answer="${item.q[0]}" class="w-20 p-1 border-b-2 text-center outline-none focus:border-blue-500 transition"> she Italian? Yes, she <input data-answer="${item.q[1]}" class="w-20 p-1 border-b-2 text-center outline-none focus:border-blue-500 transition">.</div>`;
-                    } else {
-                        html += `<div class="flex items-center justify-center gap-2">${index + 1}. ${item.text[0]} <input data-answer="${item.answer}" class="w-24 p-1 border-b-2 text-center outline-none focus:border-blue-500 transition"> ${item.text[1]}</div>`;
-                    }
-                });
-                practiceContainer.innerHTML = html;
-
-                practiceContainer.querySelectorAll('input').forEach(input => {
-                    input.addEventListener('blur', () => {
-                        const userAnswer = input.value.trim();
-                        const correctAnswer = input.dataset.answer;
-                        input.classList.remove('border-green-500', 'border-red-500');
-                        if(userAnswer.length === 0) return;
-                        if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
-                            input.classList.add('border-green-500');
-                        } else {
-                            input.classList.add('border-red-500');
-                        }
-                    });
-                });
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
             }
+
+            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
             
-            createPracticeActivity();
+            // Lógica Específica da Aula (atividades, flashcards, etc.)
+            // Esta parte deve ser mantida ou adicionada conforme a necessidade de cada lição.
+            document.querySelectorAll('.flashcard').forEach(card => {
+                card.addEventListener('click', () => card.classList.toggle('flipped'));
+            });
+            
             showSlide(0);
         });
     </script>
-    
-    <script src="js/lesson-handler.js"></script>
 </body>
 </html>
