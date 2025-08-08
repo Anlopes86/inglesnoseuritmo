@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     auth.onAuthStateChanged(user => {
         if (!user) {
-            window.location.href = window.location.pathname.includes('/aluno/') ? '../login.html' : 'login.html';
+            window.location.href = window.location.pathname.includes('/aluno/') ? 'login.html' : 'login.html';
             return;
         }
 
@@ -100,11 +100,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const card = document.getElementById('modules-card');
         if (!card) return;
         const moduleDetails = {
-            a1: { name: 'Módulo A1', url: `../a1/a1.html` },
-            a2: { name: 'Módulo A2', url: `../a2/a2.html` },
-            conversation: { name: 'Tópicos de Conversação', url: `../conversation/conversation.html` },
-            business: { name: 'Inglês para Negócios', url: `../business/business.html` },
-            vestibular: { name: 'Dicas para Vestibular', url: `../vestibular/vestibular.html` }
+            a1: { name: 'Módulo A1', url: `a1/a1.html` },
+            a2: { name: 'Módulo A2', url: `a2/a2.html` },
+            conversation: { name: 'Tópicos de Conversação', url: `conversation/conversation.html` },
+            business: { name: 'Inglês para Negócios', url: `business/business.html` },
+            vestibular: { name: 'Dicas para Vestibular', url: `vestibular/vestibular.html` }
         };
         const details = moduleDetails[studentType] || { name: 'Módulo Principal', url: '#' };
         card.innerHTML = `<i class="fas fa-stream text-5xl mb-4"></i><h3 class="text-2xl font-bold mb-2">${details.name}</h3><p class="text-lg opacity-90 mb-6">Acesse todas as lições e revise seu progresso.</p><a href="${details.url}" class="w-full text-center block bg-white text-gray-800 font-bold py-3 px-6 rounded-lg transition hover:bg-gray-200">Ver Lições</a>`;
@@ -506,7 +506,7 @@ document.addEventListener('DOMContentLoaded', () => {
              document.getElementById('logout-btn').addEventListener('click', () => { 
                 auth.signOut().then(() => { 
                     localStorage.clear(); 
-                    window.location.href = '../login.html'; 
+                    window.location.href = 'login.html'; 
                 }); 
             });
         }
