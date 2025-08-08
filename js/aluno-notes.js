@@ -1,165 +1,173 @@
-// js/aluno-notes.js - VERSÃO COM OPÇÃO DE TAMANHO DE FONTE
+// js/aluno-notes.js
 
 function inicializarAnotacoes() {
+    if (typeof Quill === 'undefined') {
+        console.error("A biblioteca Quill não foi carregada. As anotações não funcionarão.");
+        return;
+    }
+
+    const db = firebase.firestore();
+    let quill;
+    let studentId;
+    let studentDataCache;
+    let currentLessonId = 'geral';
+    let saveTimeout;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const studentIdFromUrl = urlParams.get('studentId');
+    const viewingAsRole = localStorage.getItem('loggedInUserRole');
+    const loggedInUserId = localStorage.getItem('loggedInUserId');
+
+    if (studentIdFromUrl && viewingAsRole === 'professor') {
+        studentId = studentIdFromUrl;
+    } else {
+        studentId = loggedInUserId;
+    }
+
+    if (!studentId) {
+        console.error("Não foi possível identificar o ID do aluno. Anotações não podem ser carregadas ou salvas.");
+        return;
+    }
+
+    const docRef = db.collection('students').doc(studentId);
     const notesCard = document.getElementById('notes-card');
-    if (!notesCard || document.getElementById('lesson-tabs-container')) {
-        return;
-    }
-
-    const NUMBER_OF_LESSONS = 32;
-    let activeLessonId = 'lesson-1';
-    let studentId = null;
-    let allNotesData = {}; 
-
-    const currentUser = firebase.auth().currentUser;
-    if (!currentUser) {
-        notesCard.innerHTML = '<p class="text-gray-500 text-center">Você precisa estar logado para acessar suas anotações.</p>';
-        return;
-    }
-    studentId = currentUser.uid;
-
-    notesCard.innerHTML = `
-        <div id="lesson-tabs-container" class="flex flex-wrap gap-2 border-b border-gray-200 mb-4 pb-2"></div>
-        <div id="editor-wrapper">
-            <div id="editor-container" style="height: 300px; border-radius: 8px;"></div>
-        </div>
-    `;
-
-    const tabsContainer = document.getElementById('lesson-tabs-container');
     
-    // ### ALTERAÇÃO AQUI ###
-    // Adicionamos a opção 'size' à barra de ferramentas.
-    const toolbarOptions = [
-        [{ 'size': ['small', false, 'large', 'huge'] }], // Opções: Pequeno, Normal, Grande, Gigante
-        ['bold', 'italic', 'underline'],
-        [{ 'color': [] }, { 'background': [] }],
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        ['clean']
-    ];
+    if (!notesCard) return;
 
-    const quill = new Quill('#editor-container', {
-        modules: { toolbar: toolbarOptions }, // Usa a nova barra de ferramentas
+    const editorOptions = {
         theme: 'snow',
-        placeholder: 'Carregando anotações...'
-    });
+        placeholder: 'Suas anotações aqui...',
+        modules: {
+            toolbar: [
+                [{ 'header': [1, 2, 3, false] }],
+                ['bold', 'italic', 'underline', 'strike'],
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                [{ 'color': [] }, { 'background': [] }],
+                ['clean']
+            ]
+        }
+    };
 
-    function getStorageKey() { return `studentNotes_v_editable_${studentId}`; }
-
-    function loadNotes() {
-        const storedData = localStorage.getItem(getStorageKey());
-        allNotesData = storedData ? JSON.parse(storedData) : {};
+    function loadNoteContent(lessonId) {
+        currentLessonId = lessonId;
+        const notes = studentDataCache?.notes || {};
+        const content = notes[lessonId] || '';
+        quill.setContents(content);
+        document.getElementById('save-status').textContent = 'Pronto.';
     }
 
-    function saveNoteData() {
-        if (!quill.isEnabled() || !activeLessonId) return;
-        const lessonData = allNotesData[activeLessonId] || {};
-        lessonData.note = quill.root.innerHTML;
-        allNotesData[activeLessonId] = lessonData;
-        localStorage.setItem(getStorageKey(), JSON.stringify(allNotesData));
-    }
+    async function saveCurrentNote(lessonId, quillContent) {
+        const saveStatusEl = document.getElementById('save-status');
+        if (saveStatusEl) saveStatusEl.textContent = 'Salvando...';
 
-    function saveTabName(lessonId, newName) {
-        const lessonData = allNotesData[lessonId] || { note: '<p><br></p>' };
-        lessonData.name = newName;
-        allNotesData[lessonId] = lessonData;
-        localStorage.setItem(getStorageKey(), JSON.stringify(allNotesData));
+        // --- CORREÇÃO PRINCIPAL AQUI ---
+        // Converte o "objeto especial" do Quill para um objeto simples (JSON) que o Firebase aceita.
+        const contentToSave = JSON.parse(JSON.stringify(quillContent));
+
+        const dataToSave = {
+            notes: {
+                [lessonId]: contentToSave
+            }
+        };
+
+        try {
+            await docRef.set(dataToSave, { merge: true });
+            if (saveStatusEl) saveStatusEl.textContent = 'Salvo!';
+            if (!studentDataCache.notes) studentDataCache.notes = {};
+            studentDataCache.notes[lessonId] = contentToSave;
+        } catch (error) {
+            console.error("Erro ao salvar anotações: ", error);
+            if (saveStatusEl) saveStatusEl.textContent = 'Erro ao salvar.';
+        }
     }
 
     function renderTabs() {
-        tabsContainer.innerHTML = ''; 
-        for (let i = 1; i <= NUMBER_OF_LESSONS; i++) {
-            const lessonId = `lesson-${i}`;
-            const lessonData = allNotesData[lessonId] || {};
-            const customName = lessonData.name;
-            const defaultName = `Lição ${i}`;
-            
-            const tab = document.createElement('div'); 
-            tab.setAttribute('role', 'button');
-            tab.setAttribute('tabindex', '0');
-
-            tab.dataset.lessonId = lessonId;
-            tab.className = 'lesson-tab px-3 py-2 rounded-md text-sm font-semibold transition-colors duration-200 flex-shrink-0 flex items-center gap-2 cursor-pointer';
-            
-            tab.innerHTML = `
-                <span class="tab-name">${customName || defaultName}</span>
-                <i class="fas fa-pencil-alt text-xs opacity-50 hover:opacity-100 edit-icon" title="Editar nome da lição"></i>
-            `;
-            tabsContainer.appendChild(tab);
-        }
-    }
-
-    function setActiveLesson(lessonId) {
-        if (activeLessonId && activeLessonId !== lessonId) {
-            saveNoteData();
-        }
-        activeLessonId = lessonId;
-        document.querySelectorAll('.lesson-tab').forEach(tab => {
-            const isSelected = tab.dataset.lessonId === lessonId;
-            tab.classList.toggle('bg-purple-600', isSelected);
-            tab.classList.toggle('text-white', isSelected);
-            tab.classList.toggle('bg-gray-200', !isSelected);
-            tab.classList.toggle('text-gray-700', !isSelected);
-        });
-        const lessonData = allNotesData[lessonId] || {};
-        const noteContent = lessonData.note || '<p><br></p>';
-        const tabName = lessonData.name || `Lição ${lessonId.split('-')[1]}`;
-        quill.root.innerHTML = noteContent;
-        quill.root.dataset.placeholder = `Escreva suas anotações para "${tabName}"...`;
-        quill.enable();
-        quill.focus();
-    }
-
-    tabsContainer.addEventListener('click', (e) => {
-        const target = e.target;
+        const progress = studentDataCache?.progress?.[studentDataCache.studentType] || {};
+        const completedLessons = Object.keys(progress)
+            .map(key => parseInt(key.replace('lesson_', '')))
+            .filter(num => !isNaN(num))
+            .sort((a, b) => a - b);
         
-        if (target.classList.contains('edit-icon')) {
-            e.stopPropagation();
-            const tabElement = target.closest('.lesson-tab');
-            const tabNameSpan = tabElement.querySelector('.tab-name');
-            const currentName = tabNameSpan.textContent;
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.value = currentName;
-            input.className = 'bg-white text-black px-1 rounded w-24';
-            tabNameSpan.replaceWith(input);
-            input.focus();
-            input.select();
+        const tabColors = ['bg-blue-100 text-blue-800', 'bg-green-100 text-green-800', 'bg-yellow-100 text-yellow-800', 'bg-purple-100 text-purple-800', 'bg-red-100 text-red-800'];
+            
+        let tabsHtml = `<div id="notes-tabs-container" class="flex flex-wrap gap-2 border-b border-gray-200 dark:border-gray-700 pb-2 mb-2">
+                            <button data-lesson-id="geral" class="note-tab active px-4 py-2 font-semibold text-sm rounded-md">Anotações Gerais</button>`;
+        
+        completedLessons.forEach((lessonNum, index) => {
+            const lessonTitle = lessonData[studentDataCache.studentType]?.titles[lessonNum] || `Lição ${lessonNum}`;
+            const colorClass = tabColors[index % tabColors.length];
+            tabsHtml += `<button data-lesson-id="lesson_${lessonNum}" class="note-tab ${colorClass} px-4 py-2 font-semibold text-sm rounded-md" title="${lessonTitle}">${lessonTitle}</button>`;
+        });
+        
+        tabsHtml += `</div>`;
+        return tabsHtml;
+    }
 
-            const saveAndExit = () => {
-                const newName = input.value.trim();
-                if (newName && newName !== currentName) {
-                    saveTabName(tabElement.dataset.lessonId, newName);
-                }
-                renderTabs();
-                setActiveLesson(activeLessonId);
-            };
+    notesCard.innerHTML = `
+        <h3 class="text-2xl font-bold mb-4">Minhas Anotações</h3>
+        <div id="tabs-wrapper"></div>
+        <div id="editor-container" style="height: 400px; background-color: white; border: 1px solid #ccc;"></div>
+        <p id="save-status" class="text-sm text-gray-500 mt-2 text-right italic"></p>
+    `;
+    quill = new Quill('#editor-container', editorOptions);
+    
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            studentDataCache = doc.data();
+            const tabsWrapper = document.getElementById('tabs-wrapper');
+            if (tabsWrapper) {
+                tabsWrapper.innerHTML = renderTabs();
+                const tabsContainer = document.getElementById('notes-tabs-container');
+                tabsContainer.querySelectorAll('.note-tab').forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        const newLessonId = tab.dataset.lessonId;
+                        if (newLessonId === currentLessonId) return;
 
-            input.addEventListener('blur', saveAndExit);
-            input.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter') {
-                    event.preventDefault();
-                    saveAndExit();
-                } else if (event.key === 'Escape') {
-                    renderTabs();
-                    setActiveLesson(activeLessonId);
-                }
-            });
-        } 
-        else if (target.closest('.lesson-tab') && target.tagName !== 'INPUT') {
-            const tabElement = target.closest('.lesson-tab');
-            setActiveLesson(tabElement.dataset.lessonId);
+                        const contentToSave = quill.getContents();
+                        if (contentToSave.ops.length > 1 || contentToSave.ops[0].insert.trim() !== '') {
+                            saveCurrentNote(currentLessonId, contentToSave).then(() => {
+                                const currentActive = tabsContainer.querySelector('.note-tab.active');
+                                if (currentActive) currentActive.classList.remove('active');
+                                tab.classList.add('active');
+                                loadNoteContent(newLessonId);
+                            });
+                        } else {
+                            const currentActive = tabsContainer.querySelector('.note-tab.active');
+                            if (currentActive) currentActive.classList.remove('active');
+                            tab.classList.add('active');
+                            loadNoteContent(newLessonId);
+                        }
+                    });
+                });
+            }
+            loadNoteContent('geral');
+        }
+    }).catch((error) => {
+        console.error("Erro ao carregar dados do aluno para as anotações: ", error);
+    });
+
+    quill.on('text-change', (delta, oldDelta, source) => {
+        if (source === 'user') {
+            document.getElementById('save-status').textContent = 'Digitando...';
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(() => {
+                saveCurrentNote(currentLessonId, quill.getContents());
+            }, 2000);
         }
     });
 
-    let saveTimeout;
-    quill.on('text-change', () => {
-        clearTimeout(saveTimeout);
-        saveTimeout = setTimeout(saveNoteData, 500);
-    });
-    
-    window.addEventListener('beforeunload', saveNoteData);
-
-    loadNotes();
-    renderTabs();
-    setActiveLesson(activeLessonId);
+    const tabStyles = `
+        .note-tab { border: 1px solid transparent; transition: all 0.2s ease-in-out; }
+        .note-tab:hover { transform: translateY(-2px); filter: brightness(1.05); }
+        .note-tab.active {
+            border-color: var(--primary-blue, #2563eb);
+            background-color: white !important;
+            color: var(--primary-blue, #2563eb) !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transform: translateY(-2px);
+        }
+    `;
+    const styleSheet = document.createElement("style");
+    styleSheet.innerText = tabStyles;
+    document.head.appendChild(styleSheet);
 }
