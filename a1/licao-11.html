@@ -12,6 +12,8 @@
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Estilos dos Flashcards */
         .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
         .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
@@ -19,8 +21,46 @@
         .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
         .flashcard-front { background-color: white; color: #be185d; text-align: center;}
         .flashcard-back { background-color: #be185d; color: white; transform: rotateY(180deg); text-align: center; }
+        
         .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
         .answer-btn:hover { color: #4f46e5; }
+        .answer-btn:disabled { color: #d1d5db; cursor: default; } /* Estilo para o botão desativado */
+
+        /* Estilos para a atividade "Build the Question" */
+        .word-bank, .drop-zone {
+            border: 2px dashed #d1d5db;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.75rem;
+            min-height: 70px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: #f9fafb;
+        }
+        .word {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            background-color: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            cursor: grab;
+            user-select: none;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            transition: background-color 0.2s;
+        }
+        .word:active { cursor: grabbing; background-color: #e0e7ff; }
+        .feedback {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            display: none;
+        }
+        .feedback.correct { display: block; background-color: #dcfce7; color: #166534; border: 1px solid #86efac; }
+        .feedback.incorrect { display: block; background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -57,10 +97,10 @@
                 <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-gamepad text-pink-600"></i> Vocabulary: Hobbies & Interests</h2>
                 <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Clique nos cartões para aprender como falar sobre hobbies.</p>
                 <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">I like to listen to music.</h4></div><div class="flashcard-back"><p class="text-xl">Eu gosto de ouvir música.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">He likes to watch movies.</h4></div><div class="flashcard-back"><p class="text-xl">Ele gosta de assistir filmes.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">She plays sports.</h4></div><div class="flashcard-back"><p class="text-xl">Ela pratica esportes.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">They read books.</h4></div><div class="flashcard-back"><p class="text-xl">Eles leem livros.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">I like to listen to music.</h4></div><div class="flashcard-back"><p class="text-xl">Eu gosto de ouvir música.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">He likes to watch movies.</h4></div><div class="flashcard-back"><p class="text-xl">Ele gosta de assistir filmes.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">She plays sports.</h4></div><div class="flashcard-back"><p class="text-xl">Ela pratica esportes.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">They read books.</h4></div><div class="flashcard-back"><p class="text-xl">Eles leem livros.</p></div></div></div>
                 </div>
             </div>
         </div>
@@ -91,8 +131,7 @@
                 <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-pencil-alt text-orange-500"></i>Practice: Build the Question</h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
                     <p class="text-2xl mb-8 text-gray-600">Coloque as palavras na ordem correta para formar perguntas.</p>
-                    <div id="practice-1" class="space-y-6 text-xl">
-                        </div>
+                    <div id="practice-1" class="space-y-8 text-xl"></div>
                 </div>
             </div>
         </div>
@@ -115,7 +154,7 @@
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-green-700"><i class="fas fa-music text-red-500"></i> Music Time: Do You Wanna Dance?</h2>
             <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/17" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1jvzmNw7sVTSDnprPuEi0D?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 <div class="mt-4">
                     <p class="text-2xl mb-4 text-gray-600">Ouça a música e revele as palavras que faltam.</p>
                     <div class="text-xl space-y-3 bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
@@ -164,12 +203,16 @@
             <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finalizar Aula</button>
         </div>
     </footer>
-
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- CONFIGURAÇÃO DA LIÇÃO (ÚNICA PARTE QUE VOCÊ MUDA) ---
-            const moduleId = 'a1';      // Ex: 'a1', 'conversation', 'business'
-            const lessonNumber = 11;     // Ex: 1, 2, 3, etc.
+            // --- CONFIGURAÇÃO DA LIÇÃO ---
+            const moduleId = 'a1';      
+            const lessonNumber = 11;     
             // ---------------------------------------------------------
 
             const finishLessonBtn = document.getElementById('finish-lesson-btn');
@@ -195,14 +238,11 @@
             function showSlide(index) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                
                 if (progressBar) {
                     const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
                     progressBar.style.width = `${progressPercentage}%`;
                 }
-                
                 if (prevBtn) prevBtn.disabled = index === 0;
-
                 const isLastSlide = index === slides.length - 1;
                 if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
                 if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
@@ -211,11 +251,103 @@
             if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
             if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
             
-            // Lógica Específica da Aula (atividades, flashcards, etc.)
-            // Esta parte deve ser mantida ou adicionada conforme a necessidade de cada lição.
+            // --- Lógica Específica da Aula ---
+
+            // Flashcards
             document.querySelectorAll('.flashcard').forEach(card => {
                 card.addEventListener('click', () => card.classList.toggle('flipped'));
             });
+
+            // Atividade "Build the Question"
+            const buildQuestionsData = [
+                { id: 1, words: ['you', 'like', 'music', 'Do', '?'], answer: 'Do you like music ?' },
+                { id: 2, words: ['sports', 'he', 'play', 'Does', '?'], answer: 'Does he play sports ?' },
+                { id: 3, words: ['they', 'books', 'Do', 'read', '?'], answer: 'Do they read books ?' }
+            ];
+
+            function initBuildQuestionActivity() {
+                const container = document.getElementById('practice-1');
+                if (!container) return;
+                buildQuestionsData.forEach(q => {
+                    const questionWrapper = document.createElement('div');
+                    const wordBank = document.createElement('div');
+                    wordBank.className = 'word-bank';
+                    wordBank.innerHTML = '<span class="text-gray-500 mr-2">Palavras:</span>';
+                    const dropZone = document.createElement('div');
+                    dropZone.className = 'drop-zone';
+                    dropZone.innerHTML = '<span class="text-gray-500">Arraste as palavras para cá:</span>';
+                    const controlsWrapper = document.createElement('div');
+                    controlsWrapper.className = 'mt-4 flex items-center justify-between';
+                    const checkButton = document.createElement('button');
+                    checkButton.textContent = 'Verificar';
+                    checkButton.className = 'bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600';
+                    const feedback = document.createElement('div');
+                    feedback.className = 'feedback';
+                    let draggedWord = null;
+                    q.words.sort(() => Math.random() - 0.5).forEach(wordText => {
+                        const word = document.createElement('span');
+                        word.textContent = wordText;
+                        word.className = 'word';
+                        word.draggable = true;
+                        word.addEventListener('dragstart', () => { draggedWord = word; });
+                        wordBank.appendChild(word);
+                    });
+                    dropZone.addEventListener('dragover', e => e.preventDefault());
+                    dropZone.addEventListener('drop', () => {
+                        if (draggedWord) {
+                           if (dropZone.querySelector('span')) {
+                                dropZone.innerHTML = '';
+                           }
+                           dropZone.appendChild(draggedWord);
+                           draggedWord = null;
+                        }
+                    });
+                    wordBank.addEventListener('dragover', e => e.preventDefault());
+                    wordBank.addEventListener('drop', () => {
+                        if (draggedWord) {
+                            wordBank.appendChild(draggedWord);
+                            draggedWord = null;
+                        }
+                    });
+                    checkButton.addEventListener('click', () => {
+                        const wordsInDropZone = Array.from(dropZone.querySelectorAll('.word'));
+                        const userAnswer = wordsInDropZone.map(w => w.textContent).join(' ').trim();
+                        if (userAnswer === q.answer) {
+                            feedback.textContent = '🎉 Correto! Muito bem!';
+                            feedback.className = 'feedback correct';
+                        } else {
+                            feedback.textContent = '🤔 Quase lá! Tente novamente.';
+                            feedback.className = 'feedback incorrect';
+                        }
+                    });
+                    controlsWrapper.appendChild(checkButton);
+                    questionWrapper.appendChild(wordBank);
+                    questionWrapper.appendChild(dropZone);
+                    questionWrapper.appendChild(controlsWrapper);
+                    questionWrapper.appendChild(feedback);
+                    container.appendChild(questionWrapper);
+                });
+            }
+
+            // CORREÇÃO: Lógica para a atividade da Música
+            function initMusicActivity() {
+                const answerButtons = document.querySelectorAll('.answer-btn');
+                answerButtons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const answer = btn.dataset.answer; // Pega a resposta do atributo 'data-answer'
+                        const inputField = btn.previousElementSibling; // O <input> está logo antes do <button>
+
+                        if (inputField && inputField.tagName === 'INPUT') {
+                            inputField.value = answer; // Coloca a resposta no campo
+                            btn.disabled = true; // Desativa o botão
+                        }
+                    });
+                });
+            }
+
+            // Inicia as atividades
+            initBuildQuestionActivity();
+            initMusicActivity();
             
             showSlide(0);
         });

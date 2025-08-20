@@ -20,6 +20,15 @@ const VESTIBULAR_BADGES = [
     { req: 6, title: "Decifrador de Mídia", icon: "fa-image" }
 ];
 
+// NOVO: EMBLEMAS PARA O MÓDULO ESSENTIALS
+const ESSENTIALS_BADGES = [
+    { req: 4, title: "Arquiteto Verbal", icon: "fa-pencil-ruler" },
+    { req: 8, title: "Comunicador Versátil", icon: "fa-comments" },
+    { req: 12, title: "Navegador Temporal", icon: "fa-clock" },
+    { req: 16, title: "Mestre dos Fundamentos", icon: "fa-key" }
+];
+
+
 const badgeMessages = {
     // Emblemas A1
     "Iniciante Curioso": {
@@ -87,7 +96,7 @@ const badgeMessages = {
         skills: ["Analisar linguagem figurada", "Interpretar elementos visuais e verbais", "Compreender críticas e ironias"]
     },
 
-    // NOVOS EMBLEMAS DE BUSINESS
+    // Emblemas de Business
     "The Applicant": {
         message: "Parabéns! Você dominou o básico para se apresentar e conseguir uma entrevista. A porta do mundo corporativo está se abrindo para você!",
         skills: ["Entender o mindset de uma entrevista", "Descrever suas habilidades", "Usar a técnica STAR para responder perguntas"]
@@ -103,5 +112,23 @@ const badgeMessages = {
     "The Strategist": {
         message: "Fantástico! Você alcançou o nível estratégico do inglês para negócios. Você consegue discutir finanças, resolver problemas e liderar. Você não é mais apenas um participante, é um jogador-chave.",
         skills: ["Discutir finanças e orçamento", "Estruturar a solução de problemas", "Entender comunicação intercultural"]
+    },
+    
+    // NOVO: MENSAGENS DOS EMBLEMAS ESSENTIALS
+    "Arquiteto Verbal": {
+        message: "Parabéns! Você construiu a fundação do seu inglês. Dominar 'To Be', 'Simple Present' e 'Present Continuous' é como ter os pilares de um prédio. Agora você pode construir qualquer coisa!",
+        skills: ["Usar o verbo To Be (ser/estar)", "Descrever rotinas com Simple Present", "Falar sobre ações em progresso com Present Continuous", "Contar histórias simples no passado (Simple Past)"]
+    },
+    "Comunicador Versátil": {
+        message: "Excelente! Sua comunicação está mais rica. Você já consegue falar sobre o futuro, fazer perguntas complexas e dar conselhos. Você não apenas fala, você interage!",
+        skills: ["Falar sobre planos futuros (Will/Going To)", "Estruturar perguntas completas", "Dar conselhos e falar sobre habilidades (Can/Should)"]
+    },
+    "Navegador Temporal": {
+        message: "Fantástico! Você está viajando pelo tempo com o inglês. Você descreve o passado, o presente e o futuro, e agora pode falar sobre experiências de vida. Sua fluidez está aumentando!",
+        skills: ["Descrever lugares e quantidades", "Fazer comparações", "Falar sobre posse de objetos e pessoas", "Contar experiências de vida (Present Perfect)"]
+    },
+    "Mestre dos Fundamentos": {
+        message: "LENDÁRIO! Você dominou os 16 pilares essenciais do inglês. Com essa base sólida, você está pronto para construir conversas complexas e entender o idioma em um nível muito mais profundo. O próximo nível te espera!",
+        skills: ["Usar Phrasal Verbs comuns", "Conectar ideias de forma lógica", "Entender e usar regras e obrigações (Must/Have to)"]
     }
 };

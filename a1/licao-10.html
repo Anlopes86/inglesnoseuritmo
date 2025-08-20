@@ -93,8 +93,17 @@
                 <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-pencil-alt text-orange-500"></i>Let's Practice!</h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
                     <p class="text-2xl mb-8 text-gray-600">Complete as frases com a forma correta do verbo.</p>
-                    <div id="practice-1" class="space-y-6 text-xl">
-                        </div>
+                    <div id="practice-1" class="space-y-6 text-xl"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-plus-circle text-orange-500"></i>More Practice!</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-2xl mb-8 text-gray-600">Continue praticando com mais exemplos.</p>
+                    <div id="practice-2" class="space-y-6 text-xl"></div>
                 </div>
             </div>
         </div>
@@ -119,7 +128,7 @@
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-green-700"><i class="fas fa-music text-red-500"></i> Music Time: She Works Hard for the Money</h2>
             <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/16" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3FlOciKDqFlTMPeC7t92Qy?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 <div class="mt-4">
                     <p class="text-2xl mb-4 text-gray-600">Ouça a música e revele as palavras que faltam.</p>
                     <div class="text-xl space-y-3 bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
@@ -128,9 +137,9 @@
                          <p>She <input type="text" class="w-24 border-b-2 text-center bg-transparent" data-answer="works"><button class="answer-btn" data-answer="works"><i class="fas fa-eye"></i></button> hard for the money</p>
                          <p>So you better treat her right</p>
                          <br>
-                         <p>Onetta <input type="text" class="w-24 border-b-2 text-center bg-transparent" data-answer="sits"><button class="answer-btn" data-answer="sits"><i class="fas fa-eye"></i></button> at a desk on the fifty-fourth floor</p>
-                         <p>And she <input type="text" class="w-24 border-b-2 text-center bg-transparent" data-answer="knows"><button class="answer-btn" data-answer="knows"><i class="fas fa-eye"></i></button> for sure she's been there before</p>
-                         <p>She <input type="text" class="w-24 border-b-2 text-center bg-transparent" data-answer="sees"><button class="answer-btn" data-answer="sees"><i class="fas fa-eye"></i></button> them all, she's a server</p>
+                         <p>Onetta here in the corner stand </p>
+                         <p>and wonders where she is.</p>
+                         <p>And it's strange to her, some people seem to have everything.</p>
                     </div>
                 </div>
             </div>
@@ -167,13 +176,15 @@
             <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finalizar Aula</button>
         </div>
     </footer>
-
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- CONFIGURAÇÃO DA LIÇÃO (ÚNICA PARTE QUE VOCÊ MUDA) ---
-            const moduleId = 'a1';      // Ex: 'a1', 'conversation', 'business'
-            const lessonNumber = 10;     // Ex: 1, 2, 3, etc.
-            // ---------------------------------------------------------
+            const moduleId = 'a1';
+            const lessonNumber = 10;
 
             const finishLessonBtn = document.getElementById('finish-lesson-btn');
             if (finishLessonBtn) {
@@ -214,11 +225,68 @@
             if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
             if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
             
-            // Lógica Específica da Aula (atividades, flashcards, etc.)
-            // Esta parte deve ser mantida ou adicionada conforme a necessidade de cada lição.
             document.querySelectorAll('.flashcard').forEach(card => {
                 card.addEventListener('click', () => card.classList.toggle('flipped'));
             });
+
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const inputField = button.previousElementSibling;
+                    const correctAnswer = button.dataset.answer;
+                    if(inputField && inputField.tagName === 'INPUT') {
+                        inputField.value = correctAnswer;
+                    }
+                });
+            });
+
+            // Função para criar atividades de preenchimento
+            function createPracticeActivity(containerId, items) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+
+                let html = '';
+                items.forEach(item => {
+                    const parts = item.text.split('____');
+                    html += `<div class="flex items-center justify-center gap-2">${parts[0]} <input data-answer="${item.answer}" class="w-40 p-1 border-b-2 text-center text-xl outline-none focus:border-blue-500 transition"> ${parts[1]}</div>`;
+                });
+                container.innerHTML = html;
+
+                container.querySelectorAll('input').forEach(input => {
+                    input.addEventListener('blur', () => {
+                        const userAnswer = input.value.trim().toLowerCase();
+                        const correctAnswer = input.dataset.answer.toLowerCase();
+                        input.classList.remove('border-green-500', 'border-red-500');
+                        if(userAnswer.length === 0) return;
+                        if (userAnswer === correctAnswer) {
+                            input.classList.add('border-green-500');
+                        } else {
+                            input.classList.add('border-red-500');
+                        }
+                    });
+                });
+            }
+
+            // Atividades para o primeiro slide de prática
+            const practiceItems1 = [
+                { text: 'She ____ (work) in an office.', answer: 'works' },
+                { text: 'He ____ (study) English every day.', answer: 'studies' },
+                { text: 'My father ____ (watch) the news at night.', answer: 'watches' },
+                { text: 'She ____ (have) two cats.', answer: 'has' },
+                { text: 'My brother ____ (go) to the gym.', answer: 'goes' },
+                { text: 'The cat ____ (sleep) on the sofa.', answer: 'sleeps' },
+                { text: 'She ____ (do) her homework in the afternoon.', answer: 'does' },
+                { text: 'He ____ (fix) cars.', answer: 'fixes' }
+            ];
+            createPracticeActivity('practice-1', practiceItems1);
+
+            // Atividades para o segundo slide de prática
+            const practiceItems2 = [
+                { text: 'She ____ (miss) her family.', answer: 'misses' },
+                { text: 'He ____ (try) to learn Japanese.', answer: 'tries' },
+                { text: 'It ____ (rain) a lot here in the summer.', answer: 'rains' },
+                { text: 'My sister ____ (teach) history at a school.', answer: 'teaches' }
+            ];
+            createPracticeActivity('practice-2', practiceItems2);
             
             showSlide(0);
         });

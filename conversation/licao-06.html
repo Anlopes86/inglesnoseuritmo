@@ -141,77 +141,89 @@
 
     <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20"><div class="container mx-auto px-8 h-20 flex justify-between items-center"><button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button><button id="next-btn" class="bg-red-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-red-700">Próximo</button><button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finalizar Aula</button></div></footer>
     
-    <script>
-        function showCustomAlert(message,type='success',callback){const modal=document.getElementById('custom-alert-modal');if(!modal)return;modal.innerHTML=`<div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 text-center transform transition-all scale-95 opacity-0" id="custom-alert-box"><i id="custom-alert-icon" class="fas text-6xl mb-5"></i><h3 id="custom-alert-title" class="text-3xl font-bold mb-3"></h3><p id="custom-alert-message" class="text-lg text-gray-300 mb-8"></p><button id="custom-alert-close-btn" class="text-white font-bold py-3 px-10 rounded-lg text-lg transition-transform duration-200 hover:scale-105"></button></div>`;const box=document.getElementById('custom-alert-box'),icon=document.getElementById('custom-alert-icon'),title=document.getElementById('custom-alert-title'),messageEl=document.getElementById('custom-alert-message'),closeBtn=document.getElementById('custom-alert-close-btn');icon.className='fas text-6xl mb-5';title.className='text-3xl font-bold mb-3';closeBtn.className='text-white font-bold py-3 px-10 rounded-lg text-lg transition-transform duration-200 hover:scale-105';if(type==='success'){icon.classList.add('fa-check-circle','text-green-400');title.textContent='Success!';title.classList.add('text-green-300');closeBtn.textContent='OK';closeBtn.classList.add('bg-green-600','hover:bg-green-700')}else{icon.classList.add('fa-times-circle','text-red-400');title.textContent='Error!';title.classList.add('text-red-300');closeBtn.textContent='Try Again';closeBtn.classList.add('bg-red-600','hover:bg-red-700')}messageEl.textContent=message;modal.style.display='flex';setTimeout(()=>{modal.classList.add('opacity-100');box.classList.remove('scale-95','opacity-0');box.classList.add('scale-100','opacity-100')},10);closeBtn.onclick=()=>{modal.style.display='none';if(callback)callback()}}
-        document.addEventListener('DOMContentLoaded',()=>{const slides=document.querySelectorAll('.slide');const prevBtn=document.getElementById('prev-btn'),nextBtn=document.getElementById('next-btn'),finishLessonBtn=document.getElementById('finish-lesson-btn');let currentSlide=0;function showSlide(index){slides.forEach(s=>s.classList.remove('active'));if(slides[index]){slides[index].classList.add('active')}
-        const progressBar=document.getElementById('progress-bar');progressBar.style.width=`${((index+1)/slides.length)*100}%`;prevBtn.disabled=index===0;if(index===slides.length-1){nextBtn.classList.add('hidden');finishLessonBtn.classList.remove('hidden')}else{nextBtn.classList.remove('hidden');finishLessonBtn.classList.add('hidden')}}
-        prevBtn.addEventListener('click',()=>{if(currentSlide>0)showSlide(--currentSlide)});nextBtn.addEventListener('click',()=>{if(currentSlide<slides.length-1)showSlide(++currentSlide)});finishLessonBtn.addEventListener('click',()=>{if(typeof markLessonAsComplete==='function')markLessonAsComplete()});
-        document.querySelectorAll('.answer-btn').forEach(button=>{button.addEventListener('click',()=>{const inputField=button.previousElementSibling;const correctAnswer=button.dataset.answer;inputField.value=correctAnswer;inputField.classList.add('text-red-400','font-bold')})});
-        
-        const activityContainer=document.getElementById('matching-activity'),checkAnswersBtn=document.getElementById('check-answers-btn');const expressions=[{id:'face_challenge',text:'To face a challenge'},{id:'rise_occasion',text:'To rise to the occasion'},{id:'never_give_up',text:'Never give up'},{id:'blessing_disguise',text:'A blessing in disguise'},{id:'learn_mistakes',text:'To learn from your mistakes'},{id:'bounce_back',text:'To bounce back'}];const situations=[{text:"Losing my job was terrible, but it forced me to find a career I truly love.",answer:'blessing_disguise'},{text:"The exam was difficult, but she performed brilliantly.",answer:'rise_occasion'},{text:"After the failure, he recovered his confidence and started a new project.",answer:'bounce_back'},{text:"I failed the test, but I now understand what I need to study.",answer:'learn_mistakes'},{text:"She is training for a marathon. It's hard, but she says she will...",answer:'never_give_up'},{text:"Next month, I have to give a presentation in English. It's time to...",answer:'face_challenge'}];
-        function shuffle(array){for(let i=array.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[array[i],array[j]]=[array[j],array[i]]}return array}
-        function createActivity(){const shuffledSituations=shuffle(situations);let html='';shuffledSituations.forEach((sit,index)=>{html+=`<div id="q-${index}" class="p-4 rounded-lg bg-gray-800 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300"><p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p><select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg shadow-sm text-lg focus:border-red-400 focus:ring focus:ring-red-300 focus:ring-opacity-50"><option value="">Select an expression...</option>${shuffle([...expressions]).map(exp=>`<option value="${exp.id}">${exp.text}</option>`).join('')}</select></div>`});activityContainer.innerHTML=html}
-        if(activityContainer){createActivity();checkAnswersBtn.addEventListener('click',()=>{const selects=activityContainer.querySelectorAll('select');selects.forEach((select,index)=>{const questionDiv=document.getElementById(`q-${index}`);questionDiv.classList.remove('bg-green-900/50','border-green-500','bg-red-900/50','border-red-500');if(select.value===select.dataset.answer){questionDiv.classList.add('bg-green-900/50','border-green-500')}else{questionDiv.classList.add('bg-red-900/50','border-red-500')}})})};
-        showSlide(0)
-        });
-    </script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     
-    <script src="js/firebase-config.js"></script>
-    <script src="js/progress-manager.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- CONFIGURAÇÃO DA LIÇÃO (ÚNICA PARTE QUE VOCÊ MUDA) ---
+            // --- CONFIGURAÇÃO DA LIÇÃO ---
             const moduleId = 'conversation';
             const lessonNumber = 6;
-            // ---------------------------------------------------------
 
+            // --- LÓGICA DO BOTÃO "FINALIZAR AULA" ---
             const finishLessonBtn = document.getElementById('finish-lesson-btn');
             if (finishLessonBtn) {
                 finishLessonBtn.addEventListener('click', () => {
-                    finishLessonBtn.disabled = true;
-                    finishLessonBtn.textContent = "Salvando...";
                     if (typeof markLessonAsComplete === 'function') {
                         markLessonAsComplete(moduleId, lessonNumber); 
-                    } else {
-                        console.error("A função markLessonAsComplete não foi encontrada.");
-                        alert("Erro ao salvar progresso.");
                     }
                 });
             }
 
+            // --- LÓGICA DOS SLIDES E ATIVIDADES (SEU CÓDIGO ORIGINAL RESTAURADO) ---
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
-            const progressBar = document.getElementById('progress-bar');
             let currentSlide = 0;
-document.querySelectorAll('.flashcard').forEach(card => {
-    card.addEventListener('click', () => {
-        card.classList.toggle('flipped');
-    });
-});
+
             function showSlide(index) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                if (progressBar) {
-                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
-                    progressBar.style.width = `${progressPercentage}%`;
-                }
-                if (prevBtn) prevBtn.disabled = index === 0;
-                const isLastSlide = index === slides.length - 1;
-                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
-                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+                const progressBar = document.getElementById('progress-bar');
+                if(progressBar) progressBar.style.width = slides.length > 1 ? `${((index + 1) / slides.length) * 100}%` : '100%';
+                if(prevBtn) prevBtn.disabled = index === 0;
+                if(nextBtn) nextBtn.classList.toggle('hidden', index === slides.length - 1);
+                if(finishLessonBtn) finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
             }
 
-            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            if(prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            if(nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
             
-            document.querySelectorAll('.flashcard').forEach(card => {
-                card.addEventListener('click', () => card.classList.toggle('flipped'));
+            // LÓGICA DOS BOTÕES DE RESPOSTA (RESTAURADA)
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const inputField = button.previousElementSibling;
+                    const correctAnswer = button.dataset.answer;
+                    if(inputField) {
+                        inputField.value = correctAnswer;
+                        inputField.classList.add('text-yellow-400', 'font-bold');
+                    }
+                });
             });
+            
+            // LÓGICA DA ATIVIDADE DE COMBINAR (RESTAURADA)
+            const activityContainer = document.getElementById('matching-activity');
+            const checkAnswersBtn = document.getElementById('check-answers-btn');
+            const expressions = [ {id:'have_back',text:"To have someone's back"}, {id:'shoulder',text:'A shoulder to cry on'}, {id:'thick_thin',text:'Through thick and thin'}, {id:'hit_off',text:'To hit it off'}, {id:'be_there',text:'To be there for someone'}, {id:'drift_apart',text:'To drift apart'} ];
+            const situations = [ {text:"I met my new colleague yesterday and we talked for hours. We immediately became friends.",answer:'hit_off'}, {text:"She was with me during the good moments and the very difficult ones. She's a true friend.",answer:'thick_thin'}, {text:"Don't worry about the presentation, I'll be there to support you.",answer:'have_back'}, {text:"After he lost his job, his best friend was there to listen to all his problems.",answer:'shoulder'}, {text:"Since we went to different universities, we slowly lost contact.",answer:'drift_apart'}, {text:"No matter what happens, you can call me. I will always support you.",answer:'be_there'} ];
+            function shuffle(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
+            function createActivity() {
+                if (!activityContainer) return;
+                const shuffledSituations = shuffle(situations);
+                let html = '';
+                shuffledSituations.forEach((sit, index) => {
+                    html += `<div id="q-${index}" class="p-4 rounded-lg bg-gray-800 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300"><p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p><select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg shadow-sm text-lg focus:border-yellow-400 focus:ring focus:ring-yellow-300 focus:ring-opacity-50"><option value="">Select an expression...</option>${shuffle([...expressions]).map(exp => `<option value="${exp.id}">${exp.text}</option>`).join('')}</select></div>`;
+                });
+                activityContainer.innerHTML = html;
+            }
+            if (activityContainer && checkAnswersBtn) {
+                createActivity();
+                checkAnswersBtn.addEventListener('click', () => {
+                    const selects = activityContainer.querySelectorAll('select');
+                    selects.forEach((select, index) => {
+                        const questionDiv = document.getElementById(`q-${index}`);
+                        questionDiv.classList.remove('bg-green-900/50', 'border-green-500', 'bg-red-900/50', 'border-red-500');
+                        if (select.value === select.dataset.answer) {
+                            questionDiv.classList.add('bg-green-900/50', 'border-green-500');
+                        } else {
+                            questionDiv.classList.add('bg-red-900/50', 'border-red-500');
+                        }
+                    });
+                });
+            }
             
             showSlide(0);
         });

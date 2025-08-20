@@ -4,7 +4,7 @@
 const dailyChallenges = [
     {
         "pergunta": "Como você se apresenta em inglês?",
-        "resposta": "Hello, my name is [seu nome].",
+        "resposta": "Hello, my name is [seu nome]",
         "dicas": [
             "Saudação e nome",
             "Começa com Hello"
@@ -24,7 +24,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você responde 'Estou bem, obrigado'?",
-        "resposta": "I'm fine, thank you.",
+        "resposta": "I'm fine, thank you",
         "dicas": [
             "Resposta padrão",
             "Inclui agradecimento"
@@ -54,7 +54,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Prazer em conhecê-lo'?",
-        "resposta": "Nice to meet you.",
+        "resposta": "Nice to meet you",
         "dicas": [
             "Expressão de cortesia",
             "Após apresentação"
@@ -64,7 +64,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você pede desculpas?",
-        "resposta": "I'm sorry.",
+        "resposta": "I'm sorry",
         "dicas": [
             "Expressão de arrependimento",
             "Simples e direta"
@@ -74,7 +74,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para agradecer?",
-        "resposta": "Thank you.",
+        "resposta": "Thank you",
         "dicas": [
             "Expressão de gratidão",
             "Pode ser 'Thanks'"
@@ -94,7 +94,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu não entendo'?",
-        "resposta": "I don't understand.",
+        "resposta": "I don't understand",
         "dicas": [
             "Expressão de confusão",
             "Negação"
@@ -114,7 +114,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu preciso de ajuda'?",
-        "resposta": "I need help.",
+        "resposta": "I need help",
         "dicas": [
             "Pedido de socorro",
             "Verbo 'precisar'"
@@ -134,7 +134,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com fome'?",
-        "resposta": "I'm hungry.",
+        "resposta": "I'm hungry",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -144,7 +144,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou com sede'?",
-        "resposta": "I'm thirsty.",
+        "resposta": "I'm thirsty",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -154,7 +154,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu gosto de café'?",
-        "resposta": "I like coffee.",
+        "resposta": "I like coffee",
         "dicas": [
             "Expressão de preferência",
             "Verbo 'gostar'"
@@ -174,7 +174,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu não sei'?",
-        "resposta": "I don't know.",
+        "resposta": "I don't know",
         "dicas": [
             "Expressão de incerteza",
             "Negação"
@@ -184,7 +184,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Por favor'?",
-        "resposta": "Please.",
+        "resposta": "Please",
         "dicas": [
             "Palavra de cortesia",
             "Antes de um pedido"
@@ -194,7 +194,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'De nada'?",
-        "resposta": "You're welcome.",
+        "resposta": "You're welcome",
         "dicas": [
             "Resposta a agradecimento",
             "Cortesia"
@@ -214,7 +214,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou cansado'?",
-        "resposta": "I'm tired.",
+        "resposta": "I'm tired",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -224,7 +224,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Bom dia'?",
-        "resposta": "Good morning.",
+        "resposta": "Good morning",
         "dicas": [
             "Saudação matinal",
             "Até o meio-dia"
@@ -234,7 +234,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Boa tarde'?",
-        "resposta": "Good afternoon.",
+        "resposta": "Good afternoon",
         "dicas": [
             "Saudação vespertina",
             "Após o meio-dia"
@@ -244,7 +244,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Boa noite' (ao chegar)?",
-        "resposta": "Good evening.",
+        "resposta": "Good evening",
         "dicas": [
             "Saudação noturna",
             "Ao chegar"
@@ -254,7 +254,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Boa noite' (ao sair/dormir)?",
-        "resposta": "Good night.",
+        "resposta": "Good night",
         "dicas": [
             "Despedida noturna",
             "Ao sair ou ir dormir"
@@ -274,7 +274,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu moro em [cidade]'?",
-        "resposta": "I live in [city].",
+        "resposta": "I live in [city]",
         "dicas": [
             "Informação pessoal",
             "Verbo 'morar'"
@@ -294,7 +294,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu sou do Brasil'?",
-        "resposta": "I am from Brazil.",
+        "resposta": "I am from Brazil",
         "dicas": [
             "Informação pessoal",
             "Nacionalidade"
@@ -304,7 +304,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu tenho [idade] anos'?",
-        "resposta": "I am [age] years old.",
+        "resposta": "I am [age] years old",
         "dicas": [
             "Informação pessoal",
             "Usa 'am'"
@@ -314,7 +314,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu tenho um irmão'?",
-        "resposta": "I have a brother.",
+        "resposta": "I have a brother",
         "dicas": [
             "Família",
             "Verbo 'ter'"
@@ -324,7 +324,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu tenho uma irmã'?",
-        "resposta": "I have a sister.",
+        "resposta": "I have a sister",
         "dicas": [
             "Família",
             "Verbo 'ter'"
@@ -334,7 +334,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu tenho um cachorro'?",
-        "resposta": "I have a dog.",
+        "resposta": "I have a dog",
         "dicas": [
             "Animal de estimação",
             "Verbo 'ter'"
@@ -344,7 +344,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu gosto de ler'?",
-        "resposta": "I like to read.",
+        "resposta": "I like to read",
         "dicas": [
             "Hobby",
             "Verbo 'gostar'"
@@ -374,7 +374,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou estudando inglês'?",
-        "resposta": "I am studying English.",
+        "resposta": "I am studying English",
         "dicas": [
             "Present continuous",
             "Ação em progresso"
@@ -394,7 +394,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu vou viajar no próximo mês'?",
-        "resposta": "I am going to travel next month.",
+        "resposta": "I am going to travel next month",
         "dicas": [
             "Futuro próximo",
             "Usa 'going to'"
@@ -404,7 +404,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu preciso ir agora'?",
-        "resposta": "I need to go now.",
+        "resposta": "I need to go now",
         "dicas": [
             "Necessidade imediata",
             "Verbo 'precisar'"
@@ -424,7 +424,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu nunca vi isso antes'?",
-        "resposta": "I have never seen that before.",
+        "resposta": "I have never seen that before",
         "dicas": [
             "Experiência negativa",
             "Present perfect"
@@ -434,7 +434,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou ansioso por isso'?",
-        "resposta": "I'm looking forward to it.",
+        "resposta": "I'm looking forward to it",
         "dicas": [
             "Expressão de expectativa",
             "Comum em e-mails"
@@ -444,7 +444,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Não se preocupe'?",
-        "resposta": "Don't worry.",
+        "resposta": "Don't worry",
         "dicas": [
             "Consolo",
             "Imperativo negativo"
@@ -464,7 +464,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Está chovendo'?",
-        "resposta": "It's raining.",
+        "resposta": "It's raining",
         "dicas": [
             "Clima",
             "Present continuous"
@@ -474,7 +474,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou com frio'?",
-        "resposta": "I'm cold.",
+        "resposta": "I'm cold",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -484,7 +484,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com calor'?",
-        "resposta": "I'm hot.",
+        "resposta": "I'm hot",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -504,7 +504,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou atrasado'?",
-        "resposta": "I'm late.",
+        "resposta": "I'm late",
         "dicas": [
             "Situação de tempo",
             "Adjetivo"
@@ -514,7 +514,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou com pressa'?",
-        "resposta": "I'm in a hurry.",
+        "resposta": "I'm in a hurry",
         "dicas": [
             "Situação de tempo",
             "Expressão idiomática"
@@ -524,7 +524,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu não me importo'?",
-        "resposta": "I don't care.",
+        "resposta": "I don't care",
         "dicas": [
             "Expressão de indiferença",
             "Negação"
@@ -534,7 +534,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou ocupado'?",
-        "resposta": "I'm busy.",
+        "resposta": "I'm busy",
         "dicas": [
             "Situação pessoal",
             "Adjetivo"
@@ -544,7 +544,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou livre'?",
-        "resposta": "I'm free.",
+        "resposta": "I'm free",
         "dicas": [
             "Situação pessoal",
             "Adjetivo"
@@ -564,7 +564,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com dor de cabeça'?",
-        "resposta": "I have a headache.",
+        "resposta": "I have a headache",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -574,7 +574,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou com febre'?",
-        "resposta": "I have a fever.",
+        "resposta": "I have a fever",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -584,7 +584,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou doente'?",
-        "resposta": "I'm sick.",
+        "resposta": "I'm sick",
         "dicas": [
             "Problema de saúde",
             "Adjetivo"
@@ -594,7 +594,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou melhor'?",
-        "resposta": "I'm better.",
+        "resposta": "I'm better",
         "dicas": [
             "Melhora de saúde",
             "Adjetivo"
@@ -604,7 +604,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou pior'?",
-        "resposta": "I'm worse.",
+        "resposta": "I'm worse",
         "dicas": [
             "Piora de saúde",
             "Adjetivo"
@@ -624,7 +624,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou aprendendo'?",
-        "resposta": "I'm learning.",
+        "resposta": "I'm learning",
         "dicas": [
             "Processo de aprendizado",
             "Present continuous"
@@ -634,7 +634,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou ensinando'?",
-        "resposta": "I'm teaching.",
+        "resposta": "I'm teaching",
         "dicas": [
             "Processo de ensino",
             "Present continuous"
@@ -644,7 +644,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou trabalhando'?",
-        "resposta": "I'm working.",
+        "resposta": "I'm working",
         "dicas": [
             "Ação em progresso",
             "Present continuous"
@@ -654,7 +654,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou comendo'?",
-        "resposta": "I'm eating.",
+        "resposta": "I'm eating",
         "dicas": [
             "Ação em progresso",
             "Present continuous"
@@ -664,7 +664,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou bebendo'?",
-        "resposta": "I'm drinking.",
+        "resposta": "I'm drinking",
         "dicas": [
             "Ação em progresso",
             "Present continuous"
@@ -674,7 +674,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou dormindo'?",
-        "resposta": "I'm sleeping.",
+        "resposta": "I'm sleeping",
         "dicas": [
             "Ação em progresso",
             "Present continuous"
@@ -684,7 +684,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou assistindo TV'?",
-        "resposta": "I'm watching TV.",
+        "resposta": "I'm watching TV",
         "dicas": [
             "Ação em progresso",
             "Present continuous"
@@ -694,7 +694,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou ouvindo música'?",
-        "resposta": "I'm listening to music.",
+        "resposta": "I'm listening to music",
         "dicas": [
             "Ação em progresso",
             "Present continuous"
@@ -734,7 +734,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou acostumado com isso'?",
-        "resposta": "I'm used to it.",
+        "resposta": "I'm used to it",
         "dicas": [
             "Hábito",
             "Expressão comum"
@@ -744,7 +744,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu não aguento mais'?",
-        "resposta": "I can't stand it anymore.",
+        "resposta": "I can't stand it anymore",
         "dicas": [
             "Expressão de intolerância",
             "Verbo 'suportar'"
@@ -754,7 +754,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Está fora de questão'?",
-        "resposta": "It's out of the question.",
+        "resposta": "It's out of the question",
         "dicas": [
             "Impossibilidade",
             "Expressão idiomática"
@@ -764,7 +764,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'É a sua vez'?",
-        "resposta": "It's your turn.",
+        "resposta": "It's your turn",
         "dicas": [
             "Sequência",
             "Momento de agir"
@@ -774,7 +774,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com dor de garganta'?",
-        "resposta": "I have a sore throat.",
+        "resposta": "I have a sore throat",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -784,7 +784,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou com tosse'?",
-        "resposta": "I have a cough.",
+        "resposta": "I have a cough",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -794,7 +794,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com dor de estômago'?",
-        "resposta": "I have a stomachache.",
+        "resposta": "I have a stomachache",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -804,7 +804,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou com dor de dente'?",
-        "resposta": "I have a toothache.",
+        "resposta": "I have a toothache",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -814,7 +814,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com dor nas costas'?",
-        "resposta": "I have a backache.",
+        "resposta": "I have a backache",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -824,7 +824,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou com dor de ouvido'?",
-        "resposta": "I have an earache.",
+        "resposta": "I have an earache",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -834,7 +834,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com dor de cabeça'?",
-        "resposta": "I have a headache.",
+        "resposta": "I have a headache",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -844,7 +844,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou com febre'?",
-        "resposta": "I have a fever.",
+        "resposta": "I have a fever",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -854,7 +854,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou resfriado'?",
-        "resposta": "I have a cold.",
+        "resposta": "I have a cold",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -864,7 +864,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou gripado'?",
-        "resposta": "I have the flu.",
+        "resposta": "I have the flu",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -874,7 +874,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com náuseas'?",
-        "resposta": "I'm nauseous.",
+        "resposta": "I'm nauseous",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -884,7 +884,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou tonto'?",
-        "resposta": "I'm dizzy.",
+        "resposta": "I'm dizzy",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -894,7 +894,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com dor'?",
-        "resposta": "I'm in pain.",
+        "resposta": "I'm in pain",
         "dicas": [
             "Sentimento físico",
             "Expressão idiomática"
@@ -904,7 +904,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou com coceira'?",
-        "resposta": "I'm itchy.",
+        "resposta": "I'm itchy",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -914,7 +914,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com sono'?",
-        "resposta": "I'm sleepy.",
+        "resposta": "I'm sleepy",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -924,7 +924,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou com fome'?",
-        "resposta": "I'm hungry.",
+        "resposta": "I'm hungry",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -934,7 +934,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com sede'?",
-        "resposta": "I'm thirsty.",
+        "resposta": "I'm thirsty",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -944,7 +944,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou com calor'?",
-        "resposta": "I'm hot.",
+        "resposta": "I'm hot",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -954,7 +954,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com frio'?",
-        "resposta": "I'm cold.",
+        "resposta": "I'm cold",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -964,7 +964,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou bem'?",
-        "resposta": "I'm fine.",
+        "resposta": "I'm fine",
         "dicas": [
             "Sentimento geral",
             "Adjetivo"
@@ -974,7 +974,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou ótimo'?",
-        "resposta": "I'm great.",
+        "resposta": "I'm great",
         "dicas": [
             "Sentimento geral",
             "Adjetivo"
@@ -984,7 +984,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou cansado'?",
-        "resposta": "I'm tired.",
+        "resposta": "I'm tired",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -994,7 +994,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou feliz'?",
-        "resposta": "I'm happy.",
+        "resposta": "I'm happy",
         "dicas": [
             "Sentimento emocional",
             "Adjetivo"
@@ -1004,7 +1004,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou triste'?",
-        "resposta": "I'm sad.",
+        "resposta": "I'm sad",
         "dicas": [
             "Sentimento emocional",
             "Adjetivo"
@@ -1014,7 +1014,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou bravo'?",
-        "resposta": "I'm angry.",
+        "resposta": "I'm angry",
         "dicas": [
             "Sentimento emocional",
             "Adjetivo"
@@ -1024,7 +1024,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou surpreso'?",
-        "resposta": "I'm surprised.",
+        "resposta": "I'm surprised",
         "dicas": [
             "Sentimento emocional",
             "Adjetivo"
@@ -1034,7 +1034,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou entediado'?",
-        "resposta": "I'm bored.",
+        "resposta": "I'm bored",
         "dicas": [
             "Sentimento emocional",
             "Adjetivo"
@@ -1044,7 +1044,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou animado'?",
-        "resposta": "I'm excited.",
+        "resposta": "I'm excited",
         "dicas": [
             "Sentimento emocional",
             "Adjetivo"
@@ -1084,7 +1084,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou acostumado com isso'?",
-        "resposta": "I'm used to it.",
+        "resposta": "I'm used to it",
         "dicas": [
             "Hábito",
             "Expressão comum"
@@ -1094,7 +1094,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu não aguento mais'?",
-        "resposta": "I can't stand it anymore.",
+        "resposta": "I can't stand it anymore",
         "dicas": [
             "Expressão de intolerância",
             "Verbo 'suportar'"
@@ -1104,7 +1104,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Está fora de questão'?",
-        "resposta": "It's out of the question.",
+        "resposta": "It's out of the question",
         "dicas": [
             "Impossibilidade",
             "Expressão idiomática"
@@ -1114,7 +1114,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'É a sua vez'?",
-        "resposta": "It's your turn.",
+        "resposta": "It's your turn",
         "dicas": [
             "Sequência",
             "Momento de agir"
@@ -1124,7 +1124,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com dor de garganta'?",
-        "resposta": "I have a sore throat.",
+        "resposta": "I have a sore throat",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -1134,7 +1134,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou com tosse'?",
-        "resposta": "I have a cough.",
+        "resposta": "I have a cough",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -1144,7 +1144,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com dor de estômago'?",
-        "resposta": "I have a stomachache.",
+        "resposta": "I have a stomachache",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -1154,7 +1154,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou com dor de dente'?",
-        "resposta": "I have a toothache.",
+        "resposta": "I have a toothache",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -1164,7 +1164,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com dor nas costas'?",
-        "resposta": "I have a backache.",
+        "resposta": "I have a backache",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -1174,7 +1174,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou com dor de ouvido'?",
-        "resposta": "I have an earache.",
+        "resposta": "I have an earache",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -1184,7 +1184,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com dor de cabeça'?",
-        "resposta": "I have a headache.",
+        "resposta": "I have a headache",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -1194,7 +1194,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou com febre'?",
-        "resposta": "I have a fever.",
+        "resposta": "I have a fever",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -1204,7 +1204,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou resfriado'?",
-        "resposta": "I have a cold.",
+        "resposta": "I have a cold",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -1214,7 +1214,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou gripado'?",
-        "resposta": "I have the flu.",
+        "resposta": "I have the flu",
         "dicas": [
             "Problema de saúde",
             "Usa 'have'"
@@ -1224,7 +1224,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com náuseas'?",
-        "resposta": "I'm nauseous.",
+        "resposta": "I'm nauseous",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -1234,7 +1234,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou tonto'?",
-        "resposta": "I'm dizzy.",
+        "resposta": "I'm dizzy",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -1244,7 +1244,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com dor'?",
-        "resposta": "I'm in pain.",
+        "resposta": "I'm in pain",
         "dicas": [
             "Sentimento físico",
             "Expressão idiomática"
@@ -1254,7 +1254,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou com coceira'?",
-        "resposta": "I'm itchy.",
+        "resposta": "I'm itchy",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -1264,7 +1264,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com sono'?",
-        "resposta": "I'm sleepy.",
+        "resposta": "I'm sleepy",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -1274,7 +1274,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou com fome'?",
-        "resposta": "I'm hungry.",
+        "resposta": "I'm hungry",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -1284,7 +1284,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com sede'?",
-        "resposta": "I'm thirsty.",
+        "resposta": "I'm thirsty",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -1294,7 +1294,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou com calor'?",
-        "resposta": "I'm hot.",
+        "resposta": "I'm hot",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -1304,7 +1304,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com frio'?",
-        "resposta": "I'm cold.",
+        "resposta": "I'm cold",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -1314,7 +1314,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou bem'?",
-        "resposta": "I'm fine.",
+        "resposta": "I'm fine",
         "dicas": [
             "Sentimento geral",
             "Adjetivo"
@@ -1324,7 +1324,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou ótimo'?",
-        "resposta": "I'm great.",
+        "resposta": "I'm great",
         "dicas": [
             "Sentimento geral",
             "Adjetivo"
@@ -1334,7 +1334,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou cansado'?",
-        "resposta": "I'm tired.",
+        "resposta": "I'm tired",
         "dicas": [
             "Sentimento físico",
             "Adjetivo"
@@ -1344,7 +1344,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou feliz'?",
-        "resposta": "I'm happy.",
+        "resposta": "I'm happy",
         "dicas": [
             "Sentimento emocional",
             "Adjetivo"
@@ -1354,7 +1354,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou triste'?",
-        "resposta": "I'm sad.",
+        "resposta": "I'm sad",
         "dicas": [
             "Sentimento emocional",
             "Adjetivo"
@@ -1364,7 +1364,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou bravo'?",
-        "resposta": "I'm angry.",
+        "resposta": "I'm angry",
         "dicas": [
             "Sentimento emocional",
             "Adjetivo"
@@ -1374,7 +1374,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou surpreso'?",
-        "resposta": "I'm surprised.",
+        "resposta": "I'm surprised",
         "dicas": [
             "Sentimento emocional",
             "Adjetivo"
@@ -1384,7 +1384,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou entediado'?",
-        "resposta": "I'm bored.",
+        "resposta": "I'm bored",
         "dicas": [
             "Sentimento emocional",
             "Adjetivo"
@@ -1394,7 +1394,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou animado'?",
-        "resposta": "I'm excited.",
+        "resposta": "I'm excited",
         "dicas": [
             "Sentimento emocional",
             "Adjetivo"
@@ -1434,7 +1434,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'É mais fácil falar do que fazer'?",
-        "resposta": "Easier said than done.",
+        "resposta": "Easier said than done",
         "dicas": [
             "Expressão comum",
             "Dificuldade na prática"
@@ -1444,7 +1444,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Não há problema'?",
-        "resposta": "No worries.",
+        "resposta": "No worries",
         "dicas": [
             "Informal",
             "Resposta a agradecimento/desculpa"
@@ -1454,7 +1454,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou por dentro' (informado)?",
-        "resposta": "I'm in the loop.",
+        "resposta": "I'm in the loop",
         "dicas": [
             "Expressão idiomática",
             "Informação"
@@ -1464,7 +1464,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Eu estou por fora' (desinformado)?",
-        "resposta": "I'm out of the loop.",
+        "resposta": "I'm out of the loop",
         "dicas": [
             "Expressão idiomática",
             "Desinformação"
@@ -1474,7 +1474,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Vamos direto ao ponto'?",
-        "resposta": "Let's get straight to the point.",
+        "resposta": "Let's get straight to the point",
         "dicas": [
             "Direto e objetivo",
             "Reuniões"
@@ -1484,7 +1484,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'É um mal necessário'?",
-        "resposta": "It's a necessary evil.",
+        "resposta": "It's a necessary evil",
         "dicas": [
             "Expressão comum",
             "Algo ruim, mas inevitável"
@@ -1494,7 +1494,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou em cima do muro'?",
-        "resposta": "I'm on the fence.",
+        "resposta": "I'm on the fence",
         "dicas": [
             "Indecisão",
             "Expressão idiomática"
@@ -1504,7 +1504,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'É a gota d'água'?",
-        "resposta": "It's the last straw.",
+        "resposta": "It's the last straw",
         "dicas": [
             "Limite da paciência",
             "Expressão idiomática"
@@ -1514,7 +1514,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com a faca e o queijo na mão'?",
-        "resposta": "I have the upper hand.",
+        "resposta": "I have the upper hand",
         "dicas": [
             "Vantagem",
             "Controle"
@@ -1524,7 +1524,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'É melhor prevenir do que remediar'?",
-        "resposta": "Better safe than sorry.",
+        "resposta": "Better safe than sorry",
         "dicas": [
             "Prevenção",
             "Cuidado"
@@ -1534,7 +1534,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Não é minha praia'?",
-        "resposta": "It's not my cup of tea.",
+        "resposta": "It's not my cup of tea",
         "dicas": [
             "Não gostar",
             "Expressão idiomática"
@@ -1544,7 +1544,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Ficar de olho em algo'?",
-        "resposta": "Keep an eye on something.",
+        "resposta": "Keep an eye on something",
         "dicas": [
             "Observar",
             "Cuidar"
@@ -1554,7 +1554,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Pense fora da caixa'?",
-        "resposta": "Think outside the box.",
+        "resposta": "Think outside the box",
         "dicas": [
             "Criatividade",
             "Inovação"
@@ -1564,7 +1564,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'É um tiro no escuro'?",
-        "resposta": "It's a shot in the dark.",
+        "resposta": "It's a shot in the dark",
         "dicas": [
             "Tentativa incerta",
             "Adivinhação"
@@ -1574,7 +1574,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Colocar a mão na massa'?",
-        "resposta": "Get your hands dirty.",
+        "resposta": "Get your hands dirty",
         "dicas": [
             "Trabalho prático",
             "Envolvimento"
@@ -1584,7 +1584,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Quebrar o gelo'?",
-        "resposta": "Break the ice.",
+        "resposta": "Break the ice",
         "dicas": [
             "Iniciar conversa",
             "Ambiente social"
@@ -1594,7 +1594,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Custar os olhos da cara'?",
-        "resposta": "Cost an arm and a leg.",
+        "resposta": "Cost an arm and a leg",
         "dicas": [
             "Muito caro",
             "Expressão idiomática"
@@ -1604,7 +1604,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Fazer vista grossa'?",
-        "resposta": "Turn a blind eye.",
+        "resposta": "Turn a blind eye",
         "dicas": [
             "Ignorar",
             "Fingir não ver"
@@ -1614,7 +1614,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Pela culatra'?",
-        "resposta": "Backfire.",
+        "resposta": "Backfire",
         "dicas": [
             "Resultado oposto",
             "Inesperado"
@@ -1624,7 +1624,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Ter a cabeça nas nuvens'?",
-        "resposta": "Have your head in the clouds.",
+        "resposta": "Have your head in the clouds",
         "dicas": [
             "Distraído",
             "Sonhador"
@@ -1634,7 +1634,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Dar a volta por cima'?",
-        "resposta": "Bounce back.",
+        "resposta": "Bounce back",
         "dicas": [
             "Recuperação",
             "Superar"
@@ -1644,7 +1644,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Fazer uma tempestade em copo d'água'?",
-        "resposta": "Make a mountain out of a molehill.",
+        "resposta": "Make a mountain out of a molehill",
         "dicas": [
             "Exagerar",
             "Pequeno problema"
@@ -1654,7 +1654,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Estar na mesma página'?",
-        "resposta": "Be on the same page.",
+        "resposta": "Be on the same page",
         "dicas": [
             "Concordar",
             "Entendimento mútuo"
@@ -1664,7 +1664,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Pelo menos'?",
-        "resposta": "At least.",
+        "resposta": "At least",
         "dicas": [
             "Mínimo",
             "Consolo"
@@ -1674,7 +1674,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'De vez em quando'?",
-        "resposta": "Once in a while.",
+        "resposta": "Once in a while",
         "dicas": [
             "Ocasionalmente",
             "Não frequentemente"
@@ -1684,7 +1684,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Em primeiro lugar'?",
-        "resposta": "First of all.",
+        "resposta": "First of all",
         "dicas": [
             "Introdução",
             "Prioridade"
@@ -1694,7 +1694,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'No final das contas'?",
-        "resposta": "At the end of the day.",
+        "resposta": "At the end of the day",
         "dicas": [
             "Conclusão",
             "Resumo"
@@ -1704,7 +1704,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Sem mais delongas'?",
-        "resposta": "Without further ado.",
+        "resposta": "Without further ado",
         "dicas": [
             "Introdução formal",
             "Direto ao ponto"
@@ -1714,7 +1714,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'É o que é'?",
-        "resposta": "It is what it is.",
+        "resposta": "It is what it is",
         "dicas": [
             "Aceitação",
             "Realidade"
@@ -1724,7 +1724,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Não leve para o lado pessoal'?",
-        "resposta": "Don't take it personally.",
+        "resposta": "Don't take it personally",
         "dicas": [
             "Conselho",
             "Crítica"
@@ -1734,7 +1734,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com a consciência pesada'?",
-        "resposta": "I have a guilty conscience.",
+        "resposta": "I have a guilty conscience",
         "dicas": [
             "Sentimento de culpa",
             "Remorso"
@@ -1744,7 +1744,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'É um prazer'?",
-        "resposta": "It's my pleasure.",
+        "resposta": "It's my pleasure",
         "dicas": [
             "Cortesia",
             "Resposta a agradecimento"
@@ -1784,7 +1784,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'É um mal necessário'?",
-        "resposta": "It's a necessary evil.",
+        "resposta": "It's a necessary evil",
         "dicas": [
             "Expressão comum",
             "Algo ruim, mas inevitável"
@@ -1794,7 +1794,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'É um tiro no escuro'?",
-        "resposta": "It's a shot in the dark.",
+        "resposta": "It's a shot in the dark",
         "dicas": [
             "Tentativa incerta",
             "Adivinhação"
@@ -1804,7 +1804,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Colocar a mão na massa'?",
-        "resposta": "Get your hands dirty.",
+        "resposta": "Get your hands dirty",
         "dicas": [
             "Trabalho prático",
             "Envolvimento"
@@ -1814,7 +1814,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Quebrar o gelo'?",
-        "resposta": "Break the ice.",
+        "resposta": "Break the ice",
         "dicas": [
             "Iniciar conversa",
             "Ambiente social"
@@ -1824,7 +1824,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Custar os olhos da cara'?",
-        "resposta": "Cost an arm and a leg.",
+        "resposta": "Cost an arm and a leg",
         "dicas": [
             "Muito caro",
             "Expressão idiomática"
@@ -1834,7 +1834,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Fazer vista grossa'?",
-        "resposta": "Turn a blind eye.",
+        "resposta": "Turn a blind eye",
         "dicas": [
             "Ignorar",
             "Fingir não ver"
@@ -1844,7 +1844,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Pela culatra'?",
-        "resposta": "Backfire.",
+        "resposta": "Backfire",
         "dicas": [
             "Resultado oposto",
             "Inesperado"
@@ -1854,7 +1854,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Ter a cabeça nas nuvens'?",
-        "resposta": "Have your head in the clouds.",
+        "resposta": "Have your head in the clouds",
         "dicas": [
             "Distraído",
             "Sonhador"
@@ -1864,7 +1864,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Dar a volta por cima'?",
-        "resposta": "Bounce back.",
+        "resposta": "Bounce back",
         "dicas": [
             "Recuperação",
             "Superar"
@@ -1874,7 +1874,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Fazer uma tempestade em copo d'água'?",
-        "resposta": "Make a mountain out of a molehill.",
+        "resposta": "Make a mountain out of a molehill",
         "dicas": [
             "Exagerar",
             "Pequeno problema"
@@ -1884,7 +1884,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Estar na mesma página'?",
-        "resposta": "Be on the same page.",
+        "resposta": "Be on the same page",
         "dicas": [
             "Concordar",
             "Entendimento mútuo"
@@ -1894,7 +1894,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Pelo menos'?",
-        "resposta": "At least.",
+        "resposta": "At least",
         "dicas": [
             "Mínimo",
             "Consolo"
@@ -1904,7 +1904,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'De vez em quando'?",
-        "resposta": "Once in a while.",
+        "resposta": "Once in a while",
         "dicas": [
             "Ocasionalmente",
             "Não frequentemente"
@@ -1914,7 +1914,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Em primeiro lugar'?",
-        "resposta": "First of all.",
+        "resposta": "First of all",
         "dicas": [
             "Introdução",
             "Prioridade"
@@ -1924,7 +1924,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'No final das contas'?",
-        "resposta": "At the end of the day.",
+        "resposta": "At the end of the day",
         "dicas": [
             "Conclusão",
             "Resumo"
@@ -1934,7 +1934,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Sem mais delongas'?",
-        "resposta": "Without further ado.",
+        "resposta": "Without further ado",
         "dicas": [
             "Introdução formal",
             "Direto ao ponto"
@@ -1944,7 +1944,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'É o que é'?",
-        "resposta": "It is what it is.",
+        "resposta": "It is what it is",
         "dicas": [
             "Aceitação",
             "Realidade"
@@ -1954,7 +1954,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Não leve para o lado pessoal'?",
-        "resposta": "Don't take it personally.",
+        "resposta": "Don't take it personally",
         "dicas": [
             "Conselho",
             "Crítica"
@@ -1964,7 +1964,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Eu estou com a consciência pesada'?",
-        "resposta": "I have a guilty conscience.",
+        "resposta": "I have a guilty conscience",
         "dicas": [
             "Sentimento de culpa",
             "Remorso"
@@ -1974,7 +1974,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'É um prazer'?",
-        "resposta": "It's my pleasure.",
+        "resposta": "It's my pleasure",
         "dicas": [
             "Cortesia",
             "Resposta a agradecimento"
@@ -2014,7 +2014,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'É um tiro no pé'?",
-        "resposta": "It's shooting yourself in the foot.",
+        "resposta": "It's shooting yourself in the foot",
         "dicas": [
             "Autossabotagem",
             "Ação prejudicial"
@@ -2024,7 +2024,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Fazer das tripas coração'?",
-        "resposta": "Go the extra mile.",
+        "resposta": "Go the extra mile",
         "dicas": [
             "Esforço extra",
             "Dedicação"
@@ -2034,7 +2034,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'É um mal que vem para o bem'?",
-        "resposta": "It's a blessing in disguise.",
+        "resposta": "It's a blessing in disguise",
         "dicas": [
             "Situação negativa com resultado positivo",
             "Inesperado"
@@ -2044,7 +2044,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Estar com a corda no pescoço'?",
-        "resposta": "Be in hot water.",
+        "resposta": "Be in hot water",
         "dicas": [
             "Problemas",
             "Situação difícil"
@@ -2054,7 +2054,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Pagar o pato'?",
-        "resposta": "Foot the bill.",
+        "resposta": "Foot the bill",
         "dicas": [
             "Pagar a conta",
             "Assumir responsabilidade"
@@ -2064,7 +2064,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Fazer a egípcia'?",
-        "resposta": "Give someone the cold shoulder.",
+        "resposta": "Give someone the cold shoulder",
         "dicas": [
             "Ignorar",
             "Tratar com frieza"
@@ -2074,7 +2074,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Chutar o balde'?",
-        "resposta": "Throw in the towel.",
+        "resposta": "Throw in the towel",
         "dicas": [
             "Desistir",
             "Render-se"
@@ -2084,7 +2084,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Como você diz 'Estar com a faca e o queijo na mão'?",
-        "resposta": "Have the upper hand.",
+        "resposta": "Have the upper hand",
         "dicas": [
             "Vantagem",
             "Controle"
@@ -2094,7 +2094,7 @@ const dailyChallenges = [
     },
     {
         "pergunta": "Qual a frase para dizer 'Pelo fio da navalha'?",
-        "resposta": "By the skin of your teeth.",
+        "resposta": "By the skin of your teeth",
         "dicas": [
             "Por pouco",
             "Quase não conseguir"

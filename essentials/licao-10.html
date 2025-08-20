@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation Class - Lesson 10: Happiness & Life Philosophy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #4a5568; }
+        .flashcard-front { background-color: #2d3748; color: #a0aec0; text-align: center; }
+        .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
+        .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
+        .lyrics-box { max-height: 300px; overflow-y: auto; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="conversation.html" class="text-lg font-bold text-yellow-400 hover:text-yellow-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
+            <h1 class="text-xl font-semibold text-center">Lesson 10: Happiness & Life Philosophy</h1>
+            <div class="w-32"></div>
+        </div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-yellow-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+
+        <div class="slide active">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-smile-beam text-cyan-400"></i> Warm-up: About Happiness</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6 text-2xl">
+                <p class="font-semibold text-gray-300">Let's start our conversation:</p>
+                <p><i class="fas fa-arrow-right mr-2 text-yellow-400"></i> What makes you happy?</p>
+                <p><i class="fas fa-arrow-right mr-2 text-yellow-400"></i> Do you believe money can buy happiness?</p>
+                <p><i class="fas fa-arrow-right mr-2 text-yellow-400"></i> What’s your life motto?</p>
+            </div></div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-comments text-teal-400"></i> Key Vocabulary & Expressions</h2><p class="text-2xl mb-8 text-gray-300 max-w-3xl mx-auto">Click the cards to explore ideas about happiness.</p><div class="flashcard-grid max-w-6xl mx-auto">
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">On cloud nine</h4></div><div class="flashcard-back"><p class="text-xl">To be extremely happy and excited.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">The simple things in life</h4></div><div class="flashcard-back"><p class="text-xl">The small, everyday pleasures.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To find your purpose</h4></div><div class="flashcard-back"><p class="text-xl">To discover your main goal or reason for living.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To live in the moment</h4></div><div class="flashcard-back"><p class="text-xl">To be fully present and not worry about the past or future.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To count your blessings</h4></div><div class="flashcard-back"><p class="text-xl">To be grateful for the good things in your life.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">A means to an end</h4></div><div class="flashcard-back"><p class="text-xl">Something you do only to achieve something else (e.g., money).</p></div></div></div>
+            </div></div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music Time: Happy</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/22HYEJveCvykVDHDiEEmjZ?utm_source=generator3" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
+                    <p>It might seem crazy what I'm 'bout to say</p>
+                    <p>Sunshine she's here, you can take a <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="break"><i class="fas fa-eye"></i></button></p>
+                    <p>I'm a hot air balloon that could go to space</p>
+                    <p>With the air, like I don't <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="care"><i class="fas fa-eye"></i></button>, baby, by the way</p>
+                    <p>Because I'm <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="happy"><i class="fas fa-eye"></i></button></p>
+                    <p>Clap along if you feel like a room without a <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="roof"><i class="fas fa-eye"></i></button></p>
+                    <p>Because I'm happy</p>
+                    <p>Clap along if you feel like happiness is the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="truth"><i class="fas fa-eye"></i></button></p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                <p>The song is very simple and repetitive. Why do you think it became so popular?</p>
+                <p>What does the line "a room without a roof" mean in the context of being happy?</p>
+            </div></div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music Time: Good Life</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/22HYEJveCvykVDHDiEEmjZ?utm_source=generator4" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
+                    <p>Woke up in London yesterday</p>
+                    <p>Found myself in the city near <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="Piccadilly"><i class="fas fa-eye"></i></button></p>
+                    <p>Don't really know how I got here</p>
+                    <p>I got some pictures on my <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="phone"><i class="fas fa-eye"></i></button></p>
+                    <p>New names and numbers that I don't know</p>
+                    <p>Address to places like Abbey Road</p>
+                    <p>Day turns to night, night turns to whatever we want</p>
+                    <p>We're <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="young"><i class="fas fa-eye"></i></button> enough to say</p>
+                    <p>Oh, this has gotta be the good <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="life"><i class="fas fa-eye"></i></button></p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                <p>This song connects the "good life" with travel and new experiences. Do you agree that travel is important for happiness?</p>
+                <p>What does the "good life" mean to you?</p>
+            </div></div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music Time: Don't Worry, Be Happy</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/22HYEJveCvykVDHDiEEmjZ?utm_source=generator5" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
+                    <p>Here's a little <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="song"><i class="fas fa-eye"></i></button> I wrote</p>
+                    <p>You might want to sing it note for note</p>
+                    <p>Don't worry, be <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="happy"><i class="fas fa-eye"></i></button></p>
+                    <p>In every life we have some <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="trouble"><i class="fas fa-eye"></i></button></p>
+                    <p>But when you worry you make it <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="double"><i class="fas fa-eye"></i></button></p>
+                    <p>Don't worry, be happy now</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                <p>Is it always possible to "not worry" and "be happy"?</p>
+                <p>What is your favorite way to relax and stop worrying?</p>
+            </div></div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="matching-activity" class="space-y-4"></div><button id="check-answers-btn" class="mt-8 bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-yellow-700">Check Answers</button></div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-home text-blue-400"></i>Homework</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto"><p class="text-2xl mb-6 text-gray-300">Write a short paragraph about your personal philosophy for a happy life. What is most important to you?</p><div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg"><p><strong>Example:</strong> "For me, the most important thing is to... I try to live in the moment and count my blessings..."</p></div></div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center flex flex-col items-center justify-center h-full"><i class="fas fa-sun text-yellow-300 text-7xl mb-6"></i><h2 class="text-5xl font-bold mb-4 text-gray-100">Lesson Complete!</h2><p class="text-2xl italic text-gray-400 max-w-2xl mx-auto">"For every minute you are angry, you lose sixty seconds of happiness." - Ralph Waldo Emerson</p></div>
+        </div>
+        <div id="custom-alert-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center transition-opacity duration-300"></div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20"><div class="container mx-auto px-8 h-20 flex justify-between items-center"><button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button><button id="next-btn" class="bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-yellow-700">Próximo</button><button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finalizar Aula</button></div></footer>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+
+    <script>
+        // Função de Alerta Customizado
+        function showCustomAlert(message, type = 'success', callback) {
+            const modal = document.getElementById('custom-alert-modal');
+            if (!modal) return;
+            modal.innerHTML = `<div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 text-center" id="custom-alert-box"><i id="custom-alert-icon"></i><h3 id="custom-alert-title"></h3><p id="custom-alert-message" class="text-lg text-gray-300 mb-8"></p><button id="custom-alert-close-btn"></button></div>`;
+            const icon = document.getElementById('custom-alert-icon'), title = document.getElementById('custom-alert-title'), messageEl = document.getElementById('custom-alert-message'), closeBtn = document.getElementById('custom-alert-close-btn');
+            icon.className = 'fas text-6xl mb-5'; title.className = 'text-3xl font-bold mb-3'; closeBtn.className = 'text-white font-bold py-3 px-10 rounded-lg text-lg transition';
+            if (type === 'success') {
+                icon.classList.add('fa-check-circle', 'text-green-400'); title.textContent = 'Success!'; closeBtn.textContent = 'OK'; closeBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+            } else {
+                icon.classList.add('fa-times-circle', 'text-red-400'); title.textContent = 'Error!'; closeBtn.textContent = 'Try Again'; closeBtn.classList.add('bg-red-600', 'hover:bg-red-700');
+            }
+            messageEl.textContent = message; modal.style.display = 'flex'; closeBtn.onclick = () => { modal.style.display = 'none'; if (callback) callback(); }
+        }
+
+        // Lógica principal da página
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'conversation';
+            const lessonNumber = 10;
+
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                if (progressBar) progressBar.style.width = slides.length > 1 ? `${((index + 1) / slides.length) * 100}%` : '100%';
+                if (prevBtn) prevBtn.disabled = index === 0;
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+            }
+
+            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            if (finishLessonBtn) finishLessonBtn.addEventListener('click', () => {
+                finishLessonBtn.disabled = true; finishLessonBtn.textContent = "Salvando...";
+                if (typeof markLessonAsComplete === 'function') markLessonAsComplete(moduleId, lessonNumber);
+                else { console.error("A função markLessonAsComplete não foi encontrada."); alert("Erro ao salvar progresso."); }
+            });
+
+            document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+            
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const inputField = button.previousElementSibling;
+                    if (inputField) {
+                        inputField.value = button.dataset.answer;
+                        inputField.classList.add('text-yellow-400', 'font-bold');
+                    }
+                });
+            });
+
+            const activityContainer = document.getElementById('matching-activity'), checkAnswersBtn = document.getElementById('check-answers-btn');
+            if(activityContainer && checkAnswersBtn) {
+                const expressions=[{id:'cloud_nine',text:'On cloud nine'},{id:'simple_things',text:'The simple things in life'},{id:'find_purpose',text:'To find your purpose'},{id:'live_moment',text:'To live in the moment'},{id:'count_blessings',text:'To count your blessings'},{id:'means_end',text:'A means to an end'}];
+                const situations=[{text:"He won the lottery and he is extremely happy!",answer:'cloud_nine'},{text:"I don't worry about the future, I just enjoy today.",answer:'live_moment'},{text:"Money for me is not the goal, it's just a way to achieve other things.",answer:'means_end'},{text:"When I feel sad, I think about all the good things I have.",answer:'count_blessings'},{text:"A beautiful sunset, a cup of coffee... I enjoy the...",answer:'simple_things'},{text:"She quit her job to become a doctor and help people. She wants to...",answer:'find_purpose'}];
+                function shuffle(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
+                function createActivity() {
+                    const shuffledSituations = shuffle(situations);
+                    let html = shuffledSituations.map((sit, index) => {
+                        return `<div id="q-${index}" class="p-4 rounded-lg bg-gray-800 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300"><p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p><select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg shadow-sm text-lg focus:border-yellow-400 focus:ring focus:ring-yellow-300 focus:ring-opacity-50"><option value="">Select an expression...</option>${shuffle([...expressions]).map(exp => `<option value="${exp.id}">${exp.text}</option>`).join('')}</select></div>`;
+                    }).join('');
+                    activityContainer.innerHTML = html;
+                }
+                createActivity();
+                checkAnswersBtn.addEventListener('click', () => {
+                    activityContainer.querySelectorAll('select').forEach((select, index) => {
+                        const questionDiv = document.getElementById(`q-${index}`);
+                        questionDiv.classList.remove('bg-green-900/50', 'border-green-500', 'bg-red-900/50', 'border-red-500');
+                        if (select.value === select.dataset.answer) {
+                            questionDiv.classList.add('bg-green-900/50', 'border-green-500');
+                        } else {
+                            questionDiv.classList.add('bg-red-900/50', 'border-red-500');
+                        }
+                    });
+                });
+            }
+
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo English Essentials | Inglês no seu Ritmo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .lesson-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .lesson-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* ESTADOS VISUAIS */
+        .lesson-card.locked {
+            background-color: #f3f4f6;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .lesson-card.locked:hover { transform: none; box-shadow: none; }
+        .lesson-card.locked .lesson-title, .lesson-card.locked .lesson-number { color: #6b7280; }
+
+        .lesson-card.completed {
+            border-color: #e11d48; /* Cor temática do módulo Essentials */
+            background-color: #fff1f2;
+        }
+
+        .lesson-card.next {
+            border-color: #f43f5e; /* Cor temática do módulo Essentials */
+            animation: pulse-red 2s infinite;
+        }
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(244, 63, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
+        }
+    </style>
+</head>
+<body data-module="essentials" class="bg-gray-100">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <a href="../index.html" class="text-lg font-bold text-gray-600 hover:text-gray-800 flex items-center gap-2">
+                <i class="fas fa-chevron-left"></i> Voltar ao Painel
+            </a>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-8 mt-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-700">Módulo English Essentials</h2>
+            <p class="text-lg text-gray-500 mt-2">Os pilares fundamentais da língua inglesa em 16 lições.</p>
+        </div>
+
+        <div id="lessons-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            </div>
+
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/status-updater.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const essentialsLessons = [
+                { number: 1, title: 'The Foundation: Verb To Be' },
+                { number: 2, title: 'Daily Life: Simple Present' },
+                { number: 3, title: 'Right Now: Present Continuous' },
+                { number: 4, title: 'The Past: Simple Past' },
+                { number: 5, title: 'Actions in the Past: Past Continuous' },
+                { number: 6, title: 'Future Plans: Going To & Will' },
+                { number: 7, title: 'Asking Questions: Question Structure' },
+                { number: 8, title: 'Abilities & Advice: Can, Could, Should' },
+                { number: 9, title: 'Describing Places: There is/are & Prepositions' },
+                { number: 10, title: 'Counting & Quantifying: Quantifiers' },
+                { number: 11, title: 'Comparisons: Comparatives & Superlatives' },
+                { number: 12, title: 'Possession: Possessives & \'s' },
+                { number: 13, title: 'Life Experiences: Present Perfect' },
+                { number: 14, title: 'Verb Combos: Phrasal Verbs' },
+                { number: 15, title: 'Connecting Ideas: Conjunctions' },
+                { number: 16, title: 'Rules & Obligations: Must & Have to' }
+            ];
+
+            const grid = document.getElementById('lessons-grid');
+            let lessonHTML = '';
+            essentialsLessons.forEach(lesson => {
+                const lessonNumberPadded = String(lesson.number).padStart(2, '0');
+                lessonHTML += `
+                    <a href="licao-${lessonNumberPadded}.html" data-lesson="${lesson.number}" class="lesson-card bg-white p-6 rounded-xl shadow">
+                        <p class="lesson-number font-bold text-rose-600">Lição ${lessonNumberPadded}</p>
+                        <p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">${lesson.title}</p>
+                    </a>
+                `;
+            });
+            grid.innerHTML = lessonHTML;
+
+            // Chamar o status-updater.js para colorir os cards
+            if (typeof updateLessonStatuses === 'function') {
+                updateLessonStatuses();
+            }
+        });
+    </script>
+</body>
+</html>
