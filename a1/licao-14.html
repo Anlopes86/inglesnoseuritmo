@@ -21,6 +21,16 @@
         .flashcard-back { background-color: #0f766e; color: white; transform: rotateY(180deg); text-align: center; }
         .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
         .answer-btn:hover { color: #4f46e5; }
+        .word-token {
+            cursor: pointer;
+            border-radius: 9999px;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+        .correct-answer { color: #15803d; font-weight: bold; }
+        .incorrect-answer { color: #dc2626; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -56,10 +66,10 @@
                 <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-signal text-teal-500"></i> Vocabulary: Adverbs of Frequency</h2>
                 <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Clique nos cartões para aprender a expressar frequência.</p>
                 <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">always (100%)</h4></div><div class="flashcard-back"><p class="text-2xl">I always wake up early.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">usually (80%)</h4></div><div class="flashcard-back"><p class="text-2xl">I usually have coffee.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">sometimes (50%)</h4></div><div class="flashcard-back"><p class="text-2xl">I sometimes watch TV.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">never (0%)</h4></div><div class="flashcard-back"><p class="text-2xl">I never go to bed late.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">always (100%)</h4></div><div class="flashcard-back"><p class="text-2xl">I always wake up early.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">usually (80%)</h4></div><div class="flashcard-back"><p class="text-2xl">I usually have coffee.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">sometimes (50%)</h4></div><div class="flashcard-back"><p class="text-2xl">I sometimes watch TV.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">never (0%)</h4></div><div class="flashcard-back"><p class="text-2xl">I never go to bed late.</p></div></div></div>
                 </div>
             </div>
         </div>
@@ -108,8 +118,17 @@
                 <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-pencil-alt text-orange-500"></i>Practice: Build the Sentence</h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
                     <p class="text-2xl mb-8 text-gray-600">Coloque as palavras na ordem correta.</p>
-                    <div id="practice-1" class="space-y-6 text-xl">
+                    <div id="build-sentence-container" class="space-y-6 text-xl">
+                        <div id="sentence-area" class="border-2 border-dashed border-gray-300 p-4 min-h-[80px] rounded-lg flex flex-wrap items-center justify-center">
+                            <span class="text-gray-400">Clique nas palavras abaixo para construir a frase.</span>
                         </div>
+                        <div id="word-bank" class="flex flex-wrap justify-center p-4 bg-gray-100 rounded-lg"></div>
+                        <div class="flex justify-center mt-4 space-x-4">
+                            <button id="check-btn" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700">Verificar</button>
+                            <button id="reset-btn" class="bg-gray-400 text-white font-bold py-2 px-6 rounded-lg hover:bg-gray-500">Refazer</button>
+                        </div>
+                        <div id="feedback" class="mt-4 text-xl font-semibold"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -120,11 +139,15 @@
                 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7i35CiJIW4BzEDb1jJbJ6j?utm_source=generator&theme=00" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 <div class="mt-4">
                     <p class="text-2xl mb-4 text-gray-600">Ouça a música e complete os dias da semana.</p>
-                    <div class="text-xl space-y-3 bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
+                    <div class="text-2xl space-y-3 bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
                          <p>I don't care if <input type="text" class="w-28 border-b-2 text-center bg-transparent" data-answer="Monday's"><button class="answer-btn" data-answer="Monday's"><i class="fas fa-eye"></i></button> blue</p>
                          <p><input type="text" class="w-28 border-b-2 text-center bg-transparent" data-answer="Tuesday's"><button class="answer-btn" data-answer="Tuesday's"><i class="fas fa-eye"></i></button> gray and <input type="text" class="w-28 border-b-2 text-center bg-transparent" data-answer="Wednesday"><button class="answer-btn" data-answer="Wednesday"><i class="fas fa-eye"></i></button> too</p>
                          <p><input type="text" class="w-28 border-b-2 text-center bg-transparent" data-answer="Thursday"><button class="answer-btn" data-answer="Thursday"><i class="fas fa-eye"></i></button> I don't care about you</p>
                          <p>It's <input type="text" class="w-28 border-b-2 text-center bg-transparent" data-answer="Friday"><button class="answer-btn" data-answer="Friday"><i class="fas fa-eye"></i></button>, I'm in love</p>
+                         <p>Monday you can fall apart</p>
+                         <p>Tuesday, Wednesday break my heart</p>
+                         <p>Oh, Thursday, doesn't even start</p>
+                         <p>It's <input type="text" class="w-28 border-b-2 text-center bg-transparent" data-answer="Friday"><button class="answer-btn" data-answer="Friday"><i class="fas fa-eye"></i></button> I'm in love</p>
                     </div>
                 </div>
             </div>
@@ -132,25 +155,25 @@
         
         <div class="slide">
              <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-home text-blue-500"></i>Homework: My Week</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Escreva um parágrafo sobre sua semana usando advérbios de frequência.</p>
-                    <div class="text-left text-xl space-y-2 mt-4 bg-gray-50 p-4 rounded-lg">
-                        <p class="font-bold">Exemplo:</p>
-                        <p>"On Mondays, I always go to the gym. I usually work from home on Wednesdays. On weekends, I sometimes see my friends. I never work on Sundays."</p>
-                        <hr class="my-2">
-                        <textarea class="w-full mt-2 p-2 border-2 rounded-lg" rows="6" placeholder="On Mondays, I..."></textarea>
-                    </div>
-                </div>
-            </div>
+                 <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-home text-blue-500"></i>Homework: My Week</h2>
+                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                     <p class="text-2xl mb-6 text-gray-600">Escreva um parágrafo sobre sua semana usando advérbios de frequência.</p>
+                     <div class="text-left text-xl space-y-2 mt-4 bg-gray-50 p-4 rounded-lg">
+                         <p class="font-bold">Exemplo:</p>
+                         <p>"On Mondays, I always go to the gym. I usually work from home on Wednesdays. On weekends, I sometimes see my friends. I never work on Sundays."</p>
+                         <hr class="my-2">
+                         <textarea class="w-full mt-2 p-2 border-2 rounded-lg" rows="6" placeholder="On Mondays, I..."></textarea>
+                     </div>
+                 </div>
+             </div>
         </div>
 
         <div class="slide">
-             <div class="text-center flex flex-col items-center justify-center h-full">
-                <i class="fas fa-hourglass-half text-teal-600 text-7xl mb-6"></i>
-                <h2 class="text-5xl font-bold mb-4 text-gray-800">Make Every Day Count!</h2>
-                <p class="text-3xl text-gray-600">Now you can talk about your habits and routines. Well done!</p>
-            </div>
+              <div class="text-center flex flex-col items-center justify-center h-full">
+                  <i class="fas fa-hourglass-half text-teal-600 text-7xl mb-6"></i>
+                  <h2 class="text-5xl font-bold mb-4 text-gray-800">Make Every Day Count!</h2>
+                  <p class="text-3xl text-gray-600">Now you can talk about your habits and routines. Well done!</p>
+              </div>
         </div>
     </main>
 
@@ -207,20 +230,117 @@
                 const isLastSlide = index === slides.length - 1;
                 if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
                 if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+
+                // Re-inicializa a lógica quando o slide correto é exibido
+                if (index === 4) { // Índice do slide de "Build the Sentence"
+                    setupBuildTheSentence();
+                }
             }
 
             if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
             if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
             
-            // Lógica Específica da Aula (atividades, flashcards, etc.)
-            // Esta parte deve ser mantida ou adicionada conforme a necessidade de cada lição.
+            // Lógica para os Flashcards
             document.querySelectorAll('.flashcard').forEach(card => {
-                card.addEventListener('click', () => card.classList.toggle('flipped'));
+                card.addEventListener('click', () => {
+                    card.classList.toggle('flipped');
+                });
             });
-            
+
+            // Lógica para o Build the Sentence
+            const sentences = [
+                "I always study English on Fridays.",
+                "She sometimes plays video games.",
+                "They never eat fast food.",
+                "He usually goes to the park.",
+                "We often watch movies on weekends.",
+                "You are always so kind.",
+                "My dad often cooks dinner for us.",
+                "My mom is rarely late for work."
+            ];
+            let currentSentenceIndex = 0;
+            const sentenceArea = document.getElementById('sentence-area');
+            const wordBank = document.getElementById('word-bank');
+            const checkBtn = document.getElementById('check-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const feedback = document.getElementById('feedback');
+            let currentCorrectSentence = [];
+
+            function setupBuildTheSentence() {
+                const sentence = sentences[currentSentenceIndex];
+                currentCorrectSentence = sentence.replace(/\./g, '').split(' ');
+                const shuffledWords = [...currentCorrectSentence].sort(() => Math.random() - 0.5);
+
+                sentenceArea.innerHTML = '<span class="text-gray-400">Clique nas palavras abaixo para construir a frase.</span>';
+                wordBank.innerHTML = '';
+                feedback.textContent = '';
+                checkBtn.classList.remove('hidden');
+                resetBtn.classList.remove('hidden');
+
+                shuffledWords.forEach(word => {
+                    const button = document.createElement('button');
+                    button.textContent = word;
+                    button.className = 'word-token bg-teal-500 text-white font-bold hover:bg-teal-600';
+                    button.onclick = () => {
+                        if (sentenceArea.querySelector('span.text-gray-400')) {
+                            sentenceArea.innerHTML = ''; // Remove o texto de instrução
+                        }
+                        const selectedWord = document.createElement('span');
+                        selectedWord.textContent = word;
+                        selectedWord.className = 'word-token bg-gray-200 text-gray-800';
+                        sentenceArea.appendChild(selectedWord);
+                        button.remove();
+                    };
+                    wordBank.appendChild(button);
+                });
+            }
+
+            checkBtn.addEventListener('click', () => {
+                const userSentence = Array.from(sentenceArea.querySelectorAll('span'))
+                    .map(span => span.textContent.trim())
+                    .join(' ');
+                
+                const correctSentence = currentCorrectSentence.join(' ');
+
+                if (userSentence === correctSentence) {
+                    feedback.textContent = "Correto! 🎉";
+                    feedback.className = "mt-4 text-xl font-bold text-green-600";
+                    checkBtn.classList.add('hidden');
+                    resetBtn.textContent = "Próxima Frase";
+                    currentSentenceIndex = (currentSentenceIndex + 1) % sentences.length;
+                } else {
+                    feedback.textContent = "Tente novamente. 🤔";
+                    feedback.className = "mt-4 text-xl font-bold text-red-600";
+                }
+            });
+
+            resetBtn.addEventListener('click', () => {
+                if (resetBtn.textContent === "Próxima Frase") {
+                    setupBuildTheSentence();
+                    resetBtn.textContent = "Refazer";
+                } else {
+                    setupBuildTheSentence();
+                }
+            });
+
+            // Lógica para revelar a resposta da letra da música
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const input = btn.previousElementSibling;
+                    const correctAnswer = input.dataset.answer;
+                    const icon = btn.querySelector('i');
+
+                    input.value = correctAnswer;
+                    input.style.borderColor = '#10B981'; // Borda verde
+                    input.disabled = true;
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-check');
+                    icon.style.color = '#10B981'; // Ícone verde
+                });
+            });
+
             showSlide(0);
         });
     </script>
-
 </body>
 </html>

@@ -7,93 +7,43 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../enhanced-styles.css">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .lesson-card {
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        .lesson-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        
-        /* ESTADOS VISUAIS */
-        .lesson-card.locked {
-            background-color: #f3f4f6;
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
+        .lesson-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .lesson-card.locked { background-color: #f3f4f6; cursor: not-allowed; opacity: 0.7; }
         .lesson-card.locked:hover { transform: none; box-shadow: none; }
-        .lesson-card.locked .lesson-title, .lesson-card.locked .lesson-number { color: #6b7280; }
-
-        .lesson-card.completed {
-            border-color: #22c55e;
-            background-color: #f0fdf4;
-        }
-
-        .lesson-card.next {
-            border-color: #3b82f6;
-            animation: pulse-blue 2s infinite;
-        }
-        @keyframes pulse-blue {
-            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        .lesson-card.next { animation: pulse-amber 2s infinite; }
+        @keyframes pulse-amber {
+            0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
         }
     </style>
 </head>
-<body data-module="vestibular" class="bg-gray-100">
+<body>
 
     <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-4">
-            <a href="../index.html" class="text-lg font-bold text-gray-600 hover:text-gray-800 flex items-center gap-2">
-                <i class="fas fa-chevron-left"></i> Voltar ao Painel
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="../aluno/aluno.html" class="text-lg font-bold text-gray-600 hover:text-gray-800 flex items-center gap-2">
+                <i class="fas fa-chevron-left"></i> Voltar ao Portal
             </a>
+            <h1 class="text-2xl font-bold text-amber-600">Jornada Vestibular</h1>
         </div>
     </header>
 
-    <main class="container mx-auto p-8 mt-4">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-700">Dicas para Vestibular</h2>
-            <p class="text-lg text-gray-500 mt-2">Estratégias e técnicas para maximizar sua nota na prova de inglês.</p>
+    <main class="container mx-auto p-8">
+        <div id="loading" class="text-center text-gray-500 py-10">
+            <i class="fas fa-spinner fa-spin text-2xl mr-2"></i> Carregando suas dicas...
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <a href="licao-01.html" data-lesson="1" class="lesson-card bg-white p-6 rounded-xl shadow">
-                <p class="lesson-number font-bold text-yellow-600">Lição 01</p>
-                <p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Introduction to Vestibular</p>
-            </a>
-            <a href="licao-02.html" data-lesson="2" class="lesson-card bg-white p-6 rounded-xl shadow">
-                <p class="lesson-number font-bold text-yellow-600">Lição 02</p>
-                <p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Skimming & Scanning</p>
-            </a>
-            <a href="licao-03.html" data-lesson="3" class="lesson-card bg-white p-6 rounded-xl shadow">
-                <p class="lesson-number font-bold text-yellow-600">Lição 03</p>
-                <p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Identifying Main Ideas</p>
-            </a>
-            <a href="licao-04.html" data-lesson="4" class="lesson-card bg-white p-6 rounded-xl shadow">
-                <p class="lesson-number font-bold text-yellow-600">Lição 04</p>
-                <p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Understanding Vocabulary in Context</p>
-            </a>
-            <a href="licao-05.html" data-lesson="5" class="lesson-card bg-white p-6 rounded-xl shadow">
-                <p class="lesson-number font-bold text-yellow-600">Lição 05</p>
-                <p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Interpreting Cartoons and Comics</p>
-            </a>
-            <a href="licao-06.html" data-lesson="6" class="lesson-card bg-white p-6 rounded-xl shadow">
-                <p class="lesson-number font-bold text-yellow-600">Lição 06</p>
-                <p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Analyzing Literary Texts</p>
-            </a>
-        </div>
+        
+        <div id="lessons-grid" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            </div>
     </main>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="js/firebase-config.js"></script>
-    <script src="js/status-updater.js"></script>
-</body>
+    <script src="../js/firebase-config.js"></script>
+    <script src="vestibular-lessons.js"></script> </body>
 </html>
