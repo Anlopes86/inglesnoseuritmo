@@ -12,6 +12,33 @@
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Estilos para o Quiz de Múltipla Escolha */
+        .question-card { background-color: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+        .option-button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-radius: 0.5rem;
+            background-color: #f3f4f6;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+        .option-button:hover { background-color: #e5e7eb; }
+        .option-button.correct { background-color: #d1fae5; color: #10b981; }
+        .option-button.incorrect { background-color: #fee2e2; color: #ef4444; }
+        
+        /* Estilos para o Build the Sentence */
+        .word-token {
+            cursor: pointer;
+            border-radius: 9999px;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            display: inline-block;
+            transition: all 0.2s;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -63,6 +90,17 @@
                 </div>
             </div>
         </div>
+        
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-question-circle text-red-500"></i> Quiz: Multiple Choice</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-2xl mb-8 text-gray-600">Selecione a opção correta para cada frase.</p>
+                    <div id="quiz-container" class="space-y-6">
+                        </div>
+                </div>
+            </div>
+        </div>
 
         <div class="slide">
             <div class="text-center">
@@ -87,7 +125,27 @@
         </div>
         
         <div class="slide">
-             <div class="text-center">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-puzzle-piece text-amber-500"></i> Activity: Build the Sentence</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-2xl mb-8 text-gray-600">Coloque as palavras na ordem correta.</p>
+                    <div id="build-sentence-container" class="space-y-6 text-xl">
+                        <div id="sentence-area" class="border-2 border-dashed border-gray-300 p-4 min-h-[80px] rounded-lg flex flex-wrap items-center justify-center">
+                            <span class="text-gray-400">Clique nas palavras abaixo para construir a frase.</span>
+                        </div>
+                        <div id="word-bank" class="flex flex-wrap justify-center p-4 bg-gray-100 rounded-lg"></div>
+                        <div class="flex justify-center mt-4 space-x-4">
+                            <button id="check-btn" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700">Verificar</button>
+                            <button id="reset-btn" class="bg-gray-400 text-white font-bold py-2 px-6 rounded-lg hover:bg-gray-500">Refazer</button>
+                        </div>
+                        <div id="feedback" class="mt-4 text-xl font-semibold"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-headphones text-cyan-500"></i>Listening: A Weekly Schedule</h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
                     <p class="text-2xl mb-6 text-gray-600">Ouça a rotina de Julia e complete a agenda dela.</p>
@@ -181,6 +239,15 @@
                 const isLastSlide = index === slides.length - 1;
                 if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
                 if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+
+                // Initialize the quiz when the quiz slide is active
+                if (slides[index].querySelector('#quiz-container')) {
+                    initQuiz();
+                }
+                // Initialize the build-a-sentence activity when the slide is active
+                if (slides[index].querySelector('#build-sentence-container')) {
+                    setupBuildTheSentence();
+                }
             }
 
             if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
@@ -237,6 +304,158 @@
                 addInputListeners(transformContainer);
             }
             
+            // --- NOVA LÓGICA DO QUIZ DE MÚLTIPLA ESCOLHA ---
+            const quizQuestions = [
+                {
+                    question: "They ____ to the gym every day.",
+                    options: ["goes", "go"],
+                    answer: "go"
+                },
+                {
+                    question: "We ____ never late for class.",
+                    options: ["is", "are"],
+                    answer: "are"
+                },
+                {
+                    question: "He ____ likes to watch movies.",
+                    options: ["sometimes", "always", "don't"],
+                    answer: "always"
+                },
+                {
+                    question: "I see my friend and I talk to ____.",
+                    options: ["he", "her", "she"],
+                    answer: "her"
+                }
+            ];
+            
+            let currentQuizQuestionIndex = 0;
+            const quizContainer = document.getElementById('quiz-container');
+
+            function initQuiz() {
+                currentQuizQuestionIndex = 0;
+                loadQuizQuestion();
+            }
+
+            function loadQuizQuestion() {
+                if (currentQuizQuestionIndex >= quizQuestions.length) {
+                    quizContainer.innerHTML = `<p class="text-xl font-bold text-green-600">Quiz finalizado! Ótimo trabalho!</p>`;
+                    return;
+                }
+                const q = quizQuestions[currentQuizQuestionIndex];
+                let optionsHtml = '';
+                q.options.forEach(option => {
+                    optionsHtml += `<button class="option-button" data-answer="${option}">${option}</button>`;
+                });
+                quizContainer.innerHTML = `
+                    <div class="question-card">
+                        <p class="text-xl font-bold mb-4">${currentQuizQuestionIndex + 1}. ${q.question}</p>
+                        <div class="space-y-2 text-lg">
+                            ${optionsHtml}
+                        </div>
+                        <p id="quiz-feedback" class="mt-4 text-sm font-semibold h-4"></p>
+                    </div>
+                `;
+                const optionButtons = quizContainer.querySelectorAll('.option-button');
+                const quizFeedback = document.getElementById('quiz-feedback');
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const userAnswer = button.dataset.answer;
+                        if (userAnswer === q.answer) {
+                            button.classList.add('correct');
+                            quizFeedback.textContent = "Correto!";
+                            quizFeedback.classList.remove('text-red-600');
+                            quizFeedback.classList.add('text-green-600');
+                            optionButtons.forEach(btn => btn.disabled = true);
+                            setTimeout(() => {
+                                currentQuizQuestionIndex++;
+                                loadQuizQuestion();
+                            }, 1000);
+                        } else {
+                            button.classList.add('incorrect');
+                            quizFeedback.textContent = "Incorreto. Tente novamente.";
+                            quizFeedback.classList.remove('text-green-600');
+                            quizFeedback.classList.add('text-red-600');
+                        }
+                    });
+                });
+            }
+
+            // --- NOVA LÓGICA DE BUILD THE SENTENCE ---
+            const buildSentences = [
+                "He always studies on Sundays.",
+                "They don't like horror movies.",
+                "Do you have a pet?",
+                "I sometimes call him."
+            ];
+            let currentSentenceIndex = 0;
+            const sentenceArea = document.getElementById('sentence-area');
+            const wordBank = document.getElementById('word-bank');
+            const checkBtn = document.getElementById('check-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const feedback = document.getElementById('feedback');
+            let currentCorrectSentence = [];
+
+            function setupBuildTheSentence() {
+                const sentence = buildSentences[currentSentenceIndex];
+                currentCorrectSentence = sentence.replace(/[.?]/g, '').split(' ');
+                const shuffledWords = [...currentCorrectSentence].sort(() => Math.random() - 0.5);
+
+                sentenceArea.innerHTML = '<span class="text-gray-400">Clique nas palavras abaixo para construir a frase.</span>';
+                wordBank.innerHTML = '';
+                feedback.textContent = '';
+                checkBtn.classList.remove('hidden');
+                resetBtn.classList.remove('hidden');
+
+                shuffledWords.forEach(word => {
+                    const button = document.createElement('button');
+                    button.textContent = word;
+                    button.className = 'word-token bg-teal-500 text-white font-bold hover:bg-teal-600';
+                    button.onclick = () => {
+                        if (sentenceArea.querySelector('span.text-gray-400')) {
+                            sentenceArea.innerHTML = '';
+                        }
+                        const selectedWord = document.createElement('span');
+                        selectedWord.textContent = word;
+                        selectedWord.className = 'word-token bg-gray-200 text-gray-800';
+                        sentenceArea.appendChild(selectedWord);
+                        button.remove();
+                    };
+                    wordBank.appendChild(button);
+                });
+            }
+
+            if(checkBtn) {
+                checkBtn.addEventListener('click', () => {
+                    const userSentence = Array.from(sentenceArea.querySelectorAll('span'))
+                        .map(span => span.textContent.trim())
+                        .join(' ');
+                    
+                    const correctSentence = currentCorrectSentence.join(' ');
+
+                    if (userSentence === correctSentence) {
+                        feedback.textContent = "Correto! 🎉";
+                        feedback.className = "mt-4 text-xl font-bold text-green-600";
+                        checkBtn.classList.add('hidden');
+                        resetBtn.textContent = "Próxima Frase";
+                        currentSentenceIndex = (currentSentenceIndex + 1) % buildSentences.length;
+                    } else {
+                        feedback.textContent = "Tente novamente. 🤔";
+                        feedback.className = "mt-4 text-xl font-bold text-red-600";
+                    }
+                });
+            }
+
+            if(resetBtn) {
+                 resetBtn.addEventListener('click', () => {
+                    if (resetBtn.textContent === "Próxima Frase") {
+                        setupBuildTheSentence();
+                        resetBtn.textContent = "Refazer";
+                    } else {
+                        setupBuildTheSentence();
+                    }
+                });
+            }
+
             showSlide(0);
         });
     </script>
