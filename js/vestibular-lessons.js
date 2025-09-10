@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const studentId = (role === 'professor') ? localStorage.getItem('selectedStudentId') : user.uid;
 
             if (studentId) {
-                loadLessons(studentId);
+                loadLessons(studentId, role);
             } else {
                 loadingDiv.innerHTML = '<p class="text-red-500">Erro: ID do aluno não encontrado. Por favor, selecione um aluno no painel principal.</p>';
             }
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    async function loadLessons(studentId) {
+    async function loadLessons(studentId, userRole) { // Novo: Recebe o papel do usuário
         try {
             const studentDoc = await db.collection('students').doc(studentId).get();
             const progress = studentDoc.exists ? (studentDoc.data().progress[moduleId] || {}) : {};
@@ -65,8 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     firstUncompleted = lessonNumber;
                 }
 
-                // A primeira lição não concluída também é acessível
-                const canAccess = isCompleted || lessonNumber === firstUncompleted;
+                // Lógica de acesso: Professor tem acesso a tudo. Aluno só acessa o próximo ou os já completos.
+                const canAccess = (userRole === 'professor') || isCompleted || lessonNumber === firstUncompleted;
                 
                 const card = document.createElement('a');
                 card.href = canAccess ? `licao-${String(lessonNumber).padStart(2, '0')}.html` : '#';
