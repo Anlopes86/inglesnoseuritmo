@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulário de Conversação | Inglês no seu Ritmo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../enhanced-styles.css">
+    <style>
+        .lesson-btn.active {
+            background-color: #7c3aed;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .section-icon {
+            color: #4b5563;
+        }
+        .word-item {
+            display: flex;
+            flex-direction: column;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            transition: transform 0.2s;
+        }
+        .word-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+        }
+        .search-results-container {
+            display: none;
+        }
+        .search-results-container.active {
+            display: block;
+        }
+        .section-header {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #4b5563;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        .search-item {
+            padding: 1rem;
+            background-color: #f0fdf4;
+            border-left: 4px solid #16a34a;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .search-item strong {
+            color: #166534;
+        }
+        .words-section .word-item {
+            background-color: #e0f2fe;
+            border: 1px solid #93c5fd;
+        }
+        .expressions-section .word-item {
+            background-color: #fce7f3;
+            border: 1px solid #f9a8d4;
+        }
+        .verbs-section .verb-item {
+            background-color: #eef2ff;
+            border: 1px solid #a5b4fc;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    
+    <header class="bg-white p-6 md:p-8 rounded-b-2xl shadow-sm mb-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6">
+            <div class="flex items-center gap-4">
+                <a href="conversation.html" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </a>
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Vocabulário de Conversação</h1>
+            </div>
+            <div class="flex-grow">
+                <div class="flex items-center gap-4 p-2 bg-gray-100 rounded-xl">
+                    <i class="fas fa-search text-gray-400"></i>
+                    <input type="text" id="search-input" class="w-full bg-gray-100 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Pesquisar em todas as lições...">
+                </div>
+            </div>
+        </div>
+
+        <div id="lessons-nav-container" class="mt-4 overflow-x-auto whitespace-nowrap scroll-smooth">
+            <div id="lessons-nav" class="inline-flex flex-row items-center justify-start gap-2 py-2"></div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-6">
+        
+        <div id="loading" class="text-center text-lg text-gray-500 mt-10">
+            <i class="fas fa-spinner fa-spin mr-2"></i> Carregando vocabulário...
+        </div>
+        
+        <div id="search-results-container" class="search-results-container">
+            <div id="search-results" class="bg-white p-6 rounded-2xl shadow-lg"></div>
+            <p id="no-search-results" class="text-center text-gray-500 italic mt-6 hidden">Nenhum resultado encontrado.</p>
+        </div>
+
+        <div id="vocabulary-content" class="bg-white p-6 rounded-2xl shadow-lg">
+            <h2 id="lesson-title" class="text-2xl font-bold text-purple-600 mb-4 text-center"></h2>
+            
+            <div id="words-section" class="words-section mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2 flex items-center gap-2"><i class="fas fa-font text-blue-500"></i> Palavras</h3>
+                <div id="words-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            </div>
+            
+            <hr class="my-6 border-gray-200">
+            
+            <div id="expressions-section" class="expressions-section mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2 flex items-center gap-2"><i class="fas fa-comment-alt text-pink-500"></i> Expressões</h3>
+                <div id="expressions-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            </div>
+            
+            <hr class="my-6 border-gray-200">
+            
+            <div id="verbs-section" class="verbs-section">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2 flex items-center gap-2"><i class="fas fa-bolt text-indigo-500"></i> Verbos</h3>
+                <div id="verbs-list" class="space-y-2"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/conversation-vocabulary.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const lessonTitles = [
+                "Dreams & Ambitions", "Love & Relationships", "Rebellion & Freedom", "City Life vs. Country Life", "Friendship",
+                "Overcoming Challenges", "Travel & Adventure", "Work & Career", "Technology & Social Media", "Happiness & Life Philosophy",
+                "The Supernatural & Mysteries", "Memory & Nostalgia", "Crime & Justice", "Food & Culture", "Success & Failure",
+                "The Future & AI", "Learning & Education", "Animals & Nature"
+            ];
+
+            const navContainer = document.getElementById('lessons-nav');
+            const vocabularyContent = document.getElementById('vocabulary-content');
+            const searchResultsContainer = document.getElementById('search-results-container');
+            const searchResultsEl = document.getElementById('search-results');
+            const noResultsMessage = document.getElementById('no-search-results');
+            const lessonTitleEl = document.getElementById('lesson-title');
+            const wordsListEl = document.getElementById('words-list');
+            const expressionsListEl = document.getElementById('expressions-list');
+            const verbsListEl = document.getElementById('verbs-list');
+            const loadingEl = document.getElementById('loading');
+            const searchInput = document.getElementById('search-input');
+            
+            let currentLesson = '1';
+
+            function renderVocabulary(lessonNumber) {
+                const data = lessonVocabulary[lessonNumber];
+                
+                if (data) {
+                    loadingEl.classList.add('hidden');
+                    vocabularyContent.classList.remove('hidden');
+                    lessonTitleEl.textContent = `Lição ${lessonNumber} - ${lessonTitles[lessonNumber - 1]}`;
+
+                    wordsListEl.innerHTML = '';
+                    if (data.words.length > 0) {
+                        data.words.forEach(word => {
+                            const div = document.createElement('div');
+                            div.className = 'word-item';
+                            div.innerHTML = `<div><span class="font-semibold text-gray-800">${word.english}</span></div><div><span class="text-gray-500">${word.portuguese}</span></div>`;
+                            wordsListEl.appendChild(div);
+                        });
+                    } else {
+                        wordsListEl.innerHTML = '<p class="text-gray-500 italic text-center col-span-full">Nenhuma palavra nesta lição.</p>';
+                    }
+
+                    expressionsListEl.innerHTML = '';
+                    if (data.expressions.length > 0) {
+                        data.expressions.forEach(expression => {
+                            const div = document.createElement('div');
+                            div.className = 'word-item';
+                            div.innerHTML = `<div><span class="font-semibold text-gray-800">${expression.english}</span></div><div><span class="text-gray-500">${expression.portuguese}</span></div>`;
+                            expressionsListEl.appendChild(div);
+                        });
+                    } else {
+                        expressionsListEl.innerHTML = '<p class="text-gray-500 italic text-center col-span-full">Nenhuma expressão nesta lição.</p>';
+                    }
+
+                    verbsListEl.innerHTML = '';
+                    const allVerbs = [];
+                    const verbsByPortuguese = {};
+                    if (data.verbs) {
+                        data.verbs.present.forEach(verb => {
+                            verbsByPortuguese[verb.portuguese] = { english: verb.english };
+                        });
+                        data.verbs.past_simple.forEach(verb => {
+                            if (verbsByPortuguese[verb.portuguese]) {
+                                verbsByPortuguese[verb.portuguese].simple = verb.english;
+                            }
+                        });
+                        data.verbs.past_participle.forEach(verb => {
+                            if (verbsByPortuguese[verb.portuguese]) {
+                                verbsByPortuguese[verb.portuguese].participle = verb.english;
+                            }
+                        });
+
+                        for (const portuguese in verbsByPortuguese) {
+                            const verb = verbsByPortuguese[portuguese];
+                            let forms = verb.english;
+                            forms += ` - ${verb.simple || '---'}`;
+                            forms += ` - ${verb.participle || '---'}`;
+                            
+                            const div = document.createElement('div');
+                            div.className = 'verb-item p-3 rounded-lg flex flex-col md:flex-row md:items-center md:justify-start gap-2';
+                            div.innerHTML = `
+                                <div class="font-semibold text-indigo-600">${forms}</div>
+                                <div class="text-gray-500">: ${portuguese}</div>
+                            `;
+                            verbsListEl.appendChild(div);
+                        }
+                    } else {
+                        verbsListEl.innerHTML = '<p class="text-gray-500 italic text-center">Nenhum verbo nesta lição.</p>';
+                    }
+
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                } else {
+                    loadingEl.classList.remove('hidden');
+                    loadingEl.textContent = "Nenhum vocabulário encontrado para esta lição.";
+                    vocabularyContent.classList.add('hidden');
+                }
+            }
+
+            // Lógica de pesquisa global
+            searchInput.addEventListener('input', (event) => {
+                const query = event.target.value.toLowerCase().trim();
+                
+                if (query.length === 0) {
+                    vocabularyContent.classList.remove('hidden');
+                    searchResultsContainer.classList.remove('active');
+                    renderVocabulary(currentLesson);
+                    return;
+                }
+
+                vocabularyContent.classList.add('hidden');
+                searchResultsContainer.classList.add('active');
+                searchResultsEl.innerHTML = '';
+                
+                let foundResults = false;
+
+                for (const lessonNumber in lessonVocabulary) {
+                    const data = lessonVocabulary[lessonNumber];
+                    const lessonContainer = document.createElement('div');
+                    lessonContainer.className = 'mb-6';
+                    
+                    let hasLessonResults = false;
+                    const itemsToDisplay = [];
+
+                    if (data.words) {
+                        data.words.forEach(item => {
+                            if (item.english.toLowerCase().includes(query) || item.portuguese.toLowerCase().includes(query)) {
+                                itemsToDisplay.push({ type: 'Palavra', english: item.english, portuguese: item.portuguese, lesson: lessonNumber });
+                                hasLessonResults = true;
+                            }
+                        });
+                    }
+                    
+                    if (data.expressions) {
+                        data.expressions.forEach(item => {
+                            if (item.english.toLowerCase().includes(query) || item.portuguese.toLowerCase().includes(query)) {
+                                itemsToDisplay.push({ type: 'Expressão', english: item.english, portuguese: item.portuguese, lesson: lessonNumber });
+                                hasLessonResults = true;
+                            }
+                        });
+                    }
+
+                    if (data.verbs) {
+                        const verbsByPortuguese = {};
+                        data.verbs.present.forEach(v => verbsByPortuguese[v.portuguese] = { present: v.english });
+                        data.verbs.past_simple.forEach(v => {
+                            if (verbsByPortuguese[v.portuguese]) verbsByPortuguese[v.portuguese].simple = v.english;
+                        });
+                        data.verbs.past_participle.forEach(v => {
+                            if (verbsByPortuguese[v.portuguese]) verbsByPortuguese[v.portuguese].participle = v.english;
+                        });
+                        
+                        for (const portuguese in verbsByPortuguese) {
+                            const verb = verbsByPortuguese[portuguese];
+                            const forms = `${verb.present || '---'} - ${verb.simple || '---'} - ${verb.participle || '---'}`;
+                            if (forms.toLowerCase().includes(query) || portuguese.toLowerCase().includes(query)) {
+                                itemsToDisplay.push({ type: `Verbo`, english: forms, portuguese: portuguese, lesson: lessonNumber });
+                                hasLessonResults = true;
+                            }
+                        }
+                    }
+
+                    if (hasLessonResults) {
+                        foundResults = true;
+                        const lessonTitleHeader = document.createElement('h3');
+                        lessonTitleHeader.className = 'section-header';
+                        lessonTitleHeader.textContent = `Lição ${lessonNumber} - ${lessonTitles[lessonNumber - 1]}`;
+                        lessonContainer.appendChild(lessonTitleHeader);
+
+                        itemsToDisplay.forEach(item => {
+                            const itemEl = document.createElement('div');
+                            itemEl.className = 'search-item';
+                            itemEl.innerHTML = `<strong>${item.type}:</strong> ${item.english} (${item.portuguese})`;
+                            lessonContainer.appendChild(itemEl);
+                        });
+
+                        searchResultsEl.appendChild(lessonContainer);
+                    }
+                }
+
+                if (!foundResults) {
+                    noResultsMessage.classList.remove('hidden');
+                } else {
+                    noResultsMessage.classList.add('hidden');
+                }
+            });
+
+            for (let i = 1; i <= lessonTitles.length; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.className = 'w-8 h-8 rounded-full bg-gray-300 text-gray-800 font-bold text-sm hover:bg-purple-600 hover:text-white transition-colors lesson-btn';
+                button.dataset.lesson = i;
+                navContainer.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    document.querySelectorAll('.lesson-btn').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    currentLesson = i.toString();
+                    searchInput.value = '';
+                    searchInput.dispatchEvent(new Event('input'));
+                    renderVocabulary(currentLesson);
+                });
+            }
+
+            const firstButton = navContainer.querySelector('.lesson-btn');
+            if(firstButton) {
+                firstButton.click();
+            } else {
+                loadingEl.textContent = "Nenhum vocabulário encontrado.";
+                loadingEl.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
