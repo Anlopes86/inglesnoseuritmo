@@ -39,6 +39,28 @@
             display: inline-block;
             transition: all 0.2s;
         }
+
+        /* Estilos para os campos de input com botão de revelação */
+        .input-container {
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+        }
+        .input-container input {
+            padding-right: 2rem;
+            text-align: center;
+            border-bottom: 2px solid #a3a3a3;
+        }
+        .reveal-btn {
+            position: absolute;
+            right: 0.25rem;
+            cursor: pointer;
+            color: #6b7280;
+            transition: color 0.2s;
+        }
+        .reveal-btn:hover {
+            color: #1f2937;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -108,7 +130,7 @@
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
                     <p class="text-2xl mb-8 text-gray-600">Escolha a palavra correta para cada espaço.</p>
                     <div id="practice-3" class="text-left text-lg space-y-3 bg-gray-50 p-6 rounded-lg">
-                       </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -154,17 +176,17 @@
                         <p>"Julia's week is busy. On Monday, she studies English at 7 PM. She doesn't work on Tuesday. On Wednesday, she goes to the gym. On Friday, she always has lunch with her friends."</p>
                         <hr>
                         <p class="font-bold mt-4">Agenda da Julia:</p>
-                        <p><strong>Monday:</strong> <input type="text" class="w-full p-1 border-b-2 bg-transparent"></p>
-                        <p><strong>Tuesday:</strong> <input type="text" class="w-full p-1 border-b-2 bg-transparent"></p>
-                        <p><strong>Wednesday:</strong> <input type="text" class="w-full p-1 border-b-2 bg-transparent"></p>
-                        <p><strong>Friday:</strong> <input type="text" class="w-full p-1 border-b-2 bg-transparent"></p>
+                        <p><strong>Monday:</strong> <span class="input-container"><input type="text" data-answer="studies English at 7 PM" class="w-full p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span></p>
+                        <p><strong>Tuesday:</strong> <span class="input-container"><input type="text" data-answer="doesn't work" class="w-full p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span></p>
+                        <p><strong>Wednesday:</strong> <span class="input-container"><input type="text" data-answer="goes to the gym" class="w-full p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span></p>
+                        <p><strong>Friday:</strong> <span class="input-container"><input type="text" data-answer="has lunch with her friends" class="w-full p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span></p>
                     </div>
                 </div>
             </div>
         </div>
         
         <div class="slide">
-             <div class="text-center">
+            <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-home text-blue-500"></i>Homework: Email to a New Friend</h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
                     <p class="text-2xl mb-6 text-gray-600">Escreva um email para um novo amigo. Fale sobre sua rotina, seus gostos, e faça perguntas sobre ele/ela.</p>
@@ -179,7 +201,7 @@
         </div>
 
         <div class="slide">
-             <div class="text-center flex flex-col items-center justify-center h-full">
+            <div class="text-center flex flex-col items-center justify-center h-full">
                 <i class="fas fa-award text-yellow-500 text-7xl mb-6"></i>
                 <h2 class="text-5xl font-bold mb-4 text-gray-800">Module 2 Complete!</h2>
                 <p class="text-3xl text-gray-600">You can now talk about your daily life. Fantastic work!</p>
@@ -254,8 +276,10 @@
             if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
 
             // --- LÓGICA ESPECÍFICA DA LIÇÃO 16 ---
+            // Função para adicionar listeners para os inputs e botões de revelação
             function addInputListeners(container) {
                 container.querySelectorAll('input[data-answer]').forEach(input => {
+                    // Listener para checar a resposta ao desfocar
                     input.addEventListener('blur', () => {
                         const userAnswer = input.value.trim().replace(/[.?']/g, '').toLowerCase();
                         const correctAnswer = input.dataset.answer.replace(/[.?']/g, '').toLowerCase();
@@ -268,29 +292,43 @@
                         }
                     });
                 });
+                
+                // Listener para o botão de revelar a resposta
+                container.querySelectorAll('.reveal-btn').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const inputField = button.previousElementSibling;
+                        const answer = inputField.dataset.answer;
+                        
+                        if (inputField) {
+                            inputField.value = answer;
+                            inputField.classList.remove('border-red-500', 'border-gray-500');
+                            inputField.classList.add('border-green-500');
+                        }
+                    });
+                });
             }
 
             const vocabContainer = document.getElementById('practice-1');
             const vocabItems = [ { word: 'always', answer: 'never' }, { word: 'good', answer: 'bad' }, { word: 'boring', answer: 'interesting' }, { word: 'morning', answer: 'evening' } ];
             if (vocabContainer) {
                 let html = '';
-                vocabItems.forEach(item => { html += `<div class="flex items-center justify-between p-2 bg-gray-100 rounded-lg"><span>${item.word}</span><i class="fas fa-arrows-alt-h"></i><input data-answer="${item.answer}" class="w-40 p-1 border-b-2 text-center text-xl outline-none focus:border-blue-500 transition"></div>`; });
+                vocabItems.forEach(item => { html += `<div class="flex items-center justify-between p-2 bg-gray-100 rounded-lg"><span>${item.word}</span><i class="fas fa-arrows-alt-h"></i><div class="input-container"><input data-answer="${item.answer}" class="w-40 p-1 border-b-2 text-center text-xl outline-none focus:border-blue-500 transition"><button class="reveal-btn"><i class="fas fa-eye"></i></button></div></div>`; });
                 vocabContainer.innerHTML = html;
                 addInputListeners(vocabContainer);
             }
 
             const dialogueContainer = document.getElementById('practice-2');
             if (dialogueContainer) {
-                dialogueContainer.innerHTML = `<p>This is my friend, John. He <input data-answer="is" class="w-16 p-1 border-b-2 text-center bg-transparent"> a doctor. He <input data-answer="works" class="w-24 p-1 border-b-2 text-center bg-transparent"> at a big hospital. Every day, he <input data-answer="wakes up" class="w-32 p-1 border-b-2 text-center bg-transparent"> very early. He <input data-answer="doesn't" class="w-28 p-1 border-b-2 text-center bg-transparent"> have breakfast at home because he is <input data-answer="always" class="w-24 p-1 border-b-2 text-center bg-transparent"> busy. <input data-answer="Do" class="w-16 p-1 border-b-2 text-center bg-transparent"> you know <input data-answer="him" class="w-16 p-1 border-b-2 text-center bg-transparent">? I sometimes have lunch with <input data-answer="him" class="w-16 p-1 border-b-2 text-center bg-transparent">.</p>`;
+                dialogueContainer.innerHTML = `<p>This is my friend, John. He <span class="input-container"><input data-answer="is" class="w-16 p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span> a doctor. He <span class="input-container"><input data-answer="works" class="w-24 p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span> at a big hospital. Every day, he <span class="input-container"><input data-answer="wakes up" class="w-32 p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span> very early. He <span class="input-container"><input data-answer="doesn't" class="w-28 p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span> have breakfast at home because he is <span class="input-container"><input data-answer="always" class="w-24 p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span> busy. <span class="input-container"><input data-answer="Do" class="w-16 p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span> you know <span class="input-container"><input data-answer="him" class="w-16 p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span>? I sometimes have lunch with <span class="input-container"><input data-answer="him" class="w-16 p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span>.</p>`;
                 addInputListeners(dialogueContainer);
             }
 
             const checkpointContainer = document.getElementById('practice-3');
             if (checkpointContainer) {
-                 checkpointContainer.innerHTML = `
-                    <p>1. My sister <input data-answer="doesn't" class="w-24 p-1 border-b-2 text-center bg-transparent"> like to watch TV. She thinks <input data-answer="it" class="w-16 p-1 border-b-2 text-center bg-transparent"> is boring.</p>
-                    <p>2. <input data-answer="Do" class="w-16 p-1 border-b-2 text-center bg-transparent"> you have <input data-answer="my" class="w-16 p-1 border-b-2 text-center bg-transparent"> keys? I can't find <input data-answer="them" class="w-20 p-1 border-b-2 text-center bg-transparent">.</p>
-                    <p>3. He <input data-answer="is" class="w-16 p-1 border-b-2 text-center bg-transparent"> never late. He <input data-answer="always" class="w-24 p-1 border-b-2 text-center bg-transparent"> arrives on time.</p>
+                checkpointContainer.innerHTML = `
+                    <p>1. My sister <span class="input-container"><input data-answer="doesn't" class="w-24 p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span> like to watch TV. She thinks <span class="input-container"><input data-answer="it" class="w-16 p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span> is boring.</p>
+                    <p>2. <span class="input-container"><input data-answer="Do" class="w-16 p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span> you have <span class="input-container"><input data-answer="my" class="w-16 p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span> keys? I can't find <span class="input-container"><input data-answer="them" class="w-20 p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span>.</p>
+                    <p>3. He <span class="input-container"><input data-answer="is" class="w-16 p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span> never late. He <span class="input-container"><input data-answer="always" class="w-24 p-1 border-b-2 bg-transparent"><button class="reveal-btn"><i class="fas fa-eye"></i></button></span> arrives on time.</p>
                 `;
                 addInputListeners(checkpointContainer);
             }
@@ -299,7 +337,15 @@
             const transformSentences = [ { instruction: 'Mude para negativo:', original: 'He likes coffee.', answer: "He doesn't like coffee."}, { instruction: 'Faça uma pergunta:', original: 'They play sports.', answer: 'Do they play sports?'}, { instruction: 'Troque por pronome objeto:', original: 'I call my mother.', answer: 'I call her.'}, { instruction: 'Mude para negativo:', original: 'She studies French.', answer: "She doesn't study French."} ];
             if (transformContainer) {
                 let html = '';
-                transformSentences.forEach(item => { html += `<div class="p-4 bg-gray-100 rounded-lg"><p class="text-gray-500 italic mb-2">${item.instruction} "${item.original}"</p><input data-answer="${item.answer}" class="w-full p-2 border-2 rounded-lg text-center text-xl outline-none focus:border-blue-500 transition"></div>`; });
+                transformSentences.forEach(item => { 
+                    html += `<div class="p-4 bg-gray-100 rounded-lg">
+                        <p class="text-gray-500 italic mb-2">${item.instruction} "${item.original}"</p>
+                        <div class="input-container w-full">
+                            <input data-answer="${item.answer}" class="w-full p-2 border-2 rounded-lg text-center text-xl outline-none focus:border-blue-500 transition">
+                            <button class="reveal-btn"><i class="fas fa-eye"></i></button>
+                        </div>
+                    </div>`; 
+                });
                 transformContainer.innerHTML = html;
                 addInputListeners(transformContainer);
             }
@@ -388,6 +434,7 @@
                 "I sometimes call him."
             ];
             let currentSentenceIndex = 0;
+            const buildSentenceContainer = document.getElementById('build-sentence-container');
             const sentenceArea = document.getElementById('sentence-area');
             const wordBank = document.getElementById('word-bank');
             const checkBtn = document.getElementById('check-btn');
@@ -447,13 +494,13 @@
 
             if(resetBtn) {
                  resetBtn.addEventListener('click', () => {
-                    if (resetBtn.textContent === "Próxima Frase") {
-                        setupBuildTheSentence();
-                        resetBtn.textContent = "Refazer";
-                    } else {
-                        setupBuildTheSentence();
-                    }
-                });
+                     if (resetBtn.textContent === "Próxima Frase") {
+                         setupBuildTheSentence();
+                         resetBtn.textContent = "Refazer";
+                     } else {
+                         setupBuildTheSentence();
+                     }
+                 });
             }
 
             showSlide(0);
