@@ -1,28 +1,40 @@
-// js/student-management.js
-
 document.addEventListener('DOMContentLoaded', () => {
     if (!firebase || !firebase.apps.length) {
-        console.error("Firebase não inicializado. Verifique a ordem dos scripts no seu HTML.");
+        console.error("Firebase não inicializado.");
         return;
     }
     const db = firebase.firestore();
     const auth = firebase.auth();
 
-    const addStudentBtn = document.getElementById('add-student-btn');
+    // --- Seletores do DOM para Modais ---
+    const addStudentModal = document.getElementById('add-student-modal');
+    const openAddStudentModalBtn = document.getElementById('open-add-student-modal-btn');
+    const cancelAddStudentBtn = document.getElementById('cancel-add-student-btn');
+    const addStudentForm = document.getElementById('add-student-form');
+    const addStudentBtn = document.getElementById('add-student-btn'); // Botão de submit do form
     const deleteStudentBtn = document.getElementById('delete-student-btn');
     const studentSelect = document.getElementById('student-select');
     const studentSearchInput = document.getElementById('student-search');
 
-    if (addStudentBtn) {
-        addStudentBtn.addEventListener('click', async () => {
+    // --- Lógica para Abrir e Fechar Modal de Adicionar Aluno ---
+    if (openAddStudentModalBtn) {
+        openAddStudentModalBtn.addEventListener('click', () => addStudentModal.classList.remove('hidden'));
+    }
+    if (cancelAddStudentBtn) {
+        cancelAddStudentBtn.addEventListener('click', () => addStudentModal.classList.add('hidden'));
+    }
+    
+    // --- Lógica para Adicionar Aluno ---
+    if (addStudentForm) {
+        addStudentForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
             const fullName = document.getElementById('new-student-fullname').value.trim();
             const username = document.getElementById('new-student-username').value.trim().toLowerCase();
             const password = document.getElementById('new-student-password').value;
             const studentType = document.getElementById('new-student-type').value;
 
             if (!fullName || !username || !password || !studentType) {
-                alert("Por favor, preencha todos os campos para adicionar um novo aluno.");
-                return;
+                return alert("Por favor, preencha todos os campos.");
             }
 
             addStudentBtn.classList.add('btn-loading');
@@ -31,39 +43,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = `${username}@inglesnoseuritmo.com`;
 
             try {
-                // Passo 1: Criar o usuário no serviço de Autenticação do Firebase
+                // O ideal é usar Cloud Functions para criar o usuário e o documento no DB de forma segura.
+                // Esta é uma implementação simplificada do lado do cliente.
                 const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                const user = userCredential.user;
+                const studentId = userCredential.user.uid;
 
-                // Passo 2: Criar o documento do aluno no Firestore com todos os dados
-                await db.collection("students").doc(user.uid).set({
+                await db.collection('students').doc(studentId).set({
                     name: fullName,
-                    username: username,
-                    studentType: studentType,
+                    email: email,
                     role: 'aluno',
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                    progress: {
-                        a1: {}, a2: {}, conversation: {}, business: {}, vestibular: {}
-                    },
-                    gradesA1: { listening: '', writing: '', speaking: '', reading: '' },
-                    nextClass: { date: '', time: '' },
-                    focusWeek: ''
+                    studentType: studentType,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
 
-                alert(`Aluno "${fullName}" criado com sucesso!`);
-                document.getElementById('new-student-fullname').value = '';
-                document.getElementById('new-student-username').value = '';
-                document.getElementById('new-student-password').value = '';
-
+                alert(`Aluno "${fullName}" adicionado com sucesso!`);
+                addStudentModal.classList.add('hidden');
+                addStudentForm.reset();
             } catch (error) {
-                console.error("Erro ao criar aluno:", error);
-                if (error.code === 'auth/email-already-in-use') {
-                    alert("Erro: Este nome de utilizador já está em uso. Por favor, escolha outro.");
-                } else if (error.code === 'auth/weak-password') {
-                    alert("Erro: A senha é muito fraca. Ela deve ter no mínimo 6 caracteres.");
-                } else {
-                    alert("Ocorreu um erro ao criar o aluno: " + error.message);
-                }
+                console.error("Erro ao adicionar aluno: ", error);
+                alert("Erro ao adicionar aluno: " + error.message);
             } finally {
                 addStudentBtn.classList.remove('btn-loading');
                 addStudentBtn.disabled = false;
@@ -71,39 +69,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Lógica para Excluir Aluno ---
     if (deleteStudentBtn) {
         deleteStudentBtn.addEventListener('click', async () => {
-            const studentId = studentSelect.value;
-            if (!studentId) {
-                alert("Por favor, selecione um aluno para excluir.");
-                return;
-            }
+            const studentId = localStorage.getItem('selectedStudentId');
+            if (!studentId) return alert("Nenhum aluno selecionado.");
 
-            const studentName = studentSelect.options[studentSelect.selectedIndex].text;
-            if (confirm(`Tem certeza que deseja excluir o aluno "${studentName}"?\n\nATENÇÃO: Esta ação é irreversível e irá apagar todos os dados e o acesso do aluno.`)) {
+            const studentName = localStorage.getItem('selectedStudentName');
+            if (confirm(`Tem certeza que deseja excluir o aluno "${studentName}"?\n\nATENÇÃO: Esta ação é irreversível.`)) {
                 try {
-                    // Esta função deleta apenas do Firestore. A remoção do usuário da
-                    // aba "Authentication" no Firebase precisa ser feita manualmente ou com Cloud Functions.
                     await db.collection("students").doc(studentId).delete();
-                    alert("Aluno excluído do banco de dados com sucesso.");
+                    alert("Aluno excluído com sucesso.");
                     localStorage.removeItem('selectedStudentId');
                     localStorage.removeItem('selectedStudentName');
-                    location.reload();
+                    location.reload(); // Recarrega a página para atualizar a lista
                 } catch (error) {
                     console.error("Erro ao excluir aluno:", error);
-                    alert("Ocorreu um erro ao excluir o aluno: " + error.message);
+                    alert("Ocorreu um erro ao excluir o aluno.");
                 }
             }
         });
     }
     
+    // --- Lógica da Busca de Alunos ---
     if (studentSearchInput) {
         window.filterStudents = function() {
             const filter = studentSearchInput.value.toLowerCase();
             for (let option of studentSelect.options) {
                 if (option.value) {
-                    const studentName = option.text.toLowerCase();
-                    option.style.display = studentName.includes(filter) ? '' : 'none';
+                    option.style.display = option.text.toLowerCase().includes(filter) ? '' : 'none';
                 }
             }
         }

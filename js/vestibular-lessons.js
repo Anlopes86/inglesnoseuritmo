@@ -52,7 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadLessons(studentId, userRole) { // Novo: Recebe o papel do usuário
         try {
             const studentDoc = await db.collection('students').doc(studentId).get();
-            const progress = studentDoc.exists ? (studentDoc.data().progress[moduleId] || {}) : {};
+            
+            // *** CORREÇÃO APLICADA AQUI PARA ALUNOS NOVOS ***
+            const allProgress = studentDoc.exists && studentDoc.data().progress ? studentDoc.data().progress : {};
+            const progress = allProgress[moduleId] || {};
             
             let firstUncompleted = -1;
 

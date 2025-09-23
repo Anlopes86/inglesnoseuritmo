@@ -14,15 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingDiv = document.getElementById('loading');
     const grid = document.getElementById('lessons-grid');
 
-    // Títulos de todas as 32 lições do A1
     const lessonTitles = [
-        "Hello, World!", "Where Are You From?", "My World", "Alphabet & Numbers", "Contact Information", 
-        "Everyday Objects", "This or That?", "Review 1", "My Daily Routine", "His/Her Routine", 
-        "Do You Like Music?", "I Don't Like That", "Object Pronouns", "How Often?", "What Time Is It?", 
-        "Review 2", "Possessive 's'", "My Family", "Describing People", "There is/There are", 
-        "A/An, Some, Any", "How Much/How Many?", "In, On, At", "Review 3", "Was/Were", 
-        "Simple Past", "Past of To Be", "More Verbs in Past", "Yesterday?", "Questions in the Past", 
-        "Future Plans", "Final Review"
+        "Beginner Test", "Elementary Test", "Pre-Intermediate Test", "Intermediate Test", 
+        "Upper-Intermediate Test", "Advanced Test"
     ];
 
     async function loadLessons() {
@@ -45,11 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // *** CORREÇÃO APLICADA AQUI ***
             const allProgress = doc.exists && doc.data().progress ? doc.data().progress : {};
-            const progress = allProgress.a1 || {};
+            const progress = allProgress.nivelamento || {};
             
             let firstUncompleted = -1;
 
-            grid.innerHTML = ''; // Limpa a grelha
+            grid.innerHTML = '';
             for (let i = 0; i < lessonTitles.length; i++) {
                 const lessonNumber = i + 1;
                 const isCompleted = progress[`lesson_${lessonNumber}`] === true;
@@ -69,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.innerHTML = `
                     <i class="fas ${iconClass} text-4xl mb-3"></i>
                     <h3 class="font-bold text-lg text-gray-800">${lessonTitles[i]}</h3>
-                    <p class="text-sm text-gray-500 mt-1">Lição ${lessonNumber}</p>
+                    <p class="text-sm text-gray-500 mt-1">Teste ${lessonNumber}</p>
                 `;
                 grid.appendChild(card);
             }
@@ -78,17 +72,17 @@ document.addEventListener('DOMContentLoaded', () => {
             grid.classList.remove('hidden');
 
         } catch (error) {
-            console.error("Erro ao carregar lições A1: ", error);
-            loadingDiv.textContent = "Erro ao carregar lições. Verifique o console para mais detalhes.";
+            console.error("Erro ao carregar testes de nivelamento: ", error);
+            loadingDiv.textContent = "Erro ao carregar testes. Verifique o console para mais detalhes.";
         }
     }
-    
+
     firebase.auth().onAuthStateChanged(user => {
         if (user || localStorage.getItem("loggedInUserRole") === 'professor') {
             loadLessons();
         } else {
             console.log("Nenhum usuário logado.");
-            loadingDiv.textContent = "Por favor, faça login para ver as lições.";
+            loadingDiv.textContent = "Por favor, faça login para ver os testes.";
         }
     });
 });
