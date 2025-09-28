@@ -171,7 +171,7 @@
                 <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-headphones text-cyan-500"></i>Listening: A Weekly Schedule</h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
                     <p class="text-2xl mb-6 text-gray-600">Ouça a rotina de Julia e complete a agenda dela.</p>
-                    <div class="text-left text-xl bg-gray-50 p-6 rounded-lg space-y-4">
+                    <div id="listening-container" class="text-left text-xl bg-gray-50 p-6 rounded-lg space-y-4">
                         <p class="font-bold">Professor, dite o seguinte:</p>
                         <p>"Julia's week is busy. On Monday, she studies English at 7 PM. She doesn't work on Tuesday. On Wednesday, she goes to the gym. On Friday, she always has lunch with her friends."</p>
                         <hr>
@@ -230,23 +230,10 @@
             // ---------------------------------------------------------
 
             // --- LÓGICA PADRÃO DE NAVEGAÇÃO E SALVAMENTO ---
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            if (finishLessonBtn) {
-                finishLessonBtn.addEventListener('click', () => {
-                    finishLessonBtn.disabled = true;
-                    finishLessonBtn.textContent = "Salvando...";
-                    if (typeof markLessonAsComplete === 'function') {
-                        markLessonAsComplete(moduleId, lessonNumber); 
-                    } else {
-                        console.error("A função markLessonAsComplete não foi encontrada.");
-                        alert("Erro ao salvar progresso.");
-                    }
-                });
-            }
-
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
             const progressBar = document.getElementById('progress-bar');
             let currentSlide = 0;
 
@@ -261,19 +248,57 @@
                 const isLastSlide = index === slides.length - 1;
                 if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
                 if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
-
-                // Initialize the quiz when the quiz slide is active
-                if (slides[index].querySelector('#quiz-container')) {
-                    initQuiz();
-                }
-                // Initialize the build-a-sentence activity when the slide is active
-                if (slides[index].querySelector('#build-sentence-container')) {
-                    setupBuildTheSentence();
-                }
+                
+                // Inicializa atividades específicas
+                if (slides[index].querySelector('#quiz-container')) initQuiz();
+                if (slides[index].querySelector('#build-sentence-container')) setupBuildTheSentence();
+                if (slides[index].querySelector('#listening-container')) addInputListeners(document.getElementById('listening-container'));
+            }
+            
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    if (currentSlide > 0) {
+                        currentSlide--;
+                        showSlide(currentSlide);
+                    }
+                });
+            }
+            
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    if (currentSlide < slides.length - 1) {
+                        currentSlide++;
+                        showSlide(currentSlide);
+                    }
+                });
             }
 
-            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            if (finishLessonBtn) {
+                finishLessonBtn.addEventListener('click', async () => {
+                    finishLessonBtn.disabled = true;
+                    finishLessonBtn.textContent = "Salvando...";
+                    try {
+                        if (typeof markLessonAsComplete === 'function') {
+                            await markLessonAsComplete(moduleId, lessonNumber);
+                            finishLessonBtn.textContent = "Salvo!";
+                            setTimeout(() => {
+                                // Redireciona para a página do módulo A1
+                                window.location.href = `a1.html`;
+                            }, 1000);
+                        } else {
+                            console.error("A função markLessonAsComplete não foi encontrada.");
+                            alert("Erro ao salvar progresso.");
+                            finishLessonBtn.textContent = "Finalizar Aula";
+                            finishLessonBtn.disabled = false;
+                        }
+                    } catch (error) {
+                        console.error("Erro ao finalizar a lição:", error);
+                        alert("Ocorreu um erro ao salvar o progresso. Por favor, tente novamente.");
+                        finishLessonBtn.textContent = "Finalizar Aula";
+                        finishLessonBtn.disabled = false;
+                    }
+                });
+            }
 
             // --- LÓGICA ESPECÍFICA DA LIÇÃO 16 ---
             // Função para adicionar listeners para os inputs e botões de revelação
@@ -295,11 +320,11 @@
                 
                 // Listener para o botão de revelar a resposta
                 container.querySelectorAll('.reveal-btn').forEach(button => {
-                    button.addEventListener('click', () => {
-                        const inputField = button.previousElementSibling;
-                        const answer = inputField.dataset.answer;
-                        
-                        if (inputField) {
+                    button.addEventListener('click', (e) => {
+                        const parentElement = e.target.closest('.input-container');
+                        if (parentElement) {
+                            const inputField = parentElement.querySelector('input');
+                            const answer = inputField.dataset.answer;
                             inputField.value = answer;
                             inputField.classList.remove('border-red-500', 'border-gray-500');
                             inputField.classList.add('border-green-500');
@@ -502,8 +527,15 @@
                      }
                  });
             }
+            
+            // Corrige o problema do Listening, pois o container não tinha um ID para a função addInputListeners
+            const listeningContainer = document.getElementById('listening-container');
+            if (listeningContainer) {
+                addInputListeners(listeningContainer);
+            }
 
-            showSlide(0);
+            // Inicializa o primeiro slide
+            showSlide(currentSlide);
         });
     </script>
 </body>

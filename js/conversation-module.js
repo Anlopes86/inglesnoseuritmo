@@ -15,10 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('lessons-grid');
 
     const lessonTitles = [
-        "Ice Breakers", "Hobbies & Interests", "Travel & Adventure", "Food & Cuisine", "Movies & TV Shows",
-        "Music & Concerts", "Technology & Gadgets", "Work & Career", "Dreams & Aspirations", "Childhood Memories",
-        "Books & Literature", "Friendship & Relationships", "Health & Fitness", "Culture & Traditions", "Current Events",
-        "The Future", "Education & Learning", "Environmental Issues", "Funny Stories & Jokes", "Debates & Discussions"
+        "Dreams & Ambitions", "Love & Relationships", "Rebellion & Freedom", "City Life vs. Country Life", "Friendship",
+        "Overcoming Challenges", "Travel & Adventure", "Work & Career", "Technology & Social Media", "Happiness & Life Philosophy",
+        "The Supernatural & Mysteries", "Memory & Nostalgia", "Crime & Justice", "Food & Culture", "Success & Failure",
+        "The Future & AI", "Learning & Education", "Animals & Nature", "Sports, Games & Competition", "The Power of Habits",
+        "Volunteering & Social Causes", "Art & Creativity", "Money & Personal Finance", "The Gig Economy & Remote Work",
+        "The Media, News & Politics", "Psychology & Human Behavior", "History & Historical Figures", "Ethics & Morality",
+        "Science & Space Exploration", "Fashion & Personal Style", "Culture & Leisure", "Environmental Problems"
     ];
 
     async function loadLessons() {
@@ -39,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const doc = await db.collection('students').doc(studentId).get();
             
-            // *** CORREÇÃO APLICADA AQUI ***
             const allProgress = doc.exists && doc.data().progress ? doc.data().progress : {};
             const progress = allProgress.conversation || {};
 

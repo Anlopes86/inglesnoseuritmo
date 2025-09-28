@@ -17,6 +17,8 @@
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Estilos dos Flashcards */
         .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
         .flashcard { background-color: transparent; height: 150px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
@@ -24,6 +26,28 @@
         .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
         .flashcard-front { background-color: white; color: #4f46e5; text-align: center; }
         .flashcard-back { background-color: #4f46e5; color: white; transform: rotateY(180deg); text-align: center; }
+        
+        /* Estilos da atividade Unscramble */
+        .unscramble-activity .word-bank, .unscramble-activity .sentence-dropzone {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; padding: 1rem; border-radius: 0.75rem; min-height: 70px;
+        }
+        .unscramble-activity .word-bank { background-color: #f3f4f6; }
+        .unscramble-activity .sentence-dropzone {
+            background-color: #ffffff; border: 2px dashed #d1d5db; transition: all 0.3s ease;
+        }
+        .unscramble-activity .word-block {
+            padding: 0.5rem 1rem; background-color: #4f46e5; color: white; font-semibold; border-radius: 0.5rem; cursor: pointer;
+            transition: all 0.2s ease; user-select: none;
+        }
+        .unscramble-activity .word-block:hover { background-color: #4338ca; transform: translateY(-2px); }
+        .sentence-dropzone.correct { border-color: #22c55e; background-color: #f0fdf4; }
+        .sentence-dropzone.incorrect { border-color: #ef4444; background-color: #fef2f2; }
+
+        /* Estilos da atividade Spelling Challenge */
+        #spelling-input { transition: all 0.3s ease; }
+        #spelling-input.correct { border-color: #22c55e; background-color: #f0fdf4; }
+        #spelling-input.incorrect { border-color: #ef4444; background-color: #fef2f2; }
+
         .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
         .answer-btn:hover { color: #4f46e5; }
     </style>
@@ -65,10 +89,10 @@
                 <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-lightbulb text-purple-500"></i> Useful Expressions</h2>
                 <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Clique nos cartões para ver expressões úteis.</p>
                 <div class="flashcard-grid max-w-5xl mx-auto">
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">How do you spell...?</h4></div><div class="flashcard-back"><p class="text-lg">Como você soletra...?</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">Can you repeat, please?</h4></div><div class="flashcard-back"><p class="text-lg">Você pode repetir, por favor?</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">What's this in English?</h4></div><div class="flashcard-back"><p class="text-lg">O que é isto em inglês?</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">I don't understand.</h4></div><div class="flashcard-back"><p class="text-lg">Eu não entendo.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">How do you spell...?</h4></div><div class="flashcard-back"><p class="text-lg">Como você soletra...?</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">Can you repeat, please?</h4></div><div class="flashcard-back"><p class="text-lg">Você pode repetir, por favor?</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">What's this in English?</h4></div><div class="flashcard-back"><p class="text-lg">O que é isto em inglês?</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">I don't understand.</h4></div><div class="flashcard-back"><p class="text-lg">Eu não entendo.</p></div></div></div>
                 </div>
             </div>
         </div>
@@ -77,12 +101,12 @@
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-font text-blue-500"></i> Vocabulary: The Alphabet</h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Ouça e repita o alfabeto. Preste atenção na pronúncia.</p>
+                    <p class="text-2xl mb-6 text-gray-600">Ouça e repita o alfabeto. Preste atenção na pronúncia das vogais.</p>
                     <div class="text-3xl font-bold tracking-widest p-4 rounded-lg bg-gray-50">
-                        <span class="text-red-600">A</span>-B-C-D-<span class="text-red-600">E</span>-F-<span class="text-red-600">G</span>-<span class="text-red-600">H</span>-<span class="text-red-600">I</span>-J-K-L-M-N-O-P-Q-<span class="text-red-600">R</span>-S-T-U-V-W-X-Y-Z
+                        <span class="text-red-600">A</span>-B-C-D-<span class="text-red-600">E</span>-F-G-H-<span class="text-red-600">I</span>-J-K-L-M-N-<span class="text-red-600">O</span>-P-Q-R-S-T-<span class="text-red-600">U</span>-V-W-X-Y-Z
                     </div>
                     <p class="text-lg mt-4 text-gray-500 italic">
-                        (ei) - bi - ci - di - (i) - éf - (dgi) - (eitch) - (ai) - dgei - kei - él - ém - én - ou - pi - kiu - (ar) - és - ti - iu - vi - dâbliu - éks - uai - zi
+                        <span class="text-red-600 font-semibold">(ei)</span> - bi - ci - di - <span class="text-red-600 font-semibold">(i)</span> - éf - dgi - eitch - <span class="text-red-600 font-semibold">(ai)</span> - dgei - kei - él - ém - én - <span class="text-red-600 font-semibold">(ou)</span> - pi - kiu - ar - és - ti - <span class="text-red-600 font-semibold">(iu)</span> - vi - dâbliu - éks - uai - zi
                     </p>
                 </div>
             </div>
@@ -113,14 +137,49 @@
         <div class="slide">
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-pencil-alt text-orange-500"></i> Writing: Unscramble the Sentences</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto" id="unscramble-activity">
-                    <p class="text-2xl mb-8 text-gray-600">Coloque as palavras na ordem correta para formar frases.</p>
-                    <div class="space-y-6 text-2xl">
-                        <div class="p-4 bg-gray-100 rounded-lg"><p class="text-gray-800 italic mb-2">Organize: spell / you / how / name / your / do / ?</p><input class="w-full p-2 border-2 rounded-lg text-center" data-answer="How do you spell your name?"></div>
-                        <div class="p-4 bg-gray-100 rounded-lg"><p class="text-gray-800 italic mb-2">Organize: is / number / what / phone / your / ?</p><input class="w-full p-2 border-2 rounded-lg text-center" data-answer="What is your phone number?"></div>
-                        <div class="p-4 bg-gray-100 rounded-lg"><p class="text-gray-800 italic mb-2">Organize: my / ten / number / is</p><input class="w-full p-2 border-2 rounded-lg text-center" data-answer="My number is ten"></div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-2xl mb-8 text-gray-600">Clique nas palavras para formar as frases na ordem correta.</p>
+                    <div class="space-y-8">
+                        <div class="unscramble-activity" data-answer="How do you spell your name ?">
+                            <div class="sentence-dropzone mb-4"></div> <div class="word-bank"></div>
+                        </div>
+                        <div class="unscramble-activity" data-answer="What is your phone number ?">
+                            <div class="sentence-dropzone mb-4"></div> <div class="word-bank"></div>
+                        </div>
+                        <div class="unscramble-activity" data-answer="My number is ten">
+                            <div class="sentence-dropzone mb-4"></div> <div class="word-bank"></div>
+                        </div>
+                        <div class="unscramble-activity" data-answer="Can you repeat that please ?">
+                            <div class="sentence-dropzone mb-4"></div> <div class="word-bank"></div>
+                        </div>
+                        <div class="unscramble-activity" data-answer="My phone number is twenty">
+                            <div class="sentence-dropzone mb-4"></div> <div class="word-bank"></div>
+                        </div>
+                         <div class="unscramble-activity" data-answer="I do not understand">
+                            <div class="sentence-dropzone mb-4"></div> <div class="word-bank"></div>
+                        </div>
                     </div>
-                    <button class="mt-6 bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700" onclick="checkAnswers(this.parentElement)">Checar Respostas</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-keyboard text-blue-500"></i> Spelling Challenge</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <p class="text-2xl mb-6 text-gray-600">Soletre a palavra abaixo. Use hífens (-) entre as letras.</p>
+                    
+                    <div id="spelling-challenge-activity">
+                        <p class="text-gray-500 text-xl mb-2">Palavra:</p>
+                        <p id="word-to-spell" class="text-5xl font-bold tracking-widest text-indigo-600 mb-6 bg-gray-100 p-4 rounded-lg">HELLO</p>
+                        
+                        <input type="text" id="spelling-input" class="w-full p-4 border-2 rounded-lg text-center text-2xl tracking-widest uppercase" placeholder="H-E-L-L-O">
+                        
+                        <div class="mt-6 flex justify-center gap-4">
+                            <button id="check-spelling-btn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Checar</button>
+                            <button id="next-word-btn" class="bg-gray-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-gray-700">Próxima</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -128,8 +187,7 @@
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-green-700"><i class="fas fa-music text-red-500"></i> Music Time: "ABC"</h2>
             <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe data-testid="embed-iframe" style="border-radius:12px" src="http://googleusercontent.com/spotify.com/4" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <div class="mt-4">
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2VCUcIPY3i6pv9Nu9Vg6k3?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4">
                     <p class="text-2xl mb-4 text-gray-600">Ouça o clássico e complete a letra.</p>
                     <div class="text-xl space-y-3 bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
                         <p>You went to school to learn, girl</p>
@@ -174,8 +232,6 @@
                 <p class="text-3xl text-gray-600">Every name has a story. Now you know how to spell it.</p>
             </div>
         </div>
-
-        <div id="custom-alert-modal" class="fixed inset-0 bg-gray-900 bg-opacity-60 z-50 hidden items-center justify-center transition-opacity duration-300"></div>
     </main>
 
     <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20">
@@ -186,19 +242,13 @@
         </div>
     </footer>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    
     <script src="../js/firebase-config.js"></script>
     <script src="../js/progress-manager.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- CONFIGURAÇÃO DA LIÇÃO (ÚNICA PARTE QUE VOCÊ MUDA) ---
-            const moduleId = 'a1';      // Ex: 'a1', 'conversation', 'business'
-            const lessonNumber = 4;     // Ex: 1, 2, 3, etc.
-            // ---------------------------------------------------------
+            const moduleId = 'a1';
+            const lessonNumber = 4;
 
             const finishLessonBtn = document.getElementById('finish-lesson-btn');
             if (finishLessonBtn) {
@@ -239,12 +289,113 @@
             if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
             if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
             
-            // Lógica Específica da Aula (atividades, flashcards, etc.)
-            // Esta parte deve ser mantida ou adicionada conforme a necessidade de cada lição.
+            // --- LÓGICA ESPECÍFICA DA AULA ---
+
+            // Flashcards
             document.querySelectorAll('.flashcard').forEach(card => {
                 card.addEventListener('click', () => card.classList.toggle('flipped'));
             });
             
+            // Atividade Unscramble
+            function initializeUnscramble(activityElement) {
+                const correctAnswer = activityElement.dataset.answer;
+                const words = correctAnswer.split(' ');
+                const dropzone = activityElement.querySelector('.sentence-dropzone');
+                const wordBank = activityElement.querySelector('.word-bank');
+
+                words.sort(() => Math.random() - 0.5).forEach(word => {
+                    const wordBlock = document.createElement('div');
+                    wordBlock.className = 'word-block';
+                    wordBlock.textContent = word;
+                    wordBlock.addEventListener('click', () => moveWord(wordBlock));
+                    wordBank.appendChild(wordBlock);
+                });
+
+                function moveWord(wordBlock) {
+                    if (wordBlock.parentElement === wordBank) {
+                        dropzone.appendChild(wordBlock);
+                    } else {
+                        wordBank.appendChild(wordBlock);
+                    }
+                    checkAnswer();
+                }
+
+                function checkAnswer() {
+                    const currentWords = [...dropzone.children].map(wb => wb.textContent);
+                    const currentSentence = currentWords.join(' ');
+                    
+                    if (currentWords.length === 0) {
+                        dropzone.classList.remove('correct', 'incorrect');
+                        return;
+                    }
+
+                    if (currentSentence === correctAnswer) {
+                        dropzone.classList.add('correct');
+                        dropzone.classList.remove('incorrect');
+                    } else if (currentWords.length === words.length) {
+                        dropzone.classList.add('incorrect');
+                        dropzone.classList.remove('correct');
+                    } else {
+                        dropzone.classList.remove('correct', 'incorrect');
+                    }
+                }
+            }
+            document.querySelectorAll('.unscramble-activity').forEach(initializeUnscramble);
+
+            // Atividade Spelling Challenge
+            const spellingWords = ['HELLO', 'STUDENT', 'TEACHER', 'NUMBER', 'ENGLISH', 'TODAY', 'SCHOOL', 'WATER'];
+            let currentSpellingWord = '';
+            const wordToSpellEl = document.getElementById('word-to-spell');
+            const spellingInput = document.getElementById('spelling-input');
+            const checkSpellingBtn = document.getElementById('check-spelling-btn');
+            const nextWordBtn = document.getElementById('next-word-btn');
+
+            function setupNextWord() {
+                spellingInput.value = '';
+                spellingInput.classList.remove('correct', 'incorrect');
+                const randomIndex = Math.floor(Math.random() * spellingWords.length);
+                currentSpellingWord = spellingWords[randomIndex];
+                wordToSpellEl.textContent = currentSpellingWord;
+            }
+
+            function checkSpelling() {
+                const expectedAnswer = currentSpellingWord.split('').join('-');
+                const userAnswer = spellingInput.value.trim().toUpperCase();
+
+                if (userAnswer === expectedAnswer) {
+                    spellingInput.classList.add('correct');
+                    spellingInput.classList.remove('incorrect');
+                } else {
+                    spellingInput.classList.add('incorrect');
+                    spellingInput.classList.remove('correct');
+                }
+            }
+
+            if(checkSpellingBtn) checkSpellingBtn.addEventListener('click', checkSpelling);
+            if(nextWordBtn) nextWordBtn.addEventListener('click', setupNextWord);
+            if(spellingInput) {
+                spellingInput.addEventListener('keyup', (event) => {
+                    if (event.key === 'Enter') {
+                        checkSpelling();
+                    }
+                });
+            }
+
+            // Inicia a atividade de spelling
+            if(wordToSpellEl) setupNextWord();
+
+
+            // Atividade da Música
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const inputField = button.previousElementSibling;
+                    if (inputField && inputField.tagName === 'INPUT') {
+                        inputField.value = button.dataset.answer;
+                    }
+                });
+            });
+
+            // Inicia a lição
             showSlide(0);
         });
     </script>

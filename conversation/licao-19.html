@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation Class - Lição 19: Sports & Competition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #1a202c; color: #e2e8f0; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #4a5568; }
+        .flashcard-front { background-color: #2d3748; color: #a0aec0; text-align: center; }
+        .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
+        .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
+        .lyrics-box { max-height: 300px; overflow-y: auto; }
+        .answer-btn { background-color: transparent; border: none; color: #a0aec0; cursor: pointer; }
+        .answer-btn:hover { color: #fff; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="conversation.html" class="text-lg font-bold text-yellow-400 hover:text-yellow-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para os Tópicos</a>
+            <h1 class="text-xl font-semibold text-center">Lição 19: Sports & Competition</h1>
+            <div class="w-32"></div>
+        </div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-yellow-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-running text-blue-500"></i> Warm-up: Sports & Competition</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6 text-2xl">
+                    <p class="font-semibold text-gray-300">Let's start our conversation:</p>
+                    <p><i class="fas fa-arrow-right mr-2 text-yellow-400"></i> What's your favorite sport to play or watch?</p>
+                    <p><i class="fas fa-arrow-right mr-2 text-yellow-400"></i> Do you think competition is good or bad?</p>
+                    <p><i class="fas fa-arrow-right mr-2 text-yellow-400"></i> What's the most exciting sporting event you've ever watched?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-comments text-teal-400"></i> Useful Expressions</h2>
+                <p class="text-2xl mb-8 text-gray-300 max-w-3xl mx-auto">Click the cards to explore expressions about sports and competition.</p>
+                <div class="flashcard-grid max-w-6xl mx-auto">
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To be a couch potato</h4></div><div class="flashcard-back"><p class="text-xl">To be a lazy person who spends a lot of time watching TV.</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To get the ball rolling</h4></div><div class="flashcard-back"><p class="text-xl">To start a process or activity.</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To be neck and neck</h4></div><div class="flashcard-back"><p class="text-xl">When two competitors are very close in a race or contest.</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To go the extra mile</h4></div><div class="flashcard-back"><p class="text-xl">To make a special, extra effort to achieve something.</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To be a good sport</h4></div><div class="flashcard-back"><p class="text-xl">To be a person who can accept losing in a good-natured way.</p></div></div></div>
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To throw in the towel</h4></div><div class="flashcard-back"><p class="text-xl">To give up on something; to quit.</p></div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music: We Are the Champions - Queen</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7lPj13nU3uV8H99oP0dJ5k?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-2">
+                    <p class="text-2xl mb-4 text-gray-300">Listen and complete the lyrics.</p>
+                    <div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
+                        <p>I've paid my dues, time after time</p>
+                        <p>I've done my sentence, but committed no <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="crime"><i class="fas fa-eye"></i></button></p>
+                        <p>And bad mistakes, I've made a few</p>
+                        <p>I've had my share of sand kicked in my face, but I've come through</p>
+                        <p>We are the champions, my friends</p>
+                        <p>And we'll keep on fighting till the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="end"><i class="fas fa-eye"></i></button></p>
+                        <p>We are the champions, we are the champions</p>
+                        <p>No time for losers, 'cause we are the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="champions"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Let's Discuss</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                    <p>What is the main message of "We Are the Champions"? Does it focus more on the victory itself or on the struggle to achieve it?</p>
+                    <p>Do you think the song's message applies to things outside of sports, like work or personal goals?</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music: Lose Yourself - Eminem</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/9" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-2">
+                    <p class="text-2xl mb-4 text-gray-300">Listen and complete the lyrics.</p>
+                    <div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
+                        <p>Look, if you had one shot or one opportunity</p>
+                        <p>To seize everything you ever wanted, one moment</p>
+                        <p>Would you capture it or just let it **<input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500">** <button class="answer-btn" data-answer="slip"><i class="fas fa-eye"></i></button>?</p>
+                        <p>Yo, his palms are sweaty, knees weak, arms are heavy</p>
+                        <p>There's vomit on his sweater already, mom's spaghetti</p>
+                        <p>He's nervous, but on the surface he looks calm and **<input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500">** <button class="answer-btn" data-answer="ready"><i class="fas fa-eye"></i></button></p>
+                        <p>To drop bombs, but he keeps on forgetting what he wrote down</p>
+                        <p>The whole crowd goes so loud</p>
+                        <p>He opens his mouth, but the words won't come out</p>
+                        <p>He's choking now, everybody's joking now</p>
+                        <p>The clock's run out, time's up, over, blaow!</p>
+                        <p>Snap back to reality, oh, there goes gravity</p>
+                        <p>Oh, there goes rabbit, he choked, he's so **<input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500">** <button class="answer-btn" data-answer="mad"><i class="fas fa-eye"></i></button> but he won't</p>
+                        <p>Give up that easy, no</p>
+                        <p>He won't have it, he knows his whole back's to these ropes</p>
+                        <p>It don't matter, he's dope</p>
+                        <p>He knows that but he's broke</p>
+                        <p>He's so stacked that he knows</p>
+                        <p>When he goes back to his mobile home, that's when it's **<input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500">** <button class="answer-btn" data-answer="back"><i class="fas fa-eye"></i></button> to the lab again, yo</p>
+                        <p>This whole rhapsody, he better go capture this moment and hope it don't pass him by</p>
+                        <p>You better lose yourself in the music, the moment</p>
+                        <p>You own it, you better never <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="let"><i class="fas fa-eye"></i></button> it go</p>
+                        <p>You only get one shot, do not miss your chance to <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="blow"><i class="fas fa-eye"></i></button></p>
+                        <p>This opportunity comes once in a <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="lifetime"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Let's Discuss</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                    <p>What does it mean to "lose yourself in the moment"? Have you ever felt this way during an important event?</p>
+                    <p>The song talks about "one shot" and not missing your chance. How do you deal with pressure in your life?</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music: Champion - Carrie Underwood ft. Ludacris</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="https://www.google.com/search?q=https://open.spotify.com/embed/track/7lPj13nU3uV8H99oP0dJ5k%3Futm_source%3Dgenerator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-2">
+                    <p class="text-2xl mb-4 text-gray-300">Listen and complete the lyrics.</p>
+                    <div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
+                        <p>I'll be the one to light up the dark, I got a fire inside of my heart</p>
+                        <p>I'll be the one to carry the torch, I'll be the one that you all adore</p>
+                        <p>I am the one to make history, I'm gonna be a **<input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500">** <button class="answer-btn" data-answer="champion"><i class="fas fa-eye"></i></button>, I'll be a champion</p>
+                        <p>I'll be the one to get what I want, I'll be the one to take what I need</p>
+                        <p>I'll be the one to **<input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500">** <button class="answer-btn" data-answer="bring"><i class="fas fa-eye"></i></button> the heat, I'll be the one to make you believe</p>
+                        <p>I am the one to make history, I'm gonna be a **<input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500">** <button class="answer-btn" data-answer="champion"><i class="fas fa-eye"></i></button>, I'll be a champion</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Let's Discuss</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                    <p>The song emphasizes hard work and grinding. Do you believe success is more about hard work or natural talent?</p>
+                    <p>What does it mean to be a "champion" in your personal life, outside of sports?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-puzzle-piece text-purple-500"></i> Practice Activity</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-2xl mb-8 text-gray-300">Complete the sentences with the correct expressions from this lesson.</p>
+                    <div id="matching-activity" class="space-y-4"></div>
+                    <button id="check-answers-btn" class="mt-8 bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-yellow-700">Check Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-book-open text-orange-500"></i> Homework</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <p class="text-2xl mb-6 text-gray-300">Write a short paragraph about a time you had to <b>"go the extra mile"</b> to achieve a goal, even if it wasn't related to sports. Use at least one other expression from the lesson.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <i class="fas fa-medal text-yellow-400 text-7xl mb-6"></i>
+                <h2 class="text-5xl font-bold mb-4 text-gray-100">Lesson Complete!</h2>
+                <p class="text-2xl italic text-gray-400 max-w-2xl mx-auto">"Keep your head in the game!"</p>
+            </div>
+        </div>
+
+        <div id="custom-alert-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center transition-opacity duration-300"></div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-yellow-700">Próximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finalizar Aula</button>
+        </div>
+    </footer>
+    
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+    <script>
+        // Função de Alerta Customizado (mantida no HTML para este teste)
+        function showCustomAlert(message, type = 'success', callback) {
+            const modal = document.getElementById('custom-alert-modal');
+            if (!modal) return;
+            modal.innerHTML = `<div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 text-center" id="custom-alert-box"><i id="custom-alert-icon"></i><h3 id="custom-alert-title"></h3><p id="custom-alert-message" class="text-lg text-gray-300 mb-8"></p><button id="custom-alert-close-btn"></button></div>`;
+            const icon = document.getElementById('custom-alert-icon'), title = document.getElementById('custom-alert-title'), messageEl = document.getElementById('custom-alert-message'), closeBtn = document.getElementById('custom-alert-close-btn');
+            icon.className = 'fas text-6xl mb-5'; title.className = 'text-3xl font-bold mb-3'; closeBtn.className = 'text-white font-bold py-3 px-10 rounded-lg text-lg transition';
+            if (type === 'success') {
+                icon.classList.add('fa-check-circle', 'text-green-400'); title.textContent = 'Parabéns!'; closeBtn.textContent = 'OK'; closeBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+            } else {
+                icon.classList.add('fa-times-circle', 'text-red-400'); title.textContent = 'Erro!'; closeBtn.textContent = 'Tentar Novamente'; closeBtn.classList.add('bg-red-600', 'hover:bg-red-700');
+            }
+            messageEl.textContent = message; modal.style.display = 'flex'; closeBtn.onclick = () => { modal.style.display = 'none'; if (callback) callback(); }
+        }
+
+        // Lógica principal da página
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'conversation';
+            const lessonNumber = 19;
+
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                if (progressBar) progressBar.style.width = slides.length > 1 ? `${((index + 1) / slides.length) * 100}%` : '100%';
+                if (prevBtn) prevBtn.disabled = index === 0;
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+            }
+
+            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            
+            if (finishLessonBtn) finishLessonBtn.addEventListener('click', () => {
+                finishLessonBtn.disabled = true; 
+                finishLessonBtn.textContent = "Salvando...";
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber);
+                } else { 
+                    console.error("A função markLessonAsComplete não foi encontrada."); 
+                    showCustomAlert("Erro ao salvar progresso.", 'error'); 
+                    finishLessonBtn.disabled = false;
+                    finishLessonBtn.textContent = "Finalizar Aula";
+                }
+            });
+
+            document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+            
+            // Lógica para revelar respostas
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const inputField = button.previousElementSibling;
+                    if (inputField) {
+                        inputField.value = button.dataset.answer;
+                        inputField.classList.add('text-yellow-400', 'font-bold');
+                    }
+                });
+            });
+
+            // Lógica da Atividade de Prática (Matching)
+            const activityContainer = document.getElementById('matching-activity'), checkAnswersBtn = document.getElementById('check-answers-btn');
+            if(activityContainer && checkAnswersBtn) {
+                const expressions = [
+                    { id: 'couch_potato', text: 'To be a couch potato' },
+                    { id: 'get_ball_rolling', text: 'To get the ball rolling' },
+                    { id: 'neck_and_neck', text: 'To be neck and neck' },
+                    { id: 'go_extra_mile', text: 'To go the extra mile' },
+                    { id: 'good_sport', text: 'To be a good sport' },
+                    { id: 'throw_in_towel', text: 'To throw in the towel' }
+                ];
+                const situations = [
+                    { text: "My friend is so lazy, he's a real...", answer: 'couch_potato' },
+                    { text: "The two runners were almost tied until the end. They were...", answer: 'neck_and_neck' },
+                    { text: "It's a tough project, but we need to...", answer: 'get_ball_rolling' },
+                    { text: "Don't give up! You can't just...", answer: 'throw_in_towel' },
+                    { text: "After losing the game, she shook hands with the winner. She was a...", answer: 'good_sport' },
+                    { text: "She worked late every night to finish the report. She decided to...", answer: 'go_extra_mile' }
+                ];
+
+                function shuffle(array) { 
+                    for (let i = array.length - 1; i > 0; i--) { 
+                        const j = Math.floor(Math.random() * (i + 1)); 
+                        [array[i], array[j]] = [array[j], array[i]]; 
+                    } 
+                    return array; 
+                }
+
+                function createActivity() {
+                    const shuffledSituations = shuffle(situations);
+                    let html = shuffledSituations.map((sit, index) => {
+                        return `<div id="q-${index}" class="p-4 rounded-lg bg-gray-800 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300"><p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p><select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg shadow-sm text-lg focus:border-yellow-400 focus:ring focus:ring-yellow-300 focus:ring-opacity-50"><option value="">Select an expression...</option>${shuffle([...expressions]).map(exp => `<option value="${exp.id}">${exp.text}</option>`).join('')}</select></div>`;
+                    }).join('');
+                    activityContainer.innerHTML = html;
+                }
+                
+                createActivity();
+                
+                checkAnswersBtn.addEventListener('click', () => {
+                    activityContainer.querySelectorAll('select').forEach((select, index) => {
+                        const questionDiv = document.getElementById(`q-${index}`);
+                        questionDiv.classList.remove('bg-green-900/50', 'border-green-500', 'bg-red-900/50', 'border-red-500');
+                        if (select.value === select.dataset.answer) {
+                            questionDiv.classList.add('bg-green-900/50', 'border-green-500');
+                        } else {
+                            questionDiv.classList.add('bg-red-900/50', 'border-red-500');
+                        }
+                    });
+                });
+            }
+
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>
