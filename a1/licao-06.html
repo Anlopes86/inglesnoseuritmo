@@ -12,6 +12,7 @@
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
         .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
         .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
@@ -19,8 +20,12 @@
         .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
         .flashcard-front { background-color: white; color: #db2777; text-align: center;}
         .flashcard-back { background-color: #db2777; color: white; transform: rotateY(180deg); text-align: center; }
+        
         .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
         .answer-btn:hover { color: #4f46e5; }
+        input.correct { background-color: #dcfce7; border-color: #22c55e; }
+        input.incorrect { background-color: #fee2e2; border-color: #ef4444; }
+        input { transition: all 0.3s; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -31,65 +36,62 @@
             <h1 class="text-xl font-semibold text-center">A1 - Lesson 6: Everyday Objects</h1>
             <div class="w-24"></div>
         </div>
-        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-pink-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
     <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
         
         <div class="slide active">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-box-open text-yellow-500"></i> Warm-up: What do you see?</h2>
+                <h2 class="text-4xl font-bold mb-6 text-pink-700"><i class="fas fa-box-open text-yellow-500"></i> Objetivos da Aula</h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Olhe para os objetos em sua mesa. Que objetos você consegue nomear em inglês?</p>
-                    <div class="text-left text-xl space-y-4 bg-gray-50 p-6 rounded-lg">
-                        <p><strong class="text-blue-600">Professor:</strong> "Look at your desk. What's this?" (apontando para uma caneta)</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "It's a pen."</p>
-                        <p><strong class="text-blue-600">Professor:</strong> "Great! And what's that?" (apontando para um livro)</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "It's a book."</p>
-                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-700">O que vamos aprender:</h3>
+                    <ul class="text-left text-xl space-y-3">
+                        <li>✔️ Aprender o nome de objetos comuns do dia a dia.</li>
+                        <li>✔️ Usar os artigos indefinidos "a" e "an".</li>
+                        <li>✔️ Formar o plural simples de substantivos (adicionando "-s").</li>
+                        <li>✔️ Perguntar e responder sobre objetos.</li>
+                    </ul>
                 </div>
             </div>
         </div>
 
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-pencil-ruler text-pink-500"></i> Vocabulary: Everyday Objects</h2>
+                <h2 class="text-4xl font-bold mb-6 text-pink-700"><i class="fas fa-pencil-ruler text-pink-500"></i> Vocabulary: Everyday Objects</h2>
                 <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Clique nos cartões para aprender o vocabulário.</p>
                 <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">This is a pen.</h4></div><div class="flashcard-back"><p class="text-2xl">Isto é uma caneta.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">This is a book.</h4></div><div class="flashcard-back"><p class="text-2xl">Isto é um livro.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">That is a notebook.</h4></div><div class="flashcard-back"><p class="text-2xl">Aquilo é um caderno.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">It's a cell phone.</h4></div><div class="flashcard-back"><p class="text-2xl">É um celular.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">I have an apple.</h4></div><div class="flashcard-back"><p class="text-2xl">Eu tenho uma maçã.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">I need an eraser.</h4></div><div class="flashcard-back"><p class="text-2xl">Eu preciso de uma borracha.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">Where are the keys?</h4></div><div class="flashcard-back"><p class="text-2xl">Onde estão as chaves?</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">These are my glasses.</h4></div><div class="flashcard-back"><p class="text-2xl">Estes são meus óculos.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><i class="fas fa-pen text-4xl mb-2"></i><h4 class="text-3xl font-bold">a pen</h4></div><div class="flashcard-back"><p class="text-2xl">uma caneta</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><i class="fas fa-book text-4xl mb-2"></i><h4 class="text-3xl font-bold">a book</h4></div><div class="flashcard-back"><p class="text-2xl">um livro</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><i class="fas fa-apple-alt text-4xl mb-2"></i><h4 class="text-3xl font-bold">an apple</h4></div><div class="flashcard-back"><p class="text-2xl">uma maçã</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><i class="fas fa-eraser text-4xl mb-2"></i><h4 class="text-3xl font-bold">an eraser</h4></div><div class="flashcard-back"><p class="text-2xl">uma borracha</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><i class="fas fa-key text-4xl mb-2"></i><h4 class="text-3xl font-bold">keys</h4></div><div class="flashcard-back"><p class="text-2xl">chaves (plural)</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><i class="fas fa-wallet text-4xl mb-2"></i><h4 class="text-3xl font-bold">a wallet</h4></div><div class="flashcard-back"><p class="text-2xl">uma carteira</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><i class="fas fa-mobile-alt text-4xl mb-2"></i><h4 class="text-3xl font-bold">a cell phone</h4></div><div class="flashcard-back"><p class="text-2xl">um celular</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><i class="fas fa-glasses text-4xl mb-2"></i><h4 class="text-3xl font-bold">glasses</h4></div><div class="flashcard-back"><p class="text-2xl">óculos (plural)</p></div></div></div>
                 </div>
             </div>
         </div>
 
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-book-open text-purple-500"></i> Grammar: Articles & Plurals</h2>
+                <h2 class="text-4xl font-bold mb-6 text-pink-700"><i class="fas fa-book-open text-purple-500"></i> Grammar: Articles & Plurals</h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
                     <div class="grid md:grid-cols-2 gap-8 text-left">
                         <div>
-                            <h3 class="text-2xl font-bold text-blue-700 mb-4">Artigos Indefinidos: A vs. AN</h3>
-                            <p class="text-xl">Usamos <strong class="text-blue-600">a</strong> antes de palavras com som de consoante.</p>
-                            <p class="text-xl mt-2 font-semibold bg-gray-100 p-2 rounded">a book, a pen, a car</p>
-                            <p class="text-xl mt-4">Usamos <strong class="text-blue-600">an</strong> antes de palavras com som de vogal.</p>
-                            <p class="text-xl mt-2 font-semibold bg-gray-100 p-2 rounded">an apple, an eraser, an hour</p>
+                            <h3 class="text-2xl font-bold text-blue-700 mb-4"><i class="fas fa-check-circle"></i> Artigos: A vs. AN</h3>
+                            <p class="text-xl mb-2">Use <strong class="text-blue-600">a</strong> antes de palavras com <strong class="font-semibold">som de consoante</strong>.</p>
+                            <p class="text-xl font-semibold bg-gray-100 p-2 rounded">a book, a pen, a car</p>
+                            <p class="text-xl mt-4 mb-2">Use <strong class="text-blue-600">an</strong> antes de palavras com <strong class="font-semibold">som de vogal</strong>.</p>
+                            <p class="text-xl font-semibold bg-gray-100 p-2 rounded">an apple, an eraser, an hour</p>
                         </div>
                         <div class="border-t md:border-t-0 md:border-l pt-6 md:pt-0 md:pl-6">
-                            <h3 class="text-2xl font-bold text-orange-700 mb-4">Plurais com "-s"</h3>
+                            <h3 class="text-2xl font-bold text-orange-700 mb-4"><i class="fas fa-plus-circle"></i> Plural Simples com "-s"</h3>
                             <p class="text-xl">Para a maioria dos substantivos, adicione <strong class="text-orange-600">-s</strong> para formar o plural.</p>
-                            <p class="text-xl mt-2 font-semibold bg-gray-100 p-2 rounded">one book -> two book<strong class="text-orange-600">s</strong></p>
-                            <p class="text-xl mt-2 font-semibold bg-gray-100 p-2 rounded">one pen -> three pen<strong class="text-orange-600">s</strong></p>
+                            <p class="text-xl mt-2 font-semibold bg-gray-100 p-2 rounded">one book → two book<strong class="text-orange-600">s</strong></p>
+                            <p class="text-xl mt-2 font-semibold bg-gray-100 p-2 rounded">one pen → three pen<strong class="text-orange-600">s</strong></p>
+                            <p class="text-xl mt-2 font-semibold bg-gray-100 p-2 rounded">one apple → four apple<strong class="text-orange-600">s</strong></p>
                         </div>
-                    </div>
-                     <div class="mt-6 bg-purple-100 border-l-4 border-purple-500 text-purple-800 p-4 text-left rounded-r-lg">
-                        <h4 class="font-bold text-xl mb-2">Pro Tip:</h4>
-                        <p>A regra de "a" ou "an" depende do <strong class="font-semibold">SOM</strong> da palavra, não da letra. Por exemplo, "hour" começa com 'h', mas o som é de vogal, então usamos <strong class="font-semibold">an hour</strong>.</p>
                     </div>
                 </div>
             </div>
@@ -97,47 +99,63 @@
         
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-pencil-alt text-orange-500"></i>Let's Practice!</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                <h2 class="text-4xl font-bold mb-6 text-pink-700"><i class="fas fa-pencil-alt text-orange-500"></i>Practice 1: A or An?</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-xl mx-auto">
                     <p class="text-2xl mb-8 text-gray-600">Complete com "a" ou "an".</p>
-                    <div id="practice-1" class="space-y-6 text-2xl">
+                    <div id="practice-a-an" class="space-y-6 text-2xl text-left">
+                        <p>1. I have <input data-answer="a" class="w-16 p-1 border-b-2 text-center"> pen.</p>
+                        <p>2. She has <input data-answer="an" class="w-16 p-1 border-b-2 text-center"> apple.</p>
+                        <p>3. This is <input data-answer="a" class="w-16 p-1 border-b-2 text-center"> notebook.</p>
+                        <p>4. He needs <input data-answer="an" class="w-16 p-1 border-b-2 text-center"> eraser.</p>
+                        <p>5. It is <input data-answer="a" class="w-16 p-1 border-b-2 text-center"> university. (Cuidado com o som!)</p>
                     </div>
+                    <button class="mt-8 bg-orange-500 text-white font-bold py-3 px-8 rounded-lg" onclick="checkAnswers(this.previousElementSibling)">Check Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-pink-700"><i class="fas fa-plus text-blue-500"></i>Practice 2: Singular to Plural</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-xl mx-auto">
+                    <p class="text-2xl mb-8 text-gray-600">Escreva o plural das palavras.</p>
+                    <div id="practice-plurals" class="space-y-6 text-2xl text-left">
+                        <p>1. one book → two <input data-answer="books" class="w-32 p-1 border-b-2 text-center"></p>
+                        <p>2. one key → five <input data-answer="keys" class="w-32 p-1 border-b-2 text-center"></p>
+                        <p>3. an apple → ten <input data-answer="apples" class="w-32 p-1 border-b-2 text-center"></p>
+                        <p>4. a pen → many <input data-answer="pens" class="w-32 p-1 border-b-2 text-center"></p>
+                    </div>
+                    <button class="mt-8 bg-blue-500 text-white font-bold py-3 px-8 rounded-lg" onclick="checkAnswers(this.previousElementSibling)">Check Answers</button>
                 </div>
             </div>
         </div>
 
         <div class="slide">
              <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-headphones text-cyan-500"></i>Listening Activity</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Ouça o professor e anote a lista de compras.</p>
+                <h2 class="text-4xl font-bold mb-6 text-pink-700"><i class="fas fa-book-reader text-cyan-500"></i>Reading: What's on the desk?</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <p class="text-xl mb-6 text-gray-600">Leia a descrição e depois liste os objetos mencionados.</p>
                     <div class="text-left text-xl bg-gray-50 p-6 rounded-lg space-y-4">
-                        <p class="font-bold">Professor, dite o seguinte:</p>
-                        <p>"I need to buy: three pens, an eraser, and a notebook."</p>
-                        <hr>
-                        <p class="font-bold mt-4">Aluno, escreva a lista:</p>
-                        <textarea class="w-full p-2 border-2 rounded-lg" rows="3" placeholder="Write the shopping list here..."></textarea>
+                        <p class="font-semibold mb-4">"On my desk, I have a laptop. I also have three red pens, one blue pen, and two notebooks. I have my cell phone and my keys. I don't have an eraser, but I have an apple for a snack."</p>
+                         <hr>
+                         <p class="font-bold mt-4">List the objects on the desk:</p>
+                         <textarea class="w-full mt-2 p-2 border-2 rounded-lg" rows="4" placeholder="a laptop, ..."></textarea>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-700"><i class="fas fa-music text-red-500"></i> Music Time: Paperback Writer</h2>
+            <h2 class="text-4xl font-bold mb-4 text-center text-pink-700"><i class="fas fa-music text-red-500"></i> Music Time: Paperback Writer</h2>
             <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/32EYi1aA7Xdc3p4a29z3lS?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6z6u2lqj6ztDrgtsIA1s2e?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 <div class="mt-4">
                     <p class="text-2xl mb-4 text-gray-600">Ouça o clássico dos Beatles e revele as palavras que faltam.</p>
-                    <div class="text-xl space-y-3 bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
-                         <p>Dear Sir or Madam, will you read my <input type="text" class="w-24 border-b-2 text-center bg-transparent" data-answer="book"><button class="answer-btn" data-answer="book"><i class="fas fa-eye"></i></button>?</p>
+                    <div class="text-xl space-y-3 bg-gray-50 p-4 rounded-lg border-l-4 border-pink-500">
+                         <p>Dear Sir or Madam, will you read my <input type="text" class="w-24 border-b-2 text-center bg-transparent" data-answer="book"><button class="answer-btn"><i class="fas fa-eye"></i></button>?</p>
                          <p>It took me years to write, will you take a look?</p>
                          <p>It's based on a novel by a man named Lear</p>
-                         <p>And I need a job, so I want to be a paperback <input type="text" class="w-24 border-b-2 text-center bg-transparent" data-answer="writer"><button class="answer-btn" data-answer="writer"><i class="fas fa-eye"></i></button></p>
-                         <br>
-                         <p>It's a dirty story of a dirty man</p>
-                         <p>And his clinging wife doesn't understand</p>
-                         <p>His <input type="text" class="w-24 border-b-2 text-center bg-transparent" data-answer="son"><button class="answer-btn" data-answer="son"><i class="fas fa-eye"></i></button> is working for the Daily Mail</p>
-                         <p>It's a steady job, but he wants to be a paperback writer</p>
+                         <p>And I need a job, so I want to be a paperback <input type="text" class="w-24 border-b-2 text-center bg-transparent" data-answer="writer"><button class="answer-btn"><i class="fas fa-eye"></i></button></p>
                     </div>
                 </div>
             </div>
@@ -145,7 +163,7 @@
         
         <div class="slide">
              <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-home text-blue-500"></i>Homework: What's in your bag?</h2>
+                <h2 class="text-4xl font-bold mb-6 text-pink-700"><i class="fas fa-shopping-bag text-blue-500"></i>Homework: What's in your bag?</h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
                     <p class="text-2xl mb-6 text-gray-600">Escreva uma pequena lista do que há na sua mochila ou bolsa. Use "a/an" e plurais.</p>
                     <div class="text-left text-xl space-y-2 mt-4 bg-gray-50 p-4 rounded-lg">
@@ -171,7 +189,7 @@
     <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20">
         <div class="container mx-auto px-8 h-20 flex justify-between items-center">
             <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
-            <button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Próximo</button>
+            <button id="next-btn" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-pink-700">Próximo</button>
             <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finalizar Aula</button>
         </div>
     </footer>
@@ -185,10 +203,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- CONFIGURAÇÃO DA LIÇÃO (ÚNICA PARTE QUE VOCÊ MUDA) ---
-            const moduleId = 'a1';      // Ex: 'a1', 'conversation', 'business'
-            const lessonNumber = 6;     // Ex: 1, 2, 3, etc.
-            // ---------------------------------------------------------
+            const moduleId = 'a1';
+            const lessonNumber = 6;
 
             const finishLessonBtn = document.getElementById('finish-lesson-btn');
             if (finishLessonBtn) {
@@ -213,14 +229,11 @@
             function showSlide(index) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                
                 if (progressBar) {
                     const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
                     progressBar.style.width = `${progressPercentage}%`;
                 }
-                
                 if (prevBtn) prevBtn.disabled = index === 0;
-
                 const isLastSlide = index === slides.length - 1;
                 if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
                 if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
@@ -229,15 +242,36 @@
             if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
             if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
             
-            // Lógica Específica da Aula (atividades, flashcards, etc.)
-            // Esta parte deve ser mantida ou adicionada conforme a necessidade de cada lição.
+            // --- LÓGICA ESPECÍFICA DA AULA ---
             document.querySelectorAll('.flashcard').forEach(card => {
                 card.addEventListener('click', () => card.classList.toggle('flipped'));
             });
             
+            window.checkAnswers = function(container) {
+                container.querySelectorAll('input[data-answer]').forEach(input => {
+                    const correctAnswer = input.dataset.answer.trim().toLowerCase();
+                    const userAnswer = input.value.trim().toLowerCase();
+                    input.classList.remove('correct', 'incorrect');
+                    if (userAnswer === correctAnswer) {
+                        input.classList.add('correct');
+                    } else {
+                        input.classList.add('incorrect');
+                    }
+                });
+            };
+
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const inputField = button.previousElementSibling;
+                     if (inputField && inputField.tagName === 'INPUT') {
+                        inputField.value = inputField.dataset.answer;
+                        inputField.classList.add('correct');
+                    }
+                });
+            });
+
             showSlide(0);
         });
     </script>
-
 </body>
 </html>

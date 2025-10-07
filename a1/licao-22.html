@@ -13,7 +13,6 @@
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Flashcards */
         .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
         .flashcard { background-color: transparent; height: 200px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
@@ -22,22 +21,15 @@
         .flashcard-front { background-color: white; color: #d97706; text-align: center; }
         .flashcard-back { background-color: #d97706; color: white; transform: rotateY(180deg); text-align: center; }
 
-        /* Drag & Drop */
-        .draggable { cursor: grab; }
-        .drop-zone { border-style: dashed; }
-        .drop-zone.over { background-color: #fef3c7; border-color: #d97706; }
+        .draggable { cursor: grab; background-color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-semibold; text-align: center; display: inline-flex; align-items: center; }
+        .drop-zone { border-style: dashed; transition: all 0.2s ease; min-height: 80px; }
+        .drop-zone.over { background-color: #fef3c7; border-color: #d97706; transform: scale(1.05); }
         
-        /* Answer Button */
         .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.5rem; }
         .answer-btn:hover { color: #4f46e5; }
-        input[data-answer].correct { background-color: #fef3c7; border-color: #d97706; }
-        input[data-answer] { transition: all 0.3s; }
-
-        /* Modal */
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
-        .modal-overlay.active { opacity: 1; pointer-events: all; }
-        .modal-content { background: white; padding: 2.5rem; border-radius: 1rem; max-width: 500px; width: 90%; transform: scale(0.95); transition: transform 0.3s ease; }
-        .modal-overlay.active .modal-content { transform: scale(1); }
+        input.correct { background-color: #dcfce7; border-color: #22c55e; }
+        input.incorrect { background-color: #fee2e2; border-color: #ef4444; }
+        input { transition: all 0.3s; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -55,16 +47,15 @@
         
         <div class="slide active">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-amber-700"><i class="fas fa-comments text-yellow-500"></i> Warm-up: Let's Review Quantities</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Let's check what you remember.</p>
-                    <div class="text-left text-xl space-y-4 bg-gray-50 p-6 rounded-lg">
-                        <p><strong class="text-blue-600">Professor:</strong> "Hello! Let's start. I have a question for you: <strong class="font-bold">How many</strong> books do you have?" (Review)</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "I have many books."</p>
-                        <p><strong class="text-blue-600">Professor:</strong> "Excellent! And <strong class="font-bold">how much</strong> time do you have to read?" (Review)</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "I don't have much time."</p>
-                        <p><strong class="text-blue-600">Professor:</strong> "Okay. But what if you have a small number of books? Or a small amount of time? Today we will learn exactly how to say 'um pouco' in English!"</p>
-                    </div>
+                <h2 class="text-4xl font-bold mb-6 text-amber-700"><i class="fas fa-tasks text-yellow-500"></i> Objetivos da Aula</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-700">O que vamos aprender hoje:</h3>
+                    <ul class="text-left text-xl space-y-3">
+                        <li>✔️ Usar "a few" para pequenas quantidades de itens contáveis.</li>
+                        <li>✔️ Usar "a little" para pequenas quantidades de itens incontáveis.</li>
+                        <li>✔️ Diferenciar o uso em contextos práticos.</li>
+                        <li>✔️ Praticar o vocabulário em diálogos.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -72,12 +63,12 @@
         <div class="slide">
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-amber-700"><i class="fas fa-cubes text-amber-500"></i> Vocabulary: Small Quantities</h2>
-                <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">These words are useful for talking about small amounts.</p>
+                <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Estas palavras são úteis para falar sobre pequenas quantidades.</p>
                 <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A few apples</h3></div><div class="flashcard-back"><p class="text-2xl">Algumas maçãs (contável)</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A little sugar</h3></div><div class="flashcard-back"><p class="text-2xl">Um pouco de açúcar (incontável)</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A few friends</h3></div><div class="flashcard-back"><p class="text-2xl">Alguns amigos (contável)</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A little time</h3></div><div class="flashcard-back"><p class="text-2xl">Um pouco de tempo (incontável)</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A few apples</h3></div><div class="flashcard-back"><p class="text-2xl">Algumas maçãs (contável)</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A little sugar</h3></div><div class="flashcard-back"><p class="text-2xl">Um pouco de açúcar (incontável)</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A few friends</h3></div><div class="flashcard-back"><p class="text-2xl">Alguns amigos (contável)</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A little time</h3></div><div class="flashcard-back"><p class="text-2xl">Um pouco de tempo (incontável)</p></div></div></div>
                 </div>
             </div>
         </div>
@@ -86,18 +77,18 @@
              <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-amber-700"><i class="fas fa-book-open text-purple-500"></i> Grammar: A few vs. A little</h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto text-left">
-                    <p class="text-2xl mb-6 text-gray-600 text-center">Both mean "a small amount", but we use them differently.</p>
+                    <p class="text-2xl mb-6 text-gray-600 text-center">Ambos significam "um pouco" ou "alguns", mas o uso é diferente.</p>
                     
-                    <h3 class="font-bold text-xl text-blue-700 mb-2">A few (+ Countable Nouns)</h3>
+                    <h3 class="font-bold text-xl text-blue-700 mb-2">A few (+ Substantivos Contáveis no Plural)</h3>
                     <div class="bg-blue-50 p-4 rounded-lg text-lg">
-                        <p>We use <strong class="font-semibold">a few</strong> for a small number of things we can count.</p>
+                        <p>Usamos <strong class="font-semibold">a few</strong> para um número pequeno de coisas que podemos contar.</p>
                         <p>I have <strong class="font-semibold">a few</strong> good friends.</p>
                         <p>There are <strong class="font-semibold">a few</strong> apples in the kitchen.</p>
                     </div>
 
-                    <h3 class="font-bold text-xl text-green-700 mt-6 mb-2">A little (+ Uncountable Nouns)</h3>
+                    <h3 class="font-bold text-xl text-green-700 mt-6 mb-2">A little (+ Substantivos Incontáveis)</h3>
                      <div class="bg-green-50 p-4 rounded-lg text-lg">
-                        <p>We use <strong class="font-semibold">a little</strong> for a small amount of things we cannot count.</p>
+                        <p>Usamos <strong class="font-semibold">a little</strong> para uma pequena quantidade de coisas que não podemos contar.</p>
                         <p>I have <strong class="font-semibold">a little</strong> money.</p>
                         <p>I need <strong class="font-semibold">a little</strong> help, please.</p>
                     </div>
@@ -109,66 +100,48 @@
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-amber-700"><i class="fas fa-pencil-alt text-blue-500"></i>Practice: Choose Correctly</h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Complete the sentences with <strong class="font-bold">a little</strong> or <strong class="font-bold">a few</strong>.</p>
-                    <div class="text-left text-xl space-y-4">
-                        <p>1. I have <input data-answer="a few" class="w-32 p-1 border-b-2 text-center"> questions for you. <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>2. Can I have <input data-answer="a little" class="w-32 p-1 border-b-2 text-center"> water, please? <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>3. She speaks <input data-answer="a little" class="w-32 p-1 border-b-2 text-center"> English. <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>4. We have <input data-answer="a few" class="w-32 p-1 border-b-2 text-center"> minutes before the class starts. <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>5. He needs <input data-answer="a little" class="w-32 p-1 border-b-2 text-center"> sugar for his coffee. <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                    <p class="text-xl mb-6 text-gray-600">Complete as frases com <strong class="font-bold">a little</strong> ou <strong class="font-bold">a few</strong>.</p>
+                    <div id="practice-choose" class="text-left text-xl space-y-4">
+                        <p>1. I have <input data-answer="a few" class="w-32 p-1 border-b-2 text-center"> questions for you.</p>
+                        <p>2. Can I have <input data-answer="a little" class="w-32 p-1 border-b-2 text-center"> water, please?</p>
+                        <p>3. She speaks <input data-answer="a little" class="w-32 p-1 border-b-2 text-center"> English.</p>
+                        <p>4. We have <input data-answer="a few" class="w-32 p-1 border-b-2 text-center"> minutes before the class starts.</p>
+                        <p>5. He needs <input data-answer="a little" class="w-32 p-1 border-b-2 text-center"> sugar for his coffee.</p>
                     </div>
+                     <button class="mt-8 bg-blue-500 text-white font-bold py-3 px-8 rounded-lg" onclick="checkAnswers(this.previousElementSibling)">Check Answers</button>
                 </div>
             </div>
         </div>
 
         <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-amber-700"><i class="fas fa-headphones text-cyan-500"></i>Listening: At the Supermarket</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Listen to the person talking and answer the questions below.</p>
-                    <button id="show-script-btn" class="bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition hover:bg-cyan-700 mb-8"><i class="fas fa-file-alt mr-2"></i> Show Teacher's Script</button>
-                    <div class="text-left mt-6 text-lg space-y-6">
-                        <div>
-                            <label for="q1" class="font-bold block mb-2">1. What does she need for the recipe?</label>
-                            <textarea id="q1" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="Write the countable item..."></textarea>
-                        </div>
-                        <div>
-                            <label for="q2" class="font-bold block mb-2">2. And what else does she need?</label>
-                            <textarea id="q2" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="Write the uncountable item..."></textarea>
-                        </div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-amber-700"><i class="fas fa-comments text-cyan-500"></i>Practice: At the Café</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <p class="text-xl mb-6 text-gray-600">Complete o diálogo com as palavras corretas.</p>
+                    <div id="dialogue-practice" class="text-left text-xl bg-gray-50 p-6 rounded-lg space-y-4">
+                        <p><strong class="text-blue-600">Atendente:</strong> "Hi! What can I get for you?"</p>
+                        <p><strong class="text-orange-600">Cliente:</strong> "Hello. I'd like <input data-answer="a few" class="w-24 p-1 border-b-2 text-center"> cookies, please."</p>
+                        <p><strong class="text-blue-600">Atendente:</strong> "Sure. <input data-answer="How many" class="w-32 p-1 border-b-2 text-center"> cookies?"</p>
+                        <p><strong class="text-orange-600">Cliente:</strong> "Three, please. And I'll have <input data-answer="a little" class="w-24 p-1 border-b-2 text-center"> milk with my coffee."</p>
+                        <p><strong class="text-blue-600">Atendente:</strong> "Okay. <input data-answer="How much" class="w-32 p-1 border-b-2 text-center"> milk?"</p>
+                        <p><strong class="text-orange-600">Cliente:</strong> "Just <input data-answer="a little" class="w-24 p-1 border-b-2 text-center">."</p>
                     </div>
+                    <button class="mt-6 bg-cyan-600 text-white font-bold py-3 px-8 rounded-lg" onclick="checkAnswers(this.previousElementSibling)">Check Answers</button>
                 </div>
             </div>
         </div>
 
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-amber-700"><i class="fas fa-music text-red-500"></i> Music Time: A Little Respect</h2>
-            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/11" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <div class="mt-6 text-center">
-                    <p class="text-xl mb-4 text-gray-600">Listen to this classic by Erasure. "Respect" is uncountable!</p>
-                    <div class="text-xl inline-block text-left space-y-3 bg-gray-50 p-6 rounded-lg border-l-4 border-amber-500">
-                         <p>I'm so tired of <input data-answer="playing" class="w-28 p-1 border-b-2 text-center bg-transparent"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                         <p>Playing with this <input data-answer="crazy" class="w-24 p-1 border-b-2 text-center bg-transparent"> mind <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                         <p>And I'm seeking <input data-answer="inspiration" class="w-36 p-1 border-b-2 text-center bg-transparent"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                         <p>For a soul that's hard to find</p>
-                         <p>That you give me <input data-answer="a little" class="w-28 p-1 border-b-2 text-center bg-transparent"> respect <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-6 text-center text-amber-700"><i class="fas fa-puzzle-piece text-blue-500"></i> Practice: Sort the Phrases</h2>
+            <h2 class="text-4xl font-bold mb-6 text-center text-amber-700"><i class="fas fa-puzzle-piece text-purple-500"></i> Practice: Sort The Words</h2>
             <div class="bg-white p-8 rounded-2xl shadow-lg max-w-5xl mx-auto">
-                <p class="text-xl mb-8 text-gray-600 text-center">Drag the phrases to the correct category.</p>
-                <div class="flex flex-wrap gap-4 justify-center mb-8">
-                    <div id="item-friends" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">friends</div>
-                    <div id="item-time" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">time</div>
-                    <div id="item-people" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">people</div>
-                    <div id="item-patience" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">patience</div>
-                    <div id="item-ideas" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">ideas</div>
-                    <div id="item-coffee" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">coffee</div>
+                <p class="text-xl mb-8 text-gray-600 text-center">Arraste as palavras para a categoria correta.</p>
+                <div class="flex flex-wrap gap-4 justify-center mb-8" id="drag-items">
+                    <div id="item-friends" class="draggable" draggable="true">friends</div>
+                    <div id="item-time" class="draggable" draggable="true">time</div>
+                    <div id="item-people" class="draggable" draggable="true">people</div>
+                    <div id="item-patience" class="draggable" draggable="true">patience</div>
+                    <div id="item-ideas" class="draggable" draggable="true">ideas</div>
+                    <div id="item-coffee" class="draggable" draggable="true">coffee</div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-blue-100 p-4 rounded-lg">
@@ -184,10 +157,29 @@
         </div>
 
         <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-amber-700"><i class="fas fa-music text-red-500"></i> Music Time: A Little Respect</h2>
+            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5mip0MqcMGWmHE7tsrc97m?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-6 text-center">
+                    <p class="text-xl mb-4 text-gray-600">Ouça o clássico do Erasure. "Respect" é incontável!</p>
+                    <div id="music-activity" class="text-xl inline-block text-left space-y-3 bg-gray-50 p-6 rounded-lg border-l-4 border-amber-500">
+                        <p>I try to discover</p>
+                        <p>A little something to make me <input data-answer="sweeter" class="w-28 p-1 border-b-2 text-center bg-transparent"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p>Oh baby, refrain from breaking my <input data-answer="heart" class="w-24 p-1 border-b-2 text-center bg-transparent"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p>I'm so in love with you</p>
+                        <br>
+                        <p>Soul, I hear you calling</p>
+                        <p>Oh baby, please</p>
+                        <p>Give <input data-answer="a little" class="w-28 p-1 border-b-2 text-center bg-transparent"> respect to me <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
              <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-amber-700"><i class="fas fa-home text-green-500"></i>Homework: A Little of This, A Few of That</h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Write 4 sentences about your life. Two with "a little" and two with "a few".</p>
+                    <p class="text-xl mb-6 text-gray-600">Escreva 4 frases sobre sua vida: duas com "a little" e duas com "a few".</p>
                     <div class="text-left text-lg space-y-2 mt-4 bg-gray-50 p-6 rounded-lg">
                         <p class="font-bold">Examples:</p>
                         <ul class="list-disc list-inside mt-2 space-y-1">
@@ -212,26 +204,20 @@
         <div class="container mx-auto px-8 h-20 flex justify-between items-center">
             <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
             <button id="next-btn" class="bg-amber-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-amber-600">Próximo</button>
-            <button id="finish-lesson-btn" class="hidden bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Finalizar Aula</button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finalizar Aula</button>
         </div>
     </footer>
-
-    <div id="script-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h3 class="text-2xl font-bold mb-4 text-cyan-700">Listening Activity Script</h3>
-            <p class="text-lg italic leading-relaxed">
-                "Okay, I'm at the supermarket. I need to buy things for a recipe. The recipe asks for a few eggs, so I will buy three. It also asks for a little milk, so I will buy one small carton."
-            </p>
-            <button id="close-script-btn" class="mt-6 bg-gray-600 text-white font-bold py-2 px-6 rounded-lg w-full transition hover:bg-gray-700">Close</button>
-        </div>
-    </div>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
     <script src="../js/progress-manager.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a1';
+            const lessonNumber = 22;
+
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
@@ -239,19 +225,66 @@
             let currentSlide = 0;
 
             function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
                 const progressBar = document.getElementById('progress-bar');
-                progressBar.style.width = slides.length > 1 ? `${(index / (slides.length - 1)) * 100}%` : '100%';
-                prevBtn.disabled = index === 0;
-                nextBtn.classList.toggle('hidden', index === slides.length - 1);
-                finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
+                if (progressBar) {
+                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
+                    progressBar.style.width = `${progressPercentage}%`;
+                }
+                if (prevBtn) prevBtn.disabled = index === 0;
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
             }
 
-            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            finishLessonBtn.addEventListener('click', () => {
-                alert('Lição Finalizada com Sucesso!');
-                window.location.href = 'a1.html';
+            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            
+            if (finishLessonBtn) {
+                finishLessonBtn.addEventListener('click', () => {
+                    finishLessonBtn.disabled = true;
+                    finishLessonBtn.textContent = "Salvando...";
+                    if (typeof markLessonAsComplete === 'function') {
+                        markLessonAsComplete(moduleId, lessonNumber);
+                    } else {
+                        console.error("Função markLessonAsComplete não encontrada.");
+                        alert("Erro ao salvar progresso.");
+                    }
+                });
+            }
+
+            document.querySelectorAll('.flashcard').forEach(card => {
+                card.addEventListener('click', () => card.classList.toggle('flipped'));
+            });
+
+            window.checkAnswers = function(container) {
+                container.querySelectorAll('input[data-answer]').forEach(input => {
+                    const correctAnswer = input.dataset.answer.trim().toLowerCase();
+                    const userAnswer = input.value.trim().toLowerCase();
+                    input.classList.remove('correct', 'incorrect');
+                    if (userAnswer === correctAnswer) {
+                        input.classList.add('correct');
+                    } else {
+                        input.classList.add('incorrect');
+                    }
+                });
+            };
+
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    let currentElement = button.previousElementSibling;
+                    while (currentElement) {
+                        if (currentElement.tagName === 'INPUT' && currentElement.hasAttribute('data-answer')) {
+                            currentElement.value = currentElement.dataset.answer;
+                            currentElement.classList.add('correct');
+                        }
+                        if (currentElement.previousElementSibling?.tagName === 'P' || currentElement.previousElementSibling?.tagName === 'BR') {
+                            break;
+                        }
+                        currentElement = currentElement.previousElementSibling;
+                    }
+                });
             });
 
             // Drag and Drop Logic
@@ -261,13 +294,11 @@
             draggables.forEach(draggable => {
                 draggable.addEventListener('dragstart', (e) => {
                     draggedItem = e.target;
-                    setTimeout(() => e.target.style.display = 'none', 0);
+                    setTimeout(() => e.target.classList.add('opacity-50'), 0);
                 });
                 draggable.addEventListener('dragend', (e) => {
                     setTimeout(() => {
-                        if (draggedItem) {
-                           draggedItem.style.display = 'inline-flex';
-                        }
+                        e.target.classList.remove('opacity-50');
                         draggedItem = null;
                     }, 0);
                 });
@@ -275,50 +306,16 @@
 
             document.querySelectorAll('.drop-zone').forEach(zone => {
                 zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
-                zone.addEventListener('dragleave', e => { zone.classList.remove('over'); });
+                zone.addEventListener('dragleave', () => zone.classList.remove('over'));
                 zone.addEventListener('drop', e => {
                     e.preventDefault();
+                    zone.classList.remove('over');
                     if (draggedItem && zone.dataset.match.includes(draggedItem.id)) {
-                        draggedItem.style.display = 'inline-flex';
+                        draggedItem.classList.remove('opacity-50');
                         zone.appendChild(draggedItem);
-                        zone.classList.remove('over');
-                        draggedItem.classList.remove('draggable');
-                        draggedItem.style.cursor = 'default';
-                        
-                        const requiredItems = zone.dataset.match.split(' ').length;
-                        if (zone.children.length === requiredItems) {
-                             zone.style.borderColor = '#22c55e';
-                             zone.style.borderStyle = 'solid';
-                        }
-                        draggedItem = null;
-                    } else {
-                         zone.classList.remove('over');
                     }
                 });
             });
-
-            // Individual Answer Button Logic
-            document.querySelectorAll('.answer-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    let prev = button.previousElementSibling;
-                    while (prev) {
-                        if (prev.tagName === 'INPUT' && prev.dataset.answer) {
-                            prev.value = prev.dataset.answer;
-                            prev.classList.add('text-indigo-600', 'font-bold', 'correct');
-                            if (!prev.previousElementSibling || prev.previousElementSibling.tagName !== 'INPUT') {
-                                break;
-                            }
-                        }
-                        prev = prev.previousElementSibling;
-                    }
-                });
-            });
-            
-            // Modal Logic
-            const modal = document.getElementById('script-modal');
-            document.getElementById('show-script-btn').addEventListener('click', () => modal.classList.add('active'));
-            document.getElementById('close-script-btn').addEventListener('click', () => modal.classList.remove('active'));
-            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
 
             showSlide(0);
         });
