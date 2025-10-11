@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation Class - Lesson 20: The Power of Habits</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #4a5568; }
+        .flashcard-front { background-color: #2d3748; color: #a0aec0; text-align: center; }
+        .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
+        .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
+        .lyrics-box { max-height: 300px; overflow-y: auto; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="conversation.html" class="text-lg font-bold text-yellow-400 hover:text-yellow-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
+            <h1 class="text-xl font-semibold text-center">Lesson 20: The Power of Habits</h1>
+            <div class="w-32"></div>
+        </div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-yellow-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+
+        <div class="slide active">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-brain text-purple-400"></i> Warm-up: About Habits</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6 text-2xl">
+                <p class="font-semibold text-gray-300">Let's start our conversation:</p>
+                <p><i class="fas fa-arrow-right mr-2 text-yellow-400"></i> What are some good habits you'd like to develop?</p>
+                <p><i class="fas fa-arrow-right mr-2 text-yellow-400"></i> Is it easier to build a new habit or break an old one?</p>
+                <p><i class="fas fa-arrow-right mr-2 text-yellow-400"></i> How do you use technology to track your habits?</p>
+                <p><i class="fas fa-arrow-right mr-2 text-yellow-400"></i> Do you believe in the "10,000-hour rule" for mastery?</p>
+            </div></div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-comments text-teal-400"></i> Key Vocabulary & Expressions</h2><p class="text-2xl mb-8 text-gray-300 max-w-3xl mx-auto">Click the cards to explore ideas about habits.</p><div class="flashcard-grid max-w-6xl mx-auto">
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To stick to a routine</h4></div><div class="flashcard-back"><p class="text-xl">To continue to follow a regular pattern of activities.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">A creature of habit</h4></div><div class="flashcard-back"><p class="text-xl">Someone who prefers to do things in a fixed, routine way.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To get into the swing of things</h4></div><div class="flashcard-back"><p class="text-xl">To become accustomed to a new situation or routine.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To fall off the wagon</h4></div><div class="flashcard-back"><p class="text-xl">To return to an old, bad habit after trying to stop.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">A vicious cycle</h4></div><div class="flashcard-back"><p class="text-xl">A sequence of bad habits that reinforce each other.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Old habits die hard</h4></div><div class="flashcard-back"><p class="text-xl">It's very difficult to stop doing things you have been doing for a long time.</p></div></div></div>
+            </div></div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music Time: Stronger</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/track/0j2T0R9dR9qdJYsB7ciXhf" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
+                    <p>Work it harder, make it better</p>
+                    <p>Do it faster, makes us stronger</p>
+                    <p>More than ever, hour after</p>
+                    <p>Our work is never <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="over"><i class="fas fa-eye"></i></button></p>
+                    <p>Yeah, I need you right now</p>
+                    <p>I need you right now</p>
+                    <p>Can you please hurry up now?</p>
+                    <p>'Cause I've been <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="waiting"><i class="fas fa-eye"></i></button> for this all night</p>
+                    <p>Now I'm so excited, 'cause you're all mine</p>
+                    <p>You make me feel stronger</p>
+                    <p>I feel like I'm a superhero</p>
+                    <p>You make me feel stronger, yeah</p>
+                    <p>I'm so glad I met you, girl</p>
+                    <p>I'm so glad I met you, girl</p>
+                    <p>And now you're mine forever</p>
+                    <p>Girl, I need you right now</p>
+                    <p>I need you right now</p>
+                    <p>And I can't wait much longer</p>
+                    <p>'Cause I'm so excited, 'cause you're all mine</p>
+                    <p>You make me feel stronger, yeah</p>
+                    <p>I feel like I'm a superhero</p>
+                    <p>You make me feel stronger, yeah</p>
+                    <p>I'm so glad I met you, girl</p>
+                    <p>I'm so glad I met you, girl</p>
+                    <p>And now you're mine forever</p>
+                    <p>I need you to tell me when it's <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="over"><i class="fas fa-eye"></i></button></p>
+                    <p>'Cause you're the last thing that I want to lose</p>
+                    <p>I need you to tell me when it's over</p>
+                    <p>Before I <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="fall"><i class="fas fa-eye"></i></button> to pieces with you</p>
+                    <p>And I'm stronger than I've ever been</p>
+                    <p>With you by my side</p>
+                    <p>And I'm stronger than I've ever been</p>
+                    <p>'Cause I'm with you, my love</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                <p>The song talks about getting stronger. How can building good habits make you feel stronger in life?</p>
+                <p>Is it possible to become stronger by overcoming bad habits?</p>
+            </div></div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music Time: Roar</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="http://googleusercontent.com/spotify.com/4" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
+                    <p>I used to bite my tongue and hold my <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="breath"><i class="fas fa-eye"></i></button></p>
+                    <p>Scared to rock the boat and make a mess</p>
+                    <p>So I sat quietly, agreed politely</p>
+                    <p>I guess that I forgot I had a <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="choice"><i class="fas fa-eye"></i></button></p>
+                    <p>I let you push me past the breaking point</p>
+                    <p>I stood for nothing, so I fell for everything</p>
+                    <p>You held me down, but I got up (HEY!)</p>
+                    <p>Already brushing off the dust</p>
+                    <p>You hear my voice, you hear that sound</p>
+                    <p>Like thunder, gonna shake the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="ground"><i class="fas fa-eye"></i></button></p>
+                    <p>You held me down, but I got up (HEY!)</p>
+                    <p>Get ready 'cause I've had enough</p>
+                    <p>I see it all, I see it now</p>
+                    <p>I got the eye of the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="tiger"><i class="fas fa-eye"></i></button>, a fighter</p>
+                    <p>Dancing through the fire</p>
+                    <p>'Cause I am a champion and you're gonna hear me roar</p>
+                    <p>Louder, louder than a lion</p>
+                    <p>'Cause I am a champion and you're gonna hear me roar</p>
+                    <p>Oh oh oh oh oh oh oh oh oh</p>
+                    <p>You're gonna hear me roar</p>
+                    <p>Now I'm floating like a butterfly</p>
+                    <p>Stinging like a bee I earned my stripes</p>
+                    <p>I went from zero, to my own hero</p>
+                    <p>You held me down, but I got up (HEY!)</p>
+                    <p>Already brushing off the dust</p>
+                    <p>You hear my voice, you hear that sound</p>
+                    <p>Like thunder, gonna shake the ground</p>
+                    <p>You held me down, but I got up (HEY!)</p>
+                    <p>Get ready 'cause I've had enough</p>
+                    <p>I see it all, I see it now</p>
+                    <p>I got the eye of the tiger, a fighter</p>
+                    <p>Dancing through the fire</p>
+                    <p>'Cause I am a champion and you're gonna hear me roar</p>
+                    <p>Louder, louder than a lion</p>
+                    <p>'Cause I am a champion and you're gonna hear me roar</p>
+                    <p>Oh oh oh oh oh oh oh oh oh</p>
+                    <p>You're gonna hear me roar</p>
+                    <p>Oh oh oh oh oh oh oh oh oh</p>
+                    <p>You're gonna hear me roar</p>
+                    <p>Roar, roar, roar, oh, roar, oh, roar</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                <p>The song is about finding your inner strength. How do daily habits contribute to your sense of personal strength and confidence?</p>
+                <p>What is one small habit that makes you feel more like a "champion"?</p>
+            </div></div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music Time: The Man</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="http://googleusercontent.com/spotify.com/5" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
+                    <p>Well, you can tell everybody</p>
+                    <p>Yeah, you can tell everybody</p>
+                    <p>Go ahead and tell everybody</p>
+                    <p>I'm the man, I'm the man, I'm the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="man"><i class="fas fa-eye"></i></button></p>
+                    <p>Yes I am, yes I am, yes I am</p>
+                    <p>I'm the man, I'm the man, I'm the man</p>
+                    <p>I believe every lie that I ever <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="told"><i class="fas fa-eye"></i></button></p>
+                    <p>Paid for every heart that I ever stole</p>
+                    <p>I played my cards and I didn't fold</p>
+                    <p>Well it ain't that hard when you got <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="soul"><i class="fas fa-eye"></i></button></p>
+                    <p>(This is my world)</p>
+                    <p>Somewhere I heard that life is a test</p>
+                    <p>I been though the worst but still I give my best</p>
+                    <p>God made my mold different from the rest</p>
+                    <p>Then he broke that mold so I know I'm <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="blessed"><i class="fas fa-eye"></i></button></p>
+                    <p>(This is my world)</p>
+                    <p>Stand up now and face the Sun</p>
+                    <p>Won't hide my tail or turn and run</p>
+                    <p>It's time to do what must be done</p>
+                    <p>Be a king when kingdom comes</p>
+                    <p>Well, you can tell everybody</p>
+                    <p>Yeah, you can tell everybody</p>
+                    <p>Go ahead and tell everybody</p>
+                    <p>I'm the man, I'm the man, I'm the man</p>
+                    <p>Yes I am, yes I am, yes I am</p>
+                    <p>I'm the man, I'm the man, I'm the man</p>
+                    <p>I got all the answers to your questions</p>
+                    <p>I'll be the teacher you could be the lesson</p>
+                    <p>I'll be the preacher you be the confession</p>
+                    <p>I'll be the quick relief to all your stressing</p>
+                    <p>(This is my world)</p>
+                    <p>It's a thin line between love and hate</p>
+                    <p>It's a fine line between a king and a pawn, yeah</p>
+                    <p>I'm a soldier standing on my feet</p>
+                    <p>No surrender and I won't retreat</p>
+                    <p>(This is my world)</p>
+                    <p>Stand up now and face the Sun</p>
+                    <p>Won't hide my tail or turn and run</p>
+                    <p>It's time to do what must be done</p>
+                    <p>Be a king when kingdom comes</p>
+                    <p>Well, you can tell everybody</p>
+                    <p>Yeah, you can tell everybody</p>
+                    <p>Go ahead and tell everybody</p>
+                    <p>I'm the man, I'm the man, I'm the man</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                <p>The song mentions "hustle all the time." Do you think this is a good or bad habit?</p>
+                <p>How do your professional or study habits relate to your passions?</p>
+            </div></div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="matching-activity" class="space-y-4"></div><button id="check-answers-btn" class="mt-8 bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-yellow-700">Check Answers</button></div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-home text-blue-400"></i>Homework</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto"><p class="text-2xl mb-6 text-gray-300">Write a short paragraph about a positive habit you'd like to build this month. Explain the steps you will take to achieve it.</p><div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg"><p><strong>Example:</strong> "This month, I want to develop the habit of reading for 20 minutes every morning. I will start by placing a book on my nightstand so it's the first thing I see. I'll also use an app to track my progress and stay motivated."</p></div></div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center flex flex-col items-center justify-center h-full"><i class="fas fa-cogs text-yellow-300 text-7xl mb-6"></i><h2 class="text-5xl font-bold mb-4 text-gray-100">Lesson Complete!</h2><p class="text-2xl italic text-gray-400 max-w-2xl mx-auto">"The chains of habit are too weak to be felt until they are too strong to be broken." - Samuel Johnson</p></div>
+        </div>
+        <div id="custom-alert-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center transition-opacity duration-300"></div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20"><div class="container mx-auto px-8 h-20 flex justify-between items-center"><button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button><button id="next-btn" class="bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-yellow-700">Próximo</button><button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finalizar Aula</button></div></footer>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+
+    <script>
+        // Função de Alerta Customizado
+        function showCustomAlert(message, type = 'success', callback) {
+            const modal = document.getElementById('custom-alert-modal');
+            if (!modal) return;
+            modal.innerHTML = `<div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 text-center" id="custom-alert-box"><i id="custom-alert-icon"></i><h3 id="custom-alert-title"></h3><p id="custom-alert-message" class="text-lg text-gray-300 mb-8"></p><button id="custom-alert-close-btn"></button></div>`;
+            const icon = document.getElementById('custom-alert-icon'), title = document.getElementById('custom-alert-title'), messageEl = document.getElementById('custom-alert-message'), closeBtn = document.getElementById('custom-alert-close-btn');
+            icon.className = 'fas text-6xl mb-5'; title.className = 'text-3xl font-bold mb-3'; closeBtn.className = 'text-white font-bold py-3 px-10 rounded-lg text-lg transition';
+            if (type === 'success') {
+                icon.classList.add('fa-check-circle', 'text-green-400'); title.textContent = 'Success!'; closeBtn.textContent = 'OK'; closeBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+            } else {
+                icon.classList.add('fa-times-circle', 'text-red-400'); title.textContent = 'Error!'; closeBtn.textContent = 'Try Again'; closeBtn.classList.add('bg-red-600', 'hover:bg-red-700');
+            }
+            messageEl.textContent = message; modal.style.display = 'flex'; closeBtn.onclick = () => { modal.style.display = 'none'; if (callback) callback(); }
+        }
+
+        // Lógica principal da página
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'conversation';
+            const lessonNumber = 20;
+
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                if (progressBar) progressBar.style.width = slides.length > 1 ? `${((index + 1) / slides.length) * 100}%` : '100%';
+                if (prevBtn) prevBtn.disabled = index === 0;
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+            }
+
+            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            if (finishLessonBtn) finishLessonBtn.addEventListener('click', () => {
+                finishLessonBtn.disabled = true; finishLessonBtn.textContent = "Salvando...";
+                if (typeof markLessonAsComplete === 'function') markLessonAsComplete(moduleId, lessonNumber);
+                else { console.error("A função markLessonAsComplete não foi encontrada."); alert("Erro ao salvar progresso."); }
+            });
+
+            document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+            
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const inputField = button.previousElementSibling;
+                    if (inputField) {
+                        inputField.value = button.dataset.answer;
+                        inputField.classList.add('text-yellow-400', 'font-bold');
+                    }
+                });
+            });
+
+            const activityContainer = document.getElementById('matching-activity'), checkAnswersBtn = document.getElementById('check-answers-btn');
+            if(activityContainer && checkAnswersBtn) {
+                const expressions=[{id:'stick_to',text:'To stick to a routine'},{id:'creature_of_habit',text:'A creature of habit'},{id:'swing_of_things',text:'To get into the swing of things'},{id:'fall_off_wagon',text:'To fall off the wagon'},{id:'vicious_cycle',text:'A vicious cycle'},{id:'die_hard',text:'Old habits die hard'}];
+                const situations=[{text:"I find it very hard to start exercising regularly. It's difficult to...",answer:'swing_of_things'},{text:"I go to the same coffee shop every morning. I'm a real...",answer:'creature_of_habit'},{text:"When I stopped eating junk food for a month, but then ate a pizza, I...",answer:'fall_off_wagon'},{text:"They tried to stop smoking, but it was impossible for them to quit.",answer:'die_hard'},{text:"He is always stressed because he procrastinates, which makes him more stressed.",answer:'vicious_cycle'},{text:"I have to wake up early every day, and I am disciplined enough to...",answer:'stick_to'}];
+                function shuffle(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
+                function createActivity() {
+                    const shuffledSituations = shuffle(situations);
+                    let html = shuffledSituations.map((sit, index) => {
+                        return `<div id="q-${index}" class="p-4 rounded-lg bg-gray-800 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300"><p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p><select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg shadow-sm text-lg focus:border-yellow-400 focus:ring focus:ring-yellow-300 focus:ring-opacity-50"><option value="">Select an expression...</option>${shuffle([...expressions]).map(exp => `<option value="${exp.id}">${exp.text}</option>`).join('')}</select></div>`;
+                    }).join('');
+                    activityContainer.innerHTML = html;
+                }
+                createActivity();
+                checkAnswersBtn.addEventListener('click', () => {
+                    activityContainer.querySelectorAll('select').forEach((select, index) => {
+                        const questionDiv = document.getElementById(`q-${index}`);
+                        questionDiv.classList.remove('bg-green-900/50', 'border-green-500', 'bg-red-900/50', 'border-red-500');
+                        if (select.value === select.dataset.answer) {
+                            questionDiv.classList.add('bg-green-900/50', 'border-green-500');
+                        } else {
+                            questionDiv.classList.add('bg-red-900/50', 'border-red-500');
+                        }
+                    });
+                });
+            }
+
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation Class - Lesson 21: Volunteering & Social Causes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #4a5568; }
+        .flashcard-front { background-color: #2d3748; color: #a0aec0; text-align: center; }
+        .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
+        .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
+        .lyrics-box { max-height: 300px; overflow-y: auto; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="conversation.html" class="text-lg font-bold text-yellow-400 hover:text-yellow-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
+            <h1 class="text-xl font-semibold text-center">Lesson 21: Volunteering & Social Causes</h1>
+            <div class="w-32"></div>
+        </div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-yellow-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+
+        <div class="slide active">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-hand-holding-heart text-pink-400"></i> Warm-up: About Social Causes</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6 text-2xl">
+                <p class="font-semibold text-gray-300">Let's start our conversation:</p>
+                <p><i class="fas fa-arrow-right mr-2 text-yellow-400"></i> Have you ever volunteered for a cause? If so, what was it?</p>
+                <p><i class="fas fa-arrow-right mr-2 text-yellow-400"></i> What social cause are you most passionate about?</p>
+                <p><i class="fas fa-arrow-right mr-2 text-yellow-400"></i> Do you think companies have a social responsibility to give back?</p>
+                <p><i class="fas fa-arrow-right mr-2 text-yellow-400"></i> What's the most effective way to help people in need?</p>
+            </div></div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-comments text-teal-400"></i> Key Vocabulary & Expressions</h2><p class="text-2xl mb-8 text-gray-300 max-w-3xl mx-auto">Click the cards to explore ideas about helping others.</p><div class="flashcard-grid max-w-6xl mx-auto">
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To give back</h4></div><div class="flashcard-back"><p class="text-xl">To help people or a community, especially because they have helped you.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Charity</h4></div><div class="flashcard-back"><p class="text-xl">An organization that helps people in need.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To make a difference</h4></div><div class="flashcard-back"><p class="text-xl">To have a positive impact.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Fundraising</h4></div><div class="flashcard-back"><p class="text-xl">The act of collecting money for a cause.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Social issue</h4></div><div class="flashcard-back"><p class="text-xl">A problem that affects a large group of people in a society.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Grassroots movement</h4></div><div class="flashcard-back"><p class="text-xl">A social or political movement that begins on a local level.</p></div></div></div>
+            </div></div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music Time: Heal the World</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="http://googleusercontent.com/spotify.com/6" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
+                    <p>There's a place in your heart</p>
+                    <p>And I know that it is <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="love"><i class="fas fa-eye"></i></button></p>
+                    <p>And this place could be much brighter than <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="tomorrow"><i class="fas fa-eye"></i></button></p>
+                    <p>And if you really try</p>
+                    <p>You'll find there's no need to <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="cry"><i class="fas fa-eye"></i></button></p>
+                    <p>In this place you'll feel there's no hurt or <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="sorrow"><i class="fas fa-eye"></i></button></p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                <p>The song suggests that we should "heal the world." What do you think is the first step to achieving that?</p>
+                <p>What specific actions can individuals take to help their local communities?</p>
+            </div></div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music Time: Where Is the Love?</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="http://googleusercontent.com/spotify.com/7" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
+                    <p>What's wrong with the world, <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="mama"><i class="fas fa-eye"></i></button>?</p>
+                    <p>People livin' like they ain't got no mamas</p>
+                    <p>I think the whole world's addicted to the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="drama"><i class="fas fa-eye"></i></button></p>
+                    <p>Only attracted to things that'll bring you trauma</p>
+                    <p>Overseas, yeah, we try to stop <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="terrorism"><i class="fas fa-eye"></i></button></p>
+                    <p>But we still got terrorists here livin'</p>
+                    <p>In the USA, the big CIA</p>
+                    <p>The Bloods, and the Crips, and the KKK</p>
+                    <p>But if you only have love for your own race</p>
+                    <p>Then you only leave space to <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="discriminate"><i class="fas fa-eye"></i></button></p>
+                    <p>And to discriminate only generates hate</p>
+                    <p>And when you hate then you're bound to get irate</p>
+                    <p>Madness is what you demonstrate</p>
+                    <p>And that's exactly how anger works and operates</p>
+                    <p>Man, you gotta have love just to set it straight</p>
+                    <p>Take control of your mind and meditate</p>
+                    <p>Let your soul gravitate to the love, y'all</p>
+                    <p>People killin', people dyin'</p>
+                    <p>Children hurt and you hear them cryin'?</p>
+                    <p>Can you practice what you preach?</p>
+                    <p>And would you turn the other cheek?</p>
+                    <p>Father, Father, Father help us</p>
+                    <p>Send some guidance from above</p>
+                    <p>'Cause people got me, got me questionin'</p>
+                    <p>Where is the love? (Love)</p>
+                    <p>Where is the love? (The love)</p>
+                    <p>Where is the love? (The love)</p>
+                    <p>Where is the love, the love, the love?</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                <p>The song questions "Where is the love?" What do you think is the biggest barrier to empathy and understanding between people?</p>
+                <p>How can art and music help raise awareness about social issues?</p>
+            </div></div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music Time: Imagine</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="http://googleusercontent.com/spotify.com/8" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
+                    <p>Imagine there's no <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="heaven"><i class="fas fa-eye"></i></button></p>
+                    <p>It's easy if you try</p>
+                    <p>No hell below us</p>
+                    <p>Above us only <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="sky"><i class="fas fa-eye"></i></button></p>
+                    <p>Imagine all the people</p>
+                    <p>Living for today</p>
+                    <p>Imagine there's no <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="countries"><i class="fas fa-eye"></i></button></p>
+                    <p>It isn't hard to do</p>
+                    <p>Nothing to kill or die for</p>
+                    <p>And no religion <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="too"><i class="fas fa-eye"></i></button></p>
+                    <p>Imagine all the people</p>
+                    <p>Living life in peace</p>
+                    <p>You may say I'm a dreamer</p>
+                    <p>But I'm not the only one</p>
+                    <p>I hope someday you'll join us</p>
+                    <p>And the world will be as one</p>
+                    <p>Imagine no possessions</p>
+                    <p>I wonder if you can</p>
+                    <p>No need for greed or hunger</p>
+                    <p>A brotherhood of man</p>
+                    <p>Imagine all the people</p>
+                    <p>Sharing all the world</p>
+                    <p>You may say I'm a dreamer</p>
+                    <p>But I'm not the only one</p>
+                    <p>I hope someday you'll join us</p>
+                    <p>And the world will live as one</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                <p>The song asks us to imagine a world with "no countries." Do you think this would solve social problems?</p>
+                <p>What's the difference between volunteering and donating money? Which one is more effective?</p>
+            </div></div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="matching-activity" class="space-y-4"></div><button id="check-answers-btn" class="mt-8 bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-yellow-700">Check Answers</button></div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-home text-blue-400"></i>Homework</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto"><p class="text-2xl mb-6 text-gray-300">Write a short paragraph about a social cause you care about. Explain why it is important and what you could do to help.</p><div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg"><p><strong>Example:</strong> "A social cause that is very important to me is animal welfare. It's a problem because many animals are abandoned and need help. I could volunteer at an animal shelter to help feed them and play with them. Every little bit of help can make a difference in their lives."</p></div></div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center flex flex-col items-center justify-center h-full"><i class="fas fa-handshake text-yellow-300 text-7xl mb-6"></i><h2 class="text-5xl font-bold mb-4 text-gray-100">Lesson Complete!</h2><p class="text-2xl italic text-gray-400 max-w-2xl mx-auto">"The time is always right to do what is right." - Martin Luther King Jr.</p></div>
+        </div>
+        <div id="custom-alert-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center transition-opacity duration-300"></div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20"><div class="container mx-auto px-8 h-20 flex justify-between items-center"><button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button><button id="next-btn" class="bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-yellow-700">Próximo</button><button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finalizar Aula</button></div></footer>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+
+    <script>
+        // Função de Alerta Customizado
+        function showCustomAlert(message, type = 'success', callback) {
+            const modal = document.getElementById('custom-alert-modal');
+            if (!modal) return;
+            modal.innerHTML = `<div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 text-center" id="custom-alert-box"><i id="custom-alert-icon"></i><h3 id="custom-alert-title"></h3><p id="custom-alert-message" class="text-lg text-gray-300 mb-8"></p><button id="custom-alert-close-btn"></button></div>`;
+            const icon = document.getElementById('custom-alert-icon'), title = document.getElementById('custom-alert-title'), messageEl = document.getElementById('custom-alert-message'), closeBtn = document.getElementById('custom-alert-close-btn');
+            icon.className = 'fas text-6xl mb-5'; title.className = 'text-3xl font-bold mb-3'; closeBtn.className = 'text-white font-bold py-3 px-10 rounded-lg text-lg transition';
+            if (type === 'success') {
+                icon.classList.add('fa-check-circle', 'text-green-400'); title.textContent = 'Success!'; closeBtn.textContent = 'OK'; closeBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+            } else {
+                icon.classList.add('fa-times-circle', 'text-red-400'); title.textContent = 'Error!'; closeBtn.textContent = 'Try Again'; closeBtn.classList.add('bg-red-600', 'hover:bg-red-700');
+            }
+            messageEl.textContent = message; modal.style.display = 'flex'; closeBtn.onclick = () => { modal.style.display = 'none'; if (callback) callback(); }
+        }
+
+        // Lógica principal da página
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'conversation';
+            const lessonNumber = 21;
+
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                if (progressBar) progressBar.style.width = slides.length > 1 ? `${((index + 1) / slides.length) * 100}%` : '100%';
+                if (prevBtn) prevBtn.disabled = index === 0;
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+            }
+
+            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            if (finishLessonBtn) finishLessonBtn.addEventListener('click', () => {
+                finishLessonBtn.disabled = true; finishLessonBtn.textContent = "Salvando...";
+                if (typeof markLessonAsComplete === 'function') markLessonAsComplete(moduleId, lessonNumber);
+                else { console.error("A função markLessonAsComplete não foi encontrada."); alert("Erro ao salvar progresso."); }
+            });
+
+            document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+            
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const inputField = button.previousElementSibling;
+                    if (inputField) {
+                        inputField.value = button.dataset.answer;
+                        inputField.classList.add('text-yellow-400', 'font-bold');
+                    }
+                });
+            });
+
+            const activityContainer = document.getElementById('matching-activity'), checkAnswersBtn = document.getElementById('check-answers-btn');
+            if(activityContainer && checkAnswersBtn) {
+                const expressions=[{id:'give_back',text:'To give back'},{id:'charity',text:'Charity'},{id:'make_a_difference',text:'To make a difference'},{id:'fundraising',text:'Fundraising'},{id:'social_issue',text:'Social issue'},{id:'grassroots',text:'Grassroots movement'}];
+                const situations=[{text:"Helping people in need is a way to...",answer:'give_back'},{text:"A non-profit organization that helps the homeless is a...",answer:'charity'},{text:"Her work with children in the hospital really seemed to...",answer:'make_a_difference'},{text:"They are organizing a race to collect money for cancer research. It's a...",answer:'fundraising'},{text:"Poverty is a big...",answer:'social_issue'},{text:"The community started a small protest that grew into a huge...",answer:'grassroots'}];
+                function shuffle(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
+                function createActivity() {
+                    const shuffledSituations = shuffle(situations);
+                    let html = shuffledSituations.map((sit, index) => {
+                        return `<div id="q-${index}" class="p-4 rounded-lg bg-gray-800 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300"><p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p><select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg shadow-sm text-lg focus:border-yellow-400 focus:ring focus:ring-yellow-300 focus:ring-opacity-50"><option value="">Select an expression...</option>${shuffle([...expressions]).map(exp => `<option value="${exp.id}">${exp.text}</option>`).join('')}</select></div>`;
+                    }).join('');
+                    activityContainer.innerHTML = html;
+                }
+                createActivity();
+                checkAnswersBtn.addEventListener('click', () => {
+                    activityContainer.querySelectorAll('select').forEach((select, index) => {
+                        const questionDiv = document.getElementById(`q-${index}`);
+                        questionDiv.classList.remove('bg-green-900/50', 'border-green-500', 'bg-red-900/50', 'border-red-500');
+                        if (select.value === select.dataset.answer) {
+                            questionDiv.classList.add('bg-green-900/50', 'border-green-500');
+                        } else {
+                            questionDiv.classList.add('bg-red-900/50', 'border-red-500');
+                        }
+                    });
+                });
+            }
+
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>
