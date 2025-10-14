@@ -7,14 +7,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-    <link href="enhanced-styles.css" rel="stylesheet">
+    <link href="../enhanced-styles.css" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .flip-card { background-color: transparent; width: 300px; min-height: 220px; perspective: 1000px; cursor: pointer; }
+        .flip-card { background-color: transparent; width: 100%; max-width: 300px; min-height: 220px; perspective: 1000px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back {
@@ -24,11 +24,11 @@
             font-size: 1.1rem; line-height: 1.5;
         }
         .flip-card-front { background-color: #fff; border: 1px solid #e5e7eb; }
-        .flip-card-back { background-color: #fef9c3; transform: rotateY(180deg); font-size: 1.25rem; }
+        .flip-card-back { background-color: #dbeafe; transform: rotateY(180deg); font-size: 1.25rem; }
 
         input.correct { border-color: #22c55e; background-color: #f0fdf4; }
         input.incorrect { border-color: #ef4444; background-color: #fef2f2; }
-        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.5rem; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
         .answer-btn:hover { color: #db2777; }
     </style>
 </head>
@@ -36,7 +36,7 @@
 
     <header class="bg-white shadow-sm sticky top-0 z-10">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to A2 Module</a>
+            <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2</a>
             <h1 class="text-xl font-semibold text-center">A2 - Lesson 02: Telling a Story</h1>
             <div class="w-40"></div>
         </div>
@@ -47,57 +47,58 @@
 
         <div class="slide active">
             <div class="text-center">
-                <h2 class="text-5xl font-bold mb-8 text-orange-700"><i class="fas fa-plane-departure text-yellow-500"></i> Warm-up: A Short Trip</h2>
+                <h2 class="text-5xl font-bold mb-8 text-orange-700"><i class="fas fa-plane-departure text-cyan-500"></i> Warm-up: Your Last Trip</h2>
                 <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-3xl mb-8 text-gray-600">Let's talk about a recent event!</p>
+                    <p class="text-3xl mb-8 text-gray-600">Think about the last trip you took. Where did you go?</p>
                     <div class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
-                        <p><strong class="text-blue-600">Teacher:</strong> "I went to the beach last weekend! First, I packed my bags. Then, I drove for two hours. Finally, I arrived!"</p>
-                        <p><strong class="text-blue-600">Teacher:</strong> "What about you? Did you travel recently?"</p>
-                        <p><strong class="text-orange-600">Student:</strong> "Yes, I went to [city] last month."</p>
-                        <p><strong class="text-blue-600">Teacher:</strong> "Awesome! What did you do there?"</p>
-                        <p><strong class="text-orange-600">Student:</strong> "First, I visited a museum. Then, I ate at a nice restaurant."</p>
+                        <p><strong class="text-blue-600">Teacher:</strong> "Tell me about your last trip. Did you go to the beach or the mountains?"</p>
+                        <p><strong class="text-orange-600">Student:</strong> "I went to the beach. I traveled to Rio de Janeiro."</p>
+                        <p><strong class="text-blue-600">Teacher:</strong> "Oh, nice! What did you do there?"</p>
+                        <p><strong class="text-orange-600">Student:</strong> "I visited many places and ate great food."</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="slide">
-            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-book-open text-pink-500"></i> Grammar: More Irregular Verbs & Connectors</h2>
-            <div class="max-w-6xl mx-auto space-y-6">
+            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-link text-pink-500"></i> Grammar: Sequence Connectors</h2>
+            <div class="max-w-4xl mx-auto space-y-6">
                 <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
-                    <h3 class="text-3xl font-semibold mb-6 text-blue-600">More Common Irregular Verbs</h3>
-                    <p class="mb-6 text-xl">Remember, irregular verbs don't follow the "-ed" rule. Here are more important ones for telling stories:</p>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                        <div class="bg-gray-100 p-4 rounded-lg"><p>see → <strong class="text-red-600">saw</strong></p></div>
-                        <div class="bg-gray-100 p-4 rounded-lg"><p>buy → <strong class="text-red-600">bought</strong></p></div>
-                        <div class="bg-gray-100 p-4 rounded-lg"><p>take → <strong class="text-red-600">took</strong></p></div>
-                        <div class="bg-gray-100 p-4 rounded-lg"><p>find → <strong class="text-red-600">found</strong></p></div>
+                    <h3 class="text-3xl font-semibold mb-4 text-blue-600">How to Tell a Story in Order</h3>
+                    <p class="mb-6 text-xl">To connect ideas and show the order of events, we use sequence connectors.</p>
+                    <div class="space-y-4 text-xl">
+                        <p><strong class="text-green-600 font-bold text-2xl">First,</strong> I packed my bags.</p>
+                        <p><strong class="text-yellow-600 font-bold text-2xl">Then,</strong> I took a taxi to the airport.</p>
+                        <p><strong class="text-purple-600 font-bold text-2xl">After that,</strong> I flew to New York.</p>
+                        <p><strong class="text-red-600 font-bold text-2xl">Finally,</strong> I arrived at my hotel.</p>
                     </div>
                 </div>
                  <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
-                    <h3 class="text-3xl font-semibold mb-6 text-green-600"><i class="fas fa-link"></i> Sequence Connectors</h3>
-                    <p class="mb-6 text-xl">Use these words to connect your ideas and tell a story in chronological order.</p>
-                    <div class="text-left bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg space-y-2">
-                        <p><strong class="font-bold text-2xl">First,</strong> I woke up early.</p>
-                        <p><strong class="font-bold text-2xl">Then,</strong> I had breakfast.</p>
-                        <p><strong class="font-bold text-2xl">After that,</strong> I went to work.</p>
-                        <p><strong class="font-bold text-2xl">Finally,</strong> I came back home.</p>
-                    </div>
+                    <h3 class="text-3xl font-semibold mb-4 text-blue-600">More Irregular Verbs</h3>
+                     <p class="mb-4 text-xl">Let's learn some new irregular verbs common in stories.</p>
+                     <ul class="list-disc list-inside ml-4 space-y-2 text-xl grid md:grid-cols-2">
+                        <li>take → <strong class="text-red-600">took</strong></li>
+                        <li>see → <strong class="text-red-600">saw</strong></li>
+                        <li>buy → <strong class="text-red-600">bought</strong></li>
+                        <li>think → <strong class="text-red-600">thought</strong></li>
+                        <li>feel → <strong class="text-red-600">felt</strong></li>
+                        <li>find → <strong class="text-red-600">found</strong></li>
+                     </ul>
                 </div>
             </div>
         </div>
         
         <div class="slide">
-            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-suitcase-rolling text-purple-500"></i> Vocabulary: Travel Actions</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-12 max-w-5xl mx-auto">
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Pack a suitcase</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Fazer a mala</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Buy a ticket</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Comprar uma passagem</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Take a photo</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Tirar uma foto</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Visit a museum</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Visitar um museu</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Try local food</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Experimentar comida local</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Stay in a hotel</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Ficar em um hotel</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Send a postcard</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Enviar um cartão postal</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Meet new people</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Conhecer novas pessoas</h3></div></div></div>
+            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-suitcase-rolling text-purple-500"></i> Vocabulary: Travel & Connectors</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-12 max-w-5xl mx-auto justify-items-center">
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">First, ...</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">Primeiro, ...</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Then, ...</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">Então, ...</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">After that, ...</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">Depois disso, ...</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Finally, ...</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">Finalmente, ...</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Took a photo</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">Tirou uma foto</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Saw the sights</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">Viu os pontos turísticos</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Bought souvenirs</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">Comprou lembrancinhas</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Felt happy</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">Sentiu-se feliz</h3></div></div></div>
             </div>
         </div>
 
@@ -105,8 +106,8 @@
             <div class="text-center">
                 <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-pencil-alt text-teal-500"></i> Practice 1: Complete the Story</h2>
                 <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-3xl mb-8 text-gray-600">Complete the story with the Past Simple of the verbs.</p>
-                    <div id="practice-story" class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
+                    <p class="text-3xl mb-8 text-gray-600">Complete a história com os verbos e conectores corretos.</p>
+                    <div id="practice-sentences" class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
                         </div>
                 </div>
             </div>
@@ -114,29 +115,25 @@
 
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-images text-cyan-500"></i> Practice 2: Build a Story</h2>
+                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-th-list text-cyan-500"></i> Practice 2: Put the Story in Order</h2>
                 <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-3xl mb-8 text-gray-600">Use the sequence connectors to tell a story based on the images.</p>
-                    <div id="practice-build-story" class="text-left text-2xl space-y-6 bg-gray-50 p-8 rounded-lg">
+                    <p class="text-3xl mb-8 text-gray-600">Numere as frases de 1 a 4 para criar uma história lógica.</p>
+                    <div id="practice-order" class="text-left text-2xl space-y-6 bg-gray-50 p-8 rounded-lg">
                          </div>
                 </div>
             </div>
         </div>
-
+        
         <div class="slide">
             <h2 class="text-5xl font-bold mb-6 text-center text-orange-700"><i class="fas fa-music text-red-500"></i> Music Time: The Killers</h2>
             <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/11" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <div class="mt-6 text-center">
-                    <p class="text-xl text-gray-600 mb-2">A letra fala sobre ouvir uma história ou um rumor sobre alguém, o que se conecta perfeitamente com o nosso tema de "Contar uma História".</p>
-                    <p class="text-3xl mb-6 text-gray-600">Listen to "Somebody Told Me" and fill in the blanks.</p>
-                </div>
+                <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/3" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <p class="text-3xl my-6 text-gray-600 text-center">Listen to "Somebody Told Me" and fill in the blanks.</p>
                 <div class="text-2xl space-y-4 bg-gray-50 p-6 rounded-lg border-l-4 border-orange-500 text-center">
-                     <p>Breaking my back just to know your <input type="text" class="w-32 border-b-2 text-center bg-transparent" data-answer="name"><button class="answer-btn" data-answer="name"><i class="fas fa-eye"></i></button></p>
-                     <p>Seventeen tracks and I've had it with this <input type="text" class="w-32 border-b-2 text-center bg-transparent" data-answer="game"><button class="answer-btn" data-answer="game"><i class="fas fa-eye"></i></button></p>
-                     <p>I'm breaking my back just to know your name</p>
-                     <p>But heaven ain't close in a place like <input type="text" class="w-32 border-b-2 text-center bg-transparent" data-answer="this"><button class="answer-btn" data-answer="this"><i class="fas fa-eye"></i></button></p>
-                     <p>Anything is better than a <input type="text" class="w-32 border-b-2 text-center bg-transparent" data-answer="kiss"><button class="answer-btn" data-answer="kiss"><i class="fas fa-eye"></i></button> upon a list</p>
+                       <p>Breaking my back just to know your <input type="text" id="music-q1" class="w-32 border-b-2 text-center bg-transparent" data-answer="name"><button class="answer-btn" data-target="music-q1"><i class="fas fa-eye"></i></button></p>
+                       <p>Seventeen tracks and I've had it with <input type="text" id="music-q2" class="w-32 border-b-2 text-center bg-transparent" data-answer="this"><button class="answer-btn" data-target="music-q2"><i class="fas fa-eye"></i></button></p>
+                       <p>Well somebody <input type="text" id="music-q3" class="w-32 border-b-2 text-center bg-transparent" data-answer="told"><button class="answer-btn" data-target="music-q3"><i class="fas fa-eye"></i></button> me you had a boyfriend</p>
+                       <p>Who <input type="text" id="music-q4" class="w-32 border-b-2 text-center bg-transparent" data-answer="looked"><button class="answer-btn" data-target="music-q4"><i class="fas fa-eye"></i></button> like a girlfriend</p>
                 </div>
             </div>
         </div>
@@ -145,9 +142,9 @@
              <div class="text-center">
                 <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-home text-blue-500"></i> Homework</h2>
                 <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-3xl mb-8 text-gray-600">Write a short paragraph about your last vacation or a memorable trip. Use at least 3 sequence connectors (First, Then, Finally).</p>
+                    <p class="text-3xl mb-8 text-gray-600">Write a short story about a trip or an interesting day. Use at least 3 sequence connectors.</p>
                     <div class="text-left text-xl mt-4 bg-gray-50 p-6 rounded-lg">
-                        <textarea class="w-full mt-2 p-3 border-2 rounded-lg text-xl" rows="6" placeholder="My last vacation was... First, I went to... Then, I saw... Finally, I came back home."></textarea>
+                        <textarea class="w-full mt-2 p-3 border-2 rounded-lg text-xl" rows="6" placeholder="First, I woke up early. Then, I..."></textarea>
                     </div>
                 </div>
             </div>
@@ -157,7 +154,7 @@
             <div class="text-center flex flex-col items-center justify-center h-full">
                 <i class="fas fa-check-circle text-green-500 text-8xl mb-6"></i>
                 <h2 class="text-6xl font-bold mb-6 text-gray-800">Lesson 2 Complete!</h2>
-                <p class="text-4xl text-gray-600 max-w-3xl">Every story you tell in English makes you a better storyteller. Well done!</p>
+                <p class="text-4xl text-gray-600 max-w-3xl">Amazing! You are now a storyteller. See you in the next lesson!</p>
             </div>
         </div>
 
@@ -171,8 +168,17 @@
         </div>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2';
+            const lessonNumber = 2;
+
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
@@ -192,32 +198,37 @@
             nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; updateSlideView(); } });
 
             finishLessonBtn.addEventListener('click', () => {
-                if (window.parent && typeof window.parent.markLessonAsComplete === 'function') {
-                    window.parent.markLessonAsComplete('a2', 'licao-02');
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.textContent = "Salvando...";
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber);
                 } else {
-                    alert('Lição Finalizada! (Progresso não salvo fora do painel)');
-                    window.location.href = 'a2.html';
+                    console.error("Função markLessonAsComplete não encontrada.");
+                    alert("Erro ao salvar progresso.");
                 }
             });
 
-            document.querySelectorAll('.answer-btn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.stopPropagation(); 
-                    const inputField = button.previousElementSibling;
-                    if(inputField && inputField.tagName === 'INPUT') {
-                        inputField.value = button.dataset.answer;
-                        checkAnswer(inputField);
-                    }
-                });
-            });
-
             function checkAnswer(input) {
-                const userAnswer = input.value.trim().toLowerCase().replace(/\.$/, '');
-                const correctAnswer = input.dataset.answer.toLowerCase().replace(/\.$/, '');
+                const userAnswer = input.value.trim().toLowerCase().replace(/[.!?]/g, '');
+                const correctAnswer = input.dataset.answer.toLowerCase().replace(/[.!?]/g, '');
                 input.classList.remove('correct', 'incorrect');
                 if(userAnswer.length === 0) return;
                 input.classList.toggle('correct', userAnswer === correctAnswer);
                 input.classList.toggle('incorrect', userAnswer !== correctAnswer);
+            }
+            
+            function addIndividualRevealListeners() {
+                document.querySelectorAll('.answer-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const targetId = button.dataset.target;
+                        const inputField = document.getElementById(targetId);
+                        if(inputField) {
+                            inputField.value = inputField.dataset.answer;
+                            checkAnswer(inputField);
+                        }
+                    });
+                });
             }
 
             document.querySelectorAll('.flip-card').forEach(card => {
@@ -226,60 +237,44 @@
                 });
             });
 
-            // Atividade 1: Complete the Story
-            function createStoryActivity() {
-                const container = document.getElementById('practice-story');
+            function createPracticeSentences() {
+                const container = document.getElementById('practice-sentences');
                 if (!container) return;
-                const story = `
-                    <p>Last weekend, I ___ (go) to the beach. The weather ___ (be) beautiful. First, I ___ (swim) in the ocean. Then, I ___ (eat) a delicious sandwich. After that, I ___ (read) a book. I ___ (not / want) to go home!</p>
-                `;
-                const storyData = [
-                    { placeholder: '___ (go)', answer: 'went' },
-                    { placeholder: '___ (be)', answer: 'was' },
-                    { placeholder: '___ (swim)', answer: 'swam' },
-                    { placeholder: '___ (eat)', answer: 'ate' },
-                    { placeholder: '___ (read)', answer: 'read' },
-                    { placeholder: '___ (not / want)', answer: "didn't want" }
+                const sentences = [
+                    { id: 'p1q1', question: "___, I woke up late. (First/Finally)", answer: "First" },
+                    { id: 'p1q2', question: "Then, I ___ a quick breakfast. (eat)", answer: "ate" },
+                    { id: 'p1q3', question: "___, I took the bus to work. (After that/First)", answer: "After that" },
+                    { id: 'p1q4', question: "I ___ a lot of interesting things there. (see)", answer: "saw" },
+                    { id: 'p1q5', question: "___, I went home. (Finally/Then)", answer: "Finally" }
                 ];
-                let finalHtml = story;
-                storyData.forEach(item => {
-                    finalHtml = finalHtml.replace(item.placeholder, `<input data-answer="${item.answer}" class="w-${item.answer.length > 8 ? '48' : '32'} p-1 border-b-2 text-2xl bg-transparent text-center"><button class="answer-btn" data-answer="${item.answer}"><i class="fas fa-eye"></i></button>`);
-                });
-                container.innerHTML = finalHtml;
-                
-                container.querySelectorAll('input').forEach(input => input.addEventListener('blur', () => checkAnswer(input)));
-                container.querySelectorAll('.answer-btn').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const inputField = button.previousElementSibling;
-                        if (inputField && inputField.tagName === 'INPUT') {
-                            inputField.value = button.dataset.answer;
-                            checkAnswer(inputField);
-                        }
-                    });
-                });
+                container.innerHTML = sentences.map(item => {
+                    const inputHtml = `<input id="${item.id}" data-answer="${item.answer}" class="w-48 p-1 border-b-2 text-2xl bg-transparent text-center">`;
+                    const buttonHtml = `<button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>`;
+                    return `<p>${item.question.replace('___', inputHtml + buttonHtml)}</p>`;
+                }).join('');
+                 container.querySelectorAll('input').forEach(input => input.addEventListener('blur', () => checkAnswer(input)));
             }
-
-            // Atividade 2: Build a Story
-            function createBuildStoryActivity() {
-                const container = document.getElementById('practice-build-story');
+            
+            function createOrderActivity() {
+                const container = document.getElementById('practice-order');
                 if (!container) return;
-                container.innerHTML = `
-                    <div class="flex justify-around items-center mb-4 text-5xl">
-                        <span><i class="fas fa-ticket-alt text-green-500"></i></span>
-                        <span><i class="fas fa-arrow-right text-gray-400"></i></span>
-                        <span><i class="fas fa-plane text-blue-500"></i></span>
-                        <span><i class="fas fa-arrow-right text-gray-400"></i></span>
-                        <span><i class="fas fa-camera text-purple-500"></i></span>
+                const items = [
+                    { id: 'p2q1', sentence: "Finally, I went to sleep." },
+                    { id: 'p2q2', sentence: "First, I bought the tickets online." },
+                    { id: 'p2q3', sentence: "After that, I watched the movie." },
+                    { id: 'p2q4', sentence: "Then, I went to the cinema." }
+                ];
+                container.innerHTML = items.map(item => `
+                    <div class="flex items-center">
+                        <input id="${item.id}" type="text" class="w-16 h-12 text-center border-2 rounded-lg mr-4" placeholder="#">
+                        <label for="${item.id}" class="text-2xl">${item.sentence}</label>
                     </div>
-                    <p class="text-gray-800 mb-4"><strong>Images:</strong> 1. Buy a ticket, 2. Go on a plane, 3. Take photos.</p>
-                    <textarea class="w-full mt-2 p-3 border-2 rounded-lg text-xl" rows="5" placeholder="Write your story here... e.g., First, I bought a ticket..."></textarea>
-                    <div class="text-right mt-2"><button class="text-sm text-blue-600 hover:underline" onclick="alert('Example Answer: First, I bought a ticket online. Then, I went on a plane to London. Finally, I took many photos of Big Ben.')">Show Example</button></div>
-                `;
+                `).join('');
             }
 
-            createStoryActivity();
-            createBuildStoryActivity();
+            createPracticeSentences();
+            createOrderActivity();
+            addIndividualRevealListeners();
             updateSlideView();
         });
     </script>

@@ -3,181 +3,299 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inglês no seu Ritmo - A1 | Lesson 4: The Alphabet & Numbers</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/drawingboard.js/0.4.6/drawingboard.min.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div class="app-container">
-        <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
-        <nav class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <h1><i class="fas fa-wave-square"></i> Inglês no seu Ritmo</h1>
-                <p>Sua Plataforma de Aulas</p>
-            </div>
-            
-            <div class="level-section open">
-                <div class="level-header"><span><i class="fas fa-star"></i> A1 Elementary</span><i class="fas fa-chevron-down"></i></div>
-                <div class="lessons-list">
-                    <div class="level-section open">
-                        <div class="level-header"><span>Módulo 1: Primeiros Passos</span><i class="fas fa-chevron-down"></i></div>
-                        <div class="lessons-list">
-                            <a href="licao-01.html" class="lesson-item"><i class="fas fa-play"></i> Lesson 1: Hello, World!</a>
-                            <a href="licao-02.html" class="lesson-item"><i class="fas fa-map-marker-alt"></i> Lesson 2: De Onde Você É?</a>
-                            <a href="licao-03.html" class="lesson-item"><i class="fas fa-users"></i> Lesson 3: Meu Mundo</a>
-                            <a href="licao-04.html" class="lesson-item active"><i class="fas fa-sort-alpha-down"></i> Lesson 4: Alfabeto e Números</a>
-                            <a href="licao-05.html" class="lesson-item"><i class="fas fa-address-card"></i> Lesson 5: Informações de Contato</a>
-                            <a href="licao-06.html" class="lesson-item"><i class="fas fa-box-open"></i> Lesson 6: Objetos do Dia a Dia</a>
-                            <a href="licao-07.html" class="lesson-item"><i class="fas fa-hand-point-right"></i> Lesson 7: Isto ou Aquilo?</a>
-                            <a href="licao-08.html" class="lesson-item"><i class="fas fa-star-half-alt"></i> Lesson 8: Revisão Módulo 1</a>
-                        </div>
-                    </div>
-                    <div class="level-section">
-                        <div class="level-header"><span>Módulo 2: Rotinas e Gostos</span><i class="fas fa-chevron-down"></i></div>
-                        <div class="lessons-list">
-                            <a href="#" class="lesson-item"><i class="fas fa-clock"></i> Lesson 9: Minha Rotina Diária</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <title>A2 | Lição 04: Comparing Opinions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="../enhanced-styles.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-            <div class="level-section">
-                <div class="level-header"><span><i class="fas fa-comments"></i> Conversation Class</span><i class="fas fa-chevron-down"></i></div>
-                <div class="lessons-list">
-                    <a href="conversacao/aula-01.html" class="lesson-item"><i class="fas fa-star"></i> Dreams & Ambitions</a>
-                    <a href="#" class="lesson-item"><i class="fas fa-heart"></i> Love & Relationships</a>
-                    <a href="#" class="lesson-item"><i class="fas fa-fist-raised"></i> Rebellion & Freedom</a>
-                </div>
-            </div>
-        </nav>
-        <main class="main-content">
-            <div class="lesson-container">
-                <header class="lesson-header">
-                    <h1><i class="fas fa-sort-alpha-down"></i> The Alphabet & Numbers</h1>
-                    <div class="lesson-info">
-                        <div class="info-item"><i class="fas fa-layer-group"></i><span>A1 Elementary</span></div>
-                        <div class="info-item"><i class="fas fa-clock"></i><span>Lesson 4/32</span></div>
+        .flip-card { background-color: transparent; width: 100%; max-width: 300px; min-height: 220px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); padding: 2rem;
+            font-size: 1.1rem; line-height: 1.5;
+        }
+        .flip-card-front { background-color: #fff; border: 1px solid #e5e7eb; }
+        .flip-card-back { background-color: #dbeafe; transform: rotateY(180deg); font-size: 1.25rem; }
+
+        input.correct { border-color: #22c55e; background-color: #f0fdf4; }
+        input.incorrect { border-color: #ef4444; background-color: #fef2f2; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
+        .answer-btn:hover { color: #db2777; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2</a>
+            <h1 class="text-xl font-semibold text-center">A2 - Lesson 04: Comparing Opinions</h1>
+            <div class="w-40"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 120px); overflow-y: auto;">
+
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-5xl font-bold mb-8 text-orange-700"><i class="fas fa-comments text-cyan-500"></i> Warm-up: What Do You Think?</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">Let's share our opinions!</p>
+                    <div class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
+                        <p><strong class="text-blue-600">Teacher:</strong> "Which do you prefer, dogs or cats?"</p>
+                        <p><strong class="text-orange-600">Student:</strong> "I think dogs are more friendly than cats."</p>
+                        <p><strong class="text-blue-600">Teacher:</strong> "Interesting! I agree. But in my opinion, cats are quieter."</p>
+                        <p><strong class="text-orange-600">Student:</strong> "That's true. I think so too."</p>
                     </div>
-                </header>
-                <div class="lesson-content">
-                    <section id="slide-1" class="lesson-slide">
-                        <div class="slide-header"><h2><i class="fas fa-fire"></i> Let's Warm Up!</h2><p class="subtitle">Clique nos cards para algumas perguntas</p></div>
-                        <div class="slide-content"><div class="question-grid">
-                            <div class="question-card" data-question="How many letters are in the English alphabet?" data-answers="There are 26 letters!"><i class="fas fa-font"></i><h4>How many letters in the alphabet?</h4></div>
-                            <div class="question-card" data-question="What's your favorite number?" data-answers="My favorite number is 7.;My favorite number is 10.;I love number 3!"><i class="fas fa-hashtag"></i><h4>What's your favorite number?</h4></div>
-                        </div></div>
-                    </section>
-                    <section id="slide-2" class="lesson-slide">
-                        <div class="slide-header"><h2><i class="fas fa-comments"></i> Lesson Dialogue</h2><p class="subtitle">Diálogo: "Spelling Your Name"</p></div>
-                        <div class="slide-content"><div class="activity-section"><div class="activity-header"><i class="fas fa-ear-listen"></i><h3>Listen and read the dialogue</h3></div><div style="border-left: 3px solid var(--primary-color); padding-left: 15px; font-size: 1.1rem;">
-                            <p><strong>Receptionist:</strong> Hello, what's your name, please?</p>
-                            <p><strong>Alex:</strong> My name is Alex. Alex Johnson.</p>
-                            <p><strong>Receptionist:</strong> Can you spell your last name for me?</p>
-                            <p><strong>Alex:</strong> Sure. It's J-O-H-N-S-O-N.</p>
-                            <p><strong>Receptionist:</strong> Thank you, Mr. Johnson.</p>
-                        </div></div></div>
-                    </section>
-                    <section id="slide-3" class="lesson-slide">
-                        <div class="slide-header"><h2><i class="fas fa-language"></i> Grammar in Focus</h2><p class="subtitle">The Alphabet</p></div>
-                        <div class="slide-content"><div class="activity-section">
-                            <div class="activity-header"><i class="fas fa-keyboard"></i><h3>The English Alphabet</h3></div>
-                            <div class="alphabet-grid">
-                                <span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span><span>I</span><span>J</span><span>K</span><span>L</span><span>M</span><span>N</span><span>O</span><span>P</span><span>Q</span><span>R</span><span>S</span><span>T</span><span>U</span><span>V</span><span>W</span><span>X</span><span>Y</span><span>Z</span>
-                            </div>
-                        </div>
-                        <div class="activity-section" style="margin-top:20px">
-                            <div class="activity-header"><i class="fas fa-pencil-alt"></i><h3>How do you spell...?</h3></div>
-                            <div class="quiz-container fill-in-the-blank">
-                                <div class="quiz-question"><p>Spell "book": <input type="text" class="grammar-input" data-answer="B-O-O-K"></p></div>
-                                <div class="quiz-question"><p>Spell "friend": <input type="text" class="grammar-input" data-answer="F-R-I-E-N-D"></p></div>
-                                <div class="quiz-question"><p>Spell "<input type="text" class="teacher-input" placeholder="Professor digita aqui">": <input type="text" class="grammar-input" placeholder="Aluno soletra aqui"></p></div>
-                            </div>
-                        </div></div>
-                    </section>
-                    <section id="slide-4" class="lesson-slide">
-                        <div class="slide-header"><h2><i class="fas fa-book-open"></i> Vocabulary in Action</h2><p class="subtitle">Numbers 0-20</p></div>
-                        <div class="slide-content">
-                            <div class="activity-section"><div class="activity-header"><i class="fas fa-list-ol"></i><h3>Activity 1: What number is it?</h3></div><div class="quiz-container">
-                                <div class="quiz-question"><p><strong>1. "twelve"</strong></p><div class="quiz-options"><div class="quiz-option">2</div><div class="quiz-option" data-correct="true">12</div></div></div>
-                                <div class="quiz-question"><p><strong>2. "eighteen"</strong></p><div class="quiz-options"><div class="quiz-option" data-correct="true">18</div><div class="quiz-option">8</div></div></div>
-                                <div class="quiz-question"><p><strong>3. "fifteen"</strong></p><div class="quiz-options"><div class="quiz-option" data-correct="true">15</div><div class="quiz-option">5</div></div></div>
-                                <div class="quiz-question"><p><strong>4. "three"</strong></p><div class="quiz-options"><div class="quiz-option">13</div><div class="quiz-option" data-correct="true">3</div></div></div>
-                                <div class="quiz-question"><p><strong>5. "nineteen"</strong></p><div class="quiz-options"><div class="quiz-option" data-correct="true">19</div><div class="quiz-option">9</div></div></div>
-                            </div><div class="score-display"><h4><i class="fas fa-trophy"></i> Your Score: <span class="score-text">0/5</span></h4></div></div>
-                            <div class="activity-section" style="margin-top: 20px;"><div class="activity-header"><i class="fas fa-calculator"></i><h3>Activity 2: Simple Math</h3></div>
-                                <p>Write the result in full.</p>
-                                <div class="quiz-container fill-in-the-blank">
-                                    <div class="quiz-question"><p>five + three = <input type="text" class="grammar-input" data-answer="eight"></p></div>
-                                    <div class="quiz-question"><p>ten + seven = <input type="text" class="grammar-input" data-answer="seventeen"></p></div>
-                                </div>
-                            </div>
-                            <div class="activity-section" style="margin-top: 20px;"><div class="activity-header"><i class="fas fa-phone"></i><h3>Activity 3: Listening Practice</h3></div>
-                                <p>Listen to your teacher and write the phone number:</p>
-                                <p style="font-size: 1.2rem; letter-spacing: 2px;"><input type="text" placeholder="(XX) XXXX-XXXX" style="width: 250px; text-align: center;"></p>
-                            </div>
-                        </div>
-                    </section>
-                    <section id="slide-5" class="lesson-slide">
-                        <div class="slide-header"><h2><i class="fas fa-star"></i> Useful Expressions & Pronunciation</h2></div>
-                        <div class="slide-content">
-                            <div class="activity-section"><div class="activity-header"><i class="fas fa-comments"></i><h3>Expressões Úteis</h3></div><ul><li><strong>How do you spell that?</strong></li><li><strong>Can you repeat, please?</strong></li><li><strong>What's your phone number?</strong></li></ul></div>
-                            <div class="activity-section" style="margin-top: 20px;"><div class="activity-header"><i class="fas fa-bullhorn"></i><h3>Pronunciation Focus: Difficult Letters</h3></div><p>Atenção à pronúncia destas letras para não confundir:</p>
-                                <ul>
-                                    <li><strong>A</strong> (ei) vs. <strong>E</strong> (i) vs. <strong>I</strong> (ai)</li>
-                                    <li><strong>G</strong> (dgi) vs. <strong>J</strong> (dgei)</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </section>
-                    <section id="slide-6" class="lesson-slide">
-                        <div class="slide-header"><h2><i class="fas fa-music"></i> Song of the Lesson</h2><p class="subtitle">The Jackson 5 - ABC</p></div>
-                        <div class="slide-content">
-                            <div class="activity-section">
-                                <div class="activity-header"><i class="fas fa-headphones"></i><h3>Listen to the song</h3></div>
-                                <iframe style="border-radius:12px" src="COLE_O_CODIGO_DE_INCORPORACAO_DO_SPOTIFY_AQUI" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                            </div>
-                            <div class="activity-section" style="margin-top: 20px;">
-                                <div class="activity-header"><i class="fas fa-microphone-alt"></i><h3>Complete the Lyrics</h3></div>
-                                <div class="quiz-container fill-in-the-blank">
-                                    <div class="quiz-question"><p>A B C, It's easy as <input type="text" class="grammar-input" data-answer="1 2 3"></p></div>
-                                    <div class="quiz-question"><p>Or simple as <input type="text" class="grammar-input" data-answer="do re mi"></p></div>
-                                    <div class="quiz-question"><p>That's how easy love can <input type="text" class="grammar-input" data-answer="be"></p></div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <section id="slide-7" class="lesson-slide">
-                        <div class="slide-header"><h2><i class="fas fa-flag-checkered"></i> Wrap-up & Homework</h2></div>
-                        <div class="slide-content"><div class="activity-section"><div class="activity-header"><i class="fas fa-clipboard-check"></i><h3>Today you learned...</h3></div><ul><li>...the English alphabet.</li><li>...to count from 0 to 20.</li><li>...how to spell names.</li></ul></div><div class="activity-section" style="margin-top: 20px;"><div class="activity-header"><i class="fas fa-pencil-alt"></i><h3>Your Homework</h3></div><p>Escreva 5 palavras importantes para você (ex: nome da sua rua, da sua mãe, etc.) e soletre cada uma. Exemplo: Brazil -> B-R-A-Z-I-L.</p></div></div>
-                    </section>
                 </div>
-                 <footer class="navigation">
-                     <button id="prev-btn" class="nav-btn primary"><i class="fas fa-arrow-left"></i> Previous</button>
-                     <button id="open-whiteboard-btn" class="nav-btn success"><i class="fas fa-chalkboard"></i> Quadro Branco</button>
-                     <button id="check-btn" class="nav-btn success" style="display: none;"><i class="fas fa-check"></i> Check Answers</button>
-                     <button id="next-btn" class="nav-btn primary">Next <i class="fas fa-arrow-right"></i></button>
-                     <button id="finish-btn" class="nav-btn warning" style="display: none;"><i class="fas fa-flag-checkered"></i> Finish Lesson</button>
-                 </footer>
             </div>
-        </main>
-    </div>
-    <div id="popup-modal" class="modal-overlay">
-        <div class="modal-content">
-            <button id="close-popup-btn" class="close-modal-btn">×</button>
-            <h3 id="modal-question"></h3>
-            <ul id="modal-answers"></ul>
         </div>
-    </div>
-    <div id="whiteboard-overlay">
-        <div id="whiteboard-container">
-            <div id="board-element"></div>
-            <button id="close-whiteboard-btn"><i class="fas fa-times"></i></button>
+
+        <div class="slide">
+            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-book-open text-pink-500"></i> Grammar: Expressing Opinions</h2>
+            <div class="max-w-4xl mx-auto space-y-6">
+                <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
+                    <h3 class="text-3xl font-semibold mb-4 text-blue-600">Giving Your Opinion</h3>
+                    <p class="mb-6 text-xl">To express what you think, you can use these phrases:</p>
+                    <ul class="list-disc list-inside ml-4 space-y-3 text-2xl">
+                        <li><strong class="text-purple-600">I think</strong> pizza is delicious.</li>
+                        <li><strong class="text-purple-600">In my opinion,</strong> summer is better than winter.</li>
+                        <li><strong class="text-purple-600">For me,</strong> reading is more interesting than watching TV.</li>
+                    </ul>
+                </div>
+                 <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
+                    <h3 class="text-3xl font-semibold mb-4 text-blue-600">Agreeing and Disagreeing</h3>
+                     <p class="mb-4 text-xl">Here's how you can respond to someone's opinion.</p>
+                     <div class="grid md:grid-cols-2 gap-8 text-2xl">
+                        <div>
+                            <h4 class="text-2xl font-semibold mb-3 text-green-600"><i class="fas fa-check-circle"></i> Agreeing</h4>
+                             <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li>I agree.</li>
+                                <li>I think so too.</li>
+                                <li>That's true.</li>
+                             </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-2xl font-semibold mb-3 text-red-600"><i class="fas fa-times-circle"></i> Disagreeing</h4>
+                             <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li>I disagree.</li>
+                                <li>I don't think so.</li>
+                                <li>I'm not so sure.</li>
+                             </ul>
+                        </div>
+                     </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/drawingboard.js/0.4.6/drawingboard.min.js"></script>
-    <script src="../js/script.js"></script>
+        
+        <div class="slide">
+            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-lightbulb text-purple-500"></i> Vocabulary: Opinion Adjectives</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-12 max-w-5xl mx-auto justify-items-center">
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">interesting</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">interessante</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">boring</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">chato / entediante</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">delicious</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">delicioso</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">awful</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">horrível</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">difficult</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">difícil</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">easy</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">fácil</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">fun</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">divertido</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">relaxing</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">relaxante</h3></div></div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-pencil-alt text-teal-500"></i> Practice 1: Complete the Opinions</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">Use the words in parentheses to complete the sentences.</p>
+                    <div id="practice-sentences" class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-check-double text-cyan-500"></i> Practice 2: Agree or Disagree</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">Read the opinions and write if you agree or disagree. Give a reason!</p>
+                    <div id="practice-agree-disagree" class="text-left text-2xl space-y-6 bg-gray-50 p-8 rounded-lg">
+                         </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-5xl font-bold mb-6 text-center text-orange-700"><i class="fas fa-music text-red-500"></i> Music Time: Katy Perry</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/5" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <p class="text-3xl my-6 text-gray-600 text-center">Listen to "Hot N Cold" and fill in the blanks about disagreement.</p>
+                <div class="text-2xl space-y-4 bg-gray-50 p-6 rounded-lg border-l-4 border-orange-500 text-center">
+                       <p>You change your <input type="text" id="music-q1" class="w-32 border-b-2 text-center bg-transparent" data-answer="mind"><button class="answer-btn" data-target="music-q1"><i class="fas fa-eye"></i></button> like a girl changes clothes</p>
+                       <p>We used to be just like twins, so in <input type="text" id="music-q2" class="w-32 border-b-2 text-center bg-transparent" data-answer="sync"><button class="answer-btn" data-target="music-q2"><i class="fas fa-eye"></i></button></p>
+                       <hr class="my-2 border-gray-300">
+                       <p class="font-bold text-orange-600">Chorus:</p>
+                       <p>'Cause you're hot then you're <input type="text" id="music-q3" class="w-32 border-b-2 text-center bg-transparent" data-answer="cold"><button class="answer-btn" data-target="music-q3"><i class="fas fa-eye"></i></button></p>
+                       <p>You're <input type="text" id="music-q4" class="w-32 border-b-2 text-center bg-transparent" data-answer="yes"><button class="answer-btn" data-target="music-q4"><i class="fas fa-eye"></i></button> then you're no</p>
+                       <p>You're <input type="text" id="music-q5" class="w-32 border-b-2 text-center bg-transparent" data-answer="in"><button class="answer-btn" data-target="music-q5"><i class="fas fa-eye"></i></button> then you're out</p>
+                       <p>You're <input type="text" id="music-q6" class="w-32 border-b-2 text-center bg-transparent" data-answer="up"><button class="answer-btn" data-target="music-q6"><i class="fas fa-eye"></i></button> then you're down</p>
+                       <p>You're <input type="text" id="music-q7" class="w-32 border-b-2 text-center bg-transparent" data-answer="wrong"><button class="answer-btn" data-target="music-q7"><i class="fas fa-eye"></i></button> when it's right</p>
+                       <p>It's <input type="text" id="music-q8" class="w-32 border-b-2 text-center bg-transparent" data-answer="black"><button class="answer-btn" data-target="music-q8"><i class="fas fa-eye"></i></button> and it's white</p>
+                       <p>We fight, we break <input type="text" id="music-q9" class="w-32 border-b-2 text-center bg-transparent" data-answer="up"><button class="answer-btn" data-target="music-q9"><i class="fas fa-eye"></i></button></p>
+                       <p>We kiss, we make <input type="text" id="music-q10" class="w-32 border-b-2 text-center bg-transparent" data-answer="up"><button class="answer-btn" data-target="music-q10"><i class="fas fa-eye"></i></button></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+             <div class="text-center">
+                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-home text-blue-500"></i> Homework</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">What do you think about social media? Is it good or bad? Write a short paragraph with your opinion.</p>
+                    <div class="text-left text-xl mt-4 bg-gray-50 p-6 rounded-lg">
+                        <textarea class="w-full mt-2 p-3 border-2 rounded-lg text-xl" rows="6" placeholder="In my opinion, social media is... I think it is good/bad because..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <i class="fas fa-check-circle text-green-500 text-8xl mb-6"></i>
+                <h2 class="text-6xl font-bold mb-6 text-gray-800">Lesson 4 Complete!</h2>
+                <p class="text-4xl text-gray-600 max-w-3xl">Great work sharing your ideas! Now you can express your opinions with confidence.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Previous</button>
+            <button id="next-btn" class="bg-orange-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-orange-700">Next</button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finish Lesson</button>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2';
+            const lessonNumber = 4;
+
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            let currentSlide = 0;
+
+            function updateSlideView() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+                const progressBar = document.getElementById('progress-bar');
+                progressBar.style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+                finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+            }
+
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; updateSlideView(); } });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; updateSlideView(); } });
+
+            finishLessonBtn.addEventListener('click', () => {
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.textContent = "Salvando...";
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber);
+                } else {
+                    console.error("Função markLessonAsComplete não encontrada.");
+                    alert("Erro ao salvar progresso.");
+                }
+            });
+
+            function checkAnswer(input) {
+                const userAnswer = input.value.trim().toLowerCase().replace(/[.!?]/g, '');
+                const correctAnswer = input.dataset.answer.toLowerCase().replace(/[.!?]/g, '');
+                input.classList.remove('correct', 'incorrect');
+                if(userAnswer.length === 0) return;
+                input.classList.toggle('correct', userAnswer === correctAnswer);
+                input.classList.toggle('incorrect', userAnswer !== correctAnswer);
+            }
+            
+            function addIndividualRevealListeners() {
+                document.querySelectorAll('.answer-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const targetId = button.dataset.target;
+                        const inputField = document.getElementById(targetId);
+                        if(inputField) {
+                            inputField.value = inputField.dataset.answer;
+                            checkAnswer(inputField);
+                        }
+                    });
+                });
+            }
+
+            document.querySelectorAll('.flip-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('flipped');
+                });
+            });
+
+            // Practice 1: Complete the Opinions
+            function createPracticeSentences() {
+                const container = document.getElementById('practice-sentences');
+                if (!container) return;
+                const sentences = [
+                    { id: 'p1q1', question: "A: Rock music is great. B: ___ . It's my favorite. (I agree)", answer: "I agree" },
+                    { id: 'p1q2', question: "___, math is very difficult. (For me)", answer: "For me" },
+                    { id: 'p1q3', question: "A: This movie is boring. B: ___ . I think it's very interesting. (I don't think so)", answer: "I don't think so" },
+                    { id: 'p1q4', question: "___ vegetables are more delicious than fruit. (I think)", answer: "I think" },
+                    { id: 'p1q5', question: "A: The beach is relaxing. B: ___. I love the sound of the ocean. (That's true)", answer: "That's true" }
+                ];
+                container.innerHTML = sentences.map(item => {
+                    const inputHtml = `<input id="${item.id}" data-answer="${item.answer}" class="w-64 p-1 border-b-2 text-2xl bg-transparent text-center">`;
+                    const buttonHtml = `<button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>`;
+                    return `<p>${item.question.replace('___', inputHtml + buttonHtml)}</p>`;
+                }).join('');
+                 container.querySelectorAll('input').forEach(input => input.addEventListener('blur', () => checkAnswer(input)));
+            }
+
+            // Practice 2: Agree or Disagree
+            function createAgreeDisagreeActivity() {
+                const container = document.getElementById('practice-agree-disagree');
+                if (!container) return;
+                const opinions = [
+                    { statement: "Video games are for kids.", example: "I disagree. I think many adults play video games." },
+                    { statement: "Traveling is the best way to spend money.", example: "I agree. In my opinion, experiences are more important than things." },
+                    { statement: "Learning English is easy.", example: "I'm not so sure. For me, it is difficult but fun." }
+                ];
+                container.innerHTML = opinions.map(item => `
+                    <div>
+                        <p class="font-semibold text-gray-800">Opinion: "${item.statement}"</p>
+                        <textarea class="w-full mt-2 p-3 border-2 rounded-lg text-xl" rows="2" placeholder="Write your opinion here..."></textarea>
+                        <div class="text-right mt-1"><button class="text-sm text-blue-600 hover:underline" onclick="alert('Example: ${item.example}')">Show Example</button></div>
+                    </div>
+                `).join('');
+            }
+
+            createPracticeSentences();
+            createAgreeDisagreeActivity();
+            addIndividualRevealListeners();
+            updateSlideView();
+        });
+    </script>
 </body>
 </html>

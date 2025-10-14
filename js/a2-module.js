@@ -1,40 +1,55 @@
-// js/a2-module.js (CÓDIGO CORRETO)
+document.addEventListener('DOMContentLoaded', () => {
+    const firebaseConfig = {
+        apiKey: "AIzaSyA4srp5nACEhOLLD8Yd4cwe5_rZ8izcm1Y",
+        authDomain: "inglesnoseuritmo-bae14.firebaseapp.com",
+        projectId: "inglesnoseuritmo-bae14",
+        storageBucket: "inglesnoseuritmo-bae14.appspot.com",
+        messagingSenderId: "112615489735",
+        appId: "1:112615489735:web:9ee215ab9a2246f3a13ee2"
+    };
+    if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
 
-const module = {
-    id: 'a2',
-    name: 'Módulo A2 - Pre-Intermediate',
-    lessons: [
-        { id: 'licao-01', title: 'Rotina Diária e Hábitos', url: 'licao-01.html' },
-        { id: 'licao-02', title: 'Descrevendo Pessoas e Aparência', url: 'licao-02.html' },
-        { id: 'licao-03', title: 'Comida e Bebida', url: 'licao-03.html' },
-        { id: 'licao-04', title: 'Lugares na Cidade e Direções', url: 'licao-04.html' },
-        { id: 'licao-05', title: 'Passatempos e Interesses', url: 'licao-05.html' },
-        { id: 'licao-06', title: 'Compras e Dinheiro', url: 'licao-06.html' },
-        { id: 'licao-07', title: 'Planos Futuros e Intenções', url: 'licao-07.html' },
-        { id: 'licao-08', title: 'Experiências Passadas', url: 'licao-08.html' },
-        { id: 'licao-09', title: 'Saúde e Bem-estar', url: 'licao-09.html' },
-        { id: 'licao-10', title: 'Viagens e Férias', url: 'licao-10.html' },
-        { id: 'licao-11', title: 'Educação e Aprendizagem', url: 'licao-11.html' },
-        { id: 'licao-12', title: 'Trabalho e Profissões', url: 'licao-12.html' },
-        { id: 'licao-13', title: 'Tecnologia e Internet', url: 'licao-13.html' },
-        { id: 'licao-14', title: 'Sentimentos e Emoções', url: 'licao-14.html' },
-        { id: 'licao-15', title: 'Roupas e Moda', url: 'licao-15.html' },
-        { id: 'licao-16', title: 'Celebrações e Feriados', url: 'licao-16.html' },
-        { id: 'licao-17', title: 'Música e Filmes', url: 'licao-17.html' },
-        { id: 'licao-18', title: 'Esportes e Atividades Físicas', url: 'licao-18.html' },
-        { id: 'licao-19', title: 'Notícias e Eventos Atuais', url: 'licao-19.html' },
-        { id: 'licao-20', title: 'O Meio Ambiente', url: 'licao-20.html' },
-        { id: 'licao-21', title: 'Relações Interpessoais', url: 'licao-21.html' },
-        { id: 'licao-22', title: 'Serviços Comunitários', url: 'licao-22.html' },
-        { id: 'licao-23', title: 'Fazendo Pedidos e Reclamações', url: 'licao-23.html' },
-        { id: 'licao-24', title: 'Cultura e Tradições', url: 'licao-24.html' },
-        { id: 'licao-25', title: 'Histórias e Narrativas', url: 'licao-25.html' },
-        { id: 'licao-26', title: 'Opiniões e Debates', url: 'licao-26.html' },
-        { id: 'licao-27', title: 'Conselhos e Sugestões', url: 'licao-27.html' },
-        { id: 'licao-28', title: 'Comparando Culturas', url: 'licao-28.html' },
-        { id: 'licao-29', title: 'Reservas de Hotel e Viagem', url: 'licao-29.html' },
-        { id: 'licao-30', title: 'Clima e Estações do Ano', url: 'licao-30.html' },
-        { id: 'licao-31', title: 'Rotina de Estudos e Trabalho', url: 'licao-31.html' },
-        { id: 'licao-32', title: 'Revisão Geral A2', url: 'licao-32.html' }
-    ]
-};
+    const loadingDiv = document.getElementById('loading');
+    const grid = document.getElementById('lessons-grid');
+
+    const lessonTitles = [
+        "The Past - Regular & Irregular", "Telling a Complete Story", "Comparing Places", "Comparing Opinions",
+        "Same or Different?", "Setting the Scene", "Interrupted Stories", "Review & Rock Out! #1",
+        "Future Intentions", "Future Predictions", "The Biggest and The Best", "My Favorite Things",
+        "Rules at Work", "Do I Have to...?", "Giving Advice", "Review & Rock Out! #2",
+        "Life Experiences", "Have You Ever...?", "Never Have I Ever...", "Been or Gone?",
+        "What's the Matter?", "Advice for the Doctor", "Asking for Directions", "Review & Rock Out! #3",
+        "Giving Directions - The Basics", "Giving Directions - Details", "From A to B", "A2 Review - Grammar",
+        "A2 Review - Vocabulary & Speaking", "My A2 Mixtape - Final Project Prep", "Lição 31 (Ajustar Título)", "A2 Graduation - Show What You Know!"
+    ];
+
+    function loadAllLessons() {
+        grid.innerHTML = ''; // Limpa a grelha
+        for (let i = 0; i < lessonTitles.length; i++) {
+            const lessonNumber = i + 1;
+            
+            // LÓGICA SIMPLIFICADA: Todas as aulas estão sempre acessíveis
+            const canAccess = true;
+            
+            const card = document.createElement('a');
+            card.href = canAccess ? `licao-${String(lessonNumber).padStart(2, '0')}.html` : '#';
+            card.className = `lesson-card p-6 bg-white rounded-lg shadow flex flex-col items-center text-center`;
+
+            // Ícone de "play" para todas as aulas
+            const iconClass = 'fa-play-circle text-blue-500';
+
+            card.innerHTML = `
+                <i class="fas ${iconClass} text-4xl mb-3"></i>
+                <h3 class="font-bold text-lg text-gray-800">${lessonTitles[i]}</h3>
+                <p class="text-sm text-gray-500 mt-1">Lição ${lessonNumber}</p>
+            `;
+            grid.appendChild(card);
+        }
+
+        loadingDiv.style.display = 'none';
+        grid.classList.remove('hidden');
+    }
+    
+    // A função é chamada diretamente, sem verificar login, para garantir que as aulas apareçam.
+    loadAllLessons();
+});
