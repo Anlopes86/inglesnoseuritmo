@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | Lição 06: Setting the Scene</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="../enhanced-styles.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .flip-card { background-color: transparent; width: 100%; max-width: 300px; min-height: 220px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); padding: 2rem;
+            font-size: 1.1rem; line-height: 1.5;
+        }
+        .flip-card-front { background-color: #fff; border: 1px solid #e5e7eb; }
+        .flip-card-back { background-color: #dbeafe; transform: rotateY(180deg); font-size: 1.25rem; }
+
+        input.correct { border-color: #22c55e; background-color: #f0fdf4; }
+        input.incorrect { border-color: #ef4444; background-color: #fef2f2; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
+        .answer-btn:hover { color: #db2777; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2</a>
+            <h1 class="text-xl font-semibold text-center">A2 - Lesson 06: Setting the Scene</h1>
+            <div class="w-40"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 120px); overflow-y: auto;">
+
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-5xl font-bold mb-8 text-orange-700"><i class="fas fa-cloud-sun-rain text-cyan-500"></i> Warm-up: A Day at the Park</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">What was happening yesterday at 3 PM?</p>
+                    <div class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
+                        <p><strong class="text-blue-600">Teacher:</strong> "Imagine you were at the park yesterday afternoon. What was the weather like?"</p>
+                        <p><strong class="text-orange-600">Student:</strong> "The sun was shining and a soft wind was blowing."</p>
+                        <p><strong class="text-blue-600">Teacher:</strong> "Nice! What were people doing?"</p>
+                        <p><strong class="text-orange-600">Student:</strong> "Some people were walking, and children were playing."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-book-open text-pink-500"></i> Grammar: Past Continuous</h2>
+            <div class="max-w-4xl mx-auto space-y-6">
+                <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
+                    <h3 class="text-3xl font-semibold mb-4 text-blue-600">Describing Background Actions</h3>
+                    <p class="mb-6 text-xl">We use the Past Continuous to describe an action in progress at a specific time in the past. It sets the scene for a story.</p>
+                    <p class="mb-4 text-2xl font-bold text-center">Structure: <span class="text-purple-600">was/were + verb-ing</span></p>
+                    <div class="grid md:grid-cols-2 gap-8 text-2xl">
+                        <div>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li>I / He / She / It <strong class="text-purple-600">was working</strong>.</li>
+                                <li>We / You / They <strong class="text-purple-600">were playing</strong>.</li>
+                            </ul>
+                        </div>
+                        <div>
+                             <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li>He <strong class="text-red-600">wasn't sleeping</strong>.</li>
+                                <li><strong class="text-green-600">Were</strong> they <strong class="text-green-600">studying</strong>?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                 <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
+                    <h3 class="text-3xl font-semibold mb-4 text-blue-600">Past Continuous vs. Simple Past</h3>
+                     <p class="mb-4 text-xl">We often use both together. The Past Continuous describes the longer, background action. The Simple Past describes a shorter, completed action that interrupted it.</p>
+                     <div class="bg-gray-50 p-6 rounded-lg text-2xl">
+                        <p>I <strong class="text-purple-600">was watching</strong> TV <span class="text-gray-500">(longer action)</span> when the phone <strong class="text-orange-600">rang</strong> <span class="text-gray-500">(short action)</span>.</p>
+                        <p class="mt-4">While they <strong class="text-purple-600">were playing</strong> soccer, it <strong class="text-orange-600">started</strong> to rain.</p>
+                     </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-tree text-purple-500"></i> Vocabulary: Scene Elements</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-12 max-w-5xl mx-auto justify-items-center">
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">The sun was shining</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">O sol estava brilhando</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">It was raining</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">Estava chovendo</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Birds were singing</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">Pássaros estavam cantando</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">People were talking</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">As pessoas estavam conversando</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Music was playing</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">A música estava tocando</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">A dog was barking</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">Um cachorro estava latindo</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">The wind was blowing</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">O vento estava soprando</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">A baby was crying</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">Um bebê estava chorando</h3></div></div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-pencil-alt text-teal-500"></i> Practice 1: Past Continuous or Simple Past?</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">Complete the sentences with the correct verb form.</p>
+                    <div id="practice-sentences" class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-image text-cyan-500"></i> Practice 2: Describe the Scene</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">Look at the picture and describe what was happening.</p>
+                    <div id="practice-describe" class="text-left text-2xl space-y-6 bg-gray-50 p-8 rounded-lg">
+                         <img src="/img/busy_park.jpg" alt="A busy park scene" class="rounded-lg shadow-md mb-4">
+                         <textarea class="w-full mt-2 p-3 border-2 rounded-lg text-xl" rows="4" placeholder="The sun was shining. A man was reading..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-5xl font-bold mb-6 text-center text-orange-700"><i class="fas fa-music text-red-500"></i> Music Time: Bastille - Pompeii</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/7" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <p class="text-3xl my-6 text-gray-600 text-center">Listen to "Pompeii" and fill in the blanks describing the scene (Past Continuous).</p>
+                <div class="text-2xl space-y-4 bg-gray-50 p-6 rounded-lg border-l-4 border-orange-500 text-center">
+                       <p>I was left to my own devices</p>
+                       <p>Many days fell away with nothing to show</p>
+                       <p>And the walls kept <input type="text" id="music-q1" class="w-32 border-b-2 text-center bg-transparent" data-answer="tumbling"><button class="answer-btn" data-target="music-q1"><i class="fas fa-eye"></i></button> down</p>
+                       <p>In the city that we love</p>
+                       <p>Great clouds of smoke <input type="text" id="music-q2" class="w-32 border-b-2 text-center bg-transparent" data-answer="were rising"><button class="answer-btn" data-target="music-q2"><i class="fas fa-eye"></i></button> to the sky</p>
+                       <p>And people <input type="text" id="music-q3" class="w-32 border-b-2 text-center bg-transparent" data-answer="were screaming"><button class="answer-btn" data-target="music-q3"><i class="fas fa-eye"></i></button> as they ran</p>
+                       <p>Everything <input type="text" id="music-q4" class="w-32 border-b-2 text-center bg-transparent" data-answer="was burning"><button class="answer-btn" data-target="music-q4"><i class="fas fa-eye"></i></button> around them</p>
+                       <p>How am I gonna be an optimist about this?</p>
+                       <p>Oh, how am I gonna be an optimist about this?</p>
+                       <p class="font-bold text-orange-600">Chorus:</p>
+                       <p>Eh-eh-oh, eh-eh-oh</p>
+                       <p>We were caught beneath the landslide</p>
+                       <p>In a bloodless battle</p>
+                       <p>Eh-eh-oh, eh-eh-oh</p>
+                       <p>And if you close your eyes</p>
+                       <p>Does it almost feel like nothing changed at <input type="text" id="music-q5" class="w-32 border-b-2 text-center bg-transparent" data-answer="all"><button class="answer-btn" data-target="music-q5"><i class="fas fa-eye"></i></button>?</p>
+                       <p>And if you close your eyes</p>
+                       <p>Does it almost feel like you've been here before?</p>
+                       <p>And if you close your eyes</p>
+                       <p>Does it almost feel like nothing changed at all?</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+             <div class="text-center">
+                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-home text-blue-500"></i> Homework</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">Think about a memorable day. Describe the scene. What was happening? What did you do?</p>
+                    <div class="text-left text-xl mt-4 bg-gray-50 p-6 rounded-lg">
+                        <textarea class="w-full mt-2 p-3 border-2 rounded-lg text-xl" rows="6" placeholder="It was a beautiful day. The sun was shining... I was feeling happy when..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <i class="fas fa-check-circle text-green-500 text-8xl mb-6"></i>
+                <h2 class="text-6xl font-bold mb-6 text-gray-800">Lesson 6 Complete!</h2>
+                <p class="text-4xl text-gray-600 max-w-3xl">Fantastic work! You can now paint a picture with your words by setting the scene.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Previous</button>
+            <button id="next-btn" class="bg-orange-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-orange-700">Next</button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finish Lesson</button>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2';
+            const lessonNumber = 6;
+
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            let currentSlide = 0;
+
+            function updateSlideView() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+                const progressBar = document.getElementById('progress-bar');
+                progressBar.style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+                finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+            }
+
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; updateSlideView(); } });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; updateSlideView(); } });
+
+            finishLessonBtn.addEventListener('click', () => {
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.textContent = "Salvando...";
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber);
+                } else {
+                    console.error("Função markLessonAsComplete não encontrada.");
+                    alert("Erro ao salvar progresso.");
+                }
+            });
+
+            function checkAnswer(input) {
+                const userAnswer = input.value.trim().toLowerCase().replace(/[.!?]/g, '');
+                const correctAnswer = input.dataset.answer.toLowerCase().replace(/[.!?]/g, '');
+                input.classList.remove('correct', 'incorrect');
+                if(userAnswer.length === 0) return;
+                input.classList.toggle('correct', userAnswer === correctAnswer);
+                input.classList.toggle('incorrect', userAnswer !== correctAnswer);
+            }
+            
+            function addIndividualRevealListeners() {
+                document.querySelectorAll('.answer-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const targetId = button.dataset.target;
+                        const inputField = document.getElementById(targetId);
+                        if(inputField) {
+                            inputField.value = inputField.dataset.answer;
+                            checkAnswer(inputField);
+                        }
+                    });
+                });
+            }
+
+            document.querySelectorAll('.flip-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('flipped');
+                });
+            });
+
+            // Practice 1: Complete the Sentences
+            function createPracticeSentences() {
+                const container = document.getElementById('practice-sentences');
+                if (!container) return;
+                const sentences = [
+                    { id: 'p1q1', question: "I ___ (read) a book when my friend ___ (call) me.", answer: "was reading / called" },
+                    { id: 'p1q2', question: "While she ___ (drive), she ___ (see) an accident.", answer: "was driving / saw" },
+                    { id: 'p1q3', question: "They ___ (have) dinner at 8 PM last night.", answer: "were having" },
+                    { id: 'p1q4', question: "He ___ (fall) asleep while he ___ (watch) the movie.", answer: "fell / was watching" },
+                    { id: 'p1q5', question: "What ___ you ___ (do) when the storm started?", answer: "were you doing" }
+                ];
+                container.innerHTML = sentences.map(item => {
+                    const inputHtml = `<input id="${item.id}" data-answer="${item.answer}" class="w-full p-1 border-b-2 text-2xl bg-transparent text-center">`;
+                    const buttonHtml = `<button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>`;
+                    return `<p>${item.question.replace('___', inputHtml).replace('___', buttonHtml)}</p>`;
+                }).join('');
+                 container.querySelectorAll('input').forEach(input => input.addEventListener('blur', () => checkAnswer(input)));
+            }
+            
+            createPracticeSentences();
+            addIndividualRevealListeners();
+            updateSlideView();
+        });
+    </script>
+</body>
+</html>

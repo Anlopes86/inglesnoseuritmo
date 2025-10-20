@@ -3,176 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inglês no seu Ritmo - A1 | Lesson 5: Contact Information</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/drawingboard.js/0.4.6/drawingboard.min.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div class="app-container">
-        <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
-        <nav class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <h1><i class="fas fa-wave-square"></i> Inglês no seu Ritmo</h1>
-                <p>Sua Plataforma de Aulas</p>
-            </div>
-            
-            <div class="level-section open">
-                <div class="level-header"><span><i class="fas fa-star"></i> A1 Elementary</span><i class="fas fa-chevron-down"></i></div>
-                <div class="lessons-list">
-                    <div class="level-section open">
-                        <div class="level-header"><span>Módulo 1: Primeiros Passos</span><i class="fas fa-chevron-down"></i></div>
-                        <div class="lessons-list">
-                            <a href="licao-01.html" class="lesson-item"><i class="fas fa-play"></i> Lesson 1: Hello, World!</a>
-                            <a href="licao-02.html" class="lesson-item"><i class="fas fa-map-marker-alt"></i> Lesson 2: De Onde Você É?</a>
-                            <a href="licao-03.html" class="lesson-item"><i class="fas fa-users"></i> Lesson 3: Meu Mundo</a>
-                            <a href="licao-04.html" class="lesson-item"><i class="fas fa-sort-alpha-down"></i> Lesson 4: Alfabeto e Números</a>
-                            <a href="licao-05.html" class="lesson-item active"><i class="fas fa-address-card"></i> Lesson 5: Informações de Contato</a>
-                            <a href="licao-06.html" class="lesson-item"><i class="fas fa-box-open"></i> Lesson 6: Objetos do Dia a Dia</a>
-                            <a href="licao-07.html" class="lesson-item"><i class="fas fa-hand-point-right"></i> Lesson 7: Isto ou Aquilo?</a>
-                            <a href="licao-08.html" class="lesson-item"><i class="fas fa-star-half-alt"></i> Lesson 8: Revisão Módulo 1</a>
-                        </div>
-                    </div>
-                    <div class="level-section">
-                        <div class="level-header"><span>Módulo 2: Rotinas e Gostos</span><i class="fas fa-chevron-down"></i></div>
-                        <div class="lessons-list">
-                            <a href="#" class="lesson-item"><i class="fas fa-clock"></i> Lesson 9: Minha Rotina Diária</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <title>A2 | Lição 05: Same or Different?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="../enhanced-styles.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-            <div class="level-section">
-                <div class="level-header"><span><i class="fas fa-comments"></i> Conversation Class</span><i class="fas fa-chevron-down"></i></div>
-                <div class="lessons-list">
-                    <a href="conversacao/aula-01.html" class="lesson-item"><i class="fas fa-star"></i> Dreams & Ambitions</a>
-                    <a href="#" class="lesson-item"><i class="fas fa-heart"></i> Love & Relationships</a>
-                    <a href="#" class="lesson-item"><i class="fas fa-fist-raised"></i> Rebellion & Freedom</a>
-                </div>
-            </div>
-        </nav>
-        <main class="main-content">
-            <div class="lesson-container">
-                <header class="lesson-header">
-                    <h1><i class="fas fa-address-card"></i> Contact Information</h1>
-                    <div class="lesson-info">
-                        <div class="info-item"><i class="fas fa-layer-group"></i><span>A1 Elementary</span></div>
-                        <div class="info-item"><i class="fas fa-clock"></i><span>Lesson 5/32</span></div>
+        .flip-card { background-color: transparent; width: 100%; max-width: 300px; min-height: 220px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); padding: 2rem;
+            font-size: 1.1rem; line-height: 1.5;
+        }
+        .flip-card-front { background-color: #fff; border: 1px solid #e5e7eb; }
+        .flip-card-back { background-color: #fef9c3; transform: rotateY(180deg); font-size: 1.25rem; }
+
+        input.correct { border-color: #22c55e; background-color: #f0fdf4; }
+        input.incorrect { border-color: #ef4444; background-color: #fef2f2; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
+        .answer-btn:hover { color: #db2777; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2</a>
+            <h1 class="text-xl font-semibold text-center">A2 - Lesson 05: Same or Different?</h1>
+            <div class="w-40"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 120px); overflow-y: auto;">
+
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-5xl font-bold mb-8 text-orange-700"><i class="fas fa-equals text-yellow-500"></i> Warm-up: Comparing Hobbies</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">Let's see what we have in common.</p>
+                    <div class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
+                        <p><strong class="text-blue-600">Teacher:</strong> "I like watching movies. What about you?"</p>
+                        <p><strong class="text-orange-600">Student:</strong> "Me too! I think watching movies is as fun as reading books."</p>
+                        <p><strong class="text-blue-600">Teacher:</strong> "I agree. But for me, a book is not as relaxing as a movie."</p>
+                        <p><strong class="text-orange-600">Student:</strong> "And some movies are too long to watch in one night!"</p>
                     </div>
-                </header>
-                <div class="lesson-content">
-                    <section id="slide-1" class="lesson-slide">
-                        <div class="slide-header"><h2><i class="fas fa-fire"></i> Let's Warm Up!</h2><p class="subtitle">Você conhece estes símbolos?</p></div>
-                        <div class="slide-content"><div class="question-grid">
-                            <div class="question-card" data-question="How do you say this symbol in an email?" data-answers="at"><i class="fas fa-at"></i><h4>@</h4></div>
-                            <div class="question-card" data-question="How do you say this symbol in an email?" data-answers="dot"><i class="fas fa-circle" style="font-size: 1rem; color: #333;"></i><h4>. (ponto)</h4></div>
-                        </div></div>
-                    </section>
-                    <section id="slide-2" class="lesson-slide">
-                        <div class="slide-header"><h2><i class="fas fa-comments"></i> Lesson Dialogue</h2><p class="subtitle">Diálogo: "Exchanging Contacts"</p></div>
-                        <div class="slide-content"><div class="activity-section"><div class="activity-header"><i class="fas fa-ear-listen"></i><h3>Listen and read the dialogue</h3></div><div style="border-left: 3px solid var(--primary-color); padding-left: 15px; font-size: 1.1rem;">
-                            <p><strong>Clara:</strong> It was nice talking to you, Leo!</p>
-                            <p><strong>Leo:</strong> You too, Clara! Can I get your phone number?</p>
-                            <p><strong>Clara:</strong> Sure. It's 555-0199.</p>
-                            <p><strong>Leo:</strong> Great. And what's your email?</p>
-                            <p><strong>Clara:</strong> It's clara.s@email.com.</p>
-                            <p><strong>Leo:</strong> Perfect, thanks! I'll send you a message.</p>
-                        </div></div></div>
-                    </section>
-                    <section id="slide-3" class="lesson-slide">
-                        <div class="slide-header"><h2><i class="fas fa-language"></i> Grammar in Focus</h2><p class="subtitle">Asking Questions with "What's...?"</p></div>
-                        <div class="slide-content"><div class="activity-section">
-                            <div class="activity-header"><i class="fas fa-question-circle"></i><h3>Review: Asking Questions</h3></div>
-                            <p>Para pedir informações, usamos a estrutura:</p>
-                            <p style="background: #f0f0f0; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold;">What's + your + (information)?</p>
-                            <ul>
-                                <li>What's your name?</li>
-                                <li>What's your phone number?</li>
-                                <li>What's your email address?</li>
-                            </ul>
-                        </div></div>
-                    </section>
-                    <section id="slide-4" class="lesson-slide">
-                        <div class="slide-header"><h2><i class="fas fa-book-open"></i> Vocabulary in Action</h2><p class="subtitle">Saying Numbers and Emails</p></div>
-                        <div class="slide-content">
-                            <div class="activity-section"><div class="activity-header"><i class="fas fa-microphone"></i><h3>How to Say It</h3></div>
-                            <ul>
-                                <li>O número <strong>0</strong> pode ser lido como "<strong>zero</strong>" ou "<strong>oh</strong>".</li>
-                                <li>O símbolo <strong>@</strong> é lido como "<strong>at</strong>".</li>
-                                <li>O símbolo <strong>.</strong> (ponto) é lido como "<strong>dot</strong>".</li>
-                                <li>Números duplos (ex: 88) podem ser lidos como "<strong>eight eight</strong>" ou "<strong>double eight</strong>".</li>
-                            </ul>
-                        </div>
-                        <div class="activity-section" style="margin-top:20px;">
-                            <div class="activity-header"><i class="fas fa-check-double"></i><h3>Practice</h3></div>
-                            <div class="quiz-container fill-in-the-blank">
-                                <div class="quiz-question"><p>Read the email "<strong>teacher@school.com</strong>":<br>teacher <input type="text" class="grammar-input" data-answer="at"> school <input type="text" class="grammar-input" data-answer="dot"> com</p></div>
-                                <div class="quiz-question"><p>Read the number "<strong>902-10</strong>":<br>nine <input type="text" class="grammar-input" data-answer="oh"> two - one zero</p></div>
-                            </div>
-                        </div>
-                        </div>
-                    </section>
-                    <section id="slide-5" class="lesson-slide">
-                        <div class="slide-header"><h2><i class="fas fa-star"></i> Useful Expressions & Pronunciation</h2></div>
-                        <div class="slide-content">
-                            <div class="activity-section"><div class="activity-header"><i class="fas fa-comments"></i><h3>Expressões Úteis</h3></div>
-                            <ul>
-                                <li>Can I have your number, please?</li>
-                                <li>What's your email address?</li>
-                                <li>Here's my contact info.</li>
-                                <li>Let me check.</li>
-                            </ul>
-                            </div>
-                        </div>
-                    </section>
-                    <section id="slide-6" class="lesson-slide">
-                        <div class="slide-header"><h2><i class="fas fa-music"></i> Song of the Lesson</h2><p class="subtitle">Tommy Tutone - 867-5309/Jenny</p></div>
-                        <div class="slide-content">
-                            <div class="activity-section">
-                                <div class="activity-header"><i class="fas fa-headphones"></i><h3>Listen to the song and get the number!</h3></div>
-                                <iframe style="border-radius:12px" src="COLE_O_CODIGO_DE_INCORPORACAO_DO_SPOTIFY_AQUI" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                            </div>
-                            <div class="activity-section" style="margin-top: 20px;">
-                                <div class="activity-header"><i class="fas fa-microphone-alt"></i><h3>Complete the Lyrics</h3></div>
-                                <div class="quiz-container fill-in-the-blank">
-                                    <div class="quiz-question"><p>Jenny, I got your number, I need to make you <input type="text" class="grammar-input" data-answer="mine"></p></div>
-                                    <div class="quiz-question"><p>Jenny, don't change your <input type="text" class="grammar-input" data-answer="number"></p></div>
-                                    <div class="quiz-question"><p><input type="text" class="grammar-input" data-answer="867-5309"></p></div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <section id="slide-7" class="lesson-slide">
-                        <div class="slide-header"><h2><i class="fas fa-flag-checkered"></i> Wrap-up & Homework</h2></div>
-                        <div class="slide-content"><div class="activity-section"><div class="activity-header"><i class="fas fa-clipboard-check"></i><h3>Today you learned...</h3></div><ul><li>...how to ask for and give phone numbers and emails.</li><li>...to say symbols like '@' (at) and '.' (dot).</li></ul></div><div class="activity-section" style="margin-top: 20px;"><div class="activity-header"><i class="fas fa-pencil-alt"></i><h3>Your Homework</h3></div><p>Crie um "cartão de contato" para um personagem fictício. Escreva o nome, um telefone e um email inventados para ele.</p></div></div>
-                    </section>
                 </div>
-                 <footer class="navigation">
-                     <button id="prev-btn" class="nav-btn primary"><i class="fas fa-arrow-left"></i> Previous</button>
-                     <button id="open-whiteboard-btn" class="nav-btn success"><i class="fas fa-chalkboard"></i> Quadro Branco</button>
-                     <button id="check-btn" class="nav-btn success" style="display: none;"><i class="fas fa-check"></i> Check Answers</button>
-                     <button id="next-btn" class="nav-btn primary">Next <i class="fas fa-arrow-right"></i></button>
-                     <button id="finish-btn" class="nav-btn warning" style="display: none;"><i class="fas fa-flag-checkered"></i> Finish Lesson</button>
-                 </footer>
             </div>
-        </main>
-    </div>
-    <div id="popup-modal" class="modal-overlay">
-        <div class="modal-content">
-            <button id="close-popup-btn" class="close-modal-btn">×</button>
-            <h3 id="modal-question"></h3>
-            <ul id="modal-answers"></ul>
         </div>
-    </div>
-    <div id="whiteboard-overlay">
-        <div id="whiteboard-container">
-            <div id="board-element"></div>
-            <button id="close-whiteboard-btn"><i class="fas fa-times"></i></button>
+
+        <div class="slide">
+            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-book-open text-pink-500"></i> Grammar: More Comparisons</h2>
+            <div class="max-w-6xl mx-auto space-y-6">
+                <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
+                    <h3 class="text-3xl font-semibold mb-4 text-blue-600">Comparing Equality: (not) as ... as</h3>
+                    <p class="mb-6 text-xl">We use <strong class="text-green-600">as + adjective + as</strong> to say two things are the same. We use <strong class="text-red-600">not as + adjective + as</strong> to say they are different.</p>
+                    <ul class="list-disc list-inside ml-4 space-y-3 text-2xl">
+                        <li><span class="font-bold text-green-700">(+)</span> My car is <strong class="text-green-600">as fast as</strong> your car. (They have the same speed)</li>
+                        <li><span class="font-bold text-red-700">(-)</span> The book is <strong class="text-red-600">not as expensive as</strong> the game. (The game is more expensive)</li>
+                    </ul>
+                </div>
+                 <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
+                    <h3 class="text-3xl font-semibold mb-4 text-blue-600">Limits: too & enough</h3>
+                     <p class="mb-4 text-xl">We use <strong class="text-purple-600">too</strong> to show something is excessive (more than necessary). We use <strong class="text-indigo-600">enough</strong> to show the correct or sufficient amount.</p>
+                     <div class="grid md:grid-cols-2 gap-8 text-2xl">
+                        <div>
+                            <h4 class="text-2xl font-semibold mb-3 text-gray-700">too + adjective</h4>
+                             <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li>The coffee is <strong class="text-purple-600">too hot</strong> to drink.</li>
+                                <li>This box is <strong class="text-purple-600">too heavy</strong> for me.</li>
+                             </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-2xl font-semibold mb-3 text-gray-700">adjective + enough</h4>
+                             <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li>He is <strong class="text-indigo-600">strong enough</strong> to lift it.</li>
+                                <li>The water is <strong class="text-indigo-600">warm enough</strong> to swim.</li>
+                             </ul>
+                        </div>
+                     </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/drawingboard.js/0.4.6/drawingboard.min.js"></script>
-    <script src="../js/script.js"></script>
+        
+        <div class="slide">
+            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-tags text-purple-500"></i> Vocabulary: Comparisons</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-12 max-w-5xl mx-auto justify-items-center">
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">as big as</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">tão grande quanto</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">not as tall as</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">não tão alto quanto</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">too expensive</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">caro demais</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">strong enough</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">forte o suficiente</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">the same as</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">o mesmo que</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">different from</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">diferente de</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">too difficult</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">difícil demais</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">easy enough</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">fácil o suficiente</h3></div></div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-pencil-alt text-teal-500"></i> Practice 1: Complete the Sentences</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">Use 'as...as', 'too', or 'enough' to complete the sentences.</p>
+                    <div id="practice-sentences" class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-random text-cyan-500"></i> Practice 2: Rewrite the Sentences</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">Rewrite the first sentence using the word in parentheses.</p>
+                    <div id="practice-rewrite" class="text-left text-2xl space-y-6 bg-gray-50 p-8 rounded-lg">
+                         </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-5xl font-bold mb-6 text-center text-orange-700"><i class="fas fa-music text-red-500"></i> Music Time: The Chainsmokers & Coldplay</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/4" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <p class="text-3xl my-6 text-gray-600 text-center">Listen to "Something Just Like This" and fill in the blanks.</p>
+                <div class="text-2xl space-y-4 bg-gray-50 p-6 rounded-lg border-l-4 border-orange-500 text-center">
+                       <p>I'm not looking for somebody with some superhuman <input type="text" id="music-q1" class="w-32 border-b-2 text-center bg-transparent" data-answer="gifts"><button class="answer-btn" data-target="music-q1"><i class="fas fa-eye"></i></button></p>
+                       <p>Some superhero, some fairytale <input type="text" id="music-q2" class="w-32 border-b-2 text-center bg-transparent" data-answer="bliss"><button class="answer-btn" data-target="music-q2"><i class="fas fa-eye"></i></button></p>
+                       <p>Just something I can turn to, somebody I can <input type="text" id="music-q3" class="w-32 border-b-2 text-center bg-transparent" data-answer="kiss"><button class="answer-btn" data-target="music-q3"><i class="fas fa-eye"></i></button></p>
+                       <p>I want something just like <input type="text" id="music-q4" class="w-32 border-b-2 text-center bg-transparent" data-answer="this"><button class="answer-btn" data-target="music-q4"><i class="fas fa-eye"></i></button></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+             <div class="text-center">
+                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-home text-blue-500"></i> Homework</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">Compare two of your favorite things (e.g., movies, foods, singers). Write a paragraph using at least two comparison structures from today's lesson.</p>
+                    <div class="text-left text-xl mt-4 bg-gray-50 p-6 rounded-lg">
+                        <textarea class="w-full mt-2 p-3 border-2 rounded-lg text-xl" rows="6" placeholder="For me, pizza is as delicious as... However, it is not as..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <i class="fas fa-check-circle text-green-500 text-8xl mb-6"></i>
+                <h2 class="text-6xl font-bold mb-6 text-gray-800">Lesson 5 Complete!</h2>
+                <p class="text-4xl text-gray-600 max-w-3xl">You're getting better and better at comparing things. Awesome job!</p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Previous</button>
+            <button id="next-btn" class="bg-orange-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-orange-700">Next</button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finish Lesson</button>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2';
+            const lessonNumber = 5;
+
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            let currentSlide = 0;
+
+            function updateSlideView() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+                const progressBar = document.getElementById('progress-bar');
+                progressBar.style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+                finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+            }
+
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; updateSlideView(); } });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; updateSlideView(); } });
+
+            finishLessonBtn.addEventListener('click', () => {
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.textContent = "Salvando...";
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber);
+                } else {
+                    console.error("Função markLessonAsComplete não encontrada.");
+                    alert("Erro ao salvar progresso.");
+                }
+            });
+
+            function checkAnswer(input) {
+                const userAnswer = input.value.trim().toLowerCase().replace(/[.!?]/g, '');
+                const correctAnswer = input.dataset.answer.toLowerCase().replace(/[.!?]/g, '');
+                input.classList.remove('correct', 'incorrect');
+                if(userAnswer.length === 0) return;
+                input.classList.toggle('correct', userAnswer === correctAnswer);
+                input.classList.toggle('incorrect', userAnswer !== correctAnswer);
+            }
+            
+            function addIndividualRevealListeners() {
+                document.querySelectorAll('.answer-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const targetId = button.dataset.target;
+                        const inputField = document.getElementById(targetId);
+                        if(inputField) {
+                            inputField.value = inputField.dataset.answer;
+                            checkAnswer(inputField);
+                        }
+                    });
+                });
+            }
+
+            document.querySelectorAll('.flip-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('flipped');
+                });
+            });
+
+            // Practice 1: Complete the Sentences
+            function createPracticeSentences() {
+                const container = document.getElementById('practice-sentences');
+                if (!container) return;
+                const sentences = [
+                    { id: 'p1q1', question: "This jacket is ___ small for me. I need a bigger size. (too/enough)", answer: "too" },
+                    { id: 'p1q2', question: "He is not tall ___ to reach the shelf. (too/enough)", answer: "enough" },
+                    { id: 'p1q3', question: "My city is ___ beautiful ___ yours. (as...as)", answer: "as beautiful as" },
+                    { id: 'p1q4', question: "This coffee is ___ sweet. There's a lot of sugar. (too/enough)", answer: "too" },
+                    { id: 'p1q5', question: "The test was easy ___ for everyone to pass. (too/enough)", answer: "enough" }
+                ];
+                container.innerHTML = sentences.map(item => {
+                    const inputHtml = `<input id="${item.id}" data-answer="${item.answer}" class="w-64 p-1 border-b-2 text-2xl bg-transparent text-center">`;
+                    const buttonHtml = `<button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>`;
+                    return `<p>${item.question.replace('___', inputHtml + buttonHtml)}</p>`;
+                }).join('');
+                 container.querySelectorAll('input').forEach(input => input.addEventListener('blur', () => checkAnswer(input)));
+            }
+
+            // Practice 2: Rewrite the Sentences
+            function createRewriteActivity() {
+                const container = document.getElementById('practice-rewrite');
+                if (!container) return;
+                const sentences = [
+                    { id: 'p2q1', original: "The blue car is faster than the red car.", word: "(not as...as)", answer: "The red car is not as fast as the blue car." },
+                    { id: 'p2q2', original: "The movie was very boring. I fell asleep.", word: "(too)", answer: "The movie was too boring." },
+                    { id: 'p2q3', original: "I don't have enough money to buy this.", word: "(too)", answer: "This is too expensive for me." },
+                    { id: 'p2q4', original: "She can vote because she is 18.", word: "(enough)", answer: "She is old enough to vote." },
+                    { id: 'p2q5', original: "My brother and I have the same height.", word: "(as...as)", answer: "I am as tall as my brother." }
+                ];
+                container.innerHTML = sentences.map(item => `
+                    <div>
+                        <p class="text-gray-500 italic">"${item.original}"</p>
+                        <div class="flex items-center">
+                            <input id="${item.id}" data-answer="${item.answer}" class="w-full p-1 border-b-2 text-2xl bg-transparent" placeholder="Rewrite using '${item.word}'...">
+                            <button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>
+                        </div>
+                    </div>
+                `).join('');
+                container.querySelectorAll('input').forEach(input => input.addEventListener('blur', () => checkAnswer(input)));
+            }
+
+            createPracticeSentences();
+            createRewriteActivity();
+            addIndividualRevealListeners();
+            updateSlideView();
+        });
+    </script>
 </body>
 </html>
