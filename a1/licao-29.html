@@ -229,6 +229,9 @@
     <script src="../js/progress-manager.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a1';
+            const lessonNumber = 29;
+
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
@@ -236,20 +239,34 @@
             let currentSlide = 0;
 
             function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
                 const progressBar = document.getElementById('progress-bar');
-                progressBar.style.width = slides.length > 1 ? `${(index / (slides.length - 1)) * 100}%` : '100%';
-                prevBtn.disabled = index === 0;
-                nextBtn.classList.toggle('hidden', index === slides.length - 1);
-                finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
+                if (progressBar) {
+                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
+                    progressBar.style.width = `${progressPercentage}%`;
+                }
+                if (prevBtn) prevBtn.disabled = index === 0;
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
             }
 
-            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            finishLessonBtn.addEventListener('click', () => {
-                alert('Lição Finalizada com Sucesso!');
-                window.location.href = 'a1.html';
-            });
+            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            
+            if (finishLessonBtn) {
+                finishLessonBtn.addEventListener('click', () => {
+                    finishLessonBtn.disabled = true;
+                    finishLessonBtn.textContent = "Salvando...";
+                    if (typeof markLessonAsComplete === 'function') {
+                        markLessonAsComplete(moduleId, lessonNumber);
+                    } else {
+                        console.error("Função markLessonAsComplete não encontrada.");
+                        alert("Erro ao salvar progresso.");
+                    }
+                });
+            }
 
             // Drag and Drop Logic
             const draggables = document.querySelectorAll('.draggable');
