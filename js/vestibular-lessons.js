@@ -23,10 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
         "Tempos Verbais II (Present Perfect e Futuro)",
         "O Poder dos Modal Verbs",
         "Voz Passiva (Passive Voice) e Comparativos",
-        "Interpretando o Não-Verbal (Charges, Cartoons e Gráficos)",
-        "O Tom e o Propósito do Autor",
+        "Decifrando as Condições",
+        "Comparando Ideias",
         "Desconstruindo as Perguntas",
-        "Analisando Textos Literários e Poemas",
+        "Lendo nas Entrelinhas",
         "Análise de Pegadinhas e Erros Comuns",
         "Simulado Final e Estratégias de Prova"
     ];
