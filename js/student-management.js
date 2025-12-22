@@ -31,7 +31,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const fullName = document.getElementById('new-student-fullname').value.trim();
             const username = document.getElementById('new-student-username').value.trim().toLowerCase();
             const password = document.getElementById('new-student-password').value;
-            const studentType = document.getElementById('new-student-type').value;
+            const modulos = ['a1', 'a2', 'b1', 'b2', 'business', 'conversation', 'essentials', 'vestibular'];
+            const modulosLiberados = [];
+
+modulos.forEach(m => {
+    const checkbox = document.getElementById(`module-${m}`);
+    if (checkbox && checkbox.checked) {
+        modulosLiberados.push(m);
+    }
+});
 
             if (!fullName || !username || !password || !studentType) {
                 return alert("Por favor, preencha todos os campos.");

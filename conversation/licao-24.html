@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation Class - Lesson 24: The Gig Economy & Remote Work</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #4a5568; }
+        .flashcard-front { background-color: #2d3748; color: #a0aec0; text-align: center; }
+        .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
+        .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
+        .lyrics-box { max-height: 400px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #4a5568 #2d3748; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="conversation.html" class="text-lg font-bold text-blue-400 hover:text-blue-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
+            <h1 class="text-xl font-semibold text-center">Lesson 24: The Gig Economy & Remote Work</h1>
+            <div class="w-32"></div>
+        </div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-blue-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-blue-400"><i class="fas fa-tools"></i> Warm-up: Working Hard</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6 text-2xl">
+                    <p class="font-semibold text-gray-300">Let's talk about work:</p>
+                    <p><i class="fas fa-check mr-2 text-blue-400"></i> If you didn't have to work for money, how would you spend your time?</p>
+                    <p><i class="fas fa-check mr-2 text-blue-400"></i> Do you work to live, or do you live to work?</p>
+                    <p><i class="fas fa-check mr-2 text-blue-400"></i> How many hours a day do you think is "healthy" for a person to work?</p>
+                    <p><i class="fas fa-check mr-2 text-blue-400"></i> Does hard work always lead to success?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-blue-400"><i class="fas fa-briefcase"></i> Work Vocabulary</h2>
+                <div class="flashcard-grid max-w-6xl mx-auto">
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To commute</h4></div><div class="flashcard-back"><p class="text-xl">To travel some distance between one's home and place of work regularly.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Burnout</h4></div><div class="flashcard-back"><p class="text-xl">State of emotional, physical, and mental exhaustion caused by excessive stress.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Side Hustle</h4></div><div class="flashcard-back"><p class="text-xl">A secondary job or business to earn extra income.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Overtime</h4></div><div class="flashcard-back"><p class="text-xl">Time worked in addition to one's normal working hours.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To quit</h4></div><div class="flashcard-back"><p class="text-xl">To leave a permanent job or a career.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Workaholic</h4></div><div class="flashcard-back"><p class="text-xl">A person who works compulsively and has trouble relaxing.</p></div></div></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-blue-400"><i class="fas fa-music text-yellow-500"></i> Music Time: Break My Soul (Beyoncé)</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5pyoxDZ1PX0KxBxiRVxA4U?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-yellow-500">
+                    <p>Now, I just fell in love</p>
+                    <p>And I just quit my <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="job"><i class="fas fa-eye"></i></button></p>
+                    <p>I'm gonna find new drive</p>
+                    <p>Damn, they work me so damn hard</p>
+                    <p>Work by nine, then off past <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="five"><i class="fas fa-eye"></i></button></p>
+                    <p>And they work my nerves, that's why I cannot sleep at night</p>
+                    <p class="font-bold text-yellow-400 mt-4 italic">Chorus:</p>
+                    <p>You won't break my soul</p>
+                    <p>You won't break my soul</p>
+                    <p>I'm telling everybody, everybody</p>
+                    <p>I'm looking for <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="motivation"><i class="fas fa-eye"></i></button></p>
+                    <p>Looking for a new foundation, yeah</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-blue-400"><i class="fas fa-question-circle text-orange-400"></i> Discussion: The Great Resignation</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                    <p>Beyoncé sings "I just quit my job, I'm gonna find new drive." What would make you <b>quit</b> a job today? Is it just about the money or your "soul"?</p>
+                    <p>The lyrics mention working "off past five" and it "working her nerves". How do you deal with a job that affects your <b>sleep</b> and mental health?</p>
+                    <p>In your opinion, what is a "new foundation" for a successful career in 2025?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-blue-400"><i class="fas fa-music text-orange-500"></i> Music Time: Takin' Care of Business (BTO)</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0lzNXoZINVBLHWNIxKxWOo?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-orange-500">
+                    <p>You get up every morning from your alarm clock's warning</p>
+                    <p>Take the 8:15 into the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="city"><i class="fas fa-eye"></i></button></p>
+                    <p>There's a whistle up above and people pushing, people shoving</p>
+                    <p>And the girls who try to look <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="pretty"><i class="fas fa-eye"></i></button></p>
+                    <p>And if your train's on time, you can get to work by nine</p>
+                    <p>And start your slaving job to get your <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="pay"><i class="fas fa-eye"></i></button></p>
+                    <p class="font-bold text-orange-400 mt-4 italic">Chorus:</p>
+                    <p>And I've been takin' care of business, everyday!</p>
+                    <p>Takin' care of business, every way!</p>
+                    <p>I've been takin' care of business, it's all <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="mine"><i class="fas fa-eye"></i></button></p>
+                    <p>Takin' care of business and working overtime, work out!</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-400"><i class="fas fa-question-circle text-orange-400"></i> Discussion: Responsibility</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                <p>What does "taking care of business" mean to you in your personal and professional life?</p>
+                <p>The song mentions "working overtime." Is overtime a sign of productivity or poor time management?</p>
+            </div></div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-blue-400"><i class="fas fa-music text-red-500"></i> Music Time: The Working Man (Cain Walker)</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3GvH6C6X2xPz5Y2M0m9zR7" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <div class="mt-4 lyrics-box pr-4">
+                    <div class="text-lg space-y-4 bg-gray-700 p-6 rounded-lg border-l-4 border-red-500">
+                        <p>They say we're caught and you'll get ahead / But I'm just <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="breaking my back"><i class="fas fa-eye"></i></button> instead</p>
+                        <p><input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="Clocking in"><i class="fas fa-eye"></i></button> just to pay that rent / Ain't much left when the day is spent</p>
+                        <p>Boss man talking 'bout living the dream / The dream that's built on my <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="routine"><i class="fas fa-eye"></i></button></p>
+                        <p>They raise the price we keep the pace / <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="Running in place"><i class="fas fa-eye"></i></button> just to stay in the race</p>
+                        
+                        <p class="font-bold text-red-400 mt-4 italic">Chorus:</p>
+                        <p>We built this town with our two hands / Blood in the dirt, <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="sweat"><i class="fas fa-eye"></i></button> in the sand</p>
+                        <p>They make the rules, we make it stand / Yeah, this land runs on a working man</p>
+                        
+                        <p class="font-bold text-red-400 mt-4 italic">Verse 2:</p>
+                        <p>Fields stack high, pay check's <input type="text" class="w-20 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="thin"><i class="fas fa-eye"></i></button> / Round and round that wheel we spin</p>
+                        <p>They fly first class we drive <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="beat trucks"><i class="fas fa-eye"></i></button> / Still showing up when the world gets rough</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-blue-400"><i class="fas fa-balance-scale text-orange-400"></i> Discussion: The Reality Gap</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-8 text-2xl text-left">
+                    <p><i class="fas fa-arrow-right text-red-500"></i> The lyrics mention <b>"Running in place just to stay in the race."</b> Do you feel that no matter how hard you work, the cost of living (rent, prices) always catches up?</p>
+                    <p><i class="fas fa-arrow-right text-red-500"></i> <b>"The dream that's built on my routine."</b> Is it fair that the "Boss man" lives the dream while the worker "breaks his back"?</p>
+                    <p><i class="fas fa-arrow-right text-red-500"></i> <b>"They make the rules, we make it stand."</b> How would the world change if the "working men/women" decided to stop for one week?</p>
+                    <p><i class="fas fa-arrow-right text-red-500"></i> Compare the three songs: Beyoncé wants to <b>quit</b>, BTO is <b>taking care of business</b>, and Cain Walker is <b>just surviving</b>. Which one represents your country's current reality better?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-400"><i class="fas fa-tasks"></i> Practice: Workplace Scenarios</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <p class="text-2xl mb-8 text-gray-300">Complete the sentences with the correct work term.</p>
+                <div id="matching-activity" class="space-y-4"></div>
+                <button id="check-answers-btn" class="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Check Answers</button>
+            </div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-400"><i class="fas fa-home"></i> Homework</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                 <p class="text-2xl mb-6 text-gray-300">Think about your job. What are 3 things you would change to make your "working man/woman" life better?</p>
+                 <div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg">
+                     <p><strong>Example:</strong> "I would reduce my <b>commute</b> by working from home. I would avoid <b>overtime</b> and focus on my <b>side hustle</b>."</p>
+                 </div>
+             </div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center flex flex-col items-center justify-center h-full">
+                 <i class="fas fa-hard-hat text-blue-400 text-7xl mb-6"></i>
+                 <h2 class="text-5xl font-bold mb-4 text-gray-100">Lesson Complete!</h2>
+                 <p class="text-2xl italic text-gray-400 max-w-2xl mx-auto">"Far and away the best prize that life has to offer is the chance to work hard at work worth doing." - Theodore Roosevelt</p>
+             </div>
+        </div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Próximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finalizar Aula</button>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+                if (prevBtn) prevBtn.disabled = index === 0;
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+            }
+
+            if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } };
+            if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } };
+
+            document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+            
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const inputField = button.previousElementSibling;
+                    if (inputField) {
+                        inputField.value = button.dataset.answer;
+                        inputField.classList.add('text-blue-400', 'font-bold');
+                    }
+                });
+            });
+
+            const activityContainer = document.getElementById('matching-activity'), checkAnswersBtn = document.getElementById('check-answers-btn');
+            const expressions=[
+                {id:'burnout',text:'Burnout'},
+                {id:'commute',text:'Commute'},
+                {id:'overtime',text:'Overtime'},
+                {id:'hustle',text:'Side Hustle'},
+                {id:'workaholic',text:'Workaholic'},
+                {id:'quit',text:'Quit'}
+            ];
+            const situations=[
+                {text:"She is such a ________; she even answers emails during dinner.",answer:'workaholic'},
+                {text:"I hate the long ________ every morning; it takes two hours!",answer:'commute'},
+                {text:"I decided to ________ my job because the environment was toxic.",answer:'quit'},
+                {text:"I'm doing some ________ at night to save for a trip.",answer:'hustle'},
+                {text:"After working 12 hours a day for months, he suffered a ________.",answer:'burnout'},
+                {text:"I need to work some ________ this week to finish the project.",answer:'overtime'}
+            ];
+            function shuffle(array) { return array.sort(() => Math.random() - 0.5); }
+            
+            activityContainer.innerHTML = situations.map((sit, index) => `
+                <div id="q-${index}" class="p-4 rounded-lg bg-gray-900 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p>
+                    <select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg">
+                        <option value="">Select...</option>
+                        ${shuffle([...expressions]).map(exp => `<option value="${exp.id}">${exp.text}</option>`).join('')}
+                    </select>
+                </div>`).join('');
+
+            checkAnswersBtn.onclick = () => {
+                activityContainer.querySelectorAll('select').forEach((select, index) => {
+                    const div = document.getElementById(`q-${index}`);
+                    if (select.value === select.dataset.answer) {
+                        div.style.borderColor = '#10b981';
+                        div.classList.add('bg-green-900/30');
+                    } else if (select.value !== "") {
+                        div.style.borderColor = '#ef4444';
+                        div.classList.add('bg-red-900/30');
+                    }
+                });
+            };
+
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>
