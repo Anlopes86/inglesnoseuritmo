@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | Lição 08: Mega Review</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .flip-card { background-color: transparent; width: 100%; max-width: 200px; min-height: 120px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 1rem;
+        }
+        .flip-card-front { background-color: #fff; border: 1px solid #e5e7eb; font-weight: bold; }
+        .flip-card-back { background-color: #f0fdf4; transform: rotateY(180deg); font-weight: bold; color: #166534; }
+
+        input.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        input.incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.2rem; transition: color 0.2s; font-size: 0.9rem; }
+        .answer-btn:hover { color: #f97316; }
+        
+        input { border-bottom: 2px solid #cbd5e1; outline: none; transition: all 0.2s; font-weight: 600; background: transparent; }
+        input:focus { border-bottom-color: #f97316; }
+
+        .choice-btn { border: 2px solid #e5e7eb; padding: 10px 20px; border-radius: 12px; transition: all 0.2s; cursor: pointer; text-align: left; width: 100%; }
+        .choice-btn:hover { border-color: #f97316; background-color: #fff7ed; }
+        .choice-btn.selected-correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        .choice-btn.selected-incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> A2 Module</a>
+            <h1 class="text-xl font-semibold text-center uppercase tracking-widest">Lesson 08: Mega Review</h1>
+            <div class="w-40"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 160px); overflow-y: auto;">
+
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-5xl font-bold mb-8 text-orange-700 italic">Warm-up: The Big Catch-up</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto text-left space-y-6">
+                    <div class="flex gap-4 items-start">
+                        <div class="bg-indigo-600 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0">A</div>
+                        <p class="text-2xl text-gray-700 italic">"I <span class="text-indigo-600 font-bold">bought</span> a new laptop yesterday. It's <span class="text-orange-600 font-bold">faster than</span> my old one!"</p>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <div class="bg-pink-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0">B</div>
+                        <p class="text-2xl text-gray-700 italic">"Nice! Was it <span class="text-orange-600 font-bold">as expensive as</span> a MacBook?"</p>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <div class="bg-indigo-600 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0">A</div>
+                        <p class="text-2xl text-gray-700 italic">"No, it was <span class="text-orange-600 font-bold">cheaper</span>. But while I <span class="text-indigo-600 font-bold">was carrying</span> it home, I <span class="text-green-600 font-bold">dropped</span> the box!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-6 text-center text-orange-700">Task 1: Verb Tenses & Comparatives</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-4 text-xl">
+                <p>1. They <input id="t1q1" data-answer="were playing" class="w-40 text-center"> <button class="answer-btn" data-target="t1q1"><i class="fas fa-eye"></i></button> (play) video games when I arrived.</p>
+                <p>2. Traveling by train is <input id="t1q2" data-answer="more relaxing than" class="w-56 text-center"> <button class="answer-btn" data-target="t1q2"><i class="fas fa-eye"></i></button> (relaxing) flying.</p>
+                <p>3. She <input id="t1q3" data-answer="didn't go" class="w-32 text-center"> <button class="answer-btn" data-target="t1q3"><i class="fas fa-eye"></i></button> (not go) to work last Monday.</p>
+                <p>4. My city is <input id="t1q4" data-answer="noisier than" class="w-40 text-center"> <button class="answer-btn" data-target="t1q4"><i class="fas fa-eye"></i></button> (noisy) your town.</p>
+                <p>5. While he <input id="t1q5" data-answer="was cooking" class="w-40 text-center"> <button class="answer-btn" data-target="t1q5"><i class="fas fa-eye"></i></button> (cook), he cut his finger.</p>
+                <p>6. Is your house <input id="t1q6" data-answer="as big as" class="w-32 text-center"> <button class="answer-btn" data-target="t1q6"><i class="fas fa-eye"></i></button> (as/big) mine?</p>
+                <p>7. I <input id="t1q7" data-answer="saw" class="w-20 text-center"> <button class="answer-btn" data-target="t1q7"><i class="fas fa-eye"></i></button> (see) a famous actor while I <input id="t1q7b" data-answer="was waiting" class="w-40 text-center"> <button class="answer-btn" data-target="t1q7b"><i class="fas fa-eye"></i></button> (wait) for the bus.</p>
+                <p>8. This test is <input id="t1q8" data-answer="worse than" class="w-32 text-center"> <button class="answer-btn" data-target="t1q8"><i class="fas fa-eye"></i></button> (bad) the last one.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-6 text-center text-orange-700">Task 2: Multiple Choice</h2>
+            <div class="max-w-3xl mx-auto space-y-4">
+                <div class="bg-white p-5 rounded-xl shadow-md">
+                    <p class="text-xl mb-3 font-bold">1. "I ____ when the lights went out."</p>
+                    <div class="grid grid-cols-1 gap-2">
+                        <button class="choice-btn" onclick="checkChoice(this, false)">A) slept</button>
+                        <button class="choice-btn" onclick="checkChoice(this, true)">B) was sleeping</button>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded-xl shadow-md">
+                    <p class="text-xl mb-3 font-bold">2. Which is a correct comparison?</p>
+                    <div class="grid grid-cols-1 gap-2">
+                        <button class="choice-btn" onclick="checkChoice(this, true)">A) Gold is more expensive than silver.</button>
+                        <button class="choice-btn" onclick="checkChoice(this, false)">B) Gold is expensiver than silver.</button>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded-xl shadow-md">
+                    <p class="text-xl mb-3 font-bold">3. "We ____ dinner at a restaurant last night."</p>
+                    <div class="grid grid-cols-1 gap-2">
+                        <button class="choice-btn" onclick="checkChoice(this, true)">A) had</button>
+                        <button class="choice-btn" onclick="checkChoice(this, false)">B) were having (just a simple action)</button>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded-xl shadow-md">
+                    <p class="text-xl mb-3 font-bold">4. "Your phone is ____ as my phone."</p>
+                    <div class="grid grid-cols-1 gap-2">
+                        <button class="choice-btn" onclick="checkChoice(this, false)">A) same</button>
+                        <button class="choice-btn" onclick="checkChoice(this, true)">B) as good</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-6 text-center text-orange-700">Task 3: Correct the Mistakes</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-6 text-xl">
+                <p class="text-gray-600 font-medium">Identify the error and type the correct sentence:</p>
+                <div class="p-4 bg-orange-50 rounded border-l-4 border-orange-400">
+                    <p class="mb-2 italic text-gray-700">"She is more happy than her sister."</p>
+                    <input id="t3q1" data-answer="She is happier than her sister" class="w-full border-b-orange-600"> <button class="answer-btn" data-target="t3q1"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="p-4 bg-orange-50 rounded border-l-4 border-orange-400">
+                    <p class="mb-2 italic text-gray-700">"I were eating when you called."</p>
+                    <input id="t3q2" data-answer="I was eating when you called" class="w-full border-b-orange-600"> <button class="answer-btn" data-target="t3q2"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="p-4 bg-orange-50 rounded border-l-4 border-orange-400">
+                    <p class="mb-2 italic text-gray-700">"Math is badder than History."</p>
+                    <input id="t3q3" data-answer="Math is worse than History" class="w-full border-b-orange-600"> <button class="answer-btn" data-target="t3q3"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="p-4 bg-orange-50 rounded border-l-4 border-orange-400">
+                    <p class="mb-2 italic text-gray-700">"They didn't saw the movie."</p>
+                    <input id="t3q4" data-answer="They didn't see the movie" class="w-full border-b-orange-600"> <button class="answer-btn" data-target="t3q4"><i class="fas fa-eye"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-6 text-center text-orange-700">Task 4: Logic Challenge</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-6 text-xl">
+                <p class="text-gray-600">Rewrite using <strong>comparatives (-er / more than)</strong>:</p>
+                <div class="space-y-4">
+                    <p>1. The bike isn't as fast as the car. <br>→ The car is <input id="t4q1" data-answer="faster than" class="w-32"> the bike. <button class="answer-btn" data-target="t4q1"><i class="fas fa-eye"></i></button></p>
+                    <p>2. I'm not as tall as my brother. <br>→ My brother is <input id="t4q2" data-answer="taller than" class="w-32"> me. <button class="answer-btn" data-target="t4q2"><i class="fas fa-eye"></i></button></p>
+                    <p>3. This cake isn't as delicious as that one. <br>→ That cake is <input id="t4q3" data-answer="more delicious than" class="w-48"> this one. <button class="answer-btn" data-target="t4q3"><i class="fas fa-eye"></i></button></p>
+                    <p>4. Soccer isn't as dangerous as rugby. <br>→ Rugby is <input id="t4q4" data-answer="more dangerous than" class="w-48"> soccer. <button class="answer-btn" data-target="t4q4"><i class="fas fa-eye"></i></button></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-4 text-center text-orange-700">Music Review: Under the Bridge</h2>
+            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto flex flex-col md:flex-row gap-6">
+                <div class="flex-1">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3d9D9OE9RGiFY9M90S6r7m" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <p class="mt-4 italic text-sm">Escute e complete com os verbos no passado e adjetivos!</p>
+                </div>
+                <div class="flex-1 bg-gray-50 p-6 rounded-xl text-lg leading-relaxed font-serif">
+                    <p>Sometimes I feel like I <input id="m1" data-answer="don't" class="w-16 text-center"> have a partner</p>
+                    <p>Sometimes I feel like my only friend</p>
+                    <p>Is the city I live in, the city of angels</p>
+                    <p><input id="m2" data-answer="Lonely" class="w-20 text-center"> <button class="answer-btn" data-target="m2"><i class="fas fa-eye"></i></button> (solitária) as I am, together we cry</p>
+                    <p>I <input id="m3" data-answer="drove" class="w-20 text-center"> <button class="answer-btn" data-target="m3"><i class="fas fa-eye"></i></button> (drive) on her streets 'cause she's my companion</p>
+                    <p>I <input id="m4" data-answer="walked" class="w-20 text-center"> <button class="answer-btn" data-target="m4"><i class="fas fa-eye"></i></button> (walk) through her hills 'cause she knows who I am</p>
+                    <p>She <input id="m5" data-answer="saw" class="w-16 text-center"> <button class="answer-btn" data-target="m5"><i class="fas fa-eye"></i></button> (see) my good deeds and she kissed me windy</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-orange-700">Review Homework</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-xl max-w-3xl mx-auto text-left">
+                    <p class="text-xl font-bold mb-4">Write a short story (40-60 words):</p>
+                    <p class="text-lg text-gray-600 mb-6">Describe a day that started well but had an interruption. Compare that day to today (is today better/worse/colder?).</p>
+                    <textarea class="w-full p-4 border-2 rounded-xl text-xl" rows="4" placeholder="Example: Yesterday while I was..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <div class="bg-white p-12 rounded-3xl shadow-2xl border-t-8 border-orange-500 max-w-3xl">
+                    <i class="fas fa-graduation-cap text-orange-200 text-6xl mb-4"></i>
+                    <h2 class="text-6xl font-black mb-8 text-gray-800">You Nailed It!</h2>
+                    <p class="text-2xl text-gray-600 mb-12">A primeira parte do Módulo A2 foi revisada. Você está pronto para novos desafios!</p>
+                    
+                    <div class="p-8 bg-orange-50 rounded-2xl border-2 border-orange-100 italic">
+                        <p class="text-3xl font-serif text-orange-900 mb-4">"Review the old and learn the new."</p>
+                        <p class="text-xl text-orange-600 font-bold">— Confucius</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t p-4 z-20">
+        <div class="container mx-auto flex justify-between items-center px-8">
+            <button id="prev-btn" class="px-8 py-3 bg-gray-200 rounded-xl font-bold hover:bg-gray-300 disabled:opacity-50">Previous</button>
+            <button id="next-btn" class="px-10 py-3 bg-orange-600 text-white rounded-xl font-bold hover:bg-orange-700">Next</button>
+            <button id="finish-btn" class="hidden px-10 py-3 bg-green-600 text-white rounded-xl font-bold hover:bg-green-700">Finish Review</button>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishBtn = document.getElementById('finish-btn');
+            let currentSlide = 0;
+
+            function updateView() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+                document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+                finishBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+            }
+
+            prevBtn.onclick = () => { currentSlide--; updateView(); };
+            nextBtn.onclick = () => { currentSlide++; updateView(); };
+
+            function checkAnswer(input) {
+                const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
+                input.classList.toggle('correct', isCorrect);
+                input.classList.toggle('incorrect', !isCorrect);
+            }
+
+            document.querySelectorAll('input[data-answer]').forEach(input => {
+                input.onblur = () => checkAnswer(input);
+            });
+
+            window.checkChoice = (btn, isCorrect) => {
+                const parent = btn.parentElement;
+                parent.querySelectorAll('button').forEach(b => {
+                    b.classList.remove('selected-correct', 'selected-incorrect');
+                });
+                btn.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+            };
+
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const input = document.getElementById(btn.dataset.target);
+                    if (input) {
+                        input.value = input.dataset.answer;
+                        checkAnswer(input);
+                    }
+                };
+            });
+
+            updateView();
+        });
+    </script>
+</body>
+</html>

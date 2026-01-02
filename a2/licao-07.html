@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | Lição 07: Interrupted Stories - Consistent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="../enhanced-styles.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .flip-card { background-color: transparent; width: 100%; max-width: 280px; min-height: 180px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 1rem;
+        }
+        .flip-card-front { background-color: #fff; border: 1px solid #e5e7eb; }
+        .flip-card-back { background-color: #fef3c7; transform: rotateY(180deg); font-size: 1rem; font-weight: bold; color: #92400e; }
+
+        input.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        input.incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.2rem; transition: color 0.2s; font-size: 0.9rem; }
+        .answer-btn:hover { color: #db2777; }
+        
+        input { border-bottom: 2px solid #cbd5e1; outline: none; transition: all 0.2s; font-weight: 600; }
+        input:focus { border-bottom-color: #f97316; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> A2 Module</a>
+            <h1 class="text-xl font-semibold text-center">Lesson 07: Interrupted Stories</h1>
+            <div class="w-40"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 160px); overflow-y: auto;">
+
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-5xl font-bold mb-8 text-orange-700 italic">Warm-up: The Interruption</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto text-left space-y-6">
+                    <div class="flex gap-4 items-start">
+                        <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0">A</div>
+                        <p class="text-2xl text-gray-700">"Hey! I saw you in the park yesterday morning!"</p>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <div class="bg-orange-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0">B</div>
+                        <p class="text-2xl text-gray-700">"Oh, really? What <span class="text-blue-600 font-bold">was I doing</span>?"</p>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0">A</div>
+                        <p class="text-2xl text-gray-700">"You <span class="text-blue-600 font-bold">were sitting</span> on a bench <span class="text-green-600 font-bold">when</span> a dog <span class="text-green-600 font-bold">stole</span> your sandwich!"</p>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <div class="bg-orange-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0">B</div>
+                        <p class="text-2xl text-gray-700">"Haha! Yes! <span class="text-green-600 font-bold">While</span> I <span class="text-blue-600 font-bold">was looking</span> at my phone, that dog was very fast."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-5xl font-bold mb-8 text-orange-700">Setting the Scene vs. The Interruption</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8">
+                    <div class="flex-1 text-left text-2xl space-y-6">
+                        <p class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                            <span class="block text-sm uppercase font-bold text-blue-600">Background Action (Long)</span>
+                            "I <span class="text-blue-700 font-extrabold italic">was watching</span> a movie..."
+                        </p>
+                        <p class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                            <span class="block text-sm uppercase font-bold text-green-600">Specific Event (Short)</span>
+                            "...when the power <span class="text-green-700 font-extrabold italic">went</span> out."
+                        </p>
+                    </div>
+                    <div class="flex-1 bg-gray-100 p-6 rounded-xl border-2 border-dashed border-gray-300">
+                        <p class="text-lg text-gray-600"><strong>Rule:</strong> Use <strong>Past Continuous</strong> for the long action and <strong>Past Simple</strong> for the action that breaks it.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-8 text-center text-orange-700">Unexpected Events (Vocabulary)</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto justify-items-center">
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-phone-slash text-3xl mb-2 text-red-500"></i><p class="font-bold">The battery died</p></div><div class="flip-card-back">A bateria acabou</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-cloud-showers-heavy text-3xl mb-2 text-blue-500"></i><p class="font-bold">It started to rain</p></div><div class="flip-card-back">Começou a chover</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-user-friends text-3xl mb-2 text-green-500"></i><p class="font-bold">Met an old friend</p></div><div class="flip-card-back">Encontrou um velho amigo</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-car-crash text-3xl mb-2 text-gray-700"></i><p class="font-bold">Had an accident</p></div><div class="flip-card-back">Teve um acidente</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-door-open text-3xl mb-2 text-amber-600"></i><p class="font-bold">Heard a loud noise</p></div><div class="flip-card-back">Ouviu um barulho alto</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-wifi text-3xl mb-2 text-purple-500"></i><p class="font-bold">The internet cut out</p></div><div class="flip-card-back">A internet caiu</div></div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-6 text-center text-orange-700">Activity 1: Complete the Story</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-6 text-xl">
+                <div class="p-4 bg-gray-50 rounded-lg">
+                    1. We <input id="a1q1-a" data-answer="were eating" class="w-40 text-center"> <button class="answer-btn" data-target="a1q1-a"><i class="fas fa-eye"></i></button> (eat) dinner when someone <input id="a1q1-b" data-answer="knocked" class="w-32 text-center"> <button class="answer-btn" data-target="a1q1-b"><i class="fas fa-eye"></i></button> (knock).
+                </div>
+                <div class="p-4 bg-gray-50 rounded-lg">
+                    2. I <input id="a1q2-a" data-answer="was walking" class="w-40 text-center"> <button class="answer-btn" data-target="a1q2-a"><i class="fas fa-eye"></i></button> (walk) home when I <input id="a1q2-b" data-answer="saw" class="w-24 text-center"> <button class="answer-btn" data-target="a1q2-b"><i class="fas fa-eye"></i></button> (see) a crash.
+                </div>
+                <div class="p-4 bg-gray-50 rounded-lg">
+                    3. While she <input id="a1q3-a" data-answer="was cleaning" class="w-40 text-center"> <button class="answer-btn" data-target="a1q3-a"><i class="fas fa-eye"></i></button> (clean), she <input id="a1q3-b" data-answer="found" class="w-24 text-center"> <button class="answer-btn" data-target="a1q3-b"><i class="fas fa-eye"></i></button> (find) her ring.
+                </div>
+                <div class="p-4 bg-gray-50 rounded-lg">
+                    4. My boss <input id="a1q4-a" data-answer="called" class="w-32 text-center"> <button class="answer-btn" data-target="a1q4-a"><i class="fas fa-eye"></i></button> (call) while I <input id="a1q4-b" data-answer="was having" class="w-40 text-center"> <button class="answer-btn" data-target="a1q4-b"><i class="fas fa-eye"></i></button> (have) lunch.
+                </div>
+                <div class="p-4 bg-gray-50 rounded-lg">
+                    5. It <input id="a1q5-a" data-answer="was raining" class="w-40 text-center"> <button class="answer-btn" data-target="a1q5-a"><i class="fas fa-eye"></i></button> (rain) when we <input id="a1q5-b" data-answer="left" class="w-24 text-center"> <button class="answer-btn" data-target="a1q5-b"><i class="fas fa-eye"></i></button> (leave).
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-6 text-center text-orange-700">Activity 2: When or While?</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6 text-2xl">
+                <p>1. <input id="a2q1" data-answer="While" class="w-32 text-center"> <button class="answer-btn" data-target="a2q1"><i class="fas fa-eye"></i></button> I was studying, my cat jumped on the desk.</p>
+                <p>2. I was sleeping <input id="a2q2" data-answer="when" class="w-32 text-center"> <button class="answer-btn" data-target="a2q2"><i class="fas fa-eye"></i></button> the alarm went off.</p>
+                <p>3. <input id="a2q3" data-answer="While" class="w-32 text-center"> <button class="answer-btn" data-target="a2q3"><i class="fas fa-eye"></i></button> they were playing, it started to snow.</p>
+                <p>4. He broke his leg <input id="a2q4" data-answer="when" class="w-32 text-center"> <button class="answer-btn" data-target="a2q4"><i class="fas fa-eye"></i></button> he was skiing.</p>
+                <p>5. The teacher arrived <input id="a2q5" data-answer="while" class="w-32 text-center"> <button class="answer-btn" data-target="a2q5"><i class="fas fa-eye"></i></button> we were talking.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-orange-700">Activity 3: Music Time!</h2>
+            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto flex flex-col md:flex-row gap-6">
+                <div class="flex-1">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/003CxHmWpRSvS7nC0dtYbs" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <div class="mt-4 p-4 bg-orange-50 rounded-lg text-lg italic border-l-4 border-orange-400">
+                        "I'm coming out of my cage..." - Ouça e preencha com as palavras que faltam.
+                    </div>
+                </div>
+                <div class="flex-1 bg-gray-50 p-6 rounded-xl text-xl leading-relaxed">
+                    <p>It <input id="mq1" data-answer="started" class="w-28 text-center bg-transparent"> <button class="answer-btn" data-target="mq1"><i class="fas fa-eye"></i></button> with a kiss</p>
+                    <p>How <input id="mq2" data-answer="did" class="w-16 text-center bg-transparent"> <button class="answer-btn" data-target="mq2"><i class="fas fa-eye"></i></button> it end up like this?</p>
+                    <p>It <input id="mq3" data-answer="was" class="w-16 text-center bg-transparent"> <button class="answer-btn" data-target="mq3"><i class="fas fa-eye"></i></button> only a kiss</p>
+                    <p>(...) Now I'm <input id="mq4" data-answer="falling" class="w-24 text-center bg-transparent"> <button class="answer-btn" data-target="mq4"><i class="fas fa-eye"></i></button> asleep</p>
+                    <p>And she's <input id="mq5" data-answer="calling" class="w-24 text-center bg-transparent"> <button class="answer-btn" data-target="mq5"><i class="fas fa-eye"></i></button> a cab</p>
+                    <p>While he's <input id="mq6" data-answer="having" class="w-24 text-center bg-transparent"> <button class="answer-btn" data-target="mq6"><i class="fas fa-eye"></i></button> a smoke</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+               <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-pencil-alt text-purple-500"></i> Homework</h2>
+               <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                   <p class="text-2xl mb-8 text-gray-600">Create 3 sentences about your week using <strong>WHEN</strong> and <strong>WHILE</strong>.</p>
+                   <div class="text-left text-xl bg-gray-50 p-6 rounded-lg space-y-4">
+                       <p>1. While I was ____________________, ____________________.</p>
+                       <p>2. I was ____________________ when ____________________.</p>
+                       <p>3. When ____________________, I was ____________________.</p>
+                       <textarea class="w-full mt-4 p-3 border-2 rounded-lg text-xl" rows="4" placeholder="Write your stories here..."></textarea>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <div class="bg-white p-12 rounded-3xl shadow-2xl border-t-8 border-orange-500 max-w-3xl">
+                    <i class="fas fa-quote-left text-orange-200 text-6xl mb-4"></i>
+                    <h2 class="text-6xl font-black mb-8 text-gray-800">Well Done!</h2>
+                    <p class="text-3xl text-gray-600 mb-12">Você aprendeu a contar histórias e descrever interrupções no passado.</p>
+                    
+                    <div class="p-8 bg-orange-50 rounded-2xl border-2 border-orange-100 italic">
+                        <p class="text-3xl font-serif text-orange-900 mb-4">"Life is what happens while you are busy making other plans."</p>
+                        <p class="text-xl text-orange-600 font-bold">— John Lennon</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t p-4 z-20">
+        <div class="container mx-auto flex justify-between items-center px-8">
+            <button id="prev-btn" class="px-8 py-3 bg-gray-200 rounded-xl font-bold hover:bg-gray-300 disabled:opacity-50">Previous</button>
+            <button id="next-btn" class="px-10 py-3 bg-orange-600 text-white rounded-xl font-bold hover:bg-orange-700">Next</button>
+            <button id="finish-btn" class="hidden px-10 py-3 bg-green-600 text-white rounded-xl font-bold hover:bg-green-700">Finish Lesson</button>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishBtn = document.getElementById('finish-btn');
+            let currentSlide = 0;
+
+            function updateView() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+                document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+                finishBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+            }
+
+            prevBtn.onclick = () => { currentSlide--; updateView(); };
+            nextBtn.onclick = () => { currentSlide++; updateView(); };
+
+            function checkAnswer(input) {
+                const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
+                input.classList.toggle('correct', isCorrect);
+                input.classList.toggle('incorrect', !isCorrect);
+            }
+
+            document.querySelectorAll('input[data-answer]').forEach(input => {
+                input.onblur = () => checkAnswer(input);
+            });
+
+            // Revelar INDIVIDUALMENTE
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const targetId = btn.dataset.target;
+                    const input = document.getElementById(targetId);
+                    if (input) {
+                        input.value = input.dataset.answer;
+                        checkAnswer(input);
+                    }
+                };
+            });
+
+            document.querySelectorAll('.flip-card').forEach(card => {
+                card.onclick = () => card.classList.toggle('flipped');
+            });
+
+            updateView();
+        });
+    </script>
+</body>
+</html>
