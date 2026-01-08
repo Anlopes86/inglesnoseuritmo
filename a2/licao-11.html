@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | Lição 11: The Biggest and The Best</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; font-size: 1.25rem; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .flip-card { background-color: transparent; width: 100%; max-width: 220px; min-height: 150px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 1.5rem;
+        }
+        .flip-card-front { background-color: #fff; border: 2px solid #e5e7eb; font-weight: bold; font-size: 1.5rem; }
+        .flip-card-back { background-color: #fdf2f8; transform: rotateY(180deg); font-weight: bold; color: #be185d; font-size: 1.4rem; }
+
+        input.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        input.incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
+        .answer-btn:hover { color: #db2777; }
+        
+        input { border-bottom: 3px solid #cbd5e1; outline: none; transition: all 0.2s; font-weight: 600; background: transparent; padding: 0 10px; }
+        .choice-btn { border: 2px solid #e5e7eb; padding: 16px; border-radius: 12px; transition: all 0.2s; cursor: pointer; text-align: left; width: 100%; font-size: 1.3rem; }
+        .choice-btn:hover { border-color: #db2777; background-color: #fdf2f8; }
+        .selected-correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        .selected-incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="a2.html" class="text-xl font-bold text-pink-600 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Módulo A2</a>
+            <h1 class="text-2xl font-black text-center uppercase tracking-tighter">Lesson 11: The Biggest and The Best</h1>
+            <div class="w-40"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-2"><div id="progress-bar" class="bg-pink-500 h-2 transition-all duration-300"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 180px); overflow-y: auto;">
+
+        <div class="slide active">
+            <h2 class="text-4xl font-bold mb-10 text-center text-pink-700 italic">Warm-up: World Records</h2>
+            <div class="bg-white p-12 rounded-3xl shadow-xl max-w-4xl mx-auto space-y-6 border-l-8 border-pink-500 text-2xl">
+                <div class="flex gap-4">
+                    <span class="font-bold text-pink-600">Guide:</span>
+                    <p class="italic">"Welcome! This is <strong>the tallest</strong> building in the city."</p>
+                </div>
+                <div class="flex gap-4">
+                    <span class="font-bold text-blue-600">Tourist:</span>
+                    <p class="italic">"Wow! Is it also <strong>the most expensive</strong> hotel in the world?"</p>
+                </div>
+                <div class="flex gap-4">
+                    <span class="font-bold text-pink-600">Guide:</span>
+                    <p class="italic">"No, but it has <strong>the best</strong> view of the ocean."</p>
+                </div>
+                <div class="flex gap-4">
+                    <span class="font-bold text-blue-600">Tourist:</span>
+                    <p class="italic">"This is <strong>the most amazing</strong> experience of my life!"</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-6 text-center text-pink-700">Grammar Focus: Superlatives</h2>
+            <div class="max-w-6xl mx-auto space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-pink-500">
+                        <h3 class="text-2xl font-bold mb-4 text-pink-800"><i class="fas fa-bolt mr-2"></i>Short Adjectives</h3>
+                        <p class="mb-4 text-gray-600">Adicione <strong>-est</strong> ao final. Use sempre <strong>"the"</strong> antes.</p>
+                        <table class="w-full text-left text-xl">
+                            <tr class="border-b"> <td class="py-2">Fast</td> <td class="py-2">→</td> <td class="py-2 font-bold text-pink-600">The fastest</td> </tr>
+                            <tr class="border-b"> <td class="py-2">Old</td> <td class="py-2">→</td> <td class="py-2 font-bold text-pink-600">The oldest</td> </tr>
+                            <tr class="border-b"> <td class="py-2">Big*</td> <td class="py-2">→</td> <td class="py-2 font-bold text-pink-600">The biggest</td> </tr>
+                            <tr> <td class="py-2">Happy*</td> <td class="py-2">→</td> <td class="py-2 font-bold text-pink-600">The happiest</td> </tr>
+                        </table>
+                        <p class="mt-4 text-sm text-gray-500">*CVC (consoante-vogal-consoante) dobra a letra final. Terminado em 'y' vira 'iest'.</p>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-blue-500">
+                        <h3 class="text-2xl font-bold mb-4 text-blue-800"><i class="fas fa-layer-group mr-2"></i>Long Adjectives</h3>
+                        <p class="mb-4 text-gray-600">Use <strong>the most</strong> antes do adjetivo. O adjetivo não muda.</p>
+                        <table class="w-full text-left text-xl">
+                            <tr class="border-b"> <td class="py-2">Modern</td> <td class="py-2">→</td> <td class="py-2 font-bold text-blue-600">The most modern</td> </tr>
+                            <tr class="border-b"> <td class="py-2">Beautiful</td> <td class="py-2">→</td> <td class="py-2 font-bold text-blue-600">The most beautiful</td> </tr>
+                            <tr class="border-b"> <td class="py-2">Interesting</td> <td class="py-2">→</td> <td class="py-2 font-bold text-blue-600">The most interesting</td> </tr>
+                            <tr> <td class="py-2">Expensive</td> <td class="py-2">→</td> <td class="py-2 font-bold text-blue-600">The most expensive</td> </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-indigo-50 p-8 rounded-2xl shadow-md border-l-8 border-indigo-600">
+                        <h3 class="text-2xl font-bold mb-4 text-indigo-800">The Difference: Tall vs. High</h3>
+                        <div class="space-y-4 text-xl">
+                            <p><strong><i class="fas fa-user mr-2"></i>Tall:</strong> Para altura vertical de seres vivos (pessoas, girafas) ou objetos estreitos e altos (prédios, torres).</p>
+                            <p class="italic text-gray-600">"He is the tallest man." | "The Eiffel Tower is tall."</p>
+                            <p><strong><i class="fas fa-mountain mr-2"></i>High:</strong> Para altitude ou distância em relação ao chão. Usado para montanhas, muros, prateleiras ou nuvens.</p>
+                            <p class="italic text-gray-600">"Everest is the highest mountain." | "The plane is high."</p>
+                        </div>
+                    </div>
+                    <div class="bg-yellow-50 p-8 rounded-2xl shadow-md border-l-8 border-yellow-600">
+                        <h3 class="text-2xl font-bold mb-4 text-yellow-800">Irregular Forms (The Exceptions)</h3>
+                        <ul class="space-y-4 text-xl">
+                            <li><strong>Good</strong> → <span class="font-bold text-green-700">The best</span> (O melhor)</li>
+                            <li><strong>Bad</strong> → <span class="font-bold text-red-700">The worst</span> (O pior)</li>
+                            <li><strong>Far</strong> → <span class="font-bold text-orange-700">The farthest / furthest</span> (O mais longe)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-10 text-center text-pink-700 uppercase">World Landmarks</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-mountain text-emerald-600 mb-3 text-4xl"></i><br>Mountain</div><div class="flip-card-back">Montanha</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-water text-blue-500 mb-3 text-4xl"></i><br>River</div><div class="flip-card-back">Rio</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-city text-gray-600 mb-3 text-4xl"></i><br>City</div><div class="flip-card-back">Cidade</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-sun text-yellow-500 mb-3 text-4xl"></i><br>Desert</div><div class="flip-card-back">Deserto</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-bridge text-amber-700 mb-3 text-4xl"></i><br>Bridge</div><div class="flip-card-back">Ponte</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-monument text-purple-500 mb-3 text-4xl"></i><br>Monument</div><div class="flip-card-back">Monumento</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-tree text-green-700 mb-3 text-4xl"></i><br>Forest</div><div class="flip-card-back">Floresta</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-building text-blue-900 mb-3 text-4xl"></i><br>Building</div><div class="flip-card-back">Prédio</div></div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-8 text-center text-pink-700">Task 1: The Short Superlatives</h2>
+            <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
+                <p>1. Mount Everest is <input id="t1q1" data-answer="the highest" class="w-48 text-center"> mountain. <span class="text-gray-400 text-lg">(use: high)</span> <button class="answer-btn" data-target="t1q1"><i class="fas fa-eye"></i></button></p>
+                <p>2. The Sahara is <input id="t1q2" data-answer="the hottest" class="w-48 text-center"> desert. <span class="text-gray-400 text-lg">(use: hot)</span> <button class="answer-btn" data-target="t1q2"><i class="fas fa-eye"></i></button></p>
+                <p>3. Russia is <input id="t1q3" data-answer="the biggest" class="w-48 text-center"> country. <span class="text-gray-400 text-lg">(use: big)</span> <button class="answer-btn" data-target="t1q3"><i class="fas fa-eye"></i></button></p>
+                <p>4. He is <input id="t1q4" data-answer="the tallest" class="w-48 text-center"> basketball player. <span class="text-gray-400 text-lg">(use: tall)</span> <button class="answer-btn" data-target="t1q4"><i class="fas fa-eye"></i></button></p>
+                <p>5. This is <input id="t1q5" data-answer="the smallest" class="w-48 text-center"> bird in the world. <span class="text-gray-400 text-lg">(use: small)</span> <button class="answer-btn" data-target="t1q5"><i class="fas fa-eye"></i></button></p>
+                <p>6. Antarctica is <input id="t1q6" data-answer="the coldest" class="w-48 text-center"> place. <span class="text-gray-400 text-lg">(use: cold)</span> <button class="answer-btn" data-target="t1q6"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-8 text-center text-pink-700">Task 2: Long & Irregular Superlatives</h2>
+            <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
+                <p>1. Paris is <input id="t2q1" data-answer="the most beautiful" class="w-80 text-center"> city. <span class="text-gray-400 text-lg">(use: beautiful)</span> <button class="answer-btn" data-target="t2q1"><i class="fas fa-eye"></i></button></p>
+                <p>2. That was <input id="t2q2" data-answer="the best" class="w-48 text-center"> pizza ever! <span class="text-gray-400 text-lg">(use: good)</span> <button class="answer-btn" data-target="t2q2"><i class="fas fa-eye"></i></button></p>
+                <p>3. This is <input id="t2q3" data-answer="the most expensive" class="w-80 text-center"> car. <span class="text-gray-400 text-lg">(use: expensive)</span> <button class="answer-btn" data-target="t2q3"><i class="fas fa-eye"></i></button></p>
+                <p>4. It was <input id="t2q4" data-answer="the worst" class="w-48 text-center"> movie ever. <span class="text-gray-400 text-lg">(use: bad)</span> <button class="answer-btn" data-target="t2q4"><i class="fas fa-eye"></i></button></p>
+                <p>5. She is <input id="t2q5" data-answer="the most popular" class="w-80 text-center"> singer. <span class="text-gray-400 text-lg">(use: popular)</span> <button class="answer-btn" data-target="t2q5"><i class="fas fa-eye"></i></button></p>
+                <p>6. Science is <input id="t2q6" data-answer="the most interesting" class="w-80 text-center"> subject. <span class="text-gray-400 text-lg">(use: interesting)</span> <button class="answer-btn" data-target="t2q6"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-6 text-center text-pink-700">Task 3: Making Comparisons</h2>
+            <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">1. You are at the top of a mountain.</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">This is the highest point I've reached.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">This is the tallest point I've reached.</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">2. Meeting a giant person.</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, false)">You are the most high person here.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, true)">You are the tallest person I know!</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">3. Looking at a 0/10 grade.</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">This is the worst result in the class.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">This is the baddest result.</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">4. Describing a 5-star hotel.</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">It's the most luxurious hotel in town.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">It's the more luxury hotel.</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">5. About the Burj Khalifa tower.</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, false)">It's the highest tower.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, true)">It's the tallest building in the world.</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">6. A perfect vacation.</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">It was the best time of my life.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">It was the goodest time.</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-6 text-center text-pink-700 italic">Music: "(Simply) The Best" – Tina Turner</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-6xl mx-auto flex flex-col md:flex-row gap-10">
+                <div class="flex-1 text-center">
+                    <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/8" width="100%" height="180" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <p class="mt-6 italic text-gray-500">The most iconic song about being number one!</p>
+                </div>
+                <div class="flex-1 bg-slate-50 p-8 rounded-xl text-xl leading-relaxed font-serif overflow-y-auto" style="max-height: 450px;">
+                    <p class="font-bold text-pink-600 mb-2">[Chorus]</p>
+                    <p>You're simply <input id="m1" data-answer="the best" class="w-40 text-center"> <button class="answer-btn" data-target="m1"><i class="fas fa-eye"></i></button></p>
+                    <p>Better than <input id="m2" data-answer="all the rest" class="w-40 text-center"> <button class="answer-btn" data-target="m2"><i class="fas fa-eye"></i></button></p>
+                    <p>Better than <input id="m3" data-answer="anyone" class="w-40 text-center"> <button class="answer-btn" data-target="m3"><i class="fas fa-eye"></i></button></p>
+                    <p>Anyone I've ever met</p><br>
+                    <p>You are <input id="m4" data-answer="the brightest" class="w-44 text-center"> star <button class="answer-btn" data-target="m4"><i class="fas fa-eye"></i></button></p>
+                    <p>It is <input id="m5" data-answer="the most amazing" class="w-56 text-center"> feeling <button class="answer-btn" data-target="m5"><i class="fas fa-eye"></i></button></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-8 text-pink-700">Homework: Your Records</h2>
+                <div class="bg-white p-12 rounded-3xl shadow-xl max-w-4xl mx-auto text-left border-t-8 border-pink-500">
+                    <p class="text-2xl font-bold mb-6">Write 6 superlative sentences about your life:</p>
+                    <ul class="list-disc ml-8 space-y-4 text-xl text-gray-700">
+                        <li><strong>The best</strong> city you know.</li>
+                        <li><strong>The most beautiful</strong> beach you visited.</li>
+                        <li><strong>The oldest</strong> person you know.</li>
+                        <li><strong>The most delicious</strong> meal you've had.</li>
+                        <li><strong>The tallest</strong> building in your city.</li>
+                        <li><strong>The most interesting</strong> hobby you have.</li>
+                    </ul>
+                    <textarea class="w-full mt-8 p-6 border-2 rounded-2xl text-2xl" rows="4" placeholder="In my opinion..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <div class="bg-white p-16 rounded-3xl shadow-2xl border-t-8 border-pink-500 max-w-4xl">
+                    <i class="fas fa-trophy text-pink-400 text-8xl mb-10"></i>
+                    <h2 class="text-6xl font-black mb-10 text-gray-800">Top of the World!</h2>
+                    <p class="text-3xl text-gray-600 mb-16">Agora você sabe como descrever o que há de mais extraordinário no mundo!</p>
+                    
+                    <div class="p-10 bg-pink-50 rounded-2xl border-2 border-pink-100 italic">
+                        <p class="text-4xl font-serif text-pink-900 mb-6">"You don't have to be the best to start, but you have to start to be the best."</p>
+                        <p class="text-2xl text-pink-600 font-bold">— Zig Ziglar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t p-6 z-20">
+        <div class="container mx-auto flex justify-between items-center px-8">
+            <button id="prev-btn" class="px-10 py-4 bg-gray-200 rounded-xl font-bold text-xl hover:bg-gray-300 disabled:opacity-50">Previous</button>
+            <button id="next-btn" class="px-12 py-4 bg-pink-600 text-white rounded-xl font-bold text-xl hover:bg-pink-700">Next</button>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            let currentSlide = 0;
+
+            function updateView() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+                document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.innerText = currentSlide === slides.length - 1 ? 'Finish' : 'Next';
+            }
+
+            prevBtn.onclick = () => { if(currentSlide > 0) currentSlide--; updateView(); };
+            nextBtn.onclick = () => { if(currentSlide < slides.length - 1) { currentSlide++; updateView(); } };
+
+            function checkAnswer(input) {
+                const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
+                input.classList.toggle('correct', isCorrect);
+                input.classList.toggle('incorrect', !isCorrect);
+            }
+
+            document.querySelectorAll('input[data-answer]').forEach(input => {
+                input.onblur = () => checkAnswer(input);
+            });
+
+            window.checkChoice = (btn, isCorrect) => {
+                const parent = btn.parentElement;
+                parent.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected-correct', 'selected-incorrect'));
+                btn.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+            };
+
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const input = document.getElementById(btn.dataset.target);
+                    if (input) { input.value = input.dataset.answer; checkAnswer(input); }
+                };
+            });
+
+            document.querySelectorAll('.flip-card').forEach(card => card.onclick = () => card.classList.toggle('flipped'));
+            updateView();
+        });
+    </script>
+</body>
+</html>

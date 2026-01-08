@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation Class - Lesson 26: Psychology & Human Behavior</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #4a5568; }
+        .flashcard-front { background-color: #2d3748; color: #a0aec0; text-align: center; }
+        .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
+        .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
+        .lyrics-box { max-height: 400px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #4a5568 #2d3748; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="conversation.html" class="text-lg font-bold text-indigo-400 hover:text-indigo-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
+            <h1 class="text-xl font-semibold text-center">Lesson 26: Psychology & Human Behavior</h1>
+            <div class="w-32"></div>
+        </div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-indigo-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-indigo-400"><i class="fas fa-brain"></i> Warm-up: The Mind</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6 text-2xl">
+                    <p><i class="fas fa-question-circle mr-2 text-indigo-400"></i> Why do you think people act differently in groups than they do alone?</p>
+                    <p><i class="fas fa-smile mr-2 text-indigo-400"></i> Are you good at reading other people's <b>body language</b>?</p>
+                    <p><i class="fas fa-sync mr-2 text-indigo-400"></i> Nature or Nurture? Do you think our behavior is inherited or learned from society?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-indigo-400"><i class="fas fa-list"></i> Key Psychological Terms</h2>
+                <div class="flashcard-grid max-w-6xl mx-auto">
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Resilience</h4></div><div class="flashcard-back"><p class="text-xl">The capacity to recover quickly from difficulties; mental toughness.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Empathy</h4></div><div class="flashcard-back"><p class="text-xl">The ability to understand and share the feelings of another person.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Cognitive Bias</h4></div><div class="flashcard-back"><p class="text-xl">A systematic error in thinking that occurs when people are processing information.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Introvert / Extrovert</h4></div><div class="flashcard-back"><p class="text-xl">Terms describing where a person gets their energy from.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Defense Mechanism</h4></div><div class="flashcard-back"><p class="text-xl">An unconscious psychological strategy used to protect a person from anxiety.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Attachment Style</h4></div><div class="flashcard-back"><p class="text-xl">How we relate and connect to others (Secure, Anxious, or Avoidant).</p></div></div></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-indigo-400"><i class="fas fa-music text-blue-400"></i> Music Time: Mad World (Gary Jules)</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3S0OXQeG6R6YV2HpxQAz39" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-blue-400">
+                    <p>All around me are familiar faces / Worn out places, worn out faces</p>
+                    <p>Bright and early for the daily <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="races"><i class="fas fa-eye"></i></button></p>
+                    <p>Going nowhere, going <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="nowhere"><i class="fas fa-eye"></i></button></p>
+                    <p>Hide my head, I wanna drown my <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="sorrow"><i class="fas fa-eye"></i></button></p>
+                    <p class="font-bold text-blue-400 mt-4 italic">Chorus:</p>
+                    <p>And I find it kind of funny, I find it kind of <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="sad"><i class="fas fa-eye"></i></button></p>
+                    <p>The dreams in which I'm dying are the best I've ever had</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-indigo-400"><i class="fas fa-question-circle text-orange-400"></i> Discussion: Social Alienation</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl text-left">
+                <p><i class="fas fa-comment-dots text-indigo-400"></i> The song mentions "familiar faces" that are "worn out" (exaustos). Do you think modern life makes us emotionally exhausted?</p>
+                <p><i class="fas fa-comment-dots text-indigo-400"></i> Why do some people feel lonely even when they are surrounded by "familiar faces"?</p>
+            </div></div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-indigo-400"><i class="fas fa-music text-pink-400"></i> Music Time: Lost on You (LP)</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/19dg7690K9vS2XUpxp3A6I" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-pink-400">
+                    <p>When you get older, plainer, saner / Will you remember all the danger we came from?</p>
+                    <p>Burning like the embers falling tender / Longing for the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="days"><i class="fas fa-eye"></i></button> of no surrender</p>
+                    <p>Years ago... will you know?</p>
+                    <p>So smoke 'em if you got 'em / 'Cause it's going <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="down"><i class="fas fa-eye"></i></button></p>
+                    <p>All I ever wanted was you / I'll never get to <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="heaven"><i class="fas fa-eye"></i></button></p>
+                    <p class="font-bold text-pink-400 mt-4 italic">Chorus:</p>
+                    <p>Let's raise a glass or two to all the things I've <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="lost"><i class="fas fa-eye"></i></button> on you</p>
+                    <p>Tell me are they <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="lost"><i class="fas fa-eye"></i></button> on you?</p>
+                    <p>Just that you could cut me loose / After everything I've lost on you</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-indigo-400"><i class="fas fa-heart-broken text-pink-400"></i> Discussion: Emotional Investment</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl text-left">
+                <p><i class="fas fa-comment-dots text-pink-400"></i> LP sings about "all the things I've lost on you." Can we "lose" parts of our personality or our time in a bad relationship?</p>
+                <p><i class="fas fa-comment-dots text-pink-400"></i> Why is it so hard for the human brain to "let go" (cut loose) after investing so much energy in someone?</p>
+            </div></div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-indigo-400"><i class="fas fa-music text-red-500"></i> Music Time: Stressed Out (Twenty One Pilots)</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3CRDbSIZoG1Zp7R7RjT7dn" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-red-500">
+                    <p>I wish I found some better sounds no one's ever heard</p>
+                    <p>I wish I had a better voice that sang some better <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="words"><i class="fas fa-eye"></i></button></p>
+                    <p>I was told when I get older all my <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="fears"><i class="fas fa-eye"></i></button> would shrink</p>
+                    <p>But now I'm <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="insecure"><i class="fas fa-eye"></i></button> and I care what people think</p>
+                    <p class="font-bold text-red-400 mt-4 italic">Chorus:</p>
+                    <p>Wish we could turn back <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="time"><i class="fas fa-eye"></i></button>, to the good old days</p>
+                    <p>When our momma sang us to sleep but now we're <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="stressed out"><i class="fas fa-eye"></i></button></p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-indigo-400"><i class="fas fa-history text-red-500"></i> Discussion: Anxiety & Adulthood</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl text-left">
+                <p><i class="fas fa-comment-dots text-red-500"></i> The singer says his "fears grew" instead of "shrinking" in adulthood. Why is adult life so stressful for our generation?</p>
+                <p><i class="fas fa-comment-dots text-red-500"></i> Why do we often care so much about what "other people think"? Is insecurity a <b>defense mechanism</b>?</p>
+            </div></div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-indigo-400"><i class="fas fa-tasks"></i> Practice: Psychology in Action</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div id="matching-activity" class="space-y-4"></div>
+                <button id="check-answers-btn" class="mt-8 bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-indigo-700">Check Answers</button>
+            </div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-indigo-400"><i class="fas fa-home"></i> Homework</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                 <p class="text-2xl mb-6 text-gray-300">Observe your behavior tomorrow. Identify one moment where you used a <b>defense mechanism</b> and one where you showed <b>empathy</b>. Write it down.</p>
+             </div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center flex flex-col items-center justify-center h-full">
+                 <i class="fas fa-brain text-indigo-400 text-7xl mb-6"></i>
+                 <h2 class="text-5xl font-bold mb-4 text-gray-100">Lesson Complete!</h2>
+                 <p class="text-2xl italic text-gray-400 max-w-2xl mx-auto">"Everything that irritates us about others can lead us to an understanding of ourselves." - Carl Jung</p>
+             </div>
+        </div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-indigo-700">Próximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finalizar Aula</button>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+                if (prevBtn) prevBtn.disabled = index === 0;
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+            }
+
+            if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } };
+            if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } };
+
+            document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+            
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const inputField = button.previousElementSibling;
+                    if (inputField) {
+                        inputField.value = button.dataset.answer;
+                        inputField.classList.add('text-indigo-400', 'font-bold');
+                    }
+                });
+            });
+
+            const activityContainer = document.getElementById('matching-activity'), checkAnswersBtn = document.getElementById('check-answers-btn');
+            const expressions=[
+                {id:'resilience',text:'Resilience'}, {id:'empathy',text:'Empathy'}, {id:'bias',text:'Cognitive Bias'},
+                {id:'extrovert',text:'Extrovert'}, {id:'defense',text:'Defense Mechanism'}, {id:'attachment',text:'Attachment Style'}
+            ];
+            const situations=[
+                {text:"Someone who gains energy from being around large groups of people.",answer:'extrovert'},
+                {text:"The ability to bounce back after failing a very important exam.",answer:'resilience'},
+                {text:"Feeling sad because you see your friend is going through a hard time.",answer:'empathy'},
+                {text:"A person blaming their tools when they fail a task to protect their ego.",answer:'defense'},
+                {text:"Believing only information that confirms what you already believe.",answer:'bias'},
+                {text:"The way you relate to and depend on people in a relationship.",answer:'attachment'}
+            ];
+            function shuffle(array) { return array.sort(() => Math.random() - 0.5); }
+            
+            activityContainer.innerHTML = situations.map((sit, index) => `
+                <div id="q-${index}" class="p-4 rounded-lg bg-gray-900 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p>
+                    <select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg">
+                        <option value="">Select...</option>
+                        ${shuffle([...expressions]).map(exp => `<option value="${exp.id}">${exp.text}</option>`).join('')}
+                    </select>
+                </div>`).join('');
+
+            checkAnswersBtn.onclick = () => {
+                activityContainer.querySelectorAll('select').forEach((select, index) => {
+                    const div = document.getElementById(`q-${index}`);
+                    if (select.value === select.dataset.answer) {
+                        div.style.borderColor = '#10b981';
+                        div.classList.add('bg-green-900/30');
+                    } else if (select.value !== "") {
+                        div.style.borderColor = '#ef4444';
+                        div.classList.add('bg-red-900/30');
+                    }
+                });
+            };
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>

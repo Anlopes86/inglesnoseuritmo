@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | Lição 14: Do I Have to...?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; font-size: 1.25rem; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .flip-card { background-color: transparent; width: 100%; max-width: 220px; min-height: 150px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 1.5rem;
+        }
+        .flip-card-front { background-color: #fff; border: 2px solid #e5e7eb; font-weight: bold; font-size: 1.5rem; }
+        .flip-card-back { background-color: #fdf2f8; transform: rotateY(180deg); font-weight: bold; color: #be185d; font-size: 1.4rem; }
+
+        input.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        input.incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
+        .answer-btn:hover { color: #db2777; }
+        
+        input { border-bottom: 3px solid #cbd5e1; outline: none; transition: all 0.2s; font-weight: 600; background: transparent; padding: 0 10px; }
+        .choice-btn { border: 2px solid #e5e7eb; padding: 16px; border-radius: 12px; transition: all 0.2s; cursor: pointer; text-align: left; width: 100%; font-size: 1.3rem; }
+        .choice-btn:hover { border-color: #db2777; background-color: #fdf2f8; }
+        .selected-correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        .selected-incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="a2.html" class="text-xl font-bold text-pink-600 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Módulo A2</a>
+            <h1 class="text-2xl font-black text-center uppercase tracking-tighter">Lesson 14: Do I Have to...?</h1>
+            <div class="w-40"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-2"><div id="progress-bar" class="bg-pink-500 h-2 transition-all duration-300"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 180px); overflow-y: auto;">
+
+        <div class="slide active">
+            <h2 class="text-4xl font-bold mb-10 text-center text-pink-700 italic">Warm-up: Travel Questions</h2>
+            <div class="bg-white p-12 rounded-3xl shadow-xl max-w-4xl mx-auto space-y-6 border-l-8 border-pink-500 text-2xl">
+                <div class="flex gap-4">
+                    <span class="font-bold text-pink-600">Traveler:</span>
+                    <p class="italic">"Excuse me, <strong>do I have to</strong> show my passport now?"</p>
+                </div>
+                <div class="flex gap-4">
+                    <span class="font-bold text-gray-600">Officer:</span>
+                    <p class="italic">"Yes, you <strong>must</strong> show it at the gate. And you <strong>mustn't</strong> leave your bags alone."</p>
+                </div>
+                <div class="flex gap-4">
+                    <span class="font-bold text-pink-600">Traveler:</span>
+                    <p class="italic">"Understood. <strong>Does</strong> my friend <strong>have to</strong> take off his shoes?"</p>
+                </div>
+                <div class="flex gap-4">
+                    <span class="font-bold text-gray-600">Officer:</span>
+                    <p class="italic">"No, he <strong>doesn't have to</strong>, but he <strong>must</strong> put all metal objects in the tray."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-6 text-center text-pink-700">Grammar Focus: Questions & Must</h2>
+            <div class="max-w-6xl mx-auto space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-pink-500">
+                        <h3 class="text-2xl font-bold mb-6 text-pink-800"><i class="fas fa-question-circle mr-2"></i>Interrogative</h3>
+                        <p class="mb-4">Use <strong>Do</strong> ou <strong>Does</strong> para perguntar sobre obrigações:</p>
+                        <ul class="space-y-2 text-xl italic text-gray-600">
+                            <li>"<strong>Do</strong> you <strong>have to</strong> pay?"</li>
+                            <li>"<strong>Does</strong> he <strong>have to</strong> wait?"</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-red-500">
+                        <h3 class="text-2xl font-bold mb-6 text-red-800"><i class="fas fa-exclamation-triangle mr-2"></i>Must & Mustn't</h3>
+                        <p class="mb-4"><strong>Must:</strong> Obrigação forte/regra.</p>
+                        <p class="mb-4"><strong>Mustn't:</strong> Proibição absoluta.</p>
+                        <ul class="space-y-2 text-xl italic text-gray-600">
+                            <li>"You <strong>must</strong> wear a belt."</li>
+                            <li>"You <strong>mustn't</strong> park here."</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-10 text-center text-pink-700 uppercase">Rules in Public Places</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-passport mb-3 text-4xl"></i><br>Passport</div><div class="flip-card-back">Passaporte</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-ban mb-3 text-4xl"></i><br>Forbidden</div><div class="flip-card-back">Proibido</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-volume-mute mb-3 text-4xl"></i><br>Keep quiet</div><div class="flip-card-back">Fazer silêncio</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-smoking-ban mb-3 text-4xl"></i><br>No smoking</div><div class="flip-card-back">Não fume</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-mobile-alt mb-3 text-4xl"></i><br>Turn off phones</div><div class="flip-card-back">Desligar celulares</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-dog mb-3 text-4xl"></i><br>No pets</div><div class="flip-card-back">Sem animais</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-camera-retro mb-3 text-4xl"></i><br>No photos</div><div class="flip-card-back">Sem fotos</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-ticket-alt mb-3 text-4xl"></i><br>Show ticket</div><div class="flip-card-back">Mostrar ticket</div></div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-8 text-center text-pink-700">Task 1: Ask the Question</h2>
+            <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
+                <p>1. <input id="t1q1" data-answer="Do you have to" class="w-64 text-center"> pay for the water? <span class="text-gray-400 text-lg">(use: interrogative you/have to)</span> <button class="answer-btn" data-target="t1q1"><i class="fas fa-eye"></i></button></p>
+                <p>2. <input id="t1q2" data-answer="Does she have to" class="w-64 text-center"> bring a visa? <span class="text-gray-400 text-lg">(use: interrogative she/have to)</span> <button class="answer-btn" data-target="t1q2"><i class="fas fa-eye"></i></button></p>
+                <p>3. <input id="t1q3" data-answer="Do we have to" class="w-64 text-center"> wait in line? <span class="text-gray-400 text-lg">(use: interrogative we/have to)</span> <button class="answer-btn" data-target="t1q3"><i class="fas fa-eye"></i></button></p>
+                <p>4. <input id="t1q4" data-answer="Does he have to" class="w-64 text-center"> show his ID? <span class="text-gray-400 text-lg">(use: interrogative he/have to)</span> <button class="answer-btn" data-target="t1q4"><i class="fas fa-eye"></i></button></p>
+                <p>5. Why <input id="t1q5" data-answer="do I have to" class="w-64 text-center"> leave now? <span class="text-gray-400 text-lg">(use: interrogative I/have to)</span> <button class="answer-btn" data-target="t1q5"><i class="fas fa-eye"></i></button></p>
+                <p>6. <input id="t1q6" data-answer="Do they have to" class="w-64 text-center"> wear masks? <span class="text-gray-400 text-lg">(use: interrogative they/have to)</span> <button class="answer-btn" data-target="t1q6"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-8 text-center text-pink-700">Task 2: Absolute Rules</h2>
+            <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
+                <p>1. You <input id="t2q1" data-answer="must" class="w-48 text-center"> follow the law. <span class="text-gray-400 text-lg">(obrigação forte)</span> <button class="answer-btn" data-target="t2q1"><i class="fas fa-eye"></i></button></p>
+                <p>2. You <input id="t2q2" data-answer="mustn't" class="w-48 text-center"> take photos here. <span class="text-gray-400 text-lg">(proibição)</span> <button class="answer-btn" data-target="t2q2"><i class="fas fa-eye"></i></button></p>
+                <p>3. Visitors <input id="t2q3" data-answer="must" class="w-48 text-center"> be quiet. <span class="text-gray-400 text-lg">(regra essencial)</span> <button class="answer-btn" data-target="t2q3"><i class="fas fa-eye"></i></button></p>
+                <p>4. You <input id="t2q4" data-answer="mustn't" class="w-48 text-center"> feed the animals. <span class="text-gray-400 text-lg">(proibição total)</span> <button class="answer-btn" data-target="t2q4"><i class="fas fa-eye"></i></button></p>
+                <p>5. All passengers <input id="t2q5" data-answer="must" class="w-48 text-center"> wear seatbelts. <span class="text-gray-400 text-lg">(obrigação legal)</span> <button class="answer-btn" data-target="t2q5"><i class="fas fa-eye"></i></button></p>
+                <p>6. You <input id="t2q6" data-answer="mustn't" class="w-48 text-center"> park here. <span class="text-gray-400 text-lg">(proibição de trânsito)</span> <button class="answer-btn" data-target="t2q6"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-6 text-center text-pink-700">Task 3: Travel Situations</h2>
+            <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">1. No museu (proibição):</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">You mustn't touch the art.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">You don't have to touch the art.</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">2. Pergunta sobre o hotel:</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">Do I have to pay for breakfast?</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">Do I must pay for breakfast?</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">3. No hospital:</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">You must be quiet.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">You have to must be quiet.</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">4. Bagagem de mão (opcional):</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, false)">You mustn't bring a bag.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, true)">You don't have to bring a bag.</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">5. Pergunta para o guia:</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">Does he have to bring a jacket?</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">Has he to bring a jacket?</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">6. Lei de trânsito:</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">You must stop at the red light.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">You don't have to stop.</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-8 text-pink-700">Homework: Traveling Rules</h2>
+                <div class="bg-white p-12 rounded-3xl shadow-xl max-w-4xl mx-auto text-left border-t-8 border-pink-500">
+                    <p class="text-2xl font-bold mb-6">Write 3 questions and 3 rules for a tourist:</p>
+                    <ul class="list-disc ml-8 space-y-4 text-xl text-gray-700">
+                        <li>Questions: "Do I have to...?"</li>
+                        <li>Rules: "You must..." or "You mustn't..."</li>
+                    </ul>
+                    <textarea class="w-full mt-8 p-6 border-2 rounded-2xl text-2xl" rows="4"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <div class="bg-white p-16 rounded-3xl shadow-2xl border-t-8 border-pink-500 max-w-4xl">
+                    <i class="fas fa-plane-departure text-pink-400 text-8xl mb-10"></i>
+                    <h2 class="text-6xl font-black mb-10 text-gray-800">Great Job!</h2>
+                    <p class="text-3xl text-gray-600 mb-16">Agora você sabe perguntar sobre regras em qualquer lugar do mundo!</p>
+                    
+                    <div class="p-10 bg-pink-50 rounded-2xl border-2 border-pink-100 italic">
+                        <p class="text-4xl font-serif text-pink-900 mb-6">"Rules are not necessarily sacred, principles are."</p>
+                        <p class="text-2xl text-pink-600 font-bold">— Franklin D. Roosevelt</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t p-6 z-20">
+        <div class="container mx-auto flex justify-between items-center px-8">
+            <button id="prev-btn" class="px-10 py-4 bg-gray-200 rounded-xl font-bold text-xl hover:bg-gray-300 disabled:opacity-50">Previous</button>
+            <button id="next-btn" class="px-12 py-4 bg-pink-600 text-white rounded-xl font-bold text-xl hover:bg-pink-700">Next</button>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            let currentSlide = 0;
+
+            function updateView() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+                document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.innerText = currentSlide === slides.length - 1 ? 'Finish' : 'Next';
+            }
+
+            prevBtn.onclick = () => { if(currentSlide > 0) currentSlide--; updateView(); };
+            nextBtn.onclick = () => { if(currentSlide < slides.length - 1) { currentSlide++; updateView(); } };
+
+            function checkAnswer(input) {
+                const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
+                input.classList.toggle('correct', isCorrect);
+                input.classList.toggle('incorrect', !isCorrect);
+            }
+
+            document.querySelectorAll('input[data-answer]').forEach(input => {
+                input.onblur = () => checkAnswer(input);
+            });
+
+            window.checkChoice = (btn, isCorrect) => {
+                const parent = btn.parentElement;
+                parent.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected-correct', 'selected-incorrect'));
+                btn.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+            };
+
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const input = document.getElementById(btn.dataset.target);
+                    if (input) { input.value = input.dataset.answer; checkAnswer(input); }
+                };
+            });
+
+            document.querySelectorAll('.flip-card').forEach(card => card.onclick = () => card.classList.toggle('flipped'));
+            updateView();
+        });
+    </script>
+</body>
+</html>

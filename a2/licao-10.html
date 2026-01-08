@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | Lição 10: Let’s Go Out!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; font-size: 1.25rem; } /* Aumento de fonte geral */
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .flip-card { background-color: transparent; width: 100%; max-width: 220px; min-height: 150px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 1.5rem;
+        }
+        .flip-card-front { background-color: #fff; border: 2px solid #e5e7eb; font-weight: bold; font-size: 1.5rem; }
+        .flip-card-back { background-color: #eff6ff; transform: rotateY(180deg); font-weight: bold; color: #1e40af; font-size: 1.4rem; }
+
+        input.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        input.incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
+        .answer-btn:hover { color: #f97316; }
+        
+        input { border-bottom: 3px solid #cbd5e1; outline: none; transition: all 0.2s; font-weight: 600; background: transparent; padding: 0 10px; }
+        .choice-btn { border: 2px solid #e5e7eb; padding: 16px; border-radius: 12px; transition: all 0.2s; cursor: pointer; text-align: left; width: 100%; font-size: 1.3rem; }
+        .choice-btn:hover { border-color: #f97316; background-color: #fff7ed; }
+        .selected-correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        .selected-incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="a2.html" class="text-xl font-bold text-orange-600 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Módulo A2</a>
+            <h1 class="text-2xl font-black text-center uppercase tracking-tighter">Lesson 10: Let’s Go Out!</h1>
+            <div class="w-40"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-2"><div id="progress-bar" class="bg-orange-500 h-2 transition-all duration-300"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 180px); overflow-y: auto;">
+
+        <div class="slide active">
+            <h2 class="text-4xl font-bold mb-10 text-center text-orange-700 italic">Warm-up: Making Plans</h2>
+            <div class="bg-white p-12 rounded-3xl shadow-xl max-w-4xl mx-auto space-y-6 border-l-8 border-blue-500 text-2xl">
+                <div class="flex gap-4">
+                    <span class="font-bold text-blue-600">Alex:</span>
+                    <p class="italic">"Hey Sarah! Are you free this Saturday night?"</p>
+                </div>
+                <div class="flex gap-4">
+                    <span class="font-bold text-orange-600">Sarah:</span>
+                    <p class="italic">"I think so! Why? What are you <strong>going to</strong> do?"</p>
+                </div>
+                <div class="flex gap-4">
+                    <span class="font-bold text-blue-600">Alex:</span>
+                    <p class="italic">"I'm <strong>going to</strong> see a rock concert at the park. Do you want to come?"</p>
+                </div>
+                <div class="flex gap-4">
+                    <span class="font-bold text-orange-600">Sarah:</span>
+                    <p class="italic">"That sounds amazing! I'm <strong>gonna</strong> call my sister too. Is that okay?"</p>
+                </div>
+                <div class="flex gap-4">
+                    <span class="font-bold text-blue-600">Alex:</span>
+                    <p class="italic">"Sure! We are <strong>going to</strong> have a great time!"</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide text-center">
+            <h2 class="text-4xl font-bold mb-10 text-orange-700">Grammar: Formal vs. Informal</h2>
+            <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-10 rounded-2xl shadow-md border-t-8 border-indigo-500">
+                    <h3 class="text-3xl font-bold mb-6">Going to</h3>
+                    <p class="text-gray-600 mb-6 text-xl">Usado em situações formais e na escrita correta.</p>
+                    <div class="bg-slate-100 p-6 rounded-xl font-mono text-2xl">
+                        "I am <strong>going to</strong> travel."
+                    </div>
+                </div>
+                <div class="bg-white p-10 rounded-2xl shadow-md border-t-8 border-pink-500">
+                    <h3 class="text-3xl font-bold mb-6">Gonna</h3>
+                    <p class="text-gray-600 mb-6 text-xl">Redução comum na fala rápida, músicas e filmes.</p>
+                    <div class="bg-pink-50 p-6 rounded-xl font-mono text-2xl text-pink-700">
+                        "I'm <strong>gonna</strong> travel."
+                    </div>
+                </div>
+            </div>
+            <div class="mt-10 p-6 bg-yellow-100 rounded-xl max-w-4xl mx-auto italic text-xl">
+                <i class="fas fa-lightbulb text-yellow-600 mr-2"></i> Dica: "Gonna" já inclui o "to". Nunca diga "gonna to"!
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-10 text-center text-orange-700 uppercase">Leisure & Places</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-film text-red-500 mb-3 text-4xl"></i><br>Cinema</div><div class="flip-card-back">Cinema</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-guitar text-purple-500 mb-3 text-4xl"></i><br>Gig / Concert</div><div class="flip-card-back">Show / Concerto</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-utensils text-orange-500 mb-3 text-4xl"></i><br>Restaurant</div><div class="flip-card-back">Restaurante</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-masks-theater text-indigo-500 mb-3 text-4xl"></i><br>Play</div><div class="flip-card-back">Peça teatral</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-landmark text-gray-600 mb-3 text-4xl"></i><br>Museum</div><div class="flip-card-back">Museu</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-beer-mug-empty text-yellow-600 mb-3 text-4xl"></i><br>Pub / Bar</div><div class="flip-card-back">Bar / Pub</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-shopping-bag text-green-500 mb-3 text-4xl"></i><br>Mall</div><div class="flip-card-back">Shopping</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-palette text-pink-500 mb-3 text-4xl"></i><br>Exhibition</div><div class="flip-card-back">Exposição</div></div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-8 text-center text-orange-700">Task 1: Complete the Plan (Going to)</h2>
+            <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
+                <p>1. I <input id="t1q1" data-answer="am going to" class="w-48 text-center"> stay home. <button class="answer-btn" data-target="t1q1"><i class="fas fa-eye"></i></button></p>
+                <p>2. <input id="t1q2" data-answer="Are" class="w-20 text-center"> you <input id="t1q2b" data-answer="going to" class="w-32 text-center"> visit the mall? <button class="answer-btn" data-target="t1q2"><i class="fas fa-eye"></i></button></p>
+                <p>3. We <input id="t1q3" data-answer="are not going to" class="w-56 text-center"> eat pizza. <button class="answer-btn" data-target="t1q3"><i class="fas fa-eye"></i></button></p>
+                <p>4. He <input id="t1q4" data-answer="is going to" class="w-40 text-center"> see a play. <button class="answer-btn" data-target="t1q4"><i class="fas fa-eye"></i></button></p>
+                <p>5. <input id="t1q5" data-answer="Is" class="w-20 text-center"> she <input id="t1q5b" data-answer="going to" class="w-32 text-center"> meet us at the pub? <button class="answer-btn" data-target="t1q5"><i class="fas fa-eye"></i></button></p>
+                <p>6. They <input id="t1q6" data-answer="are going to" class="w-48 text-center"> buy the tickets. <button class="answer-btn" data-target="t1q6"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-8 text-center text-orange-700">Task 2: Practice the Reduction (Gonna)</h2>
+            <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-8 text-2xl">
+                <div>
+                    <span class="text-sm text-blue-500 font-bold">FORMAL: We are going to dance.</span><br>
+                    <input id="t2q1" data-answer="We're gonna dance" class="w-full"> <button class="answer-btn" data-target="t2q1"><i class="fas fa-eye"></i></button>
+                </div>
+                <div>
+                    <span class="text-sm text-blue-500 font-bold">FORMAL: It is going to rain.</span><br>
+                    <input id="t2q2" data-answer="It's gonna rain" class="w-full"> <button class="answer-btn" data-target="t2q2"><i class="fas fa-eye"></i></button>
+                </div>
+                <div>
+                    <span class="text-sm text-blue-500 font-bold">FORMAL: I am going to call you.</span><br>
+                    <input id="t2q3" data-answer="I'm gonna call you" class="w-full"> <button class="answer-btn" data-target="t2q3"><i class="fas fa-eye"></i></button>
+                </div>
+                <div>
+                    <span class="text-sm text-blue-500 font-bold">FORMAL: Are you going to go?</span><br>
+                    <input id="t2q4" data-answer="Are you gonna go?" class="w-full"> <button class="answer-btn" data-target="t2q4"><i class="fas fa-eye"></i></button>
+                </div>
+                <div>
+                    <span class="text-sm text-blue-500 font-bold">FORMAL: She is going to cry.</span><br>
+                    <input id="t2q5" data-answer="She's gonna cry" class="w-full"> <button class="answer-btn" data-target="t2q5"><i class="fas fa-eye"></i></button>
+                </div>
+                <div>
+                    <span class="text-sm text-blue-500 font-bold">FORMAL: They are going to win.</span><br>
+                    <input id="t2q6" data-answer="They're gonna win" class="w-full"> <button class="answer-btn" data-target="t2q6"><i class="fas fa-eye"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-6 text-center text-orange-700">Task 3: Social Interactions</h2>
+            <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">1. "Are you free tonight?"</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">Yes, I'm not gonna do anything.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">No, I'd love to!</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">2. "Would you like to see a play?"</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">That sounds great! Which one?</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">I am going to the play.</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">3. "I'm going to a gig. Want to come?"</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, false)">I'm sorry, I am free.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, true)">I'm sorry, I have to study.</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">4. "Where are we gonna meet?"</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">Let's meet at the mall.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">We are gonna meet Sarah.</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">5. "Is he gonna be there?"</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, false)">Yes, I'm gonna be.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, true)">Yes, he's gonna arrive late.</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">6. "What are you going to wear?"</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">I'm gonna wear a black dress.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">I'm going to the restaurant.</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-6 text-center text-orange-700 italic">Music: "A Million Dreams"</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-6xl mx-auto flex flex-col md:flex-row gap-10">
+                <div class="flex-1">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0RoA746SIn6FLtT9vJzY9Y" width="100%" height="180" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <p class="mt-6 italic text-gray-500 text-center">Preste atenção nos planos para o futuro!</p>
+                </div>
+                <div class="flex-1 bg-slate-50 p-8 rounded-xl text-xl leading-relaxed font-serif overflow-y-auto" style="max-height: 450px;">
+                    <p class="font-bold text-orange-600">[Verse 1]</p>
+                    <p>I close my eyes and I can see</p>
+                    <p>The world that's waiting up for me</p>
+                    <p>That I call my own</p>
+                    <p>Through the dark, through the door</p>
+                    <p>Through where no one's been before</p>
+                    <p>But it feels like home</p><br>
+                    <p class="font-bold text-orange-600">[Chorus]</p>
+                    <p>'Cause every night I lie in bed</p>
+                    <p>The brightest colors fill my head</p>
+                    <p>A million dreams <input id="m1" data-answer="are going to" class="w-48 text-center"> keep me awake</p>
+                    <p>I think of what the world could be</p>
+                    <p>A vision of the one I see</p>
+                    <p>A million dreams is all it's <input id="m2" data-answer="going to" class="w-36 text-center"> take</p>
+                    <p>A million dreams for the world we're <input id="m3" data-answer="going to" class="w-36 text-center"> make</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-8 text-orange-700">Homework: Your Invitation</h2>
+                <div class="bg-white p-12 rounded-3xl shadow-xl max-w-4xl mx-auto text-left border-t-8 border-orange-500">
+                    <p class="text-2xl font-bold mb-6">Write an WhatsApp message to a friend:</p>
+                    <ol class="list-decimal ml-8 space-y-4 text-xl text-gray-700">
+                        <li>Ask if they are free this weekend.</li>
+                        <li>Invite them to a place from today's lesson (Cinema, Gig, etc).</li>
+                        <li>Use <strong>"going to"</strong> for formal plans and <strong>"gonna"</strong> for informal chat.</li>
+                        <li>Ask what time you are <strong>going to</strong> meet.</li>
+                    </ol>
+                    <textarea class="w-full mt-8 p-6 border-2 rounded-2xl text-2xl" rows="4" placeholder="Hey! Are you free? I'm gonna..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <div class="bg-white p-16 rounded-3xl shadow-2xl border-t-8 border-blue-500 max-w-4xl">
+                    <i class="fas fa-ticket-alt text-blue-400 text-8xl mb-10"></i>
+                    <h2 class="text-6xl font-black mb-10 text-gray-800">Amazing!</h2>
+                    <p class="text-3xl text-gray-600 mb-16">Você dominou os convites e planos futuros!</p>
+                    
+                    <div class="p-10 bg-blue-50 rounded-2xl border-2 border-blue-100 italic">
+                        <p class="text-4xl font-serif text-blue-900 mb-6">"The best way to predict your future is to create it."</p>
+                        <p class="text-2xl text-blue-600 font-bold">— Abraham Lincoln</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t p-6 z-20">
+        <div class="container mx-auto flex justify-between items-center px-8">
+            <button id="prev-btn" class="px-10 py-4 bg-gray-200 rounded-xl font-bold text-xl hover:bg-gray-300 disabled:opacity-50">Previous</button>
+            <button id="next-btn" class="px-12 py-4 bg-orange-600 text-white rounded-xl font-bold text-xl hover:bg-orange-700">Next</button>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            let currentSlide = 0;
+
+            function updateView() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+                document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.innerText = currentSlide === slides.length - 1 ? 'Finish' : 'Next';
+            }
+
+            prevBtn.onclick = () => { if(currentSlide > 0) currentSlide--; updateView(); };
+            nextBtn.onclick = () => { if(currentSlide < slides.length - 1) { currentSlide++; updateView(); } };
+
+            function checkAnswer(input) {
+                const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
+                input.classList.toggle('correct', isCorrect);
+                input.classList.toggle('incorrect', !isCorrect);
+            }
+
+            document.querySelectorAll('input[data-answer]').forEach(input => {
+                input.onblur = () => checkAnswer(input);
+            });
+
+            window.checkChoice = (btn, isCorrect) => {
+                const parent = btn.parentElement;
+                parent.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected-correct', 'selected-incorrect'));
+                btn.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+            };
+
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const input = document.getElementById(btn.dataset.target);
+                    if (input) { input.value = input.dataset.answer; checkAnswer(input); }
+                };
+            });
+
+            document.querySelectorAll('.flip-card').forEach(card => card.onclick = () => card.classList.toggle('flipped'));
+            updateView();
+        });
+    </script>
+</body>
+</html>
