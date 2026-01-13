@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 33: The Invisible Language</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
+        .slide { display: none; height: calc(100vh - 160px); overflow-y: auto; padding: 40px; }
+        .slide.active { display: block; animation: slideIn 0.5s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        
+        .big-title { font-size: 4.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 2rem; }
+        .content-text { font-size: 2rem; line-height: 1.5; }
+
+        /* Flashcards 2x3 Grid */
+        .flashcard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .flashcard { height: 280px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 2rem; border: 3px solid #334155; }
+        .flashcard-front { background: #1e293b; color: #facc15; font-size: 2.2rem; font-weight: 800; text-align: center; }
+        .flashcard-back { background: #facc15; color: #0f172a; transform: rotateY(180deg); font-size: 1.5rem; font-weight: 700; text-align: center; }
+
+        /* Lyrics Styling */
+        .lyric-line { margin-bottom: 1.5rem; font-size: 1.8rem; line-height: 1.8; }
+        .lyric-input { background: transparent; border-bottom: 3px solid #475569; width: 220px; text-align: center; outline: none; transition: all 0.3s; }
+        .lyric-input:focus { border-color: #facc15; }
+        .reveal-btn { color: #475569; cursor: pointer; margin-left: 10px; transition: color 0.3s; }
+        .reveal-btn:hover { color: #facc15; }
+        
+        .spotify-placeholder { background: #1db954; color: white; border-radius: 15px; padding: 10px; font-weight: bold; margin-bottom: 20px; display: inline-flex; align-items: center; gap: 10px; }
+    </style>
+</head>
+<body>
+
+    <header class="bg-slate-900 border-b border-slate-800 p-6 flex justify-between items-center shadow-2xl">
+        <div class="flex items-center gap-4">
+            <i class="fas fa-eye text-yellow-500 text-3xl"></i>
+            <h1 class="text-3xl font-black tracking-tighter">LESSON 33: THE INVISIBLE LANGUAGE</h1>
+        </div>
+        <div id="timer" class="text-3xl font-mono font-bold text-yellow-500 bg-slate-800 px-6 py-2 rounded-full border-2 border-slate-700">60:00</div>
+    </header>
+
+    <main class="container mx-auto">
+
+        <div class="slide active">
+            <div class="max-w-6xl mx-auto py-10">
+                <h2 class="big-title text-white">IT'S NOT <span class="text-yellow-400">WHAT</span> YOU SAY. <br>IT'S <span class="text-yellow-400">HOW</span> YOU SAY IT.</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 mt-12">
+                    <div class="space-y-8">
+                        <p class="content-text text-slate-400 font-medium">Research shows that <span class="text-white font-bold">55%</span> of a message is delivered through body language.</p>
+                        <div class="p-8 bg-blue-900/20 border-l-8 border-blue-500 rounded-r-2xl">
+                            <h4 class="text-2xl font-black text-blue-400 uppercase mb-4">First Impression:</h4>
+                            <p class="text-xl italic">"You only have 7 seconds to make a first impression. Are your arms crossed? Are you smiling?"</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-800/50 p-10 rounded-3xl border border-slate-700">
+                        <h4 class="text-3xl font-black text-yellow-500 mb-8">WARM-UP DEBATE:</h4>
+                        <ul class="space-y-6 text-2xl font-bold">
+                            <li><i class="fas fa-comment-dots text-yellow-500 mr-4"></i> Can you lie in English?</li>
+                            <li><i class="fas fa-comment-dots text-yellow-500 mr-4"></i> How do you show you are listening?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-5xl font-black mb-12 text-center text-white italic tracking-tight underline decoration-yellow-500">THE ESSENTIAL 6 GESTURES</h2>
+            <div class="flashcard-grid max-w-7xl mx-auto px-4">
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front">STEEPLING</div><div class="flashcard-back">Joining fingertips like a "church steeple". Shows confidence and power.</div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front">MIRRORING</div><div class="flashcard-back">Subtly copying the other person's posture. Creates rapport and trust.</div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front">FIDGETING</div><div class="flashcard-back">Playing with rings, hair, or pens. A classic sign of nervousness or boredom.</div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front">EYE BLOCK</div><div class="flashcard-back">Closing eyes or rubbing them. Subconscious attempt to "not see" something unpleasant.</div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front">PACIFYING</div><div class="flashcard-back">Touching the neck or collarbone to calm the nervous system.</div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front">OPEN PALMS</div><div class="flashcard-back">Showing your palms. An ancient sign of "I have no weapons" / Honesty.</div></div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="max-w-6xl mx-auto">
+                <div class="spotify-placeholder"><i class="fab fa-spotify"></i> SPOTIFY LINK: Hips Don't Lie</div>
+                <h2 class="text-6xl font-black mb-10">SONG 1: <span class="text-yellow-400 underline italic">Hips Don't Lie</span></h2>
+                <div class="bg-slate-800 p-12 rounded-[40px] border border-slate-700 shadow-2xl">
+                    <div class="lyric-line">I'm on tonight / You know my <input type="text" class="lyric-input" placeholder="..."> <i class="fas fa-eye-slash reveal-btn" onclick="reveal(this, 'HIPS')"></i> don't lie</div>
+                    <div class="lyric-line">And I'm starting to feel it's <input type="text" class="lyric-input" placeholder="..."> <i class="fas fa-eye-slash reveal-btn" onclick="reveal(this, 'RIGHT')"></i></div>
+                    <div class="lyric-line">All the attraction, the <input type="text" class="lyric-input" placeholder="..."> <i class="fas fa-eye-slash reveal-btn" onclick="reveal(this, 'TENSION')"></i></div>
+                    <div class="lyric-line text-slate-500 italic mt-8 text-2xl">"Why does the body tell a different story than the mouth?"</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="max-w-6xl mx-auto">
+                <div class="spotify-placeholder"><i class="fab fa-spotify"></i> SPOTIFY LINK: Suspicious Minds</div>
+                <h2 class="text-6xl font-black mb-10">SONG 2: <span class="text-yellow-400 underline italic">Suspicious Minds</span></h2>
+                <div class="bg-slate-800 p-12 rounded-[40px] border border-slate-700 shadow-2xl">
+                    <div class="lyric-line">We're caught in a trap / I can't <input type="text" class="lyric-input" placeholder="..."> <i class="fas fa-eye-slash reveal-btn" onclick="reveal(this, 'WALK')"></i> out</div>
+                    <div class="lyric-line">Because I love you too much, <input type="text" class="lyric-input" placeholder="..."> <i class="fas fa-eye-slash reveal-btn" onclick="reveal(this, 'BABY')"></i></div>
+                    <div class="lyric-line">We can't go on together / With <input type="text" class="lyric-input" placeholder="..."> <i class="fas fa-eye-slash reveal-btn" onclick="reveal(this, 'SUSPICIOUS')"></i> minds</div>
+                    <div class="lyric-line text-slate-500 italic mt-8 text-2xl">"How does your body react when you suspect someone is lying?"</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-6xl font-black text-center mb-12 text-white italic">GAME: 2 TRUTHS & 1 LIE</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <div class="bg-slate-800 p-10 rounded-3xl border-t-8 border-yellow-500">
+                    <h3 class="text-4xl font-bold mb-6 underline">THE RULES:</h3>
+                    <ul class="space-y-8 text-2xl">
+                        <li>1. Tell 3 personal stories (2 true, 1 fake).</li>
+                        <li>2. The listener must watch your <strong>EYES</strong> and <strong>HANDS</strong>.</li>
+                        <li>3. Guess which one is the LIE.</li>
+                    </ul>
+                </div>
+                <div class="flex flex-col justify-center space-y-6">
+                    <div class="p-6 bg-red-900/20 border-2 border-red-500 rounded-2xl text-xl">
+                        <strong class="text-red-500">TEACHER TIP:</strong> Force the student to keep their hands visible on the camera to practice "Honesty Cues".
+                    </div>
+                    <div class="p-6 bg-green-900/20 border-2 border-green-500 rounded-2xl text-xl">
+                        <strong class="text-green-500">DISCUSSION:</strong> "Was it harder to lie because I was watching your body language?"
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="flex flex-col items-center justify-center h-full text-center space-y-10">
+                <i class="fas fa-award text-yellow-500 text-9xl"></i>
+                <h2 class="text-7xl font-black uppercase">Session Mastered</h2>
+                <p class="text-3xl text-slate-400 max-w-4xl leading-relaxed">
+                    Now you know: Fluency is not just about vocabulary. It's about how you command the room without saying a word.
+                </p>
+                <button id="finish-btn" class="bg-yellow-500 text-slate-900 px-24 py-10 rounded-3xl font-black text-4xl hover:scale-110 transition shadow-[0_0_60px_rgba(250,204,21,0.4)]">COMPLETE LESSON</button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 w-full bg-slate-900 border-t border-slate-800 p-8 flex justify-between items-center z-50">
+        <button id="prev-btn" class="text-2xl font-bold text-slate-500 hover:text-white uppercase tracking-tighter transition">Previous</button>
+        <div id="slide-num" class="text-3xl font-black text-slate-600 font-mono">01 / 06</div>
+        <button id="next-btn" class="text-2xl font-bold text-yellow-500 hover:text-yellow-400 uppercase tracking-tighter transition">Next Slide</button>
+    </footer>
+
+    <script>
+        let current = 0;
+        const slides = document.querySelectorAll('.slide');
+        const slideNum = document.getElementById('slide-num');
+        const progress = document.getElementById('progress-bar');
+        const timerEl = document.getElementById('timer');
+
+        // Timer de 60 minutos
+        let timeLeft = 3600;
+        setInterval(() => {
+            if(timeLeft > 0) {
+                timeLeft--;
+                let m = Math.floor(timeLeft/60);
+                let s = timeLeft%60;
+                timerEl.innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
+            }
+        }, 1000);
+
+        function update() {
+            slides.forEach((s, i) => s.classList.toggle('active', i === current));
+            slideNum.innerText = `0${current + 1} / 0${slides.length}`;
+            progress.style.width = `${((current + 1) / slides.length) * 100}%`;
+            document.getElementById('prev-btn').style.visibility = current === 0 ? 'hidden' : 'visible';
+            document.getElementById('next-btn').style.display = current === slides.length - 1 ? 'none' : 'block';
+        }
+
+        // Função de Revelar Resposta no Campo
+        function reveal(btn, answer) {
+            const input = btn.previousElementSibling;
+            input.value = answer;
+            input.style.color = "#facc15";
+            input.style.fontWeight = "900";
+            btn.classList.remove('fa-eye-slash');
+            btn.classList.add('fa-check-circle', 'text-green-500');
+        }
+
+        document.getElementById('next-btn').onclick = () => { current++; update(); };
+        document.getElementById('prev-btn').onclick = () => { current--; update(); };
+        document.querySelectorAll('.flashcard').forEach(c => c.onclick = () => c.classList.toggle('flipped'));
+
+        update();
+    </script>
+</body>
+</html>

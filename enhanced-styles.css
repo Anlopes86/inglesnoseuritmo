@@ -1,285 +1,182 @@
-/* Enhanced Styles for Inglês no seu Ritmo */
-/* Adicione este arquivo ao <head> de todas as páginas após o Tailwind CSS */
+/* Enhanced Styles for Inglês no seu Ritmo - THE "BOLD DARK" EDITION 
+   Focado em fontes grandes, negritos estratégicos e detalhes em amarelo.
+*/
 
 :root {
-    /* Sistema de cores aprimorado */
-    --primary-blue: #1d4ed8;
-    --primary-green: #16a34a;
-    --accent-purple: #7c3aed;
-    --accent-orange: #ea580c;
-    --accent-teal: #0d9488;
-    --accent-pink: #ec4899;
-    --sidebar-bg: #1f2937; /* gray-800 */
-    --sidebar-link: #d1d5db; /* gray-300 */
-    --sidebar-link-hover: #ffffff;
-    --sidebar-link-active: #ffffff;
-    --sidebar-link-active-bg: #374151; /* gray-700 */
-    
-    /* Cores de estado */
-    --success-light: #dcfce7;
-    --success-dark: #166534;
-    --warning-light: #fef3c7;
-    --warning-dark: #92400e;
-    --info-light: #dbeafe;
-    --info-dark: #1e40af;
-    --error-light: #fecaca;
-    --error-dark: #dc2626;
-    
-    /* Sombras aprimoradas */
-    --shadow-soft: 0 2px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-strong: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --bg-deep: #0f172a;        /* Fundo principal */
+    --bg-card: #1e293b;        /* Fundo de cards/sidebar */
+    --accent: #facc15;         /* Amarelo vibrante para detalhes */
+    --text-primary: #f8fafc;   /* Branco puro para leitura */
+    --text-muted: #94a3b8;     /* Cinza azulado para detalhes menores */
+    --border-dim: #334155;     /* Bordas discretas */
 }
 
 body {
     font-family: 'Inter', sans-serif;
-    color: #374151; /* gray-700 */
+    background-color: var(--bg-deep);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Sidebar */
-.sidebar {
-    width: 280px;
-    background-color: var(--sidebar-bg);
-    padding: 2rem 1.5rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    z-index: 50;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease-in-out;
-}
-.sidebar.open {
-    transform: translateX(0);
-}
-@media (max-width: 1023px) {
-    .sidebar {
-        transform: translateX(-100%);
-    }
+/* --- TIPOGRAFIA (A ALMA DO DESIGN) --- */
+
+h1, .big-title {
+    font-size: 3.5rem; /* Fonte bem maior */
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    color: var(--text-primary);
 }
 
-.sidebar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+h2, .section-heading {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--accent);
+    text-transform: uppercase;
+    border-bottom: 4px solid var(--accent);
+    padding-bottom: 0.5rem;
+    display: inline-block;
     margin-bottom: 2rem;
 }
 
-.sidebar-nav {
-    flex-grow: 1;
-    margin-top: 2rem;
+strong, b, .highlight {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.text-small {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* --- SIDEBAR REESTRUTURADA --- */
+
+.sidebar {
+    width: 280px;
+    background-color: var(--bg-card);
+    border-right: 2px solid var(--border-dim);
+    padding: 2.5rem 1.5rem;
+    box-shadow: 10px 0 30px rgba(0,0,0,0.5);
 }
 
 .nav-link {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    border-radius: 0.75rem;
-    color: var(--sidebar-link);
-    font-weight: 500;
-    transition: background-color 0.2s, color 0.2s;
-    margin-bottom: 0.5rem;
-}
-.nav-link:hover {
-    background-color: var(--sidebar-link-active-bg);
-    color: var(--sidebar-link-hover);
-}
-.nav-link.active {
-    background-color: var(--sidebar-link-active-bg);
-    color: var(--sidebar-link-active);
+    font-size: 1.1rem;
     font-weight: 600;
-}
-.nav-icon {
-    width: 1.5rem;
-    margin-right: 1rem;
-    text-align: center;
-}
-
-.sidebar-footer {
-    padding-top: 1.5rem;
-    border-top: 1px solid #374151;
-}
-
-.main-content {
-    margin-left: 280px;
-    padding: 1.5rem;
-    transition: margin-left 0.3s ease-in-out;
-}
-@media (max-width: 1023px) {
-    .main-content {
-        margin-left: 0;
-    }
-}
-
-/* Enhanced Cards */
-.enhanced-card {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 1.5rem;
-    box-shadow: var(--shadow-soft);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.enhanced-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
-
-/* Buttons and Inputs */
-.enhanced-btn {
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.75rem;
-    font-weight: 600;
-    transition: background-color 0.2s, transform 0.1s;
-    text-align: center;
-}
-.enhanced-btn:hover {
-    transform: translateY(-2px);
-}
-.enhanced-input {
-    padding: 0.75rem 1rem;
-    border-radius: 0.75rem;
-    border: 2px solid #e5e7eb;
-    background-color: #f9fafb;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-.enhanced-input:focus {
-    outline: none;
-    border-color: var(--accent-purple);
-    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
-}
-
-/* Modals */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background-color: white;
-    padding: 2rem;
+    padding: 1rem 1.25rem;
     border-radius: 1rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    animation: fadeInScale 0.3s ease-out;
-    max-width: 90%;
+    transition: all 0.2s ease;
+    color: var(--text-muted);
 }
 
-@keyframes fadeInScale {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+.nav-link:hover {
+    color: var(--accent);
+    background: rgba(250, 204, 21, 0.1);
+    transform: translateX(8px);
 }
 
+.nav-link.active {
+    background-color: var(--accent);
+    color: var(--bg-deep);
+    font-weight: 800;
+    box-shadow: 0 0 20px rgba(250, 204, 21, 0.3);
+}
 
-/* Outros elementos globais */
-.section-heading {
-    border-bottom: 2px solid #e5e7eb;
-    padding-bottom: 0.5rem;
+/* --- CARDS E ELEMENTOS DE CONTEÚDO --- */
+
+.enhanced-card, .lesson-card {
+    background-color: var(--bg-card);
+    border: 3px solid var(--border-dim); /* Borda mais grossa */
+    border-radius: 2rem;
+    padding: 2rem;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.enhanced-card:hover, .lesson-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+/* Efeito de detalhe em amarelo no topo do card */
+.enhanced-card::before {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 10px;
     margin-bottom: 1.5rem;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #1f2937;
 }
 
-/* Animações */
-.pulse-animate {
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+/* --- BOTÕES IMPACTANTES --- */
+
+.enhanced-btn {
+    font-size: 1.2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border-radius: 1.2rem;
+    background-color: var(--accent);
+    color: var(--bg-deep);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: .5; }
+.enhanced-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(250, 204, 21, 0.4);
 }
 
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
+/* --- INPUTS --- */
+
+.enhanced-input {
+    background-color: var(--bg-deep);
+    border: 2px solid var(--border-dim);
+    padding: 1.2rem;
+    font-size: 1.1rem;
+    color: white;
+    border-radius: 1rem;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 40;
-    transition: opacity 0.3s ease;
-    opacity: 0;
-    visibility: hidden;
 }
 
-.overlay.active {
-    opacity: 1;
-    visibility: visible;
+.enhanced-input:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.1);
 }
 
-/* Estilos de Card de Lição */
-.lesson-card {
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-.lesson-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-.lesson-card .lesson-title {
-    flex-grow: 1; /* Garante que o card ocupe todo o espaço vertical */
+/* --- ESTADOS DE LIÇÃO --- */
+
+.lesson-card.next {
+    border-color: var(--accent);
+    position: relative;
+    overflow: hidden;
 }
 
-/* ESTADOS VISUAIS DOS CARDS */
-.lesson-card.locked {
-    background-color: #f3f4f6;
-    cursor: not-allowed;
-    opacity: 0.7;
-}
-.lesson-card.locked:hover { 
-    transform: none; 
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-}
-.lesson-card.locked .lesson-title, .lesson-card.locked .lesson-number { 
-    color: #6b7280; 
+.lesson-card.next::after {
+    content: "NEXT";
+    position: absolute;
+    top: 1rem;
+    right: -2rem;
+    background: var(--accent);
+    color: var(--bg-deep);
+    font-weight: 900;
+    font-size: 0.7rem;
+    padding: 0.2rem 2.5rem;
+    transform: rotate(45deg);
 }
 
 .lesson-card.completed {
     border-color: #22c55e;
-    background-color: #f0fdf4;
 }
 
-.lesson-card.next {
-    border-color: #3b82f6;
-    animation: pulse-blue 2s infinite;
-}
-@keyframes pulse-blue {
-    0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
-    70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
-}
-
-/* Estilo para a página de vocabulário */
-.word-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    background-color: #f9fafb;
-    border-radius: 0.5rem;
-    margin-bottom: 0.5rem;
-    transition: transform 0.2s;
-}
-.word-item:hover {
-    transform: translateX(5px);
-    background-color: #f3f4f6;
-}
+/* --- UTILITIES --- */
+.text-accent { color: var(--accent); }
+.font-black { font-weight: 900; }
