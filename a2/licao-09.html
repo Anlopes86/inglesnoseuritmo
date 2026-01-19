@@ -8,12 +8,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; font-size: 1.1rem; }
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .flip-card { background-color: transparent; width: 100%; max-width: 180px; min-height: 120px; perspective: 1000px; cursor: pointer; }
+        .flip-card { background-color: transparent; width: 100%; max-width: 180px; min-height: 140px; perspective: 1000px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back {
@@ -29,11 +29,13 @@
         .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.2rem; transition: color 0.2s; }
         .answer-btn:hover { color: #f97316; }
         
-        input { border-bottom: 2px solid #cbd5e1; outline: none; transition: all 0.2s; font-weight: 600; background: transparent; }
-        .choice-btn { border: 2px solid #e5e7eb; padding: 12px; border-radius: 12px; transition: all 0.2s; cursor: pointer; text-align: left; }
+        input { border-bottom: 2px solid #cbd5e1; outline: none; transition: all 0.2s; font-weight: 600; background: transparent; padding: 0 5px; }
+        .choice-btn { border: 2px solid #e5e7eb; padding: 10px; border-radius: 12px; transition: all 0.2s; cursor: pointer; text-align: left; font-size: 1rem; }
         .choice-btn:hover { border-color: #f97316; background-color: #fff7ed; }
         .selected-correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
         .selected-incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+
+        .music-card { background: linear-gradient(135deg, #1db954 0%, #191414 100%); color: white; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -50,137 +52,165 @@
     <main class="container mx-auto p-8 relative" style="height: calc(100vh - 160px); overflow-y: auto;">
 
         <div class="slide active">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-8 text-orange-700 italic">Warm-up: Your Next Trip</h2>
-                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6 text-2xl italic text-gray-700 border-l-8 border-orange-400">
-                    <p>"Where are you <strong>going to</strong> travel next?"</p>
-                    <p>"What is the weather <strong>going to</strong> be like there?"</p>
-                    <p>"Are you <strong>going to</strong> take a coat or a swimsuit?"</p>
+            <div class="text-center max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold mb-8 text-orange-700 italic">Warm-up: The Weekend Plan</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg space-y-4 text-left border-l-8 border-orange-400">
+                    <div class="flex gap-4">
+                        <span class="font-black text-orange-600">Alex:</span>
+                        <p class="italic text-xl">"Do you want to go to the beach on Saturday?"</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-blue-600">Sam:</span>
+                        <p class="italic text-xl">"I don't know. I think it <strong>will be</strong> cloudy."</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-orange-600">Alex:</span>
+                        <p class="italic text-xl">"Really? The news says it <strong>will be</strong> sunny and hot!"</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-blue-600">Sam:</span>
+                        <p class="italic text-xl">"Okay! If it's hot, I <strong>will go</strong> with you."</p>
+                    </div>
                 </div>
-                <p class="mt-8 text-gray-500">Pense nessas perguntas para aquecer!</p>
             </div>
         </div>
 
         <div class="slide">
-            <h2 class="text-3xl font-bold mb-8 text-center text-orange-700 uppercase tracking-widest">Weather & Seasons: The Full Set</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-green-600">Spring</div><div class="flip-card-back">Primavera</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-orange-500">Summer</div><div class="flip-card-back">Verão</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-orange-800">Autumn / Fall</div><div class="flip-card-back">Outono</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-blue-800">Winter</div><div class="flip-card-back">Inverno</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-sun text-yellow-500 mr-2"></i>Sunny</div><div class="flip-card-back">Ensolarado</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-cloud-showers-heavy text-blue-400 mr-2"></i>Rainy</div><div class="flip-card-back">Chuvoso</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-cloud text-gray-400 mr-2"></i>Cloudy</div><div class="flip-card-back">Nublado</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-wind text-gray-300 mr-2"></i>Windy</div><div class="flip-card-back">Com vento</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-blue-300">Snowy</div><div class="flip-card-back">Com neve</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-yellow-700">Stormy</div><div class="flip-card-back">Tempestuoso</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-red-600">Hot / Boiling</div><div class="flip-card-back">Muito Quente</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-blue-900">Cold / Freezing</div><div class="flip-card-back">Gélido / Congelando</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-cyan-600">Chilly</div><div class="flip-card-back">Fresco / Friozinho</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-slate-400">Foggy</div><div class="flip-card-back">Com neblina</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-sky-400">Clear sky</div><div class="flip-card-back">Céu limpo</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-blue-500">Humid</div><div class="flip-card-back">Úmido</div></div></div>
+            <h2 class="text-3xl font-bold mb-8 text-center text-orange-700 uppercase tracking-widest">Weather Vocabulary</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-yellow-500"><i class="fas fa-sun text-4xl mb-2"></i>Sunny</div><div class="flip-card-back">Ensolarado</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-blue-400"><i class="fas fa-cloud-rain text-4xl mb-2"></i>Rainy</div><div class="flip-card-back">Chuvoso</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-gray-400"><i class="fas fa-cloud text-4xl mb-2"></i>Cloudy</div><div class="flip-card-back">Nublado</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-slate-400"><i class="fas fa-wind text-4xl mb-2"></i>Windy</div><div class="flip-card-back">Com vento</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-blue-200"><i class="fas fa-snowflake text-4xl mb-2"></i>Snowy</div><div class="flip-card-back">Com neve</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-indigo-500"><i class="fas fa-bolt text-4xl mb-2"></i>Stormy</div><div class="flip-card-back">Tempestuoso</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-red-600"><i class="fas fa-temperature-high text-4xl mb-2"></i>Boiling</div><div class="flip-card-back">Muito Quente</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-blue-800"><i class="fas fa-icicles text-4xl mb-2"></i>Freezing</div><div class="flip-card-back">Congelando</div></div></div>
             </div>
         </div>
 
         <div class="slide">
-            <h2 class="text-3xl font-bold mb-8 text-center text-orange-700 italic">Grammar: The "Future Plan" Formula</h2>
+            <h2 class="text-3xl font-bold mb-8 text-center text-orange-700 italic">Grammar: Future with WILL</h2>
             <div class="max-w-4xl mx-auto space-y-6">
                 <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-orange-500">
-                    <h3 class="text-2xl font-bold mb-4 italic">Usage:</h3>
-                    <ul class="list-disc ml-6 space-y-2 text-xl">
-                        <li><strong>Plans & Intentions:</strong> <em>"I'm <strong>going to</strong> study tonight."</em></li>
-                        <li><strong>Predictions (Evidence):</strong> <em>"Look at the clouds! It's <strong>going to</strong> rain."</em></li>
+                    <h3 class="text-2xl font-bold mb-4">How to use:</h3>
+                    <p class="text-xl mb-4">Usamos o <strong>WILL</strong> para falar de um futuro que não é totalmente certo (previsões) ou decisões tomadas agora.</p>
+                    <ul class="list-disc ml-6 space-y-2 text-lg">
+                        <li><strong>Affirmative:</strong> I will travel (Eu viajarei)</li>
+                        <li><strong>Negative:</strong> I <strong>won't</strong> (will not) travel</li>
+                        <li><strong>Interrogative:</strong> <strong>Will</strong> you travel?</li>
                     </ul>
                 </div>
-                <div class="bg-indigo-600 text-white p-8 rounded-2xl shadow-md">
-                    <h3 class="text-2xl font-bold mb-4 italic text-orange-300">Structure:</h3>
-                    <p class="text-3xl font-mono text-center">Subject + BE + GOING TO + VERB</p>
+                <div class="bg-indigo-600 text-white p-6 rounded-xl text-center">
+                    <p class="text-2xl font-mono uppercase tracking-widest">Subject + WILL + Verb (Base)</p>
                 </div>
             </div>
         </div>
 
         <div class="slide">
-            <h2 class="text-3xl font-bold mb-6 text-center text-orange-700">Task 1: Build the Sentences</h2>
-            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-5 text-xl">
-                <p>1. (I / visit) <input id="t1q1" data-answer="I am going to visit" class="w-64 text-center"> <button class="answer-btn" data-target="t1q1"><i class="fas fa-eye"></i></button></p>
-                <p>2. (It / not / be) <input id="t1q2" data-answer="It isn't going to be" class="w-64 text-center"> <button class="answer-btn" data-target="t1q2"><i class="fas fa-eye"></i></button> sunny.</p>
-                <p>3. (They / have) <input id="t1q3" data-answer="They are going to have" class="w-64 text-center"> <button class="answer-btn" data-target="t1q3"><i class="fas fa-eye"></i></button> a party.</p>
-                <p>4. (? / you / buy) <input id="t1q4" data-answer="Are you going to buy" class="w-64 text-center"> <button class="answer-btn" data-target="t1q4"><i class="fas fa-eye"></i></button> a new car?</p>
-                <p>5. (We / play) <input id="t1q5" data-answer="We are going to play" class="w-64 text-center"> <button class="answer-btn" data-target="t1q5"><i class="fas fa-eye"></i></button> soccer.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <h2 class="text-3xl font-bold mb-6 text-center text-orange-700">Task 2: Predict the Weather</h2>
-            <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="text-lg font-bold mb-4">1. The thermometer says -5°C!</p>
-                    <button class="choice-btn w-full mb-2" onclick="checkChoice(this, false)">It is going to be boiling.</button>
-                    <button class="choice-btn w-full" onclick="checkChoice(this, true)">It is going to be freezing.</button>
+            <h2 class="text-3xl font-bold mb-6 text-center text-orange-700">Task 1: Future Forecast</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-5 text-xl">
+                <div class="flex items-center justify-between border-b pb-2">
+                    <p>1. I think it <input id="t1q1" data-answer="will be" class="w-32 text-center"> rainy.</p>
+                    <span class="text-sm text-gray-400 italic">(Dica: estará)</span>
+                    <button class="answer-btn" data-target="t1q1"><i class="fas fa-eye"></i></button>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="text-lg font-bold mb-4">2. There is no sun and gray clouds.</p>
-                    <button class="choice-btn w-full mb-2" onclick="checkChoice(this, true)">It is going to be cloudy.</button>
-                    <button class="choice-btn w-full" onclick="checkChoice(this, false)">It is going to be clear sky.</button>
+                <div class="flex items-center justify-between border-b pb-2">
+                    <p>2. We <input id="t1q2" data-answer="will need" class="w-32 text-center"> an umbrella.</p>
+                    <span class="text-sm text-gray-400 italic">(Dica: precisaremos)</span>
+                    <button class="answer-btn" data-target="t1q2"><i class="fas fa-eye"></i></button>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="text-lg font-bold mb-4">3. The trees are moving a lot!</p>
-                    <button class="choice-btn w-full mb-2" onclick="checkChoice(this, true)">It is going to be windy.</button>
-                    <button class="choice-btn w-full" onclick="checkChoice(this, false)">It is going to be snowy.</button>
+                <div class="flex items-center justify-between border-b pb-2">
+                    <p>3. It <input id="t1q3" data-answer="won't be" class="w-32 text-center"> cold today.</p>
+                    <span class="text-sm text-gray-400 italic">(Dica: Não estará)</span>
+                    <button class="answer-btn" data-target="t1q3"><i class="fas fa-eye"></i></button>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="text-lg font-bold mb-4">4. I can hear thunder.</p>
-                    <button class="choice-btn w-full mb-2" onclick="checkChoice(this, false)">It is going to be chilly.</button>
-                    <button class="choice-btn w-full" onclick="checkChoice(this, true)">It is going to be stormy.</button>
+                <div class="flex items-center justify-between border-b pb-2">
+                    <p>4. <input id="t1q4" data-answer="Will it snow" class="w-40 text-center"> in July?</p>
+                    <span class="text-sm text-gray-400 italic">(Dica: Vai nevar)</span>
+                    <button class="answer-btn" data-target="t1q4"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-2">
+                    <p>5. They <input id="t1q5" data-answer="will travel" class="w-32 text-center"> tomorrow.</p>
+                    <span class="text-sm text-gray-400 italic">(Dica: viajarão)</span>
+                    <button class="answer-btn" data-target="t1q5"><i class="fas fa-eye"></i></button>
                 </div>
             </div>
         </div>
 
         <div class="slide">
-            <h2 class="text-3xl font-bold mb-6 text-center text-orange-700">Task 3: Fix the Future</h2>
-            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-6 text-xl">
-                <div class="p-4 bg-red-50 rounded border-l-4 border-red-400">
-                    <p class="mb-2 italic text-gray-500">"I going to travel next week."</p>
-                    <input id="t3q1" data-answer="I am going to travel next week" class="w-full border-b-red-600"> <button class="answer-btn" data-target="t3q1"><i class="fas fa-eye"></i></button>
+            <h2 class="text-3xl font-bold mb-6 text-center text-orange-700">Task 2: Quick Decisions</h2>
+            <div class="grid md:grid-cols-2 gap-4 max-w-6xl mx-auto">
+                <div class="bg-white p-4 rounded-xl shadow-md border-t-4 border-orange-500">
+                    <p class="font-bold mb-2">1. "The phone is ringing!"</p>
+                    <button class="choice-btn w-full mb-2" onclick="checkChoice(this, true)">I will answer it.</button>
+                    <button class="choice-btn w-full" onclick="checkChoice(this, false)">I will eat it.</button>
                 </div>
-                <div class="p-4 bg-red-50 rounded border-l-4 border-red-400">
-                    <p class="mb-2 italic text-gray-500">"Is going to rain tomorrow?"</p>
-                    <input id="t3q2" data-answer="Is it going to rain tomorrow?" class="w-full border-b-red-600"> <button class="answer-btn" data-target="t3q2"><i class="fas fa-eye"></i></button>
+                <div class="bg-white p-4 rounded-xl shadow-md border-t-4 border-orange-500">
+                    <p class="font-bold mb-2">2. "I'm very thirsty."</p>
+                    <button class="choice-btn w-full mb-2" onclick="checkChoice(this, true)">I will get some water.</button>
+                    <button class="choice-btn w-full" onclick="checkChoice(this, false)">I will sleep now.</button>
                 </div>
-                <div class="p-4 bg-red-50 rounded border-l-4 border-red-400">
-                    <p class="mb-2 italic text-gray-500">"They are go to buy a house."</p>
-                    <input id="t3q3" data-answer="They are going to buy a house" class="w-full border-b-red-600"> <button class="answer-btn" data-target="t3q3"><i class="fas fa-eye"></i></button>
+                <div class="bg-white p-4 rounded-xl shadow-md border-t-4 border-orange-500">
+                    <p class="font-bold mb-2">3. "It's boiling outside!"</p>
+                    <button class="choice-btn w-full mb-2" onclick="checkChoice(this, false)">I will wear a sweater.</button>
+                    <button class="choice-btn w-full" onclick="checkChoice(this, true)">I will go to the pool.</button>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md border-t-4 border-orange-500">
+                    <p class="font-bold mb-2">4. "I forgot my wallet!"</p>
+                    <button class="choice-btn w-full mb-2" onclick="checkChoice(this, true)">Don't worry, I will pay.</button>
+                    <button class="choice-btn w-full" onclick="checkChoice(this, false)">I will buy a car.</button>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md border-t-4 border-orange-500">
+                    <p class="font-bold mb-2">5. "Look at the clear sky!"</p>
+                    <button class="choice-btn w-full mb-2" onclick="checkChoice(this, true)">It will be a sunny day.</button>
+                    <button class="choice-btn w-full" onclick="checkChoice(this, false)">It will rain a lot.</button>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md border-t-4 border-orange-500">
+                    <p class="font-bold mb-2">6. "The test is difficult."</p>
+                    <button class="choice-btn w-full mb-2" onclick="checkChoice(this, false)">I won't study.</button>
+                    <button class="choice-btn w-full" onclick="checkChoice(this, true)">I will study tonight.</button>
                 </div>
             </div>
         </div>
 
         <div class="slide">
-            <h2 class="text-3xl font-bold mb-4 text-center text-orange-700 italic">Music: "Faith" – George Michael</h2>
-            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto flex flex-col md:flex-row gap-6">
-                <div class="flex-1">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/09797825597984857" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                    <p class="mt-4 italic text-sm text-gray-500 text-center">Foque no uso do futuro!</p>
+            <h2 class="text-3xl font-bold mb-4 text-center text-orange-700 uppercase">Music: Lyrics Activity</h2>
+            <div class="music-card p-8 rounded-3xl shadow-2xl max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 items-stretch">
+                <div class="flex-1 space-y-4">
+                    <div class="flex items-center gap-4 border-b border-white/20 pb-4">
+                        <i class="fab fa-spotify text-4xl text-[#1db954]"></i>
+                        <div><h3 class="text-xl font-black">I Will Always Love You</h3><p class="text-amber-400 font-bold text-sm">Whitney Houston</p></div>
+                    </div>
+                    <div class="font-serif italic text-xl leading-relaxed bg-black/20 p-6 rounded-xl">
+                        <p>If I should stay</p>
+                        <p>I would only be in your way</p>
+                        <p>So I <input id="m1" data-answer="will go" class="w-24 border-b border-white text-white"> <button class="answer-btn" data-target="m1"><i class="fas fa-eye text-white/50"></i></button>, but I know</p>
+                        <p>I <input id="m2" data-answer="will think" class="w-28 border-b border-white text-white"> <button class="answer-btn" data-target="m2"><i class="fas fa-eye text-white/50"></i></button> of you every step of the way</p>
+                        <p class="mt-4 font-bold">And I...</p>
+                        <p><input id="m3" data-answer="will always" class="w-32 border-b border-white text-white"> <button class="answer-btn" data-target="m3"><i class="fas fa-eye text-white/50"></i></button> love you</p>
+                    </div>
                 </div>
-                <div class="flex-1 bg-slate-50 p-6 rounded-xl text-lg leading-relaxed font-serif">
-                    <p>"Well, I guess it would be nice..."</p>
-                    <p>"I <input id="m1" data-answer="am going to" class="w-24 text-center"> <button class="answer-btn" data-target="m1"><i class="fas fa-eye"></i></button> wait for you."</p>
-                    <p>"But I <input id="m2" data-answer="am going to" class="w-24 text-center"> <button class="answer-btn" data-target="m2"><i class="fas fa-eye"></i></button> think twice."</p>
-                    <p>"And I know all the games you <input id="m3" data-answer="are going to" class="w-24 text-center"> <button class="answer-btn" data-target="m3"><i class="fas fa-eye"></i></button> play."</p>
+                <div class="w-full lg:w-64 bg-black/40 rounded-2xl flex flex-col items-center justify-center border-2 border-dashed border-white/30">
+                    <i class="fas fa-play-circle text-5xl mb-3 text-[#1db954]"></i>
+                    <p class="text-center font-bold text-sm">Spotify Placeholder</p>
                 </div>
             </div>
         </div>
 
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-orange-700">Homework: The Reporter</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-xl max-w-3xl mx-auto text-left">
-                    <p class="text-xl font-bold mb-4">Be a Weather Reporter!</p>
-                    <p class="text-lg text-gray-600 mb-6">Choose a city and write its forecast for next weekend. Use at least 4 adjectives and 3 "going to" sentences.</p>
-                    <div class="bg-yellow-50 p-6 rounded-lg italic text-lg text-yellow-700">
-                        "Next Saturday in Tokyo, it is going to be sunny and boiling. People are going to..."
+                <h2 class="text-4xl font-bold mb-6 text-orange-700 italic">Homework: Predictions for 2035</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-xl max-w-3xl mx-auto text-left border-t-4 border-orange-500">
+                    <p class="text-xl font-bold mb-4">What will the world be like in 2035?</p>
+                    <p class="text-lg text-gray-600 mb-6">Write 5 predictions about anything for 2035. Example: "I think it will be much hotter than today."</p>
+                    <div class="space-y-4">
+                        <div class="flex gap-4 items-center"><span>1.</span><input class="w-full border-b" placeholder="In 2035, the weather will..."></div>
+                        <div class="flex gap-4 items-center"><span>2.</span><input class="w-full border-b"></div>
+                        <div class="flex gap-4 items-center"><span>3.</span><input class="w-full border-b"></div>
+                        <div class="flex gap-4 items-center"><span>4.</span><input class="w-full border-b"></div>
+                        <div class="flex gap-4 items-center"><span>5.</span><input class="w-full border-b"></div>
                     </div>
-                    <textarea class="w-full mt-6 p-4 border-2 rounded-xl text-xl" rows="4" placeholder="Your weather report..."></textarea>
                 </div>
             </div>
         </div>
@@ -188,13 +218,12 @@
         <div class="slide">
             <div class="text-center flex flex-col items-center justify-center h-full">
                 <div class="bg-white p-12 rounded-3xl shadow-2xl border-t-8 border-orange-500 max-w-3xl">
-                    <i class="fas fa-umbrella text-orange-400 text-7xl mb-6"></i>
-                    <h2 class="text-5xl font-black mb-8 text-gray-800">Ready for the Future!</h2>
-                    <p class="text-2xl text-gray-600 mb-12">Você aprendeu a planejar e prever. O futuro é seu!</p>
-                    
+                    <i class="fas fa-rocket text-orange-400 text-7xl mb-6"></i>
+                    <h2 class="text-5xl font-black mb-8 text-gray-800">You did it!</h2>
+                    <p class="text-2xl text-gray-600 mb-12">Você dominou o uso do 'Will' para o clima e previsões.</p>
                     <div class="p-8 bg-orange-50 rounded-2xl border-2 border-orange-100 italic">
-                        <p class="text-3xl font-serif text-orange-900 mb-4">"Wherever you go, no matter what the weather, always bring your own sunshine."</p>
-                        <p class="text-xl text-orange-600 font-bold">— Anthony J. D'Angelo</p>
+                        <p class="text-3xl font-serif text-orange-900 mb-4">"The future will be bright if you bring your own light."</p>
+                        <p class="text-xl text-orange-600 font-bold">— Motivation for 2035</p>
                     </div>
                 </div>
             </div>
@@ -220,7 +249,7 @@
                 slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
                 document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
                 prevBtn.disabled = currentSlide === 0;
-                nextBtn.innerText = currentSlide === slides.length - 1 ? 'Finish Module' : 'Next';
+                nextBtn.innerText = currentSlide === slides.length - 1 ? 'Finish' : 'Next';
             }
 
             prevBtn.onclick = () => { if(currentSlide > 0) currentSlide--; updateView(); };
@@ -247,14 +276,15 @@
             document.querySelectorAll('.answer-btn').forEach(btn => {
                 btn.onclick = () => {
                     const input = document.getElementById(btn.dataset.target);
-                    input.value = input.dataset.answer;
-                    checkAnswer(input);
+                    if(input) { input.value = input.dataset.answer; checkAnswer(input); }
                 };
             });
 
             document.querySelectorAll('.flip-card').forEach(card => {
                 card.onclick = () => card.classList.toggle('flipped');
             });
+
+            updateView();
         });
     </script>
 </body>

@@ -1,61 +1,236 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Expansão do Currículo de Conversação</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | Lição 15: Giving Advice</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; font-size: 1.25rem; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .flip-card { background-color: transparent; width: 100%; max-width: 220px; min-height: 150px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 1.5rem;
+        }
+        .flip-card-front { background-color: #fff; border: 2px solid #e5e7eb; font-weight: bold; font-size: 1.5rem; }
+        .flip-card-back { background-color: #ecfeff; transform: rotateY(180deg); font-weight: bold; color: #0891b2; font-size: 1.4rem; }
+
+        input.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        input.incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
+        .answer-btn:hover { color: #06b6d4; }
+        
+        input { border-bottom: 3px solid #cbd5e1; outline: none; transition: all 0.2s; font-weight: 600; background: transparent; padding: 0 10px; }
+        .choice-btn { border: 2px solid #e5e7eb; padding: 16px; border-radius: 12px; transition: all 0.2s; cursor: pointer; text-align: left; width: 100%; font-size: 1.3rem; }
+        .choice-btn:hover { border-color: #06b6d4; background-color: #ecfeff; }
+        .selected-correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        .selected-incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+    </style>
 </head>
-<body>
-    <header>
-        <h1>Novos Horizontes de Debate</h1>
-        <p>Objetivo: Ir além do básico e explorar nichos de conversação avançada.</p>
+<body class="bg-slate-50 text-slate-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="a2.html" class="text-xl font-bold text-cyan-600 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Módulo A2</a>
+            <h1 class="text-2xl font-black text-center uppercase tracking-tighter">Lesson 15: Giving Advice</h1>
+            <div class="w-40"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-2"><div id="progress-bar" class="bg-cyan-500 h-2 transition-all duration-300"></div></div>
     </header>
 
-    <section id="analise-atual">
-        <h2>O que você já cobre:</h2>
-        <p>Sua lista atual foca em <strong>"Lifestyle & Society"</strong>. Os alunos que terminarem esses 32 tópicos estarão prontos para conversas sociais fluidas.</p>
-    </section>
+    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 180px); overflow-y: auto;">
 
-    <section id="sugestoes-topicos">
-        <h2>Sugestões de Novos Tópicos (Aulas 33 a 42)</h2>
-        <ul>
-            <li><strong>33. Body Language & Non-Verbal Communication:</strong> O que não dizemos é tão importante quanto o que dizemos?</li>
-            <li><strong>34. Minimalism & Sustainability:</strong> Como o "menos é mais" afeta a economia global?</li>
-            <li><strong>35. Mental Health & Burnout:</strong> O tabu do descanso em uma sociedade produtivista.</li>
-            <li><strong>36. Leadership & Influence:</strong> O que faz um grande líder em 2026?</li>
-            <li><strong>37. Pop Culture & Fandoms:</strong> Como as comunidades online moldam a nossa identidade?</li>
-            <li><strong>38. Urban Myths & Local Folklore:</strong> Histórias assustadoras de diferentes países.</li>
-            <li><strong>39. The Philosophy of Time:</strong> Estamos sempre "perdendo tempo"? Como diferentes culturas veem o relógio?</li>
-            <li><strong>40. Genetics & Bioethics:</strong> Até onde a ciência deve ir para "curar" a humanidade?</li>
-            <li><strong>41. Tourism Ethics:</strong> O impacto do turismo de massa em cidades como Veneza ou Rio de Janeiro.</li>
-            <li><strong>42. Conflict Resolution:</strong> Como negociar e lidar com pessoas difíceis em inglês.</li>
-        </ul>
-    </section>
+        <div class="slide active">
+            <h2 class="text-4xl font-bold mb-10 text-center text-cyan-700 italic">Warm-up: Asking for Help</h2>
+            <div class="bg-white p-12 rounded-3xl shadow-xl max-w-4xl mx-auto space-y-6 border-l-8 border-cyan-500 text-2xl">
+                <div class="flex gap-4">
+                    <span class="font-bold text-cyan-600">Friend A:</span>
+                    <p class="italic">"I'm so <strong>stressed</strong> and <strong>tired</strong> lately. What <strong>should</strong> I do?"</p>
+                </div>
+                <div class="flex gap-4">
+                    <span class="font-bold text-gray-600">Friend B:</span>
+                    <p class="italic">"You <strong>should get some rest</strong>. And you <strong>shouldn't work</strong> on weekends."</p>
+                </div>
+                <div class="flex gap-4">
+                    <span class="font-bold text-cyan-600">Friend A:</span>
+                    <p class="italic">"<strong>Should</strong> I see a doctor?"</p>
+                </div>
+                <div class="flex gap-4">
+                    <span class="font-bold text-gray-600">Friend B:</span>
+                    <p class="italic">"Yes, you <strong>should</strong>. It's important to take care of yourself."</p>
+                </div>
+            </div>
+        </div>
 
-    <section id="metodologia-alternativa">
-        <h2>Novas Formas de Abordagem (Além da Música)</h2>
-        <p>Para não saturar o formato de música, você pode introduzir:</p>
-        <table>
-            <tr>
-                <th>Formato</th>
-                <th>Como aplicar</th>
-            </tr>
-            <tr>
-                <td><strong>Dilemas Morais</strong></td>
-                <td>Apresente o "Problema do Bonde" ou dilemas médicos para forçar o uso de condicionais (If I were...).</td>
-            </tr>
-            <tr>
-                <td><strong>Shark Tank</strong></td>
-                <td>O aluno precisa "vender" uma ideia absurda para você, praticando persuasão.</td>
-            </tr>
-            <tr>
-                <td><strong>React to News</strong></td>
-                <td>Use uma manchete real do dia e debata as consequências imediatas daquela notícia.</td>
-            </tr>
-        </table>
-    </section>
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-6 text-center text-cyan-700">Grammar: Should & Shouldn't</h2>
+            <div class="max-w-6xl mx-auto space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-cyan-500">
+                        <h3 class="text-2xl font-bold mb-6 text-cyan-800"><i class="fas fa-check-circle mr-2"></i>Should (Conselho +)</h3>
+                        <p class="mb-4">Use para dizer que algo é uma boa ideia:</p>
+                        <ul class="space-y-2 text-xl italic text-gray-600">
+                            <li>"You <strong>should</strong> drink more water."</li>
+                            <li>"He <strong>should</strong> study for the test."</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-red-400">
+                        <h3 class="text-2xl font-bold mb-6 text-red-800"><i class="fas fa-times-circle mr-2"></i>Shouldn't (Conselho -)</h3>
+                        <p class="mb-4">Use para dizer que algo NÃO é uma boa ideia:</p>
+                        <ul class="space-y-2 text-xl italic text-gray-600">
+                            <li>"You <strong>shouldn't</strong> eat so much junk food."</li>
+                            <li>"They <strong>shouldn't</strong> go out in the rain."</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <footer>
-        <p><em>"Education is not the filling of a pail, but the lighting of a fire." - William Butler Yeats</em></p>
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-10 text-center text-cyan-700 uppercase">Common Problems & Advice</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-tired mb-3 text-4xl"></i><br>Tired</div><div class="flip-card-back">Cansado(a)</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-brain mb-3 text-4xl"></i><br>Stressed</div><div class="flip-card-back">Estressado(a)</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-bed mb-3 text-4xl"></i><br>Get some rest</div><div class="flip-card-back">Descansar</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-apple-alt mb-3 text-4xl"></i><br>Eat healthy</div><div class="flip-card-back">Comer saudável</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-headset mb-3 text-4xl"></i><br>Talk to someone</div><div class="flip-card-back">Falar com alguém</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-smoking mb-3 text-4xl"></i><br>Smoke</div><div class="flip-card-back">Fumar</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-coffee mb-3 text-4xl"></i><br>Drink caffeine</div><div class="flip-card-back">Beber cafeína</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-dumbbell mb-3 text-4xl"></i><br>Exercise</div><div class="flip-card-back">Exercitar-se</div></div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-8 text-center text-cyan-700">Task 1: Positive Advice</h2>
+            <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
+                <p>1. You <input id="t1q1" data-answer="should sleep" class="w-64 text-center"> 8 hours a day. <span class="text-gray-400 text-lg">(conselho: sleep)</span> <button class="answer-btn" data-target="t1q1"><i class="fas fa-eye"></i></button></p>
+                <p>2. He <input id="t1q2" data-answer="should go" class="w-64 text-center"> to the dentist. <span class="text-gray-400 text-lg">(conselho: go)</span> <button class="answer-btn" data-target="t1q2"><i class="fas fa-eye"></i></button></p>
+                <p>3. We <input id="t1q3" data-answer="should save" class="w-64 text-center"> some money. <span class="text-gray-400 text-lg">(conselho: save)</span> <button class="answer-btn" data-target="t1q3"><i class="fas fa-eye"></i></button></p>
+                <p>4. They <input id="t1q4" data-answer="should arrive" class="w-64 text-center"> on time. <span class="text-gray-400 text-lg">(conselho: arrive)</span> <button class="answer-btn" data-target="t1q4"><i class="fas fa-eye"></i></button></p>
+                <p>5. You <input id="t1q5" data-answer="should drink" class="w-64 text-center"> water. <span class="text-gray-400 text-lg">(conselho: drink)</span> <button class="answer-btn" data-target="t1q5"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-8 text-center text-cyan-700">Task 2: Negative Advice</h2>
+            <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
+                <p>1. You <input id="t2q1" data-answer="shouldn't stay" class="w-64 text-center"> up late. <span class="text-gray-400 text-lg">(conselho negativo: stay)</span> <button class="answer-btn" data-target="t2q1"><i class="fas fa-eye"></i></button></p>
+                <p>2. She <input id="t2q2" data-answer="shouldn't buy" class="w-64 text-center"> that expensive phone. <span class="text-gray-400 text-lg">(conselho negativo: buy)</span> <button class="answer-btn" data-target="t2q2"><i class="fas fa-eye"></i></button></p>
+                <p>3. They <input id="t2q3" data-answer="shouldn't drive" class="w-64 text-center"> so fast. <span class="text-gray-400 text-lg">(conselho negativo: drive)</span> <button class="answer-btn" data-target="t2q3"><i class="fas fa-eye"></i></button></p>
+                <p>4. I <input id="t2q4" data-answer="shouldn't drink" class="w-64 text-center"> more coffee. <span class="text-gray-400 text-lg">(conselho negativo: drink)</span> <button class="answer-btn" data-target="t2q4"><i class="fas fa-eye"></i></button></p>
+                <p>5. He <input id="t2q5" data-answer="shouldn't forget" class="w-64 text-center"> his keys. <span class="text-gray-400 text-lg">(conselho negativo: forget)</span> <button class="answer-btn" data-target="t2q5"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-6 text-center text-cyan-700 italic"><i class="fas fa-music text-blue-500 mr-2"></i>Music: "Should I Stay or Should I Go" – The Clash</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-6xl mx-auto flex flex-col md:flex-row gap-8">
+                <div class="flex-1 text-center">
+                    <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/7" width="100%" height="180" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <p class="mt-6 italic text-gray-500">Listen and complete the question with the correct modal.</p>
+                </div>
+                <div class="flex-1 bg-slate-50 p-8 rounded-xl text-2xl leading-relaxed font-serif">
+                    <p><input id="mq1" data-answer="Should" class="w-32 text-center"> I stay or <input id="mq2" data-answer="should" class="w-32 text-center"> I go now? <button class="answer-btn" data-target="mq1"><i class="fas fa-eye"></i></button></p>
+                    <p><input id="mq3" data-answer="Should" class="w-32 text-center"> I stay or <input id="mq4" data-answer="should" class="w-32 text-center"> I go now?</p>
+                    <p>If I go, there will be trouble</p>
+                    <p>And if I stay, it will be double</p>
+                    <p>So you gotta let me know</p>
+                    <p><input id="mq5" data-answer="Should" class="w-32 text-center"> I stay or <input id="mq6" data-answer="should" class="w-32 text-center"> I go?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-8 text-cyan-700">Homework: Advice Column</h2>
+                <div class="bg-white p-12 rounded-3xl shadow-xl max-w-4xl mx-auto text-left border-t-8 border-cyan-500">
+                    <p class="text-2xl font-bold mb-6">Give advice for these situations:</p>
+                    <ul class="list-disc ml-8 space-y-4 text-xl text-gray-700">
+                        <li>"I have a terrible headache."</li>
+                        <li>"I want to learn English faster."</li>
+                        <li>"I feel very tired every morning."</li>
+                    </ul>
+                    <textarea class="w-full mt-8 p-6 border-2 rounded-2xl text-2xl" rows="4" placeholder="Example: You should take an aspirin..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <div class="bg-white p-16 rounded-3xl shadow-2xl border-t-8 border-cyan-500 max-w-4xl">
+                    <i class="fas fa-lightbulb text-yellow-400 text-8xl mb-10"></i>
+                    <h2 class="text-6xl font-black mb-10 text-gray-800">Well Done!</h2>
+                    <p class="text-3xl text-gray-600 mb-16">Você agora é um expert em dar conselhos e ajudar seus amigos em inglês!</p>
+                    
+                    <div class="p-10 bg-cyan-50 rounded-2xl border-2 border-cyan-100 italic">
+                        <p class="text-4xl font-serif text-cyan-900 mb-6">"You should always be a first-rate version of yourself, instead of a second-rate version of somebody else."</p>
+                        <p class="text-2xl text-cyan-600 font-bold">— Judy Garland</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t p-6 z-20">
+        <div class="container mx-auto flex justify-between items-center px-8">
+            <button id="prev-btn" class="px-10 py-4 bg-gray-200 rounded-xl font-bold text-xl hover:bg-gray-300 disabled:opacity-50">Previous</button>
+            <button id="next-btn" class="px-12 py-4 bg-cyan-600 text-white rounded-xl font-bold text-xl hover:bg-cyan-700">Next</button>
+        </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            let currentSlide = 0;
+
+            function updateView() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+                document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.innerText = currentSlide === slides.length - 1 ? 'Finish' : 'Next';
+            }
+
+            prevBtn.onclick = () => { if(currentSlide > 0) currentSlide--; updateView(); };
+            nextBtn.onclick = () => { if(currentSlide < slides.length - 1) { currentSlide++; updateView(); } };
+
+            function checkAnswer(input) {
+                const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
+                input.classList.toggle('correct', isCorrect);
+                input.classList.toggle('incorrect', !isCorrect);
+            }
+
+            document.querySelectorAll('input[data-answer]').forEach(input => {
+                input.onblur = () => checkAnswer(input);
+            });
+
+            window.checkChoice = (btn, isCorrect) => {
+                const parent = btn.parentElement;
+                parent.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected-correct', 'selected-incorrect'));
+                btn.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+            };
+
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const input = document.getElementById(btn.dataset.target);
+                    if (input) { input.value = input.dataset.answer; checkAnswer(input); }
+                };
+            });
+
+            document.querySelectorAll('.flip-card').forEach(card => card.onclick = () => card.classList.toggle('flipped'));
+            updateView();
+        });
+    </script>
 </body>
 </html>

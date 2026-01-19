@@ -114,7 +114,8 @@
             <p class="section-header mb-2">Deep Listening</p>
             <h2 class="text-5xl font-black mb-8 italic">HUMAN <span class="text-blue-400">— Rag'n'Bone Man</span></h2>
             <div class="bg-slate-800 p-8 rounded-[40px] border border-slate-700 shadow-2xl">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/58zsLZPvfflaiIbNWoA22O?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="lyrics-box mt-8 space-y-4 text-xl font-bold">
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/58zsLZPvfflaiIbNWoA22O?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="lyrics-box mt-8 space-y-4 text-xl font-bold">
                     <p>Maybe I'm foolish, maybe I'm <input type="text" class="lyric-input" placeholder="..."> <i class="fas fa-eye-slash reveal-btn" onclick="reveal(this, 'blind')"></i></p>
                     <p>Thinking I can see through this / And see what's behind</p>
                     <p>Got no way to prove it / So maybe I'm lying</p>
@@ -143,7 +144,8 @@
             <p class="section-header mb-2">Deep Listening</p>
             <h2 class="text-5xl font-black mb-8 italic">LOST ON YOU <span class="text-pink-500">— LP</span></h2>
             <div class="bg-slate-800 p-8 rounded-[40px] border border-slate-700 shadow-2xl">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2NttzQ2kuVFFmEa8q4rsbu?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="lyrics-box mt-8 space-y-4 text-xl font-bold">
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2NttzQ2kuVFFmEa8q4rsbu?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="lyrics-box mt-8 space-y-4 text-xl font-bold">
                     <p>When you get older, plainer, saner</p>
                     <p>Will you remember all the danger we came from?</p>
                     <p>Burnin' like <input type="text" class="lyric-input" placeholder="..."> <i class="fas fa-eye-slash reveal-btn" onclick="reveal(this, 'embers')"></i>, falling tender</p>
@@ -177,7 +179,8 @@
             <p class="section-header mb-2">Deep Listening</p>
             <h2 class="text-5xl font-black mb-8 italic">STRESSED OUT <span class="text-red-500">— T.O.P</span></h2>
             <div class="bg-slate-800 p-8 rounded-[40px] border border-slate-700 shadow-2xl">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3CRDbSIZ4r5MsZ0YwxuEkn?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="lyrics-box mt-8 space-y-4 text-xl font-bold">
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3CRDbSIZ4r5MsZ0YwxuEkn?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="lyrics-box mt-8 space-y-4 text-xl font-bold">
                     <p>I wish I found some better sounds no one's ever heard</p>
                     <p>I wish I had a better voice that sang some better <input type="text" class="lyric-input" placeholder="..."> <i class="fas fa-eye-slash reveal-btn" onclick="reveal(this, 'words')"></i></p>
                     <p>I wish I found some chords in an order that is new</p>
@@ -241,10 +244,20 @@
         <button id="next-btn" class="text-lg font-bold text-yellow-500 hover:text-yellow-400 transition">NEXT</button>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'conversation';
+            const lessonNumber = 26;
+
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
             const progressBar = document.getElementById('progress-bar');
             const slideCount = document.getElementById('slide-count');
             let current = 0;
@@ -259,6 +272,21 @@
                 prevBtn.style.visibility = current === 0 ? 'hidden' : 'visible';
                 nextBtn.style.visibility = current === slides.length - 1 ? 'hidden' : 'visible';
                 window.scrollTo(0, 0);
+            }
+
+            // Ação de Finalizar
+            if (finishLessonBtn) {
+                finishLessonBtn.onclick = () => {
+                    finishLessonBtn.disabled = true;
+                    finishLessonBtn.textContent = "SAVING...";
+                    if (typeof markLessonAsComplete === 'function') {
+                        markLessonAsComplete(moduleId, lessonNumber);
+                    } else {
+                        alert("Error: Progress manager not loaded.");
+                        finishLessonBtn.disabled = false;
+                        finishLessonBtn.textContent = "FINISH CLASS";
+                    }
+                };
             }
 
             window.reveal = function(btn, answer) {
