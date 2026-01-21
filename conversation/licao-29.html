@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation Class - Lesson 29: Science & Space Exploration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); border: 1px solid #4a5568; }
+        .flashcard-front { background-color: #2d3748; color: #a0aec0; text-align: center; }
+        .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
+        .lyrics-box { max-height: 400px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #4a5568 #2d3748; }
+        .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-cyan-400"><i class="fas fa-rocket mr-2"></i> Lesson 29: Science & Space</h1>
+            <div id="slide-counter" class="text-gray-400 font-medium">Slide 1/11</div>
+        </div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-cyan-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 160px);">
+
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-cyan-400"><i class="fas fa-satellite"></i> Warm-up: To Infinity...</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6 text-2xl text-left">
+                    <p><i class="fas fa-alien mr-2 text-cyan-400"></i> Do you like science fiction movies/series/books?</p>
+                    <p><i class="fas fa-user-astronaut mr-2 text-cyan-400"></i> Would you take a trip to space if you had the chance?</p>
+                    <p><i class="fas fa-atom mr-2 text-cyan-400"></i> What do you think is the greatest scientific discovery of all time?</p>
+                    <p><i class="fas fa-alien mr-2 text-cyan-400"></i> Do you believe there is intelligent life elsewhere in the universe?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-cyan-400"><i class="fas fa-microscope"></i> Scientific Terminology</h2>
+                <div class="flashcard-grid max-w-6xl mx-auto">
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Black Hole</h4></div><div class="flashcard-back"><p class="text-xl">A region of space where gravity is so strong that nothing, not even light, can escape.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Hypothesis</h4></div><div class="flashcard-back"><p class="text-xl">A proposed explanation made on the basis of limited evidence as a starting point for investigation.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Light-year</h4></div><div class="flashcard-back"><p class="text-xl">The distance that light travels in one year (about 9.46 trillion kilometers).</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Quantum</h4></div><div class="flashcard-back"><p class="text-xl">The smallest discrete unit of a physical property, such as energy or matter.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Orbit</h4></div><div class="flashcard-back"><p class="text-xl">The curved path of a celestial object or spacecraft around a star, planet, or moon.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Empirical</h4></div><div class="flashcard-back"><p class="text-xl">Based on observation or experience rather than theory or pure logic.</p></div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-cyan-400"><i class="fas fa-music"></i> Space Oddity (David Bowie)</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="https://www.youtube.com/embed/iYYRH4apXDo" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-cyan-400">
+                    <p>Ground Control to Major Tom</p>
+                    <p>Take your protein <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="pills"><i class="fas fa-eye"></i></button> and put your helmet on</p>
+                    <p>Ten, Nine, Eight, Seven, Six, Five, Four, Three, Two, One, Lift-off</p>
+                    <p class="mt-4">This is Ground Control to Major Tom</p>
+                    <p>You've really made the <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="grade"><i class="fas fa-eye"></i></button></p>
+                    <p>Now it's time to leave the <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="capsule"><i class="fas fa-eye"></i></button> if you dare</p>
+                    <p class="font-bold text-cyan-400 mt-4 italic">Chorus:</p>
+                    <p>For here am I sitting in a tin can / Far above the <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="world"><i class="fas fa-eye"></i></button></p>
+                    <p>Planet Earth is <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="blue"><i class="fas fa-eye"></i></button> / And there's nothing I can do</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-cyan-400"><i class="fas fa-comment-alt text-yellow-400"></i> Discussion: The Cost of Space</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl text-left">
+                <p><i class="fas fa-money-bill-wave text-cyan-400"></i> Should we spend billions on space exploration while there is still poverty on Earth?</p>
+                <p><i class="fas fa-satellite-dish text-cyan-400"></i> How has space technology improved our daily lives (GPS, satellite images)?</p>
+            </div></div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-cyan-400"><i class="fas fa-music"></i> The Scientist (Coldplay)</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="https://www.youtube.com/embed/RB-RcX5DS5A" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-green-400">
+                    <p>I had to find you, tell you I <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="need"><i class="fas fa-eye"></i></button> you</p>
+                    <p>Oh, let's go back to the <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="start"><i class="fas fa-eye"></i></button></p>
+                    <p>Running in circles, coming up tails / Heads on a science apart</p>
+                    <p class="font-bold text-green-400 mt-4 italic">Chorus:</p>
+                    <p>Nobody said it was easy / It's such a <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="shame"><i class="fas fa-eye"></i></button> for us to part</p>
+                    <p>Questions of <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="science"><i class="fas fa-eye"></i></button>, science and progress / Do not speak as loud as my heart</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-cyan-400"><i class="fas fa-heart text-red-500"></i> Discussion: Logic vs. Emotion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl text-left">
+                <p><i class="fas fa-brain text-cyan-400"></i> Can science explain everything about human emotions, or is some part of us "unreachable" by logic?</p>
+                <p><i class="fas fa-vial text-cyan-400"></i> Why does "progress" sometimes feel like it's making us less connected to each other?</p>
+            </div></div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-cyan-400"><i class="fas fa-music"></i> Rocket Man (Elton John)</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="https://www.youtube.com/embed/DtVBCG6ThDk" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-orange-400">
+                    <p>I miss the earth so much / I miss my wife</p>
+                    <p>It's lonely out in <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="space"><i class="fas fa-eye"></i></button></p>
+                    <p>On such a timeless flight</p>
+                    <p class="font-bold text-orange-400 mt-4 italic">Chorus:</p>
+                    <p>And I think it's gonna be a long, long <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="time"><i class="fas fa-eye"></i></button></p>
+                    <p>'Til touchdown brings me round again to find</p>
+                    <p>I'm not the man they think I am at home</p>
+                    <p>Oh no, no, no / I'm a <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="rocket man"><i class="fas fa-eye"></i></button></p>
+                    <p>Rocket man, burning out his <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="fuse"><i class="fas fa-eye"></i></button> up here alone</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-cyan-400"><i class="fas fa-user-astronaut text-orange-400"></i> Discussion: The Human Factor</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl text-left">
+                <p><i class="fas fa-home text-cyan-400"></i> "I miss the Earth so much." If you lived on a space station, what one thing from Earth would you miss the most?</p>
+                <p><i class="fas fa-thermometer-empty text-cyan-400"></i> Elton John says "Mars ain't the kind of place to raise your kids." Do you think space colonization is realistic?</p>
+            </div></div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-cyan-400"><i class="fas fa-tasks"></i> Practice: Applying Terminology</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <p class="text-gray-400 mb-6 text-xl text-left italic">Match the scientific term to the correct context:</p>
+                <div id="matching-activity" class="space-y-4"></div>
+                <button id="check-answers-btn" class="mt-8 bg-cyan-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-cyan-700">Verify Observations</button>
+            </div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-cyan-400"><i class="fas fa-book-open"></i> Research Assignment</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                 <p class="text-2xl mb-6 text-gray-300">Choose one current space mission (like the <b>James Webb Telescope</b> or <b>Artemis Program</b>). Prepare to explain its goal in the next class.</p>
+             </div></div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center flex flex-col items-center justify-center h-full">
+                 <i class="fas fa-star text-yellow-400 text-7xl mb-6"></i>
+                 <h2 class="text-5xl font-bold mb-4 text-gray-100">Mission Accomplished!</h2>
+                 <p class="text-2xl italic text-gray-400 max-w-2xl mx-auto">"The good thing about science is that it's true whether or not you believe in it." - Neil deGrasse Tyson</p>
+             </div>
+        </div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Previous</button>
+            <button id="next-btn" class="bg-cyan-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-cyan-700">Next</button>
+            <button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finish Mission</button>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar'), slideCounter = document.getElementById('slide-counter');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+                if (slideCounter) slideCounter.innerText = `Slide ${index + 1}/${slides.length}`;
+                if (prevBtn) prevBtn.disabled = index === 0;
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+            }
+
+            prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } };
+            nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } };
+
+            document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+            
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    let inputField = document.getElementById(button.dataset.target) || button.previousElementSibling;
+                    if (inputField) {
+                        inputField.value = button.dataset.answer;
+                        inputField.classList.add('text-cyan-400', 'font-bold', 'border-cyan-400');
+                    }
+                });
+            });
+
+            // Practice Activity logic (Linked to Flashcards)
+            const activityContainer = document.getElementById('matching-activity'), checkAnswersBtn = document.getElementById('check-answers-btn');
+            const terms = [
+                { id: 'black_hole', text: 'Black Hole' }, { id: 'hypothesis', text: 'Hypothesis' },
+                { id: 'light_year', text: 'Light-year' }, { id: 'quantum', text: 'Quantum' },
+                { id: 'orbit', text: 'Orbit' }, { id: 'empirical', text: 'Empirical' }
+            ];
+            const descriptions = [
+                { text: "The International Space Station is currently in __________ around our planet.", answer: 'orbit' },
+                { text: "Even light cannot escape the massive gravitational pull of a __________.", answer: 'black_hole' },
+                { text: "Scientists must gather __________ evidence through experiments to prove a theory.", answer: 'empirical' },
+                { text: "Alpha Centauri is about 4.3 __________s away from the Sun.", answer: 'light_year' },
+                { text: "Before starting the experiment, the student wrote down a __________ to be tested.", answer: 'hypothesis' },
+                { text: "The __________ theory explains how subatomic particles behave in the universe.", answer: 'quantum' }
+            ];
+            
+            activityContainer.innerHTML = descriptions.sort(() => Math.random() - 0.5).map((desc, index) => `
+                <div id="q-${index}" class="p-4 rounded-lg bg-gray-900 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p class="text-xl text-gray-200 text-left flex-1">${desc.text}</p>
+                    <select data-answer="${desc.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg">
+                        <option value="">Select term...</option>
+                        ${terms.sort(() => Math.random() - 0.5).map(t => `<option value="${t.id}">${t.text}</option>`).join('')}
+                    </select>
+                </div>`).join('');
+
+            checkAnswersBtn.onclick = () => {
+                activityContainer.querySelectorAll('select').forEach((select, index) => {
+                    const div = document.getElementById(`q-${index}`);
+                    if (select.value === select.dataset.answer) {
+                        div.style.borderColor = '#06b6d4';
+                        div.classList.add('bg-cyan-900/20');
+                    } else if (select.value !== "") {
+                        div.style.borderColor = '#ef4444';
+                        div.classList.add('bg-red-900/20');
+                    }
+                });
+            };
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>

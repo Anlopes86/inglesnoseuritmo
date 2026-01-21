@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Flashcards App - Inglês no seu Ritmo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <style>
+        .flashcard { height: 220px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); border: 1px solid #4a5568; }
+        .flashcard-front { background-color: #2d3748; color: #facc15; text-align: center; }
+        .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
+        
+        @keyframes pulse-yellow {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .new-card-anim { animation: pulse-yellow 0.4s ease-out; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+
+    <header class="bg-gray-800 shadow-lg p-4 border-b border-gray-700">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold text-yellow-400"><i class="fas fa-bolt mr-2"></i>Flash-English</h1>
+            <div id="status-tag" class="text-xs bg-gray-700 px-2 py-1 rounded text-gray-400">Carregando...</div>
+        </div>
+    </header>
+
+    <main class="flex-1 container mx-auto px-6 py-8 flex flex-col items-center justify-center">
+        
+        <div id="card-display" class="w-full max-w-sm mb-8">
+            <div class="text-center text-gray-500 italic">Sincronizando com GitHub...</div>
+        </div>
+
+        <div class="flex flex-col gap-4 w-full max-w-sm">
+            <button onclick="showRandomCard()" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-4 px-8 rounded-2xl shadow-lg transition-all flex items-center justify-center gap-3 text-lg">
+                <i class="fas fa-random"></i> PRÓXIMO ALEATÓRIO
+            </button>
+            
+            <div class="flex gap-2">
+                <select id="lesson-filter" onchange="showRandomCard()" class="flex-1 bg-gray-800 border border-gray-700 rounded-xl p-3 text-sm outline-none focus:border-yellow-500">
+                    <option value="all">Todas as Lições</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mt-8 text-center">
+            <p class="text-gray-500 text-sm">Cards disponíveis: <span id="card-count" class="text-yellow-500 font-bold">0</span></p>
+        </div>
+    </main>
+
+    <script>
+        let flashcardsDatabase = [];
+        const baseUrl = "https://raw.githubusercontent.com/Anlopes86/inglesnoseuritmo/main/conversation/";
+        
+        // Função para carregar as lições
+        async function loadAllLessons() {
+            const statusTag = document.getElementById('status-tag');
+            const lessonsToLoad = 26; // Carrega da 01 até a 20
+
+            for (let i = 1; i <= lessonsToLoad; i++) {
+                const lessonName = `licao-${i.toString().padStart(2, '0')}.html`;
+                try {
+                    const response = await fetch(baseUrl + lessonName);
+                    if (response.ok) {
+                        const html = await response.text();
+                        parseFlashcards(html, `Lição ${i}`);
+                    }
+                } catch (err) {
+                    console.error("Erro ao carregar " + lessonName);
+                }
+            }
+
+            if (flashcardsDatabase.length > 0) {
+                statusTag.innerText = "Sincronizado";
+                statusTag.classList.replace('bg-gray-700', 'bg-green-900');
+                statusTag.classList.replace('text-gray-400', 'text-green-300');
+                updateUI();
+                showRandomCard();
+            } else {
+                statusTag.innerText = "Erro ao carregar";
+            }
+        }
+
+        // Função para extrair os cards do seu HTML específico
+        function parseFlashcards(html, lessonLabel) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const cards = doc.querySelectorAll('.flashcard');
+
+    cards.forEach(card => {
+        // Busca o termo na frente (tenta h4, depois tenta a div .flashcard-front diretamente)
+        let term = card.querySelector('.flashcard-front h4')?.innerText || 
+                   card.querySelector('.flashcard-front')?.innerText;
+
+        // Busca a definição no verso (tenta p, depois tenta a div .flashcard-back diretamente)
+        let definition = card.querySelector('.flashcard-back p')?.innerText || 
+                         card.querySelector('.flashcard-back')?.innerText;
+
+        if (term && definition) {
+            flashcardsDatabase.push({
+                term: term.trim().replace(/\n/g, ' '), // Remove quebras de linha extras
+                def: definition.trim().replace(/\n/g, ' '),
+                lesson: lessonLabel
+            });
+        }
+    });
+}
+        function updateUI() {
+            document.getElementById('card-count').innerText = flashcardsDatabase.length;
+            const filter = document.getElementById('lesson-filter');
+            const uniqueLessons = [...new Set(flashcardsDatabase.map(c => c.lesson))];
+            
+            uniqueLessons.forEach(l => {
+                const opt = document.createElement('option');
+                opt.value = l;
+                opt.innerText = l;
+                filter.appendChild(opt);
+            });
+        }
+
+        function showRandomCard() {
+            const filterValue = document.getElementById('lesson-filter').value;
+            let pool = flashcardsDatabase;
+
+            if (filterValue !== 'all') {
+                pool = flashcardsDatabase.filter(c => c.lesson === filterValue);
+            }
+
+            if (pool.length === 0) return;
+
+            const randomCard = pool[Math.floor(Math.random() * pool.length)];
+            const container = document.getElementById('card-display');
+
+            container.innerHTML = `
+                <div class="flashcard new-card-anim" onclick="this.classList.toggle('flipped')">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <span class="text-xs text-gray-500 absolute top-4 uppercase tracking-widest">${randomCard.lesson}</span>
+                            <h4 class="text-2xl font-bold">${randomCard.term}</h4>
+                            <i class="fas fa-hand-pointer text-gray-600 mt-4 text-sm opacity-50"></i>
+                        </div>
+                        <div class="flashcard-back">
+                            <p class="text-xl">${randomCard.def}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Inicializar
+        window.onload = loadAllLessons;
+    </script>
+</body>
+</html>
