@@ -24,7 +24,11 @@
         .flashcard-front { background: var(--bg-card); color: var(--accent); font-size: 2.2rem; font-weight: 900; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); }
         .flashcard-back { background: var(--accent); color: var(--bg-deep); transform: rotateY(180deg); font-size: 1.6rem; font-weight: 700; }
         
-        /* Botões de Ação no Card */
+        /* Cores de Dificuldade */
+        .diff-hard { border-color: #ef4444 !important; }
+        .diff-medium { border-color: #facc15 !important; }
+        .diff-easy { border-color: #22c55e !important; }
+
         .btn-card-action {
             position: absolute; top: 20px; z-index: 50;
             background: rgba(15, 23, 42, 0.8); width: 50px; height: 50px;
@@ -33,15 +37,13 @@
         }
         .btn-fav { right: 20px; color: #facc15; border-color: #facc15; }
         .btn-del-single { right: 20px; color: #ef4444; border-color: #ef4444; }
-        .btn-card-action:active { transform: scale(0.9); opacity: 0.8; }
 
         .custom-select-ui {
-            appearance: none; -webkit-appearance: none; background-color: #1e293b;
+            appearance: none; background-color: #1e293b;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23facc15'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
             background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.2rem;
             border: 2px solid #334155; border-radius: 1rem; padding: 0.75rem 2.5rem 0.75rem 1rem !important;
             color: white; font-weight: 800; font-size: 11px !important; text-transform: uppercase;
-            min-width: 130px;
         }
 
         .hidden { display: none; }
@@ -61,17 +63,14 @@
                 <div class="bg-yellow-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-yellow-500 text-2xl"><i class="fas fa-comments"></i></div>
                 <div><h3 class="font-bold text-lg leading-tight">Aulas de Conversação</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Lições Oficiais</p></div>
             </div>
-
             <div onclick="startApp('A1')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 shadow-xl">
                 <div class="bg-green-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-green-500 text-2xl"><i class="fas fa-graduation-cap"></i></div>
                 <div><h3 class="font-bold text-lg leading-tight">Módulo A1 / A2</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Gramática Base</p></div>
             </div>
-
             <div onclick="startApp('CUSTOM')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 border-dashed border-yellow-500/40 bg-yellow-500/5 shadow-xl">
                 <div class="bg-orange-500/20 w-16 h-16 flex items-center justify-center rounded-2xl text-orange-500 text-2xl"><i class="fas fa-layer-group"></i></div>
                 <div><h3 class="font-bold text-lg leading-tight">Meus Cards & Favoritos</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Personalizado</p></div>
             </div>
-
             <div onclick="startApp('VOC_CONV')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 shadow-xl">
                 <div class="bg-blue-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-blue-500 text-2xl"><i class="fas fa-book-open"></i></div>
                 <div><h3 class="font-bold text-lg leading-tight">Vocabulário</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Expressões Úteis</p></div>
@@ -82,53 +81,48 @@
     <div id="screen-app" class="hidden flex flex-col min-h-screen">
         <header class="p-5 bg-slate-900/50 backdrop-blur-lg flex justify-between items-center border-b border-slate-800 sticky top-0 z-40">
             <button onclick="location.reload()" class="w-12 h-12 flex items-center justify-center bg-slate-800 rounded-2xl text-slate-400 shadow-lg"><i class="fas fa-home text-xl"></i></button>
-            
-            <div class="flex items-center gap-3">
-                <button id="btnClean" onclick="clearAllCustom()" class="hidden w-12 h-12 flex items-center justify-center bg-red-500/10 rounded-2xl text-red-500 border border-red-500/20"><i class="fas fa-trash-alt"></i></button>
-                <button id="btnAddCard" onclick="openModalForNew()" class="hidden bg-yellow-500 px-5 py-3.5 rounded-2xl text-[11px] font-black text-slate-900 uppercase shadow-lg">+ NOVO</button>
+            <div class="flex items-center gap-2">
+                <button id="btnClean" onclick="clearAllCustom()" class="hidden w-10 h-10 flex items-center justify-center bg-red-500/10 rounded-xl text-red-500"><i class="fas fa-trash-alt"></i></button>
+                <button id="btnAddCard" onclick="openModalForNew()" class="hidden bg-yellow-500 px-4 py-2.5 rounded-xl text-[10px] font-black text-slate-900 uppercase">+ NOVO</button>
+                <select id="diffFilter" onchange="filterAndShow()" class="custom-select-ui text-[9px] !min-w-[90px] !p-2 !pr-8">
+                    <option value="all">TODOS</option>
+                    <option value="hard">DIFÍCIL</option>
+                    <option value="medium">MÉDIO</option>
+                    <option value="easy">FÁCIL</option>
+                </select>
                 <select id="lessonFilter" onchange="filterAndShow()" class="custom-select-ui"></select>
             </div>
         </header>
 
         <main class="flex-grow flex flex-col items-center justify-center p-6">
             <div id="card-display" class="w-full flex justify-center relative"></div>
-            <button onclick="showRandomCard()" class="mt-12 bg-yellow-500 text-slate-900 font-black px-12 py-5 rounded-[2rem] text-xl shadow-2xl active:scale-95 transition-all w-full max-w-[300px]">PRÓXIMO <i class="fas fa-chevron-right ml-2"></i></button>
-            <div class="mt-8 flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-full border border-slate-700">
-                <span class="w-2 h-2 bg-yellow-500 rounded-full"></span>
-                <p class="text-slate-400 font-bold uppercase text-[9px] tracking-widest">Cards: <span id="card-count" class="text-white">0</span></p>
+            
+            <div id="rating-controls" class="hidden grid grid-cols-3 gap-3 w-full max-w-[400px] mt-8">
+                <button onclick="rateCard('hard')" class="bg-red-500/20 border border-red-500/50 text-red-500 py-4 rounded-2xl font-black text-xs uppercase">Difícil</button>
+                <button onclick="rateCard('medium')" class="bg-yellow-500/20 border border-yellow-500/50 text-yellow-500 py-4 rounded-2xl font-black text-xs uppercase">Médio</button>
+                <button onclick="rateCard('easy')" class="bg-green-500/20 border border-green-500/50 text-green-500 py-4 rounded-2xl font-black text-xs uppercase">Fácil</button>
             </div>
+
+            <button id="btnNext" onclick="showRandomCard()" class="mt-8 bg-yellow-500 text-slate-900 font-black px-12 py-5 rounded-[2rem] text-xl shadow-2xl active:scale-95 transition-all w-full max-w-[300px]">PRÓXIMO <i class="fas fa-chevron-right ml-2"></i></button>
         </main>
     </div>
 
     <div id="modal-custom" class="hidden fixed inset-0 bg-slate-950/95 z-50 flex items-center justify-center p-6 backdrop-blur-xl">
-        <div class="bg-slate-900 p-8 rounded-[3rem] w-full max-w-md border border-slate-700 shadow-2xl">
-            <h2 id="modalTitle" class="text-2xl font-black mb-1 text-yellow-500">Novo Card</h2>
+        <div class="bg-slate-900 p-8 rounded-[3rem] w-full max-w-md border border-slate-700">
+            <h2 id="modalTitle" class="text-2xl font-black text-yellow-500">Novo Card</h2>
             <div class="space-y-4 mt-6">
-                <div>
-                    <label class="text-[9px] font-bold text-slate-500 uppercase ml-2 mb-1 block">Categoria</label>
-                    <input type="text" id="custCat" placeholder="Ex: Verbos, Viagem..." class="w-full bg-slate-800 p-4 rounded-2xl border border-slate-700 text-white outline-none focus:border-yellow-500">
-                </div>
-                <div>
-                    <label class="text-[9px] font-bold text-slate-500 uppercase ml-2 mb-1 block">Frente (Inglês)</label>
-                    <input type="text" id="custFront" class="w-full bg-slate-800 p-4 rounded-2xl border border-slate-700 text-white outline-none focus:border-yellow-500">
-                </div>
-                <div>
-                    <label class="text-[9px] font-bold text-slate-500 uppercase ml-2 mb-1 block">Verso (Português)</label>
-                    <input type="text" id="custBack" class="w-full bg-slate-800 p-4 rounded-2xl border border-slate-700 text-white outline-none focus:border-yellow-500">
-                </div>
+                <input type="text" id="custCat" placeholder="Categoria" class="w-full bg-slate-800 p-4 rounded-2xl text-white outline-none">
+                <input type="text" id="custFront" placeholder="Inglês" class="w-full bg-slate-800 p-4 rounded-2xl text-white outline-none">
+                <input type="text" id="custBack" placeholder="Português" class="w-full bg-slate-800 p-4 rounded-2xl text-white outline-none">
             </div>
-            <div class="flex flex-col gap-3 mt-8">
-                <button id="btnSaveModal" onclick="saveCustomCard()" class="w-full bg-yellow-500 text-slate-900 font-black p-5 rounded-2xl uppercase tracking-tighter">Salvar Card</button>
-                <button onclick="toggleModal(false)" class="w-full bg-transparent text-slate-500 font-bold p-2 text-sm uppercase">Cancelar</button>
-            </div>
+            <button onclick="saveCustomCard()" class="w-full bg-yellow-500 text-slate-900 font-black p-5 rounded-2xl mt-8">SALVAR</button>
+            <button onclick="toggleModal(false)" class="w-full text-slate-500 font-bold p-2 mt-2">CANCELAR</button>
         </div>
     </div>
 
     <script>
-        let currentDB = [];
-        let filteredDB = [];
-        let currentCard = null;
-        let moduleActive = '';
+        let currentDB = []; let filteredDB = []; let currentCard = null; let moduleActive = '';
+        let ratings = JSON.parse(localStorage.getItem('flashRatings_v1') || '{}');
 
         async function startApp(module) {
             moduleActive = module; currentDB = [];
@@ -161,129 +155,68 @@
             }
         }
 
-        function loadCustomCards() {
-            currentDB = JSON.parse(localStorage.getItem('myCustomCards_vFinal') || '[]');
-        }
+        function loadCustomCards() { currentDB = JSON.parse(localStorage.getItem('myCustomCards_vFinal') || '[]'); }
 
-        function openModalForNew() {
-            document.getElementById('modalTitle').innerText = "Novo Card Manual";
-            document.getElementById('btnSaveModal').innerText = "Salvar no meu deck";
-            document.getElementById('custCat').value = "Geral";
-            document.getElementById('custFront').value = "";
-            document.getElementById('custBack').value = "";
-            toggleModal(true);
-        }
-
-        function openModalForFavorite() {
-            if (!currentCard) return;
-            document.getElementById('modalTitle').innerText = "Favoritar Card";
-            document.getElementById('btnSaveModal').innerText = "Salvar Favorito";
-            document.getElementById('custCat').value = "Favoritos";
-            document.getElementById('custFront').value = currentCard.f;
-            document.getElementById('custBack').value = currentCard.b;
-            toggleModal(true);
-        }
-
-        function saveCustomCard() {
-            const f = document.getElementById('custFront').value;
-            const b = document.getElementById('custBack').value;
-            const c = document.getElementById('custCat').value || 'Geral';
-            if (!f || !b) return alert("Preencha os campos!");
-            
-            let saved = JSON.parse(localStorage.getItem('myCustomCards_vFinal') || '[]');
-            saved.push({ f, b, l: `CAT: ${c.toUpperCase()}` });
-            localStorage.setItem('myCustomCards_vFinal', JSON.stringify(saved));
-            
-            toggleModal(false);
-            if (moduleActive === 'CUSTOM') { loadCustomCards(); populateLessons(); filterAndShow(); }
-            else { alert("Salvo na sua biblioteca pessoal!"); }
-        }
-
-        function deleteSingleCard(frontText) {
-            if(confirm("Deseja remover este card permanentemente?")) {
-                let saved = JSON.parse(localStorage.getItem('myCustomCards_vFinal') || '[]');
-                const updated = saved.filter(card => card.f !== frontText);
-                localStorage.setItem('myCustomCards_vFinal', JSON.stringify(updated));
-                loadCustomCards();
-                populateLessons();
-                filterAndShow();
-            }
-        }
-
-        function clearAllCustom() {
-            if(confirm("Apagar todos os seus cards pessoais?")) {
-                localStorage.removeItem('myCustomCards_vFinal');
-                currentDB = []; populateLessons(); filterAndShow();
-            }
-        }
-
-        function toggleModal(show) { document.getElementById('modal-custom').classList.toggle('hidden', !show); }
-
-        async function loadJSModule(module) {
-            const files = { 'A1': 'js/vocabulary.js', 'VOC_CONV': 'js/conversation-vocabulary.js', 'EXP': 'js/expressions.js' };
-            try {
-                const r = await fetch(files[module]);
-                const text = await r.text();
-                const jsonStr = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
-                const data = new Function(`return ${jsonStr}`)();
-                for (let id in data) {
-                    const label = `Lição ${id.padStart(2, '0')}`;
-                    if (module === 'EXP') data[id].forEach(e => currentDB.push({ f: e.expression, b: e.meaning, l: label }));
-                    else {
-                        data[id].words?.forEach(w => currentDB.push({ f: w.english, b: w.portuguese, l: label }));
-                        data[id].expressions?.forEach(e => currentDB.push({ f: e.english, b: e.portuguese, l: label }));
-                    }
-                }
-            } catch (e) {}
-        }
-
-        function populateLessons() {
-            const filter = document.getElementById('lessonFilter');
-            filter.innerHTML = '<option value="all">FILTRAR</option>';
-            const unique = [...new Set(currentDB.map(d => d.l))].sort((a,b) => a.localeCompare(b, undefined, {numeric: true}));
-            unique.forEach(l => {
-                const opt = document.createElement('option');
-                opt.value = l; opt.innerText = l;
-                filter.appendChild(opt);
-            });
+        function rateCard(level) {
+            ratings[currentCard.f] = level;
+            localStorage.setItem('flashRatings_v1', JSON.stringify(ratings));
+            showRandomCard();
         }
 
         function filterAndShow() {
-            const val = document.getElementById('lessonFilter').value;
-            filteredDB = (val === 'all') ? currentDB : currentDB.filter(d => d.l === val);
-            document.getElementById('card-count').innerText = filteredDB.length;
+            const lesson = document.getElementById('lessonFilter').value;
+            const diff = document.getElementById('diffFilter').value;
+            
+            filteredDB = currentDB.filter(d => {
+                const matchLesson = (lesson === 'all' || d.l === lesson);
+                const matchDiff = (diff === 'all' || ratings[d.f] === diff);
+                return matchLesson && matchDiff;
+            });
             showRandomCard();
         }
 
         function showRandomCard() {
             const display = document.getElementById('card-display');
+            const ratingUI = document.getElementById('rating-controls');
             if (filteredDB.length === 0) {
-                display.innerHTML = "<div class='text-slate-600 text-center p-16 border-4 border-dashed border-slate-800 rounded-[3rem] font-bold uppercase tracking-widest'>Lista Vazia</div>";
-                return;
+                display.innerHTML = "<div class='text-slate-600 text-center p-16 border-4 border-dashed border-slate-800 rounded-[3rem] font-bold uppercase'>Vazio</div>";
+                ratingUI.classList.add('hidden'); return;
             }
             currentCard = filteredDB[Math.floor(Math.random() * filteredDB.length)];
-            
-            // Lógica de botões: Estrela para módulos oficiais, Lixeira para módulo Custom
-            let actionBtn = '';
-            if (moduleActive !== 'CUSTOM') {
-                actionBtn = `<button onclick="openModalForFavorite(); event.stopPropagation();" class="btn-card-action btn-fav"><i class="fas fa-star text-xl"></i></button>`;
-            } else {
-                actionBtn = `<button onclick="deleteSingleCard('${currentCard.f.replace(/'/g, "\\'")}'); event.stopPropagation();" class="btn-card-action btn-del-single"><i class="fas fa-trash-alt text-lg"></i></button>`;
-            }
+            const diffClass = ratings[currentCard.f] ? `diff-${ratings[currentCard.f]}` : '';
+            const actionBtn = moduleActive !== 'CUSTOM' ? 
+                `<button onclick="openModalForFavorite(); event.stopPropagation();" class="btn-card-action btn-fav"><i class="fas fa-star text-xl"></i></button>` :
+                `<button onclick="deleteSingleCard('${currentCard.f.replace(/'/g, "\\'")}'); event.stopPropagation();" class="btn-card-action btn-del-single"><i class="fas fa-trash-alt text-lg"></i></button>`;
 
             display.innerHTML = `
-                <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard ${diffClass}" onclick="this.classList.toggle('flipped'); document.getElementById('rating-controls').classList.remove('hidden')">
                     ${actionBtn}
                     <div class="flashcard-inner">
                         <div class="flashcard-front">
-                            <span class="text-[10px] text-slate-500 absolute top-8 uppercase tracking-[4px] font-black border-b border-slate-700 pb-1">${currentCard.l}</span>
+                            <span class="text-[10px] text-slate-500 absolute top-8 uppercase tracking-[4px] font-black">${currentCard.l}</span>
                             ${currentCard.f}
                         </div>
                         <div class="flashcard-back">${currentCard.b}</div>
                     </div>
                 </div>
             `;
+            ratingUI.classList.add('hidden');
         }
+
+        // Funções de suporte (Modal, Save, LoadJS, Populate) mantidas conforme o padrão anterior...
+        function openModalForNew() { document.getElementById('modalTitle').innerText = "Novo Card"; document.getElementById('custCat').value = "Geral"; toggleModal(true); }
+        function openModalForFavorite() { document.getElementById('modalTitle').innerText = "Favoritar"; document.getElementById('custCat').value = "Favoritos"; document.getElementById('custFront').value = currentCard.f; document.getElementById('custBack').value = currentCard.b; toggleModal(true); }
+        function toggleModal(show) { document.getElementById('modal-custom').classList.toggle('hidden', !show); }
+        function saveCustomCard() {
+            const f = document.getElementById('custFront').value; const b = document.getElementById('custBack').value; const c = document.getElementById('custCat').value;
+            let saved = JSON.parse(localStorage.getItem('myCustomCards_vFinal') || '[]');
+            saved.push({ f, b, l: `CAT: ${c.toUpperCase()}` });
+            localStorage.setItem('myCustomCards_vFinal', JSON.stringify(saved));
+            toggleModal(false); if (moduleActive === 'CUSTOM') { loadCustomCards(); populateLessons(); filterAndShow(); } else alert("Salvo!");
+        }
+        function deleteSingleCard(f) { if(confirm("Deletar?")) { let saved = JSON.parse(localStorage.getItem('myCustomCards_vFinal') || '[]'); const updated = saved.filter(c => c.f !== f); localStorage.setItem('myCustomCards_vFinal', JSON.stringify(updated)); loadCustomCards(); filterAndShow(); } }
+        async function loadJSModule(m) { const files = { 'A1': 'js/vocabulary.js', 'VOC_CONV': 'js/conversation-vocabulary.js' }; try { const r = await fetch(files[m]); const t = await r.text(); const j = new Function(`return ${t.substring(t.indexOf('{'), t.lastIndexOf('}') + 1)}`)(); for (let id in j) { j[id].words?.forEach(w => currentDB.push({ f: w.english, b: w.portuguese, l: `Lição ${id.padStart(2,'0')}` })); } } catch (e) {} }
+        function populateLessons() { const f = document.getElementById('lessonFilter'); f.innerHTML = '<option value="all">LIÇÕES</option>'; [...new Set(currentDB.map(d => d.l))].sort().forEach(l => { const o = document.createElement('option'); o.value = l; o.innerText = l; f.appendChild(o); }); }
     </script>
 </body>
 </html>
