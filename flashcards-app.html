@@ -2,99 +2,131 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Flash-English: Master Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <style>
         :root { --bg-deep: #0f172a; --bg-card: #1e293b; --accent: #facc15; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-deep); color: white; min-height: 100vh; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-deep); color: white; min-height: 100vh; overflow-x: hidden; }
+        
+        /* Layout do Menu */
         .menu-card { background: var(--bg-card); transition: all 0.3s; cursor: pointer; border: 2px solid #334155; }
-        .menu-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .menu-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+        
+        /* Estilo dos Flashcards */
         .flashcard { height: 350px; perspective: 1000px; cursor: pointer; width: 100%; max-width: 400px; }
-        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 2rem; border-radius: 2rem; border: 4px solid #334155; text-align: center; }
+        .flashcard-front, .flashcard-back { 
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden; 
+            display: flex; align-items: center; justify-content: center; flex-direction: column; 
+            padding: 2rem; border-radius: 2.5rem; border: 4px solid #334155; text-align: center; 
+        }
         .flashcard-front { background: var(--bg-card); color: var(--accent); font-size: 2.2rem; font-weight: 900; }
         .flashcard-back { background: var(--accent); color: var(--bg-deep); transform: rotateY(180deg); font-size: 1.5rem; font-weight: 700; }
+        
+        /* Custom Select Styling */
+        .custom-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23facc15'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1rem;
+            padding-right: 2rem !important;
+        }
+
         .hidden { display: none; }
+        input, select { font-size: 16px !important; } 
     </style>
 </head>
 <body>
 
     <div id="screen-menu" class="container mx-auto px-6 py-12">
-        <div class="text-center mb-12">
+        <div class="text-center mb-10">
             <i class="fas fa-bolt text-yellow-400 text-5xl mb-4"></i>
-            <h1 class="text-3xl font-black italic tracking-tighter">FLASH-ENGLISH</h1>
-            <p class="text-slate-400 mt-2">Plataforma de Memorização Ativa</p>
+            <h1 class="text-3xl font-black italic tracking-tighter uppercase">Flash-English</h1>
+            <p class="text-slate-400 mt-2 text-sm uppercase tracking-widest font-bold">Training System</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            <div onclick="startApp('AULAS_CONV')" class="menu-card p-6 rounded-3xl flex items-center gap-6">
-                <div class="bg-yellow-500/10 p-4 rounded-2xl text-yellow-500 text-2xl"><i class="fas fa-comments"></i></div>
-                <div><h3 class="font-bold text-lg">Aulas de Conversação</h3><p class="text-xs text-slate-400">Lições Oficiais</p></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+            <div onclick="startApp('AULAS_CONV')" class="menu-card p-6 rounded-3xl flex items-center gap-5">
+                <div class="bg-yellow-500/10 w-14 h-14 flex items-center justify-center rounded-2xl text-yellow-500 text-2xl"><i class="fas fa-comments"></i></div>
+                <div><h3 class="font-bold text-lg leading-tight">Aulas de Conversação</h3><p class="text-[10px] text-slate-500 uppercase mt-1">32 Lições Oficiais</p></div>
             </div>
 
-            <div onclick="startApp('CUSTOM')" class="menu-card p-6 rounded-3xl flex items-center gap-6 border-dashed border-yellow-500/50 shadow-lg shadow-yellow-500/5">
-                <div class="bg-orange-500/10 p-4 rounded-2xl text-orange-500 text-2xl"><i class="fas fa-pen-fancy"></i></div>
-                <div><h3 class="font-bold text-lg">Meus Cards Pessoais</h3><p class="text-xs text-slate-400">Crie por categorias</p></div>
+            <div onclick="startApp('CUSTOM')" class="menu-card p-6 rounded-3xl flex items-center gap-5 border-dashed border-yellow-500/30 bg-yellow-500/5">
+                <div class="bg-orange-500/20 w-14 h-14 flex items-center justify-center rounded-2xl text-orange-500 text-2xl"><i class="fas fa-pen-nib"></i></div>
+                <div><h3 class="font-bold text-lg leading-tight">Meus Cards Pessoais</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Crie seus cards por categorias</p></div>
             </div>
 
-            <div onclick="startApp('VOC_CONV')" class="menu-card p-6 rounded-3xl flex items-center gap-6">
-                <div class="bg-blue-500/10 p-4 rounded-2xl text-blue-500 text-2xl"><i class="fas fa-book"></i></div>
-                <div><h3 class="font-bold text-lg">Vocabulário</h3><p class="text-xs text-slate-400">Espressões diversas</p></div>
+            <div onclick="startApp('VOC_CONV')" class="menu-card p-6 rounded-3xl flex items-center gap-5">
+                <div class="bg-blue-500/10 w-14 h-14 flex items-center justify-center rounded-2xl text-blue-500 text-2xl"><i class="fas fa-list-ul"></i></div>
+                <div><h3 class="font-bold text-lg leading-tight">Expressões diversas</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Vocabulário de todos os níveis</p></div>
             </div>
 
-            <div onclick="startApp('A1')" class="menu-card p-6 rounded-3xl flex items-center gap-6">
-                <div class="bg-green-500/10 p-4 rounded-2xl text-green-500 text-2xl"><i class="fas fa-graduation-cap"></i></div>
-                <div><h3 class="font-bold text-lg">Módulo A1 / A2</h3><p class="text-xs text-slate-400">Fundamentos</p></div>
+            <div onclick="startApp('A1')" class="menu-card p-6 rounded-3xl flex items-center gap-5">
+                <div class="bg-green-500/10 w-14 h-14 flex items-center justify-center rounded-2xl text-green-500 text-2xl"><i class="fas fa-graduation-cap"></i></div>
+                <div><h3 class="font-bold text-lg leading-tight">Módulo A1 / A2</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Fundamentos</p></div>
             </div>
         </div>
     </div>
 
     <div id="screen-app" class="hidden flex flex-col min-h-screen">
         <header class="p-4 bg-slate-900 flex justify-between items-center border-b border-slate-800 sticky top-0 z-40">
-            <button onclick="location.reload()" class="text-slate-400 hover:text-white"><i class="fas fa-home text-xl"></i></button>
+            <button onclick="location.reload()" class="w-12 h-12 flex items-center justify-center bg-slate-800 rounded-full text-slate-400 active:scale-90 transition-all">
+                <i class="fas fa-home text-lg"></i>
+            </button>
             
-            <div class="flex gap-2">
-                <button id="btnClean" onclick="clearAllCustom()" class="hidden bg-red-500/10 hover:bg-red-500/20 px-3 py-2 rounded-lg text-[10px] font-bold text-red-400 border border-red-500/20">
-                    LIMPAR TUDO
+            <div class="flex items-center gap-2">
+                <button id="btnClean" onclick="clearAllCustom()" class="hidden w-11 h-11 flex items-center justify-center bg-red-500/10 rounded-xl text-red-500 border border-red-500/20 active:bg-red-500 active:text-white transition-all mr-1">
+                    <i class="fas fa-trash-alt"></i>
                 </button>
-                <button id="btnAddCard" onclick="toggleModal(true)" class="hidden bg-yellow-500 hover:bg-yellow-400 px-3 py-2 rounded-lg text-[10px] font-bold text-slate-900 transition-colors">
-                    + NOVO CARD
+                
+                <button id="btnAddCard" onclick="toggleModal(true)" class="hidden bg-yellow-500 hover:bg-yellow-400 px-4 py-3 rounded-xl text-[10px] font-black text-slate-900 uppercase whitespace-nowrap">
+                    + NOVO
                 </button>
-                <select id="lessonFilter" onchange="filterAndShow()" class="bg-slate-800 text-white p-2 rounded-lg text-xs outline-none border border-slate-700 min-w-[140px]">
-                    <option value="all">Todas as Lições</option>
+
+                <select id="lessonFilter" onchange="filterAndShow()" class="custom-select bg-slate-800 text-white py-3 px-4 rounded-xl text-[11px] font-bold uppercase tracking-tighter outline-none border border-slate-700 min-w-[130px] focus:border-yellow-500 transition-all">
+                    <option value="all">Filtro</option>
                 </select>
             </div>
         </header>
 
         <main class="flex-grow flex flex-col items-center justify-center p-6">
             <div id="card-display" class="w-full flex justify-center"></div>
-            <button onclick="showRandomCard()" class="mt-10 bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-black px-16 py-5 rounded-2xl text-xl shadow-xl active:scale-95 transition-all">
+            
+            <button onclick="showRandomCard()" class="mt-10 bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-black px-16 py-5 rounded-3xl text-xl shadow-2xl shadow-yellow-500/20 active:scale-95 transition-all">
                 PRÓXIMO CARD <i class="fas fa-arrow-right ml-2"></i>
             </button>
-            <p class="mt-6 text-slate-500 font-bold uppercase text-[10px] tracking-widest">Cards carregados: <span id="card-count" class="text-yellow-500">0</span></p>
+            
+            <p class="mt-8 text-slate-500 font-bold uppercase text-[10px] tracking-[3px]">Cards: <span id="card-count" class="text-yellow-500">0</span></p>
         </main>
     </div>
 
-    <div id="modal-custom" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
-        <div class="bg-slate-800 p-8 rounded-[2rem] w-full max-w-md border border-slate-700 shadow-2xl">
-            <h2 class="text-2xl font-black mb-2 text-yellow-500">Novo Flashcard</h2>
-            <p class="text-slate-400 text-sm mb-6">Adicione seu próprio conteúdo ao app.</p>
+    <div id="modal-custom" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-6 backdrop-blur-md">
+        <div class="bg-slate-800 p-8 rounded-[2.5rem] w-full max-w-md border border-slate-700">
+            <h2 class="text-2xl font-black mb-1 text-yellow-500">Novo Card</h2>
+            <p class="text-slate-400 text-xs mb-6 uppercase tracking-widest font-bold">Conteúdo Pessoal</p>
             
-            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1 ml-1">Categoria (Ex: Viagem, Trabalho)</label>
-            <input type="text" id="custCat" placeholder="Geral" class="w-full bg-slate-900 p-4 rounded-xl mb-4 border border-slate-700 outline-none focus:border-yellow-500 transition-all">
+            <div class="space-y-4">
+                <div>
+                    <label class="text-[10px] font-bold text-slate-500 uppercase ml-1">Categoria</label>
+                    <input type="text" id="custCat" placeholder="Ex: Viagem, Business..." class="w-full bg-slate-900 p-4 rounded-2xl border border-slate-700 outline-none focus:border-yellow-500 text-white">
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-slate-500 uppercase ml-1">Termo (Inglês)</label>
+                    <input type="text" id="custFront" placeholder="Word or phrase" class="w-full bg-slate-900 p-4 rounded-2xl border border-slate-700 outline-none focus:border-yellow-500 text-white">
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-slate-500 uppercase ml-1">Tradução (Português)</label>
+                    <input type="text" id="custBack" placeholder="Tradução" class="w-full bg-slate-900 p-4 rounded-2xl border border-slate-700 outline-none focus:border-yellow-500 text-white">
+                </div>
+            </div>
             
-            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1 ml-1">Termo em Inglês</label>
-            <input type="text" id="custFront" placeholder="Ex: Good morning" class="w-full bg-slate-900 p-4 rounded-xl mb-4 border border-slate-700 outline-none focus:border-yellow-500 transition-all">
-            
-            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1 ml-1">Tradução em Português</label>
-            <input type="text" id="custBack" placeholder="Ex: Bom dia" class="w-full bg-slate-900 p-4 rounded-xl mb-8 border border-slate-700 outline-none focus:border-yellow-500 transition-all">
-            
-            <div class="flex gap-3">
-                <button onclick="saveCustomCard()" class="flex-1 bg-yellow-500 text-slate-900 font-black p-4 rounded-xl hover:bg-yellow-400 transition-colors">SALVAR</button>
-                <button onclick="toggleModal(false)" class="flex-1 bg-slate-700 text-white font-bold p-4 rounded-xl hover:bg-slate-600 transition-colors">SAIR</button>
+            <div class="flex gap-3 mt-8">
+                <button onclick="saveCustomCard()" class="flex-1 bg-yellow-500 text-slate-900 font-black p-4 rounded-2xl shadow-lg shadow-yellow-500/20">SALVAR</button>
+                <button onclick="toggleModal(false)" class="flex-1 bg-slate-700 text-white font-bold p-4 rounded-2xl">VOLTAR</button>
             </div>
         </div>
     </div>
@@ -102,10 +134,8 @@
     <script>
         let currentDB = [];
         let filteredDB = [];
-        let currentModule = '';
 
         async function startApp(module) {
-            currentModule = module;
             currentDB = [];
             document.getElementById('screen-menu').classList.add('hidden');
             document.getElementById('screen-app').classList.remove('hidden');
@@ -143,7 +173,7 @@
         }
 
         function loadCustomCards() {
-            const saved = localStorage.getItem('myCustomCards_v2');
+            const saved = localStorage.getItem('myCustomCards_v3');
             currentDB = saved ? JSON.parse(saved) : [];
         }
 
@@ -152,28 +182,28 @@
             const b = document.getElementById('custBack').value;
             const c = document.getElementById('custCat').value || 'Geral';
             
-            if (!f || !b) return alert("Preencha o termo e a tradução!");
+            if (!f || !b) return alert("Por favor, preencha o termo e a tradução.");
 
             const newCard = { f, b, l: `Cat: ${c}` };
             currentDB.push(newCard);
-            localStorage.setItem('myCustomCards_v2', JSON.stringify(currentDB));
+            localStorage.setItem('myCustomCards_v3', JSON.stringify(currentDB));
             
             document.getElementById('custFront').value = '';
             document.getElementById('custBack').value = '';
             toggleModal(false);
             
-            // Recarregar filtros para incluir a nova categoria se necessário
-            const filter = document.getElementById('lessonFilter');
-            filter.innerHTML = '<option value="all">Todas as Categorias</option>';
             populateLessons();
             filterAndShow();
         }
 
         function clearAllCustom() {
             if(confirm("Deseja apagar TODOS os seus cards pessoais?")) {
-                localStorage.removeItem('myCustomCards_v2');
-                currentDB = [];
-                filterAndShow();
+                if(confirm("Confirmação final: esta ação não pode ser desfeita.")) {
+                    localStorage.removeItem('myCustomCards_v3');
+                    currentDB = [];
+                    filterAndShow();
+                    populateLessons();
+                }
             }
         }
 
@@ -202,6 +232,7 @@
 
         function populateLessons() {
             const filter = document.getElementById('lessonFilter');
+            filter.innerHTML = '<option value="all">Todas as Lições</option>';
             const unique = [...new Set(currentDB.map(d => d.l))].sort((a,b) => a.localeCompare(b, undefined, {numeric: true}));
             unique.forEach(l => {
                 const opt = document.createElement('option');
@@ -220,7 +251,7 @@
         function showRandomCard() {
             const display = document.getElementById('card-display');
             if (filteredDB.length === 0) {
-                display.innerHTML = "<div class='text-slate-500 text-center p-10 border border-dashed border-slate-700 rounded-3xl'>Nenhum card nesta categoria.</div>";
+                display.innerHTML = "<div class='text-slate-500 text-center p-12 border-2 border-dashed border-slate-800 rounded-[3rem]'>Nenhum card nesta lista.</div>";
                 return;
             }
             const card = filteredDB[Math.floor(Math.random() * filteredDB.length)];
@@ -228,7 +259,7 @@
                 <div class="flashcard" onclick="this.classList.toggle('flipped')">
                     <div class="flashcard-inner">
                         <div class="flashcard-front">
-                            <span class="text-[10px] text-slate-500 absolute top-4 uppercase tracking-[3px] font-bold">${card.l}</span>
+                            <span class="text-[9px] text-slate-500 absolute top-6 uppercase tracking-[3px] font-black">${card.l}</span>
                             ${card.f}
                         </div>
                         <div class="flashcard-back">${card.b}</div>
