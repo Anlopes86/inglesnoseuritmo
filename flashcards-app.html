@@ -10,12 +10,10 @@
         :root { --bg-deep: #0f172a; --bg-card: #1e293b; --accent: #facc15; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-deep); color: white; min-height: 100vh; overflow-x: hidden; }
         
-        /* Menu Principal */
         .menu-card { background: var(--bg-card); transition: all 0.3s; cursor: pointer; border: 2px solid #334155; }
         .menu-card:hover { border-color: var(--accent); transform: translateY(-3px); }
         
-        /* Flashcards */
-        .flashcard { height: 380px; perspective: 1000px; cursor: pointer; width: 100%; max-width: 400px; }
+        .flashcard { height: 380px; perspective: 1000px; cursor: pointer; width: 100%; max-width: 400px; position: relative; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
         .flashcard-front, .flashcard-back { 
@@ -26,29 +24,25 @@
         .flashcard-front { background: var(--bg-card); color: var(--accent); font-size: 2.2rem; font-weight: 900; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); }
         .flashcard-back { background: var(--accent); color: var(--bg-deep); transform: rotateY(180deg); font-size: 1.6rem; font-weight: 700; }
         
-        /* Estilização Extrema do Select (Adeus Padrão Navegador) */
-        .custom-select-ui {
-            appearance: none;
-            -webkit-appearance: none;
-            background-color: #1e293b;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23facc15'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 1rem center;
-            background-size: 1.2rem;
-            border: 2px solid #334155;
-            border-radius: 1rem;
-            padding: 0.75rem 2.5rem 0.75rem 1rem !important;
-            color: white;
-            font-weight: 800;
-            font-size: 12px !important;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-            min-width: 140px;
-            cursor: pointer;
+        /* Botões de Ação no Card */
+        .btn-card-action {
+            position: absolute; top: 20px; z-index: 50;
+            background: rgba(15, 23, 42, 0.8); width: 50px; height: 50px;
+            border-radius: 18px; display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s; border: 2px solid transparent;
         }
+        .btn-fav { right: 20px; color: #facc15; border-color: #facc15; }
+        .btn-del-single { right: 20px; color: #ef4444; border-color: #ef4444; }
+        .btn-card-action:active { transform: scale(0.9); opacity: 0.8; }
 
-        .custom-select-ui:focus { border-color: var(--accent); outline: none; }
+        .custom-select-ui {
+            appearance: none; -webkit-appearance: none; background-color: #1e293b;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23facc15'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.2rem;
+            border: 2px solid #334155; border-radius: 1rem; padding: 0.75rem 2.5rem 0.75rem 1rem !important;
+            color: white; font-weight: 800; font-size: 11px !important; text-transform: uppercase;
+            min-width: 130px;
+        }
 
         .hidden { display: none; }
     </style>
@@ -57,94 +51,75 @@
 
     <div id="screen-menu" class="container mx-auto px-6 py-12">
         <div class="text-center mb-12">
-            <div class="inline-block p-4 bg-yellow-400/10 rounded-full mb-4">
-                <i class="fas fa-bolt text-yellow-400 text-5xl"></i>
-            </div>
+            <div class="inline-block p-4 bg-yellow-400/10 rounded-full mb-4"><i class="fas fa-bolt text-yellow-400 text-5xl"></i></div>
             <h1 class="text-4xl font-black italic tracking-tighter uppercase">Flash-English</h1>
-            <p class="text-slate-500 mt-2 text-xs uppercase tracking-[4px] font-bold">Smart Learning</p>
+            <p class="text-slate-500 mt-2 text-xs uppercase tracking-[4px] font-bold">Inglês no seu Ritmo</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
             <div onclick="startApp('AULAS_CONV')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 shadow-xl">
                 <div class="bg-yellow-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-yellow-500 text-2xl"><i class="fas fa-comments"></i></div>
-                <div><h3 class="font-bold text-lg leading-tight">Aulas de Conversação</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Lições HTML Oficiais</p></div>
-            </div>
-
-            <div onclick="startApp('CUSTOM')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 border-dashed border-yellow-500/40 bg-yellow-500/5 shadow-xl">
-                <div class="bg-orange-500/20 w-16 h-16 flex items-center justify-center rounded-2xl text-orange-500 text-2xl"><i class="fas fa-magic"></i></div>
-                <div><h3 class="font-bold text-lg leading-tight">Meus Flashcards</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Crie por categorias</p></div>
-            </div>
-
-            <div onclick="startApp('VOC_CONV')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 shadow-xl">
-                <div class="bg-blue-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-blue-500 text-2xl"><i class="fas fa-atlas"></i></div>
-                <div><h3 class="font-bold text-lg leading-tight">Vocabulário</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Dicionário de Expressões</p></div>
+                <div><h3 class="font-bold text-lg leading-tight">Aulas de Conversação</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Lições Oficiais</p></div>
             </div>
 
             <div onclick="startApp('A1')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 shadow-xl">
-                <div class="bg-green-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-green-500 text-2xl"><i class="fas fa-user-graduate"></i></div>
-                <div><h3 class="font-bold text-lg leading-tight">Módulo A1 / A2</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Essenciais da Língua</p></div>
+                <div class="bg-green-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-green-500 text-2xl"><i class="fas fa-graduation-cap"></i></div>
+                <div><h3 class="font-bold text-lg leading-tight">Módulo A1 / A2</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Gramática Base</p></div>
+            </div>
+
+            <div onclick="startApp('CUSTOM')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 border-dashed border-yellow-500/40 bg-yellow-500/5 shadow-xl">
+                <div class="bg-orange-500/20 w-16 h-16 flex items-center justify-center rounded-2xl text-orange-500 text-2xl"><i class="fas fa-layer-group"></i></div>
+                <div><h3 class="font-bold text-lg leading-tight">Meus Cards & Favoritos</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Personalizado</p></div>
+            </div>
+
+            <div onclick="startApp('VOC_CONV')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 shadow-xl">
+                <div class="bg-blue-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-blue-500 text-2xl"><i class="fas fa-book-open"></i></div>
+                <div><h3 class="font-bold text-lg leading-tight">Vocabulário</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Expressões Úteis</p></div>
             </div>
         </div>
     </div>
 
     <div id="screen-app" class="hidden flex flex-col min-h-screen">
         <header class="p-5 bg-slate-900/50 backdrop-blur-lg flex justify-between items-center border-b border-slate-800 sticky top-0 z-40">
-            <button onclick="location.reload()" class="w-12 h-12 flex items-center justify-center bg-slate-800 rounded-2xl text-slate-400 active:bg-yellow-500 active:text-slate-900 transition-all shadow-lg">
-                <i class="fas fa-home text-xl"></i>
-            </button>
+            <button onclick="location.reload()" class="w-12 h-12 flex items-center justify-center bg-slate-800 rounded-2xl text-slate-400 shadow-lg"><i class="fas fa-home text-xl"></i></button>
             
             <div class="flex items-center gap-3">
-                <button id="btnClean" onclick="clearAllCustom()" class="hidden w-12 h-12 flex items-center justify-center bg-red-500/10 rounded-2xl text-red-500 border border-red-500/20 active:bg-red-600 active:text-white transition-all">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
-                
-                <button id="btnAddCard" onclick="toggleModal(true)" class="hidden bg-yellow-500 active:scale-95 px-5 py-3.5 rounded-2xl text-[11px] font-black text-slate-900 uppercase shadow-lg shadow-yellow-500/20">
-                    + NOVO
-                </button>
-
-                <select id="lessonFilter" onchange="filterAndShow()" class="custom-select-ui">
-                    <option value="all">TODOS</option>
-                </select>
+                <button id="btnClean" onclick="clearAllCustom()" class="hidden w-12 h-12 flex items-center justify-center bg-red-500/10 rounded-2xl text-red-500 border border-red-500/20"><i class="fas fa-trash-alt"></i></button>
+                <button id="btnAddCard" onclick="openModalForNew()" class="hidden bg-yellow-500 px-5 py-3.5 rounded-2xl text-[11px] font-black text-slate-900 uppercase shadow-lg">+ NOVO</button>
+                <select id="lessonFilter" onchange="filterAndShow()" class="custom-select-ui"></select>
             </div>
         </header>
 
         <main class="flex-grow flex flex-col items-center justify-center p-6">
-            <div id="card-display" class="w-full flex justify-center"></div>
-            
-            <button onclick="showRandomCard()" class="mt-12 bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-black px-12 py-5 rounded-[2rem] text-xl shadow-2xl shadow-yellow-500/30 active:scale-95 transition-all w-full max-w-[300px]">
-                PRÓXIMO <i class="fas fa-chevron-right ml-2"></i>
-            </button>
-            
+            <div id="card-display" class="w-full flex justify-center relative"></div>
+            <button onclick="showRandomCard()" class="mt-12 bg-yellow-500 text-slate-900 font-black px-12 py-5 rounded-[2rem] text-xl shadow-2xl active:scale-95 transition-all w-full max-w-[300px]">PRÓXIMO <i class="fas fa-chevron-right ml-2"></i></button>
             <div class="mt-8 flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-full border border-slate-700">
-                <span class="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></span>
+                <span class="w-2 h-2 bg-yellow-500 rounded-full"></span>
                 <p class="text-slate-400 font-bold uppercase text-[9px] tracking-widest">Cards: <span id="card-count" class="text-white">0</span></p>
             </div>
         </main>
     </div>
 
-    <div id="modal-custom" class="hidden fixed inset-0 bg-slate-950/90 z-50 flex items-center justify-center p-6 backdrop-blur-xl">
+    <div id="modal-custom" class="hidden fixed inset-0 bg-slate-950/95 z-50 flex items-center justify-center p-6 backdrop-blur-xl">
         <div class="bg-slate-900 p-8 rounded-[3rem] w-full max-w-md border border-slate-700 shadow-2xl">
-            <h2 class="text-3xl font-black mb-1 text-yellow-500">Novo Card</h2>
-            <p class="text-slate-500 text-[10px] mb-8 uppercase tracking-[3px] font-bold">Custom Database</p>
-            
-            <div class="space-y-5">
+            <h2 id="modalTitle" class="text-2xl font-black mb-1 text-yellow-500">Novo Card</h2>
+            <div class="space-y-4 mt-6">
                 <div>
-                    <label class="text-[10px] font-black text-slate-500 uppercase ml-2 mb-2 block">Categoria</label>
-                    <input type="text" id="custCat" placeholder="Ex: Business, Travel..." class="w-full bg-slate-800 p-4 rounded-2xl border border-slate-700 outline-none focus:border-yellow-500 text-white transition-all">
+                    <label class="text-[9px] font-bold text-slate-500 uppercase ml-2 mb-1 block">Categoria</label>
+                    <input type="text" id="custCat" placeholder="Ex: Verbos, Viagem..." class="w-full bg-slate-800 p-4 rounded-2xl border border-slate-700 text-white outline-none focus:border-yellow-500">
                 </div>
                 <div>
-                    <label class="text-[10px] font-black text-slate-500 uppercase ml-2 mb-2 block">Inglês (Frente)</label>
-                    <input type="text" id="custFront" placeholder="The word or phrase" class="w-full bg-slate-800 p-4 rounded-2xl border border-slate-700 outline-none focus:border-yellow-500 text-white transition-all">
+                    <label class="text-[9px] font-bold text-slate-500 uppercase ml-2 mb-1 block">Frente (Inglês)</label>
+                    <input type="text" id="custFront" class="w-full bg-slate-800 p-4 rounded-2xl border border-slate-700 text-white outline-none focus:border-yellow-500">
                 </div>
                 <div>
-                    <label class="text-[10px] font-black text-slate-500 uppercase ml-2 mb-2 block">Português (Verso)</label>
-                    <input type="text" id="custBack" placeholder="A tradução aqui" class="w-full bg-slate-800 p-4 rounded-2xl border border-slate-700 outline-none focus:border-yellow-500 text-white transition-all">
+                    <label class="text-[9px] font-bold text-slate-500 uppercase ml-2 mb-1 block">Verso (Português)</label>
+                    <input type="text" id="custBack" class="w-full bg-slate-800 p-4 rounded-2xl border border-slate-700 text-white outline-none focus:border-yellow-500">
                 </div>
             </div>
-            
-            <div class="flex flex-col gap-3 mt-10">
-                <button onclick="saveCustomCard()" class="w-full bg-yellow-500 text-slate-900 font-black p-5 rounded-2xl shadow-xl shadow-yellow-500/10">SALVAR CARD</button>
-                <button onclick="toggleModal(false)" class="w-full bg-transparent text-slate-500 font-bold p-4">CANCELAR</button>
+            <div class="flex flex-col gap-3 mt-8">
+                <button id="btnSaveModal" onclick="saveCustomCard()" class="w-full bg-yellow-500 text-slate-900 font-black p-5 rounded-2xl uppercase tracking-tighter">Salvar Card</button>
+                <button onclick="toggleModal(false)" class="w-full bg-transparent text-slate-500 font-bold p-2 text-sm uppercase">Cancelar</button>
             </div>
         </div>
     </div>
@@ -152,24 +127,20 @@
     <script>
         let currentDB = [];
         let filteredDB = [];
+        let currentCard = null;
+        let moduleActive = '';
 
         async function startApp(module) {
-            currentDB = [];
+            moduleActive = module; currentDB = [];
             document.getElementById('screen-menu').classList.add('hidden');
             document.getElementById('screen-app').classList.remove('hidden');
-            
             if (module === 'CUSTOM') {
                 document.getElementById('btnAddCard').classList.remove('hidden');
                 document.getElementById('btnClean').classList.remove('hidden');
                 loadCustomCards();
-            } else if (module === 'AULAS_CONV') {
-                await loadHTMLModule();
-            } else {
-                await loadJSModule(module);
-            }
-            
-            populateLessons();
-            filterAndShow();
+            } else if (module === 'AULAS_CONV') await loadHTMLModule();
+            else await loadJSModule(module);
+            populateLessons(); filterAndShow();
         }
 
         async function loadHTMLModule() {
@@ -191,42 +162,62 @@
         }
 
         function loadCustomCards() {
-            const saved = localStorage.getItem('myCustomCards_vFinal');
-            currentDB = saved ? JSON.parse(saved) : [];
+            currentDB = JSON.parse(localStorage.getItem('myCustomCards_vFinal') || '[]');
+        }
+
+        function openModalForNew() {
+            document.getElementById('modalTitle').innerText = "Novo Card Manual";
+            document.getElementById('btnSaveModal').innerText = "Salvar no meu deck";
+            document.getElementById('custCat').value = "Geral";
+            document.getElementById('custFront').value = "";
+            document.getElementById('custBack').value = "";
+            toggleModal(true);
+        }
+
+        function openModalForFavorite() {
+            if (!currentCard) return;
+            document.getElementById('modalTitle').innerText = "Favoritar Card";
+            document.getElementById('btnSaveModal').innerText = "Salvar Favorito";
+            document.getElementById('custCat').value = "Favoritos";
+            document.getElementById('custFront').value = currentCard.f;
+            document.getElementById('custBack').value = currentCard.b;
+            toggleModal(true);
         }
 
         function saveCustomCard() {
             const f = document.getElementById('custFront').value;
             const b = document.getElementById('custBack').value;
             const c = document.getElementById('custCat').value || 'Geral';
+            if (!f || !b) return alert("Preencha os campos!");
             
-            if (!f || !b) return alert("Erro: Preencha frente e verso!");
-
-            currentDB.push({ f, b, l: `CAT: ${c}` });
-            localStorage.setItem('myCustomCards_vFinal', JSON.stringify(currentDB));
+            let saved = JSON.parse(localStorage.getItem('myCustomCards_vFinal') || '[]');
+            saved.push({ f, b, l: `CAT: ${c.toUpperCase()}` });
+            localStorage.setItem('myCustomCards_vFinal', JSON.stringify(saved));
             
-            document.getElementById('custFront').value = '';
-            document.getElementById('custBack').value = '';
             toggleModal(false);
-            
-            populateLessons();
-            filterAndShow();
+            if (moduleActive === 'CUSTOM') { loadCustomCards(); populateLessons(); filterAndShow(); }
+            else { alert("Salvo na sua biblioteca pessoal!"); }
         }
 
-        function clearAllCustom() {
-            if(confirm("Deseja apagar TODOS os seus cards pessoais?")) {
-                if(confirm("ÚLTIMO AVISO: Isso apagará tudo o que você criou.")) {
-                    localStorage.removeItem('myCustomCards_vFinal');
-                    currentDB = [];
-                    populateLessons();
-                    filterAndShow();
-                }
+        function deleteSingleCard(frontText) {
+            if(confirm("Deseja remover este card permanentemente?")) {
+                let saved = JSON.parse(localStorage.getItem('myCustomCards_vFinal') || '[]');
+                const updated = saved.filter(card => card.f !== frontText);
+                localStorage.setItem('myCustomCards_vFinal', JSON.stringify(updated));
+                loadCustomCards();
+                populateLessons();
+                filterAndShow();
             }
         }
 
-        function toggleModal(show) {
-            document.getElementById('modal-custom').classList.toggle('hidden', !show);
+        function clearAllCustom() {
+            if(confirm("Apagar todos os seus cards pessoais?")) {
+                localStorage.removeItem('myCustomCards_vFinal');
+                currentDB = []; populateLessons(); filterAndShow();
+            }
         }
+
+        function toggleModal(show) { document.getElementById('modal-custom').classList.toggle('hidden', !show); }
 
         async function loadJSModule(module) {
             const files = { 'A1': 'js/vocabulary.js', 'VOC_CONV': 'js/conversation-vocabulary.js', 'EXP': 'js/expressions.js' };
@@ -237,9 +228,8 @@
                 const data = new Function(`return ${jsonStr}`)();
                 for (let id in data) {
                     const label = `Lição ${id.padStart(2, '0')}`;
-                    if (module === 'EXP') {
-                        data[id].forEach(e => currentDB.push({ f: e.expression, b: e.meaning, l: label }));
-                    } else {
+                    if (module === 'EXP') data[id].forEach(e => currentDB.push({ f: e.expression, b: e.meaning, l: label }));
+                    else {
                         data[id].words?.forEach(w => currentDB.push({ f: w.english, b: w.portuguese, l: label }));
                         data[id].expressions?.forEach(e => currentDB.push({ f: e.english, b: e.portuguese, l: label }));
                     }
@@ -249,7 +239,7 @@
 
         function populateLessons() {
             const filter = document.getElementById('lessonFilter');
-            filter.innerHTML = '<option value="all">TODOS</option>';
+            filter.innerHTML = '<option value="all">FILTRAR</option>';
             const unique = [...new Set(currentDB.map(d => d.l))].sort((a,b) => a.localeCompare(b, undefined, {numeric: true}));
             unique.forEach(l => {
                 const opt = document.createElement('option');
@@ -268,18 +258,28 @@
         function showRandomCard() {
             const display = document.getElementById('card-display');
             if (filteredDB.length === 0) {
-                display.innerHTML = "<div class='text-slate-600 text-center p-16 border-4 border-dashed border-slate-800 rounded-[3rem] font-bold'>LISTA VAZIA</div>";
+                display.innerHTML = "<div class='text-slate-600 text-center p-16 border-4 border-dashed border-slate-800 rounded-[3rem] font-bold uppercase tracking-widest'>Lista Vazia</div>";
                 return;
             }
-            const card = filteredDB[Math.floor(Math.random() * filteredDB.length)];
+            currentCard = filteredDB[Math.floor(Math.random() * filteredDB.length)];
+            
+            // Lógica de botões: Estrela para módulos oficiais, Lixeira para módulo Custom
+            let actionBtn = '';
+            if (moduleActive !== 'CUSTOM') {
+                actionBtn = `<button onclick="openModalForFavorite(); event.stopPropagation();" class="btn-card-action btn-fav"><i class="fas fa-star text-xl"></i></button>`;
+            } else {
+                actionBtn = `<button onclick="deleteSingleCard('${currentCard.f.replace(/'/g, "\\'")}'); event.stopPropagation();" class="btn-card-action btn-del-single"><i class="fas fa-trash-alt text-lg"></i></button>`;
+            }
+
             display.innerHTML = `
                 <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                    ${actionBtn}
                     <div class="flashcard-inner">
                         <div class="flashcard-front">
-                            <span class="text-[10px] text-slate-500 absolute top-8 uppercase tracking-[4px] font-black border-b border-slate-700 pb-1">${card.l}</span>
-                            ${card.f}
+                            <span class="text-[10px] text-slate-500 absolute top-8 uppercase tracking-[4px] font-black border-b border-slate-700 pb-1">${currentCard.l}</span>
+                            ${currentCard.f}
                         </div>
-                        <div class="flashcard-back">${card.b}</div>
+                        <div class="flashcard-back">${currentCard.b}</div>
                     </div>
                 </div>
             `;
