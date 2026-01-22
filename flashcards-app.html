@@ -2,185 +2,240 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Flash-English Master</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash-English: Master Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <style>
-        :root { --bg-deep: #0f172a; --bg-card: #1e293b; --accent: #facc15; --text-main: #f8fafc; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-deep); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; }
-        
-        .flashcard { height: 350px; perspective: 1000px; cursor: pointer; width: 100%; max-width: 450px; margin: 0 auto; }
-        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
+        :root { --bg-deep: #0f172a; --bg-card: #1e293b; --accent: #facc15; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-deep); color: white; min-height: 100vh; }
+        .menu-card { background: var(--bg-card); transition: all 0.3s; cursor: pointer; border: 2px solid #334155; }
+        .menu-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .flashcard { height: 350px; perspective: 1000px; cursor: pointer; width: 100%; max-width: 400px; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { 
-            position: absolute; width: 100%; height: 100%; backface-visibility: hidden; 
-            display: flex; align-items: center; justify-content: center; flex-direction: column; 
-            padding: 2.5rem; border-radius: 2.5rem; border: 4px solid #334155; text-align: center; 
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3);
-        }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 2rem; border-radius: 2rem; border: 4px solid #334155; text-align: center; }
         .flashcard-front { background: var(--bg-card); color: var(--accent); font-size: 2.2rem; font-weight: 900; }
         .flashcard-back { background: var(--accent); color: var(--bg-deep); transform: rotateY(180deg); font-size: 1.5rem; font-weight: 700; }
-        
-        #loading-overlay { position: fixed; inset: 0; background: var(--bg-deep); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23facc15'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.7rem center; background-size: 1.2em; padding-right: 2.5rem !important; }
+        .hidden { display: none; }
     </style>
 </head>
-<body class="flex flex-col">
+<body>
 
-    <div id="loading-overlay">
-        <i class="fas fa-bolt text-yellow-400 text-6xl mb-6 animate-bounce"></i>
-        <p class="text-xl font-black uppercase tracking-widest">Sincronizando Conteúdo</p>
-        <p id="load-status" class="text-slate-500 mt-2 font-mono text-sm">Aguardando...</p>
+    <div id="screen-menu" class="container mx-auto px-6 py-12">
+        <div class="text-center mb-12">
+            <i class="fas fa-bolt text-yellow-400 text-5xl mb-4"></i>
+            <h1 class="text-3xl font-black italic tracking-tighter">FLASH-ENGLISH</h1>
+            <p class="text-slate-400 mt-2">Plataforma de Memorização Ativa</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <div onclick="startApp('AULAS_CONV')" class="menu-card p-6 rounded-3xl flex items-center gap-6">
+                <div class="bg-yellow-500/10 p-4 rounded-2xl text-yellow-500 text-2xl"><i class="fas fa-comments"></i></div>
+                <div><h3 class="font-bold text-lg">Aulas de Conversação</h3><p class="text-xs text-slate-400">Lições Oficiais</p></div>
+            </div>
+
+            <div onclick="startApp('CUSTOM')" class="menu-card p-6 rounded-3xl flex items-center gap-6 border-dashed border-yellow-500/50 shadow-lg shadow-yellow-500/5">
+                <div class="bg-orange-500/10 p-4 rounded-2xl text-orange-500 text-2xl"><i class="fas fa-pen-fancy"></i></div>
+                <div><h3 class="font-bold text-lg">Meus Cards Pessoais</h3><p class="text-xs text-slate-400">Crie por categorias</p></div>
+            </div>
+
+            <div onclick="startApp('VOC_CONV')" class="menu-card p-6 rounded-3xl flex items-center gap-6">
+                <div class="bg-blue-500/10 p-4 rounded-2xl text-blue-500 text-2xl"><i class="fas fa-book"></i></div>
+                <div><h3 class="font-bold text-lg">Vocabulário</h3><p class="text-xs text-slate-400">Espressões diversas</p></div>
+            </div>
+
+            <div onclick="startApp('A1')" class="menu-card p-6 rounded-3xl flex items-center gap-6">
+                <div class="bg-green-500/10 p-4 rounded-2xl text-green-500 text-2xl"><i class="fas fa-graduation-cap"></i></div>
+                <div><h3 class="font-bold text-lg">Módulo A1 / A2</h3><p class="text-xs text-slate-400">Fundamentos</p></div>
+            </div>
+        </div>
     </div>
 
-    <header class="p-4 bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <h1 class="text-xl font-bold text-yellow-400"><i class="fas fa-bolt mr-2"></i>FLASH-ENGLISH</h1>
+    <div id="screen-app" class="hidden flex flex-col min-h-screen">
+        <header class="p-4 bg-slate-900 flex justify-between items-center border-b border-slate-800 sticky top-0 z-40">
+            <button onclick="location.reload()" class="text-slate-400 hover:text-white"><i class="fas fa-home text-xl"></i></button>
             
-            <div class="flex flex-wrap justify-center gap-2">
-                <select id="moduleSelect" class="bg-slate-800 text-white p-3 rounded-xl border border-slate-700 font-bold text-sm outline-none">
-                    <option value="all">TODOS OS MÓDULOS</option>
-                    <option value="A1">MÓDULO A1 / A2</option>
-                    <option value="VOC_CONV">VOCABULÁRIO DE CONVERSAÇÃO</option>
-                    <option value="AULAS_CONV">AULAS DE CONVERSAÇÃO (HTML)</option>
-                    <option value="EXP">EXPRESSÕES EXTRAS</option>
-                </select>
-                <select id="lessonFilter" class="bg-slate-800 text-white p-3 rounded-xl border border-slate-700 font-bold text-sm outline-none min-w-[150px]">
+            <div class="flex gap-2">
+                <button id="btnClean" onclick="clearAllCustom()" class="hidden bg-red-500/10 hover:bg-red-500/20 px-3 py-2 rounded-lg text-[10px] font-bold text-red-400 border border-red-500/20">
+                    LIMPAR TUDO
+                </button>
+                <button id="btnAddCard" onclick="toggleModal(true)" class="hidden bg-yellow-500 hover:bg-yellow-400 px-3 py-2 rounded-lg text-[10px] font-bold text-slate-900 transition-colors">
+                    + NOVO CARD
+                </button>
+                <select id="lessonFilter" onchange="filterAndShow()" class="bg-slate-800 text-white p-2 rounded-lg text-xs outline-none border border-slate-700 min-w-[140px]">
                     <option value="all">Todas as Lições</option>
                 </select>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <main class="flex-grow flex flex-col items-center justify-center p-6">
-        <div id="card-count-display" class="mb-6 bg-slate-800 px-4 py-1 rounded-full text-slate-400 font-bold text-xs tracking-widest border border-slate-700 uppercase">
-            0 Cards
-        </div>
-        
-        <div class="flashcard" id="flashcard" onclick="this.classList.toggle('flipped')">
-            <div class="flashcard-inner">
-                <div class="flashcard-front" id="frontText">...</div>
-                <div class="flashcard-back" id="backText">...</div>
+        <main class="flex-grow flex flex-col items-center justify-center p-6">
+            <div id="card-display" class="w-full flex justify-center"></div>
+            <button onclick="showRandomCard()" class="mt-10 bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-black px-16 py-5 rounded-2xl text-xl shadow-xl active:scale-95 transition-all">
+                PRÓXIMO CARD <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <p class="mt-6 text-slate-500 font-bold uppercase text-[10px] tracking-widest">Cards carregados: <span id="card-count" class="text-yellow-500">0</span></p>
+        </main>
+    </div>
+
+    <div id="modal-custom" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
+        <div class="bg-slate-800 p-8 rounded-[2rem] w-full max-w-md border border-slate-700 shadow-2xl">
+            <h2 class="text-2xl font-black mb-2 text-yellow-500">Novo Flashcard</h2>
+            <p class="text-slate-400 text-sm mb-6">Adicione seu próprio conteúdo ao app.</p>
+            
+            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1 ml-1">Categoria (Ex: Viagem, Trabalho)</label>
+            <input type="text" id="custCat" placeholder="Geral" class="w-full bg-slate-900 p-4 rounded-xl mb-4 border border-slate-700 outline-none focus:border-yellow-500 transition-all">
+            
+            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1 ml-1">Termo em Inglês</label>
+            <input type="text" id="custFront" placeholder="Ex: Good morning" class="w-full bg-slate-900 p-4 rounded-xl mb-4 border border-slate-700 outline-none focus:border-yellow-500 transition-all">
+            
+            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1 ml-1">Tradução em Português</label>
+            <input type="text" id="custBack" placeholder="Ex: Bom dia" class="w-full bg-slate-900 p-4 rounded-xl mb-8 border border-slate-700 outline-none focus:border-yellow-500 transition-all">
+            
+            <div class="flex gap-3">
+                <button onclick="saveCustomCard()" class="flex-1 bg-yellow-500 text-slate-900 font-black p-4 rounded-xl hover:bg-yellow-400 transition-colors">SALVAR</button>
+                <button onclick="toggleModal(false)" class="flex-1 bg-slate-700 text-white font-bold p-4 rounded-xl hover:bg-slate-600 transition-colors">SAIR</button>
             </div>
         </div>
-
-        <button onclick="showRandomCard()" class="mt-12 bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-black px-16 py-5 rounded-2xl text-xl transition-all shadow-xl active:scale-95">
-            PRÓXIMO CARD <i class="fas fa-arrow-right ml-2"></i>
-        </button>
-    </main>
+    </div>
 
     <script>
-        let fullDatabase = [];
+        let currentDB = [];
         let filteredDB = [];
-        const moduleSelect = document.getElementById('moduleSelect');
-        const lessonFilter = document.getElementById('lessonFilter');
-        const statusText = document.getElementById('load-status');
+        let currentModule = '';
 
-        async function init() {
-            // 1. Carregar Expressões e Vocabulários JS
-            statusText.innerText = "Lendo bases de dados...";
-            await fetchAndParseJS('js/expressions.js', 'EXP');
-            await fetchAndParseJS('js/vocabulary.js', 'A1');
-            await fetchAndParseJS('js/conversation-vocabulary.js', 'VOC_CONV');
-
-            // 2. Carregar Aulas de Conversação (HTML) sequencialmente como na sua primeira versão
-            statusText.innerText = "Sincronizando Aulas de Conversação...";
-            for (let i = 1; i <= 32; i++) {
-                const num = i.toString().padStart(2, '0');
-                try {
-                    const response = await fetch(`conversation/licao-${num}.html`);
-                    if (response.ok) {
-                        const html = await response.text();
-                        parseHTML(html, `AULAS_CONV-L${num}`, 'AULAS_CONV');
-                    }
-                } catch (e) { console.warn("Pulo lição " + num); }
+        async function startApp(module) {
+            currentModule = module;
+            currentDB = [];
+            document.getElementById('screen-menu').classList.add('hidden');
+            document.getElementById('screen-app').classList.remove('hidden');
+            
+            if (module === 'CUSTOM') {
+                document.getElementById('btnAddCard').classList.remove('hidden');
+                document.getElementById('btnClean').classList.remove('hidden');
+                loadCustomCards();
+            } else if (module === 'AULAS_CONV') {
+                await loadHTMLModule();
+            } else {
+                await loadJSModule(module);
             }
-
-            // Finalizar
-            document.getElementById('loading-overlay').style.display = 'none';
-            populateFilters();
+            
+            populateLessons();
             filterAndShow();
         }
 
-        async function fetchAndParseJS(file, moduleTag) {
+        async function loadHTMLModule() {
+            for (let i = 1; i <= 32; i++) {
+                const num = i.toString().padStart(2, '0');
+                try {
+                    const r = await fetch(`conversation/licao-${num}.html`);
+                    if (r.ok) {
+                        const html = await r.text();
+                        const doc = new DOMParser().parseFromString(html, 'text/html');
+                        doc.querySelectorAll('.flashcard').forEach(card => {
+                            let f = card.querySelector('.flashcard-front h4')?.innerText || card.querySelector('.flashcard-front')?.innerText;
+                            let b = card.querySelector('.flashcard-back p')?.innerText || card.querySelector('.flashcard-back')?.innerText;
+                            if (f && b) currentDB.push({ f: f.trim(), b: b.trim(), l: `Lição ${num}` });
+                        });
+                    }
+                } catch (e) {}
+            }
+        }
+
+        function loadCustomCards() {
+            const saved = localStorage.getItem('myCustomCards_v2');
+            currentDB = saved ? JSON.parse(saved) : [];
+        }
+
+        function saveCustomCard() {
+            const f = document.getElementById('custFront').value;
+            const b = document.getElementById('custBack').value;
+            const c = document.getElementById('custCat').value || 'Geral';
+            
+            if (!f || !b) return alert("Preencha o termo e a tradução!");
+
+            const newCard = { f, b, l: `Cat: ${c}` };
+            currentDB.push(newCard);
+            localStorage.setItem('myCustomCards_v2', JSON.stringify(currentDB));
+            
+            document.getElementById('custFront').value = '';
+            document.getElementById('custBack').value = '';
+            toggleModal(false);
+            
+            // Recarregar filtros para incluir a nova categoria se necessário
+            const filter = document.getElementById('lessonFilter');
+            filter.innerHTML = '<option value="all">Todas as Categorias</option>';
+            populateLessons();
+            filterAndShow();
+        }
+
+        function clearAllCustom() {
+            if(confirm("Deseja apagar TODOS os seus cards pessoais?")) {
+                localStorage.removeItem('myCustomCards_v2');
+                currentDB = [];
+                filterAndShow();
+            }
+        }
+
+        function toggleModal(show) {
+            document.getElementById('modal-custom').classList.toggle('hidden', !show);
+        }
+
+        async function loadJSModule(module) {
+            const files = { 'A1': 'js/vocabulary.js', 'VOC_CONV': 'js/conversation-vocabulary.js', 'EXP': 'js/expressions.js' };
             try {
-                const resp = await fetch(file);
-                if (!resp.ok) return;
-                const text = await resp.text();
+                const r = await fetch(files[module]);
+                const text = await r.text();
                 const jsonStr = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
                 const data = new Function(`return ${jsonStr}`)();
-                
                 for (let id in data) {
-                    const lessonNum = id.toString().padStart(2, '0');
-                    const label = `${moduleTag}-L${lessonNum}`;
-                    if (moduleTag === 'EXP') {
-                        data[id].forEach(e => fullDatabase.push({f: e.expression, b: e.meaning, m: 'EXP', l: id.toUpperCase()}));
+                    const label = `Lição ${id.padStart(2, '0')}`;
+                    if (module === 'EXP') {
+                        data[id].forEach(e => currentDB.push({ f: e.expression, b: e.meaning, l: label }));
                     } else {
-                        data[id].words?.forEach(w => fullDatabase.push({f: w.english, b: w.portuguese, m: moduleTag, l: label}));
-                        data[id].expressions?.forEach(e => fullDatabase.push({f: e.english, b: e.portuguese, m: moduleTag, l: label}));
+                        data[id].words?.forEach(w => currentDB.push({ f: w.english, b: w.portuguese, l: label }));
+                        data[id].expressions?.forEach(e => currentDB.push({ f: e.english, b: e.portuguese, l: label }));
                     }
                 }
             } catch (e) {}
         }
 
-        function parseHTML(html, label, moduleTag) {
-            const doc = new DOMParser().parseFromString(html, 'text/html');
-            const cards = doc.querySelectorAll('.flashcard');
-            cards.forEach(card => {
-                let f = card.querySelector('.flashcard-front h4')?.innerText || card.querySelector('.flashcard-front')?.innerText;
-                let b = card.querySelector('.flashcard-back p')?.innerText || card.querySelector('.flashcard-back')?.innerText;
-                if (f && b) {
-                    f = f.trim().replace(/\n/g, ' ');
-                    b = b.trim().replace(/\n/g, ' ');
-                    if(!fullDatabase.some(d => d.f === f)) {
-                        fullDatabase.push({f, b, m: moduleTag, l: label});
-                    }
-                }
-            });
-        }
-
-        function populateFilters() {
-            const mod = moduleSelect.value;
-            const availableLessons = fullDatabase
-                .filter(i => mod === 'all' || i.m === mod)
-                .map(i => i.l);
-
-            const uniqueSorted = [...new Set(availableLessons)].sort((a, b) => 
-                a.localeCompare(b, undefined, {numeric: true})
-            );
-            
-            lessonFilter.innerHTML = '<option value="all">Todas as Lições</option>';
-            uniqueSorted.forEach(l => {
+        function populateLessons() {
+            const filter = document.getElementById('lessonFilter');
+            const unique = [...new Set(currentDB.map(d => d.l))].sort((a,b) => a.localeCompare(b, undefined, {numeric: true}));
+            unique.forEach(l => {
                 const opt = document.createElement('option');
-                opt.value = l;
-                opt.textContent = l;
-                lessonFilter.appendChild(opt);
+                opt.value = l; opt.innerText = l;
+                filter.appendChild(opt);
             });
         }
 
         function filterAndShow() {
-            const mod = moduleSelect.value;
-            const les = lessonFilter.value;
-            filteredDB = fullDatabase.filter(i => (mod === 'all' || i.m === mod) && (les === 'all' || i.l === les));
-            document.getElementById('card-count-display').innerText = `${filteredDB.length} Cards Disponíveis`;
+            const val = document.getElementById('lessonFilter').value;
+            filteredDB = (val === 'all') ? currentDB : currentDB.filter(d => d.l === val);
+            document.getElementById('card-count').innerText = filteredDB.length;
             showRandomCard();
         }
 
         function showRandomCard() {
-            if (filteredDB.length === 0) return;
-            document.getElementById('flashcard').classList.remove('flipped');
+            const display = document.getElementById('card-display');
+            if (filteredDB.length === 0) {
+                display.innerHTML = "<div class='text-slate-500 text-center p-10 border border-dashed border-slate-700 rounded-3xl'>Nenhum card nesta categoria.</div>";
+                return;
+            }
             const card = filteredDB[Math.floor(Math.random() * filteredDB.length)];
-            setTimeout(() => {
-                document.getElementById('frontText').innerHTML = `<span class="text-xs text-gray-500 absolute top-6 uppercase tracking-widest">${card.l}</span>${card.f}`;
-                document.getElementById('backText').innerText = card.b;
-            }, 100);
+            display.innerHTML = `
+                <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <span class="text-[10px] text-slate-500 absolute top-4 uppercase tracking-[3px] font-bold">${card.l}</span>
+                            ${card.f}
+                        </div>
+                        <div class="flashcard-back">${card.b}</div>
+                    </div>
+                </div>
+            `;
         }
-
-        moduleSelect.onchange = () => { populateFilters(); filterAndShow(); };
-        lessonFilter.onchange = filterAndShow;
-
-        init();
     </script>
 </body>
 </html>
