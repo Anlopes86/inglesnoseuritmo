@@ -6,9 +6,20 @@
     <title>Portal do Aluno - Inglês no seu ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="enhanced-styles.css">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <style>
+        .nav-link-special {
+            background: rgba(250, 204, 21, 0.1);
+            color: #facc15 !important;
+            border-left: 4px solid #facc15;
+            font-weight: 800;
+        }
+        .nav-link-special:hover {
+            background: rgba(250, 204, 21, 0.2);
+        }
+    </style>
 </head>
 <body class="bg-gray-100 font-sans">
 
@@ -20,16 +31,29 @@
         
         <aside class="sidebar">
             <div class="sidebar-header">
-                <h2 class="text-2xl font-bold text-white">Inglês no seu Ritmo</h2>
+                <h2 class="text-2xl font-bold text-white tracking-tighter italic">Inglês no seu Ritmo</h2>
                 <button id="close-menu-btn" class="lg:hidden text-2xl text-white">&times;</button>
             </div>
+            
             <nav class="sidebar-nav">
                 <a href="#dashboard-section" class="nav-link active"><i class="fas fa-home nav-icon"></i> Dashboard</a>
+                
+                <a href="flashcards-app.html" class="nav-link nav-link-special mt-2">
+                    <i class="fas fa-bolt nav-icon"></i> Flashcards App
+                </a>
+
                 <a href="#progress-section" class="nav-link"><i class="fas fa-chart-line nav-icon"></i> Meu Progresso</a>
                 <a href="#badges-section" class="nav-link"><i class="fas fa-trophy nav-icon"></i> Emblemas</a>
                 <a href="#notes-section" class="nav-link"><i class="fas fa-pencil-alt nav-icon"></i> Anotações</a>
                 <a href="#tools-section" class="nav-link"><i class="fas fa-atom nav-icon"></i> Ferramentas IA</a>
+                
+                <div class="my-6 border-t border-gray-700 mx-4 opacity-30"></div>
+                
+                <a href="home-aluno.html" class="nav-link text-gray-400">
+                    <i class="fas fa-th-large nav-icon"></i> Voltar ao Hub
+                </a>
             </nav>
+
             <div class="sidebar-footer">
                 <a href="index.html" id="back-to-index-btn" class="hidden items-center justify-center gap-2 text-gray-300 hover:text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-700 transition w-full">
                     <i class="fas fa-arrow-left"></i> Voltar ao Painel
@@ -39,16 +63,17 @@
         </aside>
 
         <main id="main-content" class="main-content">
-            <header id="mobile-header" class="lg:hidden flex items-center justify-between p-4 bg-white dark:bg-gray-800 shadow-md sticky top-0 z-10 mb-4 rounded-lg">
-                <button id="menu-toggle-btn" class="text-2xl text-gray-700 dark:text-gray-200">
+            <header id="mobile-header" class="lg:hidden flex items-center justify-between p-4 bg-white shadow-md sticky top-0 z-10 mb-4 rounded-lg">
+                <button id="menu-toggle-btn" class="text-2xl text-gray-700">
                     <i class="fas fa-bars"></i>
                 </button>
-                <h2 class="text-lg font-bold text-gray-800 dark:text-gray-100">Inglês no seu Ritmo</h2>
-                <div></div> </header>
+                <h2 class="text-lg font-bold text-gray-800">Inglês no seu Ritmo</h2>
+                <a href="home-aluno.html" class="text-gray-500"><i class="fas fa-th-large"></i></a>
+            </header>
 
-            <header id="welcome-header" class="mb-6 p-6 bg-white rounded-2xl shadow-sm">
-                <h1 id="header-title" class="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600">Welcome, <span id="student-name-welcome">...</span>!</h1>
-                <p id="header-subtitle" class="text-gray-500 text-lg mt-1">Let's make some progress today.</p>
+            <header id="welcome-header" class="mb-6 p-6 bg-white rounded-2xl shadow-sm border border-gray-100">
+                <h1 id="header-title" class="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600">Welcome, <span id="student-name-welcome">...</span>!</h1>
+                <p id="header-subtitle" class="text-gray-400 text-sm font-bold uppercase tracking-widest mt-1 italic">Let's make some progress today.</p>
             </header>
 
             <div id="portal-content">
@@ -56,13 +81,14 @@
                 <section id="dashboard-section" class="page-section">
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <div class="lg:col-span-2 space-y-8">
-                            <div id="last-lesson-card" class="enhanced-card p-8 bg-gradient-to-br from-purple-600 to-blue-600 text-white shadow-xl rounded-2xl flex flex-col md:flex-row items-center gap-8"></div>
-                            <div id="challenge-card" class="enhanced-card p-8 bg-white rounded-2xl shadow-sm">
-                                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3"><i class="fas fa-bolt text-yellow-500"></i> Desafio Rápido</h2>
+                            <div id="last-lesson-card" class="enhanced-card p-8 bg-gradient-to-br from-purple-600 to-blue-600 text-white shadow-xl rounded-2xl flex flex-col md:flex-row items-center gap-8 transform hover:scale-[1.01] transition-all"></div>
+                            
+                            <div id="challenge-card" class="enhanced-card p-8 bg-white rounded-2xl shadow-sm border border-gray-100">
+                                <h2 class="text-2xl font-black mb-4 flex items-center gap-3 italic"><i class="fas fa-bolt text-yellow-500"></i> DESAFIO RÁPIDO</h2>
                                 <p id="daily-challenge-question" class="text-lg text-gray-700 mb-4">Carregando...</p>
                                 <div class="flex flex-col sm:flex-row gap-3">
                                     <input type="text" id="daily-challenge-answer" class="enhanced-input flex-grow" placeholder="Sua resposta...">
-                                    <button id="daily-challenge-submit" class="enhanced-btn bg-gray-800 text-white px-6">Verificar</button>
+                                    <button id="daily-challenge-submit" class="enhanced-btn bg-gray-800 text-white px-6 font-bold uppercase text-xs">Verificar</button>
                                     <button id="new-challenge-btn" title="Novo Desafio" class="enhanced-btn bg-blue-500 text-white px-4"><i class="fas fa-sync-alt"></i></button>
                                 </div>
                                 <p id="challenge-feedback" class="text-sm mt-2 h-4 font-semibold"></p>
@@ -71,29 +97,42 @@
                                     <div id="challenge-tips-text" class="hidden mt-2 p-3 bg-blue-50 border border-blue-200 rounded-lg text-blue-800"></div>
                                 </div>
                             </div>
-                            <div id="expression-card" class="enhanced-card p-8 bg-white rounded-2xl shadow-sm">
-                                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-3"><i class="fas fa-comment-dots text-purple-500"></i> Expressão da Lição</h2>
+
+                            <div id="expression-card" class="enhanced-card p-8 bg-white rounded-2xl shadow-sm border border-gray-100">
+                                 <h2 class="text-2xl font-black mb-4 flex items-center gap-3 italic"><i class="fas fa-comment-dots text-purple-500"></i> EXPRESSÃO DA LIÇÃO</h2>
                                  <div id="expression-card-content"></div>
                             </div>
                         </div>
+
                         <div class="space-y-8">
+                            <div class="enhanced-card p-8 bg-slate-900 text-white rounded-2xl shadow-lg border-b-4 border-yellow-500 overflow-hidden relative group">
+                                <div class="relative z-10">
+                                    <h3 class="text-yellow-500 font-black italic uppercase tracking-widest text-xs mb-2">Treino de Memória</h3>
+                                    <p class="font-bold text-lg leading-tight mb-4">Pratique seus Flashcards!</p>
+                                    <a href="flashcards-app.html" class="inline-block bg-yellow-500 text-slate-900 font-black py-3 px-6 rounded-xl text-[10px] uppercase hover:bg-yellow-400 transition-all">Praticar Agora</a>
+                                </div>
+                                <i class="fas fa-bolt absolute -right-4 -bottom-4 text-8xl text-yellow-500/10 group-hover:rotate-12 transition-transform"></i>
+                            </div>
+
                             <div id="modules-card" class="enhanced-card p-8 bg-gray-800 text-white rounded-2xl shadow-lg flex flex-col justify-center items-center text-center"></div>
-                            <div id="next-badge-card" class="enhanced-card p-6 bg-white rounded-2xl shadow-sm">
-                                <h3 class="text-lg font-bold mb-3 flex items-center gap-3"><i class="fas fa-flag-checkered text-indigo-500"></i> Sua Próxima Conquista</h3>
+                            
+                            <div id="next-badge-card" class="enhanced-card p-6 bg-white rounded-2xl shadow-sm border border-gray-100">
+                                <h3 class="text-lg font-bold mb-3 flex items-center gap-3"><i class="fas fa-flag-checkered text-indigo-500"></i> Próxima Conquista</h3>
                                 <div id="next-badge-content" class="flex items-center gap-4">
                                     <div id="next-badge-icon" class="text-5xl text-gray-300"></div>
                                     <div class="flex-grow">
-                                        <p id="next-badge-text" class="text-gray-700 font-medium">Carregando...</p>
-                                        <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2"><div id="next-badge-progress-bar" class="bg-gradient-to-r from-indigo-500 to-purple-600 h-2.5 rounded-full" style="width: 0%"></div></div>
+                                        <p id="next-badge-text" class="text-gray-700 font-medium text-sm">Carregando...</p>
+                                        <div class="w-full bg-gray-200 rounded-full h-2 mt-2"><div id="next-badge-progress-bar" class="bg-gradient-to-r from-indigo-500 to-purple-600 h-2 rounded-full transition-all duration-1000" style="width: 0%"></div></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="enhanced-card p-6 bg-white rounded-2xl shadow-sm space-y-6">
+
+                            <div class="enhanced-card p-6 bg-white rounded-2xl shadow-sm border border-gray-100 space-y-6">
                                 <div id="schedule-card">
                                     <h3 class="text-lg font-bold mb-2 flex items-center gap-3"><i class="fas fa-calendar-check text-green-500"></i> Próxima Aula</h3>
                                     <div id="schedule-card-content"></div>
                                 </div>
-                                <hr>
+                                <hr class="border-gray-100">
                                 <div id="focus-card">
                                     <h3 class="text-lg font-bold mb-2 flex items-center gap-3"><i class="fas fa-crosshairs text-blue-500"></i> Foco da Semana</h3>
                                     <div id="focus-card-content"></div>
@@ -125,7 +164,7 @@
                 </section>
                 
                 <section id="notes-section" class="page-section hidden"><div id="notes-card" class="enhanced-card p-6"></div></section>
-                <section id="tools-section" class="page-section hidden"><div class="space-y-8"><div class="grid grid-cols-1 md:grid-cols-2 gap-8"><div id="ai-review-card" class="enhanced-card p-8 bg-gray-700 text-white flex flex-col rounded-2xl"></div><div id="ai-preview-card" class="enhanced-card p-8 bg-teal-600 text-white flex flex-col rounded-2xl"></div></div><div class="enhanced-card p-8"><h3 class="text-2xl font-bold mb-4 text-center">Sua Biblioteca de Prompts</h3><p class="text-center text-gray-600 mb-6">Reveja os prompts de qualquer lição que você já completou.</p><div id="prompt-library-accordion"></div></div></div></section>
+                <section id="tools-section" class="page-section hidden"><div class="space-y-8"><div class="grid grid-cols-1 md:grid-cols-2 gap-8"><div id="ai-review-card" class="enhanced-card p-8 bg-gray-700 text-white flex flex-col rounded-2xl shadow-xl"></div><div id="ai-preview-card" class="enhanced-card p-8 bg-teal-600 text-white flex flex-col rounded-2xl shadow-xl"></div></div><div class="enhanced-card p-8 bg-white rounded-2xl shadow-sm border border-gray-100"><h3 class="text-2xl font-black mb-4 text-center italic">BIBLIOTECA DE PROMPTS</h3><p class="text-center text-gray-500 mb-6">Reveja os prompts de qualquer lição que você já completou.</p><div id="prompt-library-accordion"></div></div></div></section>
             </div>
         </main>
     </div>
@@ -134,18 +173,20 @@
         <div class="modal-content text-center max-w-md w-full">
             <div class="badge-modal-content">
                 <div id="badge-modal-icon"></div>
-                <h2 id="badge-modal-title" class="badge-title"></h2>
+                <h2 id="badge-modal-title" class="badge-title font-black italic"></h2>
                 <div id="badge-modal-message"></div>
             </div>
-            <button id="close-badge-modal-btn" class="mt-6 enhanced-btn bg-gray-800 text-white w-full py-3">Fechar</button>
+            <button id="close-badge-modal-btn" class="mt-6 enhanced-btn bg-gray-800 text-white w-full py-3 font-bold uppercase">Fechar</button>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    
     <script src="js/firebase-config.js"></script>
     <script src="js/prompts.js"></script>
     <script src="js/expressions.js"></script>
@@ -153,6 +194,7 @@
     <script src="js/badges.js"></script>
     <script src="js/aluno-notes.js"></script>
     <script src="js/aluno-portal.js"></script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const navLinks = document.querySelectorAll('.nav-link');
@@ -170,24 +212,39 @@
             };
 
             function updateView(targetId) {
-                navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${targetId}`));
+                // Filtra para garantir que só mudamos de seção se for um ID de seção válido
+                if (!sectionInfo[targetId]) return;
+
+                navLinks.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        link.classList.toggle('active', href === `#${targetId}`);
+                    }
+                });
+
                 pageSections.forEach(section => section.classList.toggle('hidden', section.id !== targetId));
+                
                 const newInfo = sectionInfo[targetId];
                 if (newInfo) {
                     headerTitle.innerHTML = newInfo.title();
                     headerSubtitle.textContent = newInfo.subtitle;
                 }
-                 window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
             navLinks.forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    // Se for link para outra página (como flashcards ou hub), não interceptamos o clique
+                    if (href && !href.startsWith('#')) return;
+
                     e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
+                    const targetId = href.substring(1);
                     updateView(targetId);
                 });
             });
 
+            // Observer para quando o portal terminar de carregar os dados do Firebase
             const observer = new MutationObserver((mutations, obs) => {
                 const nameSpan = document.getElementById('student-name-welcome');
                 if (nameSpan && nameSpan.textContent && nameSpan.textContent.trim() !== '...') {
@@ -195,7 +252,9 @@
                     document.getElementById('loading-message').style.display = 'none';
                     document.getElementById('portal-container').classList.remove('hidden');
                     
-                    updateView('dashboard-section'); 
+                    // Se houver hash na URL, tenta navegar para ela, senão dashboard
+                    const hash = window.location.hash.substring(1);
+                    updateView(hash && sectionInfo[hash] ? hash : 'dashboard-section'); 
                     
                     if (typeof inicializarAnotacoes === 'function') inicializarAnotacoes();
                     obs.disconnect();
