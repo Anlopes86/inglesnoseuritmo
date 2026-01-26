@@ -19,15 +19,21 @@
         .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #4a5568; }
         .flashcard-front { background-color: #2d3748; color: #a0aec0; text-align: center; }
         .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
-        .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
         .lyrics-box { max-height: 400px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #4a5568 #2d3748; }
+        
+        /* Novos estilos para Drag and Drop */
+        .word-pill { cursor: grab; background-color: #3b82f6; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
+        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
+        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #4b5563; text-align: center; color: #60a5fa; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
+        .drop-zone.hover { border-color: #60a5fa; background-color: rgba(59, 130, 246, 0.1); }
+        .drop-zone.filled { border-bottom-style: solid; }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
 
     <header class="bg-gray-800 shadow-lg sticky top-0 z-10">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="conversation.html" class="text-lg font-bold text-blue-400 hover:text-blue-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
+            <a href="#" class="text-lg font-bold text-blue-400 hover:text-blue-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
             <h1 class="text-xl font-semibold text-center">Lesson 24: The Gig Economy & Remote Work</h1>
             <div class="w-32"></div>
         </div>
@@ -62,11 +68,12 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-blue-400"><i class="fas fa-music text-yellow-500"></i> Music Time: Break My Soul (Beyoncé)</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5pyoxDZ1PX0KxBxiRVxA4U?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-yellow-500">
+                <iframe style="border-radius:12px" src="https://www.youtube.com/embed/yjki-9Pthh0" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-yellow-500">
                     <p>Now, I just fell in love</p>
                     <p>And I just quit my <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="job"><i class="fas fa-eye"></i></button></p>
                     <p>I'm gonna find new drive</p>
@@ -77,9 +84,7 @@
                     <p>Looking for a new foundation, yeah</p>
                     <p class="font-bold text-yellow-400 mt-4 italic">Chorus:</p>
                     <p>You won't break my soul</p>
-                    <p>You won't break my soul</p>
                     <p>I'm telling everybody, everybody</p>
-
                 </div></div>
             </div>
         </div>
@@ -88,9 +93,9 @@
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-blue-400"><i class="fas fa-question-circle text-orange-400"></i> Discussion: The Great Resignation</h2>
                 <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                    <p>Beyoncé sings "I just quit my job, I'm gonna find new drive." What would make you <b>quit</b> a job today? Is it just about the money or your "soul"?</p>
-                    <p>The lyrics mention working "off past five" and it "working her nerves". How do you deal with a job that affects your <b>sleep</b> and mental health?</p>
-                    <p>In your opinion, what is a "new foundation" for a successful career in 2025?</p>
+                    <p>Beyoncé sings "I just quit my job, I'm gonna find new drive." What would make you <b>quit</b> a job today?</p>
+                    <p>The lyrics mention working "off past five". How do you deal with a job that affects your <b>sleep</b> and mental health?</p>
+                    <p>In your opinion, what is a "new foundation" for a successful career in 2026?</p>
                 </div>
             </div>
         </div>
@@ -98,7 +103,8 @@
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-blue-400"><i class="fas fa-music text-orange-500"></i> Music Time: Takin' Care of Business (BTO)</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0lzNXoZINVBLHWNIxKxWOo?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-orange-500">
+                <iframe style="border-radius:12px" src="https://www.youtube.com/embed/NCIr2269ywY" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-orange-500">
                     <p>You get up every morning from your alarm clock's warning</p>
                     <p>Take the 8:15 into the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="city"><i class="fas fa-eye"></i></button></p>
                     <p>There's a whistle up above and people pushing, people shoving</p>
@@ -107,7 +113,6 @@
                     <p>And start your slaving job to get your <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="pay"><i class="fas fa-eye"></i></button></p>
                     <p class="font-bold text-orange-400 mt-4 italic">Chorus:</p>
                     <p>And I've been takin' care of business, everyday!</p>
-                    <p>Takin' care of business, every way!</p>
                     <p>I've been takin' care of business, it's all <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="mine"><i class="fas fa-eye"></i></button></p>
                     <p>Takin' care of business and working overtime, work out!</p>
                 </div></div>
@@ -124,21 +129,15 @@
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-blue-400"><i class="fas fa-music text-red-500"></i> Music Time: The Working Man (Cain Walker)</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7HLgKYi3ZNz2x0hPHEY31p?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                    <div class="text-lg space-y-4 bg-gray-700 p-6 rounded-lg border-l-4 border-red-500">
-                        <p>They say we're caught and you'll get ahead / But I'm just <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="breaking my back"><i class="fas fa-eye"></i></button> instead</p>
-                        <p><input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="Clocking in"><i class="fas fa-eye"></i></button> just to pay that rent / Ain't much left when the day is spent</p>
-                        <p>Boss man talking 'bout living the dream / The dream that's built on my <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="routine"><i class="fas fa-eye"></i></button></p>
-                        <p>They raise the price we keep the pace / <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="Running in place"><i class="fas fa-eye"></i></button> just to stay in the race</p>
-                        
-                        <p class="font-bold text-red-400 mt-4 italic">Chorus:</p>
-                        <p>We built this town with our two hands / Blood in the dirt, <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="sweat"><i class="fas fa-eye"></i></button> in the sand</p>
-                        <p>They make the rules, we make it stand / Yeah, this land runs on a working man</p>
-                        
-                        <p class="font-bold text-red-400 mt-4 italic">Verse 2:</p>
-                        <p>Fields stack high, pay check's <input type="text" class="w-20 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="thin"><i class="fas fa-eye"></i></button> / Round and round that wheel we spin</p>
-                        <p>They fly first class we drive <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="beat trucks"><i class="fas fa-eye"></i></button> / Still showing up when the world gets rough</p>
-                    </div>
-                </div>
+                <iframe style="border-radius:12px" src="https://www.youtube.com/embed/pCHf6H6fCwk" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-4 bg-gray-700 p-6 rounded-lg border-l-4 border-red-500">
+                    <p>They say we're caught and you'll get ahead / But I'm just <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="breaking my back"><i class="fas fa-eye"></i></button> instead</p>
+                    <p><input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="Clocking in"><i class="fas fa-eye"></i></button> just to pay that rent</p>
+                    <p>Boss man talking 'bout living the dream / The dream that's built on my <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="routine"><i class="fas fa-eye"></i></button></p>
+                    <p>They raise the price we keep the pace / <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="Running in place"><i class="fas fa-eye"></i></button> just to stay in the race</p>
+                    <p class="font-bold text-red-400 mt-4 italic">Chorus:</p>
+                    <p>We built this town with our two hands / Blood in the dirt, <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="sweat"><i class="fas fa-eye"></i></button> in the sand</p>
+                </div></div>
             </div>
         </div>
 
@@ -146,25 +145,33 @@
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-blue-400"><i class="fas fa-balance-scale text-orange-400"></i> Discussion: The Reality Gap</h2>
                 <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-8 text-2xl text-left">
-                    <p><i class="fas fa-arrow-right text-red-500"></i> The lyrics mention <b>"Running in place just to stay in the race."</b> Do you feel that no matter how hard you work, the cost of living (rent, prices) always catches up?</p>
+                    <p><i class="fas fa-arrow-right text-red-500"></i> <b>"Running in place just to stay in the race."</b> Do you feel the cost of living always catches up?</p>
                     <p><i class="fas fa-arrow-right text-red-500"></i> <b>"The dream that's built on my routine."</b> Is it fair that the "Boss man" lives the dream while the worker "breaks his back"?</p>
-                    <p><i class="fas fa-arrow-right text-red-500"></i> <b>"They make the rules, we make it stand."</b> How would the world change if the "working men/women" decided to stop for one week?</p>
-                    <p><i class="fas fa-arrow-right text-red-500"></i> Compare the three songs: Beyoncé wants to <b>quit</b>, BTO is <b>taking care of business</b>, and Cain Walker is <b>just surviving</b>. Which one represents your country's current reality better?</p>
+                    <p><i class="fas fa-arrow-right text-red-500"></i> Compare: Beyoncé wants to <b>quit</b>, BTO is <b>taking care of business</b>, and Cain Walker is <b>just surviving</b>. Which represents your reality?</p>
                 </div>
             </div>
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-400"><i class="fas fa-tasks"></i> Practice: Workplace Scenarios</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <p class="text-2xl mb-8 text-gray-300">Complete the sentences with the correct work term.</p>
-                <div id="matching-activity" class="space-y-4"></div>
-                <button id="check-answers-btn" class="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Check Answers</button>
-            </div></div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-blue-400"><i class="fas fa-tasks"></i> Practice: Workplace Scenarios</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-2xl mb-8 text-gray-300">Drag the words to the correct sentences:</p>
+                    
+                    <div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700">
+                        </div>
+
+                    <div id="matching-activity" class="space-y-8 text-left">
+                        </div>
+
+                    <button id="check-answers-btn" class="mt-12 bg-blue-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-blue-700">Check Answers</button>
+                </div>
+            </div>
         </div>
 
         <div class="slide">
              <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-400"><i class="fas fa-home"></i> Homework</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                 <p class="text-2xl mb-6 text-gray-300">Think about your job. What are 3 things you would change to make your "working man/woman" life better?</p>
+                 <p class="text-2xl mb-6 text-gray-300">Think about your job. What are 3 things you would change to make your life better?</p>
                  <div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg">
                      <p><strong>Example:</strong> "I would reduce my <b>commute</b> by working from home. I would avoid <b>overtime</b> and focus on my <b>side hustle</b>."</p>
                  </div>
@@ -220,43 +227,84 @@
                 });
             });
 
-            const activityContainer = document.getElementById('matching-activity'), checkAnswersBtn = document.getElementById('check-answers-btn');
-            const expressions=[
-                {id:'burnout',text:'Burnout'},
-                {id:'commute',text:'Commute'},
-                {id:'overtime',text:'Overtime'},
-                {id:'hustle',text:'Side Hustle'},
-                {id:'workaholic',text:'Workaholic'},
-                {id:'quit',text:'Quit'}
-            ];
-            const situations=[
-                {text:"She is such a ________; she even answers emails during dinner.",answer:'workaholic'},
-                {text:"I hate the long ________ every morning; it takes two hours!",answer:'commute'},
-                {text:"I decided to ________ my job because the environment was toxic.",answer:'quit'},
-                {text:"I'm doing some ________ at night to save for a trip.",answer:'hustle'},
-                {text:"After working 12 hours a day for months, he suffered a ________.",answer:'burnout'},
-                {text:"I need to work some ________ this week to finish the project.",answer:'overtime'}
-            ];
-            function shuffle(array) { return array.sort(() => Math.random() - 0.5); }
-            
-            activityContainer.innerHTML = situations.map((sit, index) => `
-                <div id="q-${index}" class="p-4 rounded-lg bg-gray-900 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p>
-                    <select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg">
-                        <option value="">Select...</option>
-                        ${shuffle([...expressions]).map(exp => `<option value="${exp.id}">${exp.text}</option>`).join('')}
-                    </select>
-                </div>`).join('');
+            // LOGICA DRAG AND DROP (PRACTICE)
+            const wordBank = document.getElementById('word-bank');
+            const activityContainer = document.getElementById('matching-activity');
+            const checkBtn = document.getElementById('check-answers-btn');
 
-            checkAnswersBtn.onclick = () => {
-                activityContainer.querySelectorAll('select').forEach((select, index) => {
-                    const div = document.getElementById(`q-${index}`);
-                    if (select.value === select.dataset.answer) {
-                        div.style.borderColor = '#10b981';
-                        div.classList.add('bg-green-900/30');
-                    } else if (select.value !== "") {
-                        div.style.borderColor = '#ef4444';
-                        div.classList.add('bg-red-900/30');
+            const vocabulary = [
+                { id: 'burnout', text: 'Burnout' },
+                { id: 'commute', text: 'Commute' },
+                { id: 'overtime', text: 'Overtime' },
+                { id: 'hustle', text: 'Side Hustle' },
+                { id: 'workaholic', text: 'Workaholic' },
+                { id: 'quit', text: 'Quit' }
+            ];
+
+            const situations = [
+                { text: "She is such a <span class='drop-zone' data-answer='Workaholic'>________</span>; she even answers emails during dinner.", answer: 'Workaholic' },
+                { text: "I hate the long <span class='drop-zone' data-answer='Commute'>________</span> every morning; it takes two hours!", answer: 'Commute' },
+                { text: "I decided to <span class='drop-zone' data-answer='Quit'>________</span> my job because the environment was toxic.", answer: 'Quit' },
+                { text: "I'm doing some <span class='drop-zone' data-answer='Side Hustle'>________</span> at night to save for a trip.", answer: 'Side Hustle' },
+                { text: "After working 12 hours a day for months, he suffered a <span class='drop-zone' data-answer='Burnout'>________</span>.", answer: 'Burnout' },
+                { text: "I need to work some <span class='drop-zone' data-answer='Overtime'>________</span> this week to finish the project.", answer: 'Overtime' }
+            ];
+
+            // Inicializar Banco de Palavras
+            vocabulary.sort(() => Math.random() - 0.5).forEach(word => {
+                const pill = document.createElement('div');
+                pill.className = 'word-pill';
+                pill.draggable = true;
+                pill.innerText = word.text;
+                pill.id = `word-${word.id}`;
+                pill.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', word.text);
+                    e.dataTransfer.setData('source-id', pill.id);
+                });
+                wordBank.appendChild(pill);
+            });
+
+            // Inicializar Frases
+            activityContainer.innerHTML = situations.map(s => `<p class="text-xl text-gray-200">${s.text}</p>`).join('');
+
+            // Configurar Drop Zones
+            const dropZones = document.querySelectorAll('.drop-zone');
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    zone.classList.add('hover');
+                });
+
+                zone.addEventListener('dragleave', () => {
+                    zone.classList.remove('hover');
+                });
+
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('hover');
+                    const wordText = e.dataTransfer.getData('text/plain');
+                    zone.innerText = wordText;
+                    zone.classList.add('filled');
+                });
+
+                // Permitir clicar para resetar a lacuna
+                zone.addEventListener('click', () => {
+                    zone.innerText = '________';
+                    zone.classList.remove('filled', 'bg-green-900/30', 'bg-red-900/30');
+                    zone.style.borderColor = '#4b5563';
+                });
+            });
+
+            checkBtn.onclick = () => {
+                dropZones.forEach(zone => {
+                    if (zone.innerText.trim() === zone.dataset.answer) {
+                        zone.style.borderColor = '#10b981';
+                        zone.style.color = '#10b981';
+                        zone.classList.add('bg-green-900/30');
+                    } else if (zone.innerText !== '________') {
+                        zone.style.borderColor = '#ef4444';
+                        zone.style.color = '#ef4444';
+                        zone.classList.add('bg-red-900/30');
                     }
                 });
             };
