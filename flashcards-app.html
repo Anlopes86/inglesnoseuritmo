@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Inglês no seu Ritmo</title>
     <meta name="apple-mobile-web-app-title" content="Flashcards">
-    
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="img/flash-icon.png">
-<link rel="icon" type="image/png" href="img/flash-icon.png">
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="img/flash-icon.png">
+    <link rel="icon" type="image/png" href="img/flash-icon.png">
 
-<meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="theme-color" content="#0f172a">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     
@@ -28,11 +28,12 @@
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-deep); color: white; min-height: 100vh; overflow-x: hidden; }
         
         .menu-card { background: var(--bg-card); transition: all 0.3s; cursor: pointer; border: 2px solid #334155; }
-        .menu-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+        .menu-card.active-practice { border-color: #a855f7; background: rgba(168, 85, 247, 0.1); }
         
         .flashcard { height: 380px; perspective: 1000px; cursor: pointer; width: 100%; max-width: 400px; position: relative; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        
         .flashcard-front, .flashcard-back { 
             position: absolute; width: 100%; height: 100%; backface-visibility: hidden; 
             display: flex; align-items: center; justify-content: center; flex-direction: column; 
@@ -91,6 +92,16 @@
                 <div class="bg-blue-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-blue-500 text-2xl"><i class="fas fa-book-open"></i></div>
                 <div><h3 class="font-bold text-lg leading-tight">Vocabulário</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Expressões diversas</p></div>
             </div>
+            
+            <div id="card-practice-main" class="menu-card p-6 rounded-[2rem] flex items-center justify-between shadow-xl">
+                <div onclick="togglePracticeMode()" class="flex items-center gap-5 flex-grow">
+                    <div id="practice-icon-bg" class="bg-slate-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-slate-500 text-2xl"><i class="fas fa-keyboard"></i></div>
+                    <div>
+                        <h3 id="practice-text" class="font-bold text-lg leading-tight text-slate-400">Praticar Escrita</h3>
+                        <p id="practice-subtext" class="text-[10px] text-slate-500 uppercase mt-1">Desativado</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -120,6 +131,16 @@
         <main class="flex-grow flex flex-col items-center justify-center p-6">
             <div id="card-display" class="w-full flex justify-center relative"></div>
             
+            <div id="practice-area" class="hidden w-full max-w-[400px] mt-8 space-y-4">
+                <input type="text" id="answer-input" 
+                       class="w-full bg-slate-800 border-2 border-slate-700 p-5 rounded-2xl text-center text-xl font-bold outline-none focus:border-purple-500 transition-all text-white" 
+                       placeholder="Digite a resposta..." autocomplete="off">
+                <button id="btnCheckAnswer" onclick="checkAnswer()" 
+                        class="w-full bg-purple-600 text-white font-black py-4 rounded-2xl shadow-lg hover:bg-purple-500 transition-all uppercase tracking-widest">
+                    Verificar Resposta
+                </button>
+            </div>
+
             <div id="rating-controls" class="hidden grid grid-cols-3 gap-3 w-full max-w-[400px] mt-8">
                 <button onclick="rateCard('hard')" class="bg-red-500/20 border border-red-500/50 text-red-500 py-4 rounded-2xl font-black text-xs uppercase">Difícil</button>
                 <button onclick="rateCard('medium')" class="bg-yellow-500/20 border border-yellow-500/50 text-yellow-500 py-4 rounded-2xl font-black text-xs uppercase">Médio</button>
@@ -130,25 +151,75 @@
         </main>
     </div>
 
-    <div id="modal-custom" class="hidden fixed inset-0 bg-slate-950/95 z-50 flex items-center justify-center p-6 backdrop-blur-xl">
-        <div class="bg-slate-900 p-8 rounded-[3rem] w-full max-w-md border border-slate-700">
-            <h2 id="modalTitle" class="text-2xl font-black text-yellow-500">Novo Card</h2>
-            <div class="space-y-4 mt-6">
-                <input type="text" id="custCat" placeholder="Categoria" class="w-full bg-slate-800 p-4 rounded-2xl text-white outline-none">
-                <input type="text" id="custFront" placeholder="Inglês" class="w-full bg-slate-800 p-4 rounded-2xl text-white outline-none">
-                <input type="text" id="custBack" placeholder="Português" class="w-full bg-slate-800 p-4 rounded-2xl text-white outline-none">
+    <div id="modal-custom" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-950/90 backdrop-blur-sm">
+        <div class="bg-slate-900 border-2 border-slate-800 w-full max-w-md rounded-[3rem] p-8 shadow-2xl">
+            <h2 id="modalTitle" class="text-2xl font-black uppercase italic mb-6 text-yellow-500 text-center">Novo Card</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="text-[10px] font-bold text-slate-500 uppercase ml-2">Frente (Inglês)</label>
+                    <input type="text" id="custFront" class="w-full bg-slate-800 border-2 border-slate-700 p-4 rounded-2xl text-white font-bold outline-none focus:border-yellow-500">
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-slate-500 uppercase ml-2">Verso (Tradução/Significado)</label>
+                    <input type="text" id="custBack" class="w-full bg-slate-800 border-2 border-slate-700 p-4 rounded-2xl text-white font-bold outline-none focus:border-yellow-500">
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-slate-500 uppercase ml-2">Categoria/Lição</label>
+                    <input type="text" id="custCat" placeholder="Ex: Favoritos" class="w-full bg-slate-800 border-2 border-slate-700 p-4 rounded-2xl text-white font-bold outline-none focus:border-yellow-500">
+                </div>
             </div>
-            <button onclick="saveCustomCard()" class="w-full bg-yellow-500 text-slate-900 font-black p-5 rounded-2xl mt-8">SALVAR NA NUVEM</button>
-            <button onclick="toggleModal(false)" class="w-full text-slate-500 font-bold p-2 mt-2">CANCELAR</button>
+            <div class="grid grid-cols-2 gap-3 mt-8">
+                <button onclick="toggleModal(false)" class="bg-slate-800 text-slate-400 font-black py-4 rounded-2xl uppercase text-xs">Cancelar</button>
+                <button onclick="saveCustomCard()" class="bg-yellow-500 text-slate-900 font-black py-4 rounded-2xl uppercase text-xs">Salvar Card</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-confirm" class="hidden fixed inset-0 z-[110] flex items-center justify-center p-6 bg-slate-950/95 backdrop-blur-md">
+        <div class="bg-slate-900 border-2 border-red-500/30 w-full max-w-xs rounded-[2.5rem] p-8 shadow-2xl text-center">
+            <div class="w-16 h-16 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-trash-alt text-2xl"></i>
+            </div>
+            <h2 class="text-xl font-black uppercase italic mb-2 text-white">Tem certeza?</h2>
+            <p class="text-slate-500 text-xs leading-relaxed mb-8">Este card será removido permanentemente da sua nuvem.</p>
+            <div class="grid grid-cols-1 gap-3">
+                <button id="confirm-delete-btn" class="bg-red-500 text-white font-black py-4 rounded-2xl uppercase text-xs shadow-lg shadow-red-500/20">Sim, excluir</button>
+                <button onclick="closeConfirmModal()" class="bg-slate-800 text-slate-400 font-black py-4 rounded-2xl uppercase text-xs">Cancelar</button>
+            </div>
         </div>
     </div>
 
     <script>
         let currentDB = []; let filteredDB = []; let currentCard = null; let moduleActive = '';
-        let ratings = {};
+        let ratings = {}; let isPracticeMode = false;
+        let cardToDeleteId = null; // Para gerenciar a exclusão
+
+        function togglePracticeMode() {
+            isPracticeMode = !isPracticeMode;
+            const card = document.getElementById('card-practice-main');
+            const iconBg = document.getElementById('practice-icon-bg');
+            const title = document.getElementById('practice-text');
+            const sub = document.getElementById('practice-subtext');
+
+            if (isPracticeMode) {
+                card.classList.add('active-practice', 'border-purple-500/50');
+                iconBg.classList.replace('bg-slate-500/10', 'bg-purple-500/20');
+                iconBg.classList.replace('text-slate-500', 'text-purple-500');
+                title.classList.replace('text-slate-400', 'text-purple-400');
+                title.innerText = "Modo Escrita ATIVADO";
+                sub.innerText = "Selecione um módulo acima";
+            } else {
+                card.classList.remove('active-practice', 'border-purple-500/50');
+                iconBg.classList.replace('bg-purple-500/20', 'bg-slate-500/10');
+                iconBg.classList.replace('text-purple-500', 'text-slate-500');
+                title.classList.replace('text-purple-400', 'text-slate-400');
+                title.innerText = "Praticar Escrita";
+                sub.innerText = "Desativado";
+            }
+        }
 
         async function startApp(module) {
-            if(!firebase.auth().currentUser) { alert("Sessão expirada!"); location.href='login.html'; return; }
+            if(!firebase.auth().currentUser) { location.href='login.html'; return; }
             
             moduleActive = module; currentDB = [];
             document.getElementById('screen-menu').classList.add('hidden');
@@ -159,11 +230,162 @@
             if (module === 'CUSTOM') {
                 document.getElementById('btnAddCard').classList.remove('hidden');
                 await loadCustomCardsFromCloud();
-            } else if (module === 'AULAS_CONV') await loadHTMLModule();
-            else await loadJSModule(module);
+            } else {
+                document.getElementById('btnAddCard').classList.add('hidden');
+                if (module === 'AULAS_CONV') await loadHTMLModule();
+                else await loadJSModule(module);
+            }
+
+            if(isPracticeMode) {
+                document.getElementById('practice-area').classList.remove('hidden');
+            } else {
+                document.getElementById('practice-area').classList.add('hidden');
+            }
 
             populateLessons(); filterAndShow();
         }
+
+        function cleanText(text) {
+            if (!text) return "";
+            return text.toLowerCase()
+                .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?']/g, "")
+                .replace(/\s{2,}/g, " ")
+                .trim();
+        }
+
+        function checkAnswer() {
+            const input = document.getElementById('answer-input');
+            const flashcard = document.querySelector('.flashcard');
+            if (flashcard) flashcard.classList.add('flipped');
+
+            const userVal = cleanText(input.value);
+            const correctVal = cleanText(currentCard.b);
+
+            input.classList.remove('border-slate-700');
+            if (userVal === correctVal && userVal !== "") {
+                input.classList.add('border-green-500', 'bg-green-500/10');
+            } else {
+                input.classList.add('border-yellow-500', 'bg-yellow-500/10');
+            }
+
+            document.getElementById('rating-controls').classList.remove('hidden');
+            document.getElementById('btnNext').classList.remove('hidden');
+            document.getElementById('btnCheckAnswer').classList.add('hidden');
+        }
+
+        function showRandomCard() {
+            const display = document.getElementById('card-display');
+            if (filteredDB.length === 0) {
+                display.innerHTML = "<div class='text-slate-600 text-center p-16 border-4 border-dashed border-slate-800 rounded-[3rem] font-bold uppercase'>Vazio</div>";
+                document.getElementById('rating-controls').classList.add('hidden');
+                document.getElementById('btnNext').classList.add('hidden');
+                return;
+            }
+
+            currentCard = filteredDB[Math.floor(Math.random() * filteredDB.length)];
+            const diffClass = ratings[currentCard.f] ? `diff-${ratings[currentCard.f]}` : '';
+            
+            const input = document.getElementById('answer-input');
+            if(input) {
+                input.value = "";
+                input.classList.remove('border-green-500', 'border-yellow-500', 'bg-green-500/10', 'bg-yellow-500/10');
+                input.classList.add('border-slate-700');
+            }
+
+            if(isPracticeMode) {
+                document.getElementById('btnCheckAnswer').classList.remove('hidden');
+                document.getElementById('btnNext').classList.add('hidden');
+            } else {
+                document.getElementById('btnNext').classList.remove('hidden');
+            }
+
+            const actionBtn = moduleActive !== 'CUSTOM' ? 
+                `<button onclick="openModalForFavorite(); event.stopPropagation();" class="btn-card-action btn-fav"><i class="fas fa-star text-xl"></i></button>` :
+                `<button onclick="deleteSingleCard('${currentCard.id}'); event.stopPropagation();" class="btn-card-action btn-del-single"><i class="fas fa-trash-alt text-lg"></i></button>`;
+
+            display.innerHTML = `
+                <div class="flashcard ${diffClass}" onclick="${isPracticeMode ? '' : 'this.classList.toggle(\'flipped\'); document.getElementById(\'rating-controls\').classList.remove(\'hidden\')'}">
+                    ${actionBtn}
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <span class="text-[10px] text-slate-500 absolute top-8 uppercase tracking-[4px] font-black">${currentCard.l}</span>
+                            ${currentCard.f}
+                        </div>
+                        <div class="flashcard-back">${currentCard.b}</div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('rating-controls').classList.add('hidden');
+            if(isPracticeMode) input.focus();
+        }
+
+        // --- GESTÃO DE CARDS CUSTOM/FAVORITOS ---
+
+        function toggleModal(show) {
+            const modal = document.getElementById('modal-custom');
+            if(show) modal.classList.remove('hidden');
+            else modal.classList.add('hidden');
+        }
+
+        function openModalForNew() {
+            document.getElementById('modalTitle').innerText = "Novo Card";
+            document.getElementById('custFront').value = "";
+            document.getElementById('custBack').value = "";
+            document.getElementById('custCat').value = "";
+            toggleModal(true);
+        }
+
+        function openModalForFavorite() {
+            document.getElementById('modalTitle').innerText = "Favoritar Card";
+            document.getElementById('custFront').value = currentCard.f;
+            document.getElementById('custBack').value = currentCard.b;
+            document.getElementById('custCat').value = "FAVORITOS";
+            toggleModal(true);
+        }
+
+        async function saveCustomCard() {
+            const user = firebase.auth().currentUser;
+            const f = document.getElementById('custFront').value.trim();
+            const b = document.getElementById('custBack').value.trim();
+            const l = document.getElementById('custCat').value.trim() || "GERAL";
+
+            if(!f || !b) return;
+
+            await db.collection('users').doc(user.uid).collection('myCards').add({ f, b, l });
+            toggleModal(false);
+            if(moduleActive === 'CUSTOM') {
+                await loadCustomCardsFromCloud();
+                filterAndShow();
+            }
+        }
+
+        // --- NOVO SISTEMA DE EXCLUSÃO PERSONALIZADA ---
+        function deleteSingleCard(id) {
+            cardToDeleteId = id;
+            document.getElementById('modal-confirm').classList.remove('hidden');
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('modal-confirm').classList.add('hidden');
+            cardToDeleteId = null;
+        }
+
+        document.getElementById('confirm-delete-btn').onclick = async function() {
+            if (cardToDeleteId) {
+                const user = firebase.auth().currentUser;
+                try {
+                    await db.collection('users').doc(user.uid).collection('myCards').doc(cardToDeleteId).delete();
+                    currentDB = currentDB.filter(c => c.id !== cardToDeleteId);
+                    closeConfirmModal();
+                    filterAndShow();
+                } catch (e) {
+                    console.error("Erro ao deletar:", e);
+                    closeConfirmModal();
+                }
+            }
+        };
+
+        // --- CARREGAMENTO DE DADOS ---
 
         async function loadRatingsFromCloud() {
             const user = firebase.auth().currentUser;
@@ -175,39 +397,7 @@
         async function loadCustomCardsFromCloud() {
             const user = firebase.auth().currentUser;
             const snap = await db.collection('users').doc(user.uid).collection('myCards').get();
-            currentDB = snap.docs.map(doc => ({ 
-                id: doc.id, f: doc.data().f, b: doc.data().b, l: doc.data().l 
-            }));
-        }
-
-        async function saveCustomCard() {
-            const user = firebase.auth().currentUser;
-            const f = document.getElementById('custFront').value;
-            const b = document.getElementById('custBack').value;
-            const c = document.getElementById('custCat').value || 'Geral';
-            if(!f || !b) return alert("Preencha os campos!");
-
-            await db.collection('users').doc(user.uid).collection('myCards').add({
-                f, b, l: `CAT: ${c.toUpperCase()}`
-            });
-            toggleModal(false);
-            if (moduleActive === 'CUSTOM') startApp('CUSTOM'); else alert("Favoritado!");
-        }
-
-        async function rateCard(level) {
-            const user = firebase.auth().currentUser;
-            const cardId = btoa(unescape(encodeURIComponent(currentCard.f))).substring(0, 25);
-            ratings[currentCard.f] = level;
-            await db.collection('users').doc(user.uid).collection('ratings').doc(cardId).set({ level });
-            showRandomCard();
-        }
-
-        async function deleteSingleCard(id) {
-            if(confirm("Excluir da nuvem?")) {
-                const user = firebase.auth().currentUser;
-                await db.collection('users').doc(user.uid).collection('myCards').doc(id).delete();
-                startApp('CUSTOM');
-            }
+            currentDB = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         }
 
         async function loadHTMLModule() {
@@ -234,9 +424,7 @@
                 const r = await fetch(files[m]); 
                 const t = await r.text(); 
                 const j = new Function(`return ${t.substring(t.indexOf('{'), t.lastIndexOf('}') + 1)}`)(); 
-                for (let id in j) { 
-                    j[id].words?.forEach(w => currentDB.push({ f: w.english, b: w.portuguese, l: `Lição ${id.padStart(2,'0')}` })); 
-                } 
+                for (let id in j) { j[id].words?.forEach(w => currentDB.push({ f: w.english, b: w.portuguese, l: `Lição ${id.padStart(2,'0')}` })); } 
             } catch (e) {} 
         }
 
@@ -247,42 +435,20 @@
             showRandomCard();
         }
 
-        function showRandomCard() {
-            const display = document.getElementById('card-display');
-            if (filteredDB.length === 0) {
-                display.innerHTML = "<div class='text-slate-600 text-center p-16 border-4 border-dashed border-slate-800 rounded-[3rem] font-bold uppercase'>Vazio</div>";
-                document.getElementById('rating-controls').classList.add('hidden'); return;
-            }
-            currentCard = filteredDB[Math.floor(Math.random() * filteredDB.length)];
-            const diffClass = ratings[currentCard.f] ? `diff-${ratings[currentCard.f]}` : '';
-            const actionBtn = moduleActive !== 'CUSTOM' ? 
-                `<button onclick="openModalForFavorite(); event.stopPropagation();" class="btn-card-action btn-fav"><i class="fas fa-star text-xl"></i></button>` :
-                `<button onclick="deleteSingleCard('${currentCard.id}'); event.stopPropagation();" class="btn-card-action btn-del-single"><i class="fas fa-trash-alt text-lg"></i></button>`;
-
-            display.innerHTML = `
-                <div class="flashcard ${diffClass}" onclick="this.classList.toggle('flipped'); document.getElementById('rating-controls').classList.remove('hidden')">
-                    ${actionBtn}
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <span class="text-[10px] text-slate-500 absolute top-8 uppercase tracking-[4px] font-black">${currentCard.l}</span>
-                            ${currentCard.f}
-                        </div>
-                        <div class="flashcard-back">${currentCard.b}</div>
-                    </div>
-                </div>
-            `;
-            document.getElementById('rating-controls').classList.add('hidden');
-        }
-
-        function openModalForNew() { document.getElementById('modalTitle').innerText = "Novo Card"; toggleModal(true); }
-        function openModalForFavorite() { document.getElementById('modalTitle').innerText = "Favoritar"; document.getElementById('custFront').value = currentCard.f; document.getElementById('custBack').value = currentCard.b; toggleModal(true); }
-        function toggleModal(show) { document.getElementById('modal-custom').classList.toggle('hidden', !show); }
         function populateLessons() { 
             const f = document.getElementById('lessonFilter'); 
             f.innerHTML = '<option value="all">LIÇÕES</option>'; 
             [...new Set(currentDB.map(d => d.l))].sort().forEach(l => { 
                 const o = document.createElement('option'); o.value = l; o.innerText = l; f.appendChild(o); 
             }); 
+        }
+
+        async function rateCard(level) {
+            const user = firebase.auth().currentUser;
+            const cardId = btoa(unescape(encodeURIComponent(currentCard.f))).substring(0, 25);
+            ratings[currentCard.f] = level;
+            await db.collection('users').doc(user.uid).collection('ratings').doc(cardId).set({ level });
+            showRandomCard();
         }
     </script>
 </body>
