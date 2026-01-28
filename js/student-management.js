@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const openAddStudentModalBtn = document.getElementById('open-add-student-modal-btn');
     const cancelAddStudentBtn = document.getElementById('cancel-add-student-btn');
     const addStudentForm = document.getElementById('add-student-form');
-    const addStudentBtn = document.getElementById('add-student-btn'); // Botão de submit do form
+    const addStudentBtn = document.getElementById('add-student-btn'); 
     const deleteStudentBtn = document.getElementById('delete-student-btn');
     const studentSelect = document.getElementById('student-select');
     const studentSearchInput = document.getElementById('student-search');
@@ -28,21 +28,29 @@ document.addEventListener('DOMContentLoaded', () => {
     if (addStudentForm) {
         addStudentForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            // Captura de valores do formulário
             const fullName = document.getElementById('new-student-fullname').value.trim();
             const username = document.getElementById('new-student-username').value.trim().toLowerCase();
             const password = document.getElementById('new-student-password').value;
+            
+            // CORREÇÃO: Capturando o tipo de aluno (Certifique-se que o ID no HTML seja este)
+            const studentTypeField = document.getElementById('new-student-type');
+            const studentType = studentTypeField ? studentTypeField.value : '';
+
             const modulos = ['a1', 'a2', 'b1', 'b2', 'business', 'conversation', 'essentials', 'vestibular'];
             const modulosLiberados = [];
 
-modulos.forEach(m => {
-    const checkbox = document.getElementById(`module-${m}`);
-    if (checkbox && checkbox.checked) {
-        modulosLiberados.push(m);
-    }
-});
+            modulos.forEach(m => {
+                const checkbox = document.getElementById(`module-${m}`);
+                if (checkbox && checkbox.checked) {
+                    modulosLiberados.push(m);
+                }
+            });
 
+            // Validação
             if (!fullName || !username || !password || !studentType) {
-                return alert("Por favor, preencha todos os campos.");
+                return alert("Por favor, preencha todos os campos, incluindo o tipo de aluno.");
             }
 
             addStudentBtn.classList.add('btn-loading');
@@ -51,22 +59,27 @@ modulos.forEach(m => {
             const email = `${username}@inglesnoseuritmo.com`;
 
             try {
-                // O ideal é usar Cloud Functions para criar o usuário e o documento no DB de forma segura.
-                // Esta é uma implementação simplificada do lado do cliente.
+                // Criar usuário no Firebase Auth
                 const userCredential = await auth.createUserWithEmailAndPassword(email, password);
                 const studentId = userCredential.user.uid;
 
+                // Criar documento do aluno no Firestore
                 await db.collection('students').doc(studentId).set({
                     name: fullName,
                     email: email,
                     role: 'aluno',
                     studentType: studentType,
+                    modules: modulosLiberados, // Salva os módulos marcados
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
 
                 alert(`Aluno "${fullName}" adicionado com sucesso!`);
                 addStudentModal.classList.add('hidden');
                 addStudentForm.reset();
+                
+                // Recarrega a lista para mostrar o novo aluno (opcional, dependendo da sua UI)
+                if (typeof loadStudents === 'function') loadStudents();
+
             } catch (error) {
                 console.error("Erro ao adicionar aluno: ", error);
                 alert("Erro ao adicionar aluno: " + error.message);
@@ -90,7 +103,7 @@ modulos.forEach(m => {
                     alert("Aluno excluído com sucesso.");
                     localStorage.removeItem('selectedStudentId');
                     localStorage.removeItem('selectedStudentName');
-                    location.reload(); // Recarrega a página para atualizar a lista
+                    location.reload(); 
                 } catch (error) {
                     console.error("Erro ao excluir aluno:", error);
                     alert("Ocorreu um erro ao excluir o aluno.");

@@ -562,7 +562,7 @@ const lessonVocabulary = {
             { english: 'Time', portuguese: 'Tempo, hora' },
             { english: 'O\'clock', portuguese: 'Em ponto' },
             { english: 'Half past', portuguese: 'E meia' },
-            { english: 'Quarter past', portuguese: 'E quinze' },
+            { english: 'Quarter past', portuguese: '... e quinze' },
             { english: 'Quarter to', portuguese: 'Quinze para' },
             { english: 'Morning', portuguese: 'Manhã' },
             { english: 'Afternoon', portuguese: 'Tarde' },

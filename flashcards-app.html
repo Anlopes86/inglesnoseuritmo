@@ -28,6 +28,7 @@
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-deep); color: white; min-height: 100vh; overflow-x: hidden; }
         
         .menu-card { background: var(--bg-card); transition: all 0.3s; cursor: pointer; border: 2px solid #334155; }
+        .menu-card:active { transform: scale(0.98); }
         .menu-card.active-practice { border-color: #a855f7; background: rgba(168, 85, 247, 0.1); }
         
         .flashcard { height: 380px; perspective: 1000px; cursor: pointer; width: 100%; max-width: 400px; position: relative; }
@@ -81,20 +82,33 @@
                 <div class="bg-yellow-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-yellow-500 text-2xl"><i class="fas fa-comments"></i></div>
                 <div><h3 class="font-bold text-lg leading-tight">Aulas de Conversação</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Expressões das aulas</p></div>
             </div>
+            
             <div onclick="startApp('A1')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 shadow-xl">
                 <div class="bg-green-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-green-500 text-2xl"><i class="fas fa-graduation-cap"></i></div>
                 <div><h3 class="font-bold text-lg leading-tight">Módulo A1 / A2</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Gramática Base</p></div>
             </div>
-            <div onclick="startApp('CUSTOM')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 border-dashed border-yellow-500/40 bg-yellow-500/5 shadow-xl">
-                <div class="bg-orange-500/20 w-16 h-16 flex items-center justify-center rounded-2xl text-orange-500 text-2xl"><i class="fas fa-layer-group"></i></div>
-                <div><h3 class="font-bold text-lg leading-tight">Meus Cards & Favoritos</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Crie seus cards</p></div>
+
+            <div onclick="startApp('TRAVEL')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 shadow-xl">
+                <div class="bg-blue-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-blue-500 text-2xl"><i class="fas fa-plane"></i></div>
+                <div><h3 class="font-bold text-lg leading-tight">Viagem</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Travel Vocabulary</p></div>
             </div>
+
+            <div onclick="startApp('RESTAURANT')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 shadow-xl">
+                <div class="bg-orange-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-orange-500 text-2xl"><i class="fas fa-utensils"></i></div>
+                <div><h3 class="font-bold text-lg leading-tight">Restaurante</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Restaurant & Food</p></div>
+            </div>
+
             <div onclick="startApp('VOC_CONV')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 shadow-xl">
-                <div class="bg-blue-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-blue-500 text-2xl"><i class="fas fa-book-open"></i></div>
+                <div class="bg-indigo-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-indigo-500 text-2xl"><i class="fas fa-book-open"></i></div>
                 <div><h3 class="font-bold text-lg leading-tight">Vocabulário</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Expressões diversas</p></div>
             </div>
+
+            <div onclick="startApp('CUSTOM')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 border-dashed border-yellow-500/40 bg-yellow-500/5 shadow-xl">
+                <div class="bg-yellow-500/20 w-16 h-16 flex items-center justify-center rounded-2xl text-yellow-500 text-2xl"><i class="fas fa-layer-group"></i></div>
+                <div><h3 class="font-bold text-lg leading-tight">Meus Cards & Favoritos</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Crie seus cards</p></div>
+            </div>
             
-            <div id="card-practice-main" class="menu-card p-6 rounded-[2rem] flex items-center justify-between shadow-xl">
+            <div id="card-practice-main" class="menu-card p-6 rounded-[2rem] flex items-center justify-between shadow-xl md:col-span-2">
                 <div onclick="togglePracticeMode()" class="flex items-center gap-5 flex-grow">
                     <div id="practice-icon-bg" class="bg-slate-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-slate-500 text-2xl"><i class="fas fa-keyboard"></i></div>
                     <div>
@@ -148,7 +162,14 @@
                 <button onclick="rateCard('easy')" class="bg-green-500/20 border border-green-500/50 text-green-500 py-4 rounded-2xl font-black text-xs uppercase">Fácil</button>
             </div>
 
-            <button id="btnNext" onclick="showRandomCard()" class="mt-8 bg-yellow-500 text-slate-900 font-black px-12 py-5 rounded-[2rem] text-xl shadow-2xl active:scale-95 transition-all w-full max-w-[300px]">PRÓXIMO <i class="fas fa-chevron-right ml-2"></i></button>
+            <div class="flex items-center gap-3 mt-8 w-full max-w-[400px] justify-center">
+                <button id="btnBack" onclick="goBack()" class="hidden bg-slate-800 text-slate-400 w-16 h-16 flex items-center justify-center rounded-full shadow-xl active:scale-90 transition-all border-2 border-slate-700">
+                    <i class="fas fa-undo-alt text-xl"></i>
+                </button>
+                <button id="btnNext" onclick="showRandomCard()" class="bg-yellow-500 text-slate-900 font-black flex-grow py-5 rounded-[2.5rem] text-xl shadow-2xl active:scale-95 transition-all">
+                    PRÓXIMO <i class="fas fa-chevron-right ml-2"></i>
+                </button>
+            </div>
         </main>
     </div>
 
@@ -191,11 +212,10 @@
     </div>
 
     <script>
-        let currentDB = []; let filteredDB = []; let currentCard = null; let moduleActive = '';
+        let currentDB = []; let filteredDB = []; let currentCard = null; let previousCard = null; let moduleActive = '';
         let ratings = {}; let isPracticeMode = false;
         let cardToDeleteId = null;
 
-        // Função de Áudio
         function speak(text) {
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'en-US';
@@ -229,7 +249,8 @@
 
         async function startApp(module) {
             if(!firebase.auth().currentUser) { location.href='login.html'; return; }
-            moduleActive = module; currentDB = [];
+            moduleActive = module; currentDB = []; previousCard = null;
+            document.getElementById('btnBack').classList.add('hidden');
             document.getElementById('screen-menu').classList.add('hidden');
             document.getElementById('screen-app').classList.remove('hidden');
             await loadRatingsFromCloud();
@@ -265,19 +286,45 @@
             }
             document.getElementById('rating-controls').classList.remove('hidden');
             document.getElementById('btnNext').classList.remove('hidden');
+            document.getElementById('btnBack').classList.remove('hidden'); // Mostra o voltar aqui no modo escrita se quiser
             document.getElementById('btnCheckAnswer').classList.add('hidden');
         }
 
+        function goBack() {
+            if (previousCard) {
+                const temp = currentCard;
+                currentCard = previousCard;
+                previousCard = null; // Só permite voltar uma vez por enquanto
+                document.getElementById('btnBack').classList.add('hidden');
+                renderCurrentCard();
+            }
+        }
+
         function showRandomCard() {
+            if (filteredDB.length === 0) return;
+            if (currentCard) previousCard = currentCard;
+            
+            // Lógica para não repetir o mesmo card imediatamente
+            let nextCard;
+            do {
+                nextCard = filteredDB[Math.floor(Math.random() * filteredDB.length)];
+            } while (filteredDB.length > 1 && nextCard === currentCard);
+            
+            currentCard = nextCard;
+            if (previousCard) document.getElementById('btnBack').classList.remove('hidden');
+            renderCurrentCard();
+        }
+
+        function renderCurrentCard() {
             const display = document.getElementById('card-display');
             if (filteredDB.length === 0) {
                 display.innerHTML = "<div class='text-slate-600 text-center p-16 border-4 border-dashed border-slate-800 rounded-[3rem] font-bold uppercase'>Vazio</div>";
                 document.getElementById('rating-controls').classList.add('hidden');
                 document.getElementById('btnNext').classList.add('hidden');
+                document.getElementById('btnBack').classList.add('hidden');
                 return;
             }
 
-            currentCard = filteredDB[Math.floor(Math.random() * filteredDB.length)];
             const diffClass = ratings[currentCard.f] ? `diff-${ratings[currentCard.f]}` : '';
             const input = document.getElementById('answer-input');
             if(input) {
@@ -297,7 +344,6 @@
                 `<button onclick="openModalForFavorite(); event.stopPropagation();" class="btn-card-action btn-fav"><i class="fas fa-star text-xl"></i></button>` :
                 `<button onclick="deleteSingleCard('${currentCard.id}'); event.stopPropagation();" class="btn-card-action btn-del-single"><i class="fas fa-trash-alt text-lg"></i></button>`;
 
-            // NOVO: Botão de áudio
             const speakBtn = `<button onclick="speak('${currentCard.f.replace(/'/g, "\\'")}'); event.stopPropagation();" class="btn-card-action btn-speak"><i class="fas fa-volume-up text-xl"></i></button>`;
 
             display.innerHTML = `
@@ -328,8 +374,33 @@
         async function loadRatingsFromCloud() { const user = firebase.auth().currentUser; const snap = await db.collection('users').doc(user.uid).collection('ratings').get(); ratings = {}; snap.forEach(doc => { ratings[doc.id] = doc.data().level; }); }
         async function loadCustomCardsFromCloud() { const user = firebase.auth().currentUser; const snap = await db.collection('users').doc(user.uid).collection('myCards').get(); currentDB = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); }
         async function loadHTMLModule() { for (let i = 1; i <= 32; i++) { const num = i.toString().padStart(2, '0'); try { const r = await fetch(`conversation/licao-${num}.html`); if (r.ok) { const html = await r.text(); const doc = new DOMParser().parseFromString(html, 'text/html'); doc.querySelectorAll('.flashcard').forEach(card => { let f = card.querySelector('.flashcard-front h4')?.innerText || card.querySelector('.flashcard-front')?.innerText; let b = card.querySelector('.flashcard-back p')?.innerText || card.querySelector('.flashcard-back')?.innerText; if (f && b) currentDB.push({ f: f.trim(), b: b.trim(), l: `Lição ${num}` }); }); } } catch (e) {} } }
-        async function loadJSModule(m) { const files = { 'A1': 'js/vocabulary.js', 'VOC_CONV': 'js/conversation-vocabulary.js' }; try { const r = await fetch(files[m]); const t = await r.text(); const j = new Function(`return ${t.substring(t.indexOf('{'), t.lastIndexOf('}') + 1)}`)(); for (let id in j) { j[id].words?.forEach(w => currentDB.push({ f: w.english, b: w.portuguese, l: `Lição ${id.padStart(2,'0')}` })); } } catch (e) {} }
-        function filterAndShow() { const lesson = document.getElementById('lessonFilter').value; const diff = document.getElementById('diffFilter').value; filteredDB = currentDB.filter(d => (lesson === 'all' || d.l === lesson) && (diff === 'all' || ratings[d.f] === diff)); showRandomCard(); }
+        
+        async function loadJSModule(m) { 
+            const files = { 
+                'A1': 'js/vocabulary.js', 
+                'VOC_CONV': 'js/conversation-vocabulary.js',
+                'TRAVEL': 'js/travel-vocabulary.js',
+                'RESTAURANT': 'js/restaurant-vocabulary.js'
+            }; 
+            try { 
+                const r = await fetch(files[m]); 
+                const t = await r.text(); 
+                const j = new Function(`return ${t.substring(t.indexOf('{'), t.lastIndexOf('}') + 1)}`)(); 
+                for (let id in j) { 
+                    j[id].words?.forEach(w => currentDB.push({ f: w.english, b: w.portuguese, l: id })); 
+                } 
+            } catch (e) { console.error("Erro ao carregar módulo JS:", e); } 
+        }
+
+        function filterAndShow() { 
+            const lesson = document.getElementById('lessonFilter').value; 
+            const diff = document.getElementById('diffFilter').value; 
+            filteredDB = currentDB.filter(d => (lesson === 'all' || d.l === lesson) && (diff === 'all' || ratings[d.f] === diff)); 
+            currentCard = null; // Reset para a nova filtragem
+            previousCard = null;
+            document.getElementById('btnBack').classList.add('hidden');
+            showRandomCard(); 
+        }
         function populateLessons() { const f = document.getElementById('lessonFilter'); f.innerHTML = '<option value="all">LIÇÕES</option>'; [...new Set(currentDB.map(d => d.l))].sort().forEach(l => { const o = document.createElement('option'); o.value = l; o.innerText = l; f.appendChild(o); }); }
         async function rateCard(level) { const user = firebase.auth().currentUser; const cardId = btoa(unescape(encodeURIComponent(currentCard.f))).substring(0, 25); ratings[currentCard.f] = level; await db.collection('users').doc(user.uid).collection('ratings').doc(cardId).set({ level }); showRandomCard(); }
     </script>
