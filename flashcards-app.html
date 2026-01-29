@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Inglês no seu Ritmo</title>
     <meta name="apple-mobile-web-app-title" content="Flashcards">
 
@@ -27,6 +27,12 @@
         :root { --bg-deep: #0f172a; --bg-card: #1e293b; --accent: #facc15; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-deep); color: white; min-height: 100vh; overflow-x: hidden; }
         
+        /* Ajuste para não colar no topo em iPhones/Androids novos */
+        header { 
+            padding-top: env(safe-area-inset-top, 20px) !important; 
+            padding-bottom: 20px !important;
+        }
+
         .menu-card { background: var(--bg-card); transition: all 0.3s; cursor: pointer; border: 2px solid #334155; }
         .menu-card:active { transform: scale(0.98); }
         .menu-card.active-practice { border-color: #a855f7; background: rgba(168, 85, 247, 0.1); }
@@ -60,9 +66,10 @@
         .custom-select-ui {
             appearance: none; background-color: #1e293b;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23facc15'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-            background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.2rem;
-            border: 2px solid #334155; border-radius: 1rem; padding: 0.75rem 2.5rem 0.75rem 1rem !important;
-            color: white; font-weight: 800; font-size: 11px !important; text-transform: uppercase;
+            background-repeat: no-repeat; background-position: right 0.7rem center; background-size: 1rem;
+            border: 2px solid #334155; border-radius: 1rem; padding: 0.6rem 2.2rem 0.6rem 0.8rem !important;
+            color: white; font-weight: 800; font-size: 10px !important; text-transform: uppercase;
+            min-width: 105px; /* Garante que o texto não corte */
         }
 
         .hidden { display: none; }
@@ -121,19 +128,19 @@
     </div>
 
     <div id="screen-app" class="hidden flex flex-col min-h-screen">
-        <header class="p-5 bg-slate-900/50 backdrop-blur-lg flex justify-between items-center border-b border-slate-800 sticky top-0 z-40">
+        <header class="px-5 bg-slate-900/50 backdrop-blur-lg flex justify-between items-center border-b border-slate-800 sticky top-0 z-40">
             <div class="flex gap-2">
-                <a href="home-aluno.html" class="w-12 h-12 flex items-center justify-center bg-red-500/10 hover:bg-red-500/20 rounded-2xl text-red-500 border border-red-500/20 shadow-lg transition-all">
-                    <i class="fas fa-times text-xl"></i>
+                <a href="home-aluno.html" class="w-11 h-11 flex items-center justify-center bg-red-500/10 hover:bg-red-500/20 rounded-2xl text-red-500 border border-red-500/20 shadow-lg transition-all">
+                    <i class="fas fa-times text-lg"></i>
                 </a>
-                <button onclick="location.reload()" class="w-12 h-12 flex items-center justify-center bg-slate-800 hover:bg-slate-700 rounded-2xl text-slate-400 shadow-lg transition-all">
-                    <i class="fas fa-th-large text-xl"></i>
+                <button onclick="location.reload()" class="w-11 h-11 flex items-center justify-center bg-slate-800 hover:bg-slate-700 rounded-2xl text-slate-400 shadow-lg transition-all">
+                    <i class="fas fa-th-large text-lg"></i>
                 </button>
             </div>
 
             <div class="flex items-center gap-2">
-                <button id="btnAddCard" onclick="openModalForNew()" class="hidden bg-yellow-500 px-4 py-2.5 rounded-xl text-[10px] font-black text-slate-900 uppercase">+ NOVO</button>
-                <select id="diffFilter" onchange="filterAndShow()" class="custom-select-ui text-[9px] !min-w-[90px] !p-2 !pr-8">
+                <button id="btnAddCard" onclick="openModalForNew()" class="hidden bg-yellow-500 px-3 py-2.5 rounded-xl text-[9px] font-black text-slate-900 uppercase shadow-lg shadow-yellow-500/20">+ NOVO</button>
+                <select id="diffFilter" onchange="filterAndShow()" class="custom-select-ui">
                     <option value="all">TODOS</option>
                     <option value="hard">DIFÍCIL</option>
                     <option value="medium">MÉDIO</option>
@@ -286,7 +293,6 @@
             }
             document.getElementById('rating-controls').classList.remove('hidden');
             document.getElementById('btnNext').classList.remove('hidden');
-            document.getElementById('btnBack').classList.remove('hidden'); // Mostra o voltar aqui no modo escrita se quiser
             document.getElementById('btnCheckAnswer').classList.add('hidden');
         }
 
@@ -294,7 +300,7 @@
             if (previousCard) {
                 const temp = currentCard;
                 currentCard = previousCard;
-                previousCard = null; // Só permite voltar uma vez por enquanto
+                previousCard = null; 
                 document.getElementById('btnBack').classList.add('hidden');
                 renderCurrentCard();
             }
@@ -304,7 +310,6 @@
             if (filteredDB.length === 0) return;
             if (currentCard) previousCard = currentCard;
             
-            // Lógica para não repetir o mesmo card imediatamente
             let nextCard;
             do {
                 nextCard = filteredDB[Math.floor(Math.random() * filteredDB.length)];
@@ -396,7 +401,7 @@
             const lesson = document.getElementById('lessonFilter').value; 
             const diff = document.getElementById('diffFilter').value; 
             filteredDB = currentDB.filter(d => (lesson === 'all' || d.l === lesson) && (diff === 'all' || ratings[d.f] === diff)); 
-            currentCard = null; // Reset para a nova filtragem
+            currentCard = null; 
             previousCard = null;
             document.getElementById('btnBack').classList.add('hidden');
             showRandomCard(); 
