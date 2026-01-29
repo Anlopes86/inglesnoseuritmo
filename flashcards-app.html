@@ -27,10 +27,14 @@
         :root { --bg-deep: #0f172a; --bg-card: #1e293b; --accent: #facc15; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-deep); color: white; min-height: 100vh; overflow-x: hidden; }
         
-        /* Ajuste para não colar no topo em iPhones/Androids novos */
+        /* Ajuste de Header para evitar cortes e colagem no topo */
         header { 
             padding-top: env(safe-area-inset-top, 20px) !important; 
-            padding-bottom: 20px !important;
+            padding-bottom: 12px !important;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
         }
 
         .menu-card { background: var(--bg-card); transition: all 0.3s; cursor: pointer; border: 2px solid #334155; }
@@ -63,13 +67,18 @@
         .btn-del-single { right: 20px; color: #ef4444; border-color: #ef4444; }
         .btn-speak { left: 20px; color: #38bdf8; border-color: #38bdf8; }
 
+        /* Selects otimizados para não quebrar o layout */
         .custom-select-ui {
             appearance: none; background-color: #1e293b;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23facc15'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-            background-repeat: no-repeat; background-position: right 0.7rem center; background-size: 1rem;
-            border: 2px solid #334155; border-radius: 1rem; padding: 0.6rem 2.2rem 0.6rem 0.8rem !important;
-            color: white; font-weight: 800; font-size: 10px !important; text-transform: uppercase;
-            min-width: 105px; /* Garante que o texto não corte */
+            background-repeat: no-repeat; background-position: right 0.5rem center; background-size: 0.8rem;
+            border: 2px solid #334155; border-radius: 0.8rem; padding: 0.5rem 1.6rem 0.5rem 0.6rem !important;
+            color: white; font-weight: 800; font-size: 9px !important; text-transform: uppercase;
+            max-width: 95px; flex-shrink: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+
+        .header-btn-square {
+            width: 42px; height: 42px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 12px; transition: all 0.2s;
         }
 
         .hidden { display: none; }
@@ -128,18 +137,20 @@
     </div>
 
     <div id="screen-app" class="hidden flex flex-col min-h-screen">
-        <header class="px-5 bg-slate-900/50 backdrop-blur-lg flex justify-between items-center border-b border-slate-800 sticky top-0 z-40">
-            <div class="flex gap-2">
-                <a href="home-aluno.html" class="w-11 h-11 flex items-center justify-center bg-red-500/10 hover:bg-red-500/20 rounded-2xl text-red-500 border border-red-500/20 shadow-lg transition-all">
-                    <i class="fas fa-times text-lg"></i>
+        <header class="px-3 bg-slate-900/50 backdrop-blur-lg border-b border-slate-800 sticky top-0 z-40">
+            <div class="flex gap-1.5">
+                <a href="home-aluno.html" class="header-btn-square bg-red-500/10 text-red-500 border border-red-500/20 shadow-lg">
+                    <i class="fas fa-times"></i>
                 </a>
-                <button onclick="location.reload()" class="w-11 h-11 flex items-center justify-center bg-slate-800 hover:bg-slate-700 rounded-2xl text-slate-400 shadow-lg transition-all">
-                    <i class="fas fa-th-large text-lg"></i>
+                <button onclick="location.reload()" class="header-btn-square bg-slate-800 text-slate-400 shadow-lg">
+                    <i class="fas fa-th-large"></i>
                 </button>
             </div>
 
-            <div class="flex items-center gap-2">
-                <button id="btnAddCard" onclick="openModalForNew()" class="hidden bg-yellow-500 px-3 py-2.5 rounded-xl text-[9px] font-black text-slate-900 uppercase shadow-lg shadow-yellow-500/20">+ NOVO</button>
+            <div class="flex items-center gap-1.5">
+                <button id="btnAddCard" onclick="openModalForNew()" class="hidden bg-yellow-500 h-[42px] px-3 rounded-xl text-[9px] font-black text-slate-900 uppercase shadow-lg shadow-yellow-500/20 flex-shrink-0">
+                    + NOVO
+                </button>
                 <select id="diffFilter" onchange="filterAndShow()" class="custom-select-ui">
                     <option value="all">TODOS</option>
                     <option value="hard">DIFÍCIL</option>
@@ -309,12 +320,10 @@
         function showRandomCard() {
             if (filteredDB.length === 0) return;
             if (currentCard) previousCard = currentCard;
-            
             let nextCard;
             do {
                 nextCard = filteredDB[Math.floor(Math.random() * filteredDB.length)];
             } while (filteredDB.length > 1 && nextCard === currentCard);
-            
             currentCard = nextCard;
             if (previousCard) document.getElementById('btnBack').classList.remove('hidden');
             renderCurrentCard();
@@ -329,7 +338,6 @@
                 document.getElementById('btnBack').classList.add('hidden');
                 return;
             }
-
             const diffClass = ratings[currentCard.f] ? `diff-${ratings[currentCard.f]}` : '';
             const input = document.getElementById('answer-input');
             if(input) {
@@ -337,20 +345,16 @@
                 input.classList.remove('border-green-500', 'border-yellow-500', 'bg-green-500/10', 'bg-yellow-500/10');
                 input.classList.add('border-slate-700');
             }
-
             if(isPracticeMode) {
                 document.getElementById('btnCheckAnswer').classList.remove('hidden');
                 document.getElementById('btnNext').classList.add('hidden');
             } else {
                 document.getElementById('btnNext').classList.remove('hidden');
             }
-
             const favBtn = moduleActive !== 'CUSTOM' ? 
                 `<button onclick="openModalForFavorite(); event.stopPropagation();" class="btn-card-action btn-fav"><i class="fas fa-star text-xl"></i></button>` :
                 `<button onclick="deleteSingleCard('${currentCard.id}'); event.stopPropagation();" class="btn-card-action btn-del-single"><i class="fas fa-trash-alt text-lg"></i></button>`;
-
             const speakBtn = `<button onclick="speak('${currentCard.f.replace(/'/g, "\\'")}'); event.stopPropagation();" class="btn-card-action btn-speak"><i class="fas fa-volume-up text-xl"></i></button>`;
-
             display.innerHTML = `
                 <div class="flashcard ${diffClass}" onclick="${isPracticeMode ? '' : 'this.classList.toggle(\'flipped\'); document.getElementById(\'rating-controls\').classList.remove(\'hidden\')'}">
                     ${speakBtn}
@@ -379,30 +383,16 @@
         async function loadRatingsFromCloud() { const user = firebase.auth().currentUser; const snap = await db.collection('users').doc(user.uid).collection('ratings').get(); ratings = {}; snap.forEach(doc => { ratings[doc.id] = doc.data().level; }); }
         async function loadCustomCardsFromCloud() { const user = firebase.auth().currentUser; const snap = await db.collection('users').doc(user.uid).collection('myCards').get(); currentDB = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); }
         async function loadHTMLModule() { for (let i = 1; i <= 32; i++) { const num = i.toString().padStart(2, '0'); try { const r = await fetch(`conversation/licao-${num}.html`); if (r.ok) { const html = await r.text(); const doc = new DOMParser().parseFromString(html, 'text/html'); doc.querySelectorAll('.flashcard').forEach(card => { let f = card.querySelector('.flashcard-front h4')?.innerText || card.querySelector('.flashcard-front')?.innerText; let b = card.querySelector('.flashcard-back p')?.innerText || card.querySelector('.flashcard-back')?.innerText; if (f && b) currentDB.push({ f: f.trim(), b: b.trim(), l: `Lição ${num}` }); }); } } catch (e) {} } }
-        
         async function loadJSModule(m) { 
-            const files = { 
-                'A1': 'js/vocabulary.js', 
-                'VOC_CONV': 'js/conversation-vocabulary.js',
-                'TRAVEL': 'js/travel-vocabulary.js',
-                'RESTAURANT': 'js/restaurant-vocabulary.js'
-            }; 
-            try { 
-                const r = await fetch(files[m]); 
-                const t = await r.text(); 
-                const j = new Function(`return ${t.substring(t.indexOf('{'), t.lastIndexOf('}') + 1)}`)(); 
-                for (let id in j) { 
-                    j[id].words?.forEach(w => currentDB.push({ f: w.english, b: w.portuguese, l: id })); 
-                } 
-            } catch (e) { console.error("Erro ao carregar módulo JS:", e); } 
+            const files = { 'A1': 'js/vocabulary.js', 'VOC_CONV': 'js/conversation-vocabulary.js', 'TRAVEL': 'js/travel-vocabulary.js', 'RESTAURANT': 'js/restaurant-vocabulary.js' }; 
+            try { const r = await fetch(files[m]); const t = await r.text(); const j = new Function(`return ${t.substring(t.indexOf('{'), t.lastIndexOf('}') + 1)}`)(); for (let id in j) { j[id].words?.forEach(w => currentDB.push({ f: w.english, b: w.portuguese, l: id })); } } catch (e) { console.error(e); } 
         }
 
         function filterAndShow() { 
             const lesson = document.getElementById('lessonFilter').value; 
             const diff = document.getElementById('diffFilter').value; 
             filteredDB = currentDB.filter(d => (lesson === 'all' || d.l === lesson) && (diff === 'all' || ratings[d.f] === diff)); 
-            currentCard = null; 
-            previousCard = null;
+            currentCard = null; previousCard = null;
             document.getElementById('btnBack').classList.add('hidden');
             showRandomCard(); 
         }
