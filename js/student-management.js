@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const studentSelect = document.getElementById('student-select');
     const studentSearchInput = document.getElementById('student-search');
 
-    // --- Lógica para Abrir e Fechar Modal de Adicionar Aluno ---
     if (openAddStudentModalBtn) {
         openAddStudentModalBtn.addEventListener('click', () => addStudentModal.classList.remove('hidden'));
     }
@@ -24,19 +23,16 @@ document.addEventListener('DOMContentLoaded', () => {
         cancelAddStudentBtn.addEventListener('click', () => addStudentModal.classList.add('hidden'));
     }
     
-    // --- Lógica para Adicionar Aluno ---
     if (addStudentForm) {
         addStudentForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
-            // Captura de valores do formulário
             const fullName = document.getElementById('new-student-fullname').value.trim();
             const username = document.getElementById('new-student-username').value.trim().toLowerCase();
             const password = document.getElementById('new-student-password').value;
             
-            // CORREÇÃO: Capturando o tipo de aluno (Certifique-se que o ID no HTML seja este)
-            const studentTypeField = document.getElementById('new-student-type');
-            const studentType = studentTypeField ? studentTypeField.value : '';
+            // --- CORREÇÃO 1: Capturar o valor do studentType que estava faltando ---
+            const studentTypeElement = document.getElementById('new-student-type');
+            const studentType = studentTypeElement ? studentTypeElement.value : '';
 
             const modulos = ['a1', 'a2', 'b1', 'b2', 'business', 'conversation', 'essentials', 'vestibular'];
             const modulosLiberados = [];
@@ -48,9 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Validação
             if (!fullName || !username || !password || !studentType) {
-                return alert("Por favor, preencha todos os campos, incluindo o tipo de aluno.");
+                return alert("Por favor, preencha todos os campos.");
             }
 
             addStudentBtn.classList.add('btn-loading');
@@ -59,26 +54,22 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = `${username}@inglesnoseuritmo.com`;
 
             try {
-                // Criar usuário no Firebase Auth
                 const userCredential = await auth.createUserWithEmailAndPassword(email, password);
                 const studentId = userCredential.user.uid;
 
-                // Criar documento do aluno no Firestore
                 await db.collection('students').doc(studentId).set({
                     name: fullName,
                     email: email,
                     role: 'aluno',
                     studentType: studentType,
-                    modules: modulosLiberados, // Salva os módulos marcados
+                    modules: modulosLiberados, // Adicionado para salvar os módulos marcados
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
 
                 alert(`Aluno "${fullName}" adicionado com sucesso!`);
-                addStudentModal.classList.add('hidden');
-                addStudentForm.reset();
                 
-                // Recarrega a lista para mostrar o novo aluno (opcional, dependendo da sua UI)
-                if (typeof loadStudents === 'function') loadStudents();
+                // --- CORREÇÃO 2: Reload para você voltar a ser "Professor" no sistema ---
+                location.reload(); 
 
             } catch (error) {
                 console.error("Erro ao adicionar aluno: ", error);
@@ -90,20 +81,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Lógica para Excluir Aluno ---
     if (deleteStudentBtn) {
         deleteStudentBtn.addEventListener('click', async () => {
-            const studentId = localStorage.getItem('selectedStudentId');
+            const studentId = studentSelect ? studentSelect.value : localStorage.getItem('selectedStudentId');
             if (!studentId) return alert("Nenhum aluno selecionado.");
 
-            const studentName = localStorage.getItem('selectedStudentName');
+            const studentName = localStorage.getItem('selectedStudentName') || "este aluno";
             if (confirm(`Tem certeza que deseja excluir o aluno "${studentName}"?\n\nATENÇÃO: Esta ação é irreversível.`)) {
                 try {
                     await db.collection("students").doc(studentId).delete();
                     alert("Aluno excluído com sucesso.");
                     localStorage.removeItem('selectedStudentId');
                     localStorage.removeItem('selectedStudentName');
-                    location.reload(); 
+                    location.reload();
                 } catch (error) {
                     console.error("Erro ao excluir aluno:", error);
                     alert("Ocorreu um erro ao excluir o aluno.");
@@ -112,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // --- Lógica da Busca de Alunos ---
     if (studentSearchInput) {
         window.filterStudents = function() {
             const filter = studentSearchInput.value.toLowerCase();

@@ -2,305 +2,403 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Flash-English Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation 1: Dreams & Ambitions | Inglês no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-    <script src="js/firebase-config.js"></script>
-
     <style>
-        :root { --bg-deep: #0f172a; --bg-card: #1e293b; --accent: #facc15; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-deep); color: white; min-height: 100vh; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background-color: #111827; color: #f3f4f6; overflow-y: auto; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        .menu-card { background: var(--bg-card); transition: all 0.3s; cursor: pointer; border: 2px solid #334155; }
-        .menu-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+        /* Flashcards Grid 3x2 */
+        .flashcard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        @media (max-width: 768px) { .flashcard-grid { grid-template-columns: 1fr; } }
         
-        .flashcard { height: 380px; perspective: 1000px; cursor: pointer; width: 100%; max-width: 400px; position: relative; }
-        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
+        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { 
-            position: absolute; width: 100%; height: 100%; backface-visibility: hidden; 
-            display: flex; align-items: center; justify-content: center; flex-direction: column; 
-            padding: 2.5rem; border-radius: 3rem; border: 4px solid #334155; text-align: center; 
-        }
-        .flashcard-front { background: var(--bg-card); color: var(--accent); font-size: 2.2rem; font-weight: 900; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); }
-        .flashcard-back { background: var(--accent); color: var(--bg-deep); transform: rotateY(180deg); font-size: 1.6rem; font-weight: 700; }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.2rem; border-radius: 1rem; border: 1px solid #374151; }
+        .flashcard-front { background-color: #1f2937; color: #60a5fa; }
+        .flashcard-back { background-color: #2563eb; color: white; transform: rotateY(180deg); text-align: center; }
         
-        /* Cores de Dificuldade */
-        .diff-hard { border-color: #ef4444 !important; }
-        .diff-medium { border-color: #facc15 !important; }
-        .diff-easy { border-color: #22c55e !important; }
+        .lyrics-box { max-height: 400px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #4b5563 #1f2937; }
+        
+        /* Drag n Drop Styles */
+        .drop-zone { min-height: 38px; border: 1px dashed #4b5563; border-radius: 0.5rem; display: inline-flex; align-items: center; justify-content: center; background: #0f172a; transition: all 0.3s; min-width: 160px; vertical-align: middle; padding: 2px 8px; color: #4b5563; font-size: 0.85rem; }
+        .drop-zone.over { border-color: #3b82f6; background: #1e293b; }
+        
+        /* Novas cores de validação */
+        .drop-zone.filled { border-style: solid; color: #fff; background: #374151; }
+        .drop-zone.correct { background-color: #064e3b !important; border-color: #10b981 !important; color: white !important; }
+        .drop-zone.wrong { background-color: #7f1d1d !important; border-color: #f87171 !important; color: white !important; }
 
-        .btn-card-action {
-            position: absolute; top: 20px; z-index: 50;
-            background: rgba(15, 23, 42, 0.8); width: 50px; height: 50px;
-            border-radius: 18px; display: flex; align-items: center; justify-content: center;
-            transition: all 0.2s; border: 2px solid transparent;
-        }
-        .btn-fav { right: 20px; color: #facc15; border-color: #facc15; }
-        .btn-del-single { right: 20px; color: #ef4444; border-color: #ef4444; }
+        .drag-item { cursor: grab; user-select: none; transition: transform 0.2s; }
+        .drag-item:active { transform: scale(0.95); }
+        
+        .reveal-btn { color: #6b7280; font-size: 0.8rem; margin-left: 5px; cursor: pointer; transition: color 0.3s; }
+        .reveal-btn:hover { color: #3b82f6; }
 
-        .custom-select-ui {
-            appearance: none; background-color: #1e293b;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23facc15'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-            background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.2rem;
-            border: 2px solid #334155; border-radius: 1rem; padding: 0.75rem 2.5rem 0.75rem 1rem !important;
-            color: white; font-weight: 800; font-size: 11px !important; text-transform: uppercase;
-        }
-
-        .hidden { display: none; }
+        .word-bank { position: sticky; top: 100px; }
     </style>
 </head>
-<body>
+<body class="bg-gray-900">
 
-    <div id="screen-menu" class="container mx-auto px-6 py-12">
-        <div class="text-center mb-12">
-            <div class="inline-block p-4 bg-yellow-400/10 rounded-full mb-4"><i class="fas fa-bolt text-yellow-400 text-5xl"></i></div>
-            <h1 class="text-4xl font-black italic tracking-tighter uppercase">Flash-English</h1>
-            <p class="text-slate-500 mt-2 text-xs uppercase tracking-[4px] font-bold">Inglês no seu Ritmo</p>
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="conversation.html" class="text-lg font-bold text-blue-400 hover:text-blue-300 flex items-center gap-2">
+                <i class="fas fa-chevron-left"></i> Painel
+            </a>
+            <h1 class="text-xl font-semibold text-center text-white">Conversation: Dreams & Ambitions</h1>
+            <div class="w-24 text-right text-sm text-gray-400" id="slide-count">1/12</div>
+        </div>
+        <div class="w-full bg-gray-700 h-1.5">
+            <div id="progress-bar" class="bg-blue-500 h-1.5 transition-all duration-300" style="width: 0%;"></div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-8 mb-24">
+        
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-blue-400 flex items-center justify-center gap-4"><i class="fas fa-fire-alt text-orange-500"></i>Warm-up Questions</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-xl max-w-3xl mx-auto">
+                    <ul class="space-y-8 text-2xl text-left">
+                        <li class="flex items-start gap-4"><i class="fas fa-child text-blue-400 mt-1.5"></i><span>What did you want to be when you were a child?</span></li>
+                        <li class="flex items-start gap-4"><i class="fas fa-star text-yellow-400 mt-1.5"></i><span>What’s your biggest dream today?</span></li>
+                        <li class="flex items-start gap-4"><i class="fas fa-road text-green-400 mt-1.5"></i><span>Should people follow their dreams no matter what?</span></li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-            <div onclick="startApp('AULAS_CONV')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 shadow-xl">
-                <div class="bg-yellow-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-yellow-500 text-2xl"><i class="fas fa-comments"></i></div>
-                <div><h3 class="font-bold text-lg leading-tight">Aulas de Conversação</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Lições Oficiais</p></div>
-            </div>
-            <div onclick="startApp('A1')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 shadow-xl">
-                <div class="bg-green-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-green-500 text-2xl"><i class="fas fa-graduation-cap"></i></div>
-                <div><h3 class="font-bold text-lg leading-tight">Módulo A1 / A2</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Gramática Base</p></div>
-            </div>
-            <div onclick="startApp('CUSTOM')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 border-dashed border-yellow-500/40 bg-yellow-500/5 shadow-xl">
-                <div class="bg-orange-500/20 w-16 h-16 flex items-center justify-center rounded-2xl text-orange-500 text-2xl"><i class="fas fa-layer-group"></i></div>
-                <div><h3 class="font-bold text-lg leading-tight">Meus Cards & Favoritos</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Personalizado</p></div>
-            </div>
-            <div onclick="startApp('VOC_CONV')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 shadow-xl">
-                <div class="bg-blue-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-blue-500 text-2xl"><i class="fas fa-book-open"></i></div>
-                <div><h3 class="font-bold text-lg leading-tight">Vocabulário</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Expressões Úteis</p></div>
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-blue-400 flex items-center justify-center gap-4"><i class="fas fa-comments text-purple-400"></i>Useful Expressions</h2>
+                <p class="text-xl mb-8 text-gray-400">Flip the cards to learn the 6 expressions of the day.</p>
+                <div class="flashcard-grid max-w-6xl mx-auto">
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">To shoot for the stars</h4></div><div class="flashcard-back"><p>To aim for a very high or ambitious goal.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">A lifelong dream</h4></div><div class="flashcard-back"><p>A dream you've had for your entire life.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">To come true</h4></div><div class="flashcard-back"><p>When a dream becomes a reality.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">To set a goal</h4></div><div class="flashcard-back"><p>To decide on something you want to achieve.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">To chase a dream</h4></div><div class="flashcard-back"><p>To pursue something you really want.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">Beyond my wildest dreams</h4></div><div class="flashcard-back"><p>Better than anything I could imagine.</p></div></div></div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="screen-app" class="hidden flex flex-col min-h-screen">
-        <header class="p-5 bg-slate-900/50 backdrop-blur-lg flex justify-between items-center border-b border-slate-800 sticky top-0 z-40">
-            <button onclick="location.reload()" class="w-12 h-12 flex items-center justify-center bg-slate-800 rounded-2xl text-slate-400 shadow-lg"><i class="fas fa-home text-xl"></i></button>
-            <div class="flex items-center gap-2">
-                <button id="btnClean" onclick="clearAllCloud()" class="hidden w-10 h-10 flex items-center justify-center bg-red-500/10 rounded-xl text-red-500"><i class="fas fa-trash-alt"></i></button>
-                <button id="btnAddCard" onclick="openModalForNew()" class="hidden bg-yellow-500 px-4 py-2.5 rounded-xl text-[10px] font-black text-slate-900 uppercase">+ NOVO</button>
-                <select id="diffFilter" onchange="filterAndShow()" class="custom-select-ui text-[9px] !min-w-[90px] !p-2 !pr-8">
-                    <option value="all">TODOS</option>
-                    <option value="hard">DIFÍCIL</option>
-                    <option value="medium">MÉDIO</option>
-                    <option value="easy">FÁCIL</option>
-                </select>
-                <select id="lessonFilter" onchange="filterAndShow()" class="custom-select-ui"></select>
-            </div>
-        </header>
-
-        <main class="flex-grow flex flex-col items-center justify-center p-6">
-            <div id="card-display" class="w-full flex justify-center relative"></div>
-            
-            <div id="rating-controls" class="hidden grid grid-cols-3 gap-3 w-full max-w-[400px] mt-8">
-                <button onclick="rateCard('hard')" class="bg-red-500/20 border border-red-500/50 text-red-500 py-4 rounded-2xl font-black text-xs uppercase">Difícil</button>
-                <button onclick="rateCard('medium')" class="bg-yellow-500/20 border border-yellow-500/50 text-yellow-500 py-4 rounded-2xl font-black text-xs uppercase">Médio</button>
-                <button onclick="rateCard('easy')" class="bg-green-500/20 border border-green-500/50 text-green-500 py-4 rounded-2xl font-black text-xs uppercase">Fácil</button>
-            </div>
-
-            <button id="btnNext" onclick="showRandomCard()" class="mt-8 bg-yellow-500 text-slate-900 font-black px-12 py-5 rounded-[2rem] text-xl shadow-2xl active:scale-95 transition-all w-full max-w-[300px]">PRÓXIMO <i class="fas fa-chevron-right ml-2"></i></button>
-        </main>
-    </div>
-
-    <div id="modal-custom" class="hidden fixed inset-0 bg-slate-950/95 z-50 flex items-center justify-center p-6 backdrop-blur-xl">
-        <div class="bg-slate-900 p-8 rounded-[3rem] w-full max-w-md border border-slate-700">
-            <h2 id="modalTitle" class="text-2xl font-black text-yellow-500">Novo Card</h2>
-            <div class="space-y-4 mt-6">
-                <input type="text" id="custCat" placeholder="Categoria" class="w-full bg-slate-800 p-4 rounded-2xl text-white outline-none">
-                <input type="text" id="custFront" placeholder="Inglês" class="w-full bg-slate-800 p-4 rounded-2xl text-white outline-none">
-                <input type="text" id="custBack" placeholder="Português" class="w-full bg-slate-800 p-4 rounded-2xl text-white outline-none">
-            </div>
-            <button onclick="saveCustomCard()" class="w-full bg-yellow-500 text-slate-900 font-black p-5 rounded-2xl mt-8">SALVAR NA NUVEM</button>
-            <button onclick="toggleModal(false)" class="w-full text-slate-500 font-bold p-2 mt-2">CANCELAR</button>
-        </div>
-    </div>
-
-    <script>
-        let currentDB = []; let filteredDB = []; let currentCard = null; let moduleActive = '';
-        let ratings = {}; // Agora será preenchido pelo Firebase
-
-        async function startApp(module) {
-            const user = firebase.auth().currentUser;
-            if(!user) { alert("Acesso negado. Por favor, faça login."); location.href='login.html'; return; }
-
-            moduleActive = module; currentDB = [];
-            document.getElementById('screen-menu').classList.add('hidden');
-            document.getElementById('screen-app').classList.remove('hidden');
-
-            // 1. Carregar Avaliações da Nuvem
-            await loadRatingsFromCloud();
-
-            // 2. Carregar Conteúdo
-            if (module === 'CUSTOM') {
-                document.getElementById('btnAddCard').classList.remove('hidden');
-                document.getElementById('btnClean').classList.remove('hidden');
-                await loadCustomCardsFromCloud();
-            } else if (module === 'AULAS_CONV') await loadHTMLModule();
-            else await loadJSModule(module);
-
-            populateLessons(); filterAndShow();
-        }
-
-        async function loadRatingsFromCloud() {
-            const user = firebase.auth().currentUser;
-            const snap = await db.collection('users').doc(user.uid).collection('ratings').get();
-            ratings = {};
-            snap.forEach(doc => { ratings[doc.id] = doc.data().level; });
-        }
-
-        async function loadCustomCardsFromCloud() {
-            const user = firebase.auth().currentUser;
-            const snap = await db.collection('users').doc(user.uid).collection('myCards').get();
-            currentDB = snap.docs.map(doc => ({ 
-                id: doc.id, 
-                f: doc.data().f, 
-                b: doc.data().b, 
-                l: doc.data().l 
-            }));
-        }
-
-        async function saveCustomCard() {
-            const user = firebase.auth().currentUser;
-            const f = document.getElementById('custFront').value;
-            const b = document.getElementById('custBack').value;
-            const c = document.getElementById('custCat').value || 'Geral';
-            
-            if(!f || !b) return alert("Preencha frente e verso!");
-
-            await db.collection('users').doc(user.uid).collection('myCards').add({
-                f, b, l: `CAT: ${c.toUpperCase()}`, createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
-
-            toggleModal(false);
-            if (moduleActive === 'CUSTOM') startApp('CUSTOM');
-            else alert("Salvo nos favoritos!");
-        }
-
-        async function rateCard(level) {
-            const user = firebase.auth().currentUser;
-            // Usamos a frase em inglês (f) como ID do documento (removendo caracteres especiais)
-            const cardId = btoa(unescape(encodeURIComponent(currentCard.f))).substring(0, 30);
-            
-            ratings[currentCard.f] = level;
-            await db.collection('users').doc(user.uid).collection('ratings').doc(cardId).set({
-                level: level,
-                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
-            showRandomCard();
-        }
-
-        async function deleteSingleCard(id) {
-            if(confirm("Remover este card da nuvem?")) {
-                const user = firebase.auth().currentUser;
-                await db.collection('users').doc(user.uid).collection('myCards').doc(id).delete();
-                startApp('CUSTOM');
-            }
-        }
-
-        async function clearAllCloud() {
-            if(confirm("Deseja apagar TODOS os seus cards personalizados na nuvem?")) {
-                const user = firebase.auth().currentUser;
-                const snap = await db.collection('users').doc(user.uid).collection('myCards').get();
-                const batch = db.batch();
-                snap.forEach(doc => batch.delete(doc.ref));
-                await batch.commit();
-                startApp('CUSTOM');
-            }
-        }
-
-        // Funções de Processamento Visual (Mantidas do seu padrão)
-        async function loadHTMLModule() {
-            for (let i = 1; i <= 32; i++) {
-                const num = i.toString().padStart(2, '0');
-                try {
-                    const r = await fetch(`conversation/licao-${num}.html`);
-                    if (r.ok) {
-                        const html = await r.text();
-                        const doc = new DOMParser().parseFromString(html, 'text/html');
-                        doc.querySelectorAll('.flashcard').forEach(card => {
-                            let f = card.querySelector('.flashcard-front h4')?.innerText || card.querySelector('.flashcard-front')?.innerText;
-                            let b = card.querySelector('.flashcard-back p')?.innerText || card.querySelector('.flashcard-back')?.innerText;
-                            if (f && b) currentDB.push({ f: f.trim(), b: b.trim(), l: `Lição ${num}` });
-                        });
-                    }
-                } catch (e) {}
-            }
-        }
-
-        async function loadJSModule(m) { 
-            const files = { 'A1': 'js/vocabulary.js', 'VOC_CONV': 'js/conversation-vocabulary.js' }; 
-            try { 
-                const r = await fetch(files[m]); 
-                const t = await r.text(); 
-                const j = new Function(`return ${t.substring(t.indexOf('{'), t.lastIndexOf('}') + 1)}`)(); 
-                for (let id in j) { 
-                    j[id].words?.forEach(w => currentDB.push({ f: w.english, b: w.portuguese, l: `Lição ${id.padStart(2,'0')}` })); 
-                } 
-            } catch (e) {} 
-        }
-
-        function filterAndShow() {
-            const lesson = document.getElementById('lessonFilter').value;
-            const diff = document.getElementById('diffFilter').value;
-            filteredDB = currentDB.filter(d => {
-                const matchLesson = (lesson === 'all' || d.l === lesson);
-                const matchDiff = (diff === 'all' || ratings[d.f] === diff);
-                return matchLesson && matchDiff;
-            });
-            showRandomCard();
-        }
-
-        function showRandomCard() {
-            const display = document.getElementById('card-display');
-            const ratingUI = document.getElementById('rating-controls');
-            if (filteredDB.length === 0) {
-                display.innerHTML = "<div class='text-slate-600 text-center p-16 border-4 border-dashed border-slate-800 rounded-[3rem] font-bold uppercase'>Vazio</div>";
-                ratingUI.classList.add('hidden'); return;
-            }
-            currentCard = filteredDB[Math.floor(Math.random() * filteredDB.length)];
-            const diffClass = ratings[currentCard.f] ? `diff-${ratings[currentCard.f]}` : '';
-            
-            // Botão de deletar usa o ID do Firestore no modo CUSTOM
-            const actionBtn = moduleActive !== 'CUSTOM' ? 
-                `<button onclick="openModalForFavorite(); event.stopPropagation();" class="btn-card-action btn-fav"><i class="fas fa-star text-xl"></i></button>` :
-                `<button onclick="deleteSingleCard('${currentCard.id}'); event.stopPropagation();" class="btn-card-action btn-del-single"><i class="fas fa-trash-alt text-lg"></i></button>`;
-
-            display.innerHTML = `
-                <div class="flashcard ${diffClass}" onclick="this.classList.toggle('flipped'); document.getElementById('rating-controls').classList.remove('hidden')">
-                    ${actionBtn}
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <span class="text-[10px] text-slate-500 absolute top-8 uppercase tracking-[4px] font-black">${currentCard.l}</span>
-                            ${currentCard.f}
-                        </div>
-                        <div class="flashcard-back">${currentCard.b}</div>
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-blue-400 flex items-center justify-center gap-4"><i class="fas fa-music text-red-500"></i>Music: Dream On</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="https://www.youtube.com/embed/sZfZ8uWaO9Y" width="100%" height="150" frameBorder="0" allow="autoplay; encrypted-media"></iframe>
+                <div class="mt-4 lyrics-box pr-4 bg-gray-900 p-6 rounded-lg border-l-4 border-blue-500 leading-relaxed">
+                    <div class="text-lg space-y-2 text-gray-300">
+                        <p>Every time that I look in the mirror</p>
+                        <p>All these lines on my face getting clearer</p>
+                        <p>The past is gone</p>
+                        <p>It went by, like dusk to <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'dawn')"></i></p>
+                        <p>Isn't that the way?</p>
+                        <p>Everybody's got their dues to pay</p>
+                        <p>I know nobody knows / Where it comes and where it goes</p>
+                        <p>I know it's everybody's sin / You got to lose to know how to win</p>
+                        <p>Half my life's in books' written pages</p>
+                        <p>Lived and learned from fools and from sages</p>
+                        <p>You know it's <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'true')"></i></p>
+                        <p>All things come to you that wait</p>
+                        <p>Sing with me, sing for the year / Sing for the laughter, sing for the <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'tear')"></i></p>
+                        <p>Dream until your dream comes true!</p>
                     </div>
                 </div>
-            `;
-            ratingUI.classList.add('hidden');
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-blue-400 flex items-center justify-center gap-4"><i class="fas fa-comments text-blue-400"></i>Let's Discuss "Dream On"</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-lg max-w-3xl mx-auto">
+                    <ul class="space-y-8 text-2xl text-left">
+                        <li class="flex items-start gap-4"><i class="fas fa-quote-left text-blue-500 mt-1.5"></i><span>The lyrics say "The past is gone". Do you think dwelling on the past stops us from dreaming about the future?</span></li>
+                        <li class="flex items-start gap-4"><i class="fas fa-question-circle text-blue-500 mt-1.5"></i><span>"Dream until your dream comes true". Is this advice always helpful?</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-500 flex items-center justify-center gap-4"><i class="fas fa-music text-red-500"></i>Music: Don't Stop Believin'</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="https://www.youtube.com/embed/1k8dqizvAZY" width="100%" height="150" frameBorder="0" allow="autoplay; encrypted-media"></iframe>
+                <div class="mt-4 lyrics-box pr-4 bg-gray-900 p-6 rounded-lg border-l-4 border-yellow-500 leading-relaxed">
+                    <div class="text-lg space-y-2 text-gray-300">
+                        <p>Just a small town girl</p>
+                        <p>Livin' in a <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'lonely')"></i> world</p>
+                        <p>She took the midnight train goin' anywhere</p>
+                        <p>Just a city boy / Born and raised in South Detroit</p>
+                        <p>He took the midnight train goin' anywhere</p>
+                        <p>A singer in a smoky room / The smell of wine and cheap perfume</p>
+                        <p>For a smile they can share the night / It goes on and on and on and on</p>
+                        <p>Strangers waiting / Up and down the boulevard</p>
+                        <p>Their shadows searching in the night / Streetlights, people</p>
+                        <p>Living just to find <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'emotion')"></i></p>
+                        <p>Don't stop <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'believin\'')"></i></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-yellow-500 flex items-center justify-center gap-4"><i class="fas fa-comments text-yellow-500"></i>Let's Discuss "Don't Stop..."</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-lg max-w-3xl mx-auto">
+                    <ul class="space-y-8 text-2xl text-left">
+                        <li class="flex items-start gap-4"><i class="fas fa-train text-yellow-500 mt-1.5"></i><span>Why do you think "taking a midnight train going anywhere" is such a powerful image for chasing dreams?</span></li>
+                        <li class="flex items-start gap-4"><i class="fas fa-users text-yellow-500 mt-1.5"></i><span>Do you have a "hold on to that feeling" moment in your life?</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500 flex items-center justify-center gap-4"><i class="fas fa-music text-red-500"></i>Music: Hall of Fame</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 max-w-4xl mx-auto">
+                <iframe style="border-radius:12px" src="https://www.youtube.com/embed/mk48xRzuNvA" width="100%" height="150" frameBorder="0" allow="autoplay; encrypted-media"></iframe>
+                <div class="mt-4 lyrics-box pr-4 bg-gray-900 p-6 rounded-lg border-l-4 border-green-500 leading-relaxed">
+                    <div class="text-lg space-y-2 text-gray-300">
+                        <p>Yeah, you can be the greatest, you can be the best</p>
+                        <p>You can be the King Kong banging on your chest</p>
+                        <p>You can beat the world, you can beat the war</p>
+                        <p>You can talk to God, go banging on his door</p>
+                        <p>You can throw your hands up, you can beat the clock</p>
+                        <p>You can move a mountain, you can break rocks</p>
+                        <p>You can be a master, don't wait for <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'luck')"></i></p>
+                        <p>Dedicate yourself and you gon' find yourself / Standing in the hall of fame</p>
+                        <p>And the world's gonna know your <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'name')"></i></p>
+                        <p>'Cause you burn with the brightest flame</p>
+                        <p>And you'll be on the walls of the hall of fame</p>
+                        <p>You can go the distance, you can <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'run')"></i> the mile</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-500 flex items-center justify-center gap-4"><i class="fas fa-comments text-green-500"></i>Let's Discuss "Hall of Fame"</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 max-w-3xl mx-auto">
+                    <ul class="space-y-8 text-2xl text-left">
+                        <li class="flex items-start gap-4"><i class="fas fa-trophy text-green-500 mt-1.5"></i><span>What does "standing in the hall of fame" mean for a regular person, not a celebrity?</span></li>
+                        <li class="flex items-start gap-4"><i class="fas fa-fire text-green-500 mt-1.5"></i><span>Is "dedication" the most important factor for success?</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-blue-400 flex items-center justify-center gap-4"><i class="fas fa-puzzle-piece text-yellow-500"></i>Practice Time</h2>
+                <p class="text-xl mb-8 text-gray-400">Match the expressions. Click "Check Answers" when done.</p>
+                
+                <div class="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto">
+                    <div class="lg:w-2/3 bg-gray-800 p-6 rounded-2xl border border-gray-700 space-y-6 text-left">
+                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700 leading-relaxed">
+                            1. "If you want to be a CEO, you have <div class="drop-zone" data-answer="to shoot for the stars">Drop here</div>."
+                        </div>
+                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700 leading-relaxed">
+                            2. "Becoming a pilot has been <div class="drop-zone" data-answer="a lifelong dream">Drop here</div> of mine."
+                        </div>
+                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700 leading-relaxed">
+                            3. "Seeing my own house finished was a dream <div class="drop-zone" data-answer="to come true">Drop here</div>."
+                        </div>
+                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700 leading-relaxed">
+                            4. "To improve your English, you should <div class="drop-zone" data-answer="to set a goal">Drop here</div>."
+                        </div>
+                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700 leading-relaxed">
+                            5. "You have <div class="drop-zone" data-answer="to chase a dream">Drop here</div> even when times are tough."
+                        </div>
+                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700 leading-relaxed">
+                            6. "Moving to New York was <div class="drop-zone" data-answer="beyond my wildest dreams">Drop here</div>."
+                        </div>
+                        <div class="flex justify-end pt-4">
+                            <button id="check-btn" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition-all">Check Answers</button>
+                        </div>
+                    </div>
+
+                    <div class="lg:w-1/3">
+                        <div class="word-bank bg-gray-800 p-6 rounded-2xl border border-dashed border-gray-600 flex flex-col gap-3">
+                            <h3 class="text-blue-400 font-bold mb-2 uppercase text-sm text-center">Word Bank</h3>
+                            <div class="drag-item bg-blue-600 px-4 py-2 rounded-lg font-bold shadow-md text-center" draggable="true">to shoot for the stars</div>
+                            <div class="drag-item bg-blue-600 px-4 py-2 rounded-lg font-bold shadow-md text-center" draggable="true">a lifelong dream</div>
+                            <div class="drag-item bg-blue-600 px-4 py-2 rounded-lg font-bold shadow-md text-center" draggable="true">to come true</div>
+                            <div class="drag-item bg-blue-600 px-4 py-2 rounded-lg font-bold shadow-md text-center" draggable="true">to set a goal</div>
+                            <div class="drag-item bg-blue-600 px-4 py-2 rounded-lg font-bold shadow-md text-center" draggable="true">to chase a dream</div>
+                            <div class="drag-item bg-blue-600 px-4 py-2 rounded-lg font-bold shadow-md text-center" draggable="true">beyond my wildest dreams</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-blue-400 flex items-center justify-center gap-4"><i class="fas fa-pencil-alt text-orange-500"></i>Homework</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-lg max-w-3xl mx-auto">
+                    <p class="text-xl mb-6 text-gray-300">Write 3 sentences about your future using the expressions learned.</p>
+                    <ul class="text-left text-lg grid grid-cols-2 gap-2 bg-gray-900 p-6 rounded-lg border border-gray-700">
+                        <li>• To shoot for the stars</li>
+                        <li>• A lifelong dream</li>
+                        <li>• To come true</li>
+                        <li>• Beyond my wildest dreams</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full py-12">
+                <div class="bg-gray-800 p-12 rounded-full border-4 border-blue-500/30 mb-8 shadow-2xl">
+                    <i class="fas fa-quote-right text-blue-400 text-6xl"></i>
+                </div>
+                <h2 class="text-4xl font-bold italic text-white max-w-4xl mx-auto mb-6">
+                    "Go confidently in the direction of your dreams. Live the life you have imagined."
+                </h2>
+                <p class="text-2xl text-blue-400 font-semibold">— Henry David Thoreau</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full py-12">
+                <i class="fas fa-glass-cheers text-yellow-400 text-7xl mb-6"></i>
+                <h2 class="text-5xl font-bold mb-4 text-white">Great class today!</h2>
+                <p class="text-2xl text-gray-400 max-w-2xl mx-auto">
+                    You've mastered the language of ambition. Keep believing in yourself!
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 shadow-2xl z-20">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-700 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-30">
+                <i class="fas fa-arrow-left mr-2"></i> Previous
+            </button>
+            <button id="next-btn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-500 shadow-lg">
+                Next <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            <button id="finish-lesson-btn" class="hidden bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-500 shadow-lg">
+                Finalizar Aula
+            </button>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+
+    <script>
+        function reveal(el, answer) {
+            const input = el.previousElementSibling;
+            input.value = answer;
+            input.style.color = "#60a5fa";
+            input.style.fontWeight = "bold";
         }
 
-        function openModalForNew() { document.getElementById('modalTitle').innerText = "Novo Card"; document.getElementById('custCat').value = "Geral"; toggleModal(true); }
-        function openModalForFavorite() { document.getElementById('modalTitle').innerText = "Favoritar"; document.getElementById('custCat').value = "Favoritos"; document.getElementById('custFront').value = currentCard.f; document.getElementById('custBack').value = currentCard.b; toggleModal(true); }
-        function toggleModal(show) { document.getElementById('modal-custom').classList.toggle('hidden', !show); }
-        function populateLessons() { 
-            const f = document.getElementById('lessonFilter'); 
-            f.innerHTML = '<option value="all">LIÇÕES</option>'; 
-            [...new Set(currentDB.map(d => d.l))].sort().forEach(l => { 
-                const o = document.createElement('option'); o.value = l; o.innerText = l; f.appendChild(o); 
-            }); 
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'conversation';
+            const lessonNumber = 1;
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
+            const slideCountText = document.getElementById('slide-count');
+            let currentSlide = 0;
+
+            document.querySelectorAll('.flashcard').forEach(card => {
+                card.addEventListener('click', () => card.classList.toggle('flipped'));
+            });
+
+            // Drag and Drop Logic
+            const dragItems = document.querySelectorAll('.drag-item');
+            const dropZones = document.querySelectorAll('.drop-zone');
+            const checkBtn = document.getElementById('check-btn');
+
+            dragItems.forEach(item => {
+                item.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', e.target.innerText.toLowerCase());
+                });
+            });
+
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('over'); });
+                zone.addEventListener('dragleave', () => zone.classList.remove('over'));
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('over');
+                    const droppedText = e.dataTransfer.getData('text/plain');
+                    zone.innerText = droppedText;
+                    zone.classList.add('filled');
+                    zone.classList.remove('correct', 'wrong'); // Limpa a cor se mudar a resposta
+                });
+            });
+
+            // NOVA LÓGICA DE CHECAGEM
+            checkBtn.onclick = () => {
+                dropZones.forEach(zone => {
+                    const droppedText = zone.innerText.trim().toLowerCase();
+                    const correctAnswer = zone.getAttribute('data-answer').toLowerCase();
+                    
+                    if (droppedText !== "drop here" && droppedText !== "") {
+                        if (droppedText === correctAnswer) {
+                            zone.classList.remove('wrong', 'filled');
+                            zone.classList.add('correct');
+                        } else {
+                            zone.classList.remove('correct', 'filled');
+                            zone.classList.add('wrong');
+                        }
+                    }
+                });
+            };
+
+            function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+                
+                const progress = ((index) / (slides.length - 1)) * 100;
+                progressBar.style.width = `${progress}%`;
+                slideCountText.innerText = `${index + 1}/${slides.length}`;
+                
+                prevBtn.disabled = index === 0;
+                const isLastInteractive = index === slides.length - 2;
+                nextBtn.textContent = isLastInteractive ? 'Finish' : 'Next';
+                nextBtn.classList.toggle('bg-yellow-600', isLastInteractive);
+
+                const isLast = index === slides.length - 1;
+                nextBtn.classList.toggle('hidden', isLast);
+                finishLessonBtn.classList.toggle('hidden', !isLast);
+            }
+
+            prevBtn.onclick = () => { if (currentSlide > 0) showSlide(--currentSlide); };
+            nextBtn.onclick = () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); };
+
+            if (finishLessonBtn) {
+                finishLessonBtn.onclick = () => {
+                    finishLessonBtn.disabled = true;
+                    if (typeof markLessonAsComplete === 'function') {
+                        markLessonAsComplete(moduleId, lessonNumber); 
+                    }
+                };
+            }
+
+            showSlide(currentSlide);
+        });
     </script>
 </body>
 </html>
