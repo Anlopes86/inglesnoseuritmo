@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation Class - Lesson 30: Fashion & Personal Style</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #111827; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; border: 1px solid #4b5563; }
+        .flashcard-front { background-color: #1f2937; color: #10b981; text-align: center; }
+        .flashcard-back { background-color: #064e3b; color: white; transform: rotateY(180deg); text-align: center; }
+        .lyrics-box { max-height: 400px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #10b981 #1f2937; }
+        
+        .word-pill { cursor: grab; background-color: #059669; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
+        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
+        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #10b981; text-align: center; color: #34d399; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
+        .drop-zone.hover { border-color: #34d399; background-color: rgba(16, 185, 129, 0.1); }
+        .drop-zone.filled { border-bottom-style: solid; }
+        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
+        .answer-btn:hover { color: #10b981; }
+        .spotify-card { background: #181818; border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 12px; border: 1px solid #282828; margin-bottom: 1rem; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="conversation.html" class="text-lg font-bold text-emerald-500 hover:text-emerald-400 flex items-center gap-2">
+                <i class="fas fa-chevron-left"></i> Back to Topics
+            </a>
+            <h1 class="text-xl font-semibold text-center">Lesson 30: Fashion & Personal Style</h1>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 12</div>
+        </div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-emerald-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-tshirt"></i> Warm-up: Style Talk</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-3xl mx-auto space-y-6 text-2xl">
+                    <p class="font-semibold text-gray-300">How do you express yourself?</p>
+                    <p><i class="fas fa-question-circle mr-2 text-emerald-500"></i> How would you describe your personal style in three words?</p>
+                    <p><i class="fas fa-shopping-bag mr-2 text-emerald-500"></i> Do you follow fashion trends or do you prefer "classic" looks?</p>
+                    <p><i class="fas fa-comments mr-2 text-emerald-500"></i> Does the way someone dresses change your first impression of them?</p>
+                    <p><i class="fas fa-globe mr-2 text-emerald-500"></i> What is more important: comfort, price, or brand name?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-book"></i> Fashion Vocabulary</h2>
+                <div class="flashcard-grid max-w-6xl mx-auto">
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Trend</h4></div><div class="flashcard-back"><p class="text-xl">A general direction in which something is developing or changing; what's "in" right now.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Vintage</h4></div><div class="flashcard-back"><p class="text-xl">Clothing from a previous era, typically at least 20 years old.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Sustainable</h4></div><div class="flashcard-back"><p class="text-xl">Eco-friendly fashion that focuses on ethical production and longevity.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Outfit</h4></div><div class="flashcard-back"><p class="text-xl">A set of clothes worn together, typically for a particular occasion.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Tailored</h4></div><div class="flashcard-back"><p class="text-xl">Clothing made or adjusted to fit a specific person perfectly.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Thrifting</h4></div><div class="flashcard-back"><p class="text-xl">The act of shopping at second-hand stores to find unique or cheaper items.</p></div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-emerald-500"><i class="fas fa-music text-pink-500"></i> Music Time: 7 rings (Ariana Grande)</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="spotify-card">
+                    <i class="fab fa-spotify text-[#1DB954] text-3xl"></i>
+                    <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="w-1/2 h-full bg-[#1DB954]"></div></div>
+                    <span class="text-xs text-gray-400">02:58</span>
+                </div>
+                <div class="mb-4 bg-emerald-900/30 p-4 rounded-lg border border-emerald-500/30">
+                    <p class="text-sm italic">This song is an anthem for <b>luxury</b> and buying whatever you want to express your status and mood.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-emerald-500">
+                    <p>Breakfast at Tiffany's and bottles of bubbles</p>
+                    <p>Girls with tattoos who like getting in trouble</p>
+                    <p>Lashes and diamonds, ATM machines</p>
+                    <p>Buy myself all of my favorite things</p>
+                    <hr class="border-gray-600 my-4">
+                    <p>I see it, I like it, I <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="want"><i class="fas fa-eye"></i></button> it, I got it</p>
+                    <p>I want it, I got it, I want it, I got it</p>
+                    <p>You like my <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="hair"><i class="fas fa-eye"></i></button>? Gee, thanks, just bought it</p>
+                    <p>I see it, I like it, I want it, I <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="got"><i class="fas fa-eye"></i></button> it</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-gem"></i> Luxury vs. Identity</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                    <p>Ariana Grande sings about buying items as a form of "retail therapy". Do you think <b>shopping</b> can actually improve someone's mood?</p>
+                    <p>Is "brand loyalty" a real thing for you, or do you buy whatever looks good regardless of the <b>label</b>?</p>
+                    <p>In your culture, is wearing expensive clothes a sign of <b>success</b> or just a hobby?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-emerald-500"><i class="fas fa-music text-purple-400"></i> Music Time: Thrift Shop (Macklemore)</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="spotify-card">
+                    <i class="fab fa-spotify text-[#1DB954] text-3xl"></i>
+                    <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="w-1/3 h-full bg-[#1DB954]"></div></div>
+                    <span class="text-xs text-gray-400">03:52</span>
+                </div>
+                <div class="mb-4 bg-purple-900/30 p-4 rounded-lg border border-purple-500/30">
+                    <p class="text-sm italic">This song celebrates finding unique style through <b>thrifting</b> instead of spending thousands on designer brands.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-purple-500">
+                    <p>I'm gonna pop some tags, only got twenty dollars in my pocket</p>
+                    <p>I'm hunting, looking for a come-up, this is freaking awesome</p>
+                    <hr class="border-gray-600 my-4">
+                    <p>I'll wear your granddad's <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="clothes"><i class="fas fa-eye"></i></button></p>
+                    <p>I look incredible, I'm in this big ass <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="coat"><i class="fas fa-eye"></i></button></p>
+                    <p>From that thrift shop down the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="road"><i class="fas fa-eye"></i></button></p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-recycle"></i> Sustainable Fashion</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                    <p>The "Thrift Shop" approach is better for the planet. Do you ever buy <b>second-hand</b> clothes?</p>
+                    <p>What do you think of "Fast Fashion" (brands like Shein or Zara)? Is it <b>ethical</b> to buy cheap clothes that don't last?</p>
+                    <p>How many years do you usually keep an item of <b>clothing</b> before getting rid of it?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-emerald-500"><i class="fas fa-music text-blue-400"></i> Music Time: Blue Jeans (Lana Del Rey)</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="spotify-card">
+                    <i class="fab fa-spotify text-[#1DB954] text-3xl"></i>
+                    <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="w-2/3 h-full bg-[#1DB954]"></div></div>
+                    <span class="text-xs text-gray-400">03:30</span>
+                </div>
+                <div class="mb-4 bg-blue-900/30 p-4 rounded-lg border border-blue-500/30">
+                    <p class="text-sm italic">Lana Del Rey uses <b>iconic fashion</b> imagery (blue jeans, white shirts) to create a nostalgic, cinematic mood.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-blue-500">
+                    <p>Blue jeans, white shirt</p>
+                    <p>Walked into the room you know you made my eyes burn</p>
+                    <p>It was like James Dean, for sure</p>
+                    <hr class="border-gray-600 my-4">
+                    <p>You're so fresh to <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="death"><i class="fas fa-eye"></i></button> and sick as a dog</p>
+                    <p>You were <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="looking"><i class="fas fa-eye"></i></button> for me</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-star"></i> Timeless Style</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                    <p>Lana Del Rey often references "Blue Jeans and White Shirts". Do you have a <b>go-to</b> outfit that never fails you?</p>
+                    <p>Who is your <b>style icon</b>? Is there a celebrity or a person in your life whose fashion you admire?</p>
+                    <p>Do you agree that "simple is better" when it comes to clothes, or do you prefer <b>extravagant</b> pieces?</p>
+                    <p>What fashion <b>trend</b> from the past do you wish would come back (or stay away forever)?</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-brain"></i> Practice: Describing Style</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-2xl mb-8 text-gray-300">Drag the correct fashion term to the sentence:</p>
+                    <div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div>
+                    <div id="matching-activity" class="space-y-8 text-left"></div>
+                    <button id="check-answers-btn" class="mt-12 bg-emerald-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-emerald-700 shadow-lg">Check Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-user-tie"></i> The Dress Code Debate</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto text-left">
+                    <p class="text-xl mb-4 text-emerald-400 font-bold">Fashion at work:</p>
+                    <p class="text-2xl mb-6">Many companies are moving away from suits to "Business Casual". What do you think about dress codes at work?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                        <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-emerald-500 italic">"I like dress codes; they make everyone look professional and equal."</div>
+                        <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-yellow-500 italic">"I hate them; they limit my self-expression and are often uncomfortable."</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-home"></i> Homework</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <p class="text-2xl mb-6 text-gray-300">Describe your <b>favorite outfit</b> and explain why it makes you feel confident.</p>
+                    <div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg">
+                        <p><strong>Example:</strong> "My favorite outfit is a <b>tailored</b> blazer with <b>vintage</b> jeans. It's a mix of classic and modern, and it feels very <b>sustainable</b> because I've had them for years."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center flex flex-col items-center justify-center h-full">
+                 <i class="fas fa-star text-emerald-500 text-7xl mb-6"></i>
+                 <h2 class="text-5xl font-bold mb-4 text-gray-100">Lesson Completed!</h2>
+                 <p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">
+                    "Fashion fades, only style remains the same." - Coco Chanel
+                 </p>
+             </div>
+        </div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-emerald-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-emerald-700">Próximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finalizar Aula</button>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
+            const slideCounter = document.getElementById('slide-counter');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+                if (slideCounter) slideCounter.innerText = `${index + 1} / ${slides.length}`;
+                if (prevBtn) prevBtn.disabled = index === 0;
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+            }
+
+            if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } };
+            if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } };
+
+            document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+            
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const inputField = button.previousElementSibling;
+                    if (inputField) {
+                        inputField.value = button.dataset.answer;
+                        inputField.classList.add('text-emerald-400', 'font-bold');
+                    }
+                });
+            });
+
+            const wordBank = document.getElementById('word-bank');
+            const activityContainer = document.getElementById('matching-activity');
+            const checkBtn = document.getElementById('check-answers-btn');
+
+            const vocabulary = [
+                { id: 'trend', text: 'Trend' },
+                { id: 'sustainable', text: 'Sustainable' },
+                { id: 'tailored', text: 'Tailored' },
+                { id: 'thrifting', text: 'Thrifting' },
+                { id: 'vintage', text: 'Vintage' },
+                { id: 'outfit', text: 'Outfit' }
+            ];
+
+            const situations = [
+                { text: "Wide-leg pants are a huge fashion <span class='drop-zone' data-answer='Trend'>________</span> this year.", answer: 'Trend' },
+                { text: "He went <span class='drop-zone' data-answer='Thrifting'>________</span> and found a cool leather jacket for $10.", answer: 'Thrifting' },
+                { text: "I try to buy <span class='drop-zone' data-answer='Sustainable'>________</span> brands that don't harm the environment.", answer: 'Sustainable' },
+                { text: "She wore a beautiful <span class='drop-zone' data-answer='Vintage'>________</span> dress from the 1950s.", answer: 'Vintage' },
+                { text: "For the wedding, he wore a <span class='drop-zone' data-answer='Tailored'>________</span> suit that fit perfectly.", answer: 'Tailored' },
+                { text: "I love your <span class='drop-zone' data-answer='Outfit'>________</span>! Where did you buy those shoes?", answer: 'Outfit' }
+            ];
+
+            vocabulary.sort(() => Math.random() - 0.5).forEach(word => {
+                const pill = document.createElement('div');
+                pill.className = 'word-pill';
+                pill.draggable = true;
+                pill.innerText = word.text;
+                pill.id = `word-${word.id}`;
+                pill.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', word.text);
+                });
+                wordBank.appendChild(pill);
+            });
+
+            activityContainer.innerHTML = situations.map(s => `<p class="text-xl text-gray-200">${s.text}</p>`).join('');
+
+            const dropZones = document.querySelectorAll('.drop-zone');
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('hover'); });
+                zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('hover');
+                    zone.innerText = e.dataTransfer.getData('text/plain');
+                    zone.classList.add('filled');
+                });
+                zone.addEventListener('click', () => {
+                    zone.innerText = '________';
+                    zone.classList.remove('filled');
+                    zone.style.color = '#34d399';
+                });
+            });
+
+            checkBtn.onclick = () => {
+                dropZones.forEach(zone => {
+                    if (zone.innerText.trim().toLowerCase() === zone.dataset.answer.toLowerCase()) {
+                        zone.style.color = '#10b981';
+                    } else if (zone.innerText !== '________') {
+                        zone.style.color = '#ef4444';
+                    }
+                });
+            };
+
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>

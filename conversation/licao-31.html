@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation Class - Lesson 30: Culture & Leisure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #111827; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; border: 1px solid #4b5563; }
+        .flashcard-front { background-color: #1f2937; color: #fbbf24; text-align: center; }
+        .flashcard-back { background-color: #78350f; color: white; transform: rotateY(180deg); text-align: center; }
+        .lyrics-box { max-height: 400px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #fbbf24 #1f2937; }
+        .word-pill { cursor: grab; background-color: #d97706; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
+        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
+        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #fbbf24; text-align: center; color: #fcd34d; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
+        .drop-zone.hover { border-color: #fcd34d; background-color: rgba(251, 191, 36, 0.1); }
+        .drop-zone.filled { border-bottom-style: solid; }
+        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
+        .answer-btn:hover { color: #fbbf24; }
+        .spotify-card { background: #181818; border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 12px; border: 1px solid #282828; margin-bottom: 1rem; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="conversation.html" class="text-lg font-bold text-amber-500 hover:text-amber-400 flex items-center gap-2">
+                <i class="fas fa-chevron-left"></i> Back
+            </a>
+            <h1 class="text-xl font-semibold text-center">Lesson 30: Culture & Leisure</h1>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 11</div>
+        </div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-amber-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-amber-500"><i class="fas fa-theater-masks"></i> Warm-up: Culture Pulse</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-3xl mx-auto space-y-6 text-2xl">
+                    <p class="font-semibold text-gray-300">How do you spend your free time?</p>
+                    <p><i class="fas fa-couch mr-2 text-amber-500"></i> What’s your favorite way to <b>unwind</b> after a long week?</p>
+                    <p><i class="fas fa-film mr-2 text-amber-500"></i> Do you prefer watching movies at the cinema or <b>binge-watching</b> on Netflix?</p>
+                    <p><i class="fas fa-museum mr-2 text-amber-500"></i> When was the last time you went to a museum or a live concert?</p>
+                    <p><i class="fas fa-language mr-2 text-amber-500"></i> Does "culture" only mean high art, or is a football match culture too?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-amber-500"><i class="fas fa-dictionary"></i> Key Leisure Terms</h2>
+                <div class="flashcard-grid max-w-6xl mx-auto">
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Unwind</h4></div><div class="flashcard-back"><p class="text-xl">To relax after a period of work or tension.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Mainstream</h4></div><div class="flashcard-back"><p class="text-xl">Ideas, attitudes, or activities that are shared by most people; "popular culture".</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Masterpiece</h4></div><div class="flashcard-back"><p class="text-xl">A work of outstanding artistry, skill, or workmanship.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Binge-watch</h4></div><div class="flashcard-back"><p class="text-xl">To watch multiple episodes of a TV program in rapid succession.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Sightseeing</h4></div><div class="flashcard-back"><p class="text-xl">The activity of visiting places of interest in a particular location.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Niche</h4></div><div class="flashcard-back"><p class="text-xl">Interests that appeal to a small, specialized section of the population.</p></div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-amber-500"><i class="fas fa-music text-red-500"></i> Music Time: Adventure of a Lifetime (Coldplay)</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="spotify-card">
+                    <i class="fab fa-spotify text-[#1DB954] text-3xl"></i>
+                    <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="w-3/4 h-full bg-[#1DB954]"></div></div>
+                    <span class="text-xs text-gray-400">04:24</span>
+                </div>
+                <div class="mb-4 bg-orange-900/30 p-4 rounded-lg border border-orange-500/30">
+                    <p class="text-sm italic">Leisure is about feeling alive. This song celebrates the <b>vibrancy</b> of life and culture.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-amber-500">
+                    <p>Turn your magic on, to me she'd say</p>
+                    <p>Everything you want's a dream away</p>
+                    <p>Under this pressure, under this weight</p>
+                    <p>We are <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="diamonds"><i class="fas fa-eye"></i></button></p>
+                    <hr class="border-gray-600 my-4">
+                    <p>I feel my heart beating, I feel my heart <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="underneath"><i class="fas fa-eye"></i></button> my skin</p>
+                    <p>You make me feel like I'm <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="alive"><i class="fas fa-eye"></i></button> again</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-amber-500"><i class="fas fa-heartbeat"></i> Feeling Alive</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                    <p>Is your <b>leisure time</b> active (sports, travel) or passive (movies, reading)?</p>
+                    <p>What is the most <b>breathtaking</b> cultural event you have ever attended?</p>
+                    <p>Do you think modern life makes it harder for us to truly <b>unwind</b>?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-amber-500"><i class="fas fa-tv"></i> The Streaming Revolution</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto text-left">
+                    <p class="text-xl mb-4 text-amber-400 font-bold">Leisure then vs. now:</p>
+                    <p class="text-2xl mb-6">We no longer wait a week for a new episode. We <b>binge-watch</b> entire seasons in a weekend.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                        <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-blue-500"><b>Pros:</b> Choice, convenience, and original content (Netflix, HBO).</div>
+                        <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-red-500"><b>Cons:</b> Social isolation, "choice fatigue," and the end of shared cultural moments.</div>
+                    </div>
+                    <p class="mt-8 text-2xl text-center font-semibold italic">Is the cinema dying, or will it always be a "masterpiece" experience?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-amber-500"><i class="fas fa-puzzle-piece"></i> Practice: Leisure Context</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-2xl mb-8 text-gray-300">Drag the culture term to the right gap:</p>
+                    <div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div>
+                    <div id="matching-activity" class="space-y-8 text-left"></div>
+                    <button id="check-answers-btn" class="mt-12 bg-amber-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-amber-700 shadow-lg">Check Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-amber-500"><i class="fas fa-palette"></i> High Culture vs. Pop Culture</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                    <p>Some people say Opera is "better" than Pop music. Do you think there is a <b>hierarchy</b> in culture?</p>
+                    <p>Why do some <b>mainstream</b> movies become global hits while others fail?</p>
+                    <p>If you had a free Sunday, would you rather go <b>sightseeing</b> at a historic monument or stay home and watch a documentary?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-amber-500"><i class="fas fa-guitar"></i> The Power of Hobbies</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto">
+                     <div class="flex flex-col md:flex-row gap-8 items-center">
+                        <div class="flex-1 space-y-4 text-left text-xl">
+                            <p><b class="text-amber-500">Fact:</b> Hobbies can reduce stress and improve mental health.</p>
+                            <p>1. Do you have a <b>niche</b> hobby that most people don't know about?</p>
+                            <p>2. Have you ever tried to turn a hobby into a <b>side hustle</b> (business)?</p>
+                            <p>3. Is there a skill you've always wanted to learn (like playing an instrument)?</p>
+                        </div>
+                        <div class="w-full md:w-1/3 bg-gray-700 p-4 rounded-xl border border-amber-500/50">
+                            <i class="fas fa-lightbulb text-amber-500 text-4xl mb-2"></i>
+                            <p class="italic">"A hobby a day keeps the burnout away."</p>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-amber-500"><i class="fas fa-pen-nib"></i> Homework</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <p class="text-2xl mb-6 text-gray-300">Plan your <b>perfect cultural weekend</b>.</p>
+                    <div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg">
+                        <p><strong>Example:</strong> "On Saturday, I would go <b>sightseeing</b> in the city center. On Sunday, I'd <b>unwind</b> by <b>binge-watching</b> a new series on Netflix."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center flex flex-col items-center justify-center h-full">
+                 <i class="fas fa-glass-cheers text-amber-500 text-7xl mb-6"></i>
+                 <h2 class="text-5xl font-bold mb-4 text-gray-100">Well Done!</h2>
+                 <p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">
+                    "Culture is the widening of the mind and of the spirit." — Jawaharlal Nehru
+                 </p>
+             </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-amber-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-amber-700">Próximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finalizar Aula</button>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
+            const slideCounter = document.getElementById('slide-counter');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+                if (slideCounter) slideCounter.innerText = `${index + 1} / ${slides.length}`;
+                if (prevBtn) prevBtn.disabled = index === 0;
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+            }
+
+            if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } };
+            if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } };
+
+            document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+            
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const inputField = button.previousElementSibling;
+                    if (inputField) {
+                        inputField.value = button.dataset.answer;
+                        inputField.classList.add('text-amber-400', 'font-bold');
+                    }
+                });
+            });
+
+            const wordBank = document.getElementById('word-bank');
+            const activityContainer = document.getElementById('matching-activity');
+            const checkBtn = document.getElementById('check-answers-btn');
+
+            const vocabulary = [
+                { id: 'unwind', text: 'Unwind' },
+                { id: 'mainstream', text: 'Mainstream' },
+                { id: 'masterpiece', text: 'Masterpiece' },
+                { id: 'binge-watch', text: 'Binge-watch' },
+                { id: 'sightseeing', text: 'Sightseeing' },
+                { id: 'niche', text: 'Niche' }
+            ];
+
+            const situations = [
+                { text: "I'm so tired; I just want to <span class='drop-zone' data-answer='Unwind'>________</span> with a book.", answer: 'Unwind' },
+                { text: "Most <span class='drop-zone' data-answer='Mainstream'>________</span> pop music sounds the same to me.", answer: 'Mainstream' },
+                { text: "The Mona Lisa is considered a true <span class='drop-zone' data-answer='Masterpiece'>________</span>.", answer: 'Masterpiece' },
+                { text: "I stayed up until 3 AM to <span class='drop-zone' data-answer='Binge-watch'>________</span> the whole season.", answer: 'Binge-watch' },
+                { text: "When I go to Rome, I'll spend all day <span class='drop-zone' data-answer='Sightseeing'>________</span>.", answer: 'Sightseeing' },
+                { text: "Collecting 1920s stamps is a very <span class='drop-zone' data-answer='Niche'>________</span> hobby.", answer: 'Niche' }
+            ];
+
+            vocabulary.sort(() => Math.random() - 0.5).forEach(word => {
+                const pill = document.createElement('div');
+                pill.className = 'word-pill';
+                pill.draggable = true;
+                pill.innerText = word.text;
+                pill.id = `word-${word.id}`;
+                pill.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', word.text);
+                });
+                wordBank.appendChild(pill);
+            });
+
+            activityContainer.innerHTML = situations.map(s => `<p class="text-xl text-gray-200">${s.text}</p>`).join('');
+
+            const dropZones = document.querySelectorAll('.drop-zone');
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('hover'); });
+                zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('hover');
+                    zone.innerText = e.dataTransfer.getData('text/plain');
+                    zone.classList.add('filled');
+                });
+                zone.addEventListener('click', () => {
+                    zone.innerText = '________';
+                    zone.classList.remove('filled');
+                    zone.style.color = '#fcd34d';
+                });
+            });
+
+            checkBtn.onclick = () => {
+                dropZones.forEach(zone => {
+                    if (zone.innerText.trim().toLowerCase() === zone.dataset.answer.toLowerCase()) {
+                        zone.style.color = '#10b981';
+                    } else if (zone.innerText !== '________') {
+                        zone.style.color = '#ef4444';
+                    }
+                });
+            };
+
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>

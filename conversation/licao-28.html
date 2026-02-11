@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation Class - Lesson 28: Ethics & Morality</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #111827; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; border: 1px solid #4b5563; }
+        .flashcard-front { background-color: #1f2937; color: #10b981; text-align: center; }
+        .flashcard-back { background-color: #064e3b; color: white; transform: rotateY(180deg); text-align: center; }
+        .lyrics-box { max-height: 400px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #10b981 #1f2937; }
+        
+        .word-pill { cursor: grab; background-color: #059669; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
+        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
+        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #10b981; text-align: center; color: #34d399; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
+        .drop-zone.hover { border-color: #34d399; background-color: rgba(16, 185, 129, 0.1); }
+        .drop-zone.filled { border-bottom-style: solid; }
+        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
+        .answer-btn:hover { color: #10b981; }
+        /* Spotify Placeholder Style */
+        .spotify-card { background: #181818; border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 12px; border: 1px solid #282828; margin-bottom: 1rem; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="conversation.html" class="text-lg font-bold text-emerald-500 hover:text-emerald-400 flex items-center gap-2">
+                <i class="fas fa-chevron-left"></i> Back to Topics
+            </a>
+            <h1 class="text-xl font-semibold text-center">Lesson 28: Ethics & Morality</h1>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 12</div>
+        </div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-emerald-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+
+        <div class="slide active">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-balance-scale"></i> Warm-up: Right or Wrong?</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-3xl mx-auto space-y-6 text-2xl">
+                    <p class="font-semibold text-gray-300">Let's weigh our values:</p>
+                    <p><i class="fas fa-question-circle mr-2 text-emerald-500"></i> What is the difference between "legal" and "ethical"?</p>
+                    <p><i class="fas fa-user-shield mr-2 text-emerald-500"></i> Is it ever okay to tell a "white lie"?</p>
+                    <p><i class="fas fa-hand-holding-heart mr-2 text-emerald-500"></i> If you found a wallet full of money on the street, what would you do?</p>
+                    <p><i class="fas fa-comment-dots mr-2 text-emerald-500"></i> "The end justifies the means." Do you agree with this?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-book"></i> Ethical Vocabulary</h2>
+                <div class="flashcard-grid max-w-6xl mx-auto">
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Dilemma</h4></div><div class="flashcard-back"><p class="text-xl">A situation in which a difficult choice has to be made between two or more alternatives.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Integrity</h4></div><div class="flashcard-back"><p class="text-xl">The quality of being honest and having strong moral principles.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Altruism</h4></div><div class="flashcard-back"><p class="text-xl">The practice of objective and selfless concern for the well-being of others.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Accountable</h4></div><div class="flashcard-back"><p class="text-xl">Required or expected to justify actions or decisions; responsible.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Virtue</h4></div><div class="flashcard-back"><p class="text-xl">Behavior showing high moral standards.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Whistleblower</h4></div><div class="flashcard-back"><p class="text-xl">A person who informs on a person or organization engaged in an illicit activity.</p></div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-emerald-500"><i class="fas fa-music text-pink-500"></i> Music Time: The Man (Taylor Swift)</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="spotify-card">
+                    <i class="fab fa-spotify text-[#1DB954] text-3xl"></i>
+                    <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="w-1/3 h-full bg-[#1DB954]"></div></div>
+                    <span class="text-xs text-gray-400">03:10</span>
+                </div>
+                <div class="mb-4 bg-emerald-900/30 p-4 rounded-lg border border-emerald-500/30">
+                    <p class="text-sm italic">This song discusses the <b>double standards</b> in how society judges the behavior and ethics of men versus women.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-emerald-500">
+                    <p>I would be complex, I would be cool</p>
+                    <p>They'd say I played the field before I found someone to commit to</p>
+                    <p>And that would be okay for me to do</p>
+                    <p>Every conquest I had made would make me more of a boss to you</p>
+                    <hr class="border-gray-600 my-4">
+                    <p>I’m so sick of running as fast as I can</p>
+                    <p>Wondering if I'd get there <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="quicker"><i class="fas fa-eye"></i></button> if I was a man</p>
+                    <p>And I'm so sick of them coming at me again</p>
+                    <p>'Cause if I was a man, then I'd be the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="man"><i class="fas fa-eye"></i></button></p>
+                    <p>They’d say I hustled, put in the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="work"><i class="fas fa-eye"></i></button></p>
+                    <p>They wouldn't shake their heads and <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="question"><i class="fas fa-eye"></i></button> how much of this I deserve</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-venus-mars"></i> Double Standards</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                    <p>Taylor Swift sings about how gender affects how our <b>ethics</b> are viewed. Why does society judge the same action differently depending on who does it?</p>
+                    <p>Do you think <b>integrity</b> is valued the same way in all professions?</p>
+                    <p>Can you think of a recent situation where someone was judged unfairly by a "double standard"?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-emerald-500"><i class="fas fa-music text-purple-400"></i> Music Time: Liability (Lorde)</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="spotify-card">
+                    <i class="fab fa-spotify text-[#1DB954] text-3xl"></i>
+                    <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="w-1/2 h-full bg-[#1DB954]"></div></div>
+                    <span class="text-xs text-gray-400">02:51</span>
+                </div>
+                <div class="mb-4 bg-purple-900/30 p-4 rounded-lg border border-purple-500/30">
+                    <p class="text-sm italic">This song explores the <b>ethical dilemma</b> of personal worth versus being a burden to others.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-purple-500">
+                    <p>One day they'll go, baby, we'll be dancing</p>
+                    <p>All of the night, until the morning</p>
+                    <p>The truth is I am a toy that people enjoy</p>
+                    <p>'Til all of the tricks don't work anymore, and then they are bored of me</p>
+                    <hr class="border-gray-600 my-4">
+                    <p>They say, "You're a little much for me, you're a <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="liability"><i class="fas fa-eye"></i></button>"</p>
+                    <p>You're a little much for me, so they pull <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="back"><i class="fas fa-eye"></i></button>, make other plans</p>
+                    <p>I understand, I'm a <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="liability"><i class="fas fa-eye"></i></button></p>
+                    <p>Get you wild and make you <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="leave"><i class="fas fa-eye"></i></button></p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-emerald-500"><i class="fas fa-music text-orange-400"></i> Music Time: Karma (Taylor Swift)</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="spotify-card">
+                    <i class="fab fa-spotify text-[#1DB954] text-3xl"></i>
+                    <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="w-3/4 h-full bg-[#1DB954]"></div></div>
+                    <span class="text-xs text-gray-400">03:24</span>
+                </div>
+                <div class="mb-4 bg-orange-900/30 p-4 rounded-lg border border-orange-500/30">
+                    <p class="text-sm italic">A song about <b>accountability</b> and the idea that your ethical choices eventually return to you.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-orange-500">
+                    <p>You're talking shit for the hell of it</p>
+                    <p>Addicted to betrayal, but you're relevant</p>
+                    <p>You're terrified to look down</p>
+                    <p>'Cause if you dare, you'll see the glare of everyone you burned just to get there</p>
+                    <hr class="border-gray-600 my-4">
+                    <p>'Cause karma is my boyfriend, karma is a <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="god"><i class="fas fa-eye"></i></button></p>
+                    <p>Karma is the breeze in my hair on the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="weekend"><i class="fas fa-eye"></i></button></p>
+                    <p>Karma's a relaxing <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="thought"><i class="fas fa-eye"></i></button></p>
+                    <p>Aren't you envious that for you it's <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="not"><i class="fas fa-eye"></i></button>?</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-sync-alt"></i> Cause & Effect</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                    <p>Do you believe that <b>unethical</b> behavior always has a cost in the long run?</p>
+                    <p>In your opinion, is "Karma" a form of <b>justice</b> or just a coincidence?</p>
+                    <p>How does being <b>accountable</b> for your actions change the way people trust you?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-brain"></i> Practice: Moral Dilemmas</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-2xl mb-8 text-gray-300">Drag the correct term to the scenario:</p>
+                    <div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div>
+                    <div id="matching-activity" class="space-y-8 text-left"></div>
+                    <button id="check-answers-btn" class="mt-12 bg-emerald-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-emerald-700 shadow-lg">Check Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-train"></i> The Trolley Problem</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto text-left">
+                    <p class="text-xl mb-4 text-emerald-400 font-bold">A classic ethical dilemma:</p>
+                    <p class="text-2xl mb-6">A train is out of control. It is headed toward 5 people. You can pull a lever to switch it to another track where there is only 1 person. Do you pull it?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                        <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-red-500 italic">"I pull it to save more lives (Utilitarianism)."</div>
+                        <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-yellow-500 italic">"I don't pull it; I won't choose who lives or dies."</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-home"></i> Homework</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <p class="text-2xl mb-6 text-gray-300">Write about a time you faced a <b>dilemma</b> and how your <b>integrity</b> guided your decision.</p>
+                    <div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg">
+                        <p><strong>Example:</strong> "I once found a phone. It was a <b>dilemma</b> because I was in a hurry, but my <b>virtue</b> led me to wait and return it to the owner."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+             <div class="text-center flex flex-col items-center justify-center h-full">
+                 <i class="fas fa-heart text-emerald-500 text-7xl mb-6"></i>
+                 <h2 class="text-5xl font-bold mb-4 text-gray-100">Lesson Completed!</h2>
+                 <p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">
+                    "Integrity is doing the right thing, even when no one is watching." - C.S. Lewis
+                 </p>
+             </div>
+        </div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-emerald-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-emerald-700">Próximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finalizar Aula</button>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
+            const slideCounter = document.getElementById('slide-counter');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+                if (slideCounter) slideCounter.innerText = `${index + 1} / ${slides.length}`;
+                if (prevBtn) prevBtn.disabled = index === 0;
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+            }
+
+            if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } };
+            if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } };
+
+            document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+            
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const inputField = button.previousElementSibling;
+                    if (inputField) {
+                        inputField.value = button.dataset.answer;
+                        inputField.classList.add('text-emerald-400', 'font-bold');
+                    }
+                });
+            });
+
+            const wordBank = document.getElementById('word-bank');
+            const activityContainer = document.getElementById('matching-activity');
+            const checkBtn = document.getElementById('check-answers-btn');
+
+            const vocabulary = [
+                { id: 'dilemma', text: 'Dilemma' },
+                { id: 'integrity', text: 'Integrity' },
+                { id: 'altruism', text: 'Altruism' },
+                { id: 'accountable', text: 'Accountable' },
+                { id: 'virtue', text: 'Virtue' },
+                { id: 'whistleblower', text: 'Whistleblower' }
+            ];
+
+            const situations = [
+                { text: "John showed great <span class='drop-zone' data-answer='Integrity'>________</span> by admitting his mistake.", answer: 'Integrity' },
+                { text: "The employee became a <span class='drop-zone' data-answer='Whistleblower'>________</span> when he reported the company's illegal dumping.", answer: 'Whistleblower' },
+                { text: "Donating anonymously to the hospital was an act of pure <span class='drop-zone' data-answer='Altruism'>________</span>.", answer: 'Altruism' },
+                { text: "I face a moral <span class='drop-zone' data-answer='Dilemma'>________</span>: should I tell my friend her partner is cheating?", answer: 'Dilemma' },
+                { text: "Politicians must be held <span class='drop-zone' data-answer='Accountable'>________</span> for their campaign promises.", answer: 'Accountable' },
+                { text: "Patience is a <span class='drop-zone' data-answer='Virtue'>________</span> that many people struggle to maintain.", answer: 'Virtue' }
+            ];
+
+            vocabulary.sort(() => Math.random() - 0.5).forEach(word => {
+                const pill = document.createElement('div');
+                pill.className = 'word-pill';
+                pill.draggable = true;
+                pill.innerText = word.text;
+                pill.id = `word-${word.id}`;
+                pill.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', word.text);
+                });
+                wordBank.appendChild(pill);
+            });
+
+            activityContainer.innerHTML = situations.map(s => `<p class="text-xl text-gray-200">${s.text}</p>`).join('');
+
+            const dropZones = document.querySelectorAll('.drop-zone');
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('hover'); });
+                zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('hover');
+                    zone.innerText = e.dataTransfer.getData('text/plain');
+                    zone.classList.add('filled');
+                });
+                zone.addEventListener('click', () => {
+                    zone.innerText = '________';
+                    zone.classList.remove('filled');
+                    zone.style.color = '#34d399';
+                });
+            });
+
+            checkBtn.onclick = () => {
+                dropZones.forEach(zone => {
+                    if (zone.innerText.trim().toLowerCase() === zone.dataset.answer.toLowerCase()) {
+                        zone.style.color = '#10b981';
+                    } else if (zone.innerText !== '________') {
+                        zone.style.color = '#ef4444';
+                    }
+                });
+            };
+
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>
