@@ -19,8 +19,13 @@
         .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #4a5568; }
         .flashcard-front { background-color: #2d3748; color: #a0aec0; text-align: center; }
         .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
-        .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
         .lyrics-box { max-height: 400px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #4a5568 #2d3748; }
+
+        /* Drag and Drop Styles */
+        .draggable { cursor: grab; user-select: none; touch-action: none; transition: transform 0.2s; }
+        .draggable:active { cursor: grabbing; transform: scale(1.05); }
+        .drop-zone { min-width: 160px; min-height: 50px; border: 2px dashed #4a5568; transition: all 0.2s; display: flex; align-items: center; justify-content: center; border-radius: 0.5rem; background: rgba(0,0,0,0.2); }
+        .drop-zone.drag-over { border-color: #f87171; background: rgba(248, 113, 113, 0.1); }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -34,7 +39,7 @@
         <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-red-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
-    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+    <main id="main-container" class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
 
         <div class="slide active">
             <div class="text-center">
@@ -65,7 +70,8 @@
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-red-400"><i class="fas fa-music text-green-500"></i> Music Time: American Idiot (Green Day)</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6nTiIhLmQ3FWhvrGafw2zj?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-green-500">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6nTiIhLmQ3FWhvrGafw2zj?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-green-500">
                     <p>Don't wanna be an American idiot</p>
                     <p>Don't want a nation under the new <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="media"><i class="fas fa-eye"></i></button></p>
                     <p>And can you hear the sound of <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="hysteria"><i class="fas fa-eye"></i></button>?</p>
@@ -80,18 +86,23 @@
 
         <div class="slide">
             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-red-400"><i class="fas fa-question-circle text-orange-400"></i> Discussion: Media Alienation</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl text-left">
-                <p><i class="fas fa-comment-dots text-red-400"></i> Billie Joe Armstrong sings about a "nation under the new media." Do you think the media controls how people think today?</p>
-                <p><i class="fas fa-comment-dots text-red-400"></i> Does "hysteria" (sensationalism) help or hurt the democratic process?</p>
+                <p><i class="fas fa-comment-dots text-red-400"></i> In what ways can media shape public opinion without people realizing it? Can you give a real example?</p>
+                <p><i class="fas fa-comment-dots text-red-400"></i> Is media manipulation always intentional, or can it happen unconsciously?</p>
             </div></div>
         </div>
 
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-red-400"><i class="fas fa-music text-purple-500"></i> Music Time: Uprising (Muse)</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4VqPOruhp5EdPBeR92t6lQ?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-purple-500">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4VqPOruhp5EdPBeR92t6lQ?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-purple-500">
                     <p>Paranoia is in bloom / The PR transmissions will <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="resume"><i class="fas fa-eye"></i></button></p>
-                    <p>They'll try to push drugs that keep us all <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="dumb"><i class="fas fa-eye"></i></button></p>
-                    <p>And hope that we will never see the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="truth"><i class="fas fa-eye"></i></button></p>
+                    <p>They'll try to push drugs that keep us all <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="dumb"><i class="fas fa-eye"></i></button> down</p>
+                    <p>And hope that we will never see the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="truth"><i class="fas fa-eye"></i></button> around</p>
+                    <p>Another promise, another scene</p>
+                    <p>Another packaged lie to keep us trapped in greed</p>
+                    <p>And all the green belts wrapped around our minds</p>
+                    <p>And endless red tape to keep the truth confined</p>
                     <p class="font-bold text-purple-400 mt-4 italic">Chorus:</p>
                     <p>They will not force us / They will stop <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="degrading"><i class="fas fa-eye"></i></button> us</p>
                     <p>They will not control us / We will be <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="victorious"><i class="fas fa-eye"></i></button></p>
@@ -101,15 +112,16 @@
 
         <div class="slide">
             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-red-400"><i class="fas fa-fist-raised text-purple-400"></i> Discussion: Power & Resistance</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl text-left">
-                <p><i class="fas fa-comment-dots text-purple-400"></i> The song says "they hope we never see the truth." What are some common "distractions" used to keep the population from focusing on real problems?</p>
-                <p><i class="fas fa-comment-dots text-purple-400"></i> How can we "be victorious" against misinformation in the digital age?</p>
+                <p><i class="fas fa-comment-dots text-purple-400"></i> The song says "they hope we never see the truth." What kinds of content tend to go viral instead of serious political issues? Why do you think that happens?</p>
+                <p><i class="fas fa-comment-dots text-purple-400"></i> Who should be more responsible for misinformation: governments, platforms, or individuals?</p>
             </div></div>
         </div>
 
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-red-400"><i class="fas fa-music text-yellow-600"></i> Music Time: Fortunate Son (CCR)</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4BP3uh0hFLFRb5cjsgLqDh?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-yellow-600">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4BP3uh0hFLFRb5cjsgLqDh?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-yellow-600">
                     <p>Some folks are born made to wave the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="flag"><i class="fas fa-eye"></i></button></p>
                     <p>Ooh, they're red, white and blue</p>
                     <p>And when the band plays "<input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="Hail to the Chief"><i class="fas fa-eye"></i></button>"</p>
@@ -123,17 +135,22 @@
 
         <div class="slide">
             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-red-400"><i class="fas fa-balance-scale text-yellow-500"></i> Discussion: Inequality & Politics</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl text-left">
-                <p><i class="fas fa-comment-dots text-yellow-500"></i> What is a "Fortunate Son"? Does political privilege still exist in the same way today?</p>
-                <p><i class="fas fa-comment-dots text-yellow-500"></i> Do you think the rules are the same for everyone, or are there "fortunate sons/daughters" who are above the law?</p>
+                <p><i class="fas fa-comment-dots text-yellow-500"></i> In modern society, who would be considered a "fortunate son" (or daughter)?</p>
+                <p><i class="fas fa-comment-dots text-yellow-500"></i> Is inequality more economic or political today?</p>
             </div></div>
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-red-400"><i class="fas fa-tasks"></i> Practice: News Literacy</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <p class="text-2xl mb-8 text-gray-300">Match the term to the correct scenario.</p>
-                <div id="matching-activity" class="space-y-4"></div>
-                <button id="check-answers-btn" class="mt-8 bg-red-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-red-700">Check Answers</button>
-            </div></div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-red-400"><i class="fas fa-tasks"></i> Practice: News Literacy</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-2xl mb-8 text-gray-300">Drag the correct term to the scenario.</p>
+                    <div id="terms-pool" class="flex flex-wrap justify-center gap-4 mb-10 p-4 bg-gray-900 rounded-xl border border-gray-600 min-h-[80px]"></div>
+                    
+                    <div id="matching-activity" class="space-y-4"></div>
+                    <button id="check-answers-btn" class="mt-8 bg-red-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-red-700">Check Answers</button>
+                </div>
+            </div>
         </div>
 
         <div class="slide">
@@ -143,12 +160,14 @@
         </div>
 
         <div class="slide">
-             <div class="text-center flex flex-col items-center justify-center h-full">
+             <div class="text-center flex flex-col items-center justify-center h-full pt-10">
                  <i class="fas fa-landmark text-red-400 text-7xl mb-6"></i>
                  <h2 class="text-5xl font-bold mb-4 text-gray-100">Lesson Complete!</h2>
                  <p class="text-2xl italic text-gray-400 max-w-2xl mx-auto">"In a time of deceit, telling the truth is a revolutionary act." - George Orwell</p>
              </div>
         </div>
+        
+        <div id="custom-alert-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center"></div>
     </main>
 
     <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
@@ -158,16 +177,25 @@
             <button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finalizar Aula</button>
         </div>
     </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
     
     <script>
+        function showCustomAlert(message,type='success',callback){const modal=document.getElementById('custom-alert-modal');if(!modal)return;modal.innerHTML=`<div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 text-center transform transition-all scale-100" id="custom-alert-box"><i id="custom-alert-icon" class="fas text-6xl mb-5"></i><h3 id="custom-alert-title" class="text-3xl font-bold mb-3"></h3><p id="custom-alert-message" class="text-lg text-gray-300 mb-8"></p><button id="custom-alert-close-btn" class="text-white font-bold py-3 px-10 rounded-lg text-lg transition-transform hover:scale-105"></button></div>`;const icon=document.getElementById('custom-alert-icon'),title=document.getElementById('custom-alert-title'),messageEl=document.getElementById('custom-alert-message'),closeBtn=document.getElementById('custom-alert-close-btn');if(type==='success'){icon.classList.add('fa-check-circle','text-green-400');title.textContent='Success!';closeBtn.textContent='OK';closeBtn.classList.add('bg-green-600')}else{icon.classList.add('fa-times-circle','text-red-400');title.textContent='Error!';closeBtn.textContent='Try Again';closeBtn.classList.add('bg-red-600')}messageEl.textContent=message;modal.style.display='flex';closeBtn.onclick=()=>{modal.style.display='none';if(callback)callback()}}
+
         document.addEventListener('DOMContentLoaded', () => {
             const slides = document.querySelectorAll('.slide');
+            const mainContainer = document.getElementById('main-container');
             const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
             const progressBar = document.getElementById('progress-bar');
             let currentSlide = 0;
 
             function showSlide(index) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                mainContainer.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
                 if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
                 if (prevBtn) prevBtn.disabled = index === 0;
@@ -176,8 +204,16 @@
                 if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
             }
 
-            if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } };
-            if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } };
+            prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } };
+            nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } };
+
+            finishLessonBtn.onclick = () => {
+                if(typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete('conversation', 'lesson-25');
+                } else {
+                    showCustomAlert('Progresso salvo localmente (Firebase não detectado).', 'success');
+                }
+            };
 
             document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
             
@@ -191,12 +227,13 @@
                 });
             });
 
-            const activityContainer = document.getElementById('matching-activity'), checkAnswersBtn = document.getElementById('check-answers-btn');
-            const expressions=[
+            // --- DRAG AND DROP LOGIC ---
+            const activityContainer = document.getElementById('matching-activity'), termsPool = document.getElementById('terms-pool'), checkAnswersBtn = document.getElementById('check-answers-btn');
+            const expressions = [
                 {id:'bias',text:'Bias'}, {id:'echo',text:'Echo Chamber'}, {id:'clickbait',text:'Clickbait'},
                 {id:'check',text:'Fact-check'}, {id:'partisan',text:'Partisan'}, {id:'watchdog',text:'Watchdog'}
             ];
-            const situations=[
+            const situations = [
                 {text:"A headline says 'YOU WON'T BELIEVE THIS!' but the news is trivial.",answer:'clickbait'},
                 {text:"Journalists investigating corruption to keep power in check.",answer:'watchdog'},
                 {text:"A website that only posts good news about its own political party.",answer:'partisan'},
@@ -204,27 +241,62 @@
                 {text:"Favoring one side without being objective.",answer:'bias'},
                 {text:"Only reading opinions you already agree with.",answer:'echo'}
             ];
+
             function shuffle(array) { return array.sort(() => Math.random() - 0.5); }
-            
+
+            // Criar Draggables
+            shuffle([...expressions]).forEach(exp => {
+                const el = document.createElement('div');
+                el.className = "draggable bg-red-600 text-white px-4 py-2 rounded-lg font-bold shadow-md m-1";
+                el.draggable = true;
+                el.innerText = exp.text;
+                el.id = exp.id;
+                el.addEventListener('dragstart', (e) => e.dataTransfer.setData('text', e.target.id));
+                termsPool.appendChild(el);
+            });
+
+            // Criar Drop Zones
             activityContainer.innerHTML = situations.map((sit, index) => `
-                <div id="q-${index}" class="p-4 rounded-lg bg-gray-900 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div id="q-${index}" class="p-4 rounded-lg bg-gray-900 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-all">
                     <p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p>
-                    <select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg">
-                        <option value="">Select...</option>
-                        ${shuffle([...expressions]).map(exp => `<option value="${exp.id}">${exp.text}</option>`).join('')}
-                    </select>
+                    <div class="drop-zone w-full md:w-48 bg-gray-800" data-answer="${sit.answer}"></div>
                 </div>`).join('');
 
-            checkAnswersBtn.onclick = () => {
-                activityContainer.querySelectorAll('select').forEach((select, index) => {
-                    const div = document.getElementById(`q-${index}`);
-                    if (select.value === select.dataset.answer) {
-                        div.style.borderColor = '#10b981';
-                        div.classList.add('bg-green-900/30');
-                    } else if (select.value !== "") {
-                        div.style.borderColor = '#ef4444';
-                        div.classList.add('bg-red-900/30');
+            // Scroll Automático durante Drag
+            mainContainer.addEventListener('dragover', (e) => {
+                const rect = mainContainer.getBoundingClientRect();
+                const relY = e.clientY - rect.top;
+                if (relY < 100) mainContainer.scrollTop -= 15;
+                else if (relY > rect.height - 100) mainContainer.scrollTop += 15;
+            });
+
+            document.querySelectorAll('.drop-zone, #terms-pool').forEach(zone => {
+                zone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    zone.classList.add('drag-over');
+                });
+                zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('drag-over');
+                    const termId = e.dataTransfer.getData('text');
+                    const termEl = document.getElementById(termId);
+                    
+                    // Se já houver algo na zona, devolve para o pool
+                    if (zone.classList.contains('drop-zone') && zone.firstChild) {
+                        termsPool.appendChild(zone.firstChild);
                     }
+                    zone.appendChild(termEl);
+                });
+            });
+
+            checkAnswersBtn.onclick = () => {
+                activityContainer.querySelectorAll('.drop-zone').forEach((zone, index) => {
+                    const parentDiv = document.getElementById(`q-${index}`);
+                    const isCorrect = zone.firstChild && zone.firstChild.id === zone.dataset.answer;
+                    parentDiv.style.borderColor = isCorrect ? '#10b981' : '#ef4444';
+                    parentDiv.classList.toggle('bg-green-900/30', isCorrect);
+                    parentDiv.classList.toggle('bg-red-900/30', !isCorrect);
                 });
             };
 
