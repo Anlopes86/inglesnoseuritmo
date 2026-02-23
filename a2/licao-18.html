@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | Lição 18: Have You Ever...?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Fonte aumentada globalmente */
+        body { font-family: 'Inter', sans-serif; font-size: 1.25rem; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .flip-card { background-color: transparent; width: 100%; max-width: 200px; min-height: 160px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 1rem;
+        }
+        .flip-card-front { background-color: #fff; border: 2px solid #e5e7eb; font-weight: bold; }
+        .flip-card-back { background-color: #f0fdf4; transform: rotateY(180deg); font-weight: bold; color: #166534; border: 2px solid #22c55e; }
+
+        input.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        input.incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; font-size: 1.1rem; }
+        .answer-btn:hover { color: #f97316; }
+        
+        input { border-bottom: 2px solid #cbd5e1; outline: none; transition: all 0.2s; font-weight: 700; background: transparent; padding: 0 8px; color: #4338ca; }
+        .choice-btn { border: 2px solid #e5e7eb; padding: 16px; border-radius: 14px; transition: all 0.2s; cursor: pointer; text-align: left; width: 100%; font-size: 1.15rem; }
+        .choice-btn:hover { border-color: #f97316; background-color: #fff7ed; }
+        .selected-correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; font-weight: bold; }
+        .selected-incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; font-weight: bold; }
+
+        .music-card { background: linear-gradient(135deg, #0f172a 0%, #334155 100%); color: white; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> A2 Module</a>
+            <h1 class="text-2xl font-black text-center uppercase tracking-tighter">Lesson 18: Have You Ever?</h1>
+            <div class="w-40"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-2"><div id="progress-bar" class="bg-orange-500 h-2 transition-all duration-300"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 180px); overflow-y: auto;">
+
+        <div class="slide active">
+            <div class="text-center max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-10 text-orange-700 italic">Warm-up: Life Experiences</h2>
+                <div class="bg-white p-10 rounded-3xl shadow-xl space-y-6 text-left border-l-[12px] border-green-500">
+                    <div class="flex gap-4">
+                        <span class="font-black text-green-600">Emma:</span>
+                        <p class="italic text-2xl">"<strong>Have you ever seen</strong> the Northern Lights?"</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-blue-600">Leo:</span>
+                        <p class="italic text-2xl">"No, I haven't. But I <strong>have traveled</strong> to Iceland once."</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-green-600">Emma:</span>
+                        <p class="italic text-2xl">"Lucky you! I <strong>have never been</strong> out of the country."</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-blue-600">Leo:</span>
+                        <p class="italic text-2xl">"You should go! It's the best thing I <strong>have ever done</strong>."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-black mb-8 text-center text-orange-700 uppercase tracking-widest">Key Verbs (Past Participle)</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-indigo-600"><i class="fas fa-plane text-4xl mb-3"></i>Been</div><div class="flip-card-back">Estado / Ido</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-indigo-600"><i class="fas fa-eye text-4xl mb-3"></i>Seen</div><div class="flip-card-back">Visto</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-indigo-600"><i class="fas fa-utensils text-4xl mb-3"></i>Eaten</div><div class="flip-card-back">Comido</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-indigo-600"><i class="fas fa-book-open text-4xl mb-3"></i>Read</div><div class="flip-card-back">Lido</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-indigo-600"><i class="fas fa-music text-4xl mb-3"></i>Heard</div><div class="flip-card-back">Ouvido</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-indigo-600"><i class="fas fa-running text-4xl mb-3"></i>Done</div><div class="flip-card-back">Feito</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-indigo-600"><i class="fas fa-wine-glass text-4xl mb-3"></i>Drunk</div><div class="flip-card-back">Bebido</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-indigo-600"><i class="fas fa-pen-fancy text-4xl mb-3"></i>Written</div><div class="flip-card-back">Escrito</div></div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-black mb-8 text-center text-orange-700 italic">Grammar: Present Perfect</h2>
+            <div class="max-w-4xl mx-auto space-y-6">
+                <div class="bg-white p-10 rounded-3xl shadow-md border-l-[12px] border-orange-500">
+                    <h3 class="text-2xl font-black mb-6 uppercase text-orange-600">Life Experiences</h3>
+                    <p class="text-xl mb-6 leading-relaxed">Usamos o <strong>Present Perfect</strong> para falar de experiências passadas em um tempo <strong>indeterminado</strong>.</p>
+                    <div class="space-y-4 text-xl">
+                        <p>❓ <strong>Question:</strong> Have you <strong>ever</strong> + participle?</p>
+                        <p>❌ <strong>Negative:</strong> I have <strong>never</strong> + participle.</p>
+                        <p>✅ <strong>Positive:</strong> I have <strong>already</strong> + participle.</p>
+                    </div>
+                </div>
+                <div class="bg-indigo-700 text-white p-8 rounded-2xl text-center shadow-xl">
+                    <p class="text-3xl font-mono font-black tracking-widest">HAVE / HAS + VERB (3ª Coluna)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-black mb-6 text-center text-orange-700">Task 1: Complete the Experiences</h2>
+            <div class="bg-white p-8 rounded-3xl shadow-lg max-w-5xl mx-auto space-y-6">
+                <div class="flex items-center justify-between border-b pb-4">
+                    <p>1. <input id="t1q1" data-answer="Have you ever" class="w-56 text-center"> seen a ghost?</p>
+                    <span class="text-base text-gray-500 italic">(Dica: <strong>Você já</strong> viu um fantasma?)</span>
+                    <button class="answer-btn" data-target="t1q1"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-4">
+                    <p>2. I <input id="t1q2" data-answer="have never been" class="w-56 text-center"> to Paris.</p>
+                    <span class="text-base text-gray-500 italic">(Dica: Eu <strong>nunca estive</strong> em Paris)</span>
+                    <button class="answer-btn" data-target="t1q2"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-4">
+                    <p>3. She <input id="t1q3" data-answer="has already" class="w-48 text-center"> done her homework.</p>
+                    <span class="text-base text-gray-500 italic">(Dica: Ela <strong>já</strong> fez a lição)</span>
+                    <button class="answer-btn" data-target="t1q3"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-4">
+                    <p>4. They <input id="t1q4" data-answer="have never eaten" class="w-60 text-center"> sushi.</p>
+                    <span class="text-base text-gray-500 italic">(Dica: Eles <strong>nunca comeram</strong> sushi)</span>
+                    <button class="answer-btn" data-target="t1q4"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-4">
+                    <p>5. We <input id="t1q5" data-answer="have already seen" class="w-60 text-center"> this movie.</p>
+                    <span class="text-base text-gray-500 italic">(Dica: Nós <strong>já vimos</strong> este filme)</span>
+                    <button class="answer-btn" data-target="t1q5"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-4">
+                    <p>6. <input id="t1q6" data-answer="Has he ever" class="w-48 text-center"> lost his keys?</p>
+                    <span class="text-base text-gray-500 italic">(Dica: <strong>Ele já</strong> perdeu as chaves?)</span>
+                    <button class="answer-btn" data-target="t1q6"><i class="fas fa-eye"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-black mb-6 text-center text-orange-700">Task 2: Choose the Correct Grammar</h2>
+            <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-8 border-green-500">
+                    <p class="font-bold mb-4">"_______ you ever visited London?"</p>
+                    <button class="choice-btn mb-3" onclick="checkChoice(this, true)">Have</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">Has</button>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-8 border-green-500">
+                    <p class="font-bold mb-4">"I have ______ a famous actor."</p>
+                    <button class="choice-btn mb-3" onclick="checkChoice(this, false)">see</button>
+                    <button class="choice-btn" onclick="checkChoice(this, true)">seen</button>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-8 border-green-500">
+                    <p class="font-bold mb-4">"My dog ______ never bitten anyone."</p>
+                    <button class="choice-btn mb-3" onclick="checkChoice(this, true)">has</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">have</button>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-8 border-green-500">
+                    <p class="font-bold mb-4">"We ______ never heard that song."</p>
+                    <button class="choice-btn mb-3" onclick="checkChoice(this, true)">have</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">has</button>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-8 border-green-500">
+                    <p class="font-bold mb-4">"Have you ______ been to a farm?"</p>
+                    <button class="choice-btn mb-3" onclick="checkChoice(this, true)">ever</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">already</button>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-8 border-green-500">
+                    <p class="font-bold mb-4">"She has ______ written a book."</p>
+                    <button class="choice-btn mb-3" onclick="checkChoice(this, true)">already</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">ever</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-black mb-6 text-center text-orange-700 uppercase">Music: Lyrics Activity</h2>
+            <div class="music-card p-10 rounded-[3rem] shadow-2xl max-w-6xl mx-auto flex flex-col lg:flex-row gap-10">
+                <div class="flex-1 space-y-6">
+                    <div class="flex items-center gap-4 border-b border-white/20 pb-4">
+                        <i class="fas fa-compact-disc text-5xl text-red-500"></i>
+                        <div>
+                            <h3 class="text-2xl font-black">Have You Ever Seen The Rain?</h3>
+                            <p class="text-gray-400 font-bold">Creedence Clearwater Revival</p>
+                        </div>
+                    </div>
+                    <div class="font-serif italic text-2xl leading-loose bg-white/5 p-8 rounded-2xl">
+                        <p>Someone told me long ago</p>
+                        <p>There's a calm before the storm</p>
+                        <p>I know, it's been comin' for some time</p>
+                        <p class="mt-6 font-bold text-yellow-400">Chorus:</p>
+                        <p>I want to know, <input id="m1" data-answer="have you ever" class="w-48 border-b border-white text-white"> <button class="answer-btn" data-target="m1"><i class="fas fa-eye text-white/50"></i></button> seen the rain?</p>
+                        <p>I want to know, <input id="m2" data-answer="have you ever" class="w-48 border-b border-white text-white"> <button class="answer-btn" data-target="m2"><i class="fas fa-eye text-white/50"></i></button> seen the rain</p>
+                        <p>Comin' down on a <input id="m3" data-answer="sunny day" class="w-40 border-b border-white text-white"> <button class="answer-btn" data-target="m3"><i class="fas fa-eye text-white/50"></i></button>?</p>
+                    </div>
+                </div>
+                <div class="w-full lg:w-80 flex flex-col gap-4">
+                    <div class="bg-black/20 p-2 rounded-[18px]">
+                        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2LawezPeJhN4AWuSB0GtAU?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    </div>
+                    <div class="bg-white/10 p-6 rounded-2xl text-sm border border-white/20">
+                        <p class="text-yellow-400 font-black mb-2 uppercase tracking-tighter text-lg">Professor's Tip:</p>
+                        <p class="text-gray-200 leading-relaxed">
+                            Observe how <strong>"Have you ever seen"</strong> describes a life-long observation. The rain on a sunny day is a metaphor for unexpected events.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-8 text-orange-700 italic">Homework: Life Survey</h2>
+                <div class="bg-white p-10 rounded-3xl shadow-xl max-w-4xl mx-auto text-left border-t-[12px] border-orange-500">
+                    <p class="text-2xl font-bold mb-6">Write 5 questions using "Have you ever...?" to interview someone:</p>
+                    <div class="space-y-6">
+                        <div class="flex gap-4 items-center"><span>1.</span><input class="w-full border-b text-xl" placeholder="Have you ever traveled alone?"></div>
+                        <div class="flex gap-4 items-center"><span>2.</span><input class="w-full border-b text-xl"></div>
+                        <div class="flex gap-4 items-center"><span>3.</span><input class="w-full border-b text-xl"></div>
+                        <div class="flex gap-4 items-center"><span>4.</span><input class="w-full border-b text-xl"></div>
+                        <div class="flex gap-4 items-center"><span>5.</span><input class="w-full border-b text-xl"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <div class="bg-white p-16 rounded-[3rem] shadow-2xl border-t-[16px] border-orange-500 max-w-4xl">
+                    <i class="fas fa-globe-americas text-green-500 text-8xl mb-8"></i>
+                    <h2 class="text-6xl font-black mb-10 text-gray-800">Amazing Job!</h2>
+                    <p class="text-3xl text-gray-600 mb-12">Você agora domina a arte de falar sobre suas experiências de vida!</p>
+                    <div class="p-10 bg-orange-50 rounded-3xl border-2 border-orange-100 italic">
+                        <p class="text-4xl font-serif text-orange-900 mb-6">"If you have ever doubted yourself, remember that your future <strong>will</strong> be written by your actions today."</p>
+                        <p class="text-2xl text-orange-600 font-black">— Your Learning Journey</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t p-6 z-20">
+        <div class="container mx-auto flex justify-between items-center px-10">
+            <button id="prev-btn" class="px-10 py-4 bg-gray-200 rounded-2xl font-black hover:bg-gray-300 disabled:opacity-50 transition-all">PREVIOUS</button>
+            <button id="next-btn" class="px-12 py-4 bg-orange-600 text-white rounded-2xl font-black hover:bg-orange-700 shadow-lg transition-all">NEXT</button>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            let currentSlide = 0;
+
+            function updateView() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+                document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.innerText = currentSlide === slides.length - 1 ? 'FINISH' : 'NEXT';
+            }
+
+            prevBtn.onclick = () => { if(currentSlide > 0) currentSlide--; updateView(); };
+            nextBtn.onclick = () => { if(currentSlide < slides.length - 1) { currentSlide++; updateView(); } };
+
+            function checkAnswer(input) {
+                const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
+                input.classList.toggle('correct', isCorrect);
+                input.classList.toggle('incorrect', !isCorrect);
+            }
+
+            document.querySelectorAll('input[data-answer]').forEach(input => {
+                input.onblur = () => checkAnswer(input);
+            });
+
+            window.checkChoice = (btn, isCorrect) => {
+                const parent = btn.parentElement;
+                parent.querySelectorAll('.choice-btn').forEach(b => {
+                    b.classList.remove('selected-correct', 'selected-incorrect');
+                });
+                btn.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+            };
+
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const input = document.getElementById(btn.dataset.target);
+                    if(input) { input.value = input.dataset.answer; checkAnswer(input); }
+                };
+            });
+
+            document.querySelectorAll('.flip-card').forEach(card => {
+                card.onclick = () => card.classList.toggle('flipped');
+            });
+
+            updateView();
+        });
+    </script>
+</body>
+</html>
