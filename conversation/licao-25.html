@@ -188,6 +188,9 @@
         function showCustomAlert(message,type='success',callback){const modal=document.getElementById('custom-alert-modal');if(!modal)return;modal.innerHTML=`<div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 text-center transform transition-all scale-100" id="custom-alert-box"><i id="custom-alert-icon" class="fas text-6xl mb-5"></i><h3 id="custom-alert-title" class="text-3xl font-bold mb-3"></h3><p id="custom-alert-message" class="text-lg text-gray-300 mb-8"></p><button id="custom-alert-close-btn" class="text-white font-bold py-3 px-10 rounded-lg text-lg transition-transform hover:scale-105"></button></div>`;const icon=document.getElementById('custom-alert-icon'),title=document.getElementById('custom-alert-title'),messageEl=document.getElementById('custom-alert-message'),closeBtn=document.getElementById('custom-alert-close-btn');if(type==='success'){icon.classList.add('fa-check-circle','text-green-400');title.textContent='Success!';closeBtn.textContent='OK';closeBtn.classList.add('bg-green-600')}else{icon.classList.add('fa-times-circle','text-red-400');title.textContent='Error!';closeBtn.textContent='Try Again';closeBtn.classList.add('bg-red-600')}messageEl.textContent=message;modal.style.display='flex';closeBtn.onclick=()=>{modal.style.display='none';if(callback)callback()}}
 
         document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'conversation';
+            const lessonNumber = 25;
+
             const slides = document.querySelectorAll('.slide');
             const mainContainer = document.getElementById('main-container');
             const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
@@ -207,11 +210,14 @@
             prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } };
             nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } };
 
+            // CORREÇÃO DO BOTÃO FINALIZAR
             finishLessonBtn.onclick = () => {
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.textContent = "Saving...";
                 if(typeof markLessonAsComplete === 'function') {
-                    markLessonAsComplete('conversation', 'lesson-25');
+                    markLessonAsComplete(moduleId, lessonNumber);
                 } else {
-                    showCustomAlert('Progresso salvo localmente (Firebase não detectado).', 'success');
+                    showCustomAlert('Progresso salvo localmente.', 'success');
                 }
             };
 
@@ -227,7 +233,7 @@
                 });
             });
 
-            // --- DRAG AND DROP LOGIC ---
+            // --- DRAG AND DROP LOGIC MANTIDA ---
             const activityContainer = document.getElementById('matching-activity'), termsPool = document.getElementById('terms-pool'), checkAnswersBtn = document.getElementById('check-answers-btn');
             const expressions = [
                 {id:'bias',text:'Bias'}, {id:'echo',text:'Echo Chamber'}, {id:'clickbait',text:'Clickbait'},
@@ -244,7 +250,6 @@
 
             function shuffle(array) { return array.sort(() => Math.random() - 0.5); }
 
-            // Criar Draggables
             shuffle([...expressions]).forEach(exp => {
                 const el = document.createElement('div');
                 el.className = "draggable bg-red-600 text-white px-4 py-2 rounded-lg font-bold shadow-md m-1";
@@ -255,14 +260,12 @@
                 termsPool.appendChild(el);
             });
 
-            // Criar Drop Zones
             activityContainer.innerHTML = situations.map((sit, index) => `
                 <div id="q-${index}" class="p-4 rounded-lg bg-gray-900 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-all">
                     <p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p>
                     <div class="drop-zone w-full md:w-48 bg-gray-800" data-answer="${sit.answer}"></div>
                 </div>`).join('');
 
-            // Scroll Automático durante Drag
             mainContainer.addEventListener('dragover', (e) => {
                 const rect = mainContainer.getBoundingClientRect();
                 const relY = e.clientY - rect.top;
@@ -282,7 +285,6 @@
                     const termId = e.dataTransfer.getData('text');
                     const termEl = document.getElementById(termId);
                     
-                    // Se já houver algo na zona, devolve para o pool
                     if (zone.classList.contains('drop-zone') && zone.firstChild) {
                         termsPool.appendChild(zone.firstChild);
                     }

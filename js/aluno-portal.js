@@ -554,3 +554,32 @@ document.addEventListener('DOMContentLoaded', () => {
     if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
     if (overlay) overlay.addEventListener('click', closeMenu);
 });
+// =============================
+// MÓDULO A1 AUTÔNOMO
+// =============================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const modulesCard = document.getElementById("modules-card");
+
+    if (modulesCard) {
+        modulesCard.innerHTML = `
+            <h2 class="text-2xl font-black mb-4 italic">MÓDULOS DISPONÍVEIS</h2>
+            <p class="text-gray-300 mb-6 text-sm">
+                Continue sua jornada no curso.
+            </p>
+
+            <button id="btn-a1-autonomo"
+                class="bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-black py-4 px-6 rounded-xl uppercase text-xs tracking-wider transition-all transform hover:scale-105">
+                🚀 Iniciar A1 Autônomo
+            </button>
+        `;
+
+        const btnA1 = document.getElementById("btn-a1-autonomo");
+
+        btnA1.addEventListener("click", () => {
+            window.location.href = "a1/autonomo/index.html";
+        });
+    }
+
+});

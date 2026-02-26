@@ -60,26 +60,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Autenticação e Carregamento Inicial ---
     auth.onAuthStateChanged(user => {
-        if (user) {
-            db.collection('students').doc(user.uid).get().then(doc => {
-                if (doc.exists && doc.data().role === 'professor') {
-                    loadStudentsIntoSelect();
-                } else {
-                    alert("Acesso restrito a professores."); auth.signOut();
-                }
-            });
-        } else {
-            localStorage.clear(); window.location.href = 'login.html';
-        }
-    });
 
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            auth.signOut().then(() => {
-                localStorage.clear(); window.location.href = 'login.html';
-            });
-        });
+    // 🔒 NÃO controlar páginas do A1 Autônomo
+    if (window.location.pathname.includes("/a1/autonomo/")) {
+        return;
     }
+
+    if (user) {
+        db.collection('students').doc(user.uid).get().then(doc => {
+            if (doc.exists && doc.data().role === 'professor') {
+                loadStudentsIntoSelect();
+            } else {
+                alert("Acesso restrito a professores.");
+                auth.signOut();
+            }
+        });
+    } else {
+        localStorage.clear();
+        window.location.href = 'login.html';
+    }
+});
 
     // --- Funções Principais ---
     function loadStudentsIntoSelect() {
