@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | Lição 21: What's the Matter?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; font-size: 1.25rem; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .flip-card { background-color: transparent; width: 100%; max-width: 240px; min-height: 180px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 1rem;
+        }
+        .flip-card-front { background-color: #fff; border: 2px solid #e5e7eb; font-weight: 900; color: #e11d48; }
+        .flip-card-back { background-color: #fff1f2; transform: rotateY(180deg); font-weight: bold; color: #9f1239; border: 2px solid #e11d48; }
+
+        input.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        input.incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
+        .answer-btn:hover { color: #f97316; }
+        
+        input { border-bottom: 3px solid #cbd5e1; outline: none; transition: all 0.2s; font-weight: 800; background: transparent; padding: 0 8px; color: #e11d48; }
+        .choice-btn { border: 2px solid #e5e7eb; padding: 18px; border-radius: 16px; transition: all 0.2s; cursor: pointer; text-align: left; width: 100%; font-size: 1.2rem; }
+        .choice-btn:hover { border-color: #f97316; background-color: #fff7ed; }
+        .selected-correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        .selected-incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+
+        .music-card { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: white; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> A2 Module</a>
+            <h1 class="text-2xl font-black text-center uppercase tracking-tighter">Lesson 21: What's the Matter?</h1>
+            <div class="w-40"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-2"><div id="progress-bar" class="bg-orange-500 h-2 transition-all duration-300"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 180px); overflow-y: auto;">
+
+        <div class="slide active">
+            <div class="text-center max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-10 text-orange-700 italic">Warm-up: At the Doctor</h2>
+                <div class="bg-white p-10 rounded-3xl shadow-xl space-y-8 text-left border-l-[12px] border-rose-500">
+                    <div class="flex gap-4">
+                        <span class="font-black text-rose-600">Doctor:</span>
+                        <p class="italic text-2xl">"Hello. <strong>What's the matter</strong> today?"</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-blue-600">Patient:</span>
+                        <p class="italic text-2xl">"I don't feel well. <strong>I have a</strong> terrible headache and a sore throat."</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-rose-600">Doctor:</span>
+                        <p class="italic text-2xl">"Do you have a fever?"</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-blue-600">Patient:</span>
+                        <p class="italic text-2xl">"Yes, and <strong>my back hurts</strong> too."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-black mb-8 text-center text-orange-700 uppercase">Health Problems</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-head-side-virus text-4xl mb-3"></i>Headache</div><div class="flip-card-back">Dor de cabeça</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-thermometer-half text-4xl mb-3"></i>Fever</div><div class="flip-card-back">Febre</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-head-side-cough text-4xl mb-3"></i>Cough</div><div class="flip-card-back">Tosse</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-tooth text-4xl mb-3"></i>Toothache</div><div class="flip-card-back">Dor de dente</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-lungs text-4xl mb-3"></i>Sore throat</div><div class="flip-card-back">Dor de garganta</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-stomach text-4xl mb-3"></i>Stomachache</div><div class="flip-card-back">Dor de estômago</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-user-injured text-4xl mb-3"></i>Backache</div><div class="flip-card-back">Dor nas costas</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-tint text-4xl mb-3"></i>Cold</div><div class="flip-card-back">Resfriado</div></div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-black mb-8 text-center text-orange-700 italic">Grammar: Explaining Pain</h2>
+            <div class="max-w-4xl mx-auto space-y-6">
+                <div class="bg-white p-10 rounded-3xl shadow-md border-l-[12px] border-rose-500">
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-2xl font-black text-rose-600 mb-2 uppercase">1. I HAVE A...</h3>
+                            <p class="text-xl">Usado para substantivos (doenças ou dores específicas).</p>
+                            <p class="font-mono bg-gray-100 p-2 mt-2">I have a <strong>cold</strong> / I have a <strong>headache</strong>.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-black text-rose-600 mb-2 uppercase">2. MY ... HURTS</h3>
+                            <p class="text-xl">Usado quando uma parte do corpo é o sujeito.</p>
+                            <p class="font-mono bg-gray-100 p-2 mt-2">My <strong>arm</strong> hurts / My <strong>leg</strong> hurts.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-black mb-6 text-center text-orange-700">Task 1: Complete the Symptoms</h2>
+            <div class="bg-white p-8 rounded-3xl shadow-lg max-w-5xl mx-auto space-y-4">
+                <div class="flex items-center justify-between border-b pb-3">
+                    <p>1. I drank too much coffee. Now I have a <input id="t1q1" data-answer="stomachache" class="w-48 text-center">.</p>
+                    <button class="answer-btn" data-target="t1q1"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-3">
+                    <p>2. Ouch! My left foot <input id="t1q2" data-answer="hurts" class="w-32 text-center">.</p>
+                    <button class="answer-btn" data-target="t1q2"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-3">
+                    <p>3. She needs a dentist because she has a <input id="t1q3" data-answer="toothache" class="w-40 text-center">.</p>
+                    <button class="answer-btn" data-target="t1q3"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-3">
+                    <p>4. He is coughing a lot. He has a <input id="t1q4" data-answer="sore throat" class="w-40 text-center">.</p>
+                    <button class="answer-btn" data-target="t1q4"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-3">
+                    <p>5. My <input id="t1q5" data-answer="head" class="w-32 text-center"> hurts after that long meeting.</p>
+                    <button class="answer-btn" data-target="t1q5"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-3">
+                    <p>6. Put on a coat or you will have a <input id="t1q6" data-answer="cold" class="w-32 text-center">.</p>
+                    <button class="answer-btn" data-target="t1q6"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-3">
+                    <p>7. I have a <input id="t1q7" data-answer="fever" class="w-32 text-center">. I feel very hot.</p>
+                    <button class="answer-btn" data-target="t1q7"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-3">
+                    <p>8. My back <input id="t1q8" data-answer="hurts" class="w-32 text-center"> from carrying these bags.</p>
+                    <button class="answer-btn" data-target="t1q8"><i class="fas fa-eye"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-black mb-6 text-center text-orange-700">Task 2: Match Problem to Solution</h2>
+            <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-8 border-rose-500">
+                    <p class="font-bold mb-4">"I have a terrible headache."</p>
+                    <button class="choice-btn mb-3" onclick="checkChoice(this, true)">"Take an aspirin and rest."</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">"Go to the dentist."</button>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-8 border-rose-500">
+                    <p class="font-bold mb-4">"My tooth hurts."</p>
+                    <button class="choice-btn mb-3" onclick="checkChoice(this, false)">"Put on a sweater."</button>
+                    <button class="choice-btn" onclick="checkChoice(this, true)">"See a dentist immediately."</button>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-8 border-rose-500">
+                    <p class="font-bold mb-4">"I have a sore throat."</p>
+                    <button class="choice-btn mb-3" onclick="checkChoice(this, true)">"Drink warm tea with honey."</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">"Go for a run."</button>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-8 border-rose-500">
+                    <p class="font-bold mb-4">"I have a fever (39°C)."</p>
+                    <button class="choice-btn mb-3" onclick="checkChoice(this, false)">"Eat a large pizza."</button>
+                    <button class="choice-btn" onclick="checkChoice(this, true)">"Drink water and see a doctor."</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-black mb-6 text-center text-orange-700 uppercase italic">Music: Feeling Numb</h2>
+            <div class="music-card p-10 rounded-[3rem] shadow-2xl max-w-6xl mx-auto flex flex-col lg:flex-row gap-10">
+                <div class="flex-1 space-y-6">
+                    <div class="flex items-center gap-4 border-b border-white/20 pb-4">
+                        <i class="fas fa-pills text-5xl text-blue-400"></i>
+                        <div><h3 class="text-2xl font-black">Comfortably Numb</h3><p class="text-gray-400 font-bold">Pink Floyd</p></div>
+                    </div>
+                    <div class="font-serif italic text-2xl leading-relaxed bg-white/5 p-8 rounded-2xl">
+                        <p>Hello? Is there anybody in there?</p>
+                        <p>Just nod if you can hear me</p>
+                        <p>Is there anyone home?</p>
+                        <br>
+                        <p>Come on now, I hear you're <strong>feeling down</strong></p>
+                        <p>Well I can ease your <input id="m1" data-answer="pain" class="w-24 border-b border-white"> <button class="answer-btn" data-target="m1"><i class="fas fa-eye text-white/50"></i></button></p>
+                        <p>Get you on your <input id="m2" data-answer="feet" class="w-24 border-b border-white"> <button class="answer-btn" data-target="m2"><i class="fas fa-eye text-white/50"></i></button> again</p>
+                        <p>Relax, I need some information first</p>
+                        <p>Just the basic <strong>facts</strong></p>
+                    </div>
+                </div>
+                <div class="w-full lg:w-80 flex flex-col gap-4">
+                    <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/4" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <div class="bg-white/10 p-6 rounded-2xl text-base border border-white/20">
+                        <p class="text-blue-400 font-black mb-2 uppercase text-lg">Lyrics Tip:</p>
+                        <p class="text-gray-300">
+                            <strong>"Numb"</strong> significa sem sensibilidade ou anestesiado. Na música, o médico tenta tirar informações básicas do paciente.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-8 text-orange-700 italic">Homework: Medical Advice</h2>
+                <div class="bg-white p-10 rounded-3xl shadow-xl max-w-4xl mx-auto text-left border-t-[12px] border-rose-500">
+                    <p class="text-2xl font-bold mb-6">Write what these people should do:</p>
+                    <div class="space-y-6">
+                        <div class="flex gap-4 items-center"><span>1. John has a broken leg.</span><input class="w-full border-b text-xl" placeholder="He should go to the hospital."></div>
+                        <div class="flex gap-4 items-center"><span>2. Maria has a cold.</span><input class="w-full border-b text-xl"></div>
+                        <div class="flex gap-4 items-center"><span>3. I have a stomachache.</span><input class="w-full border-b text-xl"></div>
+                        <div class="flex gap-4 items-center"><span>4. Peter has a backache.</span><input class="w-full border-b text-xl"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <div class="bg-white p-16 rounded-[3rem] shadow-2xl border-t-[16px] border-rose-600 max-w-4xl">
+                    <i class="fas fa-heartbeat text-rose-600 text-8xl mb-8"></i>
+                    <h2 class="text-6xl font-black mb-10 text-gray-800">Stay Healthy!</h2>
+                    <p class="text-3xl text-gray-600 mb-12">Você agora consegue explicar o que sente e pedir ajuda em inglês.</p>
+                    <div class="p-10 bg-rose-50 rounded-3xl border-2 border-rose-100 italic">
+                        <p class="text-4xl font-serif text-rose-900 mb-6">"He who has health has hope; and he who has hope <strong>will</strong> have everything."</p>
+                        <p class="text-2xl text-rose-600 font-black">— Arabian Proverb</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t p-6 z-20">
+        <div class="container mx-auto flex justify-between items-center px-10">
+            <button id="prev-btn" class="px-10 py-4 bg-gray-200 rounded-2xl font-black hover:bg-gray-300 disabled:opacity-50">PREVIOUS</button>
+            <button id="next-btn" class="px-12 py-4 bg-orange-600 text-white rounded-2xl font-black hover:bg-orange-700 shadow-lg">NEXT</button>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            let currentSlide = 0;
+
+            function updateView() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+                document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.innerText = currentSlide === slides.length - 1 ? 'FINISH' : 'NEXT';
+            }
+
+            prevBtn.onclick = () => { if(currentSlide > 0) currentSlide--; updateView(); };
+            nextBtn.onclick = () => { if(currentSlide < slides.length - 1) { currentSlide++; updateView(); } };
+
+            function checkAnswer(input) {
+                const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
+                input.classList.toggle('correct', isCorrect);
+                input.classList.toggle('incorrect', !isCorrect);
+            }
+
+            document.querySelectorAll('input[data-answer]').forEach(input => {
+                input.onblur = () => checkAnswer(input);
+            });
+
+            window.checkChoice = (btn, isCorrect) => {
+                const parent = btn.parentElement;
+                parent.querySelectorAll('.choice-btn').forEach(b => {
+                    b.classList.remove('selected-correct', 'selected-incorrect');
+                });
+                btn.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+            };
+
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const input = document.getElementById(btn.dataset.target);
+                    if(input) { input.value = input.dataset.answer; checkAnswer(input); }
+                };
+            });
+
+            document.querySelectorAll('.flip-card').forEach(card => {
+                card.onclick = () => card.classList.toggle('flipped');
+            });
+
+            updateView();
+        });
+    </script>
+</body>
+</html>

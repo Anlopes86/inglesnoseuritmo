@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | Lição 20: Been vs. Gone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; font-size: 1.25rem; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .flip-card { background-color: transparent; width: 100%; max-width: 240px; min-height: 180px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 1rem;
+        }
+        .flip-card-front { background-color: #fff; border: 2px solid #e5e7eb; font-weight: 900; color: #0891b2; }
+        .flip-card-back { background-color: #ecfeff; transform: rotateY(180deg); font-weight: bold; color: #0e7490; border: 2px solid #0891b2; }
+
+        input.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        input.incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
+        .answer-btn:hover { color: #f97316; }
+        
+        input { border-bottom: 3px solid #cbd5e1; outline: none; transition: all 0.2s; font-weight: 800; background: transparent; padding: 0 8px; color: #0891b2; }
+        .choice-btn { border: 2px solid #e5e7eb; padding: 18px; border-radius: 16px; transition: all 0.2s; cursor: pointer; text-align: left; width: 100%; font-size: 1.2rem; }
+        .choice-btn:hover { border-color: #f97316; background-color: #fff7ed; }
+        .selected-correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        .selected-incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+
+        .music-card { background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%); color: #4b2c20; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> A2 Module</a>
+            <h1 class="text-2xl font-black text-center uppercase tracking-tighter">Lesson 20: Been or Gone?</h1>
+            <div class="w-40"></div>
+        </div>
+        <div class="w-full bg-gray-200 h-2"><div id="progress-bar" class="bg-orange-500 h-2 transition-all duration-300"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 180px); overflow-y: auto;">
+
+        <div class="slide active">
+            <div class="text-center max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-10 text-orange-700 italic">Warm-up: Where is Paul?</h2>
+                <div class="bg-white p-10 rounded-3xl shadow-xl space-y-8 text-left border-l-[12px] border-cyan-500">
+                    <div class="flex gap-4">
+                        <p class="text-2xl leading-relaxed">
+                            "I am looking for Paul, but his car is not here. I think he <strong>has gone</strong> to the supermarket."
+                        </p>
+                    </div>
+                    <div class="border-t pt-6">
+                        <p class="text-2xl leading-relaxed italic text-gray-600">
+                            (10 minutes later, Paul arrives...)
+                        </p>
+                        <p class="text-2xl leading-relaxed mt-4">
+                            "Hi Paul! <strong>Have you been</strong> to the supermarket? Great, we need milk!"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-black mb-8 text-center text-orange-700 uppercase">The Great Travel Mystery</h2>
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white p-8 rounded-3xl shadow-lg border-b-8 border-cyan-500 text-center">
+                    <i class="fas fa-map-marker-alt text-5xl text-cyan-500 mb-4"></i>
+                    <h3 class="text-3xl font-black mb-2">GONE</h3>
+                    <p class="text-xl mb-4"><strong>He has gone to Italy.</strong></p>
+                    <p class="bg-cyan-50 p-4 rounded-xl text-cyan-800 font-bold">Ele foi e AINDA ESTÁ lá. (Ou no caminho)</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-lg border-b-8 border-orange-500 text-center">
+                    <i class="fas fa-undo-alt text-5xl text-orange-500 mb-4"></i>
+                    <h3 class="text-3xl font-black mb-2">BEEN</h3>
+                    <p class="text-xl mb-4"><strong>He has been to Italy.</strong></p>
+                    <p class="bg-orange-50 p-4 rounded-xl text-orange-800 font-bold">Ele foi e JÁ VOLTOU. (Experiência de vida)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-black mb-6 text-center text-orange-700">Task 1: Been or Gone?</h2>
+            <div class="bg-white p-8 rounded-3xl shadow-lg max-w-5xl mx-auto space-y-4">
+                <div class="flex items-center justify-between border-b pb-3">
+                    <p>1. Mary isn't here. She has <input id="t1q1" data-answer="gone" class="w-32 text-center"> home.</p>
+                    <button class="answer-btn" data-target="t1q1"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-3">
+                    <p>2. I've <input id="t1q2" data-answer="been" class="w-32 text-center"> to Japan twice in my life.</p>
+                    <button class="answer-btn" data-target="t1q2"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-3">
+                    <p>3. Where's Tom? He's <input id="t1q3" data-answer="gone" class="w-32 text-center"> to the bank.</p>
+                    <button class="answer-btn" data-target="t1q3"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-3">
+                    <p>4. Have you ever <input id="t1q4" data-answer="been" class="w-32 text-center"> to a rock concert?</p>
+                    <button class="answer-btn" data-target="t1q4"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-3">
+                    <p>5. My parents have <input id="t1q5" data-answer="gone" class="w-32 text-center"> on vacation. They're in Portugal.</p>
+                    <button class="answer-btn" data-target="t1q5"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-3">
+                    <p>6. Welcome back! Where have you <input id="t1q6" data-answer="been" class="w-32 text-center">?</p>
+                    <button class="answer-btn" data-target="t1q6"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-3">
+                    <p>7. The cat is <input id="t1q7" data-answer="gone" class="w-32 text-center">. I can't find it anywhere.</p>
+                    <button class="answer-btn" data-target="t1q7"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-3">
+                    <p>8. I've <input id="t1q8" data-answer="been" class="w-32 text-center"> to that restaurant. It's great!</p>
+                    <button class="answer-btn" data-target="t1q8"><i class="fas fa-eye"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-black mb-6 text-center text-orange-700">Task 2: Choose the logic</h2>
+            <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-8 border-cyan-500">
+                    <p class="font-bold mb-4">Sua irmã não está no quarto. Você diz ao seu pai:</p>
+                    <button class="choice-btn mb-3" onclick="checkChoice(this, true)">"She has gone to the mall."</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">"She has been to the mall."</button>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-8 border-orange-500">
+                    <p class="font-bold mb-4">Você está contando sobre suas férias do ano passado:</p>
+                    <button class="choice-btn mb-3" onclick="checkChoice(this, true)">"I've been to many museums."</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">"I've gone to many museums."</button>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-8 border-cyan-500">
+                    <p class="font-bold mb-4">O chefe saiu da empresa e só volta amanhã:</p>
+                    <button class="choice-btn mb-3" onclick="checkChoice(this, true)">"The boss has gone home."</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">"The boss has been home."</button>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border-t-8 border-orange-500">
+                    <p class="font-bold mb-4">Você pergunta se alguém já visitou o Cristo Redentor:</p>
+                    <button class="choice-btn mb-3" onclick="checkChoice(this, true)">"Have you ever been there?"</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">"Have you ever gone there?"</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-black mb-6 text-center text-orange-700 uppercase italic">Music: The Absence</h2>
+            <div class="music-card p-10 rounded-[3rem] shadow-2xl max-w-6xl mx-auto flex flex-col lg:flex-row gap-10 border-2 border-white/50">
+                <div class="flex-1 space-y-6">
+                    <div class="flex items-center gap-4 border-b border-black/10 pb-4">
+                        <i class="fas fa-guitar text-5xl text-orange-800"></i>
+                        <div><h3 class="text-2xl font-black">She's Leaving Home</h3><p class="text-orange-900 font-bold">The Beatles</p></div>
+                    </div>
+                    <div class="font-serif italic text-2xl leading-relaxed bg-white/30 p-8 rounded-2xl">
+                        <p>Wednesday morning at five o'clock</p>
+                        <p>As the day begins...</p>
+                        <p>Silently closing her bedroom door</p>
+                        <p>Leaving the note that she hoped would say more</p>
+                        <br>
+                        <p class="font-bold">She (is) <input id="m1" data-answer="gone" class="w-32 border-b border-black"> <button class="answer-btn" data-target="m1"><i class="fas fa-eye"></i></button></p>
+                        <p>After so many years...</p>
+                        <p>She's leaving home, bye, bye</p>
+                    </div>
+                </div>
+                <div class="w-full lg:w-80 flex flex-col gap-4">
+                    <iframe style="border-radius:12px" src="http://googleusercontent.com/spotify.com/3" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <div class="bg-white/50 p-6 rounded-2xl text-base border border-black/10">
+                        <p class="text-orange-800 font-black mb-2 uppercase text-lg">Nota Cultural:</p>
+                        <p class="text-slate-800">
+                            Quando os Beatles cantam <strong>"She is gone"</strong>, eles indicam uma partida permanente. Ela não está mais na casa; ela foi embora.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <div class="bg-white p-16 rounded-[3rem] shadow-2xl border-t-[16px] border-cyan-600 max-w-4xl">
+                    <i class="fas fa-suitcase-rolling text-cyan-600 text-8xl mb-8"></i>
+                    <h2 class="text-6xl font-black mb-10 text-gray-800">Perfect Trip!</h2>
+                    <p class="text-3xl text-gray-600 mb-12">Você concluiu o módulo de Present Perfect com sucesso!</p>
+                    <div class="p-10 bg-cyan-50 rounded-3xl border-2 border-cyan-100 italic">
+                        <p class="text-4xl font-serif text-cyan-900 mb-6">"You <strong>will</strong> never be the same once you have <strong>been</strong> to a place that opens your mind."</p>
+                        <p class="text-2xl text-cyan-600 font-black">— Your Passport to English</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t p-6 z-20">
+        <div class="container mx-auto flex justify-between items-center px-10">
+            <button id="prev-btn" class="px-10 py-4 bg-gray-200 rounded-2xl font-black hover:bg-gray-300 disabled:opacity-50">PREVIOUS</button>
+            <button id="next-btn" class="px-12 py-4 bg-orange-600 text-white rounded-2xl font-black hover:bg-orange-700 shadow-lg">NEXT</button>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            let currentSlide = 0;
+
+            function updateView() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+                document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.innerText = currentSlide === slides.length - 1 ? 'FINISH' : 'NEXT';
+            }
+
+            prevBtn.onclick = () => { if(currentSlide > 0) currentSlide--; updateView(); };
+            nextBtn.onclick = () => { if(currentSlide < slides.length - 1) { currentSlide++; updateView(); } };
+
+            function checkAnswer(input) {
+                const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
+                input.classList.toggle('correct', isCorrect);
+                input.classList.toggle('incorrect', !isCorrect);
+            }
+
+            document.querySelectorAll('input[data-answer]').forEach(input => {
+                input.onblur = () => checkAnswer(input);
+            });
+
+            window.checkChoice = (btn, isCorrect) => {
+                const parent = btn.parentElement;
+                parent.querySelectorAll('.choice-btn').forEach(b => {
+                    b.classList.remove('selected-correct', 'selected-incorrect');
+                });
+                btn.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+            };
+
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const input = document.getElementById(btn.dataset.target);
+                    if(input) { input.value = input.dataset.answer; checkAnswer(input); }
+                };
+            });
+
+            updateView();
+        });
+    </script>
+</body>
+</html>
