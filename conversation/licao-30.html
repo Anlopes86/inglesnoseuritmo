@@ -26,9 +26,11 @@
         .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #10b981; text-align: center; color: #34d399; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
         .drop-zone.hover { border-color: #34d399; background-color: rgba(16, 185, 129, 0.1); }
         .drop-zone.filled { border-bottom-style: solid; }
-        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
+        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; cursor: pointer; }
         .answer-btn:hover { color: #10b981; }
-        .spotify-card { background: #181818; border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 12px; border: 1px solid #282828; margin-bottom: 1rem; }
+        .spotify-container { border-radius: 12px; overflow: hidden; margin-bottom: 1rem; }
+        input[type="text"] { border-bottom: 2px solid #4b5563; outline: none; transition: border-color 0.3s; text-align: center; background: transparent; }
+        input[type="text"]:focus { border-color: #10b981; }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -36,21 +38,22 @@
     <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="conversation.html" class="text-lg font-bold text-emerald-500 hover:text-emerald-400 flex items-center gap-2">
-                <i class="fas fa-chevron-left"></i> Back to Topics
+                <i class="fas fa-chevron-left"></i> Painel
             </a>
             <h1 class="text-xl font-semibold text-center">Lesson 30: Fashion & Personal Style</h1>
-            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 12</div>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 13</div>
         </div>
         <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-emerald-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
     <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
 
+        <!-- Slide 1: Warm-up -->
         <div class="slide active">
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-tshirt"></i> Warm-up: Style Talk</h2>
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-3xl mx-auto space-y-6 text-2xl">
-                    <p class="font-semibold text-gray-300">How do you express yourself?</p>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-3xl mx-auto space-y-6 text-2xl text-left">
+                    <p class="font-semibold text-gray-300 text-center">How do you express yourself?</p>
                     <p><i class="fas fa-question-circle mr-2 text-emerald-500"></i> How would you describe your personal style in three words?</p>
                     <p><i class="fas fa-shopping-bag mr-2 text-emerald-500"></i> Do you follow fashion trends or do you prefer "classic" looks?</p>
                     <p><i class="fas fa-comments mr-2 text-emerald-500"></i> Does the way someone dresses change your first impression of them?</p>
@@ -59,6 +62,7 @@
             </div>
         </div>
 
+        <!-- Slide 2: Vocabulary -->
         <div class="slide">
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-book"></i> Fashion Vocabulary</h2>
@@ -73,18 +77,17 @@
             </div>
         </div>
 
+        <!-- Slide 3: 7 rings Lyrics -->
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-emerald-500"><i class="fas fa-music text-pink-500"></i> Music Time: 7 rings (Ariana Grande)</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <div class="spotify-card">
-                    <i class="fab fa-spotify text-[#1DB954] text-3xl"></i>
-                    <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="w-1/2 h-full bg-[#1DB954]"></div></div>
-                    <span class="text-xs text-gray-400">02:58</span>
+                <div class="spotify-container">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6ocbgoVGwYJhO1vR9gy8Cb?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
                 <div class="mb-4 bg-emerald-900/30 p-4 rounded-lg border border-emerald-500/30">
                     <p class="text-sm italic">This song is an anthem for <b>luxury</b> and buying whatever you want to express your status and mood.</p>
                 </div>
-                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-emerald-500">
+                <div class="mt-4 lyrics-box pr-4 text-left"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-emerald-500">
                     <p>Breakfast at Tiffany's and bottles of bubbles</p>
                     <p>Girls with tattoos who like getting in trouble</p>
                     <p>Lashes and diamonds, ATM machines</p>
@@ -98,10 +101,11 @@
             </div>
         </div>
 
+        <!-- Slide 4: Luxury vs. Identity Discussion -->
         <div class="slide">
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-gem"></i> Luxury vs. Identity</h2>
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl text-left">
                     <p>Ariana Grande sings about buying items as a form of "retail therapy". Do you think <b>shopping</b> can actually improve someone's mood?</p>
                     <p>Is "brand loyalty" a real thing for you, or do you buy whatever looks good regardless of the <b>label</b>?</p>
                     <p>In your culture, is wearing expensive clothes a sign of <b>success</b> or just a hobby?</p>
@@ -109,13 +113,12 @@
             </div>
         </div>
 
+        <!-- Slide 5: Thrift Shop Lyrics -->
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-emerald-500"><i class="fas fa-music text-purple-400"></i> Music Time: Thrift Shop (Macklemore)</h2>
-            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <div class="spotify-card">
-                    <i class="fab fa-spotify text-[#1DB954] text-3xl"></i>
-                    <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="w-1/3 h-full bg-[#1DB954]"></div></div>
-                    <span class="text-xs text-gray-400">03:52</span>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto text-left">
+                <div class="spotify-container">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/106886e8790040f9?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
                 <div class="mb-4 bg-purple-900/30 p-4 rounded-lg border border-purple-500/30">
                     <p class="text-sm italic">This song celebrates finding unique style through <b>thrifting</b> instead of spending thousands on designer brands.</p>
@@ -131,10 +134,11 @@
             </div>
         </div>
 
+        <!-- Slide 6: Sustainable Fashion Discussion -->
         <div class="slide">
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-recycle"></i> Sustainable Fashion</h2>
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl text-left">
                     <p>The "Thrift Shop" approach is better for the planet. Do you ever buy <b>second-hand</b> clothes?</p>
                     <p>What do you think of "Fast Fashion" (brands like Shein or Zara)? Is it <b>ethical</b> to buy cheap clothes that don't last?</p>
                     <p>How many years do you usually keep an item of <b>clothing</b> before getting rid of it?</p>
@@ -142,45 +146,57 @@
             </div>
         </div>
 
+        <!-- Slide 7: Psychology of Color -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-emerald-500"><i class="fas fa-music text-blue-400"></i> Music Time: Blue Jeans (Lana Del Rey)</h2>
-            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <div class="spotify-card">
-                    <i class="fab fa-spotify text-[#1DB954] text-3xl"></i>
-                    <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="w-2/3 h-full bg-[#1DB954]"></div></div>
-                    <span class="text-xs text-gray-400">03:30</span>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-palette"></i> The Psychology of Color</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto text-left">
+                    <p class="text-xl mb-6">The colors we wear can influence our mood and how others perceive us. Let's discuss:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-red-900/30 rounded-lg border-l-4 border-red-500">
+                            <h4 class="font-bold text-red-400">Red</h4>
+                            <p>Energy, passion, power. How do you feel when wearing red?</p>
+                        </div>
+                        <div class="p-4 bg-blue-900/30 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="font-bold text-blue-400">Blue</h4>
+                            <p>Trust, calm, professional. Is this your "go-to" color for work?</p>
+                        </div>
+                        <div class="p-4 bg-yellow-900/30 rounded-lg border-l-4 border-yellow-500">
+                            <h4 class="font-bold text-yellow-400">Yellow</h4>
+                            <p>Happiness, optimism, attention. Would you wear a full yellow outfit?</p>
+                        </div>
+                        <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-gray-400">
+                            <h4 class="font-bold text-gray-300">Black</h4>
+                            <p>Elegance, mystery, authority. Is black the most versatile color?</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-4 bg-blue-900/30 p-4 rounded-lg border border-blue-500/30">
-                    <p class="text-sm italic">Lana Del Rey uses <b>iconic fashion</b> imagery (blue jeans, white shirts) to create a nostalgic, cinematic mood.</p>
-                </div>
-                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-blue-500">
-                    <p>Blue jeans, white shirt</p>
-                    <p>Walked into the room you know you made my eyes burn</p>
-                    <p>It was like James Dean, for sure</p>
-                    <hr class="border-gray-600 my-4">
-                    <p>You're so fresh to <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="death"><i class="fas fa-eye"></i></button> and sick as a dog</p>
-                    <p>You were <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="looking"><i class="fas fa-eye"></i></button> for me</p>
-                </div></div>
             </div>
         </div>
 
+        <!-- Slide 8: Scenarios -->
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-star"></i> Timeless Style</h2>
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                    <p>Lana Del Rey often references "Blue Jeans and White Shirts". Do you have a <b>go-to</b> outfit that never fails you?</p>
-                    <p>Who is your <b>style icon</b>? Is there a celebrity or a person in your life whose fashion you admire?</p>
-                    <p>Do you agree that "simple is better" when it comes to clothes, or do you prefer <b>extravagant</b> pieces?</p>
-                    <p>What fashion <b>trend</b> from the past do you wish would come back (or stay away forever)?</p>
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-theater-masks"></i> Style Scenarios</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-xl text-left">
+                    <div class="p-6 bg-gray-700 rounded-xl border-l-4 border-emerald-500">
+                        <h4 class="font-bold mb-2 text-emerald-400">The Job Interview</h4>
+                        <p>You are applying for a creative role in a fashion magazine. What do you wear to stand out without being unprofessional?</p>
+                    </div>
+                    <div class="p-6 bg-gray-700 rounded-xl border-l-4 border-emerald-500">
+                        <h4 class="font-bold mb-2 text-emerald-400">The Dress Code</h4>
+                        <p>You are invited to a "Black Tie" event, but you only own casual clothes. Do you buy a new suit/dress, rent one, or try to go casual?</p>
+                    </div>
                 </div>
             </div>
         </div>
-        
+
+        <!-- Slide 9: Practice -->
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-brain"></i> Practice: Describing Style</h2>
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-tasks"></i> Vocabulary Match</h2>
                 <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-2xl mb-8 text-gray-300">Drag the correct fashion term to the sentence:</p>
+                    <p class="text-2xl mb-8 text-gray-300">Drag the correct term to the scenario:</p>
                     <div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div>
                     <div id="matching-activity" class="space-y-8 text-left"></div>
                     <button id="check-answers-btn" class="mt-12 bg-emerald-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-emerald-700 shadow-lg">Check Answers</button>
@@ -188,55 +204,74 @@
             </div>
         </div>
 
+        <!-- Slide 10: Quotes -->
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-user-tie"></i> The Dress Code Debate</h2>
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto text-left">
-                    <p class="text-xl mb-4 text-emerald-400 font-bold">Fashion at work:</p>
-                    <p class="text-2xl mb-6">Many companies are moving away from suits to "Business Casual". What do you think about dress codes at work?</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                        <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-emerald-500 italic">"I like dress codes; they make everyone look professional and equal."</div>
-                        <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-yellow-500 italic">"I hate them; they limit my self-expression and are often uncomfortable."</div>
-                    </div>
+                <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-quote-left"></i> Wise Words</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-3xl mx-auto space-y-8 text-2xl italic text-left">
+                    <p>"Fashion fades, only style remains the same." – Coco Chanel</p>
+                    <p>"Style is a way to say who you are without having to speak." – Rachel Zoe</p>
+                    <p>"Buy less, choose well, make it last." – Vivienne Westwood</p>
                 </div>
             </div>
         </div>
 
+        <!-- Slide 11: Homework -->
         <div class="slide">
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-emerald-500"><i class="fas fa-home"></i> Homework</h2>
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-300">Describe your <b>favorite outfit</b> and explain why it makes you feel confident.</p>
-                    <div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg">
-                        <p><strong>Example:</strong> "My favorite outfit is a <b>tailored</b> blazer with <b>vintage</b> jeans. It's a mix of classic and modern, and it feels very <b>sustainable</b> because I've had them for years."</p>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto text-left">
+                    <p class="text-2xl mb-6 text-gray-300">Choose one task for next class:</p>
+                    <div class="text-left text-xl space-y-4 mt-4 bg-gray-700 p-6 rounded-lg">
+                        <p><strong>1. Style Diary:</strong> Take a photo of your favorite outfit and explain why you like it.</p>
+                        <p><strong>2. Fashion Icon:</strong> Research a person whose style you admire and prepare to describe it.</p>
+                        <p><strong>3. Sustainable Challenge:</strong> Find a sustainable fashion brand and tell us what makes them different.</p>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Slide 12: Completion -->
         <div class="slide">
              <div class="text-center flex flex-col items-center justify-center h-full">
-                 <i class="fas fa-star text-emerald-500 text-7xl mb-6"></i>
+                 <i class="fas fa-check-circle text-emerald-500 text-7xl mb-6"></i>
                  <h2 class="text-5xl font-bold mb-4 text-gray-100">Lesson Completed!</h2>
-                 <p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">
-                    "Fashion fades, only style remains the same." - Coco Chanel
+                 <p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4 text-center">
+                    "Style is a way to say who you are without having to speak."
                  </p>
+                 <div class="pt-8">
+                    <button id="finish-lesson-btn-main" class="bg-emerald-600 hover:bg-emerald-500 text-white text-2xl font-bold py-4 px-12 rounded-full transition-all transform hover:scale-105 shadow-lg">
+                        Finalizar e Sair <i class="fas fa-check-circle ml-2"></i>
+                    </button>
+                </div>
              </div>
         </div>
+
+        <div id="custom-alert-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center transition-opacity duration-300"></div>
     </main>
 
     <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
         <div class="container mx-auto px-8 h-20 flex justify-between items-center">
             <button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
             <button id="next-btn" class="bg-emerald-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-emerald-700">Próximo</button>
-            <button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finalizar Aula</button>
         </div>
     </footer>
     
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'conversation';
+            const lessonNumber = 30;
+
             const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn-main');
             const progressBar = document.getElementById('progress-bar');
             const slideCounter = document.getElementById('slide-counter');
             let currentSlide = 0;
@@ -247,13 +282,29 @@
                 if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
                 if (slideCounter) slideCounter.innerText = `${index + 1} / ${slides.length}`;
                 if (prevBtn) prevBtn.disabled = index === 0;
+                
                 const isLastSlide = index === slides.length - 1;
-                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
-                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+                if (nextBtn) nextBtn.style.display = isLastSlide ? 'none' : 'block';
             }
 
             if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } };
             if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } };
+
+            // Lógica do botão finalizar
+            if (finishLessonBtn) {
+                finishLessonBtn.onclick = () => {
+                    finishLessonBtn.disabled = true;
+                    finishLessonBtn.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>';
+                    
+                    if (typeof markLessonAsComplete === 'function') {
+                        markLessonAsComplete(moduleId, lessonNumber);
+                    } else {
+                        console.error("Função markLessonAsComplete não encontrada.");
+                        localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true');
+                        window.location.href = 'conversation.html';
+                    }
+                };
+            }
 
             document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
             
@@ -262,7 +313,8 @@
                     const inputField = button.previousElementSibling;
                     if (inputField) {
                         inputField.value = button.dataset.answer;
-                        inputField.classList.add('text-emerald-400', 'font-bold');
+                        inputField.style.color = '#10b981';
+                        inputField.style.fontWeight = 'bold';
                     }
                 });
             });
