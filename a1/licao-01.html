@@ -12,268 +12,524 @@
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+
+        /* --- FLASHCARDS --- */
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 160px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
-        .flashcard-front { background-color: white; color: #1d4ed8; text-align: center;}
-        .flashcard-back { background-color: #1d4ed8; color: white; transform: rotateY(180deg); }
-        .flashcard-back p { font-size: 1.1rem; }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
+        .flashcard-front { background-color: white; color: #1d4ed8; text-align: center; }
+        .flashcard-back { background-color: #1d4ed8; color: white; transform: rotateY(180deg); text-align: center; }
+        .flashcard.reviewed .flashcard-front { border-color: #22c55e; background-color: #f0fdf4; }
+        .flashcard.reviewed .flashcard-front h4 { color: #16a34a; }
+
+        /* --- SPEAK BUTTON --- */
+        .speak-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: #eff6ff; border: 1.5px solid #bfdbfe;
+            color: #1d4ed8; padding: 4px 12px; border-radius: 20px;
+            font-size: 0.85rem; font-weight: 600; cursor: pointer;
+            transition: all 0.2s; margin-left: 8px;
+        }
+        .speak-btn:hover { background: #dbeafe; transform: scale(1.05); }
+        .speak-btn.speaking { background: #1d4ed8; color: white; }
+
+        /* --- MUSIC ACTIVITY --- */
+        .lyric-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; text-align: center; font-size: 1.1rem; padding: 2px 4px; width: 6rem; outline: none; transition: border-color 0.2s; }
+        .lyric-input:focus { border-color: #3b82f6; }
+        .lyric-input.correct { border-color: #22c55e; color: #16a34a; font-weight: 600; }
+        .lyric-input.incorrect { border-color: #ef4444; color: #dc2626; }
+        .lyric-input.revealed { border-color: #f59e0b; color: #d97706; font-weight: 600; background: #fef9c3; }
+
+        /* --- PRACTICE --- */
+        .practice-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; text-align: center; font-size: 1.25rem; padding: 2px 8px; width: 8rem; outline: none; transition: border-color 0.2s; }
+        .practice-input:focus { border-color: #3b82f6; }
+        .practice-input.correct { border-color: #22c55e; color: #16a34a; font-weight: 700; }
+        .practice-input.incorrect { border-color: #ef4444; color: #dc2626; }
+
+        /* --- SLIDE LABEL --- */
+        .slide-label { display: inline-flex; align-items: center; gap: 6px; background: #f3f4f6; border-radius: 20px; padding: 4px 14px; font-size: 0.8rem; font-weight: 600; color: #6b7280; margin-bottom: 1rem; }
+
+        /* --- ANSWER BTN (legacy music) --- */
         .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
         .answer-btn:hover { color: #4f46e5; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-    <header class="bg-white shadow-sm sticky top-0 z-10 h-16">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="a1.html" class="text-lg font-bold text-blue-600 hover:text-blue-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
-            <h1 class="text-xl font-semibold">A1 - Lesson 1: Hello, World!</h1>
-            <div class="w-40"></div>
+    <!-- HEADER -->
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+            <a href="a1.html" class="text-lg font-bold text-blue-600 hover:text-blue-800 flex items-center gap-2">
+                <i class="fas fa-chevron-left"></i> Voltar para A1
+            </a>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-gray-800">A1 - Lesson 1: Hello, World!</h1>
+                <p id="slide-title-header" class="text-xs text-gray-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">1 / 7</div>
         </div>
-        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-300"></div></div>
+        <div class="w-full bg-gray-200 h-1.5">
+            <div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-500"></div>
+        </div>
     </header>
 
-    <main class="container mx-auto p-8 pb-24">
-        
-        <div class="slide active">
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+
+        <!-- SLIDE 1: Warm-up -->
+        <div class="slide active" data-title="Warm-up: Diálogo">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-4"><i class="fas fa-hand-sparkles text-yellow-500"></i>Warm-up: Diálogo</h2>
+                <div class="slide-label"><i class="fas fa-mug-hot"></i> Warm-up</div>
+                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-4">
+                    <i class="fas fa-hand-sparkles text-yellow-500"></i>Warm-up: Diálogo
+                </h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto text-left">
-                    <p class="text-2xl mb-6 text-gray-600">Vamos começar com uma conversa!</p>
-                    <div class="space-y-4 text-2xl">
-                        <div class="flex items-start gap-4"><p class="font-bold text-blue-600">Professor:</p><p>Hello! I am your teacher. What's your name?</p></div>
-                        <div class="flex items-start gap-4"><p class="font-bold text-orange-600">Aluno:</p><p>Hi! My name is [seu nome].</p></div>
-                        <div class="flex items-start gap-4"><p class="font-bold text-blue-600">Professor:</p><p>Nice to meet you, [seu nome]!</p></div>
-                        <div class="flex items-start gap-4"><p class="font-bold text-orange-600">Aluno:</p><p>Nice to meet you, too!</p></div>
+                    <p class="text-xl mb-6 text-gray-500">Vamos começar com uma conversa! Clique em 🔊 para ouvir cada frase.</p>
+                    <div class="space-y-5 text-xl">
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <p class="font-bold text-blue-600 w-24">Professor:</p>
+                            <p>Hello! I am your teacher. What's your name?</p>
+                            <button class="speak-btn" onclick="speak('Hello! I am your teacher. What is your name?')"><i class="fas fa-volume-up"></i> Ouvir</button>
+                        </div>
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <p class="font-bold text-orange-600 w-24">Aluno:</p>
+                            <p>Hi! My name is [seu nome].</p>
+                            <button class="speak-btn" onclick="speak('Hi! My name is...')"><i class="fas fa-volume-up"></i> Ouvir</button>
+                        </div>
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <p class="font-bold text-blue-600 w-24">Professor:</p>
+                            <p>Nice to meet you!</p>
+                            <button class="speak-btn" onclick="speak('Nice to meet you!')"><i class="fas fa-volume-up"></i> Ouvir</button>
+                        </div>
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <p class="font-bold text-orange-600 w-24">Aluno:</p>
+                            <p>Nice to meet you, too!</p>
+                            <button class="speak-btn" onclick="speak('Nice to meet you too!')"><i class="fas fa-volume-up"></i> Ouvir</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <!-- SLIDE 2: Flashcards -->
+        <div class="slide" data-title="Expressões Úteis">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-4"><i class="fas fa-hand-paper text-blue-500"></i>Expressões Úteis</h2>
-                <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Clique nos cartões para virar e ver a tradução.</p>
-                <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">Hello / Hi</h4></div><div class="flashcard-back"><p>Olá / Oi</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">What's your name?</h4></div><div class="flashcard-back"><p>Qual é o seu nome?</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">How are you?</h4></div><div class="flashcard-back"><p>Como você está?</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">Nice to meet you</h4></div><div class="flashcard-back"><p>Prazer em conhecer você</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">Good morning</h4></div><div class="flashcard-back"><p>Bom dia</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">Good afternoon</h4></div><div class="flashcard-back"><p>Boa tarde</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">Good evening</h4></div><div class="flashcard-back"><p>Boa noite (chegada)</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">Good night</h4></div><div class="flashcard-back"><p>Boa noite (despedida)</p></div></div></div>
+                <div class="slide-label"><i class="fas fa-layer-group"></i> Vocabulário</div>
+                <h2 class="text-4xl font-bold mb-4 text-green-700 flex items-center justify-center gap-4">
+                    <i class="fas fa-hand-paper text-blue-500"></i>Expressões Úteis
+                </h2>
+
+                <!-- Flashcard controls -->
+                <div class="flex items-center justify-center gap-4 mb-6">
+                    <p class="text-gray-500 text-lg">Clique para virar. Ouça a pronúncia.</p>
+                    <button onclick="shuffleFlashcards()" class="speak-btn text-sm"><i class="fas fa-random"></i> Embaralhar</button>
+                    <span id="flashcard-progress" class="text-sm font-semibold text-green-600 bg-green-50 px-3 py-1 rounded-full">0 de 8 revisados</span>
                 </div>
-                 <div class="mt-8 bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 max-w-4xl mx-auto text-left rounded-r-lg">
-                      <p><strong class="font-bold">Cultural Tip:</strong> "Good evening" é usado para cumprimentar alguém à noite. "Good night" é usado apenas para se despedir.</p>
-                 </div>
+
+                <div id="flashcard-grid" class="flashcard-grid max-w-5xl mx-auto">
+                    <!-- Cards rendered by JS -->
+                </div>
+
+                <div class="mt-6 bg-blue-50 border-l-4 border-blue-500 text-blue-700 p-4 max-w-4xl mx-auto text-left rounded-r-lg">
+                    <p><strong>Cultural Tip:</strong> "Good evening" é usado para cumprimentar alguém à noite. "Good night" é usado apenas para se despedir.</p>
+                </div>
             </div>
         </div>
 
-        <div class="slide">
+        <!-- SLIDE 3: Grammar -->
+        <div class="slide" data-title="Grammar: Verb To Be">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-4"><i class="fas fa-book-open text-purple-500"></i>Grammar: Verb "To be"</h2>
+                <div class="slide-label"><i class="fas fa-book-open"></i> Gramática</div>
+                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-4">
+                    <i class="fas fa-book-open text-purple-500"></i>Grammar: Verb "To be"
+                </h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">O verbo "to be" significa "ser" ou "estar". Vamos focar em <strong class="text-blue-600">I am</strong> e <strong class="text-orange-600">You are</strong>.</p>
-                    <table class="w-full text-left text-xl border-collapse">
-                        <thead><tr class="bg-gray-100"><th class="p-4 border">Pronoun</th><th class="p-4 border">Affirmative (+)</th><th class="p-4 border">Negative (-)</th><th class="p-4 border">Interrogative (?)</th></tr></thead>
+                    <p class="text-xl mb-6 text-gray-600">O verbo "to be" significa "ser" ou "estar". Vamos focar em <strong class="text-blue-600">I am</strong> e <strong class="text-orange-600">You are</strong>.</p>
+                    <table class="w-full text-left text-lg border-collapse">
+                        <thead><tr class="bg-gray-100">
+                            <th class="p-4 border">Pronoun</th>
+                            <th class="p-4 border">Affirmative (+)</th>
+                            <th class="p-4 border">Negative (-)</th>
+                            <th class="p-4 border">Interrogative (?)</th>
+                        </tr></thead>
                         <tbody>
-                            <tr class="border-t"><td class="p-4 border font-bold text-blue-600">I</td><td class="p-4 border">I am (I'm)</td><td class="p-4 border">I am not (I'm not)</td><td class="p-4 border">Am I?</td></tr>
-                            <tr class="border-t bg-gray-50"><td class="p-4 border font-bold text-orange-600">You</td><td class="p-4 border">You are (You're)</td><td class="p-4 border">You are not (You aren't)</td><td class="p-4 border">Are you?</td></tr>
+                            <tr class="border-t">
+                                <td class="p-4 border font-bold text-blue-600">I</td>
+                                <td class="p-4 border">I am (I'm) <button class="speak-btn" onclick="speak('I am')"><i class="fas fa-volume-up"></i></button></td>
+                                <td class="p-4 border">I am not (I'm not) <button class="speak-btn" onclick="speak('I am not')"><i class="fas fa-volume-up"></i></button></td>
+                                <td class="p-4 border">Am I? <button class="speak-btn" onclick="speak('Am I?')"><i class="fas fa-volume-up"></i></button></td>
+                            </tr>
+                            <tr class="border-t bg-gray-50">
+                                <td class="p-4 border font-bold text-orange-600">You</td>
+                                <td class="p-4 border">You are (You're) <button class="speak-btn" onclick="speak('You are')"><i class="fas fa-volume-up"></i></button></td>
+                                <td class="p-4 border">You are not (You aren't) <button class="speak-btn" onclick="speak('You are not')"><i class="fas fa-volume-up"></i></button></td>
+                                <td class="p-4 border">Are you? <button class="speak-btn" onclick="speak('Are you?')"><i class="fas fa-volume-up"></i></button></td>
+                            </tr>
                         </tbody>
                     </table>
-                    <div class="mt-6 bg-purple-100 border-l-4 border-purple-500 text-purple-800 p-4 text-left rounded-r-lg">
+                    <div class="mt-6 bg-purple-50 border-l-4 border-purple-500 text-purple-800 p-4 text-left rounded-r-lg">
                         <h4 class="font-bold text-xl mb-2">Explicação:</h4>
-                        <p>• Use <strong class="font-semibold">am</strong> apenas com <strong class="font-semibold">I</strong>. <br>• Use <strong class="font-semibold">are</strong> com <strong class="font-semibold">You</strong>.<br>• As formas entre parênteses `(I'm, You're, aren't)` são as **contrações (contractions)**. Elas são muito comuns na fala para juntar duas palavras e soar mais natural.</p>
+                        <p>• Use <strong>am</strong> apenas com <strong>I</strong>.</p>
+                        <p>• Use <strong>are</strong> com <strong>You</strong>.</p>
+                        <p class="mt-1">• As contrações (I'm, You're, aren't) são muito comuns na fala — soam mais natural.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <!-- SLIDE 4: Practice -->
+        <div class="slide" data-title="Let's Practice!">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-4"><i class="fas fa-pencil-alt text-orange-500"></i>Let's Practice!</h2>
+                <div class="slide-label"><i class="fas fa-pencil-alt"></i> Prática</div>
+                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-4">
+                    <i class="fas fa-pencil-alt text-orange-500"></i>Let's Practice!
+                </h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-2xl mb-8 text-gray-600">Complete as frases com a forma correta do verbo "to be".</p>
-                    <div id="practice-container" class="space-y-6 text-2xl"></div>
+                    <p class="text-xl mb-8 text-gray-600">Complete as frases com a forma correta do verbo "to be".</p>
+                    <div id="practice-container" class="space-y-6 text-xl"></div>
+                    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <button id="check-answers-btn" onclick="checkAllAnswers()" class="bg-green-600 text-white font-bold py-3 px-10 rounded-xl hover:bg-green-700 transition text-lg">
+                            <i class="fas fa-check-circle mr-2"></i>Verificar Respostas
+                        </button>
+                        <button onclick="resetPractice()" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-xl hover:bg-gray-300 transition text-lg">
+                            <i class="fas fa-redo mr-2"></i>Recomeçar
+                        </button>
+                    </div>
+                    <div id="practice-score" class="hidden mt-6 text-xl font-bold p-4 rounded-xl"></div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-700 flex items-center justify-center gap-4"><i class="fas fa-music text-red-500"></i>Music Time: Hello, Goodbye</h2>
-            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0vZ97gHhemKm6c64hTfJNA?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                    <p class="text-2xl mb-4 text-gray-600">Ouça a música e complete a letra.</p>
-                    <div class="text-xl space-y-3 bg-gray-50 p-6 rounded-lg border-l-4 border-green-500">
-                        <p>You say yes, I say <input type="text" class="w-24 border-b-2 text-center bg-transparent" data-answer="no"><button class="answer-btn" data-answer="no"><i class="fas fa-eye"></i></button></p>
-                        <p>You say stop and I say <input type="text" class="w-24 border-b-2 text-center bg-transparent" data-answer="go"><button class="answer-btn" data-answer="go"><i class="fas fa-eye"></i></button>, go, go</p>
-                        <p>Oh no</p>
-                        <p>You say goodbye and I say <input type="text" class="w-24 border-b-2 text-center bg-transparent" data-answer="hello"><button class="answer-btn" data-answer="hello"><i class="fas fa-eye"></i></button></p>
-                        <p>Hello, hello</p>
-                        <p>I don't know why you say <input type="text" class="w-24 border-b-2 text-center bg-transparent" data-answer="goodbye"><button class="answer-btn" data-answer="goodbye"><i class="fas fa-eye"></i></button>, I say <input type="text" class="w-24 border-b-2 text-center bg-transparent" data-answer="hello"><button class="answer-btn" data-answer="hello"><i class="fas fa-eye"></i></button></p>
-                        <p>Hello, hello</p>
-                        <p>I don't know why you say goodbye, I say hello</p>
-                        <p>I say high, you say low</p>
-                        <p>You say why, and I say I don't know</p>
-                        <p>Oh no</p>
-                        <p>You say goodbye and I say hello</p>
-                        <p>(Hello, goodbye, hello, goodbye) Hello, hello</p>
-                        <p>(Hello, goodbye) I don't know why you say goodbye, I say hello</p>
-                        <p>(Hello, goodbye, hello, goodbye) Hello, hello</p>
-                        <p>(Hello, goodbye) I don't know why you say goodbye</p>
-                        <p>(Hello, goodbye) I say hello</p>
+        <!-- SLIDE 5: Music -->
+        <div class="slide" data-title="Music Time">
+            <div>
+                <div class="text-center mb-4">
+                    <div class="slide-label"><i class="fas fa-music"></i> Música</div>
+                </div>
+                <h2 class="text-4xl font-bold mb-4 text-center text-green-700 flex items-center justify-center gap-4">
+                    <i class="fas fa-music text-red-500"></i>Music Time: Hello, Goodbye
+                </h2>
+                <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0vZ97gHhemKm6c64hTfJNA?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <p class="text-lg mb-4 text-gray-600 mt-4">Ouça a música, complete a letra. Se errar, você pode revelar a resposta.</p>
+                    <div id="lyrics-container" class="text-xl space-y-3 bg-gray-50 p-6 rounded-lg border-l-4 border-green-500"></div>
+                    <div class="mt-6 flex flex-col sm:flex-row items-center gap-4">
+                        <button onclick="checkLyrics()" class="bg-green-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-green-700 transition">
+                            <i class="fas fa-check mr-2"></i>Verificar
+                        </button>
+                        <button onclick="revealAllLyrics()" class="bg-amber-500 text-white font-bold py-3 px-8 rounded-xl hover:bg-amber-600 transition">
+                            <i class="fas fa-eye mr-2"></i>Revelar Todas
+                        </button>
+                        <div id="lyrics-score" class="text-lg font-bold text-gray-700"></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-             <div class="text-center">
-                 <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-4"><i class="fas fa-home text-blue-500"></i>Homework</h2>
-                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                     <p class="text-2xl mb-6 text-gray-600">Escreva 3 frases sobre você e 3 frases para um amigo, usando as formas afirmativa, negativa e interrogativa.</p>
-                     <div class="grid md:grid-cols-2 gap-6 text-left text-xl mt-4">
-                         <div class="bg-gray-50 p-4 rounded-lg"><p class="font-bold">Exemplos com "I":</p><p>(+) I am a student.</p><p>(-) I am not a doctor.</p><p>(?) Am I late?</p></div>
-                         <div class="bg-gray-50 p-4 rounded-lg"><p class="font-bold">Exemplos com "You":</p><p>(+) You are my friend.</p><p>(-) You are not from Canada.</p><p>(?) Are you tired?</p></div>
-                     </div>
-                 </div>
-             </div>
+        <!-- SLIDE 6: Homework -->
+        <div class="slide" data-title="Homework">
+            <div class="text-center">
+                <div class="slide-label"><i class="fas fa-home"></i> Tarefa</div>
+                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-4">
+                    <i class="fas fa-home text-blue-500"></i>Homework
+                </h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-xl mb-6 text-gray-600">Escreva 3 frases sobre você e 3 frases para um amigo, usando as formas afirmativa, negativa e interrogativa.</p>
+                    <div class="grid md:grid-cols-2 gap-6 text-left text-lg mt-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <p class="font-bold mb-2">Exemplos com "I":</p>
+                            <p>(+) I am a student. <button class="speak-btn" onclick="speak('I am a student.')"><i class="fas fa-volume-up"></i></button></p>
+                            <p>(-) I am not a doctor. <button class="speak-btn" onclick="speak('I am not a doctor.')"><i class="fas fa-volume-up"></i></button></p>
+                            <p>(?) Am I late? <button class="speak-btn" onclick="speak('Am I late?')"><i class="fas fa-volume-up"></i></button></p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <p class="font-bold mb-2">Exemplos com "You":</p>
+                            <p>(+) You are my friend. <button class="speak-btn" onclick="speak('You are my friend.')"><i class="fas fa-volume-up"></i></button></p>
+                            <p>(-) You are not from Canada. <button class="speak-btn" onclick="speak('You are not from Canada.')"><i class="fas fa-volume-up"></i></button></p>
+                            <p>(?) Are you tired? <button class="speak-btn" onclick="speak('Are you tired?')"><i class="fas fa-volume-up"></i></button></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="slide">
-             <div class="text-center flex flex-col items-center justify-center h-full pt-16">
-                 <i class="fas fa-flag-checkered text-green-500 text-7xl mb-6"></i>
-                 <h2 class="text-5xl font-bold mb-4 text-gray-800">First Step Taken!</h2>
-                 <p class="text-3xl text-gray-600">Every big journey starts with a single 'hello'. Congratulations!</p>
-             </div>
+        <!-- SLIDE 7: Finish -->
+        <div class="slide" data-title="Parabéns!">
+            <div class="text-center flex flex-col items-center justify-center h-full pt-16">
+                <i class="fas fa-flag-checkered text-green-500 text-7xl mb-6"></i>
+                <h2 class="text-5xl font-bold mb-4 text-gray-800">First Step Taken!</h2>
+                <p class="text-3xl text-gray-600">Every big journey starts with a single 'hello'. Congratulations!</p>
+            </div>
         </div>
+
     </main>
 
+    <!-- FOOTER NAV -->
     <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20 h-16">
-        <div class="container mx-auto px-8 h-full flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg disabled:opacity-50 transition">Anterior</button>
-            <button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-50 transition">Próximo</button>
-            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-50 transition">Finalizar Aula</button>
+        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">
+                <i class="fas fa-chevron-left mr-1"></i> Anterior
+            </button>
+            <button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">
+                Próximo <i class="fas fa-chevron-right ml-1"></i>
+            </button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">
+                <i class="fas fa-check mr-2"></i>Finalizar Aula
+            </button>
         </div>
     </footer>
 
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    
     <script src="../js/firebase-config.js"></script>
     <script src="../js/progress-manager.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- CONFIGURAÇÃO DA LIÇÃO ---
-            const moduleId = 'a1';
-            const lessonNumber = 1;
-            // ---------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
 
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            if (finishLessonBtn) {
-                finishLessonBtn.addEventListener('click', () => {
-                    finishLessonBtn.disabled = true;
-                    finishLessonBtn.textContent = "Salvando...";
-                    if (typeof markLessonAsComplete === 'function') {
-                        markLessonAsComplete(moduleId, lessonNumber); 
-                    } else {
-                        console.error("A função markLessonAsComplete não foi encontrada.");
-                        alert("Erro ao salvar progresso.");
-                    }
-                });
-            }
+        // ============================================================
+        // CONFIG
+        // ============================================================
+        const moduleId = 'a1';
+        const lessonNumber = 1;
 
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const progressBar = document.getElementById('progress-bar');
-            let currentSlide = 0;
+        // ============================================================
+        // SLIDE NAVIGATION
+        // ============================================================
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const finishLessonBtn = document.getElementById('finish-lesson-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const slideCounter = document.getElementById('slide-counter');
+        const slideTitleHeader = document.getElementById('slide-title-header');
+        let currentSlide = 0;
 
-            function showSlide(index) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                if (progressBar) {
-                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
-                    progressBar.style.width = `${progressPercentage}%`;
+        function showSlide(index) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            slides.forEach((s, i) => s.classList.toggle('active', i === index));
+            const pct = ((index + 1) / slides.length) * 100;
+            if (progressBar) progressBar.style.width = `${pct}%`;
+            if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
+            if (slideTitleHeader) slideTitleHeader.textContent = slides[index].dataset.title || '';
+            if (prevBtn) prevBtn.disabled = index === 0;
+            const isLast = index === slides.length - 1;
+            if (nextBtn) nextBtn.classList.toggle('hidden', isLast);
+            if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLast);
+        }
+
+        if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+        if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+        if (finishLessonBtn) {
+            finishLessonBtn.addEventListener('click', () => {
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.textContent = "Salvando...";
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber);
                 }
-                if (prevBtn) prevBtn.disabled = index === 0;
-                const isLastSlide = index === slides.length - 1;
-                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
-                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
-            }
-
-            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            
-            // Lógica Específica da Aula
-            document.querySelectorAll('.flashcard').forEach(card => {
-                card.addEventListener('click', () => card.classList.toggle('flipped'));
             });
+        }
 
-            // Lógica para revelar a resposta na música
-            document.querySelectorAll('.answer-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const inputField = button.previousElementSibling;
-                    const correctAnswer = button.dataset.answer;
-                    const icon = button.querySelector('i');
-                    if(inputField && inputField.tagName === 'INPUT') {
-                        inputField.value = correctAnswer;
-                        inputField.disabled = true; 
-                        inputField.style.borderColor = '#10B981'; 
-                        icon.classList.remove('fa-eye');
-                        icon.classList.add('fa-check');
-                        icon.style.color = '#10B981'; 
+        showSlide(0);
+
+        // ============================================================
+        // SPEAK (Web Speech API)
+        // ============================================================
+        window.speak = function(text) {
+            if (!window.speechSynthesis) return;
+            window.speechSynthesis.cancel();
+            const utter = new SpeechSynthesisUtterance(text);
+            utter.lang = 'en-US';
+            utter.rate = 0.85;
+            window.speechSynthesis.speak(utter);
+        };
+
+        // ============================================================
+        // FLASHCARDS
+        // ============================================================
+        const flashcardData = [
+            { en: 'Hello / Hi',       pt: 'Olá / Oi' },
+            { en: "What's your name?", pt: 'Qual é o seu nome?' },
+            { en: 'How are you?',     pt: 'Como você está?' },
+            { en: 'Nice to meet you', pt: 'Prazer em conhecer você' },
+            { en: 'Good morning',     pt: 'Bom dia' },
+            { en: 'Good afternoon',   pt: 'Boa tarde' },
+            { en: 'Good evening',     pt: 'Boa noite (chegada)' },
+            { en: 'Good night',       pt: 'Boa noite (despedida)' },
+        ];
+        let reviewedCards = new Set();
+
+        function renderFlashcards(data) {
+            const grid = document.getElementById('flashcard-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            reviewedCards.clear();
+            updateFlashcardProgress();
+            data.forEach((item, i) => {
+                const card = document.createElement('div');
+                card.className = 'flashcard';
+                card.dataset.index = i;
+                const safeText = item.en.replace(/'/g, "\\'");
+                card.innerHTML = `
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <h4 class="text-2xl font-bold mb-3">${item.en}</h4>
+                            <button class="speak-btn text-sm" onclick="event.stopPropagation(); speak('${safeText}')">
+                                <i class="fas fa-volume-up"></i> Ouvir
+                            </button>
+                        </div>
+                        <div class="flashcard-back">
+                            <p class="text-2xl font-bold">${item.pt}</p>
+                            <p class="text-sm mt-2 opacity-75">Clique para voltar</p>
+                        </div>
+                    </div>`;
+                card.addEventListener('click', () => {
+                    card.classList.toggle('flipped');
+                    if (card.classList.contains('flipped')) {
+                        card.classList.add('reviewed');
+                        reviewedCards.add(i);
+                        updateFlashcardProgress();
                     }
                 });
+                grid.appendChild(card);
             });
+        }
 
-            // Lógica para a atividade de prática
-            const practiceContainer = document.getElementById('practice-container');
-            const practiceSentences = [
-                { text: ['I', 'a student.'], answer: 'am' }, 
-                { text: ['You', 'my teacher.'], answer: 'are' },
-                { text: ['I', 'tired today. (negação)'], answer: 'am not' }, 
-                { text: ['you from Canada?'], q: 'Are' },
-                { text: ['I?', 'in the correct class?'], q: 'Am' },
-                { text: ['I', 'happy.'], answer: 'am' },
-                { text: ['You', 'my friend.'], answer: 'are' },
-                { text: ['I', 'not a doctor.'], answer: 'am not' },
-                { text: ['You', 'not late.'], answer: 'are' },
-                { text: ['you busy?'], q: 'Are' }
-            ];
+        function updateFlashcardProgress() {
+            const el = document.getElementById('flashcard-progress');
+            if (el) el.textContent = `${reviewedCards.size} de ${flashcardData.length} revisados`;
+        }
 
-            if(practiceContainer) {
-                let html = '';
-                practiceSentences.forEach((item, index) => {
-                    const inputHtml = `<input data-answer="${item.answer || item.q}" class="w-28 p-1 border-b-2 text-center text-2xl outline-none focus:border-blue-500 transition">`;
-                    if(item.q) {
-                        html += `<div class="flex items-center justify-center gap-2">${index + 1}. ${inputHtml} ${item.text[0]}</div>`;
-                    } else {
-                        html += `<div class="flex items-center justify-center gap-2">${index + 1}. ${item.text[0]} ${inputHtml} ${item.text[1]}</div>`;
-                    }
-                });
-                practiceContainer.innerHTML = html;
-                practiceContainer.querySelectorAll('input').forEach(input => {
-                    input.addEventListener('blur', () => {
-                        const userAnswer = input.value.trim().toLowerCase();
-                        const correctAnswer = input.dataset.answer.toLowerCase();
-                        input.classList.remove('border-green-500', 'border-red-500');
-                        if(userAnswer.length === 0) return; 
-                        if (userAnswer === correctAnswer) {
-                            input.classList.add('border-green-500');
-                        } else {
-                            input.classList.add('border-red-500');
-                        }
-                    });
-                });
+        window.shuffleFlashcards = function() {
+            const shuffled = [...flashcardData].sort(() => Math.random() - 0.5);
+            renderFlashcards(shuffled);
+        };
+
+        renderFlashcards(flashcardData);
+
+        // ============================================================
+        // PRACTICE
+        // ============================================================
+        const practiceSentences = [
+            { before: 'I', after: 'a student.', answer: 'am' },
+            { before: 'You', after: 'my teacher.', answer: 'are' },
+            { before: 'I', after: 'not tired today.', answer: 'am' },
+            { before: 'I', after: 'not a doctor.', answer: 'am not' },
+            { before: 'You', after: 'not late.', answer: 'are not' },
+            { before: 'I', after: 'happy.', answer: 'am' },
+            { before: 'You', after: 'my friend.', answer: 'are' },
+        ];
+
+        const practiceContainer = document.getElementById('practice-container');
+        if (practiceContainer) {
+            practiceContainer.innerHTML = practiceSentences.map((item, i) => `
+                <div class="flex items-center justify-center gap-2 flex-wrap">
+                    <span class="text-gray-500 font-semibold w-6">${i + 1}.</span>
+                    <span class="font-bold text-blue-700">${item.before}</span>
+                    <input data-answer="${item.answer}" class="practice-input" placeholder="???">
+                    <span>${item.after}</span>
+                </div>`).join('');
+        }
+
+        window.checkAllAnswers = function() {
+            const inputs = document.querySelectorAll('.practice-input');
+            let correct = 0;
+            inputs.forEach(input => {
+                const user = input.value.trim().toLowerCase();
+                const ans = input.dataset.answer.toLowerCase();
+                input.classList.remove('correct', 'incorrect');
+                if (!user) return;
+                if (user === ans) { input.classList.add('correct'); correct++; }
+                else { input.classList.add('incorrect'); }
+            });
+            const filled = [...inputs].filter(i => i.value.trim()).length;
+            const score = document.getElementById('practice-score');
+            if (score && filled > 0) {
+                score.classList.remove('hidden');
+                const pct = Math.round((correct / practiceSentences.length) * 100);
+                if (pct === 100) {
+                    score.className = 'mt-6 text-xl font-bold p-4 rounded-xl bg-green-100 text-green-800';
+                    score.innerHTML = `🎉 Perfeito! ${correct}/${practiceSentences.length} corretas!`;
+                } else {
+                    score.className = 'mt-6 text-xl font-bold p-4 rounded-xl bg-orange-100 text-orange-800';
+                    score.innerHTML = `${correct}/${practiceSentences.length} corretas. As respostas em vermelho precisam de atenção.`;
+                }
             }
-            
-            showSlide(0);
-        });
+        };
+
+        window.resetPractice = function() {
+            document.querySelectorAll('.practice-input').forEach(i => {
+                i.value = ''; i.classList.remove('correct', 'incorrect');
+            });
+            const score = document.getElementById('practice-score');
+            if (score) score.classList.add('hidden');
+        };
+
+        // ============================================================
+        // MUSIC / LYRICS
+        // ============================================================
+        const lyricsData = [
+            { text: 'You say yes, I say ', blank: 'no' },
+            { text: 'You say stop and I say ', blank: 'go', suffix: ', go, go' },
+            { text: 'Oh no', blank: null },
+            { text: 'You say goodbye and I say ', blank: 'hello' },
+            { text: 'Hello, hello', blank: null },
+            { text: "I don't know why you say ", blank: 'goodbye', suffix: ', I say hello' },
+            { text: 'Hello, hello', blank: null },
+            { text: "I don't know why you say goodbye, I say hello", blank: null },
+            { text: "I say high, you say low", blank: null },
+            { text: "You say why, and I say I don't know", blank: null },
+        ];
+
+        const lyricsContainer = document.getElementById('lyrics-container');
+        if (lyricsContainer) {
+            lyricsContainer.innerHTML = lyricsData.map((line, i) => {
+                if (!line.blank) return `<p class="text-gray-700">${line.text}</p>`;
+                return `<p class="flex items-center flex-wrap gap-1">
+                    <span>${line.text}</span>
+                    <input data-answer="${line.blank}" data-index="${i}" class="lyric-input" placeholder="...">
+                    <button onclick="revealLyric(${i})" class="answer-btn" title="Revelar"><i class="fas fa-lightbulb text-amber-400"></i></button>
+                    ${line.suffix ? `<span>${line.suffix}</span>` : ''}
+                </p>`;
+            }).join('');
+        }
+
+        window.checkLyrics = function() {
+            const inputs = document.querySelectorAll('.lyric-input');
+            let correct = 0, total = 0;
+            inputs.forEach(input => {
+                if (input.disabled) return;
+                const user = input.value.trim().toLowerCase();
+                const ans = input.dataset.answer.toLowerCase();
+                input.classList.remove('correct', 'incorrect');
+                if (!user) return;
+                total++;
+                if (user === ans) { input.classList.add('correct'); correct++; }
+                else { input.classList.add('incorrect'); }
+            });
+            const scoreEl = document.getElementById('lyrics-score');
+            if (scoreEl && total > 0) {
+                scoreEl.textContent = `${correct} de ${document.querySelectorAll('.lyric-input').length} corretas`;
+            }
+        };
+
+        window.revealLyric = function(index) {
+            const input = document.querySelector(`.lyric-input[data-index="${index}"]`);
+            if (!input) return;
+            input.value = input.dataset.answer;
+            input.classList.remove('correct', 'incorrect');
+            input.classList.add('revealed');
+            input.disabled = true;
+        };
+
+        window.revealAllLyrics = function() {
+            document.querySelectorAll('.lyric-input').forEach((input, i) => revealLyric(parseInt(input.dataset.index)));
+        };
+
+    }); // end DOMContentLoaded
     </script>
 </body>
 </html>
