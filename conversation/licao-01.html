@@ -20,12 +20,14 @@
         .flashcard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
         @media (max-width: 768px) { .flashcard-grid { grid-template-columns: 1fr; } }
         
-        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard { background-color: transparent; height: 220px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
         .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.2rem; border-radius: 1rem; border: 1px solid #374151; }
         .flashcard-front { background-color: #1f2937; color: #60a5fa; }
-        .flashcard-back { background-color: #2563eb; color: white; transform: rotateY(180deg); text-align: center; }
+        .flashcard-back { background-color: #2563eb; color: white; transform: rotateY(180deg); text-align: center; overflow-y: auto; }
+        
+        .flashcard-example { font-size: 0.85rem; margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid rgba(255, 255, 255, 0.2); font-style: italic; line-height: 1.4; }
         
         .lyrics-box { max-height: 400px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #4b5563 #1f2937; }
         
@@ -40,11 +42,22 @@
 
         .drag-item { cursor: grab; user-select: none; transition: transform 0.2s; }
         .drag-item:active { transform: scale(0.95); }
+        .drag-item.used { opacity: 0.5; cursor: not-allowed; }
         
         .reveal-btn { color: #6b7280; font-size: 0.8rem; margin-left: 5px; cursor: pointer; transition: color 0.3s; }
         .reveal-btn:hover { color: #3b82f6; }
 
         .word-bank { position: sticky; top: 100px; }
+        
+        /* Feedback Messages */
+        .feedback-message { padding: 1rem; border-radius: 0.5rem; margin-top: 1rem; font-weight: 600; display: none; }
+        .feedback-message.success { background-color: #064e3b; color: #10b981; border: 1px solid #10b981; display: block; }
+        .feedback-message.error { background-color: #7f1d1d; color: #f87171; border: 1px solid #f87171; display: block; }
+        
+        /* Music Introduction */
+        .music-intro { background-color: #1f2937; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem; border-left: 4px solid #3b82f6; }
+        .music-intro-title { font-weight: 600; color: #60a5fa; margin-bottom: 0.5rem; }
+        .music-intro-text { font-size: 0.95rem; color: #d1d5db; line-height: 1.5; }
     </style>
 </head>
 <body class="bg-gray-900">
@@ -55,7 +68,7 @@
                 <i class="fas fa-chevron-left"></i> Painel
             </a>
             <h1 class="text-xl font-semibold text-center text-white">Conversation: Dreams & Ambitions</h1>
-            <div class="w-24 text-right text-sm text-gray-400" id="slide-count">1/12</div>
+            <div class="w-24 text-right text-sm text-gray-400" id="slide-count">1/13</div>
         </div>
         <div class="w-full bg-gray-700 h-1.5">
             <div id="progress-bar" class="bg-blue-500 h-1.5 transition-all duration-300" style="width: 0%;"></div>
@@ -64,59 +77,67 @@
 
     <main class="container mx-auto p-8 mb-24">
         
+        <!-- Slide 1: Warm-up Questions -->
         <div class="slide active">
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-blue-400 flex items-center justify-center gap-4"><i class="fas fa-fire-alt text-orange-500"></i>Warm-up Questions</h2>
                 <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-xl max-w-3xl mx-auto">
                     <ul class="space-y-8 text-2xl text-left">
                         <li class="flex items-start gap-4"><i class="fas fa-child text-blue-400 mt-1.5"></i><span>What did you want to be when you were a child?</span></li>
-                        <li class="flex items-start gap-4"><i class="fas fa-star text-yellow-400 mt-1.5"></i><span>What’s your biggest dream today?</span></li>
+                        <li class="flex items-start gap-4"><i class="fas fa-star text-yellow-400 mt-1.5"></i><span>What's your biggest dream today?</span></li>
                         <li class="flex items-start gap-4"><i class="fas fa-road text-green-400 mt-1.5"></i><span>Should people follow their dreams no matter what?</span></li>
+                        <li class="flex items-start gap-4"><i class="fas fa-mountain text-purple-400 mt-1.5"></i><span>What are some common obstacles people face when trying to achieve their dreams?</span></li>
                     </ul>
                 </div>
             </div>
         </div>
 
+        <!-- Slide 2: Useful Expressions -->
         <div class="slide">
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-blue-400 flex items-center justify-center gap-4"><i class="fas fa-comments text-purple-400"></i>Useful Expressions</h2>
-                <p class="text-xl mb-8 text-gray-400">Flip the cards to learn the 6 expressions of the day.</p>
+                <p class="text-xl mb-8 text-gray-400">Flip the cards to learn the 6 expressions of the day. Each card includes an example sentence.</p>
                 <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">To shoot for the stars</h4></div><div class="flashcard-back"><p>To aim for a very high or ambitious goal.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">A lifelong dream</h4></div><div class="flashcard-back"><p>A dream you've had for your entire life.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">To come true</h4></div><div class="flashcard-back"><p>When a dream becomes a reality.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">To set a goal</h4></div><div class="flashcard-back"><p>To decide on something you want to achieve.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">To chase a dream</h4></div><div class="flashcard-back"><p>To pursue something you really want.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">Beyond my wildest dreams</h4></div><div class="flashcard-back"><p>Better than anything I could imagine.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">To shoot for the stars</h4></div><div class="flashcard-back"><p>To aim for a very high or ambitious goal.</p><div class="flashcard-example">"She always tells her students to shoot for the stars and never give up on their dreams."</div></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">A lifelong dream</h4></div><div class="flashcard-back"><p>A dream you've had for your entire life.</p><div class="flashcard-example">"Becoming a doctor has been a lifelong dream of mine since childhood."</div></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">To come true</h4></div><div class="flashcard-back"><p>When a dream becomes a reality.</p><div class="flashcard-example">"After years of hard work, my dream of opening my own business finally came true."</div></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">To set a goal</h4></div><div class="flashcard-back"><p>To decide on something you want to achieve.</p><div class="flashcard-example">"I set a goal to learn English fluently within two years."</div></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">To chase a dream</h4></div><div class="flashcard-back"><p>To pursue something you really want.</p><div class="flashcard-example">"He decided to chase his dream of becoming a musician, despite his family's concerns."</div></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">Beyond my wildest dreams</h4></div><div class="flashcard-back"><p>Better than anything I could imagine.</p><div class="flashcard-example">"Winning the lottery was beyond my wildest dreams; I still can't believe it happened!"</div></div></div></div>
                 </div>
             </div>
         </div>
 
+        <!-- Slide 3: Music - Dream On -->
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-blue-400 flex items-center justify-center gap-4"><i class="fas fa-music text-red-500"></i>Music: Dream On</h2>
             <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 max-w-4xl mx-auto">
-                <iframe style="border-radius:12px" src="https://www.youtube.com/embed/sZfZ8uWaO9Y" width="100%" height="150" frameBorder="0" allow="autoplay; encrypted-media"></iframe>
-                <div class="mt-4 lyrics-box pr-4 bg-gray-900 p-6 rounded-lg border-l-4 border-blue-500 leading-relaxed">
+                <div class="music-intro">
+                    <div class="music-intro-title"><i class="fas fa-info-circle"></i> About this song</div>
+                    <div class="music-intro-text">"Dream On" is an iconic rock ballad by Aerosmith, released in 1973. The song is about perseverance, reflection on life's journey, and the importance of dreaming and pursuing your goals despite life's challenges. It's one of the most recognizable songs in rock history.</div>
+                </div>
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1xsYj84j7hUDDnTTerGWlH?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-4 bg-gray-900 p-6 rounded-lg border-l-4 border-blue-500 leading-relaxed">
                     <div class="text-lg space-y-2 text-gray-300">
                         <p>Every time that I look in the mirror</p>
                         <p>All these lines on my face getting clearer</p>
                         <p>The past is gone</p>
-                        <p>It went by, like dusk to <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'dawn')"></i></p>
+                        <p>It went by, like dusk to <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none" placeholder="?"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'dawn')"></i></p>
                         <p>Isn't that the way?</p>
                         <p>Everybody's got their dues to pay</p>
                         <p>I know nobody knows / Where it comes and where it goes</p>
                         <p>I know it's everybody's sin / You got to lose to know how to win</p>
                         <p>Half my life's in books' written pages</p>
                         <p>Lived and learned from fools and from sages</p>
-                        <p>You know it's <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'true')"></i></p>
+                        <p>You know it's <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none" placeholder="?"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'true')"></i></p>
                         <p>All things come to you that wait</p>
-                        <p>Sing with me, sing for the year / Sing for the laughter, sing for the <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'tear')"></i></p>
+                        <p>Sing with me, sing for the year / Sing for the laughter, sing for the <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none" placeholder="?"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'tear')"></i></p>
                         <p>Dream until your dream comes true!</p>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Slide 4: Discussion - Dream On -->
         <div class="slide">
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-blue-400 flex items-center justify-center gap-4"><i class="fas fa-comments text-blue-400"></i>Let's Discuss "Dream On"</h2>
@@ -129,14 +150,18 @@
             </div>
         </div>
 
+        <!-- Slide 5: Music - Don't Stop Believin' -->
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-yellow-500 flex items-center justify-center gap-4"><i class="fas fa-music text-red-500"></i>Music: Don't Stop Believin'</h2>
             <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 max-w-4xl mx-auto">
-                <iframe style="border-radius:12px" src="https://www.youtube.com/embed/1k8dqizvAZY" width="100%" height="150" frameBorder="0" allow="autoplay; encrypted-media"></iframe>
-                <div class="mt-4 lyrics-box pr-4 bg-gray-900 p-6 rounded-lg border-l-4 border-yellow-500 leading-relaxed">
+                <div class="music-intro">
+                    <div class="music-intro-title"><i class="fas fa-info-circle"></i> About this song</div>
+                    <div class="music-intro-text">"Don't Stop Believin'" by Journey (1981) is an anthem about hope and perseverance. The song tells the story of ordinary people chasing their dreams in the city, emphasizing that no matter where you come from, you should never stop believing in yourself and your aspirations.</div>
+                </div>
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/77NNZQSqzLNqh2A9JhLRkg?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-4 bg-gray-900 p-6 rounded-lg border-l-4 border-yellow-500 leading-relaxed">
                     <div class="text-lg space-y-2 text-gray-300">
                         <p>Just a small town girl</p>
-                        <p>Livin' in a <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'lonely')"></i> world</p>
+                        <p>Livin' in a <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none" placeholder="?"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'lonely')"></i> world</p>
                         <p>She took the midnight train goin' anywhere</p>
                         <p>Just a city boy / Born and raised in South Detroit</p>
                         <p>He took the midnight train goin' anywhere</p>
@@ -144,30 +169,40 @@
                         <p>For a smile they can share the night / It goes on and on and on and on</p>
                         <p>Strangers waiting / Up and down the boulevard</p>
                         <p>Their shadows searching in the night / Streetlights, people</p>
-                        <p>Living just to find <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'emotion')"></i></p>
-                        <p>Don't stop <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'believin\'')"></i></p>
+                        <p>Living just to find <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none" placeholder="?"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'emotion')"></i></p>
+                        <p>Hiding somewhere in the night</p>
+                        <p>Working hard to get my fill / Everybody wants a <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none" placeholder="?"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'thrill')"></i></p>
+                        <p>Paying anything to roll the dice / Just one more time</p>
+                        <p>Some will win, some will lose / Some were born to sing the blues</p>
+                        <p>Oh, the movie never ends / It goes on and on and on and on</p>
+                        <p><strong>Don't stop believin'! Hold on to that feeling!</strong></p>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Slide 6: Discussion - Don't Stop Believin' -->
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-yellow-500 flex items-center justify-center gap-4"><i class="fas fa-comments text-yellow-500"></i>Let's Discuss "Don't Stop..."</h2>
+                <h2 class="text-4xl font-bold mb-6 text-yellow-500 flex items-center justify-center gap-4"><i class="fas fa-comments text-yellow-500"></i>Let's Discuss "Don't Stop Believin'"</h2>
                 <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-lg max-w-3xl mx-auto">
                     <ul class="space-y-8 text-2xl text-left">
                         <li class="flex items-start gap-4"><i class="fas fa-train text-yellow-500 mt-1.5"></i><span>Why do you think "taking a midnight train going anywhere" is such a powerful image for chasing dreams?</span></li>
-                        <li class="flex items-start gap-4"><i class="fas fa-users text-yellow-500 mt-1.5"></i><span>Do you have a "hold on to that feeling" moment in your life?</span></li>
+                        <li class="flex items-start gap-4"><i class="fas fa-users text-yellow-500 mt-1.5"></i><span>Do you have a "hold on to that feeling" moment in your life? Share your experience.</span></li>
                     </ul>
                 </div>
             </div>
         </div>
 
+        <!-- Slide 7: Music - Hall of Fame -->
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-green-500 flex items-center justify-center gap-4"><i class="fas fa-music text-red-500"></i>Music: Hall of Fame</h2>
             <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 max-w-4xl mx-auto">
-                <iframe style="border-radius:12px" src="https://www.youtube.com/embed/mk48xRzuNvA" width="100%" height="150" frameBorder="0" allow="autoplay; encrypted-media"></iframe>
-                <div class="mt-4 lyrics-box pr-4 bg-gray-900 p-6 rounded-lg border-l-4 border-green-500 leading-relaxed">
+                <div class="music-intro">
+                    <div class="music-intro-title"><i class="fas fa-info-circle"></i> About this song</div>
+                    <div class="music-intro-text">"Hall of Fame" by The Script featuring Will.i.am (2011) is an uplifting anthem about dedication and self-belief. The song emphasizes that anyone can achieve greatness through hard work and dedication, regardless of their background or current circumstances.</div>
+                </div>
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7wMq5n8mYSKlQIGECKUgTX?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-4 bg-gray-900 p-6 rounded-lg border-l-4 border-green-500 leading-relaxed">
                     <div class="text-lg space-y-2 text-gray-300">
                         <p>Yeah, you can be the greatest, you can be the best</p>
                         <p>You can be the King Kong banging on your chest</p>
@@ -175,33 +210,35 @@
                         <p>You can talk to God, go banging on his door</p>
                         <p>You can throw your hands up, you can beat the clock</p>
                         <p>You can move a mountain, you can break rocks</p>
-                        <p>You can be a master, don't wait for <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'luck')"></i></p>
+                        <p>You can be a master, don't wait for <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none" placeholder="?"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'luck')"></i></p>
                         <p>Dedicate yourself and you gon' find yourself / Standing in the hall of fame</p>
-                        <p>And the world's gonna know your <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'name')"></i></p>
+                        <p>And the world's gonna know your <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none" placeholder="?"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'name')"></i></p>
                         <p>'Cause you burn with the brightest flame</p>
                         <p>And you'll be on the walls of the hall of fame</p>
-                        <p>You can go the distance, you can <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'run')"></i> the mile</p>
+                        <p>You can go the distance, you can <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none" placeholder="?"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'run')"></i> the mile</p>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Slide 8: Discussion - Hall of Fame -->
         <div class="slide">
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-green-500 flex items-center justify-center gap-4"><i class="fas fa-comments text-green-500"></i>Let's Discuss "Hall of Fame"</h2>
-                <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 max-w-3xl mx-auto">
+                <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-lg max-w-3xl mx-auto">
                     <ul class="space-y-8 text-2xl text-left">
                         <li class="flex items-start gap-4"><i class="fas fa-trophy text-green-500 mt-1.5"></i><span>What does "standing in the hall of fame" mean for a regular person, not a celebrity?</span></li>
-                        <li class="flex items-start gap-4"><i class="fas fa-fire text-green-500 mt-1.5"></i><span>Is "dedication" the most important factor for success?</span></li>
+                        <li class="flex items-start gap-4"><i class="fas fa-fire text-green-500 mt-1.5"></i><span>Is "dedication" the most important factor for success? What else matters?</span></li>
                     </ul>
                 </div>
             </div>
         </div>
 
+        <!-- Slide 9: Practice Time - Drag & Drop -->
         <div class="slide">
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-blue-400 flex items-center justify-center gap-4"><i class="fas fa-puzzle-piece text-yellow-500"></i>Practice Time</h2>
-                <p class="text-xl mb-8 text-gray-400">Match the expressions. Click "Check Answers" when done.</p>
+                <p class="text-xl mb-8 text-gray-400">Match the expressions with the correct sentences. Click "Check Answers" when done.</p>
                 
                 <div class="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto">
                     <div class="lg:w-2/3 bg-gray-800 p-6 rounded-2xl border border-gray-700 space-y-6 text-left">
@@ -226,6 +263,7 @@
                         <div class="flex justify-end pt-4">
                             <button id="check-btn" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition-all">Check Answers</button>
                         </div>
+                        <div id="feedback" class="feedback-message"></div>
                     </div>
 
                     <div class="lg:w-1/3">
@@ -243,21 +281,32 @@
             </div>
         </div>
 
+        <!-- Slide 10: Homework -->
         <div class="slide">
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-blue-400 flex items-center justify-center gap-4"><i class="fas fa-pencil-alt text-orange-500"></i>Homework</h2>
                 <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-300">Write 3 sentences about your future using the expressions learned.</p>
-                    <ul class="text-left text-lg grid grid-cols-2 gap-2 bg-gray-900 p-6 rounded-lg border border-gray-700">
-                        <li>• To shoot for the stars</li>
-                        <li>• A lifelong dream</li>
-                        <li>• To come true</li>
-                        <li>• Beyond my wildest dreams</li>
-                    </ul>
+                    <p class="text-xl mb-6 text-gray-300"><strong>Task:</strong> Write 3 sentences about your future using at least 2 of the expressions learned today.</p>
+                    <div class="bg-gray-900 p-6 rounded-lg border border-gray-700 mb-6 text-left">
+                        <p class="text-sm text-gray-400 mb-4"><strong>Example:</strong></p>
+                        <p class="text-gray-300 italic">"My biggest goal is to shoot for the stars in my career. I've had a lifelong dream of becoming an engineer, and I believe it will come true with dedication and hard work."</p>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-lg font-semibold text-blue-400 mb-4">Expressions to use:</p>
+                        <ul class="text-left text-lg grid grid-cols-2 gap-2 bg-gray-900 p-6 rounded-lg border border-gray-700">
+                            <li>• To shoot for the stars</li>
+                            <li>• A lifelong dream</li>
+                            <li>• To come true</li>
+                            <li>• To set a goal</li>
+                            <li>• To chase a dream</li>
+                            <li>• Beyond my wildest dreams</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Slide 11: Quote -->
         <div class="slide">
             <div class="text-center flex flex-col items-center justify-center h-full py-12">
                 <div class="bg-gray-800 p-12 rounded-full border-4 border-blue-500/30 mb-8 shadow-2xl">
@@ -270,12 +319,13 @@
             </div>
         </div>
 
+        <!-- Slide 12: Final Message -->
         <div class="slide">
             <div class="text-center flex flex-col items-center justify-center h-full py-12">
                 <i class="fas fa-glass-cheers text-yellow-400 text-7xl mb-6"></i>
                 <h2 class="text-5xl font-bold mb-4 text-white">Great class today!</h2>
                 <p class="text-2xl text-gray-400 max-w-2xl mx-auto">
-                    You've mastered the language of ambition. Keep believing in yourself!
+                    You've mastered the language of ambition. Keep believing in yourself and remember: <span class="text-yellow-400 font-semibold">your dreams are worth pursuing!</span>
                 </p>
             </div>
         </div>
@@ -303,6 +353,7 @@
     <script src="../js/progress-manager.js"></script>
 
     <script>
+        // Reveal function for fill-in-the-blanks
         function reveal(el, answer) {
             const input = el.previousElementSibling;
             input.value = answer;
@@ -321,6 +372,7 @@
             const slideCountText = document.getElementById('slide-count');
             let currentSlide = 0;
 
+            // Flashcard flip functionality
             document.querySelectorAll('.flashcard').forEach(card => {
                 card.addEventListener('click', () => card.classList.toggle('flipped'));
             });
@@ -329,76 +381,121 @@
             const dragItems = document.querySelectorAll('.drag-item');
             const dropZones = document.querySelectorAll('.drop-zone');
             const checkBtn = document.getElementById('check-btn');
+            const feedbackDiv = document.getElementById('feedback');
+            let draggedItem = null;
 
             dragItems.forEach(item => {
                 item.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.setData('text/plain', e.target.innerText.toLowerCase());
+                    draggedItem = e.target;
+                    e.dataTransfer.effectAllowed = 'move';
+                });
+
+                item.addEventListener('dragend', () => {
+                    draggedItem = null;
                 });
             });
 
             dropZones.forEach(zone => {
-                zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('over'); });
-                zone.addEventListener('dragleave', () => zone.classList.remove('over'));
+                zone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    zone.classList.add('over');
+                });
+
+                zone.addEventListener('dragleave', () => {
+                    zone.classList.remove('over');
+                });
+
                 zone.addEventListener('drop', (e) => {
                     e.preventDefault();
                     zone.classList.remove('over');
-                    const droppedText = e.dataTransfer.getData('text/plain');
-                    zone.innerText = droppedText;
-                    zone.classList.add('filled');
-                    zone.classList.remove('correct', 'wrong'); // Limpa a cor se mudar a resposta
+                    
+                    if (draggedItem) {
+                        const text = draggedItem.innerText.toLowerCase();
+                        zone.innerText = draggedItem.innerText;
+                        zone.classList.add('filled');
+                        draggedItem.classList.add('used');
+                    }
                 });
             });
 
-            // NOVA LÓGICA DE CHECAGEM
-            checkBtn.onclick = () => {
-                dropZones.forEach(zone => {
-                    const droppedText = zone.innerText.trim().toLowerCase();
-                    const correctAnswer = zone.getAttribute('data-answer').toLowerCase();
-                    
-                    if (droppedText !== "drop here" && droppedText !== "") {
-                        if (droppedText === correctAnswer) {
-                            zone.classList.remove('wrong', 'filled');
+            // Check Answers functionality
+            if (checkBtn) {
+                checkBtn.addEventListener('click', () => {
+                    let allCorrect = true;
+                    let correctCount = 0;
+
+                    dropZones.forEach(zone => {
+                        const expectedAnswer = zone.dataset.answer.toLowerCase();
+                        const actualAnswer = zone.innerText.toLowerCase();
+
+                        if (actualAnswer === expectedAnswer) {
+                            zone.classList.remove('wrong');
                             zone.classList.add('correct');
-                        } else {
-                            zone.classList.remove('correct', 'filled');
+                            correctCount++;
+                        } else if (zone.classList.contains('filled')) {
+                            zone.classList.remove('correct');
                             zone.classList.add('wrong');
+                            allCorrect = false;
+                        } else {
+                            allCorrect = false;
                         }
+                    });
+
+                    // Show feedback
+                    if (allCorrect && correctCount === dropZones.length) {
+                        feedbackDiv.className = 'feedback-message success';
+                        feedbackDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Perfect! All answers are correct! Great job!';
+                    } else if (correctCount > 0) {
+                        feedbackDiv.className = 'feedback-message error';
+                        feedbackDiv.innerHTML = `<i class="fas fa-exclamation-circle mr-2"></i>Good effort! You got ${correctCount} out of ${dropZones.length} correct. Try again!`;
+                    } else {
+                        feedbackDiv.className = 'feedback-message error';
+                        feedbackDiv.innerHTML = '<i class="fas fa-times-circle mr-2"></i>Not quite right. Try matching the expressions with the correct sentences.';
                     }
                 });
-            };
-
-            function showSlide(index) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
-                
-                const progress = ((index) / (slides.length - 1)) * 100;
-                progressBar.style.width = `${progress}%`;
-                slideCountText.innerText = `${index + 1}/${slides.length}`;
-                
-                prevBtn.disabled = index === 0;
-                const isLastInteractive = index === slides.length - 2;
-                nextBtn.textContent = isLastInteractive ? 'Finish' : 'Next';
-                nextBtn.classList.toggle('bg-yellow-600', isLastInteractive);
-
-                const isLast = index === slides.length - 1;
-                nextBtn.classList.toggle('hidden', isLast);
-                finishLessonBtn.classList.toggle('hidden', !isLast);
             }
 
-            prevBtn.onclick = () => { if (currentSlide > 0) showSlide(--currentSlide); };
-            nextBtn.onclick = () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); };
+            // Slide navigation
+            function updateSlide() {
+                slides.forEach((slide, index) => {
+                    slide.classList.toggle('active', index === currentSlide);
+                });
 
-            if (finishLessonBtn) {
-                finishLessonBtn.onclick = () => {
-                    finishLessonBtn.disabled = true;
-                    if (typeof markLessonAsComplete === 'function') {
-                        markLessonAsComplete(moduleId, lessonNumber); 
-                    }
-                };
+                const progress = ((currentSlide + 1) / slides.length) * 100;
+                progressBar.style.width = progress + '%';
+                slideCountText.textContent = `${currentSlide + 1}/${slides.length}`;
+
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.style.display = currentSlide === slides.length - 1 ? 'none' : 'inline-block';
+                finishLessonBtn.style.display = currentSlide === slides.length - 1 ? 'inline-block' : 'none';
             }
 
-            showSlide(currentSlide);
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateSlide();
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateSlide();
+                }
+            });
+
+            finishLessonBtn.addEventListener('click', () => {
+                // Aqui você pode adicionar lógica para finalizar a aula
+                // Por exemplo, salvar progresso no Firebase
+                alert('Parabéns! Você completou a aula "Dreams & Ambitions"!');
+                // window.location.href = 'conversation.html'; // Redirecionar se necessário
+            });
+
+            // Initialize
+            updateSlide();
         });
     </script>
+
 </body>
 </html>
