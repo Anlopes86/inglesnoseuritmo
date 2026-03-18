@@ -37,8 +37,9 @@
 
     <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#" class="text-lg font-bold text-emerald-500 hover:text-emerald-400 flex items-center gap-2">
-                <i class="fas fa-chevron-left"></i> Back to Topics
+            <!-- CORREÇÃO 1: link corrigido para conversation.html -->
+            <a href="conversation.html" class="text-lg font-bold text-emerald-500 hover:text-emerald-400 flex items-center gap-2">
+                <i class="fas fa-chevron-left"></i> Painel
             </a>
             <h1 class="text-xl font-semibold text-center">Lesson 30: Fashion & Personal Style</h1>
             <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 13</div>
@@ -277,22 +278,39 @@
                  <p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">
                     "Fashion is what you're offered four times a year by designers. And style is what you choose." — Lauren Hutton
                  </p>
+                 <!-- CORREÇÃO 3: botão Finalizar movido para o último slide, igual ao Lesson 28 -->
+                 <div class="pt-8">
+                    <button id="finish-lesson-btn-main" class="bg-emerald-600 hover:bg-emerald-500 text-white text-2xl font-bold py-4 px-12 rounded-full transition-all transform hover:scale-105 shadow-lg">
+                        Finalizar e Sair <i class="fas fa-check-circle ml-2"></i>
+                    </button>
+                </div>
              </div>
         </div>
     </main>
 
     <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
         <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Previous</button>
-            <button id="next-btn" class="bg-emerald-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-emerald-700">Next</button>
-            <button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finish Lesson</button>
+            <button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-emerald-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-emerald-700">Próximo</button>
         </div>
     </footer>
-    
+
+    <!-- CORREÇÃO 2: scripts do Firebase adicionados, iguais ao Lesson 28 -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'conversation';
+            const lessonNumber = 30;
+
             const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn-main');
             const progressBar = document.getElementById('progress-bar');
             const slideCounter = document.getElementById('slide-counter');
             let currentSlide = 0;
@@ -303,17 +321,32 @@
                 if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
                 if (slideCounter) slideCounter.innerText = `${index + 1} / ${slides.length}`;
                 if (prevBtn) prevBtn.disabled = index === 0;
+
                 const isLastSlide = index === slides.length - 1;
-                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
-                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+                if (nextBtn) nextBtn.style.display = isLastSlide ? 'none' : 'block';
             }
 
             if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } };
             if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } };
-            if (finishLessonBtn) finishLessonBtn.onclick = () => { currentSlide = slides.length - 1; showSlide(currentSlide); };
+
+            // CORREÇÃO 3: lógica do botão finalizar igual ao Lesson 28
+            if (finishLessonBtn) {
+                finishLessonBtn.onclick = () => {
+                    finishLessonBtn.disabled = true;
+                    finishLessonBtn.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>';
+
+                    if (typeof markLessonAsComplete === 'function') {
+                        markLessonAsComplete(moduleId, lessonNumber);
+                    } else {
+                        console.error("Função markLessonAsComplete não encontrada.");
+                        localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true');
+                        window.location.href = 'conversation.html';
+                    }
+                };
+            }
 
             document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
-            
+
             document.querySelectorAll('.answer-btn').forEach(button => {
                 button.addEventListener('click', () => {
                     const inputField = button.previousElementSibling;

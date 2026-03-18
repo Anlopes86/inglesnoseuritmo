@@ -12,285 +12,634 @@
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+
+        /* FLASHCARDS */
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 160px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
-        .flashcard-front { background-color: white; color: #ca8a04; text-align: center;}
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
+        .flashcard-front { background-color: white; color: #ca8a04; text-align: center; }
         .flashcard-back { background-color: #ca8a04; color: white; transform: rotateY(180deg); text-align: center; }
-        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
-        .answer-btn:hover { color: #4f46e5; }
+        .flashcard.reviewed .flashcard-front { border-color: #22c55e; background-color: #f0fdf4; }
+        .flashcard.reviewed .flashcard-front h4 { color: #16a34a; }
+
+        /* SPEAK BUTTON */
+        .speak-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: #eff6ff; border: 1.5px solid #bfdbfe;
+            color: #1d4ed8; padding: 4px 12px; border-radius: 20px;
+            font-size: 0.82rem; font-weight: 600; cursor: pointer;
+            transition: all 0.2s; margin-left: 6px;
+        }
+        .speak-btn:hover { background: #dbeafe; transform: scale(1.05); }
+
+        /* SLIDE LABEL */
+        .slide-label { display: inline-flex; align-items: center; gap: 6px; background: #f3f4f6; border-radius: 20px; padding: 4px 14px; font-size: 0.8rem; font-weight: 600; color: #6b7280; margin-bottom: 1rem; }
+
+        /* PRACTICE INPUTS */
+        .practice-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; text-align: center; font-size: 1.15rem; padding: 2px 8px; width: 9rem; outline: none; transition: border-color 0.2s; }
+        .practice-input:focus { border-color: #3b82f6; }
+        .practice-input.correct { border-color: #22c55e; color: #16a34a; font-weight: 700; }
+        .practice-input.incorrect { border-color: #ef4444; color: #dc2626; }
+
+        /* MUSIC INPUTS */
+        .lyric-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; text-align: center; font-size: 1.05rem; padding: 2px 4px; width: 7rem; outline: none; transition: border-color 0.2s; }
+        .lyric-input:focus { border-color: #3b82f6; }
+        .lyric-input.correct { border-color: #22c55e; color: #16a34a; font-weight: 600; }
+        .lyric-input.incorrect { border-color: #ef4444; color: #dc2626; }
+        .lyric-input.revealed { border-color: #f59e0b; color: #d97706; font-weight: 600; background: #fef9c3; }
+
+        /* LISTENING INPUTS */
+        .listening-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; font-size: 1rem; padding: 2px 6px; width: 70%; outline: none; transition: border-color 0.2s; }
+        .listening-input:focus { border-color: #3b82f6; }
+        .listening-input.correct { border-color: #22c55e; color: #16a34a; font-weight: 600; }
+        .listening-input.incorrect { border-color: #ef4444; color: #dc2626; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
+    <!-- HEADER -->
     <header class="bg-white shadow-sm sticky top-0 z-10">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="a1.html" class="text-lg font-bold text-blue-600 hover:text-blue-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
-            <h1 class="text-xl font-semibold text-center">A1 - Lesson 10: His/Her Routine</h1>
-            <div class="w-24"></div>
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+            <a href="a1.html" class="text-lg font-bold text-blue-600 hover:text-blue-800 flex items-center gap-2">
+                <i class="fas fa-chevron-left"></i> Voltar para A1
+            </a>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-gray-800">A1 - Lesson 10: His/Her Routine</h1>
+                <p id="slide-title-header" class="text-xs text-gray-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">1 / 9</div>
         </div>
-        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-gray-200 h-1.5">
+            <div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-500"></div>
+        </div>
     </header>
 
-    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
-        
-        <div class="slide active">
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+
+        <!-- SLIDE 1: Warm-up -->
+        <div class="slide active" data-title="Warm-up">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-user-friends text-yellow-500"></i> Warm-up: Family Routine</h2>
+                <div class="slide-label"><i class="fas fa-mug-hot"></i> Warm-up</div>
+                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-3">
+                    <i class="fas fa-user-friends text-yellow-500"></i> Warm-up: Family Routine
+                </h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Vamos conversar sobre a rotina de alguém da sua família.</p>
-                    <div class="text-left text-xl space-y-4 bg-gray-50 p-6 rounded-lg">
-                        <p><strong class="text-blue-600">Professor:</strong> "Tell me about your mother or father. What time does he or she wake up?"</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "My mother wakes up at 6 AM."</p>
-                        <p><strong class="text-blue-600">Professor:</strong> "And does she have breakfast at home?"</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "Yes, she has breakfast at home."</p>
+                    <p class="text-lg text-gray-500 mb-6">Vamos conversar sobre a rotina de alguém da sua família. Clique em 🔊 para ouvir.</p>
+                    <div class="text-left text-xl space-y-5 bg-gray-50 p-6 rounded-lg">
+                        <div class="flex items-start flex-wrap gap-2">
+                            <strong class="text-blue-600 shrink-0">Professor:</strong>
+                            <span>"Let's talk about someone in your family today. Tell me about your mother or your father — what does a typical day look like for them?"</span>
+                            <button class="speak-btn shrink-0" onclick="speak('Lets talk about someone in your family today. Tell me about your mother or your father. What does a typical day look like for them?')"><i class="fas fa-volume-up"></i> Ouvir</button>
+                        </div>
+                        <div class="flex items-start flex-wrap gap-2">
+                            <strong class="text-orange-600 shrink-0">Aluno:</strong>
+                            <span>"My mother wakes up very early, at 5:30 AM. She works a lot."</span>
+                            <button class="speak-btn shrink-0" onclick="speak('My mother wakes up very early, at 5:30 AM. She works a lot.')"><i class="fas fa-volume-up"></i> Ouvir</button>
+                        </div>
+                        <div class="flex items-start flex-wrap gap-2">
+                            <strong class="text-blue-600 shrink-0">Professor:</strong>
+                            <span>"Wow, that's early! Does she have breakfast at home before she goes to work?"</span>
+                            <button class="speak-btn shrink-0" onclick="speak('Wow, thats early! Does she have breakfast at home before she goes to work?')"><i class="fas fa-volume-up"></i> Ouvir</button>
+                        </div>
+                        <div class="flex items-start flex-wrap gap-2">
+                            <strong class="text-orange-600 shrink-0">Aluno:</strong>
+                            <span>"Yes, she does. She always has coffee and bread. She doesn't eat a big breakfast."</span>
+                            <button class="speak-btn shrink-0" onclick="speak('Yes, she does. She always has coffee and bread. She doesnt eat a big breakfast.')"><i class="fas fa-volume-up"></i> Ouvir</button>
+                        </div>
+                        <div class="flex items-start flex-wrap gap-2">
+                            <strong class="text-blue-600 shrink-0">Professor:</strong>
+                            <span>"I see. And what does she do in the evening? Does she watch TV or does she go to bed early?"</span>
+                            <button class="speak-btn shrink-0" onclick="speak('I see. And what does she do in the evening? Does she watch TV or does she go to bed early?')"><i class="fas fa-volume-up"></i> Ouvir</button>
+                        </div>
+                        <div class="flex items-start flex-wrap gap-2">
+                            <strong class="text-orange-600 shrink-0">Aluno:</strong>
+                            <span>"She watches TV for about an hour, then she goes to bed. She usually sleeps at 10 PM."</span>
+                            <button class="speak-btn shrink-0" onclick="speak('She watches TV for about an hour, then she goes to bed. She usually sleeps at 10 PM.')"><i class="fas fa-volume-up"></i> Ouvir</button>
+                        </div>
+                        <div class="flex items-start flex-wrap gap-2">
+                            <strong class="text-blue-600 shrink-0">Professor:</strong>
+                            <span>"Perfect! You're already using He/She correctly with the verbs. That's exactly what we're going to practice today!"</span>
+                            <button class="speak-btn shrink-0" onclick="speak('Perfect! You are already using He and She correctly with the verbs. Thats exactly what we are going to practice today!')"><i class="fas fa-volume-up"></i> Ouvir</button>
+                        </div>
+                    </div>
+                    <div class="mt-4 bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded-r-lg text-left text-base text-yellow-800">
+                        <strong>💡 Observe:</strong> repare nos verbos — <strong>wakes up, has, doesn't eat, watches, goes, sleeps</strong>. Todos têm <strong>-s</strong> no final porque estamos falando de <strong>She</strong>. É isso que vamos estudar hoje!
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <!-- SLIDE 2: Flashcards -->
+        <div class="slide" data-title="Vocabulary: His/Her Routine">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-redo-alt text-yellow-600"></i> Vocabulary Review: His/Her Routine</h2>
-                <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Vamos revisar as atividades, agora falando sobre "ele" ou "ela".</p>
-                <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">He wakes up.</h4></div><div class="flashcard-back"><p class="text-2xl">Ele acorda.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">She has breakfast.</h4></div><div class="flashcard-back"><p class="text-2xl">Ela toma café da manhã.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">He takes a shower.</h4></div><div class="flashcard-back"><p class="text-2xl">Ele toma banho.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">She goes to work.</h4></div><div class="flashcard-back"><p class="text-2xl">Ela vai para o trabalho.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">He studies English.</h4></div><div class="flashcard-back"><p class="text-2xl">Ele estuda inglês.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">She watches TV.</h4></div><div class="flashcard-back"><p class="text-2xl">Ela assiste TV.</p></div></div></div>
+                <div class="slide-label"><i class="fas fa-redo-alt"></i> Vocabulário</div>
+                <h2 class="text-4xl font-bold mb-4 text-green-700 flex items-center justify-center gap-3">
+                    <i class="fas fa-redo-alt text-yellow-600"></i> Vocabulary: His/Her Routine
+                </h2>
+                <div class="flex items-center justify-center gap-4 mb-6">
+                    <p class="text-gray-500 text-lg">Clique para ver a tradução. Ouça a pronúncia.</p>
+                    <button onclick="shuffleFlashcards()" class="speak-btn"><i class="fas fa-random"></i> Embaralhar</button>
+                    <span id="flashcard-progress" class="text-sm font-semibold text-green-600 bg-green-50 px-3 py-1 rounded-full">0 de 6 revisados</span>
                 </div>
+                <div id="flashcard-grid" class="flashcard-grid max-w-5xl mx-auto"></div>
             </div>
         </div>
 
-        <div class="slide">
+        <!-- SLIDE 3: Grammar -->
+        <div class="slide" data-title="Grammar: Simple Present (He/She/It)">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-book-open text-purple-500"></i> Grammar: Simple Present (He/She/It)</h2>
+                <div class="slide-label"><i class="fas fa-book-open"></i> Gramática</div>
+                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-3">
+                    <i class="fas fa-book-open text-purple-500"></i> Grammar: Simple Present (He/She/It)
+                </h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Para <strong class="text-purple-600">He, She, It</strong>, adicionamos **-s** ao final do verbo.</p>
-                    <table class="w-full text-left text-xl border-collapse">
-                        <thead><tr class="bg-gray-100"><th class="p-4 border">Pronoun</th><th class="p-4 border">Affirmative (+)</th></tr></thead>
+                    <p class="text-xl mb-6 text-gray-600">Para <strong class="text-purple-600">He, She, It</strong>, adicionamos <strong class="text-purple-600">-s</strong> ao final do verbo.</p>
+                    <table class="w-full text-left text-lg border-collapse">
+                        <thead><tr class="bg-gray-100">
+                            <th class="p-4 border">Pronoun</th>
+                            <th class="p-4 border">Affirmative (+)</th>
+                            <th class="p-4 border">Ouvir</th>
+                        </tr></thead>
                         <tbody>
-                            <tr class="border-t"><td class="p-4 border font-bold">I / You / We / They</td><td class="p-4 border">work, study, go, watch</td></tr>
-                            <tr class="border-t bg-gray-50"><td class="p-4 border font-bold text-purple-600">He / She / It</td><td class="p-4 border">work<strong class="text-purple-600">s</strong>, stud<strong class="text-purple-600">ies</strong>, go<strong class="text-purple-600">es</strong>, watch<strong class="text-purple-600">es</strong></td></tr>
+                            <tr class="border-t">
+                                <td class="p-4 border font-bold">I / You / We / They</td>
+                                <td class="p-4 border">work, study, go, watch</td>
+                                <td class="p-4 border"><button class="speak-btn" onclick="speak('I work. I study. I go. I watch.')"><i class="fas fa-volume-up"></i></button></td>
+                            </tr>
+                            <tr class="border-t bg-gray-50">
+                                <td class="p-4 border font-bold text-purple-600">He / She / It</td>
+                                <td class="p-4 border">works, studies, goes, watches</td>
+                                <td class="p-4 border"><button class="speak-btn" onclick="speak('He works. She studies. He goes. She watches.')"><i class="fas fa-volume-up"></i></button></td>
+                            </tr>
                         </tbody>
                     </table>
-                     <div class="mt-6 bg-purple-100 border-l-4 border-purple-500 text-purple-800 p-4 text-left rounded-r-lg">
-                        <h4 class="font-bold text-xl mb-2">Spelling Rules (Regras de Escrita):</h4>
-                        <p>• Verbos terminados em -o, -sh, -ch, -x, -z: adicione <strong class="font-semibold">-es</strong> (go -> go<strong class="font-semibold">es</strong>, watch -> watch<strong class="font-semibold">es</strong>)</p>
-                        <p>• Verbos terminados em consoante + y: troque o 'y' por <strong class="font-semibold">-ies</strong> (study -> stud<strong class="font-semibold">ies</strong>)</p>
-                        <p>• Verbo 'have' é irregular: have -> <strong class="font-semibold">has</strong></p>
+                    <div class="mt-6 bg-purple-50 border-l-4 border-purple-500 text-purple-800 p-4 text-left rounded-r-lg">
+                        <h4 class="font-bold text-xl mb-3">Spelling Rules:</h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2">
+                                <p>• Terminados em -o, -sh, -ch, -x, -z: adicione <strong>-es</strong> → goes, watches</p>
+                                <button class="speak-btn text-xs" onclick="speak('goes, watches')"><i class="fas fa-volume-up"></i></button>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <p>• Consoante + y: troque por <strong>-ies</strong> → studies, tries</p>
+                                <button class="speak-btn text-xs" onclick="speak('studies, tries')"><i class="fas fa-volume-up"></i></button>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <p>• Irregular: have → <strong>has</strong></p>
+                                <button class="speak-btn text-xs" onclick="speak('has')"><i class="fas fa-volume-up"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <div class="slide">
+
+        <!-- SLIDE 4: Practice 1 -->
+        <div class="slide" data-title="Let's Practice!">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-pencil-alt text-orange-500"></i>Let's Practice!</h2>
+                <div class="slide-label"><i class="fas fa-pencil-alt"></i> Prática</div>
+                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-3">
+                    <i class="fas fa-pencil-alt text-orange-500"></i> Let's Practice!
+                </h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-2xl mb-8 text-gray-600">Complete as frases com a forma correta do verbo.</p>
+                    <p class="text-xl mb-8 text-gray-600">Complete com a forma correta do verbo entre parênteses.</p>
                     <div id="practice-1" class="space-y-6 text-xl"></div>
+                    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <button onclick="checkPractice('practice-1', 'score-1', 8)" class="bg-green-600 text-white font-bold py-3 px-10 rounded-xl hover:bg-green-700 transition text-lg">
+                            <i class="fas fa-check-circle mr-2"></i>Verificar Respostas
+                        </button>
+                        <button onclick="resetPractice('practice-1', 'score-1')" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-xl hover:bg-gray-300 transition text-lg">
+                            <i class="fas fa-redo mr-2"></i>Recomeçar
+                        </button>
+                    </div>
+                    <div id="score-1" class="hidden mt-6 text-xl font-bold p-4 rounded-xl"></div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <!-- SLIDE 5: Practice 2 -->
+        <div class="slide" data-title="More Practice!">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-plus-circle text-orange-500"></i>More Practice!</h2>
+                <div class="slide-label"><i class="fas fa-plus-circle"></i> Mais Prática</div>
+                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-3">
+                    <i class="fas fa-plus-circle text-orange-500"></i> More Practice!
+                </h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-2xl mb-8 text-gray-600">Continue praticando com mais exemplos.</p>
+                    <p class="text-xl mb-8 text-gray-600">Continue praticando com mais exemplos.</p>
                     <div id="practice-2" class="space-y-6 text-xl"></div>
+                    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <button onclick="checkPractice('practice-2', 'score-2', 4)" class="bg-green-600 text-white font-bold py-3 px-10 rounded-xl hover:bg-green-700 transition text-lg">
+                            <i class="fas fa-check-circle mr-2"></i>Verificar Respostas
+                        </button>
+                        <button onclick="resetPractice('practice-2', 'score-2')" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-xl hover:bg-gray-300 transition text-lg">
+                            <i class="fas fa-redo mr-2"></i>Recomeçar
+                        </button>
+                    </div>
+                    <div id="score-2" class="hidden mt-6 text-xl font-bold p-4 rounded-xl"></div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-headphones text-cyan-500"></i>Listening Activity</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Ouça sobre a rotina de um ator famoso e responda.</p>
-                    <div class="text-left text-xl bg-gray-50 p-6 rounded-lg space-y-4">
-                        <p class="font-bold">Professor, dite o seguinte:</p>
-                        <p>"This is Chris. He is an actor. He wakes up at 6 AM every day. He studies his scripts in the morning. He doesn't watch TV; he goes to the gym."</p>
-                        <hr>
-                        <p class="font-bold mt-4">Aluno, responda:</p>
-                        <p>1. What time does Chris wake up? <input type="text" class="w-full p-1 border-b-2 bg-transparent"></p>
-                        <p>2. Does he watch TV? <input type="text" class="w-full p-1 border-b-2 bg-transparent"></p>
+        <!-- SLIDE 6: Listening -->
+        <div class="slide" data-title="Listening Activity">
+            <div class="text-center">
+                <div class="slide-label"><i class="fas fa-headphones"></i> Listening</div>
+                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-3">
+                    <i class="fas fa-headphones text-cyan-500"></i> Listening Activity
+                </h2>
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto text-left">
+                    <p class="text-xl mb-6 text-gray-600">Ouça sobre a rotina de um ator famoso e responda.</p>
+                    <div class="text-lg bg-gray-50 p-6 rounded-lg space-y-3 mb-6">
+                        <p class="font-bold text-gray-700">Professor, leia em voz alta:</p>
+                        <div class="flex items-start gap-2">
+                            <p>"This is Chris. He is an actor. He wakes up at 6 AM every day. He studies his scripts in the morning. He doesn't watch TV — he goes to the gym."</p>
+                            <button class="speak-btn shrink-0" onclick="speak('This is Chris. He is an actor. He wakes up at 6 AM every day. He studies his scripts in the morning. He does not watch TV. He goes to the gym.')"><i class="fas fa-volume-up"></i></button>
+                        </div>
+                    </div>
+                    <div class="text-lg space-y-5">
+                        <p class="font-bold text-gray-700">Aluno, responda:</p>
+                        <div>
+                            <label class="text-gray-600">1. What time does Chris wake up?</label>
+                            <div class="mt-1"><input data-answer="6 am" class="listening-input" placeholder="Sua resposta..."></div>
+                        </div>
+                        <div>
+                            <label class="text-gray-600">2. Does he watch TV?</label>
+                            <div class="mt-1"><input data-answer="no" class="listening-input" placeholder="Sua resposta..."></div>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex gap-4">
+                        <button onclick="checkListening()" class="bg-green-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-green-700 transition">
+                            <i class="fas fa-check mr-2"></i>Verificar
+                        </button>
+                        <button onclick="resetListening()" class="bg-gray-200 text-gray-700 font-bold py-3 px-6 rounded-xl hover:bg-gray-300 transition">
+                            <i class="fas fa-redo mr-2"></i>Recomeçar
+                        </button>
+                    </div>
+                    <div id="listening-score" class="hidden mt-4 text-lg font-bold p-4 rounded-xl"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Music -->
+        <div class="slide" data-title="Music Time">
+            <div>
+                <div class="text-center mb-4">
+                    <div class="slide-label"><i class="fas fa-music"></i> Música</div>
+                </div>
+                <h2 class="text-4xl font-bold mb-4 text-center text-green-700 flex items-center justify-center gap-3">
+                    <i class="fas fa-music text-red-500"></i> Music: She Works Hard for the Money
+                </h2>
+                <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3FlOciKDqFlTMPeC7t92Qy?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <p class="text-lg mb-4 text-gray-600 mt-4">Ouça a música, complete a letra. Clique em 💡 para revelar uma palavra.</p>
+                    <div id="lyrics-container" class="text-xl space-y-3 bg-gray-50 p-6 rounded-lg border-l-4 border-green-500"></div>
+                    <div class="mt-6 flex flex-col sm:flex-row items-center gap-4">
+                        <button onclick="checkLyrics()" class="bg-green-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-green-700 transition">
+                            <i class="fas fa-check mr-2"></i>Verificar
+                        </button>
+                        <button onclick="revealAllLyrics()" class="bg-amber-500 text-white font-bold py-3 px-8 rounded-xl hover:bg-amber-600 transition">
+                            <i class="fas fa-eye mr-2"></i>Revelar Todas
+                        </button>
+                        <div id="lyrics-score" class="text-lg font-bold text-gray-700"></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-700"><i class="fas fa-music text-red-500"></i> Music Time: She Works Hard for the Money</h2>
-            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3FlOciKDqFlTMPeC7t92Qy?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <div class="mt-4">
-                    <p class="text-2xl mb-4 text-gray-600">Ouça a música e revele as palavras que faltam.</p>
-                    <div class="text-xl space-y-3 bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
-                         <p>She works hard for the money</p>
-                         <p>So hard for it, honey</p>
-                         <p>She <input type="text" class="w-24 border-b-2 text-center bg-transparent" data-answer="works"><button class="answer-btn" data-answer="works"><i class="fas fa-eye"></i></button> hard for the money</p>
-                         <p>So you better treat her right</p>
-                         <br>
-                         <p>Onetta here in the corner stand </p>
-                         <p>and wonders where she is.</p>
-                         <p>And it's strange to her, some people seem to have everything.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-home text-blue-500"></i>Homework: A Friend's Routine</h2>
+        <!-- SLIDE 8: Homework -->
+        <div class="slide" data-title="Homework">
+            <div class="text-center">
+                <div class="slide-label"><i class="fas fa-home"></i> Tarefa</div>
+                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-3">
+                    <i class="fas fa-home text-blue-500"></i> Homework: A Friend's Routine
+                </h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Escreva um parágrafo descrevendo a rotina de um amigo ou membro da sua família.</p>
-                    <div class="text-left text-xl space-y-2 mt-4 bg-gray-50 p-4 rounded-lg">
+                    <p class="text-xl mb-6 text-gray-600">Escreva um parágrafo descrevendo a rotina de um amigo ou membro da sua família.</p>
+                    <div class="text-left text-lg space-y-3 mt-4 bg-gray-50 p-5 rounded-lg">
                         <p class="font-bold">Exemplo:</p>
-                        <p>"My friend's name is João. He wakes up at 8 AM. He works from home. He has lunch at 1 PM. He watches movies in the evening."</p>
-                        <hr class="my-2">
-                        <textarea class="w-full mt-2 p-2 border-2 rounded-lg" rows="6" placeholder="My mother wakes up at..."></textarea>
+                        <div class="flex items-start gap-2">
+                            <p class="italic text-gray-700">"My friend's name is João. He wakes up at 8 AM. He works from home. He has lunch at 1 PM. He watches movies in the evening."</p>
+                            <button class="speak-btn shrink-0 text-xs" onclick="speak('My friend\'s name is João. He wakes up at 8 AM. He works from home. He has lunch at 1 PM. He watches movies in the evening.')"><i class="fas fa-volume-up"></i></button>
+                        </div>
+                        <hr>
+                        <textarea class="w-full mt-2 p-3 border-2 border-gray-200 rounded-lg focus:border-blue-400 outline-none" rows="5" placeholder="My mother wakes up at..."></textarea>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-             <div class="text-center flex flex-col items-center justify-center h-full">
+        <!-- SLIDE 9: Finish -->
+        <div class="slide" data-title="Parabéns!">
+            <div class="text-center flex flex-col items-center justify-center h-full pt-16">
                 <i class="fas fa-users-viewfinder text-yellow-600 text-7xl mb-6"></i>
                 <h2 class="text-5xl font-bold mb-4 text-gray-800">A New Perspective!</h2>
                 <p class="text-3xl text-gray-600">Now you can describe someone else's world. Great job!</p>
             </div>
         </div>
+
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20">
-        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
-            <button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Próximo</button>
-            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finalizar Aula</button>
+    <!-- FOOTER NAV -->
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20 h-16">
+        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">
+                <i class="fas fa-chevron-left mr-1"></i> Anterior
+            </button>
+            <button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">
+                Próximo <i class="fas fa-chevron-right ml-1"></i>
+            </button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">
+                <i class="fas fa-check mr-2"></i>Finalizar Aula
+            </button>
         </div>
     </footer>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
     <script src="../js/progress-manager.js"></script>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const moduleId = 'a1';
-            const lessonNumber = 10;
+    document.addEventListener('DOMContentLoaded', () => {
 
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            if (finishLessonBtn) {
-                finishLessonBtn.addEventListener('click', () => {
-                    finishLessonBtn.disabled = true;
-                    finishLessonBtn.textContent = "Salvando...";
-                    if (typeof markLessonAsComplete === 'function') {
-                        markLessonAsComplete(moduleId, lessonNumber); 
-                    } else {
-                        console.error("A função markLessonAsComplete não foi encontrada.");
-                        alert("Erro ao salvar progresso.");
+        const moduleId = 'a1';
+        const lessonNumber = 10;
+
+        // ============================================================
+        // SLIDE NAVIGATION
+        // ============================================================
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const finishLessonBtn = document.getElementById('finish-lesson-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const slideCounter = document.getElementById('slide-counter');
+        const slideTitleHeader = document.getElementById('slide-title-header');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            slides.forEach((s, i) => s.classList.toggle('active', i === index));
+            const pct = ((index + 1) / slides.length) * 100;
+            if (progressBar) progressBar.style.width = `${pct}%`;
+            if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
+            if (slideTitleHeader) slideTitleHeader.textContent = slides[index].dataset.title || '';
+            if (prevBtn) prevBtn.disabled = index === 0;
+            const isLast = index === slides.length - 1;
+            if (nextBtn) nextBtn.classList.toggle('hidden', isLast);
+            if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLast);
+        }
+
+        if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+        if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+        if (finishLessonBtn) {
+            finishLessonBtn.addEventListener('click', () => {
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.textContent = "Salvando...";
+                if (typeof markLessonAsComplete === 'function') markLessonAsComplete(moduleId, lessonNumber);
+            });
+        }
+        showSlide(0);
+
+        // ============================================================
+        // SPEAK
+        // ============================================================
+        window.speak = function(text) {
+            if (!window.speechSynthesis) return;
+            window.speechSynthesis.cancel();
+            const utter = new SpeechSynthesisUtterance(text);
+            utter.lang = 'en-US';
+            utter.rate = 0.85;
+            window.speechSynthesis.speak(utter);
+        };
+
+        // ============================================================
+        // FLASHCARDS
+        // ============================================================
+        const flashcardData = [
+            { en: 'He wakes up.',      pt: 'Ele acorda.' },
+            { en: 'She has breakfast.', pt: 'Ela toma café da manhã.' },
+            { en: 'He takes a shower.', pt: 'Ele toma banho.' },
+            { en: 'She goes to work.',  pt: 'Ela vai para o trabalho.' },
+            { en: 'He studies English.', pt: 'Ele estuda inglês.' },
+            { en: 'She watches TV.',    pt: 'Ela assiste TV.' },
+        ];
+        let reviewedCards = new Set();
+
+        function renderFlashcards(data) {
+            const grid = document.getElementById('flashcard-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            reviewedCards.clear();
+            updateFlashcardProgress();
+            data.forEach((item, i) => {
+                const safeEn = item.en.replace(/'/g, "\\'");
+                const card = document.createElement('div');
+                card.className = 'flashcard';
+                card.innerHTML = `
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <h4 class="text-2xl font-bold mb-3">${item.en}</h4>
+                            <button class="speak-btn text-sm" onclick="event.stopPropagation(); speak('${safeEn}')">
+                                <i class="fas fa-volume-up"></i> Ouvir
+                            </button>
+                        </div>
+                        <div class="flashcard-back">
+                            <p class="text-2xl font-bold">${item.pt}</p>
+                            <p class="text-sm mt-2 opacity-75">Clique para voltar</p>
+                        </div>
+                    </div>`;
+                card.addEventListener('click', () => {
+                    card.classList.toggle('flipped');
+                    if (card.classList.contains('flipped')) {
+                        card.classList.add('reviewed');
+                        reviewedCards.add(i);
+                        updateFlashcardProgress();
                     }
                 });
-            }
+                grid.appendChild(card);
+            });
+        }
 
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const progressBar = document.getElementById('progress-bar');
-            let currentSlide = 0;
+        function updateFlashcardProgress() {
+            const el = document.getElementById('flashcard-progress');
+            if (el) el.textContent = `${reviewedCards.size} de ${flashcardData.length} revisados`;
+        }
 
-            function showSlide(index) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                
-                if (progressBar) {
-                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
-                    progressBar.style.width = `${progressPercentage}%`;
+        window.shuffleFlashcards = function() {
+            renderFlashcards([...flashcardData].sort(() => Math.random() - 0.5));
+        };
+
+        renderFlashcards(flashcardData);
+
+        // ============================================================
+        // PRACTICE
+        // ============================================================
+        const practiceItems1 = [
+            { text: 'She ____ (work) in an office.',            answer: 'works' },
+            { text: 'He ____ (study) English every day.',       answer: 'studies' },
+            { text: 'My father ____ (watch) the news at night.', answer: 'watches' },
+            { text: 'She ____ (have) two cats.',                answer: 'has' },
+            { text: 'My brother ____ (go) to the gym.',         answer: 'goes' },
+            { text: 'The cat ____ (sleep) on the sofa.',        answer: 'sleeps' },
+            { text: 'She ____ (do) her homework in the afternoon.', answer: 'does' },
+            { text: 'He ____ (fix) cars.',                      answer: 'fixes' },
+        ];
+
+        const practiceItems2 = [
+            { text: 'She ____ (miss) her family.',              answer: 'misses' },
+            { text: 'He ____ (try) to learn Japanese.',         answer: 'tries' },
+            { text: 'It ____ (rain) a lot here in the summer.', answer: 'rains' },
+            { text: 'My sister ____ (teach) history at a school.', answer: 'teaches' },
+        ];
+
+        function buildPractice(containerId, items) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = items.map((item, i) => {
+                const parts = item.text.split('____');
+                return `<div class="flex items-center justify-center gap-2 flex-wrap">
+                    <span class="text-gray-400 font-semibold w-5">${i + 1}.</span>
+                    <span>${parts[0]}</span>
+                    <input data-answer="${item.answer}" class="practice-input" placeholder="???">
+                    <span>${parts[1]}</span>
+                </div>`;
+            }).join('');
+        }
+
+        buildPractice('practice-1', practiceItems1);
+        buildPractice('practice-2', practiceItems2);
+
+        window.checkPractice = function(containerId, scoreId, total) {
+            const inputs = document.querySelectorAll(`#${containerId} .practice-input`);
+            let correct = 0;
+            inputs.forEach(input => {
+                const user = input.value.trim().toLowerCase();
+                const ans = input.dataset.answer.toLowerCase();
+                input.classList.remove('correct', 'incorrect');
+                if (!user) return;
+                if (user === ans) { input.classList.add('correct'); correct++; }
+                else { input.classList.add('incorrect'); }
+            });
+            const filled = [...inputs].filter(i => i.value.trim()).length;
+            const score = document.getElementById(scoreId);
+            if (score && filled > 0) {
+                score.classList.remove('hidden');
+                if (correct === total) {
+                    score.className = 'mt-6 text-xl font-bold p-4 rounded-xl bg-green-100 text-green-800';
+                    score.innerHTML = `🎉 Perfeito! ${correct}/${total} corretas!`;
+                } else {
+                    score.className = 'mt-6 text-xl font-bold p-4 rounded-xl bg-orange-100 text-orange-800';
+                    score.innerHTML = `${correct}/${total} corretas. As vermelhas precisam de atenção.`;
                 }
-                
-                if (prevBtn) prevBtn.disabled = index === 0;
-
-                const isLastSlide = index === slides.length - 1;
-                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
-                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
             }
+        };
 
-            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            
-            document.querySelectorAll('.flashcard').forEach(card => {
-                card.addEventListener('click', () => card.classList.toggle('flipped'));
+        window.resetPractice = function(containerId, scoreId) {
+            document.querySelectorAll(`#${containerId} .practice-input`).forEach(i => {
+                i.value = ''; i.classList.remove('correct', 'incorrect');
             });
+            const score = document.getElementById(scoreId);
+            if (score) score.classList.add('hidden');
+        };
 
-            document.querySelectorAll('.answer-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const inputField = button.previousElementSibling;
-                    const correctAnswer = button.dataset.answer;
-                    if(inputField && inputField.tagName === 'INPUT') {
-                        inputField.value = correctAnswer;
-                    }
-                });
+        // ============================================================
+        // LISTENING
+        // ============================================================
+        window.checkListening = function() {
+            const inputs = document.querySelectorAll('.listening-input');
+            let correct = 0;
+            inputs.forEach(input => {
+                const user = input.value.trim().toLowerCase();
+                const ans = input.dataset.answer.toLowerCase();
+                input.classList.remove('correct', 'incorrect');
+                if (!user) return;
+                if (user.includes(ans) || ans.includes(user)) { input.classList.add('correct'); correct++; }
+                else { input.classList.add('incorrect'); }
             });
-
-            // Função para criar atividades de preenchimento
-            function createPracticeActivity(containerId, items) {
-                const container = document.getElementById(containerId);
-                if (!container) return;
-
-                let html = '';
-                items.forEach(item => {
-                    const parts = item.text.split('____');
-                    html += `<div class="flex items-center justify-center gap-2">${parts[0]} <input data-answer="${item.answer}" class="w-40 p-1 border-b-2 text-center text-xl outline-none focus:border-blue-500 transition"> ${parts[1]}</div>`;
-                });
-                container.innerHTML = html;
-
-                container.querySelectorAll('input').forEach(input => {
-                    input.addEventListener('blur', () => {
-                        const userAnswer = input.value.trim().toLowerCase();
-                        const correctAnswer = input.dataset.answer.toLowerCase();
-                        input.classList.remove('border-green-500', 'border-red-500');
-                        if(userAnswer.length === 0) return;
-                        if (userAnswer === correctAnswer) {
-                            input.classList.add('border-green-500');
-                        } else {
-                            input.classList.add('border-red-500');
-                        }
-                    });
-                });
+            const score = document.getElementById('listening-score');
+            if (score) {
+                score.classList.remove('hidden');
+                if (correct === inputs.length) {
+                    score.className = 'mt-4 text-lg font-bold p-4 rounded-xl bg-green-100 text-green-800';
+                    score.textContent = '🎉 Perfeito! Respostas: 6 AM / No';
+                } else {
+                    score.className = 'mt-4 text-lg font-bold p-4 rounded-xl bg-orange-100 text-orange-800';
+                    score.textContent = `${correct}/${inputs.length} corretas. Respostas esperadas: 6 AM / No`;
+                }
             }
+        };
 
-            // Atividades para o primeiro slide de prática
-            const practiceItems1 = [
-                { text: 'She ____ (work) in an office.', answer: 'works' },
-                { text: 'He ____ (study) English every day.', answer: 'studies' },
-                { text: 'My father ____ (watch) the news at night.', answer: 'watches' },
-                { text: 'She ____ (have) two cats.', answer: 'has' },
-                { text: 'My brother ____ (go) to the gym.', answer: 'goes' },
-                { text: 'The cat ____ (sleep) on the sofa.', answer: 'sleeps' },
-                { text: 'She ____ (do) her homework in the afternoon.', answer: 'does' },
-                { text: 'He ____ (fix) cars.', answer: 'fixes' }
-            ];
-            createPracticeActivity('practice-1', practiceItems1);
+        window.resetListening = function() {
+            document.querySelectorAll('.listening-input').forEach(i => {
+                i.value = ''; i.classList.remove('correct', 'incorrect');
+            });
+            const score = document.getElementById('listening-score');
+            if (score) score.classList.add('hidden');
+        };
 
-            // Atividades para o segundo slide de prática
-            const practiceItems2 = [
-                { text: 'She ____ (miss) her family.', answer: 'misses' },
-                { text: 'He ____ (try) to learn Japanese.', answer: 'tries' },
-                { text: 'It ____ (rain) a lot here in the summer.', answer: 'rains' },
-                { text: 'My sister ____ (teach) history at a school.', answer: 'teaches' }
-            ];
-            createPracticeActivity('practice-2', practiceItems2);
-            
-            showSlide(0);
-        });
+        // ============================================================
+        // MUSIC / LYRICS
+        // ============================================================
+        const lyricsData = [
+            { text: 'She works hard for the money', blank: null },
+            { text: 'So hard for it, honey', blank: null },
+            { text: 'She ', blank: 'works', suffix: ' hard for the money' },
+            { text: 'So you better treat her right', blank: null },
+            { text: '', emptyLine: true },
+            { text: 'Onetta here in the corner stand', blank: null },
+            { text: 'and wonders where she is.', blank: null },
+            { text: 'And it\'s strange to her, some people seem to have everything.', blank: null },
+        ];
+
+        const lyricsContainer = document.getElementById('lyrics-container');
+        if (lyricsContainer) {
+            lyricsContainer.innerHTML = lyricsData.map((line, i) => {
+                if (line.emptyLine) return '<br>';
+                if (!line.blank) return `<p class="text-gray-700">${line.text}</p>`;
+                return `<p class="flex items-center flex-wrap gap-1">
+                    <span>${line.text}</span>
+                    <input data-answer="${line.blank}" data-index="${i}" class="lyric-input" placeholder="...">
+                    <button onclick="revealLyric(${i})" class="text-amber-400 hover:text-amber-600 ml-1" title="Revelar"><i class="fas fa-lightbulb"></i></button>
+                    ${line.suffix ? `<span>${line.suffix}</span>` : ''}
+                </p>`;
+            }).join('');
+        }
+
+        window.checkLyrics = function() {
+            const inputs = document.querySelectorAll('.lyric-input');
+            let correct = 0;
+            inputs.forEach(input => {
+                if (input.disabled) return;
+                const user = input.value.trim().toLowerCase();
+                const ans = input.dataset.answer.toLowerCase();
+                input.classList.remove('correct', 'incorrect');
+                if (!user) return;
+                if (user === ans) { input.classList.add('correct'); correct++; }
+                else { input.classList.add('incorrect'); }
+            });
+            const scoreEl = document.getElementById('lyrics-score');
+            const total = document.querySelectorAll('.lyric-input').length;
+            if (scoreEl) scoreEl.textContent = `${correct} de ${total} corretas`;
+        };
+
+        window.revealLyric = function(index) {
+            const input = document.querySelector(`.lyric-input[data-index="${index}"]`);
+            if (!input) return;
+            input.value = input.dataset.answer;
+            input.classList.remove('correct', 'incorrect');
+            input.classList.add('revealed');
+            input.disabled = true;
+        };
+
+        window.revealAllLyrics = function() {
+            document.querySelectorAll('.lyric-input').forEach(input => revealLyric(parseInt(input.dataset.index)));
+        };
+
+    });
     </script>
-
 </body>
 </html>
