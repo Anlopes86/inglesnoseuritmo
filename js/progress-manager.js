@@ -63,3 +63,48 @@ async function markLessonAsComplete(moduleId, lessonId) {
     alert("Ocorreu um erro ao salvar o progresso: " + error.message);
   }
 }
+
+function getLessonContextFromPath() {
+  const path = window.location.pathname.replace(/\\/g, '/');
+  const match = path.match(/\/(conversation|a1|a2)\/licao-(\d+)\.html$/i);
+  if (!match) return null;
+
+  return {
+    moduleId: match[1].toLowerCase(),
+    lessonNumber: parseInt(match[2], 10)
+  };
+}
+
+function wireStandardLessonFinish() {
+  const context = getLessonContextFromPath();
+  if (!context) return;
+
+  document.addEventListener('click', async (event) => {
+    const button = event.target.closest('#finish-lesson-btn, #finish-lesson-btn-main');
+    if (!button) return;
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    button.disabled = true;
+    button.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>';
+
+    if (typeof markLessonAsComplete === 'function') {
+      await markLessonAsComplete(context.moduleId, context.lessonNumber);
+      return;
+    }
+
+    console.error("Função markLessonAsComplete não encontrada.");
+    localStorage.setItem(`lesson_${context.moduleId}_${context.lessonNumber}_completed`, 'true');
+    const path = window.location.pathname;
+    const lastSlashIndex = path.lastIndexOf('/');
+    const basePath = path.substring(0, lastSlashIndex + 1);
+    window.location.href = basePath + `${context.moduleId}.html`;
+  }, true);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', wireStandardLessonFinish);
+} else {
+  wireStandardLessonFinish();
+}
