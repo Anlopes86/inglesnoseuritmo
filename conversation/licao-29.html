@@ -288,9 +288,16 @@
             <button id="next-btn" class="bg-emerald-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-emerald-700">Next</button>
         </div>
     </footer>
-    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'conversation';
+            const lessonNumber = 29;
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
             const progressBar = document.getElementById('progress-bar');
@@ -322,8 +329,20 @@
             if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } };
             if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } };
             
-            // Back to topics logic
-            if (finishLessonBtn) finishLessonBtn.onclick = () => { window.location.href = 'conversation.html'; };
+            if (finishLessonBtn) {
+                finishLessonBtn.onclick = () => {
+                    finishLessonBtn.disabled = true;
+                    finishLessonBtn.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>';
+
+                    if (typeof markLessonAsComplete === 'function') {
+                        markLessonAsComplete(moduleId, lessonNumber);
+                    } else {
+                        console.error("Função markLessonAsComplete não encontrada.");
+                        localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true');
+                        window.location.href = 'conversation.html';
+                    }
+                };
+            }
 
             document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
             

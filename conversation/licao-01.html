@@ -486,10 +486,16 @@
             });
 
             finishLessonBtn.addEventListener('click', () => {
-                // Aqui você pode adicionar lógica para finalizar a aula
-                // Por exemplo, salvar progresso no Firebase
-                alert('Parabéns! Você completou a aula "Dreams & Ambitions"!');
-                // window.location.href = 'conversation.html'; // Redirecionar se necessário
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>';
+
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber);
+                } else {
+                    console.error("Função markLessonAsComplete não encontrada.");
+                    localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true');
+                    window.location.href = 'conversation.html';
+                }
             });
 
             // Initialize
