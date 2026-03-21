@@ -23,6 +23,16 @@
         .flashcard-back { background-color: #1d4ed8; color: white; transform: rotateY(180deg); text-align: center; }
         .flashcard.reviewed .flashcard-front { border-color: #22c55e; background-color: #f0fdf4; }
         .flashcard.reviewed .flashcard-front h4 { color: #16a34a; }
+        .flashcard-audio-btn {
+            position: absolute; top: 0.75rem; right: 0.75rem;
+            width: 2.25rem; height: 2.25rem; border-radius: 9999px;
+            border: 1px solid rgba(56, 189, 248, 0.45);
+            background: rgba(15, 23, 42, 0.88); color: #38bdf8;
+            display: inline-flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: transform 0.2s, background-color 0.2s, color 0.2s;
+            z-index: 2;
+        }
+        .flashcard-audio-btn:hover { background: rgba(14, 116, 144, 0.2); color: #7dd3fc; transform: scale(1.05); }
 
         /* SPEAK BUTTON */
         .speak-btn {
@@ -449,14 +459,14 @@
                         <div class="flashcard-front">
                             <h4 class="text-2xl font-bold mb-1">${item.country}</h4>
                             <img src="https://flagcdn.com/w80/${item.flag}.png" class="h-8 my-2 rounded shadow-sm">
-                            <button class="speak-btn text-xs mt-1" onclick="event.stopPropagation(); speak('${safeC}')">
-                                <i class="fas fa-volume-up"></i> Ouvir
+                            <button class="flashcard-audio-btn" type="button" title="Ouvir pronúncia" onclick="event.stopPropagation(); speak('${safeC}')">
+                                <i class="fas fa-volume-up"></i>
                             </button>
                         </div>
                         <div class="flashcard-back">
                             <p class="text-2xl font-bold">${item.nat}</p>
-                            <button class="speak-btn text-xs mt-3" onclick="event.stopPropagation(); speak('${safeN}')">
-                                <i class="fas fa-volume-up"></i> Ouvir
+                            <button class="flashcard-audio-btn" type="button" title="Ouvir pronúncia" onclick="event.stopPropagation(); speak('${safeN}')">
+                                <i class="fas fa-volume-up"></i>
                             </button>
                         </div>
                     </div>`;
@@ -689,5 +699,6 @@
 
     });
     </script>
+    <script src="../js/lesson-flashcard-save.js"></script>
 </body>
 </html>

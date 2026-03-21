@@ -15,20 +15,21 @@
                 width: 2.25rem;
                 height: 2.25rem;
                 border-radius: 9999px;
-                border: 1px solid rgba(255,255,255,0.25);
-                background: rgba(255,255,255,0.18);
-                color: currentColor;
+                border: 1px solid rgba(56, 189, 248, 0.45);
+                background: rgba(15, 23, 42, 0.88);
+                color: #38bdf8;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
-                transition: transform 0.2s, background-color 0.2s, opacity 0.2s;
+                transition: transform 0.2s, background-color 0.2s, opacity 0.2s, color 0.2s;
                 z-index: 2;
                 opacity: 0.9;
             }
             .flashcard-front .${BUTTON_CLASS}:hover, .flip-card-front .${BUTTON_CLASS}:hover {
                 transform: scale(1.05);
-                background: rgba(255,255,255,0.3);
+                background: rgba(14, 116, 144, 0.2);
+                color: #7dd3fc;
                 opacity: 1;
             }
         `;

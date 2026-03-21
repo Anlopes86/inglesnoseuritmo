@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A2+ | Lição 22: Medical Consultation & Advice</title>
+    <title>A2+ | Licao 22: Medical Consultation & Conditions</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
@@ -13,11 +13,11 @@
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .flip-card { background-color: transparent; width: 100%; max-width: 280px; min-height: 200px; perspective: 1000px; cursor: pointer; }
+        .flip-card { background-color: transparent; width: 100%; max-width: 280px; height: 200px; perspective: 1000px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back {
-            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             border-radius: 1.5rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); padding: 1.5rem;
         }
@@ -28,13 +28,14 @@
         input.incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
         .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
         .answer-btn:hover { color: #0ea5e9; }
-        
-        input { border-bottom: 3px solid #cbd5e1; outline: none; transition: all 0.2s; font-weight: 800; background: transparent; padding: 0 8px; color: #0369a1; }
-        .choice-btn { border: 2px solid #e5e7eb; padding: 18px; border-radius: 16px; transition: all 0.2s; cursor: pointer; text-align: left; width: 100%; font-size: 1.2rem; }
-        .choice-btn:hover { border-color: #0ea5e9; background-color: #f0f9ff; }
-        .selected-correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        .pronounce-btn {
+            position: absolute; top: 0.75rem; right: 0.75rem; width: 2.25rem; height: 2.25rem;
+            border-radius: 9999px; border: 1px solid #bae6fd; background: #e0f2fe; color: #0369a1;
+            display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s;
+        }
+        .pronounce-btn:hover { background: #bae6fd; color: #075985; }
 
-        .medical-header { background: linear-gradient(90deg, #0c4a6e 0%, #0ea5e9 100%); color: white; }
+        input { border-bottom: 3px solid #cbd5e1; outline: none; transition: all 0.2s; font-weight: 800; background: transparent; padding: 0 8px; color: #0369a1; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -42,7 +43,7 @@
     <header class="bg-white shadow-sm sticky top-0 z-10">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="a2.html" class="text-lg font-bold text-sky-600 hover:text-sky-800 flex items-center gap-2"><i class="fas fa-user-md"></i> Medical Module</a>
-            <h1 class="text-2xl font-black text-center uppercase tracking-tighter">Lesson 22: Clinical Advice</h1>
+            <h1 class="text-2xl font-black text-center uppercase tracking-tighter">Lesson 22: Medical Consultation</h1>
             <div class="w-40"></div>
         </div>
         <div class="w-full bg-gray-200 h-2"><div id="progress-bar" class="bg-sky-500 h-2 transition-all duration-300"></div></div>
@@ -52,67 +53,107 @@
 
         <div class="slide active">
             <div class="text-center max-w-5xl mx-auto">
-                <h2 class="text-4xl font-black mb-10 text-sky-900 italic underline decoration-sky-400">Clinical Case Study</h2>
+                <h2 class="text-4xl font-black mb-10 text-sky-900 italic underline decoration-sky-400">Medical Consultation</h2>
                 <div class="bg-white p-10 rounded-3xl shadow-xl space-y-8 text-left border-l-[12px] border-sky-600">
                     <div class="flex gap-4">
-                        <span class="font-black text-sky-700">MD:</span>
-                        <p class="italic text-2xl">"What is your <strong>chief complaint</strong> today?"</p>
+                        <span class="font-black text-sky-700">Doctor:</span>
+                        <p class="italic text-2xl">"Hello. <strong>What seems to be the problem</strong> today?"</p>
                     </div>
                     <div class="flex gap-4">
                         <span class="font-black text-slate-600">Patient:</span>
-                        <p class="italic text-2xl">"I've been feeling <strong>short of breath</strong> and I have a sharp pain in my chest."</p>
+                        <p class="italic text-2xl">"I've been feeling <strong>short of breath</strong>, and I have pain in my chest."</p>
                     </div>
                     <div class="flex gap-4">
-                        <span class="font-black text-sky-700">MD:</span>
-                        <p class="italic text-2xl">"On a scale of 1 to 10, how would you <strong>rate the pain</strong>? You <strong>should</strong> describe it precisely."</p>
+                        <span class="font-black text-sky-700">Doctor:</span>
+                        <p class="italic text-2xl">"<strong>How long have you felt like this?</strong> Does it get worse when you walk?"</p>
                     </div>
                     <div class="flex gap-4">
-                        <span class="font-black text-sky-700">MD (Advice):</span>
-                        <p class="italic text-2xl">"You <strong>shouldn't</strong> ignore these symptoms. We <strong>should</strong> perform an EKG immediately."</p>
+                        <span class="font-black text-slate-600">Patient:</span>
+                        <p class="italic text-2xl">"Since yesterday afternoon. Yes, a little. I also feel tired and dizzy."</p>
+                    </div>
+                    <div class="mt-8 bg-sky-50 rounded-2xl p-6 border border-sky-100">
+                        <p class="font-black text-sky-800 mb-4 uppercase text-lg">Discuss</p>
+                        <div class="space-y-3 text-xl">
+                            <p>1. Which symptoms are common and which are serious?</p>
+                            <p>2. What questions should a doctor ask first in this situation?</p>
+                            <p>3. Is it important to use simple language with patients? Why?</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="slide">
-            <h2 class="text-3xl font-black mb-8 text-center text-sky-900 uppercase tracking-widest">Medical Glossary</h2>
+            <h2 class="text-3xl font-black mb-8 text-center text-sky-900 uppercase tracking-widest">Medical Conditions & Symptoms</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-wind text-4xl mb-3"></i>Short of breath</div><div class="flip-card-back">Dispneia / Falta de ar</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-head-side-virus text-4xl mb-3"></i>Dizziness</div><div class="flip-card-back">Tontura / Vertigem</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-notes-medical text-4xl mb-3"></i>Prescription</div><div class="flip-card-back">Receita Médica</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-syringe text-4xl mb-3"></i>Over-the-counter</div><div class="flip-card-back">Venda livre (sem receita)</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-bacteria text-4xl mb-3"></i>Swelling</div><div class="flip-card-back">Inchaço / Edema</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-heartbeat text-4xl mb-3"></i>Heartburn</div><div class="flip-card-back">Azia</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-band-aid text-4xl mb-3"></i>Rash</div><div class="flip-card-back">Erupção Cutânea</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-microscope text-4xl mb-3"></i>Check-up</div><div class="flip-card-back">Exame de rotina</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><button class="pronounce-btn" data-word="Short of breath" aria-label="Hear pronunciation"><i class="fas fa-volume-up"></i></button><i class="fas fa-wind text-4xl mb-3"></i>Short of breath</div><div class="flip-card-back">Dispneia / falta de ar</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><button class="pronounce-btn" data-word="Dizziness" aria-label="Hear pronunciation"><i class="fas fa-volume-up"></i></button><i class="fas fa-head-side-virus text-4xl mb-3"></i>Dizziness</div><div class="flip-card-back">Tontura / vertigem</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><button class="pronounce-btn" data-word="Nausea" aria-label="Hear pronunciation"><i class="fas fa-volume-up"></i></button><i class="fas fa-stomach text-4xl mb-3"></i>Nausea</div><div class="flip-card-back">Nausea / enjoo</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><button class="pronounce-btn" data-word="Fever" aria-label="Hear pronunciation"><i class="fas fa-volume-up"></i></button><i class="fas fa-temperature-high text-4xl mb-3"></i>Fever</div><div class="flip-card-back">Febre</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><button class="pronounce-btn" data-word="Swelling" aria-label="Hear pronunciation"><i class="fas fa-volume-up"></i></button><i class="fas fa-bacteria text-4xl mb-3"></i>Swelling</div><div class="flip-card-back">Inchaco / edema</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><button class="pronounce-btn" data-word="Heartburn" aria-label="Hear pronunciation"><i class="fas fa-volume-up"></i></button><i class="fas fa-heartbeat text-4xl mb-3"></i>Heartburn</div><div class="flip-card-back">Azia</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><button class="pronounce-btn" data-word="Rash" aria-label="Hear pronunciation"><i class="fas fa-volume-up"></i></button><i class="fas fa-band-aid text-4xl mb-3"></i>Rash</div><div class="flip-card-back">Erupcao cutanea</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><button class="pronounce-btn" data-word="Infection" aria-label="Hear pronunciation"><i class="fas fa-volume-up"></i></button><i class="fas fa-syringe text-4xl mb-3"></i>Infection</div><div class="flip-card-back">Infeccao</div></div></div>
             </div>
         </div>
 
         <div class="slide">
-            <h2 class="text-3xl font-black mb-6 text-center text-sky-900">Task 1: Professional Advice</h2>
+            <h2 class="text-3xl font-black mb-8 text-center text-sky-900 italic">Useful Language for a Consultation</h2>
+            <div class="max-w-5xl mx-auto bg-white p-10 rounded-3xl shadow-xl border-t-[12px] border-sky-600">
+                <div class="grid md:grid-cols-2 gap-6 text-xl">
+                    <div class="p-5 bg-sky-50 rounded-2xl border border-sky-100">
+                        <p class="font-black text-sky-800 mb-2">Doctor asks:</p>
+                        <p>Where does it hurt?</p>
+                        <p>How long have you had it?</p>
+                        <p>Does it get worse at night?</p>
+                    </div>
+                    <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200">
+                        <p class="font-black text-slate-700 mb-2">Patient answers:</p>
+                        <p>It hurts in my chest.</p>
+                        <p>I've had it since yesterday.</p>
+                        <p>Yes, especially when I walk.</p>
+                    </div>
+                    <div class="p-5 bg-sky-50 rounded-2xl border border-sky-100">
+                        <p class="font-black text-sky-800 mb-2">Doctor asks:</p>
+                        <p>Do you have any other symptoms?</p>
+                        <p>Do you have a fever?</p>
+                        <p>Are you taking any medicine?</p>
+                    </div>
+                    <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200">
+                        <p class="font-black text-slate-700 mb-2">Patient answers:</p>
+                        <p>I also feel dizzy.</p>
+                        <p>No, but I feel weak.</p>
+                        <p>Yes, just painkillers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-black mb-6 text-center text-sky-900">Task 1: Complete the Symptoms</h2>
             <div class="bg-white p-8 rounded-3xl shadow-lg max-w-5xl mx-auto space-y-4">
                 <div class="flex items-center justify-between border-b pb-3">
-                    <p>1. The patient has high blood pressure. He <input id="t1q1" data-answer="shouldn't" class="w-36 text-center"> eat salt.</p>
+                    <p>1. The patient feels sick and wants to vomit. She has <input id="t1q1" data-answer="nausea" class="w-36 text-center">.</p>
                     <button class="answer-btn" data-target="t1q1"><i class="fas fa-eye"></i></button>
                 </div>
                 <div class="flex items-center justify-between border-b pb-3">
-                    <p>2. To treat this infection, you <input id="t1q2" data-answer="should" class="w-32 text-center"> take antibiotics.</p>
+                    <p>2. He feels hot, weak, and his temperature is 39°C. He has a <input id="t1q2" data-answer="fever" class="w-32 text-center">.</p>
                     <button class="answer-btn" data-target="t1q2"><i class="fas fa-eye"></i></button>
                 </div>
                 <div class="flex items-center justify-between border-b pb-3">
-                    <p>3. If the pain persists, <input id="t1q3" data-answer="should" class="w-32 text-center"> I increase the dosage?</p>
+                    <p>3. The patient says, "I can't breathe well." She feels <input id="t1q3" data-answer="short of breath" class="w-40 text-center">.</p>
                     <button class="answer-btn" data-target="t1q3"><i class="fas fa-eye"></i></button>
                 </div>
                 <div class="flex items-center justify-between border-b pb-3">
-                    <p>4. You have a severe rash. You <input id="t1q4" data-answer="shouldn't" class="w-36 text-center"> scratch it.</p>
+                    <p>4. After the fall, his ankle is bigger and painful. He has <input id="t1q4" data-answer="swelling" class="w-36 text-center">.</p>
                     <button class="answer-btn" data-target="t1q4"><i class="fas fa-eye"></i></button>
                 </div>
                 <div class="flex items-center justify-between border-b pb-3">
-                    <p>5. The patient is pregnant. She <input id="t1q5" data-answer="should" class="w-32 text-center"> take folic acid.</p>
+                    <p>5. The red spots on her arms and neck may be a <input id="t1q5" data-answer="rash" class="w-32 text-center">.</p>
                     <button class="answer-btn" data-target="t1q5"><i class="fas fa-eye"></i></button>
                 </div>
                 <div class="flex items-center justify-between border-b pb-3">
-                    <p>6. <input id="t1q6" data-answer="Should" class="w-32 text-center"> we order a blood test for this patient?</p>
+                    <p>6. He ate too much fried food and now he has <input id="t1q6" data-answer="heartburn" class="w-32 text-center">.</p>
                     <button class="answer-btn" data-target="t1q6"><i class="fas fa-eye"></i></button>
                 </div>
             </div>
@@ -123,33 +164,106 @@
                 <div class="flex-1 space-y-6">
                     <div class="flex items-center gap-4 border-b border-white/20 pb-4">
                         <i class="fas fa-laptop-medical text-5xl text-sky-400"></i>
-                        <div><h3 class="text-2xl font-black">Fix You</h3><p class="text-sky-300 font-bold">Coldplay (The Caregiver's Anthem)</p></div>
+                        <div><h3 class="text-2xl font-black">Fix You</h3><p class="text-sky-300 font-bold">Coldplay</p></div>
                     </div>
                     <div class="font-serif italic text-2xl leading-relaxed bg-white/5 p-8 rounded-2xl">
+                        <p>When you try your best, but you don't succeed...</p>
+                        <p>When you get what you <input id="m1" data-answer="want" class="w-28 border-b border-white"> <button class="answer-btn" data-target="m1"><i class="fas fa-eye text-white/50"></i></button>, but not what you need</p>
                         <p>When you feel so tired, but you can't sleep...</p>
-                        <p>And I <input id="m1" data-answer="will try" class="w-32 border-b border-white"> to fix you</p>
+                        <p>Stuck in <input id="m2" data-answer="reverse" class="w-32 border-b border-white"> <button class="answer-btn" data-target="m2"><i class="fas fa-eye text-white/50"></i></button></p>
+                        <p>And the tears come streaming down your <input id="m3" data-answer="face" class="w-28 border-b border-white"> <button class="answer-btn" data-target="m3"><i class="fas fa-eye text-white/50"></i></button></p>
+                        <p>When you lose something you can't <input id="m4" data-answer="replace" class="w-32 border-b border-white"> <button class="answer-btn" data-target="m4"><i class="fas fa-eye text-white/50"></i></button></p>
+                        <p>When you love someone, but it goes to <input id="m5" data-answer="waste" class="w-28 border-b border-white"> <button class="answer-btn" data-target="m5"><i class="fas fa-eye text-white/50"></i></button></p>
+                        <p>Could it be <input id="m6" data-answer="worse" class="w-28 border-b border-white"> <button class="answer-btn" data-target="m6"><i class="fas fa-eye text-white/50"></i></button>?</p>
                         <br>
-                        <p class="text-lg text-slate-400">The song represents the empathy a doctor feels. Empathy <strong>should</strong> be part of every treatment.</p>
+                        <p>Lights will guide you <input id="m7" data-answer="home" class="w-28 border-b border-white"> <button class="answer-btn" data-target="m7"><i class="fas fa-eye text-white/50"></i></button></p>
+                        <p>And ignite your bones</p>
+                        <p>And I will try to <input id="m8" data-answer="fix" class="w-24 border-b border-white"> you <button class="answer-btn" data-target="m8"><i class="fas fa-eye text-white/50"></i></button></p>
+                        <br>
+                        <p class="text-lg text-slate-400">This song fits the lesson because medicine is not only about treatment. It is also about empathy, calm communication, and support.</p>
                     </div>
                 </div>
                 <div class="w-full lg:w-80">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7LVHVU3t6EUvDycZTVsmq3" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7LVHVU3tWfcxj5aiPFEW4Q?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             </div>
         </div>
 
         <div class="slide">
-            <h2 class="text-3xl font-black mb-8 text-center text-sky-900 italic">Interacting in the ER</h2>
+            <h2 class="text-3xl font-black mb-8 text-center text-sky-900 italic">Task 2: Choose the Best Follow-up Question</h2>
             <div class="max-w-4xl mx-auto bg-white p-10 rounded-3xl shadow-xl border-t-[12px] border-sky-600">
-                <p class="text-2xl font-bold mb-6">Patient Simulation:</p>
+                <p class="text-2xl font-bold mb-6">What should the doctor ask next?</p>
                 <div class="space-y-6 text-xl">
                     <div class="p-4 bg-sky-50 rounded-xl border border-sky-100">
-                        <p><strong>Patient:</strong> "I have a lot of <strong>heartburn</strong> after meals."</p>
-                        <p><strong>MD Advice:</strong> "You <input id="rp1" data-answer="should" class="w-24 text-center"> avoid spicy food and you <input id="rp2" data-answer="shouldn't" class="w-32 text-center"> lie down immediately after eating."</p>
+                        <p><strong>Patient:</strong> "I have chest pain and I feel weak."</p>
+                        <p class="text-base text-slate-600 mt-2">Onde dói exatamente?</p>
+                        <p><strong>Best question:</strong> <input id="rp1" data-answer="Where does it hurt exactly" class="w-80 text-center">? <button class="answer-btn" data-target="rp1"><i class="fas fa-eye"></i></button></p>
                     </div>
                     <div class="p-4 bg-sky-50 rounded-xl border border-sky-100">
-                        <p><strong>Patient:</strong> "My ankle has a lot of <strong>swelling</strong>."</p>
-                        <p><strong>MD Advice:</strong> "You <input id="rp3" data-answer="should" class="w-24 text-center"> apply ice and you <input id="rp4" data-answer="shouldn't" class="w-32 text-center"> put weight on it for 48 hours."</p>
+                        <p><strong>Patient:</strong> "My ankle is swollen."</p>
+                        <p class="text-base text-slate-600 mt-2">Como aconteceu?</p>
+                        <p><strong>Best question:</strong> How did it <input id="rp2" data-answer="happen" class="w-40 text-center">? <button class="answer-btn" data-target="rp2"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                    <div class="p-4 bg-sky-50 rounded-xl border border-sky-100">
+                        <p><strong>Patient:</strong> "I feel dizzy in the morning."</p>
+                        <p class="text-base text-slate-600 mt-2">você se sente assim?</p>
+                        <p><strong>Best question:</strong> How long have you <input id="rp3" data-answer="felt like this" class="w-52 text-center">? <button class="answer-btn" data-target="rp3"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                    <div class="p-4 bg-sky-50 rounded-xl border border-sky-100">
+                        <p><strong>Patient:</strong> "I have a rash on my arms."</p>
+                        <p class="text-base text-slate-600 mt-2">sintomas</p>
+                        <p><strong>Best question:</strong> Do you have any other <input id="rp4" data-answer="symptoms" class="w-44 text-center">? <button class="answer-btn" data-target="rp4"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-black mb-8 text-center text-sky-900 italic">Task 3: Urgent or Not?</h2>
+            <div class="max-w-5xl mx-auto bg-white p-10 rounded-3xl shadow-xl border-t-[12px] border-sky-600">
+                <p class="text-2xl font-bold mb-6">Classify each situation:</p>
+                <p class="text-lg text-slate-600 mb-6">Use only two answers: <strong>urgent</strong> or <strong>not urgent</strong>.</p>
+                <div class="grid md:grid-cols-2 gap-6 text-xl">
+                    <div class="p-5 bg-red-50 rounded-2xl border border-red-100">
+                        <p><strong>Case 1:</strong> Chest pain and shortness of breath.</p>
+                        <p class="text-base text-slate-600 mt-2">Choose: urgent / not urgent</p>
+                        <p class="mt-3"><strong>Answer:</strong> <input id="u1" data-answer="urgent" class="w-40 text-center"> <button class="answer-btn" data-target="u1"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                    <div class="p-5 bg-amber-50 rounded-2xl border border-amber-100">
+                        <p><strong>Case 2:</strong> Mild heartburn after a heavy meal.</p>
+                        <p class="text-base text-slate-600 mt-2">Choose: urgent / not urgent</p>
+                        <p class="mt-3"><strong>Answer:</strong> <input id="u2" data-answer="not urgent" class="w-40 text-center"> <button class="answer-btn" data-target="u2"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                    <div class="p-5 bg-amber-50 rounded-2xl border border-amber-100">
+                        <p><strong>Case 3:</strong> Rash on the arm, but no fever.</p>
+                        <p class="text-base text-slate-600 mt-2">Choose: urgent / not urgent</p>
+                        <p class="mt-3"><strong>Answer:</strong> <input id="u3" data-answer="not urgent" class="w-40 text-center"> <button class="answer-btn" data-target="u3"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                    <div class="p-5 bg-red-50 rounded-2xl border border-red-100">
+                        <p><strong>Case 4:</strong> High fever and dizziness for two days.</p>
+                        <p class="text-base text-slate-600 mt-2">Choose: urgent / not urgent</p>
+                        <p class="mt-3"><strong>Answer:</strong> <input id="u4" data-answer="urgent" class="w-40 text-center"> <button class="answer-btn" data-target="u4"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-black mb-8 text-center text-sky-900 italic">Roleplay: Doctor and Patient</h2>
+            <div class="max-w-4xl mx-auto bg-white p-10 rounded-3xl shadow-xl border-t-[12px] border-sky-600">
+                <p class="text-2xl font-bold mb-6">Use the prompts to speak:</p>
+                <div class="space-y-6 text-xl">
+                    <div class="p-5 bg-sky-50 rounded-2xl border border-sky-100">
+                        <p class="font-black text-sky-800 mb-2">Student A: Doctor</p>
+                        <p>Ask about the main symptom.</p>
+                        <p>Ask how long the patient has felt like this.</p>
+                        <p>Ask one more follow-up question.</p>
+                    </div>
+                    <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200">
+                        <p class="font-black text-slate-700 mb-2">Student B: Patient</p>
+                        <p>You have a fever, nausea, and dizziness.</p>
+                        <p>It started yesterday evening.</p>
+                        <p>You also feel weak after standing up.</p>
                     </div>
                 </div>
             </div>
@@ -160,10 +274,10 @@
                 <div class="bg-white p-16 rounded-[3rem] shadow-2xl border-t-[16px] border-sky-700 max-w-4xl">
                     <i class="fas fa-graduation-cap text-sky-700 text-8xl mb-8"></i>
                     <h2 class="text-6xl font-black mb-10 text-gray-800">Future MD!</h2>
-                    <p class="text-3xl text-gray-600 mb-12">Você dominou a arte de dar conselhos clínicos em inglês.</p>
+                    <p class="text-3xl text-gray-600 mb-12">Voce agora consegue descrever condicoes medicas e conduzir perguntas simples em uma consulta em ingles.</p>
                     <div class="p-10 bg-sky-50 rounded-3xl border-2 border-sky-100 italic">
-                        <p class="text-4xl font-serif text-sky-900 mb-6">"Wherever the art of Medicine is loved, there is also a love of Humanity; and a good doctor <strong>should</strong> always be a good listener."</p>
-                        <p class="text-2xl text-sky-600 font-black">— Hippocrates</p>
+                        <p class="text-4xl font-serif text-sky-900 mb-6">"Wherever the art of Medicine is loved, there is also a love of Humanity."</p>
+                        <p class="text-2xl text-sky-600 font-black">- Hippocrates</p>
                     </div>
                 </div>
             </div>
@@ -178,6 +292,11 @@
         </div>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const slides = document.querySelectorAll('.slide');
@@ -212,6 +331,18 @@
                 };
             });
 
+            document.querySelectorAll('.pronounce-btn').forEach(btn => {
+                btn.onclick = (event) => {
+                    event.stopPropagation();
+                    if (!('speechSynthesis' in window)) return;
+                    window.speechSynthesis.cancel();
+                    const utterance = new SpeechSynthesisUtterance(btn.dataset.word);
+                    utterance.lang = 'en-US';
+                    utterance.rate = 0.9;
+                    window.speechSynthesis.speak(utterance);
+                };
+            });
+
             document.querySelectorAll('.flip-card').forEach(card => {
                 card.onclick = () => card.classList.toggle('flipped');
             });
@@ -219,5 +350,7 @@
             updateView();
         });
     </script>
+    <script src="../js/flashcard-pronunciation.js"></script>
+    <script src="../js/lesson-flashcard-save.js"></script>
 </body>
 </html>
