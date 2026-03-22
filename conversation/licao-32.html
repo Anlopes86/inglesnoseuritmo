@@ -25,6 +25,7 @@
         .input-answer { width: 130px; border-bottom: 2px solid #4a5568; text-align: center; background: transparent; outline: none; transition: border-color 0.3s; }
         .input-answer:focus { border-color: #f472b6; }
     </style>
+    <link rel="stylesheet" href="conversation-lesson-theme.css">
 </head>
 <body class="bg-gray-900 text-white">
 
@@ -165,6 +166,26 @@
             </div>
         </div>
 
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-pink-400"><i class="fas fa-puzzle-piece"></i> Match the Expressions</h2>
+                <div class="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto">
+                    <div class="lg:w-2/3 bg-gray-800 p-6 rounded-2xl shadow-lg space-y-6 text-left">
+                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">1. They really <span class="drop-zone" data-answer="to hit it off">________</span> on their first date.</div>
+                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">2. Good couples need to be <span class="drop-zone" data-answer="on the same page">________</span> about the future.</div>
+                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">3. Every relationship can go through <span class="drop-zone" data-answer="a rough patch">________</span>.</div>
+                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">4. If you suddenly disappear from a chat, you <span class="drop-zone" data-answer="to ghost someone">________</span>.</div>
+                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">5. It's easier to solve problems when you <span class="drop-zone" data-answer="to see eye to eye">________</span>.</div>
+                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">6. Some people believe there is one perfect <span class="drop-zone" data-answer="soulmate">________</span> for them.</div>
+                        <button id="check-btn" class="bg-pink-600 hover:bg-pink-500 text-white font-bold py-3 px-8 rounded-lg transition">Check Answers</button>
+                    </div>
+                    <div class="lg:w-1/3">
+                        <div id="word-bank" class="bg-gray-800 p-6 rounded-2xl border border-dashed border-gray-600 flex flex-col gap-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Slide 10: Homework -->
         <div class="slide">
             <div class="text-center">
@@ -230,10 +251,21 @@
         const progressBar = document.getElementById('progress-bar');
         const dotContainer = document.getElementById('dot-indicators');
         const finishBtn = document.getElementById('finish-lesson-btn');
+        const wordBank = document.getElementById('word-bank');
+        const dropZones = document.querySelectorAll('.drop-zone');
+        const checkBtn = document.getElementById('check-btn');
 
         // Configurações da lição para o sistema de progresso
         const moduleId = 'conversation';
         const lessonNumber = 32; // ID da lição para desbloqueio
+        const expressions = [
+            'to ghost someone',
+            'on the same page',
+            'a rough patch',
+            'to hit it off',
+            'to see eye to eye',
+            'soulmate'
+        ];
 
         // Create dot indicators
         slides.forEach((_, i) => {
@@ -241,6 +273,53 @@
             dot.className = `w-3 h-3 rounded-full ${i === 0 ? 'bg-pink-500' : 'bg-gray-600'}`;
             dotContainer.appendChild(dot);
         });
+
+        if (wordBank) {
+            expressions
+                .sort(() => Math.random() - 0.5)
+                .forEach(expression => {
+                    const item = document.createElement('div');
+                    item.className = 'drag-item bg-pink-600 px-4 py-3 rounded-lg font-bold cursor-grab';
+                    item.draggable = true;
+                    item.innerText = expression;
+                    item.addEventListener('dragstart', (e) => {
+                        e.dataTransfer.setData('text/plain', expression);
+                    });
+                    wordBank.appendChild(item);
+                });
+        }
+
+        dropZones.forEach(zone => {
+            zone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                zone.classList.add('hover');
+            });
+            zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                zone.classList.remove('hover');
+                zone.innerText = e.dataTransfer.getData('text/plain');
+                zone.classList.add('filled');
+                zone.style.color = '';
+            });
+            zone.addEventListener('click', () => {
+                zone.innerText = '________';
+                zone.classList.remove('filled');
+                zone.style.color = '';
+            });
+        });
+
+        if (checkBtn) {
+            checkBtn.addEventListener('click', () => {
+                dropZones.forEach(zone => {
+                    if (zone.innerText.trim().toLowerCase() === zone.dataset.answer.toLowerCase()) {
+                        zone.style.color = '#10b981';
+                    } else if (zone.innerText.trim() !== '________') {
+                        zone.style.color = '#ef4444';
+                    }
+                });
+            });
+        }
 
         function updateSlide() {
             slides.forEach((slide, index) => {
@@ -309,5 +388,6 @@
     </script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
+    <script src="conversation-lesson-theme.js"></script>
 </body>
 </html>
