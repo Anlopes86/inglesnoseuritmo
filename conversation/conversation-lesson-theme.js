@@ -129,6 +129,12 @@
     document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('conversation-theme-26');
 
+        document.querySelectorAll('.flashcard').forEach((card) => {
+            if (typeof card.onclick === 'function') {
+                card.onclick = null;
+            }
+        });
+
         document.querySelectorAll('#matching-activity').forEach((container) => {
             enhanceSelectMatching(container);
         });
