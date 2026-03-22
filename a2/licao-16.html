@@ -220,8 +220,15 @@
         </div>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2';
+            const lessonNumber = 16;
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
@@ -235,7 +242,29 @@
             }
 
             prevBtn.onclick = () => { if(currentSlide > 0) currentSlide--; updateView(); };
-            nextBtn.onclick = () => { if(currentSlide < slides.length - 1) { currentSlide++; updateView(); } };
+            nextBtn.onclick = () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateView();
+                    return;
+                }
+
+                nextBtn.disabled = true;
+                nextBtn.textContent = 'Saving...';
+
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber).catch(error => {
+                        console.error('Erro ao marcar a lição como completa:', error);
+                        alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');
+                        nextBtn.disabled = false;
+                        nextBtn.textContent = 'Finish';
+                    });
+                } else {
+                    alert('Erro ao salvar progresso.');
+                    nextBtn.disabled = false;
+                    nextBtn.textContent = 'Finish';
+                }
+            };
 
             function checkAnswer(input) {
                 const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();

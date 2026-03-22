@@ -270,14 +270,14 @@
             prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
             nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
             finishLessonBtn.addEventListener('click', () => {
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.textContent = 'Salvando...';
                 markLessonAsComplete('a1', 18)
-                    .then(() => {
-                        alert('Lição Finalizada com Sucesso!');
-                        window.location.href = 'a1.html';
-                    })
                     .catch(error => {
                         console.error('Erro ao marcar a lição como completa:', error);
                         alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');
+                        finishLessonBtn.disabled = false;
+                        finishLessonBtn.textContent = 'Finalizar Aula';
                     });
             });
 

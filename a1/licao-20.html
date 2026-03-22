@@ -260,15 +260,7 @@
                     finishLessonBtn.textContent = "Salvando...";
                     
                     if (typeof markLessonAsComplete === 'function') {
-                        // Chamamos a função de salvar. No .then(), forçamos o redirecionamento para o módulo
-                        // para que a página de lista recarregue e mostre o progresso.
                         markLessonAsComplete(moduleId, lessonNumber)
-                            .then(() => {
-                                // O alert já deve vir de progress-manager.js, mas o redirecionamento é o problema.
-                                // Forçamos o caminho correto para o módulo (a1.html está na pasta pai)
-                                alert('Lição Finalizada com Sucesso!'); 
-                                window.location.href = '../a1/a1.html'; 
-                            })
                             .catch(error => {
                                 console.error('Erro ao marcar a lição como completa:', error);
                                 alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');

@@ -189,6 +189,8 @@
     <script src="../js/progress-manager.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2';
+            const lessonNumber = 3;
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
@@ -208,11 +210,20 @@
             nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; updateSlideView(); } });
 
             finishLessonBtn.addEventListener('click', () => {
-                if (window.parent && typeof window.parent.markLessonAsComplete === 'function') {
-                    window.parent.markLessonAsComplete('a2', 'licao-03');
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.textContent = 'Salvando...';
+
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber).catch(error => {
+                        console.error('Erro ao marcar a lição como completa:', error);
+                        alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');
+                        finishLessonBtn.disabled = false;
+                        finishLessonBtn.textContent = 'Finish Lesson';
+                    });
                 } else {
-                    alert('Lição Finalizada! (Progresso não salvo fora do painel)');
-                    window.location.href = 'a2.html';
+                    alert('Erro ao salvar progresso.');
+                    finishLessonBtn.disabled = false;
+                    finishLessonBtn.textContent = 'Finish Lesson';
                 }
             });
 
