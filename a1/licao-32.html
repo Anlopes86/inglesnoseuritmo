@@ -3,232 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A1 - Lesson 32: The A1 Ultra Marathon | Inglês no seu Ritmo</title>
+    <title>A1 - Lesson 32: Final Project | Inglês no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        input.correct { background-color: #f0fdf4; border-color: #22c55e; }
-        input.incorrect { background-color: #fef2f2; border-color: #ef4444; }
-        input { transition: all 0.3s; }
+        .practice-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; text-align: center; outline: none; transition: border-color 0.2s; font-size: 1.05rem; padding: 2px 8px; width: 9rem; }
+        .practice-input:focus { border-color: #3b82f6; }
+        .practice-input.correct { border-color: #22c55e; color: #166534; font-weight: 700; }
+        .practice-input.incorrect { border-color: #ef4444; color: #b91c1c; }
+        .practice-input.revealed { border-color: #f59e0b; color: #b45309; font-weight: 700; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
+        .answer-btn:hover { color: #4f46e5; }
     </style>
     <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
-<body class="bg-gray-50 text-gray-800">
-
-    <header class="bg-white shadow-sm sticky top-0 z-40">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+<body class="bg-slate-50 text-slate-800">
+    <header class="shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
             <a href="a1.html" class="text-lg font-bold text-violet-600 hover:text-violet-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
-            <h1 class="text-xl font-semibold text-center">A1 - Lesson 32: Ultra Marathon</h1>
-            <div class="w-24"></div>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 32: Final Project</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
         </div>
-        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-violet-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-violet-500 h-1.5 transition-all duration-500"></div></div>
     </header>
 
-    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
-        
-        <div class="slide active">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-violet-700"><i class="fas fa-running text-yellow-500"></i> The A1 Ultra Marathon!</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-2xl mb-4 text-gray-700">Bem-vindo à revisão mais completa do Módulo A1!</p>
-                    <p class="text-xl mb-6 text-gray-600">Prepare-se para uma ultra maratona de exercícios para provar que você está mais do que pronto para o A2.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-violet-700"><i class="fas fa-pencil-ruler text-blue-500"></i> Challenge: Correct the Mistakes</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto text-left">
-                    <p class="text-xl mb-6 text-gray-600">Encontre e corrija o erro em cada frase.</p>
-                    <div id="challenge1-quiz" class="space-y-4 text-lg">
-                        <p>1. He <input data-answer="doesn't like" class="w-36 p-1 border-b-2 text-center" value="don't like"> coffee.</p>
-                        <p>2. I <input data-answer="went" class="w-24 p-1 border-b-2 text-center" value="goed"> to the mall yesterday.</p>
-                        <p>3. <input data-answer="Do" class="w-16 p-1 border-b-2 text-center" value="Does"> they live here?</p>
-                        <p>4. She <input data-answer="studies" class="w-24 p-1 border-b-2 text-center" value="studys"> English every day.</p>
-                        <p>5. They <input data-answer="didn't watch" class="w-36 p-1 border-b-2 text-center" value="no watched"> the movie.</p>
-                        <p>6. He <input data-answer="plays" class="w-24 p-1 border-b-2 text-center" value="play"> soccer on weekends.</p>
-                        <p>7. We <input data-answer="ate" class="w-16 p-1 border-b-2 text-center" value="eated"> pizza last night.</p>
-                        <p>8. <input data-answer="Does" class="w-16 p-1 border-b-2 text-center" value="Do"> she work in a bank?</p>
-                        <p>9. I <input data-answer="am not" class="w-24 p-1 border-b-2 text-center" value="not am"> tired today.</p>
-                        <p>10. What <input data-answer="did you do" class="w-32 p-1 border-b-2 text-center" value="you did"> yesterday?</p>
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="slide-label"><i class="fas fa-flag-checkered"></i> Final project</div>
+                <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-black mb-4 text-slate-900">Your A1 final project</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Chegou a hora de juntar tudo: falar sobre quem você é, sua rotina, suas preferências, seu passado recente e seus planos. O objetivo aqui não é falar “perfeito”, e sim mostrar comunicação funcional, que é exatamente o foco do CEFR A1.</p>
+                        <div class="flex flex-wrap gap-3 mt-6">
+                            <div class="lesson-chip"><i class="fas fa-bullseye text-violet-600"></i> Objetivo: integração do A1</div>
+                            <div class="lesson-chip"><i class="fas fa-comments text-blue-600"></i> Foco: speaking + writing</div>
+                            <div class="lesson-chip"><i class="fas fa-award text-orange-500"></i> Encerramento do módulo</div>
+                        </div>
                     </div>
-                    <button class="mt-8 bg-blue-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-600" onclick="checkAnswers(this.previousElementSibling)">Check Answers</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-violet-700"><i class="fas fa-map-marker-alt text-green-500"></i> Challenge: There is / There are</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto text-left">
-                    <p class="text-xl mb-6 text-gray-600">Complete com <i class="font-mono">There is</i>, <i class="font-mono">There are</i>, <i class="font-mono">Is there</i>, ou <i class="font-mono">Are there</i>.</p>
-                    <div id="challenge2-quiz" class="space-y-4 text-lg">
-                        <p>1. <input data-answer="There is" class="w-32 p-1 border-b-2 text-center"> a book on the table.</p>
-                        <p>2. <input data-answer="There are" class="w-32 p-1 border-b-2 text-center"> two cats in the garden.</p>
-                        <p>3. <input data-answer="There is" class="w-32 p-1 border-b-2 text-center"> a big supermarket near here.</p>
-                        <p>4. <input data-answer="There are" class="w-32 p-1 border-b-2 text-center"> many people at the party.</p>
-                        <p>5. <input data-answer="Is there" class="w-32 p-1 border-b-2 text-center"> a pharmacy nearby?</p>
-                        <p>6. <input data-answer="There isn't" class="w-32 p-1 border-b-2 text-center"> any milk in the fridge.</p>
-                        <p>7. <input data-answer="Are there" class="w-32 p-1 border-b-2 text-center"> any questions?</p>
-                        <p>8. <input data-answer="There are" class="w-32 p-1 border-b-2 text-center"> 12 months in a year.</p>
-                        <p>9. <input data-answer="There aren't" class="w-32 p-1 border-b-2 text-center"> any good movies on TV.</p>
-                        <p>10. <input data-answer="There is" class="w-32 p-1 border-b-2 text-center"> a good reason for this.</p>
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">Você vai mostrar que consegue</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Se apresentar e falar da própria vida</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Usar presente, passado básico e futuro com apoio</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Manter uma fala curta com começo, meio e fim</span></div>
+                        </div>
                     </div>
-                    <button class="mt-8 bg-green-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-green-600" onclick="checkAnswers(this.previousElementSibling)">Check Answers</button>
                 </div>
             </div>
-        </div>
 
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-violet-700"><i class="fas fa-balance-scale text-orange-500"></i> Challenge: Much / Many</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto text-left">
-                    <p class="text-xl mb-6 text-gray-600">Complete com <i class="font-mono">much</i> ou <i class="font-mono">many</i>.</p>
-                    <div id="challenge3-quiz" class="space-y-4 text-lg">
-                        <p>1. How <input data-answer="many" class="w-24 p-1 border-b-2 text-center"> apples do you have?</p>
-                        <p>2. I don't have <input data-answer="much" class="w-24 p-1 border-b-2 text-center"> time today.</p>
-                        <p>3. How <input data-answer="much" class="w-24 p-1 border-b-2 text-center"> money do you need?</p>
-                        <p>4. She has so <input data-answer="many" class="w-24 p-1 border-b-2 text-center"> friends.</p>
-                        <p>5. There aren't <input data-answer="many" class="w-24 p-1 border-b-2 text-center"> cars in the street.</p>
-                        <p>6. Do you drink <input data-answer="much" class="w-24 p-1 border-b-2 text-center"> coffee?</p>
-                        <p>7. I don't know <input data-answer="many" class="w-24 p-1 border-b-2 text-center"> people here.</p>
-                        <p>8. How <input data-answer="much" class="w-24 p-1 border-b-2 text-center"> sugar do you want?</p>
-                        <p>9. There is too <input data-answer="much" class="w-24 p-1 border-b-2 text-center"> information to remember.</p>
-                        <p>10. How <input data-answer="many" class="w-24 p-1 border-b-2 text-center"> times did you call her?</p>
+            <div class="section-card p-8 mt-8">
+                <div class="flex items-center justify-between flex-wrap gap-4 mb-6">
+                    <div>
+                        <p class="lesson-panel-title">Final dialogue model</p>
+                        <h3 class="text-2xl font-bold text-slate-800">A conversa final já mistura tempos e temas</h3>
                     </div>
-                    <button class="mt-8 bg-orange-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-orange-600" onclick="checkAnswers(this.previousElementSibling)">Check Answers</button>
+                    <div class="callout-note text-sm"><strong>Progressão:</strong> aqui o aluno já responde mais de uma informação por turno.</div>
+                </div>
+                <div class="space-y-5 text-xl">
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-600 w-24">Teacher:</p><p>Tell me about yourself. Where are you from and what do you do?</p></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>I am from Brazil and I am a student.</p></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-600 w-24">Teacher:</p><p>What do you usually do in the morning?</p></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>I usually study and drink coffee in the morning.</p></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-600 w-24">Teacher:</p><p>What did you do yesterday, and what are you going to do tomorrow?</p></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>Yesterday I worked, and tomorrow I am going to visit my family.</p></div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Project Map">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-violet-700"><i class="fas fa-tint text-teal-500"></i> Challenge: A little / A few</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto text-left">
-                    <p class="text-xl mb-6 text-gray-600">Complete com <i class="font-mono">a little</i> ou <i class="font-mono">a few</i>.</p>
-                    <div id="challenge4-quiz" class="space-y-4 text-lg">
-                        <p>1. I need <input data-answer="a little" class="w-28 p-1 border-b-2 text-center"> sugar for my coffee.</p>
-                        <p>2. There are <input data-answer="a few" class="w-28 p-1 border-b-2 text-center"> good restaurants here.</p>
-                        <p>3. She speaks <input data-answer="a little" class="w-28 p-1 border-b-2 text-center"> French.</p>
-                        <p>4. I will be ready in <input data-answer="a few" class="w-28 p-1 border-b-2 text-center"> minutes.</p>
-                        <p>5. Can I have <input data-answer="a little" class="w-28 p-1 border-b-2 text-center"> water, please?</p>
-                        <p>6. He has <input data-answer="a few" class="w-28 p-1 border-b-2 text-center"> questions.</p>
-                        <p>7. We have <input data-answer="a little" class="w-28 p-1 border-b-2 text-center"> time before the movie starts.</p>
-                        <p>8. Only <input data-answer="a few" class="w-28 p-1 border-b-2 text-center"> people came to the meeting.</p>
-                        <p>9. I need <input data-answer="a little" class="w-28 p-1 border-b-2 text-center"> help with my homework.</p>
-                        <p>10. I bought <input data-answer="a few" class="w-28 p-1 border-b-2 text-center"> apples at the market.</p>
+                <div class="slide-label"><i class="fas fa-map"></i> Project map</div>
+                <h2 class="text-4xl font-black mb-6 text-violet-700">Your final presentation structure</h2>
+                <div class="section-card p-8 text-left">
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Part 1</p>
+                            <h3 class="text-2xl font-bold mb-3">Who I am</h3>
+                            <ul class="list-disc list-inside space-y-2 text-lg">
+                                <li>Name</li>
+                                <li>Country / city</li>
+                                <li>Job or study status</li>
+                            </ul>
+                        </div>
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Part 2</p>
+                            <h3 class="text-2xl font-bold mb-3">My daily life</h3>
+                            <ul class="list-disc list-inside space-y-2 text-lg">
+                                <li>Routine</li>
+                                <li>Likes and dislikes</li>
+                                <li>Abilities and habits</li>
+                            </ul>
+                        </div>
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Part 3</p>
+                            <h3 class="text-2xl font-bold mb-3">My recent past</h3>
+                            <ul class="list-disc list-inside space-y-2 text-lg">
+                                <li>One thing you did yesterday or last weekend</li>
+                                <li>One place you went</li>
+                            </ul>
+                        </div>
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Part 4</p>
+                            <h3 class="text-2xl font-bold mb-3">My plan</h3>
+                            <ul class="list-disc list-inside space-y-2 text-lg">
+                                <li>One future plan with <strong>going to</strong></li>
+                                <li>One personal goal</li>
+                            </ul>
+                        </div>
                     </div>
-                    <button class="mt-8 bg-teal-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-teal-600" onclick="checkAnswers(this.previousElementSibling)">Check Answers</button>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Language Builder">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-violet-700"><i class="fas fa-hand-pointer text-red-500"></i> Challenge: Demonstratives</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto text-left">
-                    <p class="text-xl mb-6 text-gray-600">Complete com <i class="font-mono">this, that, these</i>, ou <i class="font-mono">those</i>.</p>
-                    <div id="challenge5-quiz" class="space-y-4 text-lg">
-                        <p>1. I like <input data-answer="this" class="w-20 p-1 border-b-2 text-center"> hat here.</p>
-                        <p>2. What are <input data-answer="those" class="w-20 p-1 border-b-2 text-center"> buildings over there?</p>
-                        <p>3. Are <input data-answer="these" class="w-20 p-1 border-b-2 text-center"> your books on this table?</p>
-                        <p>4. <input data-answer="That" class="w-20 p-1 border-b-2 text-center"> was a great movie we watched yesterday.</p>
-                        <p>5. Can you pass me <input data-answer="that" class="w-20 p-1 border-b-2 text-center"> pen on the other table?</p>
-                        <p>6. <input data-answer="These" class="w-20 p-1 border-b-2 text-center"> are my friends, John and Mary.</p>
-                        <p>7. Look at <input data-answer="those" class="w-20 p-1 border-b-2 text-center"> birds in the sky!</p>
-                        <p>8. <input data-answer="This" class="w-20 p-1 border-b-2 text-center"> is my favorite song right now.</p>
-                        <p>9. Who are <input data-answer="those" class="w-20 p-1 border-b-2 text-center"> people across the street?</p>
-                        <p>10. I'm going to buy <input data-answer="these" class="w-20 p-1 border-b-2 text-center"> shoes I'm holding.</p>
+                <div class="slide-label"><i class="fas fa-pencil-alt"></i> Builder</div>
+                <h2 class="text-4xl font-black mb-6 text-violet-700">Build strong project sentences</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto">
+                    <p class="text-xl mb-8 text-slate-600">Complete os blocos que mais aparecem no projeto final. Isso ajuda muito antes da fala livre.</p>
+                    <div id="builder-activity" class="space-y-6 text-lg text-left"></div>
+                    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <button id="check-builder-btn" class="bg-violet-600 text-white font-bold py-3 px-10 rounded-xl hover:bg-violet-700 transition text-lg"><i class="fas fa-check-circle mr-2"></i>Verificar respostas</button>
+                        <button id="reset-builder-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-xl hover:bg-slate-300 transition text-lg"><i class="fas fa-rotate-left mr-2"></i>Recomeçar</button>
                     </div>
-                    <button class="mt-8 bg-red-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-red-600" onclick="checkAnswers(this.previousElementSibling)">Check Answers</button>
+                    <div id="builder-score" class="hidden mt-6 text-xl font-bold p-4 score-panel"></div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Interview Cards">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-violet-700"><i class="fas fa-cogs text-purple-500"></i> Challenge: Can / Can't</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto text-left">
-                    <p class="text-xl mb-6 text-gray-600">Complete as frases com <i class="font-mono">can</i> ou <i class="font-mono">can't</i>.</p>
-                    <div id="challenge6-quiz" class="space-y-4 text-lg">
-                        <p>1. A bird <input data-answer="can" class="w-20 p-1 border-b-2 text-center"> fly, but a dog <input data-answer="can't" class="w-20 p-1 border-b-2 text-center">.</p>
-                        <p>2. <input data-answer="Can" class="w-20 p-1 border-b-2 text-center"> you speak Japanese?</p>
-                        <p>3. I'm sorry, I <input data-answer="can't" class="w-20 p-1 border-b-2 text-center"> hear you.</p>
-                        <p>4. He <input data-answer="can" class="w-20 p-1 border-b-2 text-center"> run very fast.</p>
-                        <p>5. She <input data-answer="can't" class="w-20 p-1 border-b-2 text-center"> go to the party tonight.</p>
-                        <p>6. We <input data-answer="can" class="w-20 p-1 border-b-2 text-center"> meet tomorrow if you want.</p>
-                        <p>7. My computer is broken, so I <input data-answer="can't" class="w-20 p-1 border-b-2 text-center"> check my email.</p>
-                        <p>8. <input data-answer="Can" class="w-20 p-1 border-b-2 text-center"> I ask you a question?</p>
-                        <p>9. A fish <input data-answer="can't" class="w-20 p-1 border-b-2 text-center"> walk.</p>
-                        <p>10. You <input data-answer="can" class="w-20 p-1 border-b-2 text-center"> achieve anything if you try.</p>
-                    </div>
-                    <button class="mt-8 bg-purple-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-purple-600" onclick="checkAnswers(this.previousElementSibling)">Check Answers</button>
+                <div class="slide-label"><i class="fas fa-comments"></i> Interview</div>
+                <h2 class="text-4xl font-black mb-6 text-violet-700">Final interview prompts</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <p class="text-xl mb-8 text-slate-600">Treine respostas orais mais completas com esses cartões de entrevista.</p>
+                    <div id="interview-cards" class="space-y-5"></div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Mini Writing">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-violet-700"><i class="fas fa-microphone-alt text-pink-500"></i> The Grand Finale: Your Presentation!</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-2xl mb-4 text-gray-700">Agora é a sua vez de brilhar!</p>
-                    <p class="text-xl mb-6 text-gray-600">Apresente o texto que você preparou na última aula sobre sua vida, rotina, o que fez no passado e seus planos para o futuro.</p>
-                     <div class="bg-violet-50 p-6 rounded-lg mt-8 text-left">
-                        <h3 class="font-bold text-xl text-violet-800"><i class="fas fa-chalkboard-teacher mr-2"></i> Teacher's Corner</h3>
-                        <p class="mt-2 text-gray-700">Apés a apresentação, inicie uma conversa com perguntas como:</p>
-                        <ul class="list-disc list-inside mt-2 space-y-1 text-gray-600">
-                            <li>Tell me more about [hobby]. Why do you like it?</li>
-                            <li>What was the best part of your last weekend?</li>
-                            <li>What are you most excited about for your future plans?</li>
+                <div class="slide-label"><i class="fas fa-pen-nib"></i> Writing</div>
+                <h2 class="text-4xl font-black mb-6 text-violet-700">Write your short profile</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Use 6 to 8 sentences</p>
+                        <p class="text-lg mb-3">Try to include:</p>
+                        <ul class="list-disc list-inside space-y-2 text-lg">
+                            <li>Who you are</li>
+                            <li>Where you are from</li>
+                            <li>What you usually do</li>
+                            <li>What you like / don't like</li>
+                            <li>What you did recently</li>
+                            <li>What you are going to do next</li>
                         </ul>
                     </div>
+                    <div class="callout-success mt-5"><strong>Teacher note:</strong> o aluno não precisa usar tudo sem erro. O objetivo é combinar ideias simples com alguma organização.</div>
                 </div>
             </div>
         </div>
-        
-        <div class="slide">
+
+        <div class="slide" data-title="Project Checklist">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-violet-700"><i class="fas fa-rocket text-cyan-500"></i> What's Next? Your Journey to A2!</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Sua jornada no inglés está apenas começando. No módulo A2, você vai aprender:</p>
-                    <div class="text-left text-lg space-y-2 mt-4 bg-gray-50 p-6 rounded-lg">
-                        <ul class="list-disc list-inside space-y-2">
-                             <li><strong class="text-blue-600">Irregular Verbs in the Past:</strong> go ??' went, eat ??' ate, see ??' saw.</li>
-                            <li><strong class="text-green-600">Comparatives & Superlatives:</strong> "bigger than", "the best".</li>
-                            <li><strong class="text-red-600">More Future Tenses:</strong> Falar sobre o futuro com "will".</li>
-                            <li><strong class="text-cyan-600">Making Polite Requests:</strong> "Would you like...".</li>
-                            <li><strong class="text-sky-600">And much, much more!</strong></li>
-                        </ul>
+                <div class="slide-label"><i class="fas fa-list-check"></i> Checklist</div>
+                <h2 class="text-4xl font-black mb-6 text-violet-700">Self-check before presenting</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Language</p>
+                            <ul class="list-disc list-inside space-y-2 text-lg">
+                                <li>At least one present sentence</li>
+                                <li>At least one past sentence</li>
+                                <li>At least one future sentence</li>
+                                <li>Basic connectors like <strong>and</strong> / <strong>but</strong></li>
+                            </ul>
+                        </div>
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Delivery</p>
+                            <ul class="list-disc list-inside space-y-2 text-lg">
+                                <li>Speak slowly and clearly</li>
+                                <li>Pause between ideas</li>
+                                <li>Use short sentences if needed</li>
+                                <li>Keep going even with small mistakes</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-             <div class="text-center flex flex-col items-center justify-center h-full">
-                <i class="fas fa-trophy text-yellow-400 text-7xl mb-6"></i>
-                <h2 class="text-5xl font-bold mb-4 text-gray-800">You Finished Level A1!</h2>
-                <p class="text-3xl text-gray-600 max-w-2xl mb-6">Be proud of your progress. You've unlocked the <strong class="text-violet-700">A1 Graduate</strong> badge!</p>
-                <div class="bg-white p-6 rounded-2xl shadow-lg">
-                    <i class="fas fa-award text-violet-500 text-6xl"></i>
-                    <p class="mt-2 font-bold text-xl">A1 Graduate</p>
+        <div class="slide" data-title="A1 Achieved">
+            <div class="text-center">
+                <div class="slide-label"><i class="fas fa-star"></i> CEFR checkpoint</div>
+                <h2 class="text-4xl font-black mb-6 text-violet-700">What A1 means now</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <div class="activity-card">
+                        <p class="text-xl text-slate-700">At this point, you can give basic personal information, describe routines, talk about simple past experiences, and mention future plans with support. That is real A1 communication.</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-5 mt-5">
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">You can now</p>
+                            <ul class="list-disc list-inside space-y-2 text-lg">
+                                <li>Introduce yourself</li>
+                                <li>Ask and answer simple questions</li>
+                                <li>Talk about life, people and places</li>
+                            </ul>
+                        </div>
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Next step</p>
+                            <ul class="list-disc list-inside space-y-2 text-lg">
+                                <li>Connect ideas more naturally</li>
+                                <li>Expand vocabulary</li>
+                                <li>Start handling longer conversations in A2</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Lesson Complete">
+            <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
+                <i class="fas fa-trophy text-violet-500 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">A1 complete</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">You Can Say More Now</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl">A new language grows one usable sentence at a time, and now you have many of them.</p>
             </div>
         </div>
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-30">
-        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
-            <button id="next-btn" class="bg-violet-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-violet-600">Próximo</button>
-            <button id="finish-lesson-btn" class="hidden bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Finalizar Módulo</button>
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
+        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition"><i class="fas fa-chevron-left mr-1"></i> Anterior</button>
+            <button id="next-btn" class="bg-violet-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Próximo <i class="fas fa-chevron-right ml-1"></i></button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition"><i class="fas fa-check mr-2"></i>Finalizar aula</button>
         </div>
     </footer>
 
@@ -237,53 +255,109 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
     <script src="../js/progress-manager.js"></script>
-    <script src="a1-lesson-theme.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const moduleId = 'a1';
-            const lessonNumber = 32;
+    document.addEventListener('DOMContentLoaded', () => {
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const finishLessonBtn = document.getElementById('finish-lesson-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const slideCounter = document.getElementById('slide-counter');
+        const slideTitleHeader = document.getElementById('slide-title-header');
+        let currentSlide = 0;
 
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            let currentSlide = 0;
+        function showSlide(index) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+            if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+            if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
+            if (slideTitleHeader) slideTitleHeader.textContent = slides[index].dataset.title || '';
+            if (prevBtn) prevBtn.disabled = index === 0;
+            const isLast = index === slides.length - 1;
+            nextBtn?.classList.toggle('hidden', isLast);
+            finishLessonBtn?.classList.toggle('hidden', !isLast);
+        }
+        prevBtn?.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+        nextBtn?.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+        showSlide(0);
 
-            function showSlide(index) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                const progressBar = document.getElementById('progress-bar');
-                if (progressBar) {
-                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
-                    progressBar.style.width = `${progressPercentage}%`;
-                }
-                if (prevBtn) prevBtn.disabled = index === 0;
-                const isLastSlide = index === slides.length - 1;
-                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
-                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+        const builderItems = [
+            { before: 'I', after: 'from Brazil.', answer: 'am' },
+            { before: 'Yesterday I', after: 'my cousins.', answer: 'visited' },
+            { before: 'Tomorrow I am going to', after: 'English.', answer: 'study' },
+            { before: 'I', after: 'pop music, but I do not like horror movies.', answer: 'like' },
+            { before: 'I usually', after: 'up at seven.', answer: 'wake' },
+            { before: 'My sister', after: 'a student.', answer: 'is' }
+        ];
+        const builderActivity = document.getElementById('builder-activity');
+        if (builderActivity) {
+            builderActivity.innerHTML = builderItems.map((item, index) => `<div class="flex items-center gap-2 flex-wrap"><span class="font-semibold text-slate-700">${index + 1}.</span><span>${item.before}</span><input class="practice-input" data-builder-index="${index}" data-answer="${item.answer}" placeholder="..."><button class="answer-btn" data-reveal-builder="${index}" title="Revelar"><i class="fas fa-lightbulb text-amber-400"></i></button><span>${item.after}</span></div>`).join('');
+        }
+        function revealBuilder(index) {
+            const input = document.querySelector(`[data-builder-index="${index}"]`);
+            if (!input) return;
+            input.value = input.dataset.answer;
+            input.classList.remove('correct', 'incorrect');
+            input.classList.add('revealed');
+        }
+        function resetBuilder() {
+            document.querySelectorAll('[data-builder-index]').forEach((input) => {
+                input.value = '';
+                input.classList.remove('correct', 'incorrect', 'revealed');
+            });
+            const score = document.getElementById('builder-score');
+            if (score) score.className = 'hidden mt-6 text-xl font-bold p-4 score-panel';
+        }
+        function checkBuilder() {
+            const inputs = document.querySelectorAll('[data-builder-index]');
+            let correct = 0;
+            inputs.forEach((input) => {
+                const user = input.value.trim().toLowerCase();
+                const answer = input.dataset.answer.toLowerCase();
+                input.classList.remove('correct', 'incorrect');
+                if (!user) return;
+                if (user === answer) { input.classList.add('correct'); correct++; } else { input.classList.add('incorrect'); }
+            });
+            const filled = [...inputs].filter((input) => input.value.trim()).length;
+            const score = document.getElementById('builder-score');
+            if (!score || filled === 0) return;
+            score.className = 'mt-6 text-xl font-bold p-4 score-panel';
+            if (correct === inputs.length) {
+                score.classList.add('is-perfect');
+                score.innerHTML = `<strong>Excellent!</strong> ${correct}/${inputs.length} corretas.`;
+            } else {
+                score.classList.add('is-warning');
+                score.innerHTML = `<strong>${correct}/${inputs.length} corretas.</strong> Revise as respostas em vermelho.`;
             }
+        }
+        document.getElementById('check-builder-btn')?.addEventListener('click', checkBuilder);
+        document.getElementById('reset-builder-btn')?.addEventListener('click', resetBuilder);
 
-            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+        const interviewItems = [
+            { prompt: 'Where are you from and what do you do?', tip: 'Use two short sentences.' },
+            { prompt: 'What do you usually do in the morning?', tip: 'Include one time if possible.' },
+            { prompt: 'What did you do yesterday?', tip: 'Use one past verb.' },
+            { prompt: 'What are you going to do next weekend?', tip: 'Use going to + verb.' }
+        ];
+        const interviewCards = document.getElementById('interview-cards');
+        if (interviewCards) {
+            interviewCards.innerHTML = interviewItems.map((item, index) => `
+                <div class="activity-card">
+                    <p class="lesson-panel-title mb-2">Prompt ${index + 1}</p>
+                    <p class="text-xl font-semibold text-slate-800">${item.prompt}</p>
+                    <p class="text-sm text-slate-500 mt-3">${item.tip}</p>
+                </div>
+            `).join('');
+        }
 
-            window.checkAnswers = function(container) {
-                container.querySelectorAll('input[data-answer]').forEach(input => {
-                    const correctAnswer = input.dataset.answer.trim().toLowerCase().replace(/[?.,!]/g, '');
-                    const userAnswer = input.value.trim().toLowerCase().replace(/[?.,!]/g, '');
-                    
-                    input.classList.remove('correct', 'incorrect');
-                    if (userAnswer === correctAnswer) {
-                        input.classList.add('correct');
-                    } else {
-                        input.classList.add('incorrect');
-                    }
-                });
-            };
-
-            showSlide(0);
+        document.addEventListener('click', (event) => {
+            const revealBuilderBtn = event.target.closest('[data-reveal-builder]');
+            if (!revealBuilderBtn) return;
+            revealBuilder(parseInt(revealBuilderBtn.dataset.revealBuilder, 10));
         });
+    });
     </script>
+    <script src="../js/lesson-flashcard-save.js"></script>
+    <script src="a1-lesson-theme.js"></script>
 </body>
 </html>
-
-
