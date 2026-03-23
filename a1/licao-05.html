@@ -3,143 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A1 - Lesson 5: Informações de Contato | Inglês no seu Ritmo</title>
+    <title>A1 - Lesson 5: Contact Information | Ingles no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="a1-lesson-theme.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .flashcard { background: transparent; height: 210px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
-        .flashcard-front { background-color: white; color: #059669; text-align: center;}
-        .flashcard-back { background-color: #059669; color: white; transform: rotateY(180deg); text-align: center; }
-
-        .unscramble-activity .word-bank, .unscramble-activity .sentence-dropzone {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; padding: 1rem; border-radius: 0.75rem; min-height: 70px;
-        }
-        .unscramble-activity .word-bank { background-color: #f3f4f6; }
-        .unscramble-activity .sentence-dropzone { background-color: #ffffff; border: 2px dashed #d1d5db; transition: all 0.3s ease; }
-        .unscramble-activity .word-block { padding: 0.5rem 1rem; background-color: #4f46e5; color: white; font-semibold; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s ease; user-select: none; }
-        .unscramble-activity .word-block:hover { background-color: #4338ca; transform: translateY(-2px); }
-        .sentence-dropzone.correct { border-color: #22c55e; background-color: #f0fdf4; }
-        .sentence-dropzone.incorrect { border-color: #ef4444; background-color: #fef2f2; }
-
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.15rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; }
+        .flashcard-front { background: white; color: #0369a1; text-align: center; }
+        .flashcard-back { background: linear-gradient(135deg, #0284c7, #0369a1); color: white; transform: rotateY(180deg); text-align: center; }
+        .flashcard.reviewed .flashcard-front { border-color: #22c55e; background-color: #f0fdf4; }
+        .flashcard.reviewed .flashcard-front h4 { color: #15803d; }
+        .flashcard-audio-btn { position: absolute; top: 0.75rem; right: 0.75rem; width: 2.25rem; height: 2.25rem; border-radius: 9999px; border: 1px solid rgba(96, 165, 250, 0.45); background: rgba(15, 23, 42, 0.88); color: #7dd3fc; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2; }
+        .practice-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; outline: none; text-align: center; min-width: 4.5rem; font-size: 1.05rem; padding: 2px 8px; }
+        .practice-input:focus { border-color: #0284c7; }
+        .practice-input.correct { border-color: #22c55e; color: #15803d; font-weight: 700; }
+        .practice-input.incorrect { border-color: #ef4444; color: #dc2626; }
         .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
-        .answer-btn:hover { color: #4f46e5; }
+        .answer-btn:hover { color: #0284c7; }
+        .speak-btn { display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; border: 1.5px solid #bfdbfe; color: #1d4ed8; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .speak-btn:hover { background: #dbeafe; transform: scale(1.04); }
+        .speak-btn.speaking { background: #1d4ed8; color: white; }
+        .lesson-chip { background: #f3f4f6; color: #374151; padding: 6px 12px; border-radius: 20px; font-size: 0.875rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+        .activity-card { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 1rem; padding: 1.5rem; }
+        .callout-note { background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 12px 16px; border-radius: 8px; color: #0c4a6e; }
+        .builder-line { background: white; border: 1px solid #e5e7eb; border-radius: 1rem; padding: 1rem 1.25rem; }
+        .word-choice { display: inline-flex; align-items: center; justify-content: center; min-width: 3rem; padding: 0.5rem 0.9rem; border-radius: 9999px; background: #e0f2fe; color: #075985; border: 1px solid #bae6fd; font-weight: 700; cursor: pointer; margin: 0.25rem; }
+        .word-choice.used { opacity: 0.45; }
+        .drop-slot { min-height: 3rem; border: 2px dashed #cbd5e1; background: #fff; border-radius: 0.9rem; padding: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+        .drop-slot.correct { border-color: #22c55e; background: #f0fdf4; }
+        .drop-slot.incorrect { border-color: #ef4444; background: #fef2f2; }
     </style>
-    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
-<body class="bg-gray-50 text-gray-800">
-
-    <header class="bg-white shadow-sm sticky top-0 z-10">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="a1.html" class="text-lg font-bold text-blue-600 hover:text-blue-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
-            <h1 class="text-xl font-semibold text-center">A1 - Lesson 5: Informações de Contato</h1>
-            <div class="w-24"></div>
+<body class="bg-slate-50 text-slate-800">
+    <header class="shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+            <a href="a1.html" class="text-lg font-bold text-sky-700 hover:text-sky-900 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 5: Contact Information</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
         </div>
-        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-sky-500 h-1.5 transition-all duration-500"></div></div>
     </header>
 
-    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
-        
-        <div class="slide active">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-id-card text-yellow-500"></i> Objetivos da Aula</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <h3 class="text-2xl font-bold mb-4 text-gray-700">O que vamos aprender hoje:</h3>
-                    <ul class="text-left text-xl space-y-3">
-                        <li>?o"? Aprender a perguntar e responder sobre informações de contato (email, telefone).</li>
-                        <li>?o"? Revisar o uso de "Wh-" questions.</li>
-                        <li>?o"? Aprender a pronúncia de sémbolos comuns em emails (@, ., _, -).</li>
-                        <li>?o"? Praticar a soletração e os números em um contexto real.</li>
-                    </ul>
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-black mb-4 text-slate-900">Informações de contato</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno pratica perguntas e respostas sobre <strong>telefone</strong>, <strong>email</strong>, <strong>sobrenome</strong> e símbolos comuns como <strong>@</strong>, <strong>dot</strong>, <strong>underscore</strong> e <strong>dash</strong>.</p>
+                        <div class="flex flex-wrap gap-3 mt-6">
+                            <div class="lesson-chip"><i class="fas fa-phone text-sky-600"></i> Tema: telefone</div>
+                            <div class="lesson-chip"><i class="fas fa-envelope text-cyan-600"></i> Tema: email</div>
+                            <div class="lesson-chip"><i class="fas fa-comments text-orange-500"></i> Foco: speaking real</div>
+                        </div>
+                    </div>
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">Você vai praticar</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Perguntar <strong>What's your phone number?</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Dizer email com símbolos comuns</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Revisar perguntas com <strong>what</strong> e <strong>how</strong></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card p-8 mt-8">
+                <div class="flex items-center justify-between flex-wrap gap-4 mb-6">
+                    <div>
+                        <p class="lesson-panel-title">Diálogo-modelo</p>
+                        <h3 class="text-2xl font-bold text-slate-800">Leia, ouça e repita</h3>
+                    </div>
+                    <div class="callout-note text-sm"><strong>Dica:</strong> em conversas reais, peça repetição com calma. Isso é parte normal da comunicação em inglês.</div>
+                </div>
+                <div class="space-y-5 text-xl">
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-sky-700 w-24">Anna:</p><p>Hi! What's your phone number?</p><button class="speak-btn" data-speak="Hi! What's your phone number?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Leo:</p><p>It's five five five, zero one nine nine.</p><button class="speak-btn" data-speak="It's five five five, zero one nine nine."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-sky-700 w-24">Anna:</p><p>Thanks. And what's your email address?</p><button class="speak-btn" data-speak="Thanks. And what's your email address?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Leo:</p><p>It's leo underscore lima at school dot com.</p><button class="speak-btn" data-speak="It's leo underscore lima at school dot com."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-sky-700 w-24">Anna:</p><p>Can you repeat, please?</p><button class="speak-btn" data-speak="Can you repeat, please?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Leo:</p><p>Sure. Leo underscore lima at school dot com.</p><button class="speak-btn" data-speak="Sure. Leo underscore lima at school dot com."><i class="fas fa-volume-up"></i> Ouvir</button></div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Vocabulary">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-comments text-teal-500"></i> Vocabulário Essencial</h2>
-                <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Clique nos cartões para aprender a pedir e dar informações.</p>
-                <div class="flashcard-grid max-w-5xl mx-auto">
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">What's your phone number?</h4></div><div class="flashcard-back"><p class="text-xl">Qual é o seu número de telefone?</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">What's your email address?</h4></div><div class="flashcard-back"><p class="text-xl">Qual é o seu endereço de email?</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">@</h4></div><div class="flashcard-back"><p class="text-2xl">"at"</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">. (ponto)</h4></div><div class="flashcard-back"><p class="text-2xl">"dot"</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">_ (underline)</h4></div><div class="flashcard-back"><p class="text-2xl">"underscore"</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">- (hífen)</h4></div><div class="flashcard-back"><p class="text-2xl">"dash" or "hyphen"</p></div></div></div>
+                <h2 class="text-4xl font-black mb-4 text-sky-700">Contact expressions</h2>
+                <p class="text-slate-500 text-lg mb-6">Clique para virar o card, ouvir e revisar expressões essenciais desta aula.</p>
+                <div class="flex items-center justify-center gap-4 mb-6 flex-wrap">
+                    <button id="shuffle-flashcards-btn" class="speak-btn"><i class="fas fa-random"></i> Embaralhar</button>
+                    <span id="flashcard-progress" class="text-sm font-semibold text-sky-700 bg-sky-50 px-3 py-1 rounded-full">0 de 10 revisados</span>
                 </div>
+                <div id="flashcard-grid" class="flashcard-grid max-w-5xl mx-auto"></div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Grammar">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-book-open text-purple-500"></i> Grammar: "Wh-" Questions Review</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                     <p class="text-2xl mb-6 text-gray-600">Usamos perguntas com "Wh-" para pedir informações específicas.</p>
-                     <div class="text-left bg-gray-50 p-6 rounded-lg">
-                          <h3 class="font-bold text-2xl text-blue-700 mb-4">Estrutura: Wh-word + 's (is) + your + ...?</h3>
-                          <div class="space-y-3 text-xl">
-                              <p><strong class="text-purple-600">What's</strong> your <strong>name</strong>?</p>
-                              <p><strong class="text-purple-600">What's</strong> your <strong>phone number</strong>?</p>
-                              <p><strong class="text-purple-600">What's</strong> your <strong>email address</strong>?</p>
-                              <p><strong class="text-purple-600">Who's</strong> your <strong>teacher</strong>?</p>
-                              <p><strong class="text-purple-600">Where's</strong> the <strong>school</strong>?</p>
-                          </div>
-                     </div>
-                     <div class="mt-6 bg-red-50 p-6 rounded-lg text-left">
-                          <h3 class="font-bold text-2xl text-red-700 mb-2">Pro Tip: Contact Info</h3>
-                          <p class="text-xl">??? <strong>Phone Numbers:</strong> Diga os números um por um. Para "0", use "zero" ou "oh". Para números repetidos, como "55", você pode dizer "five five" ou <strong class="font-semibold">"double five"</strong>.</p>
-                          <p class="text-xl mt-2">??? <strong>Email:</strong> "john_smith@email.com" se diz: "john <strong class="font-semibold">underscore</strong> smith <strong class="font-semibold">at</strong> email <strong class="font-semibold">dot</strong> com".</p>
-                     </div>
+                <h2 class="text-4xl font-black mb-6 text-sky-700">Useful structures</h2>
+                <div class="section-card p-8 text-left">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="lesson-panel-title mb-3">Questions for contact info</p>
+                            <table class="w-full text-left text-lg border-collapse overflow-hidden">
+                                <thead><tr class="bg-slate-100"><th class="p-4 border">Question</th><th class="p-4 border">Meaning</th><th class="p-4 border">Answer model</th></tr></thead>
+                                <tbody>
+                                    <tr><td class="p-4 border font-bold text-sky-700">What's your phone number?</td><td class="p-4 border">Qual é o seu número?</td><td class="p-4 border">My number is 555-0199.</td></tr>
+                                    <tr class="bg-slate-50"><td class="p-4 border font-bold text-sky-700">What's your email address?</td><td class="p-4 border">Qual é o seu email?</td><td class="p-4 border">My email is ana at school dot com.</td></tr>
+                                    <tr><td class="p-4 border font-bold text-sky-700">How do you spell your last name?</td><td class="p-4 border">Como você soletra seu sobrenome?</td><td class="p-4 border">L-I-M-A.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">Email symbols</p>
+                            <table class="w-full text-left text-lg border-collapse overflow-hidden">
+                                <thead><tr class="bg-slate-100"><th class="p-4 border">Symbol</th><th class="p-4 border">How to say it</th><th class="p-4 border">Example</th></tr></thead>
+                                <tbody>
+                                    <tr><td class="p-4 border font-bold text-sky-700">@</td><td class="p-4 border">at</td><td class="p-4 border">maria at gmail dot com</td></tr>
+                                    <tr class="bg-slate-50"><td class="p-4 border font-bold text-sky-700">.</td><td class="p-4 border">dot</td><td class="p-4 border">school dot com</td></tr>
+                                    <tr><td class="p-4 border font-bold text-sky-700">_</td><td class="p-4 border">underscore</td><td class="p-4 border">ana underscore lima</td></tr>
+                                    <tr class="bg-slate-50"><td class="p-4 border font-bold text-sky-700">-</td><td class="p-4 border">dash / hyphen</td><td class="p-4 border">ana-lima</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <div class="slide">
+        <div class="slide" data-title="Practice">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-pencil-alt text-orange-500"></i> Writing: Unscramble</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-2xl mb-8 text-gray-600">Coloque as palavras na ordem correta para formar perguntas e respostas.</p>
+                <h2 class="text-4xl font-black mb-6 text-sky-700">Complete the contact form</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left text-xl space-y-5">
+                    <p>1. What is your phone <input data-answer="number" class="practice-input">? <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: número</span></p>
+                    <p>2. My <input data-answer="number" class="practice-input"> is 302-555-0177. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: número</span></p>
+                    <p>3. What is your email <input data-answer="address" class="practice-input">? <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: endereço</span></p>
+                    <p>4. My email <input data-answer="is" class="practice-input"> leo at school dot com. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: é</span></p>
+                    <p>5. Can you <input data-answer="repeat" class="practice-input">, please? <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: repetir</span></p>
+                    <p>6. How do you <input data-answer="spell" class="practice-input"> your last name? <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: soletra</span></p>
+                    <p>7. In an email, @ is <input data-answer="at" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: arroba em inglês</span></p>
+                    <p>8. In an email, . is <input data-answer="dot" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: ponto em inglês</span></p>
+                    <p>9. In an email, _ is <input data-answer="underscore" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: underline em inglês</span></p>
+                </div>
+                <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <button id="check-practice-btn" class="bg-sky-600 text-white font-bold py-3 px-10 rounded-xl hover:bg-sky-700 transition text-lg"><i class="fas fa-check-circle mr-2"></i>Verificar respostas</button>
+                    <button id="reset-practice-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-xl hover:bg-slate-300 transition text-lg"><i class="fas fa-rotate-left mr-2"></i>Recomeçar</button>
+                </div>
+                <div id="practice-score" class="hidden mt-6 text-xl font-bold p-4 score-panel"></div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Build sentences">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-sky-700">Build the sentence</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <p class="text-xl mb-6 text-slate-600">Monte perguntas e respostas comuns sobre contato.</p>
                     <div class="space-y-8">
-                        <div class="unscramble-activity" data-answer="What is your email address ?"><div class="sentence-dropzone mb-4"></div><div class="word-bank"></div></div>
-                        <div class="unscramble-activity" data-answer="My phone number is 555-0199"><div class="sentence-dropzone mb-4"></div><div class="word-bank"></div></div>
-                        <div class="unscramble-activity" data-answer="How do you spell your last name ?"><div class="sentence-dropzone mb-4"></div><div class="word-bank"></div></div>
-                        <div class="unscramble-activity" data-answer="My email is student@school.com"><div class="sentence-dropzone mb-4"></div><div class="word-bank"></div></div>
-                        <div class="unscramble-activity" data-answer="Her name is Maria"><div class="sentence-dropzone mb-4"></div><div class="word-bank"></div></div>
-                        <div class="unscramble-activity" data-answer="Can you spell that please ?"><div class="sentence-dropzone mb-4"></div><div class="word-bank"></div></div>
+                        <div class="builder-line" data-builder-answer="What is your email address ?">
+                            <div class="drop-slot mb-4"></div>
+                            <div class="builder-bank"></div>
+                        </div>
+                        <div class="builder-line" data-builder-answer="My phone number is 555-0199">
+                            <div class="drop-slot mb-4"></div>
+                            <div class="builder-bank"></div>
+                        </div>
+                        <div class="builder-line" data-builder-answer="How do you spell your last name ?">
+                            <div class="drop-slot mb-4"></div>
+                            <div class="builder-bank"></div>
+                        </div>
+                        <div class="builder-line" data-builder-answer="Can you repeat that please ?">
+                            <div class="drop-slot mb-4"></div>
+                            <div class="builder-bank"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Roleplay">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-user-friends text-cyan-500"></i>Roleplay: Trocando Contatos</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Leia o diálogo e preencha o cartão de contato com as informações corretas.</p>
-                    <div class="text-left text-xl bg-gray-50 p-6 rounded-lg space-y-4">
-                        <div class="bg-blue-100 p-4 rounded-lg text-blue-800">
-                            <p><strong>You:</strong> Hi! I'm a new student.</p>
-                            <p><strong>Sarah:</strong> Welcome! I'm Sarah. My full name is Sarah Jones.</p>
-                            <p><strong>You:</strong> Nice to meet you, Sarah. How do you spell your last name?</p>
-                            <p><strong>Sarah:</strong> It's J-O-N-E-S. My email is sarah_jones@school.com and my number is 302-555-0177.</p>
+                <h2 class="text-4xl font-black mb-6 text-sky-700">Roleplay: new contact</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <p class="text-xl mb-6 text-slate-600">Leia o diálogo e complete o cartão de contato com as informações corretas.</p>
+                    <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-6">
+                        <div class="activity-card text-lg space-y-3">
+                            <p><strong class="text-sky-700">You:</strong> Hi! I'm a new student.</p>
+                            <p><strong class="text-orange-600">Sarah:</strong> Welcome! I'm Sarah. My full name is Sarah Jones.</p>
+                            <p><strong class="text-sky-700">You:</strong> Nice to meet you, Sarah. How do you spell your last name?</p>
+                            <p><strong class="text-orange-600">Sarah:</strong> It's J-O-N-E-S.</p>
+                            <p><strong class="text-sky-700">You:</strong> What's your email address?</p>
+                            <p><strong class="text-orange-600">Sarah:</strong> It's sarah_jones at school dot com.</p>
+                            <p><strong class="text-sky-700">You:</strong> And what's your phone number?</p>
+                            <p><strong class="text-orange-600">Sarah:</strong> It's 302-555-0177.</p>
                         </div>
-                        <hr class="my-4">
-                        <div class="bg-white p-6 rounded-lg shadow-inner" id="roleplay-activity">
+                        <div class="activity-card">
                             <h4 class="text-2xl font-bold mb-4">New Contact Card</h4>
-                            <p class="mb-2"><strong>Name:</strong> <input type="text" class="w-full p-1 border-b-2" data-answer="Sarah Jones"></p>
-                            <p class="mb-2"><strong>Email:</strong> <input type="text" class="w-full p-1 border-b-2" data-answer="sarah_jones@school.com"></p>
-                            <p class="mb-2"><strong>Phone:</strong> <input type="text" class="w-full p-1 border-b-2" data-answer="302-555-0177"></p>
-                            <div class="text-center mt-6">
-                               <button class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg" onclick="checkAnswers(this.parentElement.parentElement)">Checar</button>
+                            <div id="roleplay-activity" class="space-y-4">
+                                <p><strong>Name:</strong> <input type="text" class="w-full p-2 border-b-2 bg-transparent" data-answer="Sarah Jones"></p>
+                                <p><strong>Last name:</strong> <input type="text" class="w-full p-2 border-b-2 bg-transparent" data-answer="Jones"></p>
+                                <p><strong>Email:</strong> <input type="text" class="w-full p-2 border-b-2 bg-transparent" data-answer="sarah_jones@school.com"></p>
+                                <p><strong>Phone:</strong> <input type="text" class="w-full p-2 border-b-2 bg-transparent" data-answer="302-555-0177"></p>
+                            </div>
+                            <div class="mt-6 text-center">
+                                <button id="check-roleplay-btn" class="bg-sky-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-sky-700 transition">Checar cartão</button>
                             </div>
                         </div>
                     </div>
@@ -147,170 +225,253 @@
             </div>
         </div>
 
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-700"><i class="fas fa-music text-red-500"></i> Music Time: 867-5309/Jenny</h2>
-            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6iX1f3r7oUJnMbGgQ2gx1j?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>               <div class="mt-4">
-                    <p class="text-2xl mb-4 text-gray-600">Ouça a mésica e complete a letra para encontrar o número!</p>
-                    <div class="text-xl space-y-3 bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
+        <div class="slide" data-title="Music">
+            <div>
+                <h2 class="text-4xl font-black mb-4 text-center text-sky-700">Music Time: 867-5309 / Jenny</h2>
+                <div class="music-card p-6 rounded-2xl max-w-4xl mx-auto">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6iX1f3r7oUJnMbGgQ2gx1j?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <div class="text-lg bg-slate-50 p-6 rounded-xl border-l-4 border-sky-500 mt-5 space-y-4">
                         <p>Jenny, Jenny, who can I turn to?</p>
-                        <p>You give me somethin' I can <input type="text" class="w-28 border-b-2 text-center bg-transparent" data-answer="hold on"><button class="answer-btn" data-answer="hold on"><i class="fas fa-eye"></i></button> to</p>
+                        <p>You give me somethin' I can <input data-answer="hold on" class="practice-input"> to <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
                         <p>I know you'll think I'm like the others before</p>
-                        <p>Who saw your name and number on the <input type="text" class="w-28 border-b-2 text-center bg-transparent" data-answer="wall"><button class="answer-btn" data-answer="wall"><i class="fas fa-eye"></i></button></p>
-                        <br>
-                        <p>Jenny, I got your <input type="text" class="w-28 border-b-2 text-center bg-transparent" data-answer="number"><button class="answer-btn" data-answer="number"><i class="fas fa-eye"></i></button></p>
+                        <p>Who saw your name and number on the <input data-answer="wall" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p>Jenny, I got your <input data-answer="number" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
                         <p>I need to make you mine</p>
                         <p>Jenny, don't change your number</p>
-                        <p><input type="text" class="w-48 border-b-2 text-center bg-transparent" data-answer="867-5309"><button class="answer-btn" data-answer="867-5309"><i class="fas fa-eye"></i></button></p>
+                        <p><input data-answer="867-5309" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <div class="slide">
-             <div class="text-center">
-                 <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-home text-blue-500"></i>Homework: Let's Connect!</h2>
-                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                     <p class="text-2xl mb-6 text-gray-600">Imagine que você está conhecendo um novo colega. Complete o diálogo com suas informações (reais ou fictícias).</p>
-                     <div class="text-left text-xl space-y-4 bg-gray-50 p-6 rounded-lg">
-                         <p><strong class="text-blue-600">Alex:</strong> "Hi! I'm Alex. What's your name?"</p>
-                         <p><strong class="text-orange-600">You:</strong> <input type="text" class="w-full p-1 border-b-2 bg-transparent" placeholder="My name is..."></p>
-                         <p><strong class="text-blue-600">Alex:</strong> "Nice to meet you! What's your email address?"</p>
-                         <p><strong class="text-orange-600">You:</strong> <input type="text" class="w-full p-1 border-b-2 bg-transparent" placeholder="It's..."></p>
-                         <p><strong class="text-blue-600">Alex:</strong> "Great, thanks. And your phone number?"</p>
-                         <p><strong class="text-orange-600">You:</strong> <input type="text" class="w-full p-1 border-b-2 bg-transparent" placeholder="My number is..."></p>
-                     </div>
-                 </div>
-             </div>
+
+        <div class="slide" data-title="Writing">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-sky-700">Write your contact mini profile</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <ul class="list-disc list-inside space-y-2 text-lg">
+                        <li>My name is...</li>
+                        <li>My last name is...</li>
+                        <li>My email is...</li>
+                        <li>My phone number is...</li>
+                    </ul>
+                    <textarea id="writing-challenge" rows="6" class="mt-5 w-full p-4 border-2 border-slate-200 rounded-xl focus:border-sky-500 outline-none transition-colors" placeholder="Write your short text here..."></textarea>
+                </div>
+            </div>
         </div>
 
-        <div class="slide">
-              <div class="text-center flex flex-col items-center justify-center h-full">
-                <i class="fas fa-address-book text-purple-500 text-7xl mb-6"></i>
-                <h2 class="text-5xl font-bold mb-4 text-gray-800">You're Connected!</h2>
-                <p class="text-3xl text-gray-600">Great conversations start with simple contact info. Well done!</p>
-              </div>
+        <div class="slide" data-title="Lesson Complete">
+            <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
+                <i class="fas fa-address-book text-sky-500 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">You are connected now</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl">Now you can ask for a phone number, say an email address, and stay connected in English.</p>
+            </div>
         </div>
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20">
-        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
-            <button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Próximo</button>
-            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finalizar Aula</button>
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
+        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition"><i class="fas fa-chevron-left mr-1"></i> Anterior</button>
+            <button id="next-btn" class="bg-sky-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Próximo <i class="fas fa-chevron-right ml-1"></i></button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition"><i class="fas fa-check mr-2"></i>Finalizar aula</button>
         </div>
     </footer>
-    
+
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
     <script src="../js/progress-manager.js"></script>
-
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const moduleId = 'a1';
-            const lessonNumber = 5;
+    document.addEventListener('DOMContentLoaded', () => {
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const finishLessonBtn = document.getElementById('finish-lesson-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const slideCounter = document.getElementById('slide-counter');
+        const slideTitleHeader = document.getElementById('slide-title-header');
+        let currentSlide = 0;
 
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+        function showSlide(index) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+            if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+            if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
+            if (slideTitleHeader) slideTitleHeader.textContent = slides[index]?.dataset.title || '';
+            if (prevBtn) prevBtn.disabled = index === 0;
+            const isLastSlide = index === slides.length - 1;
+            if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
+            if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+        }
 
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const progressBar = document.getElementById('progress-bar');
-            let currentSlide = 0;
+        if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+        if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
 
-            function showSlide(index) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                if (progressBar) {
-                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
-                    progressBar.style.width = `${progressPercentage}%`;
-                }
-                if (prevBtn) prevBtn.disabled = index === 0;
-                const isLastSlide = index === slides.length - 1;
-                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
-                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
-            }
-
-            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            
-            // --- L?"GICA ESPECÍFICA DA AULA ---
-
-            // Flashcards
-            document.querySelectorAll('.flashcard').forEach(card => {
-                card.addEventListener('click', () => card.classList.toggle('flipped'));
-            });
-
-            // Atividade Unscramble
-            function initializeUnscramble(activityElement) {
-                const correctAnswer = activityElement.dataset.answer;
-                const words = correctAnswer.split(' ');
-                const dropzone = activityElement.querySelector('.sentence-dropzone');
-                const wordBank = activityElement.querySelector('.word-bank');
-                words.sort(() => Math.random() - 0.5).forEach(word => {
-                    const wordBlock = document.createElement('div');
-                    wordBlock.className = 'word-block';
-                    wordBlock.textContent = word;
-                    wordBlock.addEventListener('click', () => moveWord(wordBlock));
-                    wordBank.appendChild(wordBlock);
-                });
-                function moveWord(wordBlock) {
-                    const targetContainer = wordBlock.parentElement === wordBank ? dropzone : wordBank;
-                    targetContainer.appendChild(wordBlock);
-                    checkAnswer();
-                }
-                function checkAnswer() {
-                    const currentWords = [...dropzone.children].map(wb => wb.textContent);
-                    const currentSentence = currentWords.join(' ');
-                    dropzone.classList.remove('correct', 'incorrect');
-                    if (currentWords.length > 0) {
-                        if (currentSentence === correctAnswer) {
-                            dropzone.classList.add('correct');
-                        } else if (currentWords.length === words.length) {
-                            dropzone.classList.add('incorrect');
-                        }
-                    }
-                }
-            }
-            document.querySelectorAll('.unscramble-activity').forEach(initializeUnscramble);
-
-            // Checagem de Respostas Genérica
-            window.checkAnswers = function(container) {
-                const inputs = container.querySelectorAll('input[data-answer]');
-                inputs.forEach(input => {
-                    const correctAnswer = input.dataset.answer.trim().toLowerCase();
-                    const userAnswer = input.value.trim().toLowerCase();
-                    input.classList.remove('border-red-500', 'border-green-500', 'border-gray-300');
-                    if (userAnswer === correctAnswer) {
-                        input.classList.add('border-green-500', 'border-2');
-                    } else {
-                        input.classList.add('border-red-500', 'border-2');
-                    }
-                });
-            };
-
-            // Botões de ver resposta (mésica)
-            document.querySelectorAll('.answer-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const inputField = button.previousElementSibling;
-                    if (inputField && inputField.tagName === 'INPUT') {
-                        inputField.value = button.dataset.answer;
-                    }
-                });
-            });
-            
-            showSlide(0);
+        document.addEventListener('click', (event) => {
+            const speakBtn = event.target.closest('[data-speak]');
+            if (!speakBtn) return;
+            const text = speakBtn.dataset.speak;
+            if (!text || !('speechSynthesis' in window)) return;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            speechSynthesis.speak(utterance);
+            speakBtn.classList.add('speaking');
+            utterance.onend = () => speakBtn.classList.remove('speaking');
         });
+
+        const flashcardData = [
+            { en: "What's your phone number?", pt: 'Qual é o seu número de telefone?' },
+            { en: "What's your email address?", pt: 'Qual é o seu endereço de email?' },
+            { en: 'How do you spell your last name?', pt: 'Como você soletra seu sobrenome?' },
+            { en: 'Can you repeat, please?', pt: 'Pode repetir, por favor?' },
+            { en: '@', pt: 'at' },
+            { en: '.', pt: 'dot' },
+            { en: '_', pt: 'underscore' },
+            { en: '-', pt: 'dash / hyphen' },
+            { en: 'phone number', pt: 'número de telefone' },
+            { en: 'email address', pt: 'endereço de email' }
+        ];
+        const reviewedCards = new Set();
+
+        function updateFlashcardProgress() {
+            const progress = document.getElementById('flashcard-progress');
+            if (progress) progress.textContent = `${reviewedCards.size} de ${flashcardData.length} revisados`;
+        }
+
+        function renderFlashcards(data) {
+            const grid = document.getElementById('flashcard-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            reviewedCards.clear();
+            updateFlashcardProgress();
+            data.forEach((item, i) => {
+                const card = document.createElement('div');
+                card.className = 'flashcard';
+                card.dataset.index = String(i);
+                card.innerHTML = `<div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold mb-3">${item.en}</h4><button class="flashcard-audio-btn" type="button" title="Ouvir pronúncia" data-speak="${item.en}"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl font-bold">${item.pt}</p><p class="text-sm mt-2 opacity-75">Clique para voltar</p></div></div>`;
+                grid.appendChild(card);
+            });
+        }
+
+        document.addEventListener('flashcard:toggled', (event) => {
+            const flashcard = event.target.closest('.flashcard');
+            if (!flashcard || !event.detail.flipped) return;
+            const idx = parseInt(flashcard.dataset.index || '-1', 10);
+            if (idx < 0) return;
+            flashcard.classList.add('reviewed');
+            reviewedCards.add(idx);
+            updateFlashcardProgress();
+        });
+
+        document.getElementById('shuffle-flashcards-btn')?.addEventListener('click', () => {
+            renderFlashcards([...flashcardData].sort(() => Math.random() - 0.5));
+        });
+
+        document.querySelectorAll('.answer-btn').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const line = event.currentTarget.closest('p');
+                if (!line) return;
+                line.querySelectorAll('input[data-answer]').forEach(input => {
+                    input.value = input.dataset.answer;
+                    input.classList.remove('incorrect');
+                    input.classList.add('correct');
+                });
+            });
+        });
+
+        const checkBtn = document.getElementById('check-practice-btn');
+        const resetBtn = document.getElementById('reset-practice-btn');
+        const scoreDiv = document.getElementById('practice-score');
+
+        if (checkBtn) {
+            checkBtn.addEventListener('click', () => {
+                let correct = 0;
+                let total = 0;
+                document.querySelectorAll('.slide[data-title="Practice"] .practice-input').forEach(input => {
+                    const userAnswer = input.value.trim().toLowerCase();
+                    const correctAnswer = input.dataset.answer.trim().toLowerCase();
+                    total++;
+                    if (userAnswer === correctAnswer) {
+                        correct++;
+                        input.classList.remove('incorrect');
+                        input.classList.add('correct');
+                    } else {
+                        input.classList.remove('correct');
+                        input.classList.add('incorrect');
+                    }
+                });
+                if (scoreDiv) {
+                    scoreDiv.className = 'mt-6 text-xl font-bold p-4 ' + (correct === total ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800');
+                    scoreDiv.textContent = `Você acertou ${correct} de ${total} respostas.`;
+                    scoreDiv.classList.remove('hidden');
+                }
+            });
+        }
+
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                document.querySelectorAll('.slide[data-title="Practice"] .practice-input').forEach(input => {
+                    input.value = '';
+                    input.classList.remove('correct', 'incorrect');
+                });
+                if (scoreDiv) scoreDiv.classList.add('hidden');
+            });
+        }
+
+        function setupBuilders() {
+            document.querySelectorAll('[data-builder-answer]').forEach((builder) => {
+                const answer = builder.dataset.builderAnswer.split(' ');
+                const drop = builder.querySelector('.drop-slot');
+                const bank = builder.querySelector('.builder-bank');
+                const words = [...answer].sort(() => Math.random() - 0.5);
+
+                words.forEach((word) => {
+                    const token = document.createElement('button');
+                    token.type = 'button';
+                    token.className = 'word-choice';
+                    token.textContent = word;
+                    token.addEventListener('click', () => {
+                        if (token.parentElement === bank) {
+                            drop.appendChild(token);
+                            token.classList.add('used');
+                        } else {
+                            bank.appendChild(token);
+                            token.classList.remove('used');
+                        }
+                        const current = [...drop.children].map((item) => item.textContent);
+                        drop.classList.remove('correct', 'incorrect');
+                        if (!current.length) return;
+                        if (current.join(' ') === answer.join(' ')) {
+                            drop.classList.add('correct');
+                        } else if (current.length === answer.length) {
+                            drop.classList.add('incorrect');
+                        }
+                    });
+                    bank.appendChild(token);
+                });
+            });
+        }
+
+        document.getElementById('check-roleplay-btn')?.addEventListener('click', () => {
+            document.querySelectorAll('#roleplay-activity input[data-answer]').forEach((input) => {
+                const user = input.value.trim().toLowerCase();
+                const answer = input.dataset.answer.trim().toLowerCase();
+                input.classList.remove('border-red-500', 'border-green-500', 'border-2');
+                if (user === answer) {
+                    input.classList.add('border-green-500', 'border-2');
+                } else {
+                    input.classList.add('border-red-500', 'border-2');
+                }
+            });
+        });
+
+        renderFlashcards(flashcardData);
+        setupBuilders();
+        showSlide(0);
+    });
     </script>
-    <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
     <script src="a1-lesson-theme.js"></script>
 </body>
 </html>
-
-
-
-
-
