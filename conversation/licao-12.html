@@ -21,6 +21,17 @@
         .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
         .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
         .lyrics-box { max-height: 350px; overflow-y: auto; }
+        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
+        .answer-btn:hover { color: #93c5fd; }
+        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #60a5fa; text-align: center; color: #93c5fd; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
+        .drop-zone.hover { border-color: #bfdbfe; background-color: rgba(96, 165, 250, 0.12); }
+        .drop-zone.filled { border-bottom-style: solid; }
+        .drop-zone.correct { color: #34d399 !important; border-color: #34d399; background-color: rgba(16, 185, 129, 0.12); }
+        .drop-zone.incorrect { color: #f87171 !important; border-color: #f87171; background-color: rgba(239, 68, 68, 0.12); }
+        .word-pill { cursor: grab; background-color: #2563eb; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
+        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
+        .debate-card { background: linear-gradient(135deg, #1e3a8a 0%, #111827 100%); border: 1px solid #2563eb; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; } .debate-card:hover { transform: translateY(-2px); }
+        .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
     </style>
     <link rel="stylesheet" href="conversation-lesson-theme.css">
 </head>
@@ -30,7 +41,7 @@
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="conversation.html" class="text-lg font-bold text-blue-400 hover:text-blue-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
             <h1 class="text-xl font-semibold text-center">Lesson 12: Memory & Nostalgia</h1>
-            <div class="w-32"></div>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 11</div>
         </div>
         <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-blue-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
@@ -60,7 +71,11 @@
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-blue-300"><i class="fas fa-music text-red-500"></i> Music Time: Summer of '69</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0GONea6G2XdnHWjNZd6zt3?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-blue-500">
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0GONea6G2XdnHWjNZd6zt3?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-blue-900/30 p-4 rounded-lg border border-blue-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-blue-300"></i> A powerful memory song about youth, friendship, and that feeling that one season of life lasted forever.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-blue-500">
                     <p>I got my first real six-string</p>
                     <p>Bought it at the five-and-<input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="dime"><i class="fas fa-eye"></i></button></p>
                     <p>Played it 'til my fingers <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="bled"><i class="fas fa-eye"></i></button></p>
@@ -79,9 +94,13 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>The song talks about "the best days of my life." What do you think makes a time the "best days"?</p>
-                <p>Is there a specific summer or year that you remember as being special?</p>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-2 text-blue-300"><i class="fas fa-comments text-orange-400"></i> Song 1 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Summer of '69" - Youth, nostalgia, and unforgettable seasons</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card"><span class="debate-label bg-blue-500/20 text-blue-300">Memory</span><p class="text-xl"><i class="fas fa-guitar mr-2 text-blue-300"></i> What makes a time feel like "the best days of your life"?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-sky-500/20 text-sky-300">Reflection</span><p class="text-xl"><i class="fas fa-calendar-days mr-2 text-sky-300"></i> Is there a specific summer or year that you remember as especially meaningful?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-cyan-500/20 text-cyan-300">Opinion</span><p class="text-xl"><i class="fas fa-camera-retro mr-2 text-cyan-300"></i> Why do memories from youth often feel bigger and more intense than later memories?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-indigo-500/20 text-indigo-300">Debate</span><p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-indigo-300"></i> Do people remember the past accurately, or mostly remember it in a more beautiful way?</p></div>
+                </div>
             </div></div>
         </div>
 
@@ -89,6 +108,9 @@
             <h2 class="text-4xl font-bold mb-4 text-center text-blue-300"><i class="fas fa-music text-red-500"></i> Music Time: Yesterday</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3BQHpFgAp4l80e1XslIjNI?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-slate-900/30 p-4 rounded-lg border border-slate-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-slate-300"></i> A quiet and intimate song about regret, distance, and the painful way the past can suddenly return to the present.</p>
+                </div>
                 <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-blue-500">
                     <p>Yesterday, all my <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="troubles"><i class="fas fa-eye"></i></button> seemed so far away</p>
                     <p>Now it looks as though they're here to <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="stay"><i class="fas fa-eye"></i></button></p>
@@ -103,16 +125,24 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>This song is very nostalgic, but also sad. Why do you think looking back at the past can be painful?</p>
-                <p>What does the line "I'm not half the man I used to be" mean?</p>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-2 text-blue-300"><i class="fas fa-comments text-orange-400"></i> Song 2 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Yesterday" - Regret, change, and emotional memory</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card"><span class="debate-label bg-slate-500/20 text-slate-300">Emotion</span><p class="text-xl"><i class="fas fa-cloud-rain mr-2 text-slate-300"></i> Why can looking back at the past feel painful as well as beautiful?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-blue-500/20 text-blue-300">Reflection</span><p class="text-xl"><i class="fas fa-person mr-2 text-blue-300"></i> What does "I'm not half the man I used to be" mean to you?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-sky-500/20 text-sky-300">Opinion</span><p class="text-xl"><i class="fas fa-hourglass-half mr-2 text-sky-300"></i> Is regret more about losing a person, losing a moment, or losing a version of yourself?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-indigo-500/20 text-indigo-300">Debate</span><p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-indigo-300"></i> Is nostalgia usually helpful because it connects us to meaning, or harmful because it keeps us stuck?</p></div>
+                </div>
             </div></div>
         </div>
         
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-blue-300"><i class="fas fa-music text-red-500"></i> Music Time: Good Riddance</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6ORqU0bHbVCRjXm9AjyHyZ?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-blue-500">
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6ORqU0bHbVCRjXm9AjyHyZ?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-indigo-900/30 p-4 rounded-lg border border-indigo-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-indigo-300"></i> A reflective farewell song about turning points, photographs in the mind, and trying to make peace with time moving forward.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-blue-500">
                     <p>Another turning <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="point"><i class="fas fa-eye"></i></button>, a fork stuck in the road</p>
                     <p>Time grabs you by the wrist, directs you where to <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="go"><i class="fas fa-eye"></i></button></p>
                     <p>So make the best of this test, and don't ask <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="why"><i class="fas fa-eye"></i></button></p>
@@ -126,14 +156,18 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>The song talks about a "turning point". What are some important turning points in a person's life?</p>
-                <p>What do you think is the main message of "I hope you had the time of your life"?</p>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-2 text-blue-300"><i class="fas fa-comments text-orange-400"></i> Song 3 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Good Riddance" - Turning points, endings, and perspective</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card"><span class="debate-label bg-indigo-500/20 text-indigo-300">Turning Point</span><p class="text-xl"><i class="fas fa-signs-post mr-2 text-indigo-300"></i> What are some major turning points in a person's life?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-blue-500/20 text-blue-300">Reflection</span><p class="text-xl"><i class="fas fa-photo-film mr-2 text-blue-300"></i> Why do photographs and objects often trigger strong memories?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-cyan-500/20 text-cyan-300">Opinion</span><p class="text-xl"><i class="fas fa-clock-rotate-left mr-2 text-cyan-300"></i> What do you think is the main message behind "I hope you had the time of your life"?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-sky-500/20 text-sky-300">Debate</span><p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-sky-300"></i> Is it better to preserve memories carefully, or to let them fade naturally and keep living forward?</p></div>
+                </div>
             </div></div>
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="matching-activity" class="space-y-4"></div><button id="check-answers-btn" class="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Check Answers</button></div></div>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-blue-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div><div id="matching-activity" class="space-y-4 text-left"></div><button id="check-answers-btn" class="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Check Answers</button><p id="practice-feedback" class="mt-4 text-lg font-semibold text-gray-300"></p></div></div>
         </div>
 
         <div class="slide">
@@ -179,12 +213,14 @@
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
             const progressBar = document.getElementById('progress-bar');
+            const slideCounter = document.getElementById('slide-counter');
             let currentSlide = 0;
 
             function showSlide(index) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
                 if (progressBar) progressBar.style.width = slides.length > 1 ? `${((index + 1) / slides.length) * 100}%` : '100%';
+                if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
                 if (prevBtn) prevBtn.disabled = index === 0;
                 const isLastSlide = index === slides.length - 1;
                 if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
@@ -211,29 +247,62 @@
                 });
             });
 
-            const activityContainer = document.getElementById('matching-activity'), checkAnswersBtn = document.getElementById('check-answers-btn');
-            if(activityContainer && checkAnswersBtn) {
-                const expressions=[{id:'memory_lane',text:'A trip down memory lane'},{id:'good_old_days',text:'The good old days'},{id:'core_memory',text:'A core memory'},{id:'vague_memory',text:'A vague memory'},{id:'etched_memory',text:'Etched in your memory'},{id:'look_back',text:'To look back on'}];
-                const situations=[{text:"Seeing my old school photos was a real...",answer:'memory_lane'},{text:"I can't forget the day my son was born; it is...",answer:'etched_memory'},{text:"Life was simpler when we were kids. Those were the...",answer:'good_old_days'},{text:"I think I met him once, but it's a very...",answer:'vague_memory'},{text:"Winning that championship was a... for me.",answer:'core_memory'},{text:"When I... my childhood, I feel happy.",answer:'look_back'}];
-                function shuffle(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
-                function createActivity() {
-                    const shuffledSituations = shuffle(situations);
-                    let html = shuffledSituations.map((sit, index) => {
-                        return `<div id="q-${index}" class="p-4 rounded-lg bg-gray-800 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300"><p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p><select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg shadow-sm text-lg focus:border-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50"><option value="">Select an expression...</option>${shuffle([...expressions]).map(exp => `<option value="${exp.id}">${exp.text}</option>`).join('')}</select></div>`;
-                    }).join('');
-                    activityContainer.innerHTML = html;
-                }
+            const wordBank = document.getElementById('word-bank');
+            const activityContainer = document.getElementById('matching-activity');
+            const checkAnswersBtn = document.getElementById('check-answers-btn');
+            const expressions=[{id:'memory_lane',text:'A trip down memory lane'},{id:'good_old_days',text:'The good old days'},{id:'core_memory',text:'A core memory'},{id:'vague_memory',text:'A vague memory'},{id:'etched_memory',text:'Etched in your memory'},{id:'look_back',text:'To look back on'}];
+            const situations=[{text:"Seeing my old school photos was a real...",answer:'memory_lane'},{text:"I can't forget the day my son was born; it is...",answer:'etched_memory'},{text:"Life was simpler when we were kids. Those were the...",answer:'good_old_days'},{text:"I think I met him once, but it's a very...",answer:'vague_memory'},{text:"Winning that championship was a... for me.",answer:'core_memory'},{text:"When I... my childhood, I feel happy.",answer:'look_back'}];
+            function shuffle(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
+            function createActivity() {
+                if (!activityContainer || !wordBank) return;
+                wordBank.innerHTML = '';
+                shuffle([...expressions]).forEach(exp => {
+                    const pill = document.createElement('div');
+                    pill.className = 'word-pill';
+                    pill.draggable = true;
+                    pill.innerText = exp.text;
+                    pill.addEventListener('dragstart', (e) => e.dataTransfer.setData('text/plain', exp.text));
+                    wordBank.appendChild(pill);
+                });
+                const shuffledSituations = shuffle([...situations]);
+                activityContainer.innerHTML = shuffledSituations.map((sit, index) => `<div class="p-4 rounded-lg bg-gray-900 border border-gray-700"><p class="text-xl text-gray-200">${index + 1}. ${sit.text} <span class="drop-zone" data-answer="${expressions.find(exp => exp.id === sit.answer)?.text || ''}">________</span></p></div>`).join('');
+                activityContainer.querySelectorAll('.drop-zone').forEach(zone => {
+                    zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('hover'); });
+                    zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
+                    zone.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        zone.classList.remove('hover');
+                        zone.innerText = e.dataTransfer.getData('text/plain');
+                        zone.classList.add('filled');
+                        zone.classList.remove('correct', 'incorrect');
+                    });
+                    zone.addEventListener('click', () => {
+                        zone.innerText = '________';
+                        zone.classList.remove('filled', 'correct', 'incorrect');
+                    });
+                });
+            }
+            if (activityContainer && checkAnswersBtn && wordBank) {
                 createActivity();
                 checkAnswersBtn.addEventListener('click', () => {
-                    activityContainer.querySelectorAll('select').forEach((select, index) => {
-                        const questionDiv = document.getElementById(`q-${index}`);
-                        questionDiv.classList.remove('bg-green-900/50', 'border-green-500', 'bg-red-900/50', 'border-red-500');
-                        if (select.value === select.dataset.answer) {
-                            questionDiv.classList.add('bg-green-900/50', 'border-green-500');
-                        } else {
-                            questionDiv.classList.add('bg-red-900/50', 'border-red-500');
+                    const feedback = document.getElementById('practice-feedback');
+                    const zones = activityContainer.querySelectorAll('.drop-zone');
+                    let correctCount = 0;
+                    zones.forEach(zone => {
+                        const currentValue = zone.innerText.trim().toLowerCase();
+                        const answerValue = zone.dataset.answer.trim().toLowerCase();
+                        zone.classList.remove('correct', 'incorrect');
+                        if (currentValue === answerValue) {
+                            zone.classList.add('correct');
+                            correctCount++;
+                        } else if (zone.innerText.trim() !== '________') {
+                            zone.classList.add('incorrect');
                         }
                     });
+                    if (feedback) {
+                        feedback.textContent = `You got ${correctCount} of ${zones.length} correct.`;
+                        feedback.className = 'mt-4 text-lg font-semibold ' + (correctCount === zones.length ? 'text-emerald-400' : 'text-blue-300');
+                    }
                 });
             }
 

@@ -21,6 +21,17 @@
         .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
         .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
         .lyrics-box { max-height: 300px; overflow-y: auto; }
+        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
+        .answer-btn:hover { color: #d8b4fe; }
+        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #c084fc; text-align: center; color: #d8b4fe; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
+        .drop-zone.hover { border-color: #e9d5ff; background-color: rgba(192, 132, 252, 0.12); }
+        .drop-zone.filled { border-bottom-style: solid; }
+        .drop-zone.correct { color: #34d399 !important; border-color: #34d399; background-color: rgba(16, 185, 129, 0.12); }
+        .drop-zone.incorrect { color: #f87171 !important; border-color: #f87171; background-color: rgba(239, 68, 68, 0.12); }
+        .word-pill { cursor: grab; background-color: #9333ea; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
+        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
+        .debate-card { background: linear-gradient(135deg, #581c87 0%, #111827 100%); border: 1px solid #9333ea; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; } .debate-card:hover { transform: translateY(-2px); }
+        .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
     </style>
     <link rel="stylesheet" href="conversation-lesson-theme.css">
 </head>
@@ -30,7 +41,7 @@
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="conversation.html" class="text-lg font-bold text-purple-400 hover:text-purple-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
             <h1 class="text-xl font-semibold text-center">Lesson 11: The Supernatural & Mysteries</h1>
-            <div class="w-32"></div>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 11</div>
         </div>
         <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-purple-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
@@ -60,7 +71,11 @@
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-purple-300"><i class="fas fa-music text-red-500"></i> Music Time: Thriller</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3S2R0EVwBSAVMd5UMgKTL0?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-purple-500">
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3S2R0EVwBSAVMd5UMgKTL0?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-purple-900/30 p-4 rounded-lg border border-purple-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-purple-300"></i> A cinematic song that builds suspense with darkness, fear, and the feeling that danger is slowly getting closer.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-purple-500">
                     <p>It's close to <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="midnight"><i class="fas fa-eye"></i></button></p>
                     <p>And something <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="evil's"><i class="fas fa-eye"></i></button> lurkin' in the dark</p>
                     <p>Under the moonlight</p>
@@ -73,16 +88,25 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-purple-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>This song creates a very specific atmosphere. What elements make it feel scary or mysterious?</p>
-                <p>Have you ever been "paralyzed" by fear? What happened?</p>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-2 text-purple-300"><i class="fas fa-comments text-orange-400"></i> Song 1 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Thriller" - Fear, atmosphere, and suspense</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card"><span class="debate-label bg-purple-500/20 text-purple-300">Atmosphere</span><p class="text-xl"><i class="fas fa-moon mr-2 text-purple-300"></i> What elements make this song feel scary or mysterious?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-fuchsia-500/20 text-fuchsia-300">Reflection</span><p class="text-xl"><i class="fas fa-heart-pulse mr-2 text-fuchsia-300"></i> Why do people enjoy songs, movies, and stories that scare them?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-indigo-500/20 text-indigo-300">Opinion</span><p class="text-xl"><i class="fas fa-person-running mr-2 text-indigo-300"></i> Have you ever felt "paralyzed" by fear? What happened?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-violet-500/20 text-violet-300">Debate</span><p class="text-xl"><i class="fas fa-film mr-2 text-violet-300"></i> Is fear more powerful when it is shown directly, or when it is only suggested?</p></div>
+                </div>
             </div></div>
         </div>
 
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-purple-300"><i class="fas fa-music text-red-500"></i> Music Time: Ghostbusters</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1Yhxmnxo9C5g6rYkM5FRUM?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                    <p>If there's somethin' <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="strange"><i class="fas fa-eye"></i></button></p>
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1Yhxmnxo9C5g6rYkM5FRUM?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-fuchsia-900/30 p-4 rounded-lg border border-fuchsia-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-fuchsia-300"></i> A playful supernatural anthem that turns fear into fun by making the unknown feel catchy instead of terrifying.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-purple-500">
+                    <p>If there's somethin' <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="strange"><i class="fas fa-eye"></i></button></p>
                     <p>In your neighborhood</p>
                     <p>Who you gonna <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="call"><i class="fas fa-eye"></i></button>?</p>
                     <p>(Ghostbusters!)</p>
@@ -96,16 +120,24 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-purple-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>This song is much more fun and less scary than "Thriller". Why do you think that is?</p>
-                <p>If you could call a team of "ghostbusters" for any problem (not just ghosts), what would you call them for?</p>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-2 text-purple-300"><i class="fas fa-comments text-orange-400"></i> Song 2 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Ghostbusters" - Humor, mystery, and pop culture fear</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card"><span class="debate-label bg-fuchsia-500/20 text-fuchsia-300">Tone</span><p class="text-xl"><i class="fas fa-face-laugh mr-2 text-fuchsia-300"></i> Why is this song much more fun and less scary than "Thriller"?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-purple-500/20 text-purple-300">Reflection</span><p class="text-xl"><i class="fas fa-ghost mr-2 text-purple-300"></i> Why do funny supernatural stories appeal to people just as much as scary ones?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-indigo-500/20 text-indigo-300">Opinion</span><p class="text-xl"><i class="fas fa-phone-volume mr-2 text-indigo-300"></i> If you could call a team of "ghostbusters" for any problem, what would you call them for?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-violet-500/20 text-violet-300">Debate</span><p class="text-xl"><i class="fas fa-masks-theater mr-2 text-violet-300"></i> Is humor one of the best ways to deal with fear and uncertainty?</p></div>
+                </div>
             </div></div>
         </div>
         
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-purple-300"><i class="fas fa-music text-red-500"></i> Music Time: Superstition</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1h2xVEoJORqrg71HocgqXd?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-purple-500">
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1h2xVEoJORqrg71HocgqXd?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-violet-900/30 p-4 rounded-lg border border-violet-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-violet-300"></i> A groove-driven warning about blind belief, showing how superstition can shape behavior when people stop questioning what they hear.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-purple-500">
                     <p>Very superstitious, writing's on the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="wall"><i class="fas fa-eye"></i></button></p>
                     <p>Very superstitious, ladders 'bout to <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="fall"><i class="fas fa-eye"></i></button></p>
                     <p>Thirteen month old baby, broke the lookin' <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="glass"><i class="fas fa-eye"></i></button></p>
@@ -118,14 +150,18 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-purple-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>This song lists some common superstitions. Do you know any others?</p>
-                <p>Do you consider yourself a superstitious person?</p>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-2 text-purple-300"><i class="fas fa-comments text-orange-400"></i> Song 3 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Superstition" - Belief, doubt, and irrational fear</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card"><span class="debate-label bg-violet-500/20 text-violet-300">Belief</span><p class="text-xl"><i class="fas fa-eye mr-2 text-violet-300"></i> Which superstitions are still common where you live?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-purple-500/20 text-purple-300">Reflection</span><p class="text-xl"><i class="fas fa-brain mr-2 text-purple-300"></i> Why do people keep believing in things they cannot prove?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-fuchsia-500/20 text-fuchsia-300">Opinion</span><p class="text-xl"><i class="fas fa-hand-sparkles mr-2 text-fuchsia-300"></i> Do you consider yourself a superstitious person?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-indigo-500/20 text-indigo-300">Debate</span><p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-indigo-300"></i> Can superstition ever be harmless fun, or does it always distort reality?</p></div>
+                </div>
             </div></div>
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-purple-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="matching-activity" class="space-y-4"></div><button id="check-answers-btn" class="mt-8 bg-purple-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-purple-700">Check Answers</button></div></div>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-purple-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div><div id="matching-activity" class="space-y-4 text-left"></div><button id="check-answers-btn" class="mt-8 bg-purple-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-purple-700">Check Answers</button><p id="practice-feedback" class="mt-4 text-lg font-semibold text-gray-300"></p></div></div>
         </div>
 
         <div class="slide">
@@ -171,12 +207,14 @@
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
             const progressBar = document.getElementById('progress-bar');
+            const slideCounter = document.getElementById('slide-counter');
             let currentSlide = 0;
 
             function showSlide(index) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
                 if (progressBar) progressBar.style.width = slides.length > 1 ? `${((index + 1) / slides.length) * 100}%` : '100%';
+                if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
                 if (prevBtn) prevBtn.disabled = index === 0;
                 const isLastSlide = index === slides.length - 1;
                 if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
@@ -203,29 +241,62 @@
                 });
             });
 
-            const activityContainer = document.getElementById('matching-activity'), checkAnswersBtn = document.getElementById('check-answers-btn');
-            if(activityContainer && checkAnswersBtn) {
-                const expressions=[{id:'shivers_spine',text:'To send shivers down your spine'},{id:'unsolved_mystery',text:'An unsolved mystery'},{id:'sixth_sense',text:'To have a sixth sense'},{id:'gut_feeling',text:'A gut feeling'},{id:'debunk_myth',text:'To debunk a myth'},{id:'urban_legend',text:'An urban legend'}];
-                const situations=[{text:"The story of the Bermuda Triangle is a famous...",answer:'unsolved_mystery'},{text:"That horror movie was so scary, it...",answer:'shivers_spine'},{text:"I can't explain it, but I think we shouldn't go inside. I have a bad...",answer:'gut_feeling'},{text:"The story about alligators in the sewers is just an...",answer:'urban_legend'},{text:"She always knows when something is wrong. It's like she has a...",answer:'sixth_sense'},{text:"Scientists used evidence to... the idea that the world is flat.",answer:'debunk_myth'}];
-                function shuffle(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
-                function createActivity() {
-                    const shuffledSituations = shuffle(situations);
-                    let html = shuffledSituations.map((sit, index) => {
-                        return `<div id="q-${index}" class="p-4 rounded-lg bg-gray-800 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300"><p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p><select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg shadow-sm text-lg focus:border-purple-400 focus:ring focus:ring-purple-300 focus:ring-opacity-50"><option value="">Select an expression...</option>${shuffle([...expressions]).map(exp => `<option value="${exp.id}">${exp.text}</option>`).join('')}</select></div>`;
-                    }).join('');
-                    activityContainer.innerHTML = html;
-                }
+            const wordBank = document.getElementById('word-bank');
+            const activityContainer = document.getElementById('matching-activity');
+            const checkAnswersBtn = document.getElementById('check-answers-btn');
+            const expressions=[{id:'shivers_spine',text:'To send shivers down your spine'},{id:'unsolved_mystery',text:'An unsolved mystery'},{id:'sixth_sense',text:'To have a sixth sense'},{id:'gut_feeling',text:'A gut feeling'},{id:'debunk_myth',text:'To debunk a myth'},{id:'urban_legend',text:'An urban legend'}];
+            const situations=[{text:"The story of the Bermuda Triangle is a famous...",answer:'unsolved_mystery'},{text:"That horror movie was so scary, it...",answer:'shivers_spine'},{text:"I can't explain it, but I think we shouldn't go inside. I have a bad...",answer:'gut_feeling'},{text:"The story about alligators in the sewers is just an...",answer:'urban_legend'},{text:"She always knows when something is wrong. It's like she has a...",answer:'sixth_sense'},{text:"Scientists used evidence to... the idea that the world is flat.",answer:'debunk_myth'}];
+            function shuffle(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
+            function createActivity() {
+                if (!activityContainer || !wordBank) return;
+                wordBank.innerHTML = '';
+                shuffle([...expressions]).forEach(exp => {
+                    const pill = document.createElement('div');
+                    pill.className = 'word-pill';
+                    pill.draggable = true;
+                    pill.innerText = exp.text;
+                    pill.addEventListener('dragstart', (e) => e.dataTransfer.setData('text/plain', exp.text));
+                    wordBank.appendChild(pill);
+                });
+                const shuffledSituations = shuffle([...situations]);
+                activityContainer.innerHTML = shuffledSituations.map((sit, index) => `<div class="p-4 rounded-lg bg-gray-900 border border-gray-700"><p class="text-xl text-gray-200">${index + 1}. ${sit.text} <span class="drop-zone" data-answer="${expressions.find(exp => exp.id === sit.answer)?.text || ''}">________</span></p></div>`).join('');
+                activityContainer.querySelectorAll('.drop-zone').forEach(zone => {
+                    zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('hover'); });
+                    zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
+                    zone.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        zone.classList.remove('hover');
+                        zone.innerText = e.dataTransfer.getData('text/plain');
+                        zone.classList.add('filled');
+                        zone.classList.remove('correct', 'incorrect');
+                    });
+                    zone.addEventListener('click', () => {
+                        zone.innerText = '________';
+                        zone.classList.remove('filled', 'correct', 'incorrect');
+                    });
+                });
+            }
+            if (activityContainer && checkAnswersBtn && wordBank) {
                 createActivity();
                 checkAnswersBtn.addEventListener('click', () => {
-                    activityContainer.querySelectorAll('select').forEach((select, index) => {
-                        const questionDiv = document.getElementById(`q-${index}`);
-                        questionDiv.classList.remove('bg-green-900/50', 'border-green-500', 'bg-red-900/50', 'border-red-500');
-                        if (select.value === select.dataset.answer) {
-                            questionDiv.classList.add('bg-green-900/50', 'border-green-500');
-                        } else {
-                            questionDiv.classList.add('bg-red-900/50', 'border-red-500');
+                    const feedback = document.getElementById('practice-feedback');
+                    const zones = activityContainer.querySelectorAll('.drop-zone');
+                    let correctCount = 0;
+                    zones.forEach(zone => {
+                        const currentValue = zone.innerText.trim().toLowerCase();
+                        const answerValue = zone.dataset.answer.trim().toLowerCase();
+                        zone.classList.remove('correct', 'incorrect');
+                        if (currentValue === answerValue) {
+                            zone.classList.add('correct');
+                            correctCount++;
+                        } else if (zone.innerText.trim() !== '________') {
+                            zone.classList.add('incorrect');
                         }
                     });
+                    if (feedback) {
+                        feedback.textContent = `You got ${correctCount} of ${zones.length} correct.`;
+                        feedback.className = 'mt-4 text-lg font-semibold ' + (correctCount === zones.length ? 'text-emerald-400' : 'text-purple-300');
+                    }
                 });
             }
 

@@ -22,6 +22,16 @@
         .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
         .flashcard-front { background-color: white; color: #7c3aed; text-align: center; }
         .flashcard-back { background-color: #7c3aed; color: white; transform: rotateY(180deg); text-align: center; }
+        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
+        .answer-btn:hover { color: #c084fc; }
+        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #a78bfa; text-align: center; color: #c4b5fd; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
+        .drop-zone.hover { border-color: #ddd6fe; background-color: rgba(167, 139, 250, 0.12); }
+        .drop-zone.filled { border-bottom-style: solid; }
+        .drop-zone.correct { color: #34d399 !important; border-color: #34d399; background-color: rgba(16, 185, 129, 0.12); }
+        .drop-zone.incorrect { color: #f87171 !important; border-color: #f87171; background-color: rgba(239, 68, 68, 0.12); }
+        .debate-card { background: linear-gradient(135deg, #2e1065 0%, #111827 100%); border: 1px solid #4c1d95; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }
+        .debate-card:hover { transform: translateY(-2px); }
+        .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
     </style>
     <link rel="stylesheet" href="conversation-lesson-theme.css">
 </head>
@@ -31,7 +41,7 @@
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="conversation.html" class="text-lg font-bold text-purple-400 hover:text-purple-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
             <h1 class="text-xl font-semibold text-center">Lesson 3: Rebellion & Freedom</h1>
-            <div class="w-32"></div>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 13</div>
         </div>
         <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-purple-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
@@ -64,6 +74,9 @@
             <h2 class="text-4xl font-bold mb-4 text-center text-purple-300"><i class="fas fa-guitar text-red-500"></i> Music Time: We’re Not Gonna Take It</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2Ew8S_roBfVd3QWfe2nAlG?utm_source=generator5" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-purple-900/30 p-4 rounded-lg border border-purple-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-purple-300"></i> A loud protest anthem about refusing control, defending your choices, and pushing back when people try to define your life.</p>
+                </div>
                 <div class="mt-4"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-purple-500">
                     <p>Oh, we're not gonna <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="take"><i class="fas fa-eye"></i></button> it</p>
                     <p>No, we ain't gonna take it</p>
@@ -80,8 +93,24 @@
 
         <div class="slide">
             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-purple-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion: We’re Not Gonna Take It</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>This song is a protest anthem. What are some things people protest against?</p>
-                <p>Have you ever wanted to say "I'm not gonna take it anymore"?</p>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card">
+                        <span class="debate-label bg-purple-500/20 text-purple-300">Personal</span>
+                        <p class="text-xl"><i class="fas fa-bolt mr-2 text-purple-300"></i> What situations make people feel they have had enough and need to speak up?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-yellow-500/20 text-yellow-300">Reflection</span>
+                        <p class="text-xl"><i class="fas fa-fire mr-2 text-yellow-300"></i> Is rebellion usually a sign of courage, immaturity, or frustration?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-green-500/20 text-green-300">Opinion</span>
+                        <p class="text-xl"><i class="fas fa-hand-fist mr-2 text-green-300"></i> What are some things people protest against in schools, families, or society?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-red-500/20 text-red-300">Debate</span>
+                        <p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-red-300"></i> When is it healthy to say "I'm not gonna take it anymore," and when can it become destructive?</p>
+                    </div>
+                </div>
             </div></div>
         </div>
 
@@ -89,6 +118,9 @@
             <h2 class="text-4xl font-bold mb-4 text-center text-purple-300"><i class="fas fa-microphone-alt text-red-500"></i> Music Time: Fight for Your Right</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2Ew8S_roBfVd3QWfe2nAlG?utm_source=generator7" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-red-900/30 p-4 rounded-lg border border-red-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-red-300"></i> This song uses humor and exaggeration to talk about teenage rebellion, conflict at home, and the desire to have fun without constant control.</p>
+                </div>
                 <div class="mt-4"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-purple-500">
                     <p>You wake up late for <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="school"><i class="fas fa-eye"></i></button>, man, you don't wanna go</p>
                     <p>You ask your mom, "Please?" but she still says, "<input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="No"><i class="fas fa-eye"></i></button>"</p>
@@ -101,8 +133,24 @@
 
         <div class="slide">
             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-purple-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion: Fight for Your Right</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>This song is very humorous. Is humor a good way to rebel?</p>
-                <p>What "rights" do young people often have to "fight for" at home or at school?</p>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card">
+                        <span class="debate-label bg-red-500/20 text-red-300">Personal</span>
+                        <p class="text-xl"><i class="fas fa-house-user mr-2 text-red-300"></i> What "rights" do teenagers and young adults often have to negotiate at home?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-orange-500/20 text-orange-300">Reflection</span>
+                        <p class="text-xl"><i class="fas fa-face-laugh mr-2 text-orange-300"></i> Is humor a good way to criticize rules and authority, or can it make the message weaker?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-blue-500/20 text-blue-300">Opinion</span>
+                        <p class="text-xl"><i class="fas fa-school mr-2 text-blue-300"></i> Which school or family rules do you think are fair, and which ones feel unnecessary?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-emerald-500/20 text-emerald-300">Debate</span>
+                        <p class="text-xl"><i class="fas fa-people-arrows mr-2 text-emerald-300"></i> Do young people need more freedom first, or more responsibility first?</p>
+                    </div>
+                </div>
             </div></div>
         </div>
 
@@ -110,6 +158,9 @@
             <h2 class="text-4xl font-bold mb-4 text-center text-purple-300"><i class="fas fa-motorcycle text-red-500"></i> Music Time: Born to Be Wild</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/63OFKbk_t3I4c4wI6A8c16?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-indigo-900/30 p-4 rounded-lg border border-indigo-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-indigo-300"></i> A classic freedom anthem associated with the open road, adventure, and the idea that independence feels exciting, risky, and irresistible.</p>
+                </div>
                 <div class="mt-4"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-purple-500">
                     <p>Get your motor <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="runnin'"><i class="fas fa-eye"></i></button></p>
                     <p>Head out on the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="highway"><i class="fas fa-eye"></i></button></p>
@@ -125,8 +176,24 @@
 
         <div class="slide">
             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-purple-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion: Born to Be Wild</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>What feeling does this song give you? Does it sound like freedom?</p>
-                <p>The song says "looking for adventure". Is adventure a form of freedom?</p>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card">
+                        <span class="debate-label bg-indigo-500/20 text-indigo-300">Feeling</span>
+                        <p class="text-xl"><i class="fas fa-road mr-2 text-indigo-300"></i> What kind of freedom does this song suggest: emotional freedom, physical freedom, or freedom from rules?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-cyan-500/20 text-cyan-300">Reflection</span>
+                        <p class="text-xl"><i class="fas fa-compass mr-2 text-cyan-300"></i> Why do so many people connect adventure with freedom and identity?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-amber-500/20 text-amber-300">Opinion</span>
+                        <p class="text-xl"><i class="fas fa-mountain-sun mr-2 text-amber-300"></i> Is adventure an essential part of life, or can a calm routine also feel deeply free?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-pink-500/20 text-pink-300">Debate</span>
+                        <p class="text-xl"><i class="fas fa-flag-checkered mr-2 text-pink-300"></i> Are some people truly "born to be wild," or is that identity something culture teaches us?</p>
+                    </div>
+                </div>
             </div></div>
         </div>
 
@@ -142,6 +209,7 @@
                         <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">5. It's important <span class="drop-zone" data-answer="to stand up for your beliefs">________</span> even under pressure.</div>
                         <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">6. Social media can help people <span class="drop-zone" data-answer="to have a voice">________</span> in public debates.</div>
                         <button id="check-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg transition">Check Answers</button>
+                        <p id="practice-feedback" class="mt-4 text-lg font-semibold text-gray-300"></p>
                     </div>
                     <div class="lg:w-1/3">
                         <div id="word-bank" class="bg-gray-800 p-6 rounded-2xl border border-dashed border-gray-600 flex flex-col gap-3"></div>
@@ -195,10 +263,19 @@
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
             const progressBar = document.getElementById('progress-bar');
+            const slideCounter = document.getElementById('slide-counter');
             const wordBank = document.getElementById('word-bank');
             const dropZones = document.querySelectorAll('.drop-zone');
             const checkBtn = document.getElementById('check-btn');
             let currentSlide = 0;
+            function shuffleArray(items) {
+                const copy = [...items];
+                for (let i = copy.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [copy[i], copy[j]] = [copy[j], copy[i]];
+                }
+                return copy;
+            }
             const expressions = [
                 'to rebel against something',
                 'to stand up for your beliefs',
@@ -213,9 +290,7 @@ document.querySelectorAll('.flashcard').forEach(card => {
     });
 });
             if (wordBank) {
-                expressions
-                    .sort(() => Math.random() - 0.5)
-                    .forEach(expression => {
+                shuffleArray(expressions).forEach(expression => {
                         const item = document.createElement('div');
                         item.className = 'drag-item bg-purple-600 px-4 py-3 rounded-lg font-bold cursor-grab';
                         item.draggable = true;
@@ -238,24 +313,36 @@ document.querySelectorAll('.flashcard').forEach(card => {
                     zone.classList.remove('hover');
                     zone.innerText = e.dataTransfer.getData('text/plain');
                     zone.classList.add('filled');
+                    zone.classList.remove('correct', 'incorrect');
                     zone.style.color = '';
                 });
                 zone.addEventListener('click', () => {
                     zone.innerText = '________';
                     zone.classList.remove('filled');
+                    zone.classList.remove('correct', 'incorrect');
                     zone.style.color = '';
                 });
             });
 
             if (checkBtn) {
                 checkBtn.addEventListener('click', () => {
+                    const feedback = document.getElementById('practice-feedback');
+                    let correctCount = 0;
                     dropZones.forEach(zone => {
-                        if (zone.innerText.trim().toLowerCase() === zone.dataset.answer.toLowerCase()) {
-                            zone.style.color = '#10b981';
+                        const currentValue = zone.innerText.trim().toLowerCase();
+                        const answerValue = zone.dataset.answer.toLowerCase();
+                        zone.classList.remove('correct', 'incorrect');
+                        if (currentValue === answerValue) {
+                            zone.classList.add('correct');
+                            correctCount++;
                         } else if (zone.innerText.trim() !== '________') {
-                            zone.style.color = '#ef4444';
+                            zone.classList.add('incorrect');
                         }
                     });
+                    if (feedback) {
+                        feedback.textContent = `You got ${correctCount} of ${dropZones.length} correct.`;
+                        feedback.className = 'mt-4 text-lg font-semibold ' + (correctCount === dropZones.length ? 'text-emerald-400' : 'text-purple-300');
+                    }
                 });
             }
 
@@ -266,6 +353,7 @@ document.querySelectorAll('.flashcard').forEach(card => {
                     const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
                     progressBar.style.width = `${progressPercentage}%`;
                 }
+                if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
                 if (prevBtn) prevBtn.disabled = index === 0;
                 const isLastSlide = index === slides.length - 1;
                 if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);

@@ -21,6 +21,18 @@
         .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
         .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
         .lyrics-box { max-height: 300px; overflow-y: auto; }
+        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
+        .answer-btn:hover { color: #fcd34d; }
+        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #facc15; text-align: center; color: #fde68a; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
+        .drop-zone.hover { border-color: #fef08a; background-color: rgba(250, 204, 21, 0.12); }
+        .drop-zone.filled { border-bottom-style: solid; }
+        .drop-zone.correct { color: #34d399 !important; border-color: #34d399; background-color: rgba(16, 185, 129, 0.12); }
+        .drop-zone.incorrect { color: #f87171 !important; border-color: #f87171; background-color: rgba(239, 68, 68, 0.12); }
+        .word-pill { cursor: grab; background-color: #ca8a04; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
+        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
+        .debate-card { background: linear-gradient(135deg, #713f12 0%, #111827 100%); border: 1px solid #a16207; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }
+        .debate-card:hover { transform: translateY(-2px); }
+        .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
     </style>
     <link rel="stylesheet" href="conversation-lesson-theme.css">
 </head>
@@ -30,7 +42,7 @@
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="conversation.html" class="text-lg font-bold text-yellow-400 hover:text-yellow-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
             <h1 class="text-xl font-semibold text-center">Lesson 5: Friendship</h1>
-            <div class="w-32"></div>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 11</div>
         </div>
         <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-yellow-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
@@ -61,6 +73,9 @@
             <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music Time: With a Little Help From My Friends</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                 <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2RnPATK99oGOZygnD2GTO6?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-yellow-900/30 p-4 rounded-lg border border-yellow-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-yellow-300"></i> A warm song about emotional support, trust, and how friendship helps people stay steady when they feel vulnerable.</p>
+                </div>
                 <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
                     <p>What would you <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="do"><i class="fas fa-eye"></i></button> if I sang out of tune?</p>
                     <p>Would you stand up and walk out on <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="me"><i class="fas fa-eye"></i></button>?</p>
@@ -72,9 +87,13 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>The song asks "Would you stand up and walk out on me?". What does this show about the fear of being judged by friends?</p>
-                <p>What does "I get by with a little help from my friends" mean to you?</p>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-2 text-yellow-300"><i class="fas fa-comments text-orange-400"></i> Song 1 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"With a Little Help From My Friends" - Support and vulnerability</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card"><span class="debate-label bg-yellow-500/20 text-yellow-300">Personal</span><p class="text-xl"><i class="fas fa-hands-helping mr-2 text-yellow-300"></i> Why is it sometimes hard to admit that we need help from friends?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-blue-500/20 text-blue-300">Reflection</span><p class="text-xl"><i class="fas fa-user-check mr-2 text-blue-300"></i> What does the fear of being judged reveal about trust in friendships?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-green-500/20 text-green-300">Opinion</span><p class="text-xl"><i class="fas fa-heart mr-2 text-green-300"></i> What kind of support is most valuable from a friend: advice, presence, honesty, or loyalty?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-red-500/20 text-red-300">Debate</span><p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-red-300"></i> Should real friendship include emotional dependence, or is that unhealthy over time?</p></div>
+                </div>
             </div></div>
         </div>
 
@@ -82,6 +101,9 @@
             <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music Time: Stand by Me</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                 <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5pztwVl6brVgqYjYQ93us6?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-amber-900/30 p-4 rounded-lg border border-amber-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-amber-300"></i> A classic song about loyalty, comfort, and the emotional strength that comes from knowing someone will stay beside you.</p>
+                </div>
                 <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
                     <p>When the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="night"><i class="fas fa-eye"></i></button> has come</p>
                     <p>And the land is <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="dark"><i class="fas fa-eye"></i></button></p>
@@ -93,9 +115,13 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>What does it mean to "stand by" someone?</p>
-                <p>The song says "I won't be afraid" if a friend is there. How do friends help us overcome fear?</p>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-2 text-yellow-300"><i class="fas fa-comments text-orange-400"></i> Song 2 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Stand by Me" - Loyalty and emotional safety</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card"><span class="debate-label bg-amber-500/20 text-amber-300">Meaning</span><p class="text-xl"><i class="fas fa-people-arrows mr-2 text-amber-300"></i> What does it really mean to stand by someone in a difficult moment?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-cyan-500/20 text-cyan-300">Reflection</span><p class="text-xl"><i class="fas fa-shield-heart mr-2 text-cyan-300"></i> Why can another person's presence reduce fear even when the problem remains?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-purple-500/20 text-purple-300">Opinion</span><p class="text-xl"><i class="fas fa-handshake mr-2 text-purple-300"></i> Is loyalty more important than honesty in a strong friendship?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-rose-500/20 text-rose-300">Debate</span><p class="text-xl"><i class="fas fa-heart-crack mr-2 text-rose-300"></i> Can a friendship survive if one person is not emotionally available when it matters most?</p></div>
+                </div>
             </div></div>
         </div>
         
@@ -103,6 +129,9 @@
             <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music Time: You've Got a Friend in Me</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                 <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2stkLJ0JNcXkIRDNF3ld6c?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-orange-900/30 p-4 rounded-lg border border-orange-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-orange-300"></i> A playful song that celebrates loyalty, affection, and the reassuring idea that friendship continues even when life gets difficult.</p>
+                </div>
                 <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
                     <p>You've got a <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="friend"><i class="fas fa-eye"></i></button> in me</p>
                     <p>You've got a friend in me</p>
@@ -116,14 +145,19 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>This song is very famous from the movie Toy Story. What does it say about loyalty in friendship?</p>
-                <p>What does the line "you've got troubles, I've got 'em too" mean for a friendship?</p>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-2 text-yellow-300"><i class="fas fa-comments text-orange-400"></i> Song 3 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"You've Got a Friend in Me" - Loyalty and companionship</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card"><span class="debate-label bg-orange-500/20 text-orange-300">Personal</span><p class="text-xl"><i class="fas fa-user-friends mr-2 text-orange-300"></i> What makes a friendship feel stable and reassuring over many years?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-green-500/20 text-green-300">Reflection</span><p class="text-xl"><i class="fas fa-link mr-2 text-green-300"></i> What does sharing troubles mean in a real friendship?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-sky-500/20 text-sky-300">Opinion</span><p class="text-xl"><i class="fas fa-star mr-2 text-sky-300"></i> Is loyalty the most important quality in friendship, or are there stronger ones?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-pink-500/20 text-pink-300">Debate</span><p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-pink-300"></i> Can friendship stay equal when one person gives much more emotional support than the other?</p></div>
+                </div>
+            </div></div>
             </div></div>
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="matching-activity" class="space-y-4"></div><button id="check-answers-btn" class="mt-8 bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-yellow-700">Check Answers</button></div></div>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div><div id="matching-activity" class="space-y-4 text-left"></div><button id="check-answers-btn" class="mt-8 bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-yellow-700">Check Answers</button><p id="practice-feedback" class="mt-4 text-lg font-semibold text-gray-300"></p></div></div>
         </div>
 
         <div class="slide">
@@ -166,6 +200,7 @@
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
+            const slideCounter = document.getElementById('slide-counter');
             let currentSlide = 0;
 document.querySelectorAll('.flashcard').forEach(card => {
     card.addEventListener('click', () => {
@@ -176,6 +211,7 @@ document.querySelectorAll('.flashcard').forEach(card => {
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
                 const progressBar = document.getElementById('progress-bar');
                 if (progressBar) progressBar.style.width = slides.length > 1 ? `${((index + 1) / slides.length) * 100}%` : '100%';
+                if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
                 if (prevBtn) prevBtn.disabled = index === 0;
                 if (nextBtn) nextBtn.classList.toggle('hidden', index === slides.length - 1);
                 if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
@@ -195,33 +231,64 @@ document.querySelectorAll('.flashcard').forEach(card => {
                 });
             });
             
+            const wordBank = document.getElementById('word-bank');
             const activityContainer = document.getElementById('matching-activity');
             const checkAnswersBtn = document.getElementById('check-answers-btn');
             const expressions = [ {id:'have_back',text:"To have someone's back"}, {id:'shoulder',text:'A shoulder to cry on'}, {id:'thick_thin',text:'Through thick and thin'}, {id:'hit_off',text:'To hit it off'}, {id:'be_there',text:'To be there for someone'}, {id:'drift_apart',text:'To drift apart'} ];
             const situations = [ {text:"I met my new colleague yesterday and we talked for hours. We immediately became friends.",answer:'hit_off'}, {text:"She was with me during the good moments and the very difficult ones. She's a true friend.",answer:'thick_thin'}, {text:"Don't worry about the presentation, I'll be there to support you.",answer:'have_back'}, {text:"After he lost his job, his best friend was there to listen to all his problems.",answer:'shoulder'}, {text:"Since we went to different universities, we slowly lost contact.",answer:'drift_apart'}, {text:"No matter what happens, you can call me. I will always support you.",answer:'be_there'} ];
             function shuffle(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
             function createActivity() {
-                if (!activityContainer) return;
-                const shuffledSituations = shuffle(situations);
-                let html = '';
-                shuffledSituations.forEach((sit, index) => {
-                    html += `<div id="q-${index}" class="p-4 rounded-lg bg-gray-800 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300"><p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p><select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg shadow-sm text-lg focus:border-yellow-400 focus:ring focus:ring-yellow-300 focus:ring-opacity-50"><option value="">Select an expression...</option>${shuffle([...expressions]).map(exp => `<option value="${exp.id}">${exp.text}</option>`).join('')}</select></div>`;
+                if (!activityContainer || !wordBank) return;
+                wordBank.innerHTML = '';
+                shuffle([...expressions]).forEach(exp => {
+                    const pill = document.createElement('div');
+                    pill.className = 'word-pill';
+                    pill.draggable = true;
+                    pill.innerText = exp.text;
+                    pill.addEventListener('dragstart', (e) => {
+                        e.dataTransfer.setData('text/plain', exp.text);
+                    });
+                    wordBank.appendChild(pill);
                 });
-                activityContainer.innerHTML = html;
+                const shuffledSituations = shuffle([...situations]);
+                activityContainer.innerHTML = shuffledSituations.map((sit, index) => `<div class="p-4 rounded-lg bg-gray-900 border border-gray-700"><p class="text-xl text-gray-200">${index + 1}. ${sit.text} <span class="drop-zone" data-answer="${expressions.find(exp => exp.id === sit.answer)?.text || ''}">________</span></p></div>`).join('');
+                activityContainer.querySelectorAll('.drop-zone').forEach(zone => {
+                    zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('hover'); });
+                    zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
+                    zone.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        zone.classList.remove('hover');
+                        zone.innerText = e.dataTransfer.getData('text/plain');
+                        zone.classList.add('filled');
+                        zone.classList.remove('correct', 'incorrect');
+                    });
+                    zone.addEventListener('click', () => {
+                        zone.innerText = '________';
+                        zone.classList.remove('filled', 'correct', 'incorrect');
+                    });
+                });
             }
-            if (activityContainer) {
+            if (activityContainer && checkAnswersBtn && wordBank) {
                 createActivity();
                 checkAnswersBtn.addEventListener('click', () => {
-                    const selects = activityContainer.querySelectorAll('select');
-                    selects.forEach((select, index) => {
-                        const questionDiv = document.getElementById(`q-${index}`);
-                        questionDiv.classList.remove('bg-green-900/50', 'border-green-500', 'bg-red-900/50', 'border-red-500');
-                        if (select.value === select.dataset.answer) {
-                            questionDiv.classList.add('bg-green-900/50', 'border-green-500');
-                        } else {
-                            questionDiv.classList.add('bg-red-900/50', 'border-red-500');
+                    const feedback = document.getElementById('practice-feedback');
+                    const zones = activityContainer.querySelectorAll('.drop-zone');
+                    let correctCount = 0;
+                    zones.forEach(zone => {
+                        const currentValue = zone.innerText.trim().toLowerCase();
+                        const answerValue = zone.dataset.answer.trim().toLowerCase();
+                        zone.classList.remove('correct', 'incorrect');
+                        if (currentValue === answerValue) {
+                            zone.classList.add('correct');
+                            correctCount++;
+                        } else if (zone.innerText.trim() !== '________') {
+                            zone.classList.add('incorrect');
                         }
                     });
+                    if (feedback) {
+                        feedback.textContent = `You got ${correctCount} of ${zones.length} correct.`;
+                        feedback.className = 'mt-4 text-lg font-semibold ' + (correctCount === zones.length ? 'text-emerald-400' : 'text-yellow-300');
+                    }
                 });
             }
             

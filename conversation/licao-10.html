@@ -21,6 +21,18 @@
         .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
         .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
         .lyrics-box { max-height: 300px; overflow-y: auto; }
+        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
+        .answer-btn:hover { color: #fde047; }
+        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #facc15; text-align: center; color: #fde047; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
+        .drop-zone.hover { border-color: #fef08a; background-color: rgba(250, 204, 21, 0.12); }
+        .drop-zone.filled { border-bottom-style: solid; }
+        .drop-zone.correct { color: #34d399 !important; border-color: #34d399; background-color: rgba(16, 185, 129, 0.12); }
+        .drop-zone.incorrect { color: #f87171 !important; border-color: #f87171; background-color: rgba(239, 68, 68, 0.12); }
+        .word-pill { cursor: grab; background-color: #ca8a04; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
+        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
+        .debate-card { background: linear-gradient(135deg, #854d0e 0%, #111827 100%); border: 1px solid #ca8a04; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }
+        .debate-card:hover { transform: translateY(-2px); }
+        .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
     </style>
     <link rel="stylesheet" href="conversation-lesson-theme.css">
 </head>
@@ -30,7 +42,7 @@
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="conversation.html" class="text-lg font-bold text-yellow-400 hover:text-yellow-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
             <h1 class="text-xl font-semibold text-center">Lesson 10: Happiness & Life Philosophy</h1>
-            <div class="w-32"></div>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 11</div>
         </div>
         <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-yellow-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
@@ -61,6 +73,9 @@
             <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music Time: Happy</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                 <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/60nZcImufyMA1MKQY3dcCH?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-yellow-900/30 p-4 rounded-lg border border-yellow-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-yellow-300"></i> An upbeat song that treats happiness like something contagious, physical, and impossible to hide.</p>
+                </div>
                 <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
                     <p>It might seem crazy what I'm 'bout to say</p>
                     <p>Sunshine she's here, you can take a <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="break"><i class="fas fa-eye"></i></button></p>
@@ -75,16 +90,24 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>The song is very simple and repetitive. Why do you think it became so popular?</p>
-                <p>What does the line "a room without a roof" mean in the context of being happy?</p>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-2 text-yellow-300"><i class="fas fa-comments text-orange-400"></i> Song 1 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Happy" - Joy, energy, and emotional contagion</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card"><span class="debate-label bg-yellow-500/20 text-yellow-300">Meaning</span><p class="text-xl"><i class="fas fa-face-smile mr-2 text-yellow-300"></i> Why do you think such a simple and repetitive song became so popular?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-amber-500/20 text-amber-300">Reflection</span><p class="text-xl"><i class="fas fa-house-chimney mr-2 text-amber-300"></i> What does "a room without a roof" suggest about freedom and happiness?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-lime-500/20 text-lime-300">Opinion</span><p class="text-xl"><i class="fas fa-bolt mr-2 text-lime-300"></i> Can music actually change your mood in a meaningful way?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-orange-500/20 text-orange-300">Debate</span><p class="text-xl"><i class="fas fa-heart mr-2 text-orange-300"></i> Is happiness mostly a choice, or mostly a result of life circumstances?</p></div>
+                </div>
             </div></div>
         </div>
 
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music Time: Good Life</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6OtCIsQZ64Vs1EbzztvAv4?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6OtCIsQZ64Vs1EbzztvAv4?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-amber-900/30 p-4 rounded-lg border border-amber-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-amber-300"></i> A song about youth, travel, spontaneity, and the thrill of feeling that life is finally opening up in front of you.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
                     <p>Woke up in London yesterday</p>
                     <p>Found myself in the city near <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="Piccadilly"><i class="fas fa-eye"></i></button></p>
                     <p>Don't really know how I got here</p>
@@ -99,16 +122,24 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>This song connects the "good life" with travel and new experiences. Do you agree that travel is important for happiness?</p>
-                <p>What does the "good life" mean to you?</p>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-2 text-yellow-300"><i class="fas fa-comments text-orange-400"></i> Song 2 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Good Life" - Freedom, youth, and meaningful experiences</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card"><span class="debate-label bg-amber-500/20 text-amber-300">Travel</span><p class="text-xl"><i class="fas fa-plane-departure mr-2 text-amber-300"></i> Do you agree that travel and new experiences are important for a happy life?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-yellow-500/20 text-yellow-300">Reflection</span><p class="text-xl"><i class="fas fa-suitcase mr-2 text-yellow-300"></i> Why do songs often connect the "good life" with movement, youth, and adventure?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-lime-500/20 text-lime-300">Opinion</span><p class="text-xl"><i class="fas fa-star mr-2 text-lime-300"></i> What does the "good life" mean to you personally?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-orange-500/20 text-orange-300">Debate</span><p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-orange-300"></i> Is a fulfilling life more about collecting memories or building stability?</p></div>
+                </div>
             </div></div>
         </div>
         
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music Time: Don't Worry, Be Happy</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4IoJt6fsZwnTihwLrLzIhs?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4IoJt6fsZwnTihwLrLzIhs?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-orange-900/30 p-4 rounded-lg border border-orange-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-orange-300"></i> A minimalist reminder that worry can multiply problems, while calmness and perspective can make life lighter.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
                     <p>Here's a little <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="song"><i class="fas fa-eye"></i></button> I wrote</p>
                     <p>You might want to sing it note for note</p>
                     <p>Don't worry, be <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="happy"><i class="fas fa-eye"></i></button></p>
@@ -120,14 +151,18 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>Is it always possible to "not worry" and "be happy"?</p>
-                <p>What is your favorite way to relax and stop worrying?</p>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-2 text-yellow-300"><i class="fas fa-comments text-orange-400"></i> Song 3 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Don't Worry, Be Happy" - Simplicity, stress, and mindset</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card"><span class="debate-label bg-orange-500/20 text-orange-300">Meaning</span><p class="text-xl"><i class="fas fa-seedling mr-2 text-orange-300"></i> Is it always possible to "not worry" and "be happy," or is that too idealistic?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-yellow-500/20 text-yellow-300">Reflection</span><p class="text-xl"><i class="fas fa-cloud-sun mr-2 text-yellow-300"></i> Why do simple messages sometimes feel more powerful than complex advice?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-lime-500/20 text-lime-300">Opinion</span><p class="text-xl"><i class="fas fa-mug-hot mr-2 text-lime-300"></i> What is your favorite way to relax and stop worrying?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-amber-500/20 text-amber-300">Debate</span><p class="text-xl"><i class="fas fa-brain mr-2 text-amber-300"></i> Does modern life make happiness harder, or do people simply overcomplicate it?</p></div>
+                </div>
             </div></div>
         </div>
         
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="matching-activity" class="space-y-4"></div><button id="check-answers-btn" class="mt-8 bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-yellow-700">Check Answers</button></div></div>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div><div id="matching-activity" class="space-y-4 text-left"></div><button id="check-answers-btn" class="mt-8 bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-yellow-700">Check Answers</button><p id="practice-feedback" class="mt-4 text-lg font-semibold text-gray-300"></p></div></div>
         </div>
 
         <div class="slide">
@@ -173,12 +208,14 @@
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
             const progressBar = document.getElementById('progress-bar');
+            const slideCounter = document.getElementById('slide-counter');
             let currentSlide = 0;
 
             function showSlide(index) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
                 if (progressBar) progressBar.style.width = slides.length > 1 ? `${((index + 1) / slides.length) * 100}%` : '100%';
+                if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
                 if (prevBtn) prevBtn.disabled = index === 0;
                 const isLastSlide = index === slides.length - 1;
                 if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
@@ -205,29 +242,62 @@
                 });
             });
 
-            const activityContainer = document.getElementById('matching-activity'), checkAnswersBtn = document.getElementById('check-answers-btn');
-            if(activityContainer && checkAnswersBtn) {
-                const expressions=[{id:'cloud_nine',text:'On cloud nine'},{id:'simple_things',text:'The simple things in life'},{id:'find_purpose',text:'To find your purpose'},{id:'live_moment',text:'To live in the moment'},{id:'count_blessings',text:'To count your blessings'},{id:'means_end',text:'A means to an end'}];
-                const situations=[{text:"He won the lottery and he is extremely happy!",answer:'cloud_nine'},{text:"I don't worry about the future, I just enjoy today.",answer:'live_moment'},{text:"Money for me is not the goal, it's just a way to achieve other things.",answer:'means_end'},{text:"When I feel sad, I think about all the good things I have.",answer:'count_blessings'},{text:"A beautiful sunset, a cup of coffee... I enjoy the...",answer:'simple_things'},{text:"She quit her job to become a doctor and help people. She wants to...",answer:'find_purpose'}];
-                function shuffle(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
-                function createActivity() {
-                    const shuffledSituations = shuffle(situations);
-                    let html = shuffledSituations.map((sit, index) => {
-                        return `<div id="q-${index}" class="p-4 rounded-lg bg-gray-800 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300"><p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p><select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg shadow-sm text-lg focus:border-yellow-400 focus:ring focus:ring-yellow-300 focus:ring-opacity-50"><option value="">Select an expression...</option>${shuffle([...expressions]).map(exp => `<option value="${exp.id}">${exp.text}</option>`).join('')}</select></div>`;
-                    }).join('');
-                    activityContainer.innerHTML = html;
-                }
+            const wordBank = document.getElementById('word-bank');
+            const activityContainer = document.getElementById('matching-activity');
+            const checkAnswersBtn = document.getElementById('check-answers-btn');
+            const expressions=[{id:'cloud_nine',text:'On cloud nine'},{id:'simple_things',text:'The simple things in life'},{id:'find_purpose',text:'To find your purpose'},{id:'live_moment',text:'To live in the moment'},{id:'count_blessings',text:'To count your blessings'},{id:'means_end',text:'A means to an end'}];
+            const situations=[{text:"He won the lottery and he is extremely happy!",answer:'cloud_nine'},{text:"I don't worry about the future, I just enjoy today.",answer:'live_moment'},{text:"Money for me is not the goal, it's just a way to achieve other things.",answer:'means_end'},{text:"When I feel sad, I think about all the good things I have.",answer:'count_blessings'},{text:"A beautiful sunset, a cup of coffee... I enjoy the...",answer:'simple_things'},{text:"She quit her job to become a doctor and help people. She wants to...",answer:'find_purpose'}];
+            function shuffle(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
+            function createActivity() {
+                if (!activityContainer || !wordBank) return;
+                wordBank.innerHTML = '';
+                shuffle([...expressions]).forEach(exp => {
+                    const pill = document.createElement('div');
+                    pill.className = 'word-pill';
+                    pill.draggable = true;
+                    pill.innerText = exp.text;
+                    pill.addEventListener('dragstart', (e) => e.dataTransfer.setData('text/plain', exp.text));
+                    wordBank.appendChild(pill);
+                });
+                const shuffledSituations = shuffle([...situations]);
+                activityContainer.innerHTML = shuffledSituations.map((sit, index) => `<div class="p-4 rounded-lg bg-gray-900 border border-gray-700"><p class="text-xl text-gray-200">${index + 1}. ${sit.text} <span class="drop-zone" data-answer="${expressions.find(exp => exp.id === sit.answer)?.text || ''}">________</span></p></div>`).join('');
+                activityContainer.querySelectorAll('.drop-zone').forEach(zone => {
+                    zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('hover'); });
+                    zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
+                    zone.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        zone.classList.remove('hover');
+                        zone.innerText = e.dataTransfer.getData('text/plain');
+                        zone.classList.add('filled');
+                        zone.classList.remove('correct', 'incorrect');
+                    });
+                    zone.addEventListener('click', () => {
+                        zone.innerText = '________';
+                        zone.classList.remove('filled', 'correct', 'incorrect');
+                    });
+                });
+            }
+            if (activityContainer && checkAnswersBtn && wordBank) {
                 createActivity();
                 checkAnswersBtn.addEventListener('click', () => {
-                    activityContainer.querySelectorAll('select').forEach((select, index) => {
-                        const questionDiv = document.getElementById(`q-${index}`);
-                        questionDiv.classList.remove('bg-green-900/50', 'border-green-500', 'bg-red-900/50', 'border-red-500');
-                        if (select.value === select.dataset.answer) {
-                            questionDiv.classList.add('bg-green-900/50', 'border-green-500');
-                        } else {
-                            questionDiv.classList.add('bg-red-900/50', 'border-red-500');
+                    const feedback = document.getElementById('practice-feedback');
+                    const zones = activityContainer.querySelectorAll('.drop-zone');
+                    let correctCount = 0;
+                    zones.forEach(zone => {
+                        const currentValue = zone.innerText.trim().toLowerCase();
+                        const answerValue = zone.dataset.answer.trim().toLowerCase();
+                        zone.classList.remove('correct', 'incorrect');
+                        if (currentValue === answerValue) {
+                            zone.classList.add('correct');
+                            correctCount++;
+                        } else if (zone.innerText.trim() !== '________') {
+                            zone.classList.add('incorrect');
                         }
                     });
+                    if (feedback) {
+                        feedback.textContent = `You got ${correctCount} of ${zones.length} correct.`;
+                        feedback.className = 'mt-4 text-lg font-semibold ' + (correctCount === zones.length ? 'text-emerald-400' : 'text-yellow-300');
+                    }
                 });
             }
 

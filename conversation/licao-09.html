@@ -21,6 +21,18 @@
         .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
         .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
         .lyrics-box { max-height: 300px; overflow-y: auto; }
+        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
+        .answer-btn:hover { color: #67e8f9; }
+        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #22d3ee; text-align: center; color: #67e8f9; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
+        .drop-zone.hover { border-color: #a5f3fc; background-color: rgba(34, 211, 238, 0.12); }
+        .drop-zone.filled { border-bottom-style: solid; }
+        .drop-zone.correct { color: #34d399 !important; border-color: #34d399; background-color: rgba(16, 185, 129, 0.12); }
+        .drop-zone.incorrect { color: #f87171 !important; border-color: #f87171; background-color: rgba(239, 68, 68, 0.12); }
+        .word-pill { cursor: grab; background-color: #0891b2; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
+        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
+        .debate-card { background: linear-gradient(135deg, #164e63 0%, #111827 100%); border: 1px solid #0891b2; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }
+        .debate-card:hover { transform: translateY(-2px); }
+        .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
     </style>
     <link rel="stylesheet" href="conversation-lesson-theme.css">
 </head>
@@ -30,7 +42,7 @@
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="conversation.html" class="text-lg font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
             <h1 class="text-xl font-semibold text-center">Lesson 9: Technology & Social Media</h1>
-            <div class="w-32"></div>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 11</div>
         </div>
         <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-cyan-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
@@ -61,6 +73,9 @@
             <h2 class="text-4xl font-bold mb-4 text-center text-cyan-300"><i class="fas fa-robot text-red-500"></i> Music Time: Technologic</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                 <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1iNeZGJsoC0D7ZyJTdIbDS?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-cyan-900/30 p-4 rounded-lg border border-cyan-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-cyan-300"></i> A hypnotic list of digital actions that turns everyday tech behavior into rhythm, almost like a soundtrack for modern screen life.</p>
+                </div>
                 <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-cyan-500">
                     <p><input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="Buy"><i class="fas fa-eye"></i></button> it, use it, break it, fix it</p>
                     <p>Trash it, change it, mail, <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="upgrade"><i class="fas fa-eye"></i></button> it</p>
@@ -74,9 +89,13 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-cyan-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>The song lists many verbs related to technology. How many of these actions do you do every day?</p>
-                <p>Does the repetitive nature of the song make you feel something about our relationship with technology?</p>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-2 text-cyan-300"><i class="fas fa-comments text-orange-400"></i> Song 1 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Technologic" - Repetition, screens, and digital habits</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card"><span class="debate-label bg-cyan-500/20 text-cyan-300">Meaning</span><p class="text-xl"><i class="fas fa-mobile-screen mr-2 text-cyan-300"></i> Why does the repetitive style of the song feel so connected to life with technology?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-sky-500/20 text-sky-300">Reflection</span><p class="text-xl"><i class="fas fa-computer mr-2 text-sky-300"></i> Which of the song's actions are part of your everyday routine?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-blue-500/20 text-blue-300">Opinion</span><p class="text-xl"><i class="fas fa-brain mr-2 text-blue-300"></i> Does modern technology make people more efficient, or just more distracted?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-teal-500/20 text-teal-300">Debate</span><p class="text-xl"><i class="fas fa-power-off mr-2 text-teal-300"></i> Is it realistic to try a digital detox today, or is tech too essential now?</p></div>
+                </div>
             </div></div>
         </div>
 
@@ -84,6 +103,9 @@
             <h2 class="text-4xl font-bold mb-4 text-center text-cyan-300"><i class="fas fa-tv text-red-500"></i> Music Time: Video Killed the Radio Star</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                 <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7o7E1nrHWncYY7PY94gCiX?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-sky-900/30 p-4 rounded-lg border border-sky-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-sky-300"></i> A classic reflection on how new media replaces old media, and how innovation often arrives together with nostalgia.</p>
+                </div>
                 <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-cyan-500">
                     <p>I heard you on the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="wireless"><i class="fas fa-eye"></i></button> back in '52</p>
                     <p>Lying awake intent at tuning in on you</p>
@@ -100,9 +122,13 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-cyan-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>This song is about a technology (video) replacing an older one (radio). Can you think of other examples of this happening?</p>
-                <p>Do you feel nostalgic for any "old" technology?</p>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-2 text-cyan-300"><i class="fas fa-comments text-orange-400"></i> Song 2 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Video Killed the Radio Star" - Change, nostalgia, and media evolution</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card"><span class="debate-label bg-sky-500/20 text-sky-300">Change</span><p class="text-xl"><i class="fas fa-radio mr-2 text-sky-300"></i> What other technologies have replaced older ones in your lifetime?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-blue-500/20 text-blue-300">Reflection</span><p class="text-xl"><i class="fas fa-film mr-2 text-blue-300"></i> Why do people often feel nostalgic for outdated technology?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-cyan-500/20 text-cyan-300">Opinion</span><p class="text-xl"><i class="fas fa-headphones mr-2 text-cyan-300"></i> Is losing old media a problem, or is it just part of progress?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-teal-500/20 text-teal-300">Debate</span><p class="text-xl"><i class="fas fa-clapperboard mr-2 text-teal-300"></i> Should we preserve old ways of consuming music and culture, even if newer tools are more convenient?</p></div>
+                </div>
             </div></div>
         </div>
         
@@ -110,6 +136,9 @@
             <h2 class="text-4xl font-bold mb-4 text-center text-cyan-300"><i class="fas fa-hat-wizard text-red-500"></i> Music Time: Virtual Insanity</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                 <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2Bxt2qamL6iu0XN0Td484J?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-teal-900/30 p-4 rounded-lg border border-teal-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-teal-300"></i> A thoughtful song about a future shaped by technology, confusion, and the fear that progress may not always make life more human.</p>
+                </div>
                 <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-cyan-500">
                     <p>And I wonder where it's at, this <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="future"><i class="fas fa-eye"></i></button></p>
                     <p>From the man who doesn't know</p>
@@ -123,14 +152,18 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-cyan-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>The song talks about "virtual insanity". What do you think this means?</p>
-                <p>Is our world becoming more "virtual" and less real?</p>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-2 text-cyan-300"><i class="fas fa-comments text-orange-400"></i> Song 3 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Virtual Insanity" - The future, technology, and disconnection</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card"><span class="debate-label bg-teal-500/20 text-teal-300">Meaning</span><p class="text-xl"><i class="fas fa-globe mr-2 text-teal-300"></i> What do you think "virtual insanity" means in today's world?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-cyan-500/20 text-cyan-300">Reflection</span><p class="text-xl"><i class="fas fa-vr-cardboard mr-2 text-cyan-300"></i> Is our world becoming more virtual and less real, or just more connected in a different way?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-blue-500/20 text-blue-300">Opinion</span><p class="text-xl"><i class="fas fa-bolt mr-2 text-blue-300"></i> Which technologies feel useful to you, and which feel like unnecessary noise?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-sky-500/20 text-sky-300">Debate</span><p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-sky-300"></i> Has social media improved human connection overall, or weakened it?</p></div>
+                </div>
             </div></div>
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-cyan-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="matching-activity" class="space-y-4"></div><button id="check-answers-btn" class="mt-8 bg-cyan-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-cyan-700">Check Answers</button></div></div>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-cyan-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div><div id="matching-activity" class="space-y-4 text-left"></div><button id="check-answers-btn" class="mt-8 bg-cyan-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-cyan-700">Check Answers</button><p id="practice-feedback" class="mt-4 text-lg font-semibold text-gray-300"></p></div></div>
         </div>
 
         <div class="slide">
@@ -176,12 +209,14 @@
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
             const progressBar = document.getElementById('progress-bar');
+            const slideCounter = document.getElementById('slide-counter');
             let currentSlide = 0;
 
             function showSlide(index) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
                 if (progressBar) progressBar.style.width = slides.length > 1 ? `${((index + 1) / slides.length) * 100}%` : '100%';
+                if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
                 if (prevBtn) prevBtn.disabled = index === 0;
                 const isLastSlide = index === slides.length - 1;
                 if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
@@ -208,29 +243,62 @@
                 });
             });
 
-            const activityContainer = document.getElementById('matching-activity'), checkAnswersBtn = document.getElementById('check-answers-btn');
-            if(activityContainer && checkAnswersBtn) {
-                const expressions = [{id:'glued_screen',text:'To be glued to a screen'},{id:'double_edged',text:'A double-edged sword'},{id:'info_overload',text:'Information overload'},{id:'scroll_endlessly',text:'To scroll endlessly'},{id:'fomo',text:'FOMO'},{id:'digital_detox',text:'Digital detox'}];
-                const situations = [{text:"I spent all night on Instagram. I was just...",answer:'scroll_endlessly'},{text:"Social media is great for connection, but bad for mental health. It's a...",answer:'double_edged'},{text:"My teenager is always on his phone. He is...",answer:'glued_screen'},{text:"I'm turning off my phone for the weekend. I need a...",answer:'digital_detox'},{text:"He feels anxious when he sees his friends having fun without him. He has...",answer:'fomo'},{text:"With so many news and notifications, I feel overwhelmed. It's...",answer:'info_overload'}];
-                function shuffle(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
-                function createActivity() {
-                    const shuffledSituations = shuffle(situations);
-                    let html = shuffledSituations.map((sit, index) => {
-                        return `<div id="q-${index}" class="p-4 rounded-lg bg-gray-800 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300"><p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p><select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg shadow-sm text-lg focus:border-cyan-400 focus:ring focus:ring-cyan-300 focus:ring-opacity-50"><option value="">Select an expression...</option>${shuffle([...expressions]).map(exp => `<option value="${exp.id}">${exp.text}</option>`).join('')}</select></div>`;
-                    }).join('');
-                    activityContainer.innerHTML = html;
-                }
+            const wordBank = document.getElementById('word-bank');
+            const activityContainer = document.getElementById('matching-activity');
+            const checkAnswersBtn = document.getElementById('check-answers-btn');
+            const expressions = [{id:'glued_screen',text:'To be glued to a screen'},{id:'double_edged',text:'A double-edged sword'},{id:'info_overload',text:'Information overload'},{id:'scroll_endlessly',text:'To scroll endlessly'},{id:'fomo',text:'FOMO'},{id:'digital_detox',text:'Digital detox'}];
+            const situations = [{text:"I spent all night on Instagram. I was just...",answer:'scroll_endlessly'},{text:"Social media is great for connection, but bad for mental health. It's a...",answer:'double_edged'},{text:"My teenager is always on his phone. He is...",answer:'glued_screen'},{text:"I'm turning off my phone for the weekend. I need a...",answer:'digital_detox'},{text:"He feels anxious when he sees his friends having fun without him. He has...",answer:'fomo'},{text:"With so many news and notifications, I feel overwhelmed. It's...",answer:'info_overload'}];
+            function shuffle(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
+            function createActivity() {
+                if (!activityContainer || !wordBank) return;
+                wordBank.innerHTML = '';
+                shuffle([...expressions]).forEach(exp => {
+                    const pill = document.createElement('div');
+                    pill.className = 'word-pill';
+                    pill.draggable = true;
+                    pill.innerText = exp.text;
+                    pill.addEventListener('dragstart', (e) => e.dataTransfer.setData('text/plain', exp.text));
+                    wordBank.appendChild(pill);
+                });
+                const shuffledSituations = shuffle([...situations]);
+                activityContainer.innerHTML = shuffledSituations.map((sit, index) => `<div class="p-4 rounded-lg bg-gray-900 border border-gray-700"><p class="text-xl text-gray-200">${index + 1}. ${sit.text} <span class="drop-zone" data-answer="${expressions.find(exp => exp.id === sit.answer)?.text || ''}">________</span></p></div>`).join('');
+                activityContainer.querySelectorAll('.drop-zone').forEach(zone => {
+                    zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('hover'); });
+                    zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
+                    zone.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        zone.classList.remove('hover');
+                        zone.innerText = e.dataTransfer.getData('text/plain');
+                        zone.classList.add('filled');
+                        zone.classList.remove('correct', 'incorrect');
+                    });
+                    zone.addEventListener('click', () => {
+                        zone.innerText = '________';
+                        zone.classList.remove('filled', 'correct', 'incorrect');
+                    });
+                });
+            }
+            if (activityContainer && checkAnswersBtn && wordBank) {
                 createActivity();
                 checkAnswersBtn.addEventListener('click', () => {
-                    activityContainer.querySelectorAll('select').forEach((select, index) => {
-                        const questionDiv = document.getElementById(`q-${index}`);
-                        questionDiv.classList.remove('bg-green-900/50', 'border-green-500', 'bg-red-900/50', 'border-red-500');
-                        if (select.value === select.dataset.answer) {
-                            questionDiv.classList.add('bg-green-900/50', 'border-green-500');
-                        } else {
-                            questionDiv.classList.add('bg-red-900/50', 'border-red-500');
+                    const feedback = document.getElementById('practice-feedback');
+                    const zones = activityContainer.querySelectorAll('.drop-zone');
+                    let correctCount = 0;
+                    zones.forEach(zone => {
+                        const currentValue = zone.innerText.trim().toLowerCase();
+                        const answerValue = zone.dataset.answer.trim().toLowerCase();
+                        zone.classList.remove('correct', 'incorrect');
+                        if (currentValue === answerValue) {
+                            zone.classList.add('correct');
+                            correctCount++;
+                        } else if (zone.innerText.trim() !== '________') {
+                            zone.classList.add('incorrect');
                         }
                     });
+                    if (feedback) {
+                        feedback.textContent = `You got ${correctCount} of ${zones.length} correct.`;
+                        feedback.className = 'mt-4 text-lg font-semibold ' + (correctCount === zones.length ? 'text-emerald-400' : 'text-cyan-300');
+                    }
                 });
             }
 

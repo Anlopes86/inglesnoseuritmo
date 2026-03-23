@@ -24,6 +24,18 @@
         .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
         .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
         .lyrics-box { max-height: 300px; overflow-y: auto; }
+        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
+        .answer-btn:hover { color: #86efac; }
+        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #4ade80; text-align: center; color: #bbf7d0; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
+        .drop-zone.hover { border-color: #dcfce7; background-color: rgba(74, 222, 128, 0.12); }
+        .drop-zone.filled { border-bottom-style: solid; }
+        .drop-zone.correct { color: #34d399 !important; border-color: #34d399; background-color: rgba(16, 185, 129, 0.12); }
+        .drop-zone.incorrect { color: #f87171 !important; border-color: #f87171; background-color: rgba(239, 68, 68, 0.12); }
+        .word-pill { cursor: grab; background-color: #16a34a; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
+        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
+        .debate-card { background: linear-gradient(135deg, #052e16 0%, #111827 100%); border: 1px solid #166534; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }
+        .debate-card:hover { transform: translateY(-2px); }
+        .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
     </style>
     <link rel="stylesheet" href="conversation-lesson-theme.css">
 </head>
@@ -33,7 +45,7 @@
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="conversation.html" class="text-lg font-bold text-green-400 hover:text-green-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
             <h1 class="text-xl font-semibold text-center">Lesson 4: City Life vs. Country Life</h1>
-            <div class="w-32"></div>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 12</div>
         </div>
         <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
@@ -64,6 +76,9 @@
             <h2 class="text-4xl font-bold mb-4 text-center text-green-300"><i class="fas fa-building text-red-500"></i> Music Time: Empire State of Mind</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                 <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2igwFfvr1OAGX9SKDCPBwO?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-green-900/30 p-4 rounded-lg border border-green-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-green-300"></i> A city anthem that celebrates ambition, energy, and the idea that a big city can become the stage for reinvention and opportunity.</p>
+                </div>
                 <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-green-500">
                     <p>Yeah, I'm out that Brooklyn, now <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="I'm"><i class="fas fa-eye"></i></button> down in Tribeca</p>
                     <p>Right next to De Niro, but I'll be hood <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="forever"><i class="fas fa-eye"></i></button></p>
@@ -90,9 +105,25 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion: Empire State of Mind</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>This song describes New York as a "concrete jungle where dreams are made of." What does this phrase mean to you?</p>
-                <p>Do you think big cities are really places where "there's nothin' you can't do"?</p>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-3 text-green-300"><i class="fas fa-comments text-orange-400"></i> Song 1 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Empire State of Mind" - Ambition, energy, and big-city identity</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card">
+                        <span class="debate-label bg-green-500/20 text-green-300">Meaning</span>
+                        <p class="text-xl"><i class="fas fa-city mr-2 text-green-300"></i> What does "a concrete jungle where dreams are made of" suggest about life in a major city?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-yellow-500/20 text-yellow-300">Reflection</span>
+                        <p class="text-xl"><i class="fas fa-lightbulb mr-2 text-yellow-300"></i> Why do so many people connect big cities with success and reinvention?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-blue-500/20 text-blue-300">Opinion</span>
+                        <p class="text-xl"><i class="fas fa-building-circle-check mr-2 text-blue-300"></i> Do big cities really offer more opportunities, or just a stronger illusion of possibility?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-red-500/20 text-red-300">Debate</span>
+                        <p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-red-300"></i> Is city life worth the stress if it gives you more ambition, movement, and access?</p>
+                    </div>
+                </div>
             </div></div>
         </div>
 
@@ -100,6 +131,9 @@
             <h2 class="text-4xl font-bold mb-4 text-center text-green-300"><i class="fas fa-user-tie text-red-500"></i> Music Time: Englishman in New York</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1fSl5KhbaDKrYK7acnj7I0?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-emerald-900/30 p-4 rounded-lg border border-emerald-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-emerald-300"></i> A song about identity and contrast: keeping your habits, accent, and personality while living in a city that feels culturally different from you.</p>
+                </div>
                 <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-green-500">
                     <p>I don't drink coffee, I take <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="tea"><i class="fas fa-eye"></i></button>, my dear</p>
                     <p>I like my toast done on one <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="side"><i class="fas fa-eye"></i></button></p>
@@ -114,9 +148,25 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion: Englishman in New York</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>This song shows the contrast between a person's habits and the city they are in. How can a big city feel for a foreigner?</p>
-                <p>What are some stereotypes about people from big cities?</p>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-3 text-green-300"><i class="fas fa-comments text-orange-400"></i> Song 2 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Englishman in New York" - Identity, culture, and belonging</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card">
+                        <span class="debate-label bg-emerald-500/20 text-emerald-300">Personal</span>
+                        <p class="text-xl"><i class="fas fa-passport mr-2 text-emerald-300"></i> How can a big city feel for someone who is foreign, new, or culturally different?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-cyan-500/20 text-cyan-300">Reflection</span>
+                        <p class="text-xl"><i class="fas fa-user-check mr-2 text-cyan-300"></i> Is it easy to stay yourself in a big city, or do cities push people to adapt quickly?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-purple-500/20 text-purple-300">Opinion</span>
+                        <p class="text-xl"><i class="fas fa-people-group mr-2 text-purple-300"></i> What stereotypes do people often have about city residents, and how accurate are they?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-amber-500/20 text-amber-300">Debate</span>
+                        <p class="text-xl"><i class="fas fa-earth-americas mr-2 text-amber-300"></i> Do big cities make people more open-minded, or more distant from one another?</p>
+                    </div>
+                </div>
             </div></div>
         </div>
 
@@ -124,6 +174,9 @@
             <h2 class="text-4xl font-bold mb-4 text-center text-green-300"><i class="fas fa-road text-red-500"></i> Music Time: Country Roads</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                 <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7idtjGk6fgV0l9HUCTyivY?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 bg-lime-900/30 p-4 rounded-lg border border-lime-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-lime-300"></i> A nostalgic song about home, belonging, and the emotional comfort that many people associate with the countryside and familiar places.</p>
+                </div>
                 <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-green-500">
                     <p>Almost <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="heaven"><i class="fas fa-eye"></i></button>, West Virginia</p>
                     <p>Blue Ridge Mountains, Shenandoah <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="River"><i class="fas fa-eye"></i></button></p>
@@ -136,14 +189,30 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion: Country Roads</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>This song describes a feeling of "belonging" to a place. What does it mean to belong somewhere?</p>
-                <p>What are the best things about living in the countryside, according to the song and your opinion?</p>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-3 text-green-300"><i class="fas fa-comments text-orange-400"></i> Song 3 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Country Roads" - Home, belonging, and the countryside</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="debate-card">
+                        <span class="debate-label bg-lime-500/20 text-lime-300">Feeling</span>
+                        <p class="text-xl"><i class="fas fa-house-chimney mr-2 text-lime-300"></i> What does it mean to truly belong to a place, and can that feeling exist outside your hometown?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-green-500/20 text-green-300">Reflection</span>
+                        <p class="text-xl"><i class="fas fa-tree mr-2 text-green-300"></i> Why do songs about the countryside often feel nostalgic, peaceful, and emotionally strong?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-sky-500/20 text-sky-300">Opinion</span>
+                        <p class="text-xl"><i class="fas fa-mountain mr-2 text-sky-300"></i> What are the best parts of country life, according to the song and your own experience?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-orange-500/20 text-orange-300">Debate</span>
+                        <p class="text-xl"><i class="fas fa-road-circle-check mr-2 text-orange-300"></i> Is the countryside a better place to live well, or just a better place to escape to for a while?</p>
+                    </div>
+                </div>
             </div></div>
         </div>
         
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="matching-activity" class="space-y-4"></div><button id="check-answers-btn" class="mt-8 bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Check Answers</button></div></div>
+            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div><div id="matching-activity" class="space-y-4 text-left"></div><button id="check-answers-btn" class="mt-8 bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Check Answers</button><p id="practice-feedback" class="mt-4 text-lg font-semibold text-gray-300"></p></div></div>
         </div>
 
         <div class="slide">
@@ -191,7 +260,19 @@
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
             const progressBar = document.getElementById('progress-bar');
+            const slideCounter = document.getElementById('slide-counter');
+            const wordBank = document.getElementById('word-bank');
+            const activityContainer = document.getElementById('matching-activity');
+            const checkBtn = document.getElementById('check-answers-btn');
             let currentSlide = 0;
+            function shuffleArray(items) {
+                const copy = [...items];
+                for (let i = copy.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [copy[i], copy[j]] = [copy[j], copy[i]];
+                }
+                return copy;
+            }
 document.querySelectorAll('.flashcard').forEach(card => {
     card.addEventListener('click', () => {
         card.classList.toggle('flipped');
@@ -204,6 +285,7 @@ document.querySelectorAll('.flashcard').forEach(card => {
                     const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
                     progressBar.style.width = `${progressPercentage}%`;
                 }
+                if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
                 if (prevBtn) prevBtn.disabled = index === 0;
                 const isLastSlide = index === slides.length - 1;
                 if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
@@ -216,6 +298,89 @@ document.querySelectorAll('.flashcard').forEach(card => {
             document.querySelectorAll('.flashcard').forEach(card => {
                 card.addEventListener('click', () => card.classList.toggle('flipped'));
             });
+
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const inputField = button.previousElementSibling;
+                    if (inputField) {
+                        inputField.value = button.dataset.answer;
+                        inputField.classList.add('text-green-400', 'font-bold');
+                    }
+                });
+            });
+
+            const vocabulary = [
+                { id: 'hustle', text: 'The hustle and bustle' },
+                { id: 'peace', text: 'Peace and quiet' },
+                { id: 'cost', text: 'Cost of living' },
+                { id: 'pace', text: 'Pace of life' },
+                { id: 'jungle', text: 'Concrete jungle' },
+                { id: 'away', text: 'To get away from it all' }
+            ];
+
+            const situations = [
+                { text: "Big cities often have a faster <span class='drop-zone' data-answer='Pace of life'>________</span> than small towns.", answer: 'Pace of life' },
+                { text: "Many people leave the city on weekends to <span class='drop-zone' data-answer='To get away from it all'>________</span>.", answer: 'To get away from it all' },
+                { text: "New York is sometimes called a <span class='drop-zone' data-answer='Concrete jungle'>________</span>.", answer: 'Concrete jungle' },
+                { text: "One big problem in large capitals is the high <span class='drop-zone' data-answer='Cost of living'>________</span>.", answer: 'Cost of living' },
+                { text: "The countryside offers more <span class='drop-zone' data-answer='Peace and quiet'>________</span>.", answer: 'Peace and quiet' },
+                { text: "Some people love the <span class='drop-zone' data-answer='The hustle and bustle'>________</span> of urban life.", answer: 'The hustle and bustle' }
+            ];
+
+            if (wordBank && activityContainer) {
+                shuffleArray(vocabulary).forEach(word => {
+                    const pill = document.createElement('div');
+                    pill.className = 'word-pill';
+                    pill.draggable = true;
+                    pill.innerText = word.text;
+                    pill.id = `word-${word.id}`;
+                    pill.addEventListener('dragstart', (e) => {
+                        e.dataTransfer.setData('text/plain', word.text);
+                    });
+                    wordBank.appendChild(pill);
+                });
+
+                activityContainer.innerHTML = shuffleArray(situations).map(s => `<p class="text-xl text-gray-200">${s.text}</p>`).join('');
+
+                const dropZones = document.querySelectorAll('.drop-zone');
+                dropZones.forEach(zone => {
+                    zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('hover'); });
+                    zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
+                    zone.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        zone.classList.remove('hover');
+                        zone.innerText = e.dataTransfer.getData('text/plain');
+                        zone.classList.add('filled');
+                        zone.classList.remove('correct', 'incorrect');
+                        zone.style.color = '';
+                    });
+                    zone.addEventListener('click', () => {
+                        zone.innerText = '________';
+                        zone.classList.remove('filled', 'correct', 'incorrect');
+                        zone.style.color = '';
+                    });
+                });
+
+                checkBtn?.addEventListener('click', () => {
+                    const feedback = document.getElementById('practice-feedback');
+                    let correctCount = 0;
+                    dropZones.forEach(zone => {
+                        const currentValue = zone.innerText.trim().toLowerCase();
+                        const answerValue = (zone.dataset.answer || '').trim().toLowerCase();
+                        zone.classList.remove('correct', 'incorrect');
+                        if (currentValue === answerValue) {
+                            zone.classList.add('correct');
+                            correctCount++;
+                        } else if (zone.innerText.trim() !== '________') {
+                            zone.classList.add('incorrect');
+                        }
+                    });
+                    if (feedback) {
+                        feedback.textContent = `You got ${correctCount} of ${dropZones.length} correct.`;
+                        feedback.className = 'mt-4 text-lg font-semibold ' + (correctCount === dropZones.length ? 'text-emerald-400' : 'text-green-300');
+                    }
+                });
+            }
             
             showSlide(0);
         });
