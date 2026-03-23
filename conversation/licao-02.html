@@ -3,187 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversation 2: Love & Relationships | Inglês no seu Ritmo</title>
+    <title>Conversation Class - Lesson 2: Love & Relationships</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #111827; color: #f3f4f6; overflow-y: auto; }
+        body { font-family: 'Inter', sans-serif; background-color: #111827; }
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .flashcard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-        @media (max-width: 768px) { .flashcard-grid { grid-template-columns: 1fr; } }
-        
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
         .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.2rem; border-radius: 1rem; border: 1px solid #374151; }
-        .flashcard-front { background-color: #1f2937; color: #f472b6; }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; border: 1px solid #4b5563; }
+        .flashcard-front { background-color: #1f2937; color: #f472b6; text-align: center; }
         .flashcard-back { background-color: #db2777; color: white; transform: rotateY(180deg); text-align: center; }
-        
-        .lyrics-box { max-height: 450px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #4b5563 #1f2937; }
-        
-        .drop-zone { min-height: 38px; border: 1px dashed #4b5563; border-radius: 0.5rem; display: inline-flex; align-items: center; justify-content: center; background: #0f172a; transition: all 0.3s; min-width: 160px; vertical-align: middle; padding: 2px 8px; color: #4b5563; font-size: 0.85rem; }
-        .drop-zone.over { border-color: #f472b6; background: #1e293b; }
-        .drop-zone.filled { border-style: solid; color: #fff; background: #374151; }
-        .drop-zone.correct { background-color: #064e3b !important; border-color: #10b981 !important; color: white !important; }
-        .drop-zone.wrong { background-color: #7f1d1d !important; border-color: #f87171 !important; color: white !important; }
-
-        .drag-item { cursor: grab; user-select: none; transition: transform 0.2s; }
-        .drag-item:active { transform: scale(0.95); }
-        
-        .reveal-btn { color: #6b7280; font-size: 0.8rem; margin-left: 5px; cursor: pointer; transition: color 0.3s; }
-        .reveal-btn:hover { color: #f472b6; }
-        .word-bank { position: sticky; top: 100px; }
+        .lyrics-box { max-height: 420px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #f472b6 #1f2937; }
+        .word-pill { cursor: grab; background-color: #db2777; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
+        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
+        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #f472b6; text-align: center; color: #f9a8d4; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
+        .drop-zone.hover { border-color: #f9a8d4; background-color: rgba(244, 114, 182, 0.1); }
+        .drop-zone.filled { border-bottom-style: solid; }
+        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
+        .answer-btn:hover { color: #f472b6; }
+        .debate-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }
+        .debate-card:hover { transform: translateY(-2px); }
+        .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
     </style>
     <link rel="stylesheet" href="conversation-lesson-theme.css">
 </head>
-<body class="bg-gray-900">
-
+<body class="bg-gray-900 text-white">
     <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="conversation.html" class="text-lg font-bold text-pink-400 hover:text-pink-300 flex items-center gap-2">
-                <i class="fas fa-chevron-left"></i> Painel
+            <a href="conversation.html" class="text-lg font-bold text-pink-500 hover:text-pink-400 flex items-center gap-2">
+                <i class="fas fa-chevron-left"></i> Back
             </a>
-            <h1 class="text-xl font-semibold text-center text-white">Conversation: Love & Relationships</h1>
-            <div class="w-24 text-right text-sm text-gray-400" id="slide-count">1/13</div>
+            <h1 class="text-xl font-semibold text-center">Lesson 2: Love & Relationships</h1>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 14</div>
         </div>
-        <div class="w-full bg-gray-700 h-1.5">
-            <div id="progress-bar" class="bg-pink-500 h-1.5 transition-all duration-300" style="width: 0%;"></div>
-        </div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-pink-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
-    <main class="container mx-auto p-8 mb-24">
-        
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
         <div class="slide active">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-pink-400 flex items-center justify-center gap-4"><i class="fas fa-heart text-red-500"></i>Warm-up</h2>
-                <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-xl max-w-3xl mx-auto">
-                    <ul class="space-y-8 text-2xl text-left">
-                        <li class="flex items-start gap-4"><i class="fas fa-bolt text-yellow-400 mt-1.5"></i><span>Do you believe in love at first sight?</span></li>
-                        <li class="flex items-start gap-4"><i class="fas fa-star text-pink-400 mt-1.5"></i><span>What is the most important thing in a relationship?</span></li>
-                    </ul>
+                <h2 class="text-4xl font-bold mb-6 text-pink-500"><i class="fas fa-heart"></i> Warm-up: Love Stories</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-3xl mx-auto space-y-6 text-2xl">
+                    <p class="font-semibold text-gray-300">Let's talk about relationships and romance.</p>
+                    <p><i class="fas fa-bolt mr-2 text-pink-500"></i> Do you believe in love at first sight?</p>
+                    <p><i class="fas fa-ring mr-2 text-pink-500"></i> What is the most important thing in a healthy relationship?</p>
+                    <p><i class="fas fa-heart-crack mr-2 text-pink-500"></i> Can a relationship be full of love but still be unhealthy?</p>
+                    <p><i class="fas fa-comments mr-2 text-pink-500"></i> Is communication more important than passion in the long term?</p>
                 </div>
             </div>
         </div>
 
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-pink-400 flex items-center justify-center gap-4"><i class="fas fa-comments text-purple-400"></i>Useful Expressions</h2>
+                <h2 class="text-4xl font-bold mb-6 text-pink-500"><i class="fas fa-book-open"></i> Key Expressions</h2>
                 <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">To fall for someone</h4></div><div class="flashcard-back"><p>To start being in love.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">Head over heels</h4></div><div class="flashcard-back"><p>Completely in love.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">To tie the knot</h4></div><div class="flashcard-back"><p>To get married.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">To pop the question</h4></div><div class="flashcard-back"><p>To propose marriage.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">Match made in heaven</h4></div><div class="flashcard-back"><p>A perfect couple.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-xl font-bold">To have a crush on</h4></div><div class="flashcard-back"><p>A secret attraction.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To fall for someone</h4></div><div class="flashcard-back"><p class="text-xl">To begin to fall in love with someone.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Head over heels</h4></div><div class="flashcard-back"><p class="text-xl">Completely and deeply in love.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To tie the knot</h4></div><div class="flashcard-back"><p class="text-xl">To get married.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To pop the question</h4></div><div class="flashcard-back"><p class="text-xl">To ask someone to marry you.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Match made in heaven</h4></div><div class="flashcard-back"><p class="text-xl">A couple that seems perfect together.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To have a crush on</h4></div><div class="flashcard-back"><p class="text-xl">To feel romantic attraction toward someone, often secretly.</p></div></div></div>
                 </div>
             </div>
         </div>
 
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-pink-400"><i class="fas fa-music mr-3 text-red-500"></i>With or Without You - U2</h2>
-            <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 max-w-4xl mx-auto">
-                <iframe width="100%" height="150" src="https://www.youtube.com/embed/ujNeHIo7oTE" frameborder="0" allow="autoplay; encrypted-media" style="border-radius:12px"></iframe>
-                <div class="mt-4 lyrics-box pr-4 bg-gray-900 p-6 rounded-lg border-l-4 border-pink-500 text-lg space-y-2 text-gray-300">
-                    <p>See the stone set in your <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'eyes')"></i></p>
-                    <p>See the thorn twist in your <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'side')"></i></p>
+            <h2 class="text-4xl font-bold mb-4 text-center text-pink-500"><i class="fas fa-music text-red-500"></i> Song 1: With or Without You <span class="text-xl text-gray-400">- U2</span></h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="mb-4 rounded-xl overflow-hidden">
+                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1Og8U5KRel9D51h4bmznlE?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+                <div class="mb-4 bg-pink-900/30 p-4 rounded-lg border border-pink-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-pink-400"></i> This song captures emotional conflict: wanting someone deeply, but also suffering because of the relationship.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-pink-500">
+                    <p>See the stone set in your <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-pink-400 outline-none"> <button class="answer-btn" data-answer="eyes"><i class="fas fa-eye"></i></button></p>
+                    <p>See the thorn twist in your <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-pink-400 outline-none"> <button class="answer-btn" data-answer="side"><i class="fas fa-eye"></i></button></p>
                     <p>I wait for you</p>
-                    <p>Sleight of hand and twist of <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'fate')"></i></p>
+                    <p>Sleight of hand and twist of <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-pink-400 outline-none"> <button class="answer-btn" data-answer="fate"><i class="fas fa-eye"></i></button></p>
                     <p>On a bed of nails she makes me wait</p>
                     <p>And I wait without you</p>
                     <p>With or without you</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-2 text-pink-500"><i class="fas fa-comments"></i> Song 1 Debate</h2>
+                <p class="text-lg text-gray-400 mb-6 italic">"With or Without You" - Love and emotional pain</p>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card">
+                        <span class="debate-label bg-pink-500/20 text-pink-400">Personal</span>
+                        <p class="text-xl"><i class="fas fa-heart-crack mr-2 text-pink-400"></i> Do you think this song describes love, dependency, or both?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-purple-500/20 text-purple-400">Reflection</span>
+                        <p class="text-xl"><i class="fas fa-brain mr-2 text-purple-400"></i> Why do some people stay in relationships that clearly make them unhappy?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-blue-500/20 text-blue-400">Opinion</span>
+                        <p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-blue-400"></i> Is intense love always romantic, or can intensity be a warning sign?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-red-500/20 text-red-400">Debate</span>
+                        <p class="text-xl"><i class="fas fa-comment-dots mr-2 text-red-400"></i> Is it possible to truly love someone and still be wrong for each other?</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-3xl font-bold mb-6 text-pink-400">Discussion: With or Without You</h2>
-                <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-lg max-w-3xl mx-auto">
-                    <ul class="space-y-6 text-xl text-left">
-                        <li><i class="fas fa-question-circle text-pink-500 mr-2"></i> Is this song about a happy or a painful relationship? Why?</li>
-                        <li><i class="fas fa-question-circle text-pink-500 mr-2"></i> What does the phrase "With or without you" represent to you?</li>
-                    </ul>
+                <h2 class="text-4xl font-bold mb-6 text-pink-500"><i class="fas fa-hand-holding-heart"></i> What Makes Love Last?</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto text-left">
+                    <p class="text-xl mb-4 text-pink-400 font-bold">Love is not only chemistry.</p>
+                    <p class="text-2xl mb-6">Attraction may bring two people together, but respect, trust, and communication are often what keep a relationship alive over time.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                        <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-green-500"><b>Strong relationship:</b> honesty, support, emotional safety, shared effort.</div>
+                        <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-red-500"><b>Weak relationship:</b> jealousy, silence, manipulation, lack of respect.</div>
+                    </div>
+                    <p class="mt-8 text-2xl text-center font-semibold italic">Can love survive without trust?</p>
                 </div>
             </div>
         </div>
 
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-blue-400"><i class="fas fa-music mr-3 text-red-500"></i>Perfect - Ed Sheeran</h2>
-            <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 max-w-4xl mx-auto">
-                <iframe width="100%" height="150" src="https://www.youtube.com/embed/2Vv-BfVoq4g" frameborder="0" allow="autoplay; encrypted-media" style="border-radius:12px"></iframe>
-                <div class="mt-4 lyrics-box pr-4 bg-gray-900 p-6 rounded-lg border-l-4 border-blue-500 text-lg space-y-2 text-gray-300">
-                    <p>I found a love for <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'me')"></i></p>
+            <h2 class="text-4xl font-bold mb-4 text-center text-pink-500"><i class="fas fa-music text-blue-500"></i> Song 2: Perfect <span class="text-xl text-gray-400">- Ed Sheeran</span></h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="mb-4 rounded-xl overflow-hidden">
+                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0tgVpDi06FyKpA1z0VMD4v?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+                <div class="mb-4 bg-blue-900/30 p-4 rounded-lg border border-blue-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-blue-400"></i> A romantic ballad about innocence, devotion, and the idea of finding someone who feels exactly right.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-blue-500">
+                    <p>I found a love for <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="me"><i class="fas fa-eye"></i></button></p>
                     <p>Darling, just dive right in and follow my lead</p>
-                    <p>Well, I found a girl, beautiful and <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'sweet')"></i></p>
+                    <p>Well, I found a girl, beautiful and <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="sweet"><i class="fas fa-eye"></i></button></p>
                     <p>Oh, I never knew you were the someone waiting for me</p>
-                    <p>'Cause we were just kids when we fell in <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'love')"></i></p>
+                    <p>'Cause we were just kids when we fell in <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="love"><i class="fas fa-eye"></i></button></p>
                     <p>Not knowing what it was</p>
                     <p>I will not give you up this time</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-2 text-pink-500"><i class="fas fa-comments"></i> Song 2 Debate</h2>
+                <p class="text-lg text-gray-400 mb-6 italic">"Perfect" - Ideal love and emotional security</p>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card">
+                        <span class="debate-label bg-blue-500/20 text-blue-400">Personal</span>
+                        <p class="text-xl"><i class="fas fa-ring mr-2 text-blue-400"></i> Do you think there is such a thing as the perfect partner, or is that only a romantic fantasy?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-pink-500/20 text-pink-400">Reflection</span>
+                        <p class="text-xl"><i class="fas fa-users mr-2 text-pink-400"></i> Can relationships that start very young really last forever?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
+                        <p class="text-xl"><i class="fas fa-heart mr-2 text-purple-400"></i> Is romance more about finding the right person or becoming the right person?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-teal-500/20 text-teal-400">Debate</span>
+                        <p class="text-xl"><i class="fas fa-clock mr-2 text-teal-400"></i> Is a calm, stable relationship better than a passionate but unpredictable one?</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-3xl font-bold mb-6 text-blue-400">Discussion: Perfect</h2>
-                <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-lg max-w-3xl mx-auto">
-                    <ul class="space-y-6 text-xl text-left">
-                        <li><i class="fas fa-heart text-blue-500 mr-2"></i> Ed says "we were just kids when we fell in love". Do you think high school sweethearts can stay together forever?</li>
-                        <li><i class="fas fa-heart text-blue-500 mr-2"></i> Is there such a thing as a "perfect" person for us?</li>
-                    </ul>
+                <h2 class="text-4xl font-bold mb-6 text-pink-500"><i class="fas fa-user-shield"></i> Boundaries, Jealousy, and Respect</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-8 text-2xl">
+                    <p>Many people confuse jealousy with love, but jealousy can also come from insecurity and control.</p>
+                    <p>What are healthy boundaries in a relationship?</p>
+                    <p>Should partners always share passwords, phones, and private messages?</p>
+                    <p>How do you know when care turns into control?</p>
                 </div>
             </div>
         </div>
 
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-500"><i class="fas fa-music mr-3 text-red-500"></i>Every Breath You Take - The Police</h2>
-            <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 max-w-4xl mx-auto">
-                <iframe width="100%" height="150" src="https://www.youtube.com/embed/OMOGaugKpzs" frameborder="0" allow="autoplay; encrypted-media" style="border-radius:12px"></iframe>
-                <div class="mt-4 lyrics-box pr-4 bg-gray-900 p-6 rounded-lg border-l-4 border-yellow-500 text-lg space-y-2 text-gray-300">
-                    <p>Every breath you take and every <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'move')"></i> you make</p>
+            <h2 class="text-4xl font-bold mb-4 text-center text-pink-500"><i class="fas fa-music text-yellow-500"></i> Song 3: Every Breath You Take <span class="text-xl text-gray-400">- The Police</span></h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="mb-4 rounded-xl overflow-hidden">
+                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1JSTJqkT5qHq8MDJnJbRE1?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+                <div class="mb-4 bg-yellow-900/30 p-4 rounded-lg border border-yellow-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-yellow-400"></i> Often misunderstood as romantic, this song is actually about obsession, surveillance, and emotional possession.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-yellow-500">
+                    <p>Every breath you take and every <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="move"><i class="fas fa-eye"></i></button> you make</p>
                     <p>Every bond you break, every step you take, I'll be watching you</p>
-                    <p>Every single day and every <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'word')"></i> you say</p>
+                    <p>Every single day and every <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="word"><i class="fas fa-eye"></i></button> you say</p>
                     <p>Every game you play, every night you stay, I'll be watching you</p>
-                    <p>Oh, can't you see you belong to <input type="text" class="w-28 border-b border-gray-500 bg-transparent text-center outline-none"> <i class="fas fa-eye reveal-btn" onclick="reveal(this, 'me')"></i>?</p>
+                    <p>Oh, can't you see you belong to <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="me"><i class="fas fa-eye"></i></button>?</p>
                     <p>How my poor heart aches with every step you take</p>
-                </div>
+                </div></div>
             </div>
         </div>
 
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-3xl font-bold mb-6 text-yellow-500">Discussion: Every Breath You Take</h2>
-                <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-lg max-w-3xl mx-auto">
-                    <ul class="space-y-6 text-xl text-left">
-                        <li><i class="fas fa-eye text-yellow-500 mr-2"></i> Many people play this at weddings, but it is actually about obsession. Do you find these lyrics romantic or scary?</li>
-                        <li><i class="fas fa-eye text-yellow-500 mr-2"></i> Is jealousy a sign of love?</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-pink-400 flex items-center justify-center gap-4"><i class="fas fa-puzzle-piece text-yellow-500"></i>Practice</h2>
-                <div class="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto">
-                    <div class="lg:w-2/3 bg-gray-800 p-6 rounded-2xl border border-gray-700 space-y-6 text-left">
-                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">1. They are perfect, a <div class="drop-zone" data-answer="match made in heaven">Drop here</div>.</div>
-                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">2. He bought a ring <div class="drop-zone" data-answer="to pop the question">Drop here</div>.</div>
-                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">3. She is <div class="drop-zone" data-answer="head over heels">Drop here</div> for him.</div>
-                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">4. They'll <div class="drop-zone" data-answer="to tie the knot">Drop here</div> in June.</div>
-                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">5. He didn't expect to <div class="drop-zone" data-answer="to fall for someone">Drop here</div> so quickly.</div>
-                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">6. She still <div class="drop-zone" data-answer="to have a crush on">Drop here</div> her classmate.</div>
-                        <button id="check-btn" class="bg-pink-600 hover:bg-pink-500 text-white font-bold py-2 px-6 rounded-lg mt-4">Check Answers</button>
+                <h2 class="text-4xl font-bold mb-2 text-pink-500"><i class="fas fa-comments"></i> Song 3 Debate</h2>
+                <p class="text-lg text-gray-400 mb-6 italic">"Every Breath You Take" - Obsession and control</p>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card">
+                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Personal</span>
+                        <p class="text-xl"><i class="fas fa-eye mr-2 text-yellow-400"></i> Do these lyrics sound romantic, possessive, or frightening to you?</p>
                     </div>
-                    <div class="lg:w-1/3">
-                        <div id="word-bank" class="word-bank bg-gray-800 p-6 rounded-2xl border border-dashed border-gray-600 flex flex-col gap-3"></div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-red-500/20 text-red-400">Reflection</span>
+                        <p class="text-xl"><i class="fas fa-triangle-exclamation mr-2 text-red-400"></i> Why do some people confuse control with affection?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-indigo-500/20 text-indigo-400">Opinion</span>
+                        <p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-indigo-400"></i> Is jealousy ever healthy in small amounts, or is it always harmful?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-rose-500/20 text-rose-400">Debate</span>
+                        <p class="text-xl"><i class="fas fa-door-open mr-2 text-rose-400"></i> If love becomes controlling, is it still love?</p>
                     </div>
                 </div>
             </div>
@@ -191,40 +239,68 @@
 
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-pink-400"><i class="fas fa-pencil-alt text-orange-500 mr-3"></i>Homework</h2>
-                <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-lg max-w-3xl mx-auto text-xl">
-                    <p>Write about your favorite love story (from a movie or real life) using 2 expressions from today.</p>
+                <h2 class="text-4xl font-bold mb-6 text-pink-500"><i class="fas fa-puzzle-piece"></i> Practice: Match the Expressions</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-2xl mb-8 text-gray-300">Drag the expression to the correct sentence:</p>
+                    <div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div>
+                    <div id="matching-activity" class="space-y-8 text-left"></div>
+                    <button id="check-answers-btn" class="mt-12 bg-pink-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-pink-700 shadow-lg">Check Answers</button>
                 </div>
             </div>
         </div>
 
         <div class="slide">
-            <div class="text-center flex flex-col items-center justify-center h-full py-12">
-                <div class="bg-gray-800 p-12 rounded-full border-4 border-pink-500/30 mb-8 shadow-2xl">
-                    <i class="fas fa-quote-right text-pink-400 text-6xl"></i>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-pink-500"><i class="fas fa-message"></i> Modern Relationships</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto">
+                    <div class="flex flex-col md:flex-row gap-8 items-center">
+                        <div class="flex-1 space-y-4 text-left text-xl">
+                            <p><b class="text-pink-500">Think about today:</b> dating apps, social media, and constant online contact have changed romance a lot.</p>
+                            <p>1. Are relationships easier or harder in the digital era?</p>
+                            <p>2. Can texting create false intimacy?</p>
+                            <p>3. Is it still common to truly "pop the question" in a romantic way?</p>
+                        </div>
+                        <div class="w-full md:w-1/3 bg-gray-700 p-4 rounded-xl border border-pink-500/50 text-center">
+                            <i class="fas fa-mobile-screen-button text-pink-500 text-4xl mb-2"></i>
+                            <p class="italic">"Technology connects people, but it can also complicate love."</p>
+                        </div>
+                    </div>
                 </div>
-                <h2 class="text-4xl font-bold italic text-white max-w-4xl mx-auto mb-6">
-                    "The best thing to hold onto in life is each other."
-                </h2>
-                <p class="text-2xl text-pink-400 font-semibold">— Audrey Hepburn</p>
             </div>
         </div>
 
         <div class="slide">
-            <div class="text-center flex flex-col items-center justify-center h-full py-12">
-                <i class="fas fa-glass-cheers text-yellow-400 text-7xl mb-6"></i>
-                <h2 class="text-5xl font-bold mb-4 text-white">Excellent!</h2>
-                <p class="text-2xl text-gray-400">You've completed the Love & Relationships lesson.</p>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-pink-500"><i class="fas fa-pen-nib"></i> Homework</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <p class="text-2xl mb-6 text-gray-300">Write about your favorite love story using at least <b>3 expressions</b> from today's lesson.</p>
+                    <div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg">
+                        <p><strong>Example:</strong> "In my favorite movie, the couple seems like a match made in heaven. At first, the main character only has a crush on her, but later he falls for her completely and becomes head over heels."</p>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <i class="fas fa-heart text-pink-500 text-7xl mb-6"></i>
+                <h2 class="text-5xl font-bold mb-4 text-gray-100">Well Done!</h2>
+                <p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">
+                    "The best thing to hold onto in life is each other." - Audrey Hepburn
+                </p>
+                <div class="pt-8">
+                    <button id="finish-lesson-btn-main" class="bg-pink-600 hover:bg-pink-500 text-white text-2xl font-bold py-4 px-12 rounded-full transition-all transform hover:scale-105 shadow-lg">
+                        Finalizar e Sair <i class="fas fa-check-circle ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 h-20 z-20">
-        <div class="container mx-auto px-8 h-full flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-700 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-30">Previous</button>
-            <button id="next-btn" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-lg">Next</button>
-            <button id="finish-lesson-btn" class="hidden bg-green-600 text-white font-bold py-3 px-8 rounded-lg">Finalizar Aula</button>
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-pink-700">Próximo</button>
         </div>
     </footer>
 
@@ -235,98 +311,121 @@
     <script src="../js/progress-manager.js"></script>
 
     <script>
-        function reveal(el, answer) {
-            const input = el.previousElementSibling;
-            input.value = answer;
-            input.style.color = "#f472b6";
-            input.style.fontWeight = "bold";
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             const moduleId = 'conversation';
             const lessonNumber = 2;
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn-main');
             const progressBar = document.getElementById('progress-bar');
-            const slideCountText = document.getElementById('slide-count');
+            const slideCounter = document.getElementById('slide-counter');
             let currentSlide = 0;
-
-            document.querySelectorAll('.flashcard').forEach(card => {
-                card.addEventListener('click', () => card.classList.toggle('flipped'));
-            });
-
-            // Drag and Drop
-            const expressionBank = [
-                'match made in heaven',
-                'to pop the question',
-                'head over heels',
-                'to tie the knot',
-                'to fall for someone',
-                'to have a crush on'
-            ];
-            const wordBank = document.getElementById('word-bank');
-            const dropZones = document.querySelectorAll('.drop-zone');
-            const checkBtn = document.getElementById('check-btn');
-
-            expressionBank
-                .sort(() => Math.random() - 0.5)
-                .forEach(expression => {
-                    const item = document.createElement('div');
-                    item.className = 'drag-item bg-pink-600 px-4 py-2 rounded-lg font-bold';
-                    item.draggable = true;
-                    item.innerText = expression;
-                    wordBank.appendChild(item);
-                });
-
-            const dragItems = document.querySelectorAll('.drag-item');
-            dragItems.forEach(item => {
-                item.addEventListener('dragstart', (e) => e.dataTransfer.setData('text', e.target.innerText));
-            });
-
-            dropZones.forEach(zone => {
-                zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('over'); });
-                zone.addEventListener('dragleave', () => zone.classList.remove('over'));
-                zone.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    zone.classList.remove('over');
-                    const text = e.dataTransfer.getData('text');
-                    zone.innerText = text;
-                    zone.classList.add('filled');
-                    zone.classList.remove('correct', 'wrong');
-                });
-            });
-
-            checkBtn.onclick = () => {
-                dropZones.forEach(zone => {
-                    const dropped = zone.innerText.trim().toLowerCase();
-                    const correct = zone.getAttribute('data-answer').toLowerCase();
-                    if(dropped !== "drop here") {
-                        zone.classList.add(dropped === correct ? 'correct' : 'wrong');
-                    }
-                });
-            };
 
             function showSlide(index) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                progressBar.style.width = `${(index / (slides.length - 1)) * 100}%`;
-                slideCountText.innerText = `${index + 1}/${slides.length}`;
-                prevBtn.disabled = index === 0;
-                
-                const isLast = index === slides.length - 1;
-                nextBtn.classList.toggle('hidden', isLast);
-                finishLessonBtn.classList.toggle('hidden', !isLast);
+                if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+                if (slideCounter) slideCounter.innerText = `${index + 1} / ${slides.length}`;
+                if (prevBtn) prevBtn.disabled = index === 0;
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.style.display = isLastSlide ? 'none' : 'block';
             }
 
-            prevBtn.onclick = () => { if (currentSlide > 0) showSlide(--currentSlide); };
-            nextBtn.onclick = () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); };
-            
-            finishLessonBtn.onclick = () => {
-                finishLessonBtn.disabled = true;
-                if (typeof markLessonAsComplete === 'function') markLessonAsComplete(moduleId, lessonNumber);
-            };
+            if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } };
+            if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } };
+
+            if (finishLessonBtn) {
+                finishLessonBtn.onclick = () => {
+                    finishLessonBtn.disabled = true;
+                    finishLessonBtn.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>';
+
+                    if (typeof markLessonAsComplete === 'function') {
+                        markLessonAsComplete(moduleId, lessonNumber);
+                    } else {
+                        console.error('Função markLessonAsComplete não encontrada.');
+                        localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true');
+                        window.location.href = 'conversation.html';
+                    }
+                };
+            }
+
+            document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const inputField = button.previousElementSibling;
+                    if (inputField) {
+                        inputField.value = button.dataset.answer;
+                        inputField.classList.add('text-pink-400', 'font-bold');
+                    }
+                });
+            });
+
+            const wordBank = document.getElementById('word-bank');
+            const activityContainer = document.getElementById('matching-activity');
+            const checkBtn = document.getElementById('check-answers-btn');
+
+            const vocabulary = [
+                { id: 'heels', text: 'Head over heels' },
+                { id: 'fall', text: 'To fall for someone' },
+                { id: 'knot', text: 'To tie the knot' },
+                { id: 'question', text: 'To pop the question' },
+                { id: 'match', text: 'Match made in heaven' },
+                { id: 'crush', text: 'To have a crush on' }
+            ];
+
+            const situations = [
+                { text: "After only a few weeks, he was already <span class='drop-zone' data-answer='Head over heels'>________</span> in love with her.", answer: 'Head over heels' },
+                { text: "She didn't expect <span class='drop-zone' data-answer='To fall for someone'>________</span> so quickly after meeting him.", answer: 'To fall for someone' },
+                { text: "The couple decided <span class='drop-zone' data-answer='To tie the knot'>________</span> next summer.", answer: 'To tie the knot' },
+                { text: "He bought flowers and a ring to <span class='drop-zone' data-answer='To pop the question'>________</span>.", answer: 'To pop the question' },
+                { text: "Everyone says they are a <span class='drop-zone' data-answer='Match made in heaven'>________</span>.", answer: 'Match made in heaven' },
+                { text: "When she was younger, she used <span class='drop-zone' data-answer='To have a crush on'>________</span> her best friend's brother.", answer: 'To have a crush on' }
+            ];
+
+            vocabulary.sort(() => Math.random() - 0.5).forEach(word => {
+                const pill = document.createElement('div');
+                pill.className = 'word-pill';
+                pill.draggable = true;
+                pill.innerText = word.text;
+                pill.id = `word-${word.id}`;
+                pill.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', word.text);
+                });
+                wordBank.appendChild(pill);
+            });
+
+            activityContainer.innerHTML = situations.map(s => `<p class="text-xl text-gray-200">${s.text}</p>`).join('');
+
+            const dropZones = document.querySelectorAll('.drop-zone');
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('hover'); });
+                zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('hover');
+                    zone.innerText = e.dataTransfer.getData('text/plain');
+                    zone.classList.add('filled');
+                });
+                zone.addEventListener('click', () => {
+                    zone.innerText = '________';
+                    zone.classList.remove('filled');
+                    zone.style.color = '#f9a8d4';
+                });
+            });
+
+            if (checkBtn) {
+                checkBtn.onclick = () => {
+                    dropZones.forEach(zone => {
+                        if (zone.innerText.trim().toLowerCase() === zone.dataset.answer.toLowerCase()) {
+                            zone.style.color = '#10b981';
+                        } else if (zone.innerText !== '________') {
+                            zone.style.color = '#ef4444';
+                        }
+                    });
+                };
+            }
 
             showSlide(0);
         });

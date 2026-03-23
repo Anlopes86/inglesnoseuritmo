@@ -126,6 +126,30 @@
         });
     }
 
+    function organizePracticeLayout() {
+        const wordBank = document.getElementById('word-bank');
+        const activityContainer = document.getElementById('matching-activity');
+
+        if (!wordBank || !activityContainer) return;
+        if (wordBank.closest('.conversation-practice-layout')) return;
+        if (!wordBank.parentElement || wordBank.parentElement !== activityContainer.parentElement) return;
+
+        const parent = activityContainer.parentElement;
+        const layout = document.createElement('div');
+        const mainColumn = document.createElement('div');
+        const sideColumn = document.createElement('div');
+
+        layout.className = 'conversation-practice-layout';
+        mainColumn.className = 'conversation-practice-main';
+        sideColumn.className = 'conversation-practice-sidebar';
+
+        parent.insertBefore(layout, wordBank);
+        layout.appendChild(mainColumn);
+        layout.appendChild(sideColumn);
+        mainColumn.appendChild(activityContainer);
+        sideColumn.appendChild(wordBank);
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('conversation-theme-26');
 
@@ -138,5 +162,7 @@
         document.querySelectorAll('#matching-activity').forEach((container) => {
             enhanceSelectMatching(container);
         });
+
+        organizePracticeLayout();
     });
 })();

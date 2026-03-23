@@ -21,7 +21,9 @@ body {
 
 body main {
     padding-bottom: 140px !important;
-    min-height: 100vh;
+    min-height: auto !important;
+    height: auto !important;
+    overflow-y: visible !important;
 }
 
 body .slide {
@@ -195,6 +197,25 @@ body #matching-activity > p {
     padding: 1.25rem 1.5rem;
 }
 
+body .conversation-practice-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 2rem;
+    align-items: start;
+    margin-top: 1.5rem;
+}
+
+body .conversation-practice-main,
+body .conversation-practice-sidebar {
+    min-width: 0;
+}
+
+body .conversation-practice-sidebar {
+    position: sticky;
+    top: 110px;
+    align-self: start;
+}
+
 body .spotify-container iframe,
 body iframe[data-testid="embed-iframe"] {
     box-shadow: 0 14px 30px rgba(2, 6, 23, 0.24);
@@ -216,6 +237,9 @@ body #word-bank {
     background: rgba(15, 23, 42, 0.72) !important;
     border: 2px dashed var(--conversation26-border) !important;
     border-radius: 1.75rem !important;
+    position: static !important;
+    top: auto !important;
+    align-self: auto !important;
 }
 
 body .conversation-dd-pill {
@@ -346,6 +370,21 @@ body .conversation-dd-hidden-select {
     body .slide > h2 {
         font-size: 1.9rem !important;
         line-height: 1.15 !important;
+    }
+
+    body .conversation-practice-layout {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    body .conversation-practice-sidebar {
+        position: static;
+        top: auto;
+    }
+
+    body #word-bank {
+        position: static;
+        top: auto;
     }
 
     body .flashcard {
