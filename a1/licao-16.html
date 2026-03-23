@@ -13,7 +13,7 @@
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Estilos para o Quiz de Múltipla Escolha */
+        /* Estilos para o Quiz de Méltipla Escolha */
         .question-card { background-color: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
         .option-button {
             display: block;
@@ -62,6 +62,7 @@
             color: #1f2937;
         }
     </style>
+    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
 <body class="bg-gray-50 text-gray-800">
 
@@ -222,14 +223,15 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
     <script src="../js/progress-manager.js"></script>
+    <script src="a1-lesson-theme.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- CONFIGURAÇÃO DA LIÇÃO ---
+            // --- CONFIGURA???fO DA LIÇÃO ---
             const moduleId = 'a1';
             const lessonNumber = 16;
             // ---------------------------------------------------------
 
-            // --- LÓGICA PADRÃO DE NAVEGAÇÃO E SALVAMENTO ---
+            // --- L?"GICA PADR?fO DE NAVEGA???fO E SALVAMENTO ---
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
@@ -273,34 +275,7 @@
                 });
             }
 
-            if (finishLessonBtn) {
-                finishLessonBtn.addEventListener('click', async () => {
-                    finishLessonBtn.disabled = true;
-                    finishLessonBtn.textContent = "Salvando...";
-                    try {
-                        if (typeof markLessonAsComplete === 'function') {
-                            await markLessonAsComplete(moduleId, lessonNumber);
-                            finishLessonBtn.textContent = "Salvo!";
-                            setTimeout(() => {
-                                // Redireciona para a página do módulo A1
-                                window.location.href = `a1.html`;
-                            }, 1000);
-                        } else {
-                            console.error("A função markLessonAsComplete não foi encontrada.");
-                            alert("Erro ao salvar progresso.");
-                            finishLessonBtn.textContent = "Finalizar Aula";
-                            finishLessonBtn.disabled = false;
-                        }
-                    } catch (error) {
-                        console.error("Erro ao finalizar a lição:", error);
-                        alert("Ocorreu um erro ao salvar o progresso. Por favor, tente novamente.");
-                        finishLessonBtn.textContent = "Finalizar Aula";
-                        finishLessonBtn.disabled = false;
-                    }
-                });
-            }
-
-            // --- LÓGICA ESPECÍFICA DA LIÇÃO 16 ---
+            // --- L?"GICA ESPECÍFICA DA LIÇÃO 16 ---
             // Função para adicionar listeners para os inputs e botões de revelação
             function addInputListeners(container) {
                 container.querySelectorAll('input[data-answer]').forEach(input => {
@@ -375,7 +350,7 @@
                 addInputListeners(transformContainer);
             }
             
-            // --- NOVA LÓGICA DO QUIZ DE MÚLTIPLA ESCOLHA ---
+            // --- NOVA L?"GICA DO QUIZ DE M?sLTIPLA ESCOLHA ---
             const quizQuestions = [
                 {
                     question: "They ____ to the gym every day.",
@@ -409,7 +384,7 @@
 
             function loadQuizQuestion() {
                 if (currentQuizQuestionIndex >= quizQuestions.length) {
-                    quizContainer.innerHTML = `<p class="text-xl font-bold text-green-600">Quiz finalizado! Ótimo trabalho!</p>`;
+                    quizContainer.innerHTML = `<p class="text-xl font-bold text-green-600">Quiz finalizado! ?"timo trabalho!</p>`;
                     return;
                 }
                 const q = quizQuestions[currentQuizQuestionIndex];
@@ -451,7 +426,7 @@
                 });
             }
 
-            // --- NOVA LÓGICA DE BUILD THE SENTENCE ---
+            // --- NOVA L?"GICA DE BUILD THE SENTENCE ---
             const buildSentences = [
                 "He always studies on Sundays.",
                 "They don't like horror movies.",
@@ -505,13 +480,13 @@
                     const correctSentence = currentCorrectSentence.join(' ');
 
                     if (userSentence === correctSentence) {
-                        feedback.textContent = "Correto! 🎉";
+                        feedback.textContent = "Correto! ?YZ?";
                         feedback.className = "mt-4 text-xl font-bold text-green-600";
                         checkBtn.classList.add('hidden');
                         resetBtn.textContent = "Próxima Frase";
                         currentSentenceIndex = (currentSentenceIndex + 1) % buildSentences.length;
                     } else {
-                        feedback.textContent = "Tente novamente. 🤔";
+                        feedback.textContent = "Tente novamente. ?Y?"";
                         feedback.className = "mt-4 text-xl font-bold text-red-600";
                     }
                 });

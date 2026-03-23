@@ -39,6 +39,7 @@
         .modal-content { background: white; padding: 2.5rem; border-radius: 1rem; max-width: 500px; width: 90%; transform: scale(0.95); transition: transform 0.3s ease; }
         .modal-overlay.active .modal-content { transform: scale(1); }
     </style>
+    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
 <body class="bg-gray-50 text-gray-800">
 
@@ -269,17 +270,6 @@
 
             prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
             nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            finishLessonBtn.addEventListener('click', () => {
-                finishLessonBtn.disabled = true;
-                finishLessonBtn.textContent = 'Salvando...';
-                markLessonAsComplete('a1', 18)
-                    .catch(error => {
-                        console.error('Erro ao marcar a lição como completa:', error);
-                        alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');
-                        finishLessonBtn.disabled = false;
-                        finishLessonBtn.textContent = 'Finalizar Aula';
-                    });
-            });
 
             // Drag and Drop Logic
             const draggables = document.querySelectorAll('.draggable');
@@ -344,5 +334,6 @@
     </script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
+    <script src="a1-lesson-theme.js"></script>
 </body>
 </html>

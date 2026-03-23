@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
-        // --- 1. ATUALIZAÇÃO DO BOTÃO DO CABEÇALHO ---
+        // --- 1. ATUALIZA???fO DO BOT?fO DO CABE??ALHO ---
         if (headerLink) {
             if (userRole === 'aluno') {
                 headerLink.href = '../aluno.html';
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Se o papel for 'professor', o botão já está correto no HTML.
         }
 
-        // --- 2. ATUALIZAÇÃO DO STATUS DAS LIÇÕES ---
+        // --- 2. ATUALIZA???fO DO STATUS DAS LI???.ES ---
         const moduleKey = document.body.dataset.module;
         if (!moduleKey) {
             console.error("Atributo 'data-module' não foi encontrado no <body>.");

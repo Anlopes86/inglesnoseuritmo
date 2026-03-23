@@ -39,6 +39,7 @@
         .modal-content { background: white; padding: 2.5rem; border-radius: 1rem; max-width: 500px; width: 90%; transform: scale(0.95); transition: transform 0.3s ease; }
         .modal-overlay.active .modal-content { transform: scale(1); }
     </style>
+    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
 <body class="bg-gray-50 text-gray-800">
 
@@ -248,35 +249,14 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- CONFIGURAÇÃO DA LIÇÃO ---
+            // --- CONFIGURA???fO DA LIÇÃO ---
             const moduleId = 'a1';
             const lessonNumber = 20; 
 
-            // --- LÓGICA DO BOTÃO "FINALIZAR AULA" ---
+            // --- L?"GICA DO BOT?fO "FINALIZAR AULA" ---
             const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            if (finishLessonBtn) {
-                finishLessonBtn.addEventListener('click', () => {
-                    finishLessonBtn.disabled = true;
-                    finishLessonBtn.textContent = "Salvando...";
-                    
-                    if (typeof markLessonAsComplete === 'function') {
-                        markLessonAsComplete(moduleId, lessonNumber)
-                            .catch(error => {
-                                console.error('Erro ao marcar a lição como completa:', error);
-                                alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');
-                                finishLessonBtn.disabled = false;
-                                finishLessonBtn.textContent = "Finalizar Aula";
-                            }); 
-                    } else {
-                        console.error("A função markLessonAsComplete não foi encontrada.");
-                        alert("Erro ao salvar progresso.");
-                        finishLessonBtn.disabled = false;
-                        finishLessonBtn.textContent = "Finalizar Aula";
-                    }
-                });
-            }
 
-            // --- LÓGICA DOS SLIDES E ATIVIDADES ---
+// --- L?"GICA DOS SLIDES E ATIVIDADES ---
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
@@ -370,5 +350,10 @@
     </script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
+    <script src="a1-lesson-theme.js"></script>
 </body>
 </html>
+
+
+
+

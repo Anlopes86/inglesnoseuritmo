@@ -13,6 +13,7 @@
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
+    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
 <body class="bg-gray-50 text-gray-800">
 
@@ -125,27 +126,16 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
     <script src="../js/progress-manager.js"></script>
+    <script src="a1-lesson-theme.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- CONFIGURAÇÃO DA LIÇÃO ---
+            // --- CONFIGURA???fO DA LIÇÃO ---
             const moduleId = 'a1';
             const lessonNumber = 8;
             // ---------------------------------------------------------
 
-            // --- LÓGICA PADRÃO DE NAVEGAÇÃO E SALVAMENTO ---
+            // --- L?"GICA PADR?fO DE NAVEGA???fO E SALVAMENTO ---
             const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            if (finishLessonBtn) {
-                finishLessonBtn.addEventListener('click', () => {
-                    finishLessonBtn.disabled = true;
-                    finishLessonBtn.textContent = "Salvando...";
-                    if (typeof markLessonAsComplete === 'function') {
-                        markLessonAsComplete(moduleId, lessonNumber); 
-                    } else {
-                        console.error("A função markLessonAsComplete não foi encontrada.");
-                        alert("Erro ao salvar progresso.");
-                    }
-                });
-            }
 
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
@@ -169,7 +159,7 @@
             if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
             if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
             
-            // --- LÓGICA ESPECÍFICA DA LIÇÃO 8 ---
+            // --- L?"GICA ESPECÍFICA DA LIÇÃO 8 ---
             
             // Função auxiliar para verificar respostas em inputs
             function addInputListeners(container) {
@@ -228,3 +218,6 @@
     </script>
 </body>
 </html>
+
+
+

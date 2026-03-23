@@ -27,6 +27,7 @@
         input.incorrect { background-color: #fee2e2; border-color: #ef4444; }
         input { transition: all 0.3s; }
     </style>
+    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
 <body class="bg-gray-50 text-gray-800">
 
@@ -47,10 +48,10 @@
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
                     <h3 class="text-2xl font-bold mb-4 text-gray-700">O que vamos aprender:</h3>
                     <ul class="text-left text-xl space-y-3">
-                        <li>✔️ Aprender o nome de objetos comuns do dia a dia.</li>
-                        <li>✔️ Usar os artigos indefinidos "a" e "an".</li>
-                        <li>✔️ Formar o plural simples de substantivos (adicionando "-s").</li>
-                        <li>✔️ Perguntar e responder sobre objetos.</li>
+                        <li>?o"? Aprender o nome de objetos comuns do dia a dia.</li>
+                        <li>?o"? Usar os artigos indefinidos "a" e "an".</li>
+                        <li>?o"? Formar o plural simples de substantivos (adicionando "-s").</li>
+                        <li>?o"? Perguntar e responder sobre objetos.</li>
                     </ul>
                 </div>
             </div>
@@ -88,9 +89,9 @@
                         <div class="border-t md:border-t-0 md:border-l pt-6 md:pt-0 md:pl-6">
                             <h3 class="text-2xl font-bold text-orange-700 mb-4"><i class="fas fa-plus-circle"></i> Plural Simples com "-s"</h3>
                             <p class="text-xl">Para a maioria dos substantivos, adicione <strong class="text-orange-600">-s</strong> para formar o plural.</p>
-                            <p class="text-xl mt-2 font-semibold bg-gray-100 p-2 rounded">one book → two book<strong class="text-orange-600">s</strong></p>
-                            <p class="text-xl mt-2 font-semibold bg-gray-100 p-2 rounded">one pen → three pen<strong class="text-orange-600">s</strong></p>
-                            <p class="text-xl mt-2 font-semibold bg-gray-100 p-2 rounded">one apple → four apple<strong class="text-orange-600">s</strong></p>
+                            <p class="text-xl mt-2 font-semibold bg-gray-100 p-2 rounded">one book ??' two book<strong class="text-orange-600">s</strong></p>
+                            <p class="text-xl mt-2 font-semibold bg-gray-100 p-2 rounded">one pen ??' three pen<strong class="text-orange-600">s</strong></p>
+                            <p class="text-xl mt-2 font-semibold bg-gray-100 p-2 rounded">one apple ??' four apple<strong class="text-orange-600">s</strong></p>
                         </div>
                     </div>
                 </div>
@@ -120,10 +121,10 @@
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-xl mx-auto">
                     <p class="text-2xl mb-8 text-gray-600">Escreva o plural das palavras.</p>
                     <div id="practice-plurals" class="space-y-6 text-2xl text-left">
-                        <p>1. one book → two <input data-answer="books" class="w-32 p-1 border-b-2 text-center"></p>
-                        <p>2. one key → five <input data-answer="keys" class="w-32 p-1 border-b-2 text-center"></p>
-                        <p>3. an apple → ten <input data-answer="apples" class="w-32 p-1 border-b-2 text-center"></p>
-                        <p>4. a pen → many <input data-answer="pens" class="w-32 p-1 border-b-2 text-center"></p>
+                        <p>1. one book ??' two <input data-answer="books" class="w-32 p-1 border-b-2 text-center"></p>
+                        <p>2. one key ??' five <input data-answer="keys" class="w-32 p-1 border-b-2 text-center"></p>
+                        <p>3. an apple ??' ten <input data-answer="apples" class="w-32 p-1 border-b-2 text-center"></p>
+                        <p>4. a pen ??' many <input data-answer="pens" class="w-32 p-1 border-b-2 text-center"></p>
                     </div>
                     <button class="mt-8 bg-blue-500 text-white font-bold py-3 px-8 rounded-lg" onclick="checkAnswers(this.previousElementSibling)">Check Answers</button>
                 </div>
@@ -206,18 +207,6 @@
             const lessonNumber = 6;
 
             const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            if (finishLessonBtn) {
-                finishLessonBtn.addEventListener('click', () => {
-                    finishLessonBtn.disabled = true;
-                    finishLessonBtn.textContent = "Salvando...";
-                    if (typeof markLessonAsComplete === 'function') {
-                        markLessonAsComplete(moduleId, lessonNumber); 
-                    } else {
-                        console.error("A função markLessonAsComplete não foi encontrada.");
-                        alert("Erro ao salvar progresso.");
-                    }
-                });
-            }
 
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
@@ -241,7 +230,7 @@
             if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
             if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
             
-            // --- LÓGICA ESPECÍFICA DA AULA ---
+            // --- L?"GICA ESPECÍFICA DA AULA ---
             document.querySelectorAll('.flashcard').forEach(card => {
                 card.addEventListener('click', () => card.classList.toggle('flipped'));
             });
@@ -274,5 +263,10 @@
     </script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
+    <script src="a1-lesson-theme.js"></script>
 </body>
 </html>
+
+
+
+

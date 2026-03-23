@@ -24,6 +24,7 @@
         .modal-content { background: white; padding: 2.5rem; border-radius: 1rem; max-width: 500px; width: 90%; transform: scale(0.95); transition: transform 0.3s ease; }
         .modal-overlay.active .modal-content { transform: scale(1); }
     </style>
+    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
 <body class="bg-gray-50 text-gray-800">
 
@@ -207,6 +208,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
     <script src="../js/progress-manager.js"></script>
+    <script src="a1-lesson-theme.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const moduleId = 'a1';
@@ -234,21 +236,8 @@
 
             if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
             if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            
-            if (finishLessonBtn) {
-                finishLessonBtn.addEventListener('click', () => {
-                    finishLessonBtn.disabled = true;
-                    finishLessonBtn.textContent = "Salvando...";
-                    if (typeof markLessonAsComplete === 'function') {
-                        markLessonAsComplete(moduleId, lessonNumber);
-                    } else {
-                        console.error("Função markLessonAsComplete não encontrada.");
-                        alert("Erro ao salvar progresso.");
-                    }
-                });
-            }
 
-            // Individual Answer Button Logic
+// Individual Answer Button Logic
             document.querySelectorAll('.answer-btn').forEach(button => {
                 button.addEventListener('click', () => {
                     let prev = button.previousElementSibling;
@@ -276,3 +265,5 @@
     </script>
 </body>
 </html>
+
+

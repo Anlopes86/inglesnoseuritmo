@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -6,382 +6,268 @@
     <title>A1 - Lesson 2: Where Are You From? | Inglês no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* FLASHCARDS */
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 185px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
-        .flashcard-front { background-color: white; color: #1d4ed8; text-align: center; }
-        .flashcard-back { background-color: #1d4ed8; color: white; transform: rotateY(180deg); text-align: center; }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; }
+        .flashcard-front { background: #ffffff; color: #1d4ed8; text-align: center; }
+        .flashcard-back { background: #1d4ed8; color: white; transform: rotateY(180deg); text-align: center; }
         .flashcard.reviewed .flashcard-front { border-color: #22c55e; background-color: #f0fdf4; }
         .flashcard.reviewed .flashcard-front h4 { color: #16a34a; }
-        .flashcard-audio-btn {
-            position: absolute; top: 0.75rem; right: 0.75rem;
-            width: 2.25rem; height: 2.25rem; border-radius: 9999px;
-            border: 1px solid rgba(56, 189, 248, 0.45);
-            background: rgba(15, 23, 42, 0.88); color: #38bdf8;
-            display: inline-flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: transform 0.2s, background-color 0.2s, color 0.2s;
-            z-index: 2;
-        }
-        .flashcard-audio-btn:hover { background: rgba(14, 116, 144, 0.2); color: #7dd3fc; transform: scale(1.05); }
-
-        /* SPEAK BUTTON */
-        .speak-btn {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: #eff6ff; border: 1.5px solid #bfdbfe;
-            color: #1d4ed8; padding: 4px 12px; border-radius: 20px;
-            font-size: 0.82rem; font-weight: 600; cursor: pointer;
-            transition: all 0.2s; margin-left: 6px;
-        }
-        .speak-btn:hover { background: #dbeafe; transform: scale(1.05); }
-
-        /* SLIDE LABEL */
+        .flashcard-audio-btn { position: absolute; top: 0.75rem; right: 0.75rem; width: 2.25rem; height: 2.25rem; border-radius: 9999px; border: 1px solid rgba(56, 189, 248, 0.45); background: rgba(15, 23, 42, 0.88); color: #38bdf8; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2; }
+        .speak-btn { display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; border: 1.5px solid #bfdbfe; color: #1d4ed8; padding: 4px 12px; border-radius: 20px; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-left: 6px; }
+        .speak-btn:hover { background: #dbeafe; transform: scale(1.04); }
+        .speak-btn.speaking { background: #1d4ed8; color: white; }
         .slide-label { display: inline-flex; align-items: center; gap: 6px; background: #f3f4f6; border-radius: 20px; padding: 4px 14px; font-size: 0.8rem; font-weight: 600; color: #6b7280; margin-bottom: 1rem; }
-
-        /* PRACTICE INPUTS */
-        .practice-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; text-align: center; font-size: 1.2rem; padding: 2px 8px; width: 8rem; outline: none; transition: border-color 0.2s; }
-        .practice-input:focus { border-color: #3b82f6; }
-        .practice-input.correct { border-color: #22c55e; color: #16a34a; font-weight: 700; }
-        .practice-input.incorrect { border-color: #ef4444; color: #dc2626; }
-
-        /* MUSIC INPUTS */
-        .lyric-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; text-align: center; font-size: 1.05rem; padding: 2px 4px; width: 7rem; outline: none; transition: border-color 0.2s; }
-        .lyric-input:focus { border-color: #3b82f6; }
-        .lyric-input.correct { border-color: #22c55e; color: #16a34a; font-weight: 600; }
-        .lyric-input.incorrect { border-color: #ef4444; color: #dc2626; }
-        .lyric-input.revealed { border-color: #f59e0b; color: #d97706; font-weight: 600; background: #fef9c3; }
-
-        /* LISTENING INPUTS */
-        .listening-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; font-size: 1rem; padding: 2px 6px; width: 60%; outline: none; transition: border-color 0.2s; }
-        .listening-input:focus { border-color: #3b82f6; }
-        .listening-input.correct { border-color: #22c55e; color: #16a34a; font-weight: 600; }
-        .listening-input.incorrect { border-color: #ef4444; color: #dc2626; }
-
-        /* TRUE/FALSE */
-        .true-false-btn { background-color: #e5e7eb; color: #4b5563; font-weight: 600; padding: 0.75rem 2rem; border-radius: 9999px; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; }
+        .practice-input, .lyric-input, .listening-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; outline: none; transition: border-color 0.2s; }
+        .practice-input, .lyric-input { text-align: center; }
+        .practice-input { font-size: 1.2rem; padding: 2px 8px; width: 8rem; }
+        .lyric-input { font-size: 1.05rem; padding: 2px 4px; width: 7rem; }
+        .listening-input { font-size: 1rem; padding: 2px 6px; width: 60%; }
+        .practice-input:focus, .lyric-input:focus, .listening-input:focus { border-color: #3b82f6; }
+        .practice-input.correct, .lyric-input.correct, .listening-input.correct { border-color: #22c55e; color: #16a34a; font-weight: 700; }
+        .practice-input.incorrect, .lyric-input.incorrect, .listening-input.incorrect { border-color: #ef4444; color: #dc2626; }
+        .lyric-input.revealed { border-color: #f59e0b; color: #d97706; font-weight: 700; background: #fef9c3; }
+        .true-false-btn { background-color: #e5e7eb; color: #4b5563; font-weight: 700; padding: 0.75rem 2rem; border-radius: 9999px; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; }
         .true-false-btn:hover:not(:disabled) { background-color: #d1d5db; }
         .true-false-btn.correct { background-color: #10b981; color: white; border-color: #059669; }
         .true-false-btn.incorrect { background-color: #ef4444; color: white; border-color: #dc2626; }
     </style>
+    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
-<body class="bg-gray-50 text-gray-800">
-
-    <!-- HEADER -->
-    <header class="bg-white shadow-sm sticky top-0 z-10">
+<body class="bg-slate-50 text-slate-800">
+    <header class="shadow-sm sticky top-0 z-10">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
-            <a href="a1.html" class="text-lg font-bold text-blue-600 hover:text-blue-800 flex items-center gap-2">
-                <i class="fas fa-chevron-left"></i> Voltar para A1
-            </a>
+            <a href="a1.html" class="text-lg font-bold text-blue-600 hover:text-blue-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
             <div class="text-center">
-                <h1 class="text-base font-semibold text-gray-800">A1 - Lesson 2: Where Are You From?</h1>
-                <p id="slide-title-header" class="text-xs text-gray-400 font-medium"></p>
+                <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 2: Where Are You From?</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">1 / 9</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
         </div>
-        <div class="w-full bg-gray-200 h-1.5">
-            <div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-500"></div>
-        </div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-500"></div></div>
     </header>
 
     <main class="container mx-auto p-8 pb-28 max-w-5xl">
-
-        <!-- SLIDE 1: Warm-up -->
         <div class="slide active" data-title="Warm-up">
-            <div class="text-center">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
                 <div class="slide-label"><i class="fas fa-mug-hot"></i> Warm-up</div>
-                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-3">
-                    <i class="fas fa-globe-americas text-blue-500"></i> Warm-up: Famous People
-                </h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-lg text-gray-500 mb-6">Clique em 🔊 para ouvir cada frase.</p>
-                    <div class="flex justify-center mb-5">
-                        <div class="text-center">
-                            <img src="../img/gisele.jpg" 
-                                 alt="Gisele Bündchen" 
-                                 class="h-36 w-28 object-cover rounded-xl shadow-md mx-auto">
-                            <p class="text-sm text-gray-400 mt-1 font-medium">Gisele Bündchen 🇧🇷</p>
+                <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-black mb-4 text-slate-900">De onde você é?</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a perguntar e responder nacionalidade e origem usando <strong>he is</strong>, <strong>she is</strong> e <strong>Where is... from?</strong></p>
+                        <div class="flex flex-wrap gap-3 mt-6">
+                            <div class="lesson-chip"><i class="fas fa-location-dot text-blue-600"></i> Tema: países e nacionalidades</div>
+                            <div class="lesson-chip"><i class="fas fa-clock text-emerald-600"></i> Tempo médio: 18 min</div>
+                            <div class="lesson-chip"><i class="fas fa-comments text-orange-500"></i> Foco: speaking + listening</div>
                         </div>
                     </div>
-                    <div class="text-left text-xl space-y-5 bg-gray-50 p-6 rounded-lg">
-                        <div class="flex items-center flex-wrap gap-2">
-                            <strong class="text-blue-600">Professor:</strong>
-                            <span>"Who is this?"</span>
-                            <button class="speak-btn" onclick="speak('Who is this?')"><i class="fas fa-volume-up"></i> Ouvir</button>
-                        </div>
-                        <div class="flex items-center flex-wrap gap-2">
-                            <strong class="text-orange-600">Aluno:</strong>
-                            <span>"This is Gisele Bündchen."</span>
-                            <button class="speak-btn" onclick="speak('This is Gisele Bündchen.')"><i class="fas fa-volume-up"></i> Ouvir</button>
-                        </div>
-                        <div class="flex items-center flex-wrap gap-2">
-                            <strong class="text-blue-600">Professor:</strong>
-                            <span>"Correct! Where is she from?"</span>
-                            <button class="speak-btn" onclick="speak('Correct! Where is she from?')"><i class="fas fa-volume-up"></i> Ouvir</button>
-                        </div>
-                        <div class="flex items-center flex-wrap gap-2">
-                            <strong class="text-orange-600">Aluno:</strong>
-                            <span>"She is from Brazil. She is Brazilian."</span>
-                            <button class="speak-btn" onclick="speak('She is from Brazil. She is Brazilian.')"><i class="fas fa-volume-up"></i> Ouvir</button>
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">Você vai praticar</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Perguntar de onde uma pessoa é</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Dizer país e nacionalidade</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Usar <strong>he</strong>, <strong>she</strong> e <strong>is / isn't</strong></span></div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="section-card p-8 mt-8">
+                <div class="flex justify-center mb-6">
+                    <div class="text-center">
+                        <img src="../img/gisele.jpg" alt="Gisele Bündchen" class="h-36 w-28 object-cover rounded-xl shadow-md mx-auto">
+                        <p class="text-sm text-slate-400 mt-2 font-medium">Gisele Bündchen</p>
+                    </div>
+                </div>
+                <div class="text-left text-xl space-y-5 bg-slate-50 p-6 rounded-xl">
+                    <div class="flex items-center flex-wrap gap-2"><strong class="text-blue-600">Professor:</strong><span>"Who is this?"</span><button class="speak-btn" data-speak="Who is this?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center flex-wrap gap-2"><strong class="text-orange-600">Aluno:</strong><span>"This is Gisele Bündchen."</span><button class="speak-btn" data-speak="This is Gisele Bündchen."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center flex-wrap gap-2"><strong class="text-blue-600">Professor:</strong><span>"Correct! Where is she from?"</span><button class="speak-btn" data-speak="Correct! Where is she from?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center flex-wrap gap-2"><strong class="text-orange-600">Aluno:</strong><span>"She is from Brazil. She is Brazilian."</span><button class="speak-btn" data-speak="She is from Brazil. She is Brazilian."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                </div>
+            </div>
         </div>
 
-        <!-- SLIDE 2: Flashcards -->
         <div class="slide" data-title="Vocabulary: Countries & Nationalities">
             <div class="text-center">
                 <div class="slide-label"><i class="fas fa-flag"></i> Vocabulário</div>
-                <h2 class="text-4xl font-bold mb-4 text-green-700 flex items-center justify-center gap-3">
-                    <i class="fas fa-flag text-red-500"></i> Countries & Nationalities
-                </h2>
-                <div class="flex items-center justify-center gap-4 mb-6">
-                    <p class="text-gray-500 text-lg">Clique para ver a nacionalidade. Ouça a pronúncia.</p>
-                    <button onclick="shuffleFlashcards()" class="speak-btn"><i class="fas fa-random"></i> Embaralhar</button>
-                    <span id="flashcard-progress" class="text-sm font-semibold text-green-600 bg-green-50 px-3 py-1 rounded-full">0 de 8 revisados</span>
+                <h2 class="text-4xl font-black mb-4 text-green-700">Countries & Nationalities</h2>
+                <p class="text-slate-500 text-lg mb-6">Clique para virar o card e descobrir a nacionalidade correspondente.</p>
+                <div class="flex items-center justify-center gap-4 mb-6 flex-wrap">
+                    <button id="shuffle-flashcards-btn" class="speak-btn"><i class="fas fa-random"></i> Embaralhar</button>
+                    <span id="flashcard-progress" class="text-sm font-semibold text-green-700 bg-green-50 px-3 py-1 rounded-full">0 de 8 revisados</span>
                 </div>
                 <div id="flashcard-grid" class="flashcard-grid max-w-5xl mx-auto"></div>
             </div>
         </div>
 
-        <!-- SLIDE 3: Grammar -->
         <div class="slide" data-title="Grammar: He is / She is">
             <div class="text-center">
                 <div class="slide-label"><i class="fas fa-book-open"></i> Gramática</div>
-                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-3">
-                    <i class="fas fa-book-open text-purple-500"></i> Grammar: "to be" & "Where"
-                </h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Vamos incluir <strong class="text-purple-600">He is (Ele é/ele está)</strong> e <strong class="text-purple-600">She is (Ela é/ela está)</strong>.</p>
-                    <table class="w-full text-left text-lg border-collapse">
-                        <thead><tr class="bg-gray-100">
-                            <th class="p-4 border">Pronoun</th>
-                            <th class="p-4 border">Affirmative (+)</th>
-                            <th class="p-4 border">Negative (-)</th>
-                            <th class="p-4 border">Interrogative (?)</th>
-                        </tr></thead>
-                        <tbody>
-                            <tr class="border-t">
-                                <td class="p-4 border font-bold text-purple-600">He</td>
-                                <td class="p-4 border">He is (He's)<button class="speak-btn" onclick="speak('He is')"><i class="fas fa-volume-up"></i></button></td>
-                                <td class="p-4 border">He isn't <button class="speak-btn" onclick="speak('He is not')"><i class="fas fa-volume-up"></i></button></td>
-                                <td class="p-4 border">Is he? <button class="speak-btn" onclick="speak('Is he?')"><i class="fas fa-volume-up"></i></button></td>
-                            </tr>
-                            <tr class="border-t bg-gray-50">
-                                <td class="p-4 border font-bold text-purple-600">She</td>
-                                <td class="p-4 border">She is (She's) <button class="speak-btn" onclick="speak('She is')"><i class="fas fa-volume-up"></i></button></td>
-                                <td class="p-4 border">She isn't <button class="speak-btn" onclick="speak('She is not')"><i class="fas fa-volume-up"></i></button></td>
-                                <td class="p-4 border">Is she? <button class="speak-btn" onclick="speak('Is she?')"><i class="fas fa-volume-up"></i></button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="mt-6 bg-purple-50 border-l-4 border-purple-500 text-purple-800 p-4 text-left rounded-r-lg">
-                        <h4 class="font-bold text-xl mb-2">Fazendo Perguntas com "Where":</h4>
-                        <p>• Use <strong>Where (Onde/Da onde)</strong> para perguntar sobre origem.</p>
-                        <p>• Estrutura: <strong>Where + to be + pronoun + from?</strong></p>
-                        <div class="mt-3 flex flex-wrap gap-3">
-                            <span class="bg-white px-3 py-1 rounded-lg border">Where is he from?
-                                <button class="speak-btn" onclick="speak('Where is he from?')"><i class="fas fa-volume-up"></i></button>
-                            </span>
-                            <span class="bg-white px-3 py-1 rounded-lg border">Where is she from?
-                                <button class="speak-btn" onclick="speak('Where is she from?')"><i class="fas fa-volume-up"></i></button>
-                            </span>
-                        </div>
+                <h2 class="text-4xl font-black mb-6 text-green-700">Grammar: "to be" & "Where"</h2>
+                <div class="section-card p-8">
+                    <p class="text-xl mb-6 text-slate-600">Agora vamos incluir <strong class="text-purple-600">he is</strong> e <strong class="text-purple-600">she is</strong> para falar sobre outras pessoas.</p>
+                    <div class="grammar-table">
+                        <table class="w-full text-left text-lg border-collapse overflow-hidden">
+                            <thead><tr class="bg-slate-100"><th class="p-4 border">Pronoun</th><th class="p-4 border">Affirmative (+)</th><th class="p-4 border">Negative (-)</th><th class="p-4 border">Interrogative (?)</th></tr></thead>
+                            <tbody>
+                                <tr class="border-t"><td class="p-4 border font-bold text-purple-600">He</td><td class="p-4 border">He is (He's) <button class="speak-btn" data-speak="He is"><i class="fas fa-volume-up"></i></button></td><td class="p-4 border">He isn't <button class="speak-btn" data-speak="He is not"><i class="fas fa-volume-up"></i></button></td><td class="p-4 border">Is he? <button class="speak-btn" data-speak="Is he?"><i class="fas fa-volume-up"></i></button></td></tr>
+                                <tr class="border-t bg-slate-50"><td class="p-4 border font-bold text-purple-600">She</td><td class="p-4 border">She is (She's) <button class="speak-btn" data-speak="She is"><i class="fas fa-volume-up"></i></button></td><td class="p-4 border">She isn't <button class="speak-btn" data-speak="She is not"><i class="fas fa-volume-up"></i></button></td><td class="p-4 border">Is she? <button class="speak-btn" data-speak="Is she?"><i class="fas fa-volume-up"></i></button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4 mt-6 text-left">
+                        <div class="callout-note"><h4 class="font-bold text-lg mb-2">Perguntas com where</h4><p>Use <strong>Where</strong> para perguntar sobre origem: <strong>Where is he from?</strong> ou <strong>Where is she from?</strong></p></div>
+                        <div class="callout-success"><h4 class="font-bold text-lg mb-2">Resposta modelo</h4><p><strong>She is from Brazil. She is Brazilian.</strong> Você fala primeiro o país, depois a nacionalidade.</p></div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- SLIDE 4: Practice is/isn't -->
         <div class="slide" data-title="Practice: is or isn't">
             <div class="text-center">
                 <div class="slide-label"><i class="fas fa-pencil-alt"></i> Prática</div>
-                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-3">
-                    <i class="fas fa-pencil-alt text-orange-500"></i> Practice: Is or Isn't?
-                </h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-8 text-gray-600">Complete as frases com <strong class="text-purple-600">is</strong> ou <strong class="text-purple-600">isn't</strong>.</p>
+                <h2 class="text-4xl font-black mb-6 text-green-700">Practice: Is or Isn't?</h2>
+                <div class="section-card p-8 max-w-3xl mx-auto">
+                    <p class="text-xl mb-8 text-slate-600">Complete as frases com <strong>is</strong> ou <strong>isn't</strong>. Cada frase foi pensada para ter uma resposta única.</p>
                     <div id="practice-is-isnt" class="space-y-6 text-xl"></div>
                     <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <button onclick="checkPractice()" class="bg-green-600 text-white font-bold py-3 px-10 rounded-xl hover:bg-green-700 transition text-lg">
-                            <i class="fas fa-check-circle mr-2"></i>Verificar Respostas
-                        </button>
-                        <button onclick="resetPractice()" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-xl hover:bg-gray-300 transition text-lg">
-                            <i class="fas fa-redo mr-2"></i>Recomeçar
-                        </button>
+                        <button id="check-practice-btn" class="bg-green-600 text-white font-bold py-3 px-10 rounded-xl hover:bg-green-700 transition text-lg"><i class="fas fa-check-circle mr-2"></i>Verificar respostas</button>
+                        <button id="reset-practice-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-xl hover:bg-slate-300 transition text-lg"><i class="fas fa-rotate-left mr-2"></i>Recomeçar</button>
                     </div>
-                    <div id="practice-score" class="hidden mt-6 text-xl font-bold p-4 rounded-xl"></div>
+                    <div id="practice-score" class="hidden mt-6 text-xl font-bold p-4 score-panel"></div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 5: True or False -->
+        <div class="slide" data-title="Question Builder">
+            <div class="text-center">
+                <div class="slide-label"><i class="fas fa-comments"></i> Speaking</div>
+                <h2 class="text-4xl font-black mb-6 text-green-700">Ask and Answer</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <p class="text-xl mb-8 text-slate-600">No A1, você precisa conseguir fazer perguntas muito simples sobre origem. Escolha a melhor resposta e use o botão de revelar quando travar.</p>
+                    <div id="qa-activity" class="space-y-5"></div>
+                </div>
+            </div>
+        </div>
+
         <div class="slide" data-title="True or False?">
             <div class="text-center">
                 <div class="slide-label"><i class="fas fa-check-circle"></i> Atividade</div>
-                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-3">
-                    <i class="fas fa-check-circle text-teal-500"></i> True or False?
-                </h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-8 text-gray-600">Leia a frase e decida se é <strong class="text-teal-600">True</strong> ou <strong class="text-red-600">False</strong>.</p>
+                <h2 class="text-4xl font-black mb-6 text-green-700">True or False?</h2>
+                <div class="section-card p-8 max-w-3xl mx-auto">
+                    <p class="text-xl mb-8 text-slate-600">Leia a frase e decida se é <strong class="text-teal-600">True</strong> ou <strong class="text-red-600">False</strong>.</p>
                     <div id="true-false-container" class="space-y-6 text-xl"></div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 6: Listening -->
         <div class="slide" data-title="Listening Activity">
             <div class="text-center">
                 <div class="slide-label"><i class="fas fa-headphones"></i> Listening</div>
-                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-3">
-                    <i class="fas fa-headphones text-cyan-500"></i> Listening Activity
-                </h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto text-left">
-                    <p class="text-xl mb-6 text-gray-600">Ouça o professor e responda às perguntas.</p>
-                    <div class="text-lg bg-gray-50 p-6 rounded-lg space-y-4 mb-6">
-                        <p class="font-bold text-gray-700">Professor, leia as frases em voz alta:</p>
-                        <div class="flex items-center gap-2">
-                            <p>1. "Keanu Reeves is from Canada. He is Canadian."</p>
-                            <button class="speak-btn" onclick="speak('Keanu Reeves is from Canada. He is Canadian.')"><i class="fas fa-volume-up"></i></button>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <p>2. "Penelope Cruz is not from Mexico. She is from Spain."</p>
-                            <button class="speak-btn" onclick="speak('Penelope Cruz is not from Mexico. She is from Spain.')"><i class="fas fa-volume-up"></i></button>
-                        </div>
+                <h2 class="text-4xl font-black mb-6 text-green-700">Listening Activity</h2>
+                <div class="section-card p-8 max-w-3xl mx-auto text-left">
+                    <p class="text-xl mb-6 text-slate-600">Ouça as frases e responda às perguntas.</p>
+                    <div class="text-lg bg-slate-50 p-6 rounded-xl space-y-4 mb-6">
+                        <p class="font-bold text-slate-700">Professor, leia em voz alta:</p>
+                        <div class="flex items-center gap-2"><p>1. "Keanu Reeves is from Canada. He is Canadian."</p><button class="speak-btn" data-speak="Keanu Reeves is from Canada. He is Canadian."><i class="fas fa-volume-up"></i></button></div>
+                        <div class="flex items-center gap-2"><p>2. "Penelope Cruz is not from Mexico. She is from Spain."</p><button class="speak-btn" data-speak="Penelope Cruz is not from Mexico. She is from Spain."><i class="fas fa-volume-up"></i></button></div>
                     </div>
                     <div class="text-lg space-y-4">
-                        <p class="font-bold text-gray-700">Aluno, responda:</p>
-                        <div>
-                            <label class="text-gray-600">1. Where is Keanu Reeves from?</label>
-                            <div class="mt-1">
-                                <input data-answer="canada" class="listening-input" placeholder="Sua resposta...">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="text-gray-600">2. Is Penelope Cruz from Mexico?</label>
-                            <div class="mt-1">
-                                <input data-answer="no" class="listening-input" placeholder="Sua resposta...">
-                            </div>
-                        </div>
+                        <div><label class="text-slate-600">1. Where is Keanu Reeves from?</label><div class="mt-1 flex items-center gap-2"><input data-answer="canada" data-listening-index="0" class="listening-input" placeholder="Sua resposta..."><button class="answer-btn" data-reveal-listening="0" title="Revelar"><i class="fas fa-lightbulb text-amber-400"></i></button></div></div>
+                        <div><label class="text-slate-600">2. Is Penelope Cruz from Mexico?</label><div class="mt-1 flex items-center gap-2"><input data-answer="no" data-listening-index="1" class="listening-input" placeholder="Sua resposta..."><button class="answer-btn" data-reveal-listening="1" title="Revelar"><i class="fas fa-lightbulb text-amber-400"></i></button></div></div>
                     </div>
-                    <div class="mt-6 flex gap-4">
-                        <button onclick="checkListening()" class="bg-green-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-green-700 transition">
-                            <i class="fas fa-check mr-2"></i>Verificar
-                        </button>
-                        <button onclick="resetListening()" class="bg-gray-200 text-gray-700 font-bold py-3 px-6 rounded-xl hover:bg-gray-300 transition">
-                            <i class="fas fa-redo mr-2"></i>Recomeçar
-                        </button>
+                    <div class="mt-6 flex gap-4 flex-wrap">
+                        <button id="check-listening-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-green-700 transition"><i class="fas fa-check mr-2"></i>Verificar</button>
+                        <button id="reset-listening-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-6 rounded-xl hover:bg-slate-300 transition"><i class="fas fa-rotate-left mr-2"></i>Recomeçar</button>
                     </div>
                     <div id="listening-score" class="hidden mt-4 text-lg font-bold p-4 rounded-xl"></div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 7: Music -->
+        <div class="slide" data-title="Nationality Builder">
+            <div class="text-center">
+                <div class="slide-label"><i class="fas fa-pen-to-square"></i> Extra Practice</div>
+                <h2 class="text-4xl font-black mb-6 text-green-700">Complete the answer</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto">
+                    <p class="text-xl mb-8 text-slate-600">Agora pratique respostas completas. Preencha com <strong>is</strong>, <strong>isn't</strong>, países e nacionalidades.</p>
+                    <div id="builder-activity" class="space-y-6 text-lg text-left"></div>
+                    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <button id="check-builder-btn" class="bg-green-600 text-white font-bold py-3 px-10 rounded-xl hover:bg-green-700 transition text-lg"><i class="fas fa-check-circle mr-2"></i>Verificar respostas</button>
+                        <button id="reset-builder-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-xl hover:bg-slate-300 transition text-lg"><i class="fas fa-rotate-left mr-2"></i>Recomeçar</button>
+                    </div>
+                    <div id="builder-score" class="hidden mt-6 text-xl font-bold p-4 score-panel"></div>
+                </div>
+            </div>
+        </div>
+
         <div class="slide" data-title="Music Time">
             <div>
-                <div class="text-center mb-4">
-                    <div class="slide-label"><i class="fas fa-music"></i> Música</div>
-                </div>
-                <h2 class="text-4xl font-bold mb-4 text-center text-green-700 flex items-center justify-center gap-3">
-                    <i class="fas fa-music text-red-500"></i> Music Time: Englishman in New York
-                </h2>
-                <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1fSl5KhbaDKrYK7acnj7I0?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                    <p class="text-lg mb-4 text-gray-600 mt-4">Ouça a música, complete a letra. Se errar, pode revelar a palavra.</p>
-                    <div id="lyrics-container" class="text-xl space-y-3 bg-gray-50 p-6 rounded-lg border-l-4 border-green-500"></div>
+                <div class="text-center mb-4"><div class="slide-label"><i class="fas fa-music"></i> Música</div></div>
+                <h2 class="text-4xl font-black mb-4 text-center text-green-700">Music Time: Englishman in New York</h2>
+                <div class="music-card p-6 rounded-2xl max-w-4xl mx-auto">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1fSl5KhbaDKrYK7acnj7I0?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <div class="grid md:grid-cols-[1.3fr_0.7fr] gap-5 mt-5 items-start">
+                        <div class="callout-note text-left"><strong>Missão:</strong> escute e complete as palavras ligadas a identidade e lugar.</div>
+                        <div class="callout-warning text-left"><strong>Se precisar:</strong> revele uma palavra por vez ou todas no final.</div>
+                    </div>
+                    <div id="lyrics-container" class="text-xl space-y-3 bg-slate-50 p-6 rounded-xl border-l-4 border-green-500 mt-5"></div>
                     <div class="mt-6 flex flex-col sm:flex-row items-center gap-4">
-                        <button onclick="checkLyrics()" class="bg-green-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-green-700 transition">
-                            <i class="fas fa-check mr-2"></i>Verificar
-                        </button>
-                        <button onclick="revealAllLyrics()" class="bg-amber-500 text-white font-bold py-3 px-8 rounded-xl hover:bg-amber-600 transition">
-                            <i class="fas fa-eye mr-2"></i>Revelar Todas
-                        </button>
-                        <div id="lyrics-score" class="text-lg font-bold text-gray-700"></div>
+                        <button id="check-lyrics-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-green-700 transition"><i class="fas fa-check mr-2"></i>Verificar</button>
+                        <button id="reveal-all-lyrics-btn" class="bg-amber-500 text-white font-bold py-3 px-8 rounded-xl hover:bg-amber-600 transition"><i class="fas fa-eye mr-2"></i>Revelar todas</button>
+                        <div id="lyrics-score" class="text-lg font-bold text-slate-700"></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 8: Homework -->
         <div class="slide" data-title="Homework">
             <div class="text-center">
                 <div class="slide-label"><i class="fas fa-home"></i> Tarefa</div>
-                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-3">
-                    <i class="fas fa-home text-blue-500"></i> Homework
-                </h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Escreva 3 frases sobre a nacionalidade de pessoas famosas.</p>
-                    <div class="text-left text-lg space-y-3 mt-4 bg-gray-50 p-6 rounded-lg">
-                        <div class="flex items-center gap-2">
-                            <p><strong>Exemplo 1:</strong> "Pelé is from Brazil. He is Brazilian."</p>
-                            <button class="speak-btn" onclick="speak('Pelé is from Brazil. He is Brazilian.')"><i class="fas fa-volume-up"></i></button>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <p><strong>Exemplo 2:</strong> "Adele is not from the USA. She is British."</p>
-                            <button class="speak-btn" onclick="speak('Adele is not from the USA. She is British.')"><i class="fas fa-volume-up"></i></button>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <p><strong>Exemplo 3:</strong> "Is Jackie Chan Japanese? No, he isn't. He is Chinese."</p>
-                            <button class="speak-btn" onclick="speak('Is Jackie Chan Japanese? No, he is not. He is Chinese.')"><i class="fas fa-volume-up"></i></button>
-                        </div>
+                <h2 class="text-4xl font-black mb-6 text-green-700">Homework</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <p class="text-xl mb-6 text-slate-600">Crie três frases parecidas com os modelos abaixo para praticar país e nacionalidade.</p>
+                    <div class="grid md:grid-cols-3 gap-4 text-lg">
+                        <div class="bg-slate-50 p-4 rounded-xl"><p class="font-bold mb-2">Modelo 1</p><p>Pelé is from Brazil. He is Brazilian. <button class="speak-btn" data-speak="Pele is from Brazil. He is Brazilian."><i class="fas fa-volume-up"></i></button></p></div>
+                        <div class="bg-slate-50 p-4 rounded-xl"><p class="font-bold mb-2">Modelo 2</p><p>Adele is not from the USA. She is British. <button class="speak-btn" data-speak="Adele is not from the USA. She is British."><i class="fas fa-volume-up"></i></button></p></div>
+                        <div class="bg-slate-50 p-4 rounded-xl"><p class="font-bold mb-2">Modelo 3</p><p>Is Jackie Chan Japanese? No, he is not. He is Chinese. <button class="speak-btn" data-speak="Is Jackie Chan Japanese? No, he is not. He is Chinese."><i class="fas fa-volume-up"></i></button></p></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 9: Finish -->
         <div class="slide" data-title="Parabéns!">
-            <div class="text-center flex flex-col items-center justify-center h-full pt-16">
-                <i class="fas fa-plane-departure text-blue-400 text-7xl mb-6"></i>
-                <h2 class="text-5xl font-bold mb-4 text-gray-800">The World is Your Oyster!</h2>
-                <p class="text-3xl text-gray-600">Now you can ask anyone where they're from. Keep exploring!</p>
+            <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
+                <i class="fas fa-globe-americas text-green-500 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">World Opened Up!</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl">Every person carries a place, a language, and a story from somewhere.</p>
             </div>
         </div>
-
     </main>
 
-    <!-- FOOTER NAV -->
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20 h-16">
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
         <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
-            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">
-                <i class="fas fa-chevron-left mr-1"></i> Anterior
-            </button>
-            <button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">
-                Próximo <i class="fas fa-chevron-right ml-1"></i>
-            </button>
-            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">
-                <i class="fas fa-check mr-2"></i>Finalizar Aula
-            </button>
+            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition"><i class="fas fa-chevron-left mr-1"></i> Anterior</button>
+            <button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Próximo <i class="fas fa-chevron-right ml-1"></i></button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition"><i class="fas fa-check mr-2"></i>Finalizar aula</button>
         </div>
     </footer>
-
-    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
     <script src="../js/progress-manager.js"></script>
-
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-
-        // CONFIG
-        const moduleId = 'a1';
-        const lessonNumber = 2;
-
-        // ============================================================
-        // SLIDE NAVIGATION
-        // ============================================================
         const slides = document.querySelectorAll('.slide');
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
@@ -390,58 +276,51 @@
         const slideCounter = document.getElementById('slide-counter');
         const slideTitleHeader = document.getElementById('slide-title-header');
         let currentSlide = 0;
-
         function showSlide(index) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            slides.forEach((s, i) => s.classList.toggle('active', i === index));
-            const pct = ((index + 1) / slides.length) * 100;
-            if (progressBar) progressBar.style.width = `${pct}%`;
+            slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+            if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
             if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
             if (slideTitleHeader) slideTitleHeader.textContent = slides[index].dataset.title || '';
             if (prevBtn) prevBtn.disabled = index === 0;
             const isLast = index === slides.length - 1;
-            if (nextBtn) nextBtn.classList.toggle('hidden', isLast);
-            if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLast);
+            nextBtn?.classList.toggle('hidden', isLast);
+            finishLessonBtn?.classList.toggle('hidden', !isLast);
         }
-
-        if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-        if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-        if (finishLessonBtn) {
-            finishLessonBtn.addEventListener('click', () => {
-                finishLessonBtn.disabled = true;
-                finishLessonBtn.textContent = "Salvando...";
-                if (typeof markLessonAsComplete === 'function') markLessonAsComplete(moduleId, lessonNumber);
-            });
-        }
+        prevBtn?.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+        nextBtn?.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
         showSlide(0);
 
-        // ============================================================
-        // SPEAK
-        // ============================================================
-        window.speak = function(text) {
+        function speak(text, button) {
             if (!window.speechSynthesis) return;
+            document.querySelectorAll('.speak-btn.speaking').forEach((btn) => btn.classList.remove('speaking'));
             window.speechSynthesis.cancel();
             const utter = new SpeechSynthesisUtterance(text);
             utter.lang = 'en-US';
             utter.rate = 0.85;
+            if (button) {
+                button.classList.add('speaking');
+                utter.onend = () => button.classList.remove('speaking');
+            }
             window.speechSynthesis.speak(utter);
-        };
+        }
+        document.addEventListener('click', (event) => {
+            const speakBtn = event.target.closest('[data-speak]');
+            if (!speakBtn) return;
+            speak(speakBtn.dataset.speak, speakBtn);
+        });
 
-        // ============================================================
-        // FLASHCARDS
-        // ============================================================
         const flashcardData = [
-            { country: 'Brazil',         nat: 'Brazilian',   flag: 'br', speakC: 'Brazil',         speakN: 'Brazilian' },
-            { country: 'The USA',        nat: 'American',    flag: 'us', speakC: 'The United States', speakN: 'American' },
-            { country: 'Japan',          nat: 'Japanese',    flag: 'jp', speakC: 'Japan',           speakN: 'Japanese' },
-            { country: 'Italy',          nat: 'Italian',     flag: 'it', speakC: 'Italy',           speakN: 'Italian' },
-            { country: 'United Kingdom', nat: 'British',     flag: 'gb', speakC: 'United Kingdom',  speakN: 'British' },
-            { country: 'Canada',         nat: 'Canadian',    flag: 'ca', speakC: 'Canada',          speakN: 'Canadian' },
-            { country: 'Australia',      nat: 'Australian',  flag: 'au', speakC: 'Australia',       speakN: 'Australian' },
-            { country: 'Mexico',         nat: 'Mexican',     flag: 'mx', speakC: 'Mexico',          speakN: 'Mexican' },
+            { country: 'Brazil', nationality: 'Brazilian' }, { country: 'Canada', nationality: 'Canadian' },
+            { country: 'Japan', nationality: 'Japanese' }, { country: 'China', nationality: 'Chinese' },
+            { country: 'Spain', nationality: 'Spanish' }, { country: 'France', nationality: 'French' },
+            { country: 'Mexico', nationality: 'Mexican' }, { country: 'The USA', nationality: 'American' }
         ];
-        let reviewedCards = new Set();
-
+        const reviewedCards = new Set();
+        function updateFlashcardProgress() {
+            const progress = document.getElementById('flashcard-progress');
+            if (progress) progress.textContent = `${reviewedCards.size} de ${flashcardData.length} revisados`;
+        }
         function renderFlashcards(data) {
             const grid = document.getElementById('flashcard-grid');
             if (!grid) return;
@@ -449,256 +328,311 @@
             reviewedCards.clear();
             updateFlashcardProgress();
             data.forEach((item, i) => {
-                const safeC = item.speakC.replace(/'/g, "\\'");
-                const safeN = item.speakN.replace(/'/g, "\\'");
                 const card = document.createElement('div');
                 card.className = 'flashcard';
-                card.dataset.index = i;
-                card.innerHTML = `
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <h4 class="text-2xl font-bold mb-1">${item.country}</h4>
-                            <img src="https://flagcdn.com/w80/${item.flag}.png" class="h-8 my-2 rounded shadow-sm">
-                            <button class="flashcard-audio-btn" type="button" title="Ouvir pronúncia" onclick="event.stopPropagation(); speak('${safeC}')">
-                                <i class="fas fa-volume-up"></i>
-                            </button>
-                        </div>
-                        <div class="flashcard-back">
-                            <p class="text-2xl font-bold">${item.nat}</p>
-                            <button class="flashcard-audio-btn" type="button" title="Ouvir pronúncia" onclick="event.stopPropagation(); speak('${safeN}')">
-                                <i class="fas fa-volume-up"></i>
-                            </button>
-                        </div>
-                    </div>`;
-                card.addEventListener('click', () => {
-                    card.classList.toggle('flipped');
-                    if (card.classList.contains('flipped')) {
-                        card.classList.add('reviewed');
-                        reviewedCards.add(i);
-                        updateFlashcardProgress();
-                    }
-                });
+                card.dataset.index = String(i);
+                card.innerHTML = `<div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold mb-2">${item.country}</h4><button class="flashcard-audio-btn" type="button" title="Ouvir pronúncia" data-speak="${item.country}"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><h4 class="text-2xl font-bold mb-2">${item.nationality}</h4><button class="flashcard-audio-btn" type="button" title="Ouvir pronúncia" data-speak="${item.nationality}"><i class="fas fa-volume-up"></i></button></div></div>`;
                 grid.appendChild(card);
             });
         }
-
-        function updateFlashcardProgress() {
-            const el = document.getElementById('flashcard-progress');
-            if (el) el.textContent = `${reviewedCards.size} de ${flashcardData.length} revisados`;
-        }
-
-        window.shuffleFlashcards = function() {
-            const shuffled = [...flashcardData].sort(() => Math.random() - 0.5);
-            renderFlashcards(shuffled);
-        };
-
+        document.addEventListener('flashcard:toggled', (event) => {
+            const flashcard = event.target.closest('.flashcard');
+            if (!flashcard || !event.detail.flipped) return;
+            const idx = parseInt(flashcard.dataset.index || '-1', 10);
+            if (idx < 0) return;
+            flashcard.classList.add('reviewed');
+            reviewedCards.add(idx);
+            updateFlashcardProgress();
+        });
+        document.getElementById('shuffle-flashcards-btn')?.addEventListener('click', () => renderFlashcards([...flashcardData].sort(() => Math.random() - 0.5)));
         renderFlashcards(flashcardData);
 
-        // ============================================================
-        // PRACTICE: IS / ISN'T
-        // ============================================================
         const practiceSentences = [
-            { before: 'He', after: 'from Italy.', answer: 'is' },
-            { before: 'She', after: 'not from Japan.', answer: 'is' },
-            { before: 'Is he from Canada? No, he', after: '.', answer: "isn't" },
-            { before: 'Where', after: 'she from?', answer: 'is' },
-            { before: 'He is from the USA, so he', after: 'not British.', answer: 'is' },
+            { subject: 'He', ending: 'from Canada.', answer: 'is' },
+            { subject: 'She', ending: 'not from Mexico. She is from Spain.', answer: "isn't" },
+            { subject: 'He', ending: 'not Brazilian. He is Japanese.', answer: "isn't" },
+            { subject: 'She', ending: 'from France. She is French.', answer: 'is' },
+            { subject: 'He', ending: 'not from China. He is from Japan.', answer: "isn't" },
+            { subject: 'She', ending: 'Mexican. She is from Mexico.', answer: 'is' },
+            { subject: 'He', ending: 'not American. He is Canadian.', answer: "isn't" },
+            { subject: 'She', ending: 'from Brazil.', answer: 'is' }
         ];
-
         const practiceContainer = document.getElementById('practice-is-isnt');
         if (practiceContainer) {
-            practiceContainer.innerHTML = practiceSentences.map((item, i) => `
-                <div class="flex items-center justify-center gap-2 flex-wrap">
-                    <span class="text-gray-500 font-semibold w-5">${i + 1}.</span>
-                    <span class="font-bold text-purple-700">${item.before}</span>
-                    <input data-answer="${item.answer}" class="practice-input" placeholder="???">
-                    <span>${item.after}</span>
-                </div>`).join('');
+            practiceContainer.innerHTML = practiceSentences.map((item, i) => `<div class="flex items-center justify-center gap-2 flex-wrap"><span class="text-slate-500 font-semibold w-6">${i + 1}.</span><span class="font-bold text-purple-700">${item.subject}</span><input data-answer="${item.answer}" data-practice-index="${i}" class="practice-input" placeholder="is / isn't"><button class="answer-btn" data-reveal-practice="${i}" title="Revelar"><i class="fas fa-lightbulb text-amber-400"></i></button><span>${item.ending}</span></div>`).join('');
         }
-
-        window.checkPractice = function() {
+        function revealPractice(index) {
+            const input = document.querySelector(`.practice-input[data-practice-index="${index}"]`);
+            if (!input) return;
+            input.value = input.dataset.answer;
+            input.classList.remove('correct', 'incorrect');
+            input.classList.add('revealed');
+        }
+        function resetPractice() {
+            document.querySelectorAll('.practice-input').forEach((input) => { input.value = ''; input.classList.remove('correct', 'incorrect', 'revealed'); });
+            const score = document.getElementById('practice-score');
+            if (score) score.className = 'hidden mt-6 text-xl font-bold p-4 score-panel';
+        }
+        function checkPractice() {
             const inputs = document.querySelectorAll('.practice-input');
             let correct = 0;
-            inputs.forEach(input => {
+            inputs.forEach((input) => {
                 const user = input.value.trim().toLowerCase();
-                const ans = input.dataset.answer.toLowerCase();
+                const answer = input.dataset.answer.toLowerCase();
                 input.classList.remove('correct', 'incorrect');
                 if (!user) return;
-                if (user === ans) { input.classList.add('correct'); correct++; }
-                else { input.classList.add('incorrect'); }
+                if (user === answer) { input.classList.add('correct'); correct++; } else { input.classList.add('incorrect'); }
             });
-            const filled = [...inputs].filter(i => i.value.trim()).length;
+            const filled = [...inputs].filter((input) => input.value.trim()).length;
             const score = document.getElementById('practice-score');
-            if (score && filled > 0) {
-                score.classList.remove('hidden');
-                const pct = Math.round((correct / practiceSentences.length) * 100);
-                if (pct === 100) {
-                    score.className = 'mt-6 text-xl font-bold p-4 rounded-xl bg-green-100 text-green-800';
-                    score.innerHTML = `🎉 Perfeito! ${correct}/${practiceSentences.length} corretas!`;
-                } else {
-                    score.className = 'mt-6 text-xl font-bold p-4 rounded-xl bg-orange-100 text-orange-800';
-                    score.innerHTML = `${correct}/${practiceSentences.length} corretas. As vermelhas precisam de atenção.`;
-                }
+            if (!score || filled === 0) return;
+            score.className = 'mt-6 text-xl font-bold p-4 score-panel';
+            if (correct === practiceSentences.length) {
+                score.classList.add('is-perfect');
+                score.innerHTML = `<strong>Excelente!</strong> ${correct}/${practiceSentences.length} corretas.`;
+            } else {
+                score.classList.add('is-warning');
+                score.innerHTML = `<strong>${correct}/${practiceSentences.length} corretas.</strong> Revise as vermelhas antes de seguir.`;
             }
-        };
-
-        window.resetPractice = function() {
-            document.querySelectorAll('.practice-input').forEach(i => {
-                i.value = ''; i.classList.remove('correct', 'incorrect');
-            });
-            const score = document.getElementById('practice-score');
-            if (score) score.classList.add('hidden');
-        };
-
-        // ============================================================
-        // TRUE OR FALSE
-        // ============================================================
-        const trueFalseSentences = [
-            { text: 'The capital of Brazil is Rio de Janeiro.', correct: false, correction: 'The capital of Brazil is Brasília.' },
-            { text: 'A person from Canada is called a Canadian.', correct: true },
-            { text: 'Tokyo is the capital of Japan.', correct: true },
-            { text: 'He is from Mexico, so he is Mexican.', correct: true },
-            { text: 'She is from Italy. She is not British.', correct: true },
-            { text: 'Barack Obama is not an American.', correct: false, correction: 'Barack Obama is an American.' },
-        ];
-
-        const trueFalseContainer = document.getElementById('true-false-container');
-        if (trueFalseContainer) {
-            trueFalseSentences.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'bg-gray-50 p-6 rounded-xl text-center border border-gray-200';
-                div.innerHTML = `
-                    <p class="text-xl font-semibold mb-4">${item.text}
-                        <button class="speak-btn text-xs ml-2" onclick="speak('${item.text.replace(/'/g, "\\'")}')"><i class="fas fa-volume-up"></i></button>
-                    </p>
-                    <div class="flex justify-center gap-4">
-                        <button class="true-false-btn" data-val="true">True</button>
-                        <button class="true-false-btn" data-val="false">False</button>
-                    </div>
-                    <p class="mt-3 text-base font-medium hidden" data-feedback></p>`;
-                trueFalseContainer.appendChild(div);
-
-                div.querySelectorAll('.true-false-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        div.querySelectorAll('.true-false-btn').forEach(b => b.disabled = true);
-                        const userAnswer = btn.dataset.val === 'true';
-                        const isCorrect = userAnswer === item.correct;
-                        btn.classList.add(isCorrect ? 'correct' : 'incorrect');
-                        const fb = div.querySelector('[data-feedback]');
-                        if (isCorrect) {
-                            fb.textContent = '✅ Correto!';
-                            fb.className = 'mt-3 text-base font-medium text-green-700';
-                        } else {
-                            const correctLabel = item.correct ? 'True' : 'False';
-                            fb.textContent = `❌ Incorreto. A resposta é ${correctLabel}.${item.correction ? ' ' + item.correction : ''}`;
-                            fb.className = 'mt-3 text-base font-medium text-red-700';
-                        }
-                        fb.classList.remove('hidden');
-                    });
-                });
-            });
         }
+        document.getElementById('check-practice-btn')?.addEventListener('click', checkPractice);
+        document.getElementById('reset-practice-btn')?.addEventListener('click', resetPractice);
 
-        // ============================================================
-        // LISTENING
-        // ============================================================
-        window.checkListening = function() {
-            const inputs = document.querySelectorAll('.listening-input');
+        const builderItems = [
+            { prefix: '1. Where is she from? She', answer: 'is', middle: 'from Brazil. She is', answer2: 'Brazilian' },
+            { prefix: '2. Is he from Spain? No, he', answer: "isn't", middle: '. He is from', answer2: 'Mexico' },
+            { prefix: '3. Where is he from? He is from Japan. He is', answer: 'Japanese', middle: '', answer2: '' },
+            { prefix: '4. Is she Canadian? No, she', answer: "isn't", middle: '. She is', answer2: 'French' }
+        ];
+        const builderActivity = document.getElementById('builder-activity');
+        if (builderActivity) {
+            builderActivity.innerHTML = builderItems.map((item, index) => `
+                <div class="activity-card">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span>${item.prefix}</span>
+                        <input class="practice-input" style="width:7rem" data-builder-index="${index}" data-builder-part="0" data-answer="${item.answer}" placeholder="...">
+                        <button class="answer-btn" data-reveal-builder="${index}-0" title="Revelar"><i class="fas fa-lightbulb text-amber-400"></i></button>
+                        ${item.middle ? `<span>${item.middle}</span>` : ''}
+                        ${item.answer2 ? `<input class="practice-input" style="width:8rem" data-builder-index="${index}" data-builder-part="1" data-answer="${item.answer2}" placeholder="..."><button class="answer-btn" data-reveal-builder="${index}-1" title="Revelar"><i class="fas fa-lightbulb text-amber-400"></i></button>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+        function revealBuilder(index, part) {
+            const input = document.querySelector(`[data-builder-index="${index}"][data-builder-part="${part}"]`);
+            if (!input) return;
+            input.value = input.dataset.answer;
+            input.classList.remove('correct', 'incorrect');
+            input.classList.add('revealed');
+        }
+        function resetBuilder() {
+            document.querySelectorAll('[data-builder-index]').forEach((input) => {
+                input.value = '';
+                input.classList.remove('correct', 'incorrect', 'revealed');
+            });
+            const score = document.getElementById('builder-score');
+            if (score) score.className = 'hidden mt-6 text-xl font-bold p-4 score-panel';
+        }
+        function checkBuilder() {
+            const inputs = document.querySelectorAll('[data-builder-index]');
             let correct = 0;
-            inputs.forEach(input => {
+            inputs.forEach((input) => {
                 const user = input.value.trim().toLowerCase();
-                const ans = input.dataset.answer.toLowerCase();
+                const answer = input.dataset.answer.toLowerCase();
                 input.classList.remove('correct', 'incorrect');
                 if (!user) return;
-                // flexible check: answer contains key word
-                if (user.includes(ans) || ans.includes(user)) {
-                    input.classList.add('correct'); correct++;
+                if (user === answer) {
+                    input.classList.add('correct');
+                    correct++;
                 } else {
                     input.classList.add('incorrect');
                 }
             });
-            const score = document.getElementById('listening-score');
-            if (score) {
-                score.classList.remove('hidden');
-                if (correct === inputs.length) {
-                    score.className = 'mt-4 text-lg font-bold p-4 rounded-xl bg-green-100 text-green-800';
-                    score.textContent = '🎉 Perfeito! As respostas corretas são: Canada / No';
-                } else {
-                    score.className = 'mt-4 text-lg font-bold p-4 rounded-xl bg-orange-100 text-orange-800';
-                    score.textContent = `${correct}/${inputs.length} corretas. Respostas esperadas: Canada / No`;
-                }
+            const score = document.getElementById('builder-score');
+            const filled = [...inputs].filter((input) => input.value.trim()).length;
+            if (!score || filled === 0) return;
+            score.className = 'mt-6 text-xl font-bold p-4 score-panel';
+            if (correct === inputs.length) {
+                score.classList.add('is-perfect');
+                score.innerHTML = `<strong>Ótimo!</strong> ${correct}/${inputs.length} corretas.`;
+            } else {
+                score.classList.add('is-warning');
+                score.innerHTML = `<strong>${correct}/${inputs.length} corretas.</strong> Reveja os itens destacados.`;
             }
-        };
-
-        window.resetListening = function() {
-            document.querySelectorAll('.listening-input').forEach(i => {
-                i.value = ''; i.classList.remove('correct', 'incorrect');
-            });
-            const score = document.getElementById('listening-score');
-            if (score) score.classList.add('hidden');
-        };
-
-        // ============================================================
-        // MUSIC / LYRICS
-        // ============================================================
-        const lyricsData = [
-            { text: "I don't drink coffee I take tea my dear", blank: null },
-            { text: 'I ', blank: 'like', suffix: ' my toast done on one side' },
-            { text: 'And you can hear it in my accent when I talk', blank: null },
-            { text: "I'm an Englishman in New ", blank: 'York' },
-            { text: '', blank: null, emptyLine: true },
-            { text: "Oh, I'm an alien, I'm a legal alien", blank: null },
-            { text: "I'm an Englishman in New York", blank: null },
-            { text: "Oh, I'm an alien, I'm a legal alien", blank: null },
-            { text: "I'm an ", blank: 'Englishman', suffix: ' in New York' },
+        }
+        document.getElementById('check-builder-btn')?.addEventListener('click', checkBuilder);
+        document.getElementById('reset-builder-btn')?.addEventListener('click', resetBuilder);
+        const qaItems = [
+            { prompt: 'She is from Brazil.', options: ['Where is she from?', 'Is she Brazil?', 'What are she from?'], answer: 'Where is she from?', explanation: 'Use Where + is + she + from para perguntar origem.' },
+            { prompt: 'He is Japanese.', options: ['Where is he from?', 'How is he?', 'Are he from?'], answer: 'Where is he from?', explanation: 'A pergunta certa para país e nacionalidade continua sendo Where is he from?' },
+            { prompt: 'Where is he from?', options: ['He is from Canada.', 'He are from Canada.', 'He from Canada.'], answer: 'He is from Canada.', explanation: 'No A1, a resposta completa e segura é sujeito + is + from + país.' }
         ];
-
-        const lyricsContainer = document.getElementById('lyrics-container');
-        if (lyricsContainer) {
-            lyricsContainer.innerHTML = lyricsData.map((line, i) => {
-                if (line.emptyLine) return '<br>';
-                if (!line.blank) return `<p class="text-gray-700">${line.text}</p>`;
-                return `<p class="flex items-center flex-wrap gap-1">
-                    <span>${line.text}</span>
-                    <input data-answer="${line.blank}" data-index="${i}" class="lyric-input" placeholder="...">
-                    <button onclick="revealLyric(${i})" class="text-amber-400 hover:text-amber-600 ml-1" title="Revelar"><i class="fas fa-lightbulb"></i></button>
-                    ${line.suffix ? `<span>${line.suffix}</span>` : ''}
-                </p>`;
-            }).join('');
+        const qaActivity = document.getElementById('qa-activity');
+        if (qaActivity) {
+            qaActivity.innerHTML = qaItems.map((item, index) => `
+                <div class="activity-card">
+                    <div class="flex items-start justify-between gap-4 flex-wrap">
+                        <div>
+                            <p class="lesson-panel-title mb-2">Item ${index + 1}</p>
+                            <p class="text-xl font-semibold text-slate-800">${item.prompt}</p>
+                        </div>
+                        <button class="reveal-chip" type="button" data-reveal-qa="${index}"><i class="fas fa-lightbulb"></i> Revelar</button>
+                    </div>
+                    <div class="choice-group mt-4">
+                        ${item.options.map((option) => `<button type="button" class="choice-btn" data-qa-index="${index}" data-qa-value="${option}">${option}</button>`).join('')}
+                    </div>
+                    <p class="text-sm text-slate-500 mt-4 hidden" data-qa-feedback="${index}"></p>
+                </div>
+            `).join('');
+        }
+        function resolveQa(index, chosenValue, revealOnly = false) {
+            const item = qaItems[index];
+            const buttons = document.querySelectorAll(`[data-qa-index="${index}"]`);
+            const feedback = document.querySelector(`[data-qa-feedback="${index}"]`);
+            buttons.forEach((button) => {
+                button.disabled = true;
+                const isCorrect = button.dataset.qaValue === item.answer;
+                button.classList.remove('is-correct', 'is-incorrect');
+                if (isCorrect) button.classList.add('is-correct');
+                if (!revealOnly && button.dataset.qaValue === chosenValue && !isCorrect) button.classList.add('is-incorrect');
+            });
+            if (feedback) {
+                feedback.classList.remove('hidden');
+                feedback.textContent = item.explanation;
+            }
+        }
+        const trueFalseData = [
+            { text: 'Adele is British.', answer: true },
+            { text: 'Keanu Reeves is from Australia.', answer: false },
+            { text: 'Gisele Bündchen is Brazilian.', answer: true }
+        ];
+        const trueFalseContainer = document.getElementById('true-false-container');
+        if (trueFalseContainer) {
+            trueFalseContainer.innerHTML = trueFalseData.map((item, i) => `<div class="bg-slate-50 p-5 rounded-xl"><div class="flex items-start justify-between gap-4 flex-wrap"><p class="mb-4 font-semibold">${i + 1}. ${item.text}</p><button class="reveal-chip" type="button" data-reveal-tf="${i}"><i class="fas fa-lightbulb"></i> Revelar</button></div><div class="flex justify-center gap-4"><button class="true-false-btn" data-index="${i}" data-value="true">True</button><button class="true-false-btn" data-index="${i}" data-value="false">False</button></div></div>`).join('');
+        }
+        function resolveTrueFalse(index, choiceValue, revealOnly = false) {
+            const correct = trueFalseData[index].answer;
+            const buttons = document.querySelectorAll(`.true-false-btn[data-index="${index}"]`);
+            buttons.forEach((button) => {
+                button.disabled = true;
+                const value = button.dataset.value === 'true';
+                button.classList.remove('correct', 'incorrect');
+                if (value === correct) button.classList.add('correct');
+                if (!revealOnly && button.dataset.value === choiceValue && value !== correct) button.classList.add('incorrect');
+            });
         }
 
-        window.checkLyrics = function() {
-            const inputs = document.querySelectorAll('.lyric-input');
+        function revealListening(index) {
+            const input = document.querySelector(`.listening-input[data-listening-index="${index}"]`);
+            if (!input) return;
+            input.value = input.dataset.answer;
+            input.classList.remove('correct', 'incorrect');
+            input.classList.add('revealed');
+        }
+        function checkListening() {
+            const inputs = document.querySelectorAll('.listening-input');
             let correct = 0;
-            inputs.forEach(input => {
-                if (input.disabled) return;
+            inputs.forEach((input) => {
                 const user = input.value.trim().toLowerCase();
-                const ans = input.dataset.answer.toLowerCase();
+                const answer = input.dataset.answer.toLowerCase();
                 input.classList.remove('correct', 'incorrect');
                 if (!user) return;
-                if (user === ans) { input.classList.add('correct'); correct++; }
-                else { input.classList.add('incorrect'); }
+                if (user === answer) { input.classList.add('correct'); correct++; } else { input.classList.add('incorrect'); }
             });
-            const scoreEl = document.getElementById('lyrics-score');
-            const total = document.querySelectorAll('.lyric-input').length;
-            if (scoreEl) scoreEl.textContent = `${correct} de ${total} corretas`;
-        };
+            const score = document.getElementById('listening-score');
+            if (!score) return;
+            score.classList.remove('hidden');
+            score.className = `mt-4 text-lg font-bold p-4 rounded-xl ${correct === 2 ? 'bg-green-100 text-green-800' : 'bg-orange-100 text-orange-800'}`;
+            score.textContent = correct === 2 ? 'Perfeito! As respostas corretas são Canada / No.' : `${correct}/2 corretas. Escute novamente e ajuste a resposta.`;
+        }
+        function resetListening() {
+            document.querySelectorAll('.listening-input').forEach((input) => { input.value = ''; input.classList.remove('correct', 'incorrect', 'revealed'); });
+            const score = document.getElementById('listening-score');
+            if (score) score.classList.add('hidden');
+        }
+        document.getElementById('check-listening-btn')?.addEventListener('click', checkListening);
+        document.getElementById('reset-listening-btn')?.addEventListener('click', resetListening);
 
-        window.revealLyric = function(index) {
+        const lyricsData = [
+            { text: 'I do not drink coffee, I take', blank: 'tea' },
+            { text: 'I like my toast done on one', blank: 'side' },
+            { text: 'And you can hear it in my accent when I', blank: 'talk' },
+            { text: "I am an Englishman in New", blank: 'York' }
+        ];
+        const lyricsContainer = document.getElementById('lyrics-container');
+        if (lyricsContainer) {
+            lyricsContainer.innerHTML = lyricsData.map((line, i) => `<p class="flex items-center flex-wrap gap-1"><span>${line.text}</span><input data-answer="${line.blank}" data-index="${i}" class="lyric-input" placeholder="..."><button class="answer-btn" data-reveal-lyric="${i}" title="Revelar"><i class="fas fa-lightbulb text-amber-400"></i></button></p>`).join('');
+        }
+        function revealLyric(index) {
             const input = document.querySelector(`.lyric-input[data-index="${index}"]`);
             if (!input) return;
             input.value = input.dataset.answer;
             input.classList.remove('correct', 'incorrect');
             input.classList.add('revealed');
             input.disabled = true;
-        };
-
-        window.revealAllLyrics = function() {
-            document.querySelectorAll('.lyric-input').forEach(input => revealLyric(parseInt(input.dataset.index)));
-        };
-
+        }
+        function checkLyrics() {
+            const inputs = document.querySelectorAll('.lyric-input');
+            let correct = 0;
+            let total = 0;
+            inputs.forEach((input) => {
+                if (input.disabled) return;
+                const user = input.value.trim().toLowerCase();
+                const answer = input.dataset.answer.toLowerCase();
+                input.classList.remove('correct', 'incorrect');
+                if (!user) return;
+                total++;
+                if (user === answer) { input.classList.add('correct'); correct++; } else { input.classList.add('incorrect'); }
+            });
+            const scoreEl = document.getElementById('lyrics-score');
+            if (scoreEl && total > 0) scoreEl.textContent = `${correct} de ${document.querySelectorAll('.lyric-input').length} corretas`;
+        }
+        document.addEventListener('click', (event) => {
+            const qaBtn = event.target.closest('[data-qa-index]');
+            if (qaBtn) {
+                resolveQa(parseInt(qaBtn.dataset.qaIndex, 10), qaBtn.dataset.qaValue);
+                return;
+            }
+            const revealQaBtn = event.target.closest('[data-reveal-qa]');
+            if (revealQaBtn) {
+                resolveQa(parseInt(revealQaBtn.dataset.revealQa, 10), '', true);
+                return;
+            }
+            const tfBtn = event.target.closest('.true-false-btn');
+            if (tfBtn) {
+                resolveTrueFalse(parseInt(tfBtn.dataset.index, 10), tfBtn.dataset.value);
+                return;
+            }
+            const revealTfBtn = event.target.closest('[data-reveal-tf]');
+            if (revealTfBtn) {
+                resolveTrueFalse(parseInt(revealTfBtn.dataset.revealTf, 10), '', true);
+                return;
+            }
+            const revealBuilderBtn = event.target.closest('[data-reveal-builder]');
+            if (revealBuilderBtn) {
+                const [index, part] = revealBuilderBtn.dataset.revealBuilder.split('-');
+                revealBuilder(parseInt(index, 10), parseInt(part, 10));
+                return;
+            }
+            const revealBtn = event.target.closest('[data-reveal-lyric]');
+            if (!revealBtn) return;
+            revealLyric(parseInt(revealBtn.dataset.revealLyric, 10));
+        });
+        document.addEventListener('click', (event) => {
+            const revealBtn = event.target.closest('[data-reveal-practice]');
+            if (!revealBtn) return;
+            revealPractice(parseInt(revealBtn.dataset.revealPractice, 10));
+        });
+        document.addEventListener('click', (event) => {
+            const revealBtn = event.target.closest('[data-reveal-listening]');
+            if (!revealBtn) return;
+            revealListening(parseInt(revealBtn.dataset.revealListening, 10));
+        });
+        document.getElementById('check-lyrics-btn')?.addEventListener('click', checkLyrics);
+        document.getElementById('reveal-all-lyrics-btn')?.addEventListener('click', () => document.querySelectorAll('.lyric-input').forEach((input) => revealLyric(parseInt(input.dataset.index, 10))));
     });
     </script>
     <script src="../js/lesson-flashcard-save.js"></script>
+    <script src="a1-lesson-theme.js"></script>
 </body>
 </html>

@@ -41,7 +41,7 @@ async function markLessonAsComplete(moduleId, lessonId) {
     await updateStudentData(studentId, progressUpdate);
     alert("Parabéns! Você concluiu a lição!");
     
-    // ⭐ LÓGICA DE REDIRECIONAMENTO GENÉRICO ⭐
+    // ? L?"GICA DE REDIRECIONAMENTO GEN??RICO ?
     // Esta parte do código vai funcionar para todos os módulos
     // que seguem a mesma estrutura de pastas.
     
@@ -66,7 +66,7 @@ async function markLessonAsComplete(moduleId, lessonId) {
 
 function getLessonContextFromPath() {
   const path = window.location.pathname.replace(/\\/g, '/');
-  const match = path.match(/\/(conversation|a1|a2)\/licao-(\d+)\.html$/i);
+  const match = path.match(/\/([a-z0-9-]+)\/licao-(\d+)\.html$/i);
   if (!match) return null;
 
   return {

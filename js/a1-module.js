@@ -1,28 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Configuração do Firebase ---
-    const firebaseConfig = {
-        apiKey: "AIzaSyA4srp5nACEhOLLD8Yd4cwe5_rZ8izcm1Y",
-        authDomain: "inglesnoseuritmo-bae14.firebaseapp.com",
-        projectId: "inglesnoseuritmo-bae14",
-        storageBucket: "inglesnoseuritmo-bae14.appspot.com",
-        messagingSenderId: "112615489735",
-        appId: "1:112615489735:web:9ee215ab9a2246f3a13ee2"
-    };
-    if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
-    const db = firebase.firestore();
+    const db = typeof window.db !== 'undefined' ? window.db : firebase.firestore();
 
     const loadingDiv = document.getElementById('loading');
     const grid = document.getElementById('lessons-grid');
 
-    // Títulos de todas as 32 lições do A1
+    // Títulos alinhados com a grade oficial do módulo A1 em a1/a1.html
     const lessonTitles = [
-        "Hello, World!", "Where Are You From?", "My World", "Alphabet & Numbers", "Contact Information", 
-        "Everyday Objects", "This or That?", "Review 1", "My Daily Routine", "His/Her Routine", 
-        "Do You Like Music?", "I Don't Like That", "Object Pronouns", "How Often?", "What Time Is It?", 
-        "Review 2", "Possessive 's'", "My Family", "Describing People", "There is/There are", 
-        "A/An, Some, Any", "How Much/How Many?", "In, On, At", "Review 3", "Was/Were", 
-        "Simple Past", "Past of To Be", "More Verbs in Past", "Yesterday?", "Questions in the Past", 
-        "Future Plans", "Final Review"
+        "Hello, World!", "Where Are You From?", "My World", "The Alphabet & Numbers", "Contact Information",
+        "Everyday Objects", "This or That?", "Review (Module 1)", "My Daily Routine", "His/Her Routine",
+        "Do You Like Music?", "I Don't Like That", "Object Pronouns", "How Often?", "What Time Is It?",
+        "Review (Module 2)", "Possessive 's'", "My Job", "My House", "Where Is the Bank?",
+        "How much / many?", "A little / a few", "Can / Can't", "What Are You Doing?",
+        "Simple Present vs. Continuous", "Review (Module 3)", "Where Were You Born?", "What Did You Do Yesterday?",
+        "Questions in the Past", "Future Plans", "Final Review", "Final Project"
     ];
 
     async function loadLessons() {
@@ -43,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const doc = await db.collection('students').doc(studentId).get();
             
-            // *** CORREÇÃO APLICADA AQUI ***
+            // *** CORRE???fO APLICADA AQUI ***
             const allProgress = doc.exists && doc.data().progress ? doc.data().progress : {};
             const progress = allProgress.a1 || {};
             

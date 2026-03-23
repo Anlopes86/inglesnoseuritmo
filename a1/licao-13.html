@@ -10,6 +10,7 @@
     <style>
         body { font-family: 'Inter', sans-serif; } .slide { display: none; } .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; } @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } } .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; } .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; } .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; } .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); } .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; } .flashcard-front { background-color: white; color: #7c3aed; text-align: center;} .flashcard-back { background-color: #7c3aed; color: white; transform: rotateY(180deg); text-align: center; } .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; } .answer-btn:hover { color: #4f46e5; }
     </style>
+    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
 <body class="bg-gray-50 text-gray-800">
 
@@ -73,7 +74,7 @@
                     </table>
                      <div class="mt-6 bg-purple-100 border-l-4 border-purple-500 text-purple-800 p-4 text-left rounded-r-lg">
                         <h4 class="font-bold text-xl mb-2">The Golden Rule:</h4>
-                        <p>• <strong>Subject Pronouns</strong> (I, he, she...) vêm <strong>antes</strong> do verbo. Eles fazem a ação.<br>• <strong>Object Pronouns</strong> (me, him, her...) vêm <strong>depois</strong> do verbo. Eles recebem a ação.</p>
+                        <p>??? <strong>Subject Pronouns</strong> (I, he, she...) vêm <strong>antes</strong> do verbo. Eles fazem a ação.<br>??? <strong>Object Pronouns</strong> (me, him, her...) vêm <strong>depois</strong> do verbo. Eles recebem a ação.</p>
                         <p class="mt-2">Ex: <strong class="text-blue-600">She</strong> helps <strong class="text-purple-600">me</strong>. (Ela me ajuda.)</p>
                     </div>
                 </div>
@@ -114,7 +115,7 @@
             <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                 <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/47Slg6LuqLaX0VodpSCvPt?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 <div class="mt-4">
-                    <p class="text-2xl mb-4 text-gray-600">Ouça a música e revele as palavras que faltam.</p>
+                    <p class="text-2xl mb-4 text-gray-600">Ouça a mésica e revele as palavras que faltam.</p>
                     <div class="text-xl space-y-3 bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
                          <p>Oh, her eyes, her eyes</p>
                          <p>Make the stars look like they're not shinin'</p>
@@ -172,24 +173,12 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- CONFIGURAÇÃO DA LIÇÃO ---
+            // --- CONFIGURA???fO DA LIÇÃO ---
             const moduleId = 'a1';
             const lessonNumber = 13;
             // ---------------------------------------------------------
 
             const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            if (finishLessonBtn) {
-                finishLessonBtn.addEventListener('click', () => {
-                    finishLessonBtn.disabled = true;
-                    finishLessonBtn.textContent = "Salvando...";
-                    if (typeof markLessonAsComplete === 'function') {
-                        markLessonAsComplete(moduleId, lessonNumber); 
-                    } else {
-                        console.error("A função markLessonAsComplete não foi encontrada.");
-                        alert("Erro ao salvar progresso.");
-                    }
-                });
-            }
 
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
@@ -216,9 +205,9 @@
             if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
             if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
             
-            // ### CÓDIGO CORRIGIDO E ADICIONADO ABAIXO ###
+            // ### C?"DIGO CORRIGIDO E ADICIONADO ABAIXO ###
             
-            // 1. ATIVAÇÃO DOS FLASHCARDS E BOTÕES DE RESPOSTA
+            // 1. ATIVA???fO DOS FLASHCARDS E BOT?.ES DE RESPOSTA
             document.querySelectorAll('.flashcard').forEach(card => {
                 card.addEventListener('click', () => card.classList.toggle('flipped'));
             });
@@ -233,7 +222,7 @@
                 });
             });
 
-            // 2. LÓGICA DA ATIVIDADE "LET'S PRACTICE" (RESTAURADA)
+            // 2. L?"GICA DA ATIVIDADE "LET'S PRACTICE" (RESTAURADA)
             const practiceContainer = document.getElementById('practice-1');
             const practiceItems = [
                 { text: "She likes (he). -> She likes ____.", answer: "him" },
@@ -275,5 +264,10 @@
 
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
+    <script src="a1-lesson-theme.js"></script>
 </body>
 </html>
+
+
+
+

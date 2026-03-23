@@ -17,6 +17,7 @@
         input.incorrect { background-color: #fef2f2; border-color: #ef4444; }
         input { transition: all 0.3s; }
     </style>
+    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
 <body class="bg-gray-50 text-gray-800">
 
@@ -181,7 +182,7 @@
                     <p class="text-xl mb-6 text-gray-600">Apresente o texto que você preparou na última aula sobre sua vida, rotina, o que fez no passado e seus planos para o futuro.</p>
                      <div class="bg-violet-50 p-6 rounded-lg mt-8 text-left">
                         <h3 class="font-bold text-xl text-violet-800"><i class="fas fa-chalkboard-teacher mr-2"></i> Teacher's Corner</h3>
-                        <p class="mt-2 text-gray-700">Após a apresentação, inicie uma conversa com perguntas como:</p>
+                        <p class="mt-2 text-gray-700">Apés a apresentação, inicie uma conversa com perguntas como:</p>
                         <ul class="list-disc list-inside mt-2 space-y-1 text-gray-600">
                             <li>Tell me more about [hobby]. Why do you like it?</li>
                             <li>What was the best part of your last weekend?</li>
@@ -196,10 +197,10 @@
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-violet-700"><i class="fas fa-rocket text-cyan-500"></i> What's Next? Your Journey to A2!</h2>
                 <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Sua jornada no inglês está apenas começando. No módulo A2, você vai aprender:</p>
+                    <p class="text-xl mb-6 text-gray-600">Sua jornada no inglés está apenas começando. No módulo A2, você vai aprender:</p>
                     <div class="text-left text-lg space-y-2 mt-4 bg-gray-50 p-6 rounded-lg">
                         <ul class="list-disc list-inside space-y-2">
-                             <li><strong class="text-blue-600">Irregular Verbs in the Past:</strong> go → went, eat → ate, see → saw.</li>
+                             <li><strong class="text-blue-600">Irregular Verbs in the Past:</strong> go ??' went, eat ??' ate, see ??' saw.</li>
                             <li><strong class="text-green-600">Comparatives & Superlatives:</strong> "bigger than", "the best".</li>
                             <li><strong class="text-red-600">More Future Tenses:</strong> Falar sobre o futuro com "will".</li>
                             <li><strong class="text-cyan-600">Making Polite Requests:</strong> "Would you like...".</li>
@@ -236,6 +237,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
     <script src="../js/progress-manager.js"></script>
+    <script src="a1-lesson-theme.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const moduleId = 'a1';
@@ -263,19 +265,6 @@
 
             if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
             if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            
-            if (finishLessonBtn) {
-                finishLessonBtn.addEventListener('click', () => {
-                    finishLessonBtn.disabled = true;
-                    finishLessonBtn.textContent = "Salvando...";
-                    if (typeof markLessonAsComplete === 'function') {
-                        markLessonAsComplete(moduleId, lessonNumber);
-                    } else {
-                        console.error("Função markLessonAsComplete não encontrada.");
-                        alert("Erro ao salvar progresso.");
-                    }
-                });
-            }
 
             window.checkAnswers = function(container) {
                 container.querySelectorAll('input[data-answer]').forEach(input => {
@@ -296,3 +285,5 @@
     </script>
 </body>
 </html>
+
+
