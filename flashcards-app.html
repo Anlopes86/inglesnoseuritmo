@@ -81,12 +81,28 @@
             width: 42px; height: 42px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 12px; transition: all 0.2s;
         }
 
+        .status-panel {
+            width: 100%;
+            max-width: 420px;
+            border: 2px dashed #334155;
+            border-radius: 2rem;
+            padding: 1.5rem;
+            text-align: center;
+            color: #94a3b8;
+            background: rgba(15, 23, 42, 0.55);
+        }
+
         .hidden { display: none; }
     </style>
 </head>
 <body>
 
     <div id="screen-menu" class="container mx-auto px-6 py-12">
+        <div class="max-w-4xl mx-auto flex justify-start mb-8">
+            <a id="menu-back-link" href="home-aluno.html" class="inline-flex items-center gap-2 text-slate-400 hover:text-yellow-400 font-bold uppercase text-[10px] tracking-[4px] transition-colors">
+                <i class="fas fa-arrow-left"></i> Voltar ao Portal
+            </a>
+        </div>
         <div class="text-center mb-12">
             <div class="inline-block p-4 bg-yellow-400/10 rounded-full mb-4"><i class="fas fa-bolt text-yellow-400 text-5xl"></i></div>
             <h1 class="text-4xl font-black italic tracking-tighter uppercase">Flash-English</h1>
@@ -139,12 +155,17 @@
     <div id="screen-app" class="hidden flex flex-col min-h-screen">
         <header class="px-3 bg-slate-900/50 backdrop-blur-lg border-b border-slate-800 sticky top-0 z-40">
             <div class="flex gap-1.5">
-                <a href="home-aluno.html" class="header-btn-square bg-red-500/10 text-red-500 border border-red-500/20 shadow-lg">
+                <a id="app-close-link" href="home-aluno.html" class="header-btn-square bg-red-500/10 text-red-500 border border-red-500/20 shadow-lg" title="Voltar para a área do aluno">
                     <i class="fas fa-times"></i>
                 </a>
-                <button onclick="location.reload()" class="header-btn-square bg-slate-800 text-slate-400 shadow-lg">
+                <button onclick="returnToDeckMenu()" class="header-btn-square bg-slate-800 text-slate-400 shadow-lg" title="Voltar ao menu de decks">
                     <i class="fas fa-th-large"></i>
                 </button>
+            </div>
+
+            <div class="flex-1 min-w-0 px-2">
+                <p id="active-deck-label" class="text-[10px] uppercase tracking-[4px] text-slate-500 font-black truncate text-center">Selecione um deck</p>
+                <p id="active-deck-meta" class="text-[11px] text-slate-400 truncate text-center">Cards prontos para revisar</p>
             </div>
 
             <div class="flex items-center gap-1.5">
@@ -157,12 +178,15 @@
                     <option value="medium">MÉDIO</option>
                     <option value="easy">FÁCIL</option>
                 </select>
-                <select id="lessonFilter" onchange="filterAndShow()" class="custom-select-ui"></select>
+                <select id="lessonFilter" onchange="filterAndShow()" class="custom-select-ui">
+                    <option value="all">LIÇÕES</option>
+                </select>
             </div>
         </header>
 
         <main class="flex-grow flex flex-col items-center justify-center p-6">
             <div id="card-display" class="w-full flex justify-center relative"></div>
+            <div id="app-status" class="status-panel hidden mt-4"></div>
             
             <div id="practice-area" class="hidden w-full max-w-[400px] mt-8 space-y-4">
                 <input type="text" id="answer-input" 
@@ -231,8 +255,57 @@
 
     <script>
         let currentDB = []; let filteredDB = []; let currentCard = null; let previousCard = null; let moduleActive = '';
-        let ratings = {}; let isPracticeMode = false;
+        let ratings = {}; let isPracticeMode = false; let isDeckLoading = false;
         let cardToDeleteId = null;
+        const deckLabels = {
+            AULAS_CONV: 'Aulas de Conversação',
+            A1: 'Módulo A1 / A2',
+            TRAVEL: 'Viagem',
+            RESTAURANT: 'Restaurante',
+            VOC_CONV: 'Vocabulário',
+            CUSTOM: 'Meus Cards & Favoritos'
+        };
+
+        function getCardKey(card) {
+            if (!card) return '';
+            return card.id || btoa(unescape(encodeURIComponent(`${card.l}::${card.f}`))).replace(/=/g, '').substring(0, 40);
+        }
+
+        function setHeaderDeckState(title, meta) {
+            const titleEl = document.getElementById('active-deck-label');
+            const metaEl = document.getElementById('active-deck-meta');
+            if (titleEl) titleEl.textContent = title;
+            if (metaEl) metaEl.textContent = meta;
+        }
+
+        function setAppStatus(message, tone = 'default') {
+            const panel = document.getElementById('app-status');
+            if (!panel) return;
+            panel.classList.remove('hidden');
+            panel.className = 'status-panel mt-4';
+            if (tone === 'error') panel.classList.add('border-red-500', 'text-red-300', 'bg-red-500/10');
+            if (tone === 'loading') panel.classList.add('border-blue-500', 'text-blue-300', 'bg-blue-500/10');
+            if (tone === 'empty') panel.classList.add('border-yellow-500', 'text-yellow-300', 'bg-yellow-500/10');
+            panel.innerHTML = message;
+        }
+
+        function clearAppStatus() {
+            const panel = document.getElementById('app-status');
+            if (!panel) return;
+            panel.classList.add('hidden');
+            panel.textContent = '';
+        }
+
+        function returnToDeckMenu() {
+            if (isDeckLoading) return;
+            document.getElementById('screen-app').classList.add('hidden');
+            document.getElementById('screen-menu').classList.remove('hidden');
+            document.getElementById('btnAddCard').classList.add('hidden');
+            document.getElementById('diffFilter').value = 'all';
+            document.getElementById('lessonFilter').innerHTML = '<option value="all">LIÇÕES</option>';
+            clearAppStatus();
+            setHeaderDeckState('Selecione um deck', 'Cards prontos para revisar');
+        }
 
         function speak(text) {
             const utterance = new SpeechSynthesisUtterance(text);
@@ -267,10 +340,16 @@
 
         async function startApp(module) {
             if(!firebase.auth().currentUser) { location.href='login.html'; return; }
+            if (isDeckLoading) return;
+            isDeckLoading = true;
             moduleActive = module; currentDB = []; previousCard = null;
             document.getElementById('btnBack').classList.add('hidden');
             document.getElementById('screen-menu').classList.add('hidden');
             document.getElementById('screen-app').classList.remove('hidden');
+            document.getElementById('diffFilter').disabled = true;
+            document.getElementById('lessonFilter').disabled = true;
+            setHeaderDeckState(deckLabels[module] || 'Flashcards', 'Carregando cards...');
+            setAppStatus('<i class="fas fa-spinner fa-spin mr-2"></i>Carregando cards...', 'loading');
             await loadRatingsFromCloud();
             if (module === 'CUSTOM') {
                 document.getElementById('btnAddCard').classList.remove('hidden');
@@ -280,9 +359,13 @@
                 if (module === 'AULAS_CONV') await loadHTMLModule();
                 else await loadJSModule(module);
             }
+            currentDB = currentDB.map(card => ({ ...card, key: getCardKey(card) }));
             if(isPracticeMode) document.getElementById('practice-area').classList.remove('hidden');
             else document.getElementById('practice-area').classList.add('hidden');
             populateLessons(); filterAndShow();
+            document.getElementById('diffFilter').disabled = false;
+            document.getElementById('lessonFilter').disabled = false;
+            isDeckLoading = false;
         }
 
         function cleanText(text) {
@@ -332,13 +415,15 @@
         function renderCurrentCard() {
             const display = document.getElementById('card-display');
             if (filteredDB.length === 0) {
-                display.innerHTML = "<div class='text-slate-600 text-center p-16 border-4 border-dashed border-slate-800 rounded-[3rem] font-bold uppercase'>Vazio</div>";
+                display.innerHTML = "";
+                setAppStatus('Nenhum card encontrado para esse filtro. Tente mudar a lição ou a dificuldade.', 'empty');
                 document.getElementById('rating-controls').classList.add('hidden');
                 document.getElementById('btnNext').classList.add('hidden');
                 document.getElementById('btnBack').classList.add('hidden');
                 return;
             }
-            const diffClass = ratings[currentCard.f] ? `diff-${ratings[currentCard.f]}` : '';
+            clearAppStatus();
+            const diffClass = ratings[currentCard.key] ? `diff-${ratings[currentCard.key]}` : '';
             const input = document.getElementById('answer-input');
             if(input) {
                 input.value = "";
@@ -375,29 +460,174 @@
         function toggleModal(show) { document.getElementById('modal-custom').classList.toggle('hidden', !show); }
         function openModalForNew() { document.getElementById('modalTitle').innerText = "Novo Card"; document.getElementById('custFront').value = ""; document.getElementById('custBack').value = ""; document.getElementById('custCat').value = ""; toggleModal(true); }
         function openModalForFavorite() { document.getElementById('modalTitle').innerText = "Favoritar Card"; document.getElementById('custFront').value = currentCard.f; document.getElementById('custBack').value = currentCard.b; document.getElementById('custCat').value = "FAVORITOS"; toggleModal(true); }
-        async function saveCustomCard() { const user = firebase.auth().currentUser; const f = document.getElementById('custFront').value.trim(); const b = document.getElementById('custBack').value.trim(); const l = document.getElementById('custCat').value.trim() || "GERAL"; if(!f || !b) return; await db.collection('users').doc(user.uid).collection('myCards').add({ f, b, l }); toggleModal(false); if(moduleActive === 'CUSTOM') { await loadCustomCardsFromCloud(); filterAndShow(); } }
+        async function saveCustomCard() {
+            const user = firebase.auth().currentUser;
+            const f = document.getElementById('custFront').value.trim();
+            const b = document.getElementById('custBack').value.trim();
+            const l = document.getElementById('custCat').value.trim() || "GERAL";
+            if(!f || !b) {
+                setAppStatus('Preencha frente e verso antes de salvar o card.', 'error');
+                return;
+            }
+            try {
+                await db.collection('users').doc(user.uid).collection('myCards').add({ f, b, l });
+                toggleModal(false);
+                clearAppStatus();
+                if(moduleActive === 'CUSTOM') {
+                    await loadCustomCardsFromCloud();
+                    currentDB = currentDB.map(card => ({ ...card, key: getCardKey(card) }));
+                    filterAndShow();
+                }
+            } catch (error) {
+                console.error(error);
+                setAppStatus('Não foi possível salvar este card agora.', 'error');
+            }
+        }
         function deleteSingleCard(id) { cardToDeleteId = id; document.getElementById('modal-confirm').classList.remove('hidden'); }
         function closeConfirmModal() { document.getElementById('modal-confirm').classList.add('hidden'); cardToDeleteId = null; }
-        document.getElementById('confirm-delete-btn').onclick = async function() { if (cardToDeleteId) { const user = firebase.auth().currentUser; try { await db.collection('users').doc(user.uid).collection('myCards').doc(cardToDeleteId).delete(); currentDB = currentDB.filter(c => c.id !== cardToDeleteId); closeConfirmModal(); filterAndShow(); } catch (e) { console.error(e); closeConfirmModal(); } } };
+        document.getElementById('confirm-delete-btn').onclick = async function() {
+            if (cardToDeleteId) {
+                const user = firebase.auth().currentUser;
+                try {
+                    await db.collection('users').doc(user.uid).collection('myCards').doc(cardToDeleteId).delete();
+                    currentDB = currentDB.filter(c => c.id !== cardToDeleteId);
+                    closeConfirmModal();
+                    clearAppStatus();
+                    filterAndShow();
+                } catch (e) {
+                    console.error(e);
+                    closeConfirmModal();
+                    setAppStatus('Não foi possível excluir este card agora.', 'error');
+                }
+            }
+        };
 
-        async function loadRatingsFromCloud() { const user = firebase.auth().currentUser; const snap = await db.collection('users').doc(user.uid).collection('ratings').get(); ratings = {}; snap.forEach(doc => { ratings[doc.id] = doc.data().level; }); }
-        async function loadCustomCardsFromCloud() { const user = firebase.auth().currentUser; const snap = await db.collection('users').doc(user.uid).collection('myCards').get(); currentDB = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })); }
-        async function loadHTMLModule() { for (let i = 1; i <= 32; i++) { const num = i.toString().padStart(2, '0'); try { const r = await fetch(`conversation/licao-${num}.html`); if (r.ok) { const html = await r.text(); const doc = new DOMParser().parseFromString(html, 'text/html'); doc.querySelectorAll('.flashcard').forEach(card => { let f = card.querySelector('.flashcard-front h4')?.innerText || card.querySelector('.flashcard-front')?.innerText; let b = card.querySelector('.flashcard-back p')?.innerText || card.querySelector('.flashcard-back')?.innerText; if (f && b) currentDB.push({ f: f.trim(), b: b.trim(), l: `Lição ${num}` }); }); } } catch (e) {} } }
-        async function loadJSModule(m) { 
-            const files = { 'A1': 'js/vocabulary.js', 'VOC_CONV': 'js/conversation-vocabulary.js', 'TRAVEL': 'js/travel-vocabulary.js', 'RESTAURANT': 'js/restaurant-vocabulary.js' }; 
-            try { const r = await fetch(files[m]); const t = await r.text(); const j = new Function(`return ${t.substring(t.indexOf('{'), t.lastIndexOf('}') + 1)}`)(); for (let id in j) { j[id].words?.forEach(w => currentDB.push({ f: w.english, b: w.portuguese, l: id })); } } catch (e) { console.error(e); } 
+        async function loadRatingsFromCloud() {
+            const user = firebase.auth().currentUser;
+            const snap = await db.collection('users').doc(user.uid).collection('ratings').get();
+            ratings = {};
+            snap.forEach(doc => { ratings[doc.id] = doc.data().level; });
+        }
+
+        async function loadCustomCardsFromCloud() {
+            const user = firebase.auth().currentUser;
+            const snap = await db.collection('users').doc(user.uid).collection('myCards').get();
+            currentDB = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        }
+        async function loadHTMLModule() {
+            let hasAnyCard = false;
+            for (let i = 1; i <= 32; i++) {
+                const num = i.toString().padStart(2, '0');
+                try {
+                    const r = await fetch(`conversation/licao-${num}.html`);
+                    if (r.ok) {
+                        const html = await r.text();
+                        const doc = new DOMParser().parseFromString(html, 'text/html');
+                        doc.querySelectorAll('.flashcard').forEach(card => {
+                            let f = card.querySelector('.flashcard-front h4')?.innerText || card.querySelector('.flashcard-front')?.innerText;
+                            let b = card.querySelector('.flashcard-back p')?.innerText || card.querySelector('.flashcard-back')?.innerText;
+                            if (f && b) {
+                                hasAnyCard = true;
+                                currentDB.push({ f: f.trim(), b: b.trim(), l: `Lição ${num}` });
+                            }
+                        });
+                    }
+                } catch (e) {
+                    console.error(`Erro ao carregar cards da lição ${num}:`, e);
+                }
+            }
+            if (!hasAnyCard) setAppStatus('Não foi possível carregar os cards de Conversação.', 'error');
+        }
+        async function loadJSModule(m) {
+            const files = { 'A1': 'js/vocabulary.js', 'VOC_CONV': 'js/conversation-vocabulary.js', 'TRAVEL': 'js/travel-vocabulary.js', 'RESTAURANT': 'js/restaurant-vocabulary.js' };
+            try {
+                const r = await fetch(files[m]);
+                const t = await r.text();
+                const j = new Function(`return ${t.substring(t.indexOf('{'), t.lastIndexOf('}') + 1)}`)();
+                for (let id in j) {
+                    j[id].words?.forEach(w => currentDB.push({ f: w.english, b: w.portuguese, l: id }));
+                }
+            } catch (e) {
+                console.error(e);
+                setAppStatus('Não foi possível carregar este deck agora.', 'error');
+            }
         }
 
         function filterAndShow() { 
             const lesson = document.getElementById('lessonFilter').value; 
             const diff = document.getElementById('diffFilter').value; 
-            filteredDB = currentDB.filter(d => (lesson === 'all' || d.l === lesson) && (diff === 'all' || ratings[d.f] === diff)); 
+            filteredDB = currentDB.filter(d => (lesson === 'all' || d.l === lesson) && (diff === 'all' || ratings[d.key] === diff)); 
             currentCard = null; previousCard = null;
             document.getElementById('btnBack').classList.add('hidden');
+            setHeaderDeckState(deckLabels[moduleActive] || 'Flashcards', `${filteredDB.length} cards disponíveis`);
             showRandomCard(); 
         }
-        function populateLessons() { const f = document.getElementById('lessonFilter'); f.innerHTML = '<option value="all">LIÇÕES</option>'; [...new Set(currentDB.map(d => d.l))].sort().forEach(l => { const o = document.createElement('option'); o.value = l; o.innerText = l; f.appendChild(o); }); }
-        async function rateCard(level) { const user = firebase.auth().currentUser; const cardId = btoa(unescape(encodeURIComponent(currentCard.f))).substring(0, 25); ratings[currentCard.f] = level; await db.collection('users').doc(user.uid).collection('ratings').doc(cardId).set({ level }); showRandomCard(); }
+        function populateLessons() {
+            const f = document.getElementById('lessonFilter');
+            f.innerHTML = '<option value="all">LIÇÕES</option>';
+            [...new Set(currentDB.map(d => d.l))].sort().forEach(l => {
+                const o = document.createElement('option');
+                o.value = l;
+                o.innerText = l;
+                f.appendChild(o);
+            });
+        }
+
+        async function rateCard(level) {
+            const user = firebase.auth().currentUser;
+            const cardId = currentCard.key || getCardKey(currentCard);
+            ratings[cardId] = level;
+            try {
+                await db.collection('users').doc(user.uid).collection('ratings').doc(cardId).set({ level });
+            } catch (error) {
+                console.error(error);
+                setAppStatus('Não foi possível salvar a dificuldade deste card.', 'error');
+            }
+            showRandomCard();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const answerInput = document.getElementById('answer-input');
+            const menuBackLink = document.getElementById('menu-back-link');
+            const appCloseLink = document.getElementById('app-close-link');
+
+            if (answerInput) {
+                answerInput.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' && !document.getElementById('btnCheckAnswer').classList.contains('hidden')) {
+                        event.preventDefault();
+                        checkAnswer();
+                    }
+                });
+            }
+
+            firebase.auth().onAuthStateChanged((user) => {
+                if (!user) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                const userRole = localStorage.getItem('loggedInUserRole') || 'aluno';
+                if (menuBackLink) {
+                    if (userRole === 'professor') {
+                        menuBackLink.href = 'index.html';
+                        menuBackLink.innerHTML = '<i class="fas fa-arrow-left"></i> Voltar ao Painel';
+                    } else {
+                        menuBackLink.href = 'home-aluno.html';
+                        menuBackLink.innerHTML = '<i class="fas fa-arrow-left"></i> Voltar ao Portal';
+                    }
+                }
+
+                if (appCloseLink) {
+                    if (userRole === 'professor') {
+                        appCloseLink.href = 'index.html';
+                        appCloseLink.title = 'Voltar ao painel';
+                    } else {
+                        appCloseLink.href = 'home-aluno.html';
+                        appCloseLink.title = 'Voltar ao portal do aluno';
+                    }
+                }
+            });
+        });
     </script>
 </body>
 </html>
