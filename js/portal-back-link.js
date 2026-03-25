@@ -1,0 +1,16 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const backLink = document.querySelector('[data-portal-back]');
+    if (!backLink) return;
+
+    const userRole = localStorage.getItem('loggedInUserRole') || 'aluno';
+    const isProfessor = userRole === 'professor';
+
+    backLink.href = isProfessor ? '../index.html' : '../home-aluno.html';
+
+    for (const node of backLink.childNodes) {
+        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '') {
+            node.textContent = isProfessor ? ' Voltar ao Painel' : ' Voltar ao Portal';
+            break;
+        }
+    }
+});

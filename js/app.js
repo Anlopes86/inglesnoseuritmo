@@ -30,12 +30,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const packageDateDisplay = document.getElementById('package-date-display');
     const noPackageMessage = document.getElementById('no-package-message');
     const packageDetails = document.getElementById('package-details');
+    const packageStatusChip = document.getElementById('package-status-chip');
+    const modulesStatus = document.getElementById('modules-status');
 
     // Elementos do Modal de Novo Pacote
     const newPackageBtn = document.getElementById('new-package-btn');
     const newPackageModal = document.getElementById('new-package-modal');
     const newPackageForm = document.getElementById('new-package-form');
     const cancelPackageBtn = document.getElementById('cancel-package-btn');
+    const closePackageModalBtn = document.getElementById('close-package-modal-btn');
     const confirmPackageBtn = document.getElementById('confirm-package-btn');
     
     // Módulos
@@ -43,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- DADOS DOS MÓDULOS (LISTA COMPLETA) ---
     const modulesData = [
-        // *** CORREÇÃO APLICADA AQUI: O link agora aponta direto para a lição ***
+        // O link aponta direto para a lição inicial.
         { id: 'nivelamento', href: 'nivelamento/licao-01.html', title: 'Teste de Nivelamento', lessons: 0, buttonText: 'Iniciar Teste', icon: 'fa-clipboard-check', color: 'blue', theme: 'from-blue-600 to-indigo-600', description: 'Descubra o ponto de partida ideal para a jornada de aprendizado do aluno.' },
         { id: 'vestibular', href: 'vestibular/vestibular.html', title: 'Dicas para Vestibular', lessons: 0, buttonText: 'Acessar Dicas', icon: 'fa-university', color: 'amber', theme: 'from-yellow-500 to-amber-500', description: 'Conteúdo focado nas principais provas e dicas para maximizar a nota.' },
         { id: 'business', href: 'business/business.html', title: 'Inglês para Negócios', lessons: 0, buttonText: 'Ver Tópicos', icon: 'fa-briefcase', color: 'cyan', theme: 'from-cyan-600 to-blue-600', description: 'Prepare-se para reuniões, apresentações e negociações com confiança.' },
@@ -54,11 +57,33 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'b1', href: 'b1/b1.html', title: 'B1 Intermediate', lessons: 32, buttonText: 'Ver Aulas', icon: 'fa-chart-line', color: 'rose', theme: 'from-rose-600 to-red-600', description: 'Domine o essencial para se comunicar de forma independente e com mais fluidez.' },
         { id: 'b2', href: 'b2/b2.html', title: 'B2 Upper-Intermediate', lessons: 32, buttonText: 'Ver Aulas', icon: 'fa-magnifying-glass-chart', color: 'amber', theme: 'from-amber-600 to-orange-600', description: 'Desenvolva argumentação e compreensão de temas complexos e abstratos.' },
         { id: 'c1', href: 'c1/c1.html', title: 'C1 Advanced', lessons: 32, buttonText: 'Ver Aulas', icon: 'fa-trophy', color: 'sky', theme: 'from-sky-600 to-cyan-600', description: 'Comunicação eficaz para âmbitos sociais, acadêmicos e profissionais.' },
-        { id: 'c2', href: 'c2/c2.html', title: 'C2 Proficiency', lessons: 32, buttonText: 'Ver Aulas', icon: 'fa-crown', color: 'slate', theme: 'from-slate-600 to-gray-600', description: 'Maestria total do idioma, com expressão próxima a de um nativo.' },
+        { id: 'c2', href: 'c2/c2.html', title: 'C2 Proficiency', lessons: 32, buttonText: 'Ver Aulas', icon: 'fa-crown', color: 'slate', theme: 'from-slate-600 to-gray-600', description: 'Maestria total do idioma, com expressão próxima à de um nativo.' },
     ];
 
 
     // --- Autenticação e Carregamento Inicial ---
+    let lastFocusedElement = null;
+
+    function openModal(modal, focusTarget) {
+        if (!modal) return;
+        lastFocusedElement = document.activeElement;
+        modal.classList.remove('hidden');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('overflow-hidden');
+        const target = focusTarget || modal.querySelector('input, select, button, [href]');
+        if (target) target.focus();
+    }
+
+    function closeModal(modal) {
+        if (!modal) return;
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('overflow-hidden');
+        if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+            lastFocusedElement.focus();
+        }
+    }
+
     auth.onAuthStateChanged(user => {
 
     // 🔒 NÃO controlar páginas do A1 Autônomo
@@ -82,6 +107,22 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
     // --- Funções Principais ---
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', async () => {
+            logoutBtn.disabled = true;
+            try {
+                localStorage.removeItem('selectedStudentId');
+                localStorage.removeItem('selectedStudentName');
+                await auth.signOut();
+                window.location.href = 'login.html';
+            } catch (error) {
+                console.error("Erro ao sair:", error);
+                alert("Não foi possível sair da plataforma.");
+                logoutBtn.disabled = false;
+            }
+        });
+    }
+
     function loadStudentsIntoSelect() {
         studentSelect.innerHTML = '<option value="">Carregando...</option>';
         db.collection('students').where('role', '==', 'aluno').onSnapshot(snapshot => {
@@ -102,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 displayNoStudentSelected();
             }
         }, error => {
-            console.error("Erro ao buscar alunos: ", error);
+            console.error("Erro ao buscar alunos:", error);
             studentSelect.innerHTML = '<option value="">Erro ao carregar</option>';
         });
     }
@@ -126,6 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
         studentDashboardDiv.classList.add('hidden');
         noStudentSelectedDiv.classList.remove('hidden');
         studentActionButtons.classList.add('hidden');
+        if (modulesStatus) modulesStatus.textContent = 'Selecione um aluno para carregar os módulos.';
     }
     
     async function displayStudentDashboard(studentId, studentName) {
@@ -133,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
         studentDashboardDiv.classList.remove('hidden');
         studentActionButtons.classList.remove('hidden');
         
-        document.getElementById('student-portal-btn').href = `aluno.html?studentId=${studentId}`;
+        document.getElementById('student-portal-btn').href = `home-aluno.html?studentId=${studentId}`;
         document.getElementById('selected-student-name-header').textContent = studentName;
         
         await updatePackageInfo(studentId);
@@ -158,11 +200,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     packageProgressText.textContent = `${classCount} / ${packageSize} horas`;
                     packageValueDisplay.textContent = `R$ ${data.valorPacote ? data.valorPacote.toFixed(2).replace('.', ',') : '0,00'}`;
                     packageDateDisplay.textContent = data.dataInicioPacote || '--/--/----';
+                    if (packageStatusChip) {
+                        packageStatusChip.textContent = percentage >= 100 ? 'Pacote concluído' : 'Pacote ativo';
+                        packageStatusChip.className = 'dashboard-chip ' + (percentage >= 100 ? 'bg-emerald-100 text-emerald-700' : 'bg-violet-100 text-violet-700');
+                    }
                 } else {
                     noPackageMessage.classList.remove('hidden');
                     packageDetails.classList.add('hidden');
                     packageProgressBar.style.width = '0%';
                     packageProgressText.textContent = 'Nenhum pacote ativo';
+                    if (packageStatusChip) {
+                        packageStatusChip.textContent = 'Sem pacote ativo';
+                        packageStatusChip.className = 'dashboard-chip bg-slate-100 text-slate-600';
+                    }
                 }
             }
         } catch (error) {
@@ -173,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function updateModuleProgress(studentId) {
         if (!modulesContainer) return;
         modulesContainer.innerHTML = '';
+        if (modulesStatus) modulesStatus.textContent = 'Carregando módulos...';
     
         try {
             const studentDoc = await db.collection('students').doc(studentId).get();
@@ -235,9 +286,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 modulesContainer.innerHTML += cardHTML;
             });
+            if (modulesStatus) modulesStatus.textContent = 'Módulos carregados com sucesso.';
         } catch (error) {
-            console.error("Erro ao atualizar progresso dos módulos: ", error);
+            console.error("Erro ao atualizar progresso dos módulos:", error);
             modulesContainer.innerHTML = '<p class="text-red-500 col-span-full">Não foi possível carregar os módulos.</p>';
+            if (modulesStatus) modulesStatus.textContent = 'Não foi possível carregar os módulos.';
         }
     }
 
@@ -259,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             await updatePackageInfo(studentId);
         } catch (error) {
-            console.error("Erro ao atualizar contador: ", error);
+            console.error("Erro ao atualizar contador:", error);
         }
     }
     addClassBtn.addEventListener('click', () => changeClassCount(1));
@@ -268,9 +321,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Lógica do Modal de Novo Pacote ---
     newPackageBtn.addEventListener('click', () => {
         if (!localStorage.getItem('selectedStudentId')) return;
-        newPackageModal.classList.remove('hidden');
+        openModal(newPackageModal, document.getElementById('package-type'));
     });
-    cancelPackageBtn.addEventListener('click', () => newPackageModal.classList.add('hidden'));
+    cancelPackageBtn.addEventListener('click', () => closeModal(newPackageModal));
+    if (closePackageModalBtn) closePackageModalBtn.addEventListener('click', () => closeModal(newPackageModal));
+    if (newPackageModal) {
+        newPackageModal.addEventListener('click', (event) => {
+            if (event.target === newPackageModal) closeModal(newPackageModal);
+        });
+    }
 
     newPackageForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -296,14 +355,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 dataInicioPacote: formattedDate,
                 classCount: 0
             });
-            newPackageModal.classList.add('hidden');
+            closeModal(newPackageModal);
             newPackageForm.reset();
             await updatePackageInfo(studentId);
         } catch (error) {
-            console.error("Erro ao salvar novo pacote: ", error);
+            console.error("Erro ao salvar novo pacote:", error);
         } finally {
             confirmPackageBtn.classList.remove('btn-loading');
             confirmPackageBtn.disabled = false;
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        if (newPackageModal && !newPackageModal.classList.contains('hidden')) {
+            closeModal(newPackageModal);
         }
     });
 });

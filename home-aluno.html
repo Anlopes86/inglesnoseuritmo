@@ -18,15 +18,21 @@
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-6">
+    <div class="w-full max-w-5xl mb-8 flex justify-start">
+        <a id="back-btn" href="login.html" class="hidden text-slate-400 hover:text-yellow-400 font-bold uppercase text-[10px] tracking-[4px] transition-colors">
+            <i class="fas fa-arrow-left mr-2"></i><span id="back-btn-label">Voltar</span>
+        </a>
+    </div>
     <div class="text-center mb-12">
         <h1 class="text-3xl font-black uppercase italic text-yellow-500">Student Hub</h1>
         <p class="text-slate-500 text-[10px] font-bold tracking-[4px] mt-2 uppercase">Escolha sua atividade</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-2xl">
-        <a href="aluno.html" class="hub-card p-10 rounded-[2.5rem] flex flex-col items-center text-center">
+        <a id="lessons-link" href="#" class="hub-card p-10 rounded-[2.5rem] flex flex-col items-center text-center">
             <i class="fas fa-chalkboard-teacher text-blue-500 text-4xl mb-4"></i>
-            <h3 class="font-black uppercase text-sm">Portal de Aulas</h3>
+            <h3 class="font-black uppercase text-sm">Ir para as Aulas</h3>
+            <p id="lessons-link-label" class="text-slate-400 text-xs mt-3 uppercase tracking-[3px]">Carregando módulo</p>
         </a>
         <a href="flashcards-app.html" class="hub-card p-10 rounded-[2.5rem] flex flex-col items-center text-center">
             <i class="fas fa-bolt text-yellow-500 text-4xl mb-4"></i>
@@ -34,6 +40,85 @@
         </a>
     </div>
 
-    <button onclick="auth.signOut().then(() => location.href='login.html')" class="mt-16 text-slate-600 font-bold uppercase text-[10px] tracking-[4px]">Sair da conta</button>
+    <button id="logout-btn" class="mt-16 text-slate-600 font-bold uppercase text-[10px] tracking-[4px]">Sair da conta</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const lessonsLink = document.getElementById('lessons-link');
+            const lessonsLinkLabel = document.getElementById('lessons-link-label');
+            const logoutBtn = document.getElementById('logout-btn');
+            const backBtn = document.getElementById('back-btn');
+            const backBtnLabel = document.getElementById('back-btn-label');
+
+            const moduleRoutes = {
+                a1: { href: 'a1/a1.html', label: 'Módulo A1' },
+                a2: { href: 'a2/a2.html', label: 'Módulo A2' },
+                conversation: { href: 'conversation/conversation.html', label: 'Conversação' },
+                business: { href: 'business/business.html', label: 'Inglês para Negócios' },
+                vestibular: { href: 'vestibular/vestibular.html', label: 'Vestibular' },
+                essentials: { href: 'essentials/essentials.html', label: 'English Essentials' }
+            };
+
+            function setLessonsDestination(studentType) {
+                const route = moduleRoutes[studentType] || moduleRoutes.a1;
+                if (lessonsLink) lessonsLink.href = route.href;
+                if (lessonsLinkLabel) lessonsLinkLabel.textContent = route.label;
+            }
+
+            function setBackButton(isProfessorView) {
+                if (!backBtn || !backBtnLabel) return;
+                backBtn.classList.remove('hidden');
+                if (isProfessorView) {
+                    backBtn.href = 'index.html';
+                    backBtnLabel.textContent = 'Voltar ao painel';
+                } else {
+                    backBtn.href = 'login.html';
+                    backBtnLabel.textContent = 'Voltar ao login';
+                }
+            }
+
+            auth.onAuthStateChanged(async (user) => {
+                if (!user) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                const viewingAsRole = localStorage.getItem('loggedInUserRole');
+                const urlParams = new URLSearchParams(window.location.search);
+                const studentIdFromUrl = urlParams.get('studentId');
+                const isProfessorView = Boolean(studentIdFromUrl && viewingAsRole === 'professor');
+                const studentIdToLoad = isProfessorView ? studentIdFromUrl : user.uid;
+                setBackButton(isProfessorView);
+
+                try {
+                    const doc = await db.collection('students').doc(studentIdToLoad).get();
+                    if (!doc.exists) {
+                        setLessonsDestination('a1');
+                        if (lessonsLinkLabel) lessonsLinkLabel.textContent = 'Aluno não encontrado';
+                        return;
+                    }
+
+                    const data = doc.data();
+                    setLessonsDestination(data.studentType || 'a1');
+                } catch (error) {
+                    console.error('Erro ao carregar módulo do aluno:', error);
+                    setLessonsDestination('a1');
+                    if (lessonsLinkLabel) lessonsLinkLabel.textContent = 'Erro ao carregar';
+                }
+            });
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', async () => {
+                    try {
+                        await auth.signOut();
+                        localStorage.clear();
+                        window.location.href = 'login.html';
+                    } catch (error) {
+                        console.error('Erro ao sair da conta:', error);
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

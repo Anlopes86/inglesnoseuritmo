@@ -9,18 +9,53 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Seletores do DOM para Modais ---
     const addStudentModal = document.getElementById('add-student-modal');
     const openAddStudentModalBtn = document.getElementById('open-add-student-modal-btn');
+    const openAddStudentEmptyBtn = document.getElementById('open-add-student-empty-btn');
     const cancelAddStudentBtn = document.getElementById('cancel-add-student-btn');
+    const closeAddStudentModalBtn = document.getElementById('close-add-student-modal-btn');
     const addStudentForm = document.getElementById('add-student-form');
     const addStudentBtn = document.getElementById('add-student-btn'); 
     const deleteStudentBtn = document.getElementById('delete-student-btn');
     const studentSelect = document.getElementById('student-select');
     const studentSearchInput = document.getElementById('student-search');
 
+    let lastFocusedElement = null;
+
+    function openModal(modal, focusTarget) {
+        if (!modal) return;
+        lastFocusedElement = document.activeElement;
+        modal.classList.remove('hidden');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('overflow-hidden');
+        const target = focusTarget || modal.querySelector('input, select, button');
+        if (target) target.focus();
+    }
+
+    function closeModal(modal) {
+        if (!modal) return;
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('overflow-hidden');
+        if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+            lastFocusedElement.focus();
+        }
+    }
+
     if (openAddStudentModalBtn) {
-        openAddStudentModalBtn.addEventListener('click', () => addStudentModal.classList.remove('hidden'));
+        openAddStudentModalBtn.addEventListener('click', () => openModal(addStudentModal, document.getElementById('new-student-fullname')));
+    }
+    if (openAddStudentEmptyBtn) {
+        openAddStudentEmptyBtn.addEventListener('click', () => openModal(addStudentModal, document.getElementById('new-student-fullname')));
     }
     if (cancelAddStudentBtn) {
-        cancelAddStudentBtn.addEventListener('click', () => addStudentModal.classList.add('hidden'));
+        cancelAddStudentBtn.addEventListener('click', () => closeModal(addStudentModal));
+    }
+    if (closeAddStudentModalBtn) {
+        closeAddStudentModalBtn.addEventListener('click', () => closeModal(addStudentModal));
+    }
+    if (addStudentModal) {
+        addStudentModal.addEventListener('click', (event) => {
+            if (event.target === addStudentModal) closeModal(addStudentModal);
+        });
     }
     
     if (addStudentForm) {
@@ -30,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const username = document.getElementById('new-student-username').value.trim().toLowerCase();
             const password = document.getElementById('new-student-password').value;
             
-            // --- CORREÇÃO 1: Capturar o valor do studentType que estava faltando ---
+            // Captura o tipo de curso selecionado.
             const studentTypeElement = document.getElementById('new-student-type');
             const studentType = studentTypeElement ? studentTypeElement.value : '';
 
@@ -62,17 +97,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     email: email,
                     role: 'aluno',
                     studentType: studentType,
-                    modules: modulosLiberados, // Adicionado para salvar os módulos marcados
+                    modules: modulosLiberados,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
 
                 alert(`Aluno "${fullName}" adicionado com sucesso!`);
                 
-                // --- CORREÇÃO 2: Reload para você voltar a ser "Professor" no sistema ---
+                // Recarrega para restaurar a sessão do professor no painel.
                 location.reload(); 
 
             } catch (error) {
-                console.error("Erro ao adicionar aluno: ", error);
+                console.error("Erro ao adicionar aluno:", error);
                 alert("Erro ao adicionar aluno: " + error.message);
             } finally {
                 addStudentBtn.classList.remove('btn-loading');
@@ -102,14 +137,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    if (studentSearchInput) {
-        window.filterStudents = function() {
+    if (studentSearchInput && studentSelect) {
+        studentSearchInput.addEventListener('input', () => {
             const filter = studentSearchInput.value.toLowerCase();
             for (let option of studentSelect.options) {
                 if (option.value) {
                     option.style.display = option.text.toLowerCase().includes(filter) ? '' : 'none';
                 }
             }
-        }
+        });
     }
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        if (addStudentModal && !addStudentModal.classList.contains('hidden')) {
+            closeModal(addStudentModal);
+        }
+    });
 });
