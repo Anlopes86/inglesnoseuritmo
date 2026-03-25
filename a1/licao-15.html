@@ -6,394 +6,358 @@
     <title>A1 - Lesson 15: What Time Is It? | Inglês no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="a1-lesson-theme.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .flashcard { background: transparent; height: 220px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
-        .flashcard-front { background-color: white; color: #0891b2; text-align: center;}
-        .flashcard-back { background-color: #0891b2; color: white; transform: rotateY(180deg); text-align: center; }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; }
+        .flashcard-front { background: white; color: #0891b2; text-align: center; }
+        .flashcard-back { background: #0891b2; color: white; transform: rotateY(180deg); text-align: center; }
+        .flashcard-audio-btn { position: absolute; top: 0.75rem; right: 0.75rem; width: 2.25rem; height: 2.25rem; border-radius: 9999px; border: 1px solid rgba(56, 189, 248, 0.45); background: rgba(15, 23, 42, 0.9); color: #38bdf8; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2; }
+        .flashcard.reviewed .flashcard-front { border-color: #22c55e; background: #f0fdf4; }
+        .flashcard.reviewed .flashcard-front h4 { color: #15803d; }
+        .practice-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; outline: none; text-align: center; width: 8rem; font-size: 1rem; padding: 2px 6px; }
+        .practice-input:focus { border-color: #0891b2; }
+        .practice-input.correct { border-color: #22c55e; color: #15803d; font-weight: 700; }
+        .practice-input.incorrect { border-color: #ef4444; color: #dc2626; }
         .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
-        .answer-btn:hover { color: #4f46e5; }
-        
-        /* Estilos da nova atividade de Matching */
-        .matching-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-        }
-        .matching-card {
-            background-color: #f3f4f6;
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-        }
-        .matching-card.selected {
-            background-color: #d1fae5;
-            border: 2px solid #34d399;
-            transform: scale(1.05);
-        }
-        .matching-card.correct {
-            background-color: #d1fae5;
-            color: #10b981;
-            pointer-events: none;
-            opacity: 0.7;
-        }
-        .matching-card.incorrect {
-            background-color: #fee2e2;
-            color: #ef4444;
-            animation: shake 0.5s;
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-5px); }
-            40%, 80% { transform: translateX(5px); }
-        }
+        .answer-btn:hover { color: #0891b2; }
+        .speak-btn { display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; padding: 5px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+        .speak-btn:hover { background: #dbeafe; }
     </style>
-    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
-<body class="bg-gray-50 text-gray-800">
-
-    <header class="bg-white shadow-sm sticky top-0 z-10">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="a1.html" class="text-lg font-bold text-blue-600 hover:text-blue-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
-            <h1 class="text-xl font-semibold text-center">A1 - Lesson 15: What Time Is It?</h1>
-            <div class="w-24"></div>
+<body class="bg-slate-50 text-slate-800">
+    <header class="shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+            <a href="a1.html" class="text-lg font-bold text-cyan-700 hover:text-cyan-900 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 15: What Time Is It?</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
         </div>
-        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-cyan-500 h-1.5 transition-all duration-500"></div></div>
     </header>
 
-    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
-        
-        <div class="slide active">
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-black mb-4 text-slate-900">Perguntar e dizer as horas</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a perguntar as horas e responder com estruturas como <strong>o'clock</strong>, <strong>half past</strong>, <strong>a quarter past</strong> e <strong>a quarter to</strong>.</p>
+                        <div class="flex flex-wrap gap-3 mt-6">
+                            <div class="lesson-chip"><i class="fas fa-clock text-cyan-600"></i> Tema: horas</div>
+                            <div class="lesson-chip"><i class="fas fa-calendar-day text-emerald-600"></i> Rotina diária</div>
+                            <div class="lesson-chip"><i class="fas fa-comments text-orange-500"></i> Perguntas úteis</div>
+                        </div>
+                    </div>
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">Você vai praticar</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Perguntar <strong>What time is it?</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Dizer horas cheias, meia e quartos</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Relacionar horas com sua rotina</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card p-8 mt-8">
+                <div class="flex items-center justify-between flex-wrap gap-4 mb-6">
+                    <div>
+                        <p class="lesson-panel-title">Diálogo-modelo</p>
+                        <h3 class="text-2xl font-bold text-slate-800">Uma situação comum do dia a dia</h3>
+                    </div>
+                </div>
+                <div class="space-y-5 text-xl">
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-cyan-700 w-24">Teacher:</p><p>Excuse me, what time is it?</p><button class="speak-btn" data-speak="Excuse me, what time is it?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>It's half past two.</p><button class="speak-btn" data-speak="It's half past two."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-cyan-700 w-24">Teacher:</p><p>Thanks. What time does your English class start?</p><button class="speak-btn" data-speak="Thanks. What time does your English class start?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>It starts at a quarter past six.</p><button class="speak-btn" data-speak="It starts at a quarter past six."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-cyan-700 w-24">Teacher:</p><p>And what time do you go to bed?</p><button class="speak-btn" data-speak="And what time do you go to bed?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>I usually go to bed at a quarter to eleven.</p><button class="speak-btn" data-speak="I usually go to bed at a quarter to eleven."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Vocabulary">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-clock text-yellow-500"></i> Warm-up: The Time Now</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Vamos começar com uma pergunta simples.</p>
-                    <div class="text-left text-xl space-y-4 bg-gray-50 p-6 rounded-lg">
-                        <p><strong class="text-blue-600">Professor:</strong> "Excuse me, what time is it now?"</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "It's [hora atual]."</p>
-                        <p><strong class="text-blue-600">Professor:</strong> "Thank you! Are we late for the class?"</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "No, we are on time."</p>
+                <h2 class="text-4xl font-black mb-4 text-cyan-700">Time expressions</h2>
+                <p class="text-slate-500 text-lg mb-6">Clique para virar o card e revisar as expressões mais úteis para falar as horas.</p>
+                <div class="flex items-center justify-center gap-4 mb-6 flex-wrap">
+                    <button id="shuffle-flashcards-btn" class="speak-btn"><i class="fas fa-random"></i> Embaralhar</button>
+                    <span id="flashcard-progress" class="text-sm font-semibold text-cyan-700 bg-cyan-50 px-3 py-1 rounded-full">0 de 8 revisados</span>
+                </div>
+                <div id="flashcard-grid" class="flashcard-grid max-w-5xl mx-auto"></div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Grammar">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-cyan-700">Ways to tell the time</h2>
+                <div class="section-card p-8 text-left">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="lesson-panel-title mb-3">Main patterns</p>
+                            <table class="w-full text-left text-lg border-collapse">
+                                <thead><tr class="bg-slate-100"><th class="p-4 border">Time</th><th class="p-4 border">Say it in English</th></tr></thead>
+                                <tbody>
+                                    <tr><td class="p-4 border">9:00</td><td class="p-4 border">It's nine o'clock.</td></tr>
+                                    <tr class="bg-slate-50"><td class="p-4 border">2:30</td><td class="p-4 border">It's half past two.</td></tr>
+                                    <tr><td class="p-4 border">5:15</td><td class="p-4 border">It's a quarter past five.</td></tr>
+                                    <tr class="bg-slate-50"><td class="p-4 border">8:45</td><td class="p-4 border">It's a quarter to nine.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">Useful questions</p>
+                            <div class="space-y-4 text-lg">
+                                <div class="activity-card"><strong>What time is it?</strong><br><span class="text-slate-600">Pergunta mais comum.</span></div>
+                                <div class="activity-card"><strong>What time does class start?</strong><br><span class="text-slate-600">Perfeita para falar da rotina.</span></div>
+                                <div class="activity-card"><strong>What time do you wake up?</strong><br><span class="text-slate-600">Conecta horas com hábitos diários.</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="callout-note mt-6"><strong>Dica:</strong> use <strong>past</strong> quando a hora já passou um pouco e <strong>to</strong> quando falta para a próxima hora.</div>
+                    <div class="grid md:grid-cols-2 gap-5 mt-6">
+                        <div class="activity-card"><p class="lesson-panel-title mb-2">Como pensar</p><p class="text-lg">Se for <strong>5:15</strong>, pense: quinze depois das cinco → <strong>a quarter past five</strong>. Se for <strong>8:45</strong>, pense: quinze para as nove → <strong>a quarter to nine</strong>.</p></div>
+                        <div class="activity-card"><p class="lesson-panel-title mb-2">Erro comum</p><p class="text-lg">Em frases simples do A1, evite misturar número digital e forma por extenso. Escolha uma forma e mantenha: <strong>It's half past two</strong>.</p></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Practice">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-question text-cyan-500"></i> Vocabulary: Asking the Time</h2>
-                <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Clique para aprender diferentes formas de perguntar as horas.</p>
-                <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">What time is it?</h4></div><div class="flashcard-back"><p class="text-2xl">(Informal)</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">What's the time?</h4></div><div class="flashcard-back"><p class="text-2xl">(Informal)</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">Do you have the time?</h4></div><div class="flashcard-back"><p class="text-2xl">(Comum)</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Could you tell me the time, please?</h4></div><div class="flashcard-back"><p class="text-2xl">(Formal / Educado)</p></div></div></div>
+                <h2 class="text-4xl font-black mb-6 text-cyan-700">Complete the time</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left text-xl space-y-5">
+                    <p>1. 7:00 → It's seven <input data-answer="o'clock" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: hora cheia</span></p>
+                    <p>2. 3:30 → It's half <input data-answer="past" class="practice-input"> three. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: meia</span></p>
+                    <p>3. 6:15 → It's a quarter <input data-answer="past" class="practice-input"> six. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: quinze depois</span></p>
+                    <p>4. 9:45 → It's a quarter <input data-answer="to" class="practice-input"> ten. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: quinze para</span></p>
+                    <p>5. 1:30 → It's half past <input data-answer="one" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: uma</span></p>
+                    <p>6. 11:15 → It's a quarter past <input data-answer="eleven" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: onze</span></p>
+                    <p>7. 4:45 → It's a quarter to <input data-answer="five" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: cinco</span></p>
+                    <p>8. 10:00 → It's ten <input data-answer="o'clock" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: hora cheia</span></p>
+                    <p>9. 12:30 → It's half past <input data-answer="twelve" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: doze</span></p>
+                    <p>10. 7:15 → It's a quarter past <input data-answer="seven" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: sete</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="slide" data-title="Clock Stories">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-cyan-700">Clock stories</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left text-xl space-y-5">
+                    <p>Complete as pequenas situações com a hora em inglês:</p>
+                    <p>1. My class starts at 6:15. → It starts at <input data-answer="a quarter past six" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: quinze depois</span></p>
+                    <p>2. I go to bed at 10:45. → I go to bed at <input data-answer="a quarter to eleven" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: quinze para</span></p>
+                    <p>3. Lunch is at 12:00. → Lunch is at <input data-answer="twelve o'clock" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: hora cheia</span></p>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Speaking">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-book-open text-purple-500"></i> Grammar: Telling the Time</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-xl mt-6 mb-4 text-gray-600">Para responder, usamos **It's...**</p>
-                    <div class="grid grid-cols-2 gap-4 text-center text-xl">
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <i class="fas fa-clock text-3xl mb-2 text-purple-600"></i>
-                            <p class="font-bold">9:00</p>
-                            <p>It's nine o'clock.</p>
+                <h2 class="text-4xl font-black mb-6 text-cyan-700">Talk about your schedule</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <div class="grid md:grid-cols-2 gap-5 text-lg">
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Questions</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>What time do you wake up?</li>
+                                <li>What time do you have lunch?</li>
+                                <li>What time does your class start?</li>
+                                <li>What time do you go to bed?</li>
+                            </ul>
                         </div>
-                         <div class="bg-gray-50 p-4 rounded-lg">
-                            <i class="fas fa-clock text-3xl mb-2 text-purple-600"></i>
-                            <p class="font-bold">2:30</p>
-                            <p>It's half past two.</p>
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Model</p>
+                            <p>I wake up at seven o'clock. I have lunch at half past twelve. My class starts at a quarter past six. I go to bed at a quarter to eleven.</p>
                         </div>
-                         <div class="bg-gray-50 p-4 rounded-lg">
-                            <i class="fas fa-clock text-3xl mb-2 text-purple-600"></i>
-                            <p class="font-bold">5:15</p>
-                            <p>It's a quarter past five.</p>
-                        </div>
-                         <div class="bg-gray-50 p-4 rounded-lg">
-                            <i class="fas fa-clock text-3xl mb-2 text-purple-600"></i>
-                            <p class="font-bold">8:45</p>
-                            <p>It's a quarter to nine.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide speaking-practice">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-microphone-alt text-orange-500"></i> Speaking Practice</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-2xl mb-8 text-gray-600">Responda a pergunta do professor usando a hora exibida.</p>
-                    <div class="flex items-center justify-center gap-6">
-                        <div class="text-7xl font-bold text-gray-800" id="speaking-time-text">10:30</div>
-                        <div class="text-left">
-                            <h3 class="text-xl font-bold">Professor:</h3>
-                            <p class="text-2xl text-purple-600 font-semibold mb-4">"What time is it?"</p>
-                            <h3 class="text-xl font-bold">Aluno:</h3>
-                            <p class="text-2xl text-blue-600 font-semibold">"It's..."</p>
-                        </div>
-                    </div>
-                    <div class="mt-8 flex justify-center gap-4">
-                        <button id="next-speaking-time-btn" class="bg-purple-200 text-purple-800 font-bold py-2 px-6 rounded-lg hover:bg-purple-300 transition-all duration-300">Próxima Hora</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Music">
+            <div>
+                <h2 class="text-4xl font-black mb-4 text-center text-cyan-700">Music Time: Rock Around the Clock</h2>
+                <div class="music-card p-6 rounded-2xl max-w-4xl mx-auto">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/34AmZ4PMz9iNZVp9AMIGZj?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <div class="text-lg bg-slate-50 p-6 rounded-xl border-l-4 border-cyan-500 mt-5 space-y-4">
+                        <p>One, two, three o'clock, four o'clock rock</p>
+                        <p>Five, six, seven o'clock, eight o'clock rock</p>
+                        <p>Nine, ten, eleven o'clock, twelve o'clock rock</p>
+                        <p>We're gonna rock around the <input data-answer="clock" class="practice-input"> tonight <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: relógio</span></p>
+                        <p>One, two, three o'clock, four o'clock <input data-answer="rock" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: rock</span></p>
+                        <p>Five, six, seven o'clock, <input data-answer="eight" class="practice-input"> o'clock rock <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: número</span></p>
+                        <p>Nine, ten, <input data-answer="eleven" class="practice-input"> o'clock, twelve o'clock rock <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: número</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Writing">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-link text-indigo-500"></i> Practice: Match the Time</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-2xl mb-8 text-gray-600">Combine a hora digital com a escrita.</p>
-                    <div id="matching-grid" class="matching-grid"></div>
-                    <div id="matching-feedback" class="mt-6 text-xl font-semibold h-8"></div>
+                <h2 class="text-4xl font-black mb-6 text-cyan-700">Write your daily schedule</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <ul class="list-disc list-inside space-y-2 text-lg">
+                        <li>I wake up at...</li>
+                        <li>I have lunch at...</li>
+                        <li>My English class starts at...</li>
+                        <li>I go to bed at...</li>
+                    </ul>
+                    <textarea rows="6" class="mt-5 w-full p-4 border-2 border-slate-200 rounded-xl focus:border-cyan-500 outline-none transition-colors" placeholder="Write 4 to 6 sentences about the times in your day..."></textarea>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-700"><i class="fas fa-music text-red-500"></i> Music Time: Rock Around the Clock</h2>
-            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/34AmZ4PMz9iNZVp9AMIGZj?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4">
-                    <p class="text-2xl mb-4 text-gray-600">Ouça o clássico e complete as palavras:</p>
-                    <div class="text-xl space-y-3 bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
-                         <p>One, two, <input type="text" class="w-28 border-b-2 text-center bg-transparent" data-answer="three"><button class="answer-btn" data-answer="three"><i class="fas fa-eye"></i></button> o'clock, four o'clock rock</p>
-                         <p>Five, six, seven o'clock, eight o'clock rock</p>
-                         <p>Nine, ten, eleven o'clock, twelve o'clock <input type="text" class="w-28 border-b-2 text-center bg-transparent" data-answer="rock"><button class="answer-btn" data-answer="rock"><i class="fas fa-eye"></i></button></p>
-                         <p>We're gonna rock around the <input type="text" class="w-28 border-b-2 text-center bg-transparent" data-answer="clock"><button class="answer-btn" data-answer="clock"><i class="fas fa-eye"></i></button> tonight</p>
-                         <p class="mt-6">Put your dancing shoes on and start to shout</p>
-                         <p>Rockin' 'til the midnight <input type="text" class="w-28 border-b-2 text-center bg-transparent" data-answer="hour"><button class="answer-btn" data-answer="hour"><i class="fas fa-eye"></i></button></p>
-                         <p>I don't care if I go home late</p>
-                         <p>As long as I can see my dancing <input type="text" class="w-28 border-b-2 text-center bg-transparent" data-answer="mate"><button class="answer-btn" data-answer="mate"><i class="fas fa-eye"></i></button></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-home text-blue-500"></i>Homework: My Schedule</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Escreva sua agenda diária com os horários.</p>
-                    <div class="text-left text-xl space-y-2 mt-4 bg-gray-50 p-4 rounded-lg">
-                        <p class="font-bold">Exemplo:</p>
-                        <p>??? I wake up at 7:00 (seven o'clock).</p>
-                        <p>??? I have lunch at 12:30 (half past twelve).</p>
-                        <p>??? My English class is at 6:15 (a quarter past six).</p>
-                        <hr class="my-2">
-                        <textarea class="w-full mt-2 p-2 border-2 rounded-lg" rows="5" placeholder="I wake up at..."></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-             <div class="text-center flex flex-col items-center justify-center h-full">
-                <i class="fas fa-forward text-cyan-600 text-7xl mb-6"></i>
-                <h2 class="text-5xl font-bold mb-4 text-gray-800">Time is on Your Side!</h2>
-                <p class="text-3xl text-gray-600">Now you can ask for and tell the time. You're always on time for learning!</p>
+        <div class="slide" data-title="Lesson Complete">
+            <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
+                <i class="fas fa-clock text-cyan-500 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">Now you can ask and answer the time</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl">Time expressions help you talk about classes, work, meals and everyday routines with much more confidence.</p>
             </div>
         </div>
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20">
-        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
-            <button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Próximo</button>
-            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finalizar Aula</button>
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
+        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition"><i class="fas fa-chevron-left mr-1"></i> Anterior</button>
+            <button id="next-btn" class="bg-cyan-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Próximo <i class="fas fa-chevron-right ml-1"></i></button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition"><i class="fas fa-check mr-2"></i>Finalizar aula</button>
         </div>
     </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const flashcardData = [
+            { front: "What time is it?", back: 'Que horas são?', audio: 'What time is it?' },
+            { front: "o'clock", back: 'hora cheia', audio: "o'clock" },
+            { front: 'half past', back: 'e meia', audio: 'half past' },
+            { front: 'a quarter past', back: 'e quinze', audio: 'a quarter past' },
+            { front: 'a quarter to', back: 'quinze para', audio: 'a quarter to' },
+            { front: 'on time', back: 'no horário', audio: 'on time' },
+            { front: 'late', back: 'atrasado', audio: 'late' },
+            { front: 'schedule', back: 'horário / rotina', audio: 'schedule' }
+        ];
+
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const finishLessonBtn = document.getElementById('finish-lesson-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const slideCounter = document.getElementById('slide-counter');
+        const slideTitleHeader = document.getElementById('slide-title-header');
+        const flashcardGrid = document.getElementById('flashcard-grid');
+        const flashcardProgress = document.getElementById('flashcard-progress');
+        const shuffleBtn = document.getElementById('shuffle-flashcards-btn');
+        let currentSlide = 0;
+
+        function speak(text) {
+            if (!('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function updateFlashcardProgress() {
+            const reviewed = flashcardGrid.querySelectorAll('.flashcard.reviewed').length;
+            flashcardProgress.textContent = `${reviewed} de ${flashcardGrid.querySelectorAll('.flashcard').length} revisados`;
+        }
+
+        function renderFlashcards(items) {
+            flashcardGrid.innerHTML = items.map(item => `
+                <div class="flashcard">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <button class="flashcard-audio-btn" data-speak="${item.audio}"><i class="fas fa-volume-up"></i></button>
+                            <h4 class="text-3xl font-bold">${item.front}</h4>
+                        </div>
+                        <div class="flashcard-back">
+                            <p class="text-2xl font-bold">${item.back}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            flashcardGrid.querySelectorAll('.flashcard').forEach(card => {
+                card.addEventListener('click', event => {
+                    if (event.target.closest('.flashcard-audio-btn')) return;
+                    card.classList.toggle('flipped');
+                    card.classList.add('reviewed');
+                    updateFlashcardProgress();
+                });
+            });
+
+            flashcardGrid.querySelectorAll('.flashcard-audio-btn').forEach(btn => {
+                btn.addEventListener('click', event => {
+                    event.stopPropagation();
+                    speak(btn.dataset.speak);
+                });
+            });
+
+            updateFlashcardProgress();
+        }
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+            progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+            slideCounter.textContent = `${index + 1} / ${slides.length}`;
+            slideTitleHeader.textContent = slides[index]?.dataset.title || '';
+            prevBtn.disabled = index === 0;
+            const isLastSlide = index === slides.length - 1;
+            nextBtn.classList.toggle('hidden', isLastSlide);
+            finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+        }
+
+        document.querySelectorAll('.speak-btn').forEach(button => {
+            button.addEventListener('click', () => speak(button.dataset.speak || button.textContent.trim()));
+        });
+
+        document.querySelectorAll('.answer-btn').forEach(button => {
+            button.addEventListener('click', event => {
+                const line = event.currentTarget.closest('p');
+                line?.querySelectorAll('input[data-answer]').forEach(input => {
+                    input.value = input.dataset.answer;
+                    input.classList.remove('incorrect');
+                    input.classList.add('correct');
+                });
+            });
+        });
+
+        document.querySelectorAll('input[data-answer]').forEach(input => {
+            input.addEventListener('blur', () => {
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = input.dataset.answer.trim().toLowerCase();
+                input.classList.remove('correct', 'incorrect');
+                if (!userAnswer) return;
+                input.classList.add(userAnswer === correctAnswer ? 'correct' : 'incorrect');
+            });
+        });
+
+        shuffleBtn?.addEventListener('click', () => renderFlashcards([...flashcardData].sort(() => Math.random() - 0.5)));
+        prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+        nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+
+        renderFlashcards(flashcardData);
+        showSlide(0);
+    });
+    </script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
-    <script src="../js/progress-manager.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- CONFIGURA???fO DA LIÇÃO (?sNICA PARTE QUE VOC?S MUDA) ---
-            const moduleId = 'a1';
-            const lessonNumber = 15;
-            // ---------------------------------------------------------
-
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
-
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const progressBar = document.getElementById('progress-bar');
-            let currentSlide = 0;
-
-            function showSlide(index) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                
-                if (progressBar) {
-                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
-                    progressBar.style.width = `${progressPercentage}%`;
-                }
-                
-                if (prevBtn) prevBtn.disabled = index === 0;
-
-                const isLastSlide = index === slides.length - 1;
-                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
-                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
-
-                // Initialize the matching quiz when the slide is active
-                if (index === 4) {
-                    initMatchingGame();
-                }
-            }
-
-            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            
-            // Lógica para os Flashcards
-            document.querySelectorAll('.flashcard').forEach(card => {
-                card.addEventListener('click', () => {
-                    card.classList.toggle('flipped');
-                });
-            });
-            
-            // Lógica para revelar a resposta da letra da mésica
-            document.querySelectorAll('.answer-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const input = btn.previousElementSibling;
-                    const correctAnswer = input.dataset.answer;
-                    const icon = btn.querySelector('i');
-                    input.value = correctAnswer;
-                    input.style.borderColor = '#10B981';
-                    input.disabled = true;
-                    icon.classList.remove('fa-eye');
-                    icon.classList.add('fa-check');
-                    icon.style.color = '#10B981';
-                });
-            });
-
-            // Lógica para a atividade de speaking
-            const speakingTimeText = document.getElementById('speaking-time-text');
-            const nextSpeakingTimeBtn = document.getElementById('next-speaking-time-btn');
-            const speakingTimes = ["10:30", "1:15", "6:00", "9:45", "3:45", "5:30"];
-            let speakingIndex = 0;
-
-            if (nextSpeakingTimeBtn) {
-                nextSpeakingTimeBtn.addEventListener('click', () => {
-                    speakingIndex = (speakingIndex + 1) % speakingTimes.length;
-                    speakingTimeText.textContent = speakingTimes[speakingIndex];
-                });
-            }
-
-            // Lógica do novo jogo de combinação
-            const matchingPairs = [
-                { digital: "3:15", written: "a quarter past three" },
-                { digital: "6:30", written: "half past six" },
-                { digital: "9:45", written: "a quarter to ten" },
-                { digital: "12:00", written: "twelve o'clock" },
-                { digital: "7:10", written: "ten past seven" },
-                { digital: "4:50", written: "ten to five" },
-                { digital: "2:05", written: "five past two" },
-                { digital: "8:55", written: "five to nine" }
-            ];
-
-            const matchingGrid = document.getElementById('matching-grid');
-            const matchingFeedback = document.getElementById('matching-feedback');
-            let firstSelection = null;
-            let pairsFound = 0;
-
-            function shuffleArray(array) {
-                for (let i = array.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
-                }
-            }
-
-            function initMatchingGame() {
-                matchingGrid.innerHTML = '';
-                matchingFeedback.textContent = '';
-                firstSelection = null;
-                pairsFound = 0;
-
-                const allCards = [];
-                matchingPairs.forEach(pair => {
-                    allCards.push({ value: pair.digital, type: 'digital', pair: pair.written });
-                    allCards.push({ value: pair.written, type: 'written', pair: pair.digital });
-                });
-                shuffleArray(allCards);
-
-                allCards.forEach(cardData => {
-                    const card = document.createElement('div');
-                    card.className = 'matching-card';
-                    card.textContent = cardData.value;
-                    card.dataset.type = cardData.type;
-                    card.dataset.pair = cardData.pair;
-                    card.addEventListener('click', () => handleCardClick(card));
-                    matchingGrid.appendChild(card);
-                });
-            }
-
-            function handleCardClick(card) {
-                if (card.classList.contains('correct') || card === firstSelection) {
-                    return;
-                }
-
-                card.classList.add('selected');
-
-                if (!firstSelection) {
-                    firstSelection = card;
-                } else {
-                    const secondSelection = card;
-                    if (firstSelection.dataset.pair === secondSelection.textContent) {
-                        firstSelection.classList.add('correct');
-                        secondSelection.classList.add('correct');
-                        matchingFeedback.textContent = "Par correto! ?YZ?";
-                        matchingFeedback.className = "mt-6 text-xl font-bold text-green-600";
-                        pairsFound++;
-
-                        if (pairsFound === matchingPairs.length) {
-                            setTimeout(() => {
-                                matchingFeedback.textContent = "Parabéns! Você completou a atividade!";
-                                matchingFeedback.className = "mt-6 text-xl font-bold text-blue-600";
-                            }, 500);
-                        }
-                    } else {
-                        firstSelection.classList.add('incorrect');
-                        secondSelection.classList.add('incorrect');
-                        matchingFeedback.textContent = "Tente novamente.";
-                        matchingFeedback.className = "mt-6 text-xl font-bold text-red-600";
-                        
-                        setTimeout(() => {
-                            firstSelection.classList.remove('selected', 'incorrect');
-                            secondSelection.classList.remove('selected', 'incorrect');
-                            matchingFeedback.textContent = '';
-                        }, 1000);
-                    }
-                    firstSelection = null;
-                }
-            }
-
-            showSlide(0);
-        });
-    </script>
-    <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
-    <script src="a1-lesson-theme.js"></script>
 </body>
 </html>
-
-
-
-

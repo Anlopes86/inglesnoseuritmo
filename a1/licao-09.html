@@ -6,165 +6,213 @@
     <title>A1 - Lesson 9: My Daily Routine | Inglês no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="a1-lesson-theme.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .flashcard { background: transparent; height: 210px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
-        .flashcard-front { background-color: white; color: #16a34a; text-align: center;}
-        .flashcard-back { background-color: #16a34a; color: white; transform: rotateY(180deg); text-align: center; }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; }
+        .flashcard-front { background: white; color: #0f766e; text-align: center; }
+        .flashcard-back { background: #0f766e; color: white; transform: rotateY(180deg); text-align: center; }
+        .flashcard-audio-btn { position: absolute; top: 0.75rem; right: 0.75rem; width: 2.25rem; height: 2.25rem; border-radius: 9999px; border: 1px solid rgba(56, 189, 248, 0.45); background: rgba(15, 23, 42, 0.9); color: #38bdf8; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2; }
+        .flashcard.reviewed .flashcard-front { border-color: #22c55e; background: #f0fdf4; }
+        .flashcard.reviewed .flashcard-front h4 { color: #15803d; }
+        .practice-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; outline: none; text-align: center; width: 8rem; font-size: 1rem; padding: 2px 6px; }
+        .practice-input:focus { border-color: #0f766e; }
+        .practice-input.correct { border-color: #22c55e; color: #15803d; font-weight: 700; }
+        .practice-input.incorrect { border-color: #ef4444; color: #dc2626; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
+        .answer-btn:hover { color: #0f766e; }
+        .speak-btn { display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; padding: 5px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+        .speak-btn:hover { background: #dbeafe; }
     </style>
-    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
-<body class="bg-gray-50 text-gray-800">
-
-    <header class="bg-white shadow-sm sticky top-0 z-10">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="a1.html" class="text-lg font-bold text-blue-600 hover:text-blue-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
-            <h1 class="text-xl font-semibold text-center">A1 - Lesson 9: My Daily Routine</h1>
-            <div class="w-24"></div>
+<body class="bg-slate-50 text-slate-800">
+    <header class="shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+            <a href="a1.html" class="text-lg font-bold text-teal-700 hover:text-teal-900 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 9: My Daily Routine</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
         </div>
-        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-teal-500 h-1.5 transition-all duration-500"></div></div>
     </header>
 
-    <main class="container mx-auto p-8">
-        
-        <div class="slide active">
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-black mb-4 text-slate-900">Sua rotina diária em inglês</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a falar sobre hábitos com o <strong>simple present</strong>, descrever sequência do dia e usar verbos simples como <strong>wake up</strong>, <strong>have breakfast</strong>, <strong>go to work</strong> e <strong>go to bed</strong>.</p>
+                        <div class="flex flex-wrap gap-3 mt-6">
+                            <div class="lesson-chip"><i class="fas fa-sun text-amber-500"></i> Tema: rotina</div>
+                            <div class="lesson-chip"><i class="fas fa-repeat text-emerald-600"></i> Foco: hábitos</div>
+                            <div class="lesson-chip"><i class="fas fa-clock text-cyan-600"></i> Sequência do dia</div>
+                        </div>
+                    </div>
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">Você vai praticar</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Falar da manhã ao fim do dia</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Usar <strong>I / we / they</strong> no simple present</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Montar mini-rotinas completas</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card p-8 mt-8">
+                <div class="flex items-center justify-between flex-wrap gap-4 mb-6">
+                    <div>
+                        <p class="lesson-panel-title">Diálogo-modelo</p>
+                        <h3 class="text-2xl font-bold text-slate-800">Uma conversa simples sobre rotina</h3>
+                    </div>
+                </div>
+                <div class="space-y-5 text-xl">
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-teal-700 w-24">Teacher:</p><p>What time do you usually wake up?</p><button class="speak-btn" data-speak="What time do you usually wake up?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>I usually wake up at seven o'clock.</p><button class="speak-btn" data-speak="I usually wake up at seven o'clock."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-teal-700 w-24">Teacher:</p><p>What do you do after that?</p><button class="speak-btn" data-speak="What do you do after that?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>I have breakfast, I take a shower and I go to work.</p><button class="speak-btn" data-speak="I have breakfast, I take a shower and I go to work."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-teal-700 w-24">Teacher:</p><p>Do you study English at night?</p><button class="speak-btn" data-speak="Do you study English at night?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>Yes, I do. Then I go to bed at eleven.</p><button class="speak-btn" data-speak="Yes, I do. Then I go to bed at eleven."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Vocabulary">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-sun text-yellow-500"></i> Warm-up: Your Morning</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Let's talk about your morning routine.</p>
-                    <div class="text-left text-xl space-y-4 bg-gray-50 p-6 rounded-lg">
-                        <p><strong class="text-blue-600">Professor:</strong> "Good morning! What time do you usually wake up?"</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "I usually wake up at [7 o'clock]."</p>
-                        <p><strong class="text-blue-600">Professor:</strong> "And what is the first thing you do?"</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "First, I check my phone. Then, I have breakfast."</p>
-                    </div>
+                <h2 class="text-4xl font-black mb-4 text-teal-700">Daily activities</h2>
+                <p class="text-slate-500 text-lg mb-6">Clique para virar o card e revisar a rotina em sequência.</p>
+                <div class="flex items-center justify-center gap-4 mb-6 flex-wrap">
+                    <button id="shuffle-flashcards-btn" class="speak-btn"><i class="fas fa-random"></i> Embaralhar</button>
+                    <span id="flashcard-progress" class="text-sm font-semibold text-teal-700 bg-teal-50 px-3 py-1 rounded-full">0 de 8 revisados</span>
                 </div>
+                <div id="flashcard-grid" class="flashcard-grid max-w-5xl mx-auto"></div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Grammar">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-clock text-green-500"></i> Vocabulary: Daily Activities</h2>
-                <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Clique nos cartões para aprender o vocabulário.</p>
-                <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">I wake up.</h4></div><div class="flashcard-back"><p class="text-2xl">Eu acordo.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">I have breakfast.</h4></div><div class="flashcard-back"><p class="text-2xl">Eu tomo café da manhã.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">I take a shower.</h4></div><div class="flashcard-back"><p class="text-2xl">Eu tomo banho.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">I go to work.</h4></div><div class="flashcard-back"><p class="text-2xl">Eu vou para o trabalho.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">I have lunch.</h4></div><div class="flashcard-back"><p class="text-2xl">Eu almoço.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">I study English.</h4></div><div class="flashcard-back"><p class="text-2xl">Eu estudo inglés.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">I watch TV.</h4></div><div class="flashcard-back"><p class="text-2xl">Eu assisto TV.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">I go to bed.</h4></div><div class="flashcard-back"><p class="text-2xl">Eu vou para a cama.</p></div></div></div>
+                <h2 class="text-4xl font-black mb-6 text-teal-700">Grammar: simple present</h2>
+                <div class="section-card p-8 text-left">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="lesson-panel-title mb-3">Affirmative</p>
+                            <table class="w-full text-left text-lg border-collapse">
+                                <thead><tr class="bg-slate-100"><th class="p-4 border">Subject</th><th class="p-4 border">Pattern</th><th class="p-4 border">Example</th></tr></thead>
+                                <tbody>
+                                    <tr><td class="p-4 border font-bold text-teal-700">I</td><td class="p-4 border">verb base</td><td class="p-4 border">I wake up early.</td></tr>
+                                    <tr class="bg-slate-50"><td class="p-4 border font-bold text-teal-700">We</td><td class="p-4 border">verb base</td><td class="p-4 border">We have lunch at noon.</td></tr>
+                                    <tr><td class="p-4 border font-bold text-teal-700">They</td><td class="p-4 border">verb base</td><td class="p-4 border">They go to work by bus.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">Negative</p>
+                            <table class="w-full text-left text-lg border-collapse">
+                                <thead><tr class="bg-slate-100"><th class="p-4 border">Subject</th><th class="p-4 border">Pattern</th><th class="p-4 border">Example</th></tr></thead>
+                                <tbody>
+                                    <tr><td class="p-4 border font-bold text-teal-700">I</td><td class="p-4 border">don't + verb</td><td class="p-4 border">I don't work on Sundays.</td></tr>
+                                    <tr class="bg-slate-50"><td class="p-4 border font-bold text-teal-700">We</td><td class="p-4 border">don't + verb</td><td class="p-4 border">We don't study at night.</td></tr>
+                                    <tr><td class="p-4 border font-bold text-teal-700">They</td><td class="p-4 border">don't + verb</td><td class="p-4 border">They don't go by car.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="activity-card mt-6">
+                        <p class="lesson-panel-title mb-2">Use order words</p>
+                        <p class="text-lg">To organize a routine, use <strong>first</strong>, <strong>then</strong>, <strong>after that</strong> and <strong>finally</strong>.</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Practice">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-book-open text-purple-500"></i> Grammar: Simple Present</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Usamos o **Simple Present** para falar de hábitos e rotinas.</p>
-                    <table class="w-full text-left text-xl border-collapse">
-                        <thead><tr class="bg-gray-100"><th class="p-4 border">Pronoun</th><th class="p-4 border">Affirmative (+)</th><th class="p-4 border">Negative (-)</th></tr></thead>
-                        <tbody>
-                            <tr class="border-t"><td class="p-4 border font-bold text-blue-600">I</td><td class="p-4 border">I work.</td><td class="p-4 border">I do not (don't) work.</td></tr>
-                            <tr class="border-t bg-gray-50"><td class="p-4 border font-bold text-orange-600">You</td><td class="p-4 border">You study.</td><td class="p-4 border">You do not (don't) study.</td></tr>
-                            <tr class="border-t"><td class="p-4 border font-bold text-blue-600">We</td><td class="p-4 border">We live here.</td><td class="p-4 border">We do not (don't) live here.</td></tr>
-                             <tr class="border-t bg-gray-50"><td class="p-4 border font-bold text-orange-600">They</td><td class="p-4 border">They wake up early.</td><td class="p-4 border">They do not (don't) wake up early.</td></tr>
-                        </tbody>
-                    </table>
-                     <div class="mt-6 bg-purple-100 border-l-4 border-purple-500 text-purple-800 p-4 text-left rounded-r-lg">
-                        <h4 class="font-bold text-xl mb-2">Explicação:</h4>
-                        <p>??? Com <strong class="font-semibold">I, You, We, They</strong>, o verbo fica na sua forma base (sem "to").<br>??? Para a forma negativa, usamos <strong class="font-semibold">do not</strong> ou a contração <strong class="font-semibold">don't</strong> antes do verbo.</p>
-                    </div>
+                <h2 class="text-4xl font-black mb-6 text-teal-700">Complete the routine</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left text-xl space-y-5">
+                    <p>1. I <input data-answer="wake up" class="practice-input"> at 7 AM.</p>
+                    <p>2. Then I <input data-answer="have breakfast" class="practice-input">.</p>
+                    <p>3. After that, I <input data-answer="take a shower" class="practice-input">.</p>
+                    <p>4. We <input data-answer="go to work" class="practice-input"> at 8 o'clock.</p>
+                    <p>5. They <input data-answer="have lunch" class="practice-input"> at noon.</p>
+                    <p>6. I <input data-answer="go to bed" class="practice-input"> at night.</p>
                 </div>
             </div>
         </div>
-         
-        <div class="slide">
+
+        <div class="slide" data-title="Speaking">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-pencil-alt text-orange-500"></i>Let's Practice!</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-2xl mb-8 text-gray-600">Complete as frases com o verbo correto.</p>
-                    <div id="practice-1" class="space-y-6 text-xl"></div>
+                <h2 class="text-4xl font-black mb-6 text-teal-700">Build a mini routine</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <div class="grid md:grid-cols-2 gap-5 text-lg">
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Model 1</p>
+                            <p>First, I wake up. Then I have breakfast.</p>
+                        </div>
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Model 2</p>
+                            <p>After that, I go to work. Finally, I go to bed.</p>
+                        </div>
+                    </div>
+                    <textarea rows="6" class="mt-5 w-full p-4 border-2 border-slate-200 rounded-xl focus:border-teal-500 outline-none transition-colors" placeholder="Write or speak your own routine here..."></textarea>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-headphones text-cyan-500"></i>Listening Activity</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Ouça a rotina de "Mark" e anote o que ele faz.</p>
-                    <div class="text-left text-xl bg-gray-50 p-6 rounded-lg space-y-4">
-                        <p class="font-bold">Professor, dite o seguinte:</p>
-                        <p>"My name is Mark. I wake up at 7 AM. I take a shower and then I have breakfast. I don't go to work by car. I go to work by bus."</p>
-                        <hr>
-                        <p class="font-bold mt-4">Aluno, escreva a rotina:</p>
-                        <textarea class="w-full p-2 border-2 rounded-lg" rows="5" placeholder="Mark wakes up at..."></textarea>
+        <div class="slide" data-title="Music">
+            <div>
+                <h2 class="text-4xl font-black mb-4 text-center text-teal-700">Music Time: Another Day</h2>
+                <div class="music-card p-6 rounded-2xl max-w-4xl mx-auto">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6qYmf2NjhDfsF7x5U5DUOf?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <div class="text-lg bg-slate-50 p-6 rounded-xl border-l-4 border-teal-500 mt-5 space-y-4">
+                        <p>Every day she <input data-answer="takes" class="practice-input"> a morning bath <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p>She <input data-answer="wets" class="practice-input"> her hair <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p>And she <input data-answer="finds" class="practice-input"> it hard to stay awake <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-700"><i class="fas fa-music text-red-500"></i> Music Time: Another Day</h2>
-            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6qYmf2NjhDfsF7x5U5DUOf?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-2 text-left text-gray-700">
-                    <p class="text-xl mb-4 text-gray-600 text-center">Listen to the song and complete the lyrics.</p>
-                    <div class="text-lg space-y-2 bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
-                        <p>Every day she <input type="text" class="w-24 border-b-2 text-center bg-transparent" data-answer="takes"><button class="answer-btn" data-answer="takes"><i class="fas fa-eye"></i></button> a morning bath</p>
-                        <p>she <input type="text" class="w-24 border-b-2 text-center bg-transparent" data-answer="wets"><button class="answer-btn" data-answer="wets"><i class="fas fa-eye"></i></button> her hair</p>
-                        <p>Wraps a towel around her</p>
-                        <p>As she's heading for the bedroom chair</p>
-                        <br>
-                        <p>It's just another day</p>
-                        <br>
-                        <p>At the office where the papers grow</p>
-                        <p>She takes a break, drinks another coffee</p>
-                        <p>And she <input type="text" class="w-24 border-b-2 text-center bg-transparent" data-answer="finds"><button class="answer-btn" data-answer="finds"><i class="fas fa-eye"></i></button> it hard to stay awake</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-home text-blue-500"></i>Homework: My Routine</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Escreva um parágrafo descrevendo sua rotina diária.</p>
-                    <div class="text-left text-xl space-y-2 mt-4 bg-gray-50 p-4 rounded-lg">
-                        <p class="font-bold">Exemplo:</p>
-                        <p>"I wake up at 7 AM. I have breakfast and I take a shower. I go to work at 8:30. I don't work on weekends."</p>
-                        <hr class="my-2">
-                        <textarea class="w-full mt-2 p-2 border-2 rounded-lg" rows="6" placeholder="I wake up at..."></textarea>
-                    </div>
+        <div class="slide" data-title="Writing">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-teal-700">Write about your routine</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <ul class="list-disc list-inside space-y-2 text-lg">
+                        <li>I wake up at...</li>
+                        <li>Then I...</li>
+                        <li>After that, I...</li>
+                        <li>Finally, I...</li>
+                    </ul>
+                    <textarea rows="6" class="mt-5 w-full p-4 border-2 border-slate-200 rounded-xl focus:border-teal-500 outline-none transition-colors" placeholder="Write your routine here..."></textarea>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-             <div class="text-center flex flex-col items-center justify-center h-full">
-                <i class="fas fa-road text-green-500 text-7xl mb-6"></i>
-                <h2 class="text-5xl font-bold mb-4 text-gray-800">Your Day, Your Story!</h2>
-                <p class="text-3xl text-gray-600">Now you can talk about your daily life. Every day is a new page!</p>
+        <div class="slide" data-title="Lesson Complete">
+            <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
+                <i class="fas fa-road text-teal-500 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">Your day in English</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl">Now you can describe your routine from morning to night with more fluency.</p>
             </div>
         </div>
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20">
-        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
-            <button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Próximo</button>
-            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finalizar Aula</button>
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
+        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition"><i class="fas fa-chevron-left mr-1"></i> Anterior</button>
+            <button id="next-btn" class="bg-teal-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Próximo <i class="fas fa-chevron-right ml-1"></i></button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition"><i class="fas fa-check mr-2"></i>Finalizar aula</button>
         </div>
     </footer>
 
@@ -174,87 +222,127 @@
     <script src="../js/firebase-config.js"></script>
     <script src="../js/progress-manager.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- CONFIGURA???fO DA LIÇÃO ---
-            const moduleId = 'a1';
-            const lessonNumber = 9;
-            // ---------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const finishLessonBtn = document.getElementById('finish-lesson-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const slideCounter = document.getElementById('slide-counter');
+        const slideTitleHeader = document.getElementById('slide-title-header');
+        let currentSlide = 0;
 
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+        function showSlide(index) {
+            slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+            if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+            if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
+            if (slideTitleHeader) slideTitleHeader.textContent = slides[index]?.dataset.title || '';
+            if (prevBtn) prevBtn.disabled = index === 0;
+            const isLast = index === slides.length - 1;
+            if (nextBtn) nextBtn.classList.toggle('hidden', isLast);
+            if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLast);
+        }
 
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const progressBar = document.getElementById('progress-bar');
-            let currentSlide = 0;
+        if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+        if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
 
-            function showSlide(index) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                if (progressBar) {
-                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
-                    progressBar.style.width = `${progressPercentage}%`;
-                }
-                if (prevBtn) prevBtn.disabled = index === 0;
-                const isLastSlide = index === slides.length - 1;
-                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
-                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
-            }
+        const flashcardData = [
+            { en: 'wake up', pt: 'acordar', ex: 'I wake up at seven.' },
+            { en: 'have breakfast', pt: 'tomar café da manhã', ex: 'I have breakfast at home.' },
+            { en: 'take a shower', pt: 'tomar banho', ex: 'I take a shower in the morning.' },
+            { en: 'go to work', pt: 'ir para o trabalho', ex: 'We go to work by bus.' },
+            { en: 'have lunch', pt: 'almoçar', ex: 'They have lunch at noon.' },
+            { en: 'study English', pt: 'estudar inglês', ex: 'I study English at night.' },
+            { en: 'watch TV', pt: 'assistir TV', ex: 'We watch TV after dinner.' },
+            { en: 'go to bed', pt: 'ir para a cama', ex: 'I go to bed at eleven.' }
+        ];
+        const grid = document.getElementById('flashcard-grid');
+        const progress = document.getElementById('flashcard-progress');
+        const reviewed = new Set();
 
-            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            
-            document.querySelectorAll('.flashcard').forEach(card => {
-                card.addEventListener('click', () => card.classList.toggle('flipped'));
+        function updateFlashProgress() {
+            if (progress) progress.textContent = `${reviewed.size} de ${flashcardData.length} revisados`;
+        }
+
+        function renderCards(data) {
+            if (!grid) return;
+            grid.innerHTML = '';
+            reviewed.clear();
+            data.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'flashcard';
+                card.innerHTML = `
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <h4 class="text-3xl font-bold mb-2">${item.en}</h4>
+                            <p class="text-sm text-slate-400">${item.pt}</p>
+                            <button class="flashcard-audio-btn" type="button" data-speak="${item.ex}">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                        </div>
+                        <div class="flashcard-back">
+                            <p class="text-xl font-bold">${item.ex}</p>
+                        </div>
+                    </div>`;
+                card.addEventListener('click', () => {
+                    card.classList.toggle('flipped');
+                    if (card.classList.contains('flipped')) {
+                        card.classList.add('reviewed');
+                        reviewed.add(index);
+                        updateFlashProgress();
+                    }
+                });
+                card.querySelector('.flashcard-audio-btn')?.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    const utterance = new SpeechSynthesisUtterance(item.ex);
+                    utterance.lang = 'en-US';
+                    speechSynthesis.speak(utterance);
+                });
+                grid.appendChild(card);
             });
+            updateFlashProgress();
+        }
 
-            document.querySelectorAll('.answer-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const inputField = button.previousElementSibling;
-                    const correctAnswer = button.dataset.answer;
-                    if(inputField && inputField.tagName === 'INPUT') inputField.value = correctAnswer;
-                });
-            });
-
-            const practiceContainer = document.getElementById('practice-1');
-            if(practiceContainer) {
-                const practiceItems = [
-                    { text: 'I ____ (wake up) at 8 AM.', answer: 'wake up' },
-                    { text: 'They ____ (not go) to work on Sundays.', answer: "don't go" },
-                    { text: 'We ____ (have) lunch at noon.', answer: 'have' },
-                    { text: 'You ____ (not study) Japanese.', answer: "don't study" }
-                ];
-                let html = '';
-                // CORRE???fO: A variável 'practiceItems' estava com um erro de digitação no loop abaixo, impedindo a criação da atividade.
-                practiceItems.forEach(item => {
-                    const parts = item.text.split('____');
-                    html += `<div class="flex items-center justify-center gap-2">${parts[0]} <input data-answer="${item.answer}" class="w-40 p-1 border-b-2 text-center text-xl outline-none focus:border-blue-500 transition"> ${parts[1]}</div>`;
-                });
-                practiceContainer.innerHTML = html;
-                practiceContainer.querySelectorAll('input').forEach(input => {
-                    input.addEventListener('blur', () => {
-                        const userAnswer = input.value.trim().toLowerCase().replace("'", "");
-                        const correctAnswer = input.dataset.answer.toLowerCase().replace("'", "");
-                        input.classList.remove('border-green-500', 'border-red-500');
-                        if(userAnswer.length === 0) return;
-                        if (userAnswer === correctAnswer) {
-                            input.classList.add('border-green-500');
-                        } else {
-                            input.classList.add('border-red-500');
-                        }
-                    });
-                });
-            }
-            
-            showSlide(0);
+        document.getElementById('shuffle-flashcards-btn')?.addEventListener('click', () => {
+            renderCards([...flashcardData].sort(() => Math.random() - 0.5));
         });
+
+        renderCards(flashcardData);
+
+        document.querySelectorAll('.answer-btn').forEach(button => {
+            button.addEventListener('click', event => {
+                const line = event.currentTarget.closest('p');
+                if (!line) return;
+                line.querySelectorAll('input[data-answer]').forEach(input => {
+                    input.value = input.dataset.answer;
+                    input.classList.remove('incorrect');
+                    input.classList.add('correct');
+                });
+            });
+        });
+
+        document.querySelectorAll('input[data-answer]').forEach(input => {
+            input.addEventListener('blur', () => {
+                const user = input.value.trim().toLowerCase();
+                const answer = input.dataset.answer.trim().toLowerCase();
+                input.classList.remove('correct', 'incorrect');
+                if (!user) return;
+                input.classList.add(user === answer ? 'correct' : 'incorrect');
+            });
+        });
+
+        document.querySelectorAll('.speak-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const utterance = new SpeechSynthesisUtterance(button.dataset.speak || '');
+                utterance.lang = 'en-US';
+                speechSynthesis.speak(utterance);
+            });
+        });
+
+        showSlide(0);
+    });
     </script>
-    <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
     <script src="a1-lesson-theme.js"></script>
 </body>
 </html>
-
-
-
-

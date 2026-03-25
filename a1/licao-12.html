@@ -3,388 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A1 - Lesson 12: I don't like that | Inglês no seu Ritmo</title>
+    <title>A1 - Lesson 12: I Don't Like That | Inglês no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="a1-lesson-theme.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* FLASHCARDS */
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
         .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 160px; perspective: 1000px; cursor: pointer; }
+        .flashcard { background: transparent; height: 220px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
-        .flashcard-front { background-color: white; color: #dc2626; text-align: center; }
-        .flashcard-back { background-color: #dc2626; color: white; transform: rotateY(180deg); text-align: center; }
-        .flashcard.reviewed .flashcard-front { border-color: #22c55e; background-color: #f0fdf4; }
-        .flashcard.reviewed .flashcard-front h4 { color: #16a34a; }
-        .flashcard-audio-btn {
-            position: absolute; top: 0.75rem; right: 0.75rem;
-            width: 2.25rem; height: 2.25rem; border-radius: 9999px;
-            border: 1px solid rgba(56, 189, 248, 0.45);
-            background: rgba(15, 23, 42, 0.88); color: #38bdf8;
-            display: inline-flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: transform 0.2s, background-color 0.2s, color 0.2s;
-            z-index: 2;
-        }
-        .flashcard-audio-btn:hover { background: rgba(14, 116, 144, 0.2); color: #7dd3fc; transform: scale(1.05); }
-
-        /* SPEAK BUTTON */
-        .speak-btn {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: #eff6ff; border: 1.5px solid #bfdbfe;
-            color: #1d4ed8; padding: 4px 12px; border-radius: 20px;
-            font-size: 0.82rem; font-weight: 600; cursor: pointer;
-            transition: all 0.2s; margin-left: 6px;
-        }
-        .speak-btn:hover { background: #dbeafe; transform: scale(1.05); }
-
-        /* SLIDE LABEL */
-
-        /* PRACTICE INPUTS */
-        .practice-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; text-align: center; font-size: 1.15rem; padding: 2px 8px; width: 9rem; outline: none; transition: border-color 0.2s; }
-        .practice-input:focus { border-color: #3b82f6; }
-        .practice-input.correct { border-color: #22c55e; color: #16a34a; font-weight: 700; }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; }
+        .flashcard-front { background: white; color: #dc2626; text-align: center; }
+        .flashcard-back { background: #dc2626; color: white; transform: rotateY(180deg); text-align: center; }
+        .flashcard-audio-btn { position: absolute; top: 0.75rem; right: 0.75rem; width: 2.25rem; height: 2.25rem; border-radius: 9999px; border: 1px solid rgba(56, 189, 248, 0.45); background: rgba(15, 23, 42, 0.9); color: #38bdf8; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2; }
+        .flashcard.reviewed .flashcard-front { border-color: #22c55e; background: #f0fdf4; }
+        .flashcard.reviewed .flashcard-front h4 { color: #15803d; }
+        .practice-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; outline: none; text-align: center; width: 8rem; font-size: 1rem; padding: 2px 6px; }
+        .practice-input:focus { border-color: #dc2626; }
+        .practice-input.correct { border-color: #22c55e; color: #15803d; font-weight: 700; }
         .practice-input.incorrect { border-color: #ef4444; color: #dc2626; }
-
-        /* MUSIC INPUTS */
-        .lyric-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; text-align: center; font-size: 1.05rem; padding: 2px 4px; width: 6rem; outline: none; transition: border-color 0.2s; }
-        .lyric-input:focus { border-color: #3b82f6; }
-        .lyric-input.correct { border-color: #22c55e; color: #16a34a; font-weight: 600; }
-        .lyric-input.incorrect { border-color: #ef4444; color: #dc2626; }
-        .lyric-input.revealed { border-color: #f59e0b; color: #d97706; font-weight: 600; background: #fef9c3; }
-
-        /* OPINION CARDS */
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
+        .answer-btn:hover { color: #dc2626; }
+        .speak-btn { display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; padding: 5px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+        .speak-btn:hover { background: #dbeafe; }
         .opinion-card { cursor: pointer; transition: all 0.2s; border: 2px solid transparent; }
-        .opinion-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-        .opinion-card.selected-like { border-color: #22c55e; background-color: #f0fdf4; }
-        .opinion-card.selected-dislike { border-color: #ef4444; background-color: #fef2f2; }
+        .opinion-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+        .opinion-card.selected-like { border-color: #22c55e; background: #f0fdf4; }
+        .opinion-card.selected-dislike { border-color: #ef4444; background: #fef2f2; }
     </style>
-    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
-<body class="bg-gray-50 text-gray-800">
-
-    <!-- HEADER -->
-    <header class="bg-white shadow-sm sticky top-0 z-10">
+<body class="bg-slate-50 text-slate-800">
+    <header class="shadow-sm sticky top-0 z-10">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
-            <a href="a1.html" class="text-lg font-bold text-blue-600 hover:text-blue-800 flex items-center gap-2">
-                <i class="fas fa-chevron-left"></i> Voltar para A1
-            </a>
+            <a href="a1.html" class="text-lg font-bold text-red-700 hover:text-red-900 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
             <div class="text-center">
-                <h1 class="text-base font-semibold text-gray-800">A1 - Lesson 12: I don't like that</h1>
-                <p id="slide-title-header" class="text-xs text-gray-400 font-medium"></p>
+                <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 12: I Don't Like That</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">1 / 9</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
         </div>
-        <div class="w-full bg-gray-200 h-1.5">
-            <div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-500"></div>
-        </div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-red-500 h-1.5 transition-all duration-500"></div></div>
     </header>
 
     <main class="container mx-auto p-8 pb-28 max-w-5xl">
-
-        <!-- SLIDE 1: Warm-up -->
         <div class="slide active" data-title="Warm-up">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-3">
-                    <i class="fas fa-thumbs-down text-yellow-500"></i> Warm-up: Do you like...?
-                </h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-lg text-gray-500 mb-6">Vamos falar sobre o que você gosta e o que não gosta! Clique em ?Y"S para ouvir.</p>
-                    <div class="text-left text-xl space-y-5 bg-gray-50 p-6 rounded-lg">
-                        <div class="flex items-start flex-wrap gap-2">
-                            <strong class="text-blue-600 shrink-0">Professor:</strong>
-                            <span>"Let's play a quick game. I'll name something and you tell me ??" do you like it or not? Ready? Do you like spiders?"</span>
-                            <button class="speak-btn shrink-0" onclick="speak('Lets play a quick game. I will name something and you tell me, do you like it or not? Ready? Do you like spiders?')"><i class="fas fa-volume-up"></i> Ouvir</button>
-                        </div>
-                        <div class="flex items-start flex-wrap gap-2">
-                            <strong class="text-orange-600 shrink-0">Aluno:</strong>
-                            <span>"No! I don't like spiders at all. They are scary!"</span>
-                            <button class="speak-btn shrink-0" onclick="speak('No! I dont like spiders at all. They are scary!')"><i class="fas fa-volume-up"></i> Ouvir</button>
-                        </div>
-                        <div class="flex items-start flex-wrap gap-2">
-                            <strong class="text-blue-600 shrink-0">Professor:</strong>
-                            <span>"Ha! I don't like them either. Ok, next one ??" do you like chocolate?"</span>
-                            <button class="speak-btn shrink-0" onclick="speak('Ha! I dont like them either. Ok, next one. Do you like chocolate?')"><i class="fas fa-volume-up"></i> Ouvir</button>
-                        </div>
-                        <div class="flex items-start flex-wrap gap-2">
-                            <strong class="text-orange-600 shrink-0">Aluno:</strong>
-                            <span>"Yes, I love chocolate! But I don't like dark chocolate. I think it's too bitter."</span>
-                            <button class="speak-btn shrink-0" onclick="speak('Yes, I love chocolate! But I dont like dark chocolate. I think its too bitter.')"><i class="fas fa-volume-up"></i> Ouvir</button>
-                        </div>
-                        <div class="flex items-start flex-wrap gap-2">
-                            <strong class="text-blue-600 shrink-0">Professor:</strong>
-                            <span>"Interesting! And what about your family? Does anyone in your family like things that you don't like?"</span>
-                            <button class="speak-btn shrink-0" onclick="speak('Interesting! And what about your family? Does anyone in your family like things that you dont like?')"><i class="fas fa-volume-up"></i> Ouvir</button>
-                        </div>
-                        <div class="flex items-start flex-wrap gap-2">
-                            <strong class="text-orange-600 shrink-0">Aluno:</strong>
-                            <span>"Yes! My brother likes horror movies. I don't like them. I think they are too scary."</span>
-                            <button class="speak-btn shrink-0" onclick="speak('Yes! My brother likes horror movies. I dont like them. I think they are too scary.')"><i class="fas fa-volume-up"></i> Ouvir</button>
-                        </div>
-                        <div class="flex items-start flex-wrap gap-2">
-                            <strong class="text-blue-600 shrink-0">Professor:</strong>
-                            <span>"Perfect! You're already using 'don't' and 'doesn't' naturally. That's exactly our grammar topic today!"</span>
-                            <button class="speak-btn shrink-0" onclick="speak('Perfect! You are already using dont and doesnt naturally. Thats exactly our grammar topic today!')"><i class="fas fa-volume-up"></i> Ouvir</button>
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-black mb-4 text-slate-900">Dizer do que você não gosta</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a usar <strong>don't like</strong> e <strong>doesn't like</strong> para falar de preferências negativas de forma simples e natural.</p>
+                        <div class="flex flex-wrap gap-3 mt-6">
+                            <div class="lesson-chip"><i class="fas fa-thumbs-down text-red-600"></i> Tema: dislikes</div>
+                            <div class="lesson-chip"><i class="fas fa-comments text-orange-500"></i> Opiniões curtas</div>
+                            <div class="lesson-chip"><i class="fas fa-user-friends text-emerald-600"></i> I / he / she</div>
                         </div>
                     </div>
-                    <div class="mt-4 bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded-r-lg text-left text-base text-yellow-800">
-                        <strong>?Y'? Observe:</strong> <strong>don't like</strong> (I, you, we, they) e <strong>doesn't like</strong> (he, she, it). ?? isso que vamos estudar hoje!
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">Você vai praticar</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Dizer <strong>I don't like...</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Dizer <strong>He/She doesn't like...</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Comparar seus gostos com os da família</span></div>
+                        </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="section-card p-8 mt-8">
+                <div class="flex items-center justify-between flex-wrap gap-4 mb-6">
+                    <div>
+                        <p class="lesson-panel-title">Diálogo-modelo</p>
+                        <h3 class="text-2xl font-bold text-slate-800">Gostos e desgostos do dia a dia</h3>
+                    </div>
+                </div>
+                <div class="space-y-5 text-xl">
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-red-700 w-24">Teacher:</p><p>Do you like horror movies?</p><button class="speak-btn" data-speak="Do you like horror movies?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>No, I don't. I don't like horror movies. They are too scary.</p><button class="speak-btn" data-speak="No, I don't. I don't like horror movies. They are too scary."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-red-700 w-24">Teacher:</p><p>What about your brother? Does he like them?</p><button class="speak-btn" data-speak="What about your brother? Does he like them?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>Yes, he does. He loves horror movies, but he doesn't like romantic films.</p><button class="speak-btn" data-speak="Yes, he does. He loves horror movies, but he doesn't like romantic films."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-red-700 w-24">Teacher:</p><p>And what doesn't your mother like?</p><button class="speak-btn" data-speak="And what doesn't your mother like?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>She doesn't like coffee. She likes tea.</p><button class="speak-btn" data-speak="She doesn't like coffee. She likes tea."><i class="fas fa-volume-up"></i> Ouvir</button></div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 2: Flashcards -->
-        <div class="slide" data-title="Vocabulary: Opinions">
+        <div class="slide" data-title="Vocabulary">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-4 text-green-700 flex items-center justify-center gap-3">
-                    <i class="fas fa-comment-dots text-red-500"></i> Vocabulary: Opinions
-                </h2>
-                <div class="flex items-center justify-center gap-4 mb-6">
-                    <p class="text-gray-500 text-lg">Clique para ver a tradução. Ouça a pronúncia.</p>
-                    <button onclick="shuffleFlashcards()" class="speak-btn"><i class="fas fa-random"></i> Embaralhar</button>
-                    <span id="flashcard-progress" class="text-sm font-semibold text-green-600 bg-green-50 px-3 py-1 rounded-full">0 de 6 revisados</span>
+                <h2 class="text-4xl font-black mb-4 text-red-700">Opinion words</h2>
+                <p class="text-slate-500 text-lg mb-6">Clique para virar o card e revisar maneiras simples de falar do que você gosta ou não gosta.</p>
+                <div class="flex items-center justify-center gap-4 mb-6 flex-wrap">
+                    <button id="shuffle-flashcards-btn" class="speak-btn"><i class="fas fa-random"></i> Embaralhar</button>
+                    <span id="flashcard-progress" class="text-sm font-semibold text-red-700 bg-red-50 px-3 py-1 rounded-full">0 de 8 revisados</span>
                 </div>
                 <div id="flashcard-grid" class="flashcard-grid max-w-5xl mx-auto"></div>
             </div>
         </div>
 
-        <!-- SLIDE 3: Grammar -->
-        <div class="slide" data-title="Grammar: DON'T and DOESN'T">
+        <div class="slide" data-title="Grammar">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-3">
-                    <i class="fas fa-book-open text-purple-500"></i> Grammar: DON'T and DOESN'T
-                </h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Para frases negativas no Simple Present, usamos <strong class="text-red-600">don't</strong> ou <strong class="text-red-600">doesn't</strong>.</p>
-                    <table class="w-full text-left text-lg border-collapse">
-                        <thead><tr class="bg-gray-100">
-                            <th class="p-4 border">Pronome</th>
-                            <th class="p-4 border">Negativo (-)</th>
-                            <th class="p-4 border">Exemplo</th>
-                            <th class="p-4 border">Ouvir</th>
-                        </tr></thead>
-                        <tbody>
-                            <tr class="border-t">
-                                <td class="p-4 border font-bold">I / you / we / they</td>
-                                <td class="p-4 border font-bold text-red-600">don't</td>
-                                <td class="p-4 border">I don't like spiders.</td>
-                                <td class="p-4 border"><button class="speak-btn" onclick="speak('I dont like spiders.')"><i class="fas fa-volume-up"></i></button></td>
-                            </tr>
-                            <tr class="border-t bg-gray-50">
-                                <td class="p-4 border font-bold text-purple-600">he / she / it</td>
-                                <td class="p-4 border font-bold text-red-600">doesn't</td>
-                                <td class="p-4 border">She doesn't like coffee.</td>
-                                <td class="p-4 border"><button class="speak-btn" onclick="speak('She doesnt like coffee.')"><i class="fas fa-volume-up"></i></button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-green-50 border border-green-200 p-4 rounded-xl text-left">
-                            <p class="font-bold text-green-800 mb-2">?o. Afirmativo ??' Negativo</p>
-                            <div class="space-y-2 text-gray-700">
-                                <div class="flex items-center gap-2">
-                                    <span>I <strong>like</strong> cats.</span>
-                                    <span class="text-gray-400">??'</span>
-                                    <span>I <strong class="text-red-600">don't like</strong> cats.</span>
-                                    <button class="speak-btn text-xs" onclick="speak('I dont like cats.')"><i class="fas fa-volume-up"></i></button>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span>She <strong>likes</strong> jazz.</span>
-                                    <span class="text-gray-400">??'</span>
-                                    <span>She <strong class="text-red-600">doesn't like</strong> jazz.</span>
-                                    <button class="speak-btn text-xs" onclick="speak('She doesnt like jazz.')"><i class="fas fa-volume-up"></i></button>
-                                </div>
-                            </div>
+                <h2 class="text-4xl font-black mb-6 text-red-700">Negative sentences with don't and doesn't</h2>
+                <div class="section-card p-8 text-left">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="lesson-panel-title mb-3">Main pattern</p>
+                            <table class="w-full text-left text-lg border-collapse">
+                                <thead><tr class="bg-slate-100"><th class="p-4 border">Subject</th><th class="p-4 border">Negative</th><th class="p-4 border">Example</th></tr></thead>
+                                <tbody>
+                                    <tr><td class="p-4 border font-bold text-red-700">I / you / we / they</td><td class="p-4 border">don't + verb</td><td class="p-4 border">I don't like coffee. = Eu não gosto de café.</td></tr>
+                                    <tr class="bg-slate-50"><td class="p-4 border font-bold text-red-700">he / she / it</td><td class="p-4 border">doesn't + verb</td><td class="p-4 border">She doesn't like tea. = Ela não gosta de chá.</td></tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="bg-red-50 border border-red-200 p-4 rounded-xl text-left">
-                            <p class="font-bold text-red-800 mb-2">?s?? Atenção!</p>
-                            <p class="text-gray-700 mb-2">Com <strong>doesn't</strong>, o verbo volta para a forma base:</p>
-                            <div class="flex items-center gap-2">
-                                <span class="line-through text-red-400">She doesn't likes</span>
-                                <span class="text-gray-400">??'</span>
-                                <span class="text-green-700 font-bold">She doesn't like ?o"</span>
-                                <button class="speak-btn text-xs" onclick="speak('She doesnt like')"><i class="fas fa-volume-up"></i></button>
+                        <div>
+                            <p class="lesson-panel-title mb-3">Important note</p>
+                            <div class="space-y-4 text-lg">
+                                <div class="activity-card"><strong>I don't like</strong><br><span class="text-slate-600">Use com <strong>I, you, we, they</strong>.</span></div>
+                                <div class="activity-card"><strong>He doesn't like</strong><br><span class="text-slate-600">Use com <strong>he, she, it</strong>.</span></div>
+                                <div class="activity-card"><strong>doesn't like</strong>, não <strong>doesn't likes</strong><br><span class="text-slate-600">Depois de <strong>doesn't</strong>, o verbo volta à forma base.</span></div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="mt-4 bg-purple-50 border-l-4 border-purple-500 text-purple-800 p-4 text-left rounded-r-lg">
-                        <p class="font-semibold">?Y'? Dica de memória: <strong>don't = do not</strong> | <strong>doesn't = does not</strong>. São apenas contrações!</p>
-                        <div class="flex gap-4 mt-2">
-                            <button class="speak-btn text-xs" onclick="speak('do not')">do not <i class="fas fa-volume-up ml-1"></i></button>
-                            <button class="speak-btn text-xs" onclick="speak('dont')">don't <i class="fas fa-volume-up ml-1"></i></button>
-                            <button class="speak-btn text-xs" onclick="speak('does not')">does not <i class="fas fa-volume-up ml-1"></i></button>
-                            <button class="speak-btn text-xs" onclick="speak('doesnt')">doesn't <i class="fas fa-volume-up ml-1"></i></button>
+                    <div class="grid md:grid-cols-2 gap-5 mt-6">
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Afirmativa → negativa</p>
+                            <p class="text-lg">She likes jazz. → She <strong>doesn't like</strong> jazz.</p>
+                        </div>
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Tradução</p>
+                            <p class="text-lg">I don't like spicy food. = Eu não gosto de comida apimentada.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 4: Practice fill-in -->
-        <div class="slide" data-title="Practice: Don't or Doesn't?">
+        <div class="slide" data-title="Practice">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-3">
-                    <i class="fas fa-pencil-alt text-orange-500"></i> Practice: Don't or Doesn't?
-                </h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-8 text-gray-600">Complete as frases com <strong class="text-red-600">don't</strong> ou <strong class="text-red-600">doesn't</strong>.</p>
-                    <div id="practice-fill" class="space-y-6 text-xl"></div>
-                    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <button onclick="checkFill()" class="bg-green-600 text-white font-bold py-3 px-10 rounded-xl hover:bg-green-700 transition text-lg">
-                            <i class="fas fa-check-circle mr-2"></i>Verificar Respostas
-                        </button>
-                        <button onclick="resetFill()" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-xl hover:bg-gray-300 transition text-lg">
-                            <i class="fas fa-redo mr-2"></i>Recomeçar
-                        </button>
-                    </div>
-                    <div id="fill-score" class="hidden mt-6 text-xl font-bold p-4 rounded-xl"></div>
+                <h2 class="text-4xl font-black mb-6 text-red-700">Complete the sentence</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left text-xl space-y-5">
+                    <p>1. I <input data-answer="don't" class="practice-input"> like spiders. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: eu não</span></p>
+                    <p>2. She <input data-answer="doesn't" class="practice-input"> like coffee. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: ela não</span></p>
+                    <p>3. We <input data-answer="don't" class="practice-input"> like horror movies. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: nós não</span></p>
+                    <p>4. He <input data-answer="doesn't" class="practice-input"> like tea. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: ele não</span></p>
+                    <p>5. They <input data-answer="don't" class="practice-input"> like cold weather. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: eles não</span></p>
+                    <p>6. My mother <input data-answer="doesn't" class="practice-input"> like loud music. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: minha mãe não</span></p>
+                    <p>7. You <input data-answer="don't" class="practice-input"> like fish. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: você não</span></p>
+                    <p>8. My brother <input data-answer="doesn't" class="practice-input"> like romantic films. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: meu irmão não</span></p>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 5: Opinion activity -->
-        <div class="slide" data-title="Speaking: Debate Club!">
+        <div class="slide" data-title="Opinion Check">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-3">
-                    <i class="fas fa-comments text-teal-500"></i> Speaking: Debate Club!
-                </h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Dê sua opinião sobre cada tópico. Use <strong class="text-green-600">I like / I love</strong> ou <strong class="text-red-600">I don't like / I hate</strong>.</p>
-                    <div id="opinion-topics" class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6"></div>
-                    <div class="text-left bg-gray-50 p-5 rounded-xl text-lg space-y-4">
-                        <p class="font-bold text-gray-700">Modelo de conversa:</p>
-                        <div class="flex items-center flex-wrap gap-2">
-                            <strong class="text-blue-600">Professor:</strong>
-                            <span>"Pineapple on pizza. Do you like it?"</span>
-                            <button class="speak-btn text-xs" onclick="speak('Pineapple on pizza. Do you like it?')"><i class="fas fa-volume-up"></i></button>
-                        </div>
-                        <div class="flex items-center flex-wrap gap-2">
-                            <strong class="text-orange-600">Aluno:</strong>
-                            <span>"No, I don't. I think it's strange!"</span>
-                            <button class="speak-btn text-xs" onclick="speak('No, I dont. I think its strange!')"><i class="fas fa-volume-up"></i></button>
-                        </div>
-                        <div class="flex items-center flex-wrap gap-2">
-                            <strong class="text-blue-600">Professor:</strong>
-                            <span>"Does your friend like it?"</span>
-                            <button class="speak-btn text-xs" onclick="speak('Does your friend like it?')"><i class="fas fa-volume-up"></i></button>
-                        </div>
-                        <div class="flex items-center flex-wrap gap-2">
-                            <strong class="text-orange-600">Aluno:</strong>
-                            <span>"Yes, he does. He thinks it's delicious!"</span>
-                            <button class="speak-btn text-xs" onclick="speak('Yes, he does. He thinks its delicious!')"><i class="fas fa-volume-up"></i></button>
-                        </div>
+                <h2 class="text-4xl font-black mb-6 text-red-700">Like or dislike?</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <p class="text-lg text-slate-600 mb-6">Clique nas cartas para marcar se você gosta ou não gosta, e depois fale uma frase completa em inglês.</p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="opinion-card bg-white p-5 rounded-2xl shadow-sm" data-item="coffee"><h3 class="text-2xl font-bold">Coffee</h3><p class="text-slate-500">Say: I like coffee / I don't like coffee.</p></div>
+                        <div class="opinion-card bg-white p-5 rounded-2xl shadow-sm" data-item="horror movies"><h3 class="text-2xl font-bold">Horror movies</h3><p class="text-slate-500">Say: I like horror movies / I don't like horror movies.</p></div>
+                        <div class="opinion-card bg-white p-5 rounded-2xl shadow-sm" data-item="soccer"><h3 class="text-2xl font-bold">Soccer</h3><p class="text-slate-500">Say: I like soccer / I don't like soccer.</p></div>
+                        <div class="opinion-card bg-white p-5 rounded-2xl shadow-sm" data-item="spicy food"><h3 class="text-2xl font-bold">Spicy food</h3><p class="text-slate-500">Say: I like spicy food / I don't like spicy food.</p></div>
                     </div>
+                    <div class="mt-6 callout-note"><strong>Desafio:</strong> depois de falar sobre você, fale sobre alguém da sua família: <strong>My mother doesn't like...</strong></div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 6: Music -->
-        <div class="slide" data-title="Music Time">
+        <div class="slide" data-title="Music">
             <div>
-                <div class="text-center mb-4">
-                </div>
-                <h2 class="text-4xl font-bold mb-4 text-center text-green-700 flex items-center justify-center gap-3">
-                    <i class="fas fa-music text-red-500"></i> Music: I Don't Want to Miss a Thing
-                </h2>
-                <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/225xvV8r1yKMHErSWivnow?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                    <p class="text-lg mb-4 text-gray-600 mt-4">Ouça e complete a letra. Clique em ?Y'? para revelar uma palavra.</p>
-                    <div id="lyrics-container" class="text-xl space-y-3 bg-gray-50 p-6 rounded-lg border-l-4 border-green-500"></div>
-                    <div class="mt-6 flex flex-col sm:flex-row items-center gap-4">
-                        <button onclick="checkLyrics()" class="bg-green-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-green-700 transition">
-                            <i class="fas fa-check mr-2"></i>Verificar
-                        </button>
-                        <button onclick="revealAllLyrics()" class="bg-amber-500 text-white font-bold py-3 px-8 rounded-xl hover:bg-amber-600 transition">
-                            <i class="fas fa-eye mr-2"></i>Revelar Todas
-                        </button>
-                        <div id="lyrics-score" class="text-lg font-bold text-gray-700"></div>
-                    </div>
-                    <div class="mt-4 bg-blue-50 border-l-4 border-blue-400 p-3 rounded-r-lg text-sm text-blue-800">
-                        <strong>?YZ? Conexão:</strong> O título da mésica usa exatamente o que aprendemos hoje ??" <strong>"I don't want"</strong>!
+                <h2 class="text-4xl font-black mb-4 text-center text-red-700">Music Time: I Hate Everything About You</h2>
+                <div class="music-card p-6 rounded-2xl max-w-4xl mx-auto">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6rUp7v3l8yC4TKxAAR5Bmx?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <div class="text-lg bg-slate-50 p-6 rounded-xl border-l-4 border-red-500 mt-5 space-y-4">
+                        <p>I hate everything about you</p>
+                        <p>Why do I love you?</p>
+                        <p>I <input data-answer="hate" class="practice-input"> everything about you <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p>Why do I <input data-answer="love" class="practice-input"> you? <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p>You <input data-answer="hate" class="practice-input"> everything about me <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 7: Homework -->
-        <div class="slide" data-title="Homework">
+        <div class="slide" data-title="Writing">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700 flex items-center justify-center gap-3">
-                    <i class="fas fa-home text-blue-500"></i> Homework: Likes & Dislikes
-                </h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Escreva 4 frases: 2 sobre coisas que você gosta e 2 sobre coisas que você não gosta. Tente incluir também alguém da sua família!</p>
-                    <div class="text-left text-lg space-y-3 mt-4 bg-gray-50 p-5 rounded-lg">
-                        <p class="font-bold">Exemplos:</p>
-                        <div class="flex items-center gap-2">
-                            <p>??? I like to listen to rock music.</p>
-                            <button class="speak-btn text-xs" onclick="speak('I like to listen to rock music.')"><i class="fas fa-volume-up"></i></button>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <p>??? I don't like to wake up early.</p>
-                            <button class="speak-btn text-xs" onclick="speak('I dont like to wake up early.')"><i class="fas fa-volume-up"></i></button>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <p>??? My sister doesn't like horror movies.</p>
-                            <button class="speak-btn text-xs" onclick="speak('My sister doesnt like horror movies.')"><i class="fas fa-volume-up"></i></button>
-                        </div>
-                        <hr>
-                        <textarea class="w-full mt-2 p-3 border-2 border-gray-200 rounded-lg focus:border-blue-400 outline-none" rows="5" placeholder="I like...&#10;I don't like...&#10;My ___ doesn't like..."></textarea>
-                    </div>
+                <h2 class="text-4xl font-black mb-6 text-red-700">Write about likes and dislikes</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <ul class="list-disc list-inside space-y-2 text-lg">
+                        <li>I don't like...</li>
+                        <li>I like...</li>
+                        <li>My mother/father doesn't like...</li>
+                        <li>My brother/sister likes...</li>
+                    </ul>
+                    <textarea rows="6" class="mt-5 w-full p-4 border-2 border-slate-200 rounded-xl focus:border-red-500 outline-none transition-colors" placeholder="Write 4 to 6 sentences about things you dislike and things your family dislikes..."></textarea>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 8: Finish -->
-        <div class="slide" data-title="Parabéns!">
-            <div class="text-center flex flex-col items-center justify-center h-full pt-16">
-                <i class="fas fa-lightbulb text-red-600 text-7xl mb-6"></i>
-                <h2 class="text-5xl font-bold mb-4 text-gray-800">Your Opinion Matters!</h2>
-                <p class="text-3xl text-gray-600">Now you can share what you like and don't like. Keep sharing your voice!</p>
+        <div class="slide" data-title="Lesson Complete">
+            <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
+                <i class="fas fa-comment-slash text-red-500 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">Now you can say what you don't like</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl">Negative opinions help you sound more real, because conversation is not only about what you love.</p>
             </div>
         </div>
-
     </main>
 
-    <!-- FOOTER -->
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20 h-16">
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
         <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
-            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">
-                <i class="fas fa-chevron-left mr-1"></i> Anterior
-            </button>
-            <button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">
-                Próximo <i class="fas fa-chevron-right ml-1"></i>
-            </button>
-            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">
-                <i class="fas fa-check mr-2"></i>Finalizar Aula
-            </button>
+            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition"><i class="fas fa-chevron-left mr-1"></i> Anterior</button>
+            <button id="next-btn" class="bg-red-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Próximo <i class="fas fa-chevron-right ml-1"></i></button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition"><i class="fas fa-check mr-2"></i>Finalizar aula</button>
         </div>
     </footer>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    <script src="../js/firebase-config.js"></script>
-    <script src="../js/progress-manager.js"></script>
-
     <script>
     document.addEventListener('DOMContentLoaded', () => {
+        const flashcardData = [
+            { front: "don't like", back: 'não gosto', audio: "don't like" },
+            { front: "doesn't like", back: 'não gosta', audio: "doesn't like" },
+            { front: 'love', back: 'adorar', audio: 'love' },
+            { front: 'hate', back: 'odiar', audio: 'hate' },
+            { front: 'coffee', back: 'café', audio: 'coffee' },
+            { front: 'tea', back: 'chá', audio: 'tea' },
+            { front: 'spiders', back: 'aranhas', audio: 'spiders' },
+            { front: 'horror movies', back: 'filmes de terror', audio: 'horror movies' }
+        ];
 
-        const moduleId = 'a1';
-        const lessonNumber = 12;
-
-        // ============================================================
-        // SLIDE NAVIGATION
-        // ============================================================
         const slides = document.querySelectorAll('.slide');
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
@@ -392,248 +243,115 @@
         const progressBar = document.getElementById('progress-bar');
         const slideCounter = document.getElementById('slide-counter');
         const slideTitleHeader = document.getElementById('slide-title-header');
+        const flashcardGrid = document.getElementById('flashcard-grid');
+        const flashcardProgress = document.getElementById('flashcard-progress');
+        const shuffleBtn = document.getElementById('shuffle-flashcards-btn');
         let currentSlide = 0;
 
-        function showSlide(index) {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            slides.forEach((s, i) => s.classList.toggle('active', i === index));
-            const pct = ((index + 1) / slides.length) * 100;
-            if (progressBar) progressBar.style.width = `${pct}%`;
-            if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
-            if (slideTitleHeader) slideTitleHeader.textContent = slides[index].dataset.title || '';
-            if (prevBtn) prevBtn.disabled = index === 0;
-            const isLast = index === slides.length - 1;
-            if (nextBtn) nextBtn.classList.toggle('hidden', isLast);
-            if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLast);
-        }
-
-        if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-        if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-
-showSlide(0);
-
-        // ============================================================
-        // SPEAK
-        // ============================================================
-        window.speak = function(text) {
-            if (!window.speechSynthesis) return;
+        function speak(text) {
+            if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
-            const utter = new SpeechSynthesisUtterance(text);
-            utter.lang = 'en-US';
-            utter.rate = 0.85;
-            window.speechSynthesis.speak(utter);
-        };
-
-        // ============================================================
-        // FLASHCARDS
-        // ============================================================
-        const flashcardData = [
-            { en: 'I think this movie is good.',    pt: 'Eu acho este filme bom.' },
-            { en: 'He thinks that book is boring.', pt: 'Ele acha aquele livro chato.' },
-            { en: 'This class is interesting.',     pt: 'Esta aula é interessante.' },
-            { en: 'That food is delicious!',        pt: 'Aquela comida é deliciosa!' },
-            { en: "I don't like horror movies.",    pt: 'Eu não gosto de filmes de terror.' },
-            { en: "She doesn't like dark chocolate.", pt: 'Ela não gosta de chocolate amargo.' },
-        ];
-        let reviewedCards = new Set();
-
-        function renderFlashcards(data) {
-            const grid = document.getElementById('flashcard-grid');
-            if (!grid) return;
-            grid.innerHTML = '';
-            reviewedCards.clear();
-            updateFlashcardProgress();
-            data.forEach((item, i) => {
-                const safeEn = item.en.replace(/'/g, "\\'");
-                const card = document.createElement('div');
-                card.className = 'flashcard';
-                card.innerHTML = `
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <h4 class="text-lg font-bold mb-3">${item.en}</h4>
-                            <button class="flashcard-audio-btn" type="button" title="Ouvir pronúncia" onclick="event.stopPropagation(); speak('${safeEn}')">
-                                <i class="fas fa-volume-up"></i>
-                            </button>
-                        </div>
-                        <div class="flashcard-back">
-                            <p class="text-lg font-bold">${item.pt}</p>
-                            <p class="text-xs mt-2 opacity-75">Clique para voltar</p>
-                        </div>
-                    </div>`;
-                card.addEventListener('click', () => {
-                    card.classList.toggle('flipped');
-                    if (card.classList.contains('flipped')) {
-                        card.classList.add('reviewed');
-                        reviewedCards.add(i);
-                        updateFlashcardProgress();
-                    }
-                });
-                grid.appendChild(card);
-            });
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            window.speechSynthesis.speak(utterance);
         }
 
         function updateFlashcardProgress() {
-            const el = document.getElementById('flashcard-progress');
-            if (el) el.textContent = `${reviewedCards.size} de ${flashcardData.length} revisados`;
+            const reviewed = flashcardGrid.querySelectorAll('.flashcard.reviewed').length;
+            flashcardProgress.textContent = `${reviewed} de ${flashcardGrid.querySelectorAll('.flashcard').length} revisados`;
         }
 
-        window.shuffleFlashcards = function() {
-            renderFlashcards([...flashcardData].sort(() => Math.random() - 0.5));
-        };
+        function renderFlashcards(items) {
+            flashcardGrid.innerHTML = items.map(item => `
+                <div class="flashcard">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <button class="flashcard-audio-btn" data-speak="${item.audio}"><i class="fas fa-volume-up"></i></button>
+                            <h4 class="text-3xl font-bold">${item.front}</h4>
+                        </div>
+                        <div class="flashcard-back">
+                            <p class="text-2xl font-bold">${item.back}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            flashcardGrid.querySelectorAll('.flashcard').forEach(card => {
+                card.addEventListener('click', event => {
+                    if (event.target.closest('.flashcard-audio-btn')) return;
+                    card.classList.toggle('flipped');
+                    card.classList.add('reviewed');
+                    updateFlashcardProgress();
+                });
+            });
+
+            flashcardGrid.querySelectorAll('.flashcard-audio-btn').forEach(btn => {
+                btn.addEventListener('click', event => {
+                    event.stopPropagation();
+                    speak(btn.dataset.speak);
+                });
+            });
+
+            updateFlashcardProgress();
+        }
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+            progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+            slideCounter.textContent = `${index + 1} / ${slides.length}`;
+            slideTitleHeader.textContent = slides[index]?.dataset.title || '';
+            prevBtn.disabled = index === 0;
+            const isLastSlide = index === slides.length - 1;
+            nextBtn.classList.toggle('hidden', isLastSlide);
+            finishLessonBtn.classList.toggle('hidden', !isLastSlide);
+        }
+
+        document.querySelectorAll('.speak-btn').forEach(button => {
+            button.addEventListener('click', () => speak(button.dataset.speak || button.textContent.trim()));
+        });
+
+        document.querySelectorAll('.answer-btn').forEach(button => {
+            button.addEventListener('click', event => {
+                const line = event.currentTarget.closest('p');
+                line?.querySelectorAll('input[data-answer]').forEach(input => {
+                    input.value = input.dataset.answer;
+                    input.classList.remove('incorrect');
+                    input.classList.add('correct');
+                });
+            });
+        });
+
+        document.querySelectorAll('input[data-answer]').forEach(input => {
+            input.addEventListener('blur', () => {
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = input.dataset.answer.trim().toLowerCase();
+                input.classList.remove('correct', 'incorrect');
+                if (!userAnswer) return;
+                input.classList.add(userAnswer === correctAnswer ? 'correct' : 'incorrect');
+            });
+        });
+
+        document.querySelectorAll('.opinion-card').forEach(card => {
+            let liked = true;
+            card.addEventListener('click', () => {
+                card.classList.remove('selected-like', 'selected-dislike');
+                card.classList.add(liked ? 'selected-like' : 'selected-dislike');
+                liked = !liked;
+            });
+        });
+
+        shuffleBtn?.addEventListener('click', () => renderFlashcards([...flashcardData].sort(() => Math.random() - 0.5)));
+        prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+        nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
 
         renderFlashcards(flashcardData);
-
-        // ============================================================
-        // PRACTICE: DON'T OR DOESN'T
-        // ============================================================
-        const fillItems = [
-            { before: 'I',       after: 'like coffee.',         answer: "don't" },
-            { before: 'She',     after: 'like cats.',           answer: "doesn't" },
-            { before: 'They',    after: 'live here.',           answer: "don't" },
-            { before: 'He',      after: 'play soccer.',         answer: "doesn't" },
-            { before: 'We',      after: 'have a car.',          answer: "don't" },
-            { before: 'My dog',  after: 'like baths.',          answer: "doesn't" },
-            { before: 'You',     after: 'speak French.',        answer: "don't" },
-            { before: 'Maria',   after: 'eat meat.',            answer: "doesn't" },
-        ];
-
-        const fillContainer = document.getElementById('practice-fill');
-        if (fillContainer) {
-            fillContainer.innerHTML = fillItems.map((item, i) => `
-                <div class="flex items-center justify-center gap-2 flex-wrap">
-                    <span class="text-gray-400 font-semibold w-5">${i + 1}.</span>
-                    <span class="font-bold text-gray-700">${item.before}</span>
-                    <input data-answer="${item.answer}" class="practice-input" placeholder="???">
-                    <span>${item.after}</span>
-                </div>`).join('');
-        }
-
-        window.checkFill = function() {
-            const inputs = document.querySelectorAll('.practice-input');
-            let correct = 0;
-            inputs.forEach(input => {
-                const user = input.value.trim().toLowerCase();
-                const ans = input.dataset.answer.toLowerCase();
-                input.classList.remove('correct', 'incorrect');
-                if (!user) return;
-                if (user === ans) { input.classList.add('correct'); correct++; }
-                else { input.classList.add('incorrect'); }
-            });
-            const filled = [...inputs].filter(i => i.value.trim()).length;
-            const score = document.getElementById('fill-score');
-            if (score && filled > 0) {
-                score.classList.remove('hidden');
-                if (correct === fillItems.length) {
-                    score.className = 'mt-6 text-xl font-bold p-4 rounded-xl bg-green-100 text-green-800';
-                    score.innerHTML = `?YZ? Perfeito! ${correct}/${fillItems.length} corretas!`;
-                } else {
-                    score.className = 'mt-6 text-xl font-bold p-4 rounded-xl bg-orange-100 text-orange-800';
-                    score.innerHTML = `${correct}/${fillItems.length} corretas. As vermelhas precisam de atenção.`;
-                }
-            }
-        };
-
-        window.resetFill = function() {
-            document.querySelectorAll('.practice-input').forEach(i => {
-                i.value = ''; i.classList.remove('correct', 'incorrect');
-            });
-            const score = document.getElementById('fill-score');
-            if (score) score.classList.add('hidden');
-        };
-
-        // ============================================================
-        // OPINION TOPICS (interactive cards)
-        // ============================================================
-        const topics = [
-            { emoji: '?Y?.', label: 'Pizza' },
-            { emoji: '?Y.??', label: 'Spiders' },
-            { emoji: '?YZ?', label: 'Horror movies' },
-            { emoji: '?Y?f', label: 'Running' },
-            { emoji: '?~.', label: 'Coffee' },
-            { emoji: '?Y"s', label: 'Reading' },
-        ];
-
-        const topicsContainer = document.getElementById('opinion-topics');
-        if (topicsContainer) {
-            topics.forEach(topic => {
-                const card = document.createElement('div');
-                card.className = 'opinion-card bg-white rounded-xl p-4 text-center shadow-sm';
-                card.innerHTML = `
-                    <div class="text-4xl mb-2">${topic.emoji}</div>
-                    <p class="font-semibold text-gray-700">${topic.label}</p>
-                    <div class="flex justify-center gap-2 mt-3">
-                        <button onclick="event.stopPropagation(); speak('I like ${topic.label}.')" class="text-xs bg-green-100 text-green-700 font-bold px-2 py-1 rounded-full hover:bg-green-200">?Y'? Like</button>
-                        <button onclick="event.stopPropagation(); speak('I dont like ${topic.label}.')" class="text-xs bg-red-100 text-red-700 font-bold px-2 py-1 rounded-full hover:bg-red-200">?Y'Z Don't</button>
-                    </div>`;
-                topicsContainer.appendChild(card);
-            });
-        }
-
-        // ============================================================
-        // MUSIC / LYRICS
-        // ============================================================
-        const lyricsData = [
-            { text: 'I could stay awake just to hear you breathing', blank: null },
-            { text: 'Watch you smile while you are sleeping', blank: null },
-            { text: 'While you\'re far away and dreaming', blank: null },
-            { text: 'I could spend my life in this sweet surrender', blank: null },
-            { text: 'I could stay lost in this moment forever', blank: null },
-            { text: '\'Cause I ', blank: "don't", suffix: ' want to close my eyes' },
-            { text: 'I ', blank: "don't", suffix: ' want to fall asleep' },
-            { text: '\'Cause I\'d miss you, baby', blank: null },
-            { text: 'And I ', blank: "don't", suffix: ' want to miss a thing' },
-        ];
-
-        const lyricsContainer = document.getElementById('lyrics-container');
-        if (lyricsContainer) {
-            lyricsContainer.innerHTML = lyricsData.map((line, i) => {
-                if (!line.blank) return `<p class="text-gray-700">${line.text}</p>`;
-                const safeText = line.text.replace(/'/g, "\\'");
-                return `<p class="flex items-center flex-wrap gap-1">
-                    <span>${line.text}</span>
-                    <input data-answer="${line.blank}" data-index="${i}" class="lyric-input" placeholder="...">
-                    <button onclick="revealLyric(${i})" class="text-amber-400 hover:text-amber-600 ml-1" title="Revelar"><i class="fas fa-lightbulb"></i></button>
-                    ${line.suffix ? `<span>${line.suffix}</span>` : ''}
-                </p>`;
-            }).join('');
-        }
-
-        window.checkLyrics = function() {
-            const inputs = document.querySelectorAll('.lyric-input');
-            let correct = 0;
-            inputs.forEach(input => {
-                if (input.disabled) return;
-                const user = input.value.trim().toLowerCase();
-                const ans = input.dataset.answer.toLowerCase();
-                input.classList.remove('correct', 'incorrect');
-                if (!user) return;
-                if (user === ans) { input.classList.add('correct'); correct++; }
-                else { input.classList.add('incorrect'); }
-            });
-            const total = document.querySelectorAll('.lyric-input').length;
-            const scoreEl = document.getElementById('lyrics-score');
-            if (scoreEl) scoreEl.textContent = `${correct} de ${total} corretas`;
-        };
-
-        window.revealLyric = function(index) {
-            const input = document.querySelector(`.lyric-input[data-index="${index}"]`);
-            if (!input) return;
-            input.value = input.dataset.answer;
-            input.classList.remove('correct', 'incorrect');
-            input.classList.add('revealed');
-            input.disabled = true;
-        };
-
-        window.revealAllLyrics = function() {
-            document.querySelectorAll('.lyric-input').forEach(input => revealLyric(parseInt(input.dataset.index)));
-        };
-
+        showSlide(0);
     });
     </script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
-    <script src="a1-lesson-theme.js"></script>
 </body>
 </html>
-
-
-

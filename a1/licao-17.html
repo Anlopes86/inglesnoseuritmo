@@ -3,390 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A1 - Lesson 17: My uncle's car | Inglês no seu Ritmo</title>
+    <title>A1 - Lesson 17: My Uncle's Car | Inglês no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="a1-lesson-theme.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .flashcard { background: transparent; height: 220px; perspective: 1000px; cursor: pointer; }
+        .flashcard-audio-btn { position: absolute; top: 0.75rem; right: 0.75rem; width: 2.25rem; height: 2.25rem; border-radius: 9999px; border: 1px solid rgba(56, 189, 248, 0.45); background: rgba(15, 23, 42, 0.9); color: #38bdf8; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
-        .flashcard-front { background-color: white; color: #0369a1; text-align: center;}
-        .flashcard-back { background-color: #0369a1; color: white; transform: rotateY(180deg); text-align: center; }
-        .lyrics-fill-in input {
-            border: none;
-            border-bottom: 2px solid #a3a3a3;
-            background: transparent;
-            outline: none;
-            text-align: center;
-            width: 120px;
-            transition: border-color 0.3s;
-        }
-        .lyrics-fill-in input:focus {
-            border-color: #3b82f6;
-        }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; }
+        .flashcard-front { background: white; color: #0369a1; text-align: center; }
+        .flashcard-back { background: #0369a1; color: white; transform: rotateY(180deg); text-align: center; }
+        .practice-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; outline: none; text-align: center; width: 9rem; font-size: 1rem; padding: 2px 6px; }
+        .practice-input:focus { border-color: #0369a1; }
+        .practice-input.correct { border-color: #22c55e; color: #15803d; font-weight: 700; }
+        .practice-input.incorrect { border-color: #ef4444; color: #dc2626; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
+        .answer-btn:hover { color: #0369a1; }
+        .speak-btn { display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; padding: 5px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+        .speak-btn:hover { background: #dbeafe; }
     </style>
-    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
 <body class="bg-slate-50 text-slate-800">
-
     <header class="shadow-sm sticky top-0 z-10">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
-            <a href="a1.html" class="text-lg font-bold text-blue-600 hover:text-blue-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
+            <a href="a1.html" class="text-lg font-bold text-sky-700 hover:text-sky-900 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
             <div class="text-center">
-                <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 17: My uncle's car</h1>
+                <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 17: My Uncle's Car</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
         </div>
-        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-sky-500 h-1.5 transition-all duration-500"></div></div>
     </header>
 
     <main class="container mx-auto p-8 pb-28 max-w-5xl">
-        
-        <div class="slide active">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-wallet text-yellow-500"></i> Warm-up: Lost and Found</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Vamos descobrir de quem é a carteira.</p>
-                    <div class="text-left text-xl space-y-4 bg-gray-50 p-6 rounded-lg">
-                        <p><strong class="text-blue-600">Professor:</strong> (Mostrando uma carteira) "Oh, look! A wallet. Whose wallet is this?"</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "I don't know. Is it your wallet?"</p>
-                        <p><strong class="text-blue-600">Professor:</strong> "No, it's not my wallet. Let's see... ah, this is Maria's wallet!"</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "Oh, it's her wallet."</p>
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-black mb-4 text-slate-900">Dizer de quem é alguma coisa</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a usar o <strong>possessive 's</strong> para falar de posse com nomes e relações familiares, como <strong>Maria's book</strong> e <strong>my uncle's car</strong>.</p>
+                    </div>
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">Você vai praticar</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Dizer <strong>Maria's bag</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Dizer <strong>my parents' house</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Perguntar <strong>Whose...?</strong></span></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-users text-cyan-500"></i> Vocabulary: More Family</h2>
-                <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Clique para aprender mais membros da família.</p>
-                <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">Aunt</h4></div><div class="flashcard-back"><p class="text-2xl">Tia</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">Uncle</h4></div><div class="flashcard-back"><p class="text-2xl">Tio</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">Cousin</h4></div><div class="flashcard-back"><p class="text-2xl">Primo / Prima</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">Grandmother</h4></div><div class="flashcard-back"><p class="text-2xl">Avó</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">Grandfather</h4></div><div class="flashcard-back"><p class="text-2xl">Avó</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">Son</h4></div><div class="flashcard-back"><p class="text-2xl">Filho</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">Daughter</h4></div><div class="flashcard-back"><p class="text-2xl">Filha</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">Parents</h4></div><div class="flashcard-back"><p class="text-2xl">Pais</p></div></div></div>
+            <div class="section-card p-8 mt-8">
+                <div class="space-y-5 text-xl">
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-sky-700 w-24">Teacher:</p><p>Look at these things on the table: a wallet, some keys, and a phone. Whose wallet is this?</p><button class="speak-btn" data-speak="Look at these things on the table: a wallet, some keys, and a phone. Whose wallet is this?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>I think it's Maria's wallet. Her student card is inside.</p><button class="speak-btn" data-speak="I think it's Maria's wallet. Her student card is inside."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-sky-700 w-24">Teacher:</p><p>Exactly. And whose keys are these?</p><button class="speak-btn" data-speak="Exactly. And whose keys are these?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>They are your brother's keys, right?</p><button class="speak-btn" data-speak="They are your brother's keys, right?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-sky-700 w-24">Teacher:</p><p>Yes, they are my brother's keys. And this phone is my parents' phone for work.</p><button class="speak-btn" data-speak="Yes, they are my brother's keys. And this phone is my parents' phone for work."><i class="fas fa-volume-up"></i> Ouvir</button></div>
                 </div>
             </div>
         </div>
-
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-book-open text-purple-500"></i> Grammar: Possessive 's</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Usamos o <strong>Possessive 's</strong> para mostrar que algo pertence a alguém.</p>
-                    <div class="text-left text-xl bg-gray-50 p-6 rounded-lg">
-                        <p class="mb-2">??? The car of my uncle -> My <strong>uncle's</strong> car.</p>
-                        <p class="mb-2">??? The book of Maria -> <strong>Maria's</strong> book.</p>
-                        <p class="mb-2">??? The house of my parents -> My <strong>parents'</strong> house.</p>
-                        <p>??? The car of James -> <strong>James's</strong> car.</p>
-                    </div>
-                    <div class="mt-6 bg-purple-100 border-l-4 border-purple-500 text-purple-800 p-4 text-left rounded-r-lg">
-                        <h4 class="font-bold text-xl mb-2">Spelling Rules:</h4>
-                        <p>??? Para nomes no singular, adicione <strong>'s</strong>. (Ex: John -> John's)</p>
-                        <p>??? Para nomes no plural que terminam em -s, adicione apenas o apéstrofo <strong>'</strong>. (Ex: my parents -> my parents')</p>
-                        <p>??? Para nomes no singular que terminam em -s, o mais comum é adicionar <strong>'s</strong>. (Ex: James -> James's)</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-comments text-blue-500"></i> Dialogue: A Family Tree</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Ouça e repita este diálogo sobre a família de Tom.</p>
-                    <div class="text-left text-xl space-y-4 bg-gray-50 p-6 rounded-lg">
-                        <p><strong class="text-blue-600">Alex:</strong> "Who is that? Is that your cousin?"</p>
-                        <p><strong class="text-orange-600">Tom:</strong> "Yes, that's my cousin, Anna."</p>
-                        <p><strong class="text-blue-600">Alex:</strong> "And who is that man? Is that Anna's father?"</p>
-                        <p><strong class="text-orange-600">Tom:</strong> "No, that's my uncle, Alex's dad."</p>
-                        <p><strong class="text-blue-600">Alex:</strong> "Oh, so that's your uncle, Mark."</p>
-                        <p><strong class="text-orange-600">Tom:</strong> "Exactly! And that's Mark's dog, Charlie."</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-pencil-alt text-orange-500"></i> Practice: Use the Possessive 's</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-2xl mb-8 text-gray-600">Reescreva as frases usando 's.</p>
-                    <div id="practice-1" class="space-y-6 text-xl">
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-700"><i class="fas fa-music text-red-500"></i> Music Time: Knockin' on Heaven's Door</h2>
-            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <div class="flex justify-center mb-6">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6HSXNV0b4M4cLJ7ljgVVeh?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                </div>
-                <div class="text-center mt-4">
-                    <p class="text-2xl mb-4 text-gray-600">Ouça a mésica e preencha as lacunas. Clique no olho para revelar a resposta.</p>
-                    <div id="lyrics-container" class="lyrics-fill-in text-xl space-y-3 bg-gray-50 p-4 rounded-lg border-l-4 border-red-500 text-left">
-                        <p>
-                            Mama, take this badge off of me<br>
-                            I can't use it anymore<br>
-                            It's gettin' dark, too dark to see<br>
-                            I feel like I'm knockin' on 
-                            <input type="text" data-answer="Heaven's" class="w-24 border-b-2 text-center bg-transparent">
-                            <button class="reveal-lyric-btn text-blue-500 hover:text-blue-700 transition">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            door
-                        </p>
-                        <br>
-                        <p>
-                            Knock, knock, knockin' on
-                            <input type="text" data-answer="Heaven's" class="w-24 border-b-2 text-center bg-transparent">
-                            <button class="reveal-lyric-btn text-blue-500 hover:text-blue-700 transition">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            door
-                        </p>
-                        <br>
-                        <p>
-                            Mama, put my guns in the ground<br>
-                            I can't shoot them anymore<br>
-                            That long black cloud is comin' down<br>
-                            I feel like I'm knockin' on
-                            <input type="text" data-answer="Heaven's" class="w-24 border-b-2 text-center bg-transparent">
-                            <button class="reveal-lyric-btn text-blue-500 hover:text-blue-700 transition">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            door
-                        </p>
-                        <br>
-                        <p>
-                            Knock, knock, knockin' on
-                            <input type="text" data-answer="Heaven's" class="w-24 border-b-2 text-center bg-transparent">
-                            <button class="reveal-lyric-btn text-blue-500 hover:text-blue-700 transition">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            door
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-question-circle text-purple-500"></i> Quiz Time: Whose Thing Is It?</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Leia a descrição, tente adivinhar, e clique no botão para revelar a resposta.</p>
-                    <div class="text-left text-xl space-y-4 bg-gray-50 p-6 rounded-lg">
-                        <p class="font-bold text-blue-600">Perguntas:</p>
-                        <ul class="list-disc list-inside space-y-4">
-                            <li>
-                                <div class="flex items-center space-x-4">
-                                    <span>"This is my father's sister."</span>
-                                    <button class="reveal-btn text-blue-500 hover:text-blue-700 transition">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                                <span class="answer text-gray-700 italic hidden">Resposta: My aunt.</span>
-                            </li>
-                            <li>
-                                <div class="flex items-center space-x-4">
-                                    <span>"This is my cousin's mother."</span>
-                                    <button class="reveal-btn text-blue-500 hover:text-blue-700 transition">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                                <span class="answer text-gray-700 italic hidden">Resposta: My aunt.</span>
-                            </li>
-                            <li>
-                                <div class="flex items-center space-x-4">
-                                    <span>"This is my grandmother's son."</span>
-                                    <button class="reveal-btn text-blue-500 hover:text-blue-700 transition">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                                <span class="answer text-gray-700 italic hidden">Resposta: My father or my uncle.</span>
-                            </li>
-                            <li>
-                                <div class="flex items-center space-x-4">
-                                    <span>"That is the car of my friend"</span>
-                                    <button class="reveal-btn text-blue-500 hover:text-blue-700 transition">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                                <span class="answer text-gray-700 italic hidden">Resposta: Your friend's car.</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-700"><i class="fas fa-home text-blue-500"></i> Homework: My Family's Things</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Escreva 4 frases descrevendo coisas que pertencem à sua família.</p>
-                    <div class="text-left text-xl space-y-2 mt-4 bg-gray-50 p-4 rounded-lg">
-                        <p class="font-bold">Exemplo:</p>
-                        <p>??? This is my mother's car.</p>
-                        <textarea class="w-full mt-2 p-2 border-2 rounded-lg" rows="5" placeholder="My brother's..."></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center flex flex-col items-center justify-center h-full">
-                <i class="fas fa-sitemap text-cyan-600 text-7xl mb-6"></i>
-                <h2 class="text-5xl font-bold mb-4 text-gray-800">It's All Connected!</h2>
-                <p class="text-3xl text-gray-600">Now you can talk about the people and things that are important to you.</p>
-            </div>
-        </div>
+        <div class="slide" data-title="Vocabulary"><div class="text-center"><h2 class="text-4xl font-black mb-4 text-sky-700">Family words</h2><div class="flashcard-grid max-w-5xl mx-auto"><div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">aunt</h4><button class="flashcard-audio-btn" data-speak="aunt"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">tia</p></div></div></div><div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">uncle</h4><button class="flashcard-audio-btn" data-speak="uncle"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">tio</p></div></div></div><div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">cousin</h4><button class="flashcard-audio-btn" data-speak="cousin"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">primo / prima</p></div></div></div><div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">grandmother</h4><button class="flashcard-audio-btn" data-speak="grandmother"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">avó</p></div></div></div><div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">grandfather</h4><button class="flashcard-audio-btn" data-speak="grandfather"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">avô</p></div></div></div><div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">parents</h4><button class="flashcard-audio-btn" data-speak="parents"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">pais</p></div></div></div></div></div></div>
+        <div class="slide" data-title="Grammar"><div class="text-center"><h2 class="text-4xl font-black mb-6 text-sky-700">Possessive 's</h2><div class="section-card p-8 text-left"><div class="grid md:grid-cols-2 gap-6"><div><p class="lesson-panel-title mb-3">Singular possession</p><table class="w-full text-left text-lg border-collapse"><thead><tr class="bg-slate-100"><th class="p-4 border">Form</th><th class="p-4 border">Example</th><th class="p-4 border">Tradução</th></tr></thead><tbody><tr><td class="p-4 border">name + 's</td><td class="p-4 border">Maria's book</td><td class="p-4 border">o livro da Maria</td></tr><tr class="bg-slate-50"><td class="p-4 border">family word + 's</td><td class="p-4 border">my uncle's car</td><td class="p-4 border">o carro do meu tio</td></tr><tr><td class="p-4 border">name ending in s</td><td class="p-4 border">James's bag</td><td class="p-4 border">a bolsa do James</td></tr></tbody></table></div><div><p class="lesson-panel-title mb-3">Plural and questions</p><table class="w-full text-left text-lg border-collapse"><thead><tr class="bg-slate-100"><th class="p-4 border">Form</th><th class="p-4 border">Example</th><th class="p-4 border">Tradução</th></tr></thead><tbody><tr><td class="p-4 border">plural ending in s + '</td><td class="p-4 border">my parents' house</td><td class="p-4 border">a casa dos meus pais</td></tr><tr class="bg-slate-50"><td class="p-4 border">whose + noun</td><td class="p-4 border">Whose book is this?</td><td class="p-4 border">De quem é este livro?</td></tr></tbody></table></div></div><div class="grid md:grid-cols-3 gap-5 mt-6"><div class="activity-card"><p class="lesson-panel-title mb-2">Como pensar</p><p class="text-lg">Em português, costumamos dizer <strong>o carro do meu tio</strong>. Em inglês, a ordem muda: primeiro vem a pessoa, depois <strong>'s</strong>, depois o objeto: <strong>my uncle's car</strong>.</p></div><div class="activity-card"><p class="lesson-panel-title mb-2">Quando usar</p><p class="text-lg">Use <strong>'s</strong> para uma pessoa ou relação singular: <strong>my mother's bag</strong>. Se o grupo já termina em <strong>s</strong>, use só o apóstrofo final: <strong>my parents' house</strong>.</p></div><div class="activity-card"><p class="lesson-panel-title mb-2">Erro comum</p><p class="text-lg">Não diga <strong>the car of my uncle</strong> em conversas simples do dia a dia. Para A1, o mais natural é <strong>my uncle's car</strong>. Também não esqueça o objeto: <strong>It's Ana's bag</strong>, não só <strong>Ana's</strong> em toda situação.</p></div></div></div></div></div>
+        <div class="slide" data-title="Practice"><div class="text-center"><h2 class="text-4xl font-black mb-6 text-sky-700">Rewrite with 's</h2><div class="section-card p-8 max-w-4xl mx-auto text-left text-xl space-y-5"><p>1. The book of Maria → <input data-answer="Maria's book" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: da Maria</span></p><p>2. The car of my uncle → <input data-answer="my uncle's car" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: do meu tio</span></p><p>3. The house of my parents → <input data-answer="my parents' house" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: dos meus pais</span></p><p>4. The dog of James → <input data-answer="James's dog" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: do James</span></p><p>5. The room of my cousin → <input data-answer="my cousin's room" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: do meu primo / da minha prima</span></p><p>6. The teacher of Ana → <input data-answer="Ana's teacher" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: da Ana</span></p><p>7. The bike of my brother → <input data-answer="my brother's bike" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: do meu irmão</span></p></div></div></div>
+        <div class="slide" data-title="Speaking"><div class="text-center"><h2 class="text-4xl font-black mb-6 text-sky-700">Whose thing is it?</h2><div class="section-card p-8 max-w-4xl mx-auto text-left text-xl space-y-5"><p>1. Whose phone is this? → It's <input data-answer="my mother's" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: da minha mãe</span></p><p>2. Whose dog is that? → It's <input data-answer="my uncle's" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: do meu tio</span></p><p>3. Whose house is this? → It's <input data-answer="my grandparents'" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: dos meus avós</span></p><p>4. Whose bag is this? → It's <input data-answer="Ana's" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: da Ana</span></p><p>5. Whose keys are these? → They're <input data-answer="my father's" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: do meu pai</span></p></div><div class="mt-6 activity-card text-left"><p class="lesson-panel-title mb-2">New challenge</p><p class="text-lg">Transforme as respostas curtas em frases completas:</p><p class="mt-2"><strong>It's my uncle's.</strong> → <strong>It's my uncle's car.</strong></p><p><strong>It's Ana's.</strong> → <strong>It's Ana's bag.</strong></p></div></div></div>
+        <div class="slide" data-title="Music"><div><h2 class="text-4xl font-black mb-4 text-center text-sky-700">Music Time: Knockin' on Heaven's Door</h2><div class="music-card p-6 rounded-2xl max-w-4xl mx-auto"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6HSXNV0b4M4cLJ7ljgVVeh?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe><div class="text-lg bg-slate-50 p-6 rounded-xl border-l-4 border-sky-500 mt-5 space-y-4"><p>Mama, take this badge off of me</p><p>I can't use it anymore</p><p>It's gettin' dark, too dark to see</p><p>I feel like I'm knockin' on <input data-answer="Heaven's" class="practice-input"> door <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: céu</span></p><p>Knock, knock, knockin' on <input data-answer="Heaven's" class="practice-input"> door <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: mesmo termo da frase anterior</span></p><p>Mama, put my guns in the <input data-answer="ground" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: chão / solo</span></p><p>That long black cloud is comin' <input data-answer="down" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: para baixo</span></p></div></div></div></div>
+        <div class="slide" data-title="Writing"><div class="text-center"><h2 class="text-4xl font-black mb-6 text-sky-700">Homework: describe your family's things</h2><div class="section-card p-8 max-w-4xl mx-auto text-left"><div class="grid md:grid-cols-2 gap-6"><div><p class="lesson-panel-title mb-3">Include in your homework</p><ul class="list-disc list-inside space-y-2 text-lg"><li>1 sentence about your mother's or father's object.</li><li>1 sentence about a cousin, aunt, uncle, or friend.</li><li>1 sentence with <strong>parents'</strong> or <strong>grandparents'</strong>.</li><li>1 question with <strong>Whose...?</strong> and 1 short answer.</li><li>Write 5 to 6 complete sentences.</li></ul></div><div class="activity-card"><p class="lesson-panel-title mb-2">Model</p><p class="text-lg">This is my mother's bag. My uncle's car is black. My grandparents' house is small but comfortable. Whose phone is this? It's my cousin's phone. My father's keys are on the table.</p><p class="text-sm text-slate-500 mt-3">Dica: use objetos reais da sua casa para o texto ficar mais natural.</p></div></div><textarea rows="7" class="mt-5 w-full p-4 border-2 border-slate-200 rounded-xl focus:border-sky-500 outline-none transition-colors" placeholder="Write your homework here. Use 5 to 6 sentences with possessive 's and one Whose question..."></textarea></div></div></div>
+        <div class="slide" data-title="Lesson Complete"><div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]"><i class="fas fa-car-side text-sky-500 text-7xl mb-6"></i><p class="lesson-panel-title mb-2">Lesson complete</p><h2 class="text-5xl font-black mb-4 text-slate-900">Now you can show possession in English</h2><p class="text-2xl text-slate-600 max-w-3xl">This small structure makes everyday English much more natural because we constantly talk about people's things.</p></div></div>
     </main>
-
-    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
-        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
-            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg transition hover:bg-slate-300 disabled:opacity-50">Anterior</button>
-            <button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Próximo</button>
-            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finalizar Aula</button>
-        </div>
-    </footer>
-
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16"><div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl"><button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition"><i class="fas fa-chevron-left mr-1"></i> Anterior</button><button id="next-btn" class="bg-sky-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Próximo <i class="fas fa-chevron-right ml-1"></i></button><button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition"><i class="fas fa-check mr-2"></i>Finalizar aula</button></div></footer>
+    <script>document.addEventListener('DOMContentLoaded',()=>{const slides=document.querySelectorAll('.slide');const prevBtn=document.getElementById('prev-btn');const nextBtn=document.getElementById('next-btn');const finishLessonBtn=document.getElementById('finish-lesson-btn');const progressBar=document.getElementById('progress-bar');const slideCounter=document.getElementById('slide-counter');const slideTitleHeader=document.getElementById('slide-title-header');let currentSlide=0;function showSlide(index){slides.forEach((slide,i)=>slide.classList.toggle('active',i===index));progressBar.style.width=`${((index+1)/slides.length)*100}%`;slideCounter.textContent=`${index+1} / ${slides.length}`;slideTitleHeader.textContent=slides[index]?.dataset.title||'';prevBtn.disabled=index===0;const isLast=index===slides.length-1;nextBtn.classList.toggle('hidden',isLast);finishLessonBtn.classList.toggle('hidden',!isLast);}document.querySelectorAll('.flashcard').forEach(card=>card.addEventListener('click',()=>card.classList.toggle('flipped')));document.querySelectorAll('.flashcard-audio-btn').forEach(button=>button.addEventListener('click',event=>{event.stopPropagation();const utterance=new SpeechSynthesisUtterance(button.dataset.speak||'');utterance.lang='en-US';speechSynthesis.cancel();speechSynthesis.speak(utterance);}));document.querySelectorAll('.answer-btn').forEach(button=>button.addEventListener('click',event=>{const line=event.currentTarget.closest('p');line?.querySelectorAll('input[data-answer]').forEach(input=>{input.value=input.dataset.answer;input.classList.remove('incorrect');input.classList.add('correct');});}));document.querySelectorAll('input[data-answer]').forEach(input=>input.addEventListener('blur',()=>{const value=input.value.trim().toLowerCase();const answer=input.dataset.answer.trim().toLowerCase();input.classList.remove('correct','incorrect');if(!value)return;input.classList.add(value===answer?'correct':'incorrect');}));document.querySelectorAll('.speak-btn').forEach(button=>button.addEventListener('click',()=>{const utterance=new SpeechSynthesisUtterance(button.dataset.speak||'');utterance.lang='en-US';speechSynthesis.cancel();speechSynthesis.speak(utterance);}));prevBtn.addEventListener('click',()=>{if(currentSlide>0)showSlide(--currentSlide);});nextBtn.addEventListener('click',()=>{if(currentSlide<slides.length-1)showSlide(++currentSlide);});showSlide(0);});</script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
-    <script src="../js/progress-manager.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- CONFIGURA???fO DA LIÇÃO ---
-            const moduleId = 'a1';
-            const lessonNumber = 17;
-            // ---------------------------------------------------------
-
-            // --- L?"GICA PADR?fO DE NAVEGA???fO E SALVAMENTO ---
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
-
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const progressBar = document.getElementById('progress-bar');
-            const slideCounter = document.getElementById('slide-counter');
-            const slideTitleHeader = document.getElementById('slide-title-header');
-            let currentSlide = 0;
-
-            function showSlide(index) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                if (progressBar) {
-                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
-                    progressBar.style.width = `${progressPercentage}%`;
-                }
-                if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
-                if (slideTitleHeader) {
-                    const heading = slides[index]?.querySelector('h2');
-                    slideTitleHeader.textContent = heading ? heading.textContent.replace(/\s+/g, ' ').trim() : '';
-                }
-                if (prevBtn) prevBtn.disabled = index === 0;
-                const isLastSlide = index === slides.length - 1;
-                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
-                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
-            }
-
-            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            
-            // --- L?"GICA ESPECÍFICA DA LIÇÃO 17 ---
-            document.querySelectorAll('.flashcard').forEach(card => {
-                card.addEventListener('click', () => card.classList.toggle('flipped'));
-            });
-
-            // Lógica para revelar as respostas do Music Time
-            document.querySelectorAll('.reveal-lyric-btn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    // Encontra o elemento pai mais próximo que contém tanto o botão quanto o campo de input
-                    const parentElement = e.target.closest('p');
-
-                    // Encontra o campo de input dentro desse elemento pai
-                    const inputField = parentElement.querySelector('input');
-
-                    if (inputField) {
-                        const answer = inputField.dataset.answer;
-                        inputField.value = answer;
-                        inputField.classList.add('text-green-500', 'font-bold');
-                    }
-                });
-            });
-
-            // Lógica de prática de gramática
-            const practiceContainer = document.getElementById('practice-1');
-            const practiceSentences = [
-                { instruction: 'The car of my father.', answer: "My father's car." },
-                { instruction: 'The house of Ana.', answer: "Ana's house." },
-                { instruction: 'The friend of my brother.', answer: "My brother's friend." },
-                { instruction: 'The books of the students.', answer: "The students' books." }
-            ];
-            
-            function createPracticeActivity() {
-                if(!practiceContainer) return;
-                let html = '';
-                practiceSentences.forEach((item, index) => {
-                    html += `<div class="p-4 bg-gray-100 rounded-lg"><p class="text-gray-500 italic mb-2">Reescreva: ${item.instruction}</p><input data-answer="${item.answer}" id="practice-input-${index}" class="w-full p-2 border-2 rounded-lg text-center text-xl outline-none focus:border-blue-500 transition"></div>`;
-                });
-                practiceContainer.innerHTML = html;
-                practiceContainer.querySelectorAll('input').forEach(input => {
-                    input.addEventListener('blur', () => {
-                        const userAnswer = input.value.trim().toLowerCase();
-                        const correctAnswer = input.dataset.answer.trim().toLowerCase();
-                        input.classList.remove('text-green-500', 'text-red-500', 'font-bold');
-                        if(userAnswer.length === 0) return;
-                        if (userAnswer === correctAnswer) {
-                            input.classList.add('text-green-500', 'font-bold');
-                        } else {
-                            input.classList.add('text-red-500');
-                        }
-                    });
-                });
-            }
-            
-            createPracticeActivity();
-            showSlide(0);
-        });
-
-        // Lógica para revelar as respostas do Quiz Time
-            document.querySelectorAll('.reveal-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    // Encontra o item da lista pai (<li>) a partir do botão
-                    const listItem = button.closest('li');
-                    // Encontra a resposta (span) dentro desse item
-                    const answer = listItem.querySelector('.answer');
-                    
-                    if (answer) {
-                        answer.classList.toggle('hidden');
-                    }
-                });
-            });
-    </script>
-    <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
-    <script src="a1-lesson-theme.js"></script>
 </body>
 </html>
-
-
-
-

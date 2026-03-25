@@ -3,316 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A1 - Lesson 22: A little / A few | Inglês no seu Ritmo</title>
+    <title>A1 - Lesson 22: Coffee Shop Quantities | Inglês no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="a1-lesson-theme.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 200px; perspective: 1000px; cursor: pointer; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .flashcard { background: transparent; height: 220px; perspective: 1000px; cursor: pointer; }
+        .flashcard-audio-btn { position: absolute; top: 0.75rem; right: 0.75rem; width: 2.25rem; height: 2.25rem; border-radius: 9999px; border: 1px solid rgba(56, 189, 248, 0.45); background: rgba(15, 23, 42, 0.9); color: #38bdf8; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
-        .flashcard-front { background-color: white; color: #d97706; text-align: center; }
-        .flashcard-back { background-color: #d97706; color: white; transform: rotateY(180deg); text-align: center; }
-
-        .draggable { cursor: grab; background-color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-semibold; text-align: center; display: inline-flex; align-items: center; }
-        .drop-zone { border-style: dashed; transition: all 0.2s ease; min-height: 80px; }
-        .drop-zone.over { background-color: #fef3c7; border-color: #d97706; transform: scale(1.05); }
-        
-        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.5rem; }
-        .answer-btn:hover { color: #4f46e5; }
-        input.correct { background-color: #dcfce7; border-color: #22c55e; }
-        input.incorrect { background-color: #fee2e2; border-color: #ef4444; }
-        input { transition: all 0.3s; }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; }
+        .flashcard-front { background: white; color: #d97706; text-align: center; }
+        .flashcard-back { background: #d97706; color: white; transform: rotateY(180deg); text-align: center; }
+        .practice-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; outline: none; text-align: center; width: 8rem; font-size: 1rem; padding: 2px 6px; }
+        .practice-input:focus { border-color: #d97706; }
+        .practice-input.correct { border-color: #22c55e; color: #15803d; font-weight: 700; }
+        .practice-input.incorrect { border-color: #ef4444; color: #dc2626; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
+        .answer-btn:hover { color: #d97706; }
+        .activity-card { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 1rem; padding: 1.25rem; }
+        .lesson-chip { background: #f3f4f6; color: #374151; padding: 6px 12px; border-radius: 999px; font-size: 0.875rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
     </style>
-    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
-<body class="bg-gray-50 text-gray-800">
-
-    <header class="bg-white shadow-sm sticky top-0 z-40">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+<body class="bg-slate-50 text-slate-800">
+    <header class="shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
             <a href="a1.html" class="text-lg font-bold text-amber-600 hover:text-amber-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
-            <h1 class="text-xl font-semibold text-center">A1 - Lesson 22: A little / A few</h1>
-            <div class="w-24"></div>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 22: Coffee Shop Quantities</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
         </div>
-        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-amber-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-amber-500 h-1.5 transition-all duration-500"></div></div>
     </header>
 
-    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
-        
-        <div class="slide active">
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-black mb-4 text-slate-900">Pedidos pequenos, escolhas naturais</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a usar <strong>a few</strong> com itens contáveis e <strong>a little</strong> com itens incontáveis em situações mais reais, como café, receitas e pequenos pedidos.</p>
+                        <div class="flex flex-wrap gap-3 mt-6">
+                            <div class="lesson-chip"><i class="fas fa-mug-hot text-amber-600"></i> Tema: cafeteria</div>
+                            <div class="lesson-chip"><i class="fas fa-cookie-bite text-orange-500"></i> Foco: pequenas quantidades</div>
+                            <div class="lesson-chip"><i class="fas fa-comments text-blue-500"></i> Situação real: pedir comida</div>
+                        </div>
+                    </div>
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">Você vai praticar</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Escolher <strong>a little</strong> ou <strong>a few</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Usar isso em diálogos curtos</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Descrever o que há de pouco ou de alguns itens</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-card p-8 mt-8 text-xl space-y-5">
+                <div class="flex items-center gap-3 flex-wrap"><p><strong class="text-amber-700">Customer:</strong> Can I have a little milk in my coffee and a few cookies?</p><button class="speak-btn" data-speak="Can I have a little milk in my coffee and a few cookies?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                <div class="flex items-center gap-3 flex-wrap"><p><strong class="text-blue-700">Barista:</strong> Sure. How many cookies do you want?</p><button class="speak-btn" data-speak="Sure. How many cookies do you want?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                <div class="flex items-center gap-3 flex-wrap"><p><strong class="text-amber-700">Customer:</strong> Just a few. Maybe three.</p><button class="speak-btn" data-speak="Just a few. Maybe three."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                <div class="flex items-center gap-3 flex-wrap"><p><strong class="text-blue-700">Barista:</strong> Great. And only a little milk, right?</p><button class="speak-btn" data-speak="Great. And only a little milk, right?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Vocabulary">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-amber-700"><i class="fas fa-tasks text-yellow-500"></i> Objetivos da Aula</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <h3 class="text-2xl font-bold mb-4 text-gray-700">O que vamos aprender hoje:</h3>
-                    <ul class="text-left text-xl space-y-3">
-                        <li>?o"? Usar "a few" para pequenas quantidades de itens contáveis.</li>
-                        <li>?o"? Usar "a little" para pequenas quantidades de itens incontáveis.</li>
-                        <li>?o"? Diferenciar o uso em contextos práticos.</li>
-                        <li>?o"? Praticar o vocabulário em diálogos.</li>
-                    </ul>
+                <h2 class="text-4xl font-black mb-4 text-amber-700">Small quantity expressions</h2>
+                <div class="flashcard-grid max-w-5xl mx-auto">
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">a few cookies</h4><button class="flashcard-audio-btn" data-speak="a few cookies"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">alguns biscoitos</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">a few minutes</h4><button class="flashcard-audio-btn" data-speak="a few minutes"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">alguns minutos</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">a few ideas</h4><button class="flashcard-audio-btn" data-speak="a few ideas"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">algumas ideias</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">a little milk</h4><button class="flashcard-audio-btn" data-speak="a little milk"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">um pouco de leite</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">a little sugar</h4><button class="flashcard-audio-btn" data-speak="a little sugar"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">um pouco de açúcar</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">a little time</h4><button class="flashcard-audio-btn" data-speak="a little time"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">um pouco de tempo</p></div></div></div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Grammar">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-amber-700"><i class="fas fa-cubes text-amber-500"></i> Vocabulary: Small Quantities</h2>
-                <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Estas palavras são úteis para falar sobre pequenas quantidades.</p>
-                <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A few apples</h3></div><div class="flashcard-back"><p class="text-2xl">Algumas maçãs (contável)</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A little sugar</h3></div><div class="flashcard-back"><p class="text-2xl">Um pouco de açúcar (incontável)</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A few friends</h3></div><div class="flashcard-back"><p class="text-2xl">Alguns amigos (contável)</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A little time</h3></div><div class="flashcard-back"><p class="text-2xl">Um pouco de tempo (incontável)</p></div></div></div>
+                <h2 class="text-4xl font-black mb-6 text-amber-700">A little vs. a few</h2>
+                <div class="section-card p-8 text-left">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="lesson-panel-title mb-3">A few</p>
+                            <div class="activity-card text-lg space-y-3">
+                                <p><strong>A few</strong> + plural countable nouns.</p>
+                                <p><strong>A few cookies</strong> = alguns biscoitos.</p>
+                                <p><strong>A few friends</strong> = alguns amigos.</p>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">A little</p>
+                            <div class="activity-card text-lg space-y-3">
+                                <p><strong>A little</strong> + uncountable nouns.</p>
+                                <p><strong>A little milk</strong> = um pouco de leite.</p>
+                                <p><strong>A little patience</strong> = um pouco de paciência.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-5 mt-6">
+                        <div class="activity-card"><p class="lesson-panel-title mb-2">Como pensar</p><p class="text-lg">Se o substantivo pode ficar naturalmente no plural, pense em <strong>a few</strong>. Se não, pense em <strong>a little</strong>.</p></div>
+                        <div class="activity-card"><p class="lesson-panel-title mb-2">Erro comum</p><p class="text-lg">Não diga <strong>a few sugar</strong>. <strong>Sugar</strong> é incontável, então o correto é <strong>a little sugar</strong>.</p></div>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-amber-700"><i class="fas fa-book-open text-purple-500"></i> Grammar: A few vs. A little</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto text-left">
-                    <p class="text-2xl mb-6 text-gray-600 text-center">Ambos significam "um pouco" ou "alguns", mas o uso é diferente.</p>
-                    
-                    <h3 class="font-bold text-xl text-blue-700 mb-2">A few (+ Substantivos Contáveis no Plural)</h3>
-                    <div class="bg-blue-50 p-4 rounded-lg text-lg">
-                        <p>Usamos <strong class="font-semibold">a few</strong> para um número pequeno de coisas que podemos contar.</p>
-                        <p>I have <strong class="font-semibold">a few</strong> good friends.</p>
-                        <p>There are <strong class="font-semibold">a few</strong> apples in the kitchen.</p>
-                    </div>
 
-                    <h3 class="font-bold text-xl text-green-700 mt-6 mb-2">A little (+ Substantivos Incontáveis)</h3>
-                     <div class="bg-green-50 p-4 rounded-lg text-lg">
-                        <p>Usamos <strong class="font-semibold">a little</strong> para uma pequena quantidade de coisas que não podemos contar.</p>
-                        <p>I have <strong class="font-semibold">a little</strong> money.</p>
-                        <p>I need <strong class="font-semibold">a little</strong> help, please.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
+        <div class="slide" data-title="Practice">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-amber-700"><i class="fas fa-pencil-alt text-blue-500"></i>Practice: Choose Correctly</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Complete as frases com <strong class="font-bold">a little</strong> ou <strong class="font-bold">a few</strong>.</p>
-                    <div id="practice-choose" class="text-left text-xl space-y-4">
-                        <p>1. I have <input data-answer="a few" class="w-32 p-1 border-b-2 text-center"> questions for you.</p>
-                        <p>2. Can I have <input data-answer="a little" class="w-32 p-1 border-b-2 text-center"> water, please?</p>
-                        <p>3. She speaks <input data-answer="a little" class="w-32 p-1 border-b-2 text-center"> English.</p>
-                        <p>4. We have <input data-answer="a few" class="w-32 p-1 border-b-2 text-center"> minutes before the class starts.</p>
-                        <p>5. He needs <input data-answer="a little" class="w-32 p-1 border-b-2 text-center"> sugar for his coffee.</p>
-                    </div>
-                     <button class="mt-8 bg-blue-500 text-white font-bold py-3 px-8 rounded-lg" onclick="checkAnswers(this.previousElementSibling)">Check Answers</button>
+                <h2 class="text-4xl font-black mb-6 text-amber-700">Choose correctly</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left text-xl space-y-5">
+                    <p>1. I need <input data-answer="a little" class="practice-input"> coffee. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: bebida</span></p>
+                    <p>2. We have <input data-answer="a few" class="practice-input"> chairs in the kitchen. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: cadeiras contam</span></p>
+                    <p>3. She needs <input data-answer="a little" class="practice-input"> help. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: ajuda</span></p>
+                    <p>4. He has <input data-answer="a few" class="practice-input"> questions. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: perguntas</span></p>
+                    <p>5. We have <input data-answer="a little" class="practice-input"> butter left. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: manteiga</span></p>
+                    <p>6. There are <input data-answer="a few" class="practice-input"> apples on the table. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: maçãs</span></p>
+                    <p>7. I need <input data-answer="a little" class="practice-input"> time to finish. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: tempo</span></p>
+                    <p>8. We bought <input data-answer="a few" class="practice-input"> sandwiches. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: sanduíches</span></p>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Cafe Dialogue">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-amber-700"><i class="fas fa-comments text-cyan-500"></i>Practice: At the Café</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Complete o diálogo com as palavras corretas.</p>
-                    <div id="dialogue-practice" class="text-left text-xl bg-gray-50 p-6 rounded-lg space-y-4">
-                        <p><strong class="text-blue-600">Atendente:</strong> "Hi! What can I get for you?"</p>
-                        <p><strong class="text-orange-600">Cliente:</strong> "Hello. I'd like <input data-answer="a few" class="w-24 p-1 border-b-2 text-center"> cookies, please."</p>
-                        <p><strong class="text-blue-600">Atendente:</strong> "Sure. <input data-answer="How many" class="w-32 p-1 border-b-2 text-center"> cookies?"</p>
-                        <p><strong class="text-orange-600">Cliente:</strong> "Three, please. And I'll have <input data-answer="a little" class="w-24 p-1 border-b-2 text-center"> milk with my coffee."</p>
-                        <p><strong class="text-blue-600">Atendente:</strong> "Okay. <input data-answer="How much" class="w-32 p-1 border-b-2 text-center"> milk?"</p>
-                        <p><strong class="text-orange-600">Cliente:</strong> "Just <input data-answer="a little" class="w-24 p-1 border-b-2 text-center">."</p>
-                    </div>
-                    <button class="mt-6 bg-cyan-600 text-white font-bold py-3 px-8 rounded-lg" onclick="checkAnswers(this.previousElementSibling)">Check Answers</button>
+                <h2 class="text-4xl font-black mb-6 text-amber-700">At the café</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left text-xl space-y-5">
+                    <p><strong class="text-blue-700">Barista:</strong> Good afternoon. What would you like?</p>
+                    <p><strong class="text-orange-600">Customer:</strong> I'd like <input data-answer="a few" class="practice-input"> cookies, please. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: biscoitos</span></p>
+                    <p><strong class="text-blue-700">Barista:</strong> Sure. And in your coffee?</p>
+                    <p><strong class="text-orange-600">Customer:</strong> Just <input data-answer="a little" class="practice-input"> milk. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: leite</span></p>
+                    <p><strong class="text-blue-700">Barista:</strong> Do you want sugar too?</p>
+                    <p><strong class="text-orange-600">Customer:</strong> Yes, only <input data-answer="a little" class="practice-input"> sugar. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: açúcar</span></p>
+                    <p><strong class="text-blue-700">Barista:</strong> Great. And do you need napkins?</p>
+                    <p><strong class="text-orange-600">Customer:</strong> Yes, <input data-answer="a few" class="practice-input"> napkins, please. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: guardanapos</span></p>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-6 text-center text-amber-700"><i class="fas fa-puzzle-piece text-purple-500"></i> Practice: Sort The Words</h2>
-            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-5xl mx-auto">
-                <p class="text-xl mb-8 text-gray-600 text-center">Arraste as palavras para a categoria correta.</p>
-                <div class="flex flex-wrap gap-4 justify-center mb-8" id="drag-items">
-                    <div id="item-friends" class="draggable" draggable="true">friends</div>
-                    <div id="item-time" class="draggable" draggable="true">time</div>
-                    <div id="item-people" class="draggable" draggable="true">people</div>
-                    <div id="item-patience" class="draggable" draggable="true">patience</div>
-                    <div id="item-ideas" class="draggable" draggable="true">ideas</div>
-                    <div id="item-coffee" class="draggable" draggable="true">coffee</div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-blue-100 p-4 rounded-lg">
-                        <h3 class="font-bold text-xl text-blue-800 mb-2 text-center">A few... (Countable)</h3>
-                        <div data-match="item-friends item-people item-ideas" class="drop-zone space-y-2 p-4 border-2 border-gray-300 rounded-lg min-h-[150px]"></div>
-                    </div>
-                    <div class="bg-green-100 p-4 rounded-lg">
-                        <h3 class="font-bold text-xl text-green-800 mb-2 text-center">A little... (Uncountable)</h3>
-                        <div data-match="item-time item-patience item-coffee" class="drop-zone space-y-2 p-4 border-2 border-gray-300 rounded-lg min-h-[150px]"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-amber-700"><i class="fas fa-music text-red-500"></i> Music Time: A Little Respect</h2>
-            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5mip0MqcMGWmHE7tsrc97m?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-6 text-center">
-                    <p class="text-xl mb-4 text-gray-600">Ouça o clássico do Erasure. "Respect" é incontável!</p>
-                    <div id="music-activity" class="text-xl inline-block text-left space-y-3 bg-gray-50 p-6 rounded-lg border-l-4 border-amber-500">
+        <div class="slide" data-title="Music">
+            <div>
+                <h2 class="text-4xl font-black mb-4 text-center text-amber-700">Music Time: A Little Respect</h2>
+                <div class="music-card p-6 rounded-2xl max-w-4xl mx-auto">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5mip0MqcMGWmHE7tsrc97m?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <div class="text-lg bg-slate-50 p-6 rounded-xl border-l-4 border-amber-500 mt-5 space-y-4">
                         <p>I try to discover</p>
-                        <p>A little something to make me <input data-answer="sweeter" class="w-28 p-1 border-b-2 text-center bg-transparent"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>Oh baby, refrain from breaking my <input data-answer="heart" class="w-24 p-1 border-b-2 text-center bg-transparent"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                        <p>A little something to make me <input data-answer="sweeter" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: mais doce</span></p>
+                        <p>Oh baby, refrain from breaking my <input data-answer="heart" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: coração</span></p>
                         <p>I'm so in love with you</p>
-                        <br>
-                        <p>Soul, I hear you calling</p>
-                        <p>Oh baby, please</p>
-                        <p>Give <input data-answer="a little" class="w-28 p-1 border-b-2 text-center bg-transparent"> respect to me <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-amber-700"><i class="fas fa-home text-green-500"></i>Homework: A Little of This, A Few of That</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Escreva 4 frases sobre sua vida: duas com "a little" e duas com "a few".</p>
-                    <div class="text-left text-lg space-y-2 mt-4 bg-gray-50 p-6 rounded-lg">
-                        <p class="font-bold">Examples:</p>
-                        <ul class="list-disc list-inside mt-2 space-y-1">
-                            <li>"I have a few good books on my table."</li>
-                            <li>"I need a little more time to finish my homework."</li>
-                        </ul>
+                        <p>I'll be forever blue</p>
+                        <p>That you give me no reason</p>
+                        <p>Why you're making me work so <input data-answer="hard" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: duro</span></p>
+                        <p>Give <input data-answer="a little" class="practice-input"> respect to me <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: um pouco de</span></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-             <div class="text-center flex flex-col items-center justify-center h-full">
-                <i class="fas fa-seedling text-amber-600 text-7xl mb-6"></i>
-                <h2 class="text-5xl font-bold mb-4 text-gray-800">A little progress each day...</h2>
-                <p class="text-3xl text-gray-600 max-w-2xl">...adds up to big results.</p>
+        <div class="slide" data-title="Writing">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-amber-700">Write your own mini order</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <ul class="list-disc list-inside space-y-2 text-lg">
+                        <li>Write 2 sentences with <strong>a few</strong>.</li>
+                        <li>Write 2 sentences with <strong>a little</strong>.</li>
+                        <li>Make them fit a café, kitchen, or market situation.</li>
+                    </ul>
+                    <textarea rows="6" class="mt-5 w-full p-4 border-2 border-slate-200 rounded-xl focus:border-amber-500 outline-none transition-colors" placeholder="Example: I need a little milk and a few cookies."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Lesson Complete">
+            <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
+                <i class="fas fa-cookie text-amber-500 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">Now you can talk about small quantities</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl">This makes your English softer, more natural, and much more useful in everyday requests.</p>
             </div>
         </div>
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-30">
-        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
-            <button id="next-btn" class="bg-amber-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-amber-600">Próximo</button>
-            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finalizar Aula</button>
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
+        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition"><i class="fas fa-chevron-left mr-1"></i> Anterior</button>
+            <button id="next-btn" class="bg-amber-500 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Próximo <i class="fas fa-chevron-right ml-1"></i></button>
+            <button id="finish-lesson-btn" class="hidden bg-amber-500 text-white font-bold py-3 px-8 rounded-lg transition"><i class="fas fa-check mr-2"></i>Finalizar aula</button>
         </div>
     </footer>
-    
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const finishLessonBtn = document.getElementById('finish-lesson-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const slideCounter = document.getElementById('slide-counter');
+        const slideTitleHeader = document.getElementById('slide-title-header');
+        let currentSlide = 0;
+        function showSlide(index) {
+            slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+            progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+            slideCounter.textContent = `${index + 1} / ${slides.length}`;
+            slideTitleHeader.textContent = slides[index]?.dataset.title || '';
+            prevBtn.disabled = index === 0;
+            const isLast = index === slides.length - 1;
+            nextBtn.classList.toggle('hidden', isLast);
+            finishLessonBtn.classList.toggle('hidden', !isLast);
+        }
+        document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+        document.querySelectorAll('.flashcard-audio-btn').forEach(button => button.addEventListener('click', event => { event.stopPropagation(); const utterance = new SpeechSynthesisUtterance(button.dataset.speak || ''); utterance.lang = 'en-US'; speechSynthesis.cancel(); speechSynthesis.speak(utterance); }));
+        document.querySelectorAll('.speak-btn').forEach(button => button.addEventListener('click', () => { const utterance = new SpeechSynthesisUtterance(button.dataset.speak || ''); utterance.lang = 'en-US'; speechSynthesis.cancel(); speechSynthesis.speak(utterance); }));
+        document.querySelectorAll('.answer-btn').forEach(button => button.addEventListener('click', event => {
+            const line = event.currentTarget.closest('p');
+            line?.querySelectorAll('input[data-answer]').forEach(input => {
+                input.value = input.dataset.answer;
+                input.classList.remove('incorrect');
+                input.classList.add('correct');
+            });
+        }));
+        document.querySelectorAll('input[data-answer]').forEach(input => input.addEventListener('blur', () => {
+            const value = input.value.trim().toLowerCase();
+            const answer = input.dataset.answer.trim().toLowerCase();
+            input.classList.remove('correct', 'incorrect');
+            if (!value) return;
+            input.classList.add(value === answer ? 'correct' : 'incorrect');
+        }));
+        prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+        nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+        showSlide(0);
+    });
+    </script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
-    <script src="../js/progress-manager.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const moduleId = 'a1';
-            const lessonNumber = 22;
-
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            let currentSlide = 0;
-
-            function showSlide(index) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                const progressBar = document.getElementById('progress-bar');
-                if (progressBar) {
-                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
-                    progressBar.style.width = `${progressPercentage}%`;
-                }
-                if (prevBtn) prevBtn.disabled = index === 0;
-                const isLastSlide = index === slides.length - 1;
-                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
-                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
-            }
-
-            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-
-document.querySelectorAll('.flashcard').forEach(card => {
-                card.addEventListener('click', () => card.classList.toggle('flipped'));
-            });
-
-            window.checkAnswers = function(container) {
-                container.querySelectorAll('input[data-answer]').forEach(input => {
-                    const correctAnswer = input.dataset.answer.trim().toLowerCase();
-                    const userAnswer = input.value.trim().toLowerCase();
-                    input.classList.remove('correct', 'incorrect');
-                    if (userAnswer === correctAnswer) {
-                        input.classList.add('correct');
-                    } else {
-                        input.classList.add('incorrect');
-                    }
-                });
-            };
-
-            document.querySelectorAll('.answer-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    let currentElement = button.previousElementSibling;
-                    while (currentElement) {
-                        if (currentElement.tagName === 'INPUT' && currentElement.hasAttribute('data-answer')) {
-                            currentElement.value = currentElement.dataset.answer;
-                            currentElement.classList.add('correct');
-                        }
-                        if (currentElement.previousElementSibling?.tagName === 'P' || currentElement.previousElementSibling?.tagName === 'BR') {
-                            break;
-                        }
-                        currentElement = currentElement.previousElementSibling;
-                    }
-                });
-            });
-
-            // Drag and Drop Logic
-            const draggables = document.querySelectorAll('.draggable');
-            let draggedItem = null;
-
-            draggables.forEach(draggable => {
-                draggable.addEventListener('dragstart', (e) => {
-                    draggedItem = e.target;
-                    setTimeout(() => e.target.classList.add('opacity-50'), 0);
-                });
-                draggable.addEventListener('dragend', (e) => {
-                    setTimeout(() => {
-                        e.target.classList.remove('opacity-50');
-                        draggedItem = null;
-                    }, 0);
-                });
-            });
-
-            document.querySelectorAll('.drop-zone').forEach(zone => {
-                zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
-                zone.addEventListener('dragleave', () => zone.classList.remove('over'));
-                zone.addEventListener('drop', e => {
-                    e.preventDefault();
-                    zone.classList.remove('over');
-                    if (draggedItem && zone.dataset.match.includes(draggedItem.id)) {
-                        draggedItem.classList.remove('opacity-50');
-                        zone.appendChild(draggedItem);
-                    }
-                });
-            });
-
-            showSlide(0);
-        });
-    </script>
-    <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
-    <script src="a1-lesson-theme.js"></script>
 </body>
 </html>
-
-
-

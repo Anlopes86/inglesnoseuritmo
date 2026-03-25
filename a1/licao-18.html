@@ -6,345 +6,48 @@
     <title>A1 - Lesson 18: My Job | Inglês no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="a1-lesson-theme.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* Flashcards */
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 200px; perspective: 1000px; cursor: pointer; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .flashcard { background: transparent; height: 220px; perspective: 1000px; cursor: pointer; }
+        .flashcard-audio-btn { position: absolute; top: 0.75rem; right: 0.75rem; width: 2.25rem; height: 2.25rem; border-radius: 9999px; border: 1px solid rgba(56, 189, 248, 0.45); background: rgba(15, 23, 42, 0.9); color: #38bdf8; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
-        .flashcard-front { background-color: white; color: #2563eb; text-align: center; }
-        .flashcard-back { background-color: #2563eb; color: white; transform: rotateY(180deg); text-align: center; }
-
-        /* Drag & Drop */
-        .draggable { cursor: grab; }
-        .drop-zone { border-style: dashed; }
-        .drop-zone.over { background-color: #dbeafe; border-color: #2563eb; }
-        
-        /* Answer Button */
-        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.5rem; }
-        .answer-btn:hover { color: #4f46e5; }
-        input[data-answer].correct { background-color: #dcfce7; border-color: #22c55e; }
-        input[data-answer] { transition: all 0.3s; }
-
-        /* Modal for Teacher's Script */
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
-        .modal-overlay.active { opacity: 1; pointer-events: all; }
-        .modal-content { background: white; padding: 2.5rem; border-radius: 1rem; max-width: 500px; width: 90%; transform: scale(0.95); transition: transform 0.3s ease; }
-        .modal-overlay.active .modal-content { transform: scale(1); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; }
+        .flashcard-front { background: white; color: #2563eb; text-align: center; }
+        .flashcard-back { background: #2563eb; color: white; transform: rotateY(180deg); text-align: center; }
+        .practice-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; outline: none; text-align: center; width: 9rem; font-size: 1rem; padding: 2px 6px; }
+        .practice-input:focus { border-color: #2563eb; }
+        .practice-input.correct { border-color: #22c55e; color: #15803d; font-weight: 700; }
+        .practice-input.incorrect { border-color: #ef4444; color: #dc2626; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
+        .answer-btn:hover { color: #2563eb; }
+        .speak-btn { display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; padding: 5px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
     </style>
-    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
 <body class="bg-slate-50 text-slate-800">
-
-    <header class="shadow-sm sticky top-0 z-40">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
-            <a href="a1.html" class="text-lg font-bold text-blue-600 hover:text-blue-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
-            <div class="text-center">
-                <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 18: My Job</h1>
-                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
-            </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
-        </div>
-        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-blue-600 h-1.5 transition-all duration-300 ease-in-out"></div></div>
-    </header>
-
+    <header class="shadow-sm sticky top-0 z-10"><div class="container mx-auto px-6 py-3 flex justify-between items-center h-16"><a href="a1.html" class="text-lg font-bold text-blue-600 hover:text-blue-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a><div class="text-center"><h1 class="text-base font-semibold text-slate-800">A1 - Lesson 18: My Job</h1><p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p></div><div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div></div><div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-blue-600 h-1.5 transition-all duration-500"></div></div></header>
     <main class="container mx-auto p-8 pb-28 max-w-5xl">
-        
-        <div class="slide active">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-blue-700"><i class="fas fa-comments text-yellow-500"></i> Warm-up: Talking About Your Week</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Let's start with a conversation!</p>
-                    <div class="text-left text-xl space-y-4 bg-gray-50 p-6 rounded-lg">
-                        <p><strong class="text-green-600">Professor:</strong> "Hi there! How are you doing today? Did you have a good week?"</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "I'm doing well, thanks! Yes, it was a good week. A little busy."</p>
-                        <p><strong class="text-green-600">Professor:</strong> "I understand. Do you <strong class="font-bold text-purple-600">always</strong> have a busy week?"</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "I <strong class="font-bold text-purple-600">usually</strong> have busy weeks. I study English, go to the gym, and see my friends."</p>
-                        <p><strong class="text-green-600">Professor:</strong> "That sounds like a great routine. What about your family? For example, what is your <strong class="font-bold text-indigo-600">father's routine</strong> like?"</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "My <strong class="font-bold text-indigo-600">father's routine</strong> is very different. He wakes up very early, at 5:30 AM."</p>
-                        <p><strong class="text-green-600">Professor:</strong> "Wow, 5:30 AM is early! That brings us to our topic today: <strong class="font-bold">professions</strong>. So, tell me, <strong class="font-bold">What does your father do?</strong>"</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "He is an engineer."</p>
-                        <p><strong class="text-green-600">Professor:</strong> "Perfect! Today, we will learn to talk about jobs. Let's start!"</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-blue-700"><i class="fas fa-layer-group text-blue-500"></i> Vocabulary: Professions</h2>
-                <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Let's learn some jobs. Click on the cards to flip them!</p>
-                <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A Doctor</h3></div><div class="flashcard-back"><p class="text-2xl">This person helps sick people in a hospital.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A Teacher</h3></div><div class="flashcard-back"><p class="text-2xl">This person teaches students in a school.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">An Engineer</h3></div><div class="flashcard-back"><p class="text-2xl">This person designs and builds bridges.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A Chef</h3></div><div class="flashcard-back"><p class="text-2xl">This person cooks food in a restaurant.</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">A Singer</h3></div><div class="flashcard-back"><p class="text-2xl">This person sings songs for an audience.</p></div></div></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-blue-700"><i class="fas fa-book-open text-purple-500"></i> Grammar Focus: Talking about Jobs</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto text-left">
-                    <p class="text-2xl mb-6 text-gray-600 text-center">Let's review the structures.</p>
-                    <h3 class="font-bold text-xl text-purple-700 mb-2">1. Asking about professions:</h3>
-                    <div class="bg-purple-50 p-4 rounded-lg text-lg">
-                        <p><strong class="font-semibold">What do you do?</strong> -> I <strong class="font-semibold">am</strong> a student.</p>
-                        <p><strong class="font-semibold">What does he do?</strong> -> He <strong class="font-semibold">is</strong> a doctor.</p>
-                        <p><strong class="font-semibold">What does she do?</strong> -> She <strong class="font-semibold">is</strong> an engineer.</p>
-                    </div>
-                    <h3 class="font-bold text-xl text-green-700 mt-6 mb-2">2. Affirmative and Negative:</h3>
-                     <div class="bg-green-50 p-4 rounded-lg text-lg">
-                        <p>(+) He <strong class="font-semibold">is a teacher</strong>.</p>
-                        <p>(-) He <strong class="font-semibold">is not (isn't) a teacher</strong>. He is a doctor.</p>
-                    </div>
-                    <h3 class="font-bold text-xl text-orange-700 mt-6 mb-2">3. Yes/No Questions:</h3>
-                    <div class="bg-orange-50 p-4 rounded-lg text-lg">
-                        <p><strong class="font-semibold">Are you</strong> a singer? -> Yes, I am. / No, I'm not.</p>
-                        <p><strong class="font-semibold">Is she</strong> a chef? -> Yes, she is. / No, she isn't.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-blue-700"><i class="fas fa-comments text-orange-500"></i>Practice: Complete the Dialogue</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Complete this conversation between Ana (A) and Ben (B).</p>
-                    <div class="text-left text-xl space-y-4">
-                        <p><strong>A:</strong> Hi Ben! This is my friend, Carla. She is a singer.</p>
-                        <p><strong>B:</strong> Oh, cool! <input data-answer="Are you" class="w-32 p-1 border-b-2 text-center"> a rock singer? <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p><strong>A (Carla):</strong> No, I'm <input data-answer="not" class="w-20 p-1 border-b-2 text-center">. I sing pop music. <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p><strong>B:</strong> That's nice. My brother loves music, but he is <input data-answer="a chef" class="w-28 p-1 border-b-2 text-center">. <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p><strong>A:</strong> Really? What <input data-answer="does he do" class="w-36 p-1 border-b-2 text-center"> exactly? <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p><strong>B:</strong> He works in an Italian restaurant.</p>
-                        <p><strong>A:</strong> And what about you, Ben? What <input data-answer="do you do" class="w-36 p-1 border-b-2 text-center">? <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p><strong>B:</strong> I'm an <input data-answer="engineer" class="w-32 p-1 border-b-2 text-center">. I design buildings. <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-blue-700"><i class="fas fa-headphones text-cyan-500"></i>Listening: A Day in the Life</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Listen to Maria talk about her job and answer the questions.</p>
-                    <button id="show-script-btn" class="bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition hover:bg-cyan-700 mb-8"><i class="fas fa-file-alt mr-2"></i> Show Teacher's Script</button>
-                    <div class="text-left mt-6 text-lg space-y-6">
-                        <div>
-                            <label for="q1" class="font-bold block mb-2">1. What does Maria do?</label>
-                            <textarea id="q1" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="Write your answer here..."></textarea>
-                        </div>
-                        <div>
-                            <label for="q2" class="font-bold block mb-2">2. Where does she work?</label>
-                            <textarea id="q2" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="Write your answer here..."></textarea>
-                        </div>
-                        <div>
-                            <label for="q3" class="font-bold block mb-2">3. What does she like about her job?</label>
-                            <textarea id="q3" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="Write your answer here..."></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-blue-700"><i class="fas fa-music text-red-500"></i> Music Time: A Hard Day's Night</h2>
-            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5J2CHimS7dWYMImCHkEFaJ?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>            <div class="mt-6 text-center">
-                    <p class="text-xl mb-4 text-gray-600">Listen and complete the song. Then, discuss the questions.</p>
-                    <div class="text-xl inline-block text-left space-y-3 bg-gray-50 p-6 rounded-lg border-l-4 border-blue-500">
-                           <p>It's been a <input data-answer="hard" class="w-24 p-1 border-b-2 text-center bg-transparent"> day's night <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                           <p>And I've been <input data-answer="working" class="w-32 p-1 border-b-2 text-center bg-transparent"> like a dog <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                           <p>It's been a hard day's night</p>
-                           <p>I should be <input data-answer="sleeping" class="w-32 p-1 border-b-2 text-center bg-transparent"> like a log <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                           <p>But when I get <input data-answer="home" class="w-24 p-1 border-b-2 text-center bg-transparent"> to you <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                           <p>I find the things that you do</p>
-                           <p>Will make me <input data-answer="feel" class="w-24 p-1 border-b-2 text-center bg-transparent"> alright <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                    </div>
-                     <div class="text-left mt-6 bg-yellow-100 p-4 rounded-lg">
-                        <h4 class="font-bold text-xl text-yellow-800">Discussion:</h4>
-                        <p class="mt-2 text-lg">The singer works very hard. What do you think his job is? What does he do after work to feel better?</p>
-                     </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-6 text-center text-blue-700"><i class="fas fa-puzzle-piece text-green-500"></i> Practice: Who Does What?</h2>
-            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-5xl mx-auto">
-                <p class="text-xl mb-8 text-gray-600 text-center">Let's review! Drag the correct job to its description.</p>
-                <div class="grid grid-cols-1 md:grid-cols-5 gap-6 items-center">
-                    <div class="md:col-span-2 flex flex-wrap gap-4 justify-center">
-                        <div id="job-doctor" class="draggable bg-blue-100 text-blue-800 p-3 rounded-lg shadow font-semibold" draggable="true">a doctor</div>
-                        <div id="job-teacher" class="draggable bg-green-100 text-green-800 p-3 rounded-lg shadow font-semibold" draggable="true">a teacher</div>
-                        <div id="job-engineer" class="draggable bg-yellow-100 text-yellow-800 p-3 rounded-lg shadow font-semibold" draggable="true">an engineer</div>
-                        <div id="job-chef" class="draggable bg-red-100 text-red-800 p-3 rounded-lg shadow font-semibold" draggable="true">a chef</div>
-                        <div id="job-singer" class="draggable bg-purple-100 text-purple-800 p-3 rounded-lg shadow font-semibold" draggable="true">a singer</div>
-                    </div>
-                    <div class="md:col-span-3 space-y-4 text-left">
-                        <div class="flex items-center gap-3"><span class="w-1/2 text-lg">This person cooks food.</span> <div data-match="job-chef" class="drop-zone w-1/2 p-4 border-2 border-gray-300 rounded-lg min-h-[50px]"></div></div>
-                        <div class="flex items-center gap-3"><span class="w-1/2 text-lg">This person builds bridges.</span> <div data-match="job-engineer" class="drop-zone w-1/2 p-4 border-2 border-gray-300 rounded-lg min-h-[50px]"></div></div>
-                        <div class="flex items-center gap-3"><span class="w-1/2 text-lg">This person sings songs.</span> <div data-match="job-singer" class="drop-zone w-1/2 p-4 border-2 border-gray-300 rounded-lg min-h-[50px]"></div></div>
-                        <div class="flex items-center gap-3"><span class="w-1/2 text-lg">This person helps sick people.</span> <div data-match="job-doctor" class="drop-zone w-1/2 p-4 border-2 border-gray-300 rounded-lg min-h-[50px]"></div></div>
-                        <div class="flex items-center gap-3"><span class="w-1/2 text-lg">This person teaches students.</span> <div data-match="job-teacher" class="drop-zone w-1/2 p-4 border-2 border-gray-300 rounded-lg min-h-[50px]"></div></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-blue-700"><i class="fas fa-home text-green-500"></i>Homework: A Family Member's Job</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Choose a family member (father, mother, brother, etc.) and write a short paragraph about their job.</p>
-                    <div class="text-left text-lg space-y-2 mt-4 bg-gray-50 p-6 rounded-lg">
-                        <p class="font-bold">Be sure to include:</p>
-                        <ul class="list-disc list-inside mt-2 space-y-1">
-                            <li>Their name and relation to you (e.g., "My father, John...")</li>
-                            <li>Their profession (e.g., "He is a chef.")</li>
-                            <li>Where they work (e.g., "He works in a big restaurant.")</li>
-                            <li>Two activities they do at work (e.g., "He cooks pasta and makes salads.")</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-             <div class="text-center flex flex-col items-center justify-center h-full">
-                <i class="fas fa-rocket text-blue-600 text-7xl mb-6"></i>
-                <h2 class="text-5xl font-bold mb-4 text-gray-800">Find a job you love... 
-</h2>
-                <p class="text-3xl text-gray-600 max-w-2xl">...and you will never have to work a day in your life!</p>
-            </div>
-        </div>
+        <div class="slide active" data-title="Warm-up"><div class="lesson-hero rounded-[2rem] p-8 md:p-10"><div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start"><div><h2 class="text-4xl md:text-5xl font-black mb-4 text-slate-900">Falar sobre profissões</h2><p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a perguntar e responder sobre profissões com estruturas como <strong>What do you do?</strong>, <strong>He is a doctor</strong> e <strong>She isn't a teacher</strong>.</p></div><div class="lesson-panel p-6"><p class="lesson-panel-title mb-4">Você vai praticar</p><div class="lesson-checklist"><div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Perguntar <strong>What do you do?</strong></span></div><div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Responder com <strong>He/She is...</strong></span></div><div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Falar do trabalho da família</span></div></div></div></div></div><div class="section-card p-8 mt-8"><div class="space-y-5 text-xl"><div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-700 w-24">Teacher:</p><p>What does your father do?</p><button class="speak-btn" data-speak="What does your father do?"><i class="fas fa-volume-up"></i> Ouvir</button></div><div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>He is an engineer. He works for a car company.</p><button class="speak-btn" data-speak="He is an engineer. He works for a car company."><i class="fas fa-volume-up"></i> Ouvir</button></div><div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-700 w-24">Teacher:</p><p>Interesting. And what does your mother do?</p><button class="speak-btn" data-speak="Interesting. And what does your mother do?"><i class="fas fa-volume-up"></i> Ouvir</button></div><div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>She is a teacher. She works in a school and she loves her students.</p><button class="speak-btn" data-speak="She is a teacher. She works in a school and she loves her students."><i class="fas fa-volume-up"></i> Ouvir</button></div><div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-700 w-24">Teacher:</p><p>And what about you? What do you want to do in the future?</p><button class="speak-btn" data-speak="And what about you? What do you want to do in the future?"><i class="fas fa-volume-up"></i> Ouvir</button></div><div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>I want to be a designer. I like creative work and technology.</p><button class="speak-btn" data-speak="I want to be a designer. I like creative work and technology."><i class="fas fa-volume-up"></i> Ouvir</button></div></div></div></div>
+        <div class="slide" data-title="Vocabulary"><div class="text-center"><h2 class="text-4xl font-black mb-4 text-blue-700">Professions</h2><div class="flashcard-grid max-w-5xl mx-auto"><div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">doctor</h4><button class="flashcard-audio-btn" data-speak="doctor"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">médico / médica</p></div></div></div><div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">teacher</h4><button class="flashcard-audio-btn" data-speak="teacher"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">professor / professora</p></div></div></div><div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">engineer</h4><button class="flashcard-audio-btn" data-speak="engineer"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">engenheiro / engenheira</p></div></div></div><div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">chef</h4><button class="flashcard-audio-btn" data-speak="chef"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">chef / cozinheiro</p></div></div></div><div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">singer</h4><button class="flashcard-audio-btn" data-speak="singer"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">cantor / cantora</p></div></div></div><div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">driver</h4><button class="flashcard-audio-btn" data-speak="driver"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">motorista</p></div></div></div></div></div></div>
+        <div class="slide" data-title="Grammar"><div class="text-center"><h2 class="text-4xl font-black mb-6 text-blue-700">Talking about jobs</h2><div class="section-card p-8 text-left"><div class="grid md:grid-cols-2 gap-6"><div><p class="lesson-panel-title mb-3">Main questions</p><table class="w-full text-left text-lg border-collapse"><thead><tr class="bg-slate-100"><th class="p-4 border">Question</th><th class="p-4 border">Answer</th><th class="p-4 border">Tradução</th></tr></thead><tbody><tr><td class="p-4 border">What do you do?</td><td class="p-4 border">I am a student.</td><td class="p-4 border">O que você faz?</td></tr><tr class="bg-slate-50"><td class="p-4 border">What does he do?</td><td class="p-4 border">He is a doctor.</td><td class="p-4 border">O que ele faz?</td></tr><tr><td class="p-4 border">What does she do?</td><td class="p-4 border">She is an engineer.</td><td class="p-4 border">O que ela faz?</td></tr></tbody></table></div><div><p class="lesson-panel-title mb-3">Useful patterns</p><div class="space-y-4 text-lg"><div class="activity-card"><strong>He is a teacher.</strong><br><span class="text-slate-600">Afirmativa simples sobre profissão.</span></div><div class="activity-card"><strong>He isn't a teacher. He is a doctor.</strong><br><span class="text-slate-600">Negativa + correção.</span></div><div class="activity-card"><strong>Is she a chef?</strong><br><span class="text-slate-600">Pergunta sim/não para confirmar profissão.</span></div></div></div></div><div class="grid md:grid-cols-3 gap-5 mt-6"><div class="activity-card"><p class="lesson-panel-title mb-2">Quando usar</p><p class="text-lg">Use <strong>What do you do?</strong> para perguntar sobre a profissão da pessoa com quem você fala. Use <strong>What does he/she do?</strong> para perguntar sobre outra pessoa.</p></div><div class="activity-card"><p class="lesson-panel-title mb-2">Dica importante</p><p class="text-lg">Para profissões, normalmente usamos <strong>a</strong> ou <strong>an</strong>: <strong>a doctor</strong>, <strong>a teacher</strong>, <strong>an engineer</strong>.</p></div><div class="activity-card"><p class="lesson-panel-title mb-2">Erro comum</p><p class="text-lg">Depois de <strong>does</strong>, o verbo volta para a forma base: <strong>What does he do?</strong> e não <strong>What does he does?</strong>. Na resposta, usamos <strong>He is...</strong> ou <strong>She works...</strong>.</p></div></div></div></div></div>
+        <div class="slide" data-title="Practice"><div class="text-center"><h2 class="text-4xl font-black mb-6 text-blue-700">Complete the dialogue</h2><div class="section-card p-8 max-w-4xl mx-auto text-left text-xl space-y-5"><p>1. <input data-answer="Are you" class="practice-input"> a singer? <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: você é...?</span></p><p>2. No, I'm <input data-answer="not" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: não</span></p><p>3. My brother is <input data-answer="a chef" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: profissão na cozinha</span></p><p>4. What <input data-answer="does he do" class="practice-input"> exactly? <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: o que ele faz?</span></p><p>5. What <input data-answer="do you do" class="practice-input">? <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: o que você faz?</span></p><p>6. I'm an <input data-answer="engineer" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: profissão com an</span></p><p>7. She is <input data-answer="a teacher" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: profissão na escola</span></p><p>8. He works in <input data-answer="a hospital" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: hospital</span></p></div></div></div>
+        <div class="slide" data-title="Listening"><div class="text-center"><h2 class="text-4xl font-black mb-6 text-blue-700">Listening: A day in the life</h2><div class="section-card p-8 max-w-4xl mx-auto text-left"><div class="callout-note mb-6"><strong>Teacher reads:</strong> Maria is a doctor. She works in a hospital. She usually starts work at seven. She likes helping people, but she doesn't like night shifts. Her brother is a chef, and their mother is a teacher.</div><div class="space-y-5 text-lg"><p>1. Maria is a <input data-answer="doctor" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: profissão da Maria</span></p><p>2. She works in a <input data-answer="hospital" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: lugar de trabalho</span></p><p>3. She starts work at <input data-answer="seven" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: hora</span></p><p>4. She likes helping <input data-answer="people" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: pessoas</span></p><p>5. Her brother is a <input data-answer="chef" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: profissão na cozinha</span></p><p>6. Their mother is a <input data-answer="teacher" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: profissão na escola</span></p></div></div></div></div>
+        <div class="slide" data-title="Music"><div><h2 class="text-4xl font-black mb-4 text-center text-blue-700">Music Time: A Hard Day's Night</h2><div class="music-card p-6 rounded-2xl max-w-4xl mx-auto"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5J2CHimS7dWYMImCHkEFaJ?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe><div class="text-lg bg-slate-50 p-6 rounded-xl border-l-4 border-blue-500 mt-5 space-y-4"><p>It's been a <input data-answer="hard" class="practice-input"> day's night <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: difícil</span></p><p>And I've been <input data-answer="working" class="practice-input"> like a dog <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: trabalhando</span></p><p>It's been a hard day's night</p><p>I should be <input data-answer="sleeping" class="practice-input"> like a log <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: dormindo</span></p><p>But when I get <input data-answer="home" class="practice-input"> to you <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: para casa</span></p><p>You know I feel <input data-answer="alright" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: bem / tudo certo</span></p></div></div></div></div>
+        <div class="slide" data-title="Writing"><div class="text-center"><h2 class="text-4xl font-black mb-6 text-blue-700">Homework: build a job profile</h2><div class="section-card p-8 max-w-4xl mx-auto text-left"><div class="grid md:grid-cols-2 gap-6"><div><p class="lesson-panel-title mb-3">Include in your homework</p><ul class="list-disc list-inside space-y-2 text-lg"><li>Name of the person.</li><li>Job title with <strong>a</strong> or <strong>an</strong>.</li><li>Where he or she works.</li><li>One thing the person likes or does every day.</li><li>Write 5 to 6 complete sentences.</li></ul></div><div class="activity-card"><p class="lesson-panel-title mb-2">Model</p><p class="text-lg">Her name is Paula. She is a nurse. She works in a hospital. She starts work early in the morning. She likes helping people. I think her job is important.</p><p class="text-sm text-slate-500 mt-3">Dica: se quiser, escreva sobre um familiar real ou invente um personagem.</p></div></div><textarea rows="7" class="mt-5 w-full p-4 border-2 border-slate-200 rounded-xl focus:border-blue-500 outline-none transition-colors" placeholder="Write your homework here. Describe one person's job in 5 to 6 sentences..."></textarea></div></div></div>
+        <div class="slide" data-title="Lesson Complete"><div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]"><i class="fas fa-briefcase text-blue-500 text-7xl mb-6"></i><p class="lesson-panel-title mb-2">Lesson complete</p><h2 class="text-5xl font-black mb-4 text-slate-900">Now you can talk about professions</h2><p class="text-2xl text-slate-600 max-w-3xl">Jobs are one of the fastest ways to start real conversations about people's lives.</p></div></div>
     </main>
-
-    <footer class="fixed bottom-0 left-0 w-full z-30 h-16">
-        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
-            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg transition hover:bg-slate-300 disabled:opacity-50">Anterior</button>
-            <button id="next-btn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Próximo</button>
-            <button id="finish-lesson-btn" class="hidden bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Finalizar Aula</button>
-        </div>
-    </footer>
-
-    <div id="script-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h3 class="text-2xl font-bold mb-4 text-cyan-700">Listening Activity Script</h3>
-            <p class="text-lg italic leading-relaxed">
-                "My name is Maria. I am not a doctor, but I work in a school. I help children learn new things. I always prepare my classes in the morning. I like my job because the children are very creative, but I don't like it when they are noisy. After work, I usually go home and read a book."
-            </p>
-            <button id="close-script-btn" class="mt-6 bg-gray-600 text-white font-bold py-2 px-6 rounded-lg w-full transition hover:bg-gray-700">Close</button>
-        </div>
-    </div>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16"><div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl"><button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition"><i class="fas fa-chevron-left mr-1"></i> Anterior</button><button id="next-btn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Próximo <i class="fas fa-chevron-right ml-1"></i></button><button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition"><i class="fas fa-check mr-2"></i>Finalizar aula</button></div></footer>
+    <script>document.addEventListener('DOMContentLoaded',()=>{const slides=document.querySelectorAll('.slide');const prevBtn=document.getElementById('prev-btn');const nextBtn=document.getElementById('next-btn');const finishLessonBtn=document.getElementById('finish-lesson-btn');const progressBar=document.getElementById('progress-bar');const slideCounter=document.getElementById('slide-counter');const slideTitleHeader=document.getElementById('slide-title-header');let currentSlide=0;function showSlide(index){slides.forEach((slide,i)=>slide.classList.toggle('active',i===index));progressBar.style.width=`${((index+1)/slides.length)*100}%`;slideCounter.textContent=`${index+1} / ${slides.length}`;slideTitleHeader.textContent=slides[index]?.dataset.title||'';prevBtn.disabled=index===0;const isLast=index===slides.length-1;nextBtn.classList.toggle('hidden',isLast);finishLessonBtn.classList.toggle('hidden',!isLast);}document.querySelectorAll('.flashcard').forEach(card=>card.addEventListener('click',()=>card.classList.toggle('flipped')));document.querySelectorAll('.flashcard-audio-btn').forEach(button=>button.addEventListener('click',event=>{event.stopPropagation();const utterance=new SpeechSynthesisUtterance(button.dataset.speak||'');utterance.lang='en-US';speechSynthesis.cancel();speechSynthesis.speak(utterance);}));document.querySelectorAll('.speak-btn').forEach(button=>button.addEventListener('click',()=>{const utterance=new SpeechSynthesisUtterance(button.dataset.speak||'');utterance.lang='en-US';speechSynthesis.cancel();speechSynthesis.speak(utterance);}));document.querySelectorAll('.answer-btn').forEach(button=>button.addEventListener('click',event=>{const line=event.currentTarget.closest('p');line?.querySelectorAll('input[data-answer]').forEach(input=>{input.value=input.dataset.answer;input.classList.remove('incorrect');input.classList.add('correct');});}));document.querySelectorAll('input[data-answer]').forEach(input=>input.addEventListener('blur',()=>{const value=input.value.trim().toLowerCase();const answer=input.dataset.answer.trim().toLowerCase();input.classList.remove('correct','incorrect');if(!value)return;input.classList.add(value===answer?'correct':'incorrect');}));prevBtn.addEventListener('click',()=>{if(currentSlide>0)showSlide(--currentSlide);});nextBtn.addEventListener('click',()=>{if(currentSlide<slides.length-1)showSlide(++currentSlide);});showSlide(0);});</script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
-    <script src="../js/progress-manager.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            const slideCounter = document.getElementById('slide-counter');
-            const slideTitleHeader = document.getElementById('slide-title-header');
-            let currentSlide = 0;
-
-            function showSlide(index) {
-                slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                const progressBar = document.getElementById('progress-bar');
-                progressBar.style.width = slides.length > 1 ? `${(index / (slides.length - 1)) * 100}%` : '100%';
-                if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
-                if (slideTitleHeader) {
-                    const heading = slides[index]?.querySelector('h2');
-                    slideTitleHeader.textContent = heading ? heading.textContent.replace(/\s+/g, ' ').trim() : '';
-                }
-                prevBtn.disabled = index === 0;
-                nextBtn.classList.toggle('hidden', index === slides.length - 1);
-                finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-
-            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-
-            // Drag and Drop Logic
-            const draggables = document.querySelectorAll('.draggable');
-            let draggedItem = null;
-
-            draggables.forEach(draggable => {
-                draggable.addEventListener('dragstart', (e) => {
-                    draggedItem = e.target;
-                    setTimeout(() => e.target.style.display = 'none', 0);
-                });
-                draggable.addEventListener('dragend', (e) => {
-                    setTimeout(() => {
-                        if (draggedItem) {
-                           draggedItem.style.display = 'inline-flex';
-                        }
-                        draggedItem = null;
-                    }, 0);
-                });
-            });
-
-            document.querySelectorAll('.drop-zone').forEach(zone => {
-                zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
-                zone.addEventListener('dragleave', e => { zone.classList.remove('over'); });
-                zone.addEventListener('drop', e => {
-                    e.preventDefault();
-                    if (draggedItem && zone.dataset.match === draggedItem.id) {
-                        zone.innerHTML = '';
-                        draggedItem.style.display = 'inline-flex';
-                        zone.appendChild(draggedItem);
-                        zone.classList.remove('over');
-                        draggedItem.classList.remove('draggable');
-                        draggedItem.style.cursor = 'default';
-                        zone.style.borderColor = '#10b981';
-                        zone.style.borderStyle = 'solid';
-                        draggedItem = null;
-                    } else {
-                        zone.classList.remove('over');
-                    }
-                });
-            });
-
-            // Individual Answer Button Logic
-            document.querySelectorAll('.answer-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const inputField = button.previousElementSibling;
-                    const correctAnswer = inputField.dataset.answer;
-                    if (inputField && inputField.tagName === 'INPUT') {
-                        inputField.value = correctAnswer;
-                        inputField.classList.add('text-indigo-600', 'font-bold', 'correct');
-                    }
-                });
-            });
-            
-            // Modal Logic
-            const modal = document.getElementById('script-modal');
-            document.getElementById('show-script-btn').addEventListener('click', () => modal.classList.add('active'));
-            document.getElementById('close-script-btn').addEventListener('click', () => modal.classList.remove('active'));
-            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
-
-            showSlide(0);
-        });
-    </script>
-    <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
-    <script src="a1-lesson-theme.js"></script>
 </body>
 </html>
