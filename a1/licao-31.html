@@ -3,294 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A1 - Lesson 31: Final Review | Inglês no seu Ritmo</title>
+    <title>A1 - Lesson 31: Final Review | Ingles no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="a1-lesson-theme.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.5rem; }
-        .answer-btn:hover { color: #4338ca; }
-        input[data-answer].correct { background-color: #fef9c3; border-color: #ca8a04; }
-        input[data-answer] { transition: all 0.3s; }
-
-        /* Modal */
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
-        .modal-overlay.active { opacity: 1; pointer-events: all; }
-        .modal-content { background: white; padding: 2.5rem; border-radius: 1rem; max-width: 500px; width: 90%; transform: scale(0.95); transition: transform 0.3s ease; }
-        .modal-overlay.active .modal-content { transform: scale(1); }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        .practice-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; outline: none; text-align: center; width: 10rem; font-size: 1rem; padding: 2px 6px; }
+        .practice-input:focus { border-color: #ca8a04; }
+        .practice-input.correct { border-color: #22c55e; color: #15803d; font-weight: 700; }
+        .practice-input.incorrect { border-color: #ef4444; color: #dc2626; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
+        .answer-btn:hover { color: #ca8a04; }
+        .speak-btn { display: inline-flex; align-items: center; gap: 6px; background: #fefce8; border: 1px solid #fde68a; color: #a16207; padding: 5px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
     </style>
-    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
-<body class="bg-gray-50 text-gray-800">
-
-    <header class="bg-white shadow-sm sticky top-0 z-40">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+<body class="bg-slate-50 text-slate-800">
+    <header class="shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
             <a href="a1.html" class="text-lg font-bold text-yellow-600 hover:text-yellow-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
-            <h1 class="text-xl font-semibold text-center">A1 - Lesson 31: Final Review</h1>
-            <div class="w-24"></div>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 31: Final Review</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
         </div>
-        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-yellow-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-yellow-500 h-1.5 transition-all duration-500"></div></div>
     </header>
 
-    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
-        
-        <div class="slide active">
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-black mb-4 text-slate-900">Revisao final do A1</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Esta aula junta presente, passado, futuro, rotinas, gostos, quantidades e descrições simples para preparar o aluno para o projeto final.</p>
+                    </div>
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">Voce vai revisar</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Presente e rotina</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Passado e perguntas com <strong>did</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Planos com <strong>going to</strong></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-card p-8 mt-8">
+                <div class="space-y-5 text-xl">
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-yellow-700 w-24">Teacher:</p><p>Tell me about your day. What do you usually do in the morning?</p><button class="speak-btn" data-speak="Tell me about your day. What do you usually do in the morning?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>I usually wake up early, drink coffee, and go to work.</p><button class="speak-btn" data-speak="I usually wake up early, drink coffee, and go to work."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-yellow-700 w-24">Teacher:</p><p>Good. What did you do yesterday, and what are you going to do tomorrow?</p><button class="speak-btn" data-speak="Good. What did you do yesterday, and what are you going to do tomorrow?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>Yesterday I studied at home, and tomorrow I am going to visit my family.</p><button class="speak-btn" data-speak="Yesterday I studied at home, and tomorrow I am going to visit my family."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Review Map">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-yellow-700"><i class="fas fa-comments text-orange-500"></i> Warm-up: A Conversation</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Let's talk about you!</p>
-                    <div class="text-left text-xl space-y-4 bg-gray-50 p-6 rounded-lg">
-                        <p><strong class="text-blue-600">Professor:</strong> "Hello and welcome to our final review! Let's start with a big question: <strong class="font-bold">What did you do</strong> yesterday?"</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "I worked / I studied..."</p>
-                        <p><strong class="text-blue-600">Professor:</strong> "Great. And what <strong class="font-bold">are you doing</strong> right now?"</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "I am speaking English."</p>
-                        <p><strong class="text-blue-600">Professor:</strong> "Perfect! And what <strong class="font-bold">are you going to do</strong> after this class?"</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "I am going to have lunch."</p>
-                        <p><strong class="text-blue-600">Professor:</strong> "Past, present, and future! You've learned so much. Let's review it all today."</p>
+                <h2 class="text-4xl font-black mb-6 text-yellow-700">A1 grammar map</h2>
+                <div class="section-card p-8 text-left">
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div class="activity-card"><p class="lesson-panel-title mb-2">Present</p><p class="text-lg">I work every day. / She doesn't like coffee. / They are at home.</p></div>
+                        <div class="activity-card"><p class="lesson-panel-title mb-2">Past</p><p class="text-lg">I watched a movie. / Did you study? / No, I didn't.</p></div>
+                        <div class="activity-card"><p class="lesson-panel-title mb-2">Future</p><p class="text-lg">I am going to travel. / She isn't going to work. / Are they going to cook?</p></div>
+                        <div class="activity-card"><p class="lesson-panel-title mb-2">Useful extras</p><p class="text-lg">There is / There are, can / can't, much / many, possessive 's.</p></div>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-5 mt-6">
+                        <div class="activity-card"><strong>Como revisar</strong><br><span class="text-slate-600">Primeiro identifique o tempo: agora, ontem ou amanha. Depois escolha a estrutura.</span></div>
+                        <div class="activity-card"><strong>Erro comum</strong><br><span class="text-slate-600">Misturar passado com base verbal errada: <strong>Did you watched?</strong> e <strong>I didn't went</strong> estão errados.</span></div>
+                        <div class="activity-card"><strong>Meta da aula</strong><br><span class="text-slate-600">Combinar frases simples de forma organizada, não usar tudo perfeitamente.</span></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-yellow-700"><i class="fas fa-book-open text-purple-500"></i> A1 Grammar Review</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto text-left">
-                    <p class="text-2xl mb-6 text-gray-600 text-center">Let's remember the key topics.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-lg">
-						<div class="p-3 bg-gray-50 rounded-lg">
-							<h3 class="font-bold text-blue-600">Present</h3>
-							<ul class="list-disc list-inside">
-								<li>Verb to Be (am/is/are)</li>
-								<li>Simple Present (routines)</li>
-								<li>Present Continuous (now)</li>
-							</ul>
-						</div>
-						<div class="p-3 bg-gray-50 rounded-lg">
-							<h3 class="font-bold text-red-600">Past</h3>
-							<ul class="list-disc list-inside">
-								<li>Verb to Be (was/were)</li>
-								<li>Simple Past (Regular: -ed)</li>
-								<li>Questions & Negatives (Did/Didn't)</li>
-							</ul>
-						</div>
-						<div class="p-3 bg-gray-50 rounded-lg">
-							<h3 class="font-bold text-green-600">Future</h3>
-							<ul class="list-disc list-inside">
-								<li>Going to (plans)</li>
-							</ul>
-						</div>
-						<div class="p-3 bg-gray-50 rounded-lg">
-							<h3 class="font-bold text-orange-600">Other Topics</h3>
-							<ul class="list-disc list-inside">
-								<li>There is/are</li>
-								<li>Can/Can't</li>
-								<li>Quantifiers (much/many, etc.)</li>
-							</ul>
-						</div>
-					</div>
+        <div class="slide" data-title="Mixed Practice 1">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-yellow-700">Mixed practice: present and past</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left text-xl space-y-5">
+                    <p>1. Right now, I <input data-answer="am writing" class="practice-input"> an email. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: estou escrevendo</span></p>
+                    <p>2. She <input data-answer="travels" class="practice-input"> every year with her family. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: viaja</span></p>
+                    <p>3. I <input data-answer="watched" class="practice-input"> a great movie last night. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: assisti</span></p>
+                    <p>4. They <input data-answer="were" class="practice-input"> at the party yesterday. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: estavam</span></p>
+                    <p>5. He <input data-answer="didn't play" class="practice-input"> soccer because he was tired. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: nao jogou</span></p>
                 </div>
             </div>
         </div>
-        
-        <div class="slide">
+
+        <div class="slide" data-title="Mixed Practice 2">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-yellow-700"><i class="fas fa-pencil-alt text-blue-500"></i>Practice: The Present</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Complete with the correct <strong class="font-bold">present</strong> tense.</p>
-                    <div class="text-left text-xl space-y-4">
-                        <p>1. Right now, I <input data-answer="am writing" class="w-40 p-1 border-b-2 text-center"> an email. (write) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>2. She <input data-answer="travels" class="w-28 p-1 border-b-2 text-center"> to a new country every year. (travel) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>3. Please be quiet. The students <input data-answer="are taking" class="w-36 p-1 border-b-2 text-center"> a test. (take) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-						<p>4. He <input data-answer="is not" class="w-24 p-1 border-b-2 text-center"> a doctor, he <input data-answer="is" class="w-16 p-1 border-b-2 text-center"> a teacher. (not be / be) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                <h2 class="text-4xl font-black mb-6 text-yellow-700">Mixed practice: future and extras</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left text-xl space-y-5">
+                    <p>1. Next week, we <input data-answer="are going to visit" class="practice-input"> our grandparents. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: vamos visitar</span></p>
+                    <p>2. I <input data-answer="can't" class="practice-input"> swim very well. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: nao consigo</span></p>
+                    <p>3. <input data-answer="How many" class="practice-input"> people were there? <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: quantas</span></p>
+                    <p>4. <input data-answer="There is" class="practice-input"> a big tree in my garden. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: ha / existe</span></p>
+                    <p>5. This is <input data-answer="my mother's" class="practice-input"> bag. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: da minha mae</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Reading">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-yellow-700">Reading: who is Laura?</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <div class="activity-card mb-6">
+                        <p class="text-lg leading-8">Laura is twenty years old and she is from Brazil. She works in a cafe and studies English at night. Yesterday, she visited her cousin after work and watched a movie at home. Next weekend, she is going to travel to another city with her friends. She can't drive, but her friend's father is going to take them by car.</p>
+                    </div>
+                    <div class="space-y-5 text-xl">
+                        <p>1. Laura works in a <input data-answer="cafe" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: cafe</span></p>
+                        <p>2. Yesterday, she <input data-answer="visited" class="practice-input"> her cousin. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: visitou</span></p>
+                        <p>3. Next weekend, she is going to <input data-answer="travel" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: viajar</span></p>
+                        <p>4. She <input data-answer="can't" class="practice-input"> drive. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: nao consegue</span></p>
                     </div>
                 </div>
             </div>
         </div>
 
-		<div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-yellow-700"><i class="fas fa-pencil-alt text-red-500"></i>Practice: The Past</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Complete with the correct <strong class="font-bold">past</strong> tense.</p>
-                    <div class="text-left text-xl space-y-4">
-                        <p>1. I <input data-answer="watched" class="w-32 p-1 border-b-2 text-center"> a great movie last night. (watch) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>2. They <input data-answer="were" class="w-24 p-1 border-b-2 text-center"> at the party yesterday. (be) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>3. He <input data-answer="didn't play" class="w-36 p-1 border-b-2 text-center"> soccer because he was tired. (not play) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-						<p>4. <input data-answer="Did you visit" class="w-40 p-1 border-b-2 text-center"> your parents last weekend? (you / visit) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+        <div class="slide" data-title="Music">
+            <div>
+                <h2 class="text-4xl font-black mb-4 text-center text-yellow-700">Music Time: Beautiful Day</h2>
+                <div class="music-card p-6 rounded-2xl max-w-4xl mx-auto">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0gzqZ9d1jIKo9psEIthwXe?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <div class="text-lg bg-slate-50 p-6 rounded-xl border-l-4 border-yellow-500 mt-5 space-y-4">
+                        <p>The heart is a bloom</p>
+                        <p>Shoots up through the stony <input data-answer="ground" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: solo / chão</span></p>
+                        <p>There's no room</p>
+                        <p>No space to rent in this town</p>
+                        <p>You're out of luck</p>
+                        <p>And the reason that you had to <input data-answer="care" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: se importar</span></p>
+                        <p>The traffic is stuck</p>
+                        <p>And you're not moving anywhere</p>
                     </div>
                 </div>
             </div>
         </div>
 
-		<div class="slide">
+        <div class="slide" data-title="Writing">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-yellow-700"><i class="fas fa-pencil-alt text-green-500"></i>Practice: Future & More</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Complete with the correct forms.</p>
-                    <div class="text-left text-xl space-y-4">
-                        <p>1. Next week, we <input data-answer="are going to visit" class="w-52 p-1 border-b-2 text-center"> our family. (visit) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>2. I <input data-answer="can't" class="w-20 p-1 border-b-2 text-center"> swim. I need lessons. (can/can't) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-						<p>3. <input data-answer="How many" class="w-36 p-1 border-b-2 text-center"> people were at the party? (How much/many) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-						<p>4. <input data-answer="There is" class="w-32 p-1 border-b-2 text-center"> a big tree in my garden. (There is/are) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-yellow-700"><i class="fas fa-headphones text-cyan-500"></i>Listening: A Personal Story</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Listen to Maria's story and answer the questions.</p>
-                    <button id="show-script-btn" class="bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition hover:bg-cyan-700 mb-8"><i class="fas fa-file-alt mr-2"></i> Show Teacher's Script</button>
-                    <div class="text-left mt-6 text-lg space-y-6">
+                <h2 class="text-4xl font-black mb-6 text-yellow-700">Homework: write your mini profile</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label for="q1" class="font-bold block mb-2">1. Where was Maria born?</label>
-                            <textarea id="q1" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="She was born in..."></textarea>
+                            <p class="lesson-panel-title mb-3">Include all three times</p>
+                            <ul class="list-disc list-inside space-y-2 text-lg">
+                                <li>1 sentence about who you are</li>
+                                <li>2 sentences about your routine</li>
+                                <li>1 sentence about yesterday</li>
+                                <li>1 sentence about a future plan</li>
+                                <li>1 extra sentence with like, can, there is, or possessive</li>
+                            </ul>
                         </div>
-                        <div>
-                            <label for="q2" class="font-bold block mb-2">2. What is she doing now?</label>
-                            <textarea id="q2" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="She is..."></textarea>
-                        </div>
-						<div>
-                            <label for="q3" class="font-bold block mb-2">3. What is she going to do next year?</label>
-                            <textarea id="q3" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="She is going to..."></textarea>
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Model</p>
+                            <p class="text-lg">My name is Diego and I am from Brazil. I work in a store and I study English at night. I usually drink coffee in the morning. Yesterday I visited my cousin. Tomorrow I am going to study again. I can cook simple meals.</p>
+                            <p class="text-sm text-slate-500 mt-3">Dica: essa escrita já prepara a aula 32, o projeto final.</p>
                         </div>
                     </div>
+                    <textarea rows="8" class="mt-5 w-full p-4 border-2 border-slate-200 rounded-xl focus:border-yellow-500 outline-none transition-colors" placeholder="Write your mini profile here..."></textarea>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-700"><i class="fas fa-music text-purple-500"></i> Music Time: Beautiful Day</h2>
-            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0gzqZ9d1jIKo9psEIthwXe?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-6 text-center">
-                    <p class="text-xl mb-4 text-gray-600">Let's celebrate the end of the A1 level with U2!</p>
-                    <div class="text-xl inline-block text-left space-y-3 bg-gray-50 p-6 rounded-lg border-l-4 border-yellow-500">
-                         <p>The heart is a bloom, shoots up through the stony ground</p>
-						 <p>But there's no room, no space to rent in this <input data-answer="town" class="w-24 p-1 border-b-2 text-center bg-transparent"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-						 <p>You're out of luck and the reason that you had to care</p>
-						 <p>The traffic is stuck and you're not moving anywhere</p>
-						 <p>You thought you'd found a friend to take you out of this place</p>
-						 <p>Someone you could <input data-answer="lend" class="w-24 p-1 border-b-2 text-center bg-transparent"> a hand in return for grace <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-						 <p>It's a beautiful <input data-answer="day" class="w-24 p-1 border-b-2 text-center bg-transparent">, don't let it get away <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-yellow-700"><i class="fas fa-home text-green-500"></i>Homework: My Life in 5 Minutes</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">For our next class, prepare a short presentation about your life.</p>
-                    <div class="text-left text-lg space-y-2 mt-4 bg-gray-50 p-6 rounded-lg">
-                        <p class="font-bold">Include information about:</p>
-                        <ul class="list-disc list-inside mt-2 space-y-1">
-                            <li>Yourself (name, nationality, profession).</li>
-                            <li>Your routines (Simple Present).</li>
-                            <li>Something you did last weekend (Simple Past).</li>
-                            <li>Your plans for next year (Going to).</li>
-							<li>An ability you have (Can).</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-             <div class="text-center flex flex-col items-center justify-center h-full">
-                <i class="fas fa-graduation-cap text-yellow-600 text-7xl mb-6"></i>
-                <h2 class="text-5xl font-bold mb-4 text-gray-800">Congratulations on finishing A1!</h2>
-                <p class="text-3xl text-gray-600 max-w-2xl">The journey of a thousand miles begins with a single step. You did it!</p>
+        <div class="slide" data-title="Lesson Complete">
+            <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
+                <i class="fas fa-award text-yellow-500 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">You are ready to combine your A1 English</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl">Review becomes power when you can move from one time and topic to another with confidence.</p>
             </div>
         </div>
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-30">
-        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
-            <button id="next-btn" class="bg-yellow-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-yellow-600">Próximo</button>
-            <button id="finish-lesson-btn" class="hidden bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Finalizar Aula</button>
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
+        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition"><i class="fas fa-chevron-left mr-1"></i> Anterior</button>
+            <button id="next-btn" class="bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Proximo <i class="fas fa-chevron-right ml-1"></i></button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition"><i class="fas fa-check mr-2"></i>Finalizar aula</button>
         </div>
     </footer>
 
-    <div id="script-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h3 class="text-2xl font-bold mb-4 text-cyan-700">Listening Activity Script</h3>
-            <p class="text-lg italic leading-relaxed">
-                "Hi, my name is Maria. I was born in a small city in Italy, but I live in London now. I am a student, and right now I'm studying for my final exams. Last year, I visited my family in Italy. It was fantastic. Next year, I am going to finish my studies and I'm going to find a good job."
-            </p>
-            <button id="close-script-btn" class="mt-6 bg-gray-600 text-white font-bold py-2 px-6 rounded-lg w-full transition hover:bg-gray-700">Close</button>
-        </div>
-    </div>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const finishLessonBtn = document.getElementById('finish-lesson-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const slideCounter = document.getElementById('slide-counter');
+        const slideTitleHeader = document.getElementById('slide-title-header');
+        let currentSlide = 0;
+        function showSlide(index) {
+            slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+            progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+            slideCounter.textContent = `${index + 1} / ${slides.length}`;
+            slideTitleHeader.textContent = slides[index]?.dataset.title || '';
+            prevBtn.disabled = index === 0;
+            const isLast = index === slides.length - 1;
+            nextBtn.classList.toggle('hidden', isLast);
+            finishLessonBtn.classList.toggle('hidden', !isLast);
+        }
+        document.querySelectorAll('.speak-btn').forEach(button => button.addEventListener('click', () => {
+            const utterance = new SpeechSynthesisUtterance(button.dataset.speak || '');
+            utterance.lang = 'en-US';
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        }));
+        document.querySelectorAll('.answer-btn').forEach(button => button.addEventListener('click', event => {
+            const line = event.currentTarget.closest('p');
+            line?.querySelectorAll('input[data-answer]').forEach(input => {
+                input.value = input.dataset.answer;
+                input.classList.remove('incorrect');
+                input.classList.add('correct');
+            });
+        }));
+        document.querySelectorAll('input[data-answer]').forEach(input => input.addEventListener('blur', () => {
+            const value = input.value.trim().toLowerCase();
+            const answer = input.dataset.answer.trim().toLowerCase();
+            input.classList.remove('correct', 'incorrect');
+            if (!value) return;
+            input.classList.add(value === answer ? 'correct' : 'incorrect');
+        }));
+        prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+        nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+        showSlide(0);
+    });
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
-    <script src="../js/progress-manager.js"></script>
-    <script src="a1-lesson-theme.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const moduleId = 'a1';
-            const lessonNumber = 31;
-
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            let currentSlide = 0;
-
-            function showSlide(index) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                const progressBar = document.getElementById('progress-bar');
-                if (progressBar) {
-                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
-                    progressBar.style.width = `${progressPercentage}%`;
-                }
-                if (prevBtn) prevBtn.disabled = index === 0;
-                const isLastSlide = index === slides.length - 1;
-                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
-                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
-            }
-
-            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-
-// Individual Answer Button Logic
-            document.querySelectorAll('.answer-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const parentP = button.closest('p');
-                    if(parentP) {
-                        parentP.querySelectorAll('input[data-answer]').forEach(input => {
-                            input.value = input.dataset.answer;
-                            input.classList.add('text-yellow-700', 'font-bold', 'correct');
-                        });
-                    }
-                });
-            });
-            
-            // Modal Logic
-            const modal = document.getElementById('script-modal');
-            const showScriptBtn = document.getElementById('show-script-btn');
-            
-            if (showScriptBtn) {
-                showScriptBtn.addEventListener('click', () => modal.classList.add('active'));
-            }
-            document.getElementById('close-script-btn').addEventListener('click', () => modal.classList.remove('active'));
-            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
-
-            showSlide(0);
-        });
-    </script>
 </body>
 </html>
-
-

@@ -3,357 +3,266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A1 - Lesson 25: Routines vs. Now | Inglês no seu Ritmo</title>
+    <title>A1 - Lesson 25: Routine or Now? | Ingles no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="a1-lesson-theme.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* Flashcards */
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 200px; perspective: 1000px; cursor: pointer; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .flashcard { background: transparent; height: 220px; perspective: 1000px; cursor: pointer; }
+        .flashcard-audio-btn { position: absolute; top: 0.75rem; right: 0.75rem; width: 2.25rem; height: 2.25rem; border-radius: 9999px; border: 1px solid rgba(79, 70, 229, 0.35); background: rgba(15, 23, 42, 0.9); color: #a5b4fc; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
-        .flashcard-front { background-color: white; color: #4f46e5; text-align: center; }
-        .flashcard-back { background-color: #4f46e5; color: white; transform: rotateY(180deg); text-align: center; }
-
-        /* Drag & Drop */
-        .draggable { cursor: grab; }
-        .drop-zone { border-style: dashed; }
-        .drop-zone.over { background-color: #e0e7ff; border-color: #4f46e5; }
-        
-        /* Answer Button */
-        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.5rem; }
-        .answer-btn:hover { color: #4338ca; }
-        input[data-answer].correct { background-color: #e0e7ff; border-color: #4f46e5; }
-        input[data-answer] { transition: all 0.3s; }
-
-        /* Modal */
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
-        .modal-overlay.active { opacity: 1; pointer-events: all; }
-        .modal-content { background: white; padding: 2.5rem; border-radius: 1rem; max-width: 500px; width: 90%; transform: scale(0.95); transition: transform 0.3s ease; }
-        .modal-overlay.active .modal-content { transform: scale(1); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; text-align: center; }
+        .flashcard-front { background: white; color: #4f46e5; }
+        .flashcard-back { background: #4f46e5; color: white; transform: rotateY(180deg); }
+        .practice-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; outline: none; text-align: center; width: 10rem; font-size: 1rem; padding: 2px 6px; }
+        .practice-input:focus { border-color: #4f46e5; }
+        .practice-input.correct { border-color: #22c55e; color: #15803d; font-weight: 700; }
+        .practice-input.incorrect { border-color: #ef4444; color: #dc2626; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
+        .answer-btn:hover { color: #4f46e5; }
+        .speak-btn { display: inline-flex; align-items: center; gap: 6px; background: #eef2ff; border: 1px solid #c7d2fe; color: #4338ca; padding: 5px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
     </style>
-    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
-<body class="bg-gray-50 text-gray-800">
-
-    <header class="bg-white shadow-sm sticky top-0 z-40">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+<body class="bg-slate-50 text-slate-800">
+    <header class="shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
             <a href="a1.html" class="text-lg font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
-            <h1 class="text-xl font-semibold text-center">A1 - Lesson 25: Simple Present vs. Continuous</h1>
-            <div class="w-24"></div>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 25: Routine or Now?</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
         </div>
-        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-indigo-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-indigo-500 h-1.5 transition-all duration-500"></div></div>
     </header>
 
-    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
-        
-        <div class="slide active">
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-black mb-4 text-slate-900">Rotina ou momento atual?</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a comparar <strong>simple present</strong> e <strong>present continuous</strong>, entendendo a diferença entre hábito e ação em andamento.</p>
+                    </div>
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">Voce vai praticar</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Distinguir rotina e agora</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Usar marcadores de tempo</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Descrever contraste em uma frase</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-card p-8 mt-8">
+                <div class="space-y-5 text-xl">
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-indigo-700 w-24">Teacher:</p><p>What are you doing right now?</p><button class="speak-btn" data-speak="What are you doing right now?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>I am having an English class.</p><button class="speak-btn" data-speak="I am having an English class."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-indigo-700 w-24">Teacher:</p><p>Good. And what do you usually do on Mondays?</p><button class="speak-btn" data-speak="Good. And what do you usually do on Mondays?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>I usually work on Mondays, but today I am studying here.</p><button class="speak-btn" data-speak="I usually work on Mondays, but today I am studying here."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Vocabulary">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-indigo-700"><i class="fas fa-comments text-yellow-500"></i> Warm-up: Your Routine vs. Today</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Let's compare.</p>
-                    <div class="text-left text-xl space-y-4 bg-gray-50 p-6 rounded-lg">
-                        <p><strong class="text-blue-600">Professor:</strong> "Hi! Let's begin. <strong class="font-bold">What are you doing</strong> right now?" (Review)</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "I am having an English class."</p>
-                        <p><strong class="text-blue-600">Professor:</strong> "Perfect. And what do you <strong class="font-bold">usually do</strong> on this day of the week? For example, on Mondays I <strong class="font-bold">usually go</strong> to the gym." (Review Simple Present)</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "I usually work on Mondays."</p>
-                        <p><strong class="text-blue-600">Professor:</strong> "Great! So you usually <strong class="font-bold">work</strong>, but today you <strong class="font-bold">are having</strong> a class. Today we will master this difference!"</p>
-                    </div>
+                <h2 class="text-4xl font-black mb-4 text-indigo-700">Time markers</h2>
+                <div class="flashcard-grid max-w-5xl mx-auto">
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">right now</h4><button class="flashcard-audio-btn" data-speak="right now"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">agora mesmo</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">at the moment</h4><button class="flashcard-audio-btn" data-speak="at the moment"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">no momento</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">every day</h4><button class="flashcard-audio-btn" data-speak="every day"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">todos os dias</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">usually</h4><button class="flashcard-audio-btn" data-speak="usually"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">geralmente</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">today</h4><button class="flashcard-audio-btn" data-speak="today"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">hoje</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">on Mondays</h4><button class="flashcard-audio-btn" data-speak="on Mondays"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">às segundas-feiras</p></div></div></div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Grammar">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-indigo-700"><i class="fas fa-clock text-indigo-500"></i> Vocabulary: Time Markers</h2>
-                <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">These words help us know WHEN an action happens.</p>
-                <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Now / Right now</h3></div><div class="flashcard-back"><p class="text-2xl">Agora / Neste exato momento<br>(Present Continuous)</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">At the moment</h3></div><div class="flashcard-back"><p class="text-2xl">No momento<br>(Present Continuous)</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Today</h3></div><div class="flashcard-back"><p class="text-2xl">Hoje<br>(Can be both, context is key!)</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Every day</h3></div><div class="flashcard-back"><p class="text-2xl">Todos os dias<br>(Simple Present)</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Usually / Always</h3></div><div class="flashcard-back"><p class="text-2xl">Geralmente / Sempre<br>(Simple Present)</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">On Mondays</h3></div><div class="flashcard-back"><p class="text-2xl">??s segundas-feiras<br>(Simple Present)</p></div></div></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-indigo-700"><i class="fas fa-book-open text-purple-500"></i> Grammar: Simple Present vs. Continuous</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-5xl mx-auto text-left">
-                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div>
-                            <h3 class="font-bold text-2xl text-blue-700 mb-2">Simple Present</h3>
-                            <div class="bg-blue-50 p-4 rounded-lg text-lg h-full">
-                                <p class="font-semibold">USE:</p>
-                                <ul class="list-disc list-inside">
-                                    <li>Habits & Routines</li>
-                                    <li>Facts</li>
-                                </ul>
-                                <p class="font-semibold mt-4">TIME MARKERS:</p>
-                                <p>usually, always, never, every day, on Sundays...</p>
-                                <p class="font-semibold mt-4">EXAMPLE:</p>
-                                <p>"I <strong class="font-semibold">work</strong> every day."</p>
-                            </div>
+                <h2 class="text-4xl font-black mb-6 text-indigo-700">Simple present vs present continuous</h2>
+                <div class="section-card p-8 text-left">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-3">Simple present</p>
+                            <p class="text-lg mb-3"><strong>Use:</strong> hábitos, rotina, fatos.</p>
+                            <p class="text-lg mb-3"><strong>Markers:</strong> usually, every day, on Mondays.</p>
+                            <p class="text-lg"><strong>Example:</strong> I work every day.</p>
                         </div>
-                        <div>
-                             <h3 class="font-bold text-2xl text-green-700 mb-2">Present Continuous</h3>
-                             <div class="bg-green-50 p-4 rounded-lg text-lg h-full">
-                                <p class="font-semibold">USE:</p>
-                                <ul class="list-disc list-inside">
-                                    <li>Actions happening NOW</li>
-                                    <li>Temporary situations</li>
-                                 </ul>
-                                 <p class="font-semibold mt-4">TIME MARKERS:</p>
-                                <p>now, right now, at the moment, today...</p>
-                                <p class="font-semibold mt-4">EXAMPLE:</p>
-                                <p>"I <strong class="font-semibold">am working</strong> right now."</p>
-                            </div>
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-3">Present continuous</p>
+                            <p class="text-lg mb-3"><strong>Use:</strong> ações acontecendo agora.</p>
+                            <p class="text-lg mb-3"><strong>Markers:</strong> now, right now, at the moment.</p>
+                            <p class="text-lg"><strong>Example:</strong> I am working right now.</p>
                         </div>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-5 mt-6">
+                        <div class="activity-card"><strong>Comparação útil</strong><br><span class="text-slate-600">I work on Mondays, but today I am studying English.</span></div>
+                        <div class="activity-card"><strong>Como decidir</strong><br><span class="text-slate-600">Pergunte: isso acontece sempre ou só agora?</span></div>
+                        <div class="activity-card"><strong>Erro comum</strong><br><span class="text-slate-600">Nao use <strong>I am work every day</strong>. Rotina pede verbo simples: <strong>I work every day</strong>.</span></div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <div class="slide">
+
+        <div class="slide" data-title="Practice">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-indigo-700"><i class="fas fa-pencil-alt text-blue-500"></i>Practice: Choose the Correct Tense</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Complete the sentences with the correct form of the verb.</p>
-                    <div class="text-left text-xl space-y-4">
-                        <p>1. Listen! The baby <input data-answer="is crying" class="w-36 p-1 border-b-2 text-center">. (cry) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>2. I <input data-answer="usually drink" class="w-40 p-1 border-b-2 text-center"> coffee in the morning. (usually / drink) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>3. What <input data-answer="are you doing" class="w-40 p-1 border-b-2 text-center"> at the moment? (you / do) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>4. She <input data-answer="works" class="w-28 p-1 border-b-2 text-center"> in a bank every day. (work) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>5. Please be quiet. The students <input data-answer="are taking" class="w-36 p-1 border-b-2 text-center"> a test. (take) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                <h2 class="text-4xl font-black mb-6 text-indigo-700">Choose the right tense</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left text-xl space-y-5">
+                    <p>1. I <input data-answer="work" class="practice-input"> every day. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: rotina</span></p>
+                    <p>2. Right now, I <input data-answer="am studying" class="practice-input"> English. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: agora</span></p>
+                    <p>3. She <input data-answer="usually drinks" class="practice-input"> coffee in the morning. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: geralmente</span></p>
+                    <p>4. They <input data-answer="are watching" class="practice-input"> TV at the moment. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: neste momento</span></p>
+                    <p>5. We <input data-answer="play" class="practice-input"> soccer on Sundays. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: aos domingos</span></p>
+                    <p>6. He <input data-answer="is not working" class="practice-input"> now because he is at lunch. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: agora não está</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Reading">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-indigo-700">Reading: today is different</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <div class="activity-card mb-6">
+                        <p class="text-lg leading-8">Paula usually works in an office from Monday to Friday. She drinks coffee at eight and starts work at nine. Today is different: she is not working at the office. She is staying home, studying English, and talking to her classmates online.</p>
+                    </div>
+                    <div class="space-y-5 text-xl">
+                        <p>1. Paula usually <input data-answer="works" class="practice-input"> in an office. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: trabalha</span></p>
+                        <p>2. She <input data-answer="drinks" class="practice-input"> coffee at eight. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: bebe</span></p>
+                        <p>3. Today she is <input data-answer="staying" class="practice-input"> home. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: ficando em</span></p>
+                        <p>4. She is <input data-answer="studying" class="practice-input"> English. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: estudando</span></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-indigo-700"><i class="fas fa-headphones text-cyan-500"></i>Listening: A Phone Call</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Listen to a phone call between Ana and Leo and answer.</p>
-                    <button id="show-script-btn" class="bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition hover:bg-cyan-700 mb-8"><i class="fas fa-file-alt mr-2"></i> Show Teacher's Script</button>
-                    <div class="text-left mt-6 text-lg space-y-6">
+        <div class="slide" data-title="Music">
+            <div>
+                <h2 class="text-4xl font-black mb-4 text-center text-indigo-700">Music Time: Tom's Diner</h2>
+                <div class="music-card p-6 rounded-2xl max-w-4xl mx-auto">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5nNmj1cLH3r4aA4XDJ2bgY?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <div class="text-lg bg-slate-50 p-6 rounded-xl border-l-4 border-indigo-500 mt-5 space-y-4">
+                        <p>I am sitting in the morning</p>
+                        <p>At the diner on the <input data-answer="corner" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: esquina</span></p>
+                        <p>I am waiting at the counter</p>
+                        <p>For the man to pour the <input data-answer="coffee" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: café</span></p>
+                        <p>And he fills it only halfway</p>
+                        <p>And before I even argue</p>
+                        <p>He is looking out the <input data-answer="window" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: janela</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Writing">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-indigo-700">Homework: compare your routine and today</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label for="q1" class="font-bold block mb-2">1. What is Leo doing right now?</label>
-                            <textarea id="q1" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="He is..."></textarea>
+                            <p class="lesson-panel-title mb-3">Include in your homework</p>
+                            <ul class="list-disc list-inside space-y-2 text-lg">
+                                <li>2 routine sentences</li>
+                                <li>2 sentences about now or today</li>
+                                <li>1 contrast with <strong>but</strong></li>
+                                <li>1 time marker of each type</li>
+                                <li>Write 5 to 6 sentences</li>
+                            </ul>
                         </div>
-                        <div>
-                            <label for="q2" class="font-bold block mb-2">2. What does Leo usually do in the evening?</label>
-                            <textarea id="q2" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="He usually..."></textarea>
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Model</p>
+                            <p class="text-lg">I usually work in the morning and study at night. I drink coffee every day. Today is different: I am having an English class now. I am not working. I am learning new grammar.</p>
+                            <p class="text-sm text-slate-500 mt-3">Dica: use palavras como <strong>usually</strong>, <strong>every day</strong>, <strong>today</strong> e <strong>right now</strong>.</p>
                         </div>
                     </div>
+                    <textarea rows="7" class="mt-5 w-full p-4 border-2 border-slate-200 rounded-xl focus:border-indigo-500 outline-none transition-colors" placeholder="Write your homework here comparing routine and now..."></textarea>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-indigo-700"><i class="fas fa-music text-purple-500"></i> Music Time: Tom's Diner</h2>
-            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4sutLmjkVKRN6pOAMo2joC?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-6 text-center">
-                    <p class="text-xl mb-4 text-gray-600">Listen to Suzanne Vega. She describes what she is doing now.</p>
-                    <div class="text-xl inline-block text-left space-y-3 bg-gray-50 p-6 rounded-lg border-l-4 border-indigo-500">
-                         <p>I <input data-answer="am sitting" class="w-32 p-1 border-b-2 text-center bg-transparent"> in the morning <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                         <p>At the diner on the corner</p>
-                         <p>I <input data-answer="am waiting" class="w-32 p-1 border-b-2 text-center bg-transparent"> at the counter <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                         <p>For the man to pour the coffee</p>
-                         <p>And he fills it only halfway</p>
-                         <p>And before I even argue</p>
-                         <p>He <input data-answer="is looking" class="w-32 p-1 border-b-2 text-center bg-transparent"> out the window <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                         <p>At somebody coming in</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-6 text-center text-indigo-700"><i class="fas fa-puzzle-piece text-blue-500"></i> Practice: Routine or Now?</h2>
-            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-5xl mx-auto">
-                <p class="text-xl mb-8 text-gray-600 text-center">Drag the sentence to the correct category.</p>
-                <div class="flex flex-wrap gap-4 justify-center mb-8">
-                    <div id="sent-1" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">"I am reading a book now."</div>
-                    <div id="sent-2" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">"She works every day."</div>
-                    <div id="sent-3" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">"They always play soccer on Sundays."</div>
-                    <div id="sent-4" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">"He is watching a movie at the moment."</div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-blue-100 p-4 rounded-lg">
-                        <h3 class="font-bold text-xl text-blue-800 mb-2 text-center">Simple Present (Routine)</h3>
-                        <div data-match="sent-2 sent-3" class="drop-zone space-y-2 p-4 border-2 border-gray-300 rounded-lg min-h-[150px]"></div>
-                    </div>
-                    <div class="bg-green-100 p-4 rounded-lg">
-                        <h3 class="font-bold text-xl text-green-800 mb-2 text-center">Present Continuous (Now)</h3>
-                        <div data-match="sent-1 sent-4" class="drop-zone space-y-2 p-4 border-2 border-gray-300 rounded-lg min-h-[150px]"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-indigo-700"><i class="fas fa-home text-green-500"></i>Homework: A Postcard</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Imagine you are on vacation. Write a short postcard to a friend.</p>
-                    <div class="text-left text-lg space-y-2 mt-4 bg-gray-50 p-6 rounded-lg">
-                        <p class="font-bold">Describe:</p>
-                        <ul class="list-disc list-inside mt-2 space-y-1">
-                            <li>What you are doing now (Present Continuous).</li>
-                            <li>What you usually do at home (Simple Present).</li>
-                            <li>Example: "Hi! I'm having a great time. Right now, I'm sitting on the beach. At home, I usually work at this time!"</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-             <div class="text-center flex flex-col items-center justify-center h-full">
-                <i class="fas fa-compass text-indigo-600 text-7xl mb-6"></i>
-                <h2 class="text-5xl font-bold mb-4 text-gray-800">The past is history, the future is a mystery...</h2>
-                <p class="text-3xl text-gray-600 max-w-2xl">...but today is a gift. That is why it is called the present.</p>
+        <div class="slide" data-title="Lesson Complete">
+            <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
+                <i class="fas fa-arrows-rotate text-indigo-500 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">Now you can compare routine and action</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl">This contrast makes your English more precise and much more natural.</p>
             </div>
         </div>
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-30">
-        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
-            <button id="next-btn" class="bg-indigo-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-indigo-600">Próximo</button>
-            <button id="finish-lesson-btn" class="hidden bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Finalizar Aula</button>
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
+        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition"><i class="fas fa-chevron-left mr-1"></i> Anterior</button>
+            <button id="next-btn" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Proximo <i class="fas fa-chevron-right ml-1"></i></button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition"><i class="fas fa-check mr-2"></i>Finalizar aula</button>
         </div>
     </footer>
 
-    <div id="script-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h3 class="text-2xl font-bold mb-4 text-cyan-700">Listening Activity Script</h3>
-            <p class="text-lg italic leading-relaxed">
-                <strong>Ana:</strong> "Hi Leo! What are you doing?"<br><br>
-                <strong>Leo:</strong> "Hi Ana! I'm watching a movie right now. It's really good."<br><br>
-                <strong>Ana:</strong> "Oh, nice! But you usually watch TV in the evening, right?"<br><br>
-                <strong>Leo:</strong> "Yes, I usually watch TV in the evening, but today I am relaxing."
-            </p>
-            <button id="close-script-btn" class="mt-6 bg-gray-600 text-white font-bold py-2 px-6 rounded-lg w-full transition hover:bg-gray-700">Close</button>
-        </div>
-    </div>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const finishLessonBtn = document.getElementById('finish-lesson-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const slideCounter = document.getElementById('slide-counter');
+        const slideTitleHeader = document.getElementById('slide-title-header');
+        let currentSlide = 0;
+        function showSlide(index) {
+            slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+            progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+            slideCounter.textContent = `${index + 1} / ${slides.length}`;
+            slideTitleHeader.textContent = slides[index]?.dataset.title || '';
+            prevBtn.disabled = index === 0;
+            const isLast = index === slides.length - 1;
+            nextBtn.classList.toggle('hidden', isLast);
+            finishLessonBtn.classList.toggle('hidden', !isLast);
+        }
+        document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+        document.querySelectorAll('.flashcard-audio-btn').forEach(button => button.addEventListener('click', event => {
+            event.stopPropagation();
+            const utterance = new SpeechSynthesisUtterance(button.dataset.speak || '');
+            utterance.lang = 'en-US';
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        }));
+        document.querySelectorAll('.speak-btn').forEach(button => button.addEventListener('click', () => {
+            const utterance = new SpeechSynthesisUtterance(button.dataset.speak || '');
+            utterance.lang = 'en-US';
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        }));
+        document.querySelectorAll('.answer-btn').forEach(button => button.addEventListener('click', event => {
+            const line = event.currentTarget.closest('p');
+            line?.querySelectorAll('input[data-answer]').forEach(input => {
+                input.value = input.dataset.answer;
+                input.classList.remove('incorrect');
+                input.classList.add('correct');
+            });
+        }));
+        document.querySelectorAll('input[data-answer]').forEach(input => input.addEventListener('blur', () => {
+            const value = input.value.trim().toLowerCase();
+            const answer = input.dataset.answer.trim().toLowerCase();
+            input.classList.remove('correct', 'incorrect');
+            if (!value) return;
+            input.classList.add(value === answer ? 'correct' : 'incorrect');
+        }));
+        prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+        nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+        showSlide(0);
+    });
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
-    <script src="../js/progress-manager.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const moduleId = 'a1';
-            const lessonNumber = 25;
-
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            let currentSlide = 0;
-
-            function showSlide(index) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                const progressBar = document.getElementById('progress-bar');
-                if (progressBar) {
-                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
-                    progressBar.style.width = `${progressPercentage}%`;
-                }
-                if (prevBtn) prevBtn.disabled = index === 0;
-                const isLastSlide = index === slides.length - 1;
-                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
-                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
-            }
-
-            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-
-// Drag and Drop Logic
-            const draggables = document.querySelectorAll('.draggable');
-            let draggedItem = null;
-
-            draggables.forEach(draggable => {
-                draggable.addEventListener('dragstart', (e) => {
-                    draggedItem = e.target;
-                    setTimeout(() => e.target.style.display = 'none', 0);
-                });
-                draggable.addEventListener('dragend', (e) => {
-                    setTimeout(() => {
-                        if (draggedItem) {
-                           draggedItem.style.display = 'inline-flex';
-                        }
-                        draggedItem = null;
-                    }, 0);
-                });
-            });
-
-            document.querySelectorAll('.drop-zone').forEach(zone => {
-                zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
-                zone.addEventListener('dragleave', e => { zone.classList.remove('over'); });
-                zone.addEventListener('drop', e => {
-                    e.preventDefault();
-                    if (draggedItem && zone.dataset.match.includes(draggedItem.id)) {
-                        draggedItem.style.display = 'inline-flex';
-                        zone.appendChild(draggedItem);
-                        zone.classList.remove('over');
-                        draggedItem.classList.remove('draggable');
-                        draggedItem.style.cursor = 'default';
-                        
-                        const requiredItems = zone.dataset.match.split(' ').length;
-                        if (zone.children.length === requiredItems) {
-                             zone.style.borderColor = '#22c55e';
-                             zone.style.borderStyle = 'solid';
-                        }
-                        draggedItem = null;
-                    } else {
-                         zone.classList.remove('over');
-                    }
-                });
-            });
-
-            // Individual Answer Button Logic
-            document.querySelectorAll('.answer-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    let prev = button.previousElementSibling;
-                    while (prev) {
-                        if (prev.tagName === 'INPUT' && prev.dataset.answer) {
-                            prev.value = prev.dataset.answer;
-                            prev.classList.add('text-indigo-600', 'font-bold', 'correct');
-                            if (!prev.previousElementSibling || prev.previousElementSibling.tagName !== 'INPUT') {
-                                break;
-                            }
-                        }
-                        prev = prev.previousElementSibling;
-                    }
-                });
-            });
-            
-            // Modal Logic
-            const modal = document.getElementById('script-modal');
-            document.getElementById('show-script-btn').addEventListener('click', () => modal.classList.add('active'));
-            document.getElementById('close-script-btn').addEventListener('click', () => modal.classList.remove('active'));
-            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
-
-            showSlide(0);
-        });
-    </script>
-    <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
-    <script src="a1-lesson-theme.js"></script>
 </body>
 </html>
-
-
-

@@ -3,327 +3,266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A1 - Lesson 30: Future Plans | Inglês no seu Ritmo</title>
+    <title>A1 - Lesson 30: Tomorrow's Plan | Ingles no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="a1-lesson-theme.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* Flashcards */
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 200px; perspective: 1000px; cursor: pointer; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .flashcard { background: transparent; height: 220px; perspective: 1000px; cursor: pointer; }
+        .flashcard-audio-btn { position: absolute; top: 0.75rem; right: 0.75rem; width: 2.25rem; height: 2.25rem; border-radius: 9999px; border: 1px solid rgba(8, 145, 178, 0.35); background: rgba(15, 23, 42, 0.9); color: #67e8f9; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
-        .flashcard-front { background-color: white; color: #0891b2; text-align: center; }
-        .flashcard-back { background-color: #0891b2; color: white; transform: rotateY(180deg); text-align: center; }
-
-        /* Drag & Drop */
-        .draggable { cursor: grab; }
-        .drop-zone { border-style: dashed; }
-        .drop-zone.over { background-color: #cffafe; border-color: #0891b2; }
-        
-        /* Answer Button */
-        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.5rem; }
-        .answer-btn:hover { color: #0e7490; }
-        input[data-answer].correct { background-color: #cffafe; border-color: #0891b2; }
-        input[data-answer] { transition: all 0.3s; }
-
-        /* Modal */
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
-        .modal-overlay.active { opacity: 1; pointer-events: all; }
-        .modal-content { background: white; padding: 2.5rem; border-radius: 1rem; max-width: 500px; width: 90%; transform: scale(0.95); transition: transform 0.3s ease; }
-        .modal-overlay.active .modal-content { transform: scale(1); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; text-align: center; }
+        .flashcard-front { background: white; color: #0891b2; }
+        .flashcard-back { background: #0891b2; color: white; transform: rotateY(180deg); }
+        .practice-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; outline: none; text-align: center; width: 11rem; font-size: 1rem; padding: 2px 6px; }
+        .practice-input:focus { border-color: #0891b2; }
+        .practice-input.correct { border-color: #22c55e; color: #15803d; font-weight: 700; }
+        .practice-input.incorrect { border-color: #ef4444; color: #dc2626; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
+        .answer-btn:hover { color: #0891b2; }
+        .speak-btn { display: inline-flex; align-items: center; gap: 6px; background: #ecfeff; border: 1px solid #a5f3fc; color: #0e7490; padding: 5px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
     </style>
-    <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
-<body class="bg-gray-50 text-gray-800">
-
-    <header class="bg-white shadow-sm sticky top-0 z-40">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+<body class="bg-slate-50 text-slate-800">
+    <header class="shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
             <a href="a1.html" class="text-lg font-bold text-cyan-600 hover:text-cyan-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1</a>
-            <h1 class="text-xl font-semibold text-center">A1 - Lesson 30: Future Plans</h1>
-            <div class="w-24"></div>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 30: Tomorrow's Plan</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
         </div>
-        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-cyan-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-cyan-500 h-1.5 transition-all duration-500"></div></div>
     </header>
 
-    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
-        
-        <div class="slide active">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-cyan-700"><i class="fas fa-comments text-yellow-500"></i> Warm-up: Yesterday vs. Tomorrow</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-600">Let's connect the past and the future.</p>
-                    <div class="text-left text-xl space-y-4 bg-gray-50 p-6 rounded-lg">
-                        <p><strong class="text-blue-600">Professor:</strong> "Hello! Let's start by looking back. <strong class="font-bold">Did you</strong> watch a movie yesterday?" (Review)</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "Yes, I watched a movie." / "No, I didn't watch a movie."</p>
-                        <p><strong class="text-blue-600">Professor:</strong> "Great! That was yesterday. Now, what about tomorrow? Do you have plans for tomorrow?"</p>
-                        <p><strong class="text-orange-600">Aluno:</strong> "Yes, I will... work."</p>
-                        <p><strong class="text-blue-600">Professor:</strong> "Good! A great way to say this is: 'I <strong class="font-bold">am going to</strong> work tomorrow.' Today we will learn all about talking about our future plans!"</p>
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-black mb-4 text-slate-900">Falar de planos e intenções</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a usar <strong>going to</strong> para planos já pensados: amanhã, no fim de semana, nas férias e em metas simples do dia a dia.</p>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-cyan-700"><i class="fas fa-calendar-alt text-cyan-500"></i> Vocabulary: Future Time & Plans</h2>
-                <p class="text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">Words for talking about the future. Click the cards!</p>
-                <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Tomorrow</h3></div><div class="flashcard-back"><p class="text-2xl">Amanhã</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Next week</h3></div><div class="flashcard-back"><p class="text-2xl">Próxima semana</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Next weekend</h3></div><div class="flashcard-back"><p class="text-2xl">Próximo fim de semana</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">Next year</h3></div><div class="flashcard-back"><p class="text-2xl">Próximo ano</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">To travel</h3></div><div class="flashcard-back"><p class="text-2xl">Viajar</p></div></div></div>
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><h3 class="text-3xl font-bold">To visit</h3></div><div class="flashcard-back"><p class="text-2xl">Visitar</p></div></div></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-cyan-700"><i class="fas fa-book-open text-purple-500"></i> Grammar: Future with "going to"</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto text-left">
-                    <p class="text-2xl mb-6 text-gray-600 text-center">Use for plans and intentions.</p>
-                    <h3 class="font-bold text-xl text-blue-700 mb-2">Structure: <strong class="font-semibold">Verb to be + going to + Main Verb</strong></h3>
-                    <div class="bg-blue-50 p-4 rounded-lg text-lg space-y-2">
-                        <p><strong class="font-semibold">(+)</strong> I <strong class="font-semibold">am going to travel</strong> next month.</p>
-						<p><strong class="font-semibold">(+)</strong> She <strong class="font-semibold">is going to visit</strong> her friend.</p>
-                        <p><strong class="font-semibold">(-)</strong> He <strong class="font-semibold">is not (isn't) going to work</strong> tomorrow.</p>
-						<p><strong class="font-semibold">(-)</strong> They <strong class="font-semibold">are not (aren't) going to study</strong>.</p>
-                        <p><strong class="font-semibold">(?)</strong> <strong class="font-semibold">Are you going to</strong> watch the movie? -> Yes, I am. / No, I'm not.</p>
-						<p><strong class="font-semibold">(?)</strong> What <strong class="font-semibold">are you going to do</strong> tonight?</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-cyan-700"><i class="fas fa-pencil-alt text-green-500"></i>Practice: My Plans</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Complete the sentences about future plans.</p>
-                    <div class="text-left text-xl space-y-4">
-                        <p>1. I <input data-answer="am going to visit" class="w-48 p-1 border-b-2 text-center"> my parents next weekend. (visit) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>2. She <input data-answer="is not going to cook" class="w-56 p-1 border-b-2 text-center"> dinner tonight. (not / cook) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>3. They <input data-answer="are going to travel" class="w-52 p-1 border-b-2 text-center"> to Japan next year. (travel) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>4. <strong>A:</strong> What <input data-answer="are you going to do" class="w-52 p-1 border-b-2 text-center"> tomorrow? (you / do) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-						<p>   <strong>B:</strong> I <input data-answer="am going to play" class="w-48 p-1 border-b-2 text-center"> soccer. (play) <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-cyan-700"><i class="fas fa-headphones text-blue-500"></i>Listening: New Year's Resolutions</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Listen to Clara's plans for next year.</p>
-                    <button id="show-script-btn" class="bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition hover:bg-cyan-700 mb-8"><i class="fas fa-file-alt mr-2"></i> Show Teacher's Script</button>
-                    <div class="text-left mt-6 text-lg space-y-6">
-                        <div>
-                            <label for="q1" class="font-bold block mb-2">1. What is she going to start?</label>
-                            <textarea id="q1" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="She is going to..."></textarea>
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">Voce vai praticar</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Dizer <strong>I am going to...</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Perguntar sobre planos</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Organizar uma agenda futura</span></div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-card p-8 mt-8">
+                <div class="space-y-5 text-xl">
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-cyan-700 w-24">Teacher:</p><p>You talked about yesterday last class. Now let's look ahead. What are you going to do tomorrow?</p><button class="speak-btn" data-speak="You talked about yesterday last class. Now let's look ahead. What are you going to do tomorrow?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>I am going to work in the morning and study English at night.</p><button class="speak-btn" data-speak="I am going to work in the morning and study English at night."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-cyan-700 w-24">Teacher:</p><p>Nice. Are you going to stay home all day?</p><button class="speak-btn" data-speak="Nice. Are you going to stay home all day?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>No, I am not. I am going to visit a friend after lunch.</p><button class="speak-btn" data-speak="No, I am not. I am going to visit a friend after lunch."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Vocabulary">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-4 text-cyan-700">Future time and plans</h2>
+                <div class="flashcard-grid max-w-5xl mx-auto">
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">tomorrow</h4><button class="flashcard-audio-btn" data-speak="tomorrow"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">amanha</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">next week</h4><button class="flashcard-audio-btn" data-speak="next week"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">proxima semana</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">travel</h4><button class="flashcard-audio-btn" data-speak="travel"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">viajar</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">visit</h4><button class="flashcard-audio-btn" data-speak="visit"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">visitar</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">rest</h4><button class="flashcard-audio-btn" data-speak="rest"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">descansar</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-3xl font-bold">go shopping</h4><button class="flashcard-audio-btn" data-speak="go shopping"><i class="fas fa-volume-up"></i></button></div><div class="flashcard-back"><p class="text-2xl">ir as compras</p></div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Grammar">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-cyan-700">Future with going to</h2>
+                <div class="section-card p-8 text-left">
+                    <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label for="q2" class="font-bold block mb-2">2. Where is she going to travel?</label>
-                            <textarea id="q2" rows="2" class="w-full p-2 border-2 rounded-lg" placeholder="She is going to..."></textarea>
+                            <p class="lesson-panel-title mb-3">Forms</p>
+                            <table class="w-full text-left text-lg border-collapse">
+                                <thead><tr class="bg-slate-100"><th class="p-4 border">Type</th><th class="p-4 border">Example</th><th class="p-4 border">Tradução</th></tr></thead>
+                                <tbody>
+                                    <tr><td class="p-4 border">affirmative</td><td class="p-4 border">I am going to travel.</td><td class="p-4 border">Eu vou viajar.</td></tr>
+                                    <tr class="bg-slate-50"><td class="p-4 border">negative</td><td class="p-4 border">She isn't going to work.</td><td class="p-4 border">Ela nao vai trabalhar.</td></tr>
+                                    <tr><td class="p-4 border">question</td><td class="p-4 border">Are you going to study?</td><td class="p-4 border">Voce vai estudar?</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="space-y-4 text-lg">
+                            <div class="activity-card"><strong>Quando usar</strong><br><span class="text-slate-600">Use para planos e intenções já pensados: amanhã, semana que vem, depois da aula.</span></div>
+                            <div class="activity-card"><strong>Como montar</strong><br><span class="text-slate-600"><strong>am / is / are + going to + verbo base</strong>. O verbo principal não muda: <strong>going to visit</strong>, <strong>going to study</strong>.</span></div>
+                            <div class="activity-card"><strong>Erro comum</strong><br><span class="text-slate-600">Nao diga <strong>I going to travel</strong>. O verbo <strong>to be</strong> é obrigatório: <strong>I am going to travel</strong>.</span></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-cyan-700"><i class="fas fa-music text-purple-500"></i> Music Time: I'm Gonna Be (500 Miles)</h2>
-            <div class="bg-white p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/67iAlVNDDdddxqSD2EZhFs?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-6 text-center">
-                    <p class="text-xl mb-4 text-gray-600">Listen to The Proclaimers. "Gonna" is a common way to say "going to".</p>
-                    <div class="text-xl inline-block text-left space-y-3 bg-gray-50 p-6 rounded-lg border-l-4 border-cyan-500">
-                         <p>When I wake up, well I know I'm <input data-answer="gonna be" class="w-32 p-1 border-b-2 text-center bg-transparent"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                         <p>I'm <input data-answer="gonna be" class="w-32 p-1 border-b-2 text-center bg-transparent"> the man who wakes up next to you <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                         <p>When I go out, yeah, I know I'm <input data-answer="gonna be" class="w-32 p-1 border-b-2 text-center bg-transparent"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                         <p>I'm <input data-answer="gonna be" class="w-32 p-1 border-b-2 text-center bg-transparent"> the man who goes along with you <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                    </div>
+        <div class="slide" data-title="Practice">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-cyan-700">Complete the future plans</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left text-xl space-y-5">
+                    <p>1. I <input data-answer="am going to visit" class="practice-input"> my parents next weekend. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: vou visitar</span></p>
+                    <p>2. She <input data-answer="is not going to cook" class="practice-input"> dinner tonight. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: nao vai cozinhar</span></p>
+                    <p>3. They <input data-answer="are going to travel" class="practice-input"> next year. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: vao viajar</span></p>
+                    <p>4. What <input data-answer="are you going to do" class="practice-input"> tomorrow morning? <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: voce vai fazer</span></p>
+                    <p>5. We <input data-answer="are going to rest" class="practice-input"> after the test. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: vamos descansar</span></p>
+                    <p>6. <input data-answer="Are they going to study" class="practice-input"> tonight? <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: eles vao estudar...?</span></p>
                 </div>
             </div>
         </div>
-        
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-6 text-center text-cyan-700"><i class="fas fa-puzzle-piece text-green-500"></i> Practice: Plan Your Year</h2>
-            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-5xl mx-auto">
-                <p class="text-xl mb-8 text-gray-600 text-center">Drag the activity to the time you are going to do it.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                    <div class="flex flex-col items-center gap-4">
-                        <h3 class="font-bold text-xl">Activities:</h3>
-                        <div id="act-work" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">Work</div>
-                        <div id="act-travel" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">Travel to the beach</div>
-                        <div id="act-visit" class="draggable bg-white p-3 rounded-lg shadow font-semibold" draggable="true">Visit my family</div>
+
+        <div class="slide" data-title="Reading">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-cyan-700">Reading: my weekend plan</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <div class="activity-card mb-6">
+                        <p class="text-lg leading-8">This weekend, Bruno is going to wake up late on Saturday. After breakfast, he is going to clean his room and study for one hour. In the afternoon, he is going to visit a friend and play video games. On Sunday, he isn't going to work. He is going to rest and have lunch with his family.</p>
                     </div>
-                    <div class="space-y-4 text-left">
-                        <div class="flex items-center gap-3"><p class="w-1/2 text-lg">Tomorrow, I'm going to...</p> <div data-match="act-work" class="drop-zone w-1/2 p-4 border-2 border-gray-300 rounded-lg min-h-[50px]"></div></div>
-                        <div class="flex items-center gap-3"><p class="w-1/2 text-lg">Next weekend, I'm going to...</p> <div data-match="act-visit" class="drop-zone w-1/2 p-4 border-2 border-gray-300 rounded-lg min-h-[50px]"></div></div>
-                        <div class="flex items-center gap-3"><p class="w-1/2 text-lg">Next year, I'm going to...</p> <div data-match="act-travel" class="drop-zone w-1/2 p-4 border-2 border-gray-300 rounded-lg min-h-[50px]"></div></div>
+                    <div class="space-y-5 text-xl">
+                        <p>1. Bruno is going to <input data-answer="clean" class="practice-input"> his room on Saturday. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: limpar</span></p>
+                        <p>2. He is going to <input data-answer="visit" class="practice-input"> a friend. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: visitar</span></p>
+                        <p>3. On Sunday, he <input data-answer="isn't" class="practice-input"> going to work. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: nao vai</span></p>
+                        <p>4. He is going to have lunch with his <input data-answer="family" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: familia</span></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-cyan-700"><i class="fas fa-home text-green-500"></i>Homework: Your Resolutions</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-xl mb-6 text-gray-600">Write about your plans for next week or next year.</p>
-                    <div class="text-left text-lg space-y-2 mt-4 bg-gray-50 p-6 rounded-lg">
-                        <p class="font-bold">Write at least 3 plans using "going to":</p>
-                        <ul class="list-disc list-inside mt-2 space-y-1">
-                            <li>Example: "Next week, I am going to study English every day."</li>
-                            <li>"I'm not going to watch TV."</li>
-                            <li>"My family and I are going to visit my grandmother."</li>
-                        </ul>
+        <div class="slide" data-title="Music">
+            <div>
+                <h2 class="text-4xl font-black mb-4 text-center text-cyan-700">Music Time: I'm Gonna Be (500 Miles)</h2>
+                <div class="music-card p-6 rounded-2xl max-w-4xl mx-auto">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/66S14BkJDxgkYxLl5DCqOz?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <div class="text-lg bg-slate-50 p-6 rounded-xl border-l-4 border-cyan-500 mt-5 space-y-4">
+                        <p>When I wake up, well, I know I'm gonna be</p>
+                        <p>I'm gonna be the man who wakes up next to <input data-answer="you" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: voce</span></p>
+                        <p>When I go out, yeah, I know I'm gonna be</p>
+                        <p>I'm gonna be the man who goes along with <input data-answer="you" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: voce</span></p>
+                        <p>And if I get drunk, well, I know I'm gonna be</p>
+                        <p>I'm gonna be the man who gets drunk next to <input data-answer="you" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: mesma palavra</span></p>
+                        <p>And if I haver, yeah, I know I'm gonna be</p>
+                        <p>I'm gonna be the man who's havering to <input data-answer="you" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: com voce</span></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
-             <div class="text-center flex flex-col items-center justify-center h-full">
-                <i class="fas fa-paper-plane text-cyan-600 text-7xl mb-6"></i>
-                <h2 class="text-5xl font-bold mb-4 text-gray-800">The best way to predict the future...</h2>
-                <p class="text-3xl text-gray-600 max-w-2xl">...is to create it.</p>
+        <div class="slide" data-title="Writing">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-cyan-700">Homework: plan your next weekend</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="lesson-panel-title mb-3">Include in your homework</p>
+                            <ul class="list-disc list-inside space-y-2 text-lg">
+                                <li>1 plan for Saturday</li>
+                                <li>1 plan for Sunday</li>
+                                <li>1 place you are going to go</li>
+                                <li>1 person you are going to see</li>
+                                <li>1 thing you are not going to do</li>
+                            </ul>
+                        </div>
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Model</p>
+                            <p class="text-lg">Next weekend, I am going to visit my cousin on Saturday. We are going to have lunch downtown. On Sunday, I am going to rest at home and study English. I am not going to work.</p>
+                            <p class="text-sm text-slate-500 mt-3">Dica: use <strong>next weekend</strong>, <strong>on Saturday</strong> e <strong>on Sunday</strong>.</p>
+                        </div>
+                    </div>
+                    <textarea rows="7" class="mt-5 w-full p-4 border-2 border-slate-200 rounded-xl focus:border-cyan-500 outline-none transition-colors" placeholder="Write your weekend plan here..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Lesson Complete">
+            <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
+                <i class="fas fa-calendar-check text-cyan-500 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">Now you can talk about simple future plans</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl">With going to, your English starts to connect today with tomorrow.</p>
             </div>
         </div>
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-30">
-        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
-            <button id="next-btn" class="bg-cyan-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-cyan-600">Próximo</button>
-            <button id="finish-lesson-btn" class="hidden bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Finalizar Aula</button>
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
+        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition"><i class="fas fa-chevron-left mr-1"></i> Anterior</button>
+            <button id="next-btn" class="bg-cyan-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Proximo <i class="fas fa-chevron-right ml-1"></i></button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition"><i class="fas fa-check mr-2"></i>Finalizar aula</button>
         </div>
     </footer>
 
-    <div id="script-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h3 class="text-2xl font-bold mb-4 text-cyan-700">Listening Activity Script</h3>
-            <p class="text-lg italic leading-relaxed">
-                "Hi! My name is Clara and I have big plans for next year. I am going to start a new job in a different city. I am also going to travel to Italy with my sister. It's going to be a great year!"
-            </p>
-            <button id="close-script-btn" class="mt-6 bg-gray-600 text-white font-bold py-2 px-6 rounded-lg w-full transition hover:bg-gray-700">Close</button>
-        </div>
-    </div>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const finishLessonBtn = document.getElementById('finish-lesson-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const slideCounter = document.getElementById('slide-counter');
+        const slideTitleHeader = document.getElementById('slide-title-header');
+        let currentSlide = 0;
+        function showSlide(index) {
+            slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+            progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+            slideCounter.textContent = `${index + 1} / ${slides.length}`;
+            slideTitleHeader.textContent = slides[index]?.dataset.title || '';
+            prevBtn.disabled = index === 0;
+            const isLast = index === slides.length - 1;
+            nextBtn.classList.toggle('hidden', isLast);
+            finishLessonBtn.classList.toggle('hidden', !isLast);
+        }
+        document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+        document.querySelectorAll('.flashcard-audio-btn').forEach(button => button.addEventListener('click', event => {
+            event.stopPropagation();
+            const utterance = new SpeechSynthesisUtterance(button.dataset.speak || '');
+            utterance.lang = 'en-US';
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        }));
+        document.querySelectorAll('.speak-btn').forEach(button => button.addEventListener('click', () => {
+            const utterance = new SpeechSynthesisUtterance(button.dataset.speak || '');
+            utterance.lang = 'en-US';
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        }));
+        document.querySelectorAll('.answer-btn').forEach(button => button.addEventListener('click', event => {
+            const line = event.currentTarget.closest('p');
+            line?.querySelectorAll('input[data-answer]').forEach(input => {
+                input.value = input.dataset.answer;
+                input.classList.remove('incorrect');
+                input.classList.add('correct');
+            });
+        }));
+        document.querySelectorAll('input[data-answer]').forEach(input => input.addEventListener('blur', () => {
+            const value = input.value.trim().toLowerCase();
+            const answer = input.dataset.answer.trim().toLowerCase();
+            input.classList.remove('correct', 'incorrect');
+            if (!value) return;
+            input.classList.add(value === answer ? 'correct' : 'incorrect');
+        }));
+        prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+        nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+        showSlide(0);
+    });
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
-    <script src="../js/progress-manager.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const moduleId = 'a1';
-            const lessonNumber = 30;
-
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            let currentSlide = 0;
-
-            function showSlide(index) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                const progressBar = document.getElementById('progress-bar');
-                if (progressBar) {
-                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
-                    progressBar.style.width = `${progressPercentage}%`;
-                }
-                if (prevBtn) prevBtn.disabled = index === 0;
-                const isLastSlide = index === slides.length - 1;
-                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
-                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
-            }
-
-            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-
-// Drag and Drop Logic
-            const draggables = document.querySelectorAll('.draggable');
-            let draggedItem = null;
-
-            draggables.forEach(draggable => {
-                draggable.addEventListener('dragstart', (e) => {
-                    draggedItem = e.target;
-                    setTimeout(() => e.target.style.display = 'none', 0);
-                });
-                draggable.addEventListener('dragend', (e) => {
-                    setTimeout(() => {
-                        if (draggedItem) {
-                           draggedItem.style.display = 'inline-flex';
-                        }
-                        draggedItem = null;
-                    }, 0);
-                });
-            });
-
-            document.querySelectorAll('.drop-zone').forEach(zone => {
-                zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
-                zone.addEventListener('dragleave', e => { zone.classList.remove('over'); });
-                zone.addEventListener('drop', e => {
-                    e.preventDefault();
-                    if (draggedItem && zone.dataset.match.includes(draggedItem.id)) {
-                        draggedItem.style.display = 'inline-flex';
-                        zone.appendChild(draggedItem);
-                        zone.classList.remove('over');
-                        draggedItem.classList.remove('draggable');
-                        draggedItem.style.cursor = 'default';
-                        
-                        const requiredItems = zone.dataset.match.split(' ').length;
-                        if (zone.children.length === requiredItems) {
-                             zone.style.borderColor = '#22c55e';
-                             zone.style.borderStyle = 'solid';
-                        }
-                        draggedItem = null;
-                    } else {
-                         zone.classList.remove('over');
-                    }
-                });
-            });
-
-            // Individual Answer Button Logic
-            document.querySelectorAll('.answer-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const parentP = button.closest('p');
-                    if (parentP) {
-                        parentP.querySelectorAll('input[data-answer]').forEach(inputField => {
-                            inputField.value = inputField.dataset.answer;
-                            inputField.classList.add('text-cyan-600', 'font-bold', 'correct');
-                        });
-                    }
-                });
-            });
-            
-            // Modal Logic
-            const modal = document.getElementById('script-modal');
-            const showScriptBtn = document.getElementById('show-script-btn');
-            
-            if (showScriptBtn) {
-                showScriptBtn.addEventListener('click', () => modal.classList.add('active'));
-            }
-            document.getElementById('close-script-btn').addEventListener('click', () => modal.classList.remove('active'));
-            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
-
-            showSlide(0);
-        });
-    </script>
-    <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
-    <script src="a1-lesson-theme.js"></script>
 </body>
 </html>
-
-
-

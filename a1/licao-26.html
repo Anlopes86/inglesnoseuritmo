@@ -19,6 +19,7 @@
         .practice-input.revealed { border-color: #f59e0b; color: #b45309; font-weight: 700; }
         .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
         .answer-btn:hover { color: #4f46e5; }
+        .speak-btn { display: inline-flex; align-items: center; gap: 6px; background: #f7fee7; border: 1px solid #d9f99d; color: #4d7c0f; padding: 5px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
     </style>
     <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
@@ -68,17 +69,17 @@
                     <div class="callout-note text-sm"><strong>Progressão:</strong> o aluno já combina lugar, quantidade, habilidade e ação em andamento.</div>
                 </div>
                 <div class="space-y-5 text-xl">
-                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-600 w-24">Teacher:</p><p>Look at this room. Is there a table next to the window?</p></div>
-                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>Yes, there is.</p></div>
-                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-600 w-24">Teacher:</p><p>How many books are there on the table?</p></div>
-                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>There are three books on the table.</p></div>
-                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-600 w-24">Teacher:</p><p>Can you see the boy in the picture? What is he doing?</p></div>
-                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>Yes, I can. He is reading a book.</p></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-600 w-24">Teacher:</p><p>Look at this room. Is there a table next to the window?</p><button class="speak-btn" data-speak="Look at this room. Is there a table next to the window?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>Yes, there is.</p><button class="speak-btn" data-speak="Yes, there is."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-600 w-24">Teacher:</p><p>How many books are there on the table?</p><button class="speak-btn" data-speak="How many books are there on the table?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>There are three books on the table.</p><button class="speak-btn" data-speak="There are three books on the table."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-600 w-24">Teacher:</p><p>Can you see the boy in the picture? What is he doing?</p><button class="speak-btn" data-speak="Can you see the boy in the picture? What is he doing?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>Yes, I can. He is reading a book.</p><button class="speak-btn" data-speak="Yes, I can. He is reading a book."><i class="fas fa-volume-up"></i> Ouvir</button></div>
                 </div>
             </div>
         </div>
 
-        <div class="slide" data-title="Grammar Map">
+        <div class="slide" data-title="Review Map">
             <div class="text-center">
                 <h2 class="text-4xl font-black mb-6 text-lime-700">What Module 3 added</h2>
                 <div class="section-card p-8 text-left">
@@ -155,11 +156,11 @@
             </div>
         </div>
 
-        <div class="slide" data-title="Listening Review">
+        <div class="slide" data-title="Reading Review">
             <div class="text-center">
-                <h2 class="text-4xl font-black mb-6 text-lime-700">Teacher script: My neighborhood</h2>
+                <h2 class="text-4xl font-black mb-6 text-lime-700">Reading review: my neighborhood</h2>
                 <div class="section-card p-8 max-w-4xl mx-auto text-left">
-                    <div class="callout-note mb-6"><strong>Teacher reads:</strong> “There is a bakery next to my house, and there is a bank across from the bakery. There are a few restaurants on my street. Right now, my brother is walking to the supermarket. I can walk there in five minutes.”</div>
+                    <div class="activity-card mb-6"><p class="text-lg leading-8">There is a bakery next to my house, and there is a bank across from the bakery. There are a few restaurants on my street. Right now, my brother is walking to the supermarket. He can buy bread and milk there. I can walk to the supermarket in five minutes, so this neighborhood is very practical for my family.</p></div>
                     <div id="listening-review" class="space-y-5 text-lg"></div>
                     <div class="mt-6 flex flex-col sm:flex-row items-center gap-4">
                         <button id="check-listening-btn" class="bg-lime-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-lime-700 transition"><i class="fas fa-check mr-2"></i>Verificar</button>
@@ -246,6 +247,15 @@
         prevBtn?.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         nextBtn?.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
         showSlide(0);
+
+        document.querySelectorAll('.speak-btn').forEach((button) => {
+            button.addEventListener('click', () => {
+                const utterance = new SpeechSynthesisUtterance(button.dataset.speak || '');
+                utterance.lang = 'en-US';
+                speechSynthesis.cancel();
+                speechSynthesis.speak(utterance);
+            });
+        });
 
         const mixedItems = [
             { before: 'There', after: 'two books on the table.', answer: 'are' },

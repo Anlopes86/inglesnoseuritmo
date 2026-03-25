@@ -19,6 +19,7 @@
         .practice-input.revealed { border-color: #f59e0b; color: #b45309; font-weight: 700; }
         .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
         .answer-btn:hover { color: #4f46e5; }
+        .speak-btn { display: inline-flex; align-items: center; gap: 6px; background: #eef2ff; border: 1px solid #c7d2fe; color: #4338ca; padding: 5px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
     </style>
     <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
@@ -68,12 +69,12 @@
                     <div class="callout-note text-sm"><strong>Progressão:</strong> aqui o aluno já responde mais de uma informação por turno.</div>
                 </div>
                 <div class="space-y-5 text-xl">
-                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-600 w-24">Teacher:</p><p>Tell me about yourself. Where are you from and what do you do?</p></div>
-                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>I am from Brazil and I am a student.</p></div>
-                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-600 w-24">Teacher:</p><p>What do you usually do in the morning?</p></div>
-                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>I usually study and drink coffee in the morning.</p></div>
-                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-600 w-24">Teacher:</p><p>What did you do yesterday, and what are you going to do tomorrow?</p></div>
-                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>Yesterday I worked, and tomorrow I am going to visit my family.</p></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-600 w-24">Teacher:</p><p>Tell me about yourself. Where are you from and what do you do?</p><button class="speak-btn" data-speak="Tell me about yourself. Where are you from and what do you do?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>I am from Brazil and I am a student.</p><button class="speak-btn" data-speak="I am from Brazil and I am a student."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-600 w-24">Teacher:</p><p>What do you usually do in the morning?</p><button class="speak-btn" data-speak="What do you usually do in the morning?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>I usually study and drink coffee in the morning.</p><button class="speak-btn" data-speak="I usually study and drink coffee in the morning."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-600 w-24">Teacher:</p><p>What did you do yesterday, and what are you going to do tomorrow?</p><button class="speak-btn" data-speak="What did you do yesterday, and what are you going to do tomorrow?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>Yesterday I worked, and tomorrow I am going to visit my family.</p><button class="speak-btn" data-speak="Yesterday I worked, and tomorrow I am going to visit my family."><i class="fas fa-volume-up"></i> Ouvir</button></div>
                 </div>
             </div>
         </div>
@@ -273,6 +274,15 @@
         prevBtn?.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         nextBtn?.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
         showSlide(0);
+
+        document.querySelectorAll('.speak-btn').forEach((button) => {
+            button.addEventListener('click', () => {
+                const utterance = new SpeechSynthesisUtterance(button.dataset.speak || '');
+                utterance.lang = 'en-US';
+                speechSynthesis.cancel();
+                speechSynthesis.speak(utterance);
+            });
+        });
 
         const builderItems = [
             { before: 'I', after: 'from Brazil.', answer: 'am' },
