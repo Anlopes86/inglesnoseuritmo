@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversation Class - The Modern Face of Love</title>
+    <title>Conversation Class - Lesson 32: The Modern Face of Love</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; background-color: #111827; }
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -16,151 +16,263 @@
         .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); border: 1px solid #4a5568; }
-        .flashcard-front { background-color: #2d3748; color: #f472b6; text-align: center; }
-        .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
-        .lyrics-box { max-height: 400px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #4a5568 #2d3748; }
-        .answer-btn { margin-left: 8px; color: #718096; transition: color 0.2s; cursor: pointer; }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; border: 1px solid #4b5563; }
+        .flashcard-front { background-color: #1f2937; color: #f472b6; text-align: center; }
+        .flashcard-back { background-color: #db2777; color: white; transform: rotateY(180deg); text-align: center; }
+        .lyrics-box { max-height: 420px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #f472b6 #1f2937; }
+        .word-pill { cursor: grab; background-color: #db2777; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
+        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
+        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #f472b6; text-align: center; color: #f9a8d4; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
+        .drop-zone.hover { border-color: #fbcfe8; background-color: rgba(244, 114, 182, 0.12); }
+        .drop-zone.filled { border-bottom-style: solid; }
+        .drop-zone.correct { color: #34d399 !important; border-color: #34d399; background-color: rgba(16, 185, 129, 0.12); }
+        .drop-zone.incorrect { color: #f87171 !important; border-color: #f87171; background-color: rgba(239, 68, 68, 0.12); }
+        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
         .answer-btn:hover { color: #f472b6; }
-        .input-answer { width: 130px; border-bottom: 2px solid #4a5568; text-align: center; background: transparent; outline: none; transition: border-color 0.3s; }
-        .input-answer:focus { border-color: #f472b6; }
+        .debate-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }
+        .debate-card:hover { transform: translateY(-2px); }
+        .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
     </style>
     <link rel="stylesheet" href="conversation-lesson-theme.css">
 </head>
 <body class="bg-gray-900 text-white">
-
-    <header class="bg-gray-800 shadow-lg sticky top-0 z-10">
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="conversation.html" class="text-lg font-bold text-pink-400 hover:text-pink-300 flex items-center gap-2">
-                <i class="fas fa-chevron-left"></i> Painel
+            <a href="conversation.html" class="text-lg font-bold text-pink-500 hover:text-pink-400 flex items-center gap-2">
+                <i class="fas fa-chevron-left"></i> Back
             </a>
-            <h1 class="text-xl font-bold text-pink-400"><i class="fas fa-heart mr-2"></i> The Modern Face of Love</h1>
-            <div id="slide-counter" class="text-gray-400 font-medium">Slide 1/11</div>
+            <h1 class="text-xl font-semibold text-center">Lesson 32: The Modern Face of Love</h1>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 14</div>
         </div>
         <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-pink-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
-    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 160px);">
-
-        <!-- Slide 1: Warm-up -->
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
         <div class="slide active">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-pink-400"><i class="fas fa-bolt"></i> Warm-up: Modern Connections</h2>
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6 text-2xl text-left">
-                    <p><i class="fas fa-mobile-alt mr-2 text-pink-400"></i> How has technology changed the way people meet and fall in love?</p>
-                    <p><i class="fas fa-wifi mr-2 text-pink-400"></i> Is it possible to find your "soulmate" online?</p>
-                    <p><i class="fas fa-clock mr-2 text-pink-400"></i> What is the biggest challenge for couples in the 21st century?</p>
-                    <p><i class="fas fa-map-marker-alt mr-2 text-pink-400"></i> Is "long-distance love" more sustainable today than in the past?</p>
+                <h2 class="text-4xl font-bold mb-6 text-pink-500"><i class="fas fa-heart"></i> Warm-up: Modern Connections</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-3xl mx-auto space-y-6 text-2xl">
+                    <p class="font-semibold text-gray-300">Let's talk about how love works in the digital era.</p>
+                    <p><i class="fas fa-mobile-screen-button mr-2 text-pink-500"></i> How has technology changed the way people meet and connect?</p>
+                    <p><i class="fas fa-wifi mr-2 text-pink-500"></i> Is it possible to find your soulmate online?</p>
+                    <p><i class="fas fa-clock mr-2 text-pink-500"></i> What is the biggest challenge for couples today?</p>
+                    <p><i class="fas fa-location-dot mr-2 text-pink-500"></i> Is long-distance love easier now than it was in the past?</p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 2: Vocabulary -->
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-pink-400"><i class="fas fa-book"></i> Modern Love Terminology</h2>
+                <h2 class="text-4xl font-bold mb-6 text-pink-500"><i class="fas fa-book-open"></i> Key Expressions</h2>
                 <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To ghost someone</h4></div><div class="flashcard-back"><p class="text-xl">To suddenly stop all communication with someone without explanation.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">On the same page</h4></div><div class="flashcard-back"><p class="text-xl">To have the same understanding or intentions in a relationship.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">A rough patch</h4></div><div class="flashcard-back"><p class="text-xl">A difficult period or a crisis in a relationship.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To hit it off</h4></div><div class="flashcard-back"><p class="text-xl">To have an immediate connection or liking for someone upon meeting.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To see eye to eye</h4></div><div class="flashcard-back"><p class="text-xl">To agree fully with someone on a specific topic or value.</p></div></div></div>
-                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Soulmate</h4></div><div class="flashcard-back"><p class="text-xl">A person ideally suited to another as a close friend or romantic partner.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To ghost someone</h4></div><div class="flashcard-back"><p class="text-xl">To suddenly stop all communication without explanation.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">On the same page</h4></div><div class="flashcard-back"><p class="text-xl">To share the same expectations or understanding.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">A rough patch</h4></div><div class="flashcard-back"><p class="text-xl">A difficult moment in a relationship.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To hit it off</h4></div><div class="flashcard-back"><p class="text-xl">To connect immediately and naturally with someone.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To see eye to eye</h4></div><div class="flashcard-back"><p class="text-xl">To agree fully about something important.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Soulmate</h4></div><div class="flashcard-back"><p class="text-xl">A person who feels like your ideal emotional match.</p></div></div></div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 3: Music 1 - Daft Punk -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-pink-400"><i class="fas fa-music"></i> Digital Love (Daft Punk)</h2>
+            <h2 class="text-4xl font-bold mb-4 text-center text-pink-500"><i class="fas fa-music text-fuchsia-400"></i> Song 1: Hotline Bling <span class="text-xl text-gray-400">- Drake</span></h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2E9ZWy9S6Yv8p28oUAnp6S" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-pink-400">
-                    <p>Last night I had a dream about you</p>
-                    <p>In this dream I'm <input type="text" id="ans1-1" class="input-answer" placeholder="..."> <button class="answer-btn" onclick="reveal('ans1-1', 'dancing')"><i class="fas fa-eye"></i></button> right beside you</p>
-                    <p>And it looked like everyone was having fun</p>
-                    <p>The kind of feeling I've waited so <input type="text" id="ans1-2" class="input-answer" placeholder="..."> <button class="answer-btn" onclick="reveal('ans1-2', 'long')"><i class="fas fa-eye"></i></button></p>
-                    <p class="mt-4">Don't stop, come a little closer</p>
-                    <p>As we jam the rhythm gets <input type="text" id="ans1-3" class="input-answer" placeholder="..."> <button class="answer-btn" onclick="reveal('ans1-3', 'stronger')"><i class="fas fa-eye"></i></button></p>
-                    <p>There's nothing wrong with just a little bit of fun</p>
-                    <p>We were dancing all night <input type="text" id="ans1-4" class="input-answer" placeholder="..."> <button class="answer-btn" onclick="reveal('ans1-4', 'long')"><i class="fas fa-eye"></i></button></p>
+                <div class="mb-4 rounded-xl overflow-hidden">
+                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3j6XDu2Xcs0qwVMj0VzsWe?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+                <div class="mb-4 bg-pink-900/30 p-4 rounded-lg border border-pink-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-pink-400"></i> A song about distance, jealousy, mixed signals, and how communication changes after a relationship cools down.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-pink-500">
+                    <p>You used to call me on my cell <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-pink-400 outline-none"> <button class="answer-btn" data-answer="phone"><i class="fas fa-eye"></i></button></p>
+                    <p>Late night when you need my <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-pink-400 outline-none"> <button class="answer-btn" data-answer="love"><i class="fas fa-eye"></i></button></p>
+                    <p>That hotline bling can only mean one <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-pink-400 outline-none"> <button class="answer-btn" data-answer="thing"><i class="fas fa-eye"></i></button></p>
+                    <p>Ever since I left the <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-pink-400 outline-none"> <button class="answer-btn" data-answer="city"><i class="fas fa-eye"></i></button></p>
+                    <p>Everybody knows and I feel left <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-pink-400 outline-none"> <button class="answer-btn" data-answer="out"><i class="fas fa-eye"></i></button></p>
+                    <p>Girl, you got me down, you got me stressed <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-pink-400 outline-none"> <button class="answer-btn" data-answer="out"><i class="fas fa-eye"></i></button></p>
                 </div></div>
             </div>
         </div>
 
-        <!-- Slide 4: Discussion 1 -->
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-pink-400"><i class="fas fa-comment-alt"></i> Discussion: Digital Dreams</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl text-left">
-                <p><i class="fas fa-cloud text-pink-400"></i> The song talks about a dream. Do we often "dream" or idealize people we meet online before meeting them in person?</p>
-                <p><i class="fas fa-heartbeat text-pink-400"></i> Can a purely digital connection be as strong as a physical one?</p>
-            </div></div>
-        </div>
-
-        <!-- Slide 5: Music 2 - Rihanna -->
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-pink-400"><i class="fas fa-music text-red-400"></i> Love on the Brain (Rihanna)</h2>
-            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5S99999999999999999999" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <div class="mt-4 lyrics-box pr-4">
-                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-red-500">
-                        <p>And you got me like, "Oh, what you doing to me?"</p>
-                        <p>I'm <input type="text" id="ans2-1" class="input-answer" placeholder="..."> <button class="answer-btn" onclick="reveal('ans2-1', 'running')"><i class="fas fa-eye"></i></button> in circles</p>
-                        <p>Oh, and I'm letting you <input type="text" id="ans2-2" class="input-answer" placeholder="..."> <button class="answer-btn" onclick="reveal('ans2-2', 'win')"><i class="fas fa-eye"></i></button></p>
-                        <p>You got me love on the brain</p>
-                        <p class="mt-4">And it beats me black and blue but it <input type="text" id="ans2-3" class="input-answer" placeholder="..."> <button class="answer-btn" onclick="reveal('ans2-3', 'fucks')"><i class="fas fa-eye"></i></button> me so good</p>
-                        <p>And I can't get <input type="text" id="ans2-4" class="input-answer" placeholder="..."> <button class="answer-btn" onclick="reveal('ans2-4', 'enough')"><i class="fas fa-eye"></i></button></p>
-                        <p>Must be love on the brain</p>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-2 text-pink-500"><i class="fas fa-comments"></i> Song 1 Debate</h2>
+                <p class="text-lg text-gray-400 mb-6 italic">"Hotline Bling" - Distance, insecurity, and changing dynamics</p>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card">
+                        <span class="debate-label bg-pink-500/20 text-pink-400">Personal</span>
+                        <p class="text-xl"><i class="fas fa-phone mr-2 text-pink-400"></i> Why do people often miss someone more when communication suddenly changes?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-purple-500/20 text-purple-400">Reflection</span>
+                        <p class="text-xl"><i class="fas fa-location-dot mr-2 text-purple-400"></i> Can distance reveal the truth about a relationship, or does it simply make people insecure?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-blue-500/20 text-blue-400">Opinion</span>
+                        <p class="text-xl"><i class="fas fa-eye mr-2 text-blue-400"></i> Is jealousy usually a sign of love, control, or fear of being replaced?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-fuchsia-500/20 text-fuchsia-400">Debate</span>
+                        <p class="text-xl"><i class="fas fa-comments mr-2 text-fuchsia-400"></i> Should people always explain why they are pulling away, or is silence sometimes enough?</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 6: Discussion 2 -->
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-pink-400"><i class="fas fa-brain"></i> Discussion: Chemistry vs. Logic</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl text-left">
-                <p><i class="fas fa-vial text-pink-400"></i> Science says love is a chemical reaction in the brain. Does knowing this make it less "magical" for you?</p>
-                <p><i class="fas fa-balance-scale text-pink-400"></i> Why do people stay in relationships that "beat them black and blue" (metaphorically)? Is love enough to stay?</p>
-            </div></div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-pink-500"><i class="fas fa-mobile-alt"></i> Love in the 21st Century</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto text-left">
+                    <p class="text-xl mb-4 text-pink-400 font-bold">Technology creates access, but it also creates confusion.</p>
+                    <p class="text-2xl mb-6">People can connect faster than ever, but they also face ghosting, mixed signals, and the pressure of constant communication. Modern love often depends on emotional clarity more than availability.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                        <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-green-500"><b>Healthy digital habits:</b> honest intentions, boundaries, consistency, and respect.</div>
+                        <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-red-500"><b>Unhealthy digital habits:</b> disappearing, breadcrumbing, emotional ambiguity, and control.</div>
+                    </div>
+                    <p class="mt-8 text-2xl text-center font-semibold italic">Has love become easier to find, or just easier to fake?</p>
+                </div>
+            </div>
         </div>
 
-        <!-- Slide 7: Music 3 - Gotye -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-pink-400"><i class="fas fa-music text-purple-400"></i> Somebody That I Used to Know (Gotye)</h2>
+            <h2 class="text-4xl font-bold mb-4 text-center text-pink-500"><i class="fas fa-music text-rose-400"></i> Song 2: Shallow <span class="text-xl text-gray-400">- Lady Gaga ft. Bradley Cooper</span></h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4wCmq9v7vU659999999999" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-purple-400">
+                <div class="mb-4 rounded-xl overflow-hidden">
+                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2VxeLyX666F8uXCJ0dZF8B?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+                <div class="mb-4 bg-rose-900/30 p-4 rounded-lg border border-rose-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-rose-400"></i> A dramatic duet about vulnerability, emotional depth, and the desire to escape superficial relationships.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-rose-500">
+                    <p>Tell me somethin', girl</p>
+                    <p>Are you happy in this modern <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-rose-400 outline-none"> <button class="answer-btn" data-answer="world"><i class="fas fa-eye"></i></button>?</p>
+                    <p>Or do you need more?</p>
+                    <p>Is there somethin' else you're searchin' <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-rose-400 outline-none"> <button class="answer-btn" data-answer="for"><i class="fas fa-eye"></i></button>?</p>
+                    <p>In all the good times, I find myself longin' for <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-rose-400 outline-none"> <button class="answer-btn" data-answer="change"><i class="fas fa-eye"></i></button></p>
+                    <p>And in the bad times, I fear <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-rose-400 outline-none"> <button class="answer-btn" data-answer="myself"><i class="fas fa-eye"></i></button></p>
+                    <p>I'm off the deep end, watch as I dive <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-rose-400 outline-none"> <button class="answer-btn" data-answer="in"><i class="fas fa-eye"></i></button></p>
+                    <p>We're far from the <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-rose-400 outline-none"> <button class="answer-btn" data-answer="shallow"><i class="fas fa-eye"></i></button> now</p>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-2 text-pink-500"><i class="fas fa-comments"></i> Song 2 Debate</h2>
+                <p class="text-lg text-gray-400 mb-6 italic">"Shallow" - Depth, honesty, and emotional surrender</p>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card">
+                        <span class="debate-label bg-rose-500/20 text-rose-400">Personal</span>
+                        <p class="text-xl"><i class="fas fa-water mr-2 text-rose-400"></i> What does it mean to go beyond something superficial in love?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-pink-500/20 text-pink-400">Reflection</span>
+                        <p class="text-xl"><i class="fas fa-mask mr-2 text-pink-400"></i> Why do many people feel disconnected even when they seem successful or surrounded by others?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-red-500/20 text-red-400">Opinion</span>
+                        <p class="text-xl"><i class="fas fa-heart mr-2 text-red-400"></i> Is emotional vulnerability attractive because it creates intimacy, or because it feels risky?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-orange-500/20 text-orange-400">Debate</span>
+                        <p class="text-xl"><i class="fas fa-compass mr-2 text-orange-400"></i> Is it better to live safely in the "shallow" or take emotional risks to feel something deeper?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-pink-500"><i class="fas fa-user-group"></i> Modern Scenarios</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left text-xl">
+                    <div class="p-5 bg-gray-700 rounded-xl border-l-4 border-pink-500">
+                        <h4 class="font-bold mb-3 text-pink-300">Scenario A: The Online Match</h4>
+                        <p>You have been talking to someone online for three months and you are about to meet in person for the first time. What are your fears, expectations, and boundaries?</p>
+                    </div>
+                    <div class="p-5 bg-gray-700 rounded-xl border-l-4 border-rose-500">
+                        <h4 class="font-bold mb-3 text-rose-300">Scenario B: The Digital Breakup</h4>
+                        <p>Your best friend was ghosted by someone they really liked. What advice would you give so they can move on without losing confidence?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-pink-500"><i class="fas fa-music text-purple-400"></i> Song 3: Somebody That I Used To Know <span class="text-xl text-gray-400">- Gotye ft. Kimbra</span></h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="mb-4 rounded-xl overflow-hidden">
+                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4wCmqSrbyCgxEXROQE6vtV?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+                <div class="mb-4 bg-purple-900/30 p-4 rounded-lg border border-purple-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-purple-400"></i> A breakup anthem about distance, resentment, and what happens when intimacy turns into emotional disconnection.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-purple-500">
                     <p>But you didn't have to cut me off</p>
-                    <p>Make out like it never happened and that we were <input type="text" id="ans3-1" class="input-answer" placeholder="..."> <button class="answer-btn" onclick="reveal('ans3-1', 'nothing')"><i class="fas fa-eye"></i></button></p>
+                    <p>Make out like it never happened and that we were <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-purple-400 outline-none"> <button class="answer-btn" data-answer="nothing"><i class="fas fa-eye"></i></button></p>
                     <p>And I don't even need your love</p>
-                    <p>But you treat me like a <input type="text" id="ans3-2" class="input-answer" placeholder="..."> <button class="answer-btn" onclick="reveal('ans3-2', 'stranger')"><i class="fas fa-eye"></i></button> and that feels so rough</p>
-                    <p class="mt-4">No, you didn't have to stoop so low</p>
-                    <p>Have your friends collect your <input type="text" id="ans3-3" class="input-answer" placeholder="..."> <button class="answer-btn" onclick="reveal('ans3-3', 'records')"><i class="fas fa-eye"></i></button> and then change your number</p>
+                    <p>But you treat me like a <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-purple-400 outline-none"> <button class="answer-btn" data-answer="stranger"><i class="fas fa-eye"></i></button> and that feels so rough</p>
+                    <p>No, you didn't have to stoop so low</p>
+                    <p>Have your friends collect your <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-purple-400 outline-none"> <button class="answer-btn" data-answer="records"><i class="fas fa-eye"></i></button> and then change your number</p>
                     <p>I guess that I don't need that though</p>
-                    <p>Now you're just somebody that I used to <input type="text" id="ans3-4" class="input-answer" placeholder="..."> <button class="answer-btn" onclick="reveal('ans3-4', 'know')"><i class="fas fa-eye"></i></button></p>
+                    <p>Now you're just somebody that I used to <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-purple-400 outline-none"> <button class="answer-btn" data-answer="know"><i class="fas fa-eye"></i></button></p>
                 </div></div>
             </div>
         </div>
 
-        <!-- Slide 8: Discussion 3 -->
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-pink-400"><i class="fas fa-user-slash"></i> Discussion: The End of Connections</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl text-left">
-                <p><i class="fas fa-ghost text-pink-400"></i> This song describes "ghosting" before it had a name. Why do people choose to "cut others off" instead of having a final conversation?</p>
-                <p><i class="fas fa-history text-pink-400"></i> How does social media make it harder (or easier) to move on from "somebody you used to know"?</p>
-            </div></div>
-        </div>
-
-        <!-- Slide 9: Role Play / Scenarios -->
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-pink-400"><i class="fas fa-theater-masks"></i> Modern Scenarios</h2>
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-xl text-left">
-                    <div class="p-4 bg-gray-700 rounded-xl border-l-4 border-pink-500">
-                        <h4 class="font-bold mb-2">Scenario A: The Online Match</h4>
-                        <p>You have been talking to someone online for 3 months. You are about to meet in person for the first time. What are your fears and expectations?</p>
+                <h2 class="text-4xl font-bold mb-2 text-pink-500"><i class="fas fa-comments"></i> Song 3 Debate</h2>
+                <p class="text-lg text-gray-400 mb-6 italic">"Somebody That I Used To Know" - Disconnection and closure</p>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card">
+                        <span class="debate-label bg-purple-500/20 text-purple-400">Personal</span>
+                        <p class="text-xl"><i class="fas fa-ghost mr-2 text-purple-400"></i> Why do some people disappear instead of having an honest final conversation?</p>
                     </div>
-                    <div class="p-4 bg-gray-700 rounded-xl border-l-4 border-pink-500">
-                        <h4 class="font-bold mb-2">Scenario B: The Digital Breakup</h4>
-                        <p>Your best friend was "ghosted" by someone they really liked. What advice do you give them to move on?</p>
+                    <div class="debate-card">
+                        <span class="debate-label bg-indigo-500/20 text-indigo-400">Reflection</span>
+                        <p class="text-xl"><i class="fas fa-mobile-screen mr-2 text-indigo-400"></i> Does social media make breakups harder because the person never fully disappears?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-blue-500/20 text-blue-400">Opinion</span>
+                        <p class="text-xl"><i class="fas fa-comment-slash mr-2 text-blue-400"></i> Is ghosting always cruel, or are there situations where silence is justified?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-teal-500/20 text-teal-400">Debate</span>
+                        <p class="text-xl"><i class="fas fa-door-closed mr-2 text-teal-400"></i> Do people need closure to move on, or can closure come from themselves?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-pink-500"><i class="fas fa-puzzle-piece"></i> Practice: Match the Expressions</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-2xl mb-8 text-gray-300">Drag the expression to the correct sentence:</p>
+                    <div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div>
+                    <div id="matching-activity" class="space-y-8 text-left"></div>
+                    <button id="check-answers-btn" class="mt-12 bg-pink-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-pink-700 shadow-lg">Check Answers</button>
+                    <p id="practice-feedback" class="mt-4 text-lg font-semibold text-gray-300"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-pink-500"><i class="fas fa-message"></i> Reflection: Real Love vs. Fast Love</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto">
+                    <div class="flex flex-col md:flex-row gap-8 items-center">
+                        <div class="flex-1 space-y-4 text-left text-xl">
+                            <p><b class="text-pink-500">Think about it:</b> modern love moves fast, but emotional trust still takes time.</p>
+                            <p>1. Is instant chemistry enough for a strong relationship?</p>
+                            <p>2. What matters more today: attraction, timing, or communication?</p>
+                            <p>3. Do dating apps create more options or more confusion?</p>
+                        </div>
+                        <div class="w-full md:w-1/3 bg-gray-700 p-4 rounded-xl border border-pink-500/50 text-center">
+                            <i class="fas fa-signal text-pink-500 text-4xl mb-2"></i>
+                            <p class="italic">"Connection is easy. Consistency is rare."</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -168,74 +280,39 @@
 
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-pink-400"><i class="fas fa-puzzle-piece"></i> Match the Expressions</h2>
-                <div class="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto">
-                    <div class="lg:w-2/3 bg-gray-800 p-6 rounded-2xl shadow-lg space-y-6 text-left">
-                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">1. They really <span class="drop-zone" data-answer="to hit it off">________</span> on their first date.</div>
-                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">2. Good couples need to be <span class="drop-zone" data-answer="on the same page">________</span> about the future.</div>
-                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">3. Every relationship can go through <span class="drop-zone" data-answer="a rough patch">________</span>.</div>
-                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">4. If you suddenly disappear from a chat, you <span class="drop-zone" data-answer="to ghost someone">________</span>.</div>
-                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">5. It's easier to solve problems when you <span class="drop-zone" data-answer="to see eye to eye">________</span>.</div>
-                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">6. Some people believe there is one perfect <span class="drop-zone" data-answer="soulmate">________</span> for them.</div>
-                        <button id="check-btn" class="bg-pink-600 hover:bg-pink-500 text-white font-bold py-3 px-8 rounded-lg transition">Check Answers</button>
-                    </div>
-                    <div class="lg:w-1/3">
-                        <div id="word-bank" class="bg-gray-800 p-6 rounded-2xl border border-dashed border-gray-600 flex flex-col gap-3"></div>
+                <h2 class="text-4xl font-bold mb-6 text-pink-500"><i class="fas fa-pen-nib"></i> Homework</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <p class="text-2xl mb-6 text-gray-300">Write about how technology has changed relationships using at least <b>3 expressions</b> from today's lesson.</p>
+                    <div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg">
+                        <p><strong>Example:</strong> "Some couples hit it off online, but later realize they are not on the same page. When communication fails, even a strong connection can go through a rough patch."</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 10: Homework -->
         <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-pink-400"><i class="fas fa-home"></i> Homework Assignment</h2>
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl text-left">
-                    <div class="space-y-4">
-                        <p><i class="fas fa-pen-fancy text-pink-400 mr-2"></i> <strong>Writing Task:</strong> Write a short paragraph about how technology has impacted your own relationships.</p>
-                        <p><i class="fas fa-headphones text-pink-400 mr-2"></i> <strong>Listening Task:</strong> Find another song about modern love and bring 3 new words to class.</p>
-                        <p><i class="fas fa-video text-pink-400 mr-2"></i> <strong>Watching Task:</strong> Watch an episode of "Black Mirror" (e.g., *Hang the DJ*) and prepare to discuss it.</p>
-                    </div>
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <i class="fas fa-heart text-pink-500 text-7xl mb-6"></i>
+                <h2 class="text-5xl font-bold mb-4 text-gray-100">Well Done!</h2>
+                <p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">
+                    "The best thing to hold onto in life is each other." - Audrey Hepburn
+                </p>
+                <div class="pt-8">
+                    <button id="finish-lesson-btn-main" class="bg-pink-600 hover:bg-pink-500 text-white text-2xl font-bold py-4 px-12 rounded-full transition-all transform hover:scale-105 shadow-lg">
+                        Finalizar e Sair <i class="fas fa-check-circle ml-2"></i>
+                    </button>
                 </div>
             </div>
         </div>
-
-        <!-- Slide 11: Final Message -->
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-5xl font-bold mb-8 text-pink-400"><i class="fas fa-trophy text-yellow-400"></i> Lesson Completed!</h2>
-                <div class="bg-gray-800 p-12 rounded-2xl shadow-2xl max-w-3xl mx-auto space-y-6">
-                    <p class="text-3xl font-semibold">Great job today!</p>
-                    <p class="text-2xl text-gray-300">You've explored the complexities of modern love and practiced your conversation skills.</p>
-                    <p class="text-xl text-pink-400 font-bold mt-8 italic">"The best thing to hold onto in life is each other." – Audrey Hepburn</p>
-                    <div class="pt-8">
-                        <button id="finish-lesson-btn" class="bg-pink-600 hover:bg-pink-500 text-white text-2xl font-bold py-4 px-12 rounded-full transition-all transform hover:scale-105 shadow-lg">
-                            Finalizar e Sair <i class="fas fa-check-circle ml-2"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="custom-alert-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center transition-opacity duration-300"></div>
     </main>
 
-    <!-- Navigation Controls -->
-    <footer class="bg-gray-800 border-t border-gray-700 fixed bottom-0 w-full py-4">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg transition-colors disabled:opacity-50">
-                Anterior
-            </button>
-            <div id="dot-indicators" class="flex gap-2">
-                <!-- Dots will be generated by JS -->
-            </div>
-            <button id="next-btn" class="bg-pink-600 hover:bg-pink-500 text-white px-6 py-2 rounded-lg transition-colors">
-                Próximo <i class="fas fa-arrow-right ml-2"></i>
-            </button>
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-pink-700">Próximo</button>
         </div>
     </footer>
 
-    <!-- Firebase Scripts -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -243,148 +320,167 @@
     <script src="../js/progress-manager.js"></script>
 
     <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const counter = document.getElementById('slide-counter');
-        const progressBar = document.getElementById('progress-bar');
-        const dotContainer = document.getElementById('dot-indicators');
-        const finishBtn = document.getElementById('finish-lesson-btn');
-        const wordBank = document.getElementById('word-bank');
-        const dropZones = document.querySelectorAll('.drop-zone');
-        const checkBtn = document.getElementById('check-btn');
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'conversation';
+            const lessonNumber = 32;
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn-main');
+            const progressBar = document.getElementById('progress-bar');
+            const slideCounter = document.getElementById('slide-counter');
+            const wordBank = document.getElementById('word-bank');
+            const activityContainer = document.getElementById('matching-activity');
+            const checkBtn = document.getElementById('check-answers-btn');
+            let currentSlide = 0;
 
-        // Configurações da lição para o sistema de progresso
-        const moduleId = 'conversation';
-        const lessonNumber = 32; // ID da lição para desbloqueio
-        const expressions = [
-            'to ghost someone',
-            'on the same page',
-            'a rough patch',
-            'to hit it off',
-            'to see eye to eye',
-            'soulmate'
-        ];
+            function shuffleArray(items) {
+                const copy = [...items];
+                for (let i = copy.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [copy[i], copy[j]] = [copy[j], copy[i]];
+                }
+                return copy;
+            }
 
-        // Create dot indicators
-        slides.forEach((_, i) => {
-            const dot = document.createElement('span');
-            dot.className = `w-3 h-3 rounded-full ${i === 0 ? 'bg-pink-500' : 'bg-gray-600'}`;
-            dotContainer.appendChild(dot);
-        });
+            function showSlide(index) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                slides.forEach((slide, slideIndex) => slide.classList.toggle('active', slideIndex === index));
+                if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+                if (slideCounter) slideCounter.innerText = `${index + 1} / ${slides.length}`;
+                if (prevBtn) prevBtn.disabled = index === 0;
+                const isLastSlide = index === slides.length - 1;
+                if (nextBtn) nextBtn.style.display = isLastSlide ? 'none' : 'block';
+            }
 
-        if (wordBank) {
-            expressions
-                .sort(() => Math.random() - 0.5)
-                .forEach(expression => {
-                    const item = document.createElement('div');
-                    item.className = 'drag-item bg-pink-600 px-4 py-3 rounded-lg font-bold cursor-grab';
-                    item.draggable = true;
-                    item.innerText = expression;
-                    item.addEventListener('dragstart', (e) => {
-                        e.dataTransfer.setData('text/plain', expression);
-                    });
-                    wordBank.appendChild(item);
-                });
-        }
+            if (prevBtn) prevBtn.onclick = () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    showSlide(currentSlide);
+                }
+            };
 
-        dropZones.forEach(zone => {
-            zone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                zone.classList.add('hover');
+            if (nextBtn) nextBtn.onclick = () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    showSlide(currentSlide);
+                }
+            };
+
+            if (finishLessonBtn) {
+                finishLessonBtn.onclick = () => {
+                    finishLessonBtn.disabled = true;
+                    finishLessonBtn.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>';
+                    if (typeof markLessonAsComplete === 'function') {
+                        markLessonAsComplete(moduleId, lessonNumber);
+                    } else {
+                        console.error('Função markLessonAsComplete não encontrada.');
+                        localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true');
+                        window.location.href = 'conversation.html';
+                    }
+                };
+            }
+
+            document.querySelectorAll('.flashcard').forEach(card => {
+                card.addEventListener('click', () => card.classList.toggle('flipped'));
             });
-            zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
-            zone.addEventListener('drop', (e) => {
-                e.preventDefault();
-                zone.classList.remove('hover');
-                zone.innerText = e.dataTransfer.getData('text/plain');
-                zone.classList.add('filled');
-                zone.style.color = '';
-            });
-            zone.addEventListener('click', () => {
-                zone.innerText = '________';
-                zone.classList.remove('filled');
-                zone.style.color = '';
-            });
-        });
 
-        if (checkBtn) {
-            checkBtn.addEventListener('click', () => {
-                dropZones.forEach(zone => {
-                    if (zone.innerText.trim().toLowerCase() === zone.dataset.answer.toLowerCase()) {
-                        zone.style.color = '#10b981';
-                    } else if (zone.innerText.trim() !== '________') {
-                        zone.style.color = '#ef4444';
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const inputField = button.previousElementSibling;
+                    if (inputField) {
+                        inputField.value = button.dataset.answer;
+                        inputField.classList.add('text-pink-400', 'font-bold');
                     }
                 });
             });
-        }
 
-        function updateSlide() {
-            slides.forEach((slide, index) => {
-                slide.classList.toggle('active', index === currentSlide);
-            });
-            
-            const dots = dotContainer.querySelectorAll('span');
-            dots.forEach((dot, index) => {
-                dot.className = `w-3 h-3 rounded-full ${index === currentSlide ? 'bg-pink-500' : 'bg-gray-600'}`;
-            });
+            const vocabulary = [
+                { id: 'ghost', text: 'To ghost someone' },
+                { id: 'page', text: 'On the same page' },
+                { id: 'rough', text: 'A rough patch' },
+                { id: 'hit', text: 'To hit it off' },
+                { id: 'eye', text: 'To see eye to eye' },
+                { id: 'soulmate', text: 'Soulmate' }
+            ];
 
-            prevBtn.disabled = currentSlide === 0;
-            // Hide next button on the last slide as it has its own "Finalizar" button
-            nextBtn.style.display = currentSlide === slides.length - 1 ? 'none' : 'block';
-            
-            counter.innerText = `Slide ${currentSlide + 1}/${slides.length}`;
-            progressBar.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
-        }
+            const situations = [
+                { text: "They really <span class='drop-zone' data-answer='To hit it off'>________</span> on their first date.", answer: 'To hit it off' },
+                { text: "Good couples need to be <span class='drop-zone' data-answer='On the same page'>________</span> about the future.", answer: 'On the same page' },
+                { text: "Every relationship can go through <span class='drop-zone' data-answer='A rough patch'>________</span>.", answer: 'A rough patch' },
+                { text: "If you suddenly disappear from a conversation, you <span class='drop-zone' data-answer='To ghost someone'>________</span>.", answer: 'To ghost someone' },
+                { text: "It's easier to solve conflict when you <span class='drop-zone' data-answer='To see eye to eye'>________</span>.", answer: 'To see eye to eye' },
+                { text: "Some people still believe there is one perfect <span class='drop-zone' data-answer='Soulmate'>________</span> for them.", answer: 'Soulmate' }
+            ];
 
-        nextBtn.addEventListener('click', () => {
-            if (currentSlide < slides.length - 1) {
-                currentSlide++;
-                updateSlide();
+            if (wordBank) {
+                shuffleArray(vocabulary).forEach(word => {
+                    const pill = document.createElement('div');
+                    pill.className = 'word-pill';
+                    pill.draggable = true;
+                    pill.innerText = word.text;
+                    pill.id = `word-${word.id}`;
+                    pill.addEventListener('dragstart', event => {
+                        event.dataTransfer.setData('text/plain', word.text);
+                    });
+                    wordBank.appendChild(pill);
+                });
             }
-        });
 
-        prevBtn.addEventListener('click', () => {
-            if (currentSlide > 0) {
-                currentSlide--;
-                updateSlide();
+            if (activityContainer) {
+                activityContainer.innerHTML = shuffleArray(situations).map(situation => `<p class="text-xl text-gray-200">${situation.text}</p>`).join('');
             }
-        });
 
-        // Lógica oficial de conclusão usando markLessonAsComplete
-        if (finishBtn) {
-            finishBtn.onclick = () => {
-                finishBtn.disabled = true;
-                finishBtn.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>';
-                
-                if (typeof markLessonAsComplete === 'function') {
-                    // Chama a função do seu sistema para salvar no Firebase e desbloquear no painel
-                    markLessonAsComplete(moduleId, lessonNumber);
-                } else {
-                    // Fallback caso a função não esteja carregada
-                    console.error("Função markLessonAsComplete não encontrada.");
-                    localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true');
-                    window.location.href = 'conversation.html';
+            const dropZones = document.querySelectorAll('.drop-zone');
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', event => {
+                    event.preventDefault();
+                    zone.classList.add('hover');
+                });
+                zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
+                zone.addEventListener('drop', event => {
+                    event.preventDefault();
+                    zone.classList.remove('hover');
+                    zone.innerText = event.dataTransfer.getData('text/plain');
+                    zone.classList.add('filled');
+                    zone.classList.remove('correct', 'incorrect');
+                    zone.style.color = '';
+                });
+                zone.addEventListener('click', () => {
+                    zone.innerText = '________';
+                    zone.classList.remove('filled', 'correct', 'incorrect');
+                    zone.style.color = '';
+                });
+            });
+
+            function checkPracticeAnswers() {
+                const feedback = document.getElementById('practice-feedback');
+                let correctCount = 0;
+
+                dropZones.forEach(zone => {
+                    const currentValue = zone.textContent.trim().toLowerCase();
+                    const answerValue = (zone.dataset.answer || '').trim().toLowerCase();
+                    zone.classList.remove('correct', 'incorrect');
+                    if (currentValue === answerValue) {
+                        zone.classList.add('correct');
+                        correctCount++;
+                    } else if (currentValue !== '________') {
+                        zone.classList.add('incorrect');
+                    }
+                });
+
+                if (feedback) {
+                    feedback.textContent = `You got ${correctCount} of ${dropZones.length} correct.`;
+                    feedback.className = 'mt-4 text-lg font-semibold ' + (correctCount === dropZones.length ? 'text-emerald-400' : 'text-pink-300');
                 }
-            };
-        }
+            }
 
-        function reveal(inputId, answer) {
-            const input = document.getElementById(inputId);
-            input.value = answer;
-            input.classList.add('text-pink-400', 'font-bold');
-        }
+            if (checkBtn) {
+                checkBtn.addEventListener('click', checkPracticeAnswers);
+            }
 
-        // Flashcard Flip Logic
-        document.querySelectorAll('.flashcard').forEach(card => {
-            card.addEventListener('click', () => {
-                card.classList.toggle('flipped');
-            });
+            showSlide(0);
         });
-
-        updateSlide();
     </script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
