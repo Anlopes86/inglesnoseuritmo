@@ -4,20 +4,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('lessons-grid');
 
     const lessonTitles = [
-        "Hello, World!", "Where Are You From?", "My World", "The Alphabet & Numbers", "Contact Information",
-        "Everyday Objects", "This or That?", "Review (Module 1)", "My Daily Routine", "His/Her Routine",
-        "Do You Like Music?", "I Don't Like That", "Object Pronouns", "How Often?", "What Time Is It?",
-        "Review (Module 2)", "Possessive 's'", "My Job", "My House", "Where Is the Bank?",
-        "How much / many?", "A little / a few", "Can / Can't", "What Are You Doing?",
-        "Simple Present vs. Continuous", "Review (Module 3)", "Where Were You Born?", "What Did You Do Yesterday?",
-        "Questions in the Past", "Future Plans", "Final Review", "Final Project"
+        "Life So Far",
+        "Since, For, Already, Yet",
+        "Experiences and Milestones",
+        "Used To and Change Over Time",
+        "Future Plans and Arrangements",
+        "Predictions and Possibilities",
+        "First Conditional in Real Life",
+        "Review 1: Past, Present and Future",
+        "Opinions and Polite Disagreement",
+        "Making Suggestions and Decisions",
+        "Comparatives, Too and Enough",
+        "Advice, Rules and Expectations",
+        "Relative Clauses for Clearer Descriptions",
+        "Passive Voice in Everyday English",
+        "News, Updates and Main Ideas",
+        "Review 2: Communicate Clearly",
+        "Stories in Progress",
+        "Sequence and Background",
+        "Reported Speech for Daily Conversations",
+        "Problems, Causes and Solutions",
+        "Travel Plans and Unexpected Issues",
+        "Health, Stress and Wellbeing",
+        "Study, Work and Career Paths",
+        "Review 3: Real-World Communication",
+        "Technology and Digital Habits",
+        "The Environment and Responsible Choices",
+        "Money, Shopping and Smart Decisions",
+        "Relationships and Social Situations",
+        "Wishes, Regrets and Possibilities",
+        "Presenting and Persuading",
+        "Final Project Workshop",
+        "B1 Final Project and Can-Do Check"
     ];
 
     const unitLabels = [
-        "Foundations", "Foundations", "Foundations", "Foundations", "Foundations", "Foundations", "Foundations", "Checkpoint 1",
-        "Daily Life", "Daily Life", "Daily Life", "Daily Life", "Daily Life", "Daily Life", "Daily Life", "Checkpoint 2",
-        "Places & People", "Places & People", "Places & People", "Places & People", "Places & People", "Places & People", "Places & People", "Places & People",
-        "Places & People", "Checkpoint 3", "Past & Future", "Past & Future", "Past & Future", "Past & Future", "Final Review", "Final Project"
+        "Block 1", "Block 1", "Block 1", "Block 1", "Block 1", "Block 1", "Block 1", "Review 1",
+        "Block 2", "Block 2", "Block 2", "Block 2", "Block 2", "Block 2", "Block 2", "Review 2",
+        "Block 3", "Block 3", "Block 3", "Block 3", "Block 3", "Block 3", "Block 3", "Review 3",
+        "Block 4", "Block 4", "Block 4", "Block 4", "Block 4", "Block 4", "Block 4", "Final Project"
     ];
 
     function buildLessonCard(title, lessonNumber, state, isProfessor) {
@@ -42,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         card.innerHTML = `
             <div class="flex items-center justify-between gap-3">
-                <span class="text-xs font-extrabold uppercase tracking-[0.2em] text-sky-600">${unitLabels[lessonNumber - 1]}</span>
+                <span class="text-xs font-extrabold uppercase tracking-[0.2em] text-rose-600">${unitLabels[lessonNumber - 1]}</span>
                 <i class="fas ${iconClass} text-2xl"></i>
             </div>
             <div>
@@ -50,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p class="text-sm text-slate-500 mt-2">Licao ${lessonNumber}</p>
             </div>
             <div class="mt-auto text-sm text-slate-600 flex items-center gap-2">
-                <i class="fas ${state === 'locked' ? 'fa-lock' : state === 'completed' ? 'fa-award' : 'fa-forward'} text-sky-500"></i>
+                <i class="fas ${state === 'locked' ? 'fa-lock' : state === 'completed' ? 'fa-award' : 'fa-forward'} text-rose-500"></i>
                 ${stateText}
             </div>
         `;
@@ -88,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const isProfessor = role === 'professor';
             const doc = await db.collection('students').doc(studentId).get();
             const allProgress = doc.exists && doc.data().progress ? doc.data().progress : {};
-            const progress = allProgress.a1 || {};
+            const progress = allProgress.b1 || {};
 
             let firstUncompleted = lessonTitles.findIndex((_, index) => progress[`lesson_${index + 1}`] !== true) + 1;
             if (firstUncompleted === 0) {
@@ -106,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loadingDiv.classList.add('hidden');
             grid.classList.remove('hidden');
         } catch (error) {
-            console.error('Erro ao carregar licoes A1:', error);
+            console.error('Erro ao carregar licoes B1:', error);
             loadingDiv.textContent = 'Erro ao carregar licoes.';
         }
     }

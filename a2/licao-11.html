@@ -13,7 +13,8 @@
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .flip-card { background-color: transparent; width: 100%; max-width: 220px; min-height: 150px; perspective: 1000px; cursor: pointer; }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .flip-card { background-color: transparent; width: 100%; max-width: none; min-height: 150px; perspective: 1000px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back {
@@ -35,43 +36,66 @@
         .selected-correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
         .selected-incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
     </style>
+    <link rel='stylesheet' href='a2-lesson-theme.css'>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="lesson-loading bg-slate-50 text-slate-800">
 
     <header class="bg-white shadow-sm sticky top-0 z-10">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
             <a href="a2.html" class="text-xl font-bold text-pink-600 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Módulo A2</a>
-            <h1 class="text-2xl font-black text-center uppercase tracking-tighter">Lesson 11: The Biggest and The Best</h1>
-            <div class="w-40"></div>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 11: The Biggest and The Best</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
         </div>
-        <div class="w-full bg-gray-200 h-2"><div id="progress-bar" class="bg-pink-500 h-2 transition-all duration-300"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-pink-500 h-1.5 transition-all duration-300"></div></div>
     </header>
 
-    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 180px); overflow-y: auto;">
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
 
-        <div class="slide active">
-            <h2 class="text-4xl font-bold mb-10 text-center text-pink-700 italic">Warm-up: World Records</h2>
-            <div class="bg-white p-12 rounded-3xl shadow-xl max-w-4xl mx-auto space-y-6 border-l-8 border-pink-500 text-2xl">
-                <div class="flex gap-4">
-                    <span class="font-bold text-pink-600">Guide:</span>
-                    <p class="italic">"Welcome! This is <strong>the tallest</strong> building in the city."</p>
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="max-w-3xl">
+                    <div class="a2-hero-copy">
+                        <p class="lesson-panel-title">World records</p>
+                        <h2 class="text-4xl md:text-5xl font-black text-slate-900">Describe places and things using superlatives with confidence.</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno usa superlativos para falar de lugares famosos, predios, paisagens e experiencias marcantes com frases mais completas.</p>
+                    </div>
+                    <div class="lesson-panel p-6 mt-6">
+                        <p class="lesson-panel-title">Focus points</p>
+                        <ul class="space-y-3 text-slate-600 text-base">
+                            <li class="flex gap-3"><i class="fas fa-check text-pink-500 mt-1"></i><span>adjetivos curtos e longos no superlativo;</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-pink-500 mt-1"></i><span>formas irregulares como <strong>best</strong> e <strong>worst</strong>;</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-pink-500 mt-1"></i><span>contraste entre <strong>tall</strong> e <strong>high</strong>.</span></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="flex gap-4">
-                    <span class="font-bold text-blue-600">Tourist:</span>
-                    <p class="italic">"Wow! Is it also <strong>the most expensive</strong> hotel in the world?"</p>
-                </div>
-                <div class="flex gap-4">
-                    <span class="font-bold text-pink-600">Guide:</span>
-                    <p class="italic">"No, but it has <strong>the best</strong> view of the ocean."</p>
-                </div>
-                <div class="flex gap-4">
-                    <span class="font-bold text-blue-600">Tourist:</span>
-                    <p class="italic">"This is <strong>the most amazing</strong> experience of my life!"</p>
+            </div>
+            <div class="section-card p-8 mt-8">
+                <p class="lesson-panel-title mb-4">Opening Dialogue</p>
+                <div class="space-y-4 text-left text-lg text-slate-700">
+                    <div class="flex gap-4">
+                        <span class="font-black text-pink-600 min-w-20">Guide:</span>
+                        <p>"Welcome! This is <strong>the tallest</strong> building in the city, and it attracts visitors from all over the world."</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-blue-600 min-w-20">Tourist:</span>
+                        <p>"Wow! Is it also <strong>the most expensive</strong> hotel in the area?"</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-pink-600 min-w-20">Guide:</span>
+                        <p>"No, but it has <strong>the best</strong> view of the ocean and the most famous rooftop restaurant."</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-blue-600 min-w-20">Tourist:</span>
+                        <p>"I understand now. This is <strong>the most amazing</strong> experience of my trip."</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Grammar">
             <h2 class="text-4xl font-bold mb-6 text-center text-pink-700">Grammar Focus: Superlatives</h2>
             <div class="max-w-6xl mx-auto space-y-6">
                 <div class="grid md:grid-cols-2 gap-6">
@@ -121,9 +145,9 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Vocabulary">
             <h2 class="text-4xl font-bold mb-10 text-center text-pink-700 uppercase">World Landmarks</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <div class="flashcard-grid max-w-5xl mx-auto">
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-mountain text-emerald-600 mb-3 text-4xl"></i><br>Mountain</div><div class="flip-card-back">Montanha</div></div></div>
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-water text-blue-500 mb-3 text-4xl"></i><br>River</div><div class="flip-card-back">Rio</div></div></div>
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-city text-gray-600 mb-3 text-4xl"></i><br>City</div><div class="flip-card-back">Cidade</div></div></div>
@@ -135,7 +159,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Task 1">
             <h2 class="text-3xl font-bold mb-8 text-center text-pink-700">Task 1: The Short Superlatives</h2>
             <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
                 <p>1. Mount Everest is <input id="t1q1" data-answer="the highest" class="w-48 text-center"> mountain. <span class="text-gray-400 text-lg">(use: alto)</span> <button class="answer-btn" data-target="t1q1"><i class="fas fa-eye"></i></button></p>
@@ -147,7 +171,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Task 2">
             <h2 class="text-3xl font-bold mb-8 text-center text-pink-700">Task 2: Long & Irregular Superlatives</h2>
             <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
                 <p>1. Paris is <input id="t2q1" data-answer="the most beautiful" class="w-80 text-center"> city. <span class="text-gray-400 text-lg">(use: bonito)</span> <button class="answer-btn" data-target="t2q1"><i class="fas fa-eye"></i></button></p>
@@ -159,7 +183,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Task 3">
             <h2 class="text-3xl font-bold mb-6 text-center text-pink-700">Task 3: Making Comparisons</h2>
             <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
                 <div class="bg-white p-6 rounded-xl shadow-md">
@@ -195,7 +219,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Music">
             <h2 class="text-3xl font-bold mb-6 text-center text-pink-700 italic">Music: "(Simply) The Best" – Tina Turner</h2>
             <div class="bg-white p-8 rounded-2xl shadow-lg max-w-6xl mx-auto flex flex-col md:flex-row gap-10">
                 <div class="flex-1 text-center">
@@ -211,7 +235,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Homework">
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-8 text-pink-700">Homework: Your Records</h2>
                 <div class="bg-white p-12 rounded-3xl shadow-xl max-w-4xl mx-auto text-left border-t-8 border-pink-500">
@@ -229,7 +253,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Lesson Complete">
             <div class="text-center flex flex-col items-center justify-center h-full">
                 <div class="bg-white p-16 rounded-3xl shadow-2xl border-t-8 border-pink-500 max-w-4xl">
                     <i class="fas fa-trophy text-pink-400 text-8xl mb-10"></i>
@@ -260,20 +284,48 @@
     <script src="../js/progress-manager.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2';
+            const lessonNumber = 11;
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
+            const slideCounter = document.getElementById('slide-counter');
+            const slideTitleHeader = document.getElementById('slide-title-header');
             let currentSlide = 0;
 
             function updateView() {
                 slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
                 document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
+                if (slideCounter) slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+                if (slideTitleHeader) slideTitleHeader.textContent = slides[currentSlide]?.dataset.title || '';
                 prevBtn.disabled = currentSlide === 0;
                 nextBtn.innerText = currentSlide === slides.length - 1 ? 'Finish' : 'Next';
             }
 
             prevBtn.onclick = () => { if(currentSlide > 0) currentSlide--; updateView(); };
-            nextBtn.onclick = () => { if(currentSlide < slides.length - 1) { currentSlide++; updateView(); } };
+            nextBtn.onclick = () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateView();
+                    return;
+                }
+
+                nextBtn.disabled = true;
+                nextBtn.textContent = 'Saving...';
+
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber).catch(error => {
+                        console.error('Erro ao marcar a lição como completa:', error);
+                        alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');
+                        nextBtn.disabled = false;
+                        nextBtn.textContent = 'Finish';
+                    });
+                } else {
+                    alert('Erro ao salvar progresso.');
+                    nextBtn.disabled = false;
+                    nextBtn.textContent = 'Finish';
+                }
+            };
 
             function checkAnswer(input) {
                 const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
@@ -300,9 +352,11 @@
 
             document.querySelectorAll('.flip-card').forEach(card => card.onclick = () => card.classList.toggle('flipped'));
             updateView();
+            document.body.classList.remove('lesson-loading');
         });
     </script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
+    <script src='a2-lesson-theme.js'></script>
 </body>
 </html>

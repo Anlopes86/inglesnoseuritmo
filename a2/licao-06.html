@@ -14,7 +14,8 @@
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .flip-card { background-color: transparent; width: 100%; max-width: 300px; min-height: 220px; perspective: 1000px; cursor: pointer; }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.75rem; }
+        .flip-card { background-color: transparent; width: 100%; max-width: none; min-height: 220px; perspective: 1000px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back {
@@ -31,36 +32,66 @@
         .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
         .answer-btn:hover { color: #db2777; }
     </style>
+    <link rel='stylesheet' href='a2-lesson-theme.css'>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="a2-lesson-page lesson-loading bg-slate-50 text-slate-800">
 
     <header class="bg-white shadow-sm sticky top-0 z-10">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
             <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2</a>
-            <h1 class="text-xl font-semibold text-center">A2 - Lesson 06: Setting the Scene</h1>
-            <div class="w-40"></div>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 06: Setting the Scene</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
         </div>
-        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
-    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 120px); overflow-y: auto;">
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
 
-        <div class="slide active">
-            <div class="text-center">
-                <h2 class="text-5xl font-bold mb-8 text-orange-700"><i class="fas fa-clock text-blue-500"></i> Warm-up: At 8 PM Yesterday</h2>
-                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-3xl mb-8 text-gray-600">O que estava acontecendo?</p>
-                    <div class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
-                        <p><strong class="text-blue-600">A:</strong> "I called you at 8 PM yesterday, but you didn't answer."</p>
-                        <p><strong class="text-orange-600">B:</strong> "Oh, sorry! I <span class="italic text-blue-700 font-bold">was having</span> dinner with my family."</p>
-                        <p><strong class="text-blue-600">A:</strong> "Was your brother having dinner too?"</p>
-                        <p><strong class="text-orange-600">B:</strong> "No, he <span class="italic text-red-700 font-bold">wasn't eating</span>. He <span class="italic text-blue-700 font-bold">was playing</span> video games in his room."</p>
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="max-w-3xl">
+                    <div class="a2-hero-copy">
+                        <p class="lesson-panel-title">Past actions in progress</p>
+                        <h2 class="text-4xl md:text-5xl font-black text-slate-900">Describe what was happening at a specific time in the past.</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a usar o <strong>past continuous</strong> para contar o que estava acontecendo quando algo interrompeu a situacao.</p>
+                    </div>
+                    <div class="lesson-panel p-6 mt-6">
+                        <p class="lesson-panel-title">By the end, you can:</p>
+                        <ul class="space-y-3 text-slate-600 text-base">
+                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>falar de acoes em andamento no passado;</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>usar <strong>was</strong> e <strong>were</strong> corretamente;</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>descrever o que outras pessoas estavam fazendo.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="section-card p-8 mt-8">
+                <p class="lesson-panel-title mb-4">Opening Dialogue</p>
+                <div class="space-y-4 text-left text-lg text-slate-700">
+                    <div class="flex gap-4">
+                        <span class="font-black text-blue-600 min-w-16">A:</span>
+                        <p>"I called you at 8 PM yesterday, but you didn't answer."</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-orange-600 min-w-16">B:</span>
+                        <p>"Oh, sorry. I <strong>was having</strong> dinner with my family at that time."</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-blue-600 min-w-16">A:</span>
+                        <p>"Was your brother having dinner too, or was he doing something else?"</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-orange-600 min-w-16">B:</span>
+                        <p>"No, he <strong>wasn't eating</strong>. He <strong>was playing</strong> video games in his room."</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Grammar">
             <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-book text-pink-500"></i> Grammar: Past Continuous</h2>
             <div class="max-w-6xl mx-auto space-y-6">
                 <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
@@ -87,9 +118,9 @@
             </div>
         </div>
         
-        <div class="slide">
+        <div class="slide" data-title="Vocabulary">
             <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-home text-purple-500"></i> Vocabulary: Action Verbs</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-12 max-w-5xl mx-auto justify-items-center">
+            <div class="flashcard-grid max-w-5xl mx-auto">
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Cooking dinner</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-green-800">Cozinhando o jantar</h3></div></div></div>
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Taking a shower</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-green-800">Tomando banho</h3></div></div></div>
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Cleaning the house</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-green-800">Limpando a casa</h3></div></div></div>
@@ -101,7 +132,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Practice 1">
             <div class="text-center">
                 <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-edit text-teal-500"></i> Practice 1: Fill in the Blanks</h2>
                 <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
@@ -112,7 +143,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Practice 2">
             <div class="text-center">
                 <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-layer-group text-cyan-500"></i> Practice 2: Order the Words</h2>
                 <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
@@ -123,7 +154,7 @@
             </div>
         </div>
 
-<div class="slide">
+<div class="slide" data-title="Music">
             <h2 class="text-4xl font-bold mb-6 text-center text-orange-700 italic"><i class="fas fa-music text-red-500 mr-2"></i>Music: "Jealous Guy" – John Lennon</h2>
             <div class="bg-white p-8 rounded-2xl shadow-lg max-w-5xl mx-auto flex flex-col md:flex-row gap-8">
                 <div class="flex-1 text-center">
@@ -148,7 +179,7 @@
             </div>
         </div>
         
-        <div class="slide">
+        <div class="slide" data-title="Homework">
              <div class="text-center">
                 <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-tasks text-blue-500"></i> Homework</h2>
                 <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
@@ -164,7 +195,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Lesson Complete">
     <div class="text-center flex flex-col items-center justify-center h-full">
         <div class="bg-white p-16 rounded-3xl shadow-2xl border-t-8 border-orange-500 max-w-4xl">
             <i class="fas fa-star text-yellow-500 text-8xl mb-10"></i>
@@ -205,12 +236,16 @@
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
             const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const slideCounter = document.getElementById('slide-counter');
+            const slideTitleHeader = document.getElementById('slide-title-header');
             let currentSlide = 0;
 
             function updateSlideView() {
                 slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
                 const progressBar = document.getElementById('progress-bar');
                 progressBar.style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
+                if (slideCounter) slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+                if (slideTitleHeader) slideTitleHeader.textContent = slides[currentSlide]?.dataset.title || '';
                 prevBtn.disabled = currentSlide === 0;
                 nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
                 finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
@@ -221,9 +256,14 @@
 
             finishLessonBtn.addEventListener('click', () => {
                 finishLessonBtn.disabled = true;
-                finishLessonBtn.textContent = "Saving...";
+                finishLessonBtn.textContent = 'Saving...';
                 if (typeof markLessonAsComplete === 'function') {
-                    markLessonAsComplete(moduleId, lessonNumber);
+                    markLessonAsComplete(moduleId, lessonNumber).catch(error => {
+                        console.error('Erro ao marcar a lição como completa:', error);
+                        alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');
+                        finishLessonBtn.disabled = false;
+                        finishLessonBtn.textContent = 'Finish Lesson';
+                    });
                 }
             });
 
@@ -298,9 +338,11 @@
             createUnscrambleActivity();
             addIndividualRevealListeners();
             updateSlideView();
+            document.body.classList.remove('lesson-loading');
         });
     </script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
+    <script src='a2-lesson-theme.js'></script>
 </body>
 </html>

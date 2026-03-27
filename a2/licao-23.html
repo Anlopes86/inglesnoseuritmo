@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | Lição 23: Asking for Directions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .flip-card { background: transparent; min-height: 190px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+            display: flex; align-items: center; justify-content: center; flex-direction: column;
+            padding: 1.2rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; text-align: center;
+        }
+        .flip-card-front { background: #fff; color: #6d28d9; }
+        .flip-card-back { background: #f5f3ff; color: #5b21b6; transform: rotateY(180deg); }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.35rem; }
+        .answer-btn:hover { color: #7c3aed; }
+        input { border: none; border-bottom: 2px solid #cbd5e1; background: transparent; outline: none; text-align: center; padding: 0 6px; }
+        input.correct { border-color: #22c55e; color: #166534; background: #f0fdf4; }
+        input.incorrect { border-color: #ef4444; color: #991b1b; background: #fef2f2; }
+    </style>
+    <link rel="stylesheet" href="a2-lesson-theme.css">
+</head>
+<body class="lesson-loading a2-lesson-page bg-slate-50 text-slate-800">
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+            <a href="a2.html" class="text-lg font-bold text-violet-600 hover:text-violet-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2</a>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 23: Asking for Directions</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
+        </div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-violet-500 h-1.5 transition-all duration-300"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
+                    <div class="a2-hero-copy">
+                        <h2>Ask for help in the street with confidence</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a pedir informações de caminho com educação, entender respostas curtas e localizar pontos importantes da cidade.</p>
+                        <div class="flex flex-wrap gap-3 mt-6">
+                            <div class="lesson-chip"><i class="fas fa-map-signs text-violet-600"></i> Tema: asking for directions</div>
+                            <div class="lesson-chip"><i class="fas fa-comments text-emerald-600"></i> Foco: street interaction</div>
+                            <div class="lesson-chip"><i class="fas fa-compass text-orange-500"></i> CEFR: survival English</div>
+                        </div>
+                    </div>
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">You will practice</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Using <strong>Excuse me</strong> and <strong>How do I get to...?</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Understanding places like <strong>next to</strong> and <strong>across from</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Asking one follow-up question naturally</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-card p-8 mt-8">
+                <p class="lesson-panel-title mb-4">Street dialogue</p>
+                <div class="space-y-4 text-xl">
+                    <div class="flex gap-4"><span class="font-bold text-violet-600 w-24">Tourist:</span><p>Excuse me, how do I get to the city museum?</p></div>
+                    <div class="flex gap-4"><span class="font-bold text-orange-600 w-24">Local:</span><p>Go straight for two blocks. The museum is next to the bank.</p></div>
+                    <div class="flex gap-4"><span class="font-bold text-violet-600 w-24">Tourist:</span><p>Is it far from here?</p></div>
+                    <div class="flex gap-4"><span class="font-bold text-orange-600 w-24">Local:</span><p>No, not really. It is across from the park, on the corner.</p></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Vocabulary">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-4 text-violet-700">Direction phrases</h2>
+                <p class="text-slate-500 text-lg mb-6">Clique para revisar as expressões mais úteis.</p>
+                <div class="flashcard-grid max-w-5xl mx-auto">
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Excuse me</h3></div><div class="flip-card-back"><p>Com licença</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">How do I get to...?</h3></div><div class="flip-card-back"><p>Como eu chego a...?</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Go straight</h3></div><div class="flip-card-back"><p>Siga em frente</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Turn left</h3></div><div class="flip-card-back"><p>Vire à esquerda</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Turn right</h3></div><div class="flip-card-back"><p>Vire à direita</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Next to</h3></div><div class="flip-card-back"><p>Ao lado de</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Across from</h3></div><div class="flip-card-back"><p>Em frente a</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">On the corner</h3></div><div class="flip-card-back"><p>Na esquina</p></div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Grammar">
+            <h2 class="text-4xl font-black mb-6 text-center text-violet-700">Polite questions + place relations</h2>
+            <div class="section-card p-8 max-w-5xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-6 text-lg">
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-3">Useful question pattern</p>
+                        <p><strong>Excuse me, how do I get to the station?</strong></p>
+                        <p class="mt-3">Também é comum usar:</p>
+                        <p><strong>Where is the pharmacy?</strong></p>
+                        <p><strong>Is it far from here?</strong></p>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-3">Place prepositions</p>
+                        <p><strong>next to</strong> = ao lado</p>
+                        <p><strong>across from</strong> = em frente</p>
+                        <p><strong>on the corner</strong> = na esquina</p>
+                        <p><strong>between</strong> = entre dois lugares</p>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4 mt-6">
+                    <div class="callout-success"><strong>Model:</strong> Excuse me, how do I get to the bank? It is next to the supermarket.</div>
+                    <div class="callout-warning"><strong>Watch out:</strong> em perguntas com <strong>do</strong>, o verbo volta à forma base: <strong>How do I get</strong>.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Practice 1">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-violet-700">Complete the question</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left text-xl space-y-5">
+                    <p>1. <input id="q1" data-answer="Excuse me" class="w-40">, how do I get to the bank? <button class="answer-btn" data-target="q1"><i class="fas fa-eye"></i></button></p>
+                    <p>2. How do I <input id="q2" data-answer="get" class="w-24"> to the museum? <button class="answer-btn" data-target="q2"><i class="fas fa-eye"></i></button></p>
+                    <p>3. Is it <input id="q3" data-answer="far" class="w-24"> from here? <button class="answer-btn" data-target="q3"><i class="fas fa-eye"></i></button></p>
+                    <p>4. The post office is <input id="q4" data-answer="next to" class="w-28"> the bakery. <button class="answer-btn" data-target="q4"><i class="fas fa-eye"></i></button></p>
+                    <p>5. The hotel is <input id="q5" data-answer="across from" class="w-36"> the park. <button class="answer-btn" data-target="q5"><i class="fas fa-eye"></i></button></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Practice 2">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-violet-700">Complete the answer</h2>
+                <div class="section-card p-8 max-w-4xl mx-auto text-left text-xl space-y-5">
+                    <p>1. Go <input id="q6" data-answer="straight" class="w-28"> for one block. <button class="answer-btn" data-target="q6"><i class="fas fa-eye"></i></button></p>
+                    <p>2. <input id="q7" data-answer="Turn left" class="w-32"> at the traffic light. <button class="answer-btn" data-target="q7"><i class="fas fa-eye"></i></button></p>
+                    <p>3. The cinema is on the <input id="q8" data-answer="corner" class="w-28">. <button class="answer-btn" data-target="q8"><i class="fas fa-eye"></i></button></p>
+                    <p>4. The café is <input id="q9" data-answer="between" class="w-28"> the bank and the bookstore. <button class="answer-btn" data-target="q9"><i class="fas fa-eye"></i></button></p>
+                    <p>5. It is not far. It is <input id="q10" data-answer="very close" class="w-32">. <button class="answer-btn" data-target="q10"><i class="fas fa-eye"></i></button></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Music">
+            <div class="music-card p-6 rounded-2xl max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-4 text-center">Music Time: movement words</h2>
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5rrMQGPlxCtuU56NW7Yytc?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="bg-white/10 p-6 rounded-2xl mt-6 text-lg space-y-4">
+                    <p>We left everything <input id="q11" data-answer="behind" class="w-28"> <button class="answer-btn" data-target="q11"><i class="fas fa-eye text-white/70"></i></button></p>
+                    <p>We just continue to <input id="q12" data-answer="drive" class="w-24"> <button class="answer-btn" data-target="q12"><i class="fas fa-eye text-white/70"></i></button></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Homework">
+            <div class="section-card p-8 max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-6 text-violet-700 text-center">Homework</h2>
+                <div class="grid md:grid-cols-2 gap-5 text-lg">
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Your task</p>
+                        <p>Write 4 mini street questions asking for directions to:</p>
+                        <p>1. a bank</p>
+                        <p>2. a hospital</p>
+                        <p>3. a museum</p>
+                        <p>4. a bus station</p>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Model</p>
+                        <p>Excuse me, how do I get to the museum? Is it far from here? Is it near the park?</p>
+                    </div>
+                </div>
+                <textarea rows="6" class="mt-6 w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-violet-500" placeholder="Excuse me, how do I get to..."></textarea>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Lesson Complete">
+            <div class="text-center">
+                <i class="fas fa-map-marker-alt text-violet-500 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">You can ask your way now</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl mx-auto">Asking for help in a city is one of the most practical A2 survival skills.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
+        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Anterior</button>
+            <button id="next-btn" class="bg-violet-600 text-white font-bold py-3 px-8 rounded-lg transition">Próximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Finalizar aula</button>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2';
+            const lessonNumber = 23;
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            let currentSlide = 0;
+
+            function updateSlideView() {
+                slides.forEach((slide, index) => slide.classList.toggle('active', index === currentSlide));
+                document.getElementById('progress-bar').style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
+                document.getElementById('slide-counter').textContent = `${currentSlide + 1} / ${slides.length}`;
+                document.getElementById('slide-title-header').textContent = slides[currentSlide]?.dataset.title || '';
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+                finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+            }
+            function normalize(text) { return text.trim().toLowerCase().replace(/[.?!"']/g, ''); }
+            function checkAnswer(input) {
+                const correct = normalize(input.value) === normalize(input.dataset.answer || '');
+                input.classList.remove('correct', 'incorrect');
+                if (!input.value.trim()) return;
+                input.classList.add(correct ? 'correct' : 'incorrect');
+            }
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; updateSlideView(); } });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; updateSlideView(); } });
+            finishLessonBtn.addEventListener('click', () => {
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.textContent = 'Salvando...';
+                if (typeof markLessonAsComplete === 'function') {
+                    Promise.resolve(markLessonAsComplete(moduleId, lessonNumber)).catch(() => {
+                        finishLessonBtn.disabled = false;
+                        finishLessonBtn.textContent = 'Finalizar aula';
+                    });
+                }
+            });
+            document.querySelectorAll('input[data-answer]').forEach((input) => input.addEventListener('blur', () => checkAnswer(input)));
+            document.querySelectorAll('.answer-btn[data-target]').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const input = document.getElementById(button.dataset.target);
+                    if (!input) return;
+                    input.value = input.dataset.answer;
+                    checkAnswer(input);
+                });
+            });
+            updateSlideView();
+        });
+    </script>
+    <script src="../js/flashcard-pronunciation.js"></script>
+    <script src="../js/lesson-flashcard-save.js"></script>
+    <script src="a2-lesson-theme.js"></script>
+</body>
+</html>

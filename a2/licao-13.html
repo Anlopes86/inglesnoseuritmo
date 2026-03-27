@@ -13,7 +13,8 @@
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .flip-card { background-color: transparent; width: 100%; max-width: 220px; min-height: 150px; perspective: 1000px; cursor: pointer; }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .flip-card { background-color: transparent; width: 100%; max-width: none; min-height: 150px; perspective: 1000px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back {
@@ -35,43 +36,54 @@
         .selected-correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
         .selected-incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
     </style>
+    <link rel='stylesheet' href='a2-lesson-theme.css'>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="a2-lesson-page lesson-loading bg-slate-50 text-slate-800">
 
     <header class="bg-white shadow-sm sticky top-0 z-10">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
             <a href="a2.html" class="text-xl font-bold text-blue-600 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Módulo A2</a>
-            <h1 class="text-2xl font-black text-center uppercase tracking-tighter">Lesson 13: Rules at Work</h1>
-            <div class="w-40"></div>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 13: Rules at Work</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
         </div>
-        <div class="w-full bg-gray-200 h-2"><div id="progress-bar" class="bg-blue-500 h-2 transition-all duration-300"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-blue-500 h-1.5 transition-all duration-300"></div></div>
     </header>
 
-    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 180px); overflow-y: auto;">
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
 
-        <div class="slide active">
-            <h2 class="text-4xl font-bold mb-10 text-center text-blue-700 italic">Warm-up: Monday Morning</h2>
-            <div class="bg-white p-12 rounded-3xl shadow-xl max-w-4xl mx-auto space-y-6 border-l-8 border-blue-500 text-2xl">
-                <div class="flex gap-4">
-                    <span class="font-bold text-blue-600">Manager:</span>
-                    <p class="italic">"Remember, you <strong>have to</strong> be on time for the meeting at 8 AM."</p>
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="max-w-3xl">
+                    <div class="a2-hero-copy">
+                        <p class="lesson-panel-title">Workplace rules</p>
+                        <h2>Understand what is mandatory, optional or prohibited at work.</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno fala de regras profissionais usando <strong>have to</strong>, <strong>don't have to</strong> e perguntas sobre obrigacoes em contexto real.</p>
+                    </div>
+                    <div class="lesson-panel p-6 mt-6">
+                        <p class="lesson-panel-title mb-4">You will practice</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>obrigações e falta de necessidade</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>perguntas sobre regras do trabalho e da escola</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>vocabulário de rotina profissional</span></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex gap-4">
-                    <span class="font-bold text-gray-600">Employee:</span>
-                    <p class="italic">"I know. Do I <strong>have to</strong> wear a tie today?"</p>
-                </div>
-                <div class="flex gap-4">
-                    <span class="font-bold text-blue-600">Manager:</span>
-                    <p class="italic">"No, you <strong>don't have to</strong> wear a tie, but you <strong>have to</strong> wear a formal shirt."</p>
-                </div>
-                <div class="flex gap-4">
-                    <span class="font-bold text-gray-600">Employee:</span>
-                    <p class="italic">"Perfect. At least I <strong>don't have to</strong> work on Saturday!"</p>
+            </div>
+            <div class="section-card p-8 mt-8">
+                <p class="lesson-panel-title mb-4">Opening Dialogue</p>
+                <div class="text-left text-xl space-y-5">
+                    <p><strong class="text-blue-600">Manager:</strong> "Remember, you <strong>have to</strong> be on time for the meeting at 8 AM."</p>
+                    <p><strong class="text-orange-600">Employee:</strong> "I know. Do I <strong>have to</strong> wear a tie today, or is a formal shirt enough?"</p>
+                    <p><strong class="text-blue-600">Manager:</strong> "You <strong>don't have to</strong> wear a tie, but you <strong>have to</strong> look professional for the clients."</p>
+                    <p><strong class="text-orange-600">Employee:</strong> "Perfect. Then I can prepare the report now, and I <strong>don't have to</strong> change my whole outfit."</p>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Grammar">
             <h2 class="text-4xl font-bold mb-6 text-center text-blue-700">Grammar: Have to vs. Don't have to</h2>
             <div class="max-w-6xl mx-auto space-y-6">
                 <div class="grid md:grid-cols-2 gap-6">
@@ -98,9 +110,9 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Vocabulary">
             <h2 class="text-4xl font-bold mb-10 text-center text-blue-700 uppercase">Office & School Routines</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <div class="flashcard-grid max-w-5xl mx-auto">
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-clock mb-3 text-4xl"></i><br>Be on time</div><div class="flip-card-back">Chegar no horário</div></div></div>
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-tshirt mb-3 text-4xl"></i><br>Wear a uniform</div><div class="flip-card-back">Usar uniforme</div></div></div>
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-file-invoice mb-3 text-4xl"></i><br>Send reports</div><div class="flip-card-back">Enviar relatórios</div></div></div>
@@ -112,7 +124,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Task 1">
             <h2 class="text-3xl font-bold mb-8 text-center text-blue-700">Task 1: Is it mandatory?</h2>
             <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
                 <p>1. At school, students <input id="t1q1" data-answer="have to" class="w-48 text-center"> wear a uniform. <button class="answer-btn" data-target="t1q1"><i class="fas fa-eye"></i></button></p>
@@ -124,7 +136,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Task 2">
             <h2 class="text-3xl font-bold mb-8 text-center text-blue-700">Task 2: Office Rules</h2>
             <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
                 <p>1. Teachers <input id="t2q1" data-answer="have to" class="w-48 text-center"> correct homework. <button class="answer-btn" data-target="t2q1"><i class="fas fa-eye"></i></button></p>
@@ -136,7 +148,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Task 3">
             <h2 class="text-3xl font-bold mb-6 text-center text-blue-700">Task 3: Correct or Incorrect?</h2>
             <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
                 <div class="bg-white p-6 rounded-xl shadow-md">
@@ -173,7 +185,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Music">
             <h2 class="text-3xl font-bold mb-6 text-center text-blue-700 italic">Music: "Manic Monday" – The Bangles</h2>
             <div class="bg-white p-8 rounded-2xl shadow-lg max-w-6xl mx-auto flex flex-col md:flex-row gap-10">
                 <div class="flex-1 text-center">
@@ -205,7 +217,7 @@
                 </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Homework">
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-8 text-blue-700">Homework: Your Rules</h2>
                 <div class="bg-white p-12 rounded-3xl shadow-xl max-w-4xl mx-auto text-left border-t-8 border-blue-500">
@@ -219,7 +231,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Lesson Complete">
             <div class="text-center flex flex-col items-center justify-center h-full">
                 <div class="bg-white p-16 rounded-3xl shadow-2xl border-t-8 border-blue-500 max-w-4xl">
                     <i class="fas fa-briefcase text-blue-400 text-8xl mb-10"></i>
@@ -250,20 +262,46 @@
     <script src="../js/progress-manager.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2';
+            const lessonNumber = 13;
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
+            const slideCounter = document.getElementById('slide-counter');
+            const slideTitleHeader = document.getElementById('slide-title-header');
             let currentSlide = 0;
 
             function updateView() {
                 slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
                 document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
+                if (slideCounter) slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+                if (slideTitleHeader) slideTitleHeader.textContent = slides[currentSlide]?.dataset.title || '';
                 prevBtn.disabled = currentSlide === 0;
                 nextBtn.innerText = currentSlide === slides.length - 1 ? 'Finish' : 'Next';
             }
 
             prevBtn.onclick = () => { if(currentSlide > 0) currentSlide--; updateView(); };
-            nextBtn.onclick = () => { if(currentSlide < slides.length - 1) { currentSlide++; updateView(); } };
+            nextBtn.onclick = () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateView();
+                    return;
+                }
+                nextBtn.disabled = true;
+                nextBtn.textContent = 'Saving...';
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber).catch(error => {
+                        console.error('Erro ao marcar a lição como completa:', error);
+                        alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');
+                        nextBtn.disabled = false;
+                        nextBtn.textContent = 'Finish';
+                    });
+                } else {
+                    alert('Erro ao salvar progresso.');
+                    nextBtn.disabled = false;
+                    nextBtn.textContent = 'Finish';
+                }
+            };
 
             function checkAnswer(input) {
                 const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
@@ -290,9 +328,11 @@
 
             document.querySelectorAll('.flip-card').forEach(card => card.onclick = () => card.classList.toggle('flipped'));
             updateView();
+            document.body.classList.remove('lesson-loading');
         });
     </script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
+    <script src='a2-lesson-theme.js'></script>
 </body>
 </html>

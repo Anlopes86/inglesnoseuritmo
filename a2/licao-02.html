@@ -14,7 +14,8 @@
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .flip-card { background-color: transparent; width: 100%; max-width: 300px; min-height: 220px; perspective: 1000px; cursor: pointer; }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.75rem; }
+        .flip-card { background-color: transparent; width: 100%; max-width: none; min-height: 220px; perspective: 1000px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back {
@@ -31,36 +32,57 @@
         .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
         .answer-btn:hover { color: #db2777; }
     </style>
+    <link rel='stylesheet' href='a2-lesson-theme.css'>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="a2-lesson-page bg-slate-50 text-slate-800">
 
     <header class="bg-white shadow-sm sticky top-0 z-10">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
             <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2</a>
-            <h1 class="text-xl font-semibold text-center">A2 - Lesson 02: Telling a Story</h1>
-            <div class="w-40"></div>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 02: Telling a Story</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
         </div>
-        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
-    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 120px); overflow-y: auto;">
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
 
-        <div class="slide active">
-            <div class="text-center">
-                <h2 class="text-5xl font-bold mb-8 text-orange-700"><i class="fas fa-plane-departure text-cyan-500"></i> Warm-up: Your Last Trip</h2>
-                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-3xl mb-8 text-gray-600">Think about the last trip you took. Where did you go?</p>
-                    <div class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
-                        <p><strong class="text-blue-600">Teacher:</strong> "Tell me about your last trip. Did you go to the beach or the mountains?"</p>
-                        <p><strong class="text-orange-600">Student:</strong> "I went to the beach. I traveled to Rio de Janeiro."</p>
-                        <p><strong class="text-blue-600">Teacher:</strong> "Oh, nice! What did you do there?"</p>
-                        <p><strong class="text-orange-600">Student:</strong> "I visited many places and ate great food."</p>
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="max-w-3xl">
+                    <div class="a2-hero-copy">
+                        <h2>Organize a past story step by step</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a transformar eventos soltos em uma história organizada, usando conectores de sequência e verbos no passado para criar mais fluidez.</p>
                     </div>
+                    <div class="lesson-panel p-6 mt-6">
+                        <p class="lesson-panel-title mb-4">You will practice</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Talking about a trip or an interesting day</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Using <strong>first</strong>, <strong>then</strong>, <strong>after that</strong> and <strong>finally</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Building a complete story in a logical order</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-card p-8 mt-8">
+                <p class="lesson-panel-title mb-4">Trip conversation</p>
+                <div class="text-left text-xl space-y-5">
+                    <p><strong class="text-blue-600">Teacher:</strong> "Tell me about your last trip. Where did you go?"</p>
+                    <p><strong class="text-orange-600">Student:</strong> "I went to Rio de Janeiro with two friends last month."</p>
+                    <p><strong class="text-blue-600">Teacher:</strong> "Nice. What happened first when you arrived?"</p>
+                    <p><strong class="text-orange-600">Student:</strong> "First, we checked in at the hotel and left our bags in the room."</p>
+                    <p><strong class="text-blue-600">Teacher:</strong> "And what did you do after that?"</p>
+                    <p><strong class="text-orange-600">Student:</strong> "Then, we walked near the beach, took photos, and ate lunch at a small restaurant."</p>
+                    <p><strong class="text-blue-600">Teacher:</strong> "Great. How did the day end?"</p>
+                    <p><strong class="text-orange-600">Student:</strong> "Finally, we watched the sunset and went back to the hotel tired but happy."</p>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Grammar">
             <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-link text-pink-500"></i> Grammar: Sequence Connectors</h2>
             <div class="max-w-4xl mx-auto space-y-6">
                 <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
@@ -88,9 +110,9 @@
             </div>
         </div>
         
-        <div class="slide">
+        <div class="slide" data-title="Vocabulary">
             <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-suitcase-rolling text-purple-500"></i> Vocabulary: Travel & Connectors</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-12 max-w-5xl mx-auto justify-items-center">
+            <div class="flashcard-grid max-w-5xl mx-auto">
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">First, ...</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">Primeiro, ...</h3></div></div></div>
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Then, ...</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">Então, ...</h3></div></div></div>
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">After that, ...</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">Depois disso, ...</h3></div></div></div>
@@ -102,7 +124,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Practice 1">
             <div class="text-center">
                 <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-pencil-alt text-teal-500"></i> Practice 1: Complete the Story</h2>
                 <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
@@ -113,7 +135,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Practice 2">
             <div class="text-center">
                 <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-th-list text-cyan-500"></i> Practice 2: Put the Story in Order</h2>
                 <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
@@ -124,7 +146,7 @@
             </div>
         </div>
         
-        <div class="slide">
+        <div class="slide" data-title="Music">
             <h2 class="text-5xl font-bold mb-6 text-center text-orange-700"><i class="fas fa-music text-red-500"></i> Music Time: Jack Johnson</h2>
             <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
 <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5rrMQGPlxCtuU56NW7Yytc?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                
@@ -167,7 +189,7 @@
             </div>
         </div>
         
-        <div class="slide">
+        <div class="slide" data-title="Homework">
              <div class="text-center">
                 <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-home text-blue-500"></i> Homework</h2>
                 <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
@@ -179,7 +201,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Lesson Complete">
             <div class="text-center flex flex-col items-center justify-center h-full">
                 <i class="fas fa-check-circle text-green-500 text-8xl mb-6"></i>
                 <h2 class="text-6xl font-bold mb-6 text-gray-800">Lesson 2 Complete!</h2>
@@ -212,12 +234,16 @@
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
             const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const slideCounter = document.getElementById('slide-counter');
+            const slideTitleHeader = document.getElementById('slide-title-header');
             let currentSlide = 0;
 
             function updateSlideView() {
                 slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
                 const progressBar = document.getElementById('progress-bar');
                 progressBar.style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
+                if (slideCounter) slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+                if (slideTitleHeader) slideTitleHeader.textContent = slides[currentSlide]?.dataset.title || '';
                 prevBtn.disabled = currentSlide === 0;
                 nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
                 finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
@@ -228,12 +254,19 @@
 
             finishLessonBtn.addEventListener('click', () => {
                 finishLessonBtn.disabled = true;
-                finishLessonBtn.textContent = "Salvando...";
+                finishLessonBtn.textContent = 'Salvando...';
                 if (typeof markLessonAsComplete === 'function') {
-                    markLessonAsComplete(moduleId, lessonNumber);
+                    markLessonAsComplete(moduleId, lessonNumber).catch(error => {
+                        console.error('Erro ao marcar a lição como completa:', error);
+                        alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');
+                        finishLessonBtn.disabled = false;
+                        finishLessonBtn.textContent = 'Finish Lesson';
+                    });
                 } else {
-                    console.error("Função markLessonAsComplete não encontrada.");
-                    alert("Erro ao salvar progresso.");
+                    console.error('Função markLessonAsComplete não encontrada.');
+                    alert('Erro ao salvar progresso.');
+                    finishLessonBtn.disabled = false;
+                    finishLessonBtn.textContent = 'Finish Lesson';
                 }
             });
 
@@ -309,5 +342,6 @@
     </script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
+    <script src='a2-lesson-theme.js'></script>
 </body>
 </html>

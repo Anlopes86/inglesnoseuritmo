@@ -14,7 +14,8 @@
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .flip-card { background-color: transparent; width: 100%; max-width: 300px; min-height: 220px; perspective: 1000px; cursor: pointer; }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.75rem; }
+        .flip-card { background-color: transparent; width: 100%; max-width: none; min-height: 220px; perspective: 1000px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back {
@@ -31,47 +32,66 @@
         .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
         .answer-btn:hover { color: #db2777; }
     </style>
+    <link rel='stylesheet' href='a2-lesson-theme.css'>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="a2-lesson-page bg-slate-50 text-slate-800">
 
     <header class="bg-white shadow-sm sticky top-0 z-10">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
             <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2</a>
-            <h1 class="text-xl font-semibold text-center">A2 - Lesson 01: The Past</h1>
-            <div class="w-40"></div>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 01: The Past</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
         </div>
-        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
-    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 120px); overflow-y: auto;">
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
 
-        <div class="slide active">
-            <div class="text-center">
-                <h2 class="text-5xl font-bold mb-8 text-orange-700"><i class="fas fa-history text-yellow-500"></i> Warm-up: About Last Weekend</h2>
-                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-3xl mb-8 text-gray-600">Let's talk about what you did!</p>
-                    <div class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
-                        <p><strong class="text-blue-600">Teacher:</strong> "Hi! How was your weekend?"</p>
-                        <p><strong class="text-orange-600">Student:</strong> "It was great, thanks!"</p>
-                        <p><strong class="text-blue-600">Teacher:</strong> "Nice! What did you do on Saturday?"</p>
-                        <p><strong class="text-orange-600">Student:</strong> "On Saturday, I watched a movie with my family."</p>
-                        <p><strong class="text-blue-600">Teacher:</strong> "Sounds fun! Did you go out?"</p>
-                        <p><strong class="text-orange-600">Student:</strong> "Yes, I went to a restaurant with my friends."</p>
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="max-w-3xl">
+                    <div class="a2-hero-copy">
+                        <h2>Talk about last weekend with more detail</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta primeira aula do A2, o aluno começa a usar o <strong>simple past</strong> com mais controle, ligando ações e formando pequenas narrativas sobre experiências recentes.</p>
+                    </div>
+                    <div class="lesson-panel p-6 mt-6">
+                        <p class="lesson-panel-title mb-4">You will practice</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Regular and irregular verbs in context</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Questions and negatives with <strong>did</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>A short spoken story about the weekend</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="section-card p-8 mt-8">
+                    <p class="lesson-panel-title mb-4">Weekend conversation</p>
+                    <div class="text-left text-xl space-y-5">
+                        <p><strong class="text-blue-600">Teacher:</strong> "Hi! How was your weekend? Busy or relaxing?"</p>
+                        <p><strong class="text-orange-600">Student:</strong> "It was busy, but really good."</p>
+                        <p><strong class="text-blue-600">Teacher:</strong> "Nice. What did you do on Saturday morning?"</p>
+                        <p><strong class="text-orange-600">Student:</strong> "On Saturday morning, I cleaned my room and studied English for one hour."</p>
+                        <p><strong class="text-blue-600">Teacher:</strong> "Good start. And what happened later?"</p>
+                        <p><strong class="text-orange-600">Student:</strong> "In the afternoon, I watched a movie with my family, and at night I went to a restaurant with my friends."</p>
+                        <p><strong class="text-blue-600">Teacher:</strong> "Great. Did you stay out late?"</p>
+                        <p><strong class="text-orange-600">Student:</strong> "No, I didn't. I got home around ten because I was tired."</p>
+                    </div>
+            </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Grammar">
             <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-book-open text-pink-500"></i> Grammar: The Simple Past</h2>
             <div class="max-w-6xl mx-auto space-y-6">
                 <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
                     <h3 class="text-3xl font-semibold mb-4 text-blue-600">Using the Simple Past</h3>
-                    <p class="mb-6 text-xl">We use the Simple Past to talk about completed actions in the past. The action is finished.</p>
+                    <p class="mb-6 text-xl">We use the Simple Past to talk about completed actions, experiences, and sequences in the past. In A2, the goal is not only to name one action, but to connect events into a short story.</p>
                     <div class="grid md:grid-cols-2 gap-8">
                         <div>
                             <h4 class="text-2xl font-semibold mb-3 text-gray-700">Regular Verbs</h4>
-                            <p class="mb-4">For regular verbs, we add <strong class="font-bold">-ed</strong> to the base form.</p>
+                            <p class="mb-4">For regular verbs, we usually add <strong class="font-bold">-ed</strong> to the base form, but spelling changes matter too.</p>
                             <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>work → work<strong class="text-green-600">ed</strong></li>
                                 <li>study → stud<strong class="text-green-600">ied</strong></li>
@@ -80,7 +100,7 @@
                         </div>
                         <div>
                             <h4 class="text-2xl font-semibold mb-3 text-gray-700">Irregular Verbs</h4>
-                            <p class="mb-4">Irregular verbs have a special past form that you need to memorize.</p>
+                            <p class="mb-4">Irregular verbs have a special past form that you need to memorize and use in full sentences.</p>
                              <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>go → <strong class="text-red-600">went</strong></li>
                                 <li>have → <strong class="text-red-600">had</strong></li>
@@ -91,7 +111,7 @@
                 </div>
                 <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
                     <h3 class="text-3xl font-semibold mb-4 text-blue-600">Sentence Structure</h3>
-                      <p class="mb-6 text-xl">For ALL verbs (regular and irregular), the structure for negatives and questions is the same.</p>
+                      <p class="mb-6 text-xl">For all verbs, the structure for negatives and questions is the same. This is the key contrast of the lesson: affirmative past form versus base verb after <strong>did</strong>.</p>
                       <table class="w-full text-center">
                         <thead>
                             <tr class="text-xl">
@@ -106,13 +126,30 @@
                             <tr class="bg-gray-50"><td class="p-2 font-bold">(?)</td><td class="p-2"><strong class="text-purple-600">Did</strong> + Subject + Verb (base)?</td><td class="p-2"><strong class="text-purple-600">Did</strong> she <strong class="text-purple-600">work</strong>? / <strong class="text-purple-600">Did</strong> she <strong class="text-purple-600">go</strong>?</td></tr>
                         </tbody>
                       </table>
+                      <div class="grid md:grid-cols-3 gap-5 mt-6">
+                        <div class="bg-orange-50 p-4 rounded-xl">
+                            <h4 class="font-bold text-xl text-orange-700 mb-2">Affirmative</h4>
+                            <p>I watched a movie and visited my cousin.</p>
+                            <p class="text-sm text-gray-600 mt-2">Use o verbo no passado.</p>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded-xl">
+                            <h4 class="font-bold text-xl text-red-700 mb-2">Negative</h4>
+                            <p>I didn't watch TV. I didn't go out.</p>
+                            <p class="text-sm text-gray-600 mt-2">Depois de <strong>didn't</strong>, o verbo volta à forma base.</p>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-xl">
+                            <h4 class="font-bold text-xl text-purple-700 mb-2">Question</h4>
+                            <p>Did you study yesterday? Did she go out?</p>
+                            <p class="text-sm text-gray-600 mt-2">O passado já está em <strong>did</strong>.</p>
+                        </div>
+                      </div>
                 </div>
             </div>
         </div>
         
-        <div class="slide">
+        <div class="slide" data-title="Vocabulary">
             <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-calendar-alt text-purple-500"></i> Vocabulary: Past Activities</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-12 max-w-5xl mx-auto justify-items-center">
+            <div class="flashcard-grid max-w-5xl mx-auto">
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Watched a movie</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Assisti a um filme</h3></div></div></div>
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Listened to music</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Ouvi música</h3></div></div></div>
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Played video games</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">Joguei videogame</h3></div></div></div>
@@ -124,43 +161,43 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Practice 1">
             <div class="text-center">
                 <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-pencil-alt text-teal-500"></i> Practice 1: Complete the Sentences</h2>
                 <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-3xl mb-8 text-gray-600">Use a forma correta do verbo entre parênteses no Simple Past.</p>
+                    <p class="text-3xl mb-8 text-gray-600">Use the correct Simple Past form. Pay attention to regular, irregular, negative and question patterns.</p>
                     <div id="practice-sentences" class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
                         </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Practice 2">
             <div class="text-center">
                 <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-random text-cyan-500"></i> Practice 2: Order the Words</h2>
                 <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-3xl mb-8 text-gray-600">Coloque as palavras na ordem correta para formar frases.</p>
+                    <p class="text-3xl mb-8 text-gray-600">Rebuild each sentence and think about the logic of affirmative, negative and question forms.</p>
                     <div id="practice-unscramble" class="text-left text-2xl space-y-6 bg-gray-50 p-8 rounded-lg">
                          </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Practice 3">
             <div class="text-center">
                 <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-search-minus text-indigo-500"></i> Practice 3: Find and Fix the Error</h2>
                 <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-3xl mb-8 text-gray-600">Encontre o erro e reescreva a frase corretamente.</p>
+                    <p class="text-3xl mb-8 text-gray-600">Find the error and rewrite the sentence correctly. This is where many students really understand the structure.</p>
                     <div id="practice-fix-error" class="text-left text-2xl space-y-6 bg-gray-50 p-8 rounded-lg">
                          </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Music">
             <h2 class="text-5xl font-bold mb-6 text-center text-orange-700"><i class="fas fa-music text-red-500"></i> Music Time: The Beatles</h2>
             <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0hKRSZhUGEhKU6aNSPBACZ?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <p class="text-3xl my-6 text-gray-600 text-center">Listen to "A Day in the Life" and fill in the irregular past verbs.</p>
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0hKRSZhUGEhKU6aNSPBACZ?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <p class="text-3xl my-6 text-gray-600 text-center">Listen to "A Day in the Life" and fill in the past verbs. Notice how the song mixes narrative and description.</p>
                 <div class="text-2xl space-y-4 bg-gray-50 p-6 rounded-lg border-l-4 border-orange-500 text-center">
                         <p>I <input type="text" id="music-q1" class="w-32 border-b-2 text-center bg-transparent" data-answer="read"><button class="answer-btn" data-target="music-q1"><i class="fas fa-eye"></i></button> the news today, oh boy</p>
                         <p>About a lucky man who <input type="text" id="music-q2" class="w-32 border-b-2 text-center bg-transparent" data-answer="made"><button class="answer-btn" data-target="music-q2"><i class="fas fa-eye"></i></button> the grade</p>
@@ -176,19 +213,33 @@
             </div>
         </div>
         
-        <div class="slide">
+        <div class="slide" data-title="Homework">
              <div class="text-center">
-                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-home text-blue-500"></i> Homework</h2>
+                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-home text-blue-500"></i> Homework: tell your weekend story</h2>
                 <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-3xl mb-8 text-gray-600">Write a short paragraph about what you did last weekend. Use at least 5 different verbs in the past.</p>
+                    <p class="text-3xl mb-8 text-gray-600">Prepare a short weekend story for the next class. Write it first, but be ready to say it aloud.</p>
                     <div class="text-left text-xl mt-4 bg-gray-50 p-6 rounded-lg">
-                        <textarea class="w-full mt-2 p-3 border-2 rounded-lg text-xl" rows="6" placeholder="Last weekend, I went to... I watched... Then, I ate..."></textarea>
+                        <div class="mb-5">
+                            <p class="font-bold text-2xl mb-3 text-orange-700">Include in your homework</p>
+                            <ul class="list-disc list-inside space-y-2 text-lg">
+                                <li>Write 8 to 10 lines about your last weekend</li>
+                                <li>Include at least 5 different past verbs</li>
+                                <li>Use 1 negative sentence and 1 question-answer idea</li>
+                                <li>Organize the story with time markers: <strong>on Saturday</strong>, <strong>later</strong>, <strong>at night</strong>, <strong>on Sunday</strong></li>
+                                <li>Finish with an opinion: <strong>It was relaxing / busy / exciting</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mb-5 bg-orange-50 p-4 rounded-xl">
+                            <p class="font-bold text-xl mb-2 text-orange-700">Model</p>
+                            <p>Last weekend, I stayed home on Saturday morning and cleaned my room. Later, I went to a café with a friend and talked for a long time. At night, I didn't go out because I was tired, so I watched a movie with my family. On Sunday, I studied English, cooked lunch, and relaxed. It was a simple but very good weekend.</p>
+                        </div>
+                        <textarea class="w-full mt-2 p-3 border-2 rounded-lg text-xl" rows="8" placeholder="Last weekend, I... Then I... Later... At night... On Sunday..."></textarea>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Lesson Complete">
             <div class="text-center flex flex-col items-center justify-center h-full">
                 <i class="fas fa-check-circle text-green-500 text-8xl mb-6"></i>
                 <h2 class="text-6xl font-bold mb-6 text-gray-800">Lesson 1 Complete!</h2>
@@ -227,6 +278,10 @@
                 slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
                 const progressBar = document.getElementById('progress-bar');
                 progressBar.style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
+                const slideCounter = document.getElementById('slide-counter');
+                const slideTitleHeader = document.getElementById('slide-title-header');
+                if (slideCounter) slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+                if (slideTitleHeader) slideTitleHeader.textContent = slides[currentSlide]?.dataset.title || '';
                 prevBtn.disabled = currentSlide === 0;
                 nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
                 finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
@@ -280,12 +335,14 @@
                 const container = document.getElementById('practice-sentences');
                 if (!container) return;
                 const sentences = [
-                    { id: 'p1q1', question: "I ___ a great movie yesterday. (watch)", answer: "watched" },
-                    { id: 'p1q2', question: "She ___ to Paris last year. (go)", answer: "went" },
-                    { id: 'p1q3', question: "They ___ pizza for dinner. (eat)", answer: "ate" },
-                    { id: 'p1q4', question: "He ___ for the test. (study)", answer: "studied" },
-                    { id: 'p1q5', question: "We (not / play) ___ soccer on the weekend.", answer: "didn't play" },
-                    { id: 'p1q6', question: "___ you ___ your homework? (finish)", answer: "Did you finish" }
+                    { id: 'p1q1', question: "I ___ a great movie yesterday. (watch) Dica: regular verb", answer: "watched" },
+                    { id: 'p1q2', question: "She ___ to Paris last year. (go) Dica: irregular verb", answer: "went" },
+                    { id: 'p1q3', question: "They ___ pizza for dinner. (eat) Dica: irregular verb", answer: "ate" },
+                    { id: 'p1q4', question: "He ___ for the test before dinner. (study) Dica: verb ending in y", answer: "studied" },
+                    { id: 'p1q5', question: "We (not / play) ___ soccer on the weekend. Dica: use didn't + base verb", answer: "didn't play" },
+                    { id: 'p1q6', question: "___ you ___ your homework? (finish) Dica: question with did", answer: "Did you finish" },
+                    { id: 'p1q7', question: "My parents ___ at home on Sunday night. (stay) Dica: regular verb", answer: "stayed" },
+                    { id: 'p1q8', question: "I ___ my best friend after class. (see) Dica: irregular verb", answer: "saw" }
                 ];
                 container.innerHTML = sentences.map(item => {
                     const inputHtml = `<input id="${item.id}" data-answer="${item.answer}" class="w-64 p-1 border-b-2 text-2xl bg-transparent text-center">`;
@@ -304,7 +361,9 @@
                     { id: 'p2q2', question: "a book / she / read / yesterday", answer: "She read a book yesterday." },
                     { id: 'p2q3', question: "you / what / do / did / on Sunday", answer: "What did you do on Sunday?" },
                     { id: 'p2q4', question: "he / his homework / didn't / do", answer: "He didn't do his homework." },
-                    { id: 'p2q5', question: "a new car / they / bought / last month", answer: "They bought a new car last month." }
+                    { id: 'p2q5', question: "a new car / they / bought / last month", answer: "They bought a new car last month." },
+                    { id: 'p2q6', question: "did / where / go / you / after class", answer: "Where did you go after class?" },
+                    { id: 'p2q7', question: "on Sunday / stayed / we / at home", answer: "We stayed at home on Sunday." }
                 ];
                 container.innerHTML = sentences.map(item => `
                     <div>
@@ -327,7 +386,9 @@
                     { id: 'p3q2', question: "She no liked the movie.", answer: "She didn't like the movie." },
                     { id: 'p3q3', question: "Did you saw my email?", answer: "Did you see my email?" },
                     { id: 'p3q4', question: "They studyed a lot.", answer: "They studied a lot." },
-                    { id: 'p3q5', question: "He not called me yesterday.", answer: "He didn't call me yesterday." }
+                    { id: 'p3q5', question: "He not called me yesterday.", answer: "He didn't call me yesterday." },
+                    { id: 'p3q6', question: "Did she went out on Saturday?", answer: "Did she go out on Saturday?" },
+                    { id: 'p3q7', question: "We didn't went to the park.", answer: "We didn't go to the park." }
                 ];
                 container.innerHTML = sentences.map(item => `
                     <div>
@@ -350,5 +411,6 @@
     </script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
+    <script src='a2-lesson-theme.js'></script>
 </body>
 </html>

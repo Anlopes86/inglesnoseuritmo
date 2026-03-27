@@ -13,7 +13,8 @@
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .flip-card { background-color: transparent; width: 100%; max-width: 180px; min-height: 140px; perspective: 1000px; cursor: pointer; }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .flip-card { background-color: transparent; width: 100%; max-width: none; min-height: 140px; perspective: 1000px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back {
@@ -37,47 +38,68 @@
 
         .music-card { background: linear-gradient(135deg, #1db954 0%, #191414 100%); color: white; }
     </style>
+    <link rel='stylesheet' href='a2-lesson-theme.css'>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="lesson-loading bg-slate-50 text-slate-800">
 
     <header class="bg-white shadow-sm sticky top-0 z-10">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
             <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> A2 Module</a>
-            <h1 class="text-xl font-semibold text-center uppercase tracking-tighter">Lesson 09: What’s the Weather Like?</h1>
-            <div class="w-40"></div>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 09: What's the Weather Like?</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 7</div>
         </div>
-        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300"></div></div>
     </header>
 
-    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 160px); overflow-y: auto;">
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
 
-        <div class="slide active">
-            <div class="text-center max-w-4xl mx-auto">
-                <h2 class="text-4xl font-bold mb-8 text-orange-700 italic">Warm-up: The Weekend Plan</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg space-y-4 text-left border-l-8 border-orange-400">
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="max-w-3xl">
+                    <div class="a2-hero-copy">
+                        <p class="lesson-panel-title">Weather plans</p>
+                        <h2 class="text-4xl md:text-5xl font-black text-slate-900">Use the weather forecast to plan your weekend.</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno pratica vocabulario de clima e usa <strong>will</strong> para fazer previsoes e tomar decisoes espontaneas com mais naturalidade.</p>
+                    </div>
+                    <div class="lesson-panel p-6 mt-6">
+                        <p class="lesson-panel-title">In this lesson, you will:</p>
+                        <ul class="space-y-3 text-slate-600 text-base">
+                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>descrever o tempo em diferentes situacoes;</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>fazer previsoes curtas com mais confianca;</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>usar o clima para decidir um plano.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="section-card p-8 mt-8">
+                <p class="lesson-panel-title mb-4">Opening Dialogue</p>
+                <div class="space-y-4 text-left text-lg text-slate-700">
                     <div class="flex gap-4">
-                        <span class="font-black text-orange-600">Alex:</span>
-                        <p class="italic text-xl">"Do you want to go to the beach on Saturday?"</p>
+                        <span class="font-black text-orange-600 min-w-16">Alex:</span>
+                        <p>"Do you still want to go to the beach on Saturday?"</p>
                     </div>
                     <div class="flex gap-4">
-                        <span class="font-black text-blue-600">Sam:</span>
-                        <p class="italic text-xl">"I don't know. I think it <strong>will be</strong> cloudy."</p>
+                        <span class="font-black text-blue-600 min-w-16">Sam:</span>
+                        <p>"Maybe. I think it <strong>will be</strong> cloudy in the morning, and I don't want a cold day."</p>
                     </div>
                     <div class="flex gap-4">
-                        <span class="font-black text-orange-600">Alex:</span>
-                        <p class="italic text-xl">"Really? The news says it <strong>will be</strong> sunny and hot!"</p>
+                        <span class="font-black text-orange-600 min-w-16">Alex:</span>
+                        <p>"The weather app says it <strong>will be</strong> sunny after lunch, so we can go later."</p>
                     </div>
                     <div class="flex gap-4">
-                        <span class="font-black text-blue-600">Sam:</span>
-                        <p class="italic text-xl">"Okay! If it's hot, I <strong>will go</strong> with you."</p>
+                        <span class="font-black text-blue-600 min-w-16">Sam:</span>
+                        <p>"That sounds better. If it gets hot, I <strong>will bring</strong> cold drinks for us."</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Vocabulary">
             <h2 class="text-3xl font-bold mb-8 text-center text-orange-700 uppercase tracking-widest">Weather Vocabulary</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+            <div class="flashcard-grid max-w-5xl mx-auto">
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-yellow-500"><i class="fas fa-sun text-4xl mb-2"></i>Sunny</div><div class="flip-card-back">Ensolarado</div></div></div>
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-blue-400"><i class="fas fa-cloud-rain text-4xl mb-2"></i>Rainy</div><div class="flip-card-back">Chuvoso</div></div></div>
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-gray-400"><i class="fas fa-cloud text-4xl mb-2"></i>Cloudy</div><div class="flip-card-back">Nublado</div></div></div>
@@ -262,20 +284,48 @@
     <script src="../js/progress-manager.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2';
+            const lessonNumber = 9;
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
+            const slideCounter = document.getElementById('slide-counter');
+            const slideTitleHeader = document.getElementById('slide-title-header');
             let currentSlide = 0;
 
             function updateView() {
                 slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
                 document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
+                if (slideCounter) slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+                if (slideTitleHeader) slideTitleHeader.textContent = slides[currentSlide]?.dataset.title || '';
                 prevBtn.disabled = currentSlide === 0;
                 nextBtn.innerText = currentSlide === slides.length - 1 ? 'Finish' : 'Next';
             }
 
             prevBtn.onclick = () => { if(currentSlide > 0) currentSlide--; updateView(); };
-            nextBtn.onclick = () => { if(currentSlide < slides.length - 1) { currentSlide++; updateView(); } };
+            nextBtn.onclick = () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateView();
+                    return;
+                }
+
+                nextBtn.disabled = true;
+                nextBtn.textContent = 'Saving...';
+
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber).catch(error => {
+                        console.error('Erro ao marcar a lição como completa:', error);
+                        alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');
+                        nextBtn.disabled = false;
+                        nextBtn.textContent = 'Finish';
+                    });
+                } else {
+                    alert('Erro ao salvar progresso.');
+                    nextBtn.disabled = false;
+                    nextBtn.textContent = 'Finish';
+                }
+            };
 
             function checkAnswer(input) {
                 const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
@@ -307,9 +357,11 @@
             });
 
             updateView();
+            document.body.classList.remove('lesson-loading');
         });
     </script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
+    <script src='a2-lesson-theme.js'></script>
 </body>
 </html>

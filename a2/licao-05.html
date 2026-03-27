@@ -14,7 +14,8 @@
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .flip-card { background-color: transparent; width: 100%; max-width: 300px; min-height: 220px; perspective: 1000px; cursor: pointer; }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.75rem; }
+        .flip-card { background-color: transparent; width: 100%; max-width: none; min-height: 220px; perspective: 1000px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back {
@@ -31,36 +32,66 @@
         .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
         .answer-btn:hover { color: #db2777; }
     </style>
+    <link rel='stylesheet' href='a2-lesson-theme.css'>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="a2-lesson-page lesson-loading bg-slate-50 text-slate-800">
 
     <header class="bg-white shadow-sm sticky top-0 z-10">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
             <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2</a>
-            <h1 class="text-xl font-semibold text-center">A2 - Lesson 05: Same or Different?</h1>
-            <div class="w-40"></div>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 05: Same or Different?</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
         </div>
-        <div class="w-full bg-gray-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
-    <main class="container mx-auto p-8 relative" style="height: calc(100vh - 120px); overflow-y: auto;">
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
 
-        <div class="slide active">
-            <div class="text-center">
-                <h2 class="text-5xl font-bold mb-8 text-orange-700"><i class="fas fa-equals text-yellow-500"></i> Warm-up: Comparing Hobbies</h2>
-                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-3xl mb-8 text-gray-600">Let's see what we have in common.</p>
-                    <div class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
-                        <p><strong class="text-blue-600">Teacher:</strong> "I like watching movies. What about you?"</p>
-                        <p><strong class="text-orange-600">Student:</strong> "Me too! I think watching movies is as fun as reading books."</p>
-                        <p><strong class="text-blue-600">Teacher:</strong> "I agree. But for me, a book is not as relaxing as a movie."</p>
-                        <p><strong class="text-orange-600">Student:</strong> "And some movies are too long to watch in one night!"</p>
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="max-w-3xl">
+                    <div class="a2-hero-copy">
+                        <p class="lesson-panel-title">Comparing habits and hobbies</p>
+                        <h2 class="text-4xl md:text-5xl font-black text-slate-900">Talk about things that are equally fun, too difficult or relaxing enough.</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno compara hobbies e atividades usando <strong>as...as</strong>, <strong>not as...as</strong>, <strong>too</strong> e <strong>enough</strong> em situacoes reais.</p>
+                    </div>
+                    <div class="lesson-panel p-6 mt-6">
+                        <p class="lesson-panel-title">You will practice:</p>
+                        <ul class="space-y-3 text-slate-600 text-base">
+                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>comparar duas atividades com mais precisao;</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>dizer quando algo e exagerado ou suficiente;</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>falar de preferencias em contexto de aula.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="section-card p-8 mt-8">
+                <p class="lesson-panel-title mb-4">Opening Dialogue</p>
+                <div class="space-y-4 text-left text-lg text-slate-700">
+                    <div class="flex gap-4">
+                        <span class="font-black text-blue-600 min-w-20">Teacher:</span>
+                        <p>"I like watching movies after work. What about you?"</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-orange-600 min-w-20">Student:</span>
+                        <p>"Me too. I think watching movies is <strong>as fun as</strong> reading books on the weekend."</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-blue-600 min-w-20">Teacher:</span>
+                        <p>"Interesting. For me, a long book is <strong>not as relaxing as</strong> a good comedy film."</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-orange-600 min-w-20">Student:</span>
+                        <p>"I agree, and some movies are <strong>too long</strong> to watch on a busy night."</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Grammar">
             <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-book-open text-pink-500"></i> Grammar: More Comparisons</h2>
             <div class="max-w-6xl mx-auto space-y-6">
                 <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
@@ -94,9 +125,9 @@
             </div>
         </div>
         
-        <div class="slide">
+        <div class="slide" data-title="Vocabulary">
             <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-tags text-purple-500"></i> Vocabulary: Comparisons</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-12 max-w-5xl mx-auto justify-items-center">
+            <div class="flashcard-grid max-w-5xl mx-auto">
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">as big as</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">tão grande quanto</h3></div></div></div>
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">not as tall as</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">não tão alto quanto</h3></div></div></div>
                 <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">too expensive</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">caro demais</h3></div></div></div>
@@ -108,7 +139,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Practice 1">
             <div class="text-center">
                 <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-pencil-alt text-teal-500"></i> Practice 1: Complete the Sentences</h2>
                 <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
@@ -119,7 +150,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Practice 2">
             <div class="text-center">
                 <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-random text-cyan-500"></i> Practice 2: Rewrite the Sentences</h2>
                 <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
@@ -130,7 +161,7 @@
             </div>
         </div>
         
-        <div class="slide">
+        <div class="slide" data-title="Music">
     <h2 class="text-5xl font-bold mb-6 text-center text-orange-700">
         <i class="fas fa-music text-red-500"></i> Music Time: The Chainsmokers & Coldplay
     </h2>
@@ -166,7 +197,7 @@
     </div>
 </div>
         
-        <div class="slide">
+        <div class="slide" data-title="Homework">
              <div class="text-center">
                 <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-home text-blue-500"></i> Homework</h2>
                 <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
@@ -178,7 +209,7 @@
             </div>
         </div>
 
-        <div class="slide">
+        <div class="slide" data-title="Lesson Complete">
             <div class="text-center flex flex-col items-center justify-center h-full">
                 <i class="fas fa-check-circle text-green-500 text-8xl mb-6"></i>
                 <h2 class="text-6xl font-bold mb-6 text-gray-800">Lesson 5 Complete!</h2>
@@ -211,12 +242,16 @@
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
             const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const slideCounter = document.getElementById('slide-counter');
+            const slideTitleHeader = document.getElementById('slide-title-header');
             let currentSlide = 0;
 
             function updateSlideView() {
                 slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
                 const progressBar = document.getElementById('progress-bar');
                 progressBar.style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
+                if (slideCounter) slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+                if (slideTitleHeader) slideTitleHeader.textContent = slides[currentSlide]?.dataset.title || '';
                 prevBtn.disabled = currentSlide === 0;
                 nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
                 finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
@@ -227,9 +262,14 @@
 
             finishLessonBtn.addEventListener('click', () => {
                 finishLessonBtn.disabled = true;
-                finishLessonBtn.textContent = "Salvando...";
+                finishLessonBtn.textContent = 'Salvando...';
                 if (typeof markLessonAsComplete === 'function') {
-                    markLessonAsComplete(moduleId, lessonNumber);
+                    markLessonAsComplete(moduleId, lessonNumber).catch(error => {
+                        console.error('Erro ao marcar a lição como completa:', error);
+                        alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');
+                        finishLessonBtn.disabled = false;
+                        finishLessonBtn.textContent = 'Finish Lesson';
+                    });
                 } else {
                     console.error("Função markLessonAsComplete não encontrada.");
                     alert("Erro ao salvar progresso.");
@@ -311,9 +351,11 @@
             createRewriteActivity();
             addIndividualRevealListeners();
             updateSlideView();
+            document.body.classList.remove('lesson-loading');
         });
     </script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
+    <script src='a2-lesson-theme.js'></script>
 </body>
 </html>

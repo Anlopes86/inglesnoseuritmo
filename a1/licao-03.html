@@ -208,7 +208,7 @@
                     <p>4. "Are you and Lucas friends?" "Yes, <input data-answer="we are" class="practice-input">." <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: nós somos</span></p>
                     <p>5. "Is he your brother?" "No, he <input data-answer="isn't" class="practice-input">. He is my cousin." <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: não é</span></p>
                     <p>6. "Who is he?" "He is <input data-answer="my teacher" class="practice-input">." <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: meu professor</span></p>
-                    <p>7. "What is their name?" "<input data-answer="Their" class="practice-input"> name is Carlos." <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: deles</span></p>
+                    <p>7. "What is his name?" "<input data-answer="His" class="practice-input"> name is Carlos." <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: dele</span></p>
                     <p>8. "Are we friends?" "Yes, <input data-answer="we are" class="practice-input">." <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: nós somos</span></p>
                     <p>9. "Are they teachers?" "No, <input data-answer="they aren't" class="practice-input">." <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: eles não são</span></p>
                 </div>
@@ -293,6 +293,7 @@
         let currentSlide = 0;
 
         function showSlide(index) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
             if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
             if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
@@ -305,10 +306,6 @@
 
         if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-
-        document.querySelectorAll('.flashcard').forEach(card => {
-            card.addEventListener('click', () => card.classList.toggle('flipped'));
-        });
 
         document.querySelectorAll('.answer-btn').forEach(button => {
             button.addEventListener('click', event => {
@@ -339,8 +336,10 @@
             if (button.classList.contains('flashcard-audio-btn')) e.stopPropagation();
             const text = button.dataset.speak;
             if (!text || !('speechSynthesis' in window)) return;
+            speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'en-US';
+            utterance.rate = 0.85;
             speechSynthesis.speak(utterance);
             button.classList.add('speaking');
             utterance.onend = () => button.classList.remove('speaking');
@@ -351,10 +350,10 @@
         const flashcardProgress = document.getElementById('flashcard-progress');
         const flashcardGrid = document.getElementById('flashcard-grid');
         const flashcardData = [
-            { en: 'Mother', pt: 'mae' },
+            { en: 'Mother', pt: 'mãe' },
             { en: 'Father', pt: 'pai' },
-            { en: 'Sister', pt: 'irma' },
-            { en: 'Brother', pt: 'irmao' },
+            { en: 'Sister', pt: 'irmã' },
+            { en: 'Brother', pt: 'irmão' },
             { en: 'Friend', pt: 'amigo / amiga' },
             { en: 'Teacher', pt: 'professor / professora' },
             { en: 'Neighbor', pt: 'vizinho / vizinha' },
@@ -431,12 +430,14 @@
         const checkBtn = document.getElementById('check-practice-btn');
         const resetBtn = document.getElementById('reset-practice-btn');
         const scoreDiv = document.getElementById('practice-score');
+        const practiceSection = document.querySelector('[data-title="Practice"]');
+        const practiceInputs = practiceSection ? Array.from(practiceSection.querySelectorAll('.practice-input')) : [];
 
         if (checkBtn) {
             checkBtn.addEventListener('click', () => {
                 let correct = 0;
                 let total = 0;
-                document.querySelectorAll('.practice-input').forEach(input => {
+                practiceInputs.forEach(input => {
                     const userAnswer = input.value.trim().toLowerCase();
                     const correctAnswer = input.dataset.answer.trim().toLowerCase();
                     total++;
@@ -450,8 +451,10 @@
                     }
                 });
                 if (scoreDiv) {
-                    scoreDiv.className = 'mt-6 text-xl font-bold p-4 ' + (correct === total ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800');
-                    scoreDiv.textContent = `Você acertou ${correct} de ${total} respostas.`;
+                    scoreDiv.className = 'mt-6 text-xl font-bold p-4 score-panel ' + (correct === total ? 'is-perfect' : 'is-warning');
+                    scoreDiv.textContent = correct === total
+                        ? `Excelente! ${correct} de ${total} respostas corretas.`
+                        : `Você acertou ${correct} de ${total} respostas. Revise os itens em vermelho.`;
                     scoreDiv.classList.remove('hidden');
                 }
             });
@@ -459,11 +462,11 @@
 
         if (resetBtn) {
             resetBtn.addEventListener('click', () => {
-                document.querySelectorAll('.practice-input').forEach(input => {
+                practiceInputs.forEach(input => {
                     input.value = '';
                     input.classList.remove('correct', 'incorrect');
                 });
-                if (scoreDiv) scoreDiv.classList.add('hidden');
+                if (scoreDiv) scoreDiv.className = 'hidden mt-6 text-xl font-bold p-4 score-panel';
             });
         }
 

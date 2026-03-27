@@ -3,127 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aulas de Conversação | Inglês no seu Ritmo</title>
+    <title>Módulo Conversation | Inglês no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .lesson-card {
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
+            border: 1px solid #334155;
+            background: rgba(15, 23, 42, 0.82);
         }
         .lesson-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 16px 30px -18px rgba(88, 28, 135, 0.42);
+            border-color: #e879f9;
         }
-        
-        /* ESTADOS VISUAIS */
-        .lesson-card.locked {
-            background-color: #f3f4f6;
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-        .lesson-card.locked:hover { transform: none; box-shadow: none; }
-        .lesson-card.locked .lesson-title, .lesson-card.locked .lesson-number { color: #6b7280; }
-
         .lesson-card.completed {
+            background: rgba(20, 83, 45, 0.28);
             border-color: #22c55e;
-            background-color: #f0fdf4;
         }
-
         .lesson-card.next {
-            border-color: #3b82f6;
-            animation: pulse-blue 2s infinite;
+            background: rgba(88, 28, 135, 0.24);
+            border-color: #c026d3;
+            box-shadow: 0 0 0 4px rgba(192, 38, 211, 0.12);
         }
-        @keyframes pulse-blue {
-            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        .lesson-card.locked {
+            background: rgba(15, 23, 42, 0.52);
+            border-color: #334155;
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .lesson-card.locked:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: #334155;
         }
     </style>
 </head>
-<body data-module="conversation" class="bg-gray-100">
-
-    <header class="bg-white shadow-sm sticky top-0 z-50">
+<body data-module="conversation" class="bg-slate-950 text-slate-100">
+    <header class="bg-slate-950/90 border-b border-slate-800 shadow-sm sticky top-0 z-50 backdrop-blur">
         <div class="container mx-auto px-6 py-4">
-            <a href="../index.html" class="text-lg font-bold text-gray-600 hover:text-gray-800 flex items-center gap-2">
-                <i class="fas fa-chevron-left"></i> Voltar ao Painel
+            <a href="../home-aluno.html" data-portal-back class="text-lg font-bold text-fuchsia-300 hover:text-fuchsia-200 flex items-center gap-2">
+                <i class="fas fa-chevron-left"></i> Voltar ao Portal
             </a>
         </div>
     </header>
 
-    <main class="container mx-auto p-8 mt-4">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-700">Aulas de Conversação</h2>
-            <p class="text-lg text-gray-500 mt-2">Tópicos temáticos para destravar sua fala e ganhar confiança.</p>
+    <main class="container mx-auto px-6 py-10">
+        <section class="max-w-5xl mx-auto text-center mb-12">
+            <span class="inline-flex items-center gap-2 bg-fuchsia-500/10 border border-fuchsia-500/20 text-fuchsia-300 px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-[0.18em]">
+                <i class="fas fa-comments"></i> Conversation Club
+            </span>
+            <h1 class="text-4xl md:text-5xl font-extrabold mt-5 text-white">Conversation: temas fortes para falar com mais naturalidade</h1>
+            <p class="text-lg text-slate-300 mt-4 max-w-3xl mx-auto">
+                Esta trilha foi pensada para destravar a fala com assuntos interessantes, músicas, opiniões, debates e perguntas que puxam conversa real sem cair em respostas automáticas.
+            </p>
+        </section>
+
+        <section class="max-w-6xl mx-auto grid md:grid-cols-3 gap-4 mb-10">
+            <div class="bg-slate-900/80 rounded-2xl p-6 shadow-sm border border-slate-800">
+                <p class="text-sm uppercase tracking-[0.2em] text-fuchsia-400 font-bold">Foco</p>
+                <p class="text-slate-300 mt-2">Fluência, opinião, espontaneidade, repertório temático e mais segurança para sustentar conversas.</p>
+            </div>
+            <div class="bg-slate-900/80 rounded-2xl p-6 shadow-sm border border-slate-800">
+                <p class="text-sm uppercase tracking-[0.2em] text-fuchsia-400 font-bold">Formato</p>
+                <p class="text-slate-300 mt-2">Warm-up, expressões, músicas, debates, prática guiada e reflexão final em cada lição.</p>
+            </div>
+            <div class="bg-slate-900/80 rounded-2xl p-6 shadow-sm border border-slate-800">
+                <p class="text-sm uppercase tracking-[0.2em] text-fuchsia-400 font-bold">Resultado</p>
+                <p class="text-slate-300 mt-2">Mais vocabulário vivo, respostas menos travadas e conversas com mais personalidade e profundidade.</p>
+            </div>
+        </section>
+
+        <div id="loading" class="text-center text-slate-400">
+            <i class="fas fa-spinner fa-spin mr-2"></i> Carregando lições...
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <a href="conversation-vocabulary.html" class="lesson-card p-6 rounded-xl shadow bg-purple-600 text-white flex flex-col items-center justify-center text-center">
-                <i class="fas fa-book-open text-4xl mb-3"></i>
-                <p class="lesson-title flex-grow text-xl font-semibold">Vocabulário</p>
-                <p class="text-sm text-purple-200">Expanda seu conhecimento</p>
-            </a>
-            <a href="licao-01.html" data-lesson="1" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 01</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Dreams & Ambitions</p></a>
-            <a href="licao-02.html" data-lesson="2" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 02</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Love & Relationships</p></a>
-            <a href="licao-03.html" data-lesson="3" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 03</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Rebellion & Freedom</p></a>
-            <a href="licao-04.html" data-lesson="4" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 04</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">City Life vs. Country Life</p></a>
-            <a href="licao-05.html" data-lesson="5" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 05</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Friendship</p></a>
-            <a href="licao-06.html" data-lesson="6" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 06</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Overcoming Challenges</p></a>
-            <a href="licao-07.html" data-lesson="7" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 07</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Travel & Adventure</p></a>
-            <a href="licao-08.html" data-lesson="8" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 08</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Work & Career</p></a>
-            <a href="licao-09.html" data-lesson="9" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 09</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Technology & Social Media</p></a>
-            <a href="licao-10.html" data-lesson="10" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 10</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Happiness & Life Philosophy</p></a>
-            <a href="licao-11.html" data-lesson="11" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 11</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">The Supernatural & Mysteries</p></a>
-            <a href="licao-12.html" data-lesson="12" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 12</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Memory & Nostalgia</p></a>
-            <a href="licao-13.html" data-lesson="13" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 13</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Crime & Justice</p></a>
-            <a href="licao-14.html" data-lesson="14" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 14</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Food & Culture</p></a>
-            <a href="licao-15.html" data-lesson="15" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 15</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Success & Failure</p></a>
-            <a href="licao-16.html" data-lesson="16" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 16</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">The Future & AI</p></a>
-            <a href="licao-17.html" data-lesson="17" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 17</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Learning & Education</p></a>
-            <a href="licao-18.html" data-lesson="18" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 18</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Animals & Nature</p></a>
-            <a href="licao-19.html" data-lesson="19" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 19</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Sports & Competition</p></a>
-            <a href="licao-20.html" data-lesson="20" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 20</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">The Power of Habits</p></a>
-            <a href="licao-21.html" data-lesson="21" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 21</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Volunteering & Social Causes</p></a>
-            <a href="licao-22.html" data-lesson="22" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 22</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Art & Creativity</p></a>
-            <a href="licao-23.html" data-lesson="23" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 23</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Money & Personal Finance</p></a>
-            <a href="licao-24.html" data-lesson="24" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 24</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">The Gig Economy & Remote Work</p></a>
-            <a href="licao-25.html" data-lesson="25" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 25</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">The Media, News & Politics</p></a>
-            <a href="licao-26.html" data-lesson="26" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 26</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Psychology & Human Behavior</p></a>
-            <a href="licao-27.html" data-lesson="27" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 27</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">History & Historical Figures</p></a>
-            <a href="licao-28.html" data-lesson="28" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 28</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Ethics & Morality</p></a>
-            <a href="licao-29.html" data-lesson="29" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 29</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Science & Space Exploration</p></a>
-            <a href="licao-30.html" data-lesson="30" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 30</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Fashion & Personal Style</p></a>
-            <a href="licao-31.html" data-lesson="31" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 31</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Culture & Leisure</p></a>
-            <a href="licao-32.html" data-lesson="32" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 32</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">The Modern Face of Love</p></a>
-            <a href="licao-33.html" data-lesson="33" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 33</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Childhood & Growing Up</p></a>
-            <a href="licao-34.html" data-lesson="34" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 34</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Conspiracy Theories</p></a>
-            <a href="licao-35.html" data-lesson="35" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 35</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Music, Emotions & Identity</p></a>
-            <a href="licao-36.html" data-lesson="36" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 36</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Aging & Getting Older</p></a>
-            <a href="licao-37.html" data-lesson="37" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 37</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Language & Communication</p></a>
-            <a href="licao-38.html" data-lesson="38" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 38</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Mistakes & Regrets</p></a>
-            <a href="licao-39.html" data-lesson="39" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 39</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Heroes & Role Models</p></a>
-            <a href="licao-40.html" data-lesson="40" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 40</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Strange Jobs & Unusual Careers</p></a>
-            <a href="licao-41.html" data-lesson="9" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 41</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">The Paradox of Choice</p></a>
-            <a href="licao-42.html" data-lesson="10" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 42</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">The Ethics of Biohacking</p></a>
-            <a href="licao-43.html" data-lesson="11" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 43</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">The Art of Storytelling</p></a>
-            <a href="licao-44.html" data-lesson="12" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 44</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Leadership & Influence</p></a>
-            <a href="licao-45.html" data-lesson="13" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 45</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Winning & playing fair</p></a>
-            <a href="licao-46.html" data-lesson="14" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 46</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Identity & Who We Are</p></a>
-            <a href="licao-47.html" data-lesson="15" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 47</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Humor & The Power of Laughter</p></a>
-            <a href="licao-48.html" data-lesson="16" class="lesson-card bg-white p-6 rounded-xl shadow"><p class="lesson-number font-bold text-purple-600">Lição 48</p><p class="lesson-title flex-grow text-xl font-semibold text-gray-800 mt-1">Comfort Zones & Personal Growth</p></a>
-
-        </div>
+        <div id="lessons-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 hidden"></div>
     </main>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
-    <script src="../js/status-updater.js"></script>
+    <script src="../js/conversation-module.js"></script>
+    <script src="../js/portal-back-link.js"></script>
 </body>
 </html>
