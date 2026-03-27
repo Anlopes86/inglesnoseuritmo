@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    if (!firebase || !firebase.apps.length) {
+    if (typeof firebase === 'undefined' || !firebase.apps.length) {
         console.error('Firebase não inicializado.');
         return;
     }
