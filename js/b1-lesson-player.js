@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!lesson) {
         document.getElementById('slides-root').innerHTML = `
             <div class="surface rounded-[2rem] p-10 text-center">
-                <h2 class="text-3xl font-black text-slate-900 mb-3">Licao nao encontrada</h2>
-                <p class="text-slate-600">Nao foi possivel carregar os dados desta licao B1.</p>
+                <h2 class="text-3xl font-black text-slate-900 mb-3">Lição não encontrada</h2>
+                <p class="text-slate-600">Não foi possível carregar os dados desta lição B1.</p>
             </div>
         `;
         return;
@@ -215,7 +215,7 @@ function buildSlides(lesson) {
             <div class="text-center">
                 <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Vocabulary set</p>
                 <h3 class="text-4xl font-black text-slate-900 mt-2">${lesson.vocabTitle}</h3>
-                <p class="text-slate-600 text-lg mt-3 mb-8">Clique para virar o card e ver traducao e exemplo.</p>
+                <p class="text-slate-600 text-lg mt-3 mb-8">Clique para virar o card e ver tradu??o e exemplo.</p>
                 <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
                     ${lesson.vocabulary.map(item => `
                         <div class="vocab-card">
@@ -280,7 +280,7 @@ function buildSlides(lesson) {
                     <p class="text-lg text-slate-700 mt-6">${lesson.homework}</p>
                     <div class="mt-8 p-5 rounded-2xl bg-slate-50 border border-slate-200">
                         <p class="text-sm uppercase tracking-[0.18em] text-slate-500 font-bold">B1 reminder</p>
-                        <p class="text-slate-700 mt-3">No B1, o aluno ja consegue organizar ideias em mais de uma frase. Priorize clareza, conectores simples e exemplos reais.</p>
+                        <p class="text-slate-700 mt-3">No B1, o aluno já consegue organizar ideias em mais de uma frase. Priorize clareza, conectores simples e exemplos reais.</p>
                     </div>
                 </div>
             </div>
