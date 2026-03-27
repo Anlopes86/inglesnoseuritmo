@@ -13,14 +13,29 @@
     --a1-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
 }
 
+[data-theme="dark"] {
+    --a1-bg: #07111f;
+    --a1-surface: #0f172a;
+    --a1-surface-strong: #111c31;
+    --a1-border: rgba(71, 85, 105, 0.42);
+    --a1-text: #e2e8f0;
+    --a1-muted: #94a3b8;
+    --a1-primary: #60a5fa;
+    --a1-primary-soft: rgba(37, 99, 235, 0.18);
+    --a1-accent: #4ade80;
+    --a1-accent-soft: rgba(22, 163, 74, 0.18);
+    --a1-warning: #fbbf24;
+    --a1-shadow: 0 22px 48px rgba(2, 6, 23, 0.48);
+}
+
 body {
     background: var(--a1-bg);
     color: var(--a1-text);
 }
 
 header {
-    background: #ffffff !important;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+    background: var(--a1-surface) !important;
+    border-bottom: 1px solid var(--a1-border);
 }
 
 header .container,
@@ -41,20 +56,22 @@ main.container .slide {
 }
 
 .slide-label {
-    background: #ffffff !important;
+    background: var(--a1-surface) !important;
     border: 1px solid rgba(37, 99, 235, 0.12);
-    color: #475569 !important;
+    color: var(--a1-muted) !important;
     box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
 }
 
 .lesson-shell {
-    background: #ffffff;
+    background: var(--a1-surface);
     border: 1px solid var(--a1-border);
     box-shadow: var(--a1-shadow);
 }
 
 .lesson-hero {
-    background: #ffffff;
+    background:
+        radial-gradient(circle at top right, rgba(37, 99, 235, 0.12), transparent 28%),
+        linear-gradient(180deg, color-mix(in srgb, var(--a1-surface-strong) 94%, white 6%), var(--a1-surface));
     border: 1px solid rgba(96, 165, 250, 0.18);
     border-top: 4px solid rgba(37, 99, 235, 0.7);
     box-shadow: var(--a1-shadow);
@@ -66,16 +83,16 @@ main.container .slide {
     gap: 0.5rem;
     padding: 0.55rem 0.95rem;
     border-radius: 999px;
-    background: #ffffff;
-    border: 1px solid rgba(148, 163, 184, 0.18);
+    background: color-mix(in srgb, var(--a1-surface) 88%, transparent);
+    border: 1px solid var(--a1-border);
     font-size: 0.92rem;
     font-weight: 600;
-    color: #334155;
+    color: var(--a1-text);
 }
 
 .lesson-panel {
-    background: #ffffff;
-    border: 1px solid rgba(148, 163, 184, 0.18);
+    background: var(--a1-surface);
+    border: 1px solid var(--a1-border);
     border-radius: 1.5rem;
     box-shadow: 0 14px 34px rgba(15, 23, 42, 0.06);
 }
@@ -97,7 +114,7 @@ main.container .slide {
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
-    color: #334155;
+    color: var(--a1-text);
 }
 
 .lesson-checklist-item i {
@@ -106,7 +123,7 @@ main.container .slide {
 }
 
 .section-card {
-    background: #ffffff;
+    background: var(--a1-surface);
     border: 1px solid var(--a1-border);
     border-radius: 1.5rem;
     box-shadow: var(--a1-shadow);
@@ -121,21 +138,21 @@ main.container .slide {
 }
 
 .callout-note {
-    background: #eff6ff;
+    background: color-mix(in srgb, var(--a1-primary-soft) 88%, var(--a1-surface));
     border-color: rgba(59, 130, 246, 0.18);
-    color: #1d4ed8;
+    color: var(--a1-primary);
 }
 
 .callout-success {
-    background: #f0fdf4;
+    background: color-mix(in srgb, var(--a1-accent-soft) 88%, var(--a1-surface));
     border-color: rgba(34, 197, 94, 0.18);
-    color: #15803d;
+    color: var(--a1-accent);
 }
 
 .callout-warning {
-    background: #fff7ed;
+    background: color-mix(in srgb, rgba(245, 158, 11, 0.14) 88%, var(--a1-surface));
     border-color: rgba(245, 158, 11, 0.18);
-    color: #b45309;
+    color: #d97706;
 }
 
 .grammar-table {
@@ -145,8 +162,8 @@ main.container .slide {
 }
 
 .music-card {
-    background: #ffffff;
-    border: 1px solid rgba(148, 163, 184, 0.18);
+    background: var(--a1-surface);
+    border: 1px solid var(--a1-border);
     border-radius: 1.5rem;
     box-shadow: var(--a1-shadow);
 }
@@ -169,8 +186,8 @@ main.container .slide {
 }
 
 .activity-card {
-    background: #f8fafc;
-    border: 1px solid rgba(148, 163, 184, 0.18);
+    background: color-mix(in srgb, var(--a1-surface) 92%, var(--a1-bg));
+    border: 1px solid var(--a1-border);
     border-radius: 1rem;
     padding: 1rem 1.1rem;
 }
@@ -188,9 +205,9 @@ main.container .slide {
     min-width: 7rem;
     padding: 0.7rem 1rem;
     border-radius: 999px;
-    border: 1px solid rgba(148, 163, 184, 0.22);
-    background: #ffffff;
-    color: #334155;
+    border: 1px solid var(--a1-border);
+    background: var(--a1-surface);
+    color: var(--a1-text);
     font-weight: 700;
     transition: all 0.2s ease;
     cursor: pointer;
@@ -198,8 +215,8 @@ main.container .slide {
 
 .choice-btn:hover:not(:disabled) {
     border-color: rgba(37, 99, 235, 0.26);
-    background: #eff6ff;
-    color: #1d4ed8;
+    background: var(--a1-primary-soft);
+    color: var(--a1-primary);
 }
 
 .choice-btn.is-correct {
@@ -224,7 +241,7 @@ main.container .slide {
     align-items: center;
     gap: 0.35rem;
     border: 1px solid rgba(245, 158, 11, 0.22);
-    background: #fff7ed;
+    background: color-mix(in srgb, rgba(245, 158, 11, 0.14) 88%, var(--a1-surface));
     color: #b45309;
     font-weight: 700;
     border-radius: 999px;
@@ -233,7 +250,7 @@ main.container .slide {
 }
 
 .reveal-chip:hover {
-    background: #ffedd5;
+    background: color-mix(in srgb, rgba(245, 158, 11, 0.2) 88%, var(--a1-surface));
 }
 
 .flashcard {
@@ -260,9 +277,9 @@ main.container .slide {
     min-width: 0;
     padding: 0.55rem 0.75rem;
     border-radius: 0.9rem;
-    background: #ffffff;
-    border: 1px solid rgba(148, 163, 184, 0.18);
-    color: #475569;
+    background: var(--a1-surface);
+    border: 1px solid var(--a1-border);
+    color: var(--a1-muted);
     text-align: left;
     transition: all 0.2s ease;
     font-size: 0.85rem;
@@ -271,18 +288,95 @@ main.container .slide {
 
 .lesson-step.is-active {
     background: #eff6ff;
-    border-color: rgba(59,130,246,0.24);
+    border-color: rgba(59, 130, 246, 0.24);
     color: #1d4ed8;
-    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.10);
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.1);
 }
 
 footer {
-    background: #ffffff !important;
-    border-top: 1px solid rgba(148, 163, 184, 0.18);
+    background: var(--a1-surface) !important;
+    border-top: 1px solid var(--a1-border);
 }
 
 footer button {
     box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.lesson-theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.7rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--a1-border);
+    background: color-mix(in srgb, var(--a1-surface) 92%, transparent);
+    color: var(--a1-text);
+    font-size: 0.88rem;
+    font-weight: 700;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.lesson-theme-toggle:hover {
+    transform: translateY(-1px);
+}
+
+[data-theme="dark"] .score-panel.is-perfect {
+    background: rgba(22, 101, 52, 0.24);
+    color: #bbf7d0;
+    border-color: rgba(34, 197, 94, 0.28);
+}
+
+[data-theme="dark"] .score-panel.is-warning {
+    background: rgba(180, 83, 9, 0.24);
+    color: #fde68a;
+    border-color: rgba(245, 158, 11, 0.24);
+}
+
+[data-theme="dark"] body .bg-slate-50,
+[data-theme="dark"] .bg-slate-50 {
+    background-color: #0b1324 !important;
+}
+
+[data-theme="dark"] body .bg-slate-100,
+[data-theme="dark"] .bg-slate-100 {
+    background-color: #162033 !important;
+}
+
+[data-theme="dark"] body .bg-white,
+[data-theme="dark"] .bg-white {
+    background-color: var(--a1-surface) !important;
+}
+
+[data-theme="dark"] body .text-slate-900,
+[data-theme="dark"] .text-slate-900,
+[data-theme="dark"] body .text-slate-800,
+[data-theme="dark"] .text-slate-800 {
+    color: var(--a1-text) !important;
+}
+
+[data-theme="dark"] body .text-slate-700,
+[data-theme="dark"] .text-slate-700,
+[data-theme="dark"] body .text-slate-600,
+[data-theme="dark"] .text-slate-600,
+[data-theme="dark"] body .text-slate-500,
+[data-theme="dark"] .text-slate-500,
+[data-theme="dark"] body .text-slate-400,
+[data-theme="dark"] .text-slate-400 {
+    color: var(--a1-muted) !important;
+}
+
+[data-theme="dark"] body .border,
+[data-theme="dark"] .border,
+[data-theme="dark"] body .border-slate-200,
+[data-theme="dark"] .border-slate-200,
+[data-theme="dark"] body .border-slate-300,
+[data-theme="dark"] .border-slate-300 {
+    border-color: var(--a1-border) !important;
+}
+
+[data-theme="dark"] body .bg-slate-200,
+[data-theme="dark"] .bg-slate-200 {
+    background-color: #243042 !important;
 }
 
 @media (max-width: 768px) {
@@ -320,6 +414,10 @@ footer button {
     footer button {
         padding: 0.75rem 1rem !important;
         font-size: 0.95rem !important;
+    }
+
+    .lesson-theme-toggle span {
+        display: none;
     }
 
     .lesson-chip,
