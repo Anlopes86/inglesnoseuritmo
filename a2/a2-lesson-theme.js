@@ -1,8 +1,89 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const STORAGE_KEY = 'insr-theme';
+    const DARK = 'dark';
+    const LIGHT = 'light';
+
+    function getStoredTheme() {
+        try {
+            return localStorage.getItem(STORAGE_KEY);
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function getPreferredTheme() {
+        const storedTheme = getStoredTheme();
+        if (storedTheme === DARK || storedTheme === LIGHT) {
+            return storedTheme;
+        }
+
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? DARK
+            : LIGHT;
+    }
+
+    function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        document.body.setAttribute('data-theme', theme);
+        try {
+            localStorage.setItem(STORAGE_KEY, theme);
+        } catch (error) {
+            // ignore persistence issues
+        }
+    }
+
+    function getThemeMeta(theme) {
+        return theme === DARK
+            ? { icon: 'fa-sun', label: 'Tema claro' }
+            : { icon: 'fa-moon', label: 'Tema escuro' };
+    }
+
+    function syncThemeToggle() {
+        const button = document.querySelector('[data-a2-theme-toggle]');
+        if (!button) return;
+
+        const currentTheme = document.documentElement.getAttribute('data-theme') || LIGHT;
+        const meta = getThemeMeta(currentTheme);
+        button.innerHTML = `<i class="fas ${meta.icon}"></i><span>${meta.label}</span>`;
+        button.setAttribute('aria-label', meta.label);
+        button.setAttribute('title', meta.label);
+    }
+
+    function injectThemeToggle() {
+        const headerContainer = document.querySelector('header .container');
+        const slideCounter = document.getElementById('slide-counter');
+        if (!headerContainer || !slideCounter || headerContainer.querySelector('[data-a2-theme-toggle]')) {
+            return;
+        }
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'flex items-center gap-3';
+
+        const themeButton = document.createElement('button');
+        themeButton.type = 'button';
+        themeButton.className = 'lesson-theme-toggle';
+        themeButton.setAttribute('data-a2-theme-toggle', 'true');
+
+        slideCounter.parentNode.insertBefore(wrapper, slideCounter);
+        wrapper.appendChild(themeButton);
+        wrapper.appendChild(slideCounter);
+    }
+
     document.body.classList.add('a2-lesson-page');
+    applyTheme(getPreferredTheme());
+    injectThemeToggle();
+    syncThemeToggle();
     document.body.classList.remove('lesson-loading');
 
     document.addEventListener('click', (event) => {
+        const themeToggle = event.target.closest('[data-a2-theme-toggle]');
+        if (themeToggle) {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || LIGHT;
+            applyTheme(currentTheme === DARK ? LIGHT : DARK);
+            syncThemeToggle();
+            return;
+        }
+
         const flashcard = event.target.closest('.flashcard, .flip-card');
         if (!flashcard) return;
 
@@ -118,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     chipRow.className = 'flex flex-wrap gap-3 mt-6';
                     const chips = [
                         { icon: 'fa-compass', text: 'A2 em contexto' },
-                        { icon: 'fa-comments', text: 'Foco em comunicacao' },
+                        { icon: 'fa-comments', text: 'Foco em comunicação' },
                         { icon: 'fa-layer-group', text: 'Mais estrutura' }
                     ];
                     chips.forEach(({ icon, text }) => {
@@ -140,12 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isCompleteSlide) {
             const completeCard = slide.firstElementChild;
             if (completeCard) {
-                completeCard.classList.add(
-                    'lesson-hero',
-                    'rounded-[2rem]',
-                    'p-10',
-                    'lesson-complete-card'
-                );
+                completeCard.classList.add('lesson-hero', 'rounded-[2rem]', 'p-10', 'lesson-complete-card');
             }
         }
     });
@@ -206,13 +282,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const slideLabel = document.getElementById('slide-title-header');
         const activeIndex = slides.findIndex((slide) => slide.classList.contains('active'));
 
-        if (slideLabel) {
-            slideLabel.textContent = activeTitle || '';
-        }
-
-        if (slideCounter && activeIndex >= 0) {
-            slideCounter.textContent = `${activeIndex + 1} / ${slides.length}`;
-        }
+        if (slideLabel) slideLabel.textContent = activeTitle || '';
+        if (slideCounter && activeIndex >= 0) slideCounter.textContent = `${activeIndex + 1} / ${slides.length}`;
     };
 
     syncHeader();
