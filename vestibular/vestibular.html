@@ -3,48 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dicas para Vestibular | Inglês no seu Ritmo</title>
+    <title>Jornada Vestibular | Inglês no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../enhanced-styles.css">
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
-        .lesson-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
-        .lesson-card.locked { background-color: #f3f4f6; cursor: not-allowed; opacity: 0.7; }
-        .lesson-card.locked:hover { transform: none; box-shadow: none; }
-        .lesson-card.next { animation: pulse-amber 2s infinite; }
-        @keyframes pulse-amber {
-            0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="../css/app-theme.css" rel="stylesheet">
+    <link href="../css/module-hub.css" rel="stylesheet">
 </head>
-<body>
-
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="../home-aluno.html" data-portal-back class="text-lg font-bold text-gray-600 hover:text-gray-800 flex items-center gap-2">
-                <i class="fas fa-chevron-left"></i> Voltar ao Portal
+<body data-module="vestibular" class="module-hub app-shell">
+    <header class="glass-header">
+        <div class="app-container py-4 flex items-center justify-between gap-3">
+            <a href="../home-aluno.html" data-portal-back class="module-back-link">
+                <i class="fas fa-chevron-left"></i>
+                Voltar ao portal
             </a>
-            <h1 class="text-2xl font-bold text-amber-600">Jornada Vestibular</h1>
+            <button type="button" class="theme-toggle" data-theme-toggle aria-label="Alternar tema"></button>
         </div>
     </header>
 
-    <main class="container mx-auto p-8">
-        <div id="loading" class="text-center text-gray-500 py-10">
-            <i class="fas fa-spinner fa-spin text-2xl mr-2"></i> Carregando suas dicas...
-        </div>
-        
-        <div id="lessons-grid" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <main class="app-container module-shell">
+        <section class="hero-band module-hero">
+            <div>
+                <span class="eyebrow"><i class="fas fa-school"></i> Jornada Vestibular</span>
+                <h1 class="app-title mt-5" style="font-family: 'Sora', sans-serif;">Estratégia, leitura e revisão para prova.</h1>
+                <p class="app-lead mt-5">
+                    Esta trilha organiza dicas, leitura e prática focadas nas necessidades mais comuns de vestibular e interpretação.
+                </p>
+                <div class="module-summary-grid mt-8">
+                    <div class="surface-card module-summary-card">
+                        <p class="kpi-label">Leitura</p>
+                        <p class="kpi-helper mt-3">Treino de interpretação, vocabulário e reconhecimento de pistas no texto.</p>
+                    </div>
+                    <div class="surface-card module-summary-card">
+                        <p class="kpi-label">Estratégia</p>
+                        <p class="kpi-helper mt-3">Foco em agilidade, clareza e escolha de resposta em contexto de prova.</p>
+                    </div>
+                    <div class="surface-card module-summary-card">
+                        <p class="kpi-label">Objetivo</p>
+                        <p class="kpi-helper mt-3">Ganhar segurança para lidar melhor com inglês em exames e vestibulares.</p>
+                    </div>
+                </div>
             </div>
+
+            <div class="surface-card p-6">
+                <p class="kpi-label">Uso recomendado</p>
+                <h2 class="section-title mt-3">Quando esta trilha rende mais</h2>
+                <div class="space-y-4 mt-6">
+                    <div>
+                        <p class="text-sm font-semibold text-slate-500">Pré-prova</p>
+                        <p class="section-copy mt-1">Muito útil em períodos de revisão e consolidação de estratégia.</p>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-slate-500">Apoio específico</p>
+                        <p class="section-copy mt-1">Serve como trilha paralela para alunos que precisam de foco em exame.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="surface-card-strong p-6 mt-6">
+            <div class="module-status">
+                <div>
+                    <p class="kpi-label">Lições</p>
+                    <h2 class="section-title mt-2">Trilha vestibular</h2>
+                </div>
+                <p id="loading" class="section-copy"><i class="fas fa-spinner fa-spin mr-2"></i>Carregando suas dicas...</p>
+            </div>
+            <div id="lessons-grid" class="module-grid hidden"></div>
+        </section>
     </main>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
+    <script src="../js/theme-toggle.js"></script>
     <script src="../js/vestibular-lessons.js"></script>
     <script src="../js/portal-back-link.js"></script>
+</body>
 </html>

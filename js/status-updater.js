@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (headerLink) {
             const targetHref = userRole === 'professor' ? '../index.html' : '../home-aluno.html';
-            const targetLabel = userRole === 'professor' ? ' Voltar ao Painel' : ' Voltar ao Portal';
+            const targetLabel = userRole === 'professor' ? ' Voltar ao painel' : ' Voltar ao portal';
 
             headerLink.href = targetHref;
             for (const node of headerLink.childNodes) {
@@ -87,6 +87,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 lesson.classList.add('next');
             } else if (lessonNumber > firstUncompleted) {
                 lesson.classList.add('locked');
+            }
+
+            const stateNode = lesson.querySelector('.lesson-state');
+            if (stateNode) {
+                stateNode.innerHTML = isCompleted
+                    ? '<i class="fas fa-award text-emerald-600"></i>Concluída'
+                    : lessonNumber === firstUncompleted
+                        ? '<i class="fas fa-forward text-blue-600"></i>Disponível agora'
+                        : '<i class="fas fa-lock text-slate-400"></i>Bloqueada';
             }
 
             if (!isProfessor && !isCompleted && lessonNumber !== firstUncompleted) {

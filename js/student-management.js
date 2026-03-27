@@ -1,19 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
     if (!firebase || !firebase.apps.length) {
-        console.error("Firebase não inicializado.");
+        console.error('Firebase não inicializado.');
         return;
     }
+
     const db = firebase.firestore();
     const auth = firebase.auth();
 
-    // --- Seletores do DOM para Modais ---
     const addStudentModal = document.getElementById('add-student-modal');
     const openAddStudentModalBtn = document.getElementById('open-add-student-modal-btn');
     const openAddStudentEmptyBtn = document.getElementById('open-add-student-empty-btn');
     const cancelAddStudentBtn = document.getElementById('cancel-add-student-btn');
     const closeAddStudentModalBtn = document.getElementById('close-add-student-modal-btn');
     const addStudentForm = document.getElementById('add-student-form');
-    const addStudentBtn = document.getElementById('add-student-btn'); 
+    const addStudentBtn = document.getElementById('add-student-btn');
     const deleteStudentBtn = document.getElementById('delete-student-btn');
     const studentSelect = document.getElementById('student-select');
     const studentSearchInput = document.getElementById('student-search');
@@ -57,61 +57,75 @@ document.addEventListener('DOMContentLoaded', () => {
             if (event.target === addStudentModal) closeModal(addStudentModal);
         });
     }
-    
+
     if (addStudentForm) {
-        addStudentForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+        addStudentForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
             const fullName = document.getElementById('new-student-fullname').value.trim();
             const username = document.getElementById('new-student-username').value.trim().toLowerCase();
             const password = document.getElementById('new-student-password').value;
-            
-            // Captura o tipo de curso selecionado.
-            const studentTypeElement = document.getElementById('new-student-type');
-            const studentType = studentTypeElement ? studentTypeElement.value : '';
-
-            const modulos = ['a1', 'a2', 'b1', 'b2', 'business', 'conversation', 'essentials', 'vestibular'];
-            const modulosLiberados = [];
-
-            modulos.forEach(m => {
-                const checkbox = document.getElementById(`module-${m}`);
-                if (checkbox && checkbox.checked) {
-                    modulosLiberados.push(m);
-                }
-            });
+            const studentType = document.getElementById('new-student-type').value;
 
             if (!fullName || !username || !password || !studentType) {
-                return alert("Por favor, preencha todos os campos.");
+                if (typeof showToast === 'function') {
+                    showToast('Preencha todos os campos antes de salvar.', 'info', 'Dados incompletos');
+                }
+                return;
             }
 
-            addStudentBtn.classList.add('btn-loading');
             addStudentBtn.disabled = true;
+            addStudentBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Salvando...';
 
             const email = `${username}@inglesnoseuritmo.com`;
 
+            let secondaryApp = null;
+            let secondaryAuth = null;
+
             try {
-                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const secondaryName = `studentCreator-${Date.now()}`;
+                secondaryApp = firebase.initializeApp(firebase.app().options, secondaryName);
+                secondaryAuth = secondaryApp.auth();
+                const userCredential = await secondaryAuth.createUserWithEmailAndPassword(email, password);
                 const studentId = userCredential.user.uid;
 
                 await db.collection('students').doc(studentId).set({
                     name: fullName,
-                    email: email,
+                    email,
                     role: 'aluno',
-                    studentType: studentType,
-                    modules: modulosLiberados,
+                    studentType,
+                    modules: [studentType],
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
 
-                alert(`Aluno "${fullName}" adicionado com sucesso!`);
-                
-                // Recarrega para restaurar a sessão do professor no painel.
-                location.reload(); 
-
+                if (typeof showToast === 'function') {
+                    showToast(`O acesso de ${fullName} foi criado com sucesso.`, 'success', 'Aluno adicionado');
+                }
+                closeModal(addStudentModal);
+                addStudentForm.reset();
+                window.dispatchEvent(new Event('student:created'));
             } catch (error) {
-                console.error("Erro ao adicionar aluno:", error);
-                alert("Erro ao adicionar aluno: " + error.message);
+                console.error('Erro ao adicionar aluno:', error);
+                if (typeof showToast === 'function') {
+                    showToast('Não foi possível criar o novo acesso agora.', 'error', 'Falha ao adicionar');
+                }
             } finally {
-                addStudentBtn.classList.remove('btn-loading');
+                if (secondaryAuth) {
+                    try {
+                        await secondaryAuth.signOut();
+                    } catch (error) {
+                        console.error('Erro ao encerrar sessão secundária:', error);
+                    }
+                }
+                if (secondaryApp) {
+                    try {
+                        await secondaryApp.delete();
+                    } catch (error) {
+                        console.error('Erro ao remover app secundário:', error);
+                    }
+                }
                 addStudentBtn.disabled = false;
+                addStudentBtn.innerHTML = 'Adicionar aluno';
             }
         });
     }
@@ -119,32 +133,43 @@ document.addEventListener('DOMContentLoaded', () => {
     if (deleteStudentBtn) {
         deleteStudentBtn.addEventListener('click', async () => {
             const studentId = studentSelect ? studentSelect.value : localStorage.getItem('selectedStudentId');
-            if (!studentId) return alert("Nenhum aluno selecionado.");
+            if (!studentId) {
+                if (typeof showToast === 'function') {
+                    showToast('Selecione um aluno antes de excluir.', 'info', 'Nenhum aluno selecionado');
+                }
+                return;
+            }
 
-            const studentName = localStorage.getItem('selectedStudentName') || "este aluno";
-            if (confirm(`Tem certeza que deseja excluir o aluno "${studentName}"?\n\nATENÇÃO: Esta ação é irreversível.`)) {
-                try {
-                    await db.collection("students").doc(studentId).delete();
-                    alert("Aluno excluído com sucesso.");
-                    localStorage.removeItem('selectedStudentId');
-                    localStorage.removeItem('selectedStudentName');
-                    location.reload();
-                } catch (error) {
-                    console.error("Erro ao excluir aluno:", error);
-                    alert("Ocorreu um erro ao excluir o aluno.");
+            const studentName = localStorage.getItem('selectedStudentName') || 'este aluno';
+            if (!window.confirm(`Tem certeza que deseja excluir o aluno "${studentName}"?\n\nEsta ação é irreversível.`)) {
+                return;
+            }
+
+            try {
+                await db.collection('students').doc(studentId).delete();
+                localStorage.removeItem('selectedStudentId');
+                localStorage.removeItem('selectedStudentName');
+                if (typeof showToast === 'function') {
+                    showToast('O aluno foi removido com sucesso.', 'success', 'Aluno excluído');
+                }
+                location.reload();
+            } catch (error) {
+                console.error('Erro ao excluir aluno:', error);
+                if (typeof showToast === 'function') {
+                    showToast('Não foi possível excluir o aluno agora.', 'error', 'Falha ao excluir');
                 }
             }
         });
     }
-    
+
     if (studentSearchInput && studentSelect) {
         studentSearchInput.addEventListener('input', () => {
             const filter = studentSearchInput.value.toLowerCase();
-            for (let option of studentSelect.options) {
+            Array.from(studentSelect.options).forEach((option) => {
                 if (option.value) {
                     option.style.display = option.text.toLowerCase().includes(filter) ? '' : 'none';
                 }
-            }
+            });
         });
     }
 

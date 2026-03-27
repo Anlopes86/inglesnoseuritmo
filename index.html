@@ -3,261 +3,546 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Dashboard | Inglês no seu Ritmo</title>
-    <meta name="description" content="Plataforma completa para ensino de inglês online. Gerencie alunos, acompanhe progresso e acesse módulos do A1 ao C2 com conversação e inglês para negócios.">
-    <meta name="author" content="Inglês no seu Ritmo">
+    <title>Painel do Professor | Inglês no seu Ritmo</title>
+    <meta name="description" content="Painel interno para acompanhamento de alunos, módulos, progresso e pacote de aulas.">
     <meta name="robots" content="noindex, nofollow">
-    
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="enhanced-styles.css" rel="stylesheet">
-    
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js" defer></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js" defer></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js" defer></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="css/app-theme.css" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%); }
-        .btn-loading::after {
-            content: ''; position: absolute; width: 16px; height: 16px; top: 50%; left: 50%;
-            margin-left: -8px; margin-top: -8px; border: 2px solid #ffffff; border-radius: 50%;
-            border-top-color: transparent; animation: spin 1s linear infinite;
+        .dashboard-layout {
+            display: grid;
+            gap: 1.25rem;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .hero-band {
+            padding: 1.25rem 1.4rem !important;
+            border-radius: 28px;
+        }
+        .hero-band .dashboard-empty-grid {
+            display: none;
+        }
+        .hero-band .app-title {
+            font-size: clamp(1.7rem, 3vw, 2.35rem);
+            line-height: 1.02;
+        }
+        .hero-band .app-lead {
+            margin-top: 0.9rem !important;
+            max-width: 720px;
+            font-size: 0.98rem;
+            line-height: 1.65;
+        }
+        .hero-band .eyebrow {
+            padding-inline: 0.9rem;
+        }
+        .student-list-panel,
+        .dashboard-main {
+            min-width: 0;
+        }
+        .student-list-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .summary-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        .module-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        }
+        .module-card {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            min-height: 240px;
+        }
+        .helper-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        .dashboard-intro {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            padding: 1.25rem 1.4rem;
+            border-radius: 28px;
+        }
+        .dashboard-intro-top {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .dashboard-intro-copy {
+            max-width: 760px;
+        }
+        .dashboard-intro-copy h1 {
+            margin: 0;
+            font-size: clamp(1.7rem, 3vw, 2.4rem);
+            line-height: 1.02;
+            letter-spacing: -0.04em;
+            color: var(--text-strong);
+        }
+        .dashboard-intro-copy p {
+            margin: 0.55rem 0 0;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+        .intro-metrics {
+            display: grid;
+            gap: 0.75rem;
+        }
+        .intro-metric {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.95rem 1rem;
+            border-radius: 20px;
+            border: 1px solid var(--surface-border);
+            background: var(--surface-bg);
+            box-shadow: var(--surface-shadow-soft);
+        }
+        .intro-metric-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background: rgba(37, 99, 235, 0.12);
+            color: var(--accent-blue);
+            flex: 0 0 auto;
+        }
+        .intro-metric strong {
+            display: block;
+            color: var(--text-strong);
+            font-size: 0.95rem;
+        }
+        .intro-metric span {
+            display: block;
+            color: var(--text-soft);
+            font-size: 0.88rem;
+            margin-top: 0.15rem;
+        }
+        .student-portal-btn {
+            width: 100%;
+        }
+        .dashboard-empty-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        .quick-note {
+            min-height: 140px;
+        }
+        .mini-stat {
+            padding: 1rem 1.05rem;
+            border-radius: 24px;
+            background: var(--surface-bg);
+            border: 1px solid var(--surface-border);
+        }
+        .danger-button {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+        .success-button {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+        .neutral-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-radius: 999px;
+            padding: 0.55rem 0.95rem;
+            background: var(--surface-bg);
+            border: 1px solid var(--surface-border);
+            font-weight: 700;
+            color: var(--text-muted);
+        }
         .modal-backdrop {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); z-index: 50;
-            display: flex; align-items: center; justify-content: center;
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.54);
+            backdrop-filter: blur(12px);
+            z-index: 70;
         }
-        .sr-only {
-            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+        .app-modal {
+            width: min(680px, 100%);
+            border-radius: 30px;
+            background: var(--surface-strong-bg);
+            border: 1px solid var(--surface-border);
+            box-shadow: var(--surface-shadow);
         }
-        .dashboard-chip {
-            display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 9999px;
-            padding: 0.45rem 0.8rem; font-size: 0.875rem; font-weight: 600;
+        [data-theme="dark"] .danger-button {
+            box-shadow: 0 16px 28px -18px rgba(239, 68, 68, 0.65);
+        }
+        [data-theme="dark"] .success-button {
+            box-shadow: 0 16px 28px -18px rgba(16, 185, 129, 0.65);
+        }
+        @media (min-width: 1080px) {
+            .hero-band > div > div:first-child {
+                align-items: center;
+            }
+            .dashboard-layout {
+                grid-template-columns: 320px minmax(0, 1fr);
+                align-items: start;
+            }
+            .dashboard-intro-top {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .intro-metrics {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+            .summary-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .helper-grid {
+                grid-template-columns: 1.2fr 0.8fr;
+            }
+            .dashboard-empty-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="app-shell">
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-white text-blue-700 font-semibold px-4 py-2 rounded-lg shadow-lg z-[60]">
         Ir para o conteúdo principal
     </a>
 
-    <div class="container mx-auto p-4 sm:p-8">
-        <header class="mb-8" role="banner">
-            <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-                <div class="text-center md:text-left">
-                <h1 class="text-4xl sm:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 mb-2">
-                    Inglês no seu Ritmo
-                </h1>
-                <p class="text-lg sm:text-xl text-gray-500 font-light">Seu painel de controle para o sucesso.</p>
+    <header class="glass-header">
+        <div class="app-container py-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div class="flex items-center gap-4">
+                <div class="brand-mark">
+                    <span class="brand-dot"></span>
+                    <span>Inglês no seu Ritmo</span>
                 </div>
-                <button id="logout-btn" class="enhanced-btn self-center md:self-start bg-red-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 transition-all duration-300 flex items-center gap-2" 
-                        aria-label="Sair da plataforma">
-                    <i class="fas fa-sign-out-alt" aria-hidden="true"></i>Sair
+                <span class="eyebrow"><i class="fas fa-user-tie"></i> Painel do professor</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-3">
+                <button type="button" class="theme-toggle self-start md:self-auto" data-theme-toggle aria-label="Alternar tema"></button>
+                <button id="logout-btn" class="app-button-ghost self-start md:self-auto" aria-label="Sair da plataforma">
+                    <i class="fas fa-right-from-bracket"></i>
+                    Sair
                 </button>
             </div>
-        </header>
+        </div>
+    </header>
 
-        <main id="main-content" role="main" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            <aside class="lg:col-span-1 space-y-6 lg:sticky lg:top-8 self-start">
-                <div class="enhanced-card p-6">
-                    <h2 class="text-2xl font-semibold mb-4 text-gray-800 flex items-center gap-3">
-                        <i class="fas fa-users icon-md text-blue-600"></i>
-                        Alunos
-                    </h2>
-                    <button id="open-add-student-modal-btn" class="enhanced-btn w-full bg-blue-600 text-white font-semibold py-2.5 px-6 rounded-lg hover:bg-blue-700 transition-all duration-300 mb-4">
-                        <i class="fas fa-plus mr-2"></i>Adicionar Novo Aluno
-                    </button>
-                    <div class="space-y-3">
-                        <label for="student-search" class="block text-sm font-medium text-gray-700">Buscar aluno</label>
-                        <input type="text" id="student-search" class="enhanced-input w-full" placeholder="Buscar aluno..." autocomplete="off">
-                        <label for="student-select" class="block text-sm font-medium text-gray-700">Selecionar aluno</label>
-                        <select id="student-select" class="enhanced-input w-full text-lg" aria-label="Selecionar aluno">
-                            <option value="">Selecione um aluno...</option>
-                        </select>
+    <main id="main-content" class="app-container py-8 md:py-10">
+        <section class="hero-band p-6 md:p-8">
+            <div class="flex flex-col gap-6">
+                <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                    <div class="max-w-3xl">
+                        <span class="eyebrow"><i class="fas fa-wave-square"></i> Painel da aula</span>
+                        <h1 class="app-title mt-5" style="font-family: 'Sora', sans-serif;">Selecione um aluno</h1>
+                        <p class="app-lead mt-5">
+                            Pacote, progresso e próxima lição ficam logo abaixo para você entrar na aula sem perder tempo.
+                        </p>
                     </div>
-                    <div id="student-action-buttons" class="mt-4 hidden flex flex-col gap-2">
-                        <a id="student-portal-btn" href="#" class="enhanced-btn w-full text-center bg-teal-500 text-white font-semibold py-2.5 px-6 rounded-lg hover:bg-teal-600 transition-all duration-300">
-                            <i class="fas fa-id-card mr-2"></i>Acessar Portal do Aluno
-                        </a>
-                        <button id="delete-student-btn" class="enhanced-btn w-full bg-red-600 text-white font-semibold py-2.5 px-6 rounded-lg hover:bg-red-700 transition-all duration-300">
-                            <i class="fas fa-trash-alt mr-2"></i>Excluir Aluno
-                        </button>
-                    </div>
-                </div>
-            </aside>
-
-            <div class="lg:col-span-2">
-                <div id="no-student-selected" class="enhanced-card p-8 text-center">
-                    <span class="dashboard-chip bg-blue-100 text-blue-700 mb-4"><i class="fas fa-compass"></i>Painel pronto para uso</span>
-                    <i class="fas fa-user-graduate text-6xl text-gray-300 mb-4"></i>
-                    <h2 class="text-3xl font-bold text-gray-700">Bem-vindo, professor!</h2>
-                    <p class="text-lg text-gray-500 mt-2 max-w-2xl mx-auto">Selecione um aluno na lista à esquerda para ver progresso, gerenciar pacote e abrir os módulos do curso.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-6 text-left">
-                        <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4">
-                            <p class="text-sm font-semibold text-slate-700 mb-1">1. Escolha um aluno</p>
-                            <p class="text-sm text-slate-500">Use a busca ou a lista para abrir o painel individual.</p>
-                        </div>
-                        <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4">
-                            <p class="text-sm font-semibold text-slate-700 mb-1">2. Ajuste o pacote</p>
-                            <p class="text-sm text-slate-500">Controle aulas usadas, valor pago e data de início.</p>
-                        </div>
-                        <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4">
-                            <p class="text-sm font-semibold text-slate-700 mb-1">3. Abra os módulos</p>
-                            <p class="text-sm text-slate-500">Acompanhe progresso e acesse as trilhas rapidamente.</p>
-                        </div>
-                    </div>
-                    <button id="open-add-student-empty-btn" class="enhanced-btn mt-6 bg-blue-600 text-white font-semibold py-2.5 px-6 rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-lg shadow-blue-200/70">
-                        <i class="fas fa-user-plus mr-2"></i>Adicionar aluno agora
+                    <button id="open-add-student-empty-btn" class="app-button self-start md:self-auto">
+                        <i class="fas fa-user-plus"></i>
+                        Adicionar aluno
                     </button>
                 </div>
-
-                <div id="student-dashboard" class="hidden space-y-8">
-                    <section id="package-control-section" class="enhanced-card p-6">
-                         <div class="flex flex-col gap-3 mb-4 md:flex-row md:items-center md:justify-between">
-                            <h2 class="text-2xl font-semibold text-gray-800 flex items-center gap-3">
-                                <i class="fas fa-box-open text-purple-600"></i>
-                                Controle de Pacote: <span id="selected-student-name-header" class="font-bold text-purple-700" aria-live="polite"></span>
-                            </h2>
-                            <span id="package-status-chip" class="dashboard-chip bg-slate-100 text-slate-600">Sem pacote ativo</span>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <div class="flex justify-between items-center mb-1 font-medium">
-                                <span class="text-gray-600">Progresso do Pacote</span>
-                                <span id="package-progress-text" class="text-purple-600 font-bold" aria-live="polite">0 / 0 horas</span>
-                            </div>
-                            <div class="enhanced-progress"><div id="package-progress-bar" class="enhanced-progress-bar" style="width: 0%; background: linear-gradient(90deg, #9333ea, #db2777);"></div></div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-                            <div class="flex items-center justify-center gap-4 bg-gray-100 p-3 rounded-lg">
-                                <button id="remove-class-btn" class="enhanced-btn bg-red-500 text-white font-bold py-2 px-4 rounded-lg w-14 text-2xl hover:bg-red-600" aria-label="Remover uma aula">-</button>
-                                <div class="text-center">
-                                    <p class="font-semibold text-gray-800">Aulas Utilizadas</p>
-                                    <p id="class-count-display" class="text-4xl font-bold text-blue-600" aria-live="polite">0</p>
-                                </div>
-                                <button id="add-class-btn" class="enhanced-btn bg-green-500 text-white font-bold py-2 px-4 rounded-lg w-14 text-2xl hover:bg-green-600" aria-label="Adicionar uma aula">+</button>
-                            </div>
-
-                            <div class="space-y-2 bg-gray-100 p-3 rounded-lg text-center md:text-left">
-                                <div id="package-details">
-                                    <p><i class="fas fa-dollar-sign fa-fw text-green-600 mr-1"></i><strong>Valor:</strong> <span id="package-value-display">R$ 0,00</span></p>
-                                    <p><i class="fas fa-calendar-alt fa-fw text-blue-600 mr-1"></i><strong>Início:</strong> <span id="package-date-display">--/--/----</span></p>
-                                </div>
-                                <div id="no-package-message" class="hidden text-center text-red-600 font-semibold p-2 border border-red-200 bg-red-50 rounded-lg">
-                                    <i class="fas fa-exclamation-triangle mr-2"></i>Nenhum pacote ativo.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-4">
-                            <button id="new-package-btn" class="enhanced-btn w-full bg-purple-600 text-white font-semibold py-2.5 rounded-lg hover:bg-purple-700">
-                                <i class="fas fa-plus-circle mr-2"></i>Iniciar Novo Pacote
-                            </button>
-                        </div>
-                    </section>
-
-                    <section id="modules">
-                        <div class="flex flex-col gap-2 mb-4 md:flex-row md:items-center md:justify-between">
-                            <h2 class="text-2xl font-semibold text-gray-800 flex items-center gap-3">
-                                <i class="fas fa-graduation-cap text-gray-600"></i>
-                                Módulos do Curso
-                            </h2>
-                            <p id="modules-status" class="text-sm text-gray-500" aria-live="polite">Selecione um aluno para carregar os módulos.</p>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            </div>
-                    </section>
+                <div class="dashboard-empty-grid">
+                    <div class="kpi-card">
+                        <p class="kpi-label">Fluxo principal</p>
+                        <p class="kpi-helper">Escolha o aluno, veja o resumo e siga para a próxima aula sugerida.</p>
+                    </div>
+                    <div class="kpi-card">
+                        <p class="kpi-label">Operação</p>
+                        <p class="kpi-helper">Pacote, valor, horas usadas e acesso ao portal ficam no mesmo lugar.</p>
+                    </div>
+                    <div class="kpi-card">
+                        <p class="kpi-label">Didática</p>
+                        <p class="kpi-helper">A ideia é reduzir fricção antes e durante a aula, não só administrar cadastro.</p>
+                    </div>
                 </div>
             </div>
-        </main>
-    </div>
+        </section>
+
+        <div class="dashboard-layout mt-8">
+            <aside class="student-list-panel">
+                <section class="surface-card-strong p-5">
+                    <div>
+                        <div>
+                            <p class="kpi-label">Alunos</p>
+                            <h2 class="section-title mt-2">Escolha sua próxima aula</h2>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 mt-6">
+                        <div>
+                            <label for="student-search" class="block text-sm font-semibold muted-label mb-2">Buscar aluno</label>
+                            <input type="text" id="student-search" class="app-input" placeholder="Digite um nome">
+                        </div>
+                        <div>
+                            <label for="student-select" class="block text-sm font-semibold muted-label mb-2">Selecionar aluno</label>
+                            <select id="student-select" class="app-select" aria-label="Selecionar aluno">
+                                <option value="">Selecione um aluno...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="student-action-buttons" class="hidden mt-5 space-y-3">
+                        <a id="student-portal-btn" href="#" class="app-button student-portal-btn">
+                            <i class="fas fa-id-card"></i>
+                            Abrir portal do aluno
+                        </a>
+                        <button id="delete-student-btn" class="app-button danger-button w-full">
+                            <i class="fas fa-trash-can"></i>
+                            Excluir aluno
+                        </button>
+                    </div>
+                </section>
+            </aside>
+
+            <section class="dashboard-main">
+                <div id="no-student-selected" class="surface-card-strong p-6 md:p-8 text-center">
+                    <span class="neutral-pill mb-5"><i class="fas fa-compass"></i> Pronto para começar</span>
+                    <h2 class="section-title">Selecione um aluno para carregar o resumo da jornada.</h2>
+                    <p class="section-copy mt-4 max-w-2xl mx-auto">
+                        Assim que você escolher um aluno, o painel mostra pacote, progresso, última atividade, próxima lição sugerida e acesso rápido aos módulos.
+                    </p>
+                    <div class="dashboard-empty-grid mt-8 text-left">
+                        <div class="mini-stat">
+                            <p class="kpi-label">1. Escolha o aluno</p>
+                            <p class="kpi-helper mt-3">Use a busca ou a lista para abrir a visão individual.</p>
+                        </div>
+                        <div class="mini-stat">
+                            <p class="kpi-label">2. Veja o resumo</p>
+                            <p class="kpi-helper mt-3">Confira o pacote, o ritmo atual e o próximo ponto da trilha.</p>
+                        </div>
+                        <div class="mini-stat">
+                            <p class="kpi-label">3. Entre na aula</p>
+                            <p class="kpi-helper mt-3">Abra o portal do aluno ou acesse o módulo direto pelo painel.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="student-dashboard" class="hidden space-y-6">
+                    <section class="surface-card-strong p-5 md:p-6">
+                        <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                            <div>
+                                <p class="kpi-label">Aluno selecionado</p>
+                                <h2 class="section-title mt-2">
+                                    <span id="selected-student-name-header">Aluno</span>
+                                </h2>
+                                <p id="student-overview-copy" class="section-copy mt-3">Carregando visão geral da jornada.</p>
+                            </div>
+                            <span id="package-status-chip" class="info-chip bg-slate-100 text-slate-700">Sem pacote ativo</span>
+                        </div>
+
+                        <div class="summary-grid mt-6">
+                            <div class="kpi-card">
+                                <p class="kpi-label">Horas usadas</p>
+                                <p id="class-count-display" class="kpi-value">0</p>
+                                <p class="kpi-helper">Controle rápido do pacote em andamento.</p>
+                            </div>
+                            <div class="kpi-card">
+                                <p class="kpi-label">Próxima aula</p>
+                                <p id="next-lesson-display" class="kpi-value text-2xl">Aguardando</p>
+                                <p class="kpi-helper">Sugestão automática com base no progresso salvo.</p>
+                            </div>
+                            <div class="kpi-card">
+                                <p class="kpi-label">Última atividade</p>
+                                <p id="last-completed-display" class="kpi-value text-2xl">Aguardando</p>
+                                <p class="kpi-helper">Ajuda a retomar o contexto com rapidez.</p>
+                            </div>
+                            <div class="kpi-card">
+                                <p class="kpi-label">Módulo em foco</p>
+                                <p id="student-type-display" class="kpi-value text-2xl">Aguardando</p>
+                                <p class="kpi-helper">Trilha principal definida para o aluno.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="helper-grid">
+                        <div class="surface-card p-5 md:p-6">
+                            <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                                <div>
+                                    <p class="kpi-label">Controle do pacote</p>
+                                    <h3 class="section-title mt-2">Pacote e carga horária</h3>
+                                </div>
+                                <button id="new-package-btn" class="app-button-secondary">
+                                    <i class="fas fa-box-open"></i>
+                                    Iniciar novo pacote
+                                </button>
+                            </div>
+
+                            <div class="mt-6">
+                                <div class="flex items-center justify-between gap-4 text-sm font-semibold muted-label mb-2">
+                                    <span>Progresso do pacote</span>
+                                    <span id="package-progress-text">0 / 0 horas</span>
+                                </div>
+                                <div class="progress-track">
+                                    <div id="package-progress-bar" class="progress-fill" style="width: 0%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-[0.9fr_1.1fr] gap-4 mt-6">
+                                <div class="mini-stat">
+                                    <p class="kpi-label">Ajuste rápido</p>
+                                    <div class="flex items-center justify-center gap-4 mt-5">
+                                        <button id="remove-class-btn" class="app-button danger-button !px-5 !py-3" aria-label="Remover uma aula">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <div class="text-center">
+                                            <p class="text-sm font-semibold muted-label">Aulas utilizadas</p>
+                                            <p class="text-4xl font-black tracking-tight strong-text mt-2" id="class-count-display-secondary">0</p>
+                                        </div>
+                                        <button id="add-class-btn" class="app-button success-button !px-5 !py-3" aria-label="Adicionar uma aula">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="mini-stat">
+                                    <p class="kpi-label">Dados do pacote</p>
+                                    <div id="package-details" class="space-y-3 mt-5 text-sm md:text-base strong-text">
+                                        <p><strong>Valor:</strong> <span id="package-value-display">R$ 0,00</span></p>
+                                        <p><strong>Início:</strong> <span id="package-date-display">--/--/----</span></p>
+                                    </div>
+                                    <div id="no-package-message" class="hidden mt-5 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-rose-700 font-semibold">
+                                        Nenhum pacote ativo para este aluno.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="surface-card p-5 md:p-6">
+                            <p class="kpi-label">Atalho pedagógico</p>
+                            <h3 class="section-title mt-2">Resumo para a próxima aula</h3>
+                            <div class="space-y-4 mt-6">
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500">Última lição concluída</p>
+                                    <p id="teacher-last-lesson" class="text-lg font-bold strong-text mt-1">Aguardando</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500">Próxima recomendação</p>
+                                    <p id="teacher-next-lesson" class="text-lg font-bold strong-text mt-1">Aguardando</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold muted-label">Observação sugerida</p>
+                                    <p id="teacher-lesson-note" class="section-copy mt-2">Use este painel para abrir a trilha principal já com contexto do que vem a seguir.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="surface-card p-5 md:p-6">
+                        <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                            <div>
+                                <p class="kpi-label">Módulos do curso</p>
+                                <h3 class="section-title mt-2">Acesso rápido aos módulos</h3>
+                            </div>
+                            <p id="modules-status" class="section-copy">Selecione um aluno para carregar os módulos.</p>
+                        </div>
+                        <div class="module-grid mt-6"></div>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </main>
 
     <div id="add-student-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="add-student-modal-title" aria-hidden="true">
-        <div class="enhanced-card p-8 rounded-lg shadow-2xl w-full max-w-lg m-4">
+        <div class="app-modal p-6 md:p-8">
             <div class="flex items-start justify-between gap-4 mb-6">
-                <h2 id="add-student-modal-title" class="text-2xl font-bold text-gray-800">Adicionar Novo Aluno</h2>
-                    <button type="button" id="close-add-student-modal-btn" class="enhanced-btn shrink-0 bg-gray-300 text-gray-800 hover:bg-gray-400" aria-label="Fechar modal de adicionar aluno">
-                    <i class="fas fa-times" aria-hidden="true"></i>
+                <div>
+                    <p class="kpi-label">Novo aluno</p>
+                    <h2 id="add-student-modal-title" class="section-title mt-2">Cadastrar novo acesso</h2>
+                </div>
+                <button type="button" id="close-add-student-modal-btn" class="app-button-ghost" aria-label="Fechar modal de adicionar aluno">
+                    <i class="fas fa-xmark"></i>
                 </button>
             </div>
             <form id="add-student-form" class="space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label for="new-student-fullname" class="block text-sm font-medium text-gray-700 mb-1">Nome completo</label>
-                        <input type="text" id="new-student-fullname" class="enhanced-input w-full" placeholder="Nome Completo" autocomplete="name" required>
+                        <label for="new-student-fullname" class="block text-sm font-semibold muted-label mb-2">Nome completo</label>
+                        <input type="text" id="new-student-fullname" class="app-input" placeholder="Nome completo" autocomplete="name" required>
                     </div>
                     <div>
-                        <label for="new-student-username" class="block text-sm font-medium text-gray-700 mb-1">Nome de usuário</label>
-                        <input type="text" id="new-student-username" class="enhanced-input w-full" placeholder="Nome de Utilizador" autocomplete="username" required>
+                        <label for="new-student-username" class="block text-sm font-semibold muted-label mb-2">Nome de usuário</label>
+                        <input type="text" id="new-student-username" class="app-input" placeholder="usuario" autocomplete="username" required>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label for="new-student-password" class="block text-sm font-medium text-gray-700 mb-1">Senha inicial</label>
-                        <input type="password" id="new-student-password" class="enhanced-input w-full" placeholder="Senha Inicial" autocomplete="new-password" required>
+                        <label for="new-student-password" class="block text-sm font-semibold muted-label mb-2">Senha inicial</label>
+                        <input type="password" id="new-student-password" class="app-input" placeholder="Senha inicial" autocomplete="new-password" required>
                     </div>
                     <div>
-                        <label for="new-student-type" class="block text-sm font-medium text-gray-700 mb-1">Tipo de curso</label>
-                        <select id="new-student-type" class="enhanced-input w-full">
-                            <option value="a1">Módulo (A1)</option>
-                            <option value="a2">Módulo (A2)</option>
-                            <option value="conversation">Conversação</option>
+                        <label for="new-student-type" class="block text-sm font-semibold muted-label mb-2">Trilha principal</label>
+                        <select id="new-student-type" class="app-select">
+                            <option value="a1">Módulo A1</option>
+                            <option value="a2">Módulo A2</option>
+                            <option value="b1">Módulo B1</option>
+                            <option value="conversation">Conversation Club</option>
                             <option value="business">Inglês para Negócios</option>
-                            <option value="vestibular">Dicas para Vestibular</option>
+                            <option value="essentials">English Essentials</option>
+                            <option value="vestibular">Jornada Vestibular</option>
                         </select>
                     </div>
                 </div>
-                <div class="flex justify-end gap-4 pt-4">
-                    <button type="button" id="cancel-add-student-btn" class="enhanced-btn bg-gray-300 text-gray-800 hover:bg-gray-400">Cancelar</button>
-                    <button type="submit" id="add-student-btn" class="enhanced-btn bg-blue-600 text-white hover:bg-blue-700">Adicionar Aluno</button>
+                <div class="flex flex-col-reverse md:flex-row md:justify-end gap-3 pt-2">
+                    <button type="button" id="cancel-add-student-btn" class="app-button-secondary">Cancelar</button>
+                    <button type="submit" id="add-student-btn" class="app-button">Adicionar aluno</button>
                 </div>
             </form>
         </div>
     </div>
 
     <div id="new-package-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="new-package-modal-title" aria-hidden="true">
-        <div class="enhanced-card p-8 rounded-lg shadow-2xl w-full max-w-md m-4">
+        <div class="app-modal p-6 md:p-8" style="max-width: 560px;">
             <div class="flex items-start justify-between gap-4 mb-6">
-                <h2 id="new-package-modal-title" class="text-2xl font-bold text-gray-800">Iniciar Novo Pacote</h2>
-                <button type="button" id="close-package-modal-btn" class="enhanced-btn shrink-0 bg-gray-300 text-gray-800 hover:bg-gray-400" aria-label="Fechar modal de pacote">
-                    <i class="fas fa-times" aria-hidden="true"></i>
+                <div>
+                    <p class="kpi-label">Pacote</p>
+                    <h2 id="new-package-modal-title" class="section-title mt-2">Iniciar novo pacote</h2>
+                </div>
+                <button type="button" id="close-package-modal-btn" class="app-button-ghost" aria-label="Fechar modal de pacote">
+                    <i class="fas fa-xmark"></i>
                 </button>
             </div>
             <form id="new-package-form" class="space-y-4">
-                 <div>
-                    <label for="package-type" class="block text-sm font-medium text-gray-700 mb-1">Tipo de Pacote</label>
-                    <select id="package-type" class="enhanced-input w-full">
+                <div>
+                    <label for="package-type" class="block text-sm font-semibold muted-label mb-2">Tipo de pacote</label>
+                    <select id="package-type" class="app-select">
                         <option value="16">16 horas</option>
                         <option value="32">32 horas</option>
                     </select>
                 </div>
                 <div>
-                    <label for="package-value-input" class="block text-sm font-medium text-gray-700 mb-1">Valor Pago (R$)</label>
-                    <input type="number" id="package-value-input" class="enhanced-input w-full" placeholder="Ex: 700" inputmode="decimal" required>
+                    <label for="package-value-input" class="block text-sm font-semibold muted-label mb-2">Valor pago (R$)</label>
+                    <input type="number" id="package-value-input" class="app-input" placeholder="Ex: 700" inputmode="decimal" required>
                 </div>
                 <div>
-                    <label for="package-date-input" class="block text-sm font-medium text-gray-700 mb-1">Data de Início</label>
-                    <input type="date" id="package-date-input" class="enhanced-input w-full" required>
+                    <label for="package-date-input" class="block text-sm font-semibold muted-label mb-2">Data de início</label>
+                    <input type="date" id="package-date-input" class="app-input" required>
                 </div>
-                <p class="text-sm text-gray-500"><i class="fas fa-info-circle mr-1"></i>O contador de aulas será zerado.</p>
-                <div class="flex justify-end gap-4 pt-4">
-                    <button type="button" id="cancel-package-btn" class="enhanced-btn bg-gray-300 text-gray-800 hover:bg-gray-400">Cancelar</button>
-                    <button type="submit" id="confirm-package-btn" class="enhanced-btn bg-purple-600 text-white hover:bg-purple-700">Confirmar</button>
+                <p class="section-copy">Ao iniciar um novo pacote, o contador de aulas utilizadas volta para zero.</p>
+                <div class="flex flex-col-reverse md:flex-row md:justify-end gap-3 pt-2">
+                    <button type="button" id="cancel-package-btn" class="app-button-secondary">Cancelar</button>
+                    <button type="submit" id="confirm-package-btn" class="app-button">Confirmar pacote</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js" defer></script>
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/ui-feedback.js"></script>
     <script src="js/app.js"></script>
     <script src="js/student-management.js"></script>
 </body>

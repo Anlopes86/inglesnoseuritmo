@@ -4,20 +4,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('lessons-grid');
 
     const lessonTitles = [
-        "Hello, World!", "Where Are You From?", "My World", "The Alphabet & Numbers", "Contact Information",
-        "Everyday Objects", "This or That?", "Review (Module 1)", "My Daily Routine", "His/Her Routine",
-        "Do You Like Music?", "I Don't Like That", "Object Pronouns", "How Often?", "What Time Is It?",
-        "Review (Module 2)", "Possessive 's'", "My Job", "My House", "Where Is the Bank?",
-        "How much / many?", "A little / a few", "Can / Can't", "What Are You Doing?",
-        "Simple Present vs. Continuous", "Review (Module 3)", "Where Were You Born?", "What Did You Do Yesterday?",
-        "Questions in the Past", "Future Plans", "Final Review", "Final Project"
+        'Hello, World!', 'Where Are You From?', 'My World', 'The Alphabet & Numbers', 'Contact Information',
+        'Everyday Objects', 'This or That?', 'Review (Module 1)', 'My Daily Routine', 'His/Her Routine',
+        'Do You Like Music?', "I Don't Like That", 'Object Pronouns', 'How Often?', 'What Time Is It?',
+        'Review (Module 2)', "Possessive 's", 'My Job', 'My House', 'Where Is the Bank?',
+        'How Much / How Many?', 'A Little / A Few', "Can / Can't", 'What Are You Doing?',
+        'Simple Present vs. Continuous', 'Review (Module 3)', 'Where Were You Born?', 'What Did You Do Yesterday?',
+        'Questions in the Past', 'Future Plans', 'Final Review', 'Final Project'
     ];
 
     const unitLabels = [
-        "Foundations", "Foundations", "Foundations", "Foundations", "Foundations", "Foundations", "Foundations", "Checkpoint 1",
-        "Daily Life", "Daily Life", "Daily Life", "Daily Life", "Daily Life", "Daily Life", "Daily Life", "Checkpoint 2",
-        "Places & People", "Places & People", "Places & People", "Places & People", "Places & People", "Places & People", "Places & People", "Places & People",
-        "Places & People", "Checkpoint 3", "Past & Future", "Past & Future", "Past & Future", "Past & Future", "Final Review", "Final Project"
+        'Foundations', 'Foundations', 'Foundations', 'Foundations', 'Foundations', 'Foundations', 'Foundations', 'Checkpoint 1',
+        'Daily Life', 'Daily Life', 'Daily Life', 'Daily Life', 'Daily Life', 'Daily Life', 'Daily Life', 'Checkpoint 2',
+        'Places & People', 'Places & People', 'Places & People', 'Places & People', 'Places & People', 'Places & People', 'Places & People', 'Places & People',
+        'Places & People', 'Checkpoint 3', 'Past & Future', 'Past & Future', 'Past & Future', 'Past & Future', 'Final Review', 'Final Project'
     ];
 
     function buildLessonCard(title, lessonNumber, state, isProfessor) {
@@ -29,28 +29,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? 'fa-play-circle text-blue-500'
                 : 'fa-lock text-slate-400';
         const stateText = state === 'completed'
-            ? 'Concluida'
+            ? 'Concluída'
             : state === 'next'
-                ? 'Disponivel agora'
+                ? 'Disponível agora'
                 : 'Bloqueada';
 
         const card = document.createElement('a');
         card.href = canOpen ? `licao-${padded}.html` : '#';
-        card.className = `lesson-card bg-white rounded-3xl p-6 flex flex-col gap-4 ${state}`;
+        card.className = `lesson-card ${state}`;
         card.dataset.lesson = String(lessonNumber);
         card.setAttribute('aria-disabled', canOpen ? 'false' : 'true');
 
         card.innerHTML = `
-            <div class="flex items-center justify-between gap-3">
-                <span class="text-xs font-extrabold uppercase tracking-[0.2em] text-sky-600">${unitLabels[lessonNumber - 1]}</span>
+            <div class="lesson-card-top">
+                <span class="lesson-unit text-emerald-700">${unitLabels[lessonNumber - 1]}</span>
                 <i class="fas ${iconClass} text-2xl"></i>
             </div>
             <div>
-                <h3 class="font-bold text-lg text-slate-900 leading-snug">${title}</h3>
-                <p class="text-sm text-slate-500 mt-2">Licao ${lessonNumber}</p>
+                <h3 class="lesson-title">${title}</h3>
+                <p class="lesson-meta mt-2">Lição ${lessonNumber}</p>
             </div>
-            <div class="mt-auto text-sm text-slate-600 flex items-center gap-2">
-                <i class="fas ${state === 'locked' ? 'fa-lock' : state === 'completed' ? 'fa-award' : 'fa-forward'} text-sky-500"></i>
+            <div class="lesson-state">
+                <i class="fas ${state === 'locked' ? 'fa-lock' : state === 'completed' ? 'fa-award' : 'fa-forward'} text-emerald-600"></i>
                 ${stateText}
             </div>
         `;
@@ -65,25 +65,17 @@ document.addEventListener('DOMContentLoaded', () => {
     async function resolveViewerContext() {
         const role = localStorage.getItem('loggedInUserRole') || 'aluno';
         if (role === 'professor') {
-            return {
-                role,
-                studentId: localStorage.getItem('selectedStudentId')
-            };
+            return { role, studentId: localStorage.getItem('selectedStudentId') };
         }
 
         const user = firebase.auth().currentUser;
-        return {
-            role,
-            studentId: user ? user.uid : null
-        };
+        return { role, studentId: user ? user.uid : null };
     }
 
     async function loadLessons() {
         try {
             const { role, studentId } = await resolveViewerContext();
-            if (!studentId) {
-                throw new Error('Usuario nao identificado.');
-            }
+            if (!studentId) throw new Error('Usuário não identificado.');
 
             const isProfessor = role === 'professor';
             const doc = await db.collection('students').doc(studentId).get();
@@ -91,9 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const progress = allProgress.a1 || {};
 
             let firstUncompleted = lessonTitles.findIndex((_, index) => progress[`lesson_${index + 1}`] !== true) + 1;
-            if (firstUncompleted === 0) {
-                firstUncompleted = lessonTitles.length + 1;
-            }
+            if (firstUncompleted === 0) firstUncompleted = lessonTitles.length + 1;
 
             grid.innerHTML = '';
             lessonTitles.forEach((title, index) => {
@@ -106,8 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
             loadingDiv.classList.add('hidden');
             grid.classList.remove('hidden');
         } catch (error) {
-            console.error('Erro ao carregar licoes A1:', error);
-            loadingDiv.textContent = 'Erro ao carregar licoes.';
+            console.error('Erro ao carregar lições A1:', error);
+            loadingDiv.textContent = 'Erro ao carregar lições.';
         }
     }
 
@@ -115,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (localStorage.getItem('loggedInUserRole') === 'professor' || firebase.auth().currentUser) {
             loadLessons();
         } else {
-            loadingDiv.textContent = 'Por favor, faca login para ver as licoes.';
+            loadingDiv.textContent = 'Faça login para ver as lições.';
         }
     });
 });

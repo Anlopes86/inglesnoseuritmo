@@ -3,90 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo Conversation | Inglês no seu Ritmo</title>
+    <title>Conversation Club | Inglês no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="../css/app-theme.css" rel="stylesheet">
+    <link href="../css/module-hub.css" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .lesson-card {
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
-            border: 1px solid #334155;
+        body.module-hub {
+            background:
+                radial-gradient(circle at top, rgba(168, 85, 247, 0.12), transparent 28%),
+                linear-gradient(180deg, #0f172a 0%, #111827 45%, #0f172a 100%);
+            color: white;
+        }
+        [data-theme="light"] body.module-hub {
+            background: var(--app-bg);
+            color: var(--text-main);
+        }
+        .dark-surface {
+            background: rgba(15, 23, 42, 0.72);
+            border: 1px solid rgba(51, 65, 85, 0.95);
+            box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.52);
+        }
+        .dark-surface .section-title,
+        .dark-surface .lesson-title,
+        .dark-surface .kpi-value {
+            color: white;
+        }
+        .dark-surface .section-copy,
+        .dark-surface .kpi-helper,
+        .dark-surface .lesson-meta,
+        .dark-surface .lesson-state {
+            color: #cbd5e1;
+        }
+        .dark-surface .lesson-card {
             background: rgba(15, 23, 42, 0.82);
+            border-color: rgba(51, 65, 85, 0.95);
         }
-        .lesson-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 30px -18px rgba(88, 28, 135, 0.42);
-            border-color: #e879f9;
+        .dark-surface .lesson-card.completed {
+            background: rgba(20, 83, 45, 0.26);
+            border-color: rgba(34, 197, 94, 0.55);
         }
-        .lesson-card.completed {
-            background: rgba(20, 83, 45, 0.28);
-            border-color: #22c55e;
-        }
-        .lesson-card.next {
+        .dark-surface .lesson-card.next {
             background: rgba(88, 28, 135, 0.24);
-            border-color: #c026d3;
-            box-shadow: 0 0 0 4px rgba(192, 38, 211, 0.12);
+            border-color: rgba(217, 70, 239, 0.56);
+            box-shadow: 0 0 0 5px rgba(217, 70, 239, 0.1);
         }
-        .lesson-card.locked {
-            background: rgba(15, 23, 42, 0.52);
-            border-color: #334155;
-            opacity: 0.7;
-            cursor: not-allowed;
+        .dark-surface .lesson-card.locked {
+            background: rgba(15, 23, 42, 0.5);
         }
-        .lesson-card.locked:hover {
-            transform: none;
-            box-shadow: none;
-            border-color: #334155;
+        .module-back-link {
+            background: rgba(15, 23, 42, 0.65);
+            border-color: rgba(51, 65, 85, 0.9);
+            color: #e2e8f0;
+        }
+        .module-back-link:hover {
+            color: white;
+        }
+        .conversation-hero {
+            background:
+                radial-gradient(circle at top left, rgba(217, 70, 239, 0.16), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.14), transparent 32%),
+                linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.9));
+        }
+        [data-theme="light"] .dark-surface {
+            background: var(--surface-strong-bg);
+            border: 1px solid var(--surface-border);
+            box-shadow: var(--surface-shadow-soft);
+        }
+        [data-theme="light"] .dark-surface .section-title,
+        [data-theme="light"] .dark-surface .lesson-title,
+        [data-theme="light"] .dark-surface .kpi-value {
+            color: var(--text-strong);
+        }
+        [data-theme="light"] .dark-surface .section-copy,
+        [data-theme="light"] .dark-surface .kpi-helper,
+        [data-theme="light"] .dark-surface .lesson-meta,
+        [data-theme="light"] .dark-surface .lesson-state {
+            color: var(--text-muted);
+        }
+        [data-theme="light"] .dark-surface .lesson-card {
+            background: var(--surface-strong-bg);
+            border-color: var(--surface-border);
+        }
+        [data-theme="light"] .dark-surface .lesson-card.completed {
+            background: linear-gradient(180deg, rgba(236, 253, 245, 0.96), rgba(255, 255, 255, 0.98));
+            border-color: rgba(16, 185, 129, 0.55);
+        }
+        [data-theme="light"] .dark-surface .lesson-card.next {
+            background: linear-gradient(180deg, rgba(250, 245, 255, 0.98), rgba(255, 255, 255, 0.98));
+            border-color: rgba(217, 70, 239, 0.56);
+            box-shadow: 0 0 0 5px rgba(217, 70, 239, 0.1);
+        }
+        [data-theme="light"] .dark-surface .lesson-card.locked {
+            background: var(--surface-bg);
+        }
+        [data-theme="light"] .module-back-link {
+            background: var(--surface-bg);
+            border-color: var(--surface-border);
+            color: var(--text-muted);
+        }
+        [data-theme="light"] .module-back-link:hover {
+            color: var(--text-strong);
+        }
+        [data-theme="light"] .conversation-hero {
+            background:
+                radial-gradient(circle at top left, rgba(217, 70, 239, 0.12), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.12), transparent 32%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.94));
+        }
+        [data-theme="light"] .conversation-hero .eyebrow {
+            color: #86198f !important;
+            border-color: rgba(217, 70, 239, 0.24) !important;
+            background: rgba(250, 245, 255, 0.98) !important;
+        }
+        [data-theme="light"] .conversation-hero .text-white,
+        [data-theme="light"] .dark-surface .text-white {
+            color: var(--text-strong) !important;
+        }
+        [data-theme="light"] .conversation-hero .text-slate-300,
+        [data-theme="light"] .dark-surface .text-slate-300,
+        [data-theme="light"] .dark-surface .text-slate-400 {
+            color: var(--text-muted) !important;
+        }
+        [data-theme="light"] .dark-surface .text-fuchsia-300 {
+            color: #a21caf !important;
+        }
+        .conversation-header {
+            background: rgba(15, 23, 42, 0.72);
+            border-bottom-color: rgba(51, 65, 85, 0.9);
+        }
+        [data-theme="light"] .conversation-header {
+            background: var(--header-bg);
+            border-bottom-color: var(--header-border);
         }
     </style>
 </head>
-<body data-module="conversation" class="bg-slate-950 text-slate-100">
-    <header class="bg-slate-950/90 border-b border-slate-800 shadow-sm sticky top-0 z-50 backdrop-blur">
-        <div class="container mx-auto px-6 py-4">
-            <a href="../home-aluno.html" data-portal-back class="text-lg font-bold text-fuchsia-300 hover:text-fuchsia-200 flex items-center gap-2">
-                <i class="fas fa-chevron-left"></i> Voltar ao Portal
+<body data-module="conversation" class="module-hub app-shell">
+    <header class="glass-header conversation-header">
+        <div class="app-container py-4 flex items-center justify-between gap-3">
+            <a href="../home-aluno.html" data-portal-back class="module-back-link">
+                <i class="fas fa-chevron-left"></i>
+                Voltar ao portal
             </a>
+            <button type="button" class="theme-toggle" data-theme-toggle aria-label="Alternar tema"></button>
         </div>
     </header>
 
-    <main class="container mx-auto px-6 py-10">
-        <section class="max-w-5xl mx-auto text-center mb-12">
-            <span class="inline-flex items-center gap-2 bg-fuchsia-500/10 border border-fuchsia-500/20 text-fuchsia-300 px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-[0.18em]">
-                <i class="fas fa-comments"></i> Conversation Club
-            </span>
-            <h1 class="text-4xl md:text-5xl font-extrabold mt-5 text-white">Conversation: temas fortes para falar com mais naturalidade</h1>
-            <p class="text-lg text-slate-300 mt-4 max-w-3xl mx-auto">
-                Esta trilha foi pensada para destravar a fala com assuntos interessantes, músicas, opiniões, debates e perguntas que puxam conversa real sem cair em respostas automáticas.
-            </p>
+    <main class="app-container module-shell">
+        <section class="conversation-hero dark-surface module-hero">
+            <div>
+                <span class="eyebrow" style="background: rgba(217, 70, 239, 0.12); color: #f5d0fe; border-color: rgba(217, 70, 239, 0.22);">
+                    <i class="fas fa-comments"></i> Conversation Club
+                </span>
+                <h1 class="app-title mt-5 text-white" style="font-family: 'Sora', sans-serif;">Temas fortes para falar com mais naturalidade.</h1>
+                <p class="app-lead mt-5 text-slate-300">
+                    Esta trilha foi pensada para destravar a fala com assuntos interessantes, músicas, opiniões e debates que puxam conversa real.
+                </p>
+                <div class="module-summary-grid mt-8">
+                    <div class="dark-surface module-summary-card rounded-[24px]">
+                        <p class="kpi-label text-fuchsia-300">Foco</p>
+                        <p class="kpi-helper mt-3">Fluência, opinião, espontaneidade e repertório temático.</p>
+                    </div>
+                    <div class="dark-surface module-summary-card rounded-[24px]">
+                        <p class="kpi-label text-fuchsia-300">Formato</p>
+                        <p class="kpi-helper mt-3">Warm-up, expressões, música, debate, prática guiada e reflexão final.</p>
+                    </div>
+                    <div class="dark-surface module-summary-card rounded-[24px]">
+                        <p class="kpi-label text-fuchsia-300">Resultado</p>
+                        <p class="kpi-helper mt-3">Mais vocabulário vivo, respostas menos travadas e conversas com mais personalidade.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dark-surface p-6 rounded-[28px]">
+                <p class="kpi-label text-fuchsia-300">Quando usar</p>
+                <h2 class="section-title mt-3 text-white">Ideal para aulas que pedem mais fala e menos trava</h2>
+                <div class="space-y-4 mt-6">
+                    <div>
+                        <p class="text-sm font-semibold text-slate-400">Aulas particulares</p>
+                        <p class="section-copy mt-1">Funciona muito bem como trilha principal ou complementar para alunos que precisam falar mais.</p>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-slate-400">Temas memoráveis</p>
+                        <p class="section-copy mt-1">As músicas e perguntas ajudam a sair do padrão engessado de livro e aquecer a conversa.</p>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-slate-400">Repertório vivo</p>
+                        <p class="section-copy mt-1">Cada lição amplia ideias, opinião, vocabulário e escuta de um jeito mais envolvente.</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section class="max-w-6xl mx-auto grid md:grid-cols-3 gap-4 mb-10">
-            <div class="bg-slate-900/80 rounded-2xl p-6 shadow-sm border border-slate-800">
-                <p class="text-sm uppercase tracking-[0.2em] text-fuchsia-400 font-bold">Foco</p>
-                <p class="text-slate-300 mt-2">Fluência, opinião, espontaneidade, repertório temático e mais segurança para sustentar conversas.</p>
+        <section class="dark-surface rounded-[32px] p-6 mt-6">
+            <div class="module-status">
+                <div>
+                    <p class="kpi-label text-fuchsia-300">Lições</p>
+                    <h2 class="section-title mt-2 text-white">Trilha completa do Conversation Club</h2>
+                </div>
+                <p id="loading" class="section-copy"><i class="fas fa-spinner fa-spin mr-2"></i>Carregando lições...</p>
             </div>
-            <div class="bg-slate-900/80 rounded-2xl p-6 shadow-sm border border-slate-800">
-                <p class="text-sm uppercase tracking-[0.2em] text-fuchsia-400 font-bold">Formato</p>
-                <p class="text-slate-300 mt-2">Warm-up, expressões, músicas, debates, prática guiada e reflexão final em cada lição.</p>
-            </div>
-            <div class="bg-slate-900/80 rounded-2xl p-6 shadow-sm border border-slate-800">
-                <p class="text-sm uppercase tracking-[0.2em] text-fuchsia-400 font-bold">Resultado</p>
-                <p class="text-slate-300 mt-2">Mais vocabulário vivo, respostas menos travadas e conversas com mais personalidade e profundidade.</p>
-            </div>
+            <div id="lessons-grid" class="module-grid hidden"></div>
         </section>
-
-        <div id="loading" class="text-center text-slate-400">
-            <i class="fas fa-spinner fa-spin mr-2"></i> Carregando lições...
-        </div>
-
-        <div id="lessons-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 hidden"></div>
     </main>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
+    <script src="../js/theme-toggle.js"></script>
     <script src="../js/conversation-module.js"></script>
     <script src="../js/portal-back-link.js"></script>
 </body>
