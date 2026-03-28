@@ -31,7 +31,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 32: Final Project</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-violet-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -144,6 +144,68 @@
                 <div class="section-card p-8 max-w-4xl mx-auto text-left">
                     <p class="text-xl mb-8 text-slate-600">Treine respostas orais mais completas com esses cartões de entrevista.</p>
                     <div id="interview-cards" class="space-y-5"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Rehearsal Builder">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-violet-700">Rehearse your final project</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6 items-start">
+                        <div class="activity-lab">
+                            <p class="activity-lab-title">Monte a versão oral final</p>
+                            <p class="text-slate-600 mb-4">Essa etapa transforma o projeto numa apresentação praticável, com escolhas guiadas e fala pronta para ser ensaiada.</p>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Start</p>
+                                    <div class="option-cloud" data-rehearsal-group="start">
+                                        <button type="button" class="option-chip" data-rehearsal-value="My name is Diego and I am from Brazil.">name and country</button>
+                                        <button type="button" class="option-chip" data-rehearsal-value="I am a student and I live with my family.">role and family</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Routine</p>
+                                    <div class="option-cloud" data-rehearsal-group="routine">
+                                        <button type="button" class="option-chip" data-rehearsal-value="I usually study in the evening and drink coffee in the morning.">study and coffee</button>
+                                        <button type="button" class="option-chip" data-rehearsal-value="I like music and I can cook simple meals.">likes and ability</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Past</p>
+                                    <div class="option-cloud" data-rehearsal-group="past">
+                                        <button type="button" class="option-chip" data-rehearsal-value="Yesterday I visited my cousin after work.">visited my cousin</button>
+                                        <button type="button" class="option-chip" data-rehearsal-value="Last weekend I was at home with my family.">was at home with family</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Future</p>
+                                    <div class="option-cloud" data-rehearsal-group="future">
+                                        <button type="button" class="option-chip" data-rehearsal-value="Tomorrow I am going to study again.">study again</button>
+                                        <button type="button" class="option-chip" data-rehearsal-value="Next weekend I am going to visit my family.">visit my family</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div id="rehearsal-preview" class="preview-card">
+                                <p class="lesson-panel-title mb-3">Final rehearsal</p>
+                                <p id="rehearsal-preview-text" class="text-lg leading-8 text-slate-500">Escolha um bloco de cada grupo para montar a versão oral do seu projeto final.</p>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Teacher use</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">1. Monte uma primeira fala segura.</div>
+                                    <div class="prompt-card">2. Peça repetição em voz alta com pausas claras.</div>
+                                    <div class="prompt-card">3. Troque um bloco para mostrar flexibilidade.</div>
+                                </div>
+                                <div class="mt-5 flex flex-wrap gap-3">
+                                    <button id="speak-rehearsal-btn" type="button" class="speak-btn"><i class="fas fa-volume-up"></i> Ouvir ensaio</button>
+                                    <button id="reset-rehearsal-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Limpar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -354,11 +416,55 @@
             `).join('');
         }
 
+        const rehearsalState = { start: '', routine: '', past: '', future: '' };
+        const rehearsalPreview = document.getElementById('rehearsal-preview');
+        const rehearsalPreviewText = document.getElementById('rehearsal-preview-text');
+
+        function updateRehearsalPreview() {
+            if (!rehearsalPreview || !rehearsalPreviewText) return;
+            const parts = Object.values(rehearsalState).filter(Boolean);
+            if (!parts.length) {
+                rehearsalPreview.classList.remove('is-complete');
+                rehearsalPreviewText.textContent = 'Escolha um bloco de cada grupo para montar a versão oral do seu projeto final.';
+                return;
+            }
+            rehearsalPreviewText.textContent = parts.join(' ');
+            rehearsalPreview.classList.toggle('is-complete', Object.values(rehearsalState).every(Boolean));
+        }
+
         document.addEventListener('click', (event) => {
             const revealBuilderBtn = event.target.closest('[data-reveal-builder]');
-            if (!revealBuilderBtn) return;
-            revealBuilder(parseInt(revealBuilderBtn.dataset.revealBuilder, 10));
+            if (revealBuilderBtn) {
+                revealBuilder(parseInt(revealBuilderBtn.dataset.revealBuilder, 10));
+                return;
+            }
+
+            const chip = event.target.closest('.option-chip[data-rehearsal-value]');
+            if (!chip) return;
+            const group = chip.closest('[data-rehearsal-group]')?.dataset.rehearsalGroup;
+            if (!group) return;
+            chip.closest('[data-rehearsal-group]')?.querySelectorAll('.option-chip').forEach((item) => item.classList.remove('is-active'));
+            chip.classList.add('is-active');
+            rehearsalState[group] = chip.dataset.rehearsalValue || '';
+            updateRehearsalPreview();
         });
+
+        document.getElementById('reset-rehearsal-btn')?.addEventListener('click', () => {
+            Object.keys(rehearsalState).forEach((key) => { rehearsalState[key] = ''; });
+            document.querySelectorAll('.option-chip[data-rehearsal-value]').forEach((chip) => chip.classList.remove('is-active'));
+            updateRehearsalPreview();
+        });
+
+        document.getElementById('speak-rehearsal-btn')?.addEventListener('click', () => {
+            const text = Object.values(rehearsalState).filter(Boolean).join(' ');
+            if (!text) return;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        });
+
+        updateRehearsalPreview();
     });
     </script>
     <script src="../js/lesson-flashcard-save.js"></script>

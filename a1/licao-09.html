@@ -41,7 +41,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 9: My Daily Routine</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-teal-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -183,6 +183,44 @@
                         </div>
                     </div>
                     <textarea rows="6" class="mt-5 w-full p-4 border-2 border-slate-200 rounded-xl focus:border-teal-500 outline-none transition-colors" placeholder="Write the answers from the interview or your own routine here..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Routine Builder">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-teal-700">Build a routine in order</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[1fr_1fr] gap-6 items-start">
+                        <div class="activity-lab">
+                            <p class="activity-lab-title">Arraste mentalmente a rotina para a ordem certa</p>
+                            <p class="text-slate-600 mb-4">Em vez de só completar frases, o aluno organiza a lógica do dia. Isso ajuda a fixar vocabulário e conectores como <strong>first</strong>, <strong>then</strong> e <strong>finally</strong>.</p>
+                            <div class="option-cloud" id="routine-option-cloud">
+                                <button type="button" class="option-chip" data-routine-step="First, I wake up at 6:30.">wake up at 6:30</button>
+                                <button type="button" class="option-chip" data-routine-step="Then, I have breakfast at home.">have breakfast at home</button>
+                                <button type="button" class="option-chip" data-routine-step="After that, I go to work by bus.">go to work by bus</button>
+                                <button type="button" class="option-chip" data-routine-step="At night, I study English for one hour.">study English at night</button>
+                                <button type="button" class="option-chip" data-routine-step="Finally, I go to bed at 11:00.">go to bed at 11:00</button>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="sequence-builder">
+                                <div id="routine-sequence-track" class="sequence-track">
+                                    <div class="sequence-step"><span class="sequence-step-index">1</span><span>Escolha a primeira ação da rotina.</span></div>
+                                    <div class="sequence-step"><span class="sequence-step-index">2</span><span>Depois, adicione a próxima ação.</span></div>
+                                    <div class="sequence-step"><span class="sequence-step-index">3</span><span>Continue até fechar o dia.</span></div>
+                                </div>
+                            </div>
+                            <div id="routine-preview" class="preview-card">
+                                <p class="lesson-panel-title mb-3">Mini rotina montada</p>
+                                <p id="routine-preview-text" class="text-lg leading-8 text-slate-500">Monte pelo menos três passos para ver a rotina completa ganhar forma.</p>
+                            </div>
+                            <div class="flex flex-wrap gap-3">
+                                <button id="speak-routine-btn" type="button" class="speak-btn"><i class="fas fa-volume-up"></i> Ouvir sequência</button>
+                                <button id="reset-routine-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Recomeçar</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -372,6 +410,59 @@
             });
         });
 
+        const routineState = [];
+        const routineTrack = document.getElementById('routine-sequence-track');
+        const routinePreviewText = document.getElementById('routine-preview-text');
+        const routinePreview = document.getElementById('routine-preview');
+
+        function renderRoutineBuilder() {
+            if (routineTrack) {
+                routineTrack.innerHTML = routineState.length
+                    ? routineState.map((step, index) => `<div class="sequence-step"><span class="sequence-step-index">${index + 1}</span><span>${step}</span></div>`).join('')
+                    : `
+                        <div class="sequence-step"><span class="sequence-step-index">1</span><span>Escolha a primeira ação da rotina.</span></div>
+                        <div class="sequence-step"><span class="sequence-step-index">2</span><span>Depois, adicione a próxima ação.</span></div>
+                        <div class="sequence-step"><span class="sequence-step-index">3</span><span>Continue até fechar o dia.</span></div>
+                    `;
+            }
+
+            if (routinePreview && routinePreviewText) {
+                if (!routineState.length) {
+                    routinePreview.classList.remove('is-complete');
+                    routinePreviewText.textContent = 'Monte pelo menos três passos para ver a rotina completa ganhar forma.';
+                    return;
+                }
+
+                routinePreviewText.textContent = routineState.join(' ');
+                routinePreview.classList.toggle('is-complete', routineState.length >= 4);
+            }
+        }
+
+        document.addEventListener('click', (event) => {
+            const routineChip = event.target.closest('.option-chip[data-routine-step]');
+            if (!routineChip) return;
+            const step = routineChip.dataset.routineStep || '';
+            if (routineChip.classList.contains('is-active') || !step) return;
+            routineChip.classList.add('is-active');
+            routineState.push(step);
+            renderRoutineBuilder();
+        });
+
+        document.getElementById('reset-routine-btn')?.addEventListener('click', () => {
+            routineState.splice(0, routineState.length);
+            document.querySelectorAll('.option-chip[data-routine-step]').forEach((chip) => chip.classList.remove('is-active'));
+            renderRoutineBuilder();
+        });
+
+        document.getElementById('speak-routine-btn')?.addEventListener('click', () => {
+            if (!routineState.length) return;
+            const utterance = new SpeechSynthesisUtterance(routineState.join(' '));
+            utterance.lang = 'en-US';
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        });
+
+        renderRoutineBuilder();
         showSlide(0);
     });
     </script>

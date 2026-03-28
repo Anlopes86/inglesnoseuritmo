@@ -30,7 +30,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 31: Final Review</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-yellow-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -120,6 +120,68 @@
                         <p>2. Yesterday, she <input data-answer="visited" class="practice-input"> her cousin. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: visitou</span></p>
                         <p>3. Next weekend, she is going to <input data-answer="travel" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: viajar</span></p>
                         <p>4. She <input data-answer="can't" class="practice-input"> drive. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: n?o consegue</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Profile Builder">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-yellow-700">Build your final A1 profile</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6 items-start">
+                        <div class="activity-lab">
+                            <p class="activity-lab-title">Monte o ensaio do projeto final</p>
+                            <p class="text-slate-600 mb-4">Aqui a revisão vira produção organizada. O aluno escolhe um bloco de cada tempo e monta uma fala pronta para a aula 32.</p>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Who you are</p>
+                                    <div class="option-cloud" data-final-group="identity">
+                                        <button type="button" class="option-chip" data-final-value="My name is Diego and I am from Brazil.">name and country</button>
+                                        <button type="button" class="option-chip" data-final-value="I am a student and I live with my family.">role and home</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Routine</p>
+                                    <div class="option-cloud" data-final-group="routine">
+                                        <button type="button" class="option-chip" data-final-value="I usually study English at night.">study at night</button>
+                                        <button type="button" class="option-chip" data-final-value="I usually drink coffee in the morning.">drink coffee in the morning</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Yesterday</p>
+                                    <div class="option-cloud" data-final-group="yesterday">
+                                        <button type="button" class="option-chip" data-final-value="Yesterday I visited my cousin after work.">visited my cousin</button>
+                                        <button type="button" class="option-chip" data-final-value="Yesterday I was at home at night.">was at home at night</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Tomorrow</p>
+                                    <div class="option-cloud" data-final-group="tomorrow">
+                                        <button type="button" class="option-chip" data-final-value="Tomorrow I am going to study again.">study again</button>
+                                        <button type="button" class="option-chip" data-final-value="Tomorrow I am going to visit my family.">visit my family</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div id="final-preview" class="preview-card">
+                                <p class="lesson-panel-title mb-3">A1 profile preview</p>
+                                <p id="final-preview-text" class="text-lg leading-8 text-slate-500">Escolha um bloco de cada grupo para montar um ensaio claro para o projeto final.</p>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Teacher use</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">1. Monte a primeira versão da fala.</div>
+                                    <div class="prompt-card">2. Troque um bloco para variar sem recomeçar do zero.</div>
+                                    <div class="prompt-card">3. Use isso como ensaio oral da aula 32.</div>
+                                </div>
+                                <div class="mt-5 flex flex-wrap gap-3">
+                                    <button id="speak-final-profile-btn" type="button" class="speak-btn"><i class="fas fa-volume-up"></i> Ouvir perfil</button>
+                                    <button id="reset-final-profile-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Limpar</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -230,6 +292,50 @@
             if (!value) return;
             input.classList.add(value === answer ? 'correct' : 'incorrect');
         }));
+
+        const finalState = { identity: '', routine: '', yesterday: '', tomorrow: '' };
+        const finalPreview = document.getElementById('final-preview');
+        const finalPreviewText = document.getElementById('final-preview-text');
+
+        function updateFinalPreview() {
+            if (!finalPreview || !finalPreviewText) return;
+            const parts = Object.values(finalState).filter(Boolean);
+            if (!parts.length) {
+                finalPreview.classList.remove('is-complete');
+                finalPreviewText.textContent = 'Escolha um bloco de cada grupo para montar um ensaio claro para o projeto final.';
+                return;
+            }
+            finalPreviewText.textContent = parts.join(' ');
+            finalPreview.classList.toggle('is-complete', Object.values(finalState).every(Boolean));
+        }
+
+        document.addEventListener('click', (event) => {
+            const chip = event.target.closest('.option-chip[data-final-value]');
+            if (!chip) return;
+            const group = chip.closest('[data-final-group]')?.dataset.finalGroup;
+            if (!group) return;
+            chip.closest('[data-final-group]')?.querySelectorAll('.option-chip').forEach((item) => item.classList.remove('is-active'));
+            chip.classList.add('is-active');
+            finalState[group] = chip.dataset.finalValue || '';
+            updateFinalPreview();
+        });
+
+        document.getElementById('reset-final-profile-btn')?.addEventListener('click', () => {
+            Object.keys(finalState).forEach((key) => { finalState[key] = ''; });
+            document.querySelectorAll('.option-chip[data-final-value]').forEach((chip) => chip.classList.remove('is-active'));
+            updateFinalPreview();
+        });
+
+        document.getElementById('speak-final-profile-btn')?.addEventListener('click', () => {
+            const text = Object.values(finalState).filter(Boolean).join(' ');
+            if (!text) return;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        });
+
+        updateFinalPreview();
         prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
         showSlide(0);

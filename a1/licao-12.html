@@ -45,7 +45,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 12: I Don't Like That</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-red-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -170,6 +170,60 @@
                         <div class="opinion-card bg-white p-5 rounded-2xl shadow-sm" data-item="spicy food"><h3 class="text-2xl font-bold">Spicy food</h3><p class="text-slate-500">Say: I like spicy food / I don't like spicy food.</p></div>
                     </div>
                     <div class="mt-6 callout-note"><strong>Desafio:</strong> depois de falar sobre você, fale sobre alguém da sua família: <strong>My mother doesn't like...</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Opinion Radar">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-red-700">Opinion radar</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[1fr_1fr] gap-6 items-start">
+                        <div class="activity-lab">
+                            <p class="activity-lab-title">Classifique e contraste opiniões</p>
+                            <p class="text-slate-600 mb-4">Em vez de só dizer “like” ou “don't like”, o aluno organiza preferências e produz contraste com <strong>but</strong>.</p>
+                            <div class="option-cloud" id="opinion-radar">
+                                <button type="button" class="option-chip" data-opinion-item="coffee">coffee</button>
+                                <button type="button" class="option-chip" data-opinion-item="tea">tea</button>
+                                <button type="button" class="option-chip" data-opinion-item="soccer">soccer</button>
+                                <button type="button" class="option-chip" data-opinion-item="horror movies">horror movies</button>
+                                <button type="button" class="option-chip" data-opinion-item="spicy food">spicy food</button>
+                                <button type="button" class="option-chip" data-opinion-item="romantic films">romantic films</button>
+                            </div>
+                            <div class="mt-5 grid md:grid-cols-2 gap-4">
+                                <div class="activity-card">
+                                    <p class="lesson-panel-title mb-2">Like</p>
+                                    <div id="likes-bucket" class="prompt-stack">
+                                        <div class="prompt-card">Clique nos itens que o aluno gosta.</div>
+                                    </div>
+                                </div>
+                                <div class="activity-card">
+                                    <p class="lesson-panel-title mb-2">Don't like</p>
+                                    <div id="dislikes-bucket" class="prompt-stack">
+                                        <div class="prompt-card">Depois, clique em outros itens para marcar os desgostos.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div id="opinion-preview" class="preview-card">
+                                <p class="lesson-panel-title mb-3">Contrast sentence</p>
+                                <p id="opinion-preview-text" class="text-lg leading-8 text-slate-500">Monte duas preferências para gerar uma frase com contraste.</p>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Teacher use</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">1. Escolha um item que o aluno gosta.</div>
+                                    <div class="prompt-card">2. Escolha um item que o aluno não gosta.</div>
+                                    <div class="prompt-card">3. Transforme em fala completa com <strong>but</strong>.</div>
+                                </div>
+                                <div class="mt-5 flex flex-wrap gap-3">
+                                    <button id="toggle-opinion-mode-btn" type="button" class="reveal-chip"><i class="fas fa-shuffle"></i> Alternar like / don't like</button>
+                                    <button id="reset-opinion-radar-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Limpar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -350,11 +404,75 @@
             });
         });
 
+        let radarMode = 'like';
+        const radarState = {
+            like: [],
+            dislike: []
+        };
+        const likesBucket = document.getElementById('likes-bucket');
+        const dislikesBucket = document.getElementById('dislikes-bucket');
+        const opinionPreview = document.getElementById('opinion-preview');
+        const opinionPreviewText = document.getElementById('opinion-preview-text');
+
+        function renderRadarBuckets() {
+            if (likesBucket) {
+                likesBucket.innerHTML = radarState.like.length
+                    ? radarState.like.map((item) => `<div class="prompt-card is-done">I like ${item}.</div>`).join('')
+                    : '<div class="prompt-card">Clique nos itens que o aluno gosta.</div>';
+            }
+
+            if (dislikesBucket) {
+                dislikesBucket.innerHTML = radarState.dislike.length
+                    ? radarState.dislike.map((item) => `<div class="prompt-card is-done">I don\\'t like ${item}.</div>`).join('')
+                    : '<div class="prompt-card">Depois, clique em outros itens para marcar os desgostos.</div>';
+            }
+
+            if (opinionPreview && opinionPreviewText) {
+                const likeItem = radarState.like[0];
+                const dislikeItem = radarState.dislike[0];
+                if (!likeItem || !dislikeItem) {
+                    opinionPreview.classList.remove('is-complete');
+                    opinionPreviewText.textContent = `Modo atual: ${radarMode === 'like' ? 'like' : "don't like"}. Monte duas preferências para gerar uma frase com contraste.`;
+                    return;
+                }
+
+                opinionPreview.classList.add('is-complete');
+                opinionPreviewText.textContent = `I like ${likeItem}, but I don't like ${dislikeItem}.`;
+            }
+        }
+
+        document.addEventListener('click', (event) => {
+            const radarChip = event.target.closest('.option-chip[data-opinion-item]');
+            if (!radarChip) return;
+            const item = radarChip.dataset.opinionItem || '';
+            if (!item) return;
+
+            if (!radarState[radarMode].includes(item)) {
+                radarState[radarMode].push(item);
+            }
+            radarChip.classList.add('is-active');
+            renderRadarBuckets();
+        });
+
+        document.getElementById('toggle-opinion-mode-btn')?.addEventListener('click', () => {
+            radarMode = radarMode === 'like' ? 'dislike' : 'like';
+            renderRadarBuckets();
+        });
+
+        document.getElementById('reset-opinion-radar-btn')?.addEventListener('click', () => {
+            radarMode = 'like';
+            radarState.like = [];
+            radarState.dislike = [];
+            document.querySelectorAll('.option-chip[data-opinion-item]').forEach((chip) => chip.classList.remove('is-active'));
+            renderRadarBuckets();
+        });
+
         shuffleBtn?.addEventListener('click', () => renderFlashcards([...flashcardData].sort(() => Math.random() - 0.5)));
         prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
 
         renderFlashcards(flashcardData);
+        renderRadarBuckets();
         showSlide(0);
     });
     </script>

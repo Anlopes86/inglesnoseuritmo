@@ -39,7 +39,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 22: Coffee Shop Quantities</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-amber-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -152,6 +152,68 @@
             </div>
         </div>
 
+        <div class="slide" data-title="Order Builder">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-amber-700">Build your order</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6 items-start">
+                        <div class="activity-lab">
+                            <p class="activity-lab-title">Monte um pedido real</p>
+                            <p class="text-slate-600 mb-4">Aqui o aluno escolhe bebida, comida e extras. Isso força o uso de <strong>a little</strong> e <strong>a few</strong> num contexto mais natural de fala.</p>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Drink</p>
+                                    <div class="option-cloud" data-order-group="drink">
+                                        <button type="button" class="option-chip" data-order-value="I'd like coffee">coffee</button>
+                                        <button type="button" class="option-chip" data-order-value="I'd like tea">tea</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Food</p>
+                                    <div class="option-cloud" data-order-group="food">
+                                        <button type="button" class="option-chip" data-order-value="and a few cookies">a few cookies</button>
+                                        <button type="button" class="option-chip" data-order-value="and a few sandwiches">a few sandwiches</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Extra</p>
+                                    <div class="option-cloud" data-order-group="extra">
+                                        <button type="button" class="option-chip" data-order-value="with a little milk">a little milk</button>
+                                        <button type="button" class="option-chip" data-order-value="with a little sugar">a little sugar</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Final request</p>
+                                    <div class="option-cloud" data-order-group="final">
+                                        <button type="button" class="option-chip" data-order-value="and a few napkins, please.">a few napkins</button>
+                                        <button type="button" class="option-chip" data-order-value="and a little water too, please.">a little water</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div id="order-preview" class="preview-card">
+                                <p class="lesson-panel-title mb-3">Cafe order</p>
+                                <p id="order-preview-text" class="text-lg leading-8 text-slate-500">Escolha um bloco de cada grupo para montar um pedido completo.</p>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Teacher use</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">1. Monte a versão segura com o aluno.</div>
+                                    <div class="prompt-card">2. Troque só um item para praticar adaptação rápida.</div>
+                                    <div class="prompt-card">3. Encerre com leitura em voz alta como mini roleplay.</div>
+                                </div>
+                                <div class="mt-5 flex flex-wrap gap-3">
+                                    <button id="speak-order-btn" type="button" class="speak-btn"><i class="fas fa-volume-up"></i> Ouvir pedido</button>
+                                    <button id="reset-order-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Limpar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="slide" data-title="Music">
             <div>
                 <h2 class="text-4xl font-black mb-4 text-center text-amber-700">Music Time: A Little Respect</h2>
@@ -249,6 +311,52 @@
             if (!value) return;
             input.classList.add(value === answer ? 'correct' : 'incorrect');
         }));
+
+        const orderState = { drink: '', food: '', extra: '', final: '' };
+        const orderPreview = document.getElementById('order-preview');
+        const orderPreviewText = document.getElementById('order-preview-text');
+
+        function updateOrderPreview() {
+            if (!orderPreview || !orderPreviewText) return;
+            const parts = Object.values(orderState).filter(Boolean);
+            if (!parts.length) {
+                orderPreview.classList.remove('is-complete');
+                orderPreviewText.textContent = 'Escolha um bloco de cada grupo para montar um pedido completo.';
+                return;
+            }
+            orderPreviewText.textContent = `${parts.join(' ')}`
+                .replace("I'd like", "I'd like")
+                .trim();
+            orderPreview.classList.toggle('is-complete', Object.values(orderState).every(Boolean));
+        }
+
+        document.addEventListener('click', (event) => {
+            const chip = event.target.closest('.option-chip[data-order-value]');
+            if (!chip) return;
+            const group = chip.closest('[data-order-group]')?.dataset.orderGroup;
+            if (!group) return;
+            chip.closest('[data-order-group]')?.querySelectorAll('.option-chip').forEach((item) => item.classList.remove('is-active'));
+            chip.classList.add('is-active');
+            orderState[group] = chip.dataset.orderValue || '';
+            updateOrderPreview();
+        });
+
+        document.getElementById('reset-order-btn')?.addEventListener('click', () => {
+            Object.keys(orderState).forEach((key) => { orderState[key] = ''; });
+            document.querySelectorAll('.option-chip[data-order-value]').forEach((chip) => chip.classList.remove('is-active'));
+            updateOrderPreview();
+        });
+
+        document.getElementById('speak-order-btn')?.addEventListener('click', () => {
+            const text = Object.values(orderState).filter(Boolean).join(' ');
+            if (!text) return;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        });
+
+        updateOrderPreview();
         prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
         showSlide(0);

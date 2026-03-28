@@ -38,7 +38,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 27: Where Were You?</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-zinc-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -137,6 +137,44 @@
                         <p>2. Her father was at <input data-answer="work" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: trabalho</span></p>
                         <p>3. Her cousins <input data-answer="were" class="practice-input"> at the party. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: estavam</span></p>
                         <p>4. At night, everyone was tired but <input data-answer="happy" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: feliz</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Yesterday Timeline">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-zinc-700">Yesterday timeline</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6 items-start">
+                        <div class="activity-lab">
+                            <p class="activity-lab-title">Monte uma linha do tempo com was / were</p>
+                            <p class="text-slate-600 mb-4">Essa etapa ajuda o aluno a sair da frase isolada e organizar manhã, tarde e noite com clareza temporal.</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-yesterday-step="Yesterday morning, I was at work.">morning: at work</button>
+                                <button type="button" class="option-chip" data-yesterday-step="In the afternoon, I was at home.">afternoon: at home</button>
+                                <button type="button" class="option-chip" data-yesterday-step="At night, my parents were with me.">night: parents with me</button>
+                                <button type="button" class="option-chip" data-yesterday-step="My sister wasn't there.">negative: sister wasn't there</button>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div id="yesterday-preview" class="preview-card">
+                                <p class="lesson-panel-title mb-3">Timeline preview</p>
+                                <p id="yesterday-preview-text" class="text-lg leading-8 text-slate-500">Clique nos blocos para montar um pequeno relato de ontem.</p>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Teacher use</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">1. Monte a versão básica com 3 momentos do dia.</div>
+                                    <div class="prompt-card">2. Acrescente uma negativa.</div>
+                                    <div class="prompt-card">3. Troque um lugar para forçar nova versão oral.</div>
+                                </div>
+                                <div class="mt-5 flex flex-wrap gap-3">
+                                    <button id="speak-yesterday-btn" type="button" class="speak-btn"><i class="fas fa-volume-up"></i> Ouvir timeline</button>
+                                    <button id="reset-yesterday-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Limpar</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -252,6 +290,47 @@
             if (!value) return;
             input.classList.add(value === answer ? 'correct' : 'incorrect');
         }));
+
+        const yesterdaySteps = [];
+        const yesterdayPreview = document.getElementById('yesterday-preview');
+        const yesterdayPreviewText = document.getElementById('yesterday-preview-text');
+
+        function updateYesterdayPreview() {
+            if (!yesterdayPreview || !yesterdayPreviewText) return;
+            if (!yesterdaySteps.length) {
+                yesterdayPreview.classList.remove('is-complete');
+                yesterdayPreviewText.textContent = 'Clique nos blocos para montar um pequeno relato de ontem.';
+                return;
+            }
+            yesterdayPreviewText.textContent = yesterdaySteps.join(' ');
+            yesterdayPreview.classList.toggle('is-complete', yesterdaySteps.length >= 3);
+        }
+
+        document.addEventListener('click', (event) => {
+            const chip = event.target.closest('.option-chip[data-yesterday-step]');
+            if (!chip) return;
+            const step = chip.dataset.yesterdayStep || '';
+            if (!step || chip.classList.contains('is-active')) return;
+            chip.classList.add('is-active');
+            yesterdaySteps.push(step);
+            updateYesterdayPreview();
+        });
+
+        document.getElementById('reset-yesterday-btn')?.addEventListener('click', () => {
+            yesterdaySteps.splice(0, yesterdaySteps.length);
+            document.querySelectorAll('.option-chip[data-yesterday-step]').forEach((chip) => chip.classList.remove('is-active'));
+            updateYesterdayPreview();
+        });
+
+        document.getElementById('speak-yesterday-btn')?.addEventListener('click', () => {
+            if (!yesterdaySteps.length) return;
+            const utterance = new SpeechSynthesisUtterance(yesterdaySteps.join(' '));
+            utterance.lang = 'en-US';
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        });
+
+        updateYesterdayPreview();
         prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
         showSlide(0);

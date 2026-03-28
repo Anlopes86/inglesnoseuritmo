@@ -38,7 +38,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 30: Tomorrow's Plan</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-cyan-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -121,6 +121,68 @@
                     <p>4. What <input data-answer="are you going to do" class="practice-input"> tomorrow morning? <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: você vai fazer</span></p>
                     <p>5. We <input data-answer="are going to rest" class="practice-input"> after the test. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: vamos descansar</span></p>
                     <p>6. <input data-answer="Are they going to study" class="practice-input"> tonight? <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: eles vão estudar...?</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Plan Builder">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-cyan-700">Plan your weekend in blocks</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6 items-start">
+                        <div class="activity-lab">
+                            <p class="activity-lab-title">Escolha blocos e monte um plano real</p>
+                            <p class="text-slate-600 mb-4">Aqui a aula sai do padrão “complete a frase” e entra em produção guiada. O aluno faz escolhas simples, mas já constrói uma agenda com sentido.</p>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Saturday morning</p>
+                                    <div class="option-cloud" data-plan-group="saturdayMorning">
+                                        <button type="button" class="option-chip" data-plan-value="On Saturday morning, I am going to rest at home.">rest at home</button>
+                                        <button type="button" class="option-chip" data-plan-value="On Saturday morning, I am going to study English.">study English</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Saturday afternoon</p>
+                                    <div class="option-cloud" data-plan-group="saturdayAfternoon">
+                                        <button type="button" class="option-chip" data-plan-value="In the afternoon, I am going to visit a friend.">visit a friend</button>
+                                        <button type="button" class="option-chip" data-plan-value="In the afternoon, I am going to go shopping downtown.">go shopping downtown</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Sunday</p>
+                                    <div class="option-cloud" data-plan-group="sunday">
+                                        <button type="button" class="option-chip" data-plan-value="On Sunday, I am going to have lunch with my family.">have lunch with my family</button>
+                                        <button type="button" class="option-chip" data-plan-value="On Sunday, I am going to travel to a nearby city.">travel to a nearby city</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Negative plan</p>
+                                    <div class="option-cloud" data-plan-group="negative">
+                                        <button type="button" class="option-chip" data-plan-value="I am not going to work this weekend.">not work this weekend</button>
+                                        <button type="button" class="option-chip" data-plan-value="I am not going to stay home all day.">not stay home all day</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div id="plan-preview" class="preview-card">
+                                <p class="lesson-panel-title mb-3">Weekend preview</p>
+                                <p id="plan-preview-text" class="text-lg leading-8 text-slate-500">Escolha um bloco de cada parte para montar um plano completo com <strong>going to</strong>.</p>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Teacher use</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">1. Peça uma versão segura usando os blocos prontos.</div>
+                                    <div class="prompt-card">2. Depois, troque só um bloco para forçar adaptação sem travar o aluno.</div>
+                                    <div class="prompt-card">3. Feche com uma pergunta oral: <strong>Are you going to...?</strong></div>
+                                </div>
+                                <div class="mt-5 flex flex-wrap gap-3">
+                                    <button id="speak-plan-btn" type="button" class="speak-btn"><i class="fas fa-volume-up"></i> Ouvir plano</button>
+                                    <button id="reset-plan-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Limpar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -254,6 +316,56 @@
             if (!value) return;
             input.classList.add(value === answer ? 'correct' : 'incorrect');
         }));
+
+        const planState = {
+            saturdayMorning: '',
+            saturdayAfternoon: '',
+            sunday: '',
+            negative: ''
+        };
+        const planPreview = document.getElementById('plan-preview');
+        const planPreviewText = document.getElementById('plan-preview-text');
+
+        function updatePlanPreview() {
+            if (!planPreview || !planPreviewText) return;
+            const parts = Object.values(planState).filter(Boolean);
+            if (!parts.length) {
+                planPreview.classList.remove('is-complete');
+                planPreviewText.innerHTML = 'Escolha um bloco de cada parte para montar um plano completo com <strong>going to</strong>.';
+                return;
+            }
+
+            planPreviewText.textContent = parts.join(' ');
+            planPreview.classList.toggle('is-complete', Object.values(planState).every(Boolean));
+        }
+
+        document.addEventListener('click', (event) => {
+            const planChip = event.target.closest('.option-chip[data-plan-value]');
+            if (!planChip) return;
+            const group = planChip.closest('[data-plan-group]')?.dataset.planGroup;
+            if (!group) return;
+            planChip.closest('[data-plan-group]')?.querySelectorAll('.option-chip').forEach((chip) => chip.classList.remove('is-active'));
+            planChip.classList.add('is-active');
+            planState[group] = planChip.dataset.planValue || '';
+            updatePlanPreview();
+        });
+
+        document.getElementById('reset-plan-btn')?.addEventListener('click', () => {
+            Object.keys(planState).forEach((key) => { planState[key] = ''; });
+            document.querySelectorAll('.option-chip[data-plan-value]').forEach((chip) => chip.classList.remove('is-active'));
+            updatePlanPreview();
+        });
+
+        document.getElementById('speak-plan-btn')?.addEventListener('click', () => {
+            const text = Object.values(planState).filter(Boolean).join(' ');
+            if (!text) return;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        });
+
+        updatePlanPreview();
         prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
         showSlide(0);

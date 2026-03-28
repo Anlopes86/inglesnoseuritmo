@@ -45,7 +45,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 1: Hello, World!</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -177,6 +177,71 @@
                 <div class="section-card p-8 max-w-4xl mx-auto text-left">
                     <p class="text-xl mb-8 text-slate-600">Treine respostas muito comuns do A1. Escolha a melhor opção e use o botão de revelar se precisar.</p>
                     <div id="response-activity" class="space-y-5"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Build Your Intro">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-green-700">Build your first mini introduction</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6 items-start">
+                        <div class="activity-lab">
+                            <p class="activity-lab-title">Monte sua fala em blocos</p>
+                            <p class="text-slate-600 mb-4">Clique nas opções para montar uma apresentação curta. O objetivo aqui é dar ao aluno uma sensação de produção real, mesmo no começo do A1.</p>
+                            <div id="intro-chip-groups" class="space-y-4">
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Greeting</p>
+                                    <div class="option-cloud" data-intro-group="greeting">
+                                        <button type="button" class="option-chip" data-intro-value="Hello!">Hello!</button>
+                                        <button type="button" class="option-chip" data-intro-value="Hi!">Hi!</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Name</p>
+                                    <div class="option-cloud" data-intro-group="name">
+                                        <button type="button" class="option-chip" data-intro-value="My name is Ana.">My name is Ana.</button>
+                                        <button type="button" class="option-chip" data-intro-value="I am Bruno.">I am Bruno.</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Extra detail</p>
+                                    <div class="option-cloud" data-intro-group="detail">
+                                        <button type="button" class="option-chip" data-intro-value="I am a new student.">I am a new student.</button>
+                                        <button type="button" class="option-chip" data-intro-value="I am from Brazil.">I am from Brazil.</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Closing</p>
+                                    <div class="option-cloud" data-intro-group="closing">
+                                        <button type="button" class="option-chip" data-intro-value="Nice to meet you.">Nice to meet you.</button>
+                                        <button type="button" class="option-chip" data-intro-value="Are you my teacher?">Are you my teacher?</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div id="intro-preview" class="preview-card">
+                                <p class="lesson-panel-title mb-3">Preview</p>
+                                <p id="intro-preview-text" class="text-xl leading-8 text-slate-500">Escolha um bloco de cada etapa para montar sua primeira fala.</p>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Como usar em aula</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">1. Monte a versão mais segura para o aluno.</div>
+                                    <div class="prompt-card">2. Ouça em voz alta com o botão abaixo.</div>
+                                    <div class="prompt-card">3. Troque um bloco e perceba como a mesma estrutura continua funcionando.</div>
+                                </div>
+                                <div class="mt-5 flex flex-wrap gap-3">
+                                    <button id="speak-intro-btn" type="button" class="speak-btn"><i class="fas fa-volume-up"></i> Ouvir minha fala</button>
+                                    <button id="reset-intro-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Limpar</button>
+                                </div>
+                            </div>
+                            <div class="callout-success">
+                                <strong>Por que isso funciona:</strong> no A1 inicial, o aluno ainda precisa de blocos seguros. A variação vem da recombinação, não da complexidade.
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -504,6 +569,28 @@
             if (score) score.textContent = `${correct} de ${listeningItems.length} corretas`;
         }
 
+        const introState = {
+            greeting: '',
+            name: '',
+            detail: '',
+            closing: ''
+        };
+        const introPreview = document.getElementById('intro-preview');
+        const introPreviewText = document.getElementById('intro-preview-text');
+
+        function updateIntroPreview() {
+            if (!introPreviewText || !introPreview) return;
+            const selectedParts = Object.values(introState).filter(Boolean);
+            if (!selectedParts.length) {
+                introPreviewText.textContent = 'Escolha um bloco de cada etapa para montar sua primeira fala.';
+                introPreview.classList.remove('is-complete');
+                return;
+            }
+
+            introPreviewText.textContent = selectedParts.join(' ');
+            introPreview.classList.toggle('is-complete', Object.values(introState).every(Boolean));
+        }
+
         document.addEventListener('click', (event) => {
             const revealPracticeBtn = event.target.closest('[data-reveal-practice]');
             if (revealPracticeBtn) {
@@ -526,11 +613,36 @@
             const revealListeningBtn = event.target.closest('[data-reveal-listening]');
             if (revealListeningBtn) {
                 revealListening(parseInt(revealListeningBtn.dataset.revealListening, 10));
+                return;
+            }
+
+            const introChip = event.target.closest('.option-chip[data-intro-value]');
+            if (introChip) {
+                const group = introChip.closest('[data-intro-group]')?.dataset.introGroup;
+                if (!group) return;
+                introChip.closest('[data-intro-group]')?.querySelectorAll('.option-chip').forEach((chip) => chip.classList.remove('is-active'));
+                introChip.classList.add('is-active');
+                introState[group] = introChip.dataset.introValue || '';
+                updateIntroPreview();
             }
         });
 
         document.getElementById('check-listening-btn')?.addEventListener('click', checkListening);
         document.getElementById('reset-listening-btn')?.addEventListener('click', resetListening);
+        document.getElementById('speak-intro-btn')?.addEventListener('click', () => {
+            const text = Object.values(introState).filter(Boolean).join(' ');
+            if (!text) return;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        });
+        document.getElementById('reset-intro-btn')?.addEventListener('click', () => {
+            Object.keys(introState).forEach((key) => { introState[key] = ''; });
+            document.querySelectorAll('.option-chip[data-intro-value]').forEach((chip) => chip.classList.remove('is-active'));
+            updateIntroPreview();
+        });
+        updateIntroPreview();
     });
     </script>
     <script src="../js/lesson-flashcard-save.js"></script>

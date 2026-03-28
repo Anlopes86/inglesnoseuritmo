@@ -41,7 +41,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 14: How Often?</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-teal-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -186,6 +186,50 @@
                         <p>Compare sua semana com o fim de semana:</p>
                         <p><strong>On weekdays, I usually...</strong></p>
                         <p><strong>On weekends, I sometimes...</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Habit Meter">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-teal-700">Habit meter</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[1fr_1fr] gap-6 items-start">
+                        <div class="activity-lab">
+                            <p class="activity-lab-title">Organize hábitos por frequência</p>
+                            <p class="text-slate-600 mb-4">Essa etapa troca a lacuna por decisão pedagógica. O aluno precisa pensar na frequência mais natural antes de falar.</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-habit-adverb="always">always</button>
+                                <button type="button" class="option-chip" data-habit-adverb="usually">usually</button>
+                                <button type="button" class="option-chip" data-habit-adverb="sometimes">sometimes</button>
+                                <button type="button" class="option-chip" data-habit-adverb="never">never</button>
+                            </div>
+                            <div class="mt-5 prompt-stack" id="habit-prompts">
+                                <div class="prompt-card" data-habit-sentence="I drink coffee before class.">I drink coffee before class.</div>
+                                <div class="prompt-card" data-habit-sentence="I watch movies on weekdays.">I watch movies on weekdays.</div>
+                                <div class="prompt-card" data-habit-sentence="I go to bed after midnight.">I go to bed after midnight.</div>
+                                <div class="prompt-card" data-habit-sentence="I study English on Sundays.">I study English on Sundays.</div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div id="habit-preview" class="preview-card">
+                                <p class="lesson-panel-title mb-3">Habit sentence</p>
+                                <p id="habit-preview-text" class="text-lg leading-8 text-slate-500">Escolha um advérbio e depois clique em um hábito para montar a frase completa.</p>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Teacher use</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">1. Escolha o advérbio.</div>
+                                    <div class="prompt-card">2. Aplique em um hábito real.</div>
+                                    <div class="prompt-card">3. Compare com fim de semana ou segunda-feira.</div>
+                                </div>
+                                <div class="mt-5 flex flex-wrap gap-3">
+                                    <button id="speak-habit-btn" type="button" class="speak-btn"><i class="fas fa-volume-up"></i> Ouvir frase</button>
+                                    <button id="reset-habit-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Limpar</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -359,11 +403,65 @@
             });
         });
 
+        let selectedAdverb = '';
+        const habitPreview = document.getElementById('habit-preview');
+        const habitPreviewText = document.getElementById('habit-preview-text');
+
+        function updateHabitPreview(sentence = '') {
+            if (!habitPreview || !habitPreviewText) return;
+            if (!selectedAdverb && !sentence) {
+                habitPreview.classList.remove('is-complete');
+                habitPreviewText.textContent = 'Escolha um advérbio e depois clique em um hábito para montar a frase completa.';
+                return;
+            }
+
+            if (!sentence) {
+                habitPreview.classList.remove('is-complete');
+                habitPreviewText.textContent = `Advérbio escolhido: ${selectedAdverb}. Agora clique em um hábito.`;
+                return;
+            }
+
+            const built = sentence.replace(/^I /, `I ${selectedAdverb} `);
+            habitPreview.classList.add('is-complete');
+            habitPreviewText.textContent = built;
+        }
+
+        document.addEventListener('click', (event) => {
+            const adverbChip = event.target.closest('.option-chip[data-habit-adverb]');
+            if (adverbChip) {
+                document.querySelectorAll('.option-chip[data-habit-adverb]').forEach((chip) => chip.classList.remove('is-active'));
+                adverbChip.classList.add('is-active');
+                selectedAdverb = adverbChip.dataset.habitAdverb || '';
+                updateHabitPreview();
+                return;
+            }
+
+            const habitCard = event.target.closest('.prompt-card[data-habit-sentence]');
+            if (habitCard && selectedAdverb) {
+                document.querySelectorAll('.prompt-card[data-habit-sentence]').forEach((card) => card.classList.remove('is-done'));
+                habitCard.classList.add('is-done');
+                updateHabitPreview(habitCard.dataset.habitSentence || '');
+            }
+        });
+
+        document.getElementById('reset-habit-btn')?.addEventListener('click', () => {
+            selectedAdverb = '';
+            document.querySelectorAll('.option-chip[data-habit-adverb]').forEach((chip) => chip.classList.remove('is-active'));
+            document.querySelectorAll('.prompt-card[data-habit-sentence]').forEach((card) => card.classList.remove('is-done'));
+            updateHabitPreview();
+        });
+
+        document.getElementById('speak-habit-btn')?.addEventListener('click', () => {
+            if (!habitPreviewText || !habitPreview.classList.contains('is-complete')) return;
+            speak(habitPreviewText.textContent);
+        });
+
         shuffleBtn?.addEventListener('click', () => renderFlashcards([...flashcardData].sort(() => Math.random() - 0.5)));
         prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
 
         renderFlashcards(flashcardData);
+        updateHabitPreview();
         showSlide(0);
     });
     </script>

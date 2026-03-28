@@ -38,7 +38,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 24: What Are You Doing?</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-red-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -137,6 +137,47 @@
                         <p>2. Two boys are <input data-answer="studying" class="practice-input"> together. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: estudando</span></p>
                         <p>3. The librarian is not <input data-answer="talking" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: falando</span></p>
                         <p>4. One student is <input data-answer="writing" class="practice-input"> in a notebook. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: escrevendo</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Scene Scanner">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-red-700">Scene scanner</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[1fr_1fr] gap-6 items-start">
+                        <div class="activity-lab">
+                            <p class="activity-lab-title">Leia a cena e marque o que está acontecendo</p>
+                            <p class="text-slate-600 mb-4">Essa atividade aproxima a aula de observação real. O aluno olha para uma mesma cena e escolhe quais ações estão ativas no momento.</p>
+                            <div class="activity-card text-lg leading-8">
+                                <p><strong>Scene:</strong> In a living room, a girl is talking on the phone, her father is cooking in the kitchen, a boy is playing video games on the sofa, and the dog is sleeping near the door.</p>
+                            </div>
+                            <div class="option-cloud mt-5">
+                                <button type="button" class="option-chip" data-scene-value="The girl is talking on the phone.">girl talking on the phone</button>
+                                <button type="button" class="option-chip" data-scene-value="The father is cooking in the kitchen.">father cooking</button>
+                                <button type="button" class="option-chip" data-scene-value="The boy is playing video games.">boy playing video games</button>
+                                <button type="button" class="option-chip" data-scene-value="The dog is sleeping near the door.">dog sleeping near the door</button>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div id="scene-preview" class="preview-card">
+                                <p class="lesson-panel-title mb-3">Live description</p>
+                                <p id="scene-preview-text" class="text-lg leading-8 text-slate-500">Clique em duas ou mais ações para montar uma descrição do momento.</p>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Teacher use</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">1. Escolha duas ações e leia em voz alta.</div>
+                                    <div class="prompt-card">2. Adicione uma negativa: <strong>The dog isn't barking.</strong></div>
+                                    <div class="prompt-card">3. Pergunte: <strong>What is the boy doing?</strong></div>
+                                </div>
+                                <div class="mt-5 flex flex-wrap gap-3">
+                                    <button id="speak-scene-btn" type="button" class="speak-btn"><i class="fas fa-volume-up"></i> Ouvir descrição</button>
+                                    <button id="reset-scene-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Limpar</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -253,6 +294,47 @@
             if (!value) return;
             input.classList.add(value === answer ? 'correct' : 'incorrect');
         }));
+
+        const sceneSelections = [];
+        const scenePreview = document.getElementById('scene-preview');
+        const scenePreviewText = document.getElementById('scene-preview-text');
+
+        function updateScenePreview() {
+            if (!scenePreview || !scenePreviewText) return;
+            if (!sceneSelections.length) {
+                scenePreview.classList.remove('is-complete');
+                scenePreviewText.textContent = 'Clique em duas ou mais ações para montar uma descrição do momento.';
+                return;
+            }
+            scenePreviewText.textContent = sceneSelections.join(' ');
+            scenePreview.classList.toggle('is-complete', sceneSelections.length >= 2);
+        }
+
+        document.addEventListener('click', (event) => {
+            const chip = event.target.closest('.option-chip[data-scene-value]');
+            if (!chip) return;
+            const value = chip.dataset.sceneValue || '';
+            if (!value || chip.classList.contains('is-active')) return;
+            chip.classList.add('is-active');
+            sceneSelections.push(value);
+            updateScenePreview();
+        });
+
+        document.getElementById('reset-scene-btn')?.addEventListener('click', () => {
+            sceneSelections.splice(0, sceneSelections.length);
+            document.querySelectorAll('.option-chip[data-scene-value]').forEach((chip) => chip.classList.remove('is-active'));
+            updateScenePreview();
+        });
+
+        document.getElementById('speak-scene-btn')?.addEventListener('click', () => {
+            if (!sceneSelections.length) return;
+            const utterance = new SpeechSynthesisUtterance(sceneSelections.join(' '));
+            utterance.lang = 'en-US';
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        });
+
+        updateScenePreview();
         prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
         showSlide(0);

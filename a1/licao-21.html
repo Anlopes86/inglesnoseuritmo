@@ -39,7 +39,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 21: Market Day</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -164,6 +164,65 @@
             </div>
         </div>
 
+        <div class="slide" data-title="Shopping Planner">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-orange-700">Shopping planner</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6 items-start">
+                        <div class="activity-lab">
+                            <p class="activity-lab-title">Monte perguntas de mercado</p>
+                            <p class="text-slate-600 mb-4">Nesta etapa o aluno precisa decidir entre <strong>how many</strong> e <strong>how much</strong> em uma lista de compra real.</p>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Question frame</p>
+                                    <div class="option-cloud" data-market-group="frame">
+                                        <button type="button" class="option-chip" data-market-value="How many">How many</button>
+                                        <button type="button" class="option-chip" data-market-value="How much">How much</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Item</p>
+                                    <div class="option-cloud" data-market-group="item">
+                                        <button type="button" class="option-chip" data-market-value="apples do we need?">apples</button>
+                                        <button type="button" class="option-chip" data-market-value="milk do we need?">milk</button>
+                                        <button type="button" class="option-chip" data-market-value="eggs do we need?">eggs</button>
+                                        <button type="button" class="option-chip" data-market-value="rice do we need?">rice</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Answer</p>
+                                    <div class="option-cloud" data-market-group="answer">
+                                        <button type="button" class="option-chip" data-market-value="We need six.">We need six.</button>
+                                        <button type="button" class="option-chip" data-market-value="We need two bottles.">We need two bottles.</button>
+                                        <button type="button" class="option-chip" data-market-value="We need a dozen.">We need a dozen.</button>
+                                        <button type="button" class="option-chip" data-market-value="We need a lot.">We need a lot.</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div id="market-preview" class="preview-card">
+                                <p class="lesson-panel-title mb-3">Shopping exchange</p>
+                                <p id="market-preview-text" class="text-lg leading-8 text-slate-500">Escolha a estrutura, o item e a resposta para montar uma mini troca de mercado.</p>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Teacher use</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">1. Escolha um item contável.</div>
+                                    <div class="prompt-card">2. Troque para um incontável e peça ajuste.</div>
+                                    <div class="prompt-card">3. Feche com a lista final da casa.</div>
+                                </div>
+                                <div class="mt-5 flex flex-wrap gap-3">
+                                    <button id="speak-market-btn" type="button" class="speak-btn"><i class="fas fa-volume-up"></i> Ouvir troca</button>
+                                    <button id="reset-market-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Limpar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="slide" data-title="Music">
             <div>
                 <h2 class="text-4xl font-black mb-4 text-center text-orange-700">Music Time: Blowin' in the Wind</h2>
@@ -265,6 +324,50 @@
             if (!value) return;
             input.classList.add(value === answer ? 'correct' : 'incorrect');
         }));
+
+        const marketState = { frame: '', item: '', answer: '' };
+        const marketPreview = document.getElementById('market-preview');
+        const marketPreviewText = document.getElementById('market-preview-text');
+
+        function updateMarketPreview() {
+            if (!marketPreview || !marketPreviewText) return;
+            const question = [marketState.frame, marketState.item].filter(Boolean).join(' ');
+            if (!question && !marketState.answer) {
+                marketPreview.classList.remove('is-complete');
+                marketPreviewText.textContent = 'Escolha a estrutura, o item e a resposta para montar uma mini troca de mercado.';
+                return;
+            }
+            marketPreviewText.textContent = `${question} ${marketState.answer}`.trim();
+            marketPreview.classList.toggle('is-complete', Object.values(marketState).every(Boolean));
+        }
+
+        document.addEventListener('click', (event) => {
+            const chip = event.target.closest('.option-chip[data-market-value]');
+            if (!chip) return;
+            const group = chip.closest('[data-market-group]')?.dataset.marketGroup;
+            if (!group) return;
+            chip.closest('[data-market-group]')?.querySelectorAll('.option-chip').forEach((item) => item.classList.remove('is-active'));
+            chip.classList.add('is-active');
+            marketState[group] = chip.dataset.marketValue || '';
+            updateMarketPreview();
+        });
+
+        document.getElementById('reset-market-btn')?.addEventListener('click', () => {
+            Object.keys(marketState).forEach((key) => { marketState[key] = ''; });
+            document.querySelectorAll('.option-chip[data-market-value]').forEach((chip) => chip.classList.remove('is-active'));
+            updateMarketPreview();
+        });
+
+        document.getElementById('speak-market-btn')?.addEventListener('click', () => {
+            const text = `${[marketState.frame, marketState.item].filter(Boolean).join(' ')} ${marketState.answer}`.trim();
+            if (!text) return;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        });
+
+        updateMarketPreview();
         prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
         showSlide(0);

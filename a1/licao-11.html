@@ -48,7 +48,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 11: Do You Like Music?</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-pink-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -203,6 +203,64 @@
                     <div class="mt-8 flex gap-4 flex-wrap">
                         <button id="check-build-btn" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-pink-700 transition">Verificar</button>
                         <button id="reset-build-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-xl hover:bg-slate-300 transition">Recomeçar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Preference Match">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-pink-700">Preference match</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[1fr_1fr] gap-6 items-start">
+                        <div class="activity-lab">
+                            <p class="activity-lab-title">Monte perguntas e respostas rápidas</p>
+                            <p class="text-slate-600 mb-4">Aqui o aluno escolhe o tema e a pessoa, depois gera a pergunta certa e uma resposta curta. Isso deixa a aula mais parecida com conversa real.</p>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Person</p>
+                                    <div class="option-cloud" data-match-group="person">
+                                        <button type="button" class="option-chip" data-match-value="Do you">you</button>
+                                        <button type="button" class="option-chip" data-match-value="Does she">she</button>
+                                        <button type="button" class="option-chip" data-match-value="Does he">he</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Interest</p>
+                                    <div class="option-cloud" data-match-group="interest">
+                                        <button type="button" class="option-chip" data-match-value="like pop music?">pop music</button>
+                                        <button type="button" class="option-chip" data-match-value="like sports videos?">sports videos</button>
+                                        <button type="button" class="option-chip" data-match-value="like Brazilian music?">Brazilian music</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Answer</p>
+                                    <div class="option-cloud" data-match-group="answer">
+                                        <button type="button" class="option-chip" data-match-value="Yes, I do.">Yes, I do.</button>
+                                        <button type="button" class="option-chip" data-match-value="No, he doesn't.">No, he doesn't.</button>
+                                        <button type="button" class="option-chip" data-match-value="Yes, she does.">Yes, she does.</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div id="match-preview" class="preview-card">
+                                <p class="lesson-panel-title mb-3">Mini exchange</p>
+                                <p id="match-preview-text" class="text-lg leading-8 text-slate-500">Escolha pessoa, interesse e resposta para montar uma troca curta completa.</p>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Teacher use</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">1. Monte uma pergunta com o aluno.</div>
+                                    <div class="prompt-card">2. Peça a resposta curta correta.</div>
+                                    <div class="prompt-card">3. Troque só a pessoa para revisar do / does.</div>
+                                </div>
+                                <div class="mt-5 flex flex-wrap gap-3">
+                                    <button id="speak-match-btn" type="button" class="speak-btn"><i class="fas fa-volume-up"></i> Ouvir troca</button>
+                                    <button id="reset-match-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Limpar</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -445,11 +503,52 @@
         shuffleBtn?.addEventListener('click', shuffleFlashcards);
         checkBuildBtn?.addEventListener('click', checkBuild);
         resetBuildBtn?.addEventListener('click', resetBuild);
+
+        const matchState = { person: '', interest: '', answer: '' };
+        const matchPreview = document.getElementById('match-preview');
+        const matchPreviewText = document.getElementById('match-preview-text');
+
+        function updateMatchPreview() {
+            if (!matchPreview || !matchPreviewText) return;
+            const question = [matchState.person, matchState.interest].filter(Boolean).join(' ');
+            if (!question && !matchState.answer) {
+                matchPreview.classList.remove('is-complete');
+                matchPreviewText.textContent = 'Escolha pessoa, interesse e resposta para montar uma troca curta completa.';
+                return;
+            }
+            matchPreviewText.textContent = `${question} ${matchState.answer}`.trim();
+            matchPreview.classList.toggle('is-complete', Object.values(matchState).every(Boolean));
+        }
+
+        document.addEventListener('click', (event) => {
+            const chip = event.target.closest('.option-chip[data-match-value]');
+            if (!chip) return;
+            const group = chip.closest('[data-match-group]')?.dataset.matchGroup;
+            if (!group) return;
+            chip.closest('[data-match-group]')?.querySelectorAll('.option-chip').forEach((item) => item.classList.remove('is-active'));
+            chip.classList.add('is-active');
+            matchState[group] = chip.dataset.matchValue || '';
+            updateMatchPreview();
+        });
+
+        document.getElementById('reset-match-btn')?.addEventListener('click', () => {
+            Object.keys(matchState).forEach((key) => { matchState[key] = ''; });
+            document.querySelectorAll('.option-chip[data-match-value]').forEach((chip) => chip.classList.remove('is-active'));
+            updateMatchPreview();
+        });
+
+        document.getElementById('speak-match-btn')?.addEventListener('click', () => {
+            const text = `${[matchState.person, matchState.interest].filter(Boolean).join(' ')} ${matchState.answer}`.trim();
+            if (!text) return;
+            speak(text);
+        });
+
         prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
 
         renderFlashcards(flashcardData);
         enableDragAndDrop();
+        updateMatchPreview();
         showSlide(0);
     });
     </script>

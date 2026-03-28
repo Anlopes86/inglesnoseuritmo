@@ -41,7 +41,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 10: His/Her Routine</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 11</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-amber-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -198,6 +198,68 @@
                     <p>2. She <input data-answer="has" class="practice-input"> coffee and toast. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: toma / come</span></p>
                     <p>3. She works in an <input data-answer="office" class="practice-input">. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: escritório</span></p>
                     <p>4. At night, she <input data-answer="studies" class="practice-input"> English. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: estuda</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Routine Cards">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-amber-700">Routine cards: who is this person?</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6 items-start">
+                        <div class="activity-lab">
+                            <p class="activity-lab-title">Escolha pistas e monte um perfil</p>
+                            <p class="text-slate-600 mb-4">Aqui o aluno deixa de só completar verbos e passa a construir um retrato de alguém com rotina, trabalho e hábitos noturnos.</p>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Morning</p>
+                                    <div class="option-cloud" data-routine-group="morning">
+                                        <button type="button" class="option-chip" data-routine-value="She wakes up at six.">wakes up at six</button>
+                                        <button type="button" class="option-chip" data-routine-value="He wakes up at seven.">wakes up at seven</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Breakfast</p>
+                                    <div class="option-cloud" data-routine-group="breakfast">
+                                        <button type="button" class="option-chip" data-routine-value="She has coffee and toast.">has coffee and toast</button>
+                                        <button type="button" class="option-chip" data-routine-value="He has fruit and tea.">has fruit and tea</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Daytime</p>
+                                    <div class="option-cloud" data-routine-group="daytime">
+                                        <button type="button" class="option-chip" data-routine-value="She works in an office.">works in an office</button>
+                                        <button type="button" class="option-chip" data-routine-value="He studies at school.">studies at school</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Night</p>
+                                    <div class="option-cloud" data-routine-group="night">
+                                        <button type="button" class="option-chip" data-routine-value="At night, she studies English.">studies English at night</button>
+                                        <button type="button" class="option-chip" data-routine-value="At night, he watches TV.">watches TV at night</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div id="profile-preview" class="preview-card">
+                                <p class="lesson-panel-title mb-3">Mini profile</p>
+                                <p id="profile-preview-text" class="text-lg leading-8 text-slate-500">Escolha uma pista de cada grupo para montar uma rotina completa de outra pessoa.</p>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Teacher use</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">1. Monte um perfil com o aluno.</div>
+                                    <div class="prompt-card">2. Troque só um bloco para forçar adaptação com he ou she.</div>
+                                    <div class="prompt-card">3. Feche com uma pergunta oral: <strong>What does he do at night?</strong></div>
+                                </div>
+                                <div class="mt-5 flex flex-wrap gap-3">
+                                    <button id="speak-profile-btn" type="button" class="speak-btn"><i class="fas fa-volume-up"></i> Ouvir perfil</button>
+                                    <button id="reset-profile-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Limpar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -401,11 +463,57 @@
             });
         });
 
+        const profileState = {
+            morning: '',
+            breakfast: '',
+            daytime: '',
+            night: ''
+        };
+        const profilePreview = document.getElementById('profile-preview');
+        const profilePreviewText = document.getElementById('profile-preview-text');
+
+        function updateProfilePreview() {
+            if (!profilePreview || !profilePreviewText) return;
+            const parts = Object.values(profileState).filter(Boolean);
+            if (!parts.length) {
+                profilePreview.classList.remove('is-complete');
+                profilePreviewText.textContent = 'Escolha uma pista de cada grupo para montar uma rotina completa de outra pessoa.';
+                return;
+            }
+
+            profilePreviewText.textContent = parts.join(' ');
+            profilePreview.classList.toggle('is-complete', Object.values(profileState).every(Boolean));
+        }
+
+        document.addEventListener('click', (event) => {
+            const profileChip = event.target.closest('.option-chip[data-routine-value]');
+            if (!profileChip) return;
+            const group = profileChip.closest('[data-routine-group]')?.dataset.routineGroup;
+            if (!group) return;
+            profileChip.closest('[data-routine-group]')?.querySelectorAll('.option-chip').forEach((chip) => chip.classList.remove('is-active'));
+            profileChip.classList.add('is-active');
+            profileState[group] = profileChip.dataset.routineValue || '';
+            updateProfilePreview();
+        });
+
+        document.getElementById('reset-profile-btn')?.addEventListener('click', () => {
+            Object.keys(profileState).forEach((key) => { profileState[key] = ''; });
+            document.querySelectorAll('.option-chip[data-routine-value]').forEach((chip) => chip.classList.remove('is-active'));
+            updateProfilePreview();
+        });
+
+        document.getElementById('speak-profile-btn')?.addEventListener('click', () => {
+            const text = Object.values(profileState).filter(Boolean).join(' ');
+            if (!text) return;
+            speak(text);
+        });
+
         shuffleBtn?.addEventListener('click', shuffleFlashcards);
         prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
 
         renderFlashcards(flashcardData);
+        updateProfilePreview();
         showSlide(0);
     });
     </script>
