@@ -1,96 +1,123 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // A configuração do Firebase é inicializada pelo firebase-config.js
     if (!firebase || !firebase.apps.length) {
-        console.error("Firebase não inicializado! Verifique a ordem dos scripts no HTML.");
+        console.error('Firebase não inicializado! Verifique a ordem dos scripts no HTML.');
         return;
     }
+
     const db = firebase.firestore();
     const auth = firebase.auth();
-
     const loadingDiv = document.getElementById('loading');
     const grid = document.getElementById('lessons-grid');
     const moduleId = 'vestibular';
 
-    // Títulos de todas as 16 dicas do Módulo Vestibular
     const lessonTitles = [
-        "Leitura Dinâmica (Skimming, Scanning e Vocabulário)",
-        "Identificando a Ideia Central e os Tópicos Frasais",
-        "Linking Words I (Adição e Contraste)",
-        "Linking Words II (Causa, Consequência e Propósito)",
-        "Referências Pronominais (Pronoun Reference)",
-        "Preposições e Phrasal Verbs Essenciais",
-        "Tempos Verbais I (Simple Present, Simple Past, Present Continuous)",
-        "Tempos Verbais II (Present Perfect e Futuro)",
-        "O Poder dos Modal Verbs",
-        "Voz Passiva (Passive Voice) e Comparativos",
-        "Decifrando as Condições",
-        "Comparando Ideias",
-        "Desconstruindo as Perguntas",
-        "Lendo nas Entrelinhas",
-        "Análise de Pegadinhas e Erros Comuns",
-        "Simulado Final e Estratégias de Prova"
+        'Leitura Dinâmica: Skimming, Scanning e Vocabulário',
+        'Ideia Central e Tópicos Frasais',
+        'Linking Words I: Adição e Contraste',
+        'Linking Words II: Causa, Consequência e Propósito',
+        'Referências Pronominais',
+        'Preposições e Phrasal Verbs Essenciais',
+        'Tempos Verbais I: Base de Leitura',
+        'Tempos Verbais II: Present Perfect e Futuro',
+        'Modal Verbs em Questões de Prova',
+        'Voz Passiva e Comparativos',
+        'Condições e Relações Lógicas',
+        'Comparando Ideias e Argumentos',
+        'Desconstruindo o Enunciado',
+        'Lendo nas Entrelinhas',
+        'Pegadinhas, Eliminação e Erros Comuns',
+        'Simulado Final e Estratégia de Tempo'
     ];
 
-    // --- LÓGICA DE AUTENTICAÇÃO E CARREGAMENTO ---
-    auth.onAuthStateChanged(user => {
-        if (user) {
-            // Usuário está logado
-            const role = localStorage.getItem('loggedInUserRole') || 'aluno';
-            const studentId = (role === 'professor') ? localStorage.getItem('selectedStudentId') : user.uid;
+    const lessonUnits = [
+        'Base', 'Base', 'Conectores', 'Conectores',
+        'Estrutura', 'Estrutura', 'Gramática', 'Gramática',
+        'Gramática', 'Gramática', 'Leitura', 'Leitura',
+        'Questões', 'Questões', 'Prova', 'Prova'
+    ];
 
-            if (studentId) {
-                loadLessons(studentId, role);
-            } else {
-                loadingDiv.innerHTML = '<p class="text-red-500">Erro: ID do aluno não encontrado. Por favor, selecione um aluno no painel principal.</p>';
-            }
-        } else {
-            // Usuário não está logado, redireciona para o login
+    auth.onAuthStateChanged(user => {
+        if (!user) {
             window.location.href = '../login.html';
+            return;
         }
+
+        const role = localStorage.getItem('loggedInUserRole') || 'aluno';
+        const studentId = role === 'professor' ? localStorage.getItem('selectedStudentId') : user.uid;
+
+        if (!studentId) {
+            loadingDiv.innerHTML = '<p class="text-red-500">Erro: ID do aluno não encontrado. Selecione um aluno no painel principal.</p>';
+            return;
+        }
+
+        loadLessons(studentId, role);
     });
 
-    async function loadLessons(studentId, userRole) { // Novo: Recebe o papel do usuário
+    function buildCard(title, lessonNumber, state, isProfessor) {
+        const padded = String(lessonNumber).padStart(2, '0');
+        const canOpen = isProfessor || state !== 'locked';
+        const iconClass = state === 'completed'
+            ? 'fa-check-circle text-green-500'
+            : state === 'next'
+                ? 'fa-play-circle text-amber-500'
+                : 'fa-lock text-slate-400';
+        const stateText = state === 'completed'
+            ? 'Concluída'
+            : state === 'next'
+                ? 'Disponível agora'
+                : 'Bloqueada';
+
+        const card = document.createElement('a');
+        card.href = canOpen ? `licao-${padded}.html` : '#';
+        card.className = `lesson-card ${state}`;
+        card.dataset.lesson = String(lessonNumber);
+        card.setAttribute('aria-disabled', canOpen ? 'false' : 'true');
+
+        card.innerHTML = `
+            <div class="lesson-card-top">
+                <span class="lesson-unit text-amber-700">${lessonUnits[lessonNumber - 1]}</span>
+                <i class="fas ${iconClass} text-2xl"></i>
+            </div>
+            <div>
+                <p class="lesson-meta mt-2">Aula ${lessonNumber}</p>
+                <h3 class="lesson-title mt-2">${title}</h3>
+            </div>
+            <div class="lesson-state">
+                <i class="fas ${state === 'locked' ? 'fa-lock' : state === 'completed' ? 'fa-award' : 'fa-forward'} text-amber-600"></i>
+                ${stateText}
+            </div>
+        `;
+
+        if (!canOpen) {
+            card.addEventListener('click', event => event.preventDefault());
+        }
+
+        return card;
+    }
+
+    async function loadLessons(studentId, userRole) {
         try {
             const studentDoc = await db.collection('students').doc(studentId).get();
-            
-            // *** CORREÇÃO APLICADA AQUI PARA ALUNOS NOVOS ***
             const allProgress = studentDoc.exists && studentDoc.data().progress ? studentDoc.data().progress : {};
             const progress = allProgress[moduleId] || {};
-            
-            let firstUncompleted = -1;
+            const isProfessor = userRole === 'professor';
 
-            grid.innerHTML = ''; // Limpa a grade
-            for (let i = 0; i < lessonTitles.length; i++) {
-                const lessonNumber = i + 1;
+            let firstUncompleted = lessonTitles.findIndex((_, index) => progress[`lesson_${index + 1}`] !== true) + 1;
+            if (firstUncompleted === 0) firstUncompleted = lessonTitles.length + 1;
+
+            grid.innerHTML = '';
+            lessonTitles.forEach((title, index) => {
+                const lessonNumber = index + 1;
                 const isCompleted = progress[`lesson_${lessonNumber}`] === true;
-                
-                if (!isCompleted && firstUncompleted === -1) {
-                    firstUncompleted = lessonNumber;
-                }
-
-                // Lógica de acesso: Professor tem acesso a tudo. Aluno só acessa o próximo ou os já completos.
-                const canAccess = (userRole === 'professor') || isCompleted || lessonNumber === firstUncompleted;
-                
-                const card = document.createElement('a');
-                card.href = canAccess ? `licao-${String(lessonNumber).padStart(2, '0')}.html` : '#';
-                card.className = `lesson-card p-6 bg-white rounded-xl shadow flex flex-col items-center text-center transition-all duration-300 ease-in-out ${!canAccess ? 'locked' : ''} ${isCompleted ? 'border-2 border-green-400' : ''} ${lessonNumber === firstUncompleted ? 'next' : ''}`;
-                
-                let iconClass = isCompleted ? 'fa-check-circle text-green-500' : (canAccess ? 'fa-play-circle text-amber-500' : 'fa-lock text-gray-400');
-
-                card.innerHTML = `
-                    <i class="fas ${iconClass} text-5xl mb-4"></i>
-                    <h3 class="font-bold text-lg text-gray-800 flex-grow">${lessonTitles[i]}</h3>
-                    <p class="text-sm text-gray-500 mt-2">Dica ${lessonNumber}</p>
-                `;
-                grid.appendChild(card);
-            }
+                const state = isCompleted ? 'completed' : lessonNumber === firstUncompleted ? 'next' : 'locked';
+                grid.appendChild(buildCard(title, lessonNumber, state, isProfessor));
+            });
 
             loadingDiv.classList.add('hidden');
             grid.classList.remove('hidden');
-
         } catch (error) {
-            console.error("Erro ao carregar lições:", error);
-            loadingDiv.innerHTML = `<p class="text-red-500">Ocorreu um erro ao carregar o seu progresso. Tente novamente.</p>`;
+            console.error('Erro ao carregar lições do vestibular:', error);
+            loadingDiv.innerHTML = '<p class="text-red-500">Ocorreu um erro ao carregar o módulo. Tente novamente.</p>';
         }
     }
 });

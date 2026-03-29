@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -33,6 +33,7 @@
         .activity-text { font-size: 1.1rem; line-height: 1.7; }
         .question-text { font-size: 1.25rem; }
     </style>
+    <link rel="stylesheet" href="vestibular-lesson-theme.css">
 </head>
 <body class="bg-gray-50 text-gray-800">
 
@@ -150,23 +151,27 @@
         <div class="slide">
             <div class="text-center"><h2 class="text-4xl font-bold mb-8 text-gray-800">Prática Focada: Scanning</h2></div>
             <div class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg">
-                 <p class="text-center text-xl text-gray-600 mb-6">Use o scanning no texto abaixo para preencher os campos. Depois, clique em verificar.</p>
+                 <p class="text-center text-xl text-gray-600 mb-6">Use o scanning no texto abaixo para localizar informação específica sem reler tudo palavra por palavra. As perguntas agora exigem mais precisão e, em alguns casos, combinação de pistas.</p>
                  <div class="mb-6 bg-gray-50 p-6 rounded-lg border">
                     <h4 class="font-bold text-xl mb-2 text-center">Mars Rover "Perseverance" Mission Update</h4>
                     <p class="activity-text text-gray-700">NASA's Perseverance rover, which landed on Mars in February 2021, continues its mission in the Jezero Crater. One of its key instruments, designed by a team in Norway, is the RIMFAX radar. The mission's primary goal, costing approximately $2.7 billion, is to search for signs of ancient microbial life. On July 20th, 2024, the rover successfully collected its 15th rock sample. Project scientist Ken Farley from Caltech expressed optimism, stating that the data collected so far is "extremely promising".</p>
                 </div>
                 <div id="scanning-practice" class="space-y-4">
                     <div>
-                        <label class="font-semibold">Qual o custo da missão?</label>
-                        <input type="text" class="practice-input" data-answer="$2.7 billion">
+                        <label class="font-semibold">Qual era o objetivo principal da missão?</label>
+                        <input type="text" class="practice-input" data-answers="search for signs of ancient microbial life||to search for signs of ancient microbial life||buscar sinais de vida microbiana antiga">
                     </div>
                     <div>
-                        <label class="font-semibold">Em que cratera o rover está?</label>
-                        <input type="text" class="practice-input" data-answer="Jezero Crater">
+                        <label class="font-semibold">Que instrumento é mencionado e por que ele chama atenção no texto?</label>
+                        <input type="text" class="practice-input" data-answers="rimfax radar designed by a team in norway||rimfax designed by a team in norway||o radar rimfax, projetado por uma equipe da noruega">
                     </div>
-                     <div>
-                        <label class="font-semibold">Qual o nome do cientista mencionado?</label>
-                        <input type="text" class="practice-input" data-answer="Ken Farley">
+                    <div>
+                        <label class="font-semibold">Qual informação combina uma data e um resultado concreto da missão?</label>
+                        <input type="text" class="practice-input" data-answers="on july 20th 2024 the rover collected its 15th rock sample||july 20th 2024 15th rock sample||em 20 de julho de 2024 o rover coletou sua 15ª amostra de rocha">
+                    </div>
+                    <div>
+                        <label class="font-semibold">Quem demonstrou otimismo e com qual expressão exata o texto fecha essa ideia?</label>
+                        <input type="text" class="practice-input" data-answers="ken farley extremely promising||ken farley from caltech extremely promising||ken farley e a expressão extremely promising">
                     </div>
                     <div class="flex flex-col sm:flex-row gap-3 mt-4">
                         <button id="check-scan-btn" class="w-full bg-blue-500 text-white font-bold py-3 px-5 rounded-lg hover:bg-blue-600">Verificar Respostas</button>
@@ -480,10 +485,14 @@
                 checkScanBtn.addEventListener('click', () => {
                     const practiceContainer = document.getElementById('scanning-practice');
                     practiceContainer.querySelectorAll('input').forEach(input => {
-                        const userAnswer = input.value.trim().toLowerCase();
-                        const correctAnswer = input.dataset.answer.trim().toLowerCase();
+                        const userAnswer = normalizeScanAnswer(input.value);
+                        const acceptedAnswers = (input.dataset.answers || input.dataset.answer || '')
+                            .split('||')
+                            .map(answer => normalizeScanAnswer(answer))
+                            .filter(Boolean);
                         input.classList.remove('correct', 'incorrect');
-                        if (userAnswer === correctAnswer) {
+                        const isCorrect = acceptedAnswers.some(answer => userAnswer === answer || userAnswer.includes(answer) || answer.includes(userAnswer));
+                        if (isCorrect && userAnswer) {
                             input.classList.add('correct');
                         } else {
                             input.classList.add('incorrect');
@@ -498,14 +507,28 @@
                 showScanBtn.addEventListener('click', () => {
                     const practiceContainer = document.getElementById('scanning-practice');
                     practiceContainer.querySelectorAll('input').forEach(input => {
-                        input.value = input.dataset.answer;
+                        const previewAnswer = (input.dataset.answers || input.dataset.answer || '').split('||')[0];
+                        input.value = previewAnswer;
                         input.classList.remove('correct', 'incorrect');
                     });
                 });
             }
 
+            function normalizeScanAnswer(text) {
+                return (text || '')
+                    .toLowerCase()
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
+                    .replace(/[^\w\s$]/g, '')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+            }
+
             showSlide(0);
         });
     </script>
+    <script src="vestibular-lesson-theme.js"></script>
 </body>
 </html>
+
+

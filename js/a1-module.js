@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const unitLabels = [
         'Foundations', 'Foundations', 'Foundations', 'Foundations', 'Foundations', 'Foundations', 'Foundations', 'Checkpoint 1',
         'Daily Life', 'Daily Life', 'Daily Life', 'Daily Life', 'Daily Life', 'Daily Life', 'Daily Life', 'Checkpoint 2',
-        'Places & People', 'Places & People', 'Places & People', 'Places & People', 'Places & People', 'Places & People', 'Places & People', 'Places & People',
-        'Places & People', 'Checkpoint 3', 'Past & Future', 'Past & Future', 'Past & Future', 'Past & Future', 'Final Review', 'Final Project'
+        'Places & People', 'Places & People', 'Places & People', 'Places & People', 'Places & People', 'Places & People', 'Places & People', 'Actions Now',
+        'Actions Now', 'Checkpoint 3', 'Past & Future', 'Past & Future', 'Past & Future', 'Past & Future', 'Final Review', 'Final Project'
     ];
 
     function buildLessonCard(title, lessonNumber, state, isProfessor) {
@@ -109,3 +109,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+

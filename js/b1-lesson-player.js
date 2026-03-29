@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     root.innerHTML = slides;
 
     document.getElementById('lesson-title').textContent = `B1 - Lesson ${lesson.number}: ${lesson.title}`;
+    document.title = `B1 - Lesson ${lesson.number}: ${lesson.title} | Inglês no seu Ritmo`;
 
     let currentSlide = 0;
     const slideEls = Array.from(document.querySelectorAll('.slide'));
@@ -215,7 +216,7 @@ function buildSlides(lesson) {
             <div class="text-center">
                 <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Vocabulary set</p>
                 <h3 class="text-4xl font-black text-slate-900 mt-2">${lesson.vocabTitle}</h3>
-                <p class="text-slate-600 text-lg mt-3 mb-8">Clique para virar o card e ver tradu??o e exemplo.</p>
+                <p class="text-slate-600 text-lg mt-3 mb-8">Clique para virar o card e ver tradução e exemplo.</p>
                 <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
                     ${lesson.vocabulary.map(item => `
                         <div class="vocab-card">

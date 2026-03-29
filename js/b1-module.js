@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <i class="fas ${iconClass} text-2xl"></i>
             </div>
             <div>
-                <h3 class="lesson-title">${title}</h3>
                 <p class="lesson-meta mt-2">Lição ${lessonNumber}</p>
+                <h3 class="lesson-title mt-2">${title}</h3>
             </div>
             <div class="lesson-state">
                 <i class="fas ${state === 'locked' ? 'fa-lock' : state === 'completed' ? 'fa-award' : 'fa-forward'} text-rose-600"></i>

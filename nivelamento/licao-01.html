@@ -6,401 +6,845 @@
     <title>Teste de Nivelamento | Inglês no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="../css/app-theme.css" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .option-btn { transition: all 0.2s ease-in-out; text-align: left; padding: 1rem; border-width: 2px; border-radius: 0.75rem; }
-        .option-btn:disabled { cursor: not-allowed; }
-        .option-btn.selected { background-color: #4f46e5; color: white; border-color: #4f46e5; transform: scale(1.02); }
-        .option-btn.correct { background-color: #22c55e; color: white; border-color: #22c55e; }
-        .option-btn.incorrect { background-color: #ef4444; color: white; border-color: #ef4444; }
-        .question-block { background-color: white; padding: 2rem; border-radius: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.07); margin-bottom: 1.5rem; }
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 999; display: none; justify-content: center; align-items: center; }
-        .modal-content { background-color: white; padding: 2rem; border-radius: 1rem; max-width: 500px; width: 90%; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .modal-close-btn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #6b7280; }
+        body { min-height: 100vh; }
+        .placement-shell { padding: 2rem 0 8rem; }
+        .placement-layout { display: grid; gap: 1.5rem; }
+        .placement-panel { padding: 1.4rem; border-radius: 28px; background: var(--surface-bg); border: 1px solid var(--surface-border); box-shadow: var(--surface-shadow-soft); }
+        .placement-hero { padding: 1.75rem; border-radius: 32px; }
+        .placement-slide { display: none; }
+        .placement-slide.active { display: block; animation: placement-fade 0.28s ease; }
+        @keyframes placement-fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .intro-grid, .result-grid, .support-grid { display: grid; gap: 1rem; }
+        .question-card { padding: 1.25rem; border-radius: 24px; background: var(--surface-strong-bg); border: 1px solid var(--surface-border); box-shadow: var(--surface-shadow-soft); }
+        .question-stem { margin: 0 0 0.9rem; font-size: 1.02rem; line-height: 1.65; color: var(--text-main); }
+        .question-meta { display: inline-flex; align-items: center; gap: 0.45rem; margin-bottom: 0.8rem; border-radius: 999px; padding: 0.4rem 0.75rem; font-size: 0.74rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; background: var(--chip-bg); color: var(--chip-text); border: 1px solid var(--chip-border); }
+        .choice-grid { display: grid; gap: 0.75rem; }
+        .choice-btn { width: 100%; text-align: left; padding: 1rem 1.05rem; border-radius: 18px; border: 1px solid var(--surface-border); background: var(--surface-bg); color: var(--text-main); font: inherit; font-weight: 600; transition: transform 0.16s ease, border-color 0.16s ease, background-color 0.16s ease, color 0.16s ease, box-shadow 0.16s ease; cursor: pointer; }
+        .choice-btn:hover:not(:disabled) { transform: translateY(-1px); border-color: rgba(37, 99, 235, 0.45); box-shadow: 0 12px 26px -22px rgba(37, 99, 235, 0.7); }
+        .choice-btn:disabled { cursor: not-allowed; opacity: 1; }
+        .choice-btn.is-selected { border-color: rgba(37, 99, 235, 0.7); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12); }
+        .choice-btn.is-correct { background: rgba(5, 150, 105, 0.12); border-color: rgba(5, 150, 105, 0.45); color: var(--text-strong); }
+        .choice-btn.is-incorrect { background: rgba(225, 29, 72, 0.1); border-color: rgba(225, 29, 72, 0.4); color: var(--text-strong); }
+        .reading-box, .prompt-box { padding: 1.2rem; border-radius: 22px; background: rgba(148, 163, 184, 0.08); border: 1px solid var(--surface-border); color: var(--text-main); line-height: 1.8; }
+        .metric-card { padding: 1rem 1.05rem; border-radius: 22px; background: var(--surface-bg); border: 1px solid var(--surface-border); }
+        .metric-label { margin: 0; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.16em; font-weight: 800; color: var(--text-soft); }
+        .metric-value { margin: 0.45rem 0 0; font-size: 1.5rem; font-weight: 800; color: var(--text-strong); letter-spacing: -0.04em; }
+        .insight-list, .result-list { margin: 0; padding-left: 1.15rem; color: var(--text-main); line-height: 1.7; }
+        .sticky-summary { position: sticky; top: 6rem; }
+        .footer-nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; border-top: 1px solid var(--surface-border); background: var(--header-bg); backdrop-filter: blur(16px); }
+        .footer-nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 84px; padding: 1rem 0; }
+        .footer-progress { flex: 1; max-width: 360px; }
+        .footer-actions { display: flex; align-items: center; gap: 0.75rem; }
+        @media (min-width: 980px) { .placement-layout { grid-template-columns: minmax(0, 1.6fr) minmax(300px, 0.8fr); align-items: start; } .intro-grid, .result-grid, .support-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+        @media (max-width: 767px) { .placement-shell { padding-bottom: 9rem; } .footer-nav-inner { flex-direction: column; align-items: stretch; } .footer-progress { max-width: none; } .footer-actions { justify-content: space-between; } }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
-
-    <header class="bg-white shadow-sm sticky top-0 z-40">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="../index.html" class="text-lg font-bold text-purple-600 hover:text-purple-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar</a>
-            <h1 class="text-xl font-semibold text-center">Teste de Nivelamento</h1>
-            <div class="w-24"></div>
+<body class="app-shell">
+    <header class="glass-header">
+        <div class="app-container py-4 flex items-center justify-between gap-3">
+            <a href="../home-aluno.html" class="app-button-ghost">
+                <i class="fas fa-chevron-left"></i>
+                Voltar ao portal
+            </a>
+            <button type="button" class="theme-toggle" data-theme-toggle aria-label="Alternar tema"></button>
         </div>
-        <div class="w-full bg-gray-200 h-2"><div id="progress-bar" class="bg-purple-600 h-2 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
-    <main class="container mx-auto p-4 sm:p-8 relative">
-        
-        <div class="slide active">
-            <div class="text-center py-8">
-                <h2 class="text-4xl font-bold mb-6 text-purple-700">Teste de Nivelamento</h2>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto text-left text-xl space-y-4">
-                    <p>Este teste avaliará suas habilidades em diferentes níveis. A dificuldade aumentará gradualmente.</p>
-                    <p>✔️ Responda a todas as questões da melhor forma que puder.</p>
-                    <p class="text-center font-bold pt-4">Boa sorte!</p>
-                </div>
-            </div>
-        </div>
+    <main class="app-container placement-shell">
+        <section class="hero-band placement-hero">
+            <span class="eyebrow"><i class="fas fa-clipboard-check"></i> Diagnóstico CEFR</span>
+            <h1 class="app-title mt-5" style="font-family: 'Sora', sans-serif;">Nivelamento mais confiável para definir o ponto de partida.</h1>
+            <p class="app-lead mt-5">
+                Este teste foi reorganizado para medir controle básico, leitura, uso real da língua e alcance de estruturas mais avançadas. O objetivo é separar melhor A1, A2, ponte para B1, B1, B2 e C1.
+            </p>
+        </section>
 
-        <div class="slide">
-            <div class="text-center"><h2 class="text-3xl font-bold mb-6 text-gray-700">Seção 1: Nível A1</h2></div>
-            <div class="max-w-3xl mx-auto">
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">1. Choose the correct sentence:</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">He are a teacher.</button><button class="option-btn font-medium" data-correct="true">He is a teacher.</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">2. I have ___ apple and ___ banana.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">an / a</button><button class="option-btn font-medium">a / an</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">3. We ____ from Brazil.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">is</button><button class="option-btn font-medium" data-correct="true">are</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">4. What is ____ name?</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">your</button><button class="option-btn font-medium">you</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">5. They ____ live in London.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">don't</button><button class="option-btn font-medium">doesn't</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">6. Qual palavra descreve a imagem?</p>
-                    <div class="flex justify-center mb-4"><i class="fas fa-car text-6xl text-blue-500"></i></div>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">House</button><button class="option-btn font-medium" data-correct="true">Car</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">7. The book is ____ the table.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">at</button><button class="option-btn font-medium" data-correct="true">on</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">8. ____ she work here?</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">Does</button><button class="option-btn font-medium">Do</button></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-            <div class="text-center"><h2 class="text-3xl font-bold mb-6 text-gray-700">Seção 2: Nível A2</h2></div>
-            <div class="max-w-3xl mx-auto">
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">9. Sarah ___ to Italy last year.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4"><button class="option-btn font-medium">goes</button><button class="option-btn font-medium" data-correct="true">went</button><button class="option-btn font-medium">gone</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">10. This car is ___ than that one.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">more expensive</button><button class="option-btn font-medium">expensiver</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">11. ___ you like to go to the movies tomorrow?</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">Do</button><button class="option-btn font-medium" data-correct="true">Would</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">12. I was watching TV when the phone ___.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">ringed</button><button class="option-btn font-medium" data-correct="true">rang</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">13. He is the ____ student in the class.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">tallest</button><button class="option-btn font-medium">most tall</button></div>
-                </div>
-                 <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">14. There isn't ____ sugar in my coffee.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">some</button><button class="option-btn font-medium" data-correct="true">any</button></div>
-                </div>
-                 <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">15. I'm ____ to visit my family next weekend.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">going</button><button class="option-btn font-medium">will</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">16. Complete the sentence: I work hard ____ I can buy a new car.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">but</button><button class="option-btn font-medium" data-correct="true">so</button></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-            <div class="text-center"><h2 class="text-3xl font-bold mb-6 text-gray-700">Seção 3: Listening</h2></div>
-            <div class="max-w-3xl mx-auto question-block">
-                <p class="text-xl mb-4 text-gray-600 text-center">Ouça o professor e responda.</p>
-                <div class="text-center">
-                    <button onclick="openModal('Question 17: Excuse me, could you tell me where the nearest bank is?<br><br>Question 18: I\'ve already finished my homework.<br><br>Question 19: If I had known you were coming, I would have baked a cake.')" class="mb-6 bg-indigo-100 text-indigo-700 font-bold py-2 px-4 rounded-lg hover:bg-indigo-200"><i class="fas fa-user-secret"></i> Ver Roteiro</button>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">17. What is the person asking for?</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">The time</button><button class="option-btn font-medium" data-correct="true">Directions</button></div>
-                </div>
-                <div class="question-block">
-                     <p class="text-lg mb-4 text-gray-600 font-semibold">18. What did the person finish?</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">Their homework</button><button class="option-btn font-medium">Their lunch</button></div>
-                </div>
-                <div class="question-block">
-                     <p class="text-lg mb-4 text-gray-600 font-semibold">19. The speaker feels...</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">Angry about a surprise.</button><button class="option-btn font-medium" data-correct="true">Regret for not being prepared for a visitor.</button></div>
-                </div>
-            </div>
-        </div>
+        <section class="placement-layout mt-6">
+            <div>
+                <div class="placement-panel">
+                    <div class="placement-slide active" data-slide="intro">
+                        <div class="intro-grid">
+                            <div class="metric-card">
+                                <p class="metric-label">Formato</p>
+                                <p class="metric-value">30 itens</p>
+                                <p class="section-copy mt-3">Questões graduais com foco em compreensão, escolha de estrutura e leitura.</p>
+                            </div>
+                            <div class="metric-card">
+                                <p class="metric-label">Níveis</p>
+                                <p class="metric-value">A1 a C1</p>
+                                <p class="section-copy mt-3">A decisão não depende só da porcentagem total, mas do desempenho por faixa.</p>
+                            </div>
+                            <div class="metric-card">
+                                <p class="metric-label">Objetivo</p>
+                                <p class="metric-value">Entrada certa</p>
+                                <p class="section-copy mt-3">Evitar colocar o aluno cedo demais no B1 ou prendê-lo num módulo abaixo do ideal.</p>
+                            </div>
+                        </div>
 
-        <div class="slide">
-            <div class="text-center"><h2 class="text-3xl font-bold mb-6 text-gray-700">Seção 4: Nível B1</h2></div>
-            <div class="max-w-3xl mx-auto">
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">20. He ___ in this company since 2020.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4"><button class="option-btn font-medium">worked</button><button class="option-btn font-medium" data-correct="true">has worked</button><button class="option-btn font-medium">is working</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">21. If I ___ more money, I would travel the world.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4"><button class="option-btn font-medium" data-correct="true">had</button><button class="option-btn font-medium">have</button><button class="option-btn font-medium">will have</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">22. This task must ____ by the end of the day.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">finish</button><button class="option-btn font-medium" data-correct="true">be finished</button></div>
-                </div>
-                 <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">23. I suggest ____ a taxi to the airport.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">taking</button><button class="option-btn font-medium">to take</button></div>
-                </div>
-                 <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">24. Have you ____ been to Japan?</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">already</button><button class="option-btn font-medium" data-correct="true">ever</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">25. She is the woman ____ son is a famous actor.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">who</button><button class="option-btn font-medium" data-correct="true">whose</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">26. You ____ smoke in here. It's forbidden.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">mustn't</button><button class="option-btn font-medium">don't have to</button></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-            <div class="text-center"><h2 class="text-3xl font-bold mb-6 text-gray-700">Seção 5: Tradução (PT-EN)</h2></div>
-            <div class="max-w-3xl mx-auto">
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">27. Traduza: "Eu costumava jogar futebol todos os dias."</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">I am used to play football every day.</button><button class="option-btn font-medium">I was playing football every day.</button><button class="option-btn font-medium" data-correct="true">I used to play football every day.</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">28. Traduza: "Ela me perguntou se eu falava inglês."</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">She asked me if I spoke English.</button><button class="option-btn font-medium">She asked me do you speak English.</button><button class="option-btn font-medium">She asked me that I spoke English.</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">29. Traduza: "Não vale a pena se preocupar com isso."</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">It's not worth to worry about it.</button><button class="option-btn font-medium" data-correct="true">It's not worth worrying about it.</button><button class="option-btn font-medium">It doesn't worth to worry about it.</button></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-            <div class="text-center"><h2 class="text-3xl font-bold mb-6 text-gray-700">Seção 6: Tradução (EN-PT)</h2></div>
-            <div class="max-w-3xl mx-auto">
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">30. Traduza: "Despite the rain, we went to the beach."</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">Apesar da chuva, nós fomos à praia.</button><button class="option-btn font-medium">Porque choveu, nós fomos à praia.</button><button class="option-btn font-medium">Enquanto chovia, nós estávamos na praia.</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">31. Traduza: "I'm looking forward to meeting you."</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">Eu estou olhando para encontrar você.</button><button class="option-btn font-medium" data-correct="true">Estou ansioso(a) para te conhecer.</button><button class="option-btn font-medium">Eu vou te encontrar em breve.</button></div>
-                </div>
-                 <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">32. Traduza: "He is likely to be late."</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">É provável que ele se atrase.</button><button class="option-btn font-medium">Ele gosta de se atrasar.</button><button class="option-btn font-medium">Ele pode se atrasar.</button></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-             <div class="text-center"><h2 class="text-3xl font-bold mb-6 text-gray-700">Seção 7: Leitura</h2></div>
-             <div class="max-w-3xl mx-auto question-block">
-                <p class="text-lg mb-4 text-gray-600 font-semibold">Leia o texto e responda:</p>
-                <div class="text-left p-6 border rounded-lg bg-gray-50 mb-6">
-                    <p class="text-base leading-relaxed">The rise of remote work, accelerated by recent global events, has fundamentally altered the corporate landscape. While it offers unprecedented flexibility, it also poses significant challenges regarding team cohesion and corporate culture. Companies are now scrambling to find innovative ways to maintain employee engagement and foster a sense of belonging among a dispersed workforce.</p>
-                </div>
-                <div class="question-block">
-                     <p class="text-lg mb-4 text-gray-600 font-semibold">33. What is the main challenge mentioned for companies?</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">Finding new employees.</button><button class="option-btn font-medium" data-correct="true">Maintaining team cohesion and culture.</button><button class="option-btn font-medium">Reducing operational costs.</button></div>
-                </div>
-                <div class="question-block">
-                     <p class="text-lg mb-4 text-gray-600 font-semibold">34. The word "scrambling" in this context means:</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">Making a lot of effort to do something quickly.</button><button class="option-btn font-medium">Moving in a disorganized way.</button><button class="option-btn font-medium">Climbing up somewhere.</button></div>
-                </div>
-                <div class="question-block">
-                     <p class="text-lg mb-4 text-gray-600 font-semibold">35. What does the text suggest about corporate culture?</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">It has become less important.</button><button class="option-btn font-medium" data-correct="true">It is harder to maintain with remote teams.</button><button class="option-btn font-medium">It has improved with remote work.</button></div>
-                </div>
-             </div>
-        </div>
-        
-        <div class="slide">
-            <div class="text-center"><h2 class="text-3xl font-bold mb-6 text-gray-700">Seção 8: Nível B2</h2></div>
-            <div class="max-w-3xl mx-auto">
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">36. If she ____ about the traffic, she would have left earlier.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">had known</button><button class="option-btn font-medium">knew</button><button class="option-btn font-medium">would know</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">37. By this time next year, I ____ my degree.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">will finish</button><button class="option-btn font-medium" data-correct="true">will have finished</button><button class="option-btn font-medium">am finishing</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">38. ____ the fact that he was tired, he finished the race.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">Although</button><button class="option-btn font-medium" data-correct="true">Despite</button></div>
-                </div>
-                 <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">39. He wishes he ____ more attention in class.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">had paid</button><button class="option-btn font-medium">paid</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">40. The project was difficult, but they managed to ____.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">pull it off</button><button class="option-btn font-medium">pull it over</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">41. It's high time you ____ thinking about your future.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">start</button><button class="option-btn font-medium" data-correct="true">started</button></div>
-                </div>
-            </div>
-        </div>
+                        <div class="placement-panel mt-6" style="padding: 1.25rem;">
+                            <h2 class="section-title">Como interpretar o resultado</h2>
+                            <ul class="insight-list mt-4">
+                                <li>Se a base A1/A2 ainda estiver instável, o teste segura a recomendação nos módulos iniciais.</li>
+                                <li>Se o aluno mostrar A2 sólido, mas ainda sem constância em leitura e estrutura de B1, a recomendação vai para a ponte preparatória antes do B1.</li>
+                                <li>Os itens finais servem para detectar teto real e evitar superestimar o nível só por acertos fáceis.</li>
+                            </ul>
+                        </div>
+                    </div>
 
-        <div class="slide">
-            <div class="text-center"><h2 class="text-3xl font-bold mb-6 text-gray-700">Seção 9: Nível C1</h2></div>
-            <div class="max-w-3xl mx-auto">
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">42. Not only ____ late, but he also forgot the documents.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">he was</button><button class="option-btn font-medium" data-correct="true">was he</button><button class="option-btn font-medium">he has been</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">43. The decision was controversial and caused a public ____.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">outcry</button><button class="option-btn font-medium">outcome</button><button class="option-btn font-medium">outlet</button></div>
-                </div>
-                 <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">44. Her arguments were so ____ that we were all convinced.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">plausible</button><button class="option-btn font-medium" data-correct="true">cogent</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">45. He ____ his keys; he can't find them anywhere.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">should have lost</button><button class="option-btn font-medium" data-correct="true">must have lost</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">46. The new policy will have ____ implications for the economy.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium" data-correct="true">far-reaching</button><button class="option-btn font-medium">long-distance</button></div>
-                </div>
-                <div class="question-block">
-                    <p class="text-lg mb-4 text-gray-600 font-semibold">47. ____ you to change your mind, please let me know.</p>
-                    <div class="grid grid-cols-1 gap-4"><button class="option-btn font-medium">If</button><button class="option-btn font-medium" data-correct="true">Were</button></div>
+                    <div class="placement-slide" data-slide="1">
+                        <div class="flex items-center justify-between gap-3 flex-wrap mb-6">
+                            <div>
+                                <p class="kpi-label">Seção 1</p>
+                                <h2 class="section-title mt-2">Base e comunicação cotidiana</h2>
+                            </div>
+                            <span class="info-chip" style="background: var(--chip-bg); color: var(--chip-text); border: 1px solid var(--chip-border);">A1 e A2</span>
+                        </div>
+
+                        <div class="space-y-5">
+                            <article class="question-card" data-question data-level="A1" data-skill="grammar">
+                                <span class="question-meta">Q1 • A1 • Grammar</span>
+                                <p class="question-stem">Choose the correct sentence.</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn" data-correct="true">My sister works at a hospital.</button>
+                                    <button class="choice-btn">My sister work at a hospital.</button>
+                                    <button class="choice-btn">My sister is work at a hospital.</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="A1" data-skill="function">
+                                <span class="question-meta">Q2 • A1 • Function</span>
+                                <p class="question-stem">You do not understand what the teacher said. What is the best response?</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">I no understand now.</button>
+                                    <button class="choice-btn" data-correct="true">Could you repeat that, please?</button>
+                                    <button class="choice-btn">You repeat me.</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="A1" data-skill="grammar">
+                                <span class="question-meta">Q3 • A1 • Grammar</span>
+                                <p class="question-stem">There <strong>___</strong> two phones on the desk.</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">is</button>
+                                    <button class="choice-btn" data-correct="true">are</button>
+                                    <button class="choice-btn">be</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="A1" data-skill="reading">
+                                <span class="question-meta">Q4 • A1 • Reading</span>
+                                <p class="question-stem">Read the message: <em>"Hi Ana, the class starts at 7:30, not 7:00. Meet me at the front gate."</em> What changed?</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">The teacher changed.</button>
+                                    <button class="choice-btn" data-correct="true">The time of the class changed.</button>
+                                    <button class="choice-btn">The class was cancelled.</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="A2" data-skill="grammar">
+                                <span class="question-meta">Q5 • A2 • Grammar</span>
+                                <p class="question-stem">When I arrived, they <strong>___</strong> dinner.</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">have</button>
+                                    <button class="choice-btn" data-correct="true">were having</button>
+                                    <button class="choice-btn">are having</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="A2" data-skill="vocabulary">
+                                <span class="question-meta">Q6 • A2 • Vocabulary</span>
+                                <p class="question-stem">This exercise is <strong>___</strong> than the last one, but I can still do it.</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">more easy</button>
+                                    <button class="choice-btn" data-correct="true">easier</button>
+                                    <button class="choice-btn">the easiest</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="A2" data-skill="function">
+                                <span class="question-meta">Q7 • A2 • Function</span>
+                                <p class="question-stem">Your friend invites you out tomorrow, but you are not sure yet. Which answer sounds best?</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">I go maybe.</button>
+                                    <button class="choice-btn" data-correct="true">I am not sure yet, but I will let you know.</button>
+                                    <button class="choice-btn">I not decide now because yes.</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="A2" data-skill="grammar">
+                                <span class="question-meta">Q8 • A2 • Grammar</span>
+                                <p class="question-stem">Complete the sentence: I am saving money <strong>___</strong> I can travel next year.</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">although</button>
+                                    <button class="choice-btn" data-correct="true">so</button>
+                                    <button class="choice-btn">because of</button>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="placement-slide" data-slide="2">
+                        <div class="flex items-center justify-between gap-3 flex-wrap mb-6">
+                            <div>
+                                <p class="kpi-label">Seção 2</p>
+                                <h2 class="section-title mt-2">Leitura guiada e escolha de sentido</h2>
+                            </div>
+                            <span class="info-chip" style="background: var(--chip-bg); color: var(--chip-text); border: 1px solid var(--chip-border);">A2 e Ponte B1</span>
+                        </div>
+
+                        <div class="reading-box mb-5">
+                            <p class="m-0">
+                                Emma recently changed jobs. She used to work in a small clothing store, where her tasks were always the same. Now she works for a travel company and spends most of her day answering messages from customers, solving booking problems, and giving advice about flights and hotels. At first, she felt nervous because everything moved quickly, but after a few weeks she realized she enjoyed the challenge and the contact with different people.
+                            </p>
+                        </div>
+
+                        <div class="space-y-5">
+                            <article class="question-card" data-question data-level="A2" data-skill="reading">
+                                <span class="question-meta">Q9 • A2 • Reading</span>
+                                <p class="question-stem">What is the main change in Emma's routine?</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">She now works fewer hours than before.</button>
+                                    <button class="choice-btn" data-correct="true">She now has a more dynamic job with customer contact.</button>
+                                    <button class="choice-btn">She stopped working with people completely.</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="A2" data-skill="reading">
+                                <span class="question-meta">Q10 • A2 • Reading</span>
+                                <p class="question-stem">At the beginning, Emma felt nervous because:</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">she disliked the travel industry.</button>
+                                    <button class="choice-btn">her old boss asked her to come back.</button>
+                                    <button class="choice-btn" data-correct="true">the new environment was faster and less familiar.</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="PREB1" data-skill="reading">
+                                <span class="question-meta">Q11 • Bridge • Reading</span>
+                                <p class="question-stem">The text suggests Emma now values the new job mostly because it is:</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">quiet and repetitive.</button>
+                                    <button class="choice-btn" data-correct="true">more demanding but also more engaging.</button>
+                                    <button class="choice-btn">easier than her previous work.</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="PREB1" data-skill="grammar">
+                                <span class="question-meta">Q12 • Bridge • Grammar</span>
+                                <p class="question-stem">Choose the best option: I have worked here <strong>___</strong> 2022.</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn" data-correct="true">since</button>
+                                    <button class="choice-btn">for</button>
+                                    <button class="choice-btn">during</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="PREB1" data-skill="grammar">
+                                <span class="question-meta">Q13 • Bridge • Grammar</span>
+                                <p class="question-stem">If the weather is good tomorrow, we <strong>___</strong> to the park.</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">went</button>
+                                    <button class="choice-btn" data-correct="true">will go</button>
+                                    <button class="choice-btn">would go</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="PREB1" data-skill="function">
+                                <span class="question-meta">Q14 • Bridge • Function</span>
+                                <p class="question-stem">A classmate says, <em>"I missed the explanation."</em> Which answer is the most helpful?</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">You miss always.</button>
+                                    <button class="choice-btn" data-correct="true">No problem. I can explain it again after class.</button>
+                                    <button class="choice-btn">I do not know too, maybe later never.</button>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="placement-slide" data-slide="3">
+                        <div class="flex items-center justify-between gap-3 flex-wrap mb-6">
+                            <div>
+                                <p class="kpi-label">Seção 3</p>
+                                <h2 class="section-title mt-2">Decisão de entrada no B1</h2>
+                            </div>
+                            <span class="info-chip" style="background: var(--chip-bg); color: var(--chip-text); border: 1px solid var(--chip-border);">B1</span>
+                        </div>
+
+                        <div class="space-y-5">
+                            <article class="question-card" data-question data-level="B1" data-skill="grammar">
+                                <span class="question-meta">Q15 • B1 • Grammar</span>
+                                <p class="question-stem">Choose the best sentence.</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">I have seen that movie yesterday.</button>
+                                    <button class="choice-btn" data-correct="true">I saw that movie yesterday, and I really liked it.</button>
+                                    <button class="choice-btn">I was see that movie yesterday.</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="B1" data-skill="grammar">
+                                <span class="question-meta">Q16 • B1 • Grammar</span>
+                                <p class="question-stem">This is the teacher <strong>___</strong> helped me prepare for the exam.</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">whose</button>
+                                    <button class="choice-btn" data-correct="true">who</button>
+                                    <button class="choice-btn">where</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="B1" data-skill="function">
+                                <span class="question-meta">Q17 • B1 • Function</span>
+                                <p class="question-stem">A friend says, <em>"I am exhausted and still have a lot to do."</em> Which response sounds most natural?</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">You must sleeping now and maybe nothing.</button>
+                                    <button class="choice-btn" data-correct="true">If I were you, I would take a short break and then continue.</button>
+                                    <button class="choice-btn">I am agree your tiredness is yes.</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="B1" data-skill="vocabulary">
+                                <span class="question-meta">Q18 • B1 • Vocabulary</span>
+                                <p class="question-stem">Choose the option closest in meaning to <em>"improve"</em> in this sentence: <strong>"She wants to improve her pronunciation."</strong></p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">hide</button>
+                                    <button class="choice-btn" data-correct="true">make better</button>
+                                    <button class="choice-btn">repeat quickly</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="B1" data-skill="grammar">
+                                <span class="question-meta">Q19 • B1 • Grammar</span>
+                                <p class="question-stem">The meeting was cancelled, so the report did not need to <strong>___</strong> that day.</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">finish</button>
+                                    <button class="choice-btn">have finished</button>
+                                    <button class="choice-btn" data-correct="true">be finished</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="B1" data-skill="grammar">
+                                <span class="question-meta">Q20 • B1 • Grammar</span>
+                                <p class="question-stem">I have never been to Chile, but my sister <strong>___</strong> there twice.</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn" data-correct="true">has been</button>
+                                    <button class="choice-btn">was</button>
+                                    <button class="choice-btn">had gone</button>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="placement-slide" data-slide="4">
+                        <div class="flex items-center justify-between gap-3 flex-wrap mb-6">
+                            <div>
+                                <p class="kpi-label">Seção 4</p>
+                                <h2 class="section-title mt-2">Leitura com inferência e organização de ideias</h2>
+                            </div>
+                            <span class="info-chip" style="background: var(--chip-bg); color: var(--chip-text); border: 1px solid var(--chip-border);">B1 e B2</span>
+                        </div>
+
+                        <div class="reading-box mb-5">
+                            <p class="m-0">
+                                Many students believe productivity depends on staying busy all the time. However, recent studies suggest the opposite: short periods of deliberate rest can improve concentration, memory, and decision-making. Instead of seeing breaks as wasted time, researchers argue that they should be treated as part of the learning process, especially when tasks require sustained attention.
+                            </p>
+                        </div>
+
+                        <div class="space-y-5">
+                            <article class="question-card" data-question data-level="B1" data-skill="reading">
+                                <span class="question-meta">Q21 • B1 • Reading</span>
+                                <p class="question-stem">What is the main point of the text?</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">Students should avoid difficult tasks.</button>
+                                    <button class="choice-btn" data-correct="true">Rest can support learning and performance.</button>
+                                    <button class="choice-btn">Memory has nothing to do with concentration.</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="B1" data-skill="reading">
+                                <span class="question-meta">Q22 • B1 • Reading</span>
+                                <p class="question-stem">In the text, the word <em>"deliberate"</em> is closest in meaning to:</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">accidental</button>
+                                    <button class="choice-btn" data-correct="true">intentional</button>
+                                    <button class="choice-btn">infrequent</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="B2" data-skill="reading">
+                                <span class="question-meta">Q23 • B2 • Reading</span>
+                                <p class="question-stem">Which assumption is the author challenging?</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">Only teachers can improve concentration.</button>
+                                    <button class="choice-btn">Research on memory is already outdated.</button>
+                                    <button class="choice-btn" data-correct="true">Being constantly busy is always the best strategy for productivity.</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="B2" data-skill="grammar">
+                                <span class="question-meta">Q24 • B2 • Grammar</span>
+                                <p class="question-stem">Choose the best connector: <strong>___</strong> the deadline was close, the team still took time to review the final version carefully.</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">Because of</button>
+                                    <button class="choice-btn" data-correct="true">Although</button>
+                                    <button class="choice-btn">So that</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="B2" data-skill="grammar">
+                                <span class="question-meta">Q25 • B2 • Grammar</span>
+                                <p class="question-stem">By the time the guests arrived, we <strong>___</strong> everything.</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">prepared</button>
+                                    <button class="choice-btn">were preparing</button>
+                                    <button class="choice-btn" data-correct="true">had prepared</button>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="placement-slide" data-slide="5">
+                        <div class="flex items-center justify-between gap-3 flex-wrap mb-6">
+                            <div>
+                                <p class="kpi-label">Seção 5</p>
+                                <h2 class="section-title mt-2">Faixa alta e teto do aluno</h2>
+                            </div>
+                            <span class="info-chip" style="background: var(--chip-bg); color: var(--chip-text); border: 1px solid var(--chip-border);">B2 e C1</span>
+                        </div>
+
+                        <div class="space-y-5">
+                            <article class="question-card" data-question data-level="B2" data-skill="vocabulary">
+                                <span class="question-meta">Q26 • B2 • Vocabulary</span>
+                                <p class="question-stem">Choose the best option: The proposal was not rejected, but several board members expressed <strong>___</strong> about its long-term cost.</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">enthusiasm</button>
+                                    <button class="choice-btn" data-correct="true">concerns</button>
+                                    <button class="choice-btn">permission</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="B2" data-skill="grammar">
+                                <span class="question-meta">Q27 • B2 • Grammar</span>
+                                <p class="question-stem">If the company <strong>___</strong> earlier, it could have avoided the crisis.</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">acted</button>
+                                    <button class="choice-btn">would act</button>
+                                    <button class="choice-btn" data-correct="true">had acted</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="C1" data-skill="grammar">
+                                <span class="question-meta">Q28 • C1 • Grammar</span>
+                                <p class="question-stem">Choose the most appropriate formal alternative: <em>"The report is important because it affects several sectors."</em></p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">The report is important and it has many things.</button>
+                                    <button class="choice-btn" data-correct="true">The report is significant in that it has implications for several sectors.</button>
+                                    <button class="choice-btn">The report is nice because sectors see it.</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="C1" data-skill="reading">
+                                <span class="question-meta">Q29 • C1 • Reading</span>
+                                <p class="question-stem">Choose the best meaning of <em>"The minister's remarks triggered a public outcry."</em></p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">People quietly accepted the comments.</button>
+                                    <button class="choice-btn" data-correct="true">The comments caused strong public criticism and reaction.</button>
+                                    <button class="choice-btn">The remarks were ignored by the media.</button>
+                                </div>
+                            </article>
+
+                            <article class="question-card" data-question data-level="C1" data-skill="grammar">
+                                <span class="question-meta">Q30 • C1 • Grammar</span>
+                                <p class="question-stem">Complete the sentence: <strong>Were</strong> the negotiations to fail, the entire project <strong>___</strong> postponed.</p>
+                                <div class="choice-grid" data-answered="false">
+                                    <button class="choice-btn">is</button>
+                                    <button class="choice-btn" data-correct="true">would be</button>
+                                    <button class="choice-btn">has been</button>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="placement-slide" data-slide="result">
+                        <div class="flex items-center justify-between gap-3 flex-wrap mb-6">
+                            <div>
+                                <p class="kpi-label">Resultado</p>
+                                <h2 class="section-title mt-2">Leitura final do nivelamento</h2>
+                            </div>
+                            <span id="result-badge" class="info-chip" style="background: var(--chip-bg); color: var(--chip-text); border: 1px solid var(--chip-border);">Calculando</span>
+                        </div>
+
+                        <div class="result-grid">
+                            <div class="metric-card">
+                                <p class="metric-label">Recomendação</p>
+                                <p id="result-level" class="metric-value">Aguardando</p>
+                                <p id="result-module" class="section-copy mt-3">Conclua todas as seções para ver o melhor ponto de entrada.</p>
+                            </div>
+                            <div class="metric-card">
+                                <p class="metric-label">Pontuação</p>
+                                <p id="result-score" class="metric-value">0/30</p>
+                                <p id="result-accuracy" class="section-copy mt-3">0% de acerto total</p>
+                            </div>
+                            <div class="metric-card">
+                                <p class="metric-label">Leitura pedagógica</p>
+                                <p id="result-confidence" class="metric-value">Parcial</p>
+                                <p id="result-summary" class="section-copy mt-3">O relatório considera base, ponte para B1 e teto de nível.</p>
+                            </div>
+                        </div>
+
+                        <div class="support-grid mt-6">
+                            <div class="placement-panel" style="padding: 1.15rem;">
+                                <h3 class="section-title" style="font-size: 1.2rem;">Forças observadas</h3>
+                                <ul id="strengths-list" class="result-list mt-4"></ul>
+                            </div>
+                            <div class="placement-panel" style="padding: 1.15rem;">
+                                <h3 class="section-title" style="font-size: 1.2rem;">Pontos de atenção</h3>
+                                <ul id="attention-list" class="result-list mt-4"></ul>
+                            </div>
+                            <div class="placement-panel" style="padding: 1.15rem;">
+                                <h3 class="section-title" style="font-size: 1.2rem;">Próximo passo</h3>
+                                <ul id="next-step-list" class="result-list mt-4"></ul>
+                            </div>
+                        </div>
+
+                        <div class="prompt-box mt-6">
+                            <p class="m-0"><strong>Complemento recomendado para o professor:</strong> depois do resultado, peça ao aluno para falar por 1 minuto sobre rotina, experiências recentes e planos. Se a produção oral ficar muito abaixo da faixa indicada pelo teste, use o módulo sugerido como teto e ajuste para baixo se necessário.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="slide">
-             <div class="text-center flex flex-col items-center justify-center min-h-[70vh]">
-                <i class="fas fa-award text-amber-500 text-8xl mb-6"></i>
-                <h2 class="text-5xl font-bold mb-4 text-gray-800">Teste Finalizado!</h2>
-                <p id="result-text" class="text-3xl text-gray-600 max-w-2xl">Calculando seu resultado...</p>
-            </div>
-        </div>
+            <aside class="sticky-summary space-y-4">
+                <div class="placement-panel">
+                    <p class="kpi-label">Painel rápido</p>
+                    <h2 class="section-title mt-2">O que este teste mede</h2>
+                    <ul class="insight-list mt-4">
+                        <li>controle de estrutura básica</li>
+                        <li>compreensão e interpretação curta</li>
+                        <li>decisão real de entrada no B1</li>
+                        <li>alcance acima de B1 sem inflar o resultado</li>
+                    </ul>
+                </div>
 
+                <div class="placement-panel">
+                    <p class="kpi-label">Progresso</p>
+                    <div class="progress-track mt-4">
+                        <div id="progress-fill" class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <p id="progress-text" class="section-copy mt-3">Introdução</p>
+                </div>
+
+                <div class="placement-panel">
+                    <p class="kpi-label">Faixas avaliadas</p>
+                    <div class="space-y-3 mt-4">
+                        <div class="metric-card">
+                            <p class="metric-label">Base</p>
+                            <p class="section-copy mt-2">A1 e A2</p>
+                        </div>
+                        <div class="metric-card">
+                            <p class="metric-label">Ponte</p>
+                            <p class="section-copy mt-2">Preparação antes do B1</p>
+                        </div>
+                        <div class="metric-card">
+                            <p class="metric-label">Teto</p>
+                            <p class="section-copy mt-2">B1, B2 e C1</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </section>
     </main>
 
-    <div id="teacher-modal" class="modal-overlay">
-        <div class="modal-content">
-            <button id="modal-close-btn" class="modal-close-btn">&times;</button>
-            <h3 class="text-2xl font-bold mb-4">Roteiro do Professor (Listening)</h3>
-            <div id="modal-script" class="text-lg space-y-3"></div>
-        </div>
-    </div>
-
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-30">
-        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
-            <button id="next-btn" class="bg-purple-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-purple-700">Próximo</button>
-            <button id="finish-lesson-btn" class="hidden bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Finalizar e Ver Resultado</button>
+    <footer class="footer-nav">
+        <div class="app-container footer-nav-inner">
+            <div class="footer-progress">
+                <p class="kpi-label">Etapa atual</p>
+                <p id="footer-stage" class="section-copy mt-2">Introdução</p>
+            </div>
+            <div class="footer-actions">
+                <button id="prev-btn" type="button" class="app-button-ghost">Anterior</button>
+                <button id="next-btn" type="button" class="app-button">Próximo</button>
+                <button id="finish-btn" type="button" class="app-button-secondary hidden">Ver resultado</button>
+            </div>
         </div>
     </footer>
 
+    <script src="../js/theme-toggle.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const slides = document.querySelectorAll('.slide');
+            const slides = Array.from(document.querySelectorAll('.placement-slide'));
+            const scoredQuestions = Array.from(document.querySelectorAll('[data-question]'));
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            const totalQuestions = document.querySelectorAll('.question-block > .grid').length;
+            const finishBtn = document.getElementById('finish-btn');
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
+            const footerStage = document.getElementById('footer-stage');
+
+            const stageLabels = [
+                'Introdução',
+                'Seção 1 • Base e comunicação cotidiana',
+                'Seção 2 • Leitura guiada e ponte para B1',
+                'Seção 3 • Decisão de entrada no B1',
+                'Seção 4 • Leitura com inferência',
+                'Seção 5 • Faixa alta e teto do aluno',
+                'Resultado'
+            ];
+
+            const levelOrder = ['A1', 'A2', 'PREB1', 'B1', 'B2', 'C1'];
+            const skillLabels = {
+                grammar: 'estrutura gramatical',
+                reading: 'leitura e interpretação',
+                vocabulary: 'vocabulário e precisão de sentido',
+                function: 'resposta funcional e uso comunicativo'
+            };
+
+            const levelStats = levelOrder.reduce((acc, level) => {
+                acc[level] = { total: 0, correct: 0 };
+                return acc;
+            }, {});
+
+            const skillStats = Object.keys(skillLabels).reduce((acc, key) => {
+                acc[key] = { total: 0, correct: 0 };
+                return acc;
+            }, {});
+
+            scoredQuestions.forEach((question) => {
+                const level = question.dataset.level;
+                const skill = question.dataset.skill;
+                if (levelStats[level]) levelStats[level].total += 1;
+                if (skillStats[skill]) skillStats[skill].total += 1;
+            });
+
             let currentSlide = 0;
             let score = 0;
 
-            function showSlide(index) {
-                window.scrollTo(0, 0);
-
-                slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                const progressBar = document.getElementById('progress-bar');
-                progressBar.style.width = slides.length > 1 ? `${(index / (slides.length - 1)) * 100}%` : '0%';
-                prevBtn.disabled = index === 0;
-                nextBtn.classList.toggle('hidden', index === slides.length - 1);
-                finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
+            function getRate(group) {
+                return group.total ? group.correct / group.total : 0;
             }
 
-            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            
-            finishLessonBtn.addEventListener('click', () => {
-                let recommendation = 'A1 (Iniciante)';
-                const percentage = (score / totalQuestions) * 100;
-                
-                if (percentage >= 85) { // ~40 acertos
-                    recommendation = 'C1 (Avançado)';
-                } else if (percentage >= 65) { // ~31 acertos
-                    recommendation = 'B2 (Intermediário Superior)';
-                } else if (percentage >= 40) { // ~19 acertos
-                    recommendation = 'B1 (Intermediário)';
-                } else if (percentage >= 20) { // ~9 acertos
-                    recommendation = 'A2 (Básico)';
+            function showSlide(index) {
+                currentSlide = index;
+                slides.forEach((slide, position) => {
+                    slide.classList.toggle('active', position === index);
+                });
+
+                const progress = (index / (slides.length - 1)) * 100;
+                progressFill.style.width = `${progress}%`;
+                progressText.textContent = stageLabels[index] || 'Etapa';
+                footerStage.textContent = stageLabels[index] || 'Etapa';
+
+                prevBtn.disabled = index === 0;
+                nextBtn.classList.toggle('hidden', index >= slides.length - 2);
+                finishBtn.classList.toggle('hidden', index !== slides.length - 2);
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function registerAnswer(button) {
+                const group = button.closest('.choice-grid');
+                const question = button.closest('[data-question]');
+                if (!group || group.dataset.answered === 'true' || !question) return;
+
+                group.dataset.answered = 'true';
+
+                const level = question.dataset.level;
+                const skill = question.dataset.skill;
+                const options = Array.from(group.querySelectorAll('.choice-btn'));
+                options.forEach((option) => {
+                    option.disabled = true;
+                });
+
+                button.classList.add('is-selected');
+
+                if (button.dataset.correct === 'true') {
+                    score += 1;
+                    levelStats[level].correct += 1;
+                    skillStats[skill].correct += 1;
+                    button.classList.add('is-correct');
+                } else {
+                    button.classList.add('is-incorrect');
+                    const correctOption = options.find((option) => option.dataset.correct === 'true');
+                    if (correctOption) {
+                        correctOption.classList.add('is-correct');
+                    }
+                }
+            }
+
+            function slideIsComplete(index) {
+                const questions = slides[index].querySelectorAll('[data-question] .choice-grid');
+                return Array.from(questions).every((group) => group.dataset.answered === 'true');
+            }
+
+            function getPlacement() {
+                const rates = {
+                    A1: getRate(levelStats.A1),
+                    A2: getRate(levelStats.A2),
+                    PREB1: getRate(levelStats.PREB1),
+                    B1: getRate(levelStats.B1),
+                    B2: getRate(levelStats.B2),
+                    C1: getRate(levelStats.C1)
+                };
+
+                if (rates.A1 < 0.75) {
+                    return {
+                        level: 'A1',
+                        module: 'Módulo A1',
+                        badge: 'Base inicial',
+                        confidence: 'Alta',
+                        summary: 'A base essencial ainda precisa de mais estabilidade antes de avançar.',
+                        nextSteps: [
+                            'Consolidar verb to be, simple present, perguntas básicas e vocabulário cotidiano.',
+                            'Treinar respostas curtas com mais precisão antes de ampliar a complexidade.',
+                            'Usar A1 como ponto de entrada principal.'
+                        ]
+                    };
                 }
 
-                const resultText = document.getElementById('result-text');
-                resultText.innerHTML = `Acertos: <strong>${score}</strong> de ${totalQuestions}. <br><br> Módulo recomendado: <strong class="text-purple-700">${recommendation}</strong>.`;
-                
-                document.querySelector('footer').remove();
-            });
+                if (rates.A2 < 0.65) {
+                    return {
+                        level: 'A2',
+                        module: 'Módulo A2',
+                        badge: 'Base funcional',
+                        confidence: 'Alta',
+                        summary: 'O aluno já entende a base, mas ainda não sustenta com segurança a faixa que prepara o B1.',
+                        nextSteps: [
+                            'Reforçar passado, comparativos, planos e respostas funcionais.',
+                            'Aumentar leitura curta com interpretação e não só reconhecimento literal.',
+                            'Usar A2 como módulo principal e retestar depois da consolidação.'
+                        ]
+                    };
+                }
 
-            document.querySelectorAll('.option-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const questionGroup = button.parentElement;
-                    if (questionGroup.dataset.answered) return; 
+                if (rates.PREB1 < 0.5 || rates.B1 < 0.45) {
+                    return {
+                        level: 'A2 forte / transição',
+                        module: 'Ponte A2-B1',
+                        badge: 'Pré-B1',
+                        confidence: 'Alta',
+                        summary: 'Há boa sustentação em A2, mas a entrada no B1 ainda não está estável o suficiente.',
+                        nextSteps: [
+                            'Trabalhar leitura mais longa, present perfect, condicionais iniciais e respostas mais completas.',
+                            'Usar a ponte preparatória antes do B1 para evitar lacunas.',
+                            'Observar produção oral em relatos curtos e justificativas simples.'
+                        ]
+                    };
+                }
 
-                    questionGroup.dataset.answered = 'true';
-                    const allOptions = questionGroup.querySelectorAll('.option-btn');
-                    
-                    allOptions.forEach(btn => btn.disabled = true );
-                    button.classList.add('selected');
+                if (rates.B1 >= 0.65 && rates.B2 < 0.55) {
+                    return {
+                        level: 'B1',
+                        module: 'Módulo B1',
+                        badge: 'Intermediário',
+                        confidence: 'Alta',
+                        summary: 'O aluno já sustenta leitura, estrutura e comunicação em faixa intermediária.',
+                        nextSteps: [
+                            'Entrar no B1 com foco em opinião, narrativa, solução de problemas e maior autonomia.',
+                            'Expandir conectores, present perfect, passiva e argumentação simples.',
+                            'Monitorar a oralidade para checar se acompanha a leitura e a gramática.'
+                        ]
+                    };
+                }
 
-                    if (button.dataset.correct) {
-                        score++;
-                        button.classList.add('correct');
-                    } else {
-                        button.classList.add('incorrect');
-                        const correctBtn = questionGroup.querySelector('[data-correct="true"]');
-                        if (correctBtn) correctBtn.classList.add('correct');
-                    }
-                });
-            });
+                if (rates.B2 >= 0.6 && rates.C1 < 0.5) {
+                    return {
+                        level: 'B2',
+                        module: 'Módulo B2',
+                        badge: 'Intermediário superior',
+                        confidence: 'Média-alta',
+                        summary: 'O aluno mostra bom alcance acima do B1, mas ainda sem consistência suficiente para C1.',
+                        nextSteps: [
+                            'Priorizar leitura com inferência, estruturas mais densas e vocabulário menos previsível.',
+                            'Aumentar precisão em contraste, condição irreal e formulação formal.',
+                            'Usar B2 como faixa de trabalho principal.'
+                        ]
+                    };
+                }
 
-            const modal = document.getElementById('teacher-modal');
-            const modalCloseBtn = document.getElementById('modal-close-btn');
-            const modalScript = document.getElementById('modal-script');
-
-            window.openModal = (script) => {
-                modalScript.innerHTML = script;
-                modal.style.display = 'flex';
+                return {
+                    level: 'C1',
+                    module: 'Módulo C1',
+                    badge: 'Avançado',
+                    confidence: 'Média',
+                    summary: 'O aluno alcança estruturas e sentidos de faixa avançada, mas a produção oral ainda deve confirmar o teto final.',
+                    nextSteps: [
+                        'Confirmar em conversa mais longa, reformulação e defesa de opinião com nuance.',
+                        'Trabalhar precisão lexical, registro e leitura mais densa.',
+                        'Usar C1 como referência, ajustando se a oralidade vier abaixo.'
+                    ]
+                };
             }
 
-            modalCloseBtn.addEventListener('click', () => { modal.style.display = 'none'; });
-            modal.addEventListener('click', (e) => { if(e.target === modal) modal.style.display = 'none'; });
+            function buildSkillInsights() {
+                return Object.entries(skillStats)
+                    .map(([key, stats]) => ({ key, label: skillLabels[key], rate: getRate(stats) }))
+                    .sort((a, b) => b.rate - a.rate);
+            }
+
+            function renderList(elementId, items) {
+                const target = document.getElementById(elementId);
+                target.innerHTML = items.map((item) => `<li>${item}</li>`).join('');
+            }
+
+            function showResults() {
+                const placement = getPlacement();
+                const total = scoredQuestions.length;
+                const overallRate = total ? Math.round((score / total) * 100) : 0;
+                const skillInsights = buildSkillInsights();
+
+                const strengths = skillInsights
+                    .filter((item) => item.rate >= 0.7)
+                    .slice(0, 3)
+                    .map((item) => `Boa consistência em ${item.label}.`);
+
+                const attention = skillInsights
+                    .filter((item) => item.rate < 0.55)
+                    .slice(0, 3)
+                    .map((item) => `Vale reforçar ${item.label}.`);
+
+                document.getElementById('result-badge').textContent = placement.badge;
+                document.getElementById('result-level').textContent = placement.level;
+                document.getElementById('result-module').textContent = `Entrada sugerida: ${placement.module}`;
+                document.getElementById('result-score').textContent = `${score}/${total}`;
+                document.getElementById('result-accuracy').textContent = `${overallRate}% de acerto total`;
+                document.getElementById('result-confidence').textContent = placement.confidence;
+                document.getElementById('result-summary').textContent = placement.summary;
+
+                renderList('strengths-list', strengths.length ? strengths : [
+                    'A base apareceu de forma parcial; o resultado final depende mais do equilíbrio entre seções do que de um pico isolado.'
+                ]);
+                renderList('attention-list', attention.length ? attention : [
+                    'Nenhum bloco crítico apareceu muito abaixo do esperado para a faixa recomendada.'
+                ]);
+                renderList('next-step-list', placement.nextSteps);
+
+                showSlide(slides.length - 1);
+                document.querySelector('.footer-nav').remove();
+            }
+
+            document.querySelectorAll('.choice-btn').forEach((button) => {
+                button.addEventListener('click', () => registerAnswer(button));
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) showSlide(currentSlide - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (!slideIsComplete(currentSlide)) {
+                    alert('Responda todas as questões desta seção antes de avançar.');
+                    return;
+                }
+                if (currentSlide < slides.length - 2) showSlide(currentSlide + 1);
+            });
+
+            finishBtn.addEventListener('click', () => {
+                if (!slideIsComplete(currentSlide)) {
+                    alert('Responda todas as questões desta seção antes de ver o resultado.');
+                    return;
+                }
+                showResults();
+            });
 
             showSlide(0);
         });

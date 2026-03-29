@@ -32,6 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'Continue evoluindo com as lições do A2.',
             url: 'a2/a2.html'
         },
+        prepb1: {
+            name: 'Ponte A2-B1',
+            description: 'Revise A1 e A2 com mais leitura, interpretação e fala antes de entrar no B1.',
+            url: 'prepb1/prepb1.html'
+        },
         conversation: {
             name: 'Conversação',
             description: 'Pratique temas de fala e compreensão com foco em fluidez.',

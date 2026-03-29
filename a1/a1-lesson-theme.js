@@ -73,6 +73,19 @@ document.addEventListener('DOMContentLoaded', () => {
     injectThemeToggle();
     syncThemeToggle();
 
+    const backLink = document.querySelector('header a[href="a1.html"]');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const finishBtn = document.getElementById('finish-btn') || document.getElementById('finish-lesson-btn');
+
+    if (backLink) {
+        backLink.innerHTML = '<i class="fas fa-chevron-left"></i> Voltar para A1';
+    }
+
+    if (prevBtn) prevBtn.innerHTML = '<i class="fas fa-chevron-left mr-1"></i> Anterior';
+    if (nextBtn) nextBtn.innerHTML = 'Próximo <i class="fas fa-chevron-right ml-1"></i>';
+    if (finishBtn) finishBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Finalizar aula';
+
     document.addEventListener('click', (event) => {
         const themeToggle = event.target.closest('[data-a1-theme-toggle]');
         if (themeToggle) {
@@ -125,11 +138,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isTyping) return;
 
         if (event.key === 'ArrowLeft') {
-            document.getElementById('prev-btn')?.click();
+            prevBtn?.click();
         }
 
         if (event.key === 'ArrowRight') {
-            document.getElementById('next-btn')?.click();
+            nextBtn?.click();
         }
     });
 
@@ -204,4 +217,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         render();
     });
+
+    document.body.classList.add('a1-theme-ready');
 });
