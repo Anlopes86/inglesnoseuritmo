@@ -69,8 +69,30 @@ document.addEventListener('DOMContentLoaded', () => {
         wrapper.appendChild(slideCounter);
     }
 
+    function enhanceTables() {
+        document.querySelectorAll('table').forEach((table) => {
+            const parent = table.parentElement;
+            if (!parent) return;
+
+            if (parent.classList.contains('grammar-table')) {
+                parent.classList.add('lesson-table-scroll');
+                return;
+            }
+
+            if (table.closest('.overflow-x-auto, .lesson-table-scroll, .table-responsive')) {
+                return;
+            }
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'lesson-table-scroll';
+            parent.insertBefore(wrapper, table);
+            wrapper.appendChild(table);
+        });
+    }
+
     document.body.classList.add('prepb1-lesson-page');
     applyTheme(getPreferredTheme());
+    enhanceTables();
     injectThemeToggle();
     syncThemeToggle();
 
