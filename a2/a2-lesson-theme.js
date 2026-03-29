@@ -319,5 +319,73 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    const choiceBuilders = Array.from(document.querySelectorAll('[data-choice-builder]'));
+
+    choiceBuilders.forEach((builder) => {
+        const preview = builder.querySelector('[data-choice-preview]');
+        const resetButton = builder.querySelector('[data-choice-reset]');
+        const speakButton = builder.querySelector('[data-choice-speak]');
+        const template = builder.dataset.template || '';
+        const requiredSlots = (builder.dataset.required || '')
+            .split(',')
+            .map((value) => value.trim())
+            .filter(Boolean);
+        const emptyText = builder.dataset.previewEmpty || 'Monte sua resposta usando as opções abaixo.';
+        const state = {};
+
+        const render = () => {
+            const sentence = template.replace(/\{(.*?)\}/g, (_, slotName) => {
+                const key = String(slotName).trim();
+                return state[key] || '...';
+            });
+            const isComplete = requiredSlots.every((slot) => Boolean(state[slot]));
+
+            if (preview) {
+                preview.textContent = isComplete ? sentence : emptyText;
+                preview.classList.toggle('is-complete', isComplete);
+            }
+
+            if (speakButton) {
+                speakButton.disabled = !isComplete;
+            }
+        };
+
+        builder.querySelectorAll('[data-choice-slot]').forEach((button) => {
+            button.addEventListener('click', () => {
+                const slot = button.dataset.choiceSlot;
+                const value = button.dataset.choiceValue || '';
+                if (!slot) return;
+
+                state[slot] = value;
+
+                builder.querySelectorAll(`[data-choice-slot="${slot}"]`).forEach((item) => {
+                    item.classList.toggle('is-active', item === button);
+                });
+
+                render();
+            });
+        });
+
+        resetButton?.addEventListener('click', () => {
+            Object.keys(state).forEach((key) => delete state[key]);
+            builder.querySelectorAll('[data-choice-slot]').forEach((button) => {
+                button.classList.remove('is-active');
+            });
+            render();
+        });
+
+        speakButton?.addEventListener('click', () => {
+            const text = preview?.textContent?.trim();
+            if (!text || text === emptyText) return;
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        });
+
+        render();
+    });
+
     document.body.classList.remove('lesson-loading');
 });
