@@ -71,9 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.body.classList.add('a2-lesson-page');
     applyTheme(getPreferredTheme());
-    injectThemeToggle();
-    syncThemeToggle();
-    document.body.classList.remove('lesson-loading');
 
     document.addEventListener('click', (event) => {
         const themeToggle = event.target.closest('[data-a2-theme-toggle]');
@@ -286,6 +283,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (slideCounter && activeIndex >= 0) slideCounter.textContent = `${activeIndex + 1} / ${slides.length}`;
     };
 
+    injectThemeToggle();
+    syncThemeToggle();
     syncHeader();
 
     const observer = new MutationObserver(syncHeader);
