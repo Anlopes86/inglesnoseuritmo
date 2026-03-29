@@ -39,15 +39,18 @@
     </style>
     <link rel='stylesheet' href='a2-lesson-theme.css'>
 </head>
-<body class="lesson-loading bg-slate-50 text-slate-800">
+<body class="a2-lesson-page lesson-loading bg-slate-50 text-slate-800">
 
     <header class="bg-white shadow-sm sticky top-0 z-10">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> A2 Module</a>
-            <h1 class="text-2xl font-black text-center uppercase tracking-tighter">Lesson 20: Been or Gone?</h1>
-            <div class="w-40"></div>
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+            <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A2</a>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 20: Been or Gone?</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 7</div>
         </div>
-        <div class="w-full bg-gray-200 h-2"><div id="progress-bar" class="bg-orange-500 h-2 transition-all duration-300"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300"></div></div>
     </header>
 
     <main class="container mx-auto p-8 relative" style="height: calc(100vh - 180px); overflow-y: auto;">
@@ -177,6 +180,44 @@
             </div>
         </div>
 
+        <div class="slide" data-title="Travel Logic Builder">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold mb-6 text-center text-orange-700">Travel Logic Builder</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <p class="text-xl text-slate-600 mb-6">Choose the context and the correct travel result. The idea is to help the student decide if the person is still away or has already come back.</p>
+                    <div class="activity-lab" data-choice-builder data-template="{context} {result}" data-required="context,result" data-preview-empty="Escolha um contexto e depois a conclusão correta com been ou gone.">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <p class="lesson-panel-title mb-3">Context</p>
+                                <div class="option-cloud mb-5">
+                                    <button type="button" class="option-chip" data-choice-slot="context" data-choice-value="Julia isn't at home right now.">Julia isn't at home right now.</button>
+                                    <button type="button" class="option-chip" data-choice-slot="context" data-choice-value="My uncle is back from Mexico and he has many photos.">My uncle is back from Mexico and he has many photos.</button>
+                                    <button type="button" class="option-chip" data-choice-slot="context" data-choice-value="The manager left the office an hour ago.">The manager left the office an hour ago.</button>
+                                    <button type="button" class="option-chip" data-choice-slot="context" data-choice-value="I returned from the museum this morning.">I returned from the museum this morning.</button>
+                                </div>
+                                <p class="lesson-panel-title mb-3">Result</p>
+                                <div class="option-cloud">
+                                    <button type="button" class="option-chip" data-choice-slot="result" data-choice-value="She has gone to the gym.">She has gone to the gym.</button>
+                                    <button type="button" class="option-chip" data-choice-slot="result" data-choice-value="He has been to Mexico.">He has been to Mexico.</button>
+                                    <button type="button" class="option-chip" data-choice-slot="result" data-choice-value="He has gone home for the day.">He has gone home for the day.</button>
+                                    <button type="button" class="option-chip" data-choice-slot="result" data-choice-value="I have been there already.">I have been there already.</button>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="lesson-panel-title mb-3">Final sentence</p>
+                                <div class="preview-card min-h-[180px] flex items-center justify-center text-center" data-choice-preview></div>
+                                <p class="mt-4 text-sm text-slate-500">Before clicking the speaker, ask yourself: is the person still there, or has the experience finished?</p>
+                                <div class="flex flex-wrap gap-3 mt-5">
+                                    <button type="button" class="choice-btn" data-choice-speak>Ouvir frase</button>
+                                    <button type="button" class="choice-btn" data-choice-reset>Limpar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="slide">
             <h2 class="text-3xl font-black mb-6 text-center text-orange-700 uppercase italic">Music: The Absence</h2>
             <div class="music-card p-10 rounded-[3rem] shadow-2xl max-w-6xl mx-auto flex flex-col lg:flex-row gap-10 border-2 border-white/50">
@@ -226,7 +267,7 @@
     <footer class="fixed bottom-0 left-0 w-full bg-white border-t p-6 z-20">
         <div class="container mx-auto flex justify-between items-center px-10">
             <button id="prev-btn" class="px-10 py-4 bg-gray-200 rounded-2xl font-black hover:bg-gray-300 disabled:opacity-50">PREVIOUS</button>
-            <button id="next-btn" class="px-12 py-4 bg-orange-600 text-white rounded-2xl font-black hover:bg-orange-700 shadow-lg">NEXT</button>
+            <button id="next-btn" class="px-12 py-4 bg-orange-600 text-white rounded-2xl font-black hover:bg-orange-700 shadow-lg">Próximo</button>
         </div>
     </footer>
 
@@ -237,20 +278,48 @@
     <script src="../js/progress-manager.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2';
+            const lessonNumber = 20;
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
+            const slideCounter = document.getElementById('slide-counter');
+            const slideTitleHeader = document.getElementById('slide-title-header');
             let currentSlide = 0;
 
             function updateView() {
                 slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
                 document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
+                if (slideCounter) slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+                if (slideTitleHeader) slideTitleHeader.textContent = slides[currentSlide]?.dataset.title || '';
                 prevBtn.disabled = currentSlide === 0;
-                nextBtn.innerText = currentSlide === slides.length - 1 ? 'FINISH' : 'NEXT';
+                nextBtn.innerText = currentSlide === slides.length - 1 ? 'Finish' : 'Next';
             }
 
             prevBtn.onclick = () => { if(currentSlide > 0) currentSlide--; updateView(); };
-            nextBtn.onclick = () => { if(currentSlide < slides.length - 1) { currentSlide++; updateView(); } };
+            nextBtn.onclick = () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateView();
+                    return;
+                }
+
+                nextBtn.disabled = true;
+                nextBtn.textContent = 'Saving...';
+
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber).catch(error => {
+                        console.error('Erro ao marcar a lição como completa:', error);
+                        alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');
+                        nextBtn.disabled = false;
+                        nextBtn.textContent = 'Finish';
+                    });
+                } else {
+                    alert('Erro ao salvar progresso.');
+                    nextBtn.disabled = false;
+                    nextBtn.textContent = 'Finish';
+                }
+            };
 
             function checkAnswer(input) {
                 const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
@@ -278,6 +347,7 @@
             });
 
             updateView();
+            document.body.classList.remove('lesson-loading');
         });
     </script>
     <script src="../js/flashcard-pronunciation.js"></script>
