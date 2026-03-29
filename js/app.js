@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
     const firebaseConfig = {
         apiKey: "AIzaSyA4srp5nACEhOLLD8Yd4cwe5_rZ8izcm1Y",
         authDomain: "inglesnoseuritmo-bae14.firebaseapp.com",
@@ -38,6 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const teacherLastLesson = document.getElementById('teacher-last-lesson');
     const teacherNextLesson = document.getElementById('teacher-next-lesson');
     const teacherLessonNote = document.getElementById('teacher-lesson-note');
+    const assignedModulesStatus = document.getElementById('assigned-modules-status');
+    const assignedModulesList = document.getElementById('assigned-modules-list');
 
     const newPackageBtn = document.getElementById('new-package-btn');
     const newPackageModal = document.getElementById('new-package-modal');
@@ -48,20 +50,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const modulesData = [
         { id: 'nivelamento', href: 'nivelamento/licao-01.html', title: 'Teste de Nivelamento', lessons: 0, buttonText: 'Abrir teste', icon: 'fa-clipboard-check', accent: 'blue', description: 'Descubra o ponto de partida ideal para a jornada do aluno.' },
-        { id: 'vestibular', href: 'vestibular/vestibular.html', title: 'Jornada Vestibular', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-school', accent: 'amber', description: 'Leitura, prova, estratégia e revisão para vestibular.' },
-        { id: 'business', href: 'business/business.html', title: 'Inglês para Negócios', lessons: 16, buttonText: 'Ver trilha', icon: 'fa-briefcase', accent: 'cyan', description: 'Reuniões, entrevistas, e-mails e comunicação profissional.' },
-        { id: 'essentials', href: 'essentials/essentials.html', lessons: 16, title: 'English Essentials', buttonText: 'Ver trilha', icon: 'fa-key', accent: 'rose', description: 'Curso enxuto para reforçar fundamentos centrais do idioma.' },
-        { id: 'conversation', href: 'conversation/conversation.html', title: 'Conversation Club', lessons: 48, buttonText: 'Ver trilha', icon: 'fa-comments', accent: 'violet', description: 'Aulas temáticas para destravar fala, opinião e repertório.' },
-        { id: 'a1', href: 'a1/a1.html', title: 'Módulo A1', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-seedling', accent: 'emerald', description: 'Base da comunicação, rotina e primeiras trocas sociais.' },
-        { id: 'a2', href: 'a2/a2.html', title: 'Módulo A2', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-compass', accent: 'violet', description: 'Mais repertório, comparações, passado e futuro com clareza.' },
-        { id: 'b1', href: 'b1/b1.html', title: 'Módulo B1', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-chart-line', accent: 'rose', description: 'Experiências, opiniões e autonomia comunicativa.' },
-        { id: 'b2', href: 'b2/b2.html', title: 'Módulo B2', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-arrow-trend-up', accent: 'amber', description: 'Argumentação, nuance e compreensão de temas mais densos.' },
-        { id: 'c1', href: 'c1/c1.html', title: 'Módulo C1', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-trophy', accent: 'cyan', description: 'Comunicação avançada para contextos sociais e profissionais.' },
-        { id: 'c2', href: 'c2/c2.html', title: 'Módulo C2', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-crown', accent: 'slate', description: 'Refinamento total da expressão e da compreensão.' }
+        { id: 'vestibular', href: 'vestibular/vestibular.html', title: 'Jornada Vestibular', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-school', accent: 'amber', description: 'Leitura, prova, estrat\u00e9gia e revis\u00e3o para vestibular.' },
+        { id: 'business', href: 'business/business.html', title: 'Ingl\u00eas para Neg\u00f3cios', lessons: 16, buttonText: 'Ver trilha', icon: 'fa-briefcase', accent: 'cyan', description: 'Reuni\u00f5es, entrevistas, e-mails e comunica\u00e7\u00e3o profissional.' },
+        { id: 'essentials', href: 'essentials/essentials.html', lessons: 16, title: 'English Essentials', buttonText: 'Ver trilha', icon: 'fa-key', accent: 'rose', description: 'Curso enxuto para refor\u00e7ar fundamentos centrais do idioma.' },
+        { id: 'conversation', href: 'conversation/conversation.html', title: 'Conversation Club', lessons: 48, buttonText: 'Ver trilha', icon: 'fa-comments', accent: 'violet', description: 'Aulas tem\u00e1ticas para destravar fala, opini\u00e3o e repert\u00f3rio.' },
+        { id: 'a1', href: 'a1/a1.html', title: 'M\u00f3dulo A1', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-seedling', accent: 'emerald', description: 'Base da comunica\u00e7\u00e3o, rotina e primeiras trocas sociais.' },
+        { id: 'a2', href: 'a2/a2.html', title: 'M\u00f3dulo A2', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-compass', accent: 'violet', description: 'Mais repert\u00f3rio, compara\u00e7\u00f5es, passado e futuro com clareza.' },
+        { id: 'b1', href: 'b1/b1.html', title: 'M\u00f3dulo B1', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-chart-line', accent: 'rose', description: 'Experi\u00eancias, opini\u00f5es e autonomia comunicativa.' },
+        { id: 'b2', href: 'b2/b2.html', title: 'M\u00f3dulo B2', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-arrow-trend-up', accent: 'amber', description: 'Argumenta\u00e7\u00e3o, nuance e compreens\u00e3o de temas mais densos.' },
+        { id: 'c1', href: 'c1/c1.html', title: 'M\u00f3dulo C1', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-trophy', accent: 'cyan', description: 'Comunica\u00e7\u00e3o avan\u00e7ada para contextos sociais e profissionais.' },
+        { id: 'c2', href: 'c2/c2.html', title: 'M\u00f3dulo C2', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-crown', accent: 'slate', description: 'Refinamento total da express\u00e3o e da compreens\u00e3o.' }
     ];
-
-    let lastFocusedElement = null;
-
     function openModal(modal, focusTarget) {
         if (!modal) return;
         lastFocusedElement = document.activeElement;
@@ -122,12 +121,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function formatLessonNumber(lessonNumber) {
-        return lessonNumber ? `Lição ${String(lessonNumber).padStart(2, '0')}` : 'Nenhuma lição concluída';
+        return lessonNumber ? `Li\u00e7\u00e3o ${String(lessonNumber).padStart(2, '0')}` : 'Nenhuma li\u00e7\u00e3o conclu\u00edda';
     }
 
     function describeStudentType(moduleId) {
         const module = modulesData.find((item) => item.id === moduleId);
-        return module ? module.title : 'Módulo não definido';
+        return module ? module.title : 'M\u00f3dulo n\u00e3o definido';
+    }
+
+    function getAssignedModules(studentData) {
+        const currentModules = Array.isArray(studentData.modules) ? studentData.modules : [];
+        const fallbackModules = studentData.studentType ? [studentData.studentType] : [];
+        const validIds = new Set(modulesData.map((module) => module.id).filter((id) => id !== 'nivelamento'));
+
+        return [...new Set([...currentModules, ...fallbackModules])].filter((moduleId) => validIds.has(moduleId));
+    }
+
+    function renderAssignedModules(studentData) {
+        if (!assignedModulesStatus || !assignedModulesList) return;
+
+        const assignedModules = getAssignedModules(studentData);
+        const primaryModule = studentData.studentType || assignedModules[0] || null;
+
+        assignedModulesList.innerHTML = '';
+
+        if (!assignedModules.length) {
+            assignedModulesStatus.textContent = 'Nenhum módulo liberado ainda.';
+            assignedModulesList.innerHTML = '<p class="section-copy">Use os cards abaixo para liberar o primeiro módulo deste aluno.</p>';
+            return;
+        }
+
+        assignedModulesStatus.textContent = `${assignedModules.length} ${assignedModules.length === 1 ? 'módulo liberado' : 'módulos liberados'} para este aluno.`;
+
+        assignedModules.forEach((moduleId) => {
+            const module = modulesData.find((item) => item.id === moduleId);
+            if (!module) return;
+
+            const chip = document.createElement('button');
+            chip.type = 'button';
+            chip.dataset.setPrimaryModule = moduleId;
+            chip.className = primaryModule === moduleId
+                ? 'info-chip bg-slate-900 text-white'
+                : 'info-chip bg-slate-100 text-slate-700';
+            chip.textContent = primaryModule === moduleId
+                ? `${module.title} \u2022 principal`
+                : `Definir ${module.title} como principal`;
+            assignedModulesList.appendChild(chip);
+        });
     }
 
     auth.onAuthStateChanged((user) => {
@@ -139,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     loadStudentsIntoSelect();
                 } else {
                     if (typeof showToast === 'function') {
-                        showToast('Este painel é restrito para professores.', 'error', 'Acesso restrito');
+                        showToast('Este painel \u00e9 restrito para professores.', 'error', 'Acesso restrito');
                     }
                     auth.signOut();
                 }
@@ -161,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 console.error('Erro ao sair:', error);
                 if (typeof showToast === 'function') {
-                    showToast('Não foi possível sair da plataforma agora.', 'error', 'Falha ao sair');
+                    showToast('N\u00e3o foi poss\u00edvel sair da plataforma agora.', 'error', 'Falha ao sair');
                 }
                 logoutBtn.disabled = false;
             }
@@ -218,6 +258,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function displayStudentDashboard(studentId, studentName) {
+        if (assignedModulesStatus) assignedModulesStatus.textContent = 'Carregando módulos liberados...';
+        if (assignedModulesList) assignedModulesList.innerHTML = '';
         noStudentSelectedDiv.classList.add('hidden');
         studentDashboardDiv.classList.remove('hidden');
         studentActionButtons.classList.remove('hidden');
@@ -228,7 +270,6 @@ document.addEventListener('DOMContentLoaded', () => {
         await updatePackageInfo(studentId);
         await updateModuleProgress(studentId);
     }
-
     async function updatePackageInfo(studentId) {
         try {
             const studentDoc = await db.collection('students').doc(studentId).get();
@@ -250,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 packageProgressText.textContent = `${classCount} / ${packageSize} horas`;
                 packageValueDisplay.textContent = `R$ ${packageValue}`;
                 packageDateDisplay.textContent = data.dataInicioPacote || '--/--/----';
-                packageStatusChip.textContent = percentage >= 100 ? 'Pacote concluído' : 'Pacote ativo';
+                packageStatusChip.textContent = percentage >= 100 ? 'Pacote conclu\u00eddo' : 'Pacote ativo';
                 packageStatusChip.className = `info-chip ${percentage >= 100 ? 'bg-emerald-100 text-emerald-700' : 'bg-violet-100 text-violet-700'}`;
             } else {
                 noPackageMessage.classList.remove('hidden');
@@ -277,12 +318,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const studentData = studentDoc.exists ? studentDoc.data() : {};
             const progressData = studentData.progress || {};
             const studentType = studentData.studentType || 'a1';
+            const assignedModules = getAssignedModules(studentData);
 
             const focusedModule = modulesData.find((module) => module.id === studentType);
             const focusedProgress = progressData[studentType] || {};
             const focusedState = resolveProgressState(focusedProgress, (focusedModule && focusedModule.lessons) || 0);
-            const completedText = focusedState.lastCompleted ? formatLessonNumber(focusedState.lastCompleted) : 'Nenhuma lição concluída';
-            const nextText = focusedState.nextLesson ? formatLessonNumber(focusedState.nextLesson) : 'Módulo concluído';
+            const completedText = focusedState.lastCompleted ? formatLessonNumber(focusedState.lastCompleted) : 'Nenhuma li\u00e7\u00e3o conclu\u00edda';
+            const nextText = focusedState.nextLesson ? formatLessonNumber(focusedState.nextLesson) : 'M\u00f3dulo conclu\u00eddo';
 
             studentTypeDisplay.textContent = describeStudentType(studentType);
             nextLessonDisplay.textContent = nextText;
@@ -303,8 +345,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const completedLessons = totalLessons > 0 ? Object.keys(moduleProgress).length : 0;
                 const percentage = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
                 const isFocused = module.id === studentType;
+                const isAssigned = assignedModules.includes(module.id);
+                const manageButtonLabel = isAssigned ? 'Módulo liberado' : 'Liberar módulo';
+                const primaryAction = isAssigned && !isFocused
+                    ? `<button type="button" class="app-button-ghost w-full" data-set-primary-module="${module.id}"><i class="fas fa-bullseye"></i> Tornar principal</button>`
+                    : '';
                 const stateLabel = totalLessons > 0
-                    ? `${completedLessons} de ${totalLessons} concluídas`
+                    ? `${completedLessons} de ${totalLessons} conclu\u00eddas`
                     : 'Acesso direto';
 
                 const card = document.createElement('div');
@@ -331,19 +378,70 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                     ` : ''}
-                    <a href="${module.href}" class="app-button mt-auto">
-                        <i class="fas ${totalLessons > 0 ? 'fa-book-open' : 'fa-play'}"></i>
-                        ${module.buttonText}
-                    </a>
+                    <div class="mt-auto space-y-3">
+                        <a href="${module.href}" class="app-button w-full">
+                            <i class="fas ${totalLessons > 0 ? 'fa-book-open' : 'fa-play'}"></i>
+                            ${module.buttonText}
+                        </a>
+                        ${module.id !== 'nivelamento' ? `
+                            <button type="button" class="app-button-secondary w-full ${isAssigned ? 'opacity-80' : ''}" data-assign-module="${module.id}" ${isAssigned ? 'disabled' : ''}>
+                                <i class="fas ${isAssigned ? 'fa-check' : 'fa-plus'}"></i>
+                                ${manageButtonLabel}
+                            </button>
+                            ${primaryAction}
+                        ` : ''}
+                    </div>
                 `;
                 modulesContainer.appendChild(card);
+                renderAssignedModules(studentData);
             });
 
-            if (modulesStatus) modulesStatus.textContent = 'Módulos carregados com sucesso.';
+            if (modulesStatus) modulesStatus.textContent = 'Modulos carregados com sucesso.';
         } catch (error) {
             console.error('Erro ao atualizar progresso dos módulos:', error);
             modulesContainer.innerHTML = '<p class="section-copy">Não foi possível carregar os módulos.</p>';
-            if (modulesStatus) modulesStatus.textContent = 'Não foi possível carregar os módulos.';
+            if (modulesStatus) modulesStatus.textContent = 'Nao foi possivel carregar os modulos.';
+        }
+    }
+
+    async function assignModuleToSelectedStudent(moduleId) {
+        const studentId = localStorage.getItem('selectedStudentId');
+        if (!studentId || !moduleId) return;
+
+        try {
+            await db.collection('students').doc(studentId).update({
+                modules: firebase.firestore.FieldValue.arrayUnion(moduleId)
+            });
+            await updateModuleProgress(studentId);
+            if (typeof showToast === 'function') {
+                showToast(`${describeStudentType(moduleId)} foi liberado para o aluno.`, 'success', 'M\u00f3dulo liberado');
+            }
+        } catch (error) {
+            console.error('Erro ao liberar módulo:', error);
+            if (typeof showToast === 'function') {
+                showToast('Não foi possível liberar o módulo agora.', 'error', 'Falha ao salvar');
+            }
+        }
+    }
+
+    async function setPrimaryModuleForSelectedStudent(moduleId) {
+        const studentId = localStorage.getItem('selectedStudentId');
+        if (!studentId || !moduleId) return;
+
+        try {
+            await db.collection('students').doc(studentId).update({
+                studentType: moduleId,
+                modules: firebase.firestore.FieldValue.arrayUnion(moduleId)
+            });
+            await updateModuleProgress(studentId);
+            if (typeof showToast === 'function') {
+                showToast(`${describeStudentType(moduleId)} agora \u00e9 a trilha principal do aluno.`, 'success', 'Trilha principal atualizada');
+            }
+        } catch (error) {
+            console.error('Erro ao definir trilha principal:', error);
+            if (typeof showToast === 'function') {
+                showToast('N\u00e3o foi poss\u00edvel atualizar a trilha principal agora.', 'error', 'Falha ao salvar');
+            }
         }
     }
 
@@ -355,7 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             await db.runTransaction(async (transaction) => {
                 const doc = await transaction.get(studentRef);
-                if (!doc.exists) throw new Error('Aluno não encontrado.');
+                if (!doc.exists) throw new Error('Aluno n\u00e3o encontrado.');
                 const currentCount = doc.data().classCount || 0;
                 const newCount = currentCount + amount;
                 if (newCount >= 0) {
@@ -364,12 +462,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             await updatePackageInfo(studentId);
             if (typeof showToast === 'function') {
-                showToast('Carga horária atualizada com sucesso.', 'success', 'Pacote atualizado');
+                showToast('Carga hor\u00e1ria atualizada com sucesso.', 'success', 'Pacote atualizado');
             }
         } catch (error) {
             console.error('Erro ao atualizar contador:', error);
             if (typeof showToast === 'function') {
-                showToast('Não foi possível atualizar o contador agora.', 'error', 'Falha ao salvar');
+                showToast('N\u00e3o foi poss\u00edvel atualizar o contador agora.', 'error', 'Falha ao salvar');
             }
         }
     }
@@ -425,13 +523,40 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Erro ao salvar novo pacote:', error);
             if (typeof showToast === 'function') {
-                showToast('Não foi possível salvar o novo pacote agora.', 'error', 'Falha ao salvar');
+                showToast('N\u00e3o foi poss\u00edvel salvar o novo pacote agora.', 'error', 'Falha ao salvar');
             }
         } finally {
             confirmPackageBtn.disabled = false;
             confirmPackageBtn.innerHTML = 'Confirmar pacote';
         }
     });
+
+    if (modulesContainer) {
+        modulesContainer.addEventListener('click', async (event) => {
+            const assignTrigger = event.target.closest('[data-assign-module]');
+            if (assignTrigger) {
+                event.preventDefault();
+                if (assignTrigger.disabled) return;
+                await assignModuleToSelectedStudent(assignTrigger.dataset.assignModule);
+                return;
+            }
+
+            const primaryTrigger = event.target.closest('[data-set-primary-module]');
+            if (primaryTrigger) {
+                event.preventDefault();
+                await setPrimaryModuleForSelectedStudent(primaryTrigger.dataset.setPrimaryModule);
+            }
+        });
+    }
+
+    if (assignedModulesList) {
+        assignedModulesList.addEventListener('click', async (event) => {
+            const primaryTrigger = event.target.closest('[data-set-primary-module]');
+            if (!primaryTrigger) return;
+            event.preventDefault();
+            await setPrimaryModuleForSelectedStudent(primaryTrigger.dataset.setPrimaryModule);
+        });
+    }
 
     document.addEventListener('keydown', (event) => {
         if (event.key !== 'Escape') return;
@@ -440,3 +565,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+

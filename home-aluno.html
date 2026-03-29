@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área do Aluno | Inglês no seu Ritmo</title>
+    <title>&Aacute;rea do Aluno | Ingl&ecirc;s no seu Ritmo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
@@ -12,8 +12,8 @@
         .hub-card {
             display: flex;
             flex-direction: column;
-            gap: 0.9rem;
-            min-height: 220px;
+            gap: 0.75rem;
+            min-height: 0;
             padding: 1.35rem;
             border-radius: 28px;
             border: 1px solid var(--surface-border);
@@ -46,6 +46,10 @@
             opacity: 0.68;
             pointer-events: none;
         }
+        .hub-card > .app-button,
+        .hub-card > .app-button-secondary {
+            margin-top: 0.2rem;
+        }
         .hero-actions-layout {
             display: grid;
             gap: 1rem;
@@ -53,6 +57,11 @@
         .hero-actions-grid {
             display: grid;
             gap: 1rem;
+        }
+        .hero-primary-column {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
         }
         .hero-summary-panel {
             display: flex;
@@ -79,10 +88,53 @@
             padding: 1.35rem;
             border-radius: 28px;
         }
+        .module-selector-panel {
+            padding: 0.95rem 1rem;
+        }
+        .module-selector-list {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.75rem;
+        }
+        .module-pick-card {
+            background: rgba(255, 255, 255, 0.82);
+            border-color: rgba(148, 163, 184, 0.32);
+        }
+        .module-pick-card:hover {
+            border-color: rgba(100, 116, 139, 0.5);
+        }
+        .module-pick-card.is-active {
+            background: rgba(239, 246, 255, 0.92);
+            border-color: rgba(96, 165, 250, 0.56);
+        }
         [data-theme="dark"] .hub-card-primary {
             background:
                 radial-gradient(circle at top right, rgba(96, 165, 250, 0.18), transparent 28%),
                 linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.92));
+        }
+        [data-theme="dark"] .module-selector-panel {
+            background: rgba(15, 23, 42, 0.88);
+            border: 1px solid rgba(71, 85, 105, 0.75);
+        }
+        [data-theme="dark"] .module-pick-card {
+            background: rgba(30, 41, 59, 0.9);
+            border-color: rgba(100, 116, 139, 0.72);
+        }
+        [data-theme="dark"] .module-pick-card:hover {
+            border-color: rgba(148, 163, 184, 0.95);
+            background: rgba(36, 49, 67, 0.96);
+        }
+        [data-theme="dark"] .module-pick-card.is-active {
+            background: rgba(30, 64, 175, 0.34);
+            border-color: rgba(96, 165, 250, 0.95);
+            box-shadow: inset 0 0 0 1px rgba(147, 197, 253, 0.22);
+        }
+        [data-theme="dark"] .module-pick-card .info-chip {
+            background: rgba(15, 23, 42, 0.88);
+            color: rgb(226, 232, 240);
+        }
+        [data-theme="dark"] .module-pick-card.is-active .info-chip {
+            background: rgb(191, 219, 254);
+            color: rgb(30, 41, 59);
         }
         @media (min-width: 980px) {
             .hero-actions-layout {
@@ -100,7 +152,7 @@
         <div class="app-container py-4 flex items-center justify-between gap-4">
             <div class="brand-mark">
                 <span class="brand-dot"></span>
-                <span>Inglês no seu Ritmo</span>
+                <span>Ingl&ecirc;s no seu Ritmo</span>
             </div>
             <div class="flex flex-wrap items-center gap-3">
                 <button type="button" class="theme-toggle" data-theme-toggle aria-label="Alternar tema"></button>
@@ -117,10 +169,10 @@
             <div class="flex flex-col gap-6">
                 <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                     <div class="max-w-3xl">
-                        <span id="module-chip" class="eyebrow"><i class="fas fa-graduation-cap"></i> Carregando módulo</span>
-                        <h1 class="app-title mt-5" style="font-family: 'Sora', sans-serif;">Sua área de estudo</h1>
+                        <span id="module-chip" class="eyebrow"><i class="fas fa-graduation-cap"></i> Carregando m&oacute;dulo</span>
+                        <h1 class="app-title mt-5" style="font-family: 'Sora', sans-serif;">Sua &aacute;rea de estudo</h1>
                         <p id="hub-helper-text" class="app-lead mt-5">
-                            Carregando sua próxima etapa para deixar a continuidade da aula mais simples.
+                            Carregando sua pr&oacute;xima etapa para deixar a continuidade da aula mais simples.
                         </p>
                     </div>
                     <a id="back-btn" href="login.html" class="app-button-secondary hidden">
@@ -130,68 +182,84 @@
                 </div>
 
                 <div class="hero-actions-layout">
-                    <div class="hero-actions-grid">
-                        <a id="lessons-link" href="#" class="hub-card hub-card-primary is-disabled">
-                            <span class="hub-icon" style="background: rgba(37, 99, 235, 0.12); color: var(--accent-blue);">
-                                <i class="fas fa-chalkboard-teacher"></i>
-                            </span>
-                            <div>
-                                <p class="kpi-label">Aulas</p>
-                                <h2 class="text-2xl font-extrabold tracking-tight strong-text mt-2">Continuar trilha</h2>
-                                <p id="lessons-link-label" class="text-sm font-semibold text-blue-700 mt-4">Carregando módulo</p>
-                                <p id="lessons-link-helper" class="section-copy mt-3">Preparando seu acesso à próxima lição recomendada.</p>
-                            </div>
-                            <span class="app-button mt-auto self-start">
-                                <i class="fas fa-play"></i>
-                                Abrir agora
-                            </span>
-                        </a>
+                    <div class="hero-primary-column">
+                        <div class="hero-actions-grid">
+                            <a id="lessons-link" href="#" class="hub-card hub-card-primary is-disabled">
+                                <span class="hub-icon" style="background: rgba(37, 99, 235, 0.12); color: var(--accent-blue);">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                </span>
+                                <div>
+                                    <p class="kpi-label">Aulas</p>
+                                    <h2 class="text-2xl font-extrabold tracking-tight strong-text mt-2">Continuar trilha</h2>
+                                    <p id="lessons-link-label" class="text-sm font-semibold text-blue-700 mt-4">Carregando m&oacute;dulo</p>
+                                    <p id="lessons-link-helper" class="section-copy mt-3">Preparando seu acesso &agrave; pr&oacute;xima li&ccedil;&atilde;o recomendada.</p>
+                                </div>
+                                <span class="app-button mt-2 self-start">
+                                    <i class="fas fa-play"></i>
+                                    Abrir agora
+                                </span>
+                            </a>
 
-                        <a href="flashcards-app.html" class="hub-card">
-                            <span class="hub-icon" style="background: rgba(245, 158, 11, 0.12); color: var(--accent-amber);">
-                                <i class="fas fa-bolt"></i>
-                            </span>
-                            <div>
-                                <p class="kpi-label">Revisão rápida</p>
-                                <h2 class="text-2xl font-extrabold tracking-tight strong-text mt-2">Flashcards</h2>
-                                <p class="section-copy mt-4">Revise vocabulário e expressões fora da trilha principal sempre que quiser reforçar memória e agilidade.</p>
+                            <a href="flashcards-app.html" class="hub-card">
+                                <span class="hub-icon" style="background: rgba(245, 158, 11, 0.12); color: var(--accent-amber);">
+                                    <i class="fas fa-bolt"></i>
+                                </span>
+                                <div>
+                                    <p class="kpi-label">Revis&atilde;o r&aacute;pida</p>
+                                    <h2 class="text-2xl font-extrabold tracking-tight strong-text mt-2">Flashcards</h2>
+                                    <p class="section-copy mt-4">Revise vocabul&aacute;rio e express&otilde;es fora da trilha principal sempre que quiser refor&ccedil;ar mem&oacute;ria e agilidade.</p>
+                                </div>
+                                <span class="app-button-secondary mt-2 self-start">
+                                    <i class="fas fa-layer-group"></i>
+                                    Revisar
+                                </span>
+                            </a>
+                        </div>
+
+                        <section class="surface-card helper-panel module-selector-panel">
+                            <div class="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+                                <div>
+                                    <p class="kpi-label">Seus m&oacute;dulos</p>
+                                    <h2 class="section-title mt-2">Escolha um m&oacute;dulo</h2>
+                                </div>
+                                <span id="modules-count-badge" class="info-chip bg-slate-100 text-slate-700 self-start">0 m&oacute;dulos</span>
                             </div>
-                            <span class="app-button-secondary mt-auto self-start">
-                                <i class="fas fa-layer-group"></i>
-                                Revisar
-                            </span>
-                        </a>
+                            <div id="module-selector-list" class="module-selector-list grid mt-4">
+                                <p class="section-copy">Carregando seus m&oacute;dulos liberados.</p>
+                            </div>
+                        </section>
                     </div>
 
                     <aside class="hero-summary-panel">
                         <div class="surface-card helper-panel">
-                            <p class="kpi-label">Resumo rápido</p>
+                            <p class="kpi-label">Resumo r&aacute;pido</p>
                             <p id="journey-copy" class="section-copy mt-3">Carregando o melhor caminho para sua jornada atual.</p>
 
                             <div class="summary-list">
                                 <div class="summary-item">
-                                    <p class="text-sm font-semibold muted-label">Módulo atual</p>
+                                    <p class="text-sm font-semibold muted-label">M&oacute;dulo atual</p>
                                     <p id="summary-module" class="text-lg font-bold strong-text mt-1">Carregando</p>
                                 </div>
                                 <div class="summary-item">
-                                    <p class="text-sm font-semibold muted-label">Próxima aula</p>
+                                    <p class="text-sm font-semibold muted-label">Pr&oacute;xima aula</p>
                                     <p id="next-lesson-name" class="text-lg font-bold strong-text mt-1">Carregando</p>
                                     <p id="next-lesson-helper" class="section-copy mt-2">Vamos sugerir o melhor ponto para continuar.</p>
                                 </div>
                                 <div class="summary-item">
-                                    <p class="text-sm font-semibold muted-label">Aulas concluídas</p>
+                                    <p class="text-sm font-semibold muted-label">Aulas conclu&iacute;das</p>
                                     <p id="summary-lessons" class="text-lg font-bold strong-text mt-1">0 de 0</p>
                                 </div>
                                 <div class="summary-item">
-                                    <p class="text-sm font-semibold muted-label">Próxima recomendação</p>
+                                    <p class="text-sm font-semibold muted-label">Pr&oacute;xima recomenda&ccedil;&atilde;o</p>
                                     <p id="summary-next" class="text-lg font-bold strong-text mt-1">Aguardando dados</p>
                                 </div>
                             </div>
                         </div>
 
+
                         <div id="error-actions" class="surface-card helper-panel hidden">
-                            <p class="kpi-label text-rose-600">Atenção</p>
-                            <h3 class="section-title mt-3">Não foi possível carregar sua trilha.</h3>
+                            <p class="kpi-label text-rose-600">Aten&ccedil;&atilde;o</p>
+                            <h3 class="section-title mt-3">N&atilde;o foi poss&iacute;vel carregar sua trilha.</h3>
                             <p id="error-message" class="section-copy mt-4">Tente novamente ou use os flashcards enquanto verificamos o acesso.</p>
                             <div class="flex flex-col gap-3 mt-5">
                                 <button id="retry-btn" class="app-button-secondary">
@@ -206,6 +274,7 @@
                         </div>
                     </aside>
                 </div>
+
             </div>
         </section>
     </main>
@@ -230,6 +299,8 @@
             const errorActions = document.getElementById('error-actions');
             const errorMessage = document.getElementById('error-message');
             const retryBtn = document.getElementById('retry-btn');
+            const moduleSelectorList = document.getElementById('module-selector-list');
+            const modulesCountBadge = document.getElementById('modules-count-badge');
             const nextLessonName = document.getElementById('next-lesson-name');
             const nextLessonHelper = document.getElementById('next-lesson-helper');
             const summaryModule = document.getElementById('summary-module');
@@ -237,29 +308,44 @@
             const summaryNext = document.getElementById('summary-next');
 
             const moduleRoutes = {
-                a1: { href: 'a1/a1.html', label: 'Módulo A1', helper: 'Volte ao A1 para consolidar base, rotina e primeiras interações com mais segurança.', total: 32 },
-                a2: { href: 'a2/a2.html', label: 'Módulo A2', helper: 'Siga no A2 para ampliar repertório, tempos verbais e conversas do cotidiano.', total: 32 },
-                b1: { href: 'b1/b1.html', label: 'Módulo B1', helper: 'Continue no B1 para explicar experiências, opiniões e planos com mais autonomia.', total: 32 },
-                conversation: { href: 'conversation/conversation.html', label: 'Conversation Club', helper: 'Entre nas aulas de conversação para destravar fala, opinião e repertório temático.', total: 48 },
-                business: { href: 'business/business.html', label: 'Inglês para Negócios', helper: 'Acesse situações reais de trabalho, reuniões, e-mails e comunicação profissional.', total: 16 },
-                vestibular: { href: 'vestibular/vestibular.html', label: 'Jornada Vestibular', helper: 'Retome as aulas focadas em prova, leitura e estratégia para vestibular.', total: 32 },
+                a1: { href: 'a1/a1.html', label: 'M\u00f3dulo A1', helper: 'Volte ao A1 para consolidar base, rotina e primeiras intera\u00e7\u00f5es com mais seguran\u00e7a.', total: 32 },
+                a2: { href: 'a2/a2.html', label: 'M\u00f3dulo A2', helper: 'Siga no A2 para ampliar repert\u00f3rio, tempos verbais e conversas do cotidiano.', total: 32 },
+                b1: { href: 'b1/b1.html', label: 'M\u00f3dulo B1', helper: 'Continue no B1 para explicar experi\u00eancias, opini\u00f5es e planos com mais autonomia.', total: 32 },
+                conversation: { href: 'conversation/conversation.html', label: 'Conversation Club', helper: 'Entre nas aulas de conversa\u00e7\u00e3o para destravar fala, opini\u00e3o e repert\u00f3rio tem\u00e1tico.', total: 48 },
+                business: { href: 'business/business.html', label: 'Ingl\u00eas para Neg\u00f3cios', helper: 'Acesse situa\u00e7\u00f5es reais de trabalho, reuni\u00f5es, e-mails e comunica\u00e7\u00e3o profissional.', total: 16 },
+                vestibular: { href: 'vestibular/vestibular.html', label: 'Jornada Vestibular', helper: 'Retome as aulas focadas em prova, leitura e estrat\u00e9gia para vestibular.', total: 32 },
                 essentials: { href: 'essentials/essentials.html', label: 'English Essentials', helper: 'Revise os fundamentos centrais do idioma com uma trilha curta e objetiva.', total: 16 }
             };
+
+            function normalizeAssignedModules(studentData) {
+                const savedModules = Array.isArray(studentData.modules) ? studentData.modules : [];
+                const fallbackModules = studentData.studentType ? [studentData.studentType] : [];
+                const validModules = new Set(Object.keys(moduleRoutes));
+
+                return [...new Set([...savedModules, ...fallbackModules])]
+                    .filter((moduleId) => validModules.has(moduleId));
+            }
+
+            function getModuleStorageKey(studentId) {
+                return `activeStudentModule:${studentId}`;
+            }
 
             function setLessonsLoading() {
                 lessonsLink.href = '#';
                 lessonsLink.classList.add('is-disabled');
                 lessonsLink.setAttribute('aria-disabled', 'true');
-                lessonsLinkLabel.textContent = 'Carregando módulo';
-                lessonsLinkHelper.textContent = 'Preparando seu acesso à próxima lição recomendada.';
-                moduleChip.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Carregando módulo';
-                hubHelperText.textContent = 'Organizando sua continuidade para que a próxima aula fique clara desde o início.';
-                journeyCopy.textContent = 'Buscando seu módulo atual, suas lições concluídas e o melhor ponto para continuar.';
+                lessonsLinkLabel.textContent = 'Carregando m\u00f3dulo';
+                lessonsLinkHelper.textContent = 'Preparando seu acesso \u00e0 pr\u00f3xima li\u00e7\u00e3o recomendada.';
+                moduleChip.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Carregando m\u00f3dulo';
+                hubHelperText.textContent = 'Organizando sua continuidade para que a pr\u00f3xima aula fique clara desde o in\u00edcio.';
+                journeyCopy.textContent = 'Buscando seu m\u00f3dulo atual, suas li\u00e7\u00f5es conclu\u00eddas e o melhor ponto para continuar.';
                 nextLessonName.textContent = 'Carregando';
-                nextLessonHelper.textContent = 'Vamos apontar a lição certa em instantes.';
+                nextLessonHelper.textContent = 'Vamos apontar a li\u00e7\u00e3o certa em instantes.';
                 summaryModule.textContent = 'Carregando';
                 summaryLessons.textContent = '0 de 0';
                 summaryNext.textContent = 'Aguardando dados';
+                modulesCountBadge.textContent = '0 m\u00f3dulos';
+                moduleSelectorList.innerHTML = '<p class="section-copy">Carregando seus m\u00f3dulos liberados.</p>';
                 errorActions.classList.add('hidden');
             }
 
@@ -276,19 +362,19 @@
             function buildNextLessonLabel(progress, total) {
                 for (let lessonNumber = 1; lessonNumber <= total; lessonNumber += 1) {
                     if (progress[`lesson_${lessonNumber}`] !== true) {
-                        return `Lição ${String(lessonNumber).padStart(2, '0')}`;
+                        return `Li\u00e7\u00e3o ${String(lessonNumber).padStart(2, '0')}`;
                     }
                 }
-                return 'Módulo concluído';
+                return 'M\u00f3dulo conclu\u00eddo';
             }
 
             function buildLastCompletedLabel(progress, total) {
                 for (let lessonNumber = total; lessonNumber >= 1; lessonNumber -= 1) {
                     if (progress[`lesson_${lessonNumber}`] === true) {
-                        return `Lição ${String(lessonNumber).padStart(2, '0')} concluída`;
+                        return `Li\u00e7\u00e3o ${String(lessonNumber).padStart(2, '0')} conclu\u00edda`;
                     }
                 }
-                return 'Nenhuma lição concluída ainda';
+                return 'Nenhuma li\u00e7\u00e3o conclu\u00edda ainda';
             }
 
             function setLessonsDestination(studentType, progress) {
@@ -305,11 +391,11 @@
                 lessonsLinkLabel.textContent = route.label;
                 lessonsLinkHelper.textContent = route.helper;
                 moduleChip.innerHTML = `<i class="fas fa-check-circle"></i> ${route.label}`;
-                hubHelperText.textContent = `Seu módulo atual é ${route.label}. A plataforma já deixa a próxima etapa pronta para você continuar sem perder o ritmo.`;
-                journeyCopy.textContent = `${completedLessons} de ${totalLessons} lições concluídas. Seu melhor próximo passo é seguir pela aula recomendada.`;
+                hubHelperText.textContent = `Seu m\u00f3dulo atual \u00e9 ${route.label}. A plataforma j\u00e1 deixa a pr\u00f3xima etapa pronta para voc\u00ea continuar sem perder o ritmo.`;
+                journeyCopy.textContent = `${completedLessons} de ${totalLessons} li\u00e7\u00f5es conclu\u00eddas. Seu melhor pr\u00f3ximo passo \u00e9 seguir pela aula recomendada.`;
                 nextLessonName.textContent = nextLesson;
-                nextLessonHelper.textContent = nextLesson === 'Módulo concluído'
-                    ? 'Excelente trabalho. Você já concluiu a trilha atual.'
+                nextLessonHelper.textContent = nextLesson === 'M\u00f3dulo conclu\u00eddo'
+                    ? 'Excelente trabalho. Voc\u00ea j\u00e1 concluiu a trilha atual.'
                     : 'Entre pela trilha principal para manter a continuidade da sua aula.';
                 summaryModule.textContent = route.label;
                 summaryLessons.textContent = `${completedLessons} de ${totalLessons}`;
@@ -317,16 +403,54 @@
                 errorActions.classList.add('hidden');
             }
 
+            function buildModuleSelectionCard(moduleId, route, isActive, progress) {
+                const completedLessons = Math.min(Object.keys(progress || {}).length, route.total || 0);
+                const nextLesson = buildNextLessonLabel(progress || {}, route.total || 0);
+
+                return `
+                    <button
+                        type="button"
+                        class="module-pick-card ${isActive ? 'is-active' : ''} w-full text-left rounded-[1.5rem] border px-4 py-4 transition"
+                        data-module-select="${moduleId}"
+                    >
+                        <div class="flex items-center justify-between gap-3">
+                            <div>
+                                <p class="text-sm font-semibold muted-label">${isActive ? 'M\u00f3dulo selecionado' : 'M\u00f3dulo liberado'}</p>
+                                <p class="text-lg font-bold strong-text mt-1">${route.label}</p>
+                            </div>
+                            <span class="info-chip ${isActive ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700'}">${completedLessons}/${route.total || 0}</span>
+                        </div>
+                        <p class="section-copy mt-3">${nextLesson === 'M\u00f3dulo conclu\u00eddo' ? 'Este m\u00f3dulo j\u00e1 foi conclu\u00eddo.' : `Pr\u00f3xima aula sugerida: ${nextLesson}.`}</p>
+                    </button>
+                `;
+            }
+
+            function renderModuleSelector(assignedModules, progressData, activeModule) {
+                modulesCountBadge.textContent = `${assignedModules.length} ${assignedModules.length === 1 ? 'm\u00f3dulo' : 'm\u00f3dulos'}`;
+
+                if (!assignedModules.length) {
+                    moduleSelectorList.innerHTML = '<p class="section-copy">Nenhum m\u00f3dulo foi liberado para este aluno ainda.</p>';
+                    return;
+                }
+
+                moduleSelectorList.innerHTML = assignedModules.map((moduleId) => {
+                    const route = moduleRoutes[moduleId];
+                    const progress = progressData[moduleId] || {};
+                    return buildModuleSelectionCard(moduleId, route, moduleId === activeModule, progress);
+                }).join('');
+            }
+
             function setLoadError(message) {
                 lessonsLink.href = '#';
                 lessonsLink.classList.add('is-disabled');
                 lessonsLink.setAttribute('aria-disabled', 'true');
-                lessonsLinkLabel.textContent = 'Módulo indisponível';
-                lessonsLinkHelper.textContent = 'Não conseguimos abrir sua trilha agora.';
+                lessonsLinkLabel.textContent = 'M\u00f3dulo indispon\u00edvel';
+                lessonsLinkHelper.textContent = 'N\u00e3o conseguimos abrir sua trilha agora.';
                 moduleChip.innerHTML = '<i class="fas fa-triangle-exclamation"></i> Erro de carregamento';
-                hubHelperText.textContent = 'Você ainda pode revisar com flashcards ou tentar recarregar o acesso.';
+                hubHelperText.textContent = 'Voc\u00ea ainda pode revisar com flashcards ou tentar recarregar o acesso.';
                 journeyCopy.textContent = 'Houve uma falha ao buscar sua rota principal de estudo.';
                 errorMessage.textContent = message;
+                moduleSelectorList.innerHTML = '<p class="section-copy">N\u00e3o foi poss\u00edvel carregar os m\u00f3dulos liberados.</p>';
                 errorActions.classList.remove('hidden');
             }
 
@@ -349,17 +473,25 @@
                 try {
                     const doc = await db.collection('students').doc(studentIdToLoad).get();
                     if (!doc.exists) {
-                        setLoadError('Aluno não encontrado. Tente voltar e abrir o acesso novamente.');
+                        setLoadError('Aluno n\u00e3o encontrado. Tente voltar e abrir o acesso novamente.');
                         return;
                     }
 
                     const data = doc.data();
-                    const studentType = data.studentType || 'a1';
-                    const moduleProgress = (data.progress && data.progress[studentType]) || {};
-                    setLessonsDestination(studentType, moduleProgress);
+                    const assignedModules = normalizeAssignedModules(data);
+                    const progressData = data.progress || {};
+                    const requestedModule = urlParams.get('module');
+                    const storedModule = localStorage.getItem(getModuleStorageKey(studentIdToLoad));
+                    const activeModule = [requestedModule, storedModule, data.studentType, assignedModules[0], 'a1']
+                        .find((moduleId) => assignedModules.includes(moduleId)) || 'a1';
+                    const moduleProgress = progressData[activeModule] || {};
+
+                    localStorage.setItem(getModuleStorageKey(studentIdToLoad), activeModule);
+                    setLessonsDestination(activeModule, moduleProgress);
+                    renderModuleSelector(assignedModules, progressData, activeModule);
                 } catch (error) {
-                    console.error('Erro ao carregar módulo do aluno:', error);
-                    setLoadError('Não foi possível carregar sua trilha agora.');
+                    console.error('Erro ao carregar m\u00f3dulo do aluno:', error);
+                    setLoadError('N\u00e3o foi poss\u00edvel carregar sua trilha agora.');
                 }
             }
 
@@ -375,6 +507,24 @@
                 loadStudentModule();
             });
 
+            moduleSelectorList.addEventListener('click', async (event) => {
+                const trigger = event.target.closest('[data-module-select]');
+                if (!trigger) return;
+
+                const selectedModule = trigger.dataset.moduleSelect;
+                const user = auth.currentUser;
+                const viewingAsRole = localStorage.getItem('loggedInUserRole');
+                const urlParams = new URLSearchParams(window.location.search);
+                const studentIdFromUrl = urlParams.get('studentId');
+                const isProfessorView = Boolean(studentIdFromUrl && viewingAsRole === 'professor');
+                const studentIdToLoad = isProfessorView ? studentIdFromUrl : (user ? user.uid : null);
+
+                if (!studentIdToLoad) return;
+
+                localStorage.setItem(getModuleStorageKey(studentIdToLoad), selectedModule);
+                await loadStudentModule();
+            });
+
             logoutBtn.addEventListener('click', async () => {
                 logoutBtn.disabled = true;
                 try {
@@ -384,7 +534,7 @@
                 } catch (error) {
                     console.error('Erro ao sair da conta:', error);
                     if (typeof showToast === 'function') {
-                        showToast('Não foi possível sair da conta agora.', 'error', 'Falha ao sair');
+                        showToast('N\u00e3o foi poss\u00edvel sair da conta agora.', 'error', 'Falha ao sair');
                     }
                     logoutBtn.disabled = false;
                 }
@@ -393,3 +543,11 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
