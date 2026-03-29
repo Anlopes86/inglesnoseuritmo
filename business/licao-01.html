@@ -7,27 +7,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="business-lesson-theme.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .flip-card { background-color: transparent; height: 280px; perspective: 1000px; cursor: pointer; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .flip-card { background-color: transparent; height: 300px; perspective: 1000px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.7s; transform-style: preserve-3d; }
         .flip-card.is-flipped .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; border-radius: 1rem; box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1.5rem; border-radius: 1.25rem; }
         .flip-card-front { background-color: #ffffff; border: 1px solid #e5e7eb; }
-        .flip-card-back { background-color: #2563eb; color: white; transform: rotateY(180deg); text-align: left; align-items: flex-start; }
-        .flip-card-back p { font-size: 1rem; line-height: 1.5; }
-        .tip-box { background-color: #eff6ff; border-left: 5px solid #3b82f6; padding: 1.5rem; border-radius: 0.5rem; }
-        .avoid-box { background-color: #fee2e2; border-left: 5px solid #ef4444; padding: 1.5rem; border-radius: 0.5rem; }
-        .timeline-step { display: flex; align-items: center; margin-bottom: 1.5rem; }
-        .timeline-icon { flex-shrink: 0; width: 50px; height: 50px; border-radius: 50%; background-color: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; }
-        .timeline-content { margin-left: 1.5rem; }
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 999; display: none; justify-content: center; align-items: center; }
-        .modal-content { background-color: white; padding: 2rem; border-radius: 1rem; max-width: 500px; width: 90%; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .modal-close-btn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #6b7280; }
-        .activity-btn { transition: all 0.2s ease-in-out; text-align: left; padding: 1rem; border-width: 2px; border-radius: 0.75rem; background-color: #f9fafb; border-color: #e5e7eb; }
+        .flip-card-back { background-color: #2563eb; color: white; transform: rotateY(180deg); text-align: left; align-items: flex-start; justify-content: flex-start; }
+        .activity-btn { transition: all 0.2s ease-in-out; text-align: left; padding: 1rem; border-width: 2px; border-radius: 0.9rem; background-color: #f9fafb; border-color: #e5e7eb; width: 100%; }
         .activity-btn:not(:disabled):hover { border-color: #3b82f6; background-color: #eff6ff; }
         .activity-btn:disabled { cursor: not-allowed; }
         .activity-btn.correct { background-color: #16a34a; color: white; border-color: #15803d; }
@@ -35,170 +27,37 @@
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
-
     <header class="bg-white shadow-sm sticky top-0 z-40">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center gap-4">
             <a href="business.html" class="text-lg font-bold text-blue-600 hover:text-blue-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar</a>
-            <h1 class="text-xl font-semibold text-center">The Job Interview Workshop</h1>
+            <h1 class="text-xl font-semibold text-center">Lesson 1: The Job Interview Workshop</h1>
             <div class="w-24"></div>
         </div>
         <div class="w-full bg-gray-200 h-2"><div id="progress-bar" class="bg-blue-600 h-2 transition-all duration-300"></div></div>
     </header>
-
-    <main class="container mx-auto p-8">
-        
-        <div class="slide active">
-            <div class="text-center">
-                <h2 class="text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">The First Impression</h2>
-                <p class="text-xl text-gray-500 mb-8">Como dominar a entrevista e conquistar a vaga.</p>
-                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto text-left text-lg space-y-4">
-                    <p class="font-semibold text-xl text-blue-800">Objetivos da Aula:</p>
-                    <p><i class="fas fa-check-circle text-blue-500 mr-2"></i>Adotar o mindset correto para uma entrevista.</p>
-                    <p><i class="fas fa-check-circle text-blue-500 mr-2"></i>Aprender a técnica STAR para responder perguntas.</p>
-                    <p><i class="fas fa-check-circle text-blue-500 mr-2"></i>Praticar a comunicação de forma estratégica e confiante.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-8 text-gray-800">Parte 1: O Mindset Correto</h2></div>
-            <div class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg text-left text-lg space-y-8">
-                <div class="flex items-start gap-6"><i class="fas fa-street-view text-5xl text-blue-500 w-16 text-center"></i><div><h3 class="text-2xl font-semibold text-gray-800">It's a Two-Way Street</h3><p class="text-gray-600">Lembre-se: não é um interrogatório. Você também está entrevistando a empresa para ver se ela é boa para você. Isso muda sua postura de reativa para proativa.</p></div></div>
-                <div class="flex items-start gap-6"><i class="fas fa-lightbulb text-5xl text-blue-500 w-16 text-center"></i><div><h3 class="text-2xl font-semibold text-gray-800">Be Curious, Not Nervous</h3><p class="text-gray-600">Troque o nervosismo pela curiosidade. Tenha interesse genuíno na pessoa à sua frente, na empresa e nos desafios da vaga. A curiosidade gera uma conversa mais natural.</p></div></div>
-            </div>
-        </div>
-        
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-8 text-gray-800">Parte 2: Ferramentas Essenciais</h2><p class="text-lg text-gray-500 mb-8">Clique nos cards para expandir seu vocabulário estratégico.</p></div>
-            <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-file-alt text-5xl text-blue-500 mb-4"></i><h3 class="text-2xl font-semibold">Key Documents</h3></div><div class="flip-card-back"><p><strong>Résumé (EUA) / CV (RU):</strong> Resumo de 1-2 páginas da sua experiência. Deve ser adaptado para cada vaga!<br><br><strong>Cover Letter:</strong> Sua carta de apresentação. Dica: não repita o currículo, conte uma história que conecte sua paixão à vaga.<br><br><strong>Portfolio:</strong> Essencial para áreas criativas, é uma coleção visual dos seus melhores trabalhos.</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-users text-5xl text-blue-500 mb-4"></i><h3 class="text-2xl font-semibold">The People</h3></div><div class="flip-card-back"><p><strong>Applicant/Candidate:</strong> Você.<br><br><strong>Recruiter:</strong> O "caça-talentos". Geralmente é seu primeiro contato.<br><br><strong>Hiring Manager:</strong> Seu futuro chefe. É a pessoa mais importante para impressionar, pois é quem tem o problema que você precisa resolver.</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-bullseye text-5xl text-blue-500 mb-4"></i><h3 class="text-2xl font-semibold">Your Qualities</h3></div><div class="flip-card-back"><p><strong>Hard Skills:</strong> Habilidades técnicas que você aprendeu (ex: fluência em software, programação).<br><br><strong>Soft Skills:</strong> Habilidades comportamentais (ex: comunicação, liderança, trabalho em equipe).<br><br><strong>Weaknesses:</strong> Dica: escolha uma fraqueza real e mostre como você está trabalhando para melhorá-la.</p></div></div></div>
-            </div>
-        </div>
-        
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-8 text-gray-800">Check Your Understanding</h2><p class="text-lg text-gray-500 mb-8 max-w-2xl mx-auto">Vamos verificar se os conceitos estratégicos estão claros.</p></div>
-            <div class="max-w-3xl mx-auto space-y-6">
-                <div class="bg-white p-8 rounded-2xl shadow-lg question-container"><p class="text-xl font-semibold mb-4 text-gray-700">1. A pessoa mais importante para convencer na entrevista é o...</p><div class="grid grid-cols-1 gap-4"><button class="activity-btn font-medium">Recruiter</button><button class="activity-btn font-medium" data-correct="true">Hiring Manager</button></div></div>
-                <div class="bg-white p-8 rounded-2xl shadow-lg question-container"><p class="text-xl font-semibold mb-4 text-gray-700">2. A habilidade de liderança é um exemplo de...</p><div class="grid grid-cols-1 gap-4"><button class="activity-btn font-medium" data-correct="true">Soft skill</button><button class="activity-btn font-medium">Hard skill</button></div></div>
-                 <div class="bg-white p-8 rounded-2xl shadow-lg question-container"><p class="text-xl font-semibold mb-4 text-gray-700">3. Qual documento é uma coleção visual dos seus trabalhos?</p><div class="grid grid-cols-1 gap-4"><button class="activity-btn font-medium">Résumé/CV</button><button class="activity-btn font-medium" data-correct="true">Portfolio</button></div></div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-8 text-gray-800">A Ferramenta Secreta: Técnica STAR</h2><p class="text-lg text-gray-500 mb-8 max-w-2xl mx-auto">Para responder perguntas sobre seu comportamento ("Tell me about a time when..."), use esta estrutura para ser claro e impactante.</p></div>
-             <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
-                <div class="timeline-step"><div class="timeline-icon">S</div><div class="timeline-content"><h3 class="text-2xl font-bold">Situation</h3><p class="text-gray-600">Descreva o contexto. Onde e quando?</p></div></div>
-                <div class="timeline-step"><div class="timeline-icon">T</div><div class="timeline-content"><h3 class="text-2xl font-bold">Task</h3><p class="text-gray-600">Qual era a sua missão ou desafio?</p></div></div>
-                <div class="timeline-step"><div class="timeline-icon">A</div><div class="timeline-content"><h3 class="text-2xl font-bold">Action</h3><p class="text-gray-600">O que **você** fez? Use verbos de ação.</p></div></div>
-                <div class="timeline-step"><div class="timeline-icon">R</div><div class="timeline-content"><h3 class="text-2xl font-bold">Result</h3><p class="text-gray-600">Qual foi o resultado? Quantifique!</p></div></div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-8 text-gray-800">Parte 3: Role-Play Challenge</h2></div>
-            <div class="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg">
-                <p class="text-xl text-gray-600 mb-6 text-center">Vamos usar a técnica STAR para responder a perguntas clássicas.</p>
-                <div class="space-y-4">
-                    <button onclick="openModal('**Meu papel (Entrevistador):**<br>\'Tell me about a time you had to work under pressure.\'<br><br>**Seu papel (Aluno):**<br>Tente estruturar sua resposta usando S-T-A-R.')" class="w-full text-left bg-indigo-100 text-indigo-800 p-4 rounded-lg hover:bg-indigo-200 transition"><p class="font-bold"><i class="fas fa-user-secret mr-2"></i>Simulação 1: Working Under Pressure</p></button>
-                     <button onclick="openModal('**Meu papel (Entrevistador):**<br>\'What is your greatest weakness?\'<br><br>**Seu papel (Aluno):**<br>1. Admita uma fraqueza real.<br>2. Mostre os passos para melhorar.')" class="w-full text-left bg-indigo-100 text-indigo-800 p-4 rounded-lg hover:bg-indigo-200 transition"><p class="font-bold"><i class="fas fa-user-secret mr-2"></i>Simulação 2: Greatest Weakness</p></button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-            <div class="text-center flex flex-col items-center justify-center h-full">
-                <i class="fas fa-handshake text-green-500 text-7xl mb-6"></i>
-                <h2 class="text-5xl font-bold mb-4 text-gray-800">Lesson Complete!</h2>
-                <p class="text-3xl text-gray-600">You are now ready to make a great first impression.</p>
-            </div>
-        </div>
+    <main class="container mx-auto px-4 py-8 pb-28">
+        <section class="slide active"><div class="text-center max-w-4xl mx-auto"><span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-50 text-cyan-800 font-semibold"><i class="fas fa-briefcase"></i> Business interview track</span><h2 class="mt-6 text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">The First Impression</h2><p class="mt-4 text-xl text-gray-500">Como entrar em uma entrevista com estratégia, clareza e mais presença profissional.</p><div class="bg-white p-8 rounded-3xl shadow-lg max-w-3xl mx-auto text-left text-lg space-y-4 mt-8"><p class="font-semibold text-xl text-blue-800">Objetivos da aula</p><p><i class="fas fa-check-circle text-blue-500 mr-2"></i>Entender o que o entrevistador realmente avalia nos primeiros minutos.</p><p><i class="fas fa-check-circle text-blue-500 mr-2"></i>Aprender a organizar respostas com a lógica STAR.</p><p><i class="fas fa-check-circle text-blue-500 mr-2"></i>Desenvolver repertório para causar boa impressão sem decorar falas artificiais.</p></div></div></section>
+        <section class="slide"><div class="max-w-5xl mx-auto"><div class="text-center mb-8"><h2 class="text-4xl font-bold text-gray-800">What Interviewers Notice First</h2><p class="text-lg text-gray-500 mt-2">Nos primeiros minutos, a entrevista já mede preparo, clareza e postura.</p></div><div class="grid grid-cols-1 md:grid-cols-3 gap-8"><div class="bg-white p-7 rounded-2xl shadow-lg"><i class="fas fa-comments text-4xl text-blue-500"></i><h3 class="text-2xl font-semibold mt-4">Clarity</h3><p class="text-gray-600 mt-3">Responder de forma direta, sem rodeios, mostra maturidade profissional mesmo com inglês ainda em construção.</p></div><div class="bg-white p-7 rounded-2xl shadow-lg"><i class="fas fa-magnifying-glass text-4xl text-blue-500"></i><h3 class="text-2xl font-semibold mt-4">Preparation</h3><p class="text-gray-600 mt-3">Saber o nome da vaga, entender a empresa e trazer exemplos concretos separa candidato preparado de candidato genérico.</p></div><div class="bg-white p-7 rounded-2xl shadow-lg"><i class="fas fa-user-tie text-4xl text-blue-500"></i><h3 class="text-2xl font-semibold mt-4">Professional tone</h3><p class="text-gray-600 mt-3">O entrevistador percebe se você transmite interesse real, escuta bem e sustenta a conversa com postura colaborativa.</p></div></div><div class="tip-box mt-8"><p class="font-semibold text-lg">Dica estratégica</p><p class="mt-2 text-lg">Em entrevista, inglês perfeito não é o único foco. O conjunto pesa mais: clareza, estrutura, confiança e exemplos relevantes.</p></div></div></section>
+        <section class="slide"><div class="text-center mb-8"><h2 class="text-4xl font-bold text-gray-800">Essential Interview Vocabulary</h2><p class="text-lg text-gray-500 mt-2">Clique nos cards para expandir o repertório central de entrevista.</p></div><div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"><div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-file-alt text-5xl text-blue-500 mb-4"></i><h3 class="text-2xl font-semibold">Resume / CV</h3></div><div class="flip-card-back"><p><strong>Use:</strong> documento com experiência, formação e skills.<br><br><strong>Tip:</strong> adapte para a vaga, não envie uma versão genérica para tudo.</p></div></div></div><div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-user-group text-5xl text-blue-500 mb-4"></i><h3 class="text-2xl font-semibold">Recruiter</h3></div><div class="flip-card-back"><p><strong>Role:</strong> geralmente faz a triagem inicial.<br><br><strong>Focus:</strong> confirmar encaixe básico, comunicação e motivação.</p></div></div></div><div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-bullseye text-5xl text-blue-500 mb-4"></i><h3 class="text-2xl font-semibold">Hiring manager</h3></div><div class="flip-card-back"><p><strong>Role:</strong> líder da área que precisa de solução real.<br><br><strong>Focus:</strong> saber se você consegue entregar no contexto da equipe.</p></div></div></div><div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-star text-5xl text-blue-500 mb-4"></i><h3 class="text-2xl font-semibold">Strengths</h3></div><div class="flip-card-back"><p><strong>Use:</strong> pontos fortes apoiados por exemplo.<br><br><strong>Better:</strong> “I’m organized” + situação real.<br><br><strong>Worse:</strong> lista vaga sem prova.</p></div></div></div></div></section>
+        <section class="slide"><div class="max-w-4xl mx-auto"><div class="text-center mb-8"><h2 class="text-4xl font-bold text-gray-800">STAR Method, But Done Well</h2><p class="text-lg text-gray-500 mt-2">A técnica funciona melhor quando a resposta é curta, específica e focada no que você fez.</p></div><div class="bg-white p-8 rounded-3xl shadow-lg"><div class="space-y-6 text-lg"><div class="flex items-start gap-4"><div class="w-12 h-12 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center">S</div><div><h3 class="text-2xl font-bold">Situation</h3><p class="text-gray-600 mt-2">Dê o contexto de forma rápida. Onde estava o problema?</p></div></div><div class="flex items-start gap-4"><div class="w-12 h-12 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center">T</div><div><h3 class="text-2xl font-bold">Task</h3><p class="text-gray-600 mt-2">Explique qual era sua responsabilidade ou desafio principal.</p></div></div><div class="flex items-start gap-4"><div class="w-12 h-12 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center">A</div><div><h3 class="text-2xl font-bold">Action</h3><p class="text-gray-600 mt-2">Aqui está o coração da resposta: o que você fez, decidiu, organizou ou resolveu.</p></div></div><div class="flex items-start gap-4"><div class="w-12 h-12 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center">R</div><div><h3 class="text-2xl font-bold">Result</h3><p class="text-gray-600 mt-2">Feche com impacto. Melhor ainda se houver dado, melhoria ou aprendizado claro.</p></div></div></div><div class="avoid-box mt-8"><p class="font-semibold">Erro comum</p><p class="mt-2 text-lg">Gastar tempo demais na situação e pouco na ação. Em entrevista, o que mais interessa é como você pensa e age.</p></div></div></div></section>
+        <section class="slide"><div class="max-w-4xl mx-auto"><div class="text-center mb-8"><h2 class="text-4xl font-bold text-gray-800">Reading: Sample Strong Answer</h2><p class="text-lg text-gray-500 mt-2">Leia e observe como a resposta é organizada e profissional sem ser longa demais.</p></div><div class="bg-white p-8 rounded-3xl shadow-lg text-lg leading-8 space-y-4"><p><strong>Question:</strong> “Tell me about a time you had to work under pressure.”</p><p><strong>Answer:</strong> “During a school event, our team had to finish all the presentation materials one day earlier than planned because the schedule changed. I was responsible for organizing the visual content and making sure everyone had the final version. I created a simple checklist, divided the tasks, and stayed in contact with the group throughout the evening. As a result, we delivered everything on time, and the presentation ran smoothly the next day.”</p></div><div class="grid md:grid-cols-2 gap-6 mt-8"><div class="bg-white p-6 rounded-2xl shadow-md"><p class="font-bold text-gray-800">Por que funciona</p><ul class="mt-3 space-y-2 text-gray-600"><li>Resposta concreta e crível.</li><li>Mostra organização, comunicação e responsabilidade.</li><li>Fecha com resultado claro.</li></ul></div><div class="bg-white p-6 rounded-2xl shadow-md"><p class="font-bold text-gray-800">Linguagem útil</p><ul class="mt-3 space-y-2 text-gray-600"><li>“I was responsible for...”</li><li>“I created a simple checklist...”</li><li>“As a result...”</li></ul></div></div></div></section>
+        <section class="slide"><div class="max-w-3xl mx-auto"><div class="text-center mb-8"><h2 class="text-4xl font-bold text-gray-800">Focused Practice</h2><p class="text-lg text-gray-500 mt-2">Verifique se a lógica da entrevista já está clara.</p></div><div class="space-y-6"><div class="bg-white p-8 rounded-2xl shadow-lg question-container"><p class="text-xl font-semibold mb-4 text-gray-700">1. Em uma resposta STAR, qual parte precisa receber mais atenção?</p><div class="grid gap-4"><button class="activity-btn">Situation</button><button class="activity-btn" data-correct="true">Action</button><button class="activity-btn">Greeting</button></div></div><div class="bg-white p-8 rounded-2xl shadow-lg question-container"><p class="text-xl font-semibold mb-4 text-gray-700">2. Quem tende a olhar com mais atenção se você resolve o problema da área?</p><div class="grid gap-4"><button class="activity-btn">Applicant</button><button class="activity-btn" data-correct="true">Hiring manager</button><button class="activity-btn">Receptionist</button></div></div><div class="bg-white p-8 rounded-2xl shadow-lg question-container"><p class="text-xl font-semibold mb-4 text-gray-700">3. Qual resposta parece mais forte em entrevista?</p><div class="grid gap-4"><button class="activity-btn">“I’m very good and hardworking.”</button><button class="activity-btn" data-correct="true">“I organized the team schedule and helped us finish the project on time.”</button><button class="activity-btn">“I don’t know, I just try.”</button></div></div></div></div></section>
+        <section class="slide"><div class="max-w-4xl mx-auto"><div class="text-center mb-8"><h2 class="text-4xl font-bold text-gray-800">Speaking Challenge</h2><p class="text-lg text-gray-500 mt-2">Monte oralmente uma resposta curta para uma pergunta comportamental.</p></div><div class="bg-white p-8 rounded-3xl shadow-lg"><p class="text-xl font-semibold text-gray-700">Pergunta:</p><p class="text-2xl mt-3">“Tell me about a time you had to solve a problem quickly.”</p><div class="grid md:grid-cols-4 gap-4 mt-8"><div class="bg-gray-50 p-5 rounded-xl"><p class="font-bold">S</p><p class="text-gray-600 mt-2">Qual foi o contexto?</p></div><div class="bg-gray-50 p-5 rounded-xl"><p class="font-bold">T</p><p class="text-gray-600 mt-2">O que precisava ser resolvido?</p></div><div class="bg-gray-50 p-5 rounded-xl"><p class="font-bold">A</p><p class="text-gray-600 mt-2">O que você fez?</p></div><div class="bg-gray-50 p-5 rounded-xl"><p class="font-bold">R</p><p class="text-gray-600 mt-2">Qual foi o resultado?</p></div></div><div class="tip-box mt-8"><p class="font-semibold">Meta da resposta</p><p class="mt-2 text-lg">Fale em 30 a 45 segundos. Isso já é suficiente para parecer claro, organizado e convincente.</p></div></div></div></section>
+        <section class="slide"><div class="text-center flex flex-col items-center justify-center min-h-[50vh]"><i class="fas fa-handshake text-green-500 text-7xl mb-6"></i><h2 class="text-5xl font-bold mb-4 text-gray-800">Lesson Complete!</h2><p class="text-3xl text-gray-600 max-w-2xl">Você já tem uma base mais sólida para responder com estrutura e causar uma impressão profissional melhor.</p></div></section>
     </main>
-
-    <div id="teacher-modal" class="modal-overlay"><div class="modal-content"><button id="modal-close-btn" class="modal-close-btn">&times;</button><h3 class="text-2xl font-bold mb-4">Roteiro da Simulação</h3><div id="modal-script" class="text-lg space-y-3"></div></div></div>
-
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-30">
-        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button>
-            <button id="next-btn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Próximo</button>
-            <button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finalizar Aula</button>
-        </div>
-    </footer>
-
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="../js/firebase-config.js"></script>
-    <script src="../js/progress-manager.js"></script>
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-30"><div class="container mx-auto px-4 md:px-8 h-20 flex justify-between items-center gap-3"><button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-6 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Anterior</button><button id="next-btn" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition hover:bg-blue-700">Próximo</button><button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-6 rounded-lg transition hover:bg-green-600">Finalizar Aula</button></div></footer>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script><script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script><script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script><script src="../js/firebase-config.js"></script><script src="../js/progress-manager.js"></script><script src="business-lesson-theme.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const moduleId = 'business';
-            const lessonNumber = 1;
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            if (finishLessonBtn) {
-                finishLessonBtn.addEventListener('click', () => {
-                    finishLessonBtn.disabled = true;
-                    finishLessonBtn.textContent = "Salvando...";
-                    if (typeof markLessonAsComplete === 'function') {
-                        markLessonAsComplete(moduleId, lessonNumber); 
-                    } else {
-                        console.error("A função markLessonAsComplete não foi encontrada.");
-                        alert("Erro ao salvar progresso.");
-                    }
-                });
-            }
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const progressBar = document.getElementById('progress-bar');
+            const moduleId = 'business', lessonNumber = 1, slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn'), progressBar = document.getElementById('progress-bar');
             let currentSlide = 0;
-            function showSlide(index) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                if (progressBar) {
-                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
-                    progressBar.style.width = `${progressPercentage}%`;
-                }
-                if (prevBtn) prevBtn.disabled = index === 0;
-                const isLastSlide = index === slides.length - 1;
-                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
-                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
-            }
-            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            
-            document.querySelectorAll('.flip-card').forEach(card => {
-                card.addEventListener('click', () => card.classList.toggle('is-flipped'));
-            });
-
-            document.querySelectorAll('.activity-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const container = button.closest('.question-container');
-                    if (container.dataset.answered) return;
-                    container.dataset.answered = 'true';
-                    const allOptions = container.querySelectorAll('.activity-btn');
-                    allOptions.forEach(btn => btn.disabled = true);
-                    if (button.dataset.correct) {
-                        button.classList.add('correct');
-                    } else {
-                        button.classList.add('incorrect');
-                        const correctBtn = container.querySelector('[data-correct="true"]');
-                        if (correctBtn) correctBtn.classList.add('correct');
-                    }
-                });
-            });
-
-            const modal = document.getElementById('teacher-modal');
-            const modalCloseBtn = document.getElementById('modal-close-btn');
-            const modalScript = document.getElementById('modal-script');
-            window.openModal = (script) => { 
-                if (modalScript) modalScript.innerHTML = script; 
-                if (modal) modal.style.display = 'flex'; 
-            }
-            if (modalCloseBtn) modalCloseBtn.addEventListener('click', () => { modal.style.display = 'none'; });
-            if (modal) modal.addEventListener('click', (e) => { if(e.target === modal) modal.style.display = 'none'; });
-            
+            function showSlide(index) { window.scrollTo({ top: 0, behavior: 'smooth' }); slides.forEach((slide, slideIndex) => slide.classList.toggle('active', slideIndex === index)); if (progressBar) progressBar.style.width = slides.length > 1 ? `${((index + 1) / slides.length) * 100}%` : '100%'; prevBtn.disabled = index === 0; const isLastSlide = index === slides.length - 1; nextBtn.classList.toggle('hidden', isLastSlide); finishLessonBtn.classList.toggle('hidden', !isLastSlide); }
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
+            finishLessonBtn.addEventListener('click', () => { finishLessonBtn.disabled = true; finishLessonBtn.textContent = 'Salvando...'; if (typeof markLessonAsComplete === 'function') markLessonAsComplete(moduleId, lessonNumber); else alert('Erro ao salvar progresso.'); });
+            document.querySelectorAll('.flip-card').forEach((card) => card.addEventListener('click', () => card.classList.toggle('is-flipped')));
+            document.querySelectorAll('.activity-btn').forEach((button) => { button.addEventListener('click', () => { const container = button.closest('.question-container'); if (!container || container.dataset.answered === 'true') return; container.dataset.answered = 'true'; container.querySelectorAll('.activity-btn').forEach((option) => { option.disabled = true; if (option.dataset.correct === 'true') option.classList.add('correct'); }); if (button.dataset.correct !== 'true') button.classList.add('incorrect'); }); });
             showSlide(0);
         });
     </script>
