@@ -10,15 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
         'Rules at Work', 'Do I Have to...?', 'Giving Advice', 'Review & Rock Out! #2',
         'Life Experiences', 'Have You Ever...?', 'Never Have I Ever...', 'Been or Gone?',
         "What's the Matter?", 'Medical Consultation & Conditions', 'Asking for Directions', 'Review & Rock Out! #3',
-        'Giving Directions - The Basics', 'Giving Directions - Details', 'From A to B', 'A2 Review - Grammar',
-        'A2 Review - Vocabulary & Speaking', 'My A2 Mixtape - Final Project Prep', 'Final Project Workshop', 'A2 Graduation - Show What You Know!'
+        'Giving Directions - The Basics', 'Giving Directions - Details', 'From A to B', 'At the Hotel',
+        'Shopping Problems and Returns', 'Making Arrangements', 'Review Checkpoint', 'Final Review and Graduation'
     ];
 
     const unitLabels = [
         'Past Stories', 'Past Stories', 'Comparisons', 'Comparisons', 'Comparisons', 'Storytelling', 'Storytelling', 'Checkpoint 1',
         'Future', 'Future', 'Comparison Power', 'Comparison Power', 'Work & Rules', 'Work & Rules', 'Advice', 'Checkpoint 2',
         'Experiences', 'Experiences', 'Experiences', 'Experiences', 'Health', 'Health', 'Directions', 'Checkpoint 3',
-        'Directions', 'Directions', 'Directions', 'A2 Review', 'A2 Review', 'Final Stretch', 'Final Stretch', 'Final Project'
+        'Directions', 'Directions', 'Directions', 'Real-Life English', 'Real-Life English', 'Real-Life English', 'Final Review', 'Final Review'
     ];
 
     function buildLessonCard(title, lessonNumber, state, isProfessor) {

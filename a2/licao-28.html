@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A2 | Lição 28: A2 Review - Grammar</title>
+    <title>A2 | Lição 28: At the Hotel</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
@@ -12,6 +12,13 @@
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .flip-card { background: transparent; min-height: 180px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; text-align: center; }
+        .flip-card-front { background: #fff; color: #7c3aed; }
+        .flip-card-back { background: #f5f3ff; color: #5b21b6; transform: rotateY(180deg); }
         .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.35rem; }
         .answer-btn:hover { color: #7c3aed; }
         input { border: none; border-bottom: 2px solid #cbd5e1; background: transparent; outline: none; text-align: center; padding: 0 6px; }
@@ -23,100 +30,132 @@
 <body class="lesson-loading a2-lesson-page bg-slate-50 text-slate-800">
     <header class="bg-white shadow-sm sticky top-0 z-10">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
-            <a href="a2.html" class="text-lg font-bold text-violet-600 hover:text-violet-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2</a>
-            <div class="text-center"><h1 class="text-base font-semibold text-slate-800">A2 - Lesson 28: A2 Review - Grammar</h1><p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p></div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
+            <a href="a2.html" class="text-lg font-bold text-violet-600 hover:text-violet-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A2</a>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 28: At the Hotel</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-violet-500 h-1.5 transition-all duration-300"></div></div>
     </header>
+
     <main class="container mx-auto p-8 pb-28 max-w-5xl">
         <div class="slide active" data-title="Warm-up">
             <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
                 <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
                     <div class="a2-hero-copy">
-                        <h2>Review the full A2 grammar path</h2>
-                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Aqui o aluno revisa as estruturas centrais do A2: passado, comparações, futuro, modais, present perfect e linguagem funcional.</p>
+                        <h2>Handle a hotel stay in English</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a fazer check-in, pedir ajuda, relatar problemas no quarto e resolver situações comuns de hospedagem.</p>
                     </div>
-                    <div class="lesson-panel p-6"><p class="lesson-panel-title mb-4">You will review</p><div class="lesson-checklist"><div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>past simple / past continuous</span></div><div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>comparatives, superlatives and future forms</span></div><div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>modals and present perfect</span></div></div></div>
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">You will use</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>I have a reservation.</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Could I have another towel?</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>The shower doesn't work.</span></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="slide" data-title="Review Map">
-            <div class="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto text-lg">
-                <div class="activity-card"><p class="lesson-panel-title mb-2">Past</p><p>I went / I was going</p></div>
-                <div class="activity-card"><p class="lesson-panel-title mb-2">Compare</p><p>bigger than / the best</p></div>
-                <div class="activity-card"><p class="lesson-panel-title mb-2">Future</p><p>will / going to</p></div>
-                <div class="activity-card"><p class="lesson-panel-title mb-2">Modals</p><p>must / have to / should</p></div>
-                <div class="activity-card"><p class="lesson-panel-title mb-2">Present Perfect</p><p>have seen / has been</p></div>
-                <div class="activity-card"><p class="lesson-panel-title mb-2">Functional English</p><p>health + directions</p></div>
+
+        <div class="slide" data-title="Opening Dialogue">
+            <div class="section-card p-8 max-w-4xl mx-auto text-lg space-y-4">
+                <p class="lesson-panel-title">Opening dialogue</p>
+                <div class="activity-card">
+                    <p><strong>Receptionist:</strong> Good evening. Welcome to the Blue River Hotel. How can I help you?</p>
+                    <p><strong>Guest:</strong> Hi. I have a reservation under Carla Mendes.</p>
+                    <p><strong>Receptionist:</strong> Great. You're in room 304. Here is your key card.</p>
+                    <p><strong>Guest:</strong> Thank you. One more thing: could I have an extra towel?</p>
+                </div>
+                <div class="callout-note">
+                    Observe como o diálogo mistura identificação, pedido simples e vocabulário de hotel sem ficar artificial.
+                </div>
             </div>
         </div>
+
+        <div class="slide" data-title="Useful Language">
+            <div class="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto text-lg">
+                <div class="activity-card">
+                    <p class="lesson-panel-title mb-2">At check-in</p>
+                    <p>I have a reservation.</p>
+                    <p>I booked a double room.</p>
+                    <p>What time is breakfast?</p>
+                </div>
+                <div class="activity-card">
+                    <p class="lesson-panel-title mb-2">Problems and requests</p>
+                    <p>The air conditioner isn't working.</p>
+                    <p>Could I have another pillow?</p>
+                    <p>Can someone help me with my bags?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Flashcards">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-4 text-violet-700">Hotel flashcards</h2>
+                <div class="flashcard-grid max-w-5xl mx-auto">
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">reservation</h3></div><div class="flip-card-back"><p>reserva</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">key card</h3></div><div class="flip-card-back"><p>cartão da porta</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">double room</h3></div><div class="flip-card-back"><p>quarto para duas pessoas</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">towel</h3></div><div class="flip-card-back"><p>toalha</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">breakfast</h3></div><div class="flip-card-back"><p>café da manhã</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">air conditioner</h3></div><div class="flip-card-back"><p>ar-condicionado</p></div></div></div>
+                </div>
+            </div>
+        </div>
+
         <div class="slide" data-title="Task 1">
             <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
-                <p>1. I <input id="g1" data-answer="was studying" class="w-32"> when she called. <button class="answer-btn" data-target="g1"><i class="fas fa-eye"></i></button></p>
-                <p>2. This city is <input id="g2" data-answer="more expensive" class="w-36"> than mine. <button class="answer-btn" data-target="g2"><i class="fas fa-eye"></i></button></p>
-                <p>3. I think it <input id="g3" data-answer="will rain" class="w-28"> tomorrow. <button class="answer-btn" data-target="g3"><i class="fas fa-eye"></i></button></p>
-                <p>4. You <input id="g4" data-answer="should" class="w-24"> rest today. <button class="answer-btn" data-target="g4"><i class="fas fa-eye"></i></button></p>
-                <p>5. She <input id="g5" data-answer="has never tried" class="w-40"> sushi. <button class="answer-btn" data-target="g5"><i class="fas fa-eye"></i></button></p>
+                <p>1. I have a <input id="h1" data-answer="reservation" class="w-32">. <button class="answer-btn" data-target="h1"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(reserva)</span></p>
+                <p>2. Could I have an extra <input id="h2" data-answer="towel" class="w-28">? <button class="answer-btn" data-target="h2"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(toalha)</span></p>
+                <p>3. The shower doesn't <input id="h3" data-answer="work" class="w-24">. <button class="answer-btn" data-target="h3"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(funcionar)</span></p>
+                <p>4. I booked a <input id="h4" data-answer="double" class="w-28"> room. <button class="answer-btn" data-target="h4"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(de casal / para duas pessoas)</span></p>
+                <p>5. What time is <input id="h5" data-answer="breakfast" class="w-32">? <button class="answer-btn" data-target="h5"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(café da manhã)</span></p>
             </div>
         </div>
-        <div class="slide" data-title="Task 2">
-            <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
-                <p>1. We <input id="g6" data-answer="went" class="w-24"> to the beach last Sunday. <button class="answer-btn" data-target="g6"><i class="fas fa-eye"></i></button></p>
-                <p>2. That was the <input id="g7" data-answer="best" class="w-24"> restaurant in town. <button class="answer-btn" data-target="g7"><i class="fas fa-eye"></i></button></p>
-                <p>3. I <input id="g8" data-answer="am going to visit" class="w-40"> my aunt this weekend. <button class="answer-btn" data-target="g8"><i class="fas fa-eye"></i></button></p>
-                <p>4. You <input id="g9" data-answer="must not" class="w-28"> smoke here. <button class="answer-btn" data-target="g9"><i class="fas fa-eye"></i></button></p>
-                <p>5. Have you ever <input id="g10" data-answer="driven" class="w-28"> a truck? <button class="answer-btn" data-target="g10"><i class="fas fa-eye"></i></button></p>
-            </div>
-        </div>
-        <div class="slide" data-title="Grammar Mission">
+
+        <div class="slide" data-title="Hotel Builder">
             <div class="section-card p-8 max-w-5xl mx-auto">
                 <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
                     <div>
-                        <p class="lesson-panel-title mb-2">Grammar Mission</p>
-                        <h2 class="text-4xl font-black text-violet-700">Build one mixed A2 answer</h2>
+                        <p class="lesson-panel-title mb-2">Hotel Builder</p>
+                        <h2 class="text-4xl font-black text-violet-700">Build a hotel interaction</h2>
                     </div>
                     <div class="callout-note max-w-xl">
-                        Em vez de revisar ponto por ponto, junte passado, comparação, futuro e present perfect em uma resposta só.
+                        O objetivo aqui é juntar identificação, pedido e problema em uma fala curta e natural.
                     </div>
                 </div>
-                <div class="activity-lab" data-choice-builder data-template="{past} {compare} {future} {experience}" data-required="past,compare,future,experience" data-preview-empty="Escolha as partes e monte uma resposta que misture estruturas do A2.">
-                    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+                <div class="activity-lab" data-choice-builder data-template="{intro} {request} {problem}" data-required="intro,request,problem" data-preview-empty="Escolha as partes para montar uma fala de hotel.">
+                    <div class="grid md:grid-cols-3 gap-6">
                         <div>
-                            <p class="lesson-panel-title mb-3">1. Past</p>
+                            <p class="lesson-panel-title mb-3">1. Intro</p>
                             <div class="option-cloud">
-                                <button type="button" class="option-chip" data-choice-slot="past" data-choice-value="Last weekend I visited my cousins.">Last weekend I visited my cousins.</button>
-                                <button type="button" class="option-chip" data-choice-slot="past" data-choice-value="Yesterday I was studying when my friend called.">Yesterday I was studying when my friend called.</button>
-                                <button type="button" class="option-chip" data-choice-slot="past" data-choice-value="Last year I moved to a bigger city.">Last year I moved to a bigger city.</button>
+                                <button type="button" class="option-chip" data-choice-slot="intro" data-choice-value="Hi, I have a reservation under Bruno Costa.">Hi, I have a reservation under Bruno Costa.</button>
+                                <button type="button" class="option-chip" data-choice-slot="intro" data-choice-value="Good evening. I checked in this afternoon.">Good evening. I checked in this afternoon.</button>
+                                <button type="button" class="option-chip" data-choice-slot="intro" data-choice-value="Hello. I'm staying in room 408.">Hello. I'm staying in room 408.</button>
                             </div>
                         </div>
                         <div>
-                            <p class="lesson-panel-title mb-3">2. Comparison</p>
+                            <p class="lesson-panel-title mb-3">2. Request</p>
                             <div class="option-cloud">
-                                <button type="button" class="option-chip" data-choice-slot="compare" data-choice-value="It is more exciting than my hometown.">It is more exciting than my hometown.</button>
-                                <button type="button" class="option-chip" data-choice-slot="compare" data-choice-value="That was the best trip of the year.">That was the best trip of the year.</button>
-                                <button type="button" class="option-chip" data-choice-slot="compare" data-choice-value="The weather there is worse than here.">The weather there is worse than here.</button>
+                                <button type="button" class="option-chip" data-choice-slot="request" data-choice-value="Could I have another towel, please?">Could I have another towel, please?</button>
+                                <button type="button" class="option-chip" data-choice-slot="request" data-choice-value="Can I ask for a wake-up call at 6 a.m.?">Can I ask for a wake-up call at 6 a.m.?</button>
+                                <button type="button" class="option-chip" data-choice-slot="request" data-choice-value="Could you help me with my bags?">Could you help me with my bags?</button>
                             </div>
                         </div>
                         <div>
-                            <p class="lesson-panel-title mb-3">3. Future</p>
+                            <p class="lesson-panel-title mb-3">3. Problem</p>
                             <div class="option-cloud">
-                                <button type="button" class="option-chip" data-choice-slot="future" data-choice-value="Next month I am going to travel again.">Next month I am going to travel again.</button>
-                                <button type="button" class="option-chip" data-choice-slot="future" data-choice-value="I think I will study more English this week.">I think I will study more English this week.</button>
-                                <button type="button" class="option-chip" data-choice-slot="future" data-choice-value="Soon I am going to start a new routine.">Soon I am going to start a new routine.</button>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="lesson-panel-title mb-3">4. Experience</p>
-                            <div class="option-cloud">
-                                <button type="button" class="option-chip" data-choice-slot="experience" data-choice-value="I have already learned a lot this year.">I have already learned a lot this year.</button>
-                                <button type="button" class="option-chip" data-choice-slot="experience" data-choice-value="I have never tried snow sports before.">I have never tried snow sports before.</button>
-                                <button type="button" class="option-chip" data-choice-slot="experience" data-choice-value="I have been to that place twice.">I have been to that place twice.</button>
+                                <button type="button" class="option-chip" data-choice-slot="problem" data-choice-value="Also, the air conditioner isn't working.">Also, the air conditioner isn't working.</button>
+                                <button type="button" class="option-chip" data-choice-slot="problem" data-choice-value="The shower doesn't work very well.">The shower doesn't work very well.</button>
+                                <button type="button" class="option-chip" data-choice-slot="problem" data-choice-value="I can't open the room safe.">I can't open the room safe.</button>
                             </div>
                         </div>
                     </div>
                     <div class="preview-card mt-6" data-choice-preview></div>
-                    <p class="mt-4 text-sm text-slate-500">Read the final answer slowly first, then again like a short spoken paragraph.</p>
+                    <p class="mt-4 text-sm text-slate-500">Leia a fala como se estivesse mesmo na recepção: clara, educada e objetiva.</p>
                     <div class="flex gap-3 mt-5 flex-wrap">
                         <button type="button" class="option-chip" data-choice-reset>Reset</button>
                         <button type="button" class="option-chip" data-choice-speak>Speak</button>
@@ -124,32 +163,127 @@
                 </div>
             </div>
         </div>
-        <div class="slide" data-title="Checkpoint">
+
+        <div class="slide" data-title="Roleplay">
             <div class="section-card p-8 max-w-4xl mx-auto">
-                <h2 class="text-4xl font-black mb-6 text-center text-violet-700">Self-check</h2>
+                <h2 class="text-4xl font-black mb-6 text-center text-violet-700">Roleplay: at reception</h2>
                 <div class="grid md:grid-cols-2 gap-5 text-lg">
-                    <div class="activity-card"><p class="lesson-panel-title mb-2">Strong area</p><p>Which grammar point feels easiest now?</p></div>
-                    <div class="activity-card"><p class="lesson-panel-title mb-2">Needs review</p><p>Which one still needs one more pass?</p></div>
-                </div>
-                <p class="mt-6 text-lg text-slate-600">Try to answer with examples, not only names. For example: <em>Present perfect feels easier because I can now say I have visited...</em></p>
-                <textarea rows="6" class="mt-6 w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-violet-500" placeholder="Write a short reflection."></textarea>
-            </div>
-        </div>
-        <div class="slide" data-title="Music">
-            <div class="music-card p-6 rounded-2xl max-w-4xl mx-auto">
-                <h2 class="text-4xl font-black mb-4 text-center">Music Time</h2>
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6wpGqhRvJGNNXwWlPmkMyO?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <div class="bg-white/10 p-6 rounded-2xl mt-6 text-lg space-y-4">
-                    <p>I <input id="g11" data-answer="have climbed" class="w-32"> highest mountains <button class="answer-btn" data-target="g11"><i class="fas fa-eye text-white/70"></i></button></p>
-                    <p>I still <input id="g12" data-answer="haven't found" class="w-36"> what I'm looking for <button class="answer-btn" data-target="g12"><i class="fas fa-eye text-white/70"></i></button></p>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Student A</p>
+                        <p>You arrived late at night. Check in and ask one extra question about breakfast or Wi-Fi.</p>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Student B</p>
+                        <p>You are the receptionist. Welcome the guest, confirm the room and answer the question politely.</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="slide" data-title="Lesson Complete"><div class="text-center"><i class="fas fa-layer-group text-violet-500 text-7xl mb-6"></i><p class="lesson-panel-title mb-2">Lesson complete</p><h2 class="text-5xl font-black mb-4 text-slate-900">Grammar reviewed</h2><p class="text-2xl text-slate-600 max-w-3xl mx-auto">You now have a full map of the grammar structures that shaped your A2 journey.</p></div></div>
+
+        <div class="slide" data-title="Homework">
+            <div class="section-card p-8 max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-6 text-center text-violet-700">Homework</h2>
+                <p class="text-lg text-slate-600 mb-5">Write 6 to 8 lines about a hotel stay. Include: your reservation, one request, one problem and one polite ending.</p>
+                <textarea rows="8" class="w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-violet-500" placeholder="Hi, I have a reservation... Could I have... The shower doesn't work... Thank you for your help."></textarea>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Lesson Complete">
+            <div class="text-center">
+                <i class="fas fa-hotel text-violet-500 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">Hotel English unlocked</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl mx-auto">You can now check in, ask for help and explain simple room problems in English.</p>
+            </div>
+        </div>
     </main>
-    <footer class="fixed bottom-0 left-0 w-full z-20 h-16"><div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl"><button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Anterior</button><button id="next-btn" class="bg-violet-600 text-white font-bold py-3 px-8 rounded-lg transition">Próximo</button><button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Finalizar aula</button></div></footer>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script><script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script><script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script><script src="../js/firebase-config.js"></script><script src="../js/progress-manager.js"></script>
-    <script>document.addEventListener('DOMContentLoaded',()=>{const moduleId='a2',lessonNumber=28,slides=document.querySelectorAll('.slide'),prevBtn=document.getElementById('prev-btn'),nextBtn=document.getElementById('next-btn'),finishLessonBtn=document.getElementById('finish-lesson-btn');let currentSlide=0;const n=t=>t.trim().toLowerCase().replace(/[.?!"']/g,''),c=i=>{const ok=n(i.value)===n(i.dataset.answer||'');i.classList.remove('correct','incorrect');if(!i.value.trim())return;i.classList.add(ok?'correct':'incorrect');},u=()=>{slides.forEach((s,i)=>s.classList.toggle('active',i===currentSlide));document.getElementById('progress-bar').style.width=slides.length>1?`${(currentSlide/(slides.length-1))*100}%`:'100%';document.getElementById('slide-counter').textContent=`${currentSlide+1} / ${slides.length}`;document.getElementById('slide-title-header').textContent=slides[currentSlide]?.dataset.title||'';prevBtn.disabled=currentSlide===0;nextBtn.classList.toggle('hidden',currentSlide===slides.length-1);finishLessonBtn.classList.toggle('hidden',currentSlide!==slides.length-1);};prevBtn.addEventListener('click',()=>{if(currentSlide>0){currentSlide--;u();}});nextBtn.addEventListener('click',()=>{if(currentSlide<slides.length-1){currentSlide++;u();}});finishLessonBtn.addEventListener('click',()=>{finishLessonBtn.disabled=true;finishLessonBtn.textContent='Salvando...';if(typeof markLessonAsComplete==='function'){Promise.resolve(markLessonAsComplete(moduleId,lessonNumber)).catch(()=>{finishLessonBtn.disabled=false;finishLessonBtn.textContent='Finalizar aula';});}});document.querySelectorAll('input[data-answer]').forEach(i=>i.addEventListener('blur',()=>c(i)));document.querySelectorAll('.answer-btn[data-target]').forEach(b=>b.addEventListener('click',()=>{const i=document.getElementById(b.dataset.target);if(!i)return;i.value=i.dataset.answer;c(i);}));u();});</script>
+
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
+        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Anterior</button>
+            <button id="next-btn" class="bg-violet-600 text-white font-bold py-3 px-8 rounded-lg transition">Próximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Finalizar aula</button>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2';
+            const lessonNumber = 28;
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            let currentSlide = 0;
+
+            const normalize = (text) => text.trim().toLowerCase().replace(/[.?!"']/g, '');
+            const checkAnswer = (input) => {
+                const isCorrect = normalize(input.value) === normalize(input.dataset.answer || '');
+                input.classList.remove('correct', 'incorrect');
+                if (!input.value.trim()) return;
+                input.classList.add(isCorrect ? 'correct' : 'incorrect');
+            };
+
+            const updateSlide = () => {
+                slides.forEach((slide, index) => slide.classList.toggle('active', index === currentSlide));
+                document.getElementById('progress-bar').style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
+                document.getElementById('slide-counter').textContent = `${currentSlide + 1} / ${slides.length}`;
+                document.getElementById('slide-title-header').textContent = slides[currentSlide]?.dataset.title || '';
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+                finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+            };
+
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateSlide();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateSlide();
+                }
+            });
+
+            finishLessonBtn.addEventListener('click', () => {
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.textContent = 'Salvando...';
+                if (typeof markLessonAsComplete === 'function') {
+                    Promise.resolve(markLessonAsComplete(moduleId, lessonNumber)).catch(() => {
+                        finishLessonBtn.disabled = false;
+                        finishLessonBtn.textContent = 'Finalizar aula';
+                    });
+                }
+            });
+
+            document.querySelectorAll('.flip-card').forEach((card) => {
+                card.addEventListener('click', () => card.classList.toggle('flipped'));
+            });
+
+            document.querySelectorAll('input[data-answer]').forEach((input) => {
+                input.addEventListener('blur', () => checkAnswer(input));
+            });
+
+            document.querySelectorAll('.answer-btn[data-target]').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const input = document.getElementById(button.dataset.target);
+                    if (!input) return;
+                    input.value = input.dataset.answer;
+                    checkAnswer(input);
+                });
+            });
+
+            updateSlide();
+        });
+    </script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
     <script src="a2-lesson-theme.js"></script>
