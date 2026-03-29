@@ -34,6 +34,9 @@ body.a2-lesson-page {
     font-size: 1rem !important;
 }
 
+body.a2-lesson-page:not(.a2-theme-ready) header,
+body.a2-lesson-page:not(.a2-theme-ready) main,
+body.a2-lesson-page:not(.a2-theme-ready) footer,
 body.lesson-loading header,
 body.lesson-loading main,
 body.lesson-loading footer {
@@ -144,6 +147,21 @@ body.a2-lesson-page .section-card {
     box-shadow: var(--a2-shadow);
 }
 
+body.a2-lesson-page .flip-card-front,
+body.a2-lesson-page .flip-card-back {
+    border-radius: 1rem;
+    border: 1px solid var(--a2-border);
+    color: var(--a2-text);
+}
+
+body.a2-lesson-page .flip-card-front {
+    background: var(--a2-surface) !important;
+}
+
+body.a2-lesson-page .flip-card-back {
+    background: color-mix(in srgb, var(--a2-primary-soft) 88%, var(--a2-surface)) !important;
+}
+
 body.a2-lesson-page .a2-hero-copy h2 {
     font-size: 2.25rem !important;
     line-height: 1.1 !important;
@@ -231,6 +249,98 @@ body.a2-lesson-page .activity-card {
     border: 1px solid var(--a2-border);
     border-radius: 1rem;
     padding: 1rem 1.1rem;
+}
+
+body.a2-lesson-page .choice-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.85rem;
+    padding: 0.72rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--a2-border);
+    background: color-mix(in srgb, var(--a2-surface) 94%, var(--a2-bg));
+    color: var(--a2-text);
+    font-weight: 700;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+body.a2-lesson-page .choice-chip:hover {
+    border-color: rgba(124, 58, 237, 0.28);
+    background: var(--a2-primary-soft);
+    color: #6d28d9;
+    transform: translateY(-1px);
+}
+
+body.a2-lesson-page .choice-chip.is-active {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.96), rgba(99, 102, 241, 0.94));
+    border-color: rgba(124, 58, 237, 0.96);
+    color: #fff;
+    box-shadow: 0 14px 28px rgba(99, 102, 241, 0.22);
+}
+
+body.a2-lesson-page [data-choice-preview] {
+    background:
+        radial-gradient(circle at top right, rgba(124, 58, 237, 0.12), transparent 30%),
+        color-mix(in srgb, var(--a2-surface) 92%, var(--a2-bg));
+    border: 1px solid rgba(124, 58, 237, 0.16);
+    border-radius: 1.25rem;
+    padding: 1rem 1.1rem;
+    color: var(--a2-muted);
+}
+
+body.a2-lesson-page [data-choice-preview].is-complete {
+    color: var(--a2-text);
+    border-color: rgba(34, 197, 94, 0.22);
+    background:
+        radial-gradient(circle at top right, rgba(22, 163, 74, 0.12), transparent 28%),
+        color-mix(in srgb, var(--a2-surface) 94%, var(--a2-bg));
+}
+
+body.a2-lesson-page .primary-action-btn,
+body.a2-lesson-page .secondary-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.85rem;
+    padding: 0.72rem 1.15rem;
+    border-radius: 999px;
+    font-weight: 800;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+body.a2-lesson-page .primary-action-btn {
+    border: 1px solid rgba(124, 58, 237, 0.22);
+    background: linear-gradient(135deg, #7c3aed, #6366f1);
+    color: #fff;
+    box-shadow: 0 14px 28px rgba(99, 102, 241, 0.22);
+}
+
+body.a2-lesson-page .primary-action-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 30px rgba(99, 102, 241, 0.28);
+}
+
+body.a2-lesson-page .primary-action-btn:disabled {
+    opacity: 0.55;
+    cursor: default;
+    box-shadow: none;
+}
+
+body.a2-lesson-page .secondary-action-btn {
+    border: 1px solid var(--a2-border);
+    background: color-mix(in srgb, var(--a2-surface) 94%, var(--a2-bg));
+    color: var(--a2-text);
+}
+
+body.a2-lesson-page .secondary-action-btn:hover {
+    border-color: rgba(124, 58, 237, 0.24);
+    background: var(--a2-primary-soft);
+    color: #6d28d9;
 }
 
 body.a2-lesson-page .choice-group {
@@ -480,6 +590,10 @@ body.a2-lesson-page #finish-lesson-btn {
     background-color: #2a2112 !important;
 }
 
+[data-theme="dark"] body.a2-lesson-page .bg-orange-100 {
+    background-color: #1a2337 !important;
+}
+
 [data-theme="dark"] body.a2-lesson-page .border-sky-100,
 [data-theme="dark"] body.a2-lesson-page .border-blue-100,
 [data-theme="dark"] body.a2-lesson-page .border-violet-100 {
@@ -496,6 +610,43 @@ body.a2-lesson-page #finish-lesson-btn {
 
 [data-theme="dark"] body.a2-lesson-page .bg-white {
     background-color: var(--a2-surface) !important;
+}
+
+[data-theme="dark"] body.a2-lesson-page .flip-card-front {
+    background: #101a2d !important;
+    color: #e2e8f0 !important;
+    border-color: rgba(148, 163, 184, 0.2) !important;
+    box-shadow: 0 14px 28px rgba(2, 6, 23, 0.34);
+}
+
+[data-theme="dark"] body.a2-lesson-page .flip-card-back {
+    background: #1a2440 !important;
+    color: #f8fafc !important;
+    border-color: rgba(124, 58, 237, 0.24) !important;
+    box-shadow: 0 14px 28px rgba(2, 6, 23, 0.34);
+}
+
+[data-theme="dark"] body.a2-lesson-page .choice-chip {
+    background: #152034;
+    color: #e5eefb;
+    border-color: rgba(148, 163, 184, 0.22);
+}
+
+[data-theme="dark"] body.a2-lesson-page .choice-chip:hover {
+    background: rgba(124, 58, 237, 0.22);
+    color: #f5f3ff;
+}
+
+[data-theme="dark"] body.a2-lesson-page [data-choice-preview] {
+    background:
+        radial-gradient(circle at top right, rgba(124, 58, 237, 0.16), transparent 30%),
+        #101a2d;
+    color: #cbd5e1;
+}
+
+[data-theme="dark"] body.a2-lesson-page .secondary-action-btn {
+    background: #152034;
+    color: #e2e8f0;
 }
 
 [data-theme="dark"] body.a2-lesson-page .text-slate-900,
@@ -522,6 +673,10 @@ body.a2-lesson-page #finish-lesson-btn {
 [data-theme="dark"] body.a2-lesson-page .text-gray-500,
 [data-theme="dark"] body.a2-lesson-page .text-gray-400 {
     color: var(--a2-muted) !important;
+}
+
+[data-theme="dark"] body.a2-lesson-page .text-orange-600 {
+    color: #fbbf24 !important;
 }
 
 [data-theme="dark"] body.a2-lesson-page .border,

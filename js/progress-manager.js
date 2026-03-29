@@ -73,9 +73,31 @@ function wireStandardLessonFinish() {
     const context = getLessonContextFromPath();
     if (!context) return;
 
+    const isLastSlideActive = () => {
+        const slides = Array.from(document.querySelectorAll('.slide'));
+        if (!slides.length) return false;
+
+        const activeIndex = slides.findIndex((slide) => slide.classList.contains('active'));
+        return activeIndex >= 0 && activeIndex === slides.length - 1;
+    };
+
+    const isFinishTrigger = (button) => {
+        if (!button) return false;
+
+        if (button.matches('#finish-lesson-btn, #finish-lesson-btn-main')) {
+            return true;
+        }
+
+        if (button.matches('#next-btn, #next-btn-main') && isLastSlideActive()) {
+            return true;
+        }
+
+        return false;
+    };
+
     document.addEventListener('click', async (event) => {
-        const button = event.target.closest('#finish-lesson-btn, #finish-lesson-btn-main');
-        if (!button) return;
+        const button = event.target.closest('#finish-lesson-btn, #finish-lesson-btn-main, #next-btn, #next-btn-main');
+        if (!isFinishTrigger(button)) return;
 
         event.preventDefault();
         event.stopImmediatePropagation();
