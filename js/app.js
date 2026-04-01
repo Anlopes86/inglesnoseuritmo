@@ -1,4 +1,6 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
+    let lastFocusedElement = null;
+
     const firebaseConfig = {
         apiKey: "AIzaSyA4srp5nACEhOLLD8Yd4cwe5_rZ8izcm1Y",
         authDomain: "inglesnoseuritmo-bae14.firebaseapp.com",
@@ -58,9 +60,9 @@
         { id: 'a2', href: 'a2/a2.html', title: 'M\u00f3dulo A2', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-compass', accent: 'violet', description: 'Mais repert\u00f3rio, compara\u00e7\u00f5es, passado e futuro com clareza.' },
         { id: 'prepb1', href: 'prepb1/prepb1.html', title: 'Ponte A2-B1', lessons: 8, buttonText: 'Ver trilha', icon: 'fa-arrow-right-arrow-left', accent: 'cyan', description: 'Revis\u00e3o de transi\u00e7\u00e3o com leitura, interpreta\u00e7\u00e3o e conversa\u00e7\u00e3o antes do B1.' },
         { id: 'b1', href: 'b1/b1.html', title: 'M\u00f3dulo B1', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-chart-line', accent: 'rose', description: 'Experi\u00eancias, opini\u00f5es e autonomia comunicativa.' },
-        { id: 'b2', href: 'b2/b2.html', title: 'M\u00f3dulo B2', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-arrow-trend-up', accent: 'amber', description: 'Argumenta\u00e7\u00e3o, nuance e compreens\u00e3o de temas mais densos.' },
-        { id: 'c1', href: 'c1/c1.html', title: 'M\u00f3dulo C1', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-trophy', accent: 'cyan', description: 'Comunica\u00e7\u00e3o avan\u00e7ada para contextos sociais e profissionais.' },
-        { id: 'c2', href: 'c2/c2.html', title: 'M\u00f3dulo C2', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-crown', accent: 'slate', description: 'Refinamento total da express\u00e3o e da compreens\u00e3o.' }
+        { id: 'b2', href: 'b2/b2.html', title: 'M\u00f3dulo B2', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-arrow-trend-up', accent: 'amber', description: 'Argumenta\u00e7\u00e3o, nuance e compreens\u00e3o de temas mais densos.', isComingSoon: true },
+        { id: 'c1', href: 'c1/c1.html', title: 'M\u00f3dulo C1', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-trophy', accent: 'cyan', description: 'Comunica\u00e7\u00e3o avan\u00e7ada para contextos sociais e profissionais.', isComingSoon: true },
+        { id: 'c2', href: 'c2/c2.html', title: 'M\u00f3dulo C2', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-crown', accent: 'slate', description: 'Refinamento total da express\u00e3o e da compreens\u00e3o.', isComingSoon: true }
     ];
     function openModal(modal, focusTarget) {
         if (!modal) return;
@@ -337,9 +339,7 @@
                     ? `A próxima recomendação é ${nextText}. Use o portal ou abra o módulo em foco para manter a continuidade da aula.`
                     : 'A trilha principal já foi concluída. Este é um bom momento para revisão, consolidação ou transição de módulo.';
             }
-            studentOverviewCopy.textContent = focusedState.nextLesson
-                ? `A trilha principal atual é ${describeStudentType(studentType)}. O próximo passo mais claro é ${nextText}.`
-                : `A trilha principal atual é ${describeStudentType(studentType)} e já foi concluída.`;
+            studentOverviewCopy.textContent = '';
 
             modulesData.forEach((module) => {
                 const accent = accentClasses(module.accent);
@@ -349,16 +349,42 @@
                 const percentage = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
                 const isFocused = module.id === studentType;
                 const isAssigned = assignedModules.includes(module.id);
+                const isComingSoon = module.isComingSoon === true;
                 const manageButtonLabel = isAssigned ? 'Módulo liberado' : 'Liberar módulo';
                 const primaryAction = isAssigned && !isFocused
                     ? `<button type="button" class="app-button-ghost w-full" data-set-primary-module="${module.id}"><i class="fas fa-bullseye"></i> Tornar principal</button>`
                     : '';
-                const stateLabel = totalLessons > 0
-                    ? `${completedLessons} de ${totalLessons} conclu\u00eddas`
-                    : 'Acesso direto';
+                const stateLabel = isComingSoon
+                    ? 'Em breve'
+                    : totalLessons > 0
+                        ? `${completedLessons} de ${totalLessons} conclu\u00eddas`
+                        : 'Acesso direto';
+                const mainAction = isComingSoon
+                    ? `
+                        <button type="button" class="app-button w-full opacity-75 cursor-not-allowed" disabled aria-disabled="true">
+                            <i class="fas fa-hourglass-half"></i>
+                            Em breve
+                        </button>
+                    `
+                    : `
+                        <a href="${module.href}" class="app-button w-full">
+                            <i class="fas ${totalLessons > 0 ? 'fa-book-open' : 'fa-play'}"></i>
+                            ${module.buttonText}
+                        </a>
+                    `;
+                const managementActions = module.id !== 'nivelamento' && !isComingSoon
+                    ? `
+                            <button type="button" class="app-button-secondary w-full ${isAssigned ? 'opacity-80' : ''}" data-assign-module="${module.id}" ${isAssigned ? 'disabled' : ''}>
+                                <i class="fas ${isAssigned ? 'fa-check' : 'fa-plus'}"></i>
+                                ${manageButtonLabel}
+                            </button>
+                            ${primaryAction}
+                        `
+                    : '';
 
                 const card = document.createElement('div');
                 card.className = 'surface-card module-card p-5';
+                card.dataset.comingSoon = isComingSoon ? 'true' : 'false';
                 card.innerHTML = `
                     <div class="flex items-center justify-between gap-3">
                         <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl ${accent.bg} ${accent.text}">
@@ -382,17 +408,8 @@
                         </div>
                     ` : ''}
                     <div class="mt-auto space-y-3">
-                        <a href="${module.href}" class="app-button w-full">
-                            <i class="fas ${totalLessons > 0 ? 'fa-book-open' : 'fa-play'}"></i>
-                            ${module.buttonText}
-                        </a>
-                        ${module.id !== 'nivelamento' ? `
-                            <button type="button" class="app-button-secondary w-full ${isAssigned ? 'opacity-80' : ''}" data-assign-module="${module.id}" ${isAssigned ? 'disabled' : ''}>
-                                <i class="fas ${isAssigned ? 'fa-check' : 'fa-plus'}"></i>
-                                ${manageButtonLabel}
-                            </button>
-                            ${primaryAction}
-                        ` : ''}
+                        ${mainAction}
+                        ${managementActions}
                     </div>
                 `;
                 modulesContainer.appendChild(card);
@@ -475,14 +492,16 @@
         }
     }
 
-    addClassBtn.addEventListener('click', () => changeClassCount(1));
-    removeClassBtn.addEventListener('click', () => changeClassCount(-1));
+    if (addClassBtn) addClassBtn.addEventListener('click', () => changeClassCount(1));
+    if (removeClassBtn) removeClassBtn.addEventListener('click', () => changeClassCount(-1));
 
-    newPackageBtn.addEventListener('click', () => {
-        if (!localStorage.getItem('selectedStudentId')) return;
-        openModal(newPackageModal, document.getElementById('package-type'));
-    });
-    cancelPackageBtn.addEventListener('click', () => closeModal(newPackageModal));
+    if (newPackageBtn) {
+        newPackageBtn.addEventListener('click', () => {
+            if (!localStorage.getItem('selectedStudentId')) return;
+            openModal(newPackageModal, document.getElementById('package-type'));
+        });
+    }
+    if (cancelPackageBtn) cancelPackageBtn.addEventListener('click', () => closeModal(newPackageModal));
     if (closePackageModalBtn) closePackageModalBtn.addEventListener('click', () => closeModal(newPackageModal));
     if (newPackageModal) {
         newPackageModal.addEventListener('click', (event) => {
@@ -490,49 +509,51 @@
         });
     }
 
-    newPackageForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const studentId = localStorage.getItem('selectedStudentId');
-        const packageSize = parseInt(document.getElementById('package-type').value, 10);
-        const packageValue = parseFloat(document.getElementById('package-value-input').value);
-        const packageDateValue = document.getElementById('package-date-input').value;
+    if (newPackageForm) {
+        newPackageForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const studentId = localStorage.getItem('selectedStudentId');
+            const packageSize = parseInt(document.getElementById('package-type').value, 10);
+            const packageValue = parseFloat(document.getElementById('package-value-input').value);
+            const packageDateValue = document.getElementById('package-date-input').value;
 
-        if (!studentId || !packageSize || Number.isNaN(packageValue) || !packageDateValue) {
-            if (typeof showToast === 'function') {
-                showToast('Preencha todos os campos do pacote antes de confirmar.', 'info', 'Dados incompletos');
+            if (!studentId || !packageSize || Number.isNaN(packageValue) || !packageDateValue) {
+                if (typeof showToast === 'function') {
+                    showToast('Preencha todos os campos do pacote antes de confirmar.', 'info', 'Dados incompletos');
+                }
+                return;
             }
-            return;
-        }
 
-        const [year, month, day] = packageDateValue.split('-');
-        const formattedDate = `${day}/${month}/${year}`;
+            const [year, month, day] = packageDateValue.split('-');
+            const formattedDate = `${day}/${month}/${year}`;
 
-        confirmPackageBtn.disabled = true;
-        confirmPackageBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Salvando...';
+            confirmPackageBtn.disabled = true;
+            confirmPackageBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Salvando...';
 
-        try {
-            await db.collection('students').doc(studentId).update({
-                pacoteContratado: packageSize,
-                valorPacote: packageValue,
-                dataInicioPacote: formattedDate,
-                classCount: 0
-            });
-            closeModal(newPackageModal);
-            newPackageForm.reset();
-            await updatePackageInfo(studentId);
-            if (typeof showToast === 'function') {
-                showToast('Novo pacote salvo e contador reiniciado.', 'success', 'Pacote iniciado');
+            try {
+                await db.collection('students').doc(studentId).update({
+                    pacoteContratado: packageSize,
+                    valorPacote: packageValue,
+                    dataInicioPacote: formattedDate,
+                    classCount: 0
+                });
+                closeModal(newPackageModal);
+                newPackageForm.reset();
+                await updatePackageInfo(studentId);
+                if (typeof showToast === 'function') {
+                    showToast('Novo pacote salvo e contador reiniciado.', 'success', 'Pacote iniciado');
+                }
+            } catch (error) {
+                console.error('Erro ao salvar novo pacote:', error);
+                if (typeof showToast === 'function') {
+                    showToast('N\u00e3o foi poss\u00edvel salvar o novo pacote agora.', 'error', 'Falha ao salvar');
+                }
+            } finally {
+                confirmPackageBtn.disabled = false;
+                confirmPackageBtn.innerHTML = 'Confirmar pacote';
             }
-        } catch (error) {
-            console.error('Erro ao salvar novo pacote:', error);
-            if (typeof showToast === 'function') {
-                showToast('N\u00e3o foi poss\u00edvel salvar o novo pacote agora.', 'error', 'Falha ao salvar');
-            }
-        } finally {
-            confirmPackageBtn.disabled = false;
-            confirmPackageBtn.innerHTML = 'Confirmar pacote';
-        }
-    });
+        });
+    }
 
     if (modulesContainer) {
         modulesContainer.addEventListener('click', async (event) => {

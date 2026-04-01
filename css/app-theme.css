@@ -306,6 +306,46 @@ html.theme-ready body.app-shell main {
     transform: translateY(-2px);
 }
 
+.app-button:focus-visible,
+.app-button-secondary:focus-visible,
+.app-button-ghost:focus-visible,
+.theme-toggle:focus-visible,
+.app-input:focus-visible,
+.app-select:focus-visible,
+.app-textarea:focus-visible,
+button:focus-visible,
+a:focus-visible {
+    outline: 0;
+    box-shadow:
+        0 0 0 3px rgba(255, 255, 255, 0.92),
+        0 0 0 6px rgba(37, 99, 235, 0.22);
+}
+
+[data-theme="dark"] .app-button:focus-visible,
+[data-theme="dark"] .app-button-secondary:focus-visible,
+[data-theme="dark"] .app-button-ghost:focus-visible,
+[data-theme="dark"] .theme-toggle:focus-visible,
+[data-theme="dark"] .app-input:focus-visible,
+[data-theme="dark"] .app-select:focus-visible,
+[data-theme="dark"] .app-textarea:focus-visible,
+[data-theme="dark"] button:focus-visible,
+[data-theme="dark"] a:focus-visible {
+    box-shadow:
+        0 0 0 3px rgba(15, 23, 42, 0.96),
+        0 0 0 6px rgba(96, 165, 250, 0.28);
+}
+
+.app-button[disabled],
+.app-button-secondary[disabled],
+.app-button-ghost[disabled],
+.theme-toggle[disabled],
+button[disabled] {
+    cursor: not-allowed;
+    transform: none !important;
+    opacity: 0.66;
+    box-shadow: none;
+}
+
 .text-decoration-none {
     text-decoration: none;
 }
@@ -377,6 +417,20 @@ html.theme-ready body.app-shell main {
     border-radius: inherit;
     background: linear-gradient(90deg, var(--accent-blue), var(--accent-violet));
     transition: width 0.28s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 .toast-region {

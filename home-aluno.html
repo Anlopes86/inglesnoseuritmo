@@ -27,6 +27,9 @@
             transform: translateY(-4px);
             box-shadow: var(--surface-shadow);
         }
+        .hub-card:focus-visible {
+            transform: translateY(-3px);
+        }
         .hub-card-primary {
             background:
                 radial-gradient(circle at top right, rgba(96, 165, 250, 0.18), transparent 28%),
@@ -84,6 +87,19 @@
         .summary-progress {
             margin-top: 0.85rem;
         }
+        .summary-progress-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-bottom: 0.45rem;
+            font-size: 0.84rem;
+            font-weight: 700;
+            color: var(--text-soft);
+        }
+        .summary-progress .progress-track {
+            height: 10px;
+        }
         .helper-panel {
             padding: 1.35rem;
             border-radius: 28px;
@@ -96,15 +112,32 @@
             gap: 0.75rem;
         }
         .module-pick-card {
+            position: relative;
+            overflow: hidden;
             background: rgba(255, 255, 255, 0.82);
             border-color: rgba(148, 163, 184, 0.32);
+            box-shadow: 0 14px 28px -24px rgba(15, 23, 42, 0.28);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+        }
+        .module-pick-card::after {
+            content: '';
+            position: absolute;
+            inset: auto -18% -42% auto;
+            width: 110px;
+            height: 110px;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(96, 165, 250, 0.16), transparent 68%);
+            pointer-events: none;
         }
         .module-pick-card:hover {
+            transform: translateY(-2px);
             border-color: rgba(100, 116, 139, 0.5);
+            box-shadow: var(--surface-shadow-soft);
         }
         .module-pick-card.is-active {
             background: rgba(239, 246, 255, 0.92);
             border-color: rgba(96, 165, 250, 0.56);
+            box-shadow: 0 22px 38px -28px rgba(37, 99, 235, 0.4);
         }
         [data-theme="dark"] .hub-card-primary {
             background:
@@ -118,6 +151,7 @@
         [data-theme="dark"] .module-pick-card {
             background: rgba(30, 41, 59, 0.9);
             border-color: rgba(100, 116, 139, 0.72);
+            box-shadow: 0 18px 34px -28px rgba(0, 0, 0, 0.45);
         }
         [data-theme="dark"] .module-pick-card:hover {
             border-color: rgba(148, 163, 184, 0.95);
@@ -252,11 +286,15 @@
                                 <div class="summary-item">
                                     <p class="text-sm font-semibold muted-label">Aulas feitas</p>
                                     <p id="summary-class-count" class="text-lg font-bold strong-text mt-1">0</p>
-                                    <p class="section-copy mt-2">Total de aulas registradas no seu pacote.</p>
-                                </div>
-                                <div class="summary-item">
-                                    <p class="text-sm font-semibold muted-label">Pr&oacute;xima recomenda&ccedil;&atilde;o</p>
-                                    <p id="summary-next" class="text-lg font-bold strong-text mt-1">Aguardando dados</p>
+                                    <div class="summary-progress">
+                                        <div class="summary-progress-meta">
+                                            <span id="summary-package-label">Pacote indisponível</span>
+                                            <span id="summary-package-percent">0%</span>
+                                        </div>
+                                        <div class="progress-track">
+                                            <div id="summary-package-progress" class="progress-fill" style="width: 0%;"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -311,7 +349,9 @@
             const summaryModule = document.getElementById('summary-module');
             const summaryLessons = document.getElementById('summary-lessons');
             const summaryClassCount = document.getElementById('summary-class-count');
-            const summaryNext = document.getElementById('summary-next');
+            const summaryPackageLabel = document.getElementById('summary-package-label');
+            const summaryPackagePercent = document.getElementById('summary-package-percent');
+            const summaryPackageProgress = document.getElementById('summary-package-progress');
 
             const moduleRoutes = {
                 a1: { href: 'a1/a1.html', label: 'M\u00f3dulo A1', helper: 'Volte ao A1 para consolidar base, rotina e primeiras intera\u00e7\u00f5es com mais seguran\u00e7a.', total: 32 },
@@ -350,8 +390,10 @@
                 nextLessonHelper.textContent = 'Vamos apontar a li\u00e7\u00e3o certa em instantes.';
                 summaryModule.textContent = 'Carregando';
                 summaryLessons.textContent = '0 de 0';
-                summaryClassCount.textContent = '0';
-                summaryNext.textContent = 'Aguardando dados';
+                summaryClassCount.textContent = '0/0';
+                summaryPackageLabel.textContent = 'Carregando pacote';
+                summaryPackagePercent.textContent = '0%';
+                summaryPackageProgress.style.width = '0%';
                 modulesCountBadge.textContent = '0 m\u00f3dulos';
                 moduleSelectorList.innerHTML = '<p class="section-copy">Carregando seus m\u00f3dulos liberados.</p>';
                 errorActions.classList.add('hidden');
@@ -389,13 +431,27 @@
                 return Object.values(progress || {}).filter((value) => value === true).length;
             }
 
-            function setLessonsDestination(studentType, progress, classCount = 0) {
+            function updatePackageSummary(classCount = 0, packageSize = 0) {
+                const safePackageSize = Number(packageSize) > 0 ? Number(packageSize) : 0;
+                const safeClassCount = Math.max(0, Number(classCount) || 0);
+                const normalizedCount = safePackageSize > 0 ? Math.min(safeClassCount, safePackageSize) : safeClassCount;
+                const percentage = safePackageSize > 0 ? Math.round((normalizedCount / safePackageSize) * 100) : 0;
+
+                summaryClassCount.textContent = safePackageSize > 0
+                    ? `${normalizedCount}/${safePackageSize}`
+                    : `${normalizedCount}/0`;
+                summaryPackageLabel.textContent = safePackageSize > 0
+                    ? `${normalizedCount} de ${safePackageSize} aulas utilizadas`
+                    : 'Nenhum pacote ativo';
+                summaryPackagePercent.textContent = `${percentage}%`;
+                summaryPackageProgress.style.width = `${Math.min(100, percentage)}%`;
+            }
+
+            function setLessonsDestination(studentType, progress, classCount = 0, packageSize = 0) {
                 const route = moduleRoutes[studentType] || moduleRoutes.a1;
                 const totalLessons = route.total || 0;
                 const completedLessons = Math.min(countCompletedLessons(progress), totalLessons);
-                const percentage = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
                 const nextLesson = buildNextLessonLabel(progress || {}, totalLessons);
-                const lastCompleted = buildLastCompletedLabel(progress || {}, totalLessons);
 
                 lessonsLink.href = route.href;
                 lessonsLink.classList.remove('is-disabled');
@@ -408,11 +464,10 @@
                 nextLessonName.textContent = nextLesson;
                 nextLessonHelper.textContent = nextLesson === 'M\u00f3dulo conclu\u00eddo'
                     ? 'Excelente trabalho. Voc\u00ea j\u00e1 concluiu a trilha atual.'
-                    : 'Entre pela trilha principal para manter a continuidade da sua aula.';
+                    : '';
                 summaryModule.textContent = route.label;
                 summaryLessons.textContent = `${completedLessons} de ${totalLessons}`;
-                summaryClassCount.textContent = String(classCount || 0);
-                summaryNext.textContent = nextLesson;
+                updatePackageSummary(classCount, packageSize);
                 errorActions.classList.add('hidden');
             }
 
@@ -463,7 +518,7 @@
                 hubHelperText.textContent = 'Voc\u00ea ainda pode revisar com flashcards ou tentar recarregar o acesso.';
                 journeyCopy.textContent = 'Houve uma falha ao buscar sua rota principal de estudo.';
                 errorMessage.textContent = message;
-                summaryClassCount.textContent = '0';
+                updatePackageSummary(0, 0);
                 moduleSelectorList.innerHTML = '<p class="section-copy">N\u00e3o foi poss\u00edvel carregar os m\u00f3dulos liberados.</p>';
                 errorActions.classList.remove('hidden');
             }
@@ -493,6 +548,7 @@
 
                     const data = doc.data();
                     const classCount = data.classCount || 0;
+                    const packageSize = data.pacoteContratado || 0;
                     const assignedModules = normalizeAssignedModules(data);
                     const progressData = data.progress || {};
                     const requestedModule = urlParams.get('module');
@@ -502,7 +558,7 @@
                     const moduleProgress = progressData[activeModule] || {};
 
                     localStorage.setItem(getModuleStorageKey(studentIdToLoad), activeModule);
-                    setLessonsDestination(activeModule, moduleProgress, classCount);
+                    setLessonsDestination(activeModule, moduleProgress, classCount, packageSize);
                     renderModuleSelector(assignedModules, progressData, activeModule);
                 } catch (error) {
                     console.error('Erro ao carregar m\u00f3dulo do aluno:', error);

@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Módulo A1',
             description: 'Abra suas lições principais do A1 e avance no seu ritmo.',
             url: 'a1/a1.html',
-            secondaryUrl: 'a1/autonomo/index.html',
             secondaryLabel: 'Iniciar A1 Autônomo'
         },
         a2: {
@@ -116,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 moduleSecondaryLink.textContent = details.secondaryLabel || 'Acesso extra';
                 moduleSecondaryLink.classList.remove('hidden');
             } else {
+                moduleSecondaryLink.removeAttribute('href');
                 moduleSecondaryLink.classList.add('hidden');
             }
         }
