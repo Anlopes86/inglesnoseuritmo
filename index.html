@@ -142,6 +142,44 @@
             background: var(--surface-bg);
             border: 1px solid var(--surface-border);
         }
+        .student-select-shell {
+            position: relative;
+            border-radius: 22px;
+            padding: 0.3rem;
+            background:
+                linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(8, 145, 178, 0.08)),
+                var(--surface-bg);
+            border: 1px solid rgba(148, 163, 184, 0.22);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), var(--surface-shadow-soft);
+        }
+        .student-select-shell::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 1.15rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-soft);
+            font-size: 0.82rem;
+            pointer-events: none;
+        }
+        .student-select-shell .app-select {
+            border: 0;
+            border-radius: 18px;
+            padding: 1rem 3rem 1rem 1rem;
+            background: rgba(255, 255, 255, 0.82);
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            box-shadow: none;
+        }
+        .student-select-shell .app-select:focus {
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+            background: rgba(255, 255, 255, 0.95);
+        }
         .danger-button {
             background: linear-gradient(135deg, #ef4444, #dc2626);
             color: white;
@@ -184,6 +222,19 @@
         }
         [data-theme="dark"] .success-button {
             box-shadow: 0 16px 28px -18px rgba(16, 185, 129, 0.65);
+        }
+        [data-theme="dark"] .student-select-shell {
+            background:
+                linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(8, 145, 178, 0.16)),
+                rgba(15, 23, 42, 0.84);
+            border-color: rgba(71, 85, 105, 0.78);
+            box-shadow: inset 0 1px 0 rgba(148, 163, 184, 0.08), var(--surface-shadow-soft);
+        }
+        [data-theme="dark"] .student-select-shell .app-select {
+            background: rgba(15, 23, 42, 0.88);
+        }
+        [data-theme="dark"] .student-select-shell .app-select:focus {
+            background: rgba(15, 23, 42, 0.96);
         }
         @media (min-width: 1080px) {
             .hero-band > div > div:first-child {
@@ -238,46 +289,18 @@
     </header>
 
     <main id="main-content" class="app-container py-8 md:py-10">
-        <section class="hero-band p-6 md:p-8">
-            <div class="flex flex-col gap-6">
-                <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-                    <div class="max-w-3xl">
-                        <span class="eyebrow"><i class="fas fa-wave-square"></i> Painel da aula</span>
-                        <h1 class="app-title mt-5" style="font-family: 'Sora', sans-serif;">Selecione um aluno</h1>
-                        <p class="app-lead mt-5">
-                            Pacote, progresso e pr&oacute;xima li&ccedil;&atilde;o ficam logo abaixo para voc&ecirc; entrar na aula sem perder tempo.
-                        </p>
-                    </div>
-                    <button id="open-add-student-empty-btn" class="app-button self-start md:self-auto">
-                        <i class="fas fa-user-plus"></i>
-                        Adicionar aluno
-                    </button>
-                </div>
-                <div class="dashboard-empty-grid">
-                    <div class="kpi-card">
-                        <p class="kpi-label">Fluxo principal</p>
-                        <p class="kpi-helper">Escolha o aluno, veja o resumo e siga para a pr&oacute;xima aula sugerida.</p>
-                    </div>
-                    <div class="kpi-card">
-                        <p class="kpi-label">Opera&ccedil;&atilde;o</p>
-                        <p class="kpi-helper">Pacote, valor, horas usadas e acesso ao portal ficam no mesmo lugar.</p>
-                    </div>
-                    <div class="kpi-card">
-                        <p class="kpi-label">Did&aacute;tica</p>
-                        <p class="kpi-helper">A ideia &eacute; reduzir fric&ccedil;&atilde;o antes e durante a aula, n&atilde;o s&oacute; administrar cadastro.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="dashboard-layout mt-8">
+        <div class="dashboard-layout">
             <aside class="student-list-panel">
                 <section class="surface-card-strong p-5">
-                    <div>
+                    <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                         <div>
                             <p class="kpi-label">Alunos</p>
-                            <h2 class="section-title mt-2">Escolha sua pr&oacute;xima aula</h2>
+                            <h2 class="section-title mt-2">Gerenciar alunos</h2>
                         </div>
+                        <button id="open-add-student-modal-btn" class="app-button self-start">
+                            <i class="fas fa-user-plus"></i>
+                            Adicionar aluno
+                        </button>
                     </div>
 
                     <div class="space-y-4 mt-6">
@@ -287,9 +310,11 @@
                         </div>
                         <div>
                             <label for="student-select" class="block text-sm font-semibold muted-label mb-2">Selecionar aluno</label>
-                            <select id="student-select" class="app-select" aria-label="Selecionar aluno">
-                                <option value="">Selecione um aluno...</option>
-                            </select>
+                            <div class="student-select-shell">
+                                <select id="student-select" class="app-select" aria-label="Selecionar aluno">
+                                    <option value="">Selecione um aluno...</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
@@ -302,6 +327,58 @@
                             <i class="fas fa-trash-can"></i>
                             Excluir aluno
                         </button>
+                    </div>
+                </section>
+
+                <section class="surface-card p-5 md:p-6">
+                    <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                        <div>
+                            <p class="kpi-label">Controle do pacote</p>
+                            <h3 class="section-title mt-2">Pacote e carga hor&aacute;ria</h3>
+                        </div>
+                        <button id="new-package-btn" class="app-button-secondary">
+                            <i class="fas fa-box-open"></i>
+                            Iniciar novo pacote
+                        </button>
+                    </div>
+
+                    <div class="mt-6">
+                        <div class="flex items-center justify-between gap-4 text-sm font-semibold muted-label mb-2">
+                            <span>Progresso do pacote</span>
+                            <span id="package-progress-text">0 / 0 horas</span>
+                        </div>
+                        <div class="progress-track">
+                            <div id="package-progress-bar" class="progress-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="grid gap-4 mt-6">
+                        <div class="mini-stat">
+                            <p class="kpi-label">Ajuste r&aacute;pido</p>
+                            <div class="flex items-center justify-center gap-4 mt-5">
+                                <button id="remove-class-btn" class="app-button danger-button !px-5 !py-3" aria-label="Remover uma aula">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <div class="text-center">
+                                    <p class="text-sm font-semibold muted-label">Aulas utilizadas</p>
+                                    <p class="text-4xl font-black tracking-tight strong-text mt-2" id="class-count-display-secondary">0</p>
+                                </div>
+                                <button id="add-class-btn" class="app-button success-button !px-5 !py-3" aria-label="Adicionar uma aula">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mini-stat">
+                            <p class="kpi-label">Dados do pacote</p>
+                            <div id="package-details" class="space-y-3 mt-5 text-sm md:text-base strong-text">
+                                <p><strong>Valor:</strong> <span id="package-value-display">R$ 0,00</span></p>
+                                <p><strong>In&iacute;cio:</strong> <span id="package-date-display">--/--/----</span></p>
+                            </div>
+                            <div id="no-package-message" class="hidden mt-5 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-rose-700 font-semibold">
+                                Nenhum pacote ativo para este aluno.
+                            </div>
+                        </div>
                     </div>
                 </section>
             </aside>
@@ -364,90 +441,6 @@
                                 <p class="kpi-helper">Trilha principal definida para o aluno.</p>
                             </div>
                         </div>
-                    </section>
-
-                    <section class="helper-grid">
-                        <div class="surface-card p-5 md:p-6">
-                            <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                                <div>
-                                    <p class="kpi-label">Controle do pacote</p>
-                                    <h3 class="section-title mt-2">Pacote e carga hor&aacute;ria</h3>
-                                </div>
-                                <button id="new-package-btn" class="app-button-secondary">
-                                    <i class="fas fa-box-open"></i>
-                                    Iniciar novo pacote
-                                </button>
-                            </div>
-
-                            <div class="mt-6">
-                                <div class="flex items-center justify-between gap-4 text-sm font-semibold muted-label mb-2">
-                                    <span>Progresso do pacote</span>
-                                    <span id="package-progress-text">0 / 0 horas</span>
-                                </div>
-                                <div class="progress-track">
-                                    <div id="package-progress-bar" class="progress-fill" style="width: 0%;"></div>
-                                </div>
-                            </div>
-
-                            <div class="grid md:grid-cols-[0.9fr_1.1fr] gap-4 mt-6">
-                                <div class="mini-stat">
-                                    <p class="kpi-label">Ajuste r&aacute;pido</p>
-                                    <div class="flex items-center justify-center gap-4 mt-5">
-                                        <button id="remove-class-btn" class="app-button danger-button !px-5 !py-3" aria-label="Remover uma aula">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <div class="text-center">
-                                            <p class="text-sm font-semibold muted-label">Aulas utilizadas</p>
-                                            <p class="text-4xl font-black tracking-tight strong-text mt-2" id="class-count-display-secondary">0</p>
-                                        </div>
-                                        <button id="add-class-btn" class="app-button success-button !px-5 !py-3" aria-label="Adicionar uma aula">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="mini-stat">
-                                    <p class="kpi-label">Dados do pacote</p>
-                                    <div id="package-details" class="space-y-3 mt-5 text-sm md:text-base strong-text">
-                                        <p><strong>Valor:</strong> <span id="package-value-display">R$ 0,00</span></p>
-                                        <p><strong>In&iacute;cio:</strong> <span id="package-date-display">--/--/----</span></p>
-                                    </div>
-                                    <div id="no-package-message" class="hidden mt-5 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-rose-700 font-semibold">
-                                        Nenhum pacote ativo para este aluno.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="surface-card p-5 md:p-6">
-                            <p class="kpi-label">Atalho pedag&oacute;gico</p>
-                            <h3 class="section-title mt-2">Resumo para a pr&oacute;xima aula</h3>
-                            <div class="space-y-4 mt-6">
-                                <div>
-                                    <p class="text-sm font-semibold text-slate-500">&Uacute;ltima li&ccedil;&atilde;o conclu&iacute;da</p>
-                                    <p id="teacher-last-lesson" class="text-lg font-bold strong-text mt-1">Aguardando</p>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-semibold text-slate-500">Pr&oacute;xima recomenda&ccedil;&atilde;o</p>
-                                    <p id="teacher-next-lesson" class="text-lg font-bold strong-text mt-1">Aguardando</p>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-semibold muted-label">Observa&ccedil;&atilde;o sugerida</p>
-                                    <p id="teacher-lesson-note" class="section-copy mt-2">Use este painel para abrir a trilha principal j&aacute; com contexto do que vem a seguir.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="surface-card p-5 md:p-6">
-                        <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                            <div>
-                                <p class="kpi-label">Matr&iacute;cula em m&oacute;dulos</p>
-                                <h3 class="section-title mt-2">Liberar e organizar acessos</h3>
-                            </div>
-                            <p id="assigned-modules-status" class="section-copy">Selecione um aluno para gerenciar os m&oacute;dulos liberados.</p>
-                        </div>
-                        <div id="assigned-modules-list" class="flex flex-wrap gap-3 mt-6"></div>
                     </section>
 
                     <section class="surface-card p-5 md:p-6">

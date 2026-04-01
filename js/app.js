@@ -330,11 +330,13 @@
             studentTypeDisplay.textContent = describeStudentType(studentType);
             nextLessonDisplay.textContent = nextText;
             lastCompletedDisplay.textContent = completedText;
-            teacherLastLesson.textContent = completedText;
-            teacherNextLesson.textContent = nextText;
-            teacherLessonNote.textContent = focusedState.nextLesson
-                ? `A próxima recomendação é ${nextText}. Use o portal ou abra o módulo em foco para manter a continuidade da aula.`
-                : 'A trilha principal já foi concluída. Este é um bom momento para revisão, consolidação ou transição de módulo.';
+            if (teacherLastLesson) teacherLastLesson.textContent = completedText;
+            if (teacherNextLesson) teacherNextLesson.textContent = nextText;
+            if (teacherLessonNote) {
+                teacherLessonNote.textContent = focusedState.nextLesson
+                    ? `A próxima recomendação é ${nextText}. Use o portal ou abra o módulo em foco para manter a continuidade da aula.`
+                    : 'A trilha principal já foi concluída. Este é um bom momento para revisão, consolidação ou transição de módulo.';
+            }
             studentOverviewCopy.textContent = focusedState.nextLesson
                 ? `A trilha principal atual é ${describeStudentType(studentType)}. O próximo passo mais claro é ${nextText}.`
                 : `A trilha principal atual é ${describeStudentType(studentType)} e já foi concluída.`;
