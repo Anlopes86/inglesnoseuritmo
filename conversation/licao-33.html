@@ -25,6 +25,8 @@
         .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #22c55e; text-align: center; color: #86efac; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
         .drop-zone.hover { border-color: #86efac; background-color: rgba(34, 197, 94, 0.1); }
         .drop-zone.filled { border-bottom-style: solid; }
+        .drop-zone.correct { color: #34d399 !important; border-color: #34d399; background-color: rgba(16, 185, 129, 0.12); }
+        .drop-zone.incorrect { color: #f87171 !important; border-color: #f87171; background-color: rgba(239, 68, 68, 0.12); }
         .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
         .answer-btn:hover { color: #22c55e; }
         .debate-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }
@@ -247,6 +249,7 @@
                     <div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div>
                     <div id="matching-activity" class="space-y-8 text-left"></div>
                     <button id="check-answers-btn" class="mt-12 bg-green-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-green-700 shadow-lg">Check Answers</button>
+                    <p id="practice-feedback" class="mt-4 text-lg font-semibold text-gray-300"></p>
                 </div>
             </div>
         </div>
@@ -367,6 +370,7 @@
             const wordBank = document.getElementById('word-bank');
             const activityContainer = document.getElementById('matching-activity');
             const checkBtn = document.getElementById('check-answers-btn');
+            const feedback = document.getElementById('practice-feedback');
 
             const vocabulary = [
                 { id: 'grow', text: 'To grow up' },
@@ -409,23 +413,32 @@
                     zone.classList.remove('hover');
                     zone.innerText = e.dataTransfer.getData('text/plain');
                     zone.classList.add('filled');
+                    zone.classList.remove('correct', 'incorrect');
                 });
                 zone.addEventListener('click', () => {
                     zone.innerText = '________';
-                    zone.classList.remove('filled');
-                    zone.style.color = '#86efac';
+                    zone.classList.remove('filled', 'correct', 'incorrect');
                 });
             });
 
             if (checkBtn) {
                 checkBtn.onclick = () => {
+                    let correctCount = 0;
                     dropZones.forEach(zone => {
-                        if (zone.innerText.trim().toLowerCase() === zone.dataset.answer.toLowerCase()) {
-                            zone.style.color = '#10b981';
-                        } else if (zone.innerText !== '________') {
-                            zone.style.color = '#ef4444';
+                        const currentValue = zone.innerText.trim().toLowerCase();
+                        const answerValue = zone.dataset.answer.trim().toLowerCase();
+                        zone.classList.remove('correct', 'incorrect');
+                        if (currentValue === answerValue) {
+                            zone.classList.add('correct');
+                            correctCount++;
+                        } else if (currentValue !== '________') {
+                            zone.classList.add('incorrect');
                         }
                     });
+                    if (feedback) {
+                        feedback.textContent = `You got ${correctCount} of ${dropZones.length} correct.`;
+                        feedback.className = 'mt-4 text-lg font-semibold ' + (correctCount === dropZones.length ? 'text-emerald-400' : 'text-green-300');
+                    }
                 };
             }
 
