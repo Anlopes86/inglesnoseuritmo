@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const cors = require('cors');
+const nodemailer = require('nodemailer');
 const admin = require('firebase-admin');
 
 function initializeFirebaseAdmin() {
@@ -71,19 +72,22 @@ const PLAN_CATALOG = {
     id: 'starter',
     label: 'Starter',
     studentLimit: 10,
-    products: ['conversation']
+    lessonCount: 16,
+    products: ['conversation', 'starter', 'pack-16', '16', '16-aulas']
   },
   pro: {
     id: 'pro',
     label: 'Teacher Pro',
     studentLimit: 40,
-    products: ['conversation', 'a1', 'a2', 'prepb1', 'b1', 'business', 'vestibular', 'essentials']
+    lessonCount: 32,
+    products: ['conversation', 'a1', 'a2', 'prepb1', 'b1', 'business', 'vestibular', 'essentials', 'pro', 'pack-32', '32', '32-aulas']
   },
   scale: {
     id: 'scale',
     label: 'Teacher Scale',
     studentLimit: null,
-    products: ['conversation', 'a1', 'a2', 'prepb1', 'b1', 'business', 'vestibular', 'essentials', 'b2', 'c1', 'c2']
+    lessonCount: 48,
+    products: ['conversation', 'a1', 'a2', 'prepb1', 'b1', 'business', 'vestibular', 'essentials', 'b2', 'c1', 'c2', 'scale', 'pack-48', '48', '48-aulas', 'master']
   }
 };
 
@@ -97,6 +101,141 @@ function normalizeEmail(value) {
 
 function normalizeName(value) {
   return typeof value === 'string' ? value.trim() : '';
+}
+
+function normalizeUrl(value) {
+  return typeof value === 'string' ? value.trim().replace(/\/+$/, '') : '';
+}
+
+function isTruthyEnv(value) {
+  return ['1', 'true', 'yes', 'on'].includes(String(value || '').trim().toLowerCase());
+}
+
+function joinUrl(base, ...segments) {
+  const normalizedBase = normalizeUrl(base);
+  const normalizedSegments = segments
+    .flatMap((segment) => String(segment || '').split('/'))
+    .map((segment) => segment.trim())
+    .filter(Boolean);
+
+  if (!normalizedBase) {
+    return normalizedSegments.join('/');
+  }
+
+  if (!normalizedSegments.length) {
+    return normalizedBase;
+  }
+
+  return `${normalizedBase}/${normalizedSegments.join('/')}`;
+}
+
+function getAppUrl() {
+  return normalizeUrl(process.env.APP_URL || 'https://anlopes86.github.io/inglesnoseuritmo');
+}
+
+function getLoginUrl() {
+  return joinUrl(getAppUrl(), 'login.html');
+}
+
+function createMailTransport() {
+  const host = normalizeName(process.env.MAIL_HOST);
+  const user = normalizeName(process.env.MAIL_USER);
+  const pass = typeof process.env.MAIL_PASS === 'string' ? process.env.MAIL_PASS : '';
+
+  if (!host || !user || !pass) {
+    return null;
+  }
+
+  const port = parseInt(process.env.MAIL_PORT || '587', 10);
+  const secure = process.env.MAIL_SECURE ? isTruthyEnv(process.env.MAIL_SECURE) : port === 465;
+  const tls = isTruthyEnv(process.env.MAIL_TLS_ALLOW_INVALID_CERTS)
+    ? { rejectUnauthorized: false }
+    : undefined;
+
+  return nodemailer.createTransport({
+    host,
+    port,
+    secure,
+    auth: {
+      user,
+      pass
+    },
+    ...(tls ? { tls } : {})
+  });
+}
+
+function getMailFromAddress() {
+  const from = normalizeName(process.env.MAIL_FROM);
+  if (from) {
+    return from;
+  }
+
+  const user = normalizeName(process.env.MAIL_USER);
+  const displayName = normalizeName(process.env.MAIL_FROM_NAME) || 'Ingles no Seu Ritmo';
+  return user ? `${displayName} <${user}>` : displayName;
+}
+
+function sanitizeErrorMessage(error) {
+  return normalizeName(error?.message || error?.toString?.() || 'unknown-error').slice(0, 240);
+}
+
+function buildWelcomeEmail({ name, email, resetLink, planLabel }) {
+  const safeName = normalizeName(name) || email;
+  const portalUrl = getLoginUrl();
+  const subject = 'Seu acesso ao Ingles no Seu Ritmo esta pronto';
+
+  return {
+    subject,
+    text: [
+      `Ola, ${safeName}.`,
+      '',
+      'Sua conta foi criada com sucesso e o acesso ao portal ja esta liberado.',
+      `Plano liberado: ${planLabel || 'Pack de Conversacao'}.`,
+      '',
+      `Para definir sua senha, acesse este link: ${resetLink}`,
+      '',
+      `Depois do cadastro, entre pelo portal em: ${portalUrl}`,
+      '',
+      'Se voce nao solicitou esse acesso, ignore esta mensagem.'
+    ].join('\n'),
+    html: `
+      <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #1f2937;">
+        <p>Ola, ${safeName}.</p>
+        <p>Sua conta foi criada com sucesso e o acesso ao portal ja esta liberado.</p>
+        <p><strong>Plano liberado:</strong> ${planLabel || 'Pack de Conversacao'}</p>
+        <p>Para definir sua senha, clique no botao abaixo:</p>
+        <p>
+          <a href="${resetLink}" style="display:inline-block;background:#111827;color:#fff;text-decoration:none;padding:12px 18px;border-radius:10px;">
+            Criar ou redefinir senha
+          </a>
+        </p>
+        <p>Depois do cadastro, entre pelo portal em <a href="${portalUrl}">${portalUrl}</a>.</p>
+        <p style="font-size: 14px; color: #6b7280;">Se voce nao solicitou esse acesso, ignore esta mensagem.</p>
+      </div>
+    `
+  };
+}
+
+async function sendWelcomeEmail({ name, email, resetLink, planLabel }) {
+  const transport = createMailTransport();
+  if (!transport) {
+    return { status: 'skipped', reason: 'smtp-not-configured' };
+  }
+
+  const from = getMailFromAddress();
+  const message = buildWelcomeEmail({ name, email, resetLink, planLabel });
+  const info = await transport.sendMail({
+    from,
+    to: email,
+    subject: message.subject,
+    text: message.text,
+    html: message.html
+  });
+
+  return {
+    status: 'sent',
+    messageId: info.messageId || null
+  };
 }
 
 function detectStatus(payload) {
@@ -115,9 +254,14 @@ function detectPlanId(payload) {
     payload?.product?.name,
     payload?.order?.product_id,
     payload?.order?.product_name,
-    payload?.subscription?.plan_id
+    payload?.subscription?.plan_id,
+    payload?.checkout?.name,
+    payload?.checkout?.title
   ).toLowerCase();
 
+  if (candidate.includes('48') || candidate.includes('master')) return 'scale';
+  if (candidate.includes('32') || candidate.includes('pro')) return 'pro';
+  if (candidate.includes('16') || candidate.includes('starter')) return 'starter';
   if (candidate.includes('scale')) return 'scale';
   if (candidate.includes('pro')) return 'pro';
   if (candidate.includes('starter')) return 'starter';
@@ -179,6 +323,16 @@ function resolvePlan(planId) {
   return PLAN_CATALOG[planId] || PLAN_CATALOG.starter;
 }
 
+function resolveAccessPack(planId) {
+  const plan = resolvePlan(planId);
+  return {
+    packId: plan.id,
+    lessonCount: plan.lessonCount,
+    label: plan.label,
+    includesStudentManagement: true
+  };
+}
+
 function requireWebhookSecret(req) {
   const secret = process.env.WEBHOOK_SECRET || '';
   if (!secret) {
@@ -201,6 +355,7 @@ function requireWebhookSecret(req) {
 
 function buildProfilePayload({ email, name, planId, eventId, externalId }) {
   const plan = resolvePlan(planId);
+  const accessPack = resolveAccessPack(planId);
 
   return {
     name: name || email,
@@ -213,6 +368,9 @@ function buildProfilePayload({ email, name, planId, eventId, externalId }) {
     purchaseEventId: eventId,
     providerOrderId: externalId || null,
     platformPlan: plan.id,
+    accessPackId: accessPack.packId,
+    accessPackLabel: accessPack.label,
+    lessonCount: accessPack.lessonCount,
     subscriptionStatus: 'active',
     billingCycle: 'monthly',
     studentLimit: plan.studentLimit,
@@ -241,10 +399,8 @@ async function upsertTeacherProfile(payload) {
   }
 
   if (!userRecord) {
-    const tempPassword = crypto.randomBytes(12).toString('base64url');
     userRecord = await auth.createUser({
       email: payload.email,
-      password: tempPassword,
       displayName: payload.name || payload.email,
       emailVerified: false
     });
@@ -259,6 +415,7 @@ async function upsertTeacherProfile(payload) {
 
   const profileRef = db.collection('students').doc(userRecord.uid);
   const existingSnap = await profileRef.get();
+  const existingProfile = existingSnap.exists ? (existingSnap.data() || {}) : {};
   const profileData = buildProfilePayload({ ...payload, eventId: payload.eventId });
   profileData.tenantId = userRecord.uid;
   profileData.teacherId = userRecord.uid;
@@ -268,12 +425,63 @@ async function upsertTeacherProfile(payload) {
 
   await profileRef.set(profileData, { merge: true });
 
+  const shouldSendWelcomeEmail = !existingProfile.welcomeEmailSentAt;
+  let welcomeEmailResult = {
+    status: shouldSendWelcomeEmail ? 'pending' : 'skipped',
+    reason: shouldSendWelcomeEmail ? null : 'already-sent'
+  };
+
+  if (shouldSendWelcomeEmail) {
+    try {
+      const resetLink = await auth.generatePasswordResetLink(payload.email, {
+        url: getLoginUrl(),
+        handleCodeInApp: false
+      });
+
+      welcomeEmailResult = await sendWelcomeEmail({
+        name: payload.name || userRecord.displayName || payload.email,
+        email: payload.email,
+        resetLink,
+        planLabel: profileData.accessPackLabel
+      });
+
+      const updateData = {
+        welcomeEmailStatus: welcomeEmailResult.status,
+        welcomeEmailLastAttemptAt: admin.firestore.FieldValue.serverTimestamp(),
+        welcomeEmailProvider: welcomeEmailResult.status === 'sent' ? 'smtp' : null,
+        onboardingStatus: welcomeEmailResult.status === 'sent' ? 'welcome-email-sent' : 'welcome-email-pending'
+      };
+
+      if (welcomeEmailResult.status === 'sent') {
+        updateData.welcomeEmailSentAt = admin.firestore.FieldValue.serverTimestamp();
+        updateData.welcomeEmailMessageId = welcomeEmailResult.messageId || null;
+      } else if (welcomeEmailResult.status === 'skipped') {
+        updateData.welcomeEmailProvider = null;
+      }
+
+      await profileRef.set(updateData, { merge: true });
+    } catch (error) {
+      welcomeEmailResult = {
+        status: 'failed',
+        reason: sanitizeErrorMessage(error)
+      };
+
+      await profileRef.set({
+        welcomeEmailStatus: 'failed',
+        welcomeEmailLastAttemptAt: admin.firestore.FieldValue.serverTimestamp(),
+        welcomeEmailError: welcomeEmailResult.reason,
+        onboardingStatus: 'welcome-email-failed'
+      }, { merge: true });
+    }
+  }
+
   return {
     uid: userRecord.uid,
     email: payload.email,
     name: payload.name || userRecord.displayName || payload.email,
     role: ROLES.PROFESSOR,
-    planId: profileData.platformPlan
+    planId: profileData.platformPlan,
+    welcomeEmailStatus: welcomeEmailResult.status
   };
 }
 
@@ -304,7 +512,8 @@ async function registerWebhookEvent(provider, payload) {
   await eventRef.set({
     processedAt: admin.firestore.FieldValue.serverTimestamp(),
     processedTeacherUid: teacher.uid,
-    processedTeacherEmail: teacher.email
+    processedTeacherEmail: teacher.email,
+    welcomeEmailStatus: teacher.welcomeEmailStatus || null
   }, { merge: true });
 
   return {

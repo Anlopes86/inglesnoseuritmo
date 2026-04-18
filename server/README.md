@@ -21,6 +21,14 @@ Opcional:
 - `DEFAULT_TEACHER_PLAN`
 - `DEFAULT_BILLING_CYCLE`
 - `APP_URL`
+- `MAIL_HOST`
+- `MAIL_PORT`
+- `MAIL_SECURE`
+- `MAIL_USER`
+- `MAIL_PASS`
+- `MAIL_FROM`
+- `MAIL_FROM_NAME`
+- `MAIL_TLS_ALLOW_INVALID_CERTS`
 
 Se preferir, o servidor tambem aceita as variaveis separadas:
 
@@ -34,6 +42,23 @@ Se voce colar a chave direto no Render, mantenha as quebras de linha como `\n`.
 
 Se usar `FIREBASE_SERVICE_ACCOUNT_JSON`, cole o JSON completo do service account do Firebase em uma unica variavel de ambiente.
 Se usar arquivo secreto, envie o JSON baixado do Firebase Console como `firebase-service-account.json`.
+
+### E-mail automatico de boas-vindas
+
+Se voce configurar SMTP, o servidor envia automaticamente um e-mail com o link de redefinicao de senha para o professor assim que a compra for aprovada.
+
+Variaveis recomendadas:
+
+- `MAIL_HOST`
+- `MAIL_PORT`
+- `MAIL_SECURE`
+- `MAIL_USER`
+- `MAIL_PASS`
+- `MAIL_FROM`
+- `MAIL_FROM_NAME`
+- `MAIL_TLS_ALLOW_INVALID_CERTS`
+
+O link de redefinicao aponta para `APP_URL/login.html`. Se `APP_URL` nao for definido, o servidor usa o site atual do GitHub Pages por padrao.
 
 ## Deploy no Render
 

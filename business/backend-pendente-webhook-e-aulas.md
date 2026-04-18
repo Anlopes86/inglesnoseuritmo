@@ -18,6 +18,7 @@
 - criacao automatica de conta de professor no Firebase Auth
 - gravacao do perfil do professor em `students/{uid}`
 - idempotencia basica via `purchase_events`
+- envio automatico de e-mail de boas-vindas com link para criar/redefinir senha, quando SMTP estiver configurado
 - deploy independente do front no GitHub Pages
 
 ## O que ainda depende de backend
@@ -51,7 +52,8 @@ Por isso a automacao de compra nao pode ficar so no front-end.
 2. O backend cria o usuario do professor no Firebase Auth, se ainda nao existir.
 3. O backend grava o perfil com `role: professor` e plano inicial.
 4. O professor entra em `login.html` com o email da compra.
-5. O professor usa `Esqueci minha senha` para ativar a senha se necessario.
+5. O professor recebe um e-mail com o link de redefinicao de senha, se o SMTP estiver configurado.
+6. Se precisar, o professor tambem pode usar `Esqueci minha senha` em `login.html`.
 
 ### Campos recomendados por compra
 
@@ -133,3 +135,11 @@ Essa ordem reduz risco e evita construir features de aula ao vivo antes de a bas
 - `DEFAULT_TEACHER_PLAN`
 - `DEFAULT_BILLING_CYCLE`
 - `DEFAULT_STUDENT_LIMIT`
+- `MAIL_HOST`
+- `MAIL_PORT`
+- `MAIL_SECURE`
+- `MAIL_USER`
+- `MAIL_PASS`
+- `MAIL_FROM`
+- `MAIL_FROM_NAME`
+- `MAIL_TLS_ALLOW_INVALID_CERTS`
