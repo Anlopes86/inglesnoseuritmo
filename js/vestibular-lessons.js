@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     if (!firebase || !firebase.apps.length) {
-        console.error('Firebase não inicializado! Verifique a ordem dos scripts no HTML.');
+        console.error('Firebase nao inicializado! Verifique a ordem dos scripts no HTML.');
         return;
     }
 
@@ -11,46 +11,79 @@ document.addEventListener('DOMContentLoaded', () => {
     const moduleId = 'vestibular';
 
     const lessonTitles = [
-        'Leitura Dinâmica: Skimming, Scanning e Vocabulário',
-        'Ideia Central e Tópicos Frasais',
-        'Linking Words I: Adição e Contraste',
-        'Linking Words II: Causa, Consequência e Propósito',
-        'Referências Pronominais',
-        'Preposições e Phrasal Verbs Essenciais',
+        'Leitura Dinamica: Skimming, Scanning e Vocabulario',
+        'Ideia Central e Topicos Frasais',
+        'Linking Words I: Adicao e Contraste',
+        'Linking Words II: Causa, Consequencia e Proposito',
+        'Referencias Pronominais',
+        'Preposicoes e Phrasal Verbs Essenciais',
         'Tempos Verbais I: Base de Leitura',
         'Tempos Verbais II: Present Perfect e Futuro',
-        'Modal Verbs em Questões de Prova',
+        'Modal Verbs em Questoes de Prova',
         'Voz Passiva e Comparativos',
-        'Condições e Relações Lógicas',
+        'Condicoes e Relacoes Logicas',
         'Comparando Ideias e Argumentos',
         'Desconstruindo o Enunciado',
         'Lendo nas Entrelinhas',
-        'Pegadinhas, Eliminação e Erros Comuns',
-        'Simulado Final e Estratégia de Tempo'
+        'Pegadinhas, Eliminacao e Erros Comuns',
+        'Simulado Final e Estrategia de Tempo'
     ];
 
     const lessonUnits = [
         'Base', 'Base', 'Conectores', 'Conectores',
-        'Estrutura', 'Estrutura', 'Gramática', 'Gramática',
-        'Gramática', 'Gramática', 'Leitura', 'Leitura',
-        'Questões', 'Questões', 'Prova', 'Prova'
+        'Estrutura', 'Estrutura', 'Gramatica', 'Gramatica',
+        'Gramatica', 'Gramatica', 'Leitura', 'Leitura',
+        'Questoes', 'Questoes', 'Prova', 'Prova'
     ];
 
-    auth.onAuthStateChanged(user => {
+    async function resolveViewerContext(user) {
+        const viewerDoc = await db.collection('students').doc(user.uid).get();
+        const viewerData = viewerDoc.exists ? viewerDoc.data() : {};
+        const role = viewerData.role || localStorage.getItem('loggedInUserRole') || 'aluno';
+
+        if (role === 'professor' || role === 'admin') {
+            const studentId = localStorage.getItem('selectedStudentId');
+            if (!studentId) {
+                return { role, studentId: null };
+            }
+
+            const studentDoc = await db.collection('students').doc(studentId).get();
+            if (!studentDoc.exists) {
+                return { role, studentId: null };
+            }
+
+            if (role === 'professor' && studentDoc.data().teacherId !== user.uid) {
+                throw new Error('Acesso negado ao aluno selecionado.');
+            }
+
+            return { role, studentId };
+        }
+
+        if (role !== 'aluno') {
+            throw new Error('Perfil sem acesso ao modulo vestibular.');
+        }
+
+        return { role, studentId: user.uid };
+    }
+
+    auth.onAuthStateChanged(async (user) => {
         if (!user) {
             window.location.href = '../login.html';
             return;
         }
 
-        const role = localStorage.getItem('loggedInUserRole') || 'aluno';
-        const studentId = role === 'professor' ? localStorage.getItem('selectedStudentId') : user.uid;
+        try {
+            const context = await resolveViewerContext(user);
+            if (!context.studentId) {
+                loadingDiv.innerHTML = '<p class="text-red-500">Selecione um aluno valido no painel principal.</p>';
+                return;
+            }
 
-        if (!studentId) {
-            loadingDiv.innerHTML = '<p class="text-red-500">Erro: ID do aluno não encontrado. Selecione um aluno no painel principal.</p>';
-            return;
+            await loadLessons(context.studentId, context.role);
+        } catch (error) {
+            console.error('Erro ao validar contexto do vestibular:', error);
+            loadingDiv.innerHTML = '<p class="text-red-500">Nao foi possivel validar o acesso a este aluno.</p>';
         }
-
-        loadLessons(studentId, role);
     });
 
     function buildCard(title, lessonNumber, state, isProfessor) {
@@ -62,9 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? 'fa-play-circle text-amber-500'
                 : 'fa-lock text-slate-400';
         const stateText = state === 'completed'
-            ? 'Concluída'
+            ? 'Concluida'
             : state === 'next'
-                ? 'Disponível agora'
+                ? 'Disponivel agora'
                 : 'Bloqueada';
 
         const card = document.createElement('a');
@@ -100,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const studentDoc = await db.collection('students').doc(studentId).get();
             const allProgress = studentDoc.exists && studentDoc.data().progress ? studentDoc.data().progress : {};
             const progress = allProgress[moduleId] || {};
-            const isProfessor = userRole === 'professor';
+            const isProfessor = userRole === 'professor' || userRole === 'admin';
 
             let firstUncompleted = lessonTitles.findIndex((_, index) => progress[`lesson_${index + 1}`] !== true) + 1;
             if (firstUncompleted === 0) firstUncompleted = lessonTitles.length + 1;
@@ -116,8 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
             loadingDiv.classList.add('hidden');
             grid.classList.remove('hidden');
         } catch (error) {
-            console.error('Erro ao carregar lições do vestibular:', error);
-            loadingDiv.innerHTML = '<p class="text-red-500">Ocorreu um erro ao carregar o módulo. Tente novamente.</p>';
+            console.error('Erro ao carregar licoes do vestibular:', error);
+            loadingDiv.innerHTML = '<p class="text-red-500">Ocorreu um erro ao carregar o modulo. Tente novamente.</p>';
         }
     }
 });

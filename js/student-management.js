@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof firebase === 'undefined' || !firebase.apps.length) {
-        console.error('Firebase não inicializado.');
+        console.error('Firebase nao inicializado.');
         return;
     }
 
     const db = firebase.firestore();
     const auth = firebase.auth();
+    const platformAccess = window.PlatformAccess;
 
     const addStudentModal = document.getElementById('add-student-modal');
     const openAddStudentModalBtn = document.getElementById('open-add-student-modal-btn');
@@ -19,6 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const studentSearchInput = document.getElementById('student-search');
 
     let lastFocusedElement = null;
+    let currentProfile = null;
+
+    async function loadCurrentProfile() {
+        currentProfile = platformAccess
+            ? await platformAccess.getCurrentProfile(auth, db)
+            : null;
+        return currentProfile;
+    }
 
     function openModal(modal, focusTarget) {
         if (!modal) return;
@@ -37,6 +46,22 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('overflow-hidden');
         if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
             lastFocusedElement.focus();
+        }
+    }
+
+    async function assertManagerSession() {
+        if (currentProfile) return currentProfile;
+        const profile = await loadCurrentProfile();
+        if (!profile || !platformAccess?.isManager(profile)) {
+            throw new Error('Sessao invalida para gerenciamento de alunos.');
+        }
+        return profile;
+    }
+
+    async function assertStudentCapacity(profile) {
+        const managedCount = await platformAccess.countManagedStudents(db, profile);
+        if (platformAccess.isStudentLimitReached(profile.plan, managedCount)) {
+            throw new Error('Limite de alunos atingido para o plano atual.');
         }
     }
 
@@ -83,6 +108,18 @@ document.addEventListener('DOMContentLoaded', () => {
             let secondaryAuth = null;
 
             try {
+                const profile = await assertManagerSession();
+                await assertStudentCapacity(profile);
+                const ownerTeacherId = platformAccess.isAdmin(profile)
+                    ? platformAccess.getManagedTeacherId(profile) || profile.uid
+                    : profile.uid;
+                let ownerTeacherName = profile.displayName;
+
+                if (platformAccess.isAdmin(profile) && ownerTeacherId !== profile.uid) {
+                    const teacherProfile = await platformAccess.fetchProfileById(db, ownerTeacherId);
+                    ownerTeacherName = teacherProfile?.displayName || ownerTeacherName;
+                }
+
                 const secondaryName = `studentCreator-${Date.now()}`;
                 secondaryApp = firebase.initializeApp(firebase.app().options, secondaryName);
                 secondaryAuth = secondaryApp.auth();
@@ -93,9 +130,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     name: fullName,
                     email,
                     role: 'aluno',
+                    teacherId: ownerTeacherId,
+                    teacherName: ownerTeacherName,
+                    tenantId: ownerTeacherId,
                     studentType,
                     modules: [studentType],
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    createdBy: profile.uid,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
 
                 if (typeof showToast === 'function') {
@@ -107,21 +149,24 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 console.error('Erro ao adicionar aluno:', error);
                 if (typeof showToast === 'function') {
-                    showToast('Não foi possível criar o novo acesso agora.', 'error', 'Falha ao adicionar');
+                    const message = error.message === 'Limite de alunos atingido para o plano atual.'
+                        ? 'Seu plano atual atingiu o limite de alunos. Atualize o plano para continuar.'
+                        : 'Nao foi possivel criar o novo acesso agora.';
+                    showToast(message, 'error', 'Falha ao adicionar');
                 }
             } finally {
                 if (secondaryAuth) {
                     try {
                         await secondaryAuth.signOut();
                     } catch (error) {
-                        console.error('Erro ao encerrar sessão secundária:', error);
+                        console.error('Erro ao encerrar sessao secundaria:', error);
                     }
                 }
                 if (secondaryApp) {
                     try {
                         await secondaryApp.delete();
                     } catch (error) {
-                        console.error('Erro ao remover app secundário:', error);
+                        console.error('Erro ao remover app secundario:', error);
                     }
                 }
                 addStudentBtn.disabled = false;
@@ -141,22 +186,28 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const studentName = localStorage.getItem('selectedStudentName') || 'este aluno';
-            if (!window.confirm(`Tem certeza que deseja excluir o aluno "${studentName}"?\n\nEsta ação é irreversível.`)) {
+            if (!window.confirm(`Tem certeza que deseja excluir o aluno "${studentName}"?\n\nEsta acao e irreversivel.`)) {
                 return;
             }
 
             try {
+                const profile = await assertManagerSession();
+                const accessResult = await platformAccess.assertStudentAccess(db, profile, studentId);
+                if (!accessResult.ok) {
+                    throw new Error('Acesso negado ao aluno selecionado.');
+                }
+
                 await db.collection('students').doc(studentId).delete();
                 localStorage.removeItem('selectedStudentId');
                 localStorage.removeItem('selectedStudentName');
                 if (typeof showToast === 'function') {
-                    showToast('O aluno foi removido com sucesso.', 'success', 'Aluno excluído');
+                    showToast('O aluno foi removido com sucesso.', 'success', 'Aluno excluido');
                 }
                 location.reload();
             } catch (error) {
                 console.error('Erro ao excluir aluno:', error);
                 if (typeof showToast === 'function') {
-                    showToast('Não foi possível excluir o aluno agora.', 'error', 'Falha ao excluir');
+                    showToast('Nao foi possivel excluir o aluno agora.', 'error', 'Falha ao excluir');
                 }
             }
         });
@@ -172,6 +223,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    auth.onAuthStateChanged(async (user) => {
+        if (!user) return;
+        try {
+            await loadCurrentProfile();
+        } catch (error) {
+            console.error('Erro ao carregar perfil atual:', error);
+        }
+    });
 
     document.addEventListener('keydown', (event) => {
         if (event.key !== 'Escape') return;

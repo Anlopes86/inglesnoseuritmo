@@ -30,9 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? 'fa-play-circle text-blue-500'
                 : 'fa-lock text-slate-400';
         const stateText = state === 'completed'
-            ? 'Concluída'
+            ? 'Concluida'
             : state === 'next'
-                ? 'Disponível agora'
+                ? 'Disponivel agora'
                 : 'Bloqueada';
 
         const card = document.createElement('a');
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <i class="fas ${iconClass} text-2xl"></i>
             </div>
             <div>
-                <p class="lesson-meta mt-2">Lição ${lessonNumber}</p>
+                <p class="lesson-meta mt-2">Licao ${lessonNumber}</p>
                 <h3 class="lesson-title mt-2">${title}</h3>
             </div>
             <div class="lesson-state">
@@ -64,21 +64,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function resolveViewerContext() {
-        const role = localStorage.getItem('loggedInUserRole') || 'aluno';
-        if (role === 'professor') {
-            return { role, studentId: localStorage.getItem('selectedStudentId') };
+        const user = firebase.auth().currentUser;
+        if (!user) {
+            return { role: 'aluno', studentId: null };
         }
 
-        const user = firebase.auth().currentUser;
-        return { role, studentId: user ? user.uid : null };
+        const viewerDoc = await db.collection('students').doc(user.uid).get();
+        const viewerData = viewerDoc.exists ? viewerDoc.data() : {};
+        const role = viewerData.role || localStorage.getItem('loggedInUserRole') || 'aluno';
+
+        if (role === 'professor' || role === 'admin') {
+            const studentId = localStorage.getItem('selectedStudentId');
+            if (!studentId) {
+                return { role, studentId: null };
+            }
+
+            const studentDoc = await db.collection('students').doc(studentId).get();
+            if (!studentDoc.exists) {
+                return { role, studentId: null };
+            }
+
+            if (role === 'professor' && studentDoc.data().teacherId !== user.uid) {
+                throw new Error('Acesso negado ao aluno selecionado.');
+            }
+
+            return { role, studentId };
+        }
+
+        if (role !== 'aluno') {
+            throw new Error('Perfil sem acesso ao modulo.');
+        }
+
+        return { role, studentId: user.uid };
     }
 
     async function loadLessons() {
         try {
             const { role, studentId } = await resolveViewerContext();
-            if (!studentId) throw new Error('Usuário não identificado.');
+            if (!studentId) throw new Error('Usuario nao identificado.');
 
-            const isProfessor = role === 'professor';
+            const isProfessor = role === 'professor' || role === 'admin';
             const doc = await db.collection('students').doc(studentId).get();
             const allProgress = doc.exists && doc.data().progress ? doc.data().progress : {};
             const progress = allProgress.b1 || {};
@@ -97,16 +122,16 @@ document.addEventListener('DOMContentLoaded', () => {
             loadingDiv.classList.add('hidden');
             grid.classList.remove('hidden');
         } catch (error) {
-            console.error('Erro ao carregar lições B1:', error);
-            loadingDiv.textContent = 'Erro ao carregar lições.';
+            console.error('Erro ao carregar licoes B1:', error);
+            loadingDiv.textContent = 'Erro ao carregar licoes.';
         }
     }
 
-    firebase.auth().onAuthStateChanged(() => {
-        if (localStorage.getItem('loggedInUserRole') === 'professor' || firebase.auth().currentUser) {
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
             loadLessons();
         } else {
-            loadingDiv.textContent = 'Faça login para ver as lições.';
+            loadingDiv.textContent = 'Faca login para ver as licoes.';
         }
     });
 });

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Ingl&ecirc;s no seu Ritmo</title>
+    <meta name="robots" content="noindex, nofollow">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="css/app-theme.css" rel="stylesheet">
+    <style>
+        .admin-grid {
+            display: grid;
+            gap: 1.25rem;
+        }
+        .teacher-list {
+            display: grid;
+            gap: 0.9rem;
+        }
+        .teacher-card {
+            border-radius: 24px;
+            border: 1px solid var(--surface-border);
+            background: var(--surface-bg);
+            box-shadow: var(--surface-shadow-soft);
+            padding: 1rem 1.1rem;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+        }
+        .teacher-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--surface-shadow);
+        }
+        .teacher-card.is-active {
+            border-color: rgba(37, 99, 235, 0.45);
+            background: rgba(239, 246, 255, 0.92);
+        }
+        .orphan-list {
+            display: grid;
+            gap: 0.85rem;
+        }
+        .orphan-item {
+            border-radius: 22px;
+            border: 1px solid var(--surface-border);
+            background: var(--surface-bg);
+            padding: 1rem;
+        }
+        @media (min-width: 1080px) {
+            .admin-grid {
+                grid-template-columns: 0.92fr 1.08fr;
+                align-items: start;
+            }
+        }
+    </style>
+</head>
+<body class="app-shell">
+    <header class="glass-header">
+        <div class="app-container py-4 flex items-center justify-between gap-4">
+            <div class="brand-mark">
+                <span class="brand-dot"></span>
+                <span>Ingl&ecirc;s no seu Ritmo</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-3">
+                <a href="index.html" class="app-button-secondary inline-flex items-center gap-2">
+                    <i class="fas fa-chalkboard-user"></i>
+                    Abrir portal do professor
+                </a>
+                <button type="button" class="theme-toggle" data-theme-toggle aria-label="Alternar tema"></button>
+                <button id="logout-btn" class="app-button-ghost">
+                    <i class="fas fa-right-from-bracket"></i>
+                    Sair
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-container py-8 md:py-10">
+        <section class="hero-band p-6 md:p-8">
+            <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div class="max-w-3xl">
+                    <span class="eyebrow"><i class="fas fa-shield-halved"></i> Admin</span>
+                    <h1 class="app-title mt-5" style="font-family: 'Sora', sans-serif;">Controle de tenancy, planos e limites</h1>
+                    <p class="app-lead mt-5">
+                        Ajuste planos de professores, acompanhe capacidade ativa e vincule alunos antigos ao tenant certo antes de escalar a plataforma.
+                    </p>
+                    <p class="section-copy mt-4">
+                        Se a sua intenção for operar aula e alunos, use o botão <strong>“Abrir portal do professor”</strong>. Este painel é só para configuração administrativa.
+                    </p>
+                </div>
+                <div class="surface-card px-5 py-4">
+                    <p class="kpi-label">Status geral</p>
+                    <p id="admin-summary" class="text-lg font-extrabold mt-2 strong-text">Carregando dados do admin...</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="admin-grid mt-6">
+            <section class="surface-card p-5 md:p-6">
+                <div class="flex items-center justify-between gap-3">
+                    <div>
+                        <p class="kpi-label">Professores</p>
+                        <h2 class="section-title mt-2">Contas gerenciadas</h2>
+                    </div>
+                    <span id="teachers-count" class="info-chip bg-slate-100 text-slate-700">0 professores</span>
+                </div>
+                <div id="teacher-list" class="teacher-list mt-6">
+                    <p class="section-copy">Carregando professores...</p>
+                </div>
+            </section>
+
+            <div class="grid gap-5">
+                <section class="surface-card p-5 md:p-6">
+                    <div class="flex items-center justify-between gap-3">
+                        <div>
+                            <p class="kpi-label">Plano</p>
+                            <h2 class="section-title mt-2">Assinatura do professor</h2>
+                        </div>
+                        <span id="selected-teacher-chip" class="info-chip bg-slate-100 text-slate-700">Nenhum professor selecionado</span>
+                    </div>
+
+                    <form id="teacher-plan-form" class="mt-6 space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="teacher-plan" class="block text-sm font-semibold muted-label mb-2">Plano</label>
+                                <select id="teacher-plan" class="app-select">
+                                    <option value="starter">Starter</option>
+                                    <option value="pro">Teacher Pro</option>
+                                    <option value="scale">Teacher Scale</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="subscription-status" class="block text-sm font-semibold muted-label mb-2">Status</label>
+                                <select id="subscription-status" class="app-select">
+                                    <option value="active">Ativa</option>
+                                    <option value="trial">Trial</option>
+                                    <option value="past_due">Pagamento pendente</option>
+                                    <option value="paused">Pausada</option>
+                                    <option value="canceled">Cancelada</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="student-limit" class="block text-sm font-semibold muted-label mb-2">Limite de alunos</label>
+                                <input type="number" id="student-limit" class="app-input" min="0" placeholder="Ex: 40">
+                            </div>
+                            <div>
+                                <label for="billing-cycle" class="block text-sm font-semibold muted-label mb-2">Ciclo</label>
+                                <select id="billing-cycle" class="app-select">
+                                    <option value="monthly">Mensal</option>
+                                    <option value="quarterly">Trimestral</option>
+                                    <option value="annual">Anual</option>
+                                    <option value="internal">Interno</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="plan-started-at" class="block text-sm font-semibold muted-label mb-2">In&iacute;cio do plano</label>
+                                <input type="date" id="plan-started-at" class="app-input">
+                            </div>
+                            <div>
+                                <label for="plan-ends-at" class="block text-sm font-semibold muted-label mb-2">Fim do ciclo</label>
+                                <input type="date" id="plan-ends-at" class="app-input">
+                            </div>
+                        </div>
+
+                        <label class="inline-flex items-center gap-3 text-sm font-semibold muted-label">
+                            <input type="checkbox" id="cancel-at-period-end" class="rounded border-slate-300">
+                            Cancelar ao fim do ciclo
+                        </label>
+
+                        <div id="teacher-metrics" class="surface-card px-4 py-4">
+                            <p class="section-copy">Selecione um professor para ver ocupacao, limite e status.</p>
+                        </div>
+
+                        <div class="flex flex-col-reverse md:flex-row md:justify-end gap-3">
+                            <button type="button" id="clear-teacher-selection" class="app-button-secondary">Limpar selecao</button>
+                            <button type="submit" id="save-teacher-plan" class="app-button">Salvar configuracao</button>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="surface-card p-5 md:p-6">
+                    <div class="flex items-center justify-between gap-3">
+                        <div>
+                            <p class="kpi-label">Migracao</p>
+                            <h2 class="section-title mt-2">Alunos sem tenant</h2>
+                        </div>
+                        <span id="orphan-count" class="info-chip bg-amber-100 text-amber-700">0 pendentes</span>
+                    </div>
+                    <p class="section-copy mt-3">Vincule alunos legados ao professor correto para ativar a leitura multi-tenant no painel.</p>
+                    <div class="mt-4 flex flex-wrap gap-3">
+                        <button type="button" id="assign-orphans-btn" class="app-button-secondary">
+                            <i class="fas fa-link"></i>
+                            Vincular pendentes ao professor selecionado
+                        </button>
+                        <button type="button" id="refresh-admin-data" class="app-button-ghost">
+                            <i class="fas fa-rotate"></i>
+                            Atualizar
+                        </button>
+                    </div>
+                    <div id="orphan-list" class="orphan-list mt-6">
+                        <p class="section-copy">Carregando alunos sem tenant...</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/platform-access.js"></script>
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/ui-feedback.js"></script>
+    <script src="js/admin-dashboard.js"></script>
+</body>
+</html>

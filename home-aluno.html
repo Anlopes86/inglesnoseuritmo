@@ -326,6 +326,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <script src="js/firebase-config.js"></script>
+    <script src="js/platform-access.js"></script>
     <script src="js/theme-toggle.js"></script>
     <script src="js/ui-feedback.js"></script>
     <script>
@@ -352,6 +353,7 @@
             const summaryPackageLabel = document.getElementById('summary-package-label');
             const summaryPackagePercent = document.getElementById('summary-package-percent');
             const summaryPackageProgress = document.getElementById('summary-package-progress');
+            const platformAccess = window.PlatformAccess;
 
             const moduleRoutes = {
                 a1: { href: 'a1/a1.html', label: 'M\u00f3dulo A1', helper: 'Volte ao A1 para consolidar base, rotina e primeiras intera\u00e7\u00f5es com mais seguran\u00e7a.', total: 32 },
@@ -540,9 +542,17 @@
                 setBackButton(isProfessorView);
 
                 try {
+                    const viewerProfile = platformAccess
+                        ? await platformAccess.fetchProfileById(db, user.uid)
+                        : null;
                     const doc = await db.collection('students').doc(studentIdToLoad).get();
                     if (!doc.exists) {
                         setLoadError('Aluno n\u00e3o encontrado. Tente voltar e abrir o acesso novamente.');
+                        return;
+                    }
+
+                    if (isProfessorView && viewerProfile && !platformAccess.canManageStudent(viewerProfile, doc.data())) {
+                        setLoadError('Este aluno nao pertence ao espaco de trabalho desta conta.');
                         return;
                     }
 

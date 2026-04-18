@@ -1,0 +1,63 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function currentUser() {
+      return get(/databases/$(database)/documents/students/$(request.auth.uid));
+    }
+
+    function currentRole() {
+      return signedIn() ? currentUser().data.role : null;
+    }
+
+    function isAdmin() {
+      return signedIn() && currentRole() == 'admin';
+    }
+
+    function isProfessor() {
+      return signedIn() && currentRole() == 'professor';
+    }
+
+    function isOwnDocument(userId) {
+      return signedIn() && request.auth.uid == userId;
+    }
+
+    function belongsToProfessor() {
+      return isProfessor() && resource.data.teacherId == request.auth.uid;
+    }
+
+    function belongsToProfessorOnCreate() {
+      return isProfessor()
+        && request.resource.data.role == 'aluno'
+        && request.resource.data.teacherId == request.auth.uid;
+    }
+
+    match /students/{userId} {
+      allow read: if isAdmin()
+        || isOwnDocument(userId)
+        || (resource.data.role == 'aluno' && belongsToProfessor());
+
+      allow create: if isAdmin() || belongsToProfessorOnCreate();
+
+      allow update: if isAdmin()
+        || (
+          resource.data.role == 'aluno'
+          && isOwnDocument(userId)
+          && request.resource.data.role == resource.data.role
+          && request.resource.data.teacherId == resource.data.teacherId
+        )
+        || (
+          resource.data.role == 'aluno'
+          && belongsToProfessor()
+          && request.resource.data.role == resource.data.role
+          && request.resource.data.teacherId == resource.data.teacherId
+        );
+
+      allow delete: if isAdmin()
+        || (resource.data.role == 'aluno' && belongsToProfessor());
+    }
+  }
+}

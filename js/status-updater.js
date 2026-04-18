@@ -3,24 +3,53 @@ document.addEventListener('DOMContentLoaded', () => {
     const auth = firebase.auth();
     const headerLink = document.querySelector('header a');
 
-    auth.onAuthStateChanged(async (user) => {
-        let userRole = 'professor';
-        let studentIdForProgress;
+    async function resolveStatusViewerContext(user) {
+        if (!user) return { role: 'aluno', studentId: null };
 
-        if (user) {
-            try {
-                const userDoc = await db.collection('students').doc(user.uid).get();
-                if (userDoc.exists) {
-                    userRole = userDoc.data().role || 'aluno';
-                }
-            } catch (error) {
-                console.error('Erro ao buscar o papel do usuário:', error);
+        const viewerDoc = await db.collection('students').doc(user.uid).get();
+        const viewerData = viewerDoc.exists ? viewerDoc.data() : {};
+        const role = viewerData.role || localStorage.getItem('loggedInUserRole') || 'aluno';
+
+        if (role === 'professor') {
+            const selectedStudentId = localStorage.getItem('selectedStudentId');
+            if (!selectedStudentId) return { role, studentId: null };
+
+            const studentDoc = await db.collection('students').doc(selectedStudentId).get();
+            if (!studentDoc.exists || studentDoc.data().teacherId !== user.uid) {
+                throw new Error('Acesso negado ao aluno selecionado.');
             }
+
+            return { role, studentId: selectedStudentId };
+        }
+
+        if (role === 'admin') {
+            return { role, studentId: null };
+        }
+
+        return { role, studentId: user.uid };
+    }
+
+    auth.onAuthStateChanged(async (user) => {
+        if (!user) return;
+
+        let context = { role: 'aluno', studentId: null };
+        try {
+            context = await resolveStatusViewerContext(user);
+        } catch (error) {
+            console.error('Erro ao validar contexto de status:', error);
         }
 
         if (headerLink) {
-            const targetHref = userRole === 'professor' ? '../index.html' : '../home-aluno.html';
-            const targetLabel = userRole === 'professor' ? ' Voltar ao painel' : ' Voltar ao portal';
+            const targetHref = context.role === 'professor'
+                ? '../index.html'
+                : context.role === 'admin'
+                    ? '../admin.html'
+                    : '../home-aluno.html';
+            const targetLabel = context.role === 'professor'
+                ? ' Voltar ao painel'
+                : context.role === 'admin'
+                    ? ' Voltar ao admin'
+                    : ' Voltar ao portal';
 
             headerLink.href = targetHref;
             for (const node of headerLink.childNodes) {
@@ -33,18 +62,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const moduleKey = document.body.dataset.module;
         if (!moduleKey) {
-            console.error("Atributo 'data-module' não foi encontrado no <body>.");
+            console.error("Atributo 'data-module' nao foi encontrado no <body>.");
             return;
         }
 
-        if (userRole === 'professor') {
-            studentIdForProgress = localStorage.getItem('selectedStudentId');
-        } else {
-            studentIdForProgress = user ? user.uid : null;
-        }
-
-        if ((userRole === 'professor' && studentIdForProgress) || userRole === 'aluno') {
-            updateLessonStatuses(studentIdForProgress, moduleKey, userRole);
+        if ((context.role === 'professor' && context.studentId) || context.role === 'aluno') {
+            updateLessonStatuses(context.studentId, moduleKey, context.role);
         }
     });
 
@@ -92,9 +115,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const stateNode = lesson.querySelector('.lesson-state');
             if (stateNode) {
                 stateNode.innerHTML = isCompleted
-                    ? '<i class="fas fa-award text-emerald-600"></i>Concluída'
+                    ? '<i class="fas fa-award text-emerald-600"></i>Concluida'
                     : lessonNumber === firstUncompleted
-                        ? '<i class="fas fa-forward text-blue-600"></i>Disponível agora'
+                        ? '<i class="fas fa-forward text-blue-600"></i>Disponivel agora'
                         : '<i class="fas fa-lock text-slate-400"></i>Bloqueada';
             }
 

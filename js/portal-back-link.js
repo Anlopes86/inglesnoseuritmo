@@ -4,12 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const userRole = localStorage.getItem('loggedInUserRole') || 'aluno';
     const isProfessor = userRole === 'professor';
+    const isAdmin = userRole === 'admin';
 
-    backLink.href = isProfessor ? '../index.html' : '../home-aluno.html';
+    backLink.href = isAdmin ? '../admin.html' : isProfessor ? '../index.html' : '../home-aluno.html';
 
     for (const node of backLink.childNodes) {
         if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '') {
-            node.textContent = isProfessor ? ' Voltar ao Painel' : ' Voltar ao Portal';
+            node.textContent = isAdmin ? ' Voltar ao Admin' : isProfessor ? ' Voltar ao Painel' : ' Voltar ao Portal';
             break;
         }
     }

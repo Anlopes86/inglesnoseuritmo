@@ -1,18 +1,11 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
     let lastFocusedElement = null;
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyA4srp5nACEhOLLD8Yd4cwe5_rZ8izcm1Y",
-        authDomain: "inglesnoseuritmo-bae14.firebaseapp.com",
-        projectId: "inglesnoseuritmo-bae14",
-        storageBucket: "inglesnoseuritmo-bae14.appspot.com",
-        messagingSenderId: "112615489735",
-        appId: "1:112615489735:web:9ee215ab9a2246f3a13ee2"
-    };
-
-    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
     const auth = firebase.auth();
+    const platformAccess = window.PlatformAccess;
+    let currentProfile = null;
+    let studentsUnsubscribe = null;
 
     const logoutBtn = document.getElementById('logout-btn');
     const studentSelect = document.getElementById('student-select');
@@ -173,24 +166,101 @@
         });
     }
 
-    auth.onAuthStateChanged((user) => {
+    function updateStudentCapacityFeedback(studentCount) {
+        const openAddStudentModalBtn = document.getElementById('open-add-student-modal-btn');
+        const openAddStudentEmptyBtn = document.getElementById('open-add-student-empty-btn');
+        const plan = currentProfile?.plan;
+        const limitReached = platformAccess?.isStudentLimitReached(plan, studentCount);
+        const planLabel = plan?.label || 'Starter';
+        const limitLabel = platformAccess?.formatStudentLimit(plan?.studentLimit) || '0';
+
+        if (studentOverviewCopy) {
+            studentOverviewCopy.textContent = `Plano ${planLabel}: ${studentCount}/${limitLabel} alunos em uso.`;
+        }
+
+        [openAddStudentModalBtn, openAddStudentEmptyBtn].forEach((button) => {
+            if (!button) return;
+            button.disabled = Boolean(limitReached);
+            button.classList.toggle('opacity-60', Boolean(limitReached));
+            button.classList.toggle('cursor-not-allowed', Boolean(limitReached));
+            button.title = limitReached
+                ? 'Limite de alunos atingido para o plano atual.'
+                : '';
+        });
+    }
+
+    function renderStudentOptions(students) {
+        students.sort((a, b) => a.name.localeCompare(b.name));
+
+        let options = '<option value="">Selecione um aluno...</option>';
+        students.forEach((student) => {
+            options += `<option value="${student.id}">${student.name}</option>`;
+        });
+
+        const selectedId = localStorage.getItem('selectedStudentId');
+        studentSelect.innerHTML = options;
+        updateStudentCapacityFeedback(students.length);
+
+        if (selectedId && students.some((student) => student.id === selectedId)) {
+            studentSelect.value = selectedId;
+            studentSelect.dispatchEvent(new Event('change'));
+            return;
+        }
+
+        displayNoStudentSelected();
+    }
+
+    function loadStudentsIntoSelect() {
+        if (!currentProfile || !platformAccess) return;
+        if (studentsUnsubscribe) studentsUnsubscribe();
+
+        studentSelect.innerHTML = '<option value="">Carregando...</option>';
+        const teacherId = platformAccess.getManagedTeacherId(currentProfile);
+        const query = platformAccess.buildManagedStudentsQuery(db, currentProfile, teacherId);
+
+        studentsUnsubscribe = query.onSnapshot((snapshot) => {
+            const students = [];
+            snapshot.forEach((doc) => students.push({ id: doc.id, ...doc.data() }));
+            renderStudentOptions(students);
+        }, (error) => {
+            console.error('Erro ao buscar alunos:', error);
+            studentSelect.innerHTML = '<option value="">Erro ao carregar</option>';
+        });
+    }
+
+    auth.onAuthStateChanged(async (user) => {
         if (window.location.pathname.includes('/a1/autonomo/')) return;
 
-        if (user) {
-            db.collection('students').doc(user.uid).get().then((doc) => {
-                if (doc.exists && doc.data().role === 'professor') {
-                    loadStudentsIntoSelect();
-                } else {
-                    if (typeof showToast === 'function') {
-                        showToast('Este painel \u00e9 restrito para professores.', 'error', 'Acesso restrito');
-                    }
-                    auth.signOut();
-                }
-            });
-        } else {
+        if (!user) {
             localStorage.clear();
             window.location.href = 'login.html';
+            return;
         }
+
+        currentProfile = platformAccess
+            ? await platformAccess.fetchProfileById(db, user.uid)
+            : null;
+
+        if (!currentProfile || !platformAccess?.isManager(currentProfile)) {
+            if (typeof showToast === 'function') {
+                showToast('Este painel e restrito para gestores da plataforma.', 'error', 'Acesso restrito');
+            }
+            await auth.signOut();
+            return;
+        }
+
+        try {
+            const migratedStudents = platformAccess.isProfessor(currentProfile)
+                ? await platformAccess.maybeMigrateLegacyStudents(db, currentProfile)
+                : 0;
+            if (migratedStudents > 0 && typeof showToast === 'function') {
+                showToast(`${migratedStudents} aluno(s) antigos foram vinculados ao seu tenant.`, 'success', 'Migracao concluida');
+            }
+        } catch (error) {
+            console.error('Erro ao migrar alunos antigos:', error);
+        }
+
+        loadStudentsIntoSelect();
     });
 
     if (logoutBtn) {
@@ -208,33 +278,6 @@
                 }
                 logoutBtn.disabled = false;
             }
-        });
-    }
-
-    function loadStudentsIntoSelect() {
-        studentSelect.innerHTML = '<option value="">Carregando...</option>';
-        db.collection('students').where('role', '==', 'aluno').onSnapshot((snapshot) => {
-            const students = [];
-            snapshot.forEach((doc) => students.push({ id: doc.id, name: doc.data().name }));
-            students.sort((a, b) => a.name.localeCompare(b.name));
-
-            let options = '<option value="">Selecione um aluno...</option>';
-            students.forEach((student) => {
-                options += `<option value="${student.id}">${student.name}</option>`;
-            });
-
-            const selectedId = localStorage.getItem('selectedStudentId');
-            studentSelect.innerHTML = options;
-
-            if (selectedId && students.some((student) => student.id === selectedId)) {
-                studentSelect.value = selectedId;
-                studentSelect.dispatchEvent(new Event('change'));
-            } else {
-                displayNoStudentSelected();
-            }
-        }, (error) => {
-            console.error('Erro ao buscar alunos:', error);
-            studentSelect.innerHTML = '<option value="">Erro ao carregar</option>';
         });
     }
 
@@ -263,6 +306,21 @@
     async function displayStudentDashboard(studentId, studentName) {
         if (assignedModulesStatus) assignedModulesStatus.textContent = 'Carregando módulos liberados...';
         if (assignedModulesList) assignedModulesList.innerHTML = '';
+
+        if (platformAccess && currentProfile) {
+            const accessResult = await platformAccess.assertStudentAccess(db, currentProfile, studentId);
+            if (!accessResult.ok) {
+                if (typeof showToast === 'function') {
+                    showToast('Este aluno nao pertence ao seu espaco de trabalho.', 'error', 'Acesso negado');
+                }
+                localStorage.removeItem('selectedStudentId');
+                localStorage.removeItem('selectedStudentName');
+                displayNoStudentSelected();
+                loadStudentsIntoSelect();
+                return;
+            }
+        }
+
         noStudentSelectedDiv.classList.add('hidden');
         studentDashboardDiv.classList.remove('hidden');
         studentActionButtons.classList.remove('hidden');
@@ -275,7 +333,12 @@
     }
     async function updatePackageInfo(studentId) {
         try {
-            const studentDoc = await db.collection('students').doc(studentId).get();
+            const accessResult = platformAccess && currentProfile
+                ? await platformAccess.assertStudentAccess(db, currentProfile, studentId)
+                : { ok: true, doc: await db.collection('students').doc(studentId).get() };
+            if (!accessResult.ok) return;
+
+            const studentDoc = accessResult.doc;
             if (!studentDoc.exists) return;
 
             const data = studentDoc.data();
@@ -317,7 +380,16 @@
         if (modulesStatus) modulesStatus.textContent = 'Carregando módulos...';
 
         try {
-            const studentDoc = await db.collection('students').doc(studentId).get();
+            const accessResult = platformAccess && currentProfile
+                ? await platformAccess.assertStudentAccess(db, currentProfile, studentId)
+                : { ok: true, doc: await db.collection('students').doc(studentId).get() };
+            if (!accessResult.ok) {
+                modulesContainer.innerHTML = '<p class="section-copy">Este aluno nao pode ser gerenciado por esta conta.</p>';
+                if (modulesStatus) modulesStatus.textContent = 'Acesso negado.';
+                return;
+            }
+
+            const studentDoc = accessResult.doc;
             const studentData = studentDoc.exists ? studentDoc.data() : {};
             const progressData = studentData.progress || {};
             const studentType = studentData.studentType || 'a1';
@@ -429,6 +501,11 @@
         if (!studentId || !moduleId) return;
 
         try {
+            if (platformAccess && currentProfile) {
+                const accessResult = await platformAccess.assertStudentAccess(db, currentProfile, studentId);
+                if (!accessResult.ok) throw new Error('Acesso negado ao aluno selecionado.');
+            }
+
             await db.collection('students').doc(studentId).update({
                 modules: firebase.firestore.FieldValue.arrayUnion(moduleId)
             });
@@ -449,6 +526,11 @@
         if (!studentId || !moduleId) return;
 
         try {
+            if (platformAccess && currentProfile) {
+                const accessResult = await platformAccess.assertStudentAccess(db, currentProfile, studentId);
+                if (!accessResult.ok) throw new Error('Acesso negado ao aluno selecionado.');
+            }
+
             await db.collection('students').doc(studentId).update({
                 studentType: moduleId,
                 modules: firebase.firestore.FieldValue.arrayUnion(moduleId)
@@ -471,6 +553,11 @@
 
         const studentRef = db.collection('students').doc(studentId);
         try {
+            if (platformAccess && currentProfile) {
+                const accessResult = await platformAccess.assertStudentAccess(db, currentProfile, studentId);
+                if (!accessResult.ok) throw new Error('Acesso negado ao aluno selecionado.');
+            }
+
             await db.runTransaction(async (transaction) => {
                 const doc = await transaction.get(studentRef);
                 if (!doc.exists) throw new Error('Aluno n\u00e3o encontrado.');
@@ -531,6 +618,11 @@
             confirmPackageBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Salvando...';
 
             try {
+                if (platformAccess && currentProfile) {
+                    const accessResult = await platformAccess.assertStudentAccess(db, currentProfile, studentId);
+                    if (!accessResult.ok) throw new Error('Acesso negado ao aluno selecionado.');
+                }
+
                 await db.collection('students').doc(studentId).update({
                     pacoteContratado: packageSize,
                     valorPacote: packageValue,

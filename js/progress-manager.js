@@ -1,7 +1,7 @@
 async function updateStudentData(studentId, dataToUpdate) {
     const db = firebase.firestore();
     if (!studentId) {
-        throw new Error('ID do aluno inválido ou não encontrado.');
+        throw new Error('ID do aluno invalido ou nao encontrado.');
     }
 
     const studentRef = db.collection('students').doc(studentId);
@@ -14,25 +14,67 @@ async function updateStudentData(studentId, dataToUpdate) {
     }
 }
 
-async function markLessonAsComplete(moduleId, lessonId) {
+async function resolveProgressViewerContext() {
+    const db = firebase.firestore();
     const auth = firebase.auth();
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+        return { role: 'aluno', studentId: null };
+    }
 
+    const viewerDoc = await db.collection('students').doc(currentUser.uid).get();
+    const viewerData = viewerDoc.exists ? viewerDoc.data() : {};
+    const role = viewerData.role || localStorage.getItem('loggedInUserRole') || 'aluno';
+
+    if (role === 'professor') {
+        const studentId = localStorage.getItem('selectedStudentId');
+        if (!studentId) {
+            return { role, studentId: null };
+        }
+
+        const studentDoc = await db.collection('students').doc(studentId).get();
+        if (!studentDoc.exists) {
+            throw new Error('Aluno selecionado nao foi encontrado.');
+        }
+
+        if (studentDoc.data().teacherId !== currentUser.uid) {
+            throw new Error('Acesso negado ao aluno selecionado.');
+        }
+
+        return { role, studentId, viewerId: currentUser.uid };
+    }
+
+    if (role !== 'aluno') {
+        throw new Error('Perfil sem permissao para salvar progresso.');
+    }
+
+    return { role, studentId: currentUser.uid, viewerId: currentUser.uid };
+}
+
+async function markLessonAsComplete(moduleId, lessonId) {
     if (!moduleId || !lessonId) {
         if (typeof showToast === 'function') {
-            showToast('Módulo ou lição não foram identificados corretamente.', 'error', 'Progresso indisponível');
+            showToast('Modulo ou licao nao foram identificados corretamente.', 'error', 'Progresso indisponivel');
         }
         console.error('markLessonAsComplete foi chamada sem moduleId ou lessonId.');
         return;
     }
 
-    const currentUser = auth.currentUser;
-    const studentId = localStorage.getItem('selectedStudentId')
-        || localStorage.getItem('loggedInUserId')
-        || (currentUser ? currentUser.uid : null);
+    let viewerContext;
+    try {
+        viewerContext = await resolveProgressViewerContext();
+    } catch (error) {
+        console.error('Erro ao validar contexto do progresso:', error);
+        if (typeof showToast === 'function') {
+            showToast('Nao foi possivel validar seu acesso a este aluno.', 'error', 'Acesso negado');
+        }
+        return;
+    }
 
+    const studentId = viewerContext.studentId;
     if (!studentId) {
         if (typeof showToast === 'function') {
-            showToast('Faça login novamente ou selecione um aluno antes de salvar.', 'error', 'Usuário não identificado');
+            showToast('Faca login novamente ou selecione um aluno antes de salvar.', 'error', 'Usuario nao identificado');
         }
         return;
     }
@@ -43,7 +85,7 @@ async function markLessonAsComplete(moduleId, lessonId) {
     try {
         await updateStudentData(studentId, progressUpdate);
         if (typeof showToast === 'function') {
-            showToast(`A ${String(lessonId).padStart(2, '0')} foi concluída com sucesso.`, 'success', 'Progresso salvo');
+            showToast(`A ${String(lessonId).padStart(2, '0')} foi concluida com sucesso.`, 'success', 'Progresso salvo');
         }
 
         const path = window.location.pathname;
@@ -53,7 +95,7 @@ async function markLessonAsComplete(moduleId, lessonId) {
     } catch (error) {
         console.error('Erro ao salvar progresso:', error);
         if (typeof showToast === 'function') {
-            showToast('Não foi possível salvar o progresso agora.', 'error', 'Falha ao salvar');
+            showToast('Nao foi possivel salvar o progresso agora.', 'error', 'Falha ao salvar');
         }
     }
 }
@@ -110,7 +152,7 @@ function wireStandardLessonFinish() {
             return;
         }
 
-        console.error('Função markLessonAsComplete não encontrada.');
+        console.error('Funcao markLessonAsComplete nao encontrada.');
         localStorage.setItem(`lesson_${context.moduleId}_${context.lessonNumber}_completed`, 'true');
         const path = window.location.pathname;
         const lastSlashIndex = path.lastIndexOf('/');

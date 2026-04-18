@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const firebaseAuth = firebase.auth();
     const firebaseDb = firebase.firestore();
+    const platformAccess = window.PlatformAccess;
 
     const loginForm = document.getElementById('login-form');
     const loginBtn = document.getElementById('login-btn');
@@ -32,29 +33,44 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('loggedInUserId', user.uid);
 
         try {
-            const userDoc = await firebaseDb.collection('students').doc(user.uid).get();
+            let profile = platformAccess
+                ? await platformAccess.fetchProfileById(firebaseDb, user.uid)
+                : null;
 
-            if (userDoc.exists) {
-                const userData = userDoc.data();
-                localStorage.setItem('loggedInUserRole', userData.role);
-
-                if (userData.role === 'aluno') {
-                    window.location.href = 'home-aluno.html';
-                } else if (userData.role === 'professor') {
-                    window.location.href = 'index.html';
-                } else {
-                    setLoginError('Seu perfil ainda não possui um tipo de acesso válido.');
-                    resetButton();
-                }
-            } else {
-                console.error('Usuário não encontrado no banco de dados.');
-                await firebaseAuth.signOut();
-                setLoginError('Seu perfil ainda não está configurado para acesso.');
-                resetButton();
+            if (profile && platformAccess) {
+                profile = await platformAccess.ensureInitialAdmin(firebaseDb, profile);
             }
+
+            if (!profile) {
+                console.error('Usuario nao encontrado no banco de dados.');
+                await firebaseAuth.signOut();
+                setLoginError('Seu perfil ainda nao esta configurado para acesso.');
+                resetButton();
+                return;
+            }
+
+            localStorage.setItem('loggedInUserRole', profile.role);
+
+            if (profile.role === 'aluno') {
+                window.location.href = 'home-aluno.html';
+                return;
+            }
+
+            if (profile.role === 'professor') {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            if (profile.role === 'admin') {
+                window.location.href = 'admin.html';
+                return;
+            }
+
+            setLoginError('Seu perfil ainda nao possui um tipo de acesso valido.');
+            resetButton();
         } catch (error) {
-            console.error('Erro ao buscar dados do usuário:', error);
-            setLoginError('Não foi possível carregar seu perfil agora.');
+            console.error('Erro ao buscar dados do usuario:', error);
+            setLoginError('Nao foi possivel carregar seu perfil agora.');
             resetButton();
         }
     }
@@ -80,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 await firebaseAuth.signInWithEmailAndPassword(email, password);
             } catch (error) {
                 console.error('Erro de login:', error);
-                setLoginError('Usuário ou senha inválidos.');
+                setLoginError('Usuario ou senha invalidos.');
                 if (typeof showToast === 'function') {
                     showToast('Confira seus dados e tente novamente.', 'error', 'Falha no acesso');
                 }

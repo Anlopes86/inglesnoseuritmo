@@ -11,16 +11,53 @@
         body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
         .flip-card { background: transparent; min-height: 180px; perspective: 1000px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; text-align: center; }
-        .flip-card-front { background: #fff; color: #7c3aed; }
-        .flip-card-back { background: #f5f3ff; color: #5b21b6; transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 1rem;
+            border-radius: 1.25rem;
+            border: 1px solid #e5e7eb;
+            text-align: center;
+        }
+        .flip-card-front { background: #fff; color: #1d4ed8; }
+        .flip-card-back { background: #eff6ff; color: #0f172a; transform: rotateY(180deg); }
         .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.35rem; }
-        .answer-btn:hover { color: #7c3aed; }
+        .answer-btn:hover { color: #1d4ed8; }
+        .speak-btn {
+            border: 1px solid var(--a2-border);
+            background: color-mix(in srgb, var(--a2-surface) 94%, var(--a2-bg));
+            color: var(--a2-text);
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 0.45rem 0.8rem;
+            border-radius: 9999px;
+            transition: 0.2s ease;
+        }
+        .speak-btn:hover { background: var(--a2-primary-soft); }
+        .dialogue-line {
+            display: grid;
+            grid-template-columns: 88px minmax(0, 1fr) auto;
+            gap: 1rem;
+            align-items: start;
+            padding: 1rem 1.1rem;
+            border-radius: 1rem;
+            border: 1px solid var(--a2-border);
+            background: color-mix(in srgb, var(--a2-surface) 94%, var(--a2-bg));
+        }
         input { border: none; border-bottom: 2px solid #cbd5e1; background: transparent; outline: none; text-align: center; padding: 0 6px; }
         input.correct { border-color: #22c55e; color: #166534; background: #f0fdf4; }
         input.incorrect { border-color: #ef4444; color: #991b1b; background: #fef2f2; }
@@ -30,14 +67,14 @@
 <body class="lesson-loading a2-lesson-page bg-slate-50 text-slate-800">
     <header class="bg-white shadow-sm sticky top-0 z-10">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
-            <a href="a2.html" class="text-lg font-bold text-violet-600 hover:text-violet-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A2</a>
+            <a href="a2.html" class="text-lg font-bold text-blue-600 hover:text-blue-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2</a>
             <div class="text-center">
                 <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 28: At the Hotel</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
         </div>
-        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-violet-500 h-1.5 transition-all duration-300"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-blue-500 h-1.5 transition-all duration-300"></div></div>
     </header>
 
     <main class="container mx-auto p-8 pb-28 max-w-5xl">
@@ -46,7 +83,7 @@
                 <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
                     <div class="a2-hero-copy">
                         <h2>Handle a hotel stay in English</h2>
-                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a fazer check-in, pedir ajuda, relatar problemas no quarto e resolver situações comuns de hospedagem.</p>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno pratica check-in, pedidos simples, problemas no quarto e respostas educadas na recepção.</p>
                     </div>
                     <div class="lesson-panel p-6">
                         <p class="lesson-panel-title mb-4">You will use</p>
@@ -58,43 +95,136 @@
                     </div>
                 </div>
             </div>
+            <div class="section-card p-8 mt-8">
+                <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+                    <div>
+                        <p class="lesson-panel-title mb-2">Opening dialogue</p>
+                        <h2 class="text-3xl font-black text-amber-700">Check in and ask for help</h2>
+                    </div>
+                    <button type="button" class="speak-btn" data-speak="Good evening. Welcome to the Blue River Hotel. How can I help you? Hi. I have a reservation under Carla Mendes. Great. You're in room 304. Here is your key card. Thank you. Could I have another towel, please? Of course. I will bring one up right away."><i class="fas fa-volume-up"></i> Ouvir diálogo</button>
+                </div>
+                <div class="space-y-4 text-xl">
+                    <div class="dialogue-line">
+                        <span class="font-bold text-amber-600">Receptionist:</span>
+                        <p>Good evening. Welcome to the Blue River Hotel. How can I help you?</p>
+                        <button type="button" class="speak-btn" data-speak="Good evening. Welcome to the Blue River Hotel. How can I help you?"><i class="fas fa-volume-up"></i> Ouvir</button>
+                    </div>
+                    <div class="dialogue-line">
+                        <span class="font-bold text-orange-600">Guest:</span>
+                        <p>Hi. I have a reservation under Carla Mendes.</p>
+                        <button type="button" class="speak-btn" data-speak="Hi. I have a reservation under Carla Mendes."><i class="fas fa-volume-up"></i> Ouvir</button>
+                    </div>
+                    <div class="dialogue-line">
+                        <span class="font-bold text-amber-600">Receptionist:</span>
+                        <p>Great. You're in room 304. Here is your key card.</p>
+                        <button type="button" class="speak-btn" data-speak="Great. You're in room 304. Here is your key card."><i class="fas fa-volume-up"></i> Ouvir</button>
+                    </div>
+                    <div class="dialogue-line">
+                        <span class="font-bold text-orange-600">Guest:</span>
+                        <p>Thank you. Could I have another towel, please?</p>
+                        <button type="button" class="speak-btn" data-speak="Thank you. Could I have another towel, please?"><i class="fas fa-volume-up"></i> Ouvir</button>
+                    </div>
+                    <div class="dialogue-line">
+                        <span class="font-bold text-amber-600">Receptionist:</span>
+                        <p>Of course. I will bring one up right away.</p>
+                        <button type="button" class="speak-btn" data-speak="Of course. I will bring one up right away."><i class="fas fa-volume-up"></i> Ouvir</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="slide" data-title="Opening Dialogue">
-            <div class="section-card p-8 max-w-4xl mx-auto text-lg space-y-4">
-                <p class="lesson-panel-title">Opening dialogue</p>
-                <div class="activity-card">
-                    <p><strong>Receptionist:</strong> Good evening. Welcome to the Blue River Hotel. How can I help you?</p>
-                    <p><strong>Guest:</strong> Hi. I have a reservation under Carla Mendes.</p>
-                    <p><strong>Receptionist:</strong> Great. You're in room 304. Here is your key card.</p>
-                    <p><strong>Guest:</strong> Thank you. One more thing: could I have an extra towel?</p>
+        <div class="slide" data-title="Conversation Focus">
+            <div class="section-card p-8 max-w-5xl mx-auto">
+                <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+                    <div>
+                        <p class="lesson-panel-title mb-2">Conversation focus</p>
+                        <h2 class="text-4xl font-black text-blue-700">What the guest needs to handle</h2>
+                    </div>
+                    <div class="callout-note max-w-xl">
+                        Short, polite and clear is the goal in hotel English.
+                    </div>
                 </div>
-                <div class="callout-note">
-                    Observe como o diálogo mistura identificação, pedido simples e vocabulário de hotel sem ficar artificial.
+                <div class="grid md:grid-cols-3 gap-5 text-lg">
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">1. Check-in</p>
+                        <p>Say your name and reservation.</p>
+                        <p>Confirm the room or booking type.</p>
+                        <p>Ask where to go next if needed.</p>
+                        <p class="mt-4 text-slate-500">Example: I have a reservation under Carla Mendes. Is breakfast included?</p>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">2. Request</p>
+                        <p>Use <strong>Could I have...</strong> for polite help.</p>
+                        <p>Ask for towels, pillows or bags help.</p>
+                        <p>Use one extra detail to sound more natural.</p>
+                        <p class="mt-4 text-slate-500">Example: Could I have another towel, please?</p>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">3. Problem</p>
+                        <p>Explain the issue in one clear sentence.</p>
+                        <p>Say if something does not work.</p>
+                        <p>Add a simple follow-up request or ask for help.</p>
+                        <p class="mt-4 text-slate-500">Example: The air conditioner isn't working. Could you check it?</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="slide" data-title="Useful Language">
-            <div class="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto text-lg">
+            <div class="text-center mb-6 max-w-4xl mx-auto">
+                        <h2 class="text-4xl font-black mb-4 text-blue-700">Hotel phrases in use</h2>
+                <p class="text-slate-500 text-lg">See the phrase, notice when to use it, and complete a quick drill in the same panel.</p>
+            </div>
+            <div class="grid lg:grid-cols-3 gap-5 max-w-6xl mx-auto text-lg">
                 <div class="activity-card">
                     <p class="lesson-panel-title mb-2">At check-in</p>
-                    <p>I have a reservation.</p>
+                    <p class="font-semibold text-slate-700">Use these when you arrive.</p>
+                    <p class="mt-3">I have a reservation.</p>
                     <p>I booked a double room.</p>
                     <p>What time is breakfast?</p>
+                    <div class="mt-4 p-4 rounded-xl bg-blue-50 border border-blue-100 space-y-3">
+                        <p class="font-semibold text-blue-700">Quick drill</p>
+                        <p>1. I have a <input id="u1" data-answer="reservation" class="w-28">. <button class="answer-btn" data-target="u1"><i class="fas fa-eye"></i></button></p>
+                        <p>2. I booked a <input id="u2" data-answer="double" class="w-24"> room. <button class="answer-btn" data-target="u2"><i class="fas fa-eye"></i></button></p>
+                        <p>3. What time is <input id="u3" data-answer="breakfast" class="w-28">? <button class="answer-btn" data-target="u3"><i class="fas fa-eye"></i></button></p>
+                        <p>4. Is breakfast <input id="u10" data-answer="included" class="w-28">? <button class="answer-btn" data-target="u10"><i class="fas fa-eye"></i></button></p>
+                    </div>
                 </div>
                 <div class="activity-card">
-                    <p class="lesson-panel-title mb-2">Problems and requests</p>
-                    <p>The air conditioner isn't working.</p>
-                    <p>Could I have another pillow?</p>
-                    <p>Can someone help me with my bags?</p>
+                    <p class="lesson-panel-title mb-2">Requests</p>
+                    <p class="font-semibold text-slate-700">Use <strong>Could I have...</strong> to sound polite.</p>
+                    <p class="mt-3">Could I have another towel?</p>
+                    <p>Can you help me with my bags?</p>
+                    <p>Is there free Wi-Fi?</p>
+                    <div class="mt-4 p-4 rounded-xl bg-blue-50 border border-blue-100 space-y-3">
+                        <p class="font-semibold text-blue-700">Quick drill</p>
+                        <p>1. Could I have another <input id="u4" data-answer="towel" class="w-24">? <button class="answer-btn" data-target="u4"><i class="fas fa-eye"></i></button></p>
+                        <p>2. Can you help me with my <input id="u5" data-answer="bags" class="w-20">? <button class="answer-btn" data-target="u5"><i class="fas fa-eye"></i></button></p>
+                        <p>3. Is there free <input id="u6" data-answer="Wi-Fi" class="w-24">? <button class="answer-btn" data-target="u6"><i class="fas fa-eye"></i></button></p>
+                        <p>4. Could I get a <input id="u11" data-answer="wake-up call" class="w-36">? <button class="answer-btn" data-target="u11"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <p class="lesson-panel-title mb-2">Problems</p>
+                    <p class="font-semibold text-slate-700">Say the issue in one short sentence.</p>
+                    <p class="mt-3">The air conditioner isn't working.</p>
+                    <p>The shower doesn't work.</p>
+                    <p>I can't open the room safe.</p>
+                    <div class="mt-4 p-4 rounded-xl bg-blue-50 border border-blue-100 space-y-3">
+                        <p class="font-semibold text-blue-700">Quick drill</p>
+                        <p>1. The air conditioner isn't <input id="u7" data-answer="working" class="w-32">. <button class="answer-btn" data-target="u7"><i class="fas fa-eye"></i></button></p>
+                        <p>2. The shower doesn't <input id="u8" data-answer="work" class="w-24">. <button class="answer-btn" data-target="u8"><i class="fas fa-eye"></i></button></p>
+                        <p>3. I can't open the room <input id="u9" data-answer="safe" class="w-24">. <button class="answer-btn" data-target="u9"><i class="fas fa-eye"></i></button></p>
+                        <p>4. The room key card isn't <input id="u12" data-answer="working" class="w-32">. <button class="answer-btn" data-target="u12"><i class="fas fa-eye"></i></button></p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="slide" data-title="Flashcards">
             <div class="text-center">
-                <h2 class="text-4xl font-black mb-4 text-violet-700">Hotel flashcards</h2>
+                <h2 class="text-4xl font-black mb-4 text-blue-700">Hotel flashcards</h2>
+                <p class="text-slate-500 text-lg mb-6">Palavras que aparecem o tempo todo em uma estadia de hotel.</p>
                 <div class="flashcard-grid max-w-5xl mx-auto">
                     <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">reservation</h3></div><div class="flip-card-back"><p>reserva</p></div></div></div>
                     <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">key card</h3></div><div class="flip-card-back"><p>cartão da porta</p></div></div></div>
@@ -102,17 +232,33 @@
                     <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">towel</h3></div><div class="flip-card-back"><p>toalha</p></div></div></div>
                     <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">breakfast</h3></div><div class="flip-card-back"><p>café da manhã</p></div></div></div>
                     <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">air conditioner</h3></div><div class="flip-card-back"><p>ar-condicionado</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">wake-up call</h3></div><div class="flip-card-back"><p>ligação para acordar</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">receipt</h3></div><div class="flip-card-back"><p>comprovante / recibo</p></div></div></div>
                 </div>
             </div>
         </div>
 
         <div class="slide" data-title="Task 1">
             <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+                <h2 class="text-4xl font-black mb-4 text-center text-blue-700">Complete the hotel words</h2>
                 <p>1. I have a <input id="h1" data-answer="reservation" class="w-32">. <button class="answer-btn" data-target="h1"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(reserva)</span></p>
-                <p>2. Could I have an extra <input id="h2" data-answer="towel" class="w-28">? <button class="answer-btn" data-target="h2"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(toalha)</span></p>
+                <p>2. Could I have another <input id="h2" data-answer="towel" class="w-28">? <button class="answer-btn" data-target="h2"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(toalha)</span></p>
                 <p>3. The shower doesn't <input id="h3" data-answer="work" class="w-24">. <button class="answer-btn" data-target="h3"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(funcionar)</span></p>
                 <p>4. I booked a <input id="h4" data-answer="double" class="w-28"> room. <button class="answer-btn" data-target="h4"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(de casal / para duas pessoas)</span></p>
                 <p>5. What time is <input id="h5" data-answer="breakfast" class="w-32">? <button class="answer-btn" data-target="h5"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(café da manhã)</span></p>
+                <p>6. Where is the <input id="h11" data-answer="front desk" class="w-36">? <button class="answer-btn" data-target="h11"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(recepção)</span></p>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Practice 2">
+            <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+                <h2 class="text-4xl font-black mb-4 text-center text-blue-700">Reception drill</h2>
+                <p>1. Could I have another <input id="h6" data-answer="pillow" class="w-28">? <button class="answer-btn" data-target="h6"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(travesseiro)</span></p>
+                <p>2. The air conditioner isn't <input id="h7" data-answer="working" class="w-32">. <button class="answer-btn" data-target="h7"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(funcionando)</span></p>
+                <p>3. Can I get a <input id="h8" data-answer="wake-up call" class="w-36"> at 6 a.m.? <button class="answer-btn" data-target="h8"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(ligação para acordar)</span></p>
+                <p>4. Is there free <input id="h9" data-answer="Wi-Fi" class="w-28">? <button class="answer-btn" data-target="h9"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(internet)</span></p>
+                <p>5. Where is the <input id="h10" data-answer="front desk" class="w-32">? <button class="answer-btn" data-target="h10"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(recepção)</span></p>
+                <p>6. Is breakfast <input id="h12" data-answer="included" class="w-28">? <button class="answer-btn" data-target="h12"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(incluído)</span></p>
             </div>
         </div>
 
@@ -121,14 +267,14 @@
                 <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
                     <div>
                         <p class="lesson-panel-title mb-2">Hotel Builder</p>
-                        <h2 class="text-4xl font-black text-violet-700">Build a hotel interaction</h2>
+                        <h2 class="text-4xl font-black text-blue-700">Build a hotel interaction</h2>
                     </div>
                     <div class="callout-note max-w-xl">
-                        O objetivo aqui é juntar identificação, pedido e problema em uma fala curta e natural.
+                        O objetivo aqui é juntar identificação, pedido, problema e fechamento em uma fala curta e natural.
                     </div>
                 </div>
-                <div class="activity-lab" data-choice-builder data-template="{intro} {request} {problem}" data-required="intro,request,problem" data-preview-empty="Escolha as partes para montar uma fala de hotel.">
-                    <div class="grid md:grid-cols-3 gap-6">
+                <div class="activity-lab" data-choice-builder data-template="{intro} {request} {problem} {closing}" data-required="intro,request,problem,closing" data-preview-empty="Escolha as partes para montar uma fala de hotel.">
+                    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
                         <div>
                             <p class="lesson-panel-title mb-3">1. Intro</p>
                             <div class="option-cloud">
@@ -153,9 +299,17 @@
                                 <button type="button" class="option-chip" data-choice-slot="problem" data-choice-value="I can't open the room safe.">I can't open the room safe.</button>
                             </div>
                         </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">4. Closing</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="closing" data-choice-value="Thanks for your help.">Thanks for your help.</button>
+                                <button type="button" class="option-chip" data-choice-slot="closing" data-choice-value="I appreciate it.">I appreciate it.</button>
+                                <button type="button" class="option-chip" data-choice-slot="closing" data-choice-value="That would be great.">That would be great.</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="preview-card mt-6" data-choice-preview></div>
-                    <p class="mt-4 text-sm text-slate-500">Leia a fala como se estivesse mesmo na recepção: clara, educada e objetiva.</p>
+                    <p class="mt-4 text-sm text-slate-500">Leia como se estivesse falando com a recepção: claro, educado e direto.</p>
                     <div class="flex gap-3 mt-5 flex-wrap">
                         <button type="button" class="option-chip" data-choice-reset>Reset</button>
                         <button type="button" class="option-chip" data-choice-speak>Speak</button>
@@ -166,11 +320,11 @@
 
         <div class="slide" data-title="Roleplay">
             <div class="section-card p-8 max-w-4xl mx-auto">
-                <h2 class="text-4xl font-black mb-6 text-center text-violet-700">Roleplay: at reception</h2>
+                <h2 class="text-4xl font-black mb-6 text-center text-blue-700">Roleplay: at reception</h2>
                 <div class="grid md:grid-cols-2 gap-5 text-lg">
                     <div class="activity-card">
                         <p class="lesson-panel-title mb-2">Student A</p>
-                        <p>You arrived late at night. Check in and ask one extra question about breakfast or Wi-Fi.</p>
+                        <p>You arrived late at night. Check in and ask one extra question about breakfast, Wi-Fi or towels.</p>
                     </div>
                     <div class="activity-card">
                         <p class="lesson-panel-title mb-2">Student B</p>
@@ -180,17 +334,53 @@
             </div>
         </div>
 
+        <div class="slide" data-title="Music Time">
+            <div class="music-card p-6 rounded-2xl max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-4 text-center text-blue-700">Music Time</h2>
+                <p class="text-center text-slate-500 text-lg">Bonus listening: a hotel-themed song title, used here as a relaxed listening break.</p>
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/40riOy7x9W7GXjyGp4pjAv?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="activity-card mt-6 text-lg space-y-3">
+                    <p class="lesson-panel-title mb-2">Listening fill-in</p>
+                    
+                        <p>On a dark desert highway</p>
+    <p>Cool wind in my hair</p>
+    <p>Warm smell of colitas</p>
+    <p>Rising up through the air</p>
+    <p>Up ahead in the distance</p>
+    <p>I saw a shimmering light</p>
+    <p>My head grew heavy and my sight grew dim</p>
+    <p>I had to stop for the night</p>
+    <p>There she stood in the doorway</p>
+    <p>I heard the mission bell</p>
+    <p>And I was thinking to myself</p>
+    <p>This could be heaven or this could be hell</p>
+    <p>Then she lit up a candle</p>
+    <p>And she showed me the way</p>
+    <p>There were voices down the corridor</p>
+    <p>I thought I heard them say</p>
+    <p>Welcome to the Hotel California</p>
+    <p>Such a lovely place (such a lovely place)</p>
+    <p>Such a lovely face</p>
+    <p>Plenty of room at the Hotel California</p>
+    <p>Any time of year (any time of year)</p>
+    <p>You can find it here</p>
+                    </p>
+                    <p class="text-sm text-slate-500">Tip: listen for the mood and try to complete the four blanks before checking.</p>
+                </div>
+            </div>
+        </div>
+
         <div class="slide" data-title="Homework">
             <div class="section-card p-8 max-w-4xl mx-auto">
-                <h2 class="text-4xl font-black mb-6 text-center text-violet-700">Homework</h2>
+                <h2 class="text-4xl font-black mb-6 text-center text-blue-700">Homework</h2>
                 <p class="text-lg text-slate-600 mb-5">Write 6 to 8 lines about a hotel stay. Include: your reservation, one request, one problem and one polite ending.</p>
-                <textarea rows="8" class="w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-violet-500" placeholder="Hi, I have a reservation... Could I have... The shower doesn't work... Thank you for your help."></textarea>
+                <textarea rows="8" class="w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-blue-500" placeholder="Hi, I have a reservation... Could I have... The shower doesn't work... Thank you for your help."></textarea>
             </div>
         </div>
 
         <div class="slide" data-title="Lesson Complete">
             <div class="text-center">
-                <i class="fas fa-hotel text-violet-500 text-7xl mb-6"></i>
+                <i class="fas fa-hotel text-blue-500 text-7xl mb-6"></i>
                 <p class="lesson-panel-title mb-2">Lesson complete</p>
                 <h2 class="text-5xl font-black mb-4 text-slate-900">Hotel English unlocked</h2>
                 <p class="text-2xl text-slate-600 max-w-3xl mx-auto">You can now check in, ask for help and explain simple room problems in English.</p>
@@ -201,7 +391,7 @@
     <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
         <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
             <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Anterior</button>
-            <button id="next-btn" class="bg-violet-600 text-white font-bold py-3 px-8 rounded-lg transition">Próximo</button>
+            <button id="next-btn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Próximo</button>
             <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Finalizar aula</button>
         </div>
     </footer>
