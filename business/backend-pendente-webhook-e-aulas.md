@@ -7,6 +7,18 @@
 - painel admin para atualizar plano, status e capacidade
 - migracao de alunos legados sem `teacherId`
 - regras iniciais de Firestore para separar professor, aluno e admin
+- fluxo de login com redefinicao de senha para o professor
+
+## O que ja foi scaffoldado no backend
+
+- `server/index.js` com webhook de compra no Render
+- endpoint `POST /webhooks/kiwify`
+- endpoint `POST /webhooks/hotmart`
+- endpoint interno `POST /internal/professors` para suporte
+- criacao automatica de conta de professor no Firebase Auth
+- gravacao do perfil do professor em `students/{uid}`
+- idempotencia basica via `purchase_events`
+- deploy independente do front no GitHub Pages
 
 ## O que ainda depende de backend
 
@@ -31,6 +43,15 @@ Por isso a automacao de compra nao pode ficar so no front-end.
    - `accessibleProducts`
 6. Backend registra a compra em uma colecao de eventos.
 7. Backend envia e-mail ou mensagem com acesso.
+
+### Como o fluxo ficou neste projeto
+
+1. A compra aprovada chama o webhook `POST /webhooks/kiwify`.
+1. A compra aprovada chama o webhook `POST /webhooks/hotmart` se a venda vier da Hotmart.
+2. O backend cria o usuario do professor no Firebase Auth, se ainda nao existir.
+3. O backend grava o perfil com `role: professor` e plano inicial.
+4. O professor entra em `login.html` com o email da compra.
+5. O professor usa `Esqueci minha senha` para ativar a senha se necessario.
 
 ### Campos recomendados por compra
 
@@ -101,3 +122,14 @@ Integrar com links externos:
 4. integracao real com calendario
 
 Essa ordem reduz risco e evita construir features de aula ao vivo antes de a base comercial estar automatizada.
+
+## Variaveis de ambiente sugeridas
+
+- `WEBHOOK_SECRET`
+- `FIREBASE_PROJECT_ID`
+- `FIREBASE_CLIENT_EMAIL`
+- `FIREBASE_PRIVATE_KEY`
+- `APP_URL`
+- `DEFAULT_TEACHER_PLAN`
+- `DEFAULT_BILLING_CYCLE`
+- `DEFAULT_STUDENT_LIMIT`
