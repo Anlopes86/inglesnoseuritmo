@@ -12,21 +12,21 @@
     const PLAN_CATALOG = {
         starter: {
             id: 'starter',
-            label: 'Starter',
+            label: 'Pack 16',
             studentLimit: 10,
             products: ['conversation'],
             billingCycle: 'monthly'
         },
         pro: {
             id: 'pro',
-            label: 'Teacher Pro',
+            label: 'Pack 32',
             studentLimit: 40,
             products: ['conversation', 'a1', 'a2', 'prepb1', 'b1', 'business', 'vestibular', 'essentials'],
             billingCycle: 'monthly'
         },
         scale: {
             id: 'scale',
-            label: 'Teacher Scale',
+            label: 'Pack 48',
             studentLimit: null,
             products: ['conversation', 'a1', 'a2', 'prepb1', 'b1', 'business', 'vestibular', 'essentials', 'b2', 'c1', 'c2'],
             billingCycle: 'monthly'
