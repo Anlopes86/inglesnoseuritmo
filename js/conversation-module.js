@@ -27,18 +27,18 @@ document.addEventListener('DOMContentLoaded', () => {
         'Decisions', 'Bioethics', 'Narrative', 'Leadership', 'Fair Play', 'Identity', 'Humor', 'Growth'
     ];
 
-    function buildLessonCard(title, lessonNumber, state, isProfessor) {
+    function buildLessonCard(title, lessonNumber, state) {
         const padded = String(lessonNumber).padStart(2, '0');
-        const canOpen = isProfessor || state !== 'locked';
+        const canOpen = state !== 'locked';
         const iconClass = state === 'completed'
             ? 'fa-check-circle text-green-500'
-            : state === 'next'
+            : state === 'available'
                 ? 'fa-play-circle text-fuchsia-400'
                 : 'fa-lock text-slate-500';
         const stateText = state === 'completed'
             ? 'Concluida'
-            : state === 'next'
-                ? 'Disponivel agora'
+            : state === 'available'
+                ? 'Liberada'
                 : 'Bloqueada';
 
         const card = document.createElement('a');
@@ -109,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const { role, studentId } = await resolveViewerContext();
             if (!studentId) throw new Error('Usuario nao identificado.');
 
-            const isProfessor = role === 'professor' || role === 'admin';
             const doc = await db.collection('students').doc(studentId).get();
             const studentData = doc.exists ? doc.data() : {};
             const allProgress = studentData.progress ? studentData.progress : {};
@@ -130,9 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error('Este aluno nao possui acesso ao Conversation Club.');
             }
 
-            let firstUncompleted = lessonTitles.findIndex((_, index) => index < lessonLimit && progress[`lesson_${index + 1}`] !== true) + 1;
-            if (firstUncompleted === 0) firstUncompleted = lessonTitles.length + 1;
-
             grid.innerHTML = '';
             lessonTitles.forEach((title, index) => {
                 const lessonNumber = index + 1;
@@ -142,10 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     ? 'locked'
                     : isCompleted
                         ? 'completed'
-                        : lessonNumber === firstUncompleted
-                            ? 'next'
-                            : 'locked';
-                grid.appendChild(buildLessonCard(title, lessonNumber, state, isProfessor));
+                        : 'available';
+                grid.appendChild(buildLessonCard(title, lessonNumber, state));
             });
 
             loadingDiv.classList.add('hidden');
