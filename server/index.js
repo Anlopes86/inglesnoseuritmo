@@ -182,35 +182,29 @@ function sanitizeErrorMessage(error) {
 function buildWelcomeEmail({ name, email, resetLink, planLabel }) {
   const safeName = normalizeName(name) || email;
   const portalUrl = getLoginUrl();
-  const subject = 'Seu acesso ao Ingles no Seu Ritmo esta pronto';
+  const subject = 'Seu acesso ao Ingles no Seu Ritmo';
 
   return {
     subject,
     text: [
       `Ola, ${safeName}.`,
       '',
-      'Sua conta foi criada com sucesso e o acesso ao portal ja esta liberado.',
-      `Plano liberado: ${planLabel || 'Pack de Conversacao'}.`,
+      'Sua conta foi criada e seu acesso ja esta liberado.',
+      `Plano: ${planLabel || 'Pack de Conversacao'}.`,
       '',
-      `Para definir sua senha, acesse este link: ${resetLink}`,
+      `Defina sua senha aqui: ${resetLink}`,
       '',
-      `Depois do cadastro, entre pelo portal em: ${portalUrl}`,
+      `Portal: ${portalUrl}`,
       '',
-      'Se voce nao solicitou esse acesso, ignore esta mensagem.'
+      'Se voce nao solicitou este acesso, ignore esta mensagem.'
     ].join('\n'),
     html: `
-      <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #1f2937;">
+      <div style="font-family: Arial, sans-serif; line-height: 1.5; color: #111827;">
         <p>Ola, ${safeName}.</p>
-        <p>Sua conta foi criada com sucesso e o acesso ao portal ja esta liberado.</p>
-        <p><strong>Plano liberado:</strong> ${planLabel || 'Pack de Conversacao'}</p>
-        <p>Para definir sua senha, clique no botao abaixo:</p>
-        <p>
-          <a href="${resetLink}" style="display:inline-block;background:#111827;color:#fff;text-decoration:none;padding:12px 18px;border-radius:10px;">
-            Criar ou redefinir senha
-          </a>
-        </p>
-        <p>Depois do cadastro, entre pelo portal em <a href="${portalUrl}">${portalUrl}</a>.</p>
-        <p style="font-size: 14px; color: #6b7280;">Se voce nao solicitou esse acesso, ignore esta mensagem.</p>
+        <p>Sua conta foi criada e seu acesso ja esta liberado.</p>
+        <p>Plano: ${planLabel || 'Pack de Conversacao'}</p>
+        <p>Defina sua senha: <a href="${resetLink}">${resetLink}</a></p>
+        <p>Portal: <a href="${portalUrl}">${portalUrl}</a></p>
       </div>
     `
   };
