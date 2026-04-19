@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const db = firebase.firestore();
+    const platformAccess = window.PlatformAccess;
     const loadingDiv = document.getElementById('loading');
     const grid = document.getElementById('lessons-grid');
 
@@ -51,8 +52,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const doc = await db.collection('students').doc(studentId).get();
-            const allProgress = doc.exists && doc.data().progress ? doc.data().progress : {};
+            const studentData = doc.exists ? doc.data() : {};
+            const allProgress = studentData.progress ? studentData.progress : {};
             const progress = allProgress.nivelamento || {};
+            const allowedProducts = Array.isArray(studentData.accessibleProducts) && studentData.accessibleProducts.length
+                ? studentData.accessibleProducts
+                : Array.isArray(studentData.modules) && studentData.modules.length
+                    ? studentData.modules
+                    : [];
+
+            if (platformAccess && !platformAccess.canAccessModule(allowedProducts, 'nivelamento')) {
+                loadingDiv.innerHTML = '<p class="text-red-500">Este aluno nao possui acesso ao nivelamento.</p>';
+                return;
+            }
 
             let firstUncompleted = -1;
 

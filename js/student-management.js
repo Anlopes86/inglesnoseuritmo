@@ -26,6 +26,21 @@ document.addEventListener('DOMContentLoaded', () => {
         currentProfile = platformAccess
             ? await platformAccess.getCurrentProfile(auth, db)
             : null;
+        if (currentProfile) {
+            const studentTypeSelect = document.getElementById('new-student-type');
+            if (studentTypeSelect && platformAccess) {
+                const options = Array.from(studentTypeSelect.options);
+                options.forEach((option) => {
+                    if (!option.value) return;
+                    option.disabled = !platformAccess.canAccessModule(currentProfile.plan, option.value);
+                });
+
+                const firstAllowed = options.find((option) => option.value && !option.disabled);
+                if (firstAllowed && firstAllowed.disabled !== true) {
+                    studentTypeSelect.value = firstAllowed.value;
+                }
+            }
+        }
         return currentProfile;
     }
 
@@ -110,6 +125,11 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const profile = await assertManagerSession();
                 await assertStudentCapacity(profile);
+                const allowedModules = platformAccess?.getProductList(profile.plan) || [];
+                const canAssignModule = platformAccess?.canAccessModule(profile.plan, studentType) || false;
+                if (!canAssignModule && studentType !== 'nivelamento') {
+                    throw new Error('Este modulo nao esta incluido no plano atual.');
+                }
                 const ownerTeacherId = platformAccess.isAdmin(profile)
                     ? platformAccess.getManagedTeacherId(profile) || profile.uid
                     : profile.uid;
@@ -133,6 +153,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     teacherId: ownerTeacherId,
                     teacherName: ownerTeacherName,
                     tenantId: ownerTeacherId,
+                    platformPlan: profile.plan?.id || 'starter',
+                    accessPackId: profile.plan?.id || 'starter',
+                    accessPackLabel: profile.plan?.label || 'Starter',
+                    lessonCount: profile.plan?.lessonCount || 16,
+                    accessibleProducts: allowedModules.length ? allowedModules : [...(profile.plan?.products || [])],
+                    subscriptionStatus: profile.plan?.subscriptionStatus || 'active',
+                    billingCycle: profile.plan?.billingCycle || 'monthly',
                     studentType,
                     modules: [studentType],
                     createdBy: profile.uid,

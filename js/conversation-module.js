@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const db = typeof window.db !== 'undefined' ? window.db : firebase.firestore();
+    const platformAccess = window.PlatformAccess;
     const loadingDiv = document.getElementById('loading');
     const grid = document.getElementById('lessons-grid');
 
@@ -110,17 +111,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const isProfessor = role === 'professor' || role === 'admin';
             const doc = await db.collection('students').doc(studentId).get();
-            const allProgress = doc.exists && doc.data().progress ? doc.data().progress : {};
+            const studentData = doc.exists ? doc.data() : {};
+            const allProgress = studentData.progress ? studentData.progress : {};
             const progress = allProgress.conversation || {};
+            const viewerDoc = await db.collection('students').doc(firebase.auth().currentUser.uid).get();
+            const viewerData = viewerDoc.exists ? viewerDoc.data() : {};
+            const lessonLimit = Math.min(
+                Number(studentData.lessonCount || viewerData.lessonCount || 16) || 16,
+                lessonTitles.length
+            );
+            const allowedProducts = Array.isArray(studentData.accessibleProducts) && studentData.accessibleProducts.length
+                ? studentData.accessibleProducts
+                : Array.isArray(studentData.modules) && studentData.modules.length
+                    ? studentData.modules
+                    : [];
 
-            let firstUncompleted = lessonTitles.findIndex((_, index) => progress[`lesson_${index + 1}`] !== true) + 1;
+            if (platformAccess && !platformAccess.canAccessModule(allowedProducts, 'conversation')) {
+                throw new Error('Este aluno nao possui acesso ao Conversation Club.');
+            }
+
+            let firstUncompleted = lessonTitles.findIndex((_, index) => index < lessonLimit && progress[`lesson_${index + 1}`] !== true) + 1;
             if (firstUncompleted === 0) firstUncompleted = lessonTitles.length + 1;
 
             grid.innerHTML = '';
             lessonTitles.forEach((title, index) => {
                 const lessonNumber = index + 1;
-                const isCompleted = progress[`lesson_${lessonNumber}`] === true;
-                const state = isCompleted ? 'completed' : lessonNumber === firstUncompleted ? 'next' : 'locked';
+                const withinPack = lessonNumber <= lessonLimit;
+                const isCompleted = withinPack && progress[`lesson_${lessonNumber}`] === true;
+                const state = !withinPack
+                    ? 'locked'
+                    : isCompleted
+                        ? 'completed'
+                        : lessonNumber === firstUncompleted
+                            ? 'next'
+                            : 'locked';
                 grid.appendChild(buildLessonCard(title, lessonNumber, state, isProfessor));
             });
 

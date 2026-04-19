@@ -125,12 +125,149 @@
         return module ? module.title : 'M\u00f3dulo n\u00e3o definido';
     }
 
+    function getModuleAccessSource(studentData) {
+        if (studentData && Array.isArray(studentData.accessibleProducts) && studentData.accessibleProducts.length) {
+            return {
+                products: studentData.accessibleProducts,
+                lessonCount: studentData.lessonCount
+            };
+        }
+
+        return currentProfile?.plan || { products: [] };
+    }
+
+    function isModuleAvailableForContext(moduleId, studentData) {
+        if (moduleId === 'nivelamento') return true;
+        return Boolean(platformAccess?.canAccessModule(getModuleAccessSource(studentData), moduleId));
+    }
+
+    function getModuleRequirementLabel(moduleId) {
+        return platformAccess?.getModuleRequirementLabel(moduleId) || 'Pack indisponível';
+    }
+
+    function setStudentSummaryPlaceholders() {
+        if (studentTypeDisplay) studentTypeDisplay.textContent = 'Nenhum aluno selecionado';
+        if (nextLessonDisplay) nextLessonDisplay.textContent = 'Selecione um aluno';
+        if (lastCompletedDisplay) lastCompletedDisplay.textContent = 'Selecione um aluno';
+        if (teacherLastLesson) teacherLastLesson.textContent = 'Selecione um aluno';
+        if (teacherNextLesson) teacherNextLesson.textContent = 'Selecione um aluno';
+        if (teacherLessonNote) {
+            teacherLessonNote.textContent = 'Os módulos do seu plano continuam visíveis. Selecione um aluno para liberar, acompanhar e abrir as lições.';
+        }
+        if (studentOverviewCopy) {
+            studentOverviewCopy.textContent = 'Selecione um aluno para ver pacote, progresso e a trilha principal. Os módulos do seu plano seguem visíveis abaixo.';
+        }
+    }
+
+    function renderModuleCards(studentData = null, studentId = null) {
+        if (!modulesContainer) return;
+
+        const hasStudent = Boolean(studentData && studentId);
+        const assignedModules = hasStudent ? getAssignedModules(studentData) : [];
+        const primaryModule = hasStudent ? (studentData.studentType || assignedModules[0] || null) : null;
+
+        modulesContainer.innerHTML = '';
+
+        modulesData.forEach((module) => {
+            const accent = accentClasses(module.accent);
+            const isComingSoon = module.isComingSoon === true;
+            const isAllowed = isComingSoon ? false : isModuleAvailableForContext(module.id, studentData);
+            const isAssigned = hasStudent && assignedModules.includes(module.id);
+            const requirementLabel = getModuleRequirementLabel(module.id);
+            const statusLabel = isComingSoon
+                ? 'Em breve'
+                : !isAllowed
+                    ? requirementLabel
+                    : hasStudent
+                        ? (isAssigned ? 'Módulo liberado' : 'Disponível no plano')
+                        : 'Visível no seu plano';
+            const openAction = isComingSoon
+                ? `
+                    <button type="button" class="app-button w-full opacity-75 cursor-not-allowed" disabled aria-disabled="true">
+                        <i class="fas fa-hourglass-half"></i>
+                        Em breve
+                    </button>
+                `
+                : !isAllowed
+                    ? `
+                        <button type="button" class="app-button w-full opacity-75 cursor-not-allowed" disabled aria-disabled="true">
+                            <i class="fas fa-lock"></i>
+                            ${requirementLabel}
+                        </button>
+                    `
+                    : !hasStudent
+                        ? `
+                            <button type="button" class="app-button w-full opacity-75 cursor-not-allowed" disabled aria-disabled="true">
+                                <i class="fas fa-user-check"></i>
+                                Selecione um aluno
+                            </button>
+                        `
+                        : `
+                            <a href="${module.href}" class="app-button w-full">
+                                <i class="fas ${module.id === 'nivelamento' ? 'fa-clipboard-check' : 'fa-book-open'}"></i>
+                                Abrir módulo
+                            </a>
+                        `;
+            const managementActions = hasStudent && module.id !== 'nivelamento' && !isComingSoon && isAllowed
+                ? `
+                        <button type="button" class="app-button-secondary w-full ${isAssigned ? 'opacity-80' : ''}" data-assign-module="${module.id}" ${isAssigned ? 'disabled' : ''}>
+                            <i class="fas ${isAssigned ? 'fa-check' : 'fa-plus'}"></i>
+                            ${isAssigned ? 'Módulo liberado' : 'Liberar módulo'}
+                        </button>
+                        ${isAssigned && primaryModule !== module.id
+                            ? `<button type="button" class="app-button-ghost w-full" data-set-primary-module="${module.id}"><i class="fas fa-bullseye"></i> Tornar principal</button>`
+                            : ''}
+                    `
+                : '';
+
+            const card = document.createElement('div');
+            card.className = 'surface-card module-card p-5';
+            card.dataset.comingSoon = isComingSoon ? 'true' : 'false';
+            card.dataset.lockedByPlan = !isAllowed ? 'true' : 'false';
+            card.innerHTML = `
+                <div class="flex items-center justify-between gap-3">
+                    <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl ${accent.bg} ${accent.text}">
+                        <i class="fas ${module.icon}"></i>
+                    </div>
+                    <span class="info-chip ${isComingSoon ? 'bg-slate-100 text-slate-700' : isAllowed ? (isAssigned ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700') : 'bg-amber-100 text-amber-700'}">${statusLabel}</span>
+                </div>
+                <div>
+                    <h3 class="text-xl font-extrabold tracking-tight text-slate-950">${module.title}</h3>
+                    <p class="section-copy mt-3">${module.description}</p>
+                    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 mt-4">${isAllowed ? 'Incluído no seu plano' : requirementLabel}</p>
+                </div>
+                ${module.id === 'conversation' && hasStudent ? `
+                    <div class="rounded-2xl border border-slate-200 bg-slate-50/80 p-4">
+                        <p class="text-sm font-semibold text-slate-700">Lições liberadas no pacote</p>
+                        <p class="text-2xl font-black tracking-tight text-slate-950 mt-1">${Number(studentData.lessonCount || 16)}</p>
+                    </div>
+                ` : ''}
+                <div class="mt-auto space-y-3">
+                    ${openAction}
+                    ${managementActions}
+                </div>
+            `;
+            modulesContainer.appendChild(card);
+        });
+
+        if (modulesStatus) {
+            modulesStatus.textContent = hasStudent
+                ? 'Módulos do aluno carregados com as restrições do plano.'
+                : 'Os módulos do seu plano estão sempre visíveis. Selecione um aluno para liberar e acompanhar.';
+        }
+    }
+
     function getAssignedModules(studentData) {
         const currentModules = Array.isArray(studentData.modules) ? studentData.modules : [];
         const fallbackModules = studentData.studentType ? [studentData.studentType] : [];
         const validIds = new Set(modulesData.map((module) => module.id).filter((id) => id !== 'nivelamento'));
+        const allowedSource = studentData.accessibleProducts && studentData.accessibleProducts.length
+            ? studentData.accessibleProducts
+            : currentProfile?.plan || [];
 
-        return [...new Set([...currentModules, ...fallbackModules])].filter((moduleId) => validIds.has(moduleId));
+        return [...new Set([...currentModules, ...fallbackModules])]
+            .filter((moduleId) => validIds.has(moduleId))
+            .filter((moduleId) => isModuleAvailableForContext(moduleId, allowedSource));
     }
 
     function renderAssignedModules(studentData) {
@@ -297,10 +434,12 @@
     });
 
     function displayNoStudentSelected() {
-        studentDashboardDiv.classList.add('hidden');
         noStudentSelectedDiv.classList.remove('hidden');
+        noStudentSelectedDiv.classList.add('hidden');
+        studentDashboardDiv.classList.remove('hidden');
         studentActionButtons.classList.add('hidden');
-        if (modulesStatus) modulesStatus.textContent = 'Selecione um aluno para carregar os módulos.';
+        setStudentSummaryPlaceholders();
+        renderModuleCards(null, null);
     }
 
     async function displayStudentDashboard(studentId, studentName) {
@@ -321,7 +460,6 @@
             }
         }
 
-        noStudentSelectedDiv.classList.add('hidden');
         studentDashboardDiv.classList.remove('hidden');
         studentActionButtons.classList.remove('hidden');
 
@@ -394,6 +532,7 @@
             const progressData = studentData.progress || {};
             const studentType = studentData.studentType || 'a1';
             const assignedModules = getAssignedModules(studentData);
+            renderModuleCards(studentData, studentId);
 
             const focusedModule = modulesData.find((module) => module.id === studentType);
             const focusedProgress = progressData[studentType] || {};
@@ -413,80 +552,7 @@
             }
             studentOverviewCopy.textContent = '';
 
-            modulesData.forEach((module) => {
-                const accent = accentClasses(module.accent);
-                const moduleProgress = progressData[module.id] || {};
-                const totalLessons = module.lessons || 0;
-                const completedLessons = totalLessons > 0 ? Object.keys(moduleProgress).length : 0;
-                const percentage = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
-                const isFocused = module.id === studentType;
-                const isAssigned = assignedModules.includes(module.id);
-                const isComingSoon = module.isComingSoon === true;
-                const manageButtonLabel = isAssigned ? 'Módulo liberado' : 'Liberar módulo';
-                const primaryAction = isAssigned && !isFocused
-                    ? `<button type="button" class="app-button-ghost w-full" data-set-primary-module="${module.id}"><i class="fas fa-bullseye"></i> Tornar principal</button>`
-                    : '';
-                const stateLabel = isComingSoon
-                    ? 'Em breve'
-                    : totalLessons > 0
-                        ? `${completedLessons} de ${totalLessons} conclu\u00eddas`
-                        : 'Acesso direto';
-                const mainAction = isComingSoon
-                    ? `
-                        <button type="button" class="app-button w-full opacity-75 cursor-not-allowed" disabled aria-disabled="true">
-                            <i class="fas fa-hourglass-half"></i>
-                            Em breve
-                        </button>
-                    `
-                    : `
-                        <a href="${module.href}" class="app-button w-full">
-                            <i class="fas ${totalLessons > 0 ? 'fa-book-open' : 'fa-play'}"></i>
-                            ${module.buttonText}
-                        </a>
-                    `;
-                const managementActions = module.id !== 'nivelamento' && !isComingSoon
-                    ? `
-                            <button type="button" class="app-button-secondary w-full ${isAssigned ? 'opacity-80' : ''}" data-assign-module="${module.id}" ${isAssigned ? 'disabled' : ''}>
-                                <i class="fas ${isAssigned ? 'fa-check' : 'fa-plus'}"></i>
-                                ${manageButtonLabel}
-                            </button>
-                            ${primaryAction}
-                        `
-                    : '';
-
-                const card = document.createElement('div');
-                card.className = 'surface-card module-card p-5';
-                card.dataset.comingSoon = isComingSoon ? 'true' : 'false';
-                card.innerHTML = `
-                    <div class="flex items-center justify-between gap-3">
-                        <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl ${accent.bg} ${accent.text}">
-                            <i class="fas ${module.icon}"></i>
-                        </div>
-                        <span class="info-chip ${isFocused ? 'bg-slate-900 text-white' : accent.chip}">${isFocused ? 'Em foco' : stateLabel}</span>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-extrabold tracking-tight text-slate-950">${module.title}</h3>
-                        <p class="section-copy mt-3">${module.description}</p>
-                    </div>
-                    ${totalLessons > 0 ? `
-                        <div>
-                            <div class="flex items-center justify-between text-sm font-semibold text-slate-500 mb-2">
-                                <span>Progresso</span>
-                                <span>${percentage}%</span>
-                            </div>
-                            <div class="progress-track">
-                                <div class="progress-fill bg-gradient-to-r ${accent.button}" style="width: ${percentage}%;"></div>
-                            </div>
-                        </div>
-                    ` : ''}
-                    <div class="mt-auto space-y-3">
-                        ${mainAction}
-                        ${managementActions}
-                    </div>
-                `;
-                modulesContainer.appendChild(card);
-                renderAssignedModules(studentData);
-            });
+            renderAssignedModules(studentData);
 
             if (modulesStatus) modulesStatus.textContent = 'Modulos carregados com sucesso.';
         } catch (error) {
@@ -504,6 +570,9 @@
             if (platformAccess && currentProfile) {
                 const accessResult = await platformAccess.assertStudentAccess(db, currentProfile, studentId);
                 if (!accessResult.ok) throw new Error('Acesso negado ao aluno selecionado.');
+                if (!isModuleAvailableForContext(moduleId, accessResult.doc.exists ? accessResult.doc.data() : null)) {
+                    throw new Error('Este modulo nao faz parte do plano atual.');
+                }
             }
 
             await db.collection('students').doc(studentId).update({
@@ -529,6 +598,9 @@
             if (platformAccess && currentProfile) {
                 const accessResult = await platformAccess.assertStudentAccess(db, currentProfile, studentId);
                 if (!accessResult.ok) throw new Error('Acesso negado ao aluno selecionado.');
+                if (!isModuleAvailableForContext(moduleId, accessResult.doc.exists ? accessResult.doc.data() : null)) {
+                    throw new Error('Este modulo nao faz parte do plano atual.');
+                }
             }
 
             await db.collection('students').doc(studentId).update({

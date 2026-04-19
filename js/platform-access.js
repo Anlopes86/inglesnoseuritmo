@@ -66,6 +66,68 @@
         };
     }
 
+    function getProductList(source) {
+        if (Array.isArray(source)) {
+            return [...source];
+        }
+
+        if (Array.isArray(source?.products) && source.products.length) {
+            return [...source.products];
+        }
+
+        if (Array.isArray(source?.accessibleProducts) && source.accessibleProducts.length) {
+            return [...source.accessibleProducts];
+        }
+
+        return [];
+    }
+
+    function canAccessModule(source, moduleId) {
+        if (!moduleId) return false;
+        if (moduleId === 'nivelamento') return true;
+
+        const products = getProductList(source);
+        if (!products.length) return false;
+        if (products.includes('*')) return true;
+
+        return products.includes(moduleId);
+    }
+
+    function getModuleRequirementLabel(moduleId) {
+        const map = {
+            nivelamento: 'Disponível para todos',
+            conversation: 'Pack 16',
+            a1: 'Pack 32',
+            a2: 'Pack 32',
+            prepb1: 'Pack 32',
+            b1: 'Pack 32',
+            business: 'Pack 32',
+            essentials: 'Pack 32',
+            vestibular: 'Pack 32',
+            b2: 'Pack 48',
+            c1: 'Pack 48',
+            c2: 'Pack 48'
+        };
+
+        return map[moduleId] || 'Pack indisponível';
+    }
+
+    function getLessonLimit(source) {
+        if (Number.isFinite(source)) {
+            return source;
+        }
+
+        if (Number.isFinite(source?.lessonCount)) {
+            return source.lessonCount;
+        }
+
+        if (Number.isFinite(source?.plan?.lessonCount)) {
+            return source.plan.lessonCount;
+        }
+
+        return null;
+    }
+
     function buildProfile(uid, userData) {
         const safeUser = userData || {};
         const role = safeUser.role || ROLES.ALUNO;
@@ -255,6 +317,10 @@
         fetchProfileById,
         getCurrentProfile,
         getEffectivePlan,
+        getProductList,
+        canAccessModule,
+        getModuleRequirementLabel,
+        getLessonLimit,
         isAdmin,
         isProfessor,
         isManager,

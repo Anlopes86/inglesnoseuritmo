@@ -370,9 +370,13 @@
                 const savedModules = Array.isArray(studentData.modules) ? studentData.modules : [];
                 const fallbackModules = studentData.studentType ? [studentData.studentType] : [];
                 const validModules = new Set(Object.keys(moduleRoutes));
+                const allowedSource = Array.isArray(studentData.accessibleProducts) && studentData.accessibleProducts.length
+                    ? studentData.accessibleProducts
+                    : [];
 
                 return [...new Set([...savedModules, ...fallbackModules])]
-                    .filter((moduleId) => validModules.has(moduleId));
+                    .filter((moduleId) => validModules.has(moduleId))
+                    .filter((moduleId) => !platformAccess || platformAccess.canAccessModule(allowedSource.length ? allowedSource : studentData.modules || [], moduleId));
             }
 
             function getModuleStorageKey(studentId) {

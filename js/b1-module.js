@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const db = typeof window.db !== 'undefined' ? window.db : firebase.firestore();
+    const platformAccess = window.PlatformAccess;
     const loadingDiv = document.getElementById('loading');
     const grid = document.getElementById('lessons-grid');
 
@@ -105,8 +106,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const isProfessor = role === 'professor' || role === 'admin';
             const doc = await db.collection('students').doc(studentId).get();
-            const allProgress = doc.exists && doc.data().progress ? doc.data().progress : {};
+            const studentData = doc.exists ? doc.data() : {};
+            const allProgress = studentData.progress ? studentData.progress : {};
             const progress = allProgress.b1 || {};
+            const allowedProducts = Array.isArray(studentData.accessibleProducts) && studentData.accessibleProducts.length
+                ? studentData.accessibleProducts
+                : Array.isArray(studentData.modules) && studentData.modules.length
+                    ? studentData.modules
+                    : [];
+
+            if (platformAccess && !platformAccess.canAccessModule(allowedProducts, 'b1')) {
+                loadingDiv.textContent = 'Este aluno nao possui acesso ao modulo B1.';
+                return;
+            }
 
             let firstUncompleted = lessonTitles.findIndex((_, index) => progress[`lesson_${index + 1}`] !== true) + 1;
             if (firstUncompleted === 0) firstUncompleted = lessonTitles.length + 1;
