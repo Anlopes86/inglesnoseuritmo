@@ -136,11 +136,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const allProgress = studentData.progress ? studentData.progress : {};
             const progress = allProgress[moduleId] || {};
             const isProfessor = userRole === 'professor' || userRole === 'admin';
-            const allowedProducts = Array.isArray(studentData.accessibleProducts) && studentData.accessibleProducts.length
-                ? studentData.accessibleProducts
-                : Array.isArray(studentData.modules) && studentData.modules.length
-                    ? studentData.modules
-                    : [];
+            const allowedProducts = platformAccess?.getStudentAccessibleProducts
+                ? platformAccess.getStudentAccessibleProducts(studentData)
+                : [
+                    ...(Array.isArray(studentData.accessibleProducts) ? studentData.accessibleProducts : []),
+                    ...(Array.isArray(studentData.modules) ? studentData.modules : []),
+                    ...(studentData.studentType ? [studentData.studentType] : [])
+                ];
 
             if (platformAccess && !platformAccess.canAccessModule(allowedProducts, moduleId)) {
                 loadingDiv.innerHTML = '<p class="text-red-500">Este aluno nao possui acesso a esta jornada.</p>';

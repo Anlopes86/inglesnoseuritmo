@@ -119,11 +119,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 Number(studentData.lessonCount || viewerData.lessonCount || 16) || 16,
                 lessonTitles.length
             );
-            const allowedProducts = Array.isArray(studentData.accessibleProducts) && studentData.accessibleProducts.length
-                ? studentData.accessibleProducts
-                : Array.isArray(studentData.modules) && studentData.modules.length
-                    ? studentData.modules
-                    : [];
+            const allowedProducts = platformAccess?.getStudentAccessibleProducts
+                ? platformAccess.getStudentAccessibleProducts(studentData)
+                : [
+                    ...(Array.isArray(studentData.accessibleProducts) ? studentData.accessibleProducts : []),
+                    ...(Array.isArray(studentData.modules) ? studentData.modules : []),
+                    ...(studentData.studentType ? [studentData.studentType] : [])
+                ];
 
             if (platformAccess && !platformAccess.canAccessModule(allowedProducts, 'conversation')) {
                 throw new Error('Este aluno nao possui acesso ao Conversation Club.');

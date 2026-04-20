@@ -30,9 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const studentTypeSelect = document.getElementById('new-student-type');
             if (studentTypeSelect && platformAccess) {
                 const options = Array.from(studentTypeSelect.options);
+                const availableModules = platformAccess.getManagerModuleProducts
+                    ? platformAccess.getManagerModuleProducts(currentProfile)
+                    : platformAccess.getProductList(currentProfile.plan);
                 options.forEach((option) => {
                     if (!option.value) return;
-                    option.disabled = !platformAccess.canAccessModule(currentProfile.plan, option.value);
+                    option.disabled = !platformAccess.canAccessModule(availableModules, option.value);
                 });
 
                 const firstAllowed = options.find((option) => option.value && !option.disabled);
@@ -125,8 +128,10 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const profile = await assertManagerSession();
                 await assertStudentCapacity(profile);
-                const allowedModules = platformAccess?.getProductList(profile.plan) || [];
-                const canAssignModule = platformAccess?.canAccessModule(profile.plan, studentType) || false;
+                const allowedModules = platformAccess?.getManagerModuleProducts
+                    ? platformAccess.getManagerModuleProducts(profile)
+                    : platformAccess?.getProductList(profile.plan) || [];
+                const canAssignModule = platformAccess?.canAccessModule(allowedModules, studentType) || false;
                 if (!canAssignModule && studentType !== 'nivelamento') {
                     throw new Error('Este modulo nao esta incluido no plano atual.');
                 }
@@ -157,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     accessPackId: profile.plan?.id || 'starter',
                     accessPackLabel: profile.plan?.label || 'Starter',
                     lessonCount: profile.plan?.lessonCount || 16,
-                    accessibleProducts: allowedModules.length ? allowedModules : [...(profile.plan?.products || [])],
+                    accessibleProducts: [studentType],
                     subscriptionStatus: profile.plan?.subscriptionStatus || 'active',
                     billingCycle: profile.plan?.billingCycle || 'monthly',
                     studentType,

@@ -126,11 +126,18 @@
     }
 
     function getModuleAccessSource(studentData) {
-        if (studentData && Array.isArray(studentData.accessibleProducts) && studentData.accessibleProducts.length) {
-            return {
-                products: studentData.accessibleProducts,
-                lessonCount: studentData.lessonCount
-            };
+        if (studentData) {
+            return platformAccess?.getStudentAccessibleProducts
+                ? platformAccess.getStudentAccessibleProducts(studentData)
+                : [
+                    ...(Array.isArray(studentData.accessibleProducts) ? studentData.accessibleProducts : []),
+                    ...(Array.isArray(studentData.modules) ? studentData.modules : []),
+                    ...(studentData.studentType ? [studentData.studentType] : [])
+                ];
+        }
+
+        if (currentProfile && platformAccess?.isManager(currentProfile) && platformAccess?.getManagerModuleProducts) {
+            return platformAccess.getManagerModuleProducts(currentProfile);
         }
 
         return currentProfile?.plan || { products: [] };
@@ -261,13 +268,10 @@
         const currentModules = Array.isArray(studentData.modules) ? studentData.modules : [];
         const fallbackModules = studentData.studentType ? [studentData.studentType] : [];
         const validIds = new Set(modulesData.map((module) => module.id).filter((id) => id !== 'nivelamento'));
-        const allowedSource = studentData.accessibleProducts && studentData.accessibleProducts.length
-            ? studentData.accessibleProducts
-            : currentProfile?.plan || [];
 
         return [...new Set([...currentModules, ...fallbackModules])]
             .filter((moduleId) => validIds.has(moduleId))
-            .filter((moduleId) => isModuleAvailableForContext(moduleId, allowedSource));
+            .filter((moduleId) => isModuleAvailableForContext(moduleId, studentData));
     }
 
     function renderAssignedModules(studentData) {
@@ -576,7 +580,8 @@
             }
 
             await db.collection('students').doc(studentId).update({
-                modules: firebase.firestore.FieldValue.arrayUnion(moduleId)
+                modules: firebase.firestore.FieldValue.arrayUnion(moduleId),
+                accessibleProducts: firebase.firestore.FieldValue.arrayUnion(moduleId)
             });
             await updateModuleProgress(studentId);
             if (typeof showToast === 'function') {
@@ -605,7 +610,8 @@
 
             await db.collection('students').doc(studentId).update({
                 studentType: moduleId,
-                modules: firebase.firestore.FieldValue.arrayUnion(moduleId)
+                modules: firebase.firestore.FieldValue.arrayUnion(moduleId),
+                accessibleProducts: firebase.firestore.FieldValue.arrayUnion(moduleId)
             });
             await updateModuleProgress(studentId);
             if (typeof showToast === 'function') {

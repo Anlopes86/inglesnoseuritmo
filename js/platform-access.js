@@ -82,6 +82,31 @@
         return [];
     }
 
+    function getStudentAccessibleProducts(studentData) {
+        const safeStudent = studentData || {};
+        const explicitProducts = getProductList(safeStudent);
+        const assignedModules = Array.isArray(safeStudent.modules) ? safeStudent.modules : [];
+        const primaryModule = safeStudent.studentType ? [safeStudent.studentType] : [];
+
+        if (assignedModules.length) {
+            return [...new Set([...assignedModules, ...primaryModule])];
+        }
+
+        return [...new Set([...explicitProducts, ...primaryModule])];
+    }
+
+    function getManagerModuleProducts(profile) {
+        if (isAdmin(profile)) {
+            return ['*'];
+        }
+
+        if (isProfessor(profile)) {
+            return [...PLAN_CATALOG.scale.products];
+        }
+
+        return getProductList(profile?.plan);
+    }
+
     function canAccessModule(source, moduleId) {
         if (!moduleId) return false;
         if (moduleId === 'nivelamento') return true;
@@ -318,6 +343,8 @@
         getCurrentProfile,
         getEffectivePlan,
         getProductList,
+        getStudentAccessibleProducts,
+        getManagerModuleProducts,
         canAccessModule,
         getModuleRequirementLabel,
         getLessonLimit,

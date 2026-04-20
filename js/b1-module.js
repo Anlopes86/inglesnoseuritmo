@@ -109,11 +109,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const studentData = doc.exists ? doc.data() : {};
             const allProgress = studentData.progress ? studentData.progress : {};
             const progress = allProgress.b1 || {};
-            const allowedProducts = Array.isArray(studentData.accessibleProducts) && studentData.accessibleProducts.length
-                ? studentData.accessibleProducts
-                : Array.isArray(studentData.modules) && studentData.modules.length
-                    ? studentData.modules
-                    : [];
+            const allowedProducts = platformAccess?.getStudentAccessibleProducts
+                ? platformAccess.getStudentAccessibleProducts(studentData)
+                : [
+                    ...(Array.isArray(studentData.accessibleProducts) ? studentData.accessibleProducts : []),
+                    ...(Array.isArray(studentData.modules) ? studentData.modules : []),
+                    ...(studentData.studentType ? [studentData.studentType] : [])
+                ];
 
             if (platformAccess && !platformAccess.canAccessModule(allowedProducts, 'b1')) {
                 loadingDiv.textContent = 'Este aluno nao possui acesso ao modulo B1.';
