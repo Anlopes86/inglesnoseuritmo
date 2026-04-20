@@ -92,7 +92,11 @@
             return [...new Set([...assignedModules, ...primaryModule])];
         }
 
-        return [...new Set([...explicitProducts, ...primaryModule])];
+        if (primaryModule.length) {
+            return [...primaryModule];
+        }
+
+        return [...new Set(explicitProducts)];
     }
 
     function getManagerModuleProducts(profile) {
