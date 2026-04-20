@@ -27,6 +27,9 @@
         .practice-input:focus { border-color: #7c3aed; }
         .practice-input.correct { border-color: #22c55e; color: #15803d; font-weight: 700; }
         .practice-input.incorrect { border-color: #ef4444; color: #dc2626; }
+        .lyric-input { border: none; border-bottom: 2px solid #d1d5db; background: transparent; outline: none; text-align: center; width: 6.5rem; font-size: 1rem; padding: 2px 6px; }
+        .lyric-input:focus { border-color: #7c3aed; }
+        .lyric-input.revealed { border-color: #f59e0b; color: #b45309; font-weight: 700; background: #fef3c7; }
         .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
         .answer-btn:hover { color: #6d28d9; }
         .speak-btn { display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; padding: 4px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
@@ -200,12 +203,28 @@
                 <h2 class="text-4xl font-black mb-4 text-center text-violet-700">Music Time: Just the Way You Are</h2>
                 <div class="music-card p-6 rounded-2xl max-w-4xl mx-auto">
                     <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/47Slg6LuqLaX0VodpSCvPt?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                    <div class="text-lg bg-slate-50 p-6 rounded-xl border-l-4 border-violet-500 mt-5 space-y-4">
-                        <p>Her hair, her hair</p>
-                        <p>Falls perfectly without <input data-answer="her" class="practice-input"> trying <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>And I tell <input data-answer="her" class="practice-input"> every day <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>When I see your <input data-answer="face" class="practice-input"> <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
-                        <p>Just the way <input data-answer="you" class="practice-input"> are <button class="answer-btn"><i class="fas fa-eye"></i></button></p>
+                                        <div class="text-lg bg-slate-50 p-6 rounded-xl border-l-4 border-violet-500 mt-5 space-y-4">
+                        <p>Oh, her eyes, her eyes</p>
+    <p>Make the stars look like they're not shinin'</p>
+    <p>Her hair, her hair</p>
+    <p>Falls perfectly without her tryin'</p>
+    <p>She's so beautiful and I tell her everyday</p>
+    <p>Yeah, I know, I know</p>
+    <p>When I compliment her, she won't believe me</p>
+    <p>And it's so, it's so</p>
+    <p>Sad to think that she don't see what I see</p>
+    <p>But every time she asks me, "Do I look okay?"</p>
+    <p>I say</p>
+    <p>When I see your face</p>
+    <p>There's not a thing that I would change</p>
+    <p>'Cause you're amazing</p>
+    <p>Just the way you are</p>
+    <p>And when you smile</p>
+    <p>The whole world stops and stares for a while</p>
+    <p>'Cause girl, you're amazing</p>
+    <p>Just the way you are</p>
+    <p>Yeah</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -360,6 +379,14 @@
             });
         });
 
+        document.getElementById('reveal-music-btn')?.addEventListener('click', () => {
+            document.querySelectorAll('.lyric-input').forEach((input) => {
+                input.value = input.dataset.answer || '';
+                input.classList.remove('correct', 'incorrect');
+                input.classList.add('revealed');
+            });
+        });
+
         showSlide(0);
     });
     </script>
@@ -371,3 +398,5 @@
     <script src="a1-lesson-theme.js"></script>
 </body>
 </html>
+
+
