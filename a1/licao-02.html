@@ -38,6 +38,78 @@
         .true-false-btn:hover:not(:disabled) { background-color: #d1d5db; }
         .true-false-btn.correct { background-color: #10b981; color: white; border-color: #059669; }
         .true-false-btn.incorrect { background-color: #ef4444; color: white; border-color: #dc2626; }
+        .reading-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 1.25rem; padding: 1.25rem; box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05); }
+        .country-map-frame { position: relative; }
+        .map-tooltip {
+            position: absolute;
+            z-index: 5;
+            max-width: 220px;
+            pointer-events: none;
+            transform: translate(14px, 14px);
+            background: rgba(15, 23, 42, 0.95);
+            color: #fff;
+            border-radius: 0.9rem;
+            padding: 0.75rem 0.9rem;
+            font-size: 0.9rem;
+            box-shadow: 0 18px 30px rgba(15, 23, 42, 0.25);
+        }
+        .match-bank { display: grid; gap: 0.75rem; }
+        .match-draggable {
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+            border-radius: 9999px;
+            padding: 0.75rem 1rem;
+            font-weight: 700;
+            cursor: grab;
+            transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+        }
+        .match-draggable.is-dragging { opacity: 0.45; transform: scale(0.98); cursor: grabbing; }
+        .match-dropzone {
+            min-height: 4.5rem;
+            border: 2px dashed #cbd5e1;
+            border-radius: 1rem;
+            padding: 0.85rem 1rem;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+        .match-dropzone.is-over { border-color: #60a5fa; background: #eff6ff; }
+        .match-dropzone.matched { border-style: solid; border-color: #22c55e; background: #f0fdf4; }
+        .memory-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.8rem; }
+        .memory-card {
+            background: transparent;
+            min-height: 96px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .memory-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.55s;
+            transform-style: preserve-3d;
+        }
+        .memory-card.flipped .memory-card-inner { transform: rotateY(180deg); }
+        .memory-card-front, .memory-card-back {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0.75rem;
+            border-radius: 1rem;
+            border: 1px solid #e5e7eb;
+            font-weight: 700;
+        }
+        .memory-card-front { background: #fff; color: #1d4ed8; }
+        .memory-card-back { background: #dbeafe; color: #1e3a8a; transform: rotateY(180deg); }
+        .memory-card.matched .memory-card-front { background: #ecfdf5; border-color: #86efac; color: #166534; }
+        .memory-card.matched .memory-card-back { background: #dcfce7; color: #166534; }
     </style>
     <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
@@ -150,6 +222,29 @@
                 <div class="section-card p-8 max-w-4xl mx-auto text-left">
                     <p class="text-xl mb-8 text-slate-600">No A1, você precisa conseguir fazer perguntas muito simples sobre origem. Escolha a melhor resposta e use o botão de revelar quando travar.</p>
                     <div id="qa-activity" class="space-y-5"></div>
+                    <div class="grid lg:grid-cols-[1.05fr_0.95fr] gap-5 mt-8">
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Interactive map</p>
+                            <p class="text-slate-600 mb-4">Passe o mouse para ver país e nacionalidade. O mapa ajuda a ligar imagem, palavra e pronúncia.</p>
+                            <div class="country-map-frame">
+                                <img src="../img/a1-lesson2-map.svg" usemap="#country-map" alt="Stylized world map with country hotspots" class="w-full rounded-2xl border border-slate-200 bg-slate-50">
+                                <div id="country-map-tooltip" class="map-tooltip hidden" aria-live="polite"></div>
+                                <map name="country-map">
+                                    <area shape="rect" coords="44,52,165,115" href="#" alt="Canada" data-country="Canada" data-nationality="Canadian">
+                                    <area shape="rect" coords="80,124,160,194" href="#" alt="Brazil" data-country="Brazil" data-nationality="Brazilian">
+                                    <area shape="rect" coords="216,70,285,133" href="#" alt="Spain" data-country="Spain" data-nationality="Spanish">
+                                    <area shape="rect" coords="327,64,404,124" href="#" alt="Japan" data-country="Japan" data-nationality="Japanese">
+                                    <area shape="rect" coords="448,128,551,190" href="#" alt="Australia" data-country="Australia" data-nationality="Australian">
+                                </map>
+                            </div>
+                        </div>
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Drag and drop</p>
+                            <p class="text-slate-600 mb-4">Arraste cada país para a nacionalidade correta. No celular, também dá para tocar primeiro no país e depois na caixa.</p>
+                            <div id="country-match-game" class="space-y-4"></div>
+                            <p id="country-match-feedback" class="mt-3 text-sm text-slate-500">Match Brazil with Brazilian, Spain with Spanish, and so on.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -158,8 +253,18 @@
             <div class="text-center">
                 <h2 class="text-4xl font-black mb-6 text-green-700">True or False?</h2>
                 <div class="section-card p-8 max-w-3xl mx-auto">
-                    <p class="text-xl mb-8 text-slate-600">Leia a frase e decida se é <strong class="text-teal-600">True</strong> ou <strong class="text-red-600">False</strong>.</p>
+                    <div class="reading-card text-left mb-6">
+                        <p class="lesson-panel-title mb-2">Reading card</p>
+                        <p class="text-xl leading-8 text-slate-700">Nina is from Canada. She lives in Rio de Janeiro now. She is a student and she is learning Portuguese. Her brother is from Brazil, so the family speaks English and Portuguese at home.</p>
+                    </div>
+                    <p class="text-xl mb-8 text-slate-600">Leia o texto e decida se cada frase é <strong class="text-teal-600">True</strong> ou <strong class="text-red-600">False</strong>.</p>
                     <div id="true-false-container" class="space-y-6 text-xl"></div>
+                    <div class="activity-card mt-8 text-left">
+                        <p class="lesson-panel-title mb-2">Capital memory game</p>
+                        <p class="text-slate-600 mb-4">Vire as cartas e encontre o país com a capital correta.</p>
+                        <div id="capital-memory-grid" class="memory-grid"></div>
+                        <p id="capital-memory-feedback" class="mt-4 text-sm text-slate-500">Match each country with its capital city.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -492,10 +597,138 @@
                 feedback.textContent = item.explanation;
             }
         }
+
+        const countryMapTooltip = document.getElementById('country-map-tooltip');
+        const countryMapFrame = countryMapTooltip?.closest('.country-map-frame');
+        document.querySelectorAll('area[data-country]').forEach((area) => {
+            area.addEventListener('mouseenter', (event) => {
+                if (!countryMapTooltip || !countryMapFrame) return;
+                countryMapTooltip.innerHTML = `<strong>${area.dataset.country}</strong><br>${area.dataset.nationality}`;
+                countryMapTooltip.classList.remove('hidden');
+                const frameRect = countryMapFrame.getBoundingClientRect();
+                const x = Math.min(Math.max(12, event.clientX - frameRect.left + 16), Math.max(12, frameRect.width - 230));
+                const y = Math.min(Math.max(12, event.clientY - frameRect.top + 16), Math.max(12, frameRect.height - 74));
+                countryMapTooltip.style.left = `${x}px`;
+                countryMapTooltip.style.top = `${y}px`;
+            });
+            area.addEventListener('mousemove', (event) => {
+                if (!countryMapTooltip || !countryMapFrame || countryMapTooltip.classList.contains('hidden')) return;
+                const frameRect = countryMapFrame.getBoundingClientRect();
+                const x = Math.min(Math.max(12, event.clientX - frameRect.left + 16), Math.max(12, frameRect.width - 230));
+                const y = Math.min(Math.max(12, event.clientY - frameRect.top + 16), Math.max(12, frameRect.height - 74));
+                countryMapTooltip.style.left = `${x}px`;
+                countryMapTooltip.style.top = `${y}px`;
+            });
+            area.addEventListener('mouseleave', () => {
+                if (countryMapTooltip) countryMapTooltip.classList.add('hidden');
+            });
+            area.addEventListener('focus', (event) => {
+                area.dispatchEvent(new MouseEvent('mouseenter', { bubbles: false, clientX: 140, clientY: 120 }));
+                event.preventDefault();
+            });
+            area.addEventListener('blur', () => {
+                if (countryMapTooltip) countryMapTooltip.classList.add('hidden');
+            });
+            area.addEventListener('click', (event) => event.preventDefault());
+        });
+
+        const countryMatchPairs = [
+            { country: 'Brazil', nationality: 'Brazilian' },
+            { country: 'Canada', nationality: 'Canadian' },
+            { country: 'Japan', nationality: 'Japanese' },
+            { country: 'Spain', nationality: 'Spanish' }
+        ];
+        const countryMatchGame = document.getElementById('country-match-game');
+        const countryMatchFeedback = document.getElementById('country-match-feedback');
+        let selectedCountry = '';
+        let matchedCount = 0;
+
+        if (countryMatchGame) {
+            const countriesColumn = document.createElement('div');
+            countriesColumn.innerHTML = '<p class="font-semibold text-slate-700 mb-2">Countries</p>';
+            const countriesBank = document.createElement('div');
+            countriesBank.className = 'match-bank';
+
+            const nationalitiesColumn = document.createElement('div');
+            nationalitiesColumn.innerHTML = '<p class="font-semibold text-slate-700 mb-2">Nationalities</p>';
+            const nationalityBank = document.createElement('div');
+            nationalityBank.className = 'match-bank';
+
+            countryMatchPairs.forEach((pair) => {
+                const card = document.createElement('button');
+                card.type = 'button';
+                card.className = 'match-draggable';
+                card.draggable = true;
+                card.dataset.matchCountry = pair.country;
+                card.textContent = pair.country;
+                card.addEventListener('dragstart', (event) => {
+                    selectedCountry = pair.country;
+                    card.classList.add('is-dragging');
+                    event.dataTransfer.setData('text/plain', pair.country);
+                });
+                card.addEventListener('dragend', () => card.classList.remove('is-dragging'));
+                card.addEventListener('click', () => {
+                    selectedCountry = pair.country;
+                    countriesBank.querySelectorAll('.match-draggable').forEach((item) => item.classList.toggle('ring-2', item === card));
+                    if (countryMatchFeedback) {
+                        countryMatchFeedback.textContent = `${pair.country} selected. Drop it on the correct nationality box.`;
+                    }
+                });
+                countriesBank.appendChild(card);
+
+                const zone = document.createElement('div');
+                zone.className = 'match-dropzone';
+                zone.dataset.expectedCountry = pair.country;
+                zone.dataset.expectedNationality = pair.nationality;
+                zone.innerHTML = `<div><p class="font-semibold text-slate-800">${pair.nationality}</p><p class="text-xs text-slate-500">Drop ${pair.country} here</p></div><i class="fas fa-circle-down text-slate-300 text-xl"></i>`;
+                zone.addEventListener('dragover', (event) => {
+                    event.preventDefault();
+                    zone.classList.add('is-over');
+                });
+                zone.addEventListener('dragleave', () => zone.classList.remove('is-over'));
+                zone.addEventListener('drop', (event) => {
+                    event.preventDefault();
+                    zone.classList.remove('is-over');
+                    attemptCountryMatch(zone, event.dataTransfer.getData('text/plain') || selectedCountry);
+                });
+                zone.addEventListener('click', () => attemptCountryMatch(zone, selectedCountry));
+                nationalityBank.appendChild(zone);
+            });
+
+            countryMatchGame.innerHTML = '';
+            countryMatchGame.append(countriesColumn, nationalitiesColumn);
+            countriesColumn.appendChild(countriesBank);
+            nationalitiesColumn.appendChild(nationalityBank);
+        }
+
+        function attemptCountryMatch(zone, countryName) {
+            if (!zone || !countryName) return;
+            const expectedCountry = zone.dataset.expectedCountry;
+            const pair = countryMatchPairs.find((entry) => entry.country === countryName);
+            if (!pair) return;
+
+            if (pair.country === expectedCountry) {
+                const sourceCard = document.querySelector(`[data-match-country="${pair.country}"]`);
+                if (sourceCard) sourceCard.remove();
+                zone.classList.add('matched');
+                zone.innerHTML = `<div><p class="font-semibold text-emerald-700">${pair.country}</p><p class="text-xs text-emerald-600">${pair.nationality}</p></div><i class="fas fa-check text-emerald-500 text-xl"></i>`;
+                matchedCount += 1;
+                selectedCountry = '';
+                if (countryMatchFeedback) {
+                    countryMatchFeedback.textContent = matchedCount === countryMatchPairs.length
+                        ? 'Perfect! All country and nationality pairs are matched.'
+                        : `Great! ${matchedCount} of ${countryMatchPairs.length} pairs matched.`;
+                }
+            } else if (countryMatchFeedback) {
+                countryMatchFeedback.textContent = `${countryName} does not match ${zone.dataset.expectedNationality}. Try another one.`;
+            }
+        }
+
         const trueFalseData = [
-            { text: 'Adele is British.', answer: true },
-            { text: 'Keanu Reeves is from Australia.', answer: false },
-            { text: 'Gisele Bündchen is Brazilian.', answer: true }
+            { text: 'Nina is from Canada.', answer: true },
+            { text: 'Nina lives in Rio de Janeiro.', answer: true },
+            { text: 'Her brother is from Mexico.', answer: false },
+            { text: 'The family speaks only Portuguese at home.', answer: false }
         ];
         const trueFalseContainer = document.getElementById('true-false-container');
         if (trueFalseContainer) {
@@ -511,6 +744,70 @@
                 if (value === correct) button.classList.add('correct');
                 if (!revealOnly && button.dataset.value === choiceValue && value !== correct) button.classList.add('incorrect');
             });
+        }
+
+        const capitalMemoryPairs = [
+            { country: 'Brazil', capital: 'Brasília' },
+            { country: 'Canada', capital: 'Ottawa' },
+            { country: 'Japan', capital: 'Tokyo' },
+            { country: 'Spain', capital: 'Madrid' }
+        ];
+        const capitalMemoryGrid = document.getElementById('capital-memory-grid');
+        const capitalMemoryFeedback = document.getElementById('capital-memory-feedback');
+        let memorySelection = [];
+        let memoryLock = false;
+        if (capitalMemoryGrid) {
+            const memoryCards = capitalMemoryPairs.flatMap((pair) => ([
+                { id: pair.country, pairId: pair.country, label: pair.country, kind: 'country' },
+                { id: pair.capital, pairId: pair.country, label: pair.capital, kind: 'capital' }
+            ])).sort(() => Math.random() - 0.5);
+            capitalMemoryGrid.innerHTML = '';
+            memoryCards.forEach((item) => {
+                const card = document.createElement('button');
+                card.type = 'button';
+                card.className = 'memory-card';
+                card.dataset.pairId = item.pairId;
+                card.dataset.kind = item.kind;
+                card.innerHTML = `
+                    <div class="memory-card-inner">
+                        <div class="memory-card-front"><span>?</span></div>
+                        <div class="memory-card-back"><span>${item.label}</span></div>
+                    </div>
+                `;
+                card.addEventListener('click', () => flipMemoryCard(card));
+                capitalMemoryGrid.appendChild(card);
+            });
+        }
+
+        function flipMemoryCard(card) {
+            if (memoryLock || card.classList.contains('matched') || card.classList.contains('flipped')) return;
+            card.classList.add('flipped');
+            memorySelection.push(card);
+            if (memorySelection.length === 2) {
+                memoryLock = true;
+                const [first, second] = memorySelection;
+                const isMatch = first.dataset.pairId === second.dataset.pairId && first.dataset.kind !== second.dataset.kind;
+                if (isMatch) {
+                    first.classList.add('matched');
+                    second.classList.add('matched');
+                    if (capitalMemoryFeedback) {
+                        const totalMatched = document.querySelectorAll('.memory-card.matched').length / 2;
+                        capitalMemoryFeedback.textContent = totalMatched === capitalMemoryPairs.length
+                            ? 'Excellent! All countries and capitals are matched.'
+                            : `Nice! ${totalMatched} pair(s) matched so far.`;
+                    }
+                    memorySelection = [];
+                    memoryLock = false;
+                } else {
+                    if (capitalMemoryFeedback) capitalMemoryFeedback.textContent = 'Not a match. Try another pair.';
+                    setTimeout(() => {
+                        first.classList.remove('flipped');
+                        second.classList.remove('flipped');
+                        memorySelection = [];
+                        memoryLock = false;
+                    }, 850);
+                }
+            }
         }
 
         function revealListening(index) {

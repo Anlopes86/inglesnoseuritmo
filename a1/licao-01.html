@@ -57,11 +57,13 @@
                     <div>
                         <h2 class="text-4xl md:text-5xl font-black mb-4 text-slate-900">Primeiro contato com o inglês</h2>
                         <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a cumprimentar, se apresentar e usar <strong>I am</strong> e <strong>you are</strong> em interações muito simples, como o CEFR A1 pede nas primeiras trocas sociais.</p>
+                        <p class="mt-4 text-sm font-semibold text-blue-600">New focus: cultural greetings, dynamic dialogue and a tiny chat practice for self-introduction.</p>
                         <div class="flex flex-wrap gap-3 mt-6">
                             <div class="lesson-chip"><i class="fas fa-bullseye text-blue-600"></i> Objetivo: se apresentar</div>
                             <div class="lesson-chip"><i class="fas fa-clock text-emerald-600"></i> Tempo médio: 18 min</div>
                             <div class="lesson-chip"><i class="fas fa-volume-up text-orange-500"></i> Foco: speaking + listening</div>
                         </div>
+                        <div class="callout-note mt-5 text-sm max-w-2xl">Formal greetings are usually safer in new contexts, while <strong>hi</strong> and <strong>hello</strong> feel more casual. In the US and UK, <strong>good evening</strong> is more common when people arrive, and <strong>good night</strong> is usually a goodbye.</div>
                     </div>
                     <div class="lesson-panel p-6">
                         <p class="lesson-panel-title mb-4">Você vai praticar</p>
@@ -82,12 +84,38 @@
                     </div>
                     <div class="callout-note text-sm"><strong>Dica:</strong> no começo, use frases curtas, mas tente manter a conversa viva com uma pergunta simples no final.</div>
                 </div>
-                <div class="space-y-5 text-xl">
-                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-600 w-24">Teacher:</p><p>Hello! Welcome to class. What's your name?</p><button class="speak-btn" data-speak="Hello! Welcome to class. What is your name?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
-                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>Hi! My name is Ana. I am a new student.</p><button class="speak-btn" data-speak="Hi! My name is Ana. I am a new student."><i class="fas fa-volume-up"></i> Ouvir</button></div>
-                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-blue-600 w-24">Teacher:</p><p>Nice to meet you, Ana. Are you ready to start?</p><button class="speak-btn" data-speak="Nice to meet you, Ana. Are you ready to start?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
-                    <div class="flex items-center gap-3 flex-wrap"><p class="font-bold text-orange-600 w-24">Student:</p><p>Yes, I am. Nice to meet you, too!</p><button class="speak-btn" data-speak="Yes, I am. Nice to meet you too!"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                <div class="space-y-5 text-xl" id="model-dialogue-list">
                 </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Cultural Greetings">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-4 text-blue-700">Cultural greetings</h2>
+                <p class="text-slate-500 text-lg mb-6">Use these when you meet someone for the first time or when the time of day matters.</p>
+                <div class="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto text-left">
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Casual</p>
+                        <p><strong>Hi!</strong></p>
+                        <p><strong>Hello!</strong></p>
+                        <button class="speak-btn mt-3" data-speak="Hi! Hello!"><i class="fas fa-volume-up"></i> Ouvir</button>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Time of day</p>
+                        <p><strong>Good morning.</strong></p>
+                        <p><strong>Good afternoon.</strong></p>
+                        <p><strong>Good evening.</strong></p>
+                        <button class="speak-btn mt-3" data-speak="Good morning. Good afternoon. Good evening."><i class="fas fa-volume-up"></i> Ouvir</button>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Goodbye</p>
+                        <p><strong>See you later.</strong></p>
+                        <p><strong>Good night.</strong></p>
+                        <p><strong>Nice to meet you.</strong></p>
+                        <button class="speak-btn mt-3" data-speak="See you later. Good night. Nice to meet you."><i class="fas fa-volume-up"></i> Ouvir</button>
+                    </div>
+                </div>
+                <div class="callout-note max-w-4xl mx-auto mt-6 text-left">A small difference matters: <strong>good evening</strong> is a greeting, and <strong>good night</strong> is usually a farewell.</div>
             </div>
         </div>
 
@@ -246,6 +274,32 @@
             </div>
         </div>
 
+        <div class="slide" data-title="Simulated Chat">
+            <div class="section-card p-8 max-w-5xl mx-auto">
+                <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
+                    <div>
+                        <p class="lesson-panel-title mb-2">Simulated chat</p>
+                        <h2 class="text-4xl font-black text-green-700">Type your introduction in a chat</h2>
+                    </div>
+                    <div class="callout-note max-w-xl">The goal is to write a short self-introduction and get instant positive feedback.</div>
+                </div>
+                <div class="grid lg:grid-cols-[1fr_0.9fr] gap-6">
+                    <div class="activity-card">
+                        <div id="intro-chat-log" class="space-y-3 max-h-[360px] overflow-y-auto pr-2"></div>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Your message</p>
+                        <textarea id="intro-chat-input" rows="5" class="w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-blue-500" placeholder="Hi! My name is Ana. I am from Brazil. Nice to meet you."></textarea>
+                        <div class="flex gap-3 mt-4 flex-wrap">
+                            <button id="send-intro-chat-btn" type="button" class="reveal-chip"><i class="fas fa-paper-plane"></i> Send</button>
+                            <button id="reset-intro-chat-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Reset</button>
+                        </div>
+                        <div id="intro-chat-feedback" class="mt-4 text-sm text-slate-600">Write a greeting, your name and one extra detail.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="slide" data-title="Music & Listening">
             <div>
                 <h2 class="text-4xl font-black mb-4 text-center text-green-700">Music Time: Hello, Goodbye</h2>
@@ -367,6 +421,27 @@
             speak(speakBtn.dataset.speak, speakBtn);
         });
 
+        const modelDialogue = [
+            { speaker: 'Teacher', color: 'blue', text: "Hello! Welcome to class. What's your name?" },
+            { speaker: 'Student', color: 'orange', text: 'Hi! My name is Ana. I am a new student.' },
+            { speaker: 'Teacher', color: 'blue', text: 'Nice to meet you, Ana. Are you ready to start?' },
+            { speaker: 'Student', color: 'orange', text: 'Yes, I am. Nice to meet you, too!' }
+        ];
+
+        function renderModelDialogue() {
+            const container = document.getElementById('model-dialogue-list');
+            if (!container) return;
+            container.innerHTML = modelDialogue.map((line) => `
+                <div class="flex items-center gap-3 flex-wrap">
+                    <p class="font-bold w-24" style="color: ${line.color === 'blue' ? '#2563eb' : '#f97316'}">${line.speaker}:</p>
+                    <p>${line.text}</p>
+                    <button class="speak-btn" data-speak="${line.text.replace(/"/g, '&quot;')}"><i class="fas fa-volume-up"></i> Ouvir</button>
+                </div>
+            `).join('');
+        }
+
+        renderModelDialogue();
+
         const flashcardData = [
             { en: 'Hello / Hi', pt: 'Olá / Oi' },
             { en: "What's your name?", pt: 'Qual é o seu nome?' },
@@ -411,6 +486,68 @@
 
         document.getElementById('shuffle-flashcards-btn')?.addEventListener('click', () => renderFlashcards([...flashcardData].sort(() => Math.random() - 0.5)));
         renderFlashcards(flashcardData);
+
+        const introChatLog = document.getElementById('intro-chat-log');
+        const introChatInput = document.getElementById('intro-chat-input');
+        const introChatFeedback = document.getElementById('intro-chat-feedback');
+        const sendIntroChatBtn = document.getElementById('send-intro-chat-btn');
+        const resetIntroChatBtn = document.getElementById('reset-intro-chat-btn');
+        const introChatMessages = [
+            { role: 'Teacher', text: 'Hi! Please introduce yourself in one or two short sentences.' }
+        ];
+
+        function renderIntroChat() {
+            if (!introChatLog) return;
+            introChatLog.innerHTML = introChatMessages.map((message) => `
+                <div class="flex ${message.role === 'Teacher' ? 'justify-start' : 'justify-end'}">
+                    <div class="max-w-[85%] rounded-2xl px-4 py-3 ${message.role === 'Teacher' ? 'bg-slate-100 text-slate-700' : 'bg-blue-600 text-white'}">
+                        <p class="text-xs font-semibold uppercase tracking-[0.18em] mb-1">${message.role}</p>
+                        <p>${message.text}</p>
+                    </div>
+                </div>
+            `).join('');
+            introChatLog.scrollTop = introChatLog.scrollHeight;
+        }
+
+        function scoreIntroMessage(text) {
+            const lower = text.toLowerCase();
+            const checklist = [
+                /hello|hi/.test(lower),
+                /my name is|i am/.test(lower),
+                /from/.test(lower),
+                /nice to meet you/.test(lower)
+            ];
+            const points = checklist.filter(Boolean).length;
+            if (points >= 4) {
+                return 'Great! You included a greeting, your name, one detail and a polite closing.';
+            }
+            if (points === 3) {
+                return 'Good. Add one more detail or a closing phrase to make it stronger.';
+            }
+            return 'Try adding a greeting, your name, where you are from and a friendly closing.';
+        }
+
+        function sendIntroChat() {
+            const text = introChatInput?.value.trim();
+            if (!text) return;
+            introChatMessages.push({ role: 'You', text });
+            introChatMessages.push({ role: 'Teacher', text: scoreIntroMessage(text) });
+            if (introChatFeedback) introChatFeedback.textContent = scoreIntroMessage(text);
+            if (introChatInput) introChatInput.value = '';
+            renderIntroChat();
+        }
+
+        function resetIntroChat() {
+            introChatMessages.splice(1);
+            if (introChatFeedback) introChatFeedback.textContent = 'Write a greeting, your name and one extra detail.';
+            if (introChatInput) introChatInput.value = '';
+            renderIntroChat();
+        }
+
+        sendIntroChatBtn?.addEventListener('click', sendIntroChat);
+        resetIntroChatBtn?.addEventListener('click', resetIntroChat);
+        renderIntroChat();
+
         const practiceSentences = [
             { before: 'I', after: 'ready.', answer: 'am' },
             { before: 'You', after: 'my teacher.', answer: 'are' },

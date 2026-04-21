@@ -12,11 +12,24 @@
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
-        .flip-card { background: transparent; min-height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
+        .flip-card { background: transparent; min-height: 176px; perspective: 1000px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; text-align: center; }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 1rem;
+            border-radius: 1.25rem;
+            border: 1px solid #e5e7eb;
+            text-align: center;
+        }
         .flip-card-front { background: #fff; color: #db2777; }
         .flip-card-back { background: #fdf2f8; color: #9d174d; transform: rotateY(180deg); }
         .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.35rem; }
@@ -28,264 +41,419 @@
     <link rel="stylesheet" href="a2-lesson-theme.css">
 </head>
 <body class="lesson-loading a2-lesson-page bg-slate-50 text-slate-800">
-<header class="bg-white shadow-sm sticky top-0 z-10">
-    <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
-        <a href="a2.html" class="text-lg font-bold text-pink-600 hover:text-pink-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A2</a>
-        <div class="text-center">
-            <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 30: Making Arrangements</h1>
-            <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+            <a href="a2.html" class="text-lg font-bold text-pink-600 hover:text-pink-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A2</a>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 30: Making Arrangements</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
         </div>
-        <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
-    </div>
-    <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-pink-500 h-1.5 transition-all duration-300"></div></div>
-</header>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-pink-500 h-1.5 transition-all duration-300"></div></div>
+    </header>
 
-<main class="container mx-auto p-8 pb-28 max-w-5xl">
-    <div class="slide active" data-title="Warm-up">
-        <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
-            <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
-                <div class="a2-hero-copy">
-                    <h2>Arrange plans and confirm details</h2>
-                    <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a convidar alguém, combinar horário e lugar, remarcar e confirmar planos com naturalidade.</p>
-                </div>
-                <div class="lesson-panel p-6">
-                    <p class="lesson-panel-title mb-4">You will use</p>
-                    <div class="lesson-checklist">
-                        <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Are you free on Friday?</span></div>
-                        <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Let's meet at 7.</span></div>
-                        <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Can we change the time?</span></div>
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
+                    <div class="a2-hero-copy">
+                        <h2>Arrange plans and confirm details</h2>
+                        <p class="mt-4 text-sm font-semibold text-pink-700">New focus: calendar choices, changing time and writing a short confirmation message.</p>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a convidar alguem, combinar horário e lugar, remarcar e confirmar planos com naturalidade.</p>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="slide" data-title="Opening Dialogue">
-        <div class="section-card p-8 max-w-4xl mx-auto text-lg space-y-4">
-            <p class="lesson-panel-title">Opening dialogue</p>
-            <div class="activity-card">
-                <p><strong>Lia:</strong> Are you free on Saturday afternoon?</p>
-                <p><strong>Dan:</strong> I think so. What time do you want to meet?</p>
-                <p><strong>Lia:</strong> Let's meet at 3 p.m. at the coffee shop near the station.</p>
-                <p><strong>Dan:</strong> Sounds good. If I'm late, I'll text you.</p>
-            </div>
-            <div class="callout-note">
-                Note como a conversa mistura disponibilidade, horário, lugar e confirmação em poucas falas.
-            </div>
-        </div>
-    </div>
-
-    <div class="slide" data-title="Useful Language">
-        <div class="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto text-lg">
-            <div class="activity-card">
-                <p class="lesson-panel-title mb-2">Inviting and planning</p>
-                <p>Are you free tonight?</p>
-                <p>Do you want to grab coffee?</p>
-                <p>Let's meet in front of the mall.</p>
-            </div>
-            <div class="activity-card">
-                <p class="lesson-panel-title mb-2">Changing and confirming</p>
-                <p>Can we change the time?</p>
-                <p>I'm going to be a little late.</p>
-                <p>So we're meeting at 6, right?</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="slide" data-title="Flashcards">
-        <div class="text-center">
-            <h2 class="text-4xl font-black mb-4 text-pink-700">Arrangements flashcards</h2>
-            <div class="flashcard-grid max-w-5xl mx-auto">
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">free</h3></div><div class="flip-card-back"><p>livre / disponível</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">meet</h3></div><div class="flip-card-back"><p>encontrar</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">change the time</h3></div><div class="flip-card-back"><p>mudar o horário</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">be late</h3></div><div class="flip-card-back"><p>se atrasar</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">text</h3></div><div class="flip-card-back"><p>mandar mensagem</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">in front of</h3></div><div class="flip-card-back"><p>em frente a</p></div></div></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="slide" data-title="Task 1">
-        <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
-            <p>1. Are you <input id="a1" data-answer="free" class="w-24"> on Friday night? <button class="answer-btn" data-target="a1"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(livre / disponível)</span></p>
-            <p>2. Let's <input id="a2" data-answer="meet" class="w-24"> at 7 p.m. <button class="answer-btn" data-target="a2"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(encontrar)</span></p>
-            <p>3. Can we change the <input id="a3" data-answer="time" class="w-24">? <button class="answer-btn" data-target="a3"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(horário)</span></p>
-            <p>4. I'll <input id="a4" data-answer="text" class="w-24"> you when I arrive. <button class="answer-btn" data-target="a4"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(mandar mensagem)</span></p>
-            <p>5. Let's meet in <input id="a5" data-answer="front" class="w-24"> of the cinema. <button class="answer-btn" data-target="a5"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(parte de "em frente")</span></p>
-        </div>
-    </div>
-
-    <div class="slide" data-title="Arrangement Builder">
-        <div class="section-card p-8 max-w-5xl mx-auto">
-            <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
-                <div>
-                    <p class="lesson-panel-title mb-2">Arrangement Builder</p>
-                    <h2 class="text-4xl font-black text-pink-700">Build a full plan</h2>
-                </div>
-                <div class="callout-note max-w-xl">
-                    O aluno monta um convite completo com dia, lugar e confirmação, em vez de praticar frases soltas.
-                </div>
-            </div>
-            <div class="activity-lab" data-choice-builder data-template="{invite} {place} {confirm}" data-required="invite,place,confirm" data-preview-empty="Escolha as partes para montar um plano completo.">
-                <div class="grid md:grid-cols-3 gap-6">
-                    <div>
-                        <p class="lesson-panel-title mb-3">1. Invite</p>
-                        <div class="option-cloud">
-                            <button type="button" class="option-chip" data-choice-slot="invite" data-choice-value="Are you free on Saturday afternoon?">Are you free on Saturday afternoon?</button>
-                            <button type="button" class="option-chip" data-choice-slot="invite" data-choice-value="Do you want to meet after class?">Do you want to meet after class?</button>
-                            <button type="button" class="option-chip" data-choice-slot="invite" data-choice-value="Let's get coffee tomorrow evening.">Let's get coffee tomorrow evening.</button>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="lesson-panel-title mb-3">2. Place and time</p>
-                        <div class="option-cloud">
-                            <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="Let's meet at 6 p.m. in front of the bookstore.">Let's meet at 6 p.m. in front of the bookstore.</button>
-                            <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="We can meet at the café near the station at 3.">We can meet at the café near the station at 3.</button>
-                            <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="How about meeting at the mall at 7?">How about meeting at the mall at 7?</button>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="lesson-panel-title mb-3">3. Confirm or change</p>
-                        <div class="option-cloud">
-                            <button type="button" class="option-chip" data-choice-slot="confirm" data-choice-value="Perfect. I'll text you when I'm there.">Perfect. I'll text you when I'm there.</button>
-                            <button type="button" class="option-chip" data-choice-slot="confirm" data-choice-value="Sounds good, but I might be a little late.">Sounds good, but I might be a little late.</button>
-                            <button type="button" class="option-chip" data-choice-slot="confirm" data-choice-value="Great. If something changes, let me know.">Great. If something changes, let me know.</button>
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">You will use</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Are you free on Friday?</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Let's meet at 7.</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Can we change the time?</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>I will text you if I am late.</span></div>
                         </div>
                     </div>
                 </div>
-                <div class="preview-card mt-6" data-choice-preview></div>
-                <p class="mt-4 text-sm text-slate-500">Leia como uma conversa real entre amigos ou colegas.</p>
-                <div class="flex gap-3 mt-5 flex-wrap">
-                    <button type="button" class="option-chip" data-choice-reset>Reset</button>
-                    <button type="button" class="option-chip" data-choice-speak>Speak</button>
+            </div>
+            <div class="section-card p-8 mt-8">
+                <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+                    <div>
+                        <p class="lesson-panel-title mb-2">Opening dialogue</p>
+                        <h2 class="text-3xl font-black text-pink-700">Invite, suggest and confirm</h2>
+                    </div>
+                    <button type="button" class="speak-btn" data-speak="Are you free on Saturday afternoon? I think so. What time do you want to meet? Let's meet at 3 p.m. at the coffee shop near the station. Sounds good. If I'm late, I'll text you."><i class="fas fa-volume-up"></i> Ouvir diálogo</button>
+                </div>
+                <div class="space-y-4 text-xl">
+                    <div class="dialogue-line"><span class="font-bold text-pink-600">Lia:</span><p>Are you free on Saturday afternoon?</p><button type="button" class="speak-btn" data-speak="Are you free on Saturday afternoon?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="dialogue-line"><span class="font-bold text-orange-600">Dan:</span><p>I think so. What time do you want to meet?</p><button type="button" class="speak-btn" data-speak="I think so. What time do you want to meet?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="dialogue-line"><span class="font-bold text-pink-600">Lia:</span><p>Let's meet at 3 p.m. at the coffee shop near the station.</p><button type="button" class="speak-btn" data-speak="Let's meet at 3 p.m. at the coffee shop near the station."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="dialogue-line"><span class="font-bold text-orange-600">Dan:</span><p>Sounds good. If I'm late, I'll text you.</p><button type="button" class="speak-btn" data-speak="Sounds good. If I'm late, I'll text you."><i class="fas fa-volume-up"></i> Ouvir</button></div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="slide" data-title="Roleplay">
-        <div class="section-card p-8 max-w-4xl mx-auto">
-            <h2 class="text-4xl font-black mb-6 text-center text-pink-700">Roleplay: making plans</h2>
-            <div class="grid md:grid-cols-2 gap-5 text-lg">
+        <div class="slide" data-title="Useful Language">
+            <div class="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto text-lg">
                 <div class="activity-card">
-                    <p class="lesson-panel-title mb-2">Student A</p>
-                    <p>Invite your partner to do something this weekend. Suggest a time and place.</p>
+                    <p class="lesson-panel-title mb-2">Inviting and planning</p>
+                    <p>Are you free tonight?</p>
+                    <p>Do you want to grab coffee?</p>
+                    <p>Let's meet in front of the mall.</p>
+                    <p class="mt-4 text-slate-500">Use these to start the conversation in a friendly way.</p>
                 </div>
                 <div class="activity-card">
-                    <p class="lesson-panel-title mb-2">Student B</p>
-                    <p>Accept, refuse politely or ask to change the time. Then confirm the final plan.</p>
+                    <p class="lesson-panel-title mb-2">Changing and confirming</p>
+                    <p>Can we change the time?</p>
+                    <p>I'm going to be a little late.</p>
+                    <p>So we're meeting at 6, right?</p>
+                    <p class="mt-4 text-slate-500">Use these to keep the plan clear when something changes.</p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="slide" data-title="Homework">
-        <div class="section-card p-8 max-w-4xl mx-auto">
-            <h2 class="text-4xl font-black mb-6 text-center text-pink-700">Homework</h2>
-            <p class="text-lg text-slate-600 mb-5">Write a short message exchange in 6 to 8 lines. Invite someone, suggest a place and time, then add one change or confirmation.</p>
-            <textarea rows="8" class="w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-pink-500" placeholder="Hi! Are you free...? Let's meet... Can we change the time?... Great, see you there."></textarea>
+        <div class="slide" data-title="Schedule Board">
+            <div class="section-card p-8 max-w-6xl mx-auto">
+                <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
+                    <div>
+                        <p class="lesson-panel-title mb-2">Schedule board</p>
+                        <h2 class="text-4xl font-black text-pink-700">Pick a time and send a confirmation</h2>
+                    </div>
+                    <div class="callout-note max-w-xl">This board gives the lesson a small calendar and an email-style confirmation task.</div>
+                </div>
+                <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6">
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-3">Choose one meeting time</p>
+                        <div id="calendar-board" class="grid grid-cols-4 gap-2 text-sm"></div>
+                        <p id="calendar-status" class="mt-4 text-sm text-slate-500">Tap a slot to set a meeting time.</p>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-3">Send a confirmation message</p>
+                        <textarea id="arrangement-message" rows="6" class="w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-pink-500" placeholder="Hi! Are you free at 3 p.m.? Let's meet in front of the mall."></textarea>
+                        <div class="flex gap-3 mt-4 flex-wrap">
+                            <button type="button" id="format-message-btn" class="option-chip">Format as e-mail</button>
+                            <button type="button" id="clear-message-btn" class="option-chip">Clear</button>
+                        </div>
+                        <div id="message-preview" class="preview-card min-h-[150px] mt-4">Your e-mail preview will appear here.</div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="slide" data-title="Lesson Complete">
-        <div class="text-center">
-            <i class="fas fa-calendar-check text-pink-500 text-7xl mb-6"></i>
-            <p class="lesson-panel-title mb-2">Lesson complete</p>
-            <h2 class="text-5xl font-black mb-4 text-slate-900">Plans arranged</h2>
-            <p class="text-2xl text-slate-600 max-w-3xl mx-auto">You can now invite, confirm, change and organize simple plans in English.</p>
+        <div class="slide" data-title="Flashcards">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-4 text-pink-700">Arrangements flashcards</h2>
+                <p class="text-slate-500 text-lg mb-6">Words and phrases you need when organizing a plan.</p>
+                <div class="flashcard-grid max-w-5xl mx-auto">
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">free</h3></div><div class="flip-card-back"><p>livre / disponível</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">meet</h3></div><div class="flip-card-back"><p>encontrar</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">change the time</h3></div><div class="flip-card-back"><p>mudar o horário</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">be late</h3></div><div class="flip-card-back"><p>se atrasar</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">text</h3></div><div class="flip-card-back"><p>mandar mensagem</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">in front of</h3></div><div class="flip-card-back"><p>em frente a</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">available</h3></div><div class="flip-card-back"><p>disponível</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">reschedule</h3></div><div class="flip-card-back"><p>remarcar</p></div></div></div>
+                </div>
+            </div>
         </div>
-    </div>
-</main>
 
-<footer class="fixed bottom-0 left-0 w-full z-20 h-16">
-    <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
-        <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Anterior</button>
-        <button id="next-btn" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-lg transition">Próximo</button>
-        <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Finalizar aula</button>
-    </div>
-</footer>
+        <div class="slide" data-title="Task 1">
+            <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+                <h2 class="text-4xl font-black mb-4 text-center text-pink-700">Complete the arrangement words</h2>
+                <p>1. Are you <input id="a1" data-answer="free" class="w-24"> on Friday night? <button class="answer-btn" data-target="a1"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(livre)</span></p>
+                <p>2. Let's <input id="a2" data-answer="meet" class="w-24"> at 7 p.m. <button class="answer-btn" data-target="a2"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(encontrar)</span></p>
+                <p>3. Can we change the <input id="a3" data-answer="time" class="w-24">? <button class="answer-btn" data-target="a3"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(horário)</span></p>
+                <p>4. I'll <input id="a4" data-answer="text" class="w-24"> you when I arrive. <button class="answer-btn" data-target="a4"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(mandar mensagem)</span></p>
+                <p>5. Let's meet in <input id="a5" data-answer="front" class="w-24"> of the cinema. <button class="answer-btn" data-target="a5"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(parte de “em frente”)</span></p>
+                <p>6. Can we <input id="a6" data-answer="reschedule" class="w-32"> for next week? <button class="answer-btn" data-target="a6"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(remarcar)</span></p>
+            </div>
+        </div>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-<script src="../js/firebase-config.js"></script>
-<script src="../js/progress-manager.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const moduleId = 'a2';
-        const lessonNumber = 30;
-        const slides = document.querySelectorAll('.slide');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const finishLessonBtn = document.getElementById('finish-lesson-btn');
-        let currentSlide = 0;
+        <div class="slide" data-title="Practice 2">
+            <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+                <h2 class="text-4xl font-black mb-4 text-center text-pink-700">Reply and confirm</h2>
+                <p>1. "Are you free tomorrow?" "Yes, I <input id="a7" data-answer="am" class="w-20">." <button class="answer-btn" data-target="a7"><i class="fas fa-eye"></i></button></p>
+                <p>2. "What time should we meet?" "Let's meet at <input id="a8" data-answer="6" class="w-20">." <button class="answer-btn" data-target="a8"><i class="fas fa-eye"></i></button></p>
+                <p>3. "Can we change the place?" "Sure, let's meet <input id="a9" data-answer="in front of" class="w-36"> the mall." <button class="answer-btn" data-target="a9"><i class="fas fa-eye"></i></button></p>
+                <p>4. "Will you be late?" "Maybe a little, but I'll <input id="a10" data-answer="text" class="w-24"> you." <button class="answer-btn" data-target="a10"><i class="fas fa-eye"></i></button></p>
+                <p>5. "So we're meeting on Friday?" "Yes, that's <input id="a11" data-answer="right" class="w-24">." <button class="answer-btn" data-target="a11"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
 
-        const normalize = (text) => text.trim().toLowerCase().replace(/[.?!"']/g, '');
-        const checkAnswer = (input) => {
-            const isCorrect = normalize(input.value) === normalize(input.dataset.answer || '');
-            input.classList.remove('correct', 'incorrect');
-            if (!input.value.trim()) return;
-            input.classList.add(isCorrect ? 'correct' : 'incorrect');
-        };
+        <div class="slide" data-title="Arrangement Builder">
+            <div class="section-card p-8 max-w-5xl mx-auto">
+                <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
+                    <div>
+                        <p class="lesson-panel-title mb-2">Arrangement Builder</p>
+                        <h2 class="text-4xl font-black text-pink-700">Build a full plan</h2>
+                    </div>
+                    <div class="callout-note max-w-xl">O aluno monta um convite completo com dia, lugar e confirmação, em vez de praticar frases soltas.</div>
+                </div>
+                <div class="activity-lab" data-choice-builder data-template="{invite} {place} {confirm}" data-required="invite,place,confirm" data-preview-empty="Escolha as partes para montar um plano completo.">
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div>
+                            <p class="lesson-panel-title mb-3">1. Invite</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="invite" data-choice-value="Are you free on Saturday afternoon?">Are you free on Saturday afternoon?</button>
+                                <button type="button" class="option-chip" data-choice-slot="invite" data-choice-value="Do you want to meet after class?">Do you want to meet after class?</button>
+                                <button type="button" class="option-chip" data-choice-slot="invite" data-choice-value="Let's get coffee tomorrow evening.">Let's get coffee tomorrow evening.</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">2. Place and time</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="Let's meet at 6 p.m. in front of the bookstore.">Let's meet at 6 p.m. in front of the bookstore.</button>
+                                <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="We can meet at the café near the station at 3.">We can meet at the café near the station at 3.</button>
+                                <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="How about meeting at the mall at 7?">How about meeting at the mall at 7?</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">3. Confirm or change</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="confirm" data-choice-value="Perfect. I'll text you when I'm there.">Perfect. I'll text you when I'm there.</button>
+                                <button type="button" class="option-chip" data-choice-slot="confirm" data-choice-value="Sounds good, but I might be a little late.">Sounds good, but I might be a little late.</button>
+                                <button type="button" class="option-chip" data-choice-slot="confirm" data-choice-value="Great. If something changes, let me know.">Great. If something changes, let me know.</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-card mt-6" data-choice-preview></div>
+                    <p class="mt-4 text-sm text-slate-500">Leia como uma conversa real entre amigos ou colegas.</p>
+                    <div class="flex gap-3 mt-5 flex-wrap">
+                        <button type="button" class="option-chip" data-choice-reset>Reset</button>
+                        <button type="button" class="option-chip" data-choice-speak>Speak</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        const updateSlide = () => {
-            slides.forEach((slide, index) => slide.classList.toggle('active', index === currentSlide));
-            document.getElementById('progress-bar').style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
-            document.getElementById('slide-counter').textContent = `${currentSlide + 1} / ${slides.length}`;
-            document.getElementById('slide-title-header').textContent = slides[currentSlide]?.dataset.title || '';
-            prevBtn.disabled = currentSlide === 0;
-            nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
-            finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
-        };
+        <div class="slide" data-title="Roleplay">
+            <div class="section-card p-8 max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-6 text-center text-pink-700">Roleplay: making plans</h2>
+                <div class="grid md:grid-cols-2 gap-5 text-lg">
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Student A</p>
+                        <p>Invite your partner to do something this weekend. Suggest a time and place.</p>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Student B</p>
+                        <p>Accept, refuse politely or ask to change the time. Then confirm the final plan.</p>
+                    </div>
+                </div>
+                <p class="mt-6 text-lg text-slate-600">Do one round quickly, then a second round with a change so the conversation feels real.</p>
+            </div>
+        </div>
 
-        prevBtn.addEventListener('click', () => {
-            if (currentSlide > 0) {
-                currentSlide--;
-                updateSlide();
-            }
-        });
+        <div class="slide" data-title="Reading">
+            <div class="section-card p-8 max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-4 text-center text-pink-700">Text message check and homework</h2>
+                <div class="activity-card text-lg space-y-4">
+                    <p><strong>Notice:</strong> "Hi! Are you free on Friday? Let's meet at the coffee shop near the station at 6. If you are late, text me." </p>
+                    <p>1. The plan is for <input id="a12" data-answer="Friday" class="w-24">. <button class="answer-btn" data-target="a12"><i class="fas fa-eye"></i></button></p>
+                    <p>2. They are meeting at a coffee <input id="a13" data-answer="shop" class="w-24">. <button class="answer-btn" data-target="a13"><i class="fas fa-eye"></i></button></p>
+                    <p>3. If someone is late, they should <input id="a14" data-answer="text" class="w-24">. <button class="answer-btn" data-target="a14"><i class="fas fa-eye"></i></button></p>
+                </div>
+                <p class="mt-6 text-lg text-slate-600">Write a short message exchange in 6 to 8 lines. Invite someone, suggest a place and time, then add one change or confirmation.</p>
+                <textarea rows="6" class="mt-4 w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-pink-500" placeholder="Hi! Are you free...? Let's meet... Can we change the time?... Great, see you there."></textarea>
+            </div>
+        </div>
 
-        nextBtn.addEventListener('click', () => {
-            if (currentSlide < slides.length - 1) {
-                currentSlide++;
-                updateSlide();
-            }
-        });
+        <div class="slide" data-title="Messaging Tip">
+            <div class="section-card p-8 max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-4 text-center text-pink-700">Messaging tip</h2>
+                <div class="grid md:grid-cols-3 gap-5 text-lg">
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Invite</p>
+                        <p>Are you free tonight?</p>
+                        <p>Do you want to grab coffee?</p>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Place and time</p>
+                        <p>Let's meet at 7.</p>
+                        <p>In front of the mall.</p>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Confirm</p>
+                        <p>Sounds good.</p>
+                        <p>I'll text you if I'm late.</p>
+                    </div>
+                </div>
+                <div class="callout-note mt-6">Keep the message short, friendly and easy to answer.</div>
+            </div>
+        </div>
 
-        finishLessonBtn.addEventListener('click', () => {
-            finishLessonBtn.disabled = true;
-            finishLessonBtn.textContent = 'Salvando...';
-            if (typeof markLessonAsComplete === 'function') {
-                Promise.resolve(markLessonAsComplete(moduleId, lessonNumber)).catch(() => {
-                    finishLessonBtn.disabled = false;
-                    finishLessonBtn.textContent = 'Finalizar aula';
-                });
-            }
-        });
+        <div class="slide" data-title="Lesson Complete">
+            <div class="text-center">
+                <i class="fas fa-calendar-check text-pink-500 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">Plans arranged</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl mx-auto">You can now invite, confirm, change and organize simple plans in English.</p>
+            </div>
+        </div>
+    </main>
 
-        document.querySelectorAll('.flip-card').forEach((card) => {
-            card.addEventListener('click', () => card.classList.toggle('flipped'));
-        });
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
+        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Anterior</button>
+            <button id="next-btn" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-lg transition">Próximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Finalizar aula</button>
+        </div>
+    </footer>
 
-        document.querySelectorAll('input[data-answer]').forEach((input) => {
-            input.addEventListener('blur', () => checkAnswer(input));
-        });
+    <script src="a2-lesson-theme.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2';
+            const lessonNumber = 30;
+            const slides = Array.from(document.querySelectorAll('.slide'));
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
+            const normalize = (text) => (text || '').trim().toLowerCase().replace(/[.?!"']/g, '');
+            let currentSlide = Math.max(0, slides.findIndex((slide) => slide.classList.contains('active')));
+            if (currentSlide < 0) currentSlide = 0;
 
-        document.querySelectorAll('.answer-btn[data-target]').forEach((button) => {
-            button.addEventListener('click', () => {
-                const input = document.getElementById(button.dataset.target);
-                if (!input) return;
-                input.value = input.dataset.answer;
-                checkAnswer(input);
+            const checkAnswer = (input) => {
+                input.classList.remove('correct', 'incorrect');
+                if (!input.value.trim()) return;
+                const isCorrect = normalize(input.value) === normalize(input.dataset.answer || '');
+                input.classList.add(isCorrect ? 'correct' : 'incorrect');
+            };
+
+            const calendarBoard = document.getElementById('calendar-board');
+            const calendarStatus = document.getElementById('calendar-status');
+            const arrangementMessage = document.getElementById('arrangement-message');
+            const messagePreview = document.getElementById('message-preview');
+            const formatMessageBtn = document.getElementById('format-message-btn');
+            const clearMessageBtn = document.getElementById('clear-message-btn');
+            const meetingState = { coffee: '', call: '' };
+            const timeSlots = ['1 p.m.', '3 p.m.', '5 p.m.', '7 p.m.'];
+
+            const renderCalendar = () => {
+                if (!calendarBoard) return;
+                calendarBoard.innerHTML = ['coffee', 'call'].map((meeting) => {
+                    const label = meeting === 'coffee' ? 'Coffee' : 'Call';
+                    return `
+                        <div class="col-span-4 grid grid-cols-5 gap-2 items-center">
+                            <p class="font-semibold text-slate-700">${label}</p>
+                            ${timeSlots.map((time) => `
+                                <button type="button" class="option-chip calendar-slot ${meetingState[meeting] === time ? 'is-active' : ''}" data-meeting="${meeting}" data-time="${time}">${time}</button>
+                            `).join('')}
+                        </div>
+                    `;
+                }).join('');
+
+                const conflict = meetingState.coffee && meetingState.call && meetingState.coffee === meetingState.call;
+                if (calendarStatus) {
+                    if (conflict) {
+                        calendarStatus.textContent = `Conflict: both meetings are set for ${meetingState.coffee}. Choose another time.`;
+                        calendarStatus.className = 'mt-4 text-sm text-red-600';
+                    } else if (meetingState.coffee || meetingState.call) {
+                        const parts = [];
+                        if (meetingState.coffee) parts.push(`Coffee at ${meetingState.coffee}`);
+                        if (meetingState.call) parts.push(`Call at ${meetingState.call}`);
+                        calendarStatus.textContent = parts.join(' and ');
+                        calendarStatus.className = 'mt-4 text-sm text-green-700';
+                    } else {
+                        calendarStatus.textContent = 'Tap a slot to set a meeting time.';
+                        calendarStatus.className = 'mt-4 text-sm text-slate-500';
+                    }
+                }
+            };
+
+            const formatMessage = () => {
+                if (!messagePreview) return;
+                const body = arrangementMessage?.value?.trim() || 'Hi! Let us confirm the plan.';
+                const coffeeLine = meetingState.coffee ? `Coffee: ${meetingState.coffee}.` : '';
+                const callLine = meetingState.call ? `Call: ${meetingState.call}.` : '';
+                messagePreview.innerHTML = `
+                    <p class="font-semibold text-pink-700 mb-2">E-mail preview</p>
+                    <p class="text-slate-700 whitespace-pre-line">Hi there,<br><br>${body}<br><br>${coffeeLine} ${callLine}<br><br>Best,<br>Your student</p>
+                `;
+            };
+
+            const clearArrangement = () => {
+                meetingState.coffee = '';
+                meetingState.call = '';
+                if (arrangementMessage) arrangementMessage.value = '';
+                if (messagePreview) messagePreview.textContent = 'Your e-mail preview will appear here.';
+                renderCalendar();
+            };
+
+            calendarBoard?.addEventListener('click', (event) => {
+                const button = event.target.closest('.calendar-slot');
+                if (!button) return;
+                const meeting = button.dataset.meeting;
+                const time = button.dataset.time || '';
+                if (!meeting) return;
+                meetingState[meeting] = time;
+                renderCalendar();
             });
-        });
 
-        updateSlide();
-    });
-</script>
-<script src="../js/flashcard-pronunciation.js"></script>
-<script src="../js/lesson-flashcard-save.js"></script>
-<script src="a2-lesson-theme.js"></script>
+            formatMessageBtn?.addEventListener('click', formatMessage);
+            clearMessageBtn?.addEventListener('click', clearArrangement);
+
+            const render = () => {
+                slides.forEach((slide, index) => slide.classList.toggle('active', index === currentSlide));
+                if (progressBar) {
+                    progressBar.style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
+                }
+                if (prevBtn) prevBtn.disabled = currentSlide === 0;
+                if (nextBtn) nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+                if (finishBtn) finishBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+            };
+
+            prevBtn?.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide -= 1;
+                    render();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+
+            nextBtn?.addEventListener('click', () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide += 1;
+                    render();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+
+            finishBtn?.addEventListener('click', () => {
+                finishBtn.disabled = true;
+                finishBtn.textContent = 'Salvando...';
+                if (typeof markLessonAsComplete === 'function') {
+                    Promise.resolve(markLessonAsComplete(moduleId, lessonNumber)).catch(() => {
+                        finishBtn.disabled = false;
+                        finishBtn.textContent = 'Finalizar aula';
+                    });
+                }
+            });
+
+            document.querySelectorAll('input[data-answer]').forEach((input) => {
+                input.addEventListener('blur', () => checkAnswer(input));
+            });
+
+            document.querySelectorAll('.answer-btn[data-target]').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const input = document.getElementById(button.dataset.target);
+                    if (!input) return;
+                    input.value = input.dataset.answer || '';
+                    checkAnswer(input);
+                });
+            });
+
+            document.querySelectorAll('.flip-card').forEach((card) => {
+                card.addEventListener('click', () => card.classList.toggle('flipped'));
+            });
+
+            renderCalendar();
+            render();
+        });
+    </script>
+    <script src="../js/flashcard-pronunciation.js"></script>
+    <script src="../js/lesson-flashcard-save.js"></script>
 </body>
 </html>

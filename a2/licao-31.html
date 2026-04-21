@@ -12,11 +12,24 @@
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
-        .flip-card { background: transparent; min-height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
+        .flip-card { background: transparent; min-height: 176px; perspective: 1000px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; text-align: center; }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 1rem;
+            border-radius: 1.25rem;
+            border: 1px solid #e5e7eb;
+            text-align: center;
+        }
         .flip-card-front { background: #fff; color: #059669; }
         .flip-card-back { background: #ecfdf5; color: #065f46; transform: rotateY(180deg); }
         .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.35rem; }
@@ -28,249 +41,412 @@
     <link rel="stylesheet" href="a2-lesson-theme.css">
 </head>
 <body class="lesson-loading a2-lesson-page bg-slate-50 text-slate-800">
-<header class="bg-white shadow-sm sticky top-0 z-10">
-    <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
-        <a href="a2.html" class="text-lg font-bold text-emerald-600 hover:text-emerald-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A2</a>
-        <div class="text-center">
-            <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 31: Review Checkpoint</h1>
-            <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+            <a href="a2.html" class="text-lg font-bold text-emerald-600 hover:text-emerald-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A2</a>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 31: Review Checkpoint</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
         </div>
-        <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
-    </div>
-    <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-emerald-500 h-1.5 transition-all duration-300"></div></div>
-</header>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-emerald-500 h-1.5 transition-all duration-300"></div></div>
+    </header>
 
-<main class="container mx-auto p-8 pb-28 max-w-5xl">
-    <div class="slide active" data-title="Warm-up">
-        <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
-            <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
-                <div class="a2-hero-copy">
-                    <h2>Short review before the final</h2>
-                    <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Esta aula é uma revisão objetiva. O foco é checar se as estruturas principais do A2 já estão disponíveis para uso antes da revisão final maior.</p>
-                </div>
-                <div class="lesson-panel p-6">
-                    <p class="lesson-panel-title mb-4">Checkpoint focus</p>
-                    <div class="lesson-checklist">
-                        <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>grammar in context</span></div>
-                        <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>functional language</span></div>
-                        <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>short speaking integration</span></div>
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
+                    <div class="a2-hero-copy">
+                        <h2>Short review before the final</h2>
+                        <p class="mt-4 text-sm font-semibold text-emerald-700">New focus: exam pacing, mixed questions and a small travel project to close the unit.</p>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Esta aula checa se as estruturas principais do A2 já estão prontas para uso antes da revisão final maior.</p>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="slide" data-title="Opening Dialogue">
-        <div class="section-card p-8 max-w-4xl mx-auto text-lg space-y-4">
-            <p class="lesson-panel-title">Opening dialogue</p>
-            <div class="activity-card">
-                <p><strong>Teacher:</strong> What can you do better now in English?</p>
-                <p><strong>Student:</strong> I can explain simple problems and make plans more naturally.</p>
-                <p><strong>Teacher:</strong> Can you give one real example?</p>
-                <p><strong>Student:</strong> Yes. I can ask for help at a hotel or change an arrangement with someone.</p>
-            </div>
-            <div class="callout-note">
-                A revisão fica mais útil quando o aluno reconhece o que já consegue fazer com a língua.
-            </div>
-        </div>
-    </div>
-
-    <div class="slide" data-title="Useful Language">
-        <div class="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto text-lg">
-            <div class="activity-card">
-                <p class="lesson-panel-title mb-2">Review language</p>
-                <p>I can now...</p>
-                <p>I still need to improve...</p>
-                <p>One situation I can handle is...</p>
-            </div>
-            <div class="activity-card">
-                <p class="lesson-panel-title mb-2">Connecting ideas</p>
-                <p>For example...</p>
-                <p>Also...</p>
-                <p>My next goal is...</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="slide" data-title="Flashcards">
-        <div class="text-center">
-            <h2 class="text-4xl font-black mb-4 text-emerald-700">Review flashcards</h2>
-            <div class="flashcard-grid max-w-5xl mx-auto">
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">headache</h3></div><div class="flip-card-back"><p>dor de cabeça</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">exchange</h3></div><div class="flip-card-back"><p>troca</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">reservation</h3></div><div class="flip-card-back"><p>reserva</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">free</h3></div><div class="flip-card-back"><p>disponível</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">should</h3></div><div class="flip-card-back"><p>deveria</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">stayed</h3></div><div class="flip-card-back"><p>ficado / hospedado</p></div></div></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="slide" data-title="Task 1">
-        <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
-            <p>1. I <input id="r1" data-answer="was cooking" class="w-36"> when my friend arrived. <button class="answer-btn" data-target="r1"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(past continuous)</span></p>
-            <p>2. This restaurant is <input id="r2" data-answer="better" class="w-24"> than the other one. <button class="answer-btn" data-target="r2"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(comparativo de good)</span></p>
-            <p>3. I think we <input id="r3" data-answer="will need" class="w-32"> more time. <button class="answer-btn" data-target="r3"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(futuro com will)</span></p>
-            <p>4. You <input id="r4" data-answer="should" class="w-24"> see a doctor. <button class="answer-btn" data-target="r4"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(conselho)</span></p>
-            <p>5. Have you ever <input id="r5" data-answer="stayed" class="w-28"> in a hotel alone? <button class="answer-btn" data-target="r5"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(particípio de stay)</span></p>
-        </div>
-    </div>
-
-    <div class="slide" data-title="Task 2">
-        <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
-            <p>1. Turn <input id="r6" data-answer="right" class="w-24"> at the pharmacy. <button class="answer-btn" data-target="r6"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(direção)</span></p>
-            <p>2. I'd like to <input id="r7" data-answer="exchange" class="w-32"> this shirt. <button class="answer-btn" data-target="r7"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(trocar)</span></p>
-            <p>3. Could I have another <input id="r8" data-answer="towel" class="w-28">? <button class="answer-btn" data-target="r8"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(toalha)</span></p>
-            <p>4. Are you <input id="r9" data-answer="free" class="w-24"> tomorrow evening? <button class="answer-btn" data-target="r9"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(disponível)</span></p>
-            <p>5. I have a terrible <input id="r10" data-answer="headache" class="w-36"> today. <button class="answer-btn" data-target="r10"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(dor de cabeça)</span></p>
-        </div>
-    </div>
-
-    <div class="slide" data-title="Review Builder">
-        <div class="section-card p-8 max-w-5xl mx-auto">
-            <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
-                <div>
-                    <p class="lesson-panel-title mb-2">Review Builder</p>
-                    <h2 class="text-4xl font-black text-emerald-700">Build one mixed A2 answer</h2>
-                </div>
-                <div class="callout-note max-w-xl">
-                    Esta fala curta mistura experiência, situação real e plano, preparando o aluno para a aula final.
-                </div>
-            </div>
-            <div class="activity-lab" data-choice-builder data-template="{experience} {situation} {plan}" data-required="experience,situation,plan" data-preview-empty="Escolha as partes para montar uma resposta integrada.">
-                <div class="grid md:grid-cols-3 gap-6">
-                    <div>
-                        <p class="lesson-panel-title mb-3">1. Experience</p>
-                        <div class="option-cloud">
-                            <button type="button" class="option-chip" data-choice-slot="experience" data-choice-value="I have already used English while traveling.">I have already used English while traveling.</button>
-                            <button type="button" class="option-chip" data-choice-slot="experience" data-choice-value="I have never felt this confident before.">I have never felt this confident before.</button>
-                            <button type="button" class="option-chip" data-choice-slot="experience" data-choice-value="I have learned many useful expressions this term.">I have learned many useful expressions this term.</button>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="lesson-panel-title mb-3">2. Situation</p>
-                        <div class="option-cloud">
-                            <button type="button" class="option-chip" data-choice-slot="situation" data-choice-value="Now I can solve simple problems at a hotel or in a store.">Now I can solve simple problems at a hotel or in a store.</button>
-                            <button type="button" class="option-chip" data-choice-slot="situation" data-choice-value="I can also ask for help and make plans more naturally.">I can also ask for help and make plans more naturally.</button>
-                            <button type="button" class="option-chip" data-choice-slot="situation" data-choice-value="I feel better when I need to explain symptoms or directions.">I feel better when I need to explain symptoms or directions.</button>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="lesson-panel-title mb-3">3. Plan</p>
-                        <div class="option-cloud">
-                            <button type="button" class="option-chip" data-choice-slot="plan" data-choice-value="Next, I want to speak with more speed and confidence.">Next, I want to speak with more speed and confidence.</button>
-                            <button type="button" class="option-chip" data-choice-slot="plan" data-choice-value="I am going to keep practicing in real-life situations.">I am going to keep practicing in real-life situations.</button>
-                            <button type="button" class="option-chip" data-choice-slot="plan" data-choice-value="My goal now is to connect ideas more smoothly.">My goal now is to connect ideas more smoothly.</button>
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">Checkpoint focus</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>giving directions and checking understanding</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>hotel, shopping and planning language</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>short mixed speaking answers</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>time management for an A2-style test</span></div>
                         </div>
                     </div>
                 </div>
-                <div class="preview-card mt-6" data-choice-preview></div>
-                <div class="flex gap-3 mt-5 flex-wrap">
-                    <button type="button" class="option-chip" data-choice-reset>Reset</button>
-                    <button type="button" class="option-chip" data-choice-speak>Speak</button>
+            </div>
+            <div class="section-card p-8 mt-8 text-lg space-y-4">
+                <div class="flex flex-wrap justify-between items-center gap-4 mb-3">
+                    <p class="lesson-panel-title">Review dialogue</p>
+                    <button type="button" class="speak-btn" data-speak="What can you do better now in English? I can ask for directions, handle a hotel problem, ask for an exchange and make plans more naturally. Can you give one example? Yes. I can say: I have a reservation, or I can ask: Do you have this in a larger size?"><i class="fas fa-volume-up"></i> Ouvir diálogo</button>
+                </div>
+                <div class="dialogue-line"><strong class="text-emerald-600">Teacher:</strong><p>What can you do better now in English?</p><button type="button" class="speak-btn" data-speak="What can you do better now in English?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                <div class="dialogue-line"><strong class="text-orange-600">Student:</strong><p>I can ask for directions, handle a hotel problem, ask for an exchange and make plans more naturally.</p><button type="button" class="speak-btn" data-speak="I can ask for directions, handle a hotel problem, ask for an exchange and make plans more naturally."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                <div class="dialogue-line"><strong class="text-emerald-600">Teacher:</strong><p>Can you give one short example?</p><button type="button" class="speak-btn" data-speak="Can you give one short example?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                <div class="dialogue-line"><strong class="text-orange-600">Student:</strong><p>Yes. I can say, "I have a reservation," or "Do you have this in a larger size?"</p><button type="button" class="speak-btn" data-speak="Yes. I can say, I have a reservation, or Do you have this in a larger size?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Review Map">
+            <h2 class="text-4xl font-black mb-6 text-center text-emerald-700">Quick review map</h2>
+            <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5 max-w-6xl mx-auto text-lg">
+                <div class="activity-card">
+                    <p class="lesson-panel-title mb-2">Directions</p>
+                    <p>Go straight, turn left, cross the street, next to, across from.</p>
+                </div>
+                <div class="activity-card">
+                    <p class="lesson-panel-title mb-2">Hotel</p>
+                    <p>reservation, key card, towel, breakfast, shower doesn't work.</p>
+                </div>
+                <div class="activity-card">
+                    <p class="lesson-panel-title mb-2">Shopping</p>
+                    <p>receipt, refund, exchange, larger size, try it on.</p>
+                </div>
+                <div class="activity-card">
+                    <p class="lesson-panel-title mb-2">Plans</p>
+                    <p>Are you free? Let's meet at 7. I'll text you if I'm late.</p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="slide" data-title="Lesson Complete">
-        <div class="text-center">
-            <i class="fas fa-list-check text-emerald-500 text-7xl mb-6"></i>
-            <p class="lesson-panel-title mb-2">Lesson complete</p>
-            <h2 class="text-5xl font-black mb-4 text-slate-900">Checkpoint done</h2>
-            <p class="text-2xl text-slate-600 max-w-3xl mx-auto">You are ready for the big final review of the A2 module.</p>
+        <div class="slide" data-title="Checkpoint Language">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-4 text-emerald-700">Checkpoint flashcards</h2>
+                <p class="text-slate-500 text-lg mb-6">Mixed A2 language from the last part of the module.</p>
+                <div class="flashcard-grid max-w-5xl mx-auto">
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">corner</h3></div><div class="flip-card-back"><p>esquina</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">reservation</h3></div><div class="flip-card-back"><p>reserva</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">refund</h3></div><div class="flip-card-back"><p>reembolso</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">free</h3></div><div class="flip-card-back"><p>livre / disponível</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">receipt</h3></div><div class="flip-card-back"><p>recibo</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">text</h3></div><div class="flip-card-back"><p>mandar mensagem</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">next to</h3></div><div class="flip-card-back"><p>ao lado de</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">exchange</h3></div><div class="flip-card-back"><p>troca</p></div></div></div>
+                </div>
+            </div>
         </div>
-    </div>
-</main>
 
-<footer class="fixed bottom-0 left-0 w-full z-20 h-16">
-    <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
-        <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Anterior</button>
-        <button id="next-btn" class="bg-emerald-600 text-white font-bold py-3 px-8 rounded-lg transition">Próximo</button>
-        <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Finalizar aula</button>
-    </div>
-</footer>
+        <div class="slide" data-title="Task 1">
+            <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+                <h2 class="text-4xl font-black mb-4 text-center text-emerald-700">Mixed grammar check</h2>
+                <p>1. Turn <input id="r1" data-answer="left" class="w-20"> at the corner. <button class="answer-btn" data-target="r1"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(direção)</span></p>
+                <p>2. I have a <input id="r2" data-answer="reservation" class="w-32"> at the hotel. <button class="answer-btn" data-target="r2"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(reserva)</span></p>
+                <p>3. I'd like to <input id="r3" data-answer="exchange" class="w-32"> this shirt. <button class="answer-btn" data-target="r3"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(trocar)</span></p>
+                <p>4. Are you <input id="r4" data-answer="free" class="w-24"> tomorrow evening? <button class="answer-btn" data-target="r4"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(disponível)</span></p>
+                <p>5. I need a <input id="r5" data-answer="refund" class="w-28">. <button class="answer-btn" data-target="r5"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(reembolso)</span></p>
+                <p>6. Let's meet in <input id="r6" data-answer="front" class="w-24"> of the mall. <button class="answer-btn" data-target="r6"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(em frente)</span></p>
+            </div>
+        </div>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-<script src="../js/firebase-config.js"></script>
-<script src="../js/progress-manager.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const moduleId = 'a2';
-        const lessonNumber = 31;
-        const slides = document.querySelectorAll('.slide');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const finishLessonBtn = document.getElementById('finish-lesson-btn');
-        let currentSlide = 0;
+        <div class="slide" data-title="Task 2">
+            <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+                <h2 class="text-4xl font-black mb-4 text-center text-emerald-700">Short response check</h2>
+                <p>1. "Do you need a towel?" "Yes, please. Could I have another <input id="r7" data-answer="towel" class="w-28">?" <button class="answer-btn" data-target="r7"><i class="fas fa-eye"></i></button></p>
+                <p>2. "What time is breakfast?" "It is at <input id="r8" data-answer="7" class="w-20"> a.m." <button class="answer-btn" data-target="r8"><i class="fas fa-eye"></i></button></p>
+                <p>3. "Can we change the time?" "Sure, let's meet at <input id="r9" data-answer="6" class="w-20">." <button class="answer-btn" data-target="r9"><i class="fas fa-eye"></i></button></p>
+                <p>4. "Do you have this in a larger size?" "Let me <input id="r10" data-answer="check" class="w-24">." <button class="answer-btn" data-target="r10"><i class="fas fa-eye"></i></button></p>
+                <p>5. "The shower doesn't work." "I will send <input id="r11" data-answer="maintenance" class="w-36">." <button class="answer-btn" data-target="r11"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
 
-        const normalize = (text) => text.trim().toLowerCase().replace(/[.?!"']/g, '');
-        const checkAnswer = (input) => {
-            const isCorrect = normalize(input.value) === normalize(input.dataset.answer || '');
-            input.classList.remove('correct', 'incorrect');
-            if (!input.value.trim()) return;
-            input.classList.add(isCorrect ? 'correct' : 'incorrect');
-        };
+        <div class="slide" data-title="Task 3">
+            <div class="section-card p-8 max-w-4xl mx-auto text-lg space-y-4">
+                <h2 class="text-4xl font-black mb-4 text-emerald-700 text-center">Correct the mistake</h2>
+                <p>1. "Do I take the first exit?" "No, take the <input id="r12" data-answer="second" class="w-24"> exit." <button class="answer-btn" data-target="r12"><i class="fas fa-eye"></i></button></p>
+                <p>2. "Is the hotel before the bank?" "No, it is <input id="r13" data-answer="after" class="w-24"> the bank." <button class="answer-btn" data-target="r13"><i class="fas fa-eye"></i></button></p>
+                <p>3. "Should I stop at the first corner?" "No, keep going until the <input id="r14" data-answer="traffic lights" class="w-40">." <button class="answer-btn" data-target="r14"><i class="fas fa-eye"></i></button></p>
+                <p>4. "Can I return it without the receipt?" "No, bring the <input id="r15" data-answer="receipt" class="w-24">." <button class="answer-btn" data-target="r15"><i class="fas fa-eye"></i></button></p>
+                <p>5. "Are you free tomorrow?" "Yes, I am. Let's meet <input id="r16" data-answer="at 7" class="w-24">." <button class="answer-btn" data-target="r16"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
 
-        const updateSlide = () => {
-            slides.forEach((slide, index) => slide.classList.toggle('active', index === currentSlide));
-            document.getElementById('progress-bar').style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
-            document.getElementById('slide-counter').textContent = `${currentSlide + 1} / ${slides.length}`;
-            document.getElementById('slide-title-header').textContent = slides[currentSlide]?.dataset.title || '';
-            prevBtn.disabled = currentSlide === 0;
-            nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
-            finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
-        };
+        <div class="slide" data-title="Review Builder">
+            <div class="section-card p-8 max-w-5xl mx-auto">
+                <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
+                    <div>
+                        <p class="lesson-panel-title mb-2">Review Builder</p>
+                        <h2 class="text-4xl font-black text-emerald-700">Build one mixed A2 answer</h2>
+                    </div>
+                    <div class="callout-note max-w-xl">Monte uma resposta que mostre o que você já consegue fazer em situações reais.</div>
+                </div>
+                <div class="activity-lab" data-choice-builder data-template="I can {skill1}, {skill2}, {skill3}, and {skill4}." data-required="skill1,skill2,skill3,skill4" data-preview-empty="Escolha as partes para montar uma resposta integrada.">
+                    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+                        <div>
+                            <p class="lesson-panel-title mb-3">1. Skill</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="skill1" data-choice-value="give directions">give directions</button>
+                                <button type="button" class="option-chip" data-choice-slot="skill1" data-choice-value="check in at a hotel">check in at a hotel</button>
+                                <button type="button" class="option-chip" data-choice-slot="skill1" data-choice-value="ask for a refund">ask for a refund</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">2. Skill</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="skill2" data-choice-value="ask for help politely">ask for help politely</button>
+                                <button type="button" class="option-chip" data-choice-slot="skill2" data-choice-value="use simple landmarks">use simple landmarks</button>
+                                <button type="button" class="option-chip" data-choice-slot="skill2" data-choice-value="explain a clear problem">explain a clear problem</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">3. Skill</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="skill3" data-choice-value="make plans with a friend">make plans with a friend</button>
+                                <button type="button" class="option-chip" data-choice-slot="skill3" data-choice-value="ask for a larger size">ask for a larger size</button>
+                                <button type="button" class="option-chip" data-choice-slot="skill3" data-choice-value="confirm the time and place">confirm the time and place</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">4. Skill</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="skill4" data-choice-value="more naturally now">more naturally now</button>
+                                <button type="button" class="option-chip" data-choice-slot="skill4" data-choice-value="with more confidence">with more confidence</button>
+                                <button type="button" class="option-chip" data-choice-slot="skill4" data-choice-value="in real situations">in real situations</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-card mt-6" data-choice-preview></div>
+                    <div class="flex gap-3 mt-5 flex-wrap">
+                        <button type="button" class="option-chip" data-choice-reset>Reset</button>
+                        <button type="button" class="option-chip" data-choice-speak>Speak</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        prevBtn.addEventListener('click', () => {
-            if (currentSlide > 0) {
-                currentSlide--;
-                updateSlide();
-            }
-        });
+        <div class="slide" data-title="Guided Task">
+            <div class="section-card p-8 max-w-5xl mx-auto">
+                <h2 class="text-4xl font-black mb-4 text-center text-emerald-700">Mini missions</h2>
+                <div class="grid md:grid-cols-3 gap-5 text-lg">
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Mission A</p>
+                        <p>You are helping a tourist find the station. Give a short route and one confirmation phrase.</p>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Mission B</p>
+                        <p>You are at a hotel. Ask for one thing and explain one problem clearly.</p>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Mission C</p>
+                        <p>You bought something yesterday. Ask for an exchange or refund in a polite way.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        nextBtn.addEventListener('click', () => {
-            if (currentSlide < slides.length - 1) {
-                currentSlide++;
-                updateSlide();
-            }
-        });
+        <div class="slide" data-title="Mock Exam & Project">
+            <div class="section-card p-8 max-w-6xl mx-auto">
+                <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
+                    <div>
+                        <p class="lesson-panel-title mb-2">Mock exam</p>
+                        <h2 class="text-4xl font-black text-emerald-700">Mini test and travel project</h2>
+                    </div>
+                    <div class="callout-note max-w-xl">A few mixed questions first, then a small planning task to tie the module together.</div>
+                </div>
+                <div class="grid lg:grid-cols-[1.05fr_0.95fr] gap-6">
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-3">Quick exam</p>
+                        <div class="space-y-4 text-lg">
+                            <p>1. I <input id="m1" data-answer="was walking" class="w-36" data-review-quiz> home when it started to rain. <button class="answer-btn" data-target="m1"><i class="fas fa-eye"></i></button></p>
+                            <p>2. We need a <input id="m2" data-answer="receipt" class="w-28" data-review-quiz> to ask for a refund. <button class="answer-btn" data-target="m2"><i class="fas fa-eye"></i></button></p>
+                            <p>3. It is <input id="m3" data-answer="safer" class="w-24" data-review-quiz> to stay on the left side. <button class="answer-btn" data-target="m3"><i class="fas fa-eye"></i></button></p>
+                            <p>4. Are you <input id="m4" data-answer="free" class="w-24" data-review-quiz> on Friday? <button class="answer-btn" data-target="m4"><i class="fas fa-eye"></i></button></p>
+                            <p>5. She has already <input id="m5" data-answer="visited" class="w-28" data-review-quiz> the hotel before. <button class="answer-btn" data-target="m5"><i class="fas fa-eye"></i></button></p>
+                            <p>6. I <input id="m6" data-answer="will text" class="w-28" data-review-quiz> you if I am late. <button class="answer-btn" data-target="m6"><i class="fas fa-eye"></i></button></p>
+                        </div>
+                        <div class="flex gap-3 mt-5 flex-wrap">
+                            <button type="button" id="check-mock-exam-btn" class="option-chip">Check score</button>
+                            <button type="button" id="reset-mock-exam-btn" class="option-chip">Reset</button>
+                        </div>
+                        <div id="mock-exam-score" class="mt-4 text-lg font-semibold text-slate-600">Score will appear here.</div>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-3">Travel project</p>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Destination</label>
+                        <input id="project-destination" class="w-full p-3 rounded-xl border-2 border-slate-200 text-left mb-4" placeholder="Lisbon, Rio or Buenos Aires">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Transport</label>
+                        <input id="project-transport" class="w-full p-3 rounded-xl border-2 border-slate-200 text-left mb-4" placeholder="plane, bus, train">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Hotel or stay</label>
+                        <input id="project-hotel" class="w-full p-3 rounded-xl border-2 border-slate-200 text-left mb-4" placeholder="a hotel, a hostel, a friend's home">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Activities</label>
+                        <textarea id="project-activities" rows="4" class="w-full p-3 rounded-xl border-2 border-slate-200 text-left" placeholder="Visit the city center, eat local food, take photos..."></textarea>
+                        <div class="mt-4">
+                            <button type="button" id="project-summary-btn" class="option-chip">Build project summary</button>
+                        </div>
+                        <div id="project-summary" class="preview-card min-h-[140px] mt-4">Your project summary will appear here.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        finishLessonBtn.addEventListener('click', () => {
-            finishLessonBtn.disabled = true;
-            finishLessonBtn.textContent = 'Salvando...';
-            if (typeof markLessonAsComplete === 'function') {
-                Promise.resolve(markLessonAsComplete(moduleId, lessonNumber)).catch(() => {
-                    finishLessonBtn.disabled = false;
-                    finishLessonBtn.textContent = 'Finalizar aula';
+        <div class="slide" data-title="Reflection">
+            <div class="section-card p-8 max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-4 text-center text-emerald-700">Reflection and homework</h2>
+                <div class="callout-success mb-5">Write a short self-check: what can you do now, what still feels hard, and what will you practice next?</div>
+                <p class="text-lg text-slate-600 mb-4">1. I can now <input id="r17" data-answer="give directions" class="w-36"> in English. <button class="answer-btn" data-target="r17"><i class="fas fa-eye"></i></button></p>
+                <p class="text-lg text-slate-600 mb-4">2. One thing I still need to improve is <input id="r18" data-answer="confidence" class="w-32">. <button class="answer-btn" data-target="r18"><i class="fas fa-eye"></i></button></p>
+                <p class="text-lg text-slate-600 mb-4">3. My next practice goal is <input id="r19" data-answer="speaking" class="w-24"> more naturally. <button class="answer-btn" data-target="r19"><i class="fas fa-eye"></i></button></p>
+                <textarea rows="6" class="mt-3 w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-emerald-500" placeholder="Write your short review here..."></textarea>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Lesson Complete">
+            <div class="text-center">
+                <i class="fas fa-list-check text-emerald-500 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">Checkpoint done</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl mx-auto">You are ready for the big final review of the A2 module.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
+        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Anterior</button>
+            <button id="next-btn" class="bg-emerald-600 text-white font-bold py-3 px-8 rounded-lg transition">Próximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Finalizar aula</button>
+        </div>
+    </footer>
+
+    <script src="a2-lesson-theme.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2';
+            const lessonNumber = 31;
+            const slides = Array.from(document.querySelectorAll('.slide'));
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
+            const normalize = (text) => (text || '').trim().toLowerCase().replace(/[.?!"']/g, '');
+            let currentSlide = Math.max(0, slides.findIndex((slide) => slide.classList.contains('active')));
+            if (currentSlide < 0) currentSlide = 0;
+
+            const checkAnswer = (input) => {
+                input.classList.remove('correct', 'incorrect');
+                if (!input.value.trim()) return;
+                const isCorrect = normalize(input.value) === normalize(input.dataset.answer || '');
+                input.classList.add(isCorrect ? 'correct' : 'incorrect');
+            };
+
+            const mockExamScore = document.getElementById('mock-exam-score');
+            const checkMockExamBtn = document.getElementById('check-mock-exam-btn');
+            const resetMockExamBtn = document.getElementById('reset-mock-exam-btn');
+            const projectSummaryBtn = document.getElementById('project-summary-btn');
+            const projectSummary = document.getElementById('project-summary');
+
+            const checkMockExam = () => {
+                const inputs = document.querySelectorAll('[data-review-quiz]');
+                let correct = 0;
+                inputs.forEach((input) => {
+                    const value = normalize(input.value);
+                    const answer = normalize(input.dataset.answer || '');
+                    input.classList.remove('correct', 'incorrect');
+                    if (!value) return;
+                    if (value === answer) {
+                        input.classList.add('correct');
+                        correct += 1;
+                    } else {
+                        input.classList.add('incorrect');
+                    }
                 });
-            }
-        });
 
-        document.querySelectorAll('.flip-card').forEach((card) => {
-            card.addEventListener('click', () => card.classList.toggle('flipped'));
-        });
+                if (mockExamScore) {
+                    mockExamScore.textContent = `${correct}/${inputs.length} correct.`;
+                    mockExamScore.className = correct === inputs.length
+                        ? 'mt-4 text-lg font-semibold text-green-700'
+                        : 'mt-4 text-lg font-semibold text-amber-700';
+                }
+            };
 
-        document.querySelectorAll('input[data-answer]').forEach((input) => {
-            input.addEventListener('blur', () => checkAnswer(input));
-        });
+            const resetMockExam = () => {
+                document.querySelectorAll('[data-review-quiz]').forEach((input) => {
+                    input.value = '';
+                    input.classList.remove('correct', 'incorrect');
+                });
+                if (mockExamScore) {
+                    mockExamScore.textContent = 'Score will appear here.';
+                    mockExamScore.className = 'mt-4 text-lg font-semibold text-slate-600';
+                }
+            };
 
-        document.querySelectorAll('.answer-btn[data-target]').forEach((button) => {
-            button.addEventListener('click', () => {
-                const input = document.getElementById(button.dataset.target);
-                if (!input) return;
-                input.value = input.dataset.answer;
-                checkAnswer(input);
+            const buildProjectSummary = () => {
+                if (!projectSummary) return;
+                const destination = document.getElementById('project-destination')?.value.trim() || 'a city';
+                const transport = document.getElementById('project-transport')?.value.trim() || 'a transport choice';
+                const hotel = document.getElementById('project-hotel')?.value.trim() || 'a place to stay';
+                const activities = document.getElementById('project-activities')?.value.trim() || 'some activities';
+                projectSummary.innerHTML = `
+                    <p class="font-semibold text-emerald-700 mb-2">Project summary</p>
+                    <p class="text-slate-700">I am going to travel to <strong>${destination}</strong> by <strong>${transport}</strong>.</p>
+                    <p class="text-slate-700 mt-2">I will stay in <strong>${hotel}</strong> and I want to <strong>${activities}</strong>.</p>
+                `;
+            };
+
+            checkMockExamBtn?.addEventListener('click', checkMockExam);
+            resetMockExamBtn?.addEventListener('click', resetMockExam);
+            projectSummaryBtn?.addEventListener('click', buildProjectSummary);
+
+            const render = () => {
+                slides.forEach((slide, index) => slide.classList.toggle('active', index === currentSlide));
+                if (progressBar) {
+                    progressBar.style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
+                }
+                if (prevBtn) prevBtn.disabled = currentSlide === 0;
+                if (nextBtn) nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+                if (finishBtn) finishBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+            };
+
+            prevBtn?.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide -= 1;
+                    render();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
             });
-        });
 
-        updateSlide();
-    });
-</script>
-<script src="../js/flashcard-pronunciation.js"></script>
-<script src="../js/lesson-flashcard-save.js"></script>
-<script src="a2-lesson-theme.js"></script>
+            nextBtn?.addEventListener('click', () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide += 1;
+                    render();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+
+            finishBtn?.addEventListener('click', () => {
+                finishBtn.disabled = true;
+                finishBtn.textContent = 'Salvando...';
+                if (typeof markLessonAsComplete === 'function') {
+                    Promise.resolve(markLessonAsComplete(moduleId, lessonNumber)).catch(() => {
+                        finishBtn.disabled = false;
+                        finishBtn.textContent = 'Finalizar aula';
+                    });
+                }
+            });
+
+            document.querySelectorAll('input[data-answer]').forEach((input) => {
+                input.addEventListener('blur', () => checkAnswer(input));
+            });
+
+            document.querySelectorAll('.answer-btn[data-target]').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const input = document.getElementById(button.dataset.target);
+                    if (!input) return;
+                    input.value = input.dataset.answer || '';
+                    checkAnswer(input);
+                });
+            });
+
+            document.querySelectorAll('.flip-card').forEach((card) => {
+                card.addEventListener('click', () => card.classList.toggle('flipped'));
+            });
+
+            render();
+        });
+    </script>
+    <script src="../js/flashcard-pronunciation.js"></script>
+    <script src="../js/lesson-flashcard-save.js"></script>
 </body>
 </html>
