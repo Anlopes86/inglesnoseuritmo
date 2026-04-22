@@ -41,7 +41,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 14: How Often?</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-teal-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -235,6 +235,50 @@
             </div>
         </div>
 
+        <div class="slide" data-title="Frequency Builder">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-teal-700">Frequency builder</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[1fr_1fr] gap-6 items-start">
+                        <div class="activity-lab">
+                            <p class="activity-lab-title">Escolha a frequência e depois o hábito</p>
+                            <p class="text-slate-600 mb-4">Aqui o aluno pratica a ordem natural da frase antes de falar em voz alta.</p>
+                            <div class="option-cloud mb-5">
+                                <button type="button" class="option-chip" data-frequency-adverb="always">always</button>
+                                <button type="button" class="option-chip" data-frequency-adverb="usually">usually</button>
+                                <button type="button" class="option-chip" data-frequency-adverb="sometimes">sometimes</button>
+                                <button type="button" class="option-chip" data-frequency-adverb="never">never</button>
+                            </div>
+                            <div class="prompt-stack">
+                                <div class="prompt-card" data-frequency-sentence="I study English after dinner.">I study English after dinner.</div>
+                                <div class="prompt-card" data-frequency-sentence="I drink coffee in the morning.">I drink coffee in the morning.</div>
+                                <div class="prompt-card" data-frequency-sentence="I watch TV on weekdays.">I watch TV on weekdays.</div>
+                                <div class="prompt-card" data-frequency-sentence="I go to bed after midnight.">I go to bed after midnight.</div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div id="frequency-preview" class="preview-card">
+                                <p class="lesson-panel-title mb-3">Habit sentence</p>
+                                <p id="frequency-preview-text" class="text-lg leading-8 text-slate-500">Escolha um advérbio de frequência e depois clique em um hábito.</p>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Teacher use</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">1. Escolha o advérbio.</div>
+                                    <div class="prompt-card">2. Clique em um hábito real.</div>
+                                    <div class="prompt-card">3. Peça para o aluno trocar a rotina por uma da vida dele.</div>
+                                </div>
+                                <div class="mt-5 flex flex-wrap gap-3">
+                                    <button id="speak-frequency-btn" type="button" class="speak-btn"><i class="fas fa-volume-up"></i> Ouvir frase</button>
+                                    <button id="reset-frequency-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Limpar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="slide" data-title="Music">
             <div>
                 <h2 class="text-4xl font-black mb-4 text-center text-teal-700">Music Time: Friday I'm in Love</h2>
@@ -319,6 +363,7 @@
         const flashcardProgress = document.getElementById('flashcard-progress');
         const shuffleBtn = document.getElementById('shuffle-flashcards-btn');
         let currentSlide = 0;
+        let selectedFrequency = '';
 
         function speak(text) {
             if (!('speechSynthesis' in window)) return;
@@ -426,6 +471,28 @@
             habitPreviewText.textContent = built;
         }
 
+        const frequencyPreview = document.getElementById('frequency-preview');
+        const frequencyPreviewText = document.getElementById('frequency-preview-text');
+
+        function updateFrequencyPreview(sentence = '') {
+            if (!frequencyPreview || !frequencyPreviewText) return;
+            if (!selectedFrequency && !sentence) {
+                frequencyPreview.classList.remove('is-complete');
+                frequencyPreviewText.textContent = 'Escolha um advérbio de frequência e depois clique em um hábito.';
+                return;
+            }
+
+            if (!sentence) {
+                frequencyPreview.classList.remove('is-complete');
+                frequencyPreviewText.textContent = `Advérbio escolhido: ${selectedFrequency}. Agora clique em um hábito.`;
+                return;
+            }
+
+            const built = sentence.replace(/^I /, `I ${selectedFrequency} `);
+            frequencyPreview.classList.add('is-complete');
+            frequencyPreviewText.textContent = built;
+        }
+
         document.addEventListener('click', (event) => {
             const adverbChip = event.target.closest('.option-chip[data-habit-adverb]');
             if (adverbChip) {
@@ -442,6 +509,22 @@
                 habitCard.classList.add('is-done');
                 updateHabitPreview(habitCard.dataset.habitSentence || '');
             }
+
+            const frequencyChip = event.target.closest('.option-chip[data-frequency-adverb]');
+            if (frequencyChip) {
+                document.querySelectorAll('.option-chip[data-frequency-adverb]').forEach((chip) => chip.classList.remove('is-active'));
+                frequencyChip.classList.add('is-active');
+                selectedFrequency = frequencyChip.dataset.frequencyAdverb || '';
+                updateFrequencyPreview();
+                return;
+            }
+
+            const frequencyCard = event.target.closest('.prompt-card[data-frequency-sentence]');
+            if (frequencyCard && selectedFrequency) {
+                document.querySelectorAll('.prompt-card[data-frequency-sentence]').forEach((card) => card.classList.remove('is-done'));
+                frequencyCard.classList.add('is-done');
+                updateFrequencyPreview(frequencyCard.dataset.frequencySentence || '');
+            }
         });
 
         document.getElementById('reset-habit-btn')?.addEventListener('click', () => {
@@ -456,12 +539,25 @@
             speak(habitPreviewText.textContent);
         });
 
+        document.getElementById('reset-frequency-btn')?.addEventListener('click', () => {
+            selectedFrequency = '';
+            document.querySelectorAll('.option-chip[data-frequency-adverb]').forEach((chip) => chip.classList.remove('is-active'));
+            document.querySelectorAll('.prompt-card[data-frequency-sentence]').forEach((card) => card.classList.remove('is-done'));
+            updateFrequencyPreview();
+        });
+
+        document.getElementById('speak-frequency-btn')?.addEventListener('click', () => {
+            if (!frequencyPreviewText || !frequencyPreview.classList.contains('is-complete')) return;
+            speak(frequencyPreviewText.textContent);
+        });
+
         shuffleBtn?.addEventListener('click', () => renderFlashcards([...flashcardData].sort(() => Math.random() - 0.5)));
         prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
 
         renderFlashcards(flashcardData);
         updateHabitPreview();
+        updateFrequencyPreview();
         showSlide(0);
     });
     </script>

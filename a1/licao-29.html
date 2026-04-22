@@ -38,7 +38,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 29: Did You Study?</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-rose-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -142,39 +142,76 @@
             </div>
         </div>
 
-        <div class="slide" data-title="Interview Builder">
+                <div class="slide" data-title="Dialogue Match">
             <div class="text-center">
-                <h2 class="text-4xl font-black mb-6 text-rose-700">Interview Builder</h2>
-                <div class="section-card p-8 max-w-4xl mx-auto text-left">
-                    <div class="activity-lab" data-choice-builder data-template="Did you {question}? {answer} {detail}" data-required="question,answer,detail" data-preview-empty="Monte uma micro entrevista no passado com pergunta, resposta curta e detalhe real.">
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <p class="lesson-panel-title mb-3">Pergunta</p>
-                                <div class="option-cloud mb-5">
-                                    <button type="button" class="option-chip" data-choice-slot="question" data-choice-value="study last night">study last night</button>
-                                    <button type="button" class="option-chip" data-choice-slot="question" data-choice-value="cook dinner yesterday">cook dinner yesterday</button>
-                                    <button type="button" class="option-chip" data-choice-slot="question" data-choice-value="talk to your friend">talk to your friend</button>
-                                    <button type="button" class="option-chip" data-choice-slot="question" data-choice-value="watch the game">watch the game</button>
+                <h2 class="text-4xl font-black mb-6 text-rose-700">Dialogue match</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[1fr_1fr] gap-6 items-start">
+                        <div>
+                            <p class="lesson-panel-title mb-3">Match the question and the answer</p>
+                            <p class="text-slate-600 mb-4">Pick one question card and then pick the answer that fits.</p>
+                            <div id="question-question-bank" class="space-y-3 mb-5"></div>
+                            <div id="question-answer-bank" class="option-cloud"></div>
+                        </div>
+                        <div class="space-y-4">
+                            <div id="question-match-status" class="preview-card">
+                                <p class="lesson-panel-title mb-3">Match board</p>
+                                <p id="question-match-status-text" class="text-lg leading-8 text-slate-500">Choose a question and a short answer.</p>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Teacher use</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">1. Ask the student to say both lines aloud.</div>
+                                    <div class="prompt-card">2. Change the question and test the reply again.</div>
+                                    <div class="prompt-card">3. Add a detail after the short answer.</div>
                                 </div>
-                                <p class="lesson-panel-title mb-3">Resposta curta</p>
-                                <div class="option-cloud mb-5">
-                                    <button type="button" class="option-chip" data-choice-slot="answer" data-choice-value="Yes, I did.">Yes, I did.</button>
-                                    <button type="button" class="option-chip" data-choice-slot="answer" data-choice-value="No, I didn't.">No, I didn't.</button>
-                                </div>
-                                <p class="lesson-panel-title mb-3">Detalhe depois da resposta</p>
-                                <div class="option-cloud">
-                                    <button type="button" class="option-chip" data-choice-slot="detail" data-choice-value="I studied at home after dinner.">I studied at home after dinner.</button>
-                                    <button type="button" class="option-chip" data-choice-slot="detail" data-choice-value="My mother cooked because I arrived late.">My mother cooked because I arrived late.</button>
-                                    <button type="button" class="option-chip" data-choice-slot="detail" data-choice-value="We talked for twenty minutes online.">We talked for twenty minutes online.</button>
-                                    <button type="button" class="option-chip" data-choice-slot="detail" data-choice-value="I stayed home and watched a series instead.">I stayed home and watched a series instead.</button>
+                                <div class="mt-5 flex flex-wrap gap-3">
+                                    <button id="speak-question-catch-btn" type="button" class="speak-btn"><i class="fas fa-volume-up"></i> Ouvir resumo</button>
+                                    <button id="reset-question-catch-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Reiniciar</button>
                                 </div>
                             </div>
-                            <div>
-                                <p class="lesson-panel-title mb-3">Entrevista pronta</p>
-                                <div class="preview-card min-h-[180px] flex items-center justify-center text-center" data-choice-preview></div>
-                                <div class="flex flex-wrap gap-3 mt-5">
-                                    <button type="button" class="speak-btn" data-choice-speak><i class="fas fa-volume-up"></i> Ouvir diálogo</button>
-                                    <button type="button" class="speak-btn" data-choice-reset><i class="fas fa-rotate-left"></i> Recomeçar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="slide" data-title="Interview Booth">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-rose-700">Interview booth</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[1fr_1fr] gap-6 items-start">
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-3">Speak your own answer</p>
+                            <p class="text-lg leading-8 text-slate-700">Use the prompts below to answer in your own words. You can write first and then say it aloud.</p>
+                            <textarea rows="8" class="mt-5 w-full p-4 border-2 border-slate-200 rounded-xl focus:border-rose-500 outline-none transition-colors" placeholder="Write your interview answer here..."></textarea>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Prompts</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">Did you study last night?</div>
+                                    <div class="prompt-card">Did you cook dinner yesterday?</div>
+                                    <div class="prompt-card">Did you talk to your friend?</div>
+                                </div>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Model answers</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">Yes, I did. I studied at home after dinner.</div>
+                                    <div class="prompt-card">No, I didn't. My mother cooked because I arrived late.</div>
+                                    <div class="prompt-card">Yes, I did. We talked for twenty minutes online.</div>
+                                </div>
+                                <div class="mt-5 flex flex-wrap gap-3">
+                                    <button type="button" class="speak-btn" data-speak="Yes, I did. I studied at home after dinner."><i class="fas fa-volume-up"></i> Model 1</button>
+                                    <button type="button" class="speak-btn" data-speak="No, I didn't. My mother cooked because I arrived late."><i class="fas fa-volume-up"></i> Model 2</button>
+                                    <button type="button" class="speak-btn" data-speak="Yes, I did. We talked for twenty minutes online."><i class="fas fa-volume-up"></i> Model 3</button>
+                                </div>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Teacher use</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">1. Let the student write their own answer.</div>
+                                    <div class="prompt-card">2. Play one model answer.</div>
+                                    <div class="prompt-card">3. Ask the student to repeat it with a small change.</div>
                                 </div>
                             </div>
                         </div>
@@ -294,6 +331,100 @@
             if (!value) return;
             input.classList.add(value === answer ? 'correct' : 'incorrect');
         }));
+
+        const questionMatchItems = [
+            { question: 'Did you study last night?', answer: 'Yes, I did.', detail: 'I studied at home after dinner.' },
+            { question: 'Did you cook dinner yesterday?', answer: "No, I didn't.", detail: 'My mother cooked because I arrived late.' },
+            { question: 'Did you talk to your friend?', answer: 'Yes, I did.', detail: 'We talked for twenty minutes online.' },
+            { question: 'Did you visit your grandparents?', answer: 'Yes, I did.', detail: 'I visited them after lunch.' },
+        ];
+        const questionQuestionBank = document.getElementById('question-question-bank');
+        const questionAnswerBank = document.getElementById('question-answer-bank');
+        const questionMatchStatus = document.getElementById('question-match-status');
+        const questionMatchStatusText = document.getElementById('question-match-status-text');
+        const questionMatchedQuestions = new Set();
+        const questionMatchedAnswers = new Set();
+        let questionSelected = '';
+        let answerSelected = '';
+        const questionPool = [...questionMatchItems].sort(() => Math.random() - 0.5);
+        const answerPool = questionMatchItems.map((item) => item.answer).sort(() => Math.random() - 0.5);
+        const questionMatchMap = new Map(questionMatchItems.map((item) => [item.question, item.answer]));
+
+        function renderQuestionMatch() {
+            if (!questionQuestionBank || !questionAnswerBank || !questionMatchStatus || !questionMatchStatusText) return;
+            questionQuestionBank.innerHTML = questionPool.map((item) => {
+                const selected = questionSelected === item.question;
+                const matched = questionMatchedQuestions.has(item.question);
+                return `
+                    <button type="button" class="activity-card w-full text-left transition ${selected ? 'ring-2 ring-rose-400' : ''} ${matched ? 'opacity-60' : ''}" data-question-item="${item.question}" ${matched ? 'disabled' : ''}>
+                        <p class="lesson-panel-title mb-2">Question</p>
+                        <p class="text-lg leading-8 text-slate-700">${item.question}</p>
+                    </button>
+                `;
+            }).join('');
+            questionAnswerBank.innerHTML = answerPool.map((answer) => {
+                const selected = answerSelected === answer;
+                const matched = questionMatchedAnswers.has(answer);
+                return `<button type="button" class="option-chip ${selected ? 'is-active' : ''} ${matched ? 'opacity-60' : ''}" data-answer-item="${answer}" ${matched ? 'disabled' : ''}>${answer}</button>`;
+            }).join('');
+            const score = questionMatchedQuestions.size;
+            questionMatchStatus.classList.toggle('is-complete', score === questionMatchItems.length);
+            questionMatchStatusText.textContent = score === questionMatchItems.length
+                ? `Perfect! ${score} of ${questionMatchItems.length} dialogue pairs matched.`
+                : `Você já acertou ${score} de ${questionMatchItems.length} pares.`;
+        }
+
+        document.addEventListener('click', (event) => {
+            const questionChoice = event.target.closest('[data-question-item]');
+            if (questionChoice) {
+                const question = questionChoice.dataset.questionItem || '';
+                if (question && !questionMatchedQuestions.has(question)) {
+                    questionSelected = question;
+                    renderQuestionMatch();
+                }
+                return;
+            }
+            const answerChoice = event.target.closest('[data-answer-item]');
+            if (answerChoice) {
+                const answer = answerChoice.dataset.answerItem || '';
+                if (answer && !questionMatchedAnswers.has(answer)) {
+                    answerSelected = answer;
+                    if (questionSelected) {
+                        const expectedAnswer = questionMatchMap.get(questionSelected);
+                        if (expectedAnswer === answerSelected) {
+                            questionMatchedQuestions.add(questionSelected);
+                            questionMatchedAnswers.add(answerSelected);
+                            questionMatchStatusText.textContent = 'Great match. Say the full line with the detail now.';
+                            questionSelected = '';
+                            answerSelected = '';
+                        } else {
+                            questionMatchStatusText.textContent = `Not quite. ${questionSelected} goes with "${expectedAnswer}".`;
+                            questionSelected = '';
+                            answerSelected = '';
+                        }
+                    }
+                    renderQuestionMatch();
+                }
+            }
+        });
+
+        document.getElementById('reset-question-catch-btn')?.addEventListener('click', () => {
+            questionMatchedQuestions.clear();
+            questionMatchedAnswers.clear();
+            questionSelected = '';
+            answerSelected = '';
+            renderQuestionMatch();
+        });
+
+        document.getElementById('speak-question-catch-btn')?.addEventListener('click', () => {
+            const score = questionMatchedQuestions.size;
+            const utterance = new SpeechSynthesisUtterance(`You matched ${score} dialogue pairs out of ${questionMatchItems.length}.`);
+            utterance.lang = 'en-US';
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        });
+
+        renderQuestionMatch();
         prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
         showSlide(0);

@@ -41,7 +41,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 15: What Time Is It?</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-cyan-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -164,6 +164,56 @@
             </div>
         </div>
 
+        <div class="slide" data-title="Time Match">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-cyan-700">Time match</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[1fr_1fr] gap-6 items-start">
+                        <div class="activity-lab">
+                            <p class="activity-lab-title">Match the clock with the sentence</p>
+                            <p class="text-slate-600 mb-4">Primeiro escolha uma hora digital. Depois combine com a forma certa em inglês.</p>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">Digital time</p>
+                                    <div class="option-cloud" id="time-match-digital">
+                                        <button type="button" class="option-chip" data-time-match-group="digital" data-time-match-value="7:00">7:00</button>
+                                        <button type="button" class="option-chip" data-time-match-group="digital" data-time-match-value="3:30">3:30</button>
+                                        <button type="button" class="option-chip" data-time-match-group="digital" data-time-match-value="6:15">6:15</button>
+                                        <button type="button" class="option-chip" data-time-match-group="digital" data-time-match-value="8:45">8:45</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 uppercase tracking-[0.2em] mb-2">English form</p>
+                                    <div class="option-cloud" id="time-match-english">
+                                        <button type="button" class="option-chip" data-time-match-group="english" data-time-match-value="It's seven o'clock.">It's seven o'clock.</button>
+                                        <button type="button" class="option-chip" data-time-match-group="english" data-time-match-value="It's half past three.">It's half past three.</button>
+                                        <button type="button" class="option-chip" data-time-match-group="english" data-time-match-value="It's a quarter past six.">It's a quarter past six.</button>
+                                        <button type="button" class="option-chip" data-time-match-group="english" data-time-match-value="It's a quarter to nine.">It's a quarter to nine.</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div id="time-match-preview" class="preview-card">
+                                <p class="lesson-panel-title mb-3">Match preview</p>
+                                <p id="time-match-text" class="text-lg leading-8 text-slate-500">Escolha uma hora digital e uma forma em inglês para comparar.</p>
+                                <p id="time-match-score" class="text-sm font-semibold text-slate-500 mt-4">0 de 4 pares</p>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Matched pairs</p>
+                                <div id="time-match-log" class="prompt-stack">
+                                    <div class="prompt-card">Depois de acertar, os pares corretos aparecem aqui.</div>
+                                </div>
+                                <div class="mt-5 flex flex-wrap gap-3">
+                                    <button id="reset-time-match-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Limpar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="slide" data-title="Speaking">
             <div class="text-center">
                 <h2 class="text-4xl font-black mb-6 text-cyan-700">Talk about your schedule</h2>
@@ -273,6 +323,22 @@
         const flashcardProgress = document.getElementById('flashcard-progress');
         const shuffleBtn = document.getElementById('shuffle-flashcards-btn');
         let currentSlide = 0;
+        const timeMatchMap = {
+            '7:00': "It's seven o'clock.",
+            '3:30': "It's half past three.",
+            '6:15': "It's a quarter past six.",
+            '8:45': "It's a quarter to nine."
+        };
+        const timeMatchKeys = Object.keys(timeMatchMap);
+        const timeMatchLog = document.getElementById('time-match-log');
+        const timeMatchPreview = document.getElementById('time-match-preview');
+        const timeMatchText = document.getElementById('time-match-text');
+        const timeMatchScore = document.getElementById('time-match-score');
+        let selectedDigitalTime = '';
+        let selectedEnglishTime = '';
+        let lastTimeMatchFeedback = '';
+        let lastTimeMatchCorrect = false;
+        const matchedTimePairs = new Set();
 
         function speak(text) {
             if (!('speechSynthesis' in window)) return;
@@ -332,6 +398,55 @@
             finishLessonBtn.classList.toggle('hidden', !isLastSlide);
         }
 
+        function renderTimeMatch() {
+            if (!timeMatchLog || !timeMatchPreview || !timeMatchText || !timeMatchScore) return;
+
+            timeMatchScore.textContent = `${matchedTimePairs.size} de ${timeMatchKeys.length} pares`;
+            timeMatchLog.innerHTML = matchedTimePairs.size
+                ? Array.from(matchedTimePairs).map((key) => `<div class="prompt-card is-done">${key} = ${timeMatchMap[key]}</div>`).join('')
+                : '<div class="prompt-card">Depois de acertar, os pares corretos aparecem aqui.</div>';
+
+            if (lastTimeMatchFeedback && !selectedDigitalTime && !selectedEnglishTime) {
+                timeMatchPreview.classList.toggle('is-complete', lastTimeMatchCorrect);
+                timeMatchText.textContent = lastTimeMatchFeedback;
+                return;
+            }
+
+            if (!selectedDigitalTime && !selectedEnglishTime) {
+                timeMatchPreview.classList.remove('is-complete');
+                timeMatchText.textContent = 'Escolha uma hora digital e uma forma em inglês para comparar.';
+                return;
+            }
+
+            if (selectedDigitalTime && !selectedEnglishTime) {
+                timeMatchPreview.classList.remove('is-complete');
+                timeMatchText.textContent = `Hora escolhida: ${selectedDigitalTime}. Agora escolha a frase em inglês.`;
+                return;
+            }
+
+            if (selectedEnglishTime && !selectedDigitalTime) {
+                timeMatchPreview.classList.remove('is-complete');
+                timeMatchText.textContent = `Frase escolhida: ${selectedEnglishTime}. Agora escolha a hora digital.`;
+                return;
+            }
+
+            const expected = timeMatchMap[selectedDigitalTime];
+            if (expected === selectedEnglishTime) {
+                matchedTimePairs.add(selectedDigitalTime);
+                lastTimeMatchCorrect = true;
+                lastTimeMatchFeedback = `Great! ${selectedDigitalTime} matches ${selectedEnglishTime}`;
+                selectedDigitalTime = '';
+                selectedEnglishTime = '';
+            } else {
+                lastTimeMatchCorrect = false;
+                lastTimeMatchFeedback = `Try again: ${selectedDigitalTime} matches ${expected}`;
+                selectedDigitalTime = '';
+                selectedEnglishTime = '';
+            }
+
+            renderTimeMatch();
+        }
+
         document.querySelectorAll('.speak-btn').forEach(button => {
             button.addEventListener('click', () => speak(button.dataset.speak || button.textContent.trim()));
         });
@@ -357,11 +472,43 @@
             });
         });
 
+        document.addEventListener('click', (event) => {
+            const digitalChip = event.target.closest('.option-chip[data-time-match-group="digital"]');
+            if (digitalChip) {
+                document.querySelectorAll('.option-chip[data-time-match-group="digital"]').forEach((chip) => chip.classList.remove('is-active'));
+                digitalChip.classList.add('is-active');
+                selectedDigitalTime = digitalChip.dataset.timeMatchValue || '';
+                lastTimeMatchFeedback = '';
+                renderTimeMatch();
+                return;
+            }
+
+            const englishChip = event.target.closest('.option-chip[data-time-match-group="english"]');
+            if (englishChip) {
+                document.querySelectorAll('.option-chip[data-time-match-group="english"]').forEach((chip) => chip.classList.remove('is-active'));
+                englishChip.classList.add('is-active');
+                selectedEnglishTime = englishChip.dataset.timeMatchValue || '';
+                lastTimeMatchFeedback = '';
+                renderTimeMatch();
+            }
+        });
+
+        document.getElementById('reset-time-match-btn')?.addEventListener('click', () => {
+            selectedDigitalTime = '';
+            selectedEnglishTime = '';
+            lastTimeMatchFeedback = '';
+            lastTimeMatchCorrect = false;
+            document.querySelectorAll('.option-chip[data-time-match-group="digital"]').forEach((chip) => chip.classList.remove('is-active'));
+            document.querySelectorAll('.option-chip[data-time-match-group="english"]').forEach((chip) => chip.classList.remove('is-active'));
+            renderTimeMatch();
+        });
+
         shuffleBtn?.addEventListener('click', () => renderFlashcards([...flashcardData].sort(() => Math.random() - 0.5)));
         prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
 
         renderFlashcards(flashcardData);
+        renderTimeMatch();
         showSlide(0);
     });
     </script>

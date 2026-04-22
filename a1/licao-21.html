@@ -39,7 +39,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 21: Market Day</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 11</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -223,6 +223,39 @@
             </div>
         </div>
 
+        <div class="slide" data-title="Cashier Quiz">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-orange-700">Cashier quiz</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[1fr_1fr] gap-6 items-start">
+                        <div>
+                            <p class="lesson-panel-title mb-3">Choose the right question</p>
+                            <p class="text-slate-600 mb-4">Leia cada item como se estivesse no caixa e escolha a pergunta correta.</p>
+                            <div id="cashier-quiz" class="space-y-4"></div>
+                        </div>
+                        <div class="space-y-4">
+                            <div id="cashier-status" class="preview-card">
+                                <p class="lesson-panel-title mb-3">Quiz board</p>
+                                <p id="cashier-status-text" class="text-lg leading-8 text-slate-500">Escolha uma resposta em cada cartão e veja sua pontuação.</p>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Teacher use</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">1. Let the student answer first.</div>
+                                    <div class="prompt-card">2. Ask why each item is countable or uncountable.</div>
+                                    <div class="prompt-card">3. Turn one question into a real shop question.</div>
+                                </div>
+                                <div class="mt-5 flex flex-wrap gap-3">
+                                    <button id="reset-cashier-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Reiniciar</button>
+                                    <button id="speak-cashier-btn" type="button" class="speak-btn"><i class="fas fa-volume-up"></i> Ouvir resumo</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="slide" data-title="Music">
             <div>
                 <h2 class="text-4xl font-black mb-4 text-center text-orange-700">Music Time: Blowin' in the Wind</h2>
@@ -324,6 +357,69 @@
             if (!value) return;
             input.classList.add(value === answer ? 'correct' : 'incorrect');
         }));
+
+        const cashierQuestions = [
+            { text: '___ apples do we need for the pie?', answer: 'How many', hint: 'apples' },
+            { text: '___ milk do we need for coffee?', answer: 'How much', hint: 'milk' },
+            { text: '___ eggs are in the basket?', answer: 'How many', hint: 'eggs' },
+            { text: '___ cheese do you want?', answer: 'How much', hint: 'cheese' },
+            { text: '___ bottles of water should we buy?', answer: 'How many', hint: 'bottles' },
+            { text: '___ rice is left at home?', answer: 'How much', hint: 'rice' },
+        ];
+        const cashierState = cashierQuestions.map(() => '');
+        const cashierQuiz = document.getElementById('cashier-quiz');
+        const cashierStatus = document.getElementById('cashier-status');
+        const cashierStatusText = document.getElementById('cashier-status-text');
+
+        function renderCashierQuiz() {
+            if (!cashierQuiz || !cashierStatus || !cashierStatusText) return;
+            cashierQuiz.innerHTML = cashierQuestions.map((item, index) => {
+                const selected = cashierState[index];
+                const correct = item.answer;
+                const isAnswered = Boolean(selected);
+                const feedback = !isAnswered ? 'Choose How much or How many.' : selected === correct ? 'Correct!' : `Try again. It is ${correct}.`;
+                return `
+                    <div class="activity-card">
+                        <p class="text-lg font-semibold mb-3">${index + 1}. ${item.text}</p>
+                        <div class="flex flex-wrap gap-3">
+                            <button type="button" class="option-chip ${selected === 'How many' ? 'is-active' : ''}" data-cashier-index="${index}" data-cashier-choice="How many">How many</button>
+                            <button type="button" class="option-chip ${selected === 'How much' ? 'is-active' : ''}" data-cashier-index="${index}" data-cashier-choice="How much">How much</button>
+                        </div>
+                        <p class="mt-3 text-sm ${selected === correct && isAnswered ? 'text-emerald-600' : 'text-slate-500'}" data-cashier-feedback="${index}">${feedback}</p>
+                    </div>
+                `;
+            }).join('');
+            const score = cashierState.filter((selected, index) => selected === cashierQuestions[index].answer).length;
+            cashierStatus.classList.toggle('is-complete', score === cashierQuestions.length);
+            cashierStatusText.textContent = score === cashierQuestions.length
+                ? `Perfect! ${score} of ${cashierQuestions.length} correct.`
+                : `Você acertou ${score} de ${cashierQuestions.length}. Continue ajustando as perguntas.`;
+        }
+
+        document.addEventListener('click', (event) => {
+            const cashierChoice = event.target.closest('.option-chip[data-cashier-choice]');
+            if (!cashierChoice) return;
+            const index = Number(cashierChoice.dataset.cashierIndex);
+            const choice = cashierChoice.dataset.cashierChoice || '';
+            if (Number.isNaN(index) || !choice) return;
+            cashierState[index] = choice;
+            renderCashierQuiz();
+        });
+
+        document.getElementById('reset-cashier-btn')?.addEventListener('click', () => {
+            cashierState.fill('');
+            renderCashierQuiz();
+        });
+
+        document.getElementById('speak-cashier-btn')?.addEventListener('click', () => {
+            const score = cashierState.filter((selected, index) => selected === cashierQuestions[index].answer).length;
+            const utterance = new SpeechSynthesisUtterance(`You have ${score} correct answers out of ${cashierQuestions.length}.`);
+            utterance.lang = 'en-US';
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        });
+
+        renderCashierQuiz();
 
         const marketState = { frame: '', item: '', answer: '' };
         const marketPreview = document.getElementById('market-preview');

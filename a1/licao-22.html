@@ -39,7 +39,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 22: Coffee Shop Quantities</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 11</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-amber-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -148,6 +148,53 @@
                     <p><strong class="text-orange-600">Customer:</strong> Yes, only <input data-answer="a little" class="practice-input"> sugar. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: açúcar</span></p>
                     <p><strong class="text-blue-700">Barista:</strong> Great. And do you need napkins?</p>
                     <p><strong class="text-orange-600">Customer:</strong> Yes, <input data-answer="a few" class="practice-input"> napkins, please. <button class="answer-btn"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">Dica: guardanapos</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Pantry Sort">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-amber-700">Pantry sort</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[1fr_1fr] gap-6 items-start">
+                        <div class="activity-lab">
+                            <p class="activity-lab-title">Classify the items</p>
+                            <p class="text-slate-600 mb-4">Escolha <strong>countable</strong> ou <strong>uncountable</strong> e clique no item. Acertou? O item sai da lista.</p>
+                            <div class="flex flex-wrap gap-3 mb-5">
+                                <button type="button" class="option-chip is-active" data-pantry-mode="countable">Countable</button>
+                                <button type="button" class="option-chip" data-pantry-mode="uncountable">Uncountable</button>
+                            </div>
+                            <div id="pantry-items" class="option-cloud"></div>
+                        </div>
+                        <div class="space-y-4">
+                            <div id="pantry-status" class="preview-card">
+                                <p class="lesson-panel-title mb-3">Pantry board</p>
+                                <p id="pantry-status-text" class="text-lg leading-8 text-slate-500">Escolha a categoria e depois clique nos itens da lista.</p>
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="activity-card">
+                                    <p class="lesson-panel-title mb-2">Countable</p>
+                                    <div id="pantry-countable" class="prompt-stack"><div class="prompt-card">Items that you can count.</div></div>
+                                </div>
+                                <div class="activity-card">
+                                    <p class="lesson-panel-title mb-2">Uncountable</p>
+                                    <div id="pantry-uncountable" class="prompt-stack"><div class="prompt-card">Items that do not normally take a plural.</div></div>
+                                </div>
+                            </div>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-2">Teacher use</p>
+                                <div class="prompt-stack">
+                                    <div class="prompt-card">1. Sort the pantry items.</div>
+                                    <div class="prompt-card">2. Ask a follow-up question: <strong>How much milk do we have?</strong></div>
+                                    <div class="prompt-card">3. Turn the result into a shopping list.</div>
+                                </div>
+                                <div class="mt-5 flex flex-wrap gap-3">
+                                    <button id="speak-pantry-btn" type="button" class="speak-btn"><i class="fas fa-volume-up"></i> Ouvir resumo</button>
+                                    <button id="reset-pantry-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Limpar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -283,6 +330,23 @@
         const slideCounter = document.getElementById('slide-counter');
         const slideTitleHeader = document.getElementById('slide-title-header');
         let currentSlide = 0;
+        const pantryItems = [
+            { label: 'apples', type: 'countable' },
+            { label: 'eggs', type: 'countable' },
+            { label: 'bananas', type: 'countable' },
+            { label: 'cookies', type: 'countable' },
+            { label: 'milk', type: 'uncountable' },
+            { label: 'rice', type: 'uncountable' },
+            { label: 'sugar', type: 'uncountable' },
+            { label: 'cheese', type: 'uncountable' }
+        ];
+        const pantryState = { countable: [], uncountable: [] };
+        let pantryMode = 'countable';
+        const pantryItemsGrid = document.getElementById('pantry-items');
+        const pantryStatus = document.getElementById('pantry-status');
+        const pantryStatusText = document.getElementById('pantry-status-text');
+        const pantryCountable = document.getElementById('pantry-countable');
+        const pantryUncountable = document.getElementById('pantry-uncountable');
         function showSlide(index) {
             slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
             progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
@@ -311,6 +375,78 @@
             if (!value) return;
             input.classList.add(value === answer ? 'correct' : 'incorrect');
         }));
+
+        function renderPantry() {
+            if (!pantryItemsGrid || !pantryCountable || !pantryUncountable || !pantryStatus || !pantryStatusText) return;
+
+            const placedLabels = new Set([...pantryState.countable, ...pantryState.uncountable]);
+            pantryItemsGrid.innerHTML = pantryItems
+                .filter((item) => !placedLabels.has(item.label))
+                .map((item) => `<button type="button" class="option-chip" data-pantry-item="${item.label}" data-pantry-type="${item.type}">${item.label}</button>`)
+                .join('');
+
+            pantryCountable.innerHTML = pantryState.countable.length
+                ? pantryState.countable.map((item) => `<div class="prompt-card is-done">${item}</div>`).join('')
+                : '<div class="prompt-card">Items that you can count.</div>';
+
+            pantryUncountable.innerHTML = pantryState.uncountable.length
+                ? pantryState.uncountable.map((item) => `<div class="prompt-card is-done">${item}</div>`).join('')
+                : '<div class="prompt-card">Items that do not normally take a plural.</div>';
+
+            const totalPlaced = pantryState.countable.length + pantryState.uncountable.length;
+            if (!totalPlaced) {
+                pantryStatus.classList.remove('is-complete');
+                pantryStatusText.textContent = 'Escolha a categoria e depois clique nos itens da lista.';
+            } else if (totalPlaced === pantryItems.length) {
+                pantryStatus.classList.add('is-complete');
+                pantryStatusText.textContent = `Great! Countable: ${pantryState.countable.join(', ')}. Uncountable: ${pantryState.uncountable.join(', ')}.`;
+            } else {
+                pantryStatus.classList.remove('is-complete');
+                pantryStatusText.textContent = `You have sorted ${totalPlaced} of ${pantryItems.length} items. Keep going.`;
+            }
+        }
+
+        document.addEventListener('click', (event) => {
+            const modeChip = event.target.closest('.option-chip[data-pantry-mode]');
+            if (modeChip) {
+                document.querySelectorAll('.option-chip[data-pantry-mode]').forEach((chip) => chip.classList.remove('is-active'));
+                modeChip.classList.add('is-active');
+                pantryMode = modeChip.dataset.pantryMode || 'countable';
+                return;
+            }
+
+            const pantryChip = event.target.closest('.option-chip[data-pantry-item]');
+            if (pantryChip) {
+                const itemType = pantryChip.dataset.pantryType || '';
+                const itemLabel = pantryChip.dataset.pantryItem || '';
+                if (!itemLabel) return;
+
+                if (itemType === pantryMode) {
+                    pantryState[itemType].push(itemLabel);
+                    renderPantry();
+                } else if (pantryStatusText) {
+                    pantryStatus.classList.remove('is-complete');
+                    pantryStatusText.textContent = `${itemLabel} is ${itemType}. Try the other category.`;
+                }
+            }
+        });
+
+        document.getElementById('reset-pantry-btn')?.addEventListener('click', () => {
+            pantryState.countable = [];
+            pantryState.uncountable = [];
+            pantryMode = 'countable';
+            document.querySelectorAll('.option-chip[data-pantry-mode]').forEach((chip) => chip.classList.toggle('is-active', chip.dataset.pantryMode === 'countable'));
+            renderPantry();
+        });
+
+        document.getElementById('speak-pantry-btn')?.addEventListener('click', () => {
+            const text = `Countable items: ${pantryState.countable.join(', ') || 'none'}. Uncountable items: ${pantryState.uncountable.join(', ') || 'none'}.`;
+            if (!pantryState.countable.length && !pantryState.uncountable.length) return;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        });
 
         const orderState = { drink: '', food: '', extra: '', final: '' };
         const orderPreview = document.getElementById('order-preview');
@@ -356,6 +492,7 @@
             speechSynthesis.speak(utterance);
         });
 
+        renderPantry();
         updateOrderPreview();
         prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
