@@ -246,7 +246,7 @@
                 ${module.id === 'conversation' && hasStudent ? `
                     <div class="rounded-2xl border border-slate-200 bg-slate-50/80 p-4">
                         <p class="text-sm font-semibold text-slate-700">Lições liberadas no pacote</p>
-                        <p class="text-2xl font-black tracking-tight text-slate-950 mt-1">${Number(studentData.lessonCount || 16)}</p>
+                        <p class="text-2xl font-black tracking-tight text-slate-950 mt-1">${Number(platformAccess?.getLessonLimit ? platformAccess.getLessonLimit(studentData) : studentData.lessonCount || 16)}</p>
                     </div>
                 ` : ''}
                 <div class="mt-auto space-y-3">

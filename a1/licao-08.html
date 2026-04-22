@@ -21,6 +21,18 @@
         .practice-input.revealed, .listening-input.revealed { border-color: #f59e0b; color: #b45309; font-weight: 700; }
         .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.25rem; }
         .answer-btn:hover { color: #4f46e5; }
+        .quiz-show-grid { display: grid; gap: 1rem; }
+        .quiz-show-card { border: 1px solid #e5e7eb; border-radius: 1.25rem; background: #ffffff; padding: 1.25rem; box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05); }
+        .quiz-option { width: 100%; text-align: left; border: 1px solid #c7d2fe; background: #eef2ff; color: #4338ca; padding: 0.85rem 1rem; border-radius: 0.9rem; font-weight: 700; transition: all 0.2s ease; }
+        .quiz-option:hover { background: #e0e7ff; }
+        .quiz-option.is-correct { border-color: #22c55e; background: #f0fdf4; color: #166534; }
+        .quiz-option.is-incorrect { border-color: #ef4444; background: #fef2f2; color: #b91c1c; }
+        .quiz-feedback { min-height: 1.5rem; }
+        .recording-panel { display: grid; gap: 1rem; }
+        .video-preview { width: 100%; background: #0f172a; border-radius: 1.25rem; overflow: hidden; min-height: 260px; }
+        .video-preview video { width: 100%; display: block; }
+        .reflection-grid { display: grid; gap: 1rem; }
+        .reflection-grid textarea { width: 100%; min-height: 120px; border: 1px solid #e5e7eb; border-radius: 1rem; padding: 1rem; background: #ffffff; color: #1f2937; }
     </style>
     <link rel="stylesheet" href="a1-lesson-theme.css">
 </head>
@@ -32,7 +44,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 8: Review (Module 1)</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -110,11 +122,35 @@
             </div>
         </div>
 
+        <div class="slide" data-title="Quiz Show">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-green-700">Quiz show</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <p class="text-xl mb-6 text-slate-600">Responda como em um jogo rápido de revisão. Cada pergunta vem de um pequeno JSON.</p>
+                    <div class="grid md:grid-cols-2 gap-4 mb-6">
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Goal</p>
+                            <p class="text-lg">Marcar a opção correta e ver a pontuação subir imediatamente.</p>
+                        </div>
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Tip</p>
+                            <p class="text-lg">Se errar, leia a explicação e tente repetir a frase completa em voz alta.</p>
+                        </div>
+                    </div>
+                    <div id="quiz-show" class="quiz-show-grid"></div>
+                    <div class="mt-8 flex items-center justify-between gap-4 flex-wrap">
+                        <div id="quiz-show-score" class="text-lg font-bold text-green-700 bg-green-50 px-4 py-2 rounded-full">0 of 0 correct</div>
+                        <button id="reset-quiz-show-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-6 rounded-xl hover:bg-slate-300 transition"><i class="fas fa-rotate-left mr-2"></i>Restart quiz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="slide" data-title="Quick Check">
             <div class="text-center">
-                <h2 class="text-4xl font-black mb-6 text-green-700">Quick check</h2>
+                <h2 class="text-4xl font-black mb-6 text-green-700">Pre-test</h2>
                 <div class="section-card p-8 max-w-4xl mx-auto">
-                    <p class="text-xl mb-8 text-slate-600">Complete com a palavra correta. Use o botão de revelar quando precisar destravar um item específico.</p>
+                    <p class="text-xl mb-8 text-slate-600">Complete com a palavra correta. Use o botão de revelar quando precisar destravar um item específico. Esta é uma checagem rápida antes do checkpoint final.</p>
                     <div id="quick-check" class="space-y-6 text-lg text-left"></div>
                     <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
                         <button id="check-quick-btn" class="bg-green-600 text-white font-bold py-3 px-10 rounded-xl hover:bg-green-700 transition text-lg"><i class="fas fa-check-circle mr-2"></i>Verificar respostas</button>
@@ -177,11 +213,42 @@
             </div>
         </div>
 
+        <div class="slide" data-title="Video Project">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-green-700">Mini video project</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid md:grid-cols-2 gap-6 items-start">
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-3">Task</p>
+                            <p class="text-lg">Create a short 30-second video introducing yourself, your family and your country.</p>
+                            <ul class="list-disc list-inside mt-4 space-y-2 text-lg">
+                                <li>Say your name.</li>
+                                <li>Say where you are from.</li>
+                                <li>Show or mention one family member.</li>
+                                <li>Finish with one simple object or demonstrative sentence.</li>
+                            </ul>
+                        </div>
+                        <div class="recording-panel">
+                            <div class="video-preview">
+                                <video id="project-video-preview" autoplay muted playsinline></video>
+                            </div>
+                            <div class="project-actions">
+                                <button id="start-recording-btn" class="bg-green-600 text-white font-bold py-3 px-6 rounded-xl hover:bg-green-700 transition"><i class="fas fa-circle mr-2"></i>Start recording</button>
+                                <button id="stop-recording-btn" class="bg-red-600 text-white font-bold py-3 px-6 rounded-xl hover:bg-red-700 transition" disabled><i class="fas fa-stop mr-2"></i>Stop</button>
+                                <a id="download-recording-btn" class="hidden bg-sky-600 text-white font-bold py-3 px-6 rounded-xl hover:bg-sky-700 transition" href="#" download="module1-project.webm"><i class="fas fa-download mr-2"></i>Download</a>
+                            </div>
+                            <p id="recording-status" class="text-sm font-semibold text-slate-500">The recording stays local in your browser.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="slide" data-title="Module Reflection">
             <div class="text-center">
-                <h2 class="text-4xl font-black mb-6 text-green-700">Homework: module 1 checkpoint</h2>
+                <h2 class="text-4xl font-black mb-6 text-green-700">Reflexão e checkpoint</h2>
                 <div class="section-card p-8 max-w-4xl mx-auto text-left">
-                    <p class="text-xl mb-6 text-slate-600">Junte tudo em um texto ou fala de 4 frases. Esse é um ótimo checkpoint do A1 inicial.</p>
+                    <p class="text-xl mb-6 text-slate-600">Junte tudo em um texto ou fala de 4 frases. Depois, responda às perguntas de reflexão para entender o que já ficou firme e o que ainda precisa de prática.</p>
                     <div class="grid md:grid-cols-2 gap-5">
                         <div class="activity-card">
                             <p class="lesson-panel-title mb-2">Include all of this</p>
@@ -195,6 +262,20 @@
                         <div class="activity-card">
                             <p class="lesson-panel-title mb-2">Stretch goal</p>
                             <p class="text-lg">Turn the text into audio for the teacher. Speak slowly and clearly. If you cannot record, write one extra question you want to answer in class.</p>
+                        </div>
+                    </div>
+                    <div class="reflection-grid mt-5">
+                        <div>
+                            <p class="lesson-panel-title mb-2">What felt easy?</p>
+                            <textarea placeholder="Write 2 or 3 sentences about the parts you already do well."></textarea>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-2">What still feels hard?</p>
+                            <textarea placeholder="Write the item you want to review again in the next lesson."></textarea>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-2">Your next goal</p>
+                            <textarea placeholder="Write one speaking goal for the next class."></textarea>
                         </div>
                     </div>
                 </div>
@@ -250,6 +331,42 @@
         prevBtn?.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         nextBtn?.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
         showSlide(0);
+
+        const quizShowItems = [
+            { prompt: 'What is your name?', options: ['My name is Ana.', 'I am from Brazil.', 'This is my name.'], answer: 'My name is Ana.', explanation: 'No começo do A1, a resposta mais segura é dar seu nome diretamente.' },
+            { prompt: 'Where are you from?', options: ['I am from Brazil.', 'I from Brazil.', 'My from Brazil.'], answer: 'I am from Brazil.', explanation: 'Use subject + am + from + country.' },
+            { prompt: 'Who is this?', options: ['This is my sister.', 'She my sister.', 'Those are my sister.'], answer: 'This is my sister.', explanation: 'Use this is when you present one person.' },
+            { prompt: 'What is this on the table?', options: ['It is a book.', 'It are a book.', 'This book is mine?'], answer: 'It is a book.', explanation: 'It is + a noun is the simplest and most useful form.' }
+        ];
+        const quizShowGrid = document.getElementById('quiz-show');
+        const quizShowScore = document.getElementById('quiz-show-score');
+        const resetQuizShowBtn = document.getElementById('reset-quiz-show-btn');
+        let quizShowCorrect = 0;
+
+        function updateQuizShowScore() {
+            if (quizShowScore) {
+                quizShowScore.textContent = `${quizShowCorrect} of ${quizShowItems.length} correct`;
+            }
+        }
+
+        function renderQuizShow() {
+            if (!quizShowGrid) return;
+            quizShowCorrect = 0;
+            quizShowGrid.innerHTML = quizShowItems.map((item, index) => `
+                <div class="quiz-show-card" data-quiz-index="${index}">
+                    <p class="lesson-panel-title mb-2">Question ${index + 1}</p>
+                    <p class="text-xl font-semibold text-slate-800 mb-4">${item.prompt}</p>
+                    <div class="space-y-3">
+                        ${item.options.map((option) => `<button type="button" class="quiz-option" data-quiz-answer="${index}" data-value="${option}">${option}</button>`).join('')}
+                    </div>
+                    <p class="quiz-feedback text-sm font-semibold text-slate-500 mt-4"></p>
+                </div>
+            `).join('');
+            updateQuizShowScore();
+        }
+
+        renderQuizShow();
+        resetQuizShowBtn?.addEventListener('click', renderQuizShow);
 
         const quickItems = [
             { before: 'My name', after: 'Julia.', answer: 'is' },
@@ -403,7 +520,110 @@
         document.getElementById('check-listening-btn')?.addEventListener('click', checkListening);
         document.getElementById('reset-listening-btn')?.addEventListener('click', resetListening);
 
+        const projectPreview = document.getElementById('project-video-preview');
+        const startRecordingBtn = document.getElementById('start-recording-btn');
+        const stopRecordingBtn = document.getElementById('stop-recording-btn');
+        const downloadRecordingBtn = document.getElementById('download-recording-btn');
+        const recordingStatus = document.getElementById('recording-status');
+        let projectStream = null;
+        let mediaRecorder = null;
+        let recordedChunks = [];
+        let recordedBlobUrl = null;
+
+        function setRecordingStatus(message) {
+            if (recordingStatus) recordingStatus.textContent = message;
+        }
+
+        function clearRecordedBlob() {
+            if (recordedBlobUrl) {
+                URL.revokeObjectURL(recordedBlobUrl);
+                recordedBlobUrl = null;
+            }
+            downloadRecordingBtn?.classList.add('hidden');
+            if (downloadRecordingBtn) downloadRecordingBtn.href = '#';
+        }
+
+        async function startRecording() {
+            try {
+                clearRecordedBlob();
+                if (!projectStream) {
+                    projectStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                }
+                if (projectPreview) {
+                    projectPreview.srcObject = projectStream;
+                    projectPreview.muted = true;
+                    projectPreview.controls = false;
+                    await projectPreview.play().catch(() => {});
+                }
+
+                recordedChunks = [];
+                mediaRecorder = new MediaRecorder(projectStream);
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) recordedChunks.push(event.data);
+                };
+                mediaRecorder.onstop = () => {
+                    const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                    recordedBlobUrl = URL.createObjectURL(blob);
+                    if (projectPreview) {
+                        projectPreview.srcObject = null;
+                        projectPreview.src = recordedBlobUrl;
+                        projectPreview.controls = true;
+                    }
+                    if (downloadRecordingBtn) {
+                        downloadRecordingBtn.href = recordedBlobUrl;
+                        downloadRecordingBtn.classList.remove('hidden');
+                    }
+                    setRecordingStatus('Recording ready. You can download it now.');
+                };
+
+                mediaRecorder.start();
+                startRecordingBtn?.setAttribute('disabled', 'disabled');
+                if (stopRecordingBtn) stopRecordingBtn.disabled = false;
+                setRecordingStatus('Recording... speak slowly and clearly.');
+            } catch (error) {
+                setRecordingStatus('Camera or microphone access was blocked.');
+            }
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+            }
+            projectStream?.getTracks().forEach((track) => track.stop());
+            projectStream = null;
+            if (startRecordingBtn) startRecordingBtn.removeAttribute('disabled');
+            if (stopRecordingBtn) stopRecordingBtn.disabled = true;
+        }
+
+        startRecordingBtn?.addEventListener('click', startRecording);
+        stopRecordingBtn?.addEventListener('click', stopRecording);
+
         document.addEventListener('click', (event) => {
+            const quizChoice = event.target.closest('[data-quiz-answer]');
+            if (quizChoice) {
+                const index = parseInt(quizChoice.dataset.quizAnswer || '-1', 10);
+                const item = quizShowItems[index];
+                const card = quizChoice.closest('.quiz-show-card');
+                if (!item || !card) return;
+                const feedback = card.querySelector('.quiz-feedback');
+                const options = card.querySelectorAll('.quiz-option');
+                options.forEach((button) => {
+                    button.disabled = true;
+                    button.classList.remove('is-correct', 'is-incorrect');
+                    if (button.dataset.value === item.answer) {
+                        button.classList.add('is-correct');
+                    }
+                });
+                if (quizChoice.dataset.value === item.answer) {
+                    quizShowCorrect += 1;
+                    if (feedback) feedback.textContent = item.explanation;
+                } else {
+                    quizChoice.classList.add('is-incorrect');
+                    if (feedback) feedback.textContent = item.explanation;
+                }
+                updateQuizShowScore();
+                return;
+            }
             const revealQuickBtn = event.target.closest('[data-reveal-quick]');
             if (revealQuickBtn) {
                 revealQuick(parseInt(revealQuickBtn.dataset.revealQuick, 10));

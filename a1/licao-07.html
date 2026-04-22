@@ -31,6 +31,22 @@
         .answer-btn:hover { color: #6d28d9; }
         .speak-btn { display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; padding: 5px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
         .speak-btn:hover { background: #dbeafe; }
+        .distance-quiz { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; }
+        .distance-card { display: grid; gap: 0.9rem; }
+        .distance-scene { min-height: 150px; border-radius: 1rem; border: 1px dashed #cbd5e1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: linear-gradient(180deg, #f8fafc, #eef2ff); }
+        .distance-scene::after { position: absolute; top: 0.9rem; left: 0.9rem; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+        .distance-card.near .distance-scene::after { content: 'Near'; background: #ede9fe; color: #6d28d9; }
+        .distance-card.distance-far .distance-scene::after { content: 'Far'; background: #fee2e2; color: #b91c1c; }
+        .distance-object { transition: transform 0.2s ease; }
+        .distance-card.near .distance-object { transform: scale(1.1) translateY(5px); }
+        .distance-card.distance-far .distance-object { transform: scale(0.82) translateY(-2px); opacity: 0.9; }
+        .distance-choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+        .distance-choice { border: 1px solid #cbd5e1; border-radius: 999px; padding: 0.65rem 0.9rem; font-weight: 700; background: #ffffff; color: #334155; transition: all 0.2s ease; }
+        .distance-choice:hover { border-color: #8b5cf6; background: #f5f3ff; color: #6d28d9; }
+        .distance-choice.selected { box-shadow: 0 10px 20px rgba(109, 40, 217, 0.12); }
+        .distance-choice.correct { border-color: #22c55e; background: #f0fdf4; color: #166534; }
+        .distance-choice.incorrect { border-color: #ef4444; background: #fef2f2; color: #b91c1c; }
+        .distance-feedback { min-height: 1.5rem; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -104,11 +120,11 @@
             <div class="text-center">
                 <h2 class="text-4xl font-black mb-6 text-violet-700">This, that, these and those</h2>
                 <div class="section-card p-8 text-left">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <p class="lesson-panel-title mb-3">Singular</p>
-                            <table class="w-full text-left text-lg border-collapse">
-                                <thead><tr class="bg-slate-100"><th class="p-4 border">Word</th><th class="p-4 border">Use</th><th class="p-4 border">Example</th></tr></thead>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <p class="lesson-panel-title mb-3">Singular</p>
+                        <table class="w-full text-left text-lg border-collapse">
+                            <thead><tr class="bg-slate-100"><th class="p-4 border">Word</th><th class="p-4 border">Use</th><th class="p-4 border">Example</th></tr></thead>
                                 <tbody>
                                     <tr><td class="p-4 border font-bold text-violet-600">this</td><td class="p-4 border">perto</td><td class="p-4 border">This is my pen.</td></tr>
                                     <tr class="bg-slate-50"><td class="p-4 border font-bold text-violet-600">that</td><td class="p-4 border">longe</td><td class="p-4 border">That is your bag.</td></tr>
@@ -135,6 +151,85 @@
                             <p class="lesson-panel-title mb-2">Quick tip</p>
                             <p class="text-lg"><strong>This / these</strong> ficam perto. <strong>That / those</strong> ficam longe.</p>
                         </div>
+                    </div>
+                    <div class="callout-note mt-5">
+                        <strong>Its vs it&#39;s:</strong> use <strong>its</strong> for possession. Use <strong>it&#39;s</strong> only for <strong>it is</strong> or <strong>it has</strong>.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Distance quiz">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-4 text-violet-700">Choose the right demonstrative</h2>
+                <p class="text-slate-500 text-lg mb-6">Use the distance clue to decide between <strong>this</strong>, <strong>that</strong>, <strong>these</strong> and <strong>those</strong>.</p>
+                <div class="section-card p-8 max-w-6xl mx-auto text-left">
+                    <div class="grid md:grid-cols-2 gap-4 mb-6">
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">How to think</p>
+                            <p class="text-lg">Near + singular = <strong>this</strong>. Far + singular = <strong>that</strong>. Near + plural = <strong>these</strong>. Far + plural = <strong>those</strong>.</p>
+                        </div>
+                        <div class="callout-note">
+                            <strong>Reminder:</strong> <strong>its</strong> never uses an apostrophe. <strong>it&#39;s</strong> means <strong>it is</strong>.
+                        </div>
+                    </div>
+                    <div id="distance-quiz" class="distance-quiz">
+                        <div class="distance-card activity-card near" data-answer="this">
+                            <div class="distance-scene">
+                                <div class="distance-object"><i class="fas fa-mobile-screen-button text-5xl text-violet-600"></i></div>
+                            </div>
+                            <p class="text-lg font-bold">A phone on your desk</p>
+                            <div class="distance-choices">
+                                <button type="button" class="distance-choice" data-choice="this">This</button>
+                                <button type="button" class="distance-choice" data-choice="that">That</button>
+                                <button type="button" class="distance-choice" data-choice="these">These</button>
+                                <button type="button" class="distance-choice" data-choice="those">Those</button>
+                            </div>
+                            <p class="distance-feedback text-sm font-semibold text-slate-500"></p>
+                        </div>
+                        <div class="distance-card activity-card distance-far" data-answer="that">
+                            <div class="distance-scene">
+                                <div class="distance-object"><i class="fas fa-window-maximize text-5xl text-violet-600"></i></div>
+                            </div>
+                            <p class="text-lg font-bold">A window across the room</p>
+                            <div class="distance-choices">
+                                <button type="button" class="distance-choice" data-choice="this">This</button>
+                                <button type="button" class="distance-choice" data-choice="that">That</button>
+                                <button type="button" class="distance-choice" data-choice="these">These</button>
+                                <button type="button" class="distance-choice" data-choice="those">Those</button>
+                            </div>
+                            <p class="distance-feedback text-sm font-semibold text-slate-500"></p>
+                        </div>
+                        <div class="distance-card activity-card near" data-answer="these">
+                            <div class="distance-scene">
+                                <div class="distance-object"><i class="fas fa-key text-5xl text-emerald-600"></i></div>
+                            </div>
+                            <p class="text-lg font-bold">A key ring in your hand</p>
+                            <div class="distance-choices">
+                                <button type="button" class="distance-choice" data-choice="this">This</button>
+                                <button type="button" class="distance-choice" data-choice="that">That</button>
+                                <button type="button" class="distance-choice" data-choice="these">These</button>
+                                <button type="button" class="distance-choice" data-choice="those">Those</button>
+                            </div>
+                            <p class="distance-feedback text-sm font-semibold text-slate-500"></p>
+                        </div>
+                        <div class="distance-card activity-card distance-far" data-answer="those">
+                            <div class="distance-scene">
+                                <div class="distance-object"><i class="fas fa-book text-5xl text-emerald-600"></i></div>
+                            </div>
+                            <p class="text-lg font-bold">Two books on a far shelf</p>
+                            <div class="distance-choices">
+                                <button type="button" class="distance-choice" data-choice="this">This</button>
+                                <button type="button" class="distance-choice" data-choice="that">That</button>
+                                <button type="button" class="distance-choice" data-choice="these">These</button>
+                                <button type="button" class="distance-choice" data-choice="those">Those</button>
+                            </div>
+                            <p class="distance-feedback text-sm font-semibold text-slate-500"></p>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between gap-4 flex-wrap">
+                        <div id="distance-score" class="text-lg font-bold text-violet-700 bg-violet-50 px-4 py-2 rounded-full">0 of 4 correct</div>
+                        <button id="reset-distance-btn" class="speak-btn" type="button"><i class="fas fa-rotate-left"></i> Reset quiz</button>
                     </div>
                 </div>
             </div>
@@ -344,6 +439,65 @@
                 speechSynthesis.speak(utterance);
             });
         });
+
+        const distanceQuiz = document.getElementById('distance-quiz');
+        const distanceScore = document.getElementById('distance-score');
+        const resetDistanceBtn = document.getElementById('reset-distance-btn');
+        const distanceCards = Array.from(distanceQuiz?.querySelectorAll('.distance-card') || []);
+
+        function updateDistanceScore() {
+            const solved = distanceCards.filter(card => card.dataset.solved === 'true').length;
+            if (distanceScore) {
+                distanceScore.textContent = `${solved} of ${distanceCards.length} correct`;
+            }
+        }
+
+        function resetDistanceQuiz() {
+            distanceCards.forEach((card) => {
+                card.dataset.solved = 'false';
+                card.classList.remove('correct', 'incorrect');
+                const feedback = card.querySelector('.distance-feedback');
+                if (feedback) feedback.textContent = '';
+                card.querySelectorAll('.distance-choice').forEach((choice) => {
+                    choice.classList.remove('selected', 'correct', 'incorrect');
+                });
+            });
+            updateDistanceScore();
+        }
+
+        distanceCards.forEach((card) => {
+            const answer = card.dataset.answer || '';
+            card.querySelectorAll('.distance-choice').forEach((choice) => {
+                choice.addEventListener('click', () => {
+                    const picked = choice.dataset.choice || '';
+                    const feedback = card.querySelector('.distance-feedback');
+
+                    card.querySelectorAll('.distance-choice').forEach((button) => {
+                        button.classList.remove('selected', 'correct', 'incorrect');
+                    });
+                    choice.classList.add('selected');
+
+                    if (picked === answer) {
+                        card.dataset.solved = 'true';
+                        card.classList.remove('incorrect');
+                        card.classList.add('correct');
+                        choice.classList.add('correct');
+                        if (feedback) feedback.textContent = 'Correct!';
+                    } else {
+                        card.dataset.solved = 'false';
+                        card.classList.remove('correct');
+                        card.classList.add('incorrect');
+                        choice.classList.add('incorrect');
+                        if (feedback) feedback.textContent = `Try again. The answer is ${answer}.`;
+                    }
+
+                    updateDistanceScore();
+                });
+            });
+        });
+
+        resetDistanceBtn?.addEventListener('click', resetDistanceQuiz);
+        resetDistanceQuiz();
 
         showSlide(0);
     });

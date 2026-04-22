@@ -41,6 +41,21 @@
         .drop-slot { min-height: 3rem; border: 2px dashed #cbd5e1; background: #fff; border-radius: 0.9rem; padding: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
         .drop-slot.correct { border-color: #22c55e; background: #f0fdf4; }
         .drop-slot.incorrect { border-color: #ef4444; background: #fef2f2; }
+        .highlight { background: #fef3c7; color: #92400e; padding: 0.1rem 0.35rem; border-radius: 0.35rem; }
+        .memory-board { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
+        .memory-card { position: relative; height: 170px; perspective: 1000px; cursor: pointer; }
+        .memory-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s ease; transform-style: preserve-3d; transform: rotateY(180deg); }
+        .memory-card.is-flipped .memory-card-inner { transform: rotateY(0deg); }
+        .memory-card-face { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.35rem; padding: 1rem; border-radius: 1.1rem; border: 1px solid #e5e7eb; backface-visibility: hidden; }
+        .memory-card-front { background: #ffffff; color: #be185d; }
+        .memory-card-back { background: linear-gradient(135deg, #db2777, #be185d); color: #ffffff; transform: rotateY(180deg); }
+        .memory-card.matched .memory-card-front { background: #f0fdf4; color: #166534; border-color: #22c55e; }
+        .memory-card.matched .memory-card-back { background: #dcfce7; color: #166534; border-color: #86efac; }
+        .memory-card.matched { cursor: default; }
+        .photo-upload-card { display: grid; gap: 1rem; }
+        .photo-preview { min-height: 190px; border: 1px dashed #cbd5e1; border-radius: 1.25rem; background: #f8fafc; padding: 1rem; display: flex; align-items: center; justify-content: center; text-align: center; color: #64748b; }
+        .photo-preview img { max-width: 100%; max-height: 280px; border-radius: 1rem; box-shadow: 0 12px 30px rgba(15, 23, 42, 0.14); object-fit: cover; }
+        .photo-upload-input { width: 100%; border: 1px solid #e5e7eb; border-radius: 0.9rem; padding: 0.85rem 1rem; background: #ffffff; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -111,6 +126,31 @@
             </div>
         </div>
 
+        <div class="slide" data-title="Memory match">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-4 text-pink-700">Memory match</h2>
+                <p class="text-slate-500 text-lg mb-6">Match the object picture with the word. It helps the student connect image and vocabulary fast.</p>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid md:grid-cols-2 gap-4 mb-6">
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">How to play</p>
+                            <p class="text-lg">Flip one picture card and one word card. If they belong together, they stay open.</p>
+                        </div>
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Goal</p>
+                            <p class="text-lg">Find all pairs with the fewest moves possible.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between gap-4 flex-wrap mb-5">
+                        <div id="memory-score" class="text-lg font-bold text-pink-700 bg-pink-50 px-4 py-2 rounded-full">0 of 6 pairs found</div>
+                        <button id="reset-memory-btn" class="speak-btn" type="button"><i class="fas fa-rotate-left"></i> New board</button>
+                    </div>
+                    <div id="memory-board" class="memory-board"></div>
+                    <p id="memory-feedback" class="mt-5 text-lg font-semibold text-slate-600">Click two cards to start.</p>
+                </div>
+            </div>
+        </div>
+
         <div class="slide" data-title="Grammar">
             <div class="text-center">
                 <h2 class="text-4xl font-black mb-6 text-pink-700">Articles and plurals</h2>
@@ -135,6 +175,7 @@
                                     <tr><td class="p-4 border font-bold text-pink-700">one pen</td><td class="p-4 border">two pens</td><td class="p-4 border">I have two pens.</td></tr>
                                     <tr class="bg-slate-50"><td class="p-4 border font-bold text-pink-700">one key</td><td class="p-4 border">three keys</td><td class="p-4 border">These are my keys.</td></tr>
                                     <tr><td class="p-4 border font-bold text-pink-700">one apple</td><td class="p-4 border">four apples</td><td class="p-4 border">There are four apples.</td></tr>
+                                    <tr class="bg-slate-50"><td class="p-4 border font-bold text-pink-700">one mouse</td><td class="p-4 border"><span class="highlight">mice</span></td><td class="p-4 border">The mouse has an irregular plural.</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -258,6 +299,15 @@
                             <p class="lesson-panel-title mb-2">Suggestion</p>
                             <p class="text-lg">Take a real photo of your desk or bag and describe only the objects you can actually see.</p>
                         </div>
+                    </div>
+                    <div class="photo-upload-card mt-5 activity-card">
+                        <p class="lesson-panel-title mb-2">Photo challenge</p>
+                        <p class="text-lg">Upload a photo of an object, then write 2 or 3 sentences about it in the box below.</p>
+                        <input id="object-photo-input" class="photo-upload-input" type="file" accept="image/*">
+                        <div id="photo-preview" class="photo-preview">
+                            <p>Choose a photo to preview it here.</p>
+                        </div>
+                        <p id="photo-feedback" class="text-sm font-semibold text-slate-500">The photo stays local in your browser.</p>
                     </div>
                     <textarea id="writing-challenge" rows="6" class="mt-5 w-full p-4 border-2 border-slate-200 rounded-xl focus:border-pink-500 outline-none transition-colors" placeholder="Write your inventory here..."></textarea>
                 </div>
@@ -424,6 +474,143 @@
             });
         }
 
+        const memoryPairs = [
+            { match: 'book', kind: 'image', icon: 'fa-book', label: 'Picture' },
+            { match: 'book', kind: 'word', label: 'book' },
+            { match: 'pen', kind: 'image', icon: 'fa-pen', label: 'Picture' },
+            { match: 'pen', kind: 'word', label: 'pen' },
+            { match: 'keys', kind: 'image', icon: 'fa-key', label: 'Picture' },
+            { match: 'keys', kind: 'word', label: 'keys' },
+            { match: 'apple', kind: 'image', icon: 'fa-apple-whole', label: 'Picture' },
+            { match: 'apple', kind: 'word', label: 'apple' },
+            { match: 'phone', kind: 'image', icon: 'fa-mobile-screen-button', label: 'Picture' },
+            { match: 'phone', kind: 'word', label: 'cell phone' },
+            { match: 'notebook', kind: 'image', icon: 'fa-book-open', label: 'Picture' },
+            { match: 'notebook', kind: 'word', label: 'notebook' }
+        ];
+        const memoryBoard = document.getElementById('memory-board');
+        const memoryScore = document.getElementById('memory-score');
+        const memoryFeedback = document.getElementById('memory-feedback');
+        const resetMemoryBtn = document.getElementById('reset-memory-btn');
+        let memoryOpen = [];
+        let memoryLocked = false;
+        let memoryMoves = 0;
+        let memoryPairsFound = 0;
+
+        function syncMemoryUI(message) {
+            if (memoryScore) {
+                memoryScore.textContent = `${memoryPairsFound} of ${memoryPairs.length / 2} pairs found | Moves: ${memoryMoves}`;
+            }
+            if (memoryFeedback && message) {
+                memoryFeedback.textContent = message;
+            }
+        }
+
+        function createMemoryCard(item) {
+            const card = document.createElement('button');
+            card.type = 'button';
+            card.className = 'memory-card';
+            card.dataset.match = item.match;
+            card.innerHTML = `
+                <div class="memory-card-inner">
+                    <div class="memory-card-face memory-card-back">
+                        <i class="fas fa-question text-4xl mb-2"></i>
+                        <span class="text-xs uppercase tracking-[0.2em]">Tap to flip</span>
+                    </div>
+                    <div class="memory-card-face memory-card-front">
+                        ${
+                            item.kind === 'image'
+                                ? `<i class="fas ${item.icon} text-5xl mb-2"></i><p class="text-lg font-bold">${item.label}</p><p class="text-xs uppercase tracking-[0.2em] opacity-70">Picture</p>`
+                                : `<p class="text-3xl font-black mb-2">${item.label}</p><p class="text-xs uppercase tracking-[0.2em] opacity-70">Word</p>`
+                        }
+                    </div>
+                </div>`;
+
+            card.addEventListener('click', () => {
+                if (memoryLocked || card.classList.contains('matched') || card.classList.contains('is-flipped')) {
+                    return;
+                }
+
+                card.classList.add('is-flipped');
+                memoryOpen.push(card);
+
+                if (memoryOpen.length === 2) {
+                    memoryLocked = true;
+                    memoryMoves += 1;
+
+                    const [first, second] = memoryOpen;
+                    const isMatch = first.dataset.match === second.dataset.match;
+
+                    if (isMatch) {
+                        first.classList.add('matched');
+                        second.classList.add('matched');
+                        memoryPairsFound += 1;
+                        memoryOpen = [];
+                        memoryLocked = false;
+                        syncMemoryUI(memoryPairsFound === memoryPairs.length / 2 ? 'Great! All pairs are open.' : 'Great match. Keep going.');
+                        return;
+                    }
+
+                    syncMemoryUI('Not a match. Try another pair.');
+                    setTimeout(() => {
+                        first.classList.remove('is-flipped');
+                        second.classList.remove('is-flipped');
+                        memoryOpen = [];
+                        memoryLocked = false;
+                        syncMemoryUI('Try again.');
+                    }, 700);
+                } else {
+                    syncMemoryUI('Choose a second card.');
+                }
+            });
+
+            return card;
+        }
+
+        function renderMemoryGame() {
+            if (!memoryBoard) return;
+            memoryBoard.innerHTML = '';
+            memoryOpen = [];
+            memoryLocked = false;
+            memoryMoves = 0;
+            memoryPairsFound = 0;
+
+            [...memoryPairs].sort(() => Math.random() - 0.5).forEach((item) => {
+                memoryBoard.appendChild(createMemoryCard(item));
+            });
+
+            syncMemoryUI('Click two cards to start.');
+        }
+
+        resetMemoryBtn?.addEventListener('click', renderMemoryGame);
+
+        const photoInput = document.getElementById('object-photo-input');
+        const photoPreview = document.getElementById('photo-preview');
+        const photoFeedback = document.getElementById('photo-feedback');
+        let photoObjectUrl = null;
+
+        photoInput?.addEventListener('change', () => {
+            const file = photoInput.files?.[0];
+            if (photoObjectUrl) {
+                URL.revokeObjectURL(photoObjectUrl);
+                photoObjectUrl = null;
+            }
+
+            if (!file) {
+                if (photoPreview) photoPreview.innerHTML = '<p>Choose a photo to preview it here.</p>';
+                if (photoFeedback) photoFeedback.textContent = 'The photo stays local in your browser.';
+                return;
+            }
+
+            photoObjectUrl = URL.createObjectURL(file);
+            if (photoPreview) {
+                photoPreview.innerHTML = `<div><img src="${photoObjectUrl}" alt="Preview of ${file.name}"><p class="mt-3 text-sm font-semibold text-slate-500">${file.name}</p></div>`;
+            }
+            if (photoFeedback) {
+                photoFeedback.textContent = 'Now describe the object with color, size and place.';
+            }
+        });
+
         function setupBuilders() {
             document.querySelectorAll('[data-builder-answer]').forEach((builder) => {
                 const answer = builder.dataset.builderAnswer.split(' ');
@@ -459,6 +646,7 @@
         }
 
         renderFlashcards(flashcardData);
+        renderMemoryGame();
         setupBuilders();
         showSlide(0);
     });

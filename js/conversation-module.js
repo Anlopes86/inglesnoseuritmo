@@ -27,19 +27,23 @@ document.addEventListener('DOMContentLoaded', () => {
         'Decisions', 'Bioethics', 'Narrative', 'Leadership', 'Fair Play', 'Identity', 'Humor', 'Growth'
     ];
 
-    function buildLessonCard(title, lessonNumber, state) {
+    function buildLessonCard(title, lessonNumber, state, isManager) {
         const padded = String(lessonNumber).padStart(2, '0');
-        const canOpen = state !== 'locked';
+        const canOpen = isManager || state !== 'locked';
         const iconClass = state === 'completed'
             ? 'fa-check-circle text-green-500'
             : state === 'available'
                 ? 'fa-play-circle text-fuchsia-400'
-                : 'fa-lock text-slate-500';
+                : isManager
+                    ? 'fa-lock-open text-fuchsia-400'
+                    : 'fa-lock text-slate-500';
         const stateText = state === 'completed'
             ? 'Concluida'
             : state === 'available'
                 ? 'Liberada'
-                : 'Bloqueada';
+                : isManager
+                    ? 'Professor pode abrir'
+                    : 'Bloqueada';
 
         const card = document.createElement('a');
         card.href = canOpen ? `licao-${padded}.html` : '#';
@@ -57,7 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p class="lesson-meta mt-2">Licao ${lessonNumber}</p>
             </div>
             <div class="lesson-state">
-                <i class="fas ${state === 'locked' ? 'fa-lock' : state === 'completed' ? 'fa-award' : 'fa-forward'} text-fuchsia-400"></i>
+                <i class="fas ${state === 'locked'
+                    ? (isManager ? 'fa-lock-open' : 'fa-lock')
+                    : state === 'completed'
+                        ? 'fa-award'
+                        : 'fa-forward'} text-fuchsia-400"></i>
                 ${stateText}
             </div>
         `;
@@ -113,12 +121,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const studentData = doc.exists ? doc.data() : {};
             const allProgress = studentData.progress ? studentData.progress : {};
             const progress = allProgress.conversation || {};
-            const viewerDoc = await db.collection('students').doc(firebase.auth().currentUser.uid).get();
-            const viewerData = viewerDoc.exists ? viewerDoc.data() : {};
-            const lessonLimit = Math.min(
-                Number(studentData.lessonCount || viewerData.lessonCount || 16) || 16,
+            const isManager = role === 'professor' || role === 'admin';
+            const firstUncompletedLesson = lessonTitles.findIndex((_, index) => progress[`lesson_${index + 1}`] !== true) + 1;
+            const resolvedFirstUncompleted = firstUncompletedLesson === 0
+                ? lessonTitles.length + 1
+                : firstUncompletedLesson;
+            const declaredLessonCount = Math.min(
+                Number(platformAccess?.getLessonLimit
+                    ? platformAccess.getLessonLimit(studentData)
+                    : studentData.lessonCount || 16) || 16,
                 lessonTitles.length
             );
+            const lessonLimit = isManager
+                ? lessonTitles.length
+                : Math.max(declaredLessonCount, resolvedFirstUncompleted);
             const allowedProducts = platformAccess?.getStudentAccessibleProducts
                 ? platformAccess.getStudentAccessibleProducts(studentData)
                 : [
@@ -141,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     : isCompleted
                         ? 'completed'
                         : 'available';
-                grid.appendChild(buildLessonCard(title, lessonNumber, state));
+                grid.appendChild(buildLessonCard(title, lessonNumber, state, isManager));
             });
 
             loadingDiv.classList.add('hidden');

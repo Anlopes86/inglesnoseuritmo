@@ -31,6 +31,12 @@
         .answer-btn:hover { color: #0f766e; }
         .speak-btn { display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; padding: 5px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
         .speak-btn:hover { background: #dbeafe; }
+        .diary-grid { display: grid; gap: 1rem; }
+        .diary-entry { width: 100%; min-height: 180px; border: 1px solid #e5e7eb; border-radius: 1rem; padding: 1rem; background: #ffffff; color: #1f2937; }
+        .frequency-chart { display: grid; gap: 0.75rem; }
+        .frequency-row { display: grid; grid-template-columns: 110px 1fr 50px; gap: 0.75rem; align-items: center; }
+        .frequency-track { height: 14px; border-radius: 999px; background: #e2e8f0; overflow: hidden; }
+        .frequency-fill { height: 100%; width: 0%; border-radius: inherit; background: linear-gradient(90deg, #14b8a6, #06b6d4); transition: width 0.25s ease; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -41,7 +47,7 @@
                 <h1 class="text-base font-semibold text-slate-800">A1 - Lesson 9: My Daily Routine</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-teal-500 h-1.5 transition-all duration-500"></div></div>
     </header>
@@ -269,6 +275,30 @@
             </div>
         </div>
 
+        <div class="slide" data-title="Diary">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-teal-700">Daily diary</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-3">Write your routine</p>
+                            <p class="text-lg">Use the diary to write 4 to 6 sentences about a real day. Try to include frequency words.</p>
+                            <textarea id="routine-diary" class="diary-entry mt-4" placeholder="I usually wake up at..."></textarea>
+                            <div class="mt-4 flex items-center justify-between gap-3 flex-wrap">
+                                <div id="diary-word-count" class="text-sm font-semibold text-slate-500">0 words</div>
+                                <button id="clear-diary-btn" type="button" class="speak-btn"><i class="fas fa-rotate-left"></i> Clear</button>
+                            </div>
+                        </div>
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-3">Frequency chart</p>
+                            <p class="text-lg mb-4">The chart grows when the words appear in your text.</p>
+                            <div id="frequency-chart" class="frequency-chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="slide" data-title="Lesson Complete">
             <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
                 <i class="fas fa-road text-teal-500 text-7xl mb-6"></i>
@@ -409,6 +439,42 @@
                 speechSynthesis.speak(utterance);
             });
         });
+
+        const diaryInput = document.getElementById('routine-diary');
+        const diaryWordCount = document.getElementById('diary-word-count');
+        const clearDiaryBtn = document.getElementById('clear-diary-btn');
+        const frequencyChart = document.getElementById('frequency-chart');
+        const frequencyWords = ['always', 'usually', 'often', 'sometimes', 'rarely', 'never'];
+
+        function renderFrequencyChart() {
+            if (!frequencyChart) return;
+            const text = diaryInput?.value.toLowerCase() || '';
+            const counts = frequencyWords.map((word) => {
+                const matches = text.match(new RegExp(`\\b${word}\\b`, 'g'));
+                return matches ? matches.length : 0;
+            });
+            const max = Math.max(1, ...counts);
+
+            frequencyChart.innerHTML = frequencyWords.map((word, index) => `
+                <div class="frequency-row">
+                    <span class="font-semibold text-slate-700">${word}</span>
+                    <div class="frequency-track"><div class="frequency-fill" style="width: ${Math.round((counts[index] / max) * 100)}%"></div></div>
+                    <span class="text-sm font-bold text-slate-600 text-right">${counts[index]}</span>
+                </div>
+            `).join('');
+
+            if (diaryWordCount) {
+                const words = (diaryInput?.value.trim().match(/\S+/g) || []).length;
+                diaryWordCount.textContent = `${words} words`;
+            }
+        }
+
+        diaryInput?.addEventListener('input', renderFrequencyChart);
+        clearDiaryBtn?.addEventListener('click', () => {
+            if (diaryInput) diaryInput.value = '';
+            renderFrequencyChart();
+        });
+        renderFrequencyChart();
 
         const routineState = [];
         const routineTrack = document.getElementById('routine-sequence-track');

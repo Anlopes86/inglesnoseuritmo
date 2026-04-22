@@ -14,6 +14,7 @@
             id: 'starter',
             label: 'Pack 16',
             studentLimit: 10,
+            lessonCount: 16,
             products: ['conversation'],
             billingCycle: 'monthly'
         },
@@ -21,6 +22,7 @@
             id: 'pro',
             label: 'Pack 32',
             studentLimit: 40,
+            lessonCount: 32,
             products: ['conversation', 'a1', 'a2', 'prepb1', 'b1', 'business', 'vestibular', 'essentials'],
             billingCycle: 'monthly'
         },
@@ -28,6 +30,7 @@
             id: 'scale',
             label: 'Pack 48',
             studentLimit: null,
+            lessonCount: 48,
             products: ['conversation', 'a1', 'a2', 'prepb1', 'b1', 'business', 'vestibular', 'essentials', 'b2', 'c1', 'c2'],
             billingCycle: 'monthly'
         },
@@ -35,6 +38,7 @@
             id: 'admin',
             label: 'Admin',
             studentLimit: null,
+            lessonCount: 48,
             products: ['*'],
             billingCycle: 'internal'
         }
@@ -52,11 +56,17 @@
         const studentLimit = Number.isFinite(safeUser.studentLimit)
             ? safeUser.studentLimit
             : catalogPlan.studentLimit;
+        const lessonCount = safeUser.platformPlan
+            ? catalogPlan.lessonCount
+            : (Number.isFinite(safeUser.lessonCount)
+                ? safeUser.lessonCount
+                : catalogPlan.lessonCount);
 
         return {
             id: catalogPlan.id,
             label: catalogPlan.label,
             studentLimit,
+            lessonCount,
             products: Array.isArray(safeUser.accessibleProducts) && safeUser.accessibleProducts.length
                 ? [...safeUser.accessibleProducts]
                 : [...catalogPlan.products],
@@ -144,6 +154,14 @@
     function getLessonLimit(source) {
         if (Number.isFinite(source)) {
             return source;
+        }
+
+        const planId = source?.platformPlan || source?.plan?.id;
+        if (planId) {
+            const plan = getPlanCatalogEntry(planId);
+            if (Number.isFinite(plan.lessonCount)) {
+                return plan.lessonCount;
+            }
         }
 
         if (Number.isFinite(source?.lessonCount)) {

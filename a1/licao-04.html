@@ -41,6 +41,50 @@
         .drop-slot { min-height: 3rem; border: 2px dashed #cbd5e1; background: #fff; border-radius: 0.9rem; padding: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
         .drop-slot.correct { border-color: #22c55e; background: #f0fdf4; }
         .drop-slot.incorrect { border-color: #ef4444; background: #fef2f2; }
+        .ordinal-table th, .ordinal-table td { white-space: nowrap; }
+        .bingo-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.75rem; }
+        .bingo-cell {
+            min-height: 4.25rem;
+            border-radius: 1rem;
+            border: 2px solid #cbd5e1;
+            background: #fff;
+            font-weight: 800;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .bingo-cell.called { background: #ecfccb; border-color: #84cc16; color: #3f6212; transform: scale(0.98); }
+        .bingo-cell.free { background: #f8fafc; color: #64748b; border-style: dashed; }
+        .hangman-board {
+            min-height: 220px;
+            border-radius: 1.25rem;
+            border: 1px solid #e5e7eb;
+            background: linear-gradient(180deg, #ffffff, #f8fafc);
+            padding: 1rem;
+        }
+        .hangman-stage {
+            font-family: 'Courier New', monospace;
+            white-space: pre;
+            line-height: 1.05;
+            font-size: 1.05rem;
+            color: #1f2937;
+        }
+        .hangman-key {
+            min-width: 2.3rem;
+            padding: 0.45rem 0.55rem;
+            border-radius: 0.75rem;
+            border: 1px solid #cbd5e1;
+            background: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .hangman-key.used { opacity: 0.35; cursor: not-allowed; }
+        .hangman-key:hover:not(.used) { background: #dbeafe; border-color: #93c5fd; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -167,15 +211,53 @@
 
         <div class="slide" data-title="Numbers">
             <div class="text-center">
-                <h2 class="text-4xl font-black mb-6 text-emerald-700">Numbers 0 to 20</h2>
+                <h2 class="text-4xl font-black mb-6 text-emerald-700">Numbers 0 to 100</h2>
                 <div class="section-card p-8">
                     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-left text-lg">
                         <div class="activity-card"><strong>0-5</strong><p class="mt-2">zero, one, two, three, four, five</p></div>
                         <div class="activity-card"><strong>6-10</strong><p class="mt-2">six, seven, eight, nine, ten</p></div>
                         <div class="activity-card"><strong>11-15</strong><p class="mt-2">eleven, twelve, thirteen, fourteen, fifteen</p></div>
                         <div class="activity-card"><strong>16-20</strong><p class="mt-2">sixteen, seventeen, eighteen, nineteen, twenty</p></div>
+                        <div class="activity-card"><strong>20-100</strong><p class="mt-2">twenty, thirty, forty, fifty, sixty, seventy, eighty, ninety, one hundred</p></div>
+                        <div class="activity-card"><strong>Tricky pair</strong><p class="mt-2"><strong>thirteen</strong> = 13, <strong>thirty</strong> = 30.</p></div>
                         <div class="activity-card"><strong>Dica</strong><p class="mt-2"><strong>thirteen</strong> e <strong>thirty</strong> são diferentes. Aqui vamos focar primeiro no grupo de 0 a 20.</p></div>
                         <div class="activity-card"><strong>Modelo</strong><p class="mt-2">My number is <strong>seven</strong>. <button class="speak-btn" data-speak="My number is seven."><i class="fas fa-volume-up"></i></button></p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Ordinals">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-emerald-700">Ordinals</h2>
+                <div class="section-card p-8 text-left">
+                    <p class="text-lg text-slate-600 mb-4">Os ordinais ajudam com datas, andares e classificações. Use <strong>first</strong>, <strong>second</strong>, <strong>third</strong> e continue a sequência.</p>
+                    <div class="overflow-x-auto">
+                        <table class="ordinal-table w-full text-left text-base border-collapse overflow-hidden">
+                            <thead><tr class="bg-slate-100"><th class="p-3 border">Number</th><th class="p-3 border">Ordinal</th><th class="p-3 border">Example</th></tr></thead>
+                            <tbody>
+                                <tr><td class="p-3 border">1</td><td class="p-3 border font-bold text-emerald-700">first</td><td class="p-3 border">I live on the first floor.</td></tr>
+                                <tr class="bg-slate-50"><td class="p-3 border">2</td><td class="p-3 border font-bold text-emerald-700">second</td><td class="p-3 border">She is in second place.</td></tr>
+                                <tr><td class="p-3 border">3</td><td class="p-3 border font-bold text-emerald-700">third</td><td class="p-3 border">My birthday is on the third of May.</td></tr>
+                                <tr class="bg-slate-50"><td class="p-3 border">4</td><td class="p-3 border">fourth</td><td class="p-3 border">It is my fourth lesson.</td></tr>
+                                <tr><td class="p-3 border">5</td><td class="p-3 border">fifth</td><td class="p-3 border">This is the fifth question.</td></tr>
+                                <tr class="bg-slate-50"><td class="p-3 border">6</td><td class="p-3 border">sixth</td><td class="p-3 border">June sixth is the date.</td></tr>
+                                <tr><td class="p-3 border">7</td><td class="p-3 border">seventh</td><td class="p-3 border">The seventh seat is free.</td></tr>
+                                <tr class="bg-slate-50"><td class="p-3 border">8</td><td class="p-3 border">eighth</td><td class="p-3 border">The eighth number is lucky.</td></tr>
+                                <tr><td class="p-3 border">9</td><td class="p-3 border">ninth</td><td class="p-3 border">This is my ninth try.</td></tr>
+                                <tr class="bg-slate-50"><td class="p-3 border">10</td><td class="p-3 border">tenth</td><td class="p-3 border">The tenth page is here.</td></tr>
+                                <tr><td class="p-3 border">11</td><td class="p-3 border">eleventh</td><td class="p-3 border">It is the eleventh day.</td></tr>
+                                <tr class="bg-slate-50"><td class="p-3 border">12</td><td class="p-3 border">twelfth</td><td class="p-3 border">The twelfth floor is closed.</td></tr>
+                                <tr><td class="p-3 border">13</td><td class="p-3 border">thirteenth</td><td class="p-3 border">My thirteenth lesson is today.</td></tr>
+                                <tr class="bg-slate-50"><td class="p-3 border">14</td><td class="p-3 border">fourteenth</td><td class="p-3 border">The fourteenth seat is yours.</td></tr>
+                                <tr><td class="p-3 border">15</td><td class="p-3 border">fifteenth</td><td class="p-3 border">Her fifteenth birthday is soon.</td></tr>
+                                <tr class="bg-slate-50"><td class="p-3 border">16</td><td class="p-3 border">sixteenth</td><td class="p-3 border">It is the sixteenth street.</td></tr>
+                                <tr><td class="p-3 border">17</td><td class="p-3 border">seventeenth</td><td class="p-3 border">The seventeenth question is easy.</td></tr>
+                                <tr class="bg-slate-50"><td class="p-3 border">18</td><td class="p-3 border">eighteenth</td><td class="p-3 border">He is on the eighteenth page.</td></tr>
+                                <tr><td class="p-3 border">19</td><td class="p-3 border">nineteenth</td><td class="p-3 border">The nineteenth car is blue.</td></tr>
+                                <tr class="bg-slate-50"><td class="p-3 border">20</td><td class="p-3 border">twentieth</td><td class="p-3 border">The twentieth student is waiting.</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -234,6 +316,30 @@
             </div>
         </div>
 
+        <div class="slide" data-title="Bingo">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-emerald-700">Number bingo</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="flex flex-wrap gap-3 justify-between items-center mb-6">
+                        <p class="text-lg text-slate-600 max-w-2xl">Generate a bingo card with 25 numbers. Click <strong>Call number</strong> to mark the number that was said.</p>
+                        <div class="flex gap-3 flex-wrap">
+                            <button id="new-bingo-btn" class="bg-emerald-600 text-white font-bold py-3 px-6 rounded-xl hover:bg-emerald-700 transition">New card</button>
+                            <button id="call-bingo-btn" class="bg-slate-700 text-white font-bold py-3 px-6 rounded-xl hover:bg-slate-800 transition">Call number</button>
+                            <button id="reset-bingo-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-6 rounded-xl hover:bg-slate-300 transition">Reset</button>
+                        </div>
+                    </div>
+                    <div class="grid lg:grid-cols-[1fr_0.45fr] gap-6 items-start">
+                        <div id="bingo-grid" class="bingo-grid"></div>
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Called numbers</p>
+                            <p id="called-number" class="text-4xl font-black text-emerald-700 mb-4">--</p>
+                            <p id="bingo-status" class="text-lg text-slate-600">Generate a card to start.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="slide" data-title="Build sentences">
             <div class="text-center">
                 <h2 class="text-4xl font-black mb-6 text-emerald-700">Build the sentence</h2>
@@ -255,6 +361,31 @@
                         <div class="builder-line" data-builder-answer="Can you repeat please ?">
                             <div class="drop-slot mb-4"></div>
                             <div class="builder-bank"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Hangman">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-6 text-emerald-700">Hangman</h2>
+                <div class="section-card p-8 max-w-5xl mx-auto text-left">
+                    <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-6 items-start">
+                        <div class="hangman-board">
+                            <p class="lesson-panel-title mb-3">Drawing</p>
+                            <div id="hangman" class="hangman-stage min-h-[180px]"></div>
+                            <p id="hangman-message" class="mt-4 text-lg font-semibold text-slate-700">Choose a letter to start.</p>
+                        </div>
+                        <div class="activity-card">
+                            <p class="lesson-panel-title mb-2">Word</p>
+                            <div id="word-display" class="tracking-[0.2em] text-4xl font-black text-emerald-700 mb-4"></div>
+                            <p class="text-slate-600 mb-4">Guess the word one letter at a time. Use the keyboard or the buttons below.</p>
+                            <div id="hangman-keys" class="flex flex-wrap gap-2"></div>
+                            <div class="mt-5 flex gap-3 flex-wrap">
+                                <button id="new-hangman-btn" class="bg-emerald-600 text-white font-bold py-3 px-6 rounded-xl hover:bg-emerald-700 transition">New word</button>
+                                <button id="reset-hangman-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-6 rounded-xl hover:bg-slate-300 transition">Reset</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -518,6 +649,155 @@
             });
         }
 
+        const bingoNumbers = [];
+        const bingoCalled = new Set();
+        let currentBingoNumber = null;
+
+        function uniqueRandomNumbers(count, min, max) {
+            const pool = [];
+            for (let i = min; i <= max; i++) pool.push(i);
+            return pool.sort(() => Math.random() - 0.5).slice(0, count);
+        }
+
+        function renderBingoCard() {
+            const grid = document.getElementById('bingo-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            bingoNumbers.length = 0;
+            bingoCalled.clear();
+            currentBingoNumber = null;
+            const cardNumbers = uniqueRandomNumbers(25, 1, 100);
+            cardNumbers.forEach((number) => {
+                bingoNumbers.push(number);
+                const cell = document.createElement('button');
+                cell.type = 'button';
+                cell.className = 'bingo-cell';
+                cell.dataset.number = String(number);
+                cell.textContent = String(number);
+                grid.appendChild(cell);
+            });
+            const status = document.getElementById('bingo-status');
+            const called = document.getElementById('called-number');
+            if (status) status.textContent = 'Your new bingo card is ready.';
+            if (called) called.textContent = '--';
+        }
+
+        function callBingoNumber() {
+            const status = document.getElementById('bingo-status');
+            const called = document.getElementById('called-number');
+            const available = bingoNumbers.filter((number) => !bingoCalled.has(number));
+            if (!available.length) {
+                if (status) status.textContent = 'All numbers on this card were already called.';
+                return;
+            }
+            currentBingoNumber = available[Math.floor(Math.random() * available.length)];
+            bingoCalled.add(currentBingoNumber);
+            if (called) called.textContent = String(currentBingoNumber);
+            document.querySelectorAll('#bingo-grid .bingo-cell').forEach((cell) => {
+                if (cell.dataset.number === String(currentBingoNumber)) {
+                    cell.classList.add('called');
+                }
+            });
+            if (status) status.textContent = `The teacher called ${currentBingoNumber}. Mark it on the card.`;
+        }
+
+        function resetBingoCard() {
+            bingoCalled.clear();
+            currentBingoNumber = null;
+            document.querySelectorAll('#bingo-grid .bingo-cell').forEach((cell) => cell.classList.remove('called'));
+            const called = document.getElementById('called-number');
+            const status = document.getElementById('bingo-status');
+            if (called) called.textContent = '--';
+            if (status) status.textContent = 'Bingo card reset.';
+        }
+
+        document.getElementById('new-bingo-btn')?.addEventListener('click', renderBingoCard);
+        document.getElementById('call-bingo-btn')?.addEventListener('click', callBingoNumber);
+        document.getElementById('reset-bingo-btn')?.addEventListener('click', resetBingoCard);
+
+        const hangmanWords = ['CAT', 'TEN', 'BOOK', 'PHONE', 'APPLE', 'SCHOOL'];
+        const hangmanStages = [
+            '  +---+\n  |   |\n      |\n      |\n      |\n      |\n=========',
+            '  +---+\n  |   |\n  O   |\n      |\n      |\n      |\n=========',
+            '  +---+\n  |   |\n  O   |\n  |   |\n      |\n      |\n=========',
+            '  +---+\n  |   |\n  O   |\n /|   |\n      |\n      |\n=========',
+            '  +---+\n  |   |\n  O   |\n /|\\  |\n      |\n      |\n=========',
+            '  +---+\n  |   |\n  O   |\n /|\\  |\n /    |\n      |\n=========',
+            '  +---+\n  |   |\n  O   |\n /|\\  |\n / \\  |\n      |\n========='
+        ];
+        let hangmanWord = '';
+        let hangmanGuesses = [];
+        let hangmanWrong = 0;
+
+        function updateHangman() {
+            const hangman = document.getElementById('hangman');
+            const wordDisplay = document.getElementById('word-display');
+            const message = document.getElementById('hangman-message');
+            if (hangman) hangman.textContent = hangmanStages[Math.min(hangmanWrong, hangmanStages.length - 1)];
+            if (wordDisplay) {
+                wordDisplay.textContent = hangmanWord.split('').map((letter) => (hangmanGuesses.includes(letter) ? letter : '_')).join(' ');
+            }
+            if (!hangmanWord) return;
+            const solved = hangmanWord.split('').every((letter) => hangmanGuesses.includes(letter));
+            if (solved) {
+                if (message) message.textContent = 'Great! You found the word.';
+                document.querySelectorAll('#hangman-keys .hangman-key').forEach((button) => button.classList.add('used'));
+            } else if (hangmanWrong >= hangmanStages.length - 1) {
+                if (message) message.textContent = `Game over. The word was ${hangmanWord}.`;
+            } else if (message) {
+                message.textContent = `Wrong guesses: ${hangmanWrong} of ${hangmanStages.length - 1}.`;
+            }
+        }
+
+        function startHangman() {
+            hangmanWord = hangmanWords[Math.floor(Math.random() * hangmanWords.length)];
+            hangmanGuesses = [];
+            hangmanWrong = 0;
+            const keys = document.getElementById('hangman-keys');
+            if (keys && !keys.dataset.ready) {
+                keys.innerHTML = '';
+                'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach((letter) => {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'hangman-key';
+                    button.textContent = letter;
+                    button.addEventListener('click', () => guessLetter(letter, button));
+                    keys.appendChild(button);
+                });
+                keys.dataset.ready = '1';
+            } else {
+                document.querySelectorAll('#hangman-keys .hangman-key').forEach((button) => {
+                    button.classList.remove('used');
+                    button.disabled = false;
+                });
+            }
+            const message = document.getElementById('hangman-message');
+            if (message) message.textContent = 'Choose a letter to start.';
+            updateHangman();
+        }
+
+        function guessLetter(letter, button) {
+            if (!hangmanWord || hangmanGuesses.includes(letter) || hangmanWrong >= hangmanStages.length - 1) return;
+            hangmanGuesses.push(letter);
+            if (button) {
+                button.classList.add('used');
+                button.disabled = true;
+            }
+            if (!hangmanWord.includes(letter)) {
+                hangmanWrong++;
+            }
+            updateHangman();
+        }
+
+        document.getElementById('new-hangman-btn')?.addEventListener('click', startHangman);
+        document.getElementById('reset-hangman-btn')?.addEventListener('click', startHangman);
+        document.addEventListener('keydown', (event) => {
+            const letter = event.key.toUpperCase();
+            if (!/^[A-Z]$/.test(letter)) return;
+            const button = [...document.querySelectorAll('#hangman-keys .hangman-key')].find((item) => item.textContent === letter);
+            if (button && !button.disabled) guessLetter(letter, button);
+        });
+
         const spellingWords = ['HELLO', 'JULIA', 'NUMBER', 'SCHOOL', 'WATER', 'TEACHER', 'THIRTEEN', 'TWENTY'];
         let currentWord = '';
         const wordToSpell = document.getElementById('word-to-spell');
@@ -563,6 +843,8 @@
 
         renderFlashcards(flashcardData);
         setupBuilders();
+        renderBingoCard();
+        startHangman();
         nextSpellingWord();
         showSlide(0);
     });

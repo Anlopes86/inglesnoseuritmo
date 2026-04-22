@@ -1,23 +1,58 @@
+const LESSON_RESTRUCTURE_PLAN = {
+    1: { title: "Connect Life Milestones", activityType: "memory", targets: ["Present perfect continuous for ongoing effort", "Timeline logic for life milestones", "One-minute personal update recording"], activityPrompt: "Match achievement vocabulary with meaning before telling your timeline.", productionBoost: "Combine present perfect and present perfect continuous in your audio update.", musicHint: "Use a short chorus with present perfect for gap-fill listening." },
+    2: { title: "Time Markers Precision", activityType: "timed_quiz", targets: ["Since/for and already/yet accuracy", "Recently/lately in progress updates", "Fast form selection under time pressure"], activityPrompt: "Timed challenge: choose the most accurate time marker.", productionBoost: "Write a mini progress email using all target markers.", musicHint: "Use any short excerpt with time markers for listening discrimination." },
+    3: { title: "Milestone Story Builder", activityType: "ordering", targets: ["Present perfect plus past simple sequencing", "First/then/afterwards/finally connectors", "Impact reflection with comparatives"], activityPrompt: "Reorder story events and retell why the milestone mattered.", productionBoost: "Record a short milestone story with sequence connectors." },
+    4: { title: "Then vs Now Contrast", activityType: "memory", targets: ["used to and would for past habits", "Past-to-present contrast language", "Peer feedback on habit change"], activityPrompt: "Match old habits to current routines and explain the shift.", productionBoost: "Create before/now contrast statements with clear reasons." },
+    5: { title: "Future Planning Upgrade", activityType: "ordering", targets: ["Arrangements vs intentions", "Future continuous preview", "Calendar-based planning language"], activityPrompt: "Sort plans into arrangement, intention, or prediction.", productionBoost: "Use at least one future continuous sentence in your plan." },
+    6: { title: "Prediction and Deduction", activityType: "debate", targets: ["will/might/probably/maybe nuance", "must/can't for deduction", "Argument support in pairs"], activityPrompt: "Debate one future trend and defend certainty level choices.", productionBoost: "Defend predictions with one modal of deduction.", musicHint: "Use a future-themed song line to discuss certainty level." },
+    7: { title: "Conditional Decision Lab", activityType: "ordering", targets: ["First conditional in real contexts", "Zero conditional quick contrast", "Condition and consequence mapping"], activityPrompt: "Order conditions and outcomes to build realistic cause-effect logic.", productionBoost: "Create real-life if-clauses with practical consequences." },
+    8: { title: "Block 1 Integration Sprint", activityType: "timed_quiz", targets: ["Past/present/future switching", "Time-frame awareness without translation", "Role-play transition practice"], activityPrompt: "Timed team quiz: pick the best tense for each situation.", productionBoost: "Perform a three-phase role-play: past, present, and future." },
+    9: { title: "Opinion and Disagreement Lab", activityType: "debate", targets: ["Polite disagreement patterns", "however/although/on the other hand", "Simple speaking rubric use"], activityPrompt: "Two-side debate: record concise arguments and vote for clarity.", productionBoost: "Use one contrast connector and one respectful disagreement move." },
+    10: { title: "Suggestion Voting Studio", activityType: "debate", targets: ["should/could/let's/why don't we", "ought to and had better", "Collaborative decision language"], activityPrompt: "Present solution cards and vote on the strongest plan.", productionBoost: "Build one decision statement after two suggestions." },
+    11: { title: "Comparison Power Pack", activityType: "timed_quiz", targets: ["Comparatives and superlatives", "as...as and not as...as", "too/enough and so/such...that"], activityPrompt: "Complete comparison chains with high accuracy and speed.", productionBoost: "Explain choices using comparative and superlative evidence.", musicHint: "Choose a comparison-heavy lyric excerpt for quick gap-fill." },
+    12: { title: "Rules and Expectations Clarifier", activityType: "timed_quiz", targets: ["must vs have to vs should", "don't have to vs mustn't", "Expectation framing with be supposed to"], activityPrompt: "Classify sentences by rule, obligation, suggestion, or expectation.", productionBoost: "Apply each modal family to one daily-life scenario." },
+    13: { title: "Clause Assembly Workshop", activityType: "ordering", targets: ["Relative clauses for people/things/places", "Early review of indefinite pronouns", "Pronunciation support with TTS"], activityPrompt: "Match sentence halves to build clear relative clauses.", productionBoost: "Produce one polished sentence for person, thing, and place." },
+    14: { title: "Passive Process Studio", activityType: "ordering", targets: ["Passive with and without agent", "Passive questions in routines", "Active/passive recognition"], activityPrompt: "Reorder process steps and rewrite them in passive voice.", productionBoost: "Alternate agent/no-agent passive forms in your report." },
+    15: { title: "News and Quantifier Lens", activityType: "timed_quiz", targets: ["Main idea and summary extraction", "Indefinite pronouns in context", "Quantifiers from authentic short texts"], activityPrompt: "Read a short news excerpt, then run true/false and detail checks.", productionBoost: "Summarize a 150-200 word text with quantifier awareness.", musicHint: "Optional listening break: news-like spoken rhythm for dictation." },
+    16: { title: "Block 2 Presentation Round", activityType: "debate", targets: ["Integrated block-2 structures", "Structured mini-presentations", "Peer question rounds"], activityPrompt: "Group micro-presentations with polite follow-up questions.", productionBoost: "Use connector + example + conclusion in every argument." },
+    17: { title: "Past Narrative Timeline", activityType: "ordering", targets: ["Past continuous vs past simple", "when/while for simultaneous events", "Temporal markers for sequence"], activityPrompt: "Drag events into a coherent interrupted-action timeline.", productionBoost: "Retell events emphasizing interruption points." },
+    18: { title: "Background and Sequence Depth", activityType: "ordering", targets: ["Past perfect and simple past contrast", "Past perfect continuous introduction", "Logical event linkage"], activityPrompt: "Connect background actions to main events in correct order.", productionBoost: "Explain what had happened before key events." },
+    19: { title: "Reported Speech Relay", activityType: "timed_quiz", targets: ["Statements, questions, and imperatives in reporting", "Core tense shifts (will/would, can/could)", "Message clarity in retelling"], activityPrompt: "Convert direct lines into reported versions under time limit.", productionBoost: "Retell a short dialogue without losing meaning." },
+    20: { title: "Problem-Solution Mapping", activityType: "ordering", targets: ["Cause-effect-solution triads", "however/nevertheless contrast", "Strong recommendation with must"], activityPrompt: "Match problems to causes and realistic solutions.", productionBoost: "Record a concise cause-solution rationale using connectors." },
+    21: { title: "Travel Support Role-play", activityType: "scenario", targets: ["Travel issue handling language", "Conditionals in service situations", "Core travel phrasal verbs"], activityPrompt: "Role-play check-in/check-out problem solving with polite requests.", productionBoost: "Use at least two travel phrasal verbs in your response.", musicHint: "Optional travel-theme lyric cue for emotional context." },
+    22: { title: "Wellbeing Language Builder", activityType: "memory", targets: ["Health and routine vocabulary", "Gerunds after preference verbs", "Quantifiers and indefinite pronouns in habits"], activityPrompt: "Match healthy habits to benefits, then build a wellbeing log.", productionBoost: "Use gerund structures and quantifiers in a personal routine note." },
+    23: { title: "Career Puzzle", activityType: "ordering", targets: ["Study and career pathway vocabulary", "Reflexive pronouns in context", "Infinitives of purpose"], activityPrompt: "Link skills, experiences, and future goals into a career path chain.", productionBoost: "Record a 60-second self-introduction with purpose infinitives." },
+    24: { title: "Block 3 Story Collaboration", activityType: "debate", targets: ["Narrative integration for block 3", "Review of indefinite/reflexive/quantifier/phrasal forms", "Collaborative storytelling"], activityPrompt: "Build a three-part group narrative: context, report, solution.", productionBoost: "Deliver a spoken story arc with clear transitions." },
+    25: { title: "Digital Habits Analyzer", activityType: "timed_quiz", targets: ["Tech routines and impact language", "Gerund/infinitive in digital contexts", "Phrasal verbs and contrast linkers"], activityPrompt: "Run a habits quiz and interpret simple data trends.", productionBoost: "Present one chart insight using too much/enough/not enough." },
+    26: { title: "Sustainability Decisions", activityType: "debate", targets: ["Environmental actions and impact", "Quantifiers and indefinite pronouns", "Passive voice for process focus"], activityPrompt: "Choose greener options and justify them with impact language.", productionBoost: "Record a 30-second campaign slogan with should/must.", musicHint: "Use an environmental lyric snippet to trigger discussion." },
+    27: { title: "Smart Budget Simulator", activityType: "timed_quiz", targets: ["Money and shopping decisions", "Indefinite pronouns in value language", "Negotiation and conditional buying"], activityPrompt: "Compare offers and justify what is worth it under a fixed budget.", productionBoost: "Use worth it/too expensive/good enough with one conditional.", musicHint: "Optional spending-theme lyric for reflection on consumption." },
+    28: { title: "Social Mediation Practice", activityType: "debate", targets: ["Relationship language and social repair", "Social phrasal verbs", "Reflexive pronouns for responsibility"], activityPrompt: "Mediate a misunderstanding and guide both sides to resolution.", productionBoost: "Use modals plus contrast connectors to negotiate calmly.", musicHint: "Friendship lyric cue for empathy and communication tone." },
+    29: { title: "Hypothesis Generator", activityType: "timed_quiz", targets: ["Second conditional and wish review", "Intro to third conditional", "Regret and possibility expression"], activityPrompt: "Complete if/wish scenarios with correct hypothetical framing.", productionBoost: "Link wishes and regrets to one practical learning insight.", musicHint: "Wish/regret lyric cue for emotional framing practice." },
+    30: { title: "Persuasion Slide Builder", activityType: "scenario", targets: ["Presentation structure and persuasive flow", "Advanced contrast/result linkers", "One-minute speaking design"], activityPrompt: "Draft main point, reasons, evidence, and conclusion in slide logic.", productionBoost: "Record a one-minute persuasive mini-talk." },
+    31: { title: "Final Project Workshop Plus", activityType: "scenario", targets: ["Checklist-based project planning", "Inclusion of added B1 targets", "Self-review before submission"], activityPrompt: "Complete the project readiness checklist and patch weak points.", productionBoost: "Ensure quantifiers, gerunds, and phrasal verbs appear in draft." },
+    32: { title: "Final Can-Do Assessment", activityType: "scenario", targets: ["Integrated B1 language control", "Multimodal delivery (text + audio/video)", "Bridge feedback toward B2"], activityPrompt: "Finalize written + spoken project and review performance rubric.", productionBoost: "Deliver a 200-250 word text plus a two-minute recording." }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     const lessonNumber = getLessonNumberFromPath();
-    const lesson = Array.isArray(window.B1_LESSONS) ? window.B1_LESSONS.find(item => item.number === lessonNumber) : null;
+    const lesson = Array.isArray(window.B1_LESSONS) ? window.B1_LESSONS.find((item) => item.number === lessonNumber) : null;
 
     if (!lesson) {
         document.getElementById('slides-root').innerHTML = `
             <div class="surface rounded-[2rem] p-10 text-center">
-                <h2 class="text-3xl font-black text-slate-900 mb-3">Lição não encontrada</h2>
-                <p class="text-slate-600">Não foi possível carregar os dados desta lição B1.</p>
+                <h2 class="text-3xl font-black text-slate-900 mb-3">Lesson not found</h2>
+                <p class="text-slate-600">We could not load this B1 lesson data.</p>
             </div>
         `;
         return;
     }
 
-    const slides = buildSlides(lesson);
+    const restructure = getRestructurePack(lesson);
     const root = document.getElementById('slides-root');
-    root.innerHTML = slides;
+    root.innerHTML = buildSlides(lesson, restructure);
 
     document.getElementById('lesson-title').textContent = `B1 - Lesson ${lesson.number}: ${lesson.title}`;
-    document.title = `B1 - Lesson ${lesson.number}: ${lesson.title} | Inglês no seu Ritmo`;
+    document.title = `B1 - Lesson ${lesson.number}: ${lesson.title} | Ingles no seu Ritmo`;
 
     let currentSlide = 0;
     const slideEls = Array.from(document.querySelectorAll('.slide'));
@@ -27,6 +62,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressBar = document.getElementById('progress-bar');
     const slideCounter = document.getElementById('slide-counter');
     const slideTitleHeader = document.getElementById('slide-title-header');
+
+    const runtime = {
+        memory: {},
+        quiz: {},
+        orderDrag: { itemId: null, boardId: null },
+        debate: {},
+        recorder: {},
+        speech: {}
+    };
+
+    initializeQuizBoards(root, runtime);
 
     function speak(text) {
         if (!('speechSynthesis' in window) || !text) return;
@@ -49,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    root.addEventListener('click', event => {
+    root.addEventListener('click', async (event) => {
         const speakBtn = event.target.closest('.speak-btn');
         if (speakBtn) {
             speak(speakBtn.dataset.speak || speakBtn.dataset.text || '');
@@ -79,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const group = choiceBtn.dataset.group;
             const answer = choiceBtn.dataset.answer;
             const feedback = document.getElementById(`feedback-${group}`);
-            document.querySelectorAll(`[data-group="${group}"]`).forEach(btn => {
+            document.querySelectorAll(`[data-group="${group}"]`).forEach((btn) => {
                 btn.disabled = true;
                 const isCorrect = btn.dataset.correct === 'true';
                 btn.classList.add(isCorrect ? 'correct' : 'incorrect');
@@ -88,10 +134,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 feedback.textContent = answer;
                 feedback.className = 'mt-3 text-sm font-semibold text-slate-600';
             }
+            return;
         }
+
+        if (handleMemoryClick(event, runtime)) return;
+        if (handleQuizClick(event, runtime)) return;
+        if (handleOrderingCheck(event)) return;
+        if (handleDebateClick(event, runtime)) return;
+        if (await handleRecordingClick(event, runtime)) return;
+        if (handleTranscriptClick(event, runtime)) return;
     });
 
-    root.addEventListener('blur', event => {
+    root.addEventListener('blur', (event) => {
         const input = event.target.closest('.practice-input');
         if (!input) return;
         const value = normalize(input.value);
@@ -100,6 +154,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!value) return;
         input.classList.add(value === answer ? 'correct' : 'incorrect');
     }, true);
+
+    root.addEventListener('dragstart', (event) => handleOrderingDragStart(event, runtime));
+    root.addEventListener('dragend', (event) => handleOrderingDragEnd(event, runtime));
+    root.addEventListener('dragover', handleOrderingDragOver);
+    root.addEventListener('drop', (event) => handleOrderingDrop(event, runtime));
 
     prevBtn.addEventListener('click', () => {
         if (currentSlide > 0) {
@@ -125,70 +184,150 @@ function getLessonNumberFromPath() {
 }
 
 function normalize(text) {
-    return (text || '')
+    return String(text || '')
         .toLowerCase()
         .trim()
         .replace(/[.!?]/g, '')
         .replace(/\s+/g, ' ');
 }
 
-function buildSlides(lesson) {
+function escapeAttribute(text) {
+    return String(text || '')
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+
+function escapeHtml(text) {
+    return String(text || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+
+function shuffleArray(list) {
+    const clone = Array.isArray(list) ? [...list] : [];
+    for (let i = clone.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [clone[i], clone[j]] = [clone[j], clone[i]];
+    }
+    return clone;
+}
+
+function getRestructurePack(lesson) {
+    const baseTargets = [
+        'Integrate reading, writing, listening, and speaking in the same lesson.',
+        'Use formative feedback with simple rubric language.',
+        'Close CEFR B1 gaps through controlled but meaningful practice.'
+    ];
+    const plan = LESSON_RESTRUCTURE_PLAN[lesson.number] || {};
+    return {
+        title: plan.title || 'B1 Premium Upgrade',
+        targets: Array.isArray(plan.targets) && plan.targets.length ? plan.targets : baseTargets,
+        activityType: plan.activityType || inferActivityType(lesson.number),
+        activityPrompt: plan.activityPrompt || 'Use the interactive lab to apply the lesson language in context.',
+        productionBoost: plan.productionBoost || 'Record a short response and self-evaluate with the rubric.',
+        musicHint: plan.musicHint || ''
+    };
+}
+
+function inferActivityType(lessonNumber) {
+    if ([1, 4, 22].includes(lessonNumber)) return 'memory';
+    if ([3, 5, 7, 13, 14, 17, 18, 20, 23].includes(lessonNumber)) return 'ordering';
+    if ([6, 9, 10, 16, 24, 26, 28].includes(lessonNumber)) return 'debate';
+    if ([21, 30, 31, 32].includes(lessonNumber)) return 'scenario';
+    return 'timed_quiz';
+}
+
+function buildSlides(lesson, restructure) {
+    return `
+        ${buildWarmupSlide(lesson, restructure)}
+        ${buildDialogueSlide(lesson)}
+        ${buildGrammarSlide(lesson)}
+        ${buildVocabularySlide(lesson)}
+        ${buildInteractiveLabSlide(lesson, restructure)}
+        ${buildPracticeSlide(lesson)}
+        ${buildSpeakingStudioSlide(lesson, restructure)}
+        ${buildProductionSlide(lesson, restructure)}
+        ${buildCompletionSlide(lesson)}
+    `;
+}
+
+function buildWarmupSlide(lesson, restructure) {
     return `
         <section class="slide active" data-title="Warm-up">
             <div class="hero-card rounded-[2rem] p-8 md:p-10">
                 <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
                     <div>
-                        <p class="text-sm font-extrabold uppercase tracking-[0.22em] text-rose-500">${lesson.unit}</p>
-                        <h2 class="text-4xl md:text-5xl font-black mt-3 text-slate-900">${lesson.title}</h2>
-                        <p class="text-lg text-slate-600 mt-5 max-w-2xl">${lesson.objective}</p>
+                        <p class="text-sm font-extrabold uppercase tracking-[0.22em] text-rose-500">${escapeHtml(lesson.unit)}</p>
+                        <h2 class="text-4xl md:text-5xl font-black mt-3 text-slate-900">${escapeHtml(lesson.title)}</h2>
+                        <p class="text-lg text-slate-600 mt-5 max-w-2xl">${escapeHtml(lesson.objective)}</p>
                         <div class="flex flex-wrap gap-3 mt-6">
-                            <span class="chip"><i class="fas fa-bullseye"></i> ${lesson.focus}</span>
-                            <span class="chip"><i class="fas fa-user-check"></i> ${lesson.cefr}</span>
+                            <span class="chip"><i class="fas fa-bullseye"></i> ${escapeHtml(lesson.focus)}</span>
+                            <span class="chip"><i class="fas fa-user-check"></i> ${escapeHtml(lesson.cefr)}</span>
+                        </div>
+                        <div class="mt-6 p-5 rounded-2xl bg-white border border-rose-100">
+                            <p class="text-xs uppercase tracking-[0.18em] text-rose-500 font-bold">Restructure focus</p>
+                            <h3 class="text-xl font-bold text-slate-900 mt-2">${escapeHtml(restructure.title)}</h3>
+                            <div class="space-y-2 mt-4">
+                                ${restructure.targets.map((item) => `<div class="flex items-start gap-3 text-slate-700"><i class="fas fa-arrow-trend-up text-rose-400 mt-1"></i><span>${escapeHtml(item)}</span></div>`).join('')}
+                            </div>
                         </div>
                     </div>
                     <div class="surface rounded-[1.5rem] p-6">
                         <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Warm-up prompt</p>
-                        <p class="text-xl font-semibold text-slate-800 mt-3">${lesson.warmup}</p>
+                        <p class="text-xl font-semibold text-slate-800 mt-3">${escapeHtml(lesson.warmup)}</p>
                         <div class="mt-6 space-y-3">
-                            ${lesson.checkpoint.map(item => `<div class="flex items-start gap-3 text-slate-700"><i class="fas fa-check-circle text-rose-500 mt-1"></i><span>${item}</span></div>`).join('')}
+                            ${lesson.checkpoint.map((item) => `<div class="flex items-start gap-3 text-slate-700"><i class="fas fa-check-circle text-rose-500 mt-1"></i><span>${escapeHtml(item)}</span></div>`).join('')}
                         </div>
+                        ${restructure.musicHint ? `<div class="mt-6 p-4 rounded-xl bg-amber-50 border border-amber-100"><p class="text-xs uppercase tracking-[0.18em] text-amber-700 font-bold">Optional music cue</p><p class="text-sm text-amber-900 mt-2">${escapeHtml(restructure.musicHint)}</p></div>` : ''}
                     </div>
                 </div>
             </div>
         </section>
+    `;
+}
 
+function buildDialogueSlide(lesson) {
+    const fullDialogue = lesson.dialogue.map((line) => line[1]).join(' ');
+    return `
         <section class="slide" data-title="Dialogue">
             <div class="surface rounded-[2rem] p-8">
                 <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
                     <div>
                         <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Dialogue model</p>
-                        <h3 class="text-3xl font-black text-slate-900 mt-2">${lesson.dialogueTitle}</h3>
+                        <h3 class="text-3xl font-black text-slate-900 mt-2">${escapeHtml(lesson.dialogueTitle)}</h3>
                     </div>
-                    <button class="speak-btn" data-speak="${escapeAttribute(lesson.dialogue.map(line => line[1]).join(' '))}">
-                        <i class="fas fa-volume-up"></i> Ouvir tudo
+                    <button class="speak-btn" data-speak="${escapeAttribute(fullDialogue)}">
+                        <i class="fas fa-volume-up"></i> Listen all
                     </button>
                 </div>
                 <div class="space-y-5 text-lg">
-                    ${lesson.dialogue.map(line => `
+                    ${lesson.dialogue.map((line) => `
                         <div class="flex items-start gap-4 flex-wrap">
-                            <p class="w-24 font-bold ${line[0] === 'Teacher' ? 'text-rose-600' : 'text-orange-600'}">${line[0]}:</p>
+                            <p class="w-24 font-bold ${line[0] === 'Teacher' ? 'text-rose-600' : 'text-orange-600'}">${escapeHtml(line[0])}:</p>
                             <div class="flex-1 min-w-[220px]">
-                                <p>${line[1]}</p>
+                                <p>${escapeHtml(line[1])}</p>
                             </div>
                             <button class="speak-btn" data-speak="${escapeAttribute(line[1])}">
-                                <i class="fas fa-volume-up"></i> Ouvir
+                                <i class="fas fa-volume-up"></i> Listen
                             </button>
                         </div>
                     `).join('')}
                 </div>
             </div>
         </section>
+    `;
+}
 
+function buildGrammarSlide(lesson) {
+    return `
         <section class="slide" data-title="Language Focus">
             <div class="surface rounded-[2rem] p-8">
                 <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Language focus</p>
-                <h3 class="text-3xl font-black text-slate-900 mt-2">${lesson.grammar.title}</h3>
-                <p class="text-lg text-slate-600 mt-4">${lesson.grammar.intro}</p>
+                <h3 class="text-3xl font-black text-slate-900 mt-2">${escapeHtml(lesson.grammar.title)}</h3>
+                <p class="text-lg text-slate-600 mt-4">${escapeHtml(lesson.grammar.intro)}</p>
                 <div class="overflow-x-auto mt-8">
                     <table class="w-full text-left rounded-xl overflow-hidden">
                         <thead>
@@ -201,9 +340,9 @@ function buildSlides(lesson) {
                         <tbody>
                             ${lesson.grammar.points.map((point, index) => `
                                 <tr class="${index % 2 === 0 ? 'bg-white' : 'bg-slate-50/60'} border-t border-slate-100">
-                                    <td class="p-4 font-semibold">${point[0]}</td>
-                                    <td class="p-4">${point[1]}</td>
-                                    <td class="p-4">${point[2]}</td>
+                                    <td class="p-4 font-semibold">${escapeHtml(point[0])}</td>
+                                    <td class="p-4">${escapeHtml(point[1])}</td>
+                                    <td class="p-4">${escapeHtml(point[2])}</td>
                                 </tr>
                             `).join('')}
                         </tbody>
@@ -211,499 +350,970 @@ function buildSlides(lesson) {
                 </div>
             </div>
         </section>
+    `;
+}
 
+function buildVocabularySlide(lesson) {
+    return `
         <section class="slide" data-title="Vocabulary">
             <div class="text-center">
                 <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Vocabulary set</p>
-                <h3 class="text-4xl font-black text-slate-900 mt-2">${lesson.vocabTitle}</h3>
-                <p class="text-slate-600 text-lg mt-3 mb-8">Clique para virar o card e ver tradução e exemplo.</p>
+                <h3 class="text-4xl font-black text-slate-900 mt-2">${escapeHtml(lesson.vocabTitle)}</h3>
+                <p class="text-slate-600 text-lg mt-3 mb-8">Click each card to flip and review meaning in context.</p>
                 <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-                    ${lesson.vocabulary.map(item => `
+                    ${lesson.vocabulary.map((item) => `
                         <div class="vocab-card">
                             <div class="vocab-card-inner">
                                 <div class="vocab-face vocab-front">
                                     <p class="text-sm uppercase tracking-[0.18em] text-rose-400 font-bold">Front</p>
-                                    <h4 class="text-2xl font-black text-slate-900 mt-3">${item[0]}</h4>
+                                    <h4 class="text-2xl font-black text-slate-900 mt-3">${escapeHtml(item[0])}</h4>
                                 </div>
                                 <div class="vocab-face vocab-back text-left">
                                     <p class="text-sm uppercase tracking-[0.18em] text-white/70 font-bold">Meaning</p>
-                                    <h4 class="text-2xl font-black mt-3">${item[1]}</h4>
-                                    <p class="mt-4 text-white/90">${item[2]}</p>
+                                    <h4 class="text-2xl font-black mt-3">${escapeHtml(item[1])}</h4>
+                                    <p class="mt-4 text-white/90">${escapeHtml(item[2])}</p>
                                 </div>
                             </div>
                         </div>
                     `).join('')}
                 </div>
-            </div>
-        </section>
-
-        <section class="slide" data-title="Guided Practice">
-            <div class="surface rounded-[2rem] p-8">
-                <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Guided practice</p>
-                <h3 class="text-3xl font-black text-slate-900 mt-2">Use the lesson language actively</h3>
-                <div class="grid lg:grid-cols-2 gap-6 mt-8">
-                    ${(lesson.practicePrompts || generatePracticePrompts(lesson)).map((item, index) => `
-                        <div class="rounded-[1.5rem] border border-slate-200 bg-white p-6">
-                            <p class="text-sm uppercase tracking-[0.18em] text-rose-400 font-bold">Task ${index + 1}</p>
-                            <p class="text-lg font-semibold text-slate-800 mt-3">${item.title}</p>
-                            <p class="text-slate-600 mt-3">${item.prompt}</p>
-                            <p class="text-sm text-slate-500 mt-4">${item.tip}</p>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        </section>
-
-        <section class="slide" data-title="Production">
-            <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6">
-                <div class="surface rounded-[2rem] p-8">
-                    <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Speaking task</p>
-                    <h3 class="text-3xl font-black text-slate-900 mt-2">${lesson.production.title}</h3>
-                    <div class="space-y-3 mt-6">
-                        ${lesson.production.steps.map(step => `
-                            <div class="flex items-start gap-3 text-slate-700">
-                                <i class="fas fa-angle-right text-rose-500 mt-1"></i>
-                                <span>${step}</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="mt-6 p-5 rounded-2xl bg-rose-50 border border-rose-100">
-                        <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Model</p>
-                        <p class="text-lg font-medium text-slate-800 mt-3">${lesson.production.model}</p>
-                        <button class="speak-btn mt-4" data-speak="${escapeAttribute(lesson.production.model)}">
-                            <i class="fas fa-volume-up"></i> Ouvir modelo
-                        </button>
-                    </div>
-                    <div class="mt-6 p-5 rounded-2xl bg-white border border-slate-200">
-                        <p class="text-sm uppercase tracking-[0.18em] text-slate-500 font-bold">Self-check</p>
-                        <div class="space-y-3 mt-4">
-                            ${buildSelfCheckItems(lesson).map(item => `
-                                <div class="flex items-start gap-3 text-slate-700">
-                                    <i class="fas fa-check text-rose-400 mt-1"></i>
-                                    <span>${item}</span>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-                <div class="surface rounded-[2rem] p-8">
-                    <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Homework</p>
-                    <h3 class="text-3xl font-black text-slate-900 mt-2">Take it further</h3>
-                    <p class="text-lg text-slate-700 mt-6">${lesson.homework}</p>
-                    <div class="mt-8 p-5 rounded-2xl bg-slate-50 border border-slate-200">
-                        <p class="text-sm uppercase tracking-[0.18em] text-slate-500 font-bold">B1 reminder</p>
-                        <p class="text-slate-700 mt-3">No B1, o aluno já consegue organizar ideias em mais de uma frase. Priorize clareza, conectores simples e exemplos reais.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="slide" data-title="Lesson Complete">
-            <div class="hero-card rounded-[2rem] p-10 text-center min-h-[420px] flex flex-col items-center justify-center">
-                <i class="fas fa-award text-rose-500 text-7xl mb-6"></i>
-                <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Lesson complete</p>
-                <h3 class="text-5xl font-black text-slate-900 mt-2">${lesson.title}</h3>
-                <p class="text-xl text-slate-600 mt-4 max-w-3xl">${lesson.celebration}</p>
             </div>
         </section>
     `;
 }
 
-function escapeAttribute(text) {
-    return String(text)
-        .replace(/&/g, '&amp;')
-        .replace(/"/g, '&quot;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
+function buildInteractiveLabSlide(lesson, restructure) {
+    return `
+        <section class="slide" data-title="Interactive Lab">
+            <div class="surface rounded-[2rem] p-8">
+                <div class="flex items-start justify-between gap-4 flex-wrap">
+                    <div>
+                        <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Interactive methodology</p>
+                        <h3 class="text-3xl font-black text-slate-900 mt-2">${escapeHtml(restructure.title)}</h3>
+                    </div>
+                    <span class="chip"><i class="fas fa-gamepad"></i> ${escapeHtml(restructure.activityType.replace('_', ' '))}</span>
+                </div>
+                <p class="text-slate-700 mt-4">${escapeHtml(restructure.activityPrompt)}</p>
+                <div class="mt-6 p-5 rounded-2xl bg-rose-50 border border-rose-100">
+                    <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Upgrade targets</p>
+                    <div class="grid md:grid-cols-2 gap-3 mt-3">
+                        ${restructure.targets.map((target) => `<div class="flex items-start gap-2 text-slate-700"><i class="fas fa-circle-check text-rose-400 mt-1"></i><span>${escapeHtml(target)}</span></div>`).join('')}
+                    </div>
+                </div>
+                <div class="mt-8">
+                    ${buildInteractiveLabBody(lesson, restructure)}
+                </div>
+            </div>
+        </section>
+    `;
 }
 
-function buildSelfCheckItems(lesson) {
-    const title = (lesson.title || '').toLowerCase();
-    const focus = (lesson.focus || '').toLowerCase();
-    const tag = `${title} ${focus}`;
-    const items = [
-        "Use at least two complete sentences.",
-        "Add one connector such as because, but, so, if or when.",
-        "Include one detail that sounds real for your life, work or study."
-    ];
+function buildInteractiveLabBody(lesson, restructure) {
+    switch (restructure.activityType) {
+        case 'memory':
+            return buildMemoryLabMarkup(lesson);
+        case 'ordering':
+            return buildOrderingLabMarkup(lesson);
+        case 'debate':
+            return buildDebateLabMarkup(lesson, restructure);
+        case 'scenario':
+            return buildScenarioLabMarkup(lesson, restructure);
+        case 'timed_quiz':
+        default:
+            return buildQuizLabMarkup(lesson);
+    }
+}
 
-    if (tag.includes('opinion') || tag.includes('disagreement')) {
-        items.push("State an opinion and react politely to a different view.");
-    } else if (tag.includes('first conditional')) {
-        items.push("Show one clear condition and one result.");
-    } else if (tag.includes('present perfect')) {
-        items.push("Make sure the sentence sounds like experience or result now, not a finished past time.");
-    } else if (tag.includes('used to')) {
-        items.push("Make the contrast between before and now very clear.");
-    } else if (tag.includes('reported speech')) {
-        items.push("Retell the message clearly without losing the original meaning.");
-    } else if (tag.includes('relative clauses')) {
-        items.push("Use the clause to make the description clearer, not just longer.");
-    } else if (tag.includes('passive')) {
-        items.push("Keep the focus on the action or result, not only on the grammar form.");
-    } else if (tag.includes('second conditional') || tag.includes('wish')) {
-        items.push("Make it clear that the situation is imaginary, hypothetical or unreal now.");
-    } else if (tag.includes('persuading') || tag.includes('presentation')) {
-        items.push("Include a main point, support and a short conclusion.");
-    } else {
-        items.push("Check that the grammar choice matches the meaning you want to express.");
+function buildMemoryLabMarkup(lesson) {
+    const boardId = `memory-${lesson.number}`;
+    const basePairs = lesson.vocabulary.slice(0, 6).map((item, index) => ({ id: `${boardId}-${index}`, front: item[0], back: item[1] }));
+    const cards = shuffleArray(basePairs.flatMap((pair) => ([
+        { pairId: pair.id, label: pair.front },
+        { pairId: pair.id, label: pair.back }
+    ])));
+
+    return `
+        <div class="rounded-2xl border border-slate-200 bg-white p-6" data-memory-board="${boardId}" data-memory-total="${basePairs.length}">
+            <div class="flex items-center justify-between gap-3 flex-wrap mb-4">
+                <p class="font-semibold text-slate-800">Memory Match</p>
+                <p class="text-sm text-slate-500">Match each keyword with its meaning.</p>
+            </div>
+            <div class="grid sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                ${cards.map((card, index) => `
+                    <button
+                        type="button"
+                        class="memory-card rounded-xl border border-slate-200 bg-white px-4 py-4 text-left min-h-[90px] transition hover:border-rose-300"
+                        data-memory-board="${boardId}"
+                        data-memory-pair="${escapeAttribute(card.pairId)}"
+                        data-memory-key="${boardId}-${index}"
+                    >
+                        <span class="memory-cover block text-sm uppercase tracking-[0.16em] text-slate-400 font-bold">Card</span>
+                        <span class="memory-value hidden mt-2 text-base font-semibold text-slate-800">${escapeHtml(card.label)}</span>
+                    </button>
+                `).join('')}
+            </div>
+            <p id="memory-feedback-${boardId}" class="mt-4 text-sm font-semibold text-slate-600">Find all pairs.</p>
+        </div>
+    `;
+}
+
+function buildQuizLabMarkup(lesson) {
+    const boardId = `quiz-${lesson.number}`;
+    const questions = buildQuizQuestions(lesson);
+    return `
+        <div class="rounded-2xl border border-slate-200 bg-white p-6" data-quiz-board="${boardId}" data-quiz-seconds="120">
+            <div class="flex items-center justify-between gap-3 flex-wrap mb-5">
+                <p class="font-semibold text-slate-800">Timed Grammar Quiz</p>
+                <div class="flex items-center gap-3">
+                    <span class="text-sm text-slate-500">Time left:</span>
+                    <span class="text-sm font-bold text-rose-600" data-quiz-timer="${boardId}">02:00</span>
+                    <span class="text-sm font-bold text-slate-700" data-quiz-score="${boardId}">0 / ${questions.length}</span>
+                </div>
+            </div>
+            <div class="space-y-5">
+                ${questions.map((question, qIndex) => `
+                    <div class="rounded-xl border border-slate-200 p-4" data-quiz-item="true" data-quiz-question-id="${boardId}-${qIndex}">
+                        <p class="font-semibold text-slate-800">${escapeHtml(question.question)}</p>
+                        <div class="grid md:grid-cols-2 gap-3 mt-3">
+                            ${question.options.map((option, optionIndex) => `
+                                <button
+                                    type="button"
+                                    class="lab-quiz-option text-left rounded-xl border border-slate-200 px-3 py-2 text-sm transition hover:border-rose-300"
+                                    data-quiz-board="${boardId}"
+                                    data-quiz-question-id="${boardId}-${qIndex}"
+                                    data-quiz-correct="${optionIndex === question.correctIndex ? 'true' : 'false'}"
+                                    data-quiz-feedback="${escapeAttribute(question.feedback)}"
+                                >
+                                    ${escapeHtml(option)}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <p class="mt-3 text-sm text-slate-500" data-quiz-feedback></p>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+function buildOrderingLabMarkup(lesson) {
+    const boardId = `order-${lesson.number}`;
+    const sequence = buildOrderingSequence(lesson);
+    const shuffled = shuffleArray(sequence);
+    const correctOrder = sequence.map((item) => item.id);
+    return `
+        <div class="rounded-2xl border border-slate-200 bg-white p-6">
+            <div class="flex items-center justify-between gap-3 flex-wrap mb-4">
+                <p class="font-semibold text-slate-800">Sequence Builder</p>
+                <p class="text-sm text-slate-500">Drag cards to create a logical order.</p>
+            </div>
+            <ul class="space-y-3" data-order-board="${boardId}" data-order-correct="${escapeAttribute(JSON.stringify(correctOrder))}">
+                ${shuffled.map((item) => `
+                    <li class="ordering-item rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 cursor-move" draggable="true" data-order-id="${escapeAttribute(item.id)}" data-order-board="${boardId}">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-grip-vertical text-slate-400 mt-1"></i>
+                            <span>${escapeHtml(item.label)}</span>
+                        </div>
+                    </li>
+                `).join('')}
+            </ul>
+            <div class="mt-5 flex items-center gap-3 flex-wrap">
+                <button type="button" class="rounded-xl bg-rose-600 text-white px-4 py-2 font-semibold hover:bg-rose-700 transition" data-order-check="${boardId}">Check order</button>
+                <p class="text-sm font-semibold text-slate-600" id="order-feedback-${boardId}">Arrange all cards and then validate.</p>
+            </div>
+        </div>
+    `;
+}
+
+function buildDebateLabMarkup(lesson, restructure) {
+    const boardId = `debate-${lesson.number}`;
+    const prompt = restructure.activityPrompt || lesson.warmup;
+    return `
+        <div class="rounded-2xl border border-slate-200 bg-white p-6" data-debate-board="${boardId}" data-debate-seconds="120">
+            <p class="font-semibold text-slate-800">Debate and Voting</p>
+            <p class="text-slate-600 mt-2">${escapeHtml(prompt)}</p>
+            <div class="mt-4 grid lg:grid-cols-2 gap-4">
+                <div class="rounded-xl border border-slate-200 p-4">
+                    <p class="text-sm font-bold uppercase tracking-[0.15em] text-rose-500">Side A</p>
+                    <textarea class="w-full mt-3 rounded-lg border border-slate-200 p-3 min-h-[110px]" placeholder="Build a concise argument with one reason and one example."></textarea>
+                </div>
+                <div class="rounded-xl border border-slate-200 p-4">
+                    <p class="text-sm font-bold uppercase tracking-[0.15em] text-rose-500">Side B</p>
+                    <textarea class="w-full mt-3 rounded-lg border border-slate-200 p-3 min-h-[110px]" placeholder="Respond politely and defend a different position."></textarea>
+                </div>
+            </div>
+            <div class="mt-4 flex items-center gap-3 flex-wrap">
+                <button type="button" class="rounded-xl bg-rose-600 text-white px-4 py-2 font-semibold hover:bg-rose-700 transition" data-debate-action="start" data-debate-board="${boardId}">Start timer</button>
+                <button type="button" class="rounded-xl bg-slate-200 text-slate-700 px-4 py-2 font-semibold hover:bg-slate-300 transition" data-debate-action="stop" data-debate-board="${boardId}">Stop timer</button>
+                <span class="text-sm font-bold text-rose-600" data-debate-timer="${boardId}">02:00</span>
+            </div>
+            <div class="mt-4 flex items-center gap-3 flex-wrap">
+                <button type="button" class="rounded-xl border border-slate-200 px-4 py-2 font-semibold hover:border-rose-300 transition" data-debate-vote="a" data-debate-board="${boardId}">Vote A</button>
+                <button type="button" class="rounded-xl border border-slate-200 px-4 py-2 font-semibold hover:border-rose-300 transition" data-debate-vote="b" data-debate-board="${boardId}">Vote B</button>
+                <span class="text-sm text-slate-700">A: <strong data-debate-score="${boardId}-a">0</strong></span>
+                <span class="text-sm text-slate-700">B: <strong data-debate-score="${boardId}-b">0</strong></span>
+            </div>
+        </div>
+    `;
+}
+
+function buildScenarioLabMarkup(lesson, restructure) {
+    const prompts = buildScenarioPrompts(lesson, restructure);
+    return `
+        <div class="rounded-2xl border border-slate-200 bg-white p-6">
+            <p class="font-semibold text-slate-800">Scenario Builder</p>
+            <p class="text-slate-600 mt-2">${escapeHtml(restructure.activityPrompt)}</p>
+            <div class="grid lg:grid-cols-3 gap-4 mt-5">
+                ${prompts.map((prompt, index) => `
+                    <div class="rounded-xl border border-slate-200 p-4">
+                        <p class="text-sm uppercase tracking-[0.15em] text-rose-500 font-bold">Step ${index + 1}</p>
+                        <p class="text-slate-700 mt-2">${escapeHtml(prompt)}</p>
+                        <textarea class="w-full mt-3 rounded-lg border border-slate-200 p-3 min-h-[100px]" placeholder="Draft your response here."></textarea>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+function buildPracticeSlide(lesson) {
+    const prompts = lesson.practicePrompts || generatePracticePrompts(lesson);
+    return `
+        <section class="slide" data-title="Guided Practice">
+            <div class="surface rounded-[2rem] p-8">
+                <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Guided practice</p>
+                <h3 class="text-3xl font-black text-slate-900 mt-2">Use the lesson language actively</h3>
+                <div class="grid lg:grid-cols-2 gap-6 mt-8">
+                    ${prompts.map((item, index) => `
+                        <div class="rounded-[1.5rem] border border-slate-200 bg-white p-6">
+                            <p class="text-sm uppercase tracking-[0.18em] text-rose-400 font-bold">Task ${index + 1}</p>
+                            <p class="text-lg font-semibold text-slate-800 mt-3">${escapeHtml(item.title)}</p>
+                            <p class="text-slate-600 mt-3">${escapeHtml(item.prompt)}</p>
+                            <p class="text-sm text-slate-500 mt-4">${escapeHtml(item.tip)}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        </section>
+    `;
+}
+
+function buildSpeakingStudioSlide(lesson, restructure) {
+    const studioId = `studio-${lesson.number}`;
+    const modelText = lesson.production.model;
+    return `
+        <section class="slide" data-title="Speaking Studio">
+            <div class="surface rounded-[2rem] p-8">
+                <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Speaking and listening integration</p>
+                <h3 class="text-3xl font-black text-slate-900 mt-2">TTS + Recorder + Transcript</h3>
+                <p class="text-slate-600 mt-4">${escapeHtml(restructure.productionBoost)}</p>
+                <div class="mt-6 rounded-2xl border border-slate-200 bg-white p-5">
+                    <p class="text-sm uppercase tracking-[0.15em] text-slate-500 font-bold">Speech draft</p>
+                    <textarea id="speech-text-${studioId}" class="w-full mt-3 rounded-xl border border-slate-200 p-3 min-h-[120px]">${escapeHtml(modelText)}</textarea>
+                    <div class="mt-4 flex items-center gap-3 flex-wrap">
+                        <button type="button" class="speak-btn" data-speak="${escapeAttribute(modelText)}"><i class="fas fa-volume-up"></i> Listen model</button>
+                        <button type="button" class="rounded-xl border border-slate-200 px-4 py-2 font-semibold hover:border-rose-300 transition" data-speak-from-text="${studioId}">Read text box</button>
+                    </div>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-6 mt-6">
+                    <div class="rounded-2xl border border-slate-200 bg-white p-5">
+                        <p class="text-sm uppercase tracking-[0.15em] text-slate-500 font-bold">Audio recording</p>
+                        <div class="mt-4 flex items-center gap-3 flex-wrap">
+                            <button type="button" class="rounded-xl bg-rose-600 text-white px-4 py-2 font-semibold hover:bg-rose-700 transition" data-record-action="start" data-record-studio="${studioId}">Start recording</button>
+                            <button type="button" class="rounded-xl bg-slate-200 text-slate-700 px-4 py-2 font-semibold hover:bg-slate-300 transition" data-record-action="stop" data-record-studio="${studioId}">Stop</button>
+                            <button type="button" class="rounded-xl border border-slate-200 px-4 py-2 font-semibold hover:border-rose-300 transition" data-record-action="play" data-record-studio="${studioId}">Play</button>
+                        </div>
+                        <audio controls class="w-full mt-4" data-record-audio="${studioId}"></audio>
+                        <p class="text-sm font-semibold text-slate-600 mt-3" data-record-status="${studioId}">Recorder idle.</p>
+                    </div>
+                    <div class="rounded-2xl border border-slate-200 bg-white p-5">
+                        <p class="text-sm uppercase tracking-[0.15em] text-slate-500 font-bold">Speech transcript</p>
+                        <div class="mt-4 flex items-center gap-3 flex-wrap">
+                            <button type="button" class="rounded-xl bg-rose-600 text-white px-4 py-2 font-semibold hover:bg-rose-700 transition" data-transcript-action="start" data-transcript-studio="${studioId}">Start transcript</button>
+                            <button type="button" class="rounded-xl bg-slate-200 text-slate-700 px-4 py-2 font-semibold hover:bg-slate-300 transition" data-transcript-action="stop" data-transcript-studio="${studioId}">Stop</button>
+                        </div>
+                        <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4 min-h-[120px] text-slate-700" data-transcript-output="${studioId}">Transcript will appear here when recognition is available.</div>
+                        <p class="text-sm font-semibold text-slate-600 mt-3" data-transcript-status="${studioId}">Recognition idle.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    `;
+}
+
+function buildProductionSlide(lesson, restructure) {
+    return `
+        <section class="slide" data-title="Production">
+            <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6">
+                <div class="surface rounded-[2rem] p-8">
+                    <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Speaking task</p>
+                    <h3 class="text-3xl font-black text-slate-900 mt-2">${escapeHtml(lesson.production.title)}</h3>
+                    <div class="space-y-3 mt-6">
+                        ${lesson.production.steps.map((step) => `
+                            <div class="flex items-start gap-3 text-slate-700">
+                                <i class="fas fa-angle-right text-rose-500 mt-1"></i>
+                                <span>${escapeHtml(step)}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="mt-6 p-5 rounded-2xl bg-rose-50 border border-rose-100">
+                        <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Model</p>
+                        <p class="text-lg font-medium text-slate-800 mt-3">${escapeHtml(lesson.production.model)}</p>
+                        <button class="speak-btn mt-4" data-speak="${escapeAttribute(lesson.production.model)}">
+                            <i class="fas fa-volume-up"></i> Listen model
+                        </button>
+                    </div>
+                </div>
+                <div class="surface rounded-[2rem] p-8">
+                    <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Homework and extension</p>
+                    <h3 class="text-3xl font-black text-slate-900 mt-2">Take it further</h3>
+                    <p class="text-lg text-slate-700 mt-6">${escapeHtml(lesson.homework)}</p>
+                    <div class="mt-8 p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                        <p class="text-sm uppercase tracking-[0.18em] text-slate-500 font-bold">Production boost</p>
+                        <p class="text-slate-700 mt-3">${escapeHtml(restructure.productionBoost)}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    `;
+}
+
+function buildCompletionSlide(lesson) {
+    return `
+        <section class="slide" data-title="Lesson Complete">
+            <div class="hero-card rounded-[2rem] p-10 text-center min-h-[420px] flex flex-col items-center justify-center">
+                <i class="fas fa-award text-rose-500 text-7xl mb-6"></i>
+                <p class="text-sm uppercase tracking-[0.18em] text-rose-500 font-bold">Lesson complete</p>
+                <h3 class="text-5xl font-black text-slate-900 mt-2">${escapeHtml(lesson.title)}</h3>
+                <p class="text-xl text-slate-600 mt-4 max-w-3xl">${escapeHtml(lesson.celebration)}</p>
+            </div>
+        </section>
+    `;
+}
+
+function buildQuizQuestions(lesson) {
+    const points = Array.isArray(lesson.grammar?.points) ? lesson.grammar.points.slice(0, 3) : [];
+    const forms = points.map((point) => point[1]).filter(Boolean);
+    const questions = points.map((point, index) => {
+        const distractors = shuffleArray(forms.filter((_, idx) => idx !== index)).slice(0, 2);
+        while (distractors.length < 2) {
+            distractors.push(index % 2 === 0 ? 'Subject + verb + clear connector' : 'Basic form without target marker');
+        }
+        const options = shuffleArray([point[1], ...distractors]);
+        return {
+            question: `Choose the most suitable form for: ${point[0]}`,
+            options,
+            correctIndex: options.indexOf(point[1]),
+            feedback: point[2]
+        };
+    });
+
+    const vocab = lesson.vocabulary || [];
+    if (vocab.length >= 3 && questions.length < 4) {
+        const first = vocab[0];
+        const options = shuffleArray(vocab.slice(0, 3).map((item) => item[1]));
+        questions.push({
+            question: `Choose the closest meaning for: ${first[0]}`,
+            options,
+            correctIndex: options.indexOf(first[1]),
+            feedback: first[2]
+        });
     }
 
-    return items;
+    return questions;
+}
+
+function buildOrderingSequence(lesson) {
+    const dialogue = Array.isArray(lesson.dialogue) ? lesson.dialogue : [];
+    if (dialogue.length >= 3) {
+        return dialogue.slice(0, 4).map((line, index) => ({
+            id: `d${index}`,
+            label: `${line[0]}: ${line[1]}`
+        }));
+    }
+
+    const productionSteps = Array.isArray(lesson.production?.steps) ? lesson.production.steps : [];
+    if (productionSteps.length >= 3) {
+        return productionSteps.slice(0, 4).map((step, index) => ({
+            id: `p${index}`,
+            label: step
+        }));
+    }
+
+    return (lesson.checkpoint || []).slice(0, 4).map((item, index) => ({
+        id: `c${index}`,
+        label: item
+    }));
+}
+
+function buildScenarioPrompts(lesson, restructure) {
+    const fromProduction = Array.isArray(lesson.production?.steps) ? lesson.production.steps : [];
+    const candidates = [
+        ...fromProduction.slice(0, 2),
+        `Use this focus clearly: ${lesson.focus}`,
+        `Respond to this scenario: ${restructure.activityPrompt}`
+    ];
+    return candidates.slice(0, 3);
 }
 
 function generatePracticePrompts(lesson) {
-    const lowerTitle = (lesson.title || '').toLowerCase();
-    const lowerFocus = (lesson.focus || '').toLowerCase();
-    const focusTag = `${lowerTitle} ${lowerFocus}`;
-
-    const defaultPrompts = [
+    const tag = `${lesson.title} ${lesson.focus}`.toLowerCase();
+    const generic = [
         {
-            title: "Notice the pattern",
-            prompt: `Look at the dialogue again and identify one sentence that clearly shows this lesson target: ${lesson.focus}. Then explain why that form was chosen.`,
-            tip: "Do not only copy the sentence. Name the clue: time, intention, opinion, condition, result or experience."
+            title: 'Pattern awareness',
+            prompt: `Find one line in the dialogue that clearly models: ${lesson.focus}. Explain why it works.`,
+            tip: 'Name the meaning choice, not only the grammar label.'
         },
         {
-            title: "Rebuild with support",
-            prompt: `Retell the dialogue from this lesson in your own words, but keep the same communication goal: ${lesson.focus}.`,
-            tip: "Change details, but keep the same grammar logic and one connector such as because, but, so or if."
+            title: 'Rebuild with variation',
+            prompt: 'Rewrite part of the dialogue with your own details while keeping the same communicative goal.',
+            tip: 'Keep structure, change context.'
         },
         {
-            title: "Transform the idea",
-            prompt: `Write one sentence about yourself and one about work, study or daily life using this target clearly: ${lesson.grammar.title}.`,
-            tip: "Check whether the meaning is really the same as the target. A correct form with the wrong use does not count."
+            title: 'Personal transfer',
+            prompt: `Write one sentence about your life and one about work/study using: ${lesson.grammar.title}.`,
+            tip: 'Sound natural and specific.'
         },
         {
-            title: "Use vocabulary with purpose",
-            prompt: `Choose three words from the vocabulary set and use them in a short response connected to ${lesson.title.toLowerCase()}.`,
-            tip: "Keep the response natural. One short paragraph is enough if every word has a clear function."
+            title: 'Vocabulary in action',
+            prompt: `Use at least three words from this lesson vocabulary set in a short response.`,
+            tip: 'Avoid isolated phrases; connect ideas.'
         }
     ];
 
-    if (focusTag.includes('present perfect')) {
-        return [
-            {
-                title: "Choose the timeline",
-                prompt: "Decide which sentence should use present perfect and which should use past simple: an experience with no time given, or a finished event with a clear time.",
-                tip: "Ask yourself: does the sentence say when? If yes, simple past is usually the safer choice."
-            },
-            {
-                title: "Answer like real conversation",
-                prompt: "Write one short exchange with Have you ever...? and answer it with Yes, I have / No, I haven't plus one extra detail.",
-                tip: "The first sentence can be short. The second sentence should add meaning, not just repeat the question."
-            },
-            {
-                title: "Expand an experience",
-                prompt: "Start with one present perfect sentence about your life and then add one follow-up sentence explaining why it mattered.",
-                tip: "Use present perfect to open the topic, then add a reason, result or reaction."
-            },
-            {
-                title: "Vocabulary in reflection",
-                prompt: `Use three words from the vocabulary list to describe progress, change or experience connected to ${lesson.title.toLowerCase()}.`,
-                tip: "Try to sound reflective, not like isolated vocabulary practice."
-            }
-        ];
+    if (tag.includes('present perfect')) {
+        generic[0].prompt = 'Choose when present perfect is better than past simple and justify the timeline choice.';
+        generic[1].prompt = 'Ask and answer one Have you ever...? exchange with a meaningful follow-up detail.';
     }
 
-    if (focusTag.includes('used to')) {
-        return [
-            {
-                title: "Then and now",
-                prompt: "Write two sentences with used to and two contrasting sentences with now or these days.",
-                tip: "The change matters more than the grammar label. Make the contrast very clear."
-            },
-            {
-                title: "Spot the meaning",
-                prompt: "Explain why used to is better than simple past in one sentence about an old habit.",
-                tip: "Use used to when the situation was true before and is different now."
-            },
-            {
-                title: "Guided speaking",
-                prompt: "Say one thing you used to do, one thing you did not use to do and one reason the change happened.",
-                tip: "Use because or but now to connect the ideas."
-            },
-            {
-                title: "Vocabulary in context",
-                prompt: "Choose three vocabulary items and use them in a short then-and-now paragraph.",
-                tip: "A useful response sounds like a mini story of change."
-            }
-        ];
+    if (tag.includes('opinion') || tag.includes('disagreement')) {
+        generic[1].prompt = 'Write a 4-line micro debate: opinion, different view, polite response, conclusion.';
+        generic[1].tip = 'Balance confidence and politeness.';
     }
 
-    if (focusTag.includes('future plans') || focusTag.includes('going to') || focusTag.includes('arrangements')) {
-        return [
-            {
-                title: "Choose the future form",
-                prompt: "Write one sentence for a fixed arrangement and one for a personal intention. Then decide which one needs present continuous and which one needs going to.",
-                tip: "An arranged time in the calendar usually sounds stronger with present continuous."
-            },
-            {
-                title: "Build a mini calendar",
-                prompt: "Create three short future plans for this week or next month: one meeting, one personal plan and one follow-up question.",
-                tip: "Use time markers so the plan sounds real and practical."
-            },
-            {
-                title: "Reschedule and react",
-                prompt: "Imagine one plan changed. Write a short response that explains the change and proposes a new arrangement.",
-                tip: "A strong B1 answer keeps the communication moving, not only the grammar."
-            },
-            {
-                title: "Vocabulary for planning",
-                prompt: "Use three vocabulary items to write a realistic message about your availability, schedule or next step.",
-                tip: "This should sound like a real text or spoken update."
-            }
-        ];
+    if (tag.includes('passive')) {
+        generic[2].prompt = 'Rewrite one active sentence into passive and explain the shift in focus.';
     }
 
-    if (focusTag.includes('will, might') || focusTag.includes('prediction') || focusTag.includes('possibilit')) {
-        return [
-            {
-                title: "How certain is it?",
-                prompt: "Write one strong prediction with will and one less certain idea with might or maybe.",
-                tip: "Do not make both sentences sound equally certain."
-            },
-            {
-                title: "Add probability language",
-                prompt: "Take a simple future sentence and rewrite it using probably so it sounds more balanced.",
-                tip: "Probability words help B1 answers sound less absolute."
-            },
-            {
-                title: "Predict with support",
-                prompt: "Answer this question in three sentences: What might change in work, study or technology this year?",
-                tip: "Give at least one reason or example for one prediction."
-            },
-            {
-                title: "Vocabulary for trends",
-                prompt: "Use three vocabulary items in a short paragraph about a future trend or uncertain outcome.",
-                tip: "Your paragraph should sound analytical, not random."
-            }
-        ];
+    if (tag.includes('second conditional') || tag.includes('wish')) {
+        generic[2].prompt = 'Build one hypothetical sentence and one wish sentence about your current reality.';
     }
 
-    if (focusTag.includes('first conditional')) {
-        return [
-            {
-                title: "Build the pattern",
-                prompt: "Complete two ideas using the first conditional: one about study or work and one about health or money.",
-                tip: "Use present simple after if and will in the result clause."
-            },
-            {
-                title: "Cause and consequence",
-                prompt: "Turn one everyday problem into a first conditional sentence and then reverse the order of the clauses.",
-                tip: "Both versions should mean the same thing."
-            },
-            {
-                title: "Decision practice",
-                prompt: "Answer this question in two sentences: What will you do if your plan changes suddenly?",
-                tip: "Show one condition and one backup action."
-            },
-            {
-                title: "Vocabulary for outcomes",
-                prompt: "Use two vocabulary items from the lesson in a short conditional response about a real possibility.",
-                tip: "This should sound like planning, not like a random example."
-            }
-        ];
+    return generic;
+}
+
+function initializeQuizBoards(root, runtime) {
+    root.querySelectorAll('[data-quiz-board]').forEach((board) => {
+        const boardId = board.dataset.quizBoard;
+        const total = board.querySelectorAll('[data-quiz-item="true"]').length;
+        const seconds = parseInt(board.dataset.quizSeconds || '120', 10);
+        runtime.quiz[boardId] = {
+            total,
+            score: 0,
+            answered: {},
+            remaining: seconds,
+            interval: null,
+            timeUp: false,
+            completed: false,
+            started: false
+        };
+
+        const timerEl = root.querySelector(`[data-quiz-timer="${boardId}"]`);
+        if (timerEl) {
+            timerEl.textContent = formatClock(seconds);
+        }
+
+        const scoreEl = root.querySelector(`[data-quiz-score="${boardId}"]`);
+        if (scoreEl) {
+            scoreEl.textContent = `0 / ${total}`;
+        }
+    });
+}
+
+function startQuizTimer(boardId, runtime) {
+    const state = runtime.quiz[boardId];
+    if (!state || state.interval || state.timeUp) return;
+
+    const timerEl = document.querySelector(`[data-quiz-timer="${boardId}"]`);
+    const boardEl = document.querySelector(`[data-quiz-board="${boardId}"]`);
+    if (!timerEl || !boardEl) return;
+
+    const render = () => {
+        const minutes = String(Math.floor(state.remaining / 60)).padStart(2, '0');
+        const seconds = String(state.remaining % 60).padStart(2, '0');
+        timerEl.textContent = `${minutes}:${seconds}`;
+    };
+    render();
+
+    state.interval = window.setInterval(() => {
+        if (state.timeUp) return;
+        state.remaining -= 1;
+        render();
+        if (state.remaining <= 0) {
+            state.timeUp = true;
+            window.clearInterval(state.interval);
+            state.interval = null;
+            boardEl.querySelectorAll('.lab-quiz-option').forEach((btn) => {
+                btn.disabled = true;
+                btn.classList.add('opacity-60');
+            });
+        }
+    }, 1000);
+}
+
+function handleMemoryClick(event, runtime) {
+    const card = event.target.closest('.memory-card');
+    if (!card) return false;
+
+    const boardId = card.dataset.memoryBoard;
+    const board = document.querySelector(`[data-memory-board="${boardId}"]`);
+    const feedback = document.getElementById(`memory-feedback-${boardId}`);
+    if (!board || !feedback) return true;
+
+    if (!runtime.memory[boardId]) {
+        runtime.memory[boardId] = {
+            open: [],
+            lock: false,
+            matched: 0,
+            total: parseInt(board.dataset.memoryTotal || '0', 10)
+        };
     }
 
-    if (focusTag.includes('integrated review') || focusTag.includes('integrated final performance')) {
-        return [
-            {
-                title: "Choose the right frame",
-                prompt: "Write three short ideas about your life: one past habit, one present result and one future plan. Then label the grammar choice for each.",
-                tip: "This task is about selection. Start from meaning, then choose the form."
-            },
-            {
-                title: "Retell across time",
-                prompt: "Build a four-sentence update that moves from past to present to future without sounding disconnected.",
-                tip: "Use connectors to guide the listener through the timeline."
-            },
-            {
-                title: "Repair the mismatch",
-                prompt: "Check one sentence that sounds wrong for the meaning and rewrite it with a better tense or structure.",
-                tip: "Ask yourself what the speaker really wants to express: habit, result, plan, opinion or condition."
-            },
-            {
-                title: "Vocabulary in reflection",
-                prompt: "Use three review words in a short self-update about progress, challenge and next step.",
-                tip: "A good review answer should sound personal and organized."
-            }
-        ];
+    const state = runtime.memory[boardId];
+    if (state.lock || card.dataset.matched === 'true' || card.dataset.open === 'true') return true;
+
+    revealMemoryCard(card);
+    state.open.push(card);
+
+    if (state.open.length < 2) return true;
+    state.lock = true;
+
+    const [first, second] = state.open;
+    const isMatch = first.dataset.memoryPair === second.dataset.memoryPair;
+    if (isMatch) {
+        first.dataset.matched = 'true';
+        second.dataset.matched = 'true';
+        first.classList.add('ring-2', 'ring-green-400', 'bg-green-50');
+        second.classList.add('ring-2', 'ring-green-400', 'bg-green-50');
+        state.matched += 1;
+        feedback.textContent = `Nice! ${state.matched}/${state.total} pairs matched.`;
+        state.open = [];
+        state.lock = false;
+        if (state.matched >= state.total) {
+            feedback.textContent = 'Excellent! You matched all pairs.';
+            feedback.className = 'mt-4 text-sm font-semibold text-green-700';
+        }
+    } else {
+        feedback.textContent = 'Not a match. Try another pair.';
+        feedback.className = 'mt-4 text-sm font-semibold text-amber-700';
+        window.setTimeout(() => {
+            hideMemoryCard(first);
+            hideMemoryCard(second);
+            state.open = [];
+            state.lock = false;
+            feedback.className = 'mt-4 text-sm font-semibold text-slate-600';
+            feedback.textContent = 'Find all pairs.';
+        }, 850);
     }
 
-    if (focusTag.includes('should, could') || focusTag.includes('lets') || focusTag.includes('why dont we') || focusTag.includes('decision-making')) {
-        return [
-            {
-                title: "Match the function",
-                prompt: "Write one sentence with should for advice, one with could for an option and one with let's for a final decision.",
-                tip: "Each form should have a different job in the conversation."
-            },
-            {
-                title: "Negotiate a choice",
-                prompt: "Imagine two people need to improve a routine. Write a four-line exchange with two suggestions and one decision.",
-                tip: "Show movement from ideas to agreement."
-            },
-            {
-                title: "React and improve",
-                prompt: "Read one suggestion from the dialogue and answer it with a positive reaction plus a practical adjustment.",
-                tip: "Useful discussion language often builds on the first idea instead of repeating it."
-            },
-            {
-                title: "Vocabulary for collaboration",
-                prompt: "Use three vocabulary items in a short message about solving a shared problem.",
-                tip: "This should sound cooperative and action-focused."
-            }
-        ];
+    return true;
+}
+
+function revealMemoryCard(card) {
+    card.dataset.open = 'true';
+    card.classList.add('border-rose-300', 'bg-rose-50');
+    const cover = card.querySelector('.memory-cover');
+    const value = card.querySelector('.memory-value');
+    if (cover) cover.classList.add('hidden');
+    if (value) value.classList.remove('hidden');
+}
+
+function hideMemoryCard(card) {
+    card.dataset.open = 'false';
+    card.classList.remove('border-rose-300', 'bg-rose-50');
+    const cover = card.querySelector('.memory-cover');
+    const value = card.querySelector('.memory-value');
+    if (cover) cover.classList.remove('hidden');
+    if (value) value.classList.add('hidden');
+}
+
+function handleQuizClick(event, runtime) {
+    const button = event.target.closest('.lab-quiz-option');
+    if (!button) return false;
+
+    const boardId = button.dataset.quizBoard;
+    const questionBox = button.closest('[data-quiz-item="true"]');
+    const questionId = questionBox ? questionBox.dataset.quizQuestionId : '';
+    const state = runtime.quiz[boardId];
+    if (!state || !questionBox || !questionId) return true;
+
+    if (!state.started) {
+        state.started = true;
+        startQuizTimer(boardId, runtime);
     }
 
-    if (focusTag.includes('opinion') || focusTag.includes('disagreement')) {
-        return [
-            {
-                title: "Opinion or reaction?",
-                prompt: "Write one sentence to state your opinion and one different sentence to react politely to another view.",
-                tip: "Do not use the same starter twice. Vary the interaction."
-            },
-            {
-                title: "Disagree with care",
-                prompt: "Respond to this idea: Online learning is always better than classroom learning.",
-                tip: "Use one polite disagreement phrase and one reason."
-            },
-            {
-                title: "Mini discussion",
-                prompt: "Write a four-line discussion: opinion, different view, polite response, short conclusion.",
-                tip: "A good B1 answer sounds balanced, not absolute."
-            },
-            {
-                title: "Vocabulary in argument",
-                prompt: "Use three discussion words from the vocabulary set in a short paragraph about a familiar topic.",
-                tip: "Your paragraph should include an opinion and some support."
-            }
-        ];
+    if (state.timeUp || state.answered[questionId] || questionBox.dataset.quizAnswered === 'true') return true;
+
+    const options = Array.from(questionBox.querySelectorAll('.lab-quiz-option'));
+    options.forEach((option) => {
+        option.disabled = true;
+        const isCorrect = option.dataset.quizCorrect === 'true';
+        styleQuizOptionState(option, isCorrect ? 'correct' : 'muted');
+        setQuizOptionBadge(option, isCorrect ? '✓' : '');
+    });
+
+    const correctOptionEl = options.find((option) => option.dataset.quizCorrect === 'true');
+    const correctText = correctOptionEl ? correctOptionEl.textContent.trim() : '';
+    const extraFeedback = (button.dataset.quizFeedback || '').trim();
+
+    if (button.dataset.quizCorrect === 'true') {
+        state.score += 1;
+        styleQuizOptionState(button, 'correct-focus');
+        setQuizOptionBadge(button, '✓');
+    } else {
+        styleQuizOptionState(button, 'wrong');
+        setQuizOptionBadge(button, '✗');
     }
 
-    if (focusTag.includes('reported speech')) {
-        return [
-            {
-                title: "Change direct to reported",
-                prompt: "Take one line from the dialogue and report it as if you were telling another person later.",
-                tip: "Focus on the communication goal first. Then adjust pronouns and time references if needed."
-            },
-            {
-                title: "What did they say?",
-                prompt: "Write two short direct quotes and then convert both into reported speech.",
-                tip: "Keep the meaning stable. The words can change, but the message should stay the same."
-            },
-            {
-                title: "Conversation relay",
-                prompt: "Imagine a friend missed the conversation. Tell them what each speaker said in two or three connected sentences.",
-                tip: "This should sound like natural retelling, not isolated grammar."
-            },
-            {
-                title: "Vocabulary in retelling",
-                prompt: "Use two vocabulary items while reporting a message, update or instruction from someone else.",
-                tip: "One of the words should help explain why the message mattered."
-            }
-        ];
+    state.answered[questionId] = true;
+    questionBox.dataset.quizAnswered = 'true';
+    const feedback = questionBox.querySelector('[data-quiz-feedback]');
+    if (feedback) {
+        if (button.dataset.quizCorrect === 'true') {
+            feedback.textContent = extraFeedback ? `Correto. ${extraFeedback}` : 'Correto.';
+        } else {
+            feedback.textContent = extraFeedback
+                ? `Incorreto. Resposta correta: "${correctText}". ${extraFeedback}`
+                : `Incorreto. Resposta correta: "${correctText}".`;
+        }
+        feedback.className = 'mt-3 text-sm text-slate-600';
     }
 
-    if (focusTag.includes('relative clauses')) {
-        return [
-            {
-                title: "Join the ideas",
-                prompt: "Combine two short sentences into one clearer sentence using who, which or that.",
-                tip: "The goal is better description, not longer writing for its own sake."
-            },
-            {
-                title: "Describe more clearly",
-                prompt: "Write one sentence about a person, one about a place and one about a thing using relative clauses.",
-                tip: "Choose the pronoun based on what you are describing."
-            },
-            {
-                title: "Fix the repetition",
-                prompt: "Rewrite a sentence that sounds repetitive by combining the ideas into one smoother description.",
-                tip: "Relative clauses help the answer sound more natural and less mechanical."
-            },
-            {
-                title: "Vocabulary in description",
-                prompt: "Use two vocabulary items to describe something or someone important in your life more precisely.",
-                tip: "A strong answer should be clearer after the rewrite than before it."
-            }
-        ];
+    const scoreEl = document.querySelector(`[data-quiz-score="${boardId}"]`);
+    if (scoreEl) scoreEl.textContent = `${state.score} / ${state.total}`;
+
+    if (Object.keys(state.answered).length >= state.total) {
+        state.completed = true;
+        if (state.interval) {
+            window.clearInterval(state.interval);
+            state.interval = null;
+        }
     }
 
-    if (focusTag.includes('passive')) {
-        return [
-            {
-                title: "Choose active or passive",
-                prompt: "Decide when passive is more useful: when the action matters more, or when the person doing it matters more.",
-                tip: "Passive is common when the result or process is the real focus."
-            },
-            {
-                title: "Rewrite for focus",
-                prompt: "Turn one active sentence into a passive sentence and explain what becomes more important.",
-                tip: "Do not rewrite only by form. Notice the change in emphasis."
-            },
-            {
-                title: "Everyday passive",
-                prompt: "Write two passive sentences connected to work, media, services or everyday routines.",
-                tip: "Choose contexts where people often do not mention the agent."
-            },
-            {
-                title: "Vocabulary in process",
-                prompt: "Use two vocabulary items while describing a product, message, rule or service in the passive.",
-                tip: "The sentence should sound practical and real-world."
-            }
-        ];
+    return true;
+}
+
+function styleQuizOptionState(option, state) {
+    if (!option) return;
+
+    option.style.transition = 'background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease';
+    option.style.borderWidth = '1px';
+    option.style.borderRadius = '0.75rem';
+    option.style.lineHeight = '1.35';
+    option.style.fontWeight = '600';
+
+    if (state === 'correct') {
+        option.style.backgroundColor = '#ecfdf3';
+        option.style.borderColor = '#22c55e';
+        option.style.color = '#0f172a';
+        option.style.boxShadow = 'none';
+        return;
     }
 
-    if (focusTag.includes('second conditional') || focusTag.includes('wish')) {
-        return [
-            {
-                title: "Real or imaginary?",
-                prompt: "Write one sentence about a real possibility and one about an unreal possibility. Then mark which one needs the second conditional.",
-                tip: "If the idea is imaginary now or unlikely now, second conditional is usually the better fit."
-            },
-            {
-                title: "One change, one result",
-                prompt: "Complete this idea: If I had more ___, I would ___. Then add one wish sentence about your current life.",
-                tip: "The two sentences should connect, but they should not be identical."
-            },
-            {
-                title: "Advice through hypotheticals",
-                prompt: "Write one sentence with If I were you... and one sentence about your own wish or regret.",
-                tip: "Keep the tone natural and personal, not dramatic."
-            },
-            {
-                title: "Vocabulary in reflection",
-                prompt: "Use three vocabulary items in a short reflective paragraph about opportunities, choices or regrets.",
-                tip: "A good answer sounds thoughtful and specific."
-            }
-        ];
+    if (state === 'correct-focus') {
+        option.style.backgroundColor = '#dcfce7';
+        option.style.borderColor = '#16a34a';
+        option.style.color = '#0f172a';
+        option.style.boxShadow = '0 0 0 3px rgba(34, 197, 94, 0.18)';
+        return;
     }
 
-    if (focusTag.includes('persuading') || focusTag.includes('presentation')) {
-        return [
-            {
-                title: "Build the frame",
-                prompt: "Plan a mini persuasive answer with four parts: main point, reason 1, reason 2, example.",
-                tip: "If the structure is clear, the language can stay simple."
-            },
-            {
-                title: "Improve the logic",
-                prompt: "Take a simple opinion and add sequence words and one example so it sounds more convincing.",
-                tip: "Use first, second, for example or that is why."
-            },
-            {
-                title: "Speak to a listener",
-                prompt: "Recommend one study habit, app or practical solution in four or five connected sentences.",
-                tip: "Imagine someone really needs your suggestion. Make it usable."
-            },
-            {
-                title: "Vocabulary for persuasion",
-                prompt: "Use three vocabulary items from the lesson in a short recommendation or mini presentation.",
-                tip: "Choose words that make your argument clearer, not just longer."
-            }
-        ];
+    if (state === 'wrong') {
+        option.style.backgroundColor = '#fef2f2';
+        option.style.borderColor = '#ef4444';
+        option.style.color = '#0f172a';
+        option.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.16)';
+        return;
     }
 
-    return defaultPrompts;
+    if (state === 'muted') {
+        option.style.backgroundColor = '#f8fafc';
+        option.style.borderColor = '#d1d5db';
+        option.style.color = '#334155';
+        option.style.boxShadow = 'none';
+    }
+}
+
+function setQuizOptionBadge(option, symbol) {
+    if (!option) return;
+
+    const existing = option.querySelector('[data-quiz-badge]');
+    if (existing) existing.remove();
+    if (!symbol) return;
+
+    option.style.display = 'flex';
+    option.style.alignItems = 'center';
+    option.style.justifyContent = 'space-between';
+    option.style.gap = '0.5rem';
+
+    const badge = document.createElement('span');
+    badge.setAttribute('data-quiz-badge', 'true');
+    badge.textContent = symbol;
+    badge.style.fontWeight = '800';
+    badge.style.fontSize = '0.95rem';
+    badge.style.lineHeight = '1';
+    badge.style.flex = '0 0 auto';
+    badge.style.opacity = '0.95';
+
+    option.appendChild(badge);
+}
+
+function handleOrderingDragStart(event, runtime) {
+    const item = event.target.closest('.ordering-item');
+    if (!item) return;
+    runtime.orderDrag.itemId = item.dataset.orderId;
+    runtime.orderDrag.boardId = item.dataset.orderBoard;
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData('text/plain', item.dataset.orderId);
+    item.classList.add('opacity-60');
+}
+
+function handleOrderingDragEnd(event, runtime) {
+    const item = event.target.closest('.ordering-item');
+    if (item) item.classList.remove('opacity-60');
+    runtime.orderDrag.itemId = null;
+    runtime.orderDrag.boardId = null;
+}
+
+function handleOrderingDragOver(event) {
+    if (!event.target.closest('.ordering-item')) return;
+    event.preventDefault();
+}
+
+function handleOrderingDrop(event, runtime) {
+    const targetItem = event.target.closest('.ordering-item');
+    if (!targetItem) return;
+    event.preventDefault();
+
+    const draggedId = runtime.orderDrag.itemId;
+    const boardId = runtime.orderDrag.boardId;
+    if (!draggedId || !boardId || targetItem.dataset.orderBoard !== boardId) return;
+
+    const board = document.querySelector(`[data-order-board="${boardId}"]`);
+    const dragged = board ? board.querySelector(`[data-order-id="${draggedId}"]`) : null;
+    if (!board || !dragged || dragged === targetItem) return;
+
+    const rect = targetItem.getBoundingClientRect();
+    const shouldInsertBefore = event.clientY < rect.top + rect.height / 2;
+    board.insertBefore(dragged, shouldInsertBefore ? targetItem : targetItem.nextSibling);
+}
+
+function handleOrderingCheck(event) {
+    const button = event.target.closest('[data-order-check]');
+    if (!button) return false;
+
+    const boardId = button.dataset.orderCheck;
+    const board = document.querySelector(`[data-order-board="${boardId}"]`);
+    const feedback = document.getElementById(`order-feedback-${boardId}`);
+    if (!board || !feedback) return true;
+
+    const current = Array.from(board.querySelectorAll('.ordering-item')).map((item) => item.dataset.orderId);
+    const expected = JSON.parse(board.dataset.orderCorrect || '[]');
+    const isCorrect = expected.length === current.length && expected.every((item, index) => item === current[index]);
+
+    if (isCorrect) {
+        feedback.textContent = 'Great sequence. Your order is correct.';
+        feedback.className = 'text-sm font-semibold text-green-700';
+    } else {
+        feedback.textContent = 'Not yet. Recheck transitions and logical order.';
+        feedback.className = 'text-sm font-semibold text-amber-700';
+    }
+    return true;
+}
+
+function handleDebateClick(event, runtime) {
+    const actionButton = event.target.closest('[data-debate-action]');
+    if (actionButton) {
+        const boardId = actionButton.dataset.debateBoard;
+        if (!runtime.debate[boardId]) runtime.debate[boardId] = { a: 0, b: 0, timer: null, remaining: 120 };
+        const state = runtime.debate[boardId];
+        const timerEl = document.querySelector(`[data-debate-timer="${boardId}"]`);
+        const board = document.querySelector(`[data-debate-board="${boardId}"]`);
+        const defaultSeconds = parseInt(board?.dataset.debateSeconds || '120', 10);
+
+        if (actionButton.dataset.debateAction === 'start') {
+            if (state.timer) window.clearInterval(state.timer);
+            state.remaining = defaultSeconds;
+            if (timerEl) timerEl.textContent = formatClock(state.remaining);
+            state.timer = window.setInterval(() => {
+                state.remaining -= 1;
+                if (timerEl) timerEl.textContent = formatClock(Math.max(state.remaining, 0));
+                if (state.remaining <= 0) {
+                    window.clearInterval(state.timer);
+                    state.timer = null;
+                }
+            }, 1000);
+        }
+
+        if (actionButton.dataset.debateAction === 'stop' && state.timer) {
+            window.clearInterval(state.timer);
+            state.timer = null;
+        }
+        return true;
+    }
+
+    const voteButton = event.target.closest('[data-debate-vote]');
+    if (!voteButton) return false;
+    const boardId = voteButton.dataset.debateBoard;
+    if (!runtime.debate[boardId]) runtime.debate[boardId] = { a: 0, b: 0, timer: null, remaining: 120 };
+    const side = voteButton.dataset.debateVote === 'b' ? 'b' : 'a';
+    runtime.debate[boardId][side] += 1;
+    const scoreEl = document.querySelector(`[data-debate-score="${boardId}-${side}"]`);
+    if (scoreEl) scoreEl.textContent = String(runtime.debate[boardId][side]);
+    return true;
+}
+
+function formatClock(totalSeconds) {
+    const value = Math.max(0, totalSeconds);
+    const minutes = String(Math.floor(value / 60)).padStart(2, '0');
+    const seconds = String(value % 60).padStart(2, '0');
+    return `${minutes}:${seconds}`;
+}
+
+async function handleRecordingClick(event, runtime) {
+    const button = event.target.closest('[data-record-action]');
+    if (!button) return false;
+
+    const studioId = button.dataset.recordStudio;
+    if (!runtime.recorder[studioId]) {
+        runtime.recorder[studioId] = { recorder: null, stream: null, chunks: [], url: '' };
+    }
+    const state = runtime.recorder[studioId];
+    const statusEl = document.querySelector(`[data-record-status="${studioId}"]`);
+    const audioEl = document.querySelector(`[data-record-audio="${studioId}"]`);
+
+    if (button.dataset.recordAction === 'start') {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            if (statusEl) statusEl.textContent = 'MediaRecorder is not supported in this browser.';
+            return true;
+        }
+        if (state.recorder && state.recorder.state === 'recording') return true;
+
+        try {
+            state.stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            state.chunks = [];
+            state.recorder = new MediaRecorder(state.stream);
+            state.recorder.ondataavailable = (recordEvent) => {
+                if (recordEvent.data && recordEvent.data.size > 0) state.chunks.push(recordEvent.data);
+            };
+            state.recorder.onstop = () => {
+                const blob = new Blob(state.chunks, { type: 'audio/webm' });
+                if (state.url) URL.revokeObjectURL(state.url);
+                state.url = URL.createObjectURL(blob);
+                if (audioEl) audioEl.src = state.url;
+                if (statusEl) statusEl.textContent = 'Recording ready. You can play it now.';
+            };
+            state.recorder.start();
+            if (statusEl) statusEl.textContent = 'Recording... speak clearly and naturally.';
+        } catch (error) {
+            if (statusEl) statusEl.textContent = 'Could not start recording. Check microphone permissions.';
+        }
+        return true;
+    }
+
+    if (button.dataset.recordAction === 'stop') {
+        if (state.recorder && state.recorder.state === 'recording') {
+            state.recorder.stop();
+            if (state.stream) {
+                state.stream.getTracks().forEach((track) => track.stop());
+                state.stream = null;
+            }
+            if (statusEl) statusEl.textContent = 'Processing recording...';
+        }
+        return true;
+    }
+
+    if (button.dataset.recordAction === 'play') {
+        if (audioEl && audioEl.src) {
+            audioEl.play();
+            if (statusEl) statusEl.textContent = 'Playing saved recording.';
+        } else if (statusEl) {
+            statusEl.textContent = 'Record something first.';
+        }
+        return true;
+    }
+
+    return true;
+}
+
+function handleTranscriptClick(event, runtime) {
+    const button = event.target.closest('[data-transcript-action]');
+    if (!button) {
+        const speakFromText = event.target.closest('[data-speak-from-text]');
+        if (speakFromText) {
+            const studioId = speakFromText.dataset.speakFromText;
+            const textArea = document.getElementById(`speech-text-${studioId}`);
+            const text = textArea ? textArea.value : '';
+            if ('speechSynthesis' in window && text.trim()) {
+                const utterance = new SpeechSynthesisUtterance(text.trim());
+                utterance.lang = 'en-US';
+                window.speechSynthesis.cancel();
+                window.speechSynthesis.speak(utterance);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    const studioId = button.dataset.transcriptStudio;
+    if (!runtime.speech[studioId]) runtime.speech[studioId] = { recognition: null, active: false };
+    const state = runtime.speech[studioId];
+    const outputEl = document.querySelector(`[data-transcript-output="${studioId}"]`);
+    const statusEl = document.querySelector(`[data-transcript-status="${studioId}"]`);
+    const RecognitionCtor = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!RecognitionCtor) {
+        if (statusEl) statusEl.textContent = 'SpeechRecognition is not available in this browser.';
+        return true;
+    }
+
+    if (button.dataset.transcriptAction === 'start') {
+        if (state.active) return true;
+
+        const recognition = new RecognitionCtor();
+        recognition.lang = 'en-US';
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.onresult = (resultEvent) => {
+            let transcript = '';
+            for (let i = 0; i < resultEvent.results.length; i += 1) {
+                transcript += `${resultEvent.results[i][0].transcript} `;
+            }
+            if (outputEl) outputEl.textContent = transcript.trim();
+        };
+        recognition.onerror = () => {
+            if (statusEl) statusEl.textContent = 'Recognition error. Try again in a quieter place.';
+            state.active = false;
+        };
+        recognition.onend = () => {
+            state.active = false;
+            if (statusEl) statusEl.textContent = 'Recognition stopped.';
+        };
+        recognition.start();
+        state.recognition = recognition;
+        state.active = true;
+        if (statusEl) statusEl.textContent = 'Listening... speak naturally.';
+        return true;
+    }
+
+    if (button.dataset.transcriptAction === 'stop') {
+        if (state.recognition && state.active) {
+            state.recognition.stop();
+        }
+        state.active = false;
+        if (statusEl) statusEl.textContent = 'Recognition stopped by user.';
+        return true;
+    }
+
+    return true;
 }
