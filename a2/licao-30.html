@@ -1,459 +1,790 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A2 | Lição 30: Making Arrangements</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-    <style>
+    <title>A2 | Lição 30: Environmental Issues and Solutions</title>
+    <script src="https://cdn.tailwindcss.com">
+      </script>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+      <style>
         body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
         .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
-        .flip-card { background: transparent; min-height: 176px; perspective: 1000px; cursor: pointer; }
-        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flip-card { background: transparent; min-height: 180px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; min-height: 180px; transition: transform 0.7s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            padding: 1rem;
-            border-radius: 1.25rem;
-            border: 1px solid #e5e7eb;
-            text-align: center;
-        }
-        .flip-card-front { background: #fff; color: #db2777; }
-        .flip-card-back { background: #fdf2f8; color: #9d174d; transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; inset: 0; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; text-align: center; }
+        .flip-card-front { background: #fff; color: #7c3aed; }
+        .flip-card-back { background: #f5f3ff; color: #4c1d95; transform: rotateY(180deg); font-size: 1.25rem; font-weight: 700; }
         .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.35rem; }
-        .answer-btn:hover { color: #db2777; }
-        input { border: none; border-bottom: 2px solid #cbd5e1; background: transparent; outline: none; text-align: center; padding: 0 6px; }
+        .practice-input, input[data-answer] { border: none; border-bottom: 2px solid #cbd5e1; background: transparent; outline: none; text-align: center; padding: 0 6px; }
         input.correct { border-color: #22c55e; color: #166534; background: #f0fdf4; }
         input.incorrect { border-color: #ef4444; color: #991b1b; background: #fef2f2; }
-    </style>
-    <link rel="stylesheet" href="a2-lesson-theme.css">
-</head>
-<body class="lesson-loading a2-lesson-page bg-slate-50 text-slate-800">
-    <header class="bg-white shadow-sm sticky top-0 z-10">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
-            <a href="a2.html" class="text-lg font-bold text-pink-600 hover:text-pink-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A2</a>
-            <div class="text-center">
-                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 30: Making Arrangements</h1>
-                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
-            </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
-        </div>
-        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-pink-500 h-1.5 transition-all duration-300"></div></div>
-    </header>
-
-    <main class="container mx-auto p-8 pb-28 max-w-5xl">
-        <div class="slide active" data-title="Warm-up">
-            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
-                <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
+        .speak-btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid #ddd6fe; background: #f5f3ff; color: #6d28d9; padding: 0.4rem 0.75rem; border-radius: 999px; font-size: 0.85rem; font-weight: 700; }
+        .dialogue-line { display: flex; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
+        .dialogue-line p { flex: 1 1 420px; }
+        </style>
+        <link rel="stylesheet" href="a2-lesson-theme.css">
+      </head>
+      <body class="lesson-loading a2-lesson-page bg-slate-50 text-slate-800">
+        <header class="bg-white shadow-sm sticky top-0 z-10">
+          <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+            <a href="a2.html" class="text-lg font-bold text-violet-700 hover:text-violet-900 flex items-center gap-2">
+              <i class="fas fa-chevron-left">
+                </i> Voltar para A2</a>
+                <div class="text-center">
+                  <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 30: Environmental Issues and Solutions</h1>
+                  <p id="slide-title-header" class="text-xs text-slate-400 font-medium">
+                  </p>
+                </div>
+                <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 12</div>
+              </div>
+              <div class="w-full bg-slate-200 h-1.5">
+                <div id="progress-bar" class="bg-violet-500 h-1.5 transition-all duration-300">
+                </div>
+              </div>
+            </header>
+            <main class="container mx-auto p-8 pb-28 max-w-5xl">
+              <div class="slide active" data-title="Intro Dialogue">
+                <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                  <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
                     <div class="a2-hero-copy">
-                        <h2>Arrange plans and confirm details</h2>
-                        <p class="mt-4 text-sm font-semibold text-pink-700">New focus: calendar choices, changing time and writing a short confirmation message.</p>
-                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a convidar alguem, combinar horário e lugar, remarcar e confirmar planos com naturalidade.</p>
+                      <h2>Discuss environmental problems and practical solutions</h2>
+                      <p class="mt-4 text-sm font-semibold text-violet-700">Modals of advice and obligation, passive voice and countable/uncountable waste vocabulary.</p>
+                      <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno fala sobre poluição, reciclagem e soluções ambientais usando must, should, have to e voz passiva.</p>
                     </div>
                     <div class="lesson-panel p-6">
-                        <p class="lesson-panel-title mb-4">You will use</p>
-                        <div class="lesson-checklist">
-                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Are you free on Friday?</span></div>
-                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Let's meet at 7.</span></div>
-                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Can we change the time?</span></div>
-                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>I will text you if I am late.</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="section-card p-8 mt-8">
-                <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
-                    <div>
-                        <p class="lesson-panel-title mb-2">Opening dialogue</p>
-                        <h2 class="text-3xl font-black text-pink-700">Invite, suggest and confirm</h2>
-                    </div>
-                    <button type="button" class="speak-btn" data-speak="Are you free on Saturday afternoon? I think so. What time do you want to meet? Let's meet at 3 p.m. at the coffee shop near the station. Sounds good. If I'm late, I'll text you."><i class="fas fa-volume-up"></i> Ouvir diálogo</button>
-                </div>
-                <div class="space-y-4 text-xl">
-                    <div class="dialogue-line"><span class="font-bold text-pink-600">Lia:</span><p>Are you free on Saturday afternoon?</p><button type="button" class="speak-btn" data-speak="Are you free on Saturday afternoon?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
-                    <div class="dialogue-line"><span class="font-bold text-orange-600">Dan:</span><p>I think so. What time do you want to meet?</p><button type="button" class="speak-btn" data-speak="I think so. What time do you want to meet?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
-                    <div class="dialogue-line"><span class="font-bold text-pink-600">Lia:</span><p>Let's meet at 3 p.m. at the coffee shop near the station.</p><button type="button" class="speak-btn" data-speak="Let's meet at 3 p.m. at the coffee shop near the station."><i class="fas fa-volume-up"></i> Ouvir</button></div>
-                    <div class="dialogue-line"><span class="font-bold text-orange-600">Dan:</span><p>Sounds good. If I'm late, I'll text you.</p><button type="button" class="speak-btn" data-speak="Sounds good. If I'm late, I'll text you."><i class="fas fa-volume-up"></i> Ouvir</button></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Useful Language">
-            <div class="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto text-lg">
-                <div class="activity-card">
-                    <p class="lesson-panel-title mb-2">Inviting and planning</p>
-                    <p>Are you free tonight?</p>
-                    <p>Do you want to grab coffee?</p>
-                    <p>Let's meet in front of the mall.</p>
-                    <p class="mt-4 text-slate-500">Use these to start the conversation in a friendly way.</p>
-                </div>
-                <div class="activity-card">
-                    <p class="lesson-panel-title mb-2">Changing and confirming</p>
-                    <p>Can we change the time?</p>
-                    <p>I'm going to be a little late.</p>
-                    <p>So we're meeting at 6, right?</p>
-                    <p class="mt-4 text-slate-500">Use these to keep the plan clear when something changes.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Schedule Board">
-            <div class="section-card p-8 max-w-6xl mx-auto">
-                <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
-                    <div>
-                        <p class="lesson-panel-title mb-2">Schedule board</p>
-                        <h2 class="text-4xl font-black text-pink-700">Pick a time and send a confirmation</h2>
-                    </div>
-                    <div class="callout-note max-w-xl">This board gives the lesson a small calendar and an email-style confirmation task.</div>
-                </div>
-                <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6">
-                    <div class="activity-card">
-                        <p class="lesson-panel-title mb-3">Choose one meeting time</p>
-                        <div id="calendar-board" class="grid grid-cols-4 gap-2 text-sm"></div>
-                        <p id="calendar-status" class="mt-4 text-sm text-slate-500">Tap a slot to set a meeting time.</p>
-                    </div>
-                    <div class="activity-card">
-                        <p class="lesson-panel-title mb-3">Send a confirmation message</p>
-                        <textarea id="arrangement-message" rows="6" class="w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-pink-500" placeholder="Hi! Are you free at 3 p.m.? Let's meet in front of the mall."></textarea>
-                        <div class="flex gap-3 mt-4 flex-wrap">
-                            <button type="button" id="format-message-btn" class="option-chip">Format as e-mail</button>
-                            <button type="button" id="clear-message-btn" class="option-chip">Clear</button>
-                        </div>
-                        <div id="message-preview" class="preview-card min-h-[150px] mt-4">Your e-mail preview will appear here.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Flashcards">
-            <div class="text-center">
-                <h2 class="text-4xl font-black mb-4 text-pink-700">Arrangements flashcards</h2>
-                <p class="text-slate-500 text-lg mb-6">Words and phrases you need when organizing a plan.</p>
-                <div class="flashcard-grid max-w-5xl mx-auto">
-                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">free</h3></div><div class="flip-card-back"><p>livre / disponível</p></div></div></div>
-                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">meet</h3></div><div class="flip-card-back"><p>encontrar</p></div></div></div>
-                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">change the time</h3></div><div class="flip-card-back"><p>mudar o horário</p></div></div></div>
-                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">be late</h3></div><div class="flip-card-back"><p>se atrasar</p></div></div></div>
-                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">text</h3></div><div class="flip-card-back"><p>mandar mensagem</p></div></div></div>
-                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">in front of</h3></div><div class="flip-card-back"><p>em frente a</p></div></div></div>
-                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">available</h3></div><div class="flip-card-back"><p>disponível</p></div></div></div>
-                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">reschedule</h3></div><div class="flip-card-back"><p>remarcar</p></div></div></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Task 1">
-            <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
-                <h2 class="text-4xl font-black mb-4 text-center text-pink-700">Complete the arrangement words</h2>
-                <p>1. Are you <input id="a1" data-answer="free" class="w-24"> on Friday night? <button class="answer-btn" data-target="a1"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(livre)</span></p>
-                <p>2. Let's <input id="a2" data-answer="meet" class="w-24"> at 7 p.m. <button class="answer-btn" data-target="a2"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(encontrar)</span></p>
-                <p>3. Can we change the <input id="a3" data-answer="time" class="w-24">? <button class="answer-btn" data-target="a3"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(horário)</span></p>
-                <p>4. I'll <input id="a4" data-answer="text" class="w-24"> you when I arrive. <button class="answer-btn" data-target="a4"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(mandar mensagem)</span></p>
-                <p>5. Let's meet in <input id="a5" data-answer="front" class="w-24"> of the cinema. <button class="answer-btn" data-target="a5"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(parte de “em frente”)</span></p>
-                <p>6. Can we <input id="a6" data-answer="reschedule" class="w-32"> for next week? <button class="answer-btn" data-target="a6"><i class="fas fa-eye"></i></button> <span class="text-sm text-slate-500">(remarcar)</span></p>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Practice 2">
-            <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
-                <h2 class="text-4xl font-black mb-4 text-center text-pink-700">Reply and confirm</h2>
-                <p>1. "Are you free tomorrow?" "Yes, I <input id="a7" data-answer="am" class="w-20">." <button class="answer-btn" data-target="a7"><i class="fas fa-eye"></i></button></p>
-                <p>2. "What time should we meet?" "Let's meet at <input id="a8" data-answer="6" class="w-20">." <button class="answer-btn" data-target="a8"><i class="fas fa-eye"></i></button></p>
-                <p>3. "Can we change the place?" "Sure, let's meet <input id="a9" data-answer="in front of" class="w-36"> the mall." <button class="answer-btn" data-target="a9"><i class="fas fa-eye"></i></button></p>
-                <p>4. "Will you be late?" "Maybe a little, but I'll <input id="a10" data-answer="text" class="w-24"> you." <button class="answer-btn" data-target="a10"><i class="fas fa-eye"></i></button></p>
-                <p>5. "So we're meeting on Friday?" "Yes, that's <input id="a11" data-answer="right" class="w-24">." <button class="answer-btn" data-target="a11"><i class="fas fa-eye"></i></button></p>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Arrangement Builder">
-            <div class="section-card p-8 max-w-5xl mx-auto">
-                <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
-                    <div>
-                        <p class="lesson-panel-title mb-2">Arrangement Builder</p>
-                        <h2 class="text-4xl font-black text-pink-700">Build a full plan</h2>
-                    </div>
-                    <div class="callout-note max-w-xl">O aluno monta um convite completo com dia, lugar e confirmação, em vez de praticar frases soltas.</div>
-                </div>
-                <div class="activity-lab" data-choice-builder data-template="{invite} {place} {confirm}" data-required="invite,place,confirm" data-preview-empty="Escolha as partes para montar um plano completo.">
-                    <div class="grid md:grid-cols-3 gap-6">
-                        <div>
-                            <p class="lesson-panel-title mb-3">1. Invite</p>
-                            <div class="option-cloud">
-                                <button type="button" class="option-chip" data-choice-slot="invite" data-choice-value="Are you free on Saturday afternoon?">Are you free on Saturday afternoon?</button>
-                                <button type="button" class="option-chip" data-choice-slot="invite" data-choice-value="Do you want to meet after class?">Do you want to meet after class?</button>
-                                <button type="button" class="option-chip" data-choice-slot="invite" data-choice-value="Let's get coffee tomorrow evening.">Let's get coffee tomorrow evening.</button>
+                      <p class="lesson-panel-title mb-4">You will use</p>
+                      <div class="lesson-checklist">
+                        <div class="lesson-checklist-item">
+                          <i class="fas fa-check-circle">
+                            </i>
+                            <span>We must protect the planet.</span>
+                          </div>
+                          <div class="lesson-checklist-item">
+                            <i class="fas fa-check-circle">
+                              </i>
+                              <span>Plastic should be reused.</span>
                             </div>
-                        </div>
-                        <div>
-                            <p class="lesson-panel-title mb-3">2. Place and time</p>
-                            <div class="option-cloud">
-                                <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="Let's meet at 6 p.m. in front of the bookstore.">Let's meet at 6 p.m. in front of the bookstore.</button>
-                                <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="We can meet at the café near the station at 3.">We can meet at the café near the station at 3.</button>
-                                <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="How about meeting at the mall at 7?">How about meeting at the mall at 7?</button>
+                            <div class="lesson-checklist-item">
+                              <i class="fas fa-check-circle">
+                                </i>
+                                <span>Paper is recycled here.</span>
+                              </div>
+                              <div class="lesson-checklist-item">
+                                <i class="fas fa-check-circle">
+                                  </i>
+                                  <span>less plastic / fewer bags</span>
+                                </div>
+                              </div>
                             </div>
+                          </div>
                         </div>
-                        <div>
-                            <p class="lesson-panel-title mb-3">3. Confirm or change</p>
-                            <div class="option-cloud">
-                                <button type="button" class="option-chip" data-choice-slot="confirm" data-choice-value="Perfect. I'll text you when I'm there.">Perfect. I'll text you when I'm there.</button>
-                                <button type="button" class="option-chip" data-choice-slot="confirm" data-choice-value="Sounds good, but I might be a little late.">Sounds good, but I might be a little late.</button>
-                                <button type="button" class="option-chip" data-choice-slot="confirm" data-choice-value="Great. If something changes, let me know.">Great. If something changes, let me know.</button>
+                        <div class="section-card p-8 mt-8">
+                          <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+                            <div>
+                              <p class="lesson-panel-title mb-2">Introductory dialogue</p>
+                              <h2 class="text-3xl font-black text-violet-700">Dialog Sample</h2>
                             </div>
-                        </div>
-                    </div>
-                    <div class="preview-card mt-6" data-choice-preview></div>
-                    <p class="mt-4 text-sm text-slate-500">Leia como uma conversa real entre amigos ou colegas.</p>
-                    <div class="flex gap-3 mt-5 flex-wrap">
-                        <button type="button" class="option-chip" data-choice-reset>Reset</button>
-                        <button type="button" class="option-chip" data-choice-speak>Speak</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Roleplay">
-            <div class="section-card p-8 max-w-4xl mx-auto">
-                <h2 class="text-4xl font-black mb-6 text-center text-pink-700">Roleplay: making plans</h2>
-                <div class="grid md:grid-cols-2 gap-5 text-lg">
-                    <div class="activity-card">
-                        <p class="lesson-panel-title mb-2">Student A</p>
-                        <p>Invite your partner to do something this weekend. Suggest a time and place.</p>
-                    </div>
-                    <div class="activity-card">
-                        <p class="lesson-panel-title mb-2">Student B</p>
-                        <p>Accept, refuse politely or ask to change the time. Then confirm the final plan.</p>
-                    </div>
-                </div>
-                <p class="mt-6 text-lg text-slate-600">Do one round quickly, then a second round with a change so the conversation feels real.</p>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Reading">
-            <div class="section-card p-8 max-w-4xl mx-auto">
-                <h2 class="text-4xl font-black mb-4 text-center text-pink-700">Text message check and homework</h2>
-                <div class="activity-card text-lg space-y-4">
-                    <p><strong>Notice:</strong> "Hi! Are you free on Friday? Let's meet at the coffee shop near the station at 6. If you are late, text me." </p>
-                    <p>1. The plan is for <input id="a12" data-answer="Friday" class="w-24">. <button class="answer-btn" data-target="a12"><i class="fas fa-eye"></i></button></p>
-                    <p>2. They are meeting at a coffee <input id="a13" data-answer="shop" class="w-24">. <button class="answer-btn" data-target="a13"><i class="fas fa-eye"></i></button></p>
-                    <p>3. If someone is late, they should <input id="a14" data-answer="text" class="w-24">. <button class="answer-btn" data-target="a14"><i class="fas fa-eye"></i></button></p>
-                </div>
-                <p class="mt-6 text-lg text-slate-600">Write a short message exchange in 6 to 8 lines. Invite someone, suggest a place and time, then add one change or confirmation.</p>
-                <textarea rows="6" class="mt-4 w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-pink-500" placeholder="Hi! Are you free...? Let's meet... Can we change the time?... Great, see you there."></textarea>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Messaging Tip">
-            <div class="section-card p-8 max-w-4xl mx-auto">
-                <h2 class="text-4xl font-black mb-4 text-center text-pink-700">Messaging tip</h2>
-                <div class="grid md:grid-cols-3 gap-5 text-lg">
-                    <div class="activity-card">
-                        <p class="lesson-panel-title mb-2">Invite</p>
-                        <p>Are you free tonight?</p>
-                        <p>Do you want to grab coffee?</p>
-                    </div>
-                    <div class="activity-card">
-                        <p class="lesson-panel-title mb-2">Place and time</p>
-                        <p>Let's meet at 7.</p>
-                        <p>In front of the mall.</p>
-                    </div>
-                    <div class="activity-card">
-                        <p class="lesson-panel-title mb-2">Confirm</p>
-                        <p>Sounds good.</p>
-                        <p>I'll text you if I'm late.</p>
-                    </div>
-                </div>
-                <div class="callout-note mt-6">Keep the message short, friendly and easy to answer.</div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Lesson Complete">
-            <div class="text-center">
-                <i class="fas fa-calendar-check text-pink-500 text-7xl mb-6"></i>
-                <p class="lesson-panel-title mb-2">Lesson complete</p>
-                <h2 class="text-5xl font-black mb-4 text-slate-900">Plans arranged</h2>
-                <p class="text-2xl text-slate-600 max-w-3xl mx-auto">You can now invite, confirm, change and organize simple plans in English.</p>
-            </div>
-        </div>
-    </main>
-
-    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
-        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
-            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Anterior</button>
-            <button id="next-btn" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-lg transition">Próximo</button>
-            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Finalizar aula</button>
-        </div>
-    </footer>
-
-    <script src="a2-lesson-theme.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    <script src="../js/firebase-config.js"></script>
-    <script src="../js/progress-manager.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const moduleId = 'a2';
-            const lessonNumber = 30;
-            const slides = Array.from(document.querySelectorAll('.slide'));
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const finishBtn = document.getElementById('finish-lesson-btn');
-            const progressBar = document.getElementById('progress-bar');
-            const normalize = (text) => (text || '').trim().toLowerCase().replace(/[.?!"']/g, '');
-            let currentSlide = Math.max(0, slides.findIndex((slide) => slide.classList.contains('active')));
-            if (currentSlide < 0) currentSlide = 0;
-
-            const checkAnswer = (input) => {
-                input.classList.remove('correct', 'incorrect');
-                if (!input.value.trim()) return;
-                const isCorrect = normalize(input.value) === normalize(input.dataset.answer || '');
-                input.classList.add(isCorrect ? 'correct' : 'incorrect');
-            };
-
-            const calendarBoard = document.getElementById('calendar-board');
-            const calendarStatus = document.getElementById('calendar-status');
-            const arrangementMessage = document.getElementById('arrangement-message');
-            const messagePreview = document.getElementById('message-preview');
-            const formatMessageBtn = document.getElementById('format-message-btn');
-            const clearMessageBtn = document.getElementById('clear-message-btn');
-            const meetingState = { coffee: '', call: '' };
-            const timeSlots = ['1 p.m.', '3 p.m.', '5 p.m.', '7 p.m.'];
-
-            const renderCalendar = () => {
-                if (!calendarBoard) return;
-                calendarBoard.innerHTML = ['coffee', 'call'].map((meeting) => {
-                    const label = meeting === 'coffee' ? 'Coffee' : 'Call';
-                    return `
-                        <div class="col-span-4 grid grid-cols-5 gap-2 items-center">
-                            <p class="font-semibold text-slate-700">${label}</p>
-                            ${timeSlots.map((time) => `
-                                <button type="button" class="option-chip calendar-slot ${meetingState[meeting] === time ? 'is-active' : ''}" data-meeting="${meeting}" data-time="${time}">${time}</button>
-                            `).join('')}
-                        </div>
-                    `;
-                }).join('');
-
-                const conflict = meetingState.coffee && meetingState.call && meetingState.coffee === meetingState.call;
-                if (calendarStatus) {
-                    if (conflict) {
-                        calendarStatus.textContent = `Conflict: both meetings are set for ${meetingState.coffee}. Choose another time.`;
-                        calendarStatus.className = 'mt-4 text-sm text-red-600';
-                    } else if (meetingState.coffee || meetingState.call) {
-                        const parts = [];
-                        if (meetingState.coffee) parts.push(`Coffee at ${meetingState.coffee}`);
-                        if (meetingState.call) parts.push(`Call at ${meetingState.call}`);
-                        calendarStatus.textContent = parts.join(' and ');
-                        calendarStatus.className = 'mt-4 text-sm text-green-700';
-                    } else {
-                        calendarStatus.textContent = 'Tap a slot to set a meeting time.';
-                        calendarStatus.className = 'mt-4 text-sm text-slate-500';
-                    }
-                }
-            };
-
-            const formatMessage = () => {
-                if (!messagePreview) return;
-                const body = arrangementMessage?.value?.trim() || 'Hi! Let us confirm the plan.';
-                const coffeeLine = meetingState.coffee ? `Coffee: ${meetingState.coffee}.` : '';
-                const callLine = meetingState.call ? `Call: ${meetingState.call}.` : '';
-                messagePreview.innerHTML = `
-                    <p class="font-semibold text-pink-700 mb-2">E-mail preview</p>
-                    <p class="text-slate-700 whitespace-pre-line">Hi there,<br><br>${body}<br><br>${coffeeLine} ${callLine}<br><br>Best,<br>Your student</p>
-                `;
-            };
-
-            const clearArrangement = () => {
-                meetingState.coffee = '';
-                meetingState.call = '';
-                if (arrangementMessage) arrangementMessage.value = '';
-                if (messagePreview) messagePreview.textContent = 'Your e-mail preview will appear here.';
-                renderCalendar();
-            };
-
-            calendarBoard?.addEventListener('click', (event) => {
-                const button = event.target.closest('.calendar-slot');
-                if (!button) return;
-                const meeting = button.dataset.meeting;
-                const time = button.dataset.time || '';
-                if (!meeting) return;
-                meetingState[meeting] = time;
-                renderCalendar();
-            });
-
-            formatMessageBtn?.addEventListener('click', formatMessage);
-            clearMessageBtn?.addEventListener('click', clearArrangement);
-
-            const render = () => {
-                slides.forEach((slide, index) => slide.classList.toggle('active', index === currentSlide));
-                if (progressBar) {
-                    progressBar.style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
-                }
-                if (prevBtn) prevBtn.disabled = currentSlide === 0;
-                if (nextBtn) nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
-                if (finishBtn) finishBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
-            };
-
-            prevBtn?.addEventListener('click', () => {
-                if (currentSlide > 0) {
-                    currentSlide -= 1;
-                    render();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            });
-
-            nextBtn?.addEventListener('click', () => {
-                if (currentSlide < slides.length - 1) {
-                    currentSlide += 1;
-                    render();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            });
-
-            finishBtn?.addEventListener('click', () => {
-                finishBtn.disabled = true;
-                finishBtn.textContent = 'Salvando...';
-                if (typeof markLessonAsComplete === 'function') {
-                    Promise.resolve(markLessonAsComplete(moduleId, lessonNumber)).catch(() => {
-                        finishBtn.disabled = false;
-                        finishBtn.textContent = 'Finalizar aula';
-                    });
-                }
-            });
-
-            document.querySelectorAll('input[data-answer]').forEach((input) => {
-                input.addEventListener('blur', () => checkAnswer(input));
-            });
-
-            document.querySelectorAll('.answer-btn[data-target]').forEach((button) => {
-                button.addEventListener('click', () => {
-                    const input = document.getElementById(button.dataset.target);
-                    if (!input) return;
-                    input.value = input.dataset.answer || '';
-                    checkAnswer(input);
-                });
-            });
-
-            document.querySelectorAll('.flip-card').forEach((card) => {
-                card.addEventListener('click', () => card.classList.toggle('flipped'));
-            });
-
-            renderCalendar();
-            render();
-        });
-    </script>
-    <script src="../js/flashcard-pronunciation.js"></script>
-    <script src="../js/lesson-flashcard-save.js"></script>
-</body>
-</html>
+                            <button type="button" class="speak-btn" data-speak="There is too much plastic waste in our neighborhood. People should use reusable bottles and bags. Paper is recycled at my school, but glass is not collected every week. Then we have to ask the city for more recycling points.">
+                              <i class="fas fa-volume-up">
+                                </i> Ouvir diálogo</button>
+                              </div>
+                              <div class="space-y-4 text-xl">
+                                <div class="dialogue-line">
+                                  <strong class="text-violet-700">Lia:</strong>
+                                  <p>There is too much plastic waste in our neighborhood.</p>
+                                  <button type="button" class="speak-btn" data-speak="There is too much plastic waste in our neighborhood.">
+                                    <i class="fas fa-volume-up">
+                                      </i> Ouvir</button>
+                                    </div>
+                                    <div class="dialogue-line">
+                                      <strong class="text-orange-600">Marco:</strong>
+                                      <p>People should use reusable bottles and bags.</p>
+                                      <button type="button" class="speak-btn" data-speak="People should use reusable bottles and bags.">
+                                        <i class="fas fa-volume-up">
+                                          </i> Ouvir</button>
+                                        </div>
+                                        <div class="dialogue-line">
+                                          <strong class="text-violet-700">Lia:</strong>
+                                          <p>Paper is recycled at my school, but glass is not collected every week.</p>
+                                          <button type="button" class="speak-btn" data-speak="Paper is recycled at my school, but glass is not collected every week.">
+                                            <i class="fas fa-volume-up">
+                                              </i> Ouvir</button>
+                                            </div>
+                                            <div class="dialogue-line">
+                                              <strong class="text-orange-600">Marco:</strong>
+                                              <p>Then we have to ask the city for more recycling points.</p>
+                                              <button type="button" class="speak-btn" data-speak="Then we have to ask the city for more recycling points.">
+                                                <i class="fas fa-volume-up">
+                                                  </i> Ouvir</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="slide" data-title="Vocabulary">
+                                            <div class="text-center mb-6">
+                                              <h2 class="text-4xl font-black text-violet-700">Vocabulary</h2>
+                                              <p class="text-slate-500 text-lg mt-2">Clique nos cartões para ver o significado.</p>
+                                            </div>
+                                            <div class="flashcard-grid max-w-6xl mx-auto">
+                                              <div class="flip-card">
+                                                <div class="flip-card-inner">
+                                                  <div class="flip-card-front">
+                                                    <h3 class="text-2xl font-bold">environment</h3>
+                                                    <button type="button" class="speak-btn mt-3" data-speak="environment">
+                                                      <i class="fas fa-volume-up">
+                                                        </i> Ouvir</button>
+                                                      </div>
+                                                      <div class="flip-card-back">
+                                                        <p>meio ambiente</p>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="flip-card">
+                                                    <div class="flip-card-inner">
+                                                      <div class="flip-card-front">
+                                                        <h3 class="text-2xl font-bold">pollution</h3>
+                                                        <button type="button" class="speak-btn mt-3" data-speak="pollution">
+                                                          <i class="fas fa-volume-up">
+                                                            </i> Ouvir</button>
+                                                          </div>
+                                                          <div class="flip-card-back">
+                                                            <p>poluição</p>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                      <div class="flip-card">
+                                                        <div class="flip-card-inner">
+                                                          <div class="flip-card-front">
+                                                            <h3 class="text-2xl font-bold">recycle</h3>
+                                                            <button type="button" class="speak-btn mt-3" data-speak="recycle">
+                                                              <i class="fas fa-volume-up">
+                                                                </i> Ouvir</button>
+                                                              </div>
+                                                              <div class="flip-card-back">
+                                                                <p>reciclar</p>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                          <div class="flip-card">
+                                                            <div class="flip-card-inner">
+                                                              <div class="flip-card-front">
+                                                                <h3 class="text-2xl font-bold">reuse</h3>
+                                                                <button type="button" class="speak-btn mt-3" data-speak="reuse">
+                                                                  <i class="fas fa-volume-up">
+                                                                    </i> Ouvir</button>
+                                                                  </div>
+                                                                  <div class="flip-card-back">
+                                                                    <p>reutilizar</p>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                              <div class="flip-card">
+                                                                <div class="flip-card-inner">
+                                                                  <div class="flip-card-front">
+                                                                    <h3 class="text-2xl font-bold">reduce</h3>
+                                                                    <button type="button" class="speak-btn mt-3" data-speak="reduce">
+                                                                      <i class="fas fa-volume-up">
+                                                                        </i> Ouvir</button>
+                                                                      </div>
+                                                                      <div class="flip-card-back">
+                                                                        <p>reduzir</p>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                  <div class="flip-card">
+                                                                    <div class="flip-card-inner">
+                                                                      <div class="flip-card-front">
+                                                                        <h3 class="text-2xl font-bold">waste</h3>
+                                                                        <button type="button" class="speak-btn mt-3" data-speak="waste">
+                                                                          <i class="fas fa-volume-up">
+                                                                            </i> Ouvir</button>
+                                                                          </div>
+                                                                          <div class="flip-card-back">
+                                                                            <p>lixo</p>
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="flip-card">
+                                                                        <div class="flip-card-inner">
+                                                                          <div class="flip-card-front">
+                                                                            <h3 class="text-2xl font-bold">renewable energy</h3>
+                                                                            <button type="button" class="speak-btn mt-3" data-speak="renewable energy">
+                                                                              <i class="fas fa-volume-up">
+                                                                                </i> Ouvir</button>
+                                                                              </div>
+                                                                              <div class="flip-card-back">
+                                                                                <p>energia renovável</p>
+                                                                              </div>
+                                                                            </div>
+                                                                          </div>
+                                                                          <div class="flip-card">
+                                                                            <div class="flip-card-inner">
+                                                                              <div class="flip-card-front">
+                                                                                <h3 class="text-2xl font-bold">solar panels</h3>
+                                                                                <button type="button" class="speak-btn mt-3" data-speak="solar panels">
+                                                                                  <i class="fas fa-volume-up">
+                                                                                    </i> Ouvir</button>
+                                                                                  </div>
+                                                                                  <div class="flip-card-back">
+                                                                                    <p>painéis solares</p>
+                                                                                  </div>
+                                                                                </div>
+                                                                              </div>
+                                                                              <div class="flip-card">
+                                                                                <div class="flip-card-inner">
+                                                                                  <div class="flip-card-front">
+                                                                                    <h3 class="text-2xl font-bold">climate change</h3>
+                                                                                    <button type="button" class="speak-btn mt-3" data-speak="climate change">
+                                                                                      <i class="fas fa-volume-up">
+                                                                                        </i> Ouvir</button>
+                                                                                      </div>
+                                                                                      <div class="flip-card-back">
+                                                                                        <p>mudança climática</p>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                  <div class="flip-card">
+                                                                                    <div class="flip-card-inner">
+                                                                                      <div class="flip-card-front">
+                                                                                        <h3 class="text-2xl font-bold">sustainable</h3>
+                                                                                        <button type="button" class="speak-btn mt-3" data-speak="sustainable">
+                                                                                          <i class="fas fa-volume-up">
+                                                                                            </i> Ouvir</button>
+                                                                                          </div>
+                                                                                          <div class="flip-card-back">
+                                                                                            <p>sustentável</p>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                  <div class="slide" data-title="Grammar">
+                                                                                    <div class="section-card p-8">
+                                                                                      <div class="text-center mb-8">
+                                                                                        <p class="lesson-panel-title mb-2">Grammar focus</p>
+                                                                                        <h2 class="text-4xl font-black text-violet-700">Understand the pattern</h2>
+                                                                                        <p class="text-slate-500 text-lg mt-2">Exemplos com tradução para o aluno conseguir revisar sozinho.</p>
+                                                                                      </div>
+                                                                                      <div class="grid gap-5">
+                                                                                        <div class="activity-card border-l-4 border-violet-500">
+                                                                                          <h3 class="text-2xl font-black text-violet-700 mb-3">Advice with Should</h3>
+                                                                                          <p class="text-lg text-slate-700 mb-4">Use <strong>should + verbo base</strong> para dar conselho ou recomendação.</p>
+                                                                                          <div class="grid md:grid-cols-3 gap-3">
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">People should recycle paper.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">As pessoas deveriam reciclar papel.</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">We should use less plastic.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">Nós deveríamos usar menos plástico.</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">You should turn off the lights.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">Você deveria apagar as luzes.</p>
+                                                                                            </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                        <div class="activity-card border-l-4 border-violet-500">
+                                                                                          <h3 class="text-2xl font-black text-violet-700 mb-3">Obligation with Must / Have To</h3>
+                                                                                          <p class="text-lg text-slate-700 mb-4">Use <strong>must</strong> ou <strong>have to</strong> para obrigação, necessidade forte ou regra importante.</p>
+                                                                                          <div class="grid md:grid-cols-3 gap-3">
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">We must protect the planet.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">Nós devemos proteger o planeta.</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">Companies have to reduce waste.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">Empresas precisam reduzir desperdício.</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">People must not throw bags in the street.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">As pessoas não devem jogar sacolas na rua.</p>
+                                                                                            </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                        <div class="activity-card border-l-4 border-violet-500">
+                                                                                          <h3 class="text-2xl font-black text-violet-700 mb-3">Passive Voice</h3>
+                                                                                          <p class="text-lg text-slate-700 mb-4">Use <strong>is/are + past participle</strong> para focar no processo, não em quem faz a ação.</p>
+                                                                                          <div class="grid md:grid-cols-3 gap-3">
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">Paper is recycled at school.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">O papel é reciclado na escola.</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">Plastic bottles should be reused.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">Garrafas plásticas deveriam ser reutilizadas.</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">Glass is collected every Friday.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">O vidro é coletado toda sexta-feira.</p>
+                                                                                            </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                  <div class="slide" data-title="Random Activity">
+                                                                                    <div class="section-card p-8 max-w-6xl mx-auto">
+                                                                                      <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
+                                                                                        <div>
+                                                                                          <p class="lesson-panel-title mb-2">Random activity - 10 questions</p>
+                                                                                          <h2 class="text-4xl font-black text-violet-700">Mixed practice</h2>
+                                                                                        </div>
+                                                                                        <div id="quiz-score" class="preview-card min-w-[180px] text-center">0 / 10</div>
+                                                                                      </div>
+                                                                                      <div class="grid md:grid-cols-2 gap-4">
+                                                                                        <div class="activity-card" data-quiz-item data-answer="should">
+                                                                                          <p class="font-semibold mb-3">1. You ___ turn off lights.</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="should">should</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="were">were</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="did">did</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card" data-quiz-item data-answer="recycled">
+                                                                                          <p class="font-semibold mb-3">2. Plastic bottles should be ___.</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="recycled">recycled</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="recycle">recycle</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="recycling">recycling</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card" data-quiz-item data-answer="reduce">
+                                                                                          <p class="font-semibold mb-3">3. We have to ___ waste.</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="reduce">reduce</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="reduced">reduced</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="reducing">reducing</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card" data-quiz-item data-answer="is">
+                                                                                          <p class="font-semibold mb-3">4. Paper ___ recycled in many schools.</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="is">is</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="are">are</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="were be">were be</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card" data-quiz-item data-answer="save">
+                                                                                          <p class="font-semibold mb-3">5. People must ___ water.</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="save">save</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="saved">saved</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="saving">saving</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card" data-quiz-item data-answer="recyclable">
+                                                                                          <p class="font-semibold mb-3">6. Glass is a ___ material.</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="recyclable">recyclable</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="recycles">recycles</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="recyclingly">recyclingly</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card" data-quiz-item data-answer="less">
+                                                                                          <p class="font-semibold mb-3">7. We should use ___ plastic.</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="less">less</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="fewer">fewer</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="many">many</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card" data-quiz-item data-answer="reused">
+                                                                                          <p class="font-semibold mb-3">8. Old boxes can be ___.</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="reused">reused</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="reuse">reuse</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="reusing">reusing</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card" data-quiz-item data-answer="renewable">
+                                                                                          <p class="font-semibold mb-3">9. Solar panels produce ___ energy.</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="renewable">renewable</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="polluted">polluted</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="wasted">wasted</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card" data-quiz-item data-answer="must not">
+                                                                                          <p class="font-semibold mb-3">10. Bags ___ be thrown in the street.</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="must not">must not</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="do not">do not</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="are not to">are not to</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
+                                                                                        </div>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                  <div class="slide" data-title="Key Expressions">
+                                                                                    <div class="section-card p-8">
+                                                                                      <h2 class="text-4xl font-black text-violet-700 mb-6 text-center">Key expressions</h2>
+                                                                                      <div class="grid md:grid-cols-2 gap-4 text-lg">
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">We must protect the planet.</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">Nós devemos proteger o planeta.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">You should recycle paper.</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">Você deveria reciclar papel.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">Plastic should be reused.</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">O plástico deveria ser reutilizado.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">We have to reduce waste.</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">Nós precisamos reduzir o desperdício.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">Climate change is real.</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">A mudança climática é real.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">Use less plastic.</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">Use menos plástico.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">Save water.</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">Economize água.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">Turn off the lights.</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">Apague as luzes.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">Renewable energy helps.</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">A energia renovável ajuda.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">This material is recyclable.</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">Este material é reciclável.</p>
+                                                                                        </div>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                  <div class="slide" data-title="Grammar of Expressions">
+                                                                                    <div class="section-card p-8">
+                                                                                      <div class="text-center mb-8">
+                                                                                        <p class="lesson-panel-title mb-2">Grammar of expressions</p>
+                                                                                        <h2 class="text-4xl font-black text-violet-700">Environmental grammar patterns</h2>
+                                                                                        <p class="text-slate-500 text-lg mt-2">Use estes padrões para dar conselhos, falar de regras e comparar quantidades.</p>
+                                                                                      </div>
+                                                                                      <div class="grid gap-5">
+                                                                                        <div class="activity-card border-l-4 border-violet-500">
+                                                                                          <h3 class="text-2xl font-black text-violet-700 mb-3">Advice and Rules: <span class="text-slate-900">modal + base verb</span>
+                                                                                          </h3>
+                                                                                          <p class="text-lg text-slate-700 mb-4">Depois de <strong>must</strong>, <strong>should</strong> e <strong>have to</strong>, use o verbo base, sem <strong>to</strong>.</p>
+                                                                                          <div class="grid md:grid-cols-3 gap-3">
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">We must protect the planet.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">Nós devemos proteger o planeta.</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">People should recycle paper.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">As pessoas deveriam reciclar papel.</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">Companies have to reduce waste.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">As empresas precisam reduzir o desperdício.</p>
+                                                                                            </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                        <div class="activity-card border-l-4 border-violet-500">
+                                                                                          <h3 class="text-2xl font-black text-violet-700 mb-3">Modal Passive: <span class="text-slate-900">modal + be + participle</span>
+                                                                                          </h3>
+                                                                                          <p class="text-lg text-slate-700 mb-4">Use este padrão quando o foco é o que deve ser feito com o objeto, e não quem faz a ação.</p>
+                                                                                          <div class="grid md:grid-cols-3 gap-3">
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">Plastic should be recycled.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">O plástico deveria ser reciclado.</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">Old boxes can be reused.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">Caixas antigas podem ser reutilizadas.</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">Water must not be wasted.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">A água não deve ser desperdiçada.</p>
+                                                                                            </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                        <div class="activity-card border-l-4 border-violet-500">
+                                                                                          <h3 class="text-2xl font-black text-violet-700 mb-3">Quantity: <span class="text-slate-900">less x fewer</span>
+                                                                                          </h3>
+                                                                                          <p class="text-lg text-slate-700 mb-4">Use <strong>less</strong> com coisas incontáveis e <strong>fewer</strong> com coisas contáveis no plural.</p>
+                                                                                          <div class="grid md:grid-cols-3 gap-3">
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">We should use less plastic.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">Nós deveríamos usar menos plástico.</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">People should use fewer bags.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">As pessoas deveriam usar menos sacolas.</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">The city needs less pollution.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">A cidade precisa de menos poluição.</p>
+                                                                                            </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                  <div class="slide" data-title="Expression Activity">
+                                                                                    <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+                                                                                      <div class="text-center mb-6">
+                                                                                        <p class="lesson-panel-title mb-2">Expression activity - 10 questions</p>
+                                                                                        <h2 class="text-4xl font-black text-violet-700">Complete the expressions</h2>
+                                                                                      </div>
+                                                                                      <div class="space-y-5">
+                                                                                        <p>1. We must <input id="e0" data-answer="protect" class="practice-input w-32">
+                                                                                          <button class="answer-btn" data-target="e0">
+                                                                                            <i class="fas fa-eye">
+                                                                                              </i>
+                                                                                            </button> the planet. <span class="text-sm text-slate-500">Dica: proteger</span>
+                                                                                          </p>
+                                                                                          <p>2. Plastic should be <input id="e1" data-answer="reused" class="practice-input w-32">
+                                                                                            <button class="answer-btn" data-target="e1">
+                                                                                              <i class="fas fa-eye">
+                                                                                                </i>
+                                                                                              </button>. <span class="text-sm text-slate-500">Dica: reutilizado</span>
+                                                                                            </p>
+                                                                                            <p>3. You should recycle <input id="e2" data-answer="paper" class="practice-input w-32">
+                                                                                              <button class="answer-btn" data-target="e2">
+                                                                                                <i class="fas fa-eye">
+                                                                                                  </i>
+                                                                                                </button>. <span class="text-sm text-slate-500">Dica: papel</span>
+                                                                                              </p>
+                                                                                              <p>4. We have to reduce <input id="e3" data-answer="waste" class="practice-input w-32">
+                                                                                                <button class="answer-btn" data-target="e3">
+                                                                                                  <i class="fas fa-eye">
+                                                                                                    </i>
+                                                                                                  </button>. <span class="text-sm text-slate-500">Dica: desperdício/lixo</span>
+                                                                                                </p>
+                                                                                                <p>5. Climate <input id="e4" data-answer="change" class="practice-input w-32">
+                                                                                                  <button class="answer-btn" data-target="e4">
+                                                                                                    <i class="fas fa-eye">
+                                                                                                      </i>
+                                                                                                    </button> is real. <span class="text-sm text-slate-500">Dica: mudança</span>
+                                                                                                  </p>
+                                                                                                  <p>6. Use <input id="e5" data-answer="less" class="practice-input w-32">
+                                                                                                    <button class="answer-btn" data-target="e5">
+                                                                                                      <i class="fas fa-eye">
+                                                                                                        </i>
+                                                                                                      </button> plastic at home. <span class="text-sm text-slate-500">Dica: menos</span>
+                                                                                                    </p>
+                                                                                                    <p>7. Turn <input id="e6" data-answer="off" class="practice-input w-32">
+                                                                                                      <button class="answer-btn" data-target="e6">
+                                                                                                        <i class="fas fa-eye">
+                                                                                                          </i>
+                                                                                                        </button> the lights. <span class="text-sm text-slate-500">Dica: desligar/apagar</span>
+                                                                                                      </p>
+                                                                                                      <p>8. This material is <input id="e7" data-answer="recyclable" class="practice-input w-32">
+                                                                                                        <button class="answer-btn" data-target="e7">
+                                                                                                          <i class="fas fa-eye">
+                                                                                                            </i>
+                                                                                                          </button>. <span class="text-sm text-slate-500">Dica: reciclável</span>
+                                                                                                        </p>
+                                                                                                        <p>9. Water must be <input id="e8" data-answer="saved" class="practice-input w-32">
+                                                                                                          <button class="answer-btn" data-target="e8">
+                                                                                                            <i class="fas fa-eye">
+                                                                                                              </i>
+                                                                                                            </button>. <span class="text-sm text-slate-500">Dica: economizada/salva</span>
+                                                                                                          </p>
+                                                                                                          <p>10. Fewer bags should be <input id="e9" data-answer="used" class="practice-input w-32">
+                                                                                                            <button class="answer-btn" data-target="e9">
+                                                                                                              <i class="fas fa-eye">
+                                                                                                                </i>
+                                                                                                              </button>. <span class="text-sm text-slate-500">Dica: usadas</span>
+                                                                                                            </p>
+                                                                                                          </div>
+                                                                                                        </div>
+                                                                                                      </div>
+                                                                                                      <div class="slide" data-title="Elaborated Dialogue">
+                                                                                                        <div class="section-card p-8">
+                                                                                                          <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+                                                                                                            <div>
+                                                                                                              <p class="lesson-panel-title mb-2">Elaborated dialogue</p>
+                                                                                                              <h2 class="text-4xl font-black text-violet-700">Usage situations</h2>
+                                                                                                            </div>
+                                                                                                            <button type="button" class="speak-btn" data-speak="Our class project is about plastic waste in the city. Then we should talk about recycling, reusable bottles and public trash bins. Good idea. Plastic should be reused when possible, and less plastic should be produced. What should be recycled in your city? Paper, glass and metal should be recycled more often. We use too many plastic bags at the supermarket. I agree. We must use fewer bags and less plastic every week. Solar panels are expensive for many families. True, but renewable energy has to be part of the long-term solution.">
+                                                                                                              <i class="fas fa-volume-up">
+                                                                                                                </i> Ouvir diálogos</button>
+                                                                                                              </div>
+                                                                                                              <div class="grid md:grid-cols-2 gap-4 text-lg">
+                                                                                                                <div class="activity-card">
+                                                                                                                  <p class="lesson-panel-title mb-3">Situation 1</p>
+                                                                                                                  <div class="space-y-3">
+                                                                                                                    <div class="dialogue-line">
+                                                                                                                      <strong class="text-violet-700">Lia:</strong>
+                                                                                                                      <p>Our class project is about plastic waste in the city.</p>
+                                                                                                                    </div>
+                                                                                                                    <div class="dialogue-line">
+                                                                                                                      <strong class="text-orange-600">Marco:</strong>
+                                                                                                                      <p>Then we should talk about recycling, reusable bottles and public trash bins.</p>
+                                                                                                                    </div>
+                                                                                                                    <div class="dialogue-line">
+                                                                                                                      <strong class="text-violet-700">Lia:</strong>
+                                                                                                                      <p>Good idea. Plastic should be reused when possible, and less plastic should be produced.</p>
+                                                                                                                    </div>
+                                                                                                                  </div>
+                                                                                                                </div>
+                                                                                                                <div class="activity-card">
+                                                                                                                  <p class="lesson-panel-title mb-3">Situation 2</p>
+                                                                                                                  <div class="space-y-3">
+                                                                                                                    <div class="dialogue-line">
+                                                                                                                      <strong class="text-violet-700">Teacher:</strong>
+                                                                                                                      <p>What should be recycled in your city?</p>
+                                                                                                                    </div>
+                                                                                                                    <div class="dialogue-line">
+                                                                                                                      <strong class="text-orange-600">Student:</strong>
+                                                                                                                      <p>Paper, glass and metal should be recycled more often.</p>
+                                                                                                                    </div>
+                                                                                                                  </div>
+                                                                                                                </div>
+                                                                                                                <div class="activity-card">
+                                                                                                                  <p class="lesson-panel-title mb-3">Situation 3</p>
+                                                                                                                  <div class="space-y-3">
+                                                                                                                    <div class="dialogue-line">
+                                                                                                                      <strong class="text-violet-700">Ana:</strong>
+                                                                                                                      <p>We use too many plastic bags at the supermarket.</p>
+                                                                                                                    </div>
+                                                                                                                    <div class="dialogue-line">
+                                                                                                                      <strong class="text-orange-600">Rafa:</strong>
+                                                                                                                      <p>I agree. We must use fewer bags and less plastic every week.</p>
+                                                                                                                    </div>
+                                                                                                                  </div>
+                                                                                                                </div>
+                                                                                                                <div class="activity-card">
+                                                                                                                  <p class="lesson-panel-title mb-3">Situation 4</p>
+                                                                                                                  <div class="space-y-3">
+                                                                                                                    <div class="dialogue-line">
+                                                                                                                      <strong class="text-violet-700">Clara:</strong>
+                                                                                                                      <p>Solar panels are expensive for many families.</p>
+                                                                                                                    </div>
+                                                                                                                    <div class="dialogue-line">
+                                                                                                                      <strong class="text-orange-600">Leo:</strong>
+                                                                                                                      <p>True, but renewable energy has to be part of the long-term solution.</p>
+                                                                                                                    </div>
+                                                                                                                  </div>
+                                                                                                                </div>
+                                                                                                              </div>
+                                                                                                            </div>
+                                                                                                          </div>
+                                                                                                          <div class="slide" data-title="Oral Translation">
+                                                                                                            <div class="section-card p-8">
+                                                                                                              <h2 class="text-4xl font-black text-violet-700 mb-4 text-center">Oral translation</h2>
+                                                                                                              <p class="text-lg text-slate-600 mb-6 text-center">O professor lê em português; o aluno traduz oralmente para o inglês.</p>
+                                                                                                              <div class="grid md:grid-cols-2 gap-4 text-lg">
+                                                                                                                <div class="activity-card">
+                                                                                                                  <span class="font-bold text-violet-700">1.</span> Devemos economizar água.</div>
+                                                                                                                  <div class="activity-card">
+                                                                                                                    <span class="font-bold text-violet-700">2.</span> O papel deve ser reciclado.</div>
+                                                                                                                    <div class="activity-card">
+                                                                                                                      <span class="font-bold text-violet-700">3.</span> As sacolas plásticas devem ser evitadas.</div>
+                                                                                                                      <div class="activity-card">
+                                                                                                                        <span class="font-bold text-violet-700">4.</span> Precisamos reduzir o desperdício.</div>
+                                                                                                                        <div class="activity-card">
+                                                                                                                          <span class="font-bold text-violet-700">5.</span> A energia renovável ajuda o planeta.</div>
+                                                                                                                        </div>
+                                                                                                                      </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="slide" data-title="Song">
+                                                                                                                      <div class="section-card p-8 max-w-4xl mx-auto">
+                                                                                                                        <h2 class="text-4xl font-black text-violet-700 mb-4 text-center">Song: Earth Song</h2>
+                                                                                                                        <p class="text-center text-slate-500 text-lg mb-6">Michael Jackson - escuta guiada com sample editável.</p>
+                                                                                                                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/search/Earth%20Song%20Michael%20Jackson?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
+                                                                                                                        </iframe>
+                                                                                                                        <div class="activity-card text-lg space-y-3 mt-5">
+                                                                                                                          <p class="lesson-panel-title">Lyrics sample</p>
+                                                                                                                          <p>[Sample lyrics - replace manually]</p>
+                                                                                                                          <p>Line 1: What about the earth we share?</p>
+                                                                                                                          <p>Line 2: What about the trees and the sky?</p>
+                                                                                                                          <p>Line 3: We should change the way we live.</p>
+                                                                                                                          <p>Line 4: Nature has to be protected.</p>
+                                                                                                                          <p class="text-sm text-slate-500">Substitua este sample pela letra completa ou pelo trecho que você quiser trabalhar na aula.</p>
+                                                                                                                        </div>
+                                                                                                                      </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="slide" data-title="Homework">
+                                                                                                                      <div class="section-card p-8 max-w-5xl mx-auto">
+                                                                                                                        <h2 class="text-4xl font-black text-violet-700 mb-4 text-center">Homework</h2>
+                                                                                                                        <div class="activity-card text-lg">
+                                                                                                                          <p>Escreva um texto curto sobre um problema ambiental e duas soluções. Use pelo menos três modais e duas frases na voz passiva.</p>
+                                                                                                                        </div>
+                                                                                                                        <textarea rows="8" class="mt-5 w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-violet-500" placeholder="Write your homework draft here...">
+                                                                                                                        </textarea>
+                                                                                                                      </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="slide" data-title="Lesson Complete">
+                                                                                                                      <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
+                                                                                                                        <i class="fas fa-leaf text-violet-700 text-7xl mb-6">
+                                                                                                                          </i>
+                                                                                                                          <p class="lesson-panel-title mb-2">Motivational phrase</p>
+                                                                                                                          <h2 class="text-5xl font-black mb-4 text-slate-900">Protecting our planet is everyoneâ€™s responsibility.</h2>
+                                                                                                                          <p class="text-2xl text-slate-600 max-w-3xl">Lesson 30 complete.</p>
+                                                                                                                        </div>
+                                                                                                                      </div>
+                                                                                                                    </main>
+                                                                                                                    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
+                                                                                                                      <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+                                                                                                                        <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Anterior</button>
+                                                                                                                        <button id="next-btn" class="bg-violet-600 text-white font-bold py-3 px-8 rounded-lg transition">Próximo</button>
+                                                                                                                        <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Finalizar aula</button>
+                                                                                                                      </div>
+                                                                                                                    </footer>
+                                                                                                                    <script src="a2-lesson-theme.js">
+                                                                                                                      </script>
+                                                                                                                      <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js">
+                                                                                                                        </script>
+                                                                                                                        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js">
+                                                                                                                          </script>
+                                                                                                                          <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js">
+                                                                                                                            </script>
+                                                                                                                            <script src="../js/firebase-config.js">
+                                                                                                                              </script>
+                                                                                                                              <script src="../js/progress-manager.js">
+                                                                                                                                </script>
+                                                                                                                                <script>
+                                                                                                                                  document.addEventListener('DOMContentLoaded', () => {
+                                                                                                                                  const moduleId = 'a2', lessonNumber = 30;
+                                                                                                                                  const slides = Array.from(document.querySelectorAll('.slide'));
+                                                                                                                                  const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishBtn = document.getElementById('finish-lesson-btn'), progressBar = document.getElementById('progress-bar');
+                                                                                                                                  const normalize = (text) => (text || '').trim().toLowerCase().replace(/[.?!"']/g, '').replace(/\s+/g, ' ');
+                                                                                                                                  let currentSlide = 0;
+                                                                                                                                  const checkAnswer = (input) => { input.classList.remove('correct', 'incorrect'); if (!input.value.trim()) return; input.classList.add(normalize(input.value) === normalize(input.dataset.answer || '') ? 'correct' : 'incorrect'); };
+                                                                                                                                  const updateQuizScore = () => { const items = Array.from(document.querySelectorAll('[data-quiz-item]')); const correct = items.filter((item) => item.dataset.correct === 'true').length; const score = document.getElementById('quiz-score'); if (score) score.textContent = correct + ' / ' + items.length; };
+                                                                                                                                  document.querySelectorAll('[data-quiz-choice]').forEach((button) => button.addEventListener('click', () => { const item = button.closest('[data-quiz-item]'); const ok = normalize(button.dataset.quizChoice) === normalize(item.dataset.answer); item.dataset.correct = ok ? 'true' : 'false'; item.querySelectorAll('[data-quiz-choice]').forEach((choice) => choice.classList.remove('is-active', 'selected-correct', 'selected-incorrect')); button.classList.add('is-active', ok ? 'selected-correct' : 'selected-incorrect'); const feedback = item.querySelector('[data-quiz-feedback]'); if (feedback) { feedback.textContent = ok ? 'Correct!' : 'Try again. Correct answer: ' + item.dataset.answer; feedback.className = ok ? 'mt-3 text-sm text-green-700' : 'mt-3 text-sm text-amber-700'; } updateQuizScore(); }));
+                                                                                                                                  const render = () => { slides.forEach((slide, i) => slide.classList.toggle('active', i === currentSlide)); if (progressBar) progressBar.style.width = slides.length > 1 ? ((currentSlide / (slides.length - 1)) * 100) + '%' : '100%'; if (prevBtn) prevBtn.disabled = currentSlide === 0; if (nextBtn) nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1); if (finishBtn) finishBtn.classList.toggle('hidden', currentSlide !== slides.length - 1); };
+                                                                                                                                  prevBtn?.addEventListener('click', () => { if (currentSlide > 0) { currentSlide -= 1; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
+                                                                                                                                  nextBtn?.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide += 1; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
+                                                                                                                                  finishBtn?.addEventListener('click', () => { finishBtn.disabled = true; finishBtn.textContent = 'Salvando...'; if (typeof markLessonAsComplete === 'function') Promise.resolve(markLessonAsComplete(moduleId, lessonNumber)).catch(() => { finishBtn.disabled = false; finishBtn.textContent = 'Finalizar aula'; }); });
+                                                                                                                                  document.querySelectorAll('input[data-answer]').forEach((input) => input.addEventListener('blur', () => checkAnswer(input)));
+                                                                                                                                  document.querySelectorAll('.answer-btn[data-target]').forEach((button) => button.addEventListener('click', () => { const input = document.getElementById(button.dataset.target); if (!input) return; input.value = input.dataset.answer || ''; checkAnswer(input); }));
+                                                                                                                                  document.querySelectorAll('.speak-btn[data-speak]').forEach((button) => button.addEventListener('click', (event) => { event.stopPropagation(); const utterance = new SpeechSynthesisUtterance(button.dataset.speak || ''); utterance.lang = 'en-US'; speechSynthesis.cancel(); speechSynthesis.speak(utterance); }));
+                                                                                                                                  updateQuizScore(); render();
+                                                                                                                                  });
+                                                                                                                                  </script>
+                                                                                                                                  <script src="../js/flashcard-pronunciation.js">
+                                                                                                                                    </script>
+                                                                                                                                    <script src="../js/lesson-flashcard-save.js">
+                                                                                                                                      </script>
+                                                                                                                                    </body>
+                                                                                                                                  </html>

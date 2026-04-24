@@ -12,14 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
         'Life Experiences', 'Have You Ever...?', 'Never Have I Ever...', 'Been or Gone?',
         "What's the Matter?", 'Medical Consultation & Conditions', 'Asking for Directions', 'Review & Rock Out! #3',
         'Giving Directions - The Basics', 'Giving Directions - Details', 'From A to B', 'At the Hotel',
-        'Shopping Problems and Returns', 'Making Arrangements', 'Review Checkpoint', 'Final Review and Graduation'
+        'Entertainment and Gerunds/Infinitives', 'Environmental Issues and Solutions', 'Hopes, Dreams and Second Conditional', 'Final Review and Project'
     ];
 
     const unitLabels = [
         'Past Stories', 'Past Stories', 'Comparisons', 'Comparisons', 'Comparisons', 'Storytelling', 'Storytelling', 'Checkpoint 1',
         'Future', 'Future', 'Comparison Power', 'Comparison Power', 'Work & Rules', 'Work & Rules', 'Advice', 'Checkpoint 2',
         'Experiences', 'Experiences', 'Experiences', 'Experiences', 'Health', 'Health', 'Directions', 'Checkpoint 3',
-        'Directions', 'Directions', 'Directions', 'Real-Life English', 'Real-Life English', 'Real-Life English', 'Final Review', 'Final Review'
+        'Directions', 'Directions', 'Directions', 'Real-Life English', 'Entertainment', 'Environment', 'Dreams', 'Final Project'
     ];
 
     function buildLessonCard(title, lessonNumber, state, isProfessor) {
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (role !== 'aluno') {
-            throw new Error('Perfil sem acesso ao modulo.');
+            throw new Error('Perfil sem acesso ao módulo.');
         }
 
         return { role, studentId: user.uid };
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadLessons() {
         try {
             const { role, studentId } = await resolveViewerContext();
-            if (!studentId) throw new Error('Usuario nao identificado.');
+            if (!studentId) throw new Error('Usuário não identificado.');
 
             const isProfessor = role === 'professor' || role === 'admin';
             const doc = await db.collection('students').doc(studentId).get();
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ];
 
             if (platformAccess && !platformAccess.canAccessModule(allowedProducts, 'a2')) {
-                loadingDiv.textContent = 'Este aluno nao possui acesso ao modulo A2.';
+                loadingDiv.textContent = 'Este aluno não possui acesso ao módulo A2.';
                 return;
             }
 
