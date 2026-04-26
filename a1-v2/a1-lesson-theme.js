@@ -189,6 +189,24 @@ document.addEventListener('DOMContentLoaded', () => {
         select.addEventListener('change', () => checkPracticeSelect(select));
     });
 
+    document.querySelectorAll('[data-visible-choice]').forEach((button) => {
+        button.addEventListener('click', () => {
+            const item = button.closest('[data-visible-item]');
+            if (!item) return;
+
+            const ok = normalizePracticeAnswer(button.dataset.visibleChoice) === normalizePracticeAnswer(item.dataset.answer || '');
+            item.querySelectorAll('[data-visible-choice]').forEach((choice) => {
+                choice.classList.remove('selected-correct', 'selected-incorrect');
+            });
+            button.classList.add(ok ? 'selected-correct' : 'selected-incorrect');
+
+            const feedback = item.querySelector('[data-visible-feedback]');
+            if (feedback) {
+                feedback.textContent = ok ? 'Correct!' : `Try again. Correct answer: ${item.dataset.answer || ''}`;
+            }
+        });
+    });
+
     choiceBuilders.forEach((builder) => {
         const preview = builder.querySelector('[data-choice-preview]');
         const resetButton = builder.querySelector('[data-choice-reset]');
