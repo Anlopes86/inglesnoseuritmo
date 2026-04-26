@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A1 V2 - Lesson 29: Past Simple: Life Stories</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .slide { display: none; }
+    .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
+    .flip-card { background: transparent; min-height: 180px; perspective: 1000px; cursor: pointer; }
+    .flip-card-inner { position: relative; width: 100%; min-height: 180px; transition: transform 0.7s; transform-style: preserve-3d; }
+    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+    .flip-card-front, .flip-card-back { position: absolute; inset: 0; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1rem; border: 1px solid var(--a1-border); text-align: center; }
+    .flip-card-front { background: var(--a1-surface); color: var(--a1-primary); }
+    .flip-card-back { background: var(--a1-primary-soft); color: var(--a1-text); transform: rotateY(180deg); font-size: 1.25rem; font-weight: 700; }
+    .practice-input, input[data-answer] { border: none; border-bottom: 2px solid #93c5fd; background: transparent; outline: none; text-align: center; padding: 0 6px; color: var(--a1-text); }
+    input.correct { border-color: #22c55e; color: #166534; background: #f0fdf4; }
+    input.incorrect { border-color: #ef4444; color: #991b1b; background: #fef2f2; }
+    .answer-btn { background: none; border: none; cursor: pointer; color: var(--a1-primary); margin-left: 0.35rem; }
+    .speak-btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid #93c5fd; background: var(--a1-primary-soft); color: var(--a1-primary); padding: 0.4rem 0.75rem; border-radius: 999px; font-size: 0.85rem; font-weight: 700; }
+    .dialogue-line { display: flex; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
+    .dialogue-line p { flex: 1 1 420px; }
+    .option-chip { border: 1px solid #93c5fd; background: var(--a1-primary-soft); color: var(--a1-primary); padding: 0.5rem 0.8rem; border-radius: 999px; font-weight: 700; }
+    .selected-correct { border-color: #22c55e; background: #dcfce7; color: #166534; }
+    .selected-incorrect { border-color: #ef4444; background: #fee2e2; color: #991b1b; }
+    .example-box { background: color-mix(in srgb, var(--a1-primary-soft) 65%, var(--a1-surface)); border-color: var(--a1-border); }
+    [data-theme="dark"] .text-slate-900, [data-theme="dark"] .text-slate-800, [data-theme="dark"] .text-slate-700, [data-theme="dark"] .text-slate-600, [data-theme="dark"] .text-slate-500 { color: var(--a1-text) !important; }
+    [data-theme="dark"] .bg-white, [data-theme="dark"] .bg-slate-50, [data-theme="dark"] .bg-slate-100, [data-theme="dark"] .bg-blue-50\/60 { background: var(--a1-surface) !important; }
+    textarea { background: var(--a1-surface); color: var(--a1-text); }
+  </style>
+  <link rel="stylesheet" href="a1-lesson-theme.css">
+</head>
+<body class="lesson-loading a1-lesson-page bg-slate-50 text-slate-800">
+  <header class="bg-white shadow-sm sticky top-0 z-10">
+    <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+      <a href="a1-v2.html" class="text-lg font-bold text-blue-700 hover:text-blue-900 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A1 V2</a>
+      <div class="text-center"><h1 class="text-base font-semibold text-slate-800">A1 V2 - Lesson 29: Past Simple: Life Stories</h1><p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p></div>
+      <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 12</div>
+    </div>
+    <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-blue-500 h-1.5 transition-all duration-300"></div></div>
+  </header>
+  <main class="container mx-auto p-8 pb-28 max-w-5xl">
+    <div class="slide active" data-title="Intro Dialogue">
+      <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+        <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
+          <div><h2 class="text-4xl md:text-5xl font-black mb-4 text-slate-900">Past Simple: Life Stories</h2><p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno pratica inglês A1 em uma situação real: telling a short life story.</p><p class="mt-4 text-sm font-semibold text-blue-700">Focus: Past &amp; Future.</p></div>
+          <div class="lesson-panel p-6"><p class="lesson-panel-title mb-4">You will use</p><div class="lesson-checklist"><div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Where were you born?</span></div><div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>I was born in Brazil.</span></div><div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>I studied English last year.</span></div><div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>She worked in a school.</span></div></div></div>
+        </div>
+      </div>
+      <div class="section-card p-8 mt-8">
+        <div class="flex flex-wrap justify-between items-center gap-4 mb-6"><div><p class="lesson-panel-title mb-2">Introductory dialogue</p><h2 class="text-3xl font-black text-blue-700">Dialog Sample</h2></div><button type="button" class="speak-btn" data-speak="Hi! We are telling a short life story. Where were you born? I was born in Brazil. I studied English last year. She worked in a school. We visited Rio."><i class="fas fa-volume-up"></i> Ouvir diálogo</button></div>
+        <div class="space-y-4 text-xl"><div class="dialogue-line"><strong class="text-blue-700">A:</strong><p>Hi! We are telling a short life story.</p></div>
+<div class="dialogue-line"><strong class="text-orange-600">B:</strong><p>Where were you born?</p></div>
+<div class="dialogue-line"><strong class="text-blue-700">A:</strong><p>I was born in Brazil.</p></div>
+<div class="dialogue-line"><strong class="text-orange-600">B:</strong><p>I studied English last year.</p></div>
+<div class="dialogue-line"><strong class="text-blue-700">A:</strong><p>She worked in a school.</p></div>
+<div class="dialogue-line"><strong class="text-orange-600">B:</strong><p>We visited Rio.</p></div></div>
+      </div>
+    </div>
+    <div class="slide" data-title="Vocabulary"><div class="text-center mb-6"><h2 class="text-4xl font-black text-blue-700">Vocabulary</h2><p class="text-slate-500 text-lg mt-2">Clique nos cartões para ver o significado.</p></div><div class="flashcard-grid max-w-6xl mx-auto"><div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">born</h3><button type="button" class="speak-btn mt-3" data-speak="born"><i class="fas fa-volume-up"></i> Ouvir</button></div><div class="flip-card-back"><p>born</p></div></div></div>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">lived</h3><button type="button" class="speak-btn mt-3" data-speak="lived"><i class="fas fa-volume-up"></i> Ouvir</button></div><div class="flip-card-back"><p>lived</p></div></div></div>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">studied</h3><button type="button" class="speak-btn mt-3" data-speak="studied"><i class="fas fa-volume-up"></i> Ouvir</button></div><div class="flip-card-back"><p>studied</p></div></div></div>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">worked</h3><button type="button" class="speak-btn mt-3" data-speak="worked"><i class="fas fa-volume-up"></i> Ouvir</button></div><div class="flip-card-back"><p>worked</p></div></div></div>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">moved</h3><button type="button" class="speak-btn mt-3" data-speak="moved"><i class="fas fa-volume-up"></i> Ouvir</button></div><div class="flip-card-back"><p>moved</p></div></div></div>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">visited</h3><button type="button" class="speak-btn mt-3" data-speak="visited"><i class="fas fa-volume-up"></i> Ouvir</button></div><div class="flip-card-back"><p>visited</p></div></div></div>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">started</h3><button type="button" class="speak-btn mt-3" data-speak="started"><i class="fas fa-volume-up"></i> Ouvir</button></div><div class="flip-card-back"><p>started</p></div></div></div>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">finished</h3><button type="button" class="speak-btn mt-3" data-speak="finished"><i class="fas fa-volume-up"></i> Ouvir</button></div><div class="flip-card-back"><p>finished</p></div></div></div>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">yesterday</h3><button type="button" class="speak-btn mt-3" data-speak="yesterday"><i class="fas fa-volume-up"></i> Ouvir</button></div><div class="flip-card-back"><p>yesterday</p></div></div></div>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">last year</h3><button type="button" class="speak-btn mt-3" data-speak="last year"><i class="fas fa-volume-up"></i> Ouvir</button></div><div class="flip-card-back"><p>last year</p></div></div></div></div></div>
+    <div class="slide" data-title="Grammar"><div class="section-card p-8"><div class="text-center mb-8"><p class="lesson-panel-title mb-2">Grammar focus</p><h2 class="text-4xl font-black text-blue-700">Understand the pattern</h2><p class="text-slate-500 text-lg mt-2">Exemplos com tradução para revisar sozinho.</p></div><div class="grid gap-5"><div class="activity-card grammar-block border-l-4 border-blue-500">
+      <h3 class="text-2xl font-black text-blue-700 mb-3">Was / were</h3>
+      <p class="text-lg text-slate-700 mb-4">Observe o padrão em frases curtas. Repita em voz alta e depois troque uma palavra para criar uma frase nova.</p>
+      <div class="grid md:grid-cols-3 gap-3">
+        <div class="example-box rounded-xl border border-blue-100 bg-blue-50/60 p-4"><p class="font-bold text-slate-900">Where were you born?</p><p class="text-sm text-slate-600 mt-2">Exemplo 1 para praticar sozinho.</p></div>
+<div class="example-box rounded-xl border border-blue-100 bg-blue-50/60 p-4"><p class="font-bold text-slate-900">I was born in Brazil.</p><p class="text-sm text-slate-600 mt-2">Exemplo 2 para praticar sozinho.</p></div>
+<div class="example-box rounded-xl border border-blue-100 bg-blue-50/60 p-4"><p class="font-bold text-slate-900">I studied English last year.</p><p class="text-sm text-slate-600 mt-2">Exemplo 3 para praticar sozinho.</p></div>
+      </div>
+    </div>
+<div class="activity-card grammar-block border-l-4 border-blue-500">
+      <h3 class="text-2xl font-black text-blue-700 mb-3">Regular past verbs</h3>
+      <p class="text-lg text-slate-700 mb-4">Observe o padrão em frases curtas. Repita em voz alta e depois troque uma palavra para criar uma frase nova.</p>
+      <div class="grid md:grid-cols-3 gap-3">
+        <div class="example-box rounded-xl border border-blue-100 bg-blue-50/60 p-4"><p class="font-bold text-slate-900">She worked in a school.</p><p class="text-sm text-slate-600 mt-2">Exemplo 1 para praticar sozinho.</p></div>
+<div class="example-box rounded-xl border border-blue-100 bg-blue-50/60 p-4"><p class="font-bold text-slate-900">We visited Rio.</p><p class="text-sm text-slate-600 mt-2">Exemplo 2 para praticar sozinho.</p></div>
+<div class="example-box rounded-xl border border-blue-100 bg-blue-50/60 p-4"><p class="font-bold text-slate-900">He moved to São Paulo.</p><p class="text-sm text-slate-600 mt-2">Exemplo 3 para praticar sozinho.</p></div>
+      </div>
+    </div>
+<div class="activity-card grammar-block border-l-4 border-blue-500">
+      <h3 class="text-2xl font-black text-blue-700 mb-3">Did for past questions</h3>
+      <p class="text-lg text-slate-700 mb-4">Observe o padrão em frases curtas. Repita em voz alta e depois troque uma palavra para criar uma frase nova.</p>
+      <div class="grid md:grid-cols-3 gap-3">
+        <div class="example-box rounded-xl border border-blue-100 bg-blue-50/60 p-4"><p class="font-bold text-slate-900">I started a new job.</p><p class="text-sm text-slate-600 mt-2">Exemplo 1 para praticar sozinho.</p></div>
+<div class="example-box rounded-xl border border-blue-100 bg-blue-50/60 p-4"><p class="font-bold text-slate-900">They finished the course.</p><p class="text-sm text-slate-600 mt-2">Exemplo 2 para praticar sozinho.</p></div>
+<div class="example-box rounded-xl border border-blue-100 bg-blue-50/60 p-4"><p class="font-bold text-slate-900">Did you travel yesterday?</p><p class="text-sm text-slate-600 mt-2">Exemplo 3 para praticar sozinho.</p></div>
+      </div>
+    </div></div></div></div>
+    <div class="slide" data-title="Random Activity"><div class="section-card p-8 max-w-6xl mx-auto"><div class="flex items-center justify-between gap-4 flex-wrap mb-6"><div><p class="lesson-panel-title mb-2">Role cards - 10 items</p><h2 class="text-4xl font-black text-blue-700">Practice in context</h2></div><div id="quiz-score" class="activity-card min-w-[160px] text-center">10 items</div></div><div class="grid md:grid-cols-2 gap-4"><div class="activity-card"><p class="font-semibold">1. Role card</p><p class="mt-2">Teacher says: <strong>Where were you born?</strong></p><p class="text-sm text-slate-500 mt-2">Aluno responde oralmente e depois escreve uma resposta curta.</p><input class="practice-input w-full mt-3" placeholder="Short answer..."></div>
+<div class="activity-card"><p class="font-semibold">2. Role card</p><p class="mt-2">Teacher says: <strong>I was born in Brazil.</strong></p><p class="text-sm text-slate-500 mt-2">Aluno responde oralmente e depois escreve uma resposta curta.</p><input class="practice-input w-full mt-3" placeholder="Short answer..."></div>
+<div class="activity-card"><p class="font-semibold">3. Role card</p><p class="mt-2">Teacher says: <strong>I studied English last year.</strong></p><p class="text-sm text-slate-500 mt-2">Aluno responde oralmente e depois escreve uma resposta curta.</p><input class="practice-input w-full mt-3" placeholder="Short answer..."></div>
+<div class="activity-card"><p class="font-semibold">4. Role card</p><p class="mt-2">Teacher says: <strong>She worked in a school.</strong></p><p class="text-sm text-slate-500 mt-2">Aluno responde oralmente e depois escreve uma resposta curta.</p><input class="practice-input w-full mt-3" placeholder="Short answer..."></div>
+<div class="activity-card"><p class="font-semibold">5. Role card</p><p class="mt-2">Teacher says: <strong>We visited Rio.</strong></p><p class="text-sm text-slate-500 mt-2">Aluno responde oralmente e depois escreve uma resposta curta.</p><input class="practice-input w-full mt-3" placeholder="Short answer..."></div>
+<div class="activity-card"><p class="font-semibold">6. Role card</p><p class="mt-2">Teacher says: <strong>He moved to São Paulo.</strong></p><p class="text-sm text-slate-500 mt-2">Aluno responde oralmente e depois escreve uma resposta curta.</p><input class="practice-input w-full mt-3" placeholder="Short answer..."></div>
+<div class="activity-card"><p class="font-semibold">7. Role card</p><p class="mt-2">Teacher says: <strong>I started a new job.</strong></p><p class="text-sm text-slate-500 mt-2">Aluno responde oralmente e depois escreve uma resposta curta.</p><input class="practice-input w-full mt-3" placeholder="Short answer..."></div>
+<div class="activity-card"><p class="font-semibold">8. Role card</p><p class="mt-2">Teacher says: <strong>They finished the course.</strong></p><p class="text-sm text-slate-500 mt-2">Aluno responde oralmente e depois escreve uma resposta curta.</p><input class="practice-input w-full mt-3" placeholder="Short answer..."></div>
+<div class="activity-card"><p class="font-semibold">9. Role card</p><p class="mt-2">Teacher says: <strong>Did you travel yesterday?</strong></p><p class="text-sm text-slate-500 mt-2">Aluno responde oralmente e depois escreve uma resposta curta.</p><input class="practice-input w-full mt-3" placeholder="Short answer..."></div>
+<div class="activity-card"><p class="font-semibold">10. Role card</p><p class="mt-2">Teacher says: <strong>No, I stayed home.</strong></p><p class="text-sm text-slate-500 mt-2">Aluno responde oralmente e depois escreve uma resposta curta.</p><input class="practice-input w-full mt-3" placeholder="Short answer..."></div></div></div></div>
+    <div class="slide" data-title="Key Expressions"><div class="section-card p-8"><h2 class="text-4xl font-black text-blue-700 mb-6 text-center">Key expressions</h2><div class="grid md:grid-cols-2 gap-4 text-lg"><div class="activity-card"><p class="font-bold text-slate-900">Where were you born?</p><p class="text-sm text-slate-600 mt-2"><strong>Tradução:</strong> Onde você nasceu?<br><span class="text-blue-700 font-semibold">Uso:</span> Use para iniciar ou manter uma conversa simples.</p></div>
+<div class="activity-card"><p class="font-bold text-slate-900">I was born in Brazil.</p><p class="text-sm text-slate-600 mt-2"><strong>Tradução:</strong> Eu nasci no Brasil.<br><span class="text-blue-700 font-semibold">Uso:</span> Use para pedir ou dar informação com clareza.</p></div>
+<div class="activity-card"><p class="font-bold text-slate-900">I studied English last year.</p><p class="text-sm text-slate-600 mt-2"><strong>Tradução:</strong> Eu estudei inglês no ano passado.<br><span class="text-blue-700 font-semibold">Uso:</span> Use como resposta curta e natural em contexto.</p></div>
+<div class="activity-card"><p class="font-bold text-slate-900">She worked in a school.</p><p class="text-sm text-slate-600 mt-2"><strong>Tradução:</strong> Ela trabalhou em uma escola.<br><span class="text-blue-700 font-semibold">Uso:</span> Use em situações cotidianas de nível A1.</p></div>
+<div class="activity-card"><p class="font-bold text-slate-900">We visited Rio.</p><p class="text-sm text-slate-600 mt-2"><strong>Tradução:</strong> Nós visitamos o Rio.<br><span class="text-blue-700 font-semibold">Uso:</span> Use para iniciar ou manter uma conversa simples.</p></div>
+<div class="activity-card"><p class="font-bold text-slate-900">He moved to São Paulo.</p><p class="text-sm text-slate-600 mt-2"><strong>Tradução:</strong> Ele se mudou para São Paulo.<br><span class="text-blue-700 font-semibold">Uso:</span> Use para pedir ou dar informação com clareza.</p></div>
+<div class="activity-card"><p class="font-bold text-slate-900">I started a new job.</p><p class="text-sm text-slate-600 mt-2"><strong>Tradução:</strong> Eu comecei um novo emprego.<br><span class="text-blue-700 font-semibold">Uso:</span> Use como resposta curta e natural em contexto.</p></div>
+<div class="activity-card"><p class="font-bold text-slate-900">They finished the course.</p><p class="text-sm text-slate-600 mt-2"><strong>Tradução:</strong> Eles terminaram o curso.<br><span class="text-blue-700 font-semibold">Uso:</span> Use em situações cotidianas de nível A1.</p></div>
+<div class="activity-card"><p class="font-bold text-slate-900">Did you travel yesterday?</p><p class="text-sm text-slate-600 mt-2"><strong>Tradução:</strong> Você viajou ontem?<br><span class="text-blue-700 font-semibold">Uso:</span> Use para iniciar ou manter uma conversa simples.</p></div>
+<div class="activity-card"><p class="font-bold text-slate-900">No, I stayed home.</p><p class="text-sm text-slate-600 mt-2"><strong>Tradução:</strong> Não, eu fiquei em casa.<br><span class="text-blue-700 font-semibold">Uso:</span> Use para pedir ou dar informação com clareza.</p></div></div></div></div>
+    <div class="slide" data-title="Grammar of Expressions"><div class="section-card p-8"><div class="text-center mb-8"><p class="lesson-panel-title mb-2">Grammar of expressions</p><h2 class="text-4xl font-black text-blue-700">How the expressions work</h2><p class="text-slate-500 text-lg mt-2">Veja o padrão, quando usar e exemplos com tradução.</p></div><div class="grid gap-5"><div class="activity-card grammar-block border-l-4 border-blue-500">
+      <h3 class="text-2xl font-black text-blue-700 mb-3">Was / were</h3>
+      <p class="text-lg text-slate-700 mb-4">Observe o padrão em frases curtas. Repita em voz alta e depois troque uma palavra para criar uma frase nova.</p>
+      <div class="grid md:grid-cols-3 gap-3">
+        <div class="example-box rounded-xl border border-blue-100 bg-blue-50/60 p-4"><p class="font-bold text-slate-900">Where were you born?</p><p class="text-sm text-slate-600 mt-2">Exemplo 1 para praticar sozinho.</p></div>
+<div class="example-box rounded-xl border border-blue-100 bg-blue-50/60 p-4"><p class="font-bold text-slate-900">I was born in Brazil.</p><p class="text-sm text-slate-600 mt-2">Exemplo 2 para praticar sozinho.</p></div>
+<div class="example-box rounded-xl border border-blue-100 bg-blue-50/60 p-4"><p class="font-bold text-slate-900">I studied English last year.</p><p class="text-sm text-slate-600 mt-2">Exemplo 3 para praticar sozinho.</p></div>
+      </div>
+    </div>
+<div class="activity-card grammar-block border-l-4 border-blue-500">
+      <h3 class="text-2xl font-black text-blue-700 mb-3">Regular past verbs</h3>
+      <p class="text-lg text-slate-700 mb-4">Observe o padrão em frases curtas. Repita em voz alta e depois troque uma palavra para criar uma frase nova.</p>
+      <div class="grid md:grid-cols-3 gap-3">
+        <div class="example-box rounded-xl border border-blue-100 bg-blue-50/60 p-4"><p class="font-bold text-slate-900">She worked in a school.</p><p class="text-sm text-slate-600 mt-2">Exemplo 1 para praticar sozinho.</p></div>
+<div class="example-box rounded-xl border border-blue-100 bg-blue-50/60 p-4"><p class="font-bold text-slate-900">We visited Rio.</p><p class="text-sm text-slate-600 mt-2">Exemplo 2 para praticar sozinho.</p></div>
+<div class="example-box rounded-xl border border-blue-100 bg-blue-50/60 p-4"><p class="font-bold text-slate-900">He moved to São Paulo.</p><p class="text-sm text-slate-600 mt-2">Exemplo 3 para praticar sozinho.</p></div>
+      </div>
+    </div>
+<div class="activity-card grammar-block border-l-4 border-blue-500">
+      <h3 class="text-2xl font-black text-blue-700 mb-3">Did for past questions</h3>
+      <p class="text-lg text-slate-700 mb-4">Observe o padrão em frases curtas. Repita em voz alta e depois troque uma palavra para criar uma frase nova.</p>
+      <div class="grid md:grid-cols-3 gap-3">
+        <div class="example-box rounded-xl border border-blue-100 bg-blue-50/60 p-4"><p class="font-bold text-slate-900">I started a new job.</p><p class="text-sm text-slate-600 mt-2">Exemplo 1 para praticar sozinho.</p></div>
+<div class="example-box rounded-xl border border-blue-100 bg-blue-50/60 p-4"><p class="font-bold text-slate-900">They finished the course.</p><p class="text-sm text-slate-600 mt-2">Exemplo 2 para praticar sozinho.</p></div>
+<div class="example-box rounded-xl border border-blue-100 bg-blue-50/60 p-4"><p class="font-bold text-slate-900">Did you travel yesterday?</p><p class="text-sm text-slate-600 mt-2">Exemplo 3 para praticar sozinho.</p></div>
+      </div>
+    </div></div></div></div>
+    <div class="slide" data-title="Expression Activity"><div class="section-card p-8 max-w-5xl mx-auto text-xl space-y-5"><div class="text-center mb-6"><p class="lesson-panel-title mb-2">Rewrite - 10 items</p><h2 class="text-4xl font-black text-blue-700">Practice the expressions</h2></div><div class="space-y-5"><div class="activity-card"><p class="font-semibold">1. Rewrite using the target expression:</p><p class="mt-2 text-slate-600">where were you born?</p><input id="e0" data-answer="Where were you born?" class="practice-input w-full mt-3"><button type="button" class="answer-btn" data-target="e0"><i class="fas fa-eye"></i></button></div>
+<div class="activity-card"><p class="font-semibold">2. Rewrite using the target expression:</p><p class="mt-2 text-slate-600">i was born in brazil.</p><input id="e1" data-answer="I was born in Brazil." class="practice-input w-full mt-3"><button type="button" class="answer-btn" data-target="e1"><i class="fas fa-eye"></i></button></div>
+<div class="activity-card"><p class="font-semibold">3. Rewrite using the target expression:</p><p class="mt-2 text-slate-600">i studied english last year.</p><input id="e2" data-answer="I studied English last year." class="practice-input w-full mt-3"><button type="button" class="answer-btn" data-target="e2"><i class="fas fa-eye"></i></button></div>
+<div class="activity-card"><p class="font-semibold">4. Rewrite using the target expression:</p><p class="mt-2 text-slate-600">she worked in a school.</p><input id="e3" data-answer="She worked in a school." class="practice-input w-full mt-3"><button type="button" class="answer-btn" data-target="e3"><i class="fas fa-eye"></i></button></div>
+<div class="activity-card"><p class="font-semibold">5. Rewrite using the target expression:</p><p class="mt-2 text-slate-600">we visited rio.</p><input id="e4" data-answer="We visited Rio." class="practice-input w-full mt-3"><button type="button" class="answer-btn" data-target="e4"><i class="fas fa-eye"></i></button></div>
+<div class="activity-card"><p class="font-semibold">6. Rewrite using the target expression:</p><p class="mt-2 text-slate-600">he moved to são paulo.</p><input id="e5" data-answer="He moved to São Paulo." class="practice-input w-full mt-3"><button type="button" class="answer-btn" data-target="e5"><i class="fas fa-eye"></i></button></div>
+<div class="activity-card"><p class="font-semibold">7. Rewrite using the target expression:</p><p class="mt-2 text-slate-600">i started a new job.</p><input id="e6" data-answer="I started a new job." class="practice-input w-full mt-3"><button type="button" class="answer-btn" data-target="e6"><i class="fas fa-eye"></i></button></div>
+<div class="activity-card"><p class="font-semibold">8. Rewrite using the target expression:</p><p class="mt-2 text-slate-600">they finished the course.</p><input id="e7" data-answer="They finished the course." class="practice-input w-full mt-3"><button type="button" class="answer-btn" data-target="e7"><i class="fas fa-eye"></i></button></div>
+<div class="activity-card"><p class="font-semibold">9. Rewrite using the target expression:</p><p class="mt-2 text-slate-600">did you travel yesterday?</p><input id="e8" data-answer="Did you travel yesterday?" class="practice-input w-full mt-3"><button type="button" class="answer-btn" data-target="e8"><i class="fas fa-eye"></i></button></div>
+<div class="activity-card"><p class="font-semibold">10. Rewrite using the target expression:</p><p class="mt-2 text-slate-600">no, i stayed home.</p><input id="e9" data-answer="No, I stayed home." class="practice-input w-full mt-3"><button type="button" class="answer-btn" data-target="e9"><i class="fas fa-eye"></i></button></div></div></div></div>
+    <div class="slide" data-title="Elaborated Dialogue"><div class="section-card p-8"><div class="flex flex-wrap justify-between items-center gap-4 mb-6"><div><p class="lesson-panel-title mb-2">Elaborated dialogue</p><h2 class="text-4xl font-black text-blue-700">Usage situations</h2></div></div><div class="grid md:grid-cols-2 gap-4 text-lg"><div class="activity-card"><p class="lesson-panel-title mb-3">Situation 1</p><div class="space-y-3"><div class="dialogue-line"><strong class="text-blue-700">A:</strong><p>Let's practice this situation: telling a short life story.</p></div><div class="dialogue-line"><strong class="text-orange-600">B:</strong><p>Where were you born?</p></div><div class="dialogue-line"><strong class="text-blue-700">A:</strong><p>I was born in Brazil.</p></div><div class="dialogue-line"><strong class="text-orange-600">B:</strong><p>I studied English last year.</p></div></div></div>
+<div class="activity-card"><p class="lesson-panel-title mb-3">Situation 2</p><div class="space-y-3"><div class="dialogue-line"><strong class="text-blue-700">A:</strong><p>Good. Now continue the same conversation.</p></div><div class="dialogue-line"><strong class="text-orange-600">B:</strong><p>She worked in a school.</p></div><div class="dialogue-line"><strong class="text-blue-700">A:</strong><p>We visited Rio.</p></div><div class="dialogue-line"><strong class="text-orange-600">B:</strong><p>He moved to São Paulo.</p></div></div></div>
+<div class="activity-card"><p class="lesson-panel-title mb-3">Situation 3</p><div class="space-y-3"><div class="dialogue-line"><strong class="text-blue-700">A:</strong><p>One more short exchange, please.</p></div><div class="dialogue-line"><strong class="text-orange-600">B:</strong><p>I started a new job.</p></div><div class="dialogue-line"><strong class="text-blue-700">A:</strong><p>They finished the course.</p></div><div class="dialogue-line"><strong class="text-orange-600">B:</strong><p>Did you travel yesterday? No, I stayed home.</p></div></div></div></div></div></div>
+    <div class="slide" data-title="Oral Translation"><div class="section-card p-8"><h2 class="text-4xl font-black text-blue-700 mb-4 text-center">Oral translation</h2><p class="text-lg text-slate-600 mb-6 text-center">O professor lê em português; o aluno traduz oralmente para o inglês.</p><div class="grid md:grid-cols-2 gap-4 text-lg"><div class="activity-card"><span class="font-bold text-blue-700">1.</span> Traduza uma frase usando: Where were you born?</div><div class="activity-card"><span class="font-bold text-blue-700">2.</span> Traduza uma frase usando: I was born in Brazil.</div><div class="activity-card"><span class="font-bold text-blue-700">3.</span> Traduza uma frase usando: I studied English last year.</div><div class="activity-card"><span class="font-bold text-blue-700">4.</span> Traduza uma frase usando: She worked in a school.</div><div class="activity-card"><span class="font-bold text-blue-700">5.</span> Traduza uma frase usando: We visited Rio.</div><div class="activity-card"><span class="font-bold text-blue-700">6.</span> Traduza uma frase usando: He moved to São Paulo.</div><div class="activity-card"><span class="font-bold text-blue-700">7.</span> Traduza uma frase usando: I started a new job.</div><div class="activity-card"><span class="font-bold text-blue-700">8.</span> Traduza uma frase usando: They finished the course.</div><div class="activity-card"><span class="font-bold text-blue-700">9.</span> Traduza uma frase usando: Did you travel yesterday?</div><div class="activity-card"><span class="font-bold text-blue-700">10.</span> Traduza uma frase usando: No, I stayed home.</div></div></div></div>
+    <div class="slide" data-title="Song"><div class="section-card p-8 max-w-4xl mx-auto"><h2 class="text-4xl font-black text-blue-700 mb-4 text-center">Song practice</h2><p class="text-center text-slate-500 text-lg mb-6">Escuta guiada com iframe e lacunas.</p><iframe style="border-radius:12px" src="https://open.spotify.com/embed/search/Yesterday%20The%20Beatles?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe><div class="activity-card text-lg space-y-3 mt-5"><p class="lesson-panel-title">Lyrics sample</p><p class="text-sm text-slate-500">Sample editável: substitua pelas linhas da música que você quiser trabalhar.</p><p>1. born <input id="song29-0" data-answer="born" class="practice-input w-32"> <button type="button" class="answer-btn" data-target="song29-0"><i class="fas fa-eye"></i></button></p>
+<p>2. lived <input id="song29-1" data-answer="lived" class="practice-input w-32"> <button type="button" class="answer-btn" data-target="song29-1"><i class="fas fa-eye"></i></button></p>
+<p>3. studied <input id="song29-2" data-answer="studied" class="practice-input w-32"> <button type="button" class="answer-btn" data-target="song29-2"><i class="fas fa-eye"></i></button></p>
+<p>4. worked <input id="song29-3" data-answer="worked" class="practice-input w-32"> <button type="button" class="answer-btn" data-target="song29-3"><i class="fas fa-eye"></i></button></p></div></div></div>
+    <div class="slide" data-title="Homework"><div class="section-card p-8 max-w-5xl mx-auto"><h2 class="text-4xl font-black text-blue-700 mb-4 text-center">Homework</h2><div class="activity-card text-lg"><p>Prepare 8 frases curtas sobre contando uma pequena história de vida. Use pelo menos 5 expressões da aula.</p></div><textarea rows="8" class="mt-5 w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-blue-500" placeholder="Write your homework draft here..."></textarea></div></div>
+    <div class="slide" data-title="Lesson Complete"><div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]"><i class="fas fa-star text-blue-700 text-7xl mb-6"></i><p class="lesson-panel-title mb-2">Motivational phrase</p><h2 class="text-5xl font-black mb-4 text-slate-900">Every short sentence is a step toward speaking with confidence.</h2><p class="text-2xl text-slate-600 max-w-3xl">Lesson 29 complete.</p></div></div>
+  </main>
+  <footer class="fixed bottom-0 left-0 w-full z-20 h-16"><div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl"><button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Anterior</button><button id="next-btn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Próximo</button><button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Finalizar aula</button></div></footer>
+  <script src="a1-lesson-theme.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script><script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script><script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script><script src="../js/firebase-config.js"></script><script src="../js/progress-manager.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const moduleId = 'a1-v2', lessonNumber = 29;
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishBtn = document.getElementById('finish-lesson-btn'), progressBar = document.getElementById('progress-bar'), counter = document.getElementById('slide-counter'), headerTitle = document.getElementById('slide-title-header');
+    const normalize = (text) => (text || '').trim().toLowerCase().replace(/[.?!"']/g, '').replace(/\s+/g, ' ');
+    let currentSlide = 0;
+    const checkAnswer = (input) => { input.classList.remove('correct', 'incorrect'); if (!input.value.trim()) return; input.classList.add(normalize(input.value) === normalize(input.dataset.answer || '') ? 'correct' : 'incorrect'); };
+    const updateQuizScore = () => { const items = Array.from(document.querySelectorAll('[data-quiz-item]')); const correct = items.filter((item) => item.dataset.correct === 'true').length; const score = document.getElementById('quiz-score'); if (score && items.length) score.textContent = correct + ' / ' + items.length; };
+    document.querySelectorAll('[data-quiz-choice]').forEach((button) => button.addEventListener('click', () => { const item = button.closest('[data-quiz-item]'); const ok = normalize(button.dataset.quizChoice) === normalize(item.dataset.answer); item.dataset.correct = ok ? 'true' : 'false'; item.querySelectorAll('[data-quiz-choice]').forEach((choice) => choice.classList.remove('selected-correct', 'selected-incorrect')); button.classList.add(ok ? 'selected-correct' : 'selected-incorrect'); const feedback = item.querySelector('[data-quiz-feedback]'); if (feedback) feedback.textContent = ok ? 'Correct!' : 'Try again. Correct answer: ' + item.dataset.answer; updateQuizScore(); }));
+    const render = () => { slides.forEach((slide, i) => slide.classList.toggle('active', i === currentSlide)); if (progressBar) progressBar.style.width = slides.length > 1 ? ((currentSlide / (slides.length - 1)) * 100) + '%' : '100%'; if (counter) counter.textContent = (currentSlide + 1) + ' / ' + slides.length; if (headerTitle) headerTitle.textContent = slides[currentSlide]?.dataset.title || ''; if (prevBtn) prevBtn.disabled = currentSlide === 0; if (nextBtn) nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1); if (finishBtn) finishBtn.classList.toggle('hidden', currentSlide !== slides.length - 1); };
+    prevBtn?.addEventListener('click', () => { if (currentSlide > 0) { currentSlide -= 1; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
+    nextBtn?.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide += 1; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
+    finishBtn?.addEventListener('click', () => { finishBtn.disabled = true; finishBtn.textContent = 'Salvando...'; if (typeof markLessonAsComplete === 'function') Promise.resolve(markLessonAsComplete(moduleId, lessonNumber)).catch(() => { finishBtn.disabled = false; finishBtn.textContent = 'Finalizar aula'; }); });
+    document.querySelectorAll('input[data-answer]').forEach((input) => input.addEventListener('blur', () => checkAnswer(input)));
+    document.querySelectorAll('.answer-btn[data-target]').forEach((button) => button.addEventListener('click', () => { const input = document.getElementById(button.dataset.target); if (!input) return; input.value = input.dataset.answer || ''; checkAnswer(input); }));
+    document.querySelectorAll('.speak-btn[data-speak]').forEach((button) => button.addEventListener('click', (event) => { event.stopPropagation(); const utterance = new SpeechSynthesisUtterance(button.dataset.speak || ''); utterance.lang = 'en-US'; speechSynthesis.cancel(); speechSynthesis.speak(utterance); }));
+    document.querySelectorAll('.flip-card').forEach((card) => card.addEventListener('click', () => card.classList.toggle('flipped')));
+    updateQuizScore(); render();
+  });
+  </script>
+  <script src="../js/flashcard-pronunciation.js"></script><script src="../js/lesson-flashcard-save.js"></script>
+</body>
+</html>
