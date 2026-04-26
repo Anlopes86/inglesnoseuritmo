@@ -170,6 +170,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const choiceBuilders = Array.from(document.querySelectorAll('[data-choice-builder]'));
 
+    const normalizePracticeAnswer = (text) => (text || '')
+        .trim()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[.?!"']/g, '')
+        .replace(/\s+/g, ' ');
+
+    const checkPracticeSelect = (select) => {
+        select.classList.remove('correct', 'incorrect');
+        if (!select.value.trim()) return;
+        const ok = normalizePracticeAnswer(select.value) === normalizePracticeAnswer(select.dataset.answer || '');
+        select.classList.add(ok ? 'correct' : 'incorrect');
+    };
+
+    document.querySelectorAll('select[data-answer]').forEach((select) => {
+        select.addEventListener('change', () => checkPracticeSelect(select));
+    });
+
     choiceBuilders.forEach((builder) => {
         const preview = builder.querySelector('[data-choice-preview]');
         const resetButton = builder.querySelector('[data-choice-reset]');
