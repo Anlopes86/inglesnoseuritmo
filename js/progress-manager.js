@@ -57,7 +57,7 @@ async function markLessonAsComplete(moduleId, lessonId) {
             showToast('Modulo ou licao nao foram identificados corretamente.', 'error', 'Progresso indisponivel');
         }
         console.error('markLessonAsComplete foi chamada sem moduleId ou lessonId.');
-        return;
+        return false;
     }
 
     let viewerContext;
@@ -68,7 +68,7 @@ async function markLessonAsComplete(moduleId, lessonId) {
         if (typeof showToast === 'function') {
             showToast('Nao foi possivel validar seu acesso a este aluno.', 'error', 'Acesso negado');
         }
-        return;
+        return false;
     }
 
     const studentId = viewerContext.studentId;
@@ -76,7 +76,7 @@ async function markLessonAsComplete(moduleId, lessonId) {
         if (typeof showToast === 'function') {
             showToast('Faca login novamente ou selecione um aluno antes de salvar.', 'error', 'Usuario nao identificado');
         }
-        return;
+        return false;
     }
 
     const progressUpdate = {};
@@ -92,11 +92,13 @@ async function markLessonAsComplete(moduleId, lessonId) {
         const lastSlashIndex = path.lastIndexOf('/');
         const basePath = path.substring(0, lastSlashIndex + 1);
         window.location.href = basePath + `${moduleId}.html`;
+        return true;
     } catch (error) {
         console.error('Erro ao salvar progresso:', error);
         if (typeof showToast === 'function') {
             showToast('Nao foi possivel salvar o progresso agora.', 'error', 'Falha ao salvar');
         }
+        return false;
     }
 }
 
@@ -145,10 +147,15 @@ function wireStandardLessonFinish() {
         event.stopImmediatePropagation();
 
         button.disabled = true;
+        const originalContent = button.innerHTML;
         button.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>';
 
         if (typeof markLessonAsComplete === 'function') {
-            await markLessonAsComplete(context.moduleId, context.lessonNumber);
+            const saved = await markLessonAsComplete(context.moduleId, context.lessonNumber);
+            if (!saved) {
+                button.disabled = false;
+                button.innerHTML = originalContent;
+            }
             return;
         }
 
