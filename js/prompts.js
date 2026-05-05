@@ -1749,215 +1749,43 @@ Prepare me for a class on "Animals & Nature" by explaining the concept of a "car
     },
     vestibular: {
         titles: [
-            "", "Introduction to Vestibular", "Skimming & Scanning", "Identifying Main Ideas",
-            "Understanding Vocabulary in Context", "Interpreting Cartoons and Comics", "Analyzing Literary Texts"
+            "",
+            "Leitura Ativa: Skimming, Scanning e Inferencia",
+            "Ideia Central, Tese e Topicos Frasais",
+            "Linking Words I: Adicao e Contraste",
+            "Linking Words II: Causa, Consequencia e Proposito",
+            "Pronomes e Coesao Referencial",
+            "Phrasal Verbs e Preposicoes Essenciais",
+            "Tempos Verbais I: Rotina, Agora e Narrativa",
+            "Tempos Verbais II: Present Perfect e Futuro",
+            "Modal Verbs em Questoes de Prova",
+            "Voz Passiva, Comparativos e Superlativos",
+            "Condicionais e Relacoes Logicas",
+            "Leitura Critica: Fato, Opiniao e Argumento",
+            "Deconstrucao de Enunciados",
+            "Inferencia e Leitura nas Entrelinhas",
+            "Pegadinhas, Eliminacao e Erros Comuns",
+            "Simulado Final e Estrategia de Tempo"
         ],
-        prompts: { // Prompts de REVISÃO (aula concluída)
-            1: `# Persona
-Você é um examinador experiente e justo, aplicando um mini-simulado do vestibular.
-
-# Missão
-Ajudar-me a praticar a estrutura de uma questão de interpretação de texto do vestibular, focando na identificação da ideia geral.
-
-# Contexto
-Estou me preparando para o vestibular e preciso praticar a leitura e a escolha da alternativa correta.
-
-# Execução
-- Apresente uma passagem curta (2-3 parágrafos) de um texto autêntico (jornalístico ou científico).
-- Após o texto, apresente uma pergunta de múltipla escolha (com 4 alternativas) que teste a compreensão da ideia principal.
-- Aguarde minha resposta.
-- Após minha escolha, revele a alternativa correta e, mais importante, explique por que ela é a melhor resposta e por que as outras três são incorretas (distratores), baseando sua explicação em evidências do texto.
-
-# Tom e Formato
-- Tom: Formal, claro e objetivo, como o de um exame oficial.
-- A explicação do gabarito é a parte mais importante da interação.`,
-            2: `# Persona
-Você é meu tutor de preparação para o vestibular, focado em estratégias de leitura rápida e eficiente.
-
-# Missão
-Simular um exercício cronometrado para eu praticar as técnicas de Skimming e Scanning.
-
-# Contexto
-Estou me preparando para o vestibular e preciso otimizar meu tempo de prova.
-
-# Execução
-- Apresente um texto de tamanho médio.
-- Dê a primeira instrução: "Você tem 45 segundos para usar **Skimming** e me dizer qual é a ideia geral do texto. Comece agora!".
-- Após 45 segundos, pergunte-me sobre o tópico principal.
-- Dê a segunda instrução: "Ótimo. Agora, use **Scanning**. Encontre rapidamente no texto uma informação específica (como um nome, data ou número). Qual é?".
-- Verifique minhas duas respostas e dê feedback sobre minha eficiência.
-
-# Tom e Formato
-- Tom: Treinador focado, estratégico e um pouco exigente com o tempo.
-- A simulação do tempo é crucial para a eficácia do exercício.`,
-            3: `# Persona
-Você é meu tutor de redação e interpretação, ajudando-me a aprimorar minha capacidade de síntese.
-
-# Missão
-Ajudar-me a praticar a identificação e o resumo da ideia principal (main idea) de um parágrafo.
-
-# Contexto
-Estou me preparando para o vestibular, onde a capacidade de resumir informações é essencial.
-
-# Execução
-- Apresente um único parágrafo denso de um artigo de opinião ou análise crítica.
-- Peça-me para resumir a ideia principal desse parágrafo em uma única e concisa frase em português.
-- Aguarde meu resumo.
-- Analise minha frase com base na precisão e clareza, e dê um feedback construtivo, sugerindo melhorias se necessário.
-
-# Tom e Formato
-- Tom: Analítico, construtivo e focado na qualidade da escrita.
-- O feedback deve ser específico e acionável.`,
-            4: `# Persona
-Você é um examinador de vestibular que criou uma questão para testar a habilidade de inferir o significado de vocabulário pelo contexto.
-
-# Missão
-Ajudar-me a praticar a identificação do significado de uma palavra desconhecida sem usar um dicionário.
-
-# Contexto
-Estou me preparando para o vestibular.
-
-# Execução
-- Apresente uma frase ou um pequeno trecho que contenha uma palavra em inglês um pouco mais difícil (em **negrito**).
-- Pergunte-me o que a palavra provavelmente significa, com base no contexto, e apresente 4 alternativas de múltipla escolha.
-- Aguarde minha resposta.
-- Explique qual é a resposta correta e, crucialmente, mostre quais palavras na frase original servem como "pistas" para inferir aquele significado.
-
-# Tom e Formato
-- Tom: Examinador claro, focado e metodológico.
-- A parte mais importante é a explicação das "pistas contextuais".`,
-            5: `# Persona
-Você é um analista de mídia e crítico de cultura pop, especialista em interpretar charges e tirinhas.
-
-# Missão
-Guiar-me na análise de uma charge (cartoon), praticando a interpretação de elementos visuais e textuais.
-
-# Contexto
-Estou me preparando para o vestibular, onde questões com charges são comuns.
-
-# Execução
-- Descreva uma charge para mim em detalhes (já que você é uma IA de texto).
-- Faça uma pergunta de interpretação aberta sobre a principal crítica ou mensagem da charge.
-- Ouça minha resposta e, em seguida, faça uma pergunta de seguimento sobre um elemento visual ou textual específico para aprofundar a análise.
-- Guie-me para entender a ironia e a mensagem implícita da charge.
-
-# Tom e Formato
-- Tom: Analítico, perspicaz e um pouco humorístico.
-- A descrição da imagem deve ser muito clara e objetiva para que eu possa visualizá-la.`,
-            6: `# Persona
-Você é um professor de literatura, apaixonado por desvendar as camadas de significado em textos literários.
-
-# Missão
-Ajudar-me a praticar a análise de um pequeno trecho literário, focando em identificar o tom e a linguagem figurada.
-
-# Contexto
-Estou me preparando para questões de literatura no vestibular.
-
-# Execução
-- Apresente um pequeno trecho (3-4 frases) de um poema ou conto em inglês com um tom claro.
-- Faça uma pergunta sobre o **tom** ou a **atmosfera** geral do trecho.
-- Peça-me para justificar minha resposta com palavras específicas do texto.
-- Se houver uma figura de linguagem (como uma metáfora), pergunte sobre seu significado mais profundo.
-- Ajude-me a ir além da leitura literal e a interpretar o significado nas entrelinhas.
-
-# Tom e Formato
-- Tom: Professor de literatura apaixonado, inquisitivo e focado na interpretação.
-- O objetivo é me ensinar a "ler nas entrelinhas".`
-        },
-        preview_prompts: { // Prompts de PREPARAÇÃO (próxima aula)
-            1: `# Persona
-Você é um "Guia de Pré-visualização" e um veterano do vestibular que conhece os segredos da prova.
-
-# Missão
-Dar uma visão geral dos tipos de questões de inglês que caem no vestibular, para que eu saiba o que esperar.
-// Continuação do prompt vestibular.preview_prompts[1]
-- Explique os 3 tipos mais comuns de questões de forma simples e direta.
-- Faça-me uma pergunta para reflexão sobre qual área eu acho que será o meu maior desafio, incentivando a autoavaliação.
-
-# Tom e Formato
-- Tom: Veterano experiente, confiante, estratégico e encorajador.
-- A explicação deve ser clara e focada no que é mais comum.`,
-            2: `# Persona
-Você é um "Guia de Pré-visualização" e um "estrategista de leitura".
-
-# Missão
-Ensinar a diferença fundamental entre Skimming e Scanning antes da aula.
-
-# Execução
-- Comece abordando o principal problema do vestibular: o tempo.
-- Explique Skimming e Scanning usando analogias claras ('passar os olhos' vs. 'procurar com uma lupa') e focando na pergunta-chave que cada técnica responde.
-- Crie um exercício rápido de completar as lacunas para verificar minha compreensão dos dois conceitos.
-- Dê feedback sobre minha resposta.
-
-# Tom e Formato
-- Tom: Estrategista, focado, direto e com dicas práticas.
-- A analogia de "passar os olhos" vs. "procurar com lupa" é muito eficaz.`,
-            3: `# Persona
-Você é um "Guia de Pré-visualização" e um "detetive de ideias".
-
-# Missão
-Dar uma dica crucial sobre como encontrar a ideia principal (main idea) de um parágrafo.
-
-# Execução
-- Use a analogia do "detetive" para tornar o tópico mais interessante.
-- Revele a dica prática de que a ideia principal geralmente está na primeira ou na última frase do parágrafo.
-- Dê um exemplo curto e claro para ilustrar a dica.
-- Faça-me uma pergunta reflexiva sobre o porquê de os autores usarem essa estrutura.
-- Conclua reforçando a dica.
-
-# Tom e Formato
-- Tom: Detetive, revelando um "segredo" ou "dica quente".
-- A instrução "procure primeiro no início e no fim" é muito prática.`,
-            4: `# Persona
-Você é um "Guia de Pré-visualização" e um "decifrador de palavras".
-
-# Missão
-Ensinar o conceito de usar "pistas contextuais" para adivinhar o significado de vocabulário.
-
-# Execução
-- Comece com o problema (palavras desconhecidas na prova) e apresente a técnica como a solução.
-- Explique o que são "pistas contextuais".
-- Dê um exemplo claro e guie-me através do processo de dedução passo a passo.
-- Conclua incentivando-me a usar a técnica na próxima aula.
-
-# Tom e Formato
-- Tom: "Decifrador de códigos", engajador e focado na resolução de um quebra-cabeça.
-- O exemplo deve ser muito claro, com pistas óbvias para facilitar o entendimento da técnica.`,
-            5: `# Persona
-Você é um "Guia de Pré-visualização" e um comediante.
-
-# Missão
-Preparar-me para analisar charges, explicando que a chave é a **ironia**.
-
-# Execução
-- Comece explicando que o segredo para entender charges é encontrar a ironia.
-- Defina ironia de forma simples: o contraste entre o que é dito/mostrado e o que realmente se quer dizer.
-- Dê um exemplo visual e fácil de entender.
-- Peça-me para pensar no meu próprio exemplo de ironia para verificar a compreensão.
-- Dê-me uma pergunta-chave para eu me fazer sempre que vir uma charge.
-
-# Tom e Formato
-- Tom: Humorístico e direto.
-- A explicação do conceito de ironia com um exemplo claro é o ponto central.`,
-            6: `# Persona
-Você é um "Guia de Pré-visualização" e um "leitor de mentes" literário.
-
-# Missão
-Introduzir a ideia de "ler nas entrelinhas" em textos literários.
-
-# Execução
-- Comece explicando a diferença entre textos literários e factuais.
-- Explique a técnica de "ler nas entrelinhas", focando em como a escolha das palavras cria um sentimento.
-- Dê um exemplo claro de linguagem figurada (personificação).
-- Faça-me uma pergunta de inferência para eu praticar a identificação da atmosfera criada pelas palavras.
-- Conclua de forma encorajadora.
-
-# Tom e Formato
-- Tom: Um pouco misterioso e focado na descoberta.
-- O conceito de "palavras escolhidas para criar um sentimento" é uma introdução eficaz à análise literária.`,
+        prompts: {
+            1: `Gere uma atividade de estudo sobre leitura ativa para vestibular. O conteudo principal, os textos, exemplos, perguntas e alternativas devem estar em ingles. Inclua um texto curto, uma tarefa de skimming, duas tarefas de scanning, uma pergunta de inferencia e uma pergunta de vocabulario por contexto. Depois apresente o gabarito comentado em portugues, explicando quais pistas do texto justificam cada resposta.`,
+            2: `Gere uma atividade de estudo sobre main idea, thesis statement e topic sentences. O conteudo principal, o paragrafo, exemplos, perguntas e alternativas devem estar em ingles. Crie um paragrafo argumentativo, peca para identificar topic, main idea e topic sentence, e inclua um exercicio de resumo em uma frase. Depois apresente o gabarito comentado em portugues.`,
+            3: `Gere uma atividade de estudo sobre linking words de addition e contrast. O conteudo principal, frases, exemplos, perguntas e alternativas devem estar em ingles. Inclua uma tabela curta com and, also, moreover, besides, but, however, although, despite e in spite of. Crie exercicios de lacuna e uma questao de interpretacao em que o conector muda a direcao do argumento. Explique o gabarito em portugues.`,
+            4: `Gere uma atividade de estudo sobre linking words de cause, consequence, purpose e time. O conteudo principal, frases, exemplos, perguntas e alternativas devem estar em ingles. Inclua because, since, so, therefore, thus, consequently, in order to, so that, when e while. Crie exercicios de lacuna e uma pergunta de interpretacao textual. Explique o gabarito em portugues.`,
+            5: `Gere uma atividade de estudo sobre pronouns and reference cohesion. O conteudo principal, o texto, exemplos, perguntas e alternativas devem estar em ingles. Crie um trecho com he, she, it, they, this, that, these, those, who, which e that. Peca para identificar a que cada pronome se refere e explique o gabarito em portugues, destacando os antecedents.`,
+            6: `Gere uma atividade de estudo sobre phrasal verbs and essential prepositions para vestibular. O conteudo principal, frases, exemplos, perguntas e alternativas devem estar em ingles. Use look up, turn out, set up, carry on, bring about, give up, rely on e deal with. Crie exercicios em contexto para deduzir significado sem traducao direta. Explique o gabarito em portugues.`,
+            7: `Gere uma atividade de estudo sobre verb tenses for reading: simple present, present continuous, simple past e past continuous. O conteudo principal, texto, frases, perguntas e alternativas devem estar em ingles. Crie um texto curto que misture facts, habits, actions in progress e past narrative. Peca para identificar o tempo verbal e o efeito de sentido. Explique o gabarito em portugues.`,
+            8: `Gere uma atividade de estudo sobre present perfect and future forms. O conteudo principal, frases, exemplos, perguntas e alternativas devem estar em ingles. Inclua since, for, already, yet, ever, never, will e going to. Crie lacunas e perguntas de interpretacao sobre relacao entre passado, presente e futuro. Explique o gabarito em portugues.`,
+            9: `Gere uma atividade de estudo sobre modal verbs em questoes de prova. O conteudo principal, frases, exemplos, perguntas e alternativas devem estar em ingles. Inclua can, could, may, might, must, should, have to e would. Crie exercicios para identificar possibility, obligation, advice, ability e hypothesis. Explique o gabarito em portugues.`,
+            10: `Gere uma atividade de estudo sobre passive voice, comparatives and superlatives. O conteudo principal, texto, frases, perguntas e alternativas devem estar em ingles. Inclua be + past participle, bigger, more important, less effective, the most relevant e the least common. Crie perguntas que mostrem enfase no resultado, no agente e na comparacao. Explique o gabarito em portugues.`,
+            11: `Gere uma atividade de estudo sobre conditionals and logical relations. O conteudo principal, frases, exemplos, perguntas e alternativas devem estar em ingles. Inclua zero, first, second e third conditional, alem de unless, as long as e provided that. Crie exercicios para identificar hypothesis, consequence, real possibility e impossible past. Explique o gabarito em portugues.`,
+            12: `Gere uma atividade de estudo sobre critical reading: fact, opinion, author's purpose and comparing arguments. O conteudo principal, textos, exemplos, perguntas e alternativas devem estar em ingles. Crie dois paragrafos com opinioes diferentes sobre o mesmo tema. Peca para distinguir facts from opinions, identificar author's intention e comparar argumentos com similarly, however e on the other hand. Explique o gabarito em portugues.`,
+            13: `Gere uma atividade de estudo sobre reading exam prompts and commands. O conteudo principal, enunciados, exemplos, perguntas e alternativas devem estar em ingles. Crie enunciados com identify, infer, justify, according to the text, except, not e best describes. Peca para explicar o que cada comando realmente exige antes de responder. Explique o gabarito em portugues.`,
+            14: `Gere uma atividade de estudo sobre inference and reading between the lines. O conteudo principal, microtextos, exemplos, perguntas e alternativas devem estar em ingles. Crie quatro microtrechos em que sentimentos, opinioes ou intencoes estejam implicitos. Para cada um, peca a inferencia e a pista textual. Explique o gabarito em portugues, diferenciando inferencia valida de achismo.`,
+            15: `Gere uma atividade de estudo sobre distractors, elimination strategies, false cognates and common mistakes. O conteudo principal, texto, perguntas e alternativas devem estar em ingles. Crie uma questao com quatro alternativas: uma correta, uma com exagero, uma com palavra isolada do texto, uma com falso cognato. Use falsos cognatos como actually, pretend, eventually ou support. Explique em portugues por que cada alternativa cai ou fica.`,
+            16: `Gere um mini-simulado de ingles para vestibular com gerenciamento de tempo. O conteudo principal, texto, perguntas e alternativas devem estar em ingles. Crie um texto de 2 a 3 paragrafos e 5 questoes de multipla escolha cobrindo main idea, scanning, inference, vocabulary in context e elimination. Inclua tempo sugerido para cada etapa. Depois apresente gabarito comentado em portugues, justificando a correta e eliminando as incorretas.`
         }
-    },
-    business: {
+    },    business: {
         titles: [
             "", // Posição 0 vazia
             "The Job Interview", "Describing Skills", "Answering Questions",

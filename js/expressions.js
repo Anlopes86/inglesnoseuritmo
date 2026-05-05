@@ -357,15 +357,163 @@ const lessonExpressions = {
     }],
     'vestibular-licao-01': [{
         expression: "To read between the lines.",
-        meaning: "Ler nas entrelinhas. Entender o significado implícito de um texto."
+        meaning: "Ler nas entrelinhas. Entender o significado implicito de um texto."
+    }, {
+        expression: "To skim a text.",
+        meaning: "Passar os olhos no texto para entender a ideia geral."
+    }, {
+        expression: "To scan for details.",
+        meaning: "Procurar informacoes especificas, como nomes, datas, numeros ou palavras-chave."
     }],
     'vestibular-licao-02': [{
         expression: "To get the gist of something.",
         meaning: "Pegar a ideia principal de algo. Entender o ponto central sem focar nos detalhes."
+    }, {
+        expression: "Topic sentence.",
+        meaning: "Frase que apresenta a ideia principal de um paragrafo."
+    }, {
+        expression: "Supporting details.",
+        meaning: "Detalhes que sustentam ou explicam a ideia principal."
     }],
     'vestibular-licao-03': [{
         expression: "In a nutshell.",
         meaning: "Em resumo. Usado para apresentar a ideia principal de forma concisa."
+    }, {
+        expression: "On the other hand.",
+        meaning: "Por outro lado. Introduz contraste entre duas ideias."
+    }, {
+        expression: "Moreover.",
+        meaning: "Alem disso. Adiciona uma informacao a um argumento."
+    }],
+    'vestibular-licao-04': [{
+        expression: "As a result.",
+        meaning: "Como resultado. Introduz consequencia."
+    }, {
+        expression: "Due to.",
+        meaning: "Devido a. Introduz causa."
+    }, {
+        expression: "In order to.",
+        meaning: "A fim de. Introduz proposito."
+    }],
+    'vestibular-licao-05': [{
+        expression: "This refers to...",
+        meaning: "Isto se refere a... Util para explicar retomadas pronominais."
+    }, {
+        expression: "The former / the latter.",
+        meaning: "O primeiro / o segundo. Retoma dois elementos mencionados antes."
+    }, {
+        expression: "Which means that...",
+        meaning: "O que significa que... Introduz uma explicacao ou consequencia."
+    }],
+    'vestibular-licao-06': [{
+        expression: "To look up.",
+        meaning: "Procurar uma informacao."
+    }, {
+        expression: "To turn out.",
+        meaning: "Acabar sendo / revelar-se."
+    }, {
+        expression: "To carry on.",
+        meaning: "Continuar fazendo algo."
+    }],
+    'vestibular-licao-07': [{
+        expression: "Usually.",
+        meaning: "Geralmente. Pista comum de Simple Present."
+    }, {
+        expression: "Currently.",
+        meaning: "Atualmente / neste momento. Pista comum de Present Continuous."
+    }, {
+        expression: "While.",
+        meaning: "Enquanto. Pode indicar uma acao em progresso no passado."
+    }],
+    'vestibular-licao-08': [{
+        expression: "So far.",
+        meaning: "Ate agora. Muito usado com Present Perfect."
+    }, {
+        expression: "Yet.",
+        meaning: "Ainda / ja, em perguntas e negativas com Present Perfect."
+    }, {
+        expression: "Likely to.",
+        meaning: "Provavel que. Indica previsao ou possibilidade futura."
+    }],
+    'vestibular-licao-09': [{
+        expression: "It might suggest...",
+        meaning: "Isso pode sugerir... Expressa possibilidade."
+    }, {
+        expression: "It must be...",
+        meaning: "Deve ser... Indica deducao forte."
+    }, {
+        expression: "It should be noted that...",
+        meaning: "Deve-se observar que... Introduz recomendacao ou destaque."
+    }],
+    'vestibular-licao-10': [{
+        expression: "Is caused by.",
+        meaning: "E causado por. Estrutura passiva comum em textos cientificos."
+    }, {
+        expression: "More likely than.",
+        meaning: "Mais provavel que. Estrutura comparativa."
+    }, {
+        expression: "The most significant.",
+        meaning: "O mais significativo. Estrutura superlativa."
+    }],
+    'vestibular-licao-11': [{
+        expression: "Unless.",
+        meaning: "A menos que. Introduz condicao negativa."
+    }, {
+        expression: "As long as.",
+        meaning: "Desde que / contanto que. Introduz condicao."
+    }, {
+        expression: "Provided that.",
+        meaning: "Desde que. Conector condicional mais formal."
+    }],
+    'vestibular-licao-12': [{
+        expression: "The author argues that...",
+        meaning: "O autor argumenta que... Sinaliza posicao ou tese."
+    }, {
+        expression: "The evidence suggests...",
+        meaning: "A evidencia sugere... Sinaliza interpretacao baseada em dados."
+    }, {
+        expression: "Similarly.",
+        meaning: "De modo semelhante. Compara ideias parecidas."
+    }],
+    'vestibular-licao-13': [{
+        expression: "According to the text.",
+        meaning: "De acordo com o texto. Exige resposta baseada em evidencia textual."
+    }, {
+        expression: "Except.",
+        meaning: "Exceto. Pede a alternativa que nao se encaixa."
+    }, {
+        expression: "Best describes.",
+        meaning: "Melhor descreve. Pede a alternativa mais completa ou adequada."
+    }],
+    'vestibular-licao-14': [{
+        expression: "It can be inferred that...",
+        meaning: "Pode-se inferir que... Introduz conclusao implicita."
+    }, {
+        expression: "The tone is...",
+        meaning: "O tom e... Usado para interpretar atitude ou sentimento do texto."
+    }, {
+        expression: "This implies that...",
+        meaning: "Isso implica que... Aponta uma ideia nao dita diretamente."
+    }],
+    'vestibular-licao-15': [{
+        expression: "False cognate.",
+        meaning: "Falso cognato. Palavra que parece uma coisa em portugues, mas significa outra em ingles."
+    }, {
+        expression: "Actually.",
+        meaning: "Na verdade. Nao significa atualmente."
+    }, {
+        expression: "To pretend.",
+        meaning: "Fingir. Nao significa pretender."
+    }],
+    'vestibular-licao-16': [{
+        expression: "Time management.",
+        meaning: "Gerenciamento de tempo. Estrategia essencial em prova."
+    }, {
+        expression: "Eliminate the distractors.",
+        meaning: "Eliminar os distratores. Cortar alternativas erradas antes de marcar."
+    }, {
+        expression: "Textual evidence.",
+        meaning: "Evidencia textual. Trecho que justifica a resposta."
     }],
     // NOVAS EXPRESSÕES DE BUSINESS
     'business-licao-01': [{
