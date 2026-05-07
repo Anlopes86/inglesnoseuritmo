@@ -37,6 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
   "Future: Plans and Predictions",
   "Final Review and Project"
 ];
+  const materialMeta = {
+    dialogue: { icon: 'fa-comments', label: 'Dialogo+' },
+    reading: { icon: 'fa-book-open', label: 'Leitura' },
+    writing: { icon: 'fa-pen', label: 'Escrita' },
+    review: { icon: 'fa-layer-group', label: 'Revisao' }
+  };
   const unitLabels = [
   "Foundations",
   "Foundations",
@@ -71,17 +77,29 @@ document.addEventListener('DOMContentLoaded', () => {
   "Past & Future",
   "Review"
 ];
+  function getLessonMaterials(lessonNumber) {
+    const isReview = lessonNumber % 4 === 0 || lessonNumber === 32;
+    return isReview
+      ? ['dialogue', 'reading', 'writing', 'review']
+      : ['dialogue', 'reading', 'writing'];
+  }
   function buildLessonCard(title, lessonNumber, state, isProfessor) {
     const padded = String(lessonNumber).padStart(2, '0');
     const canOpen = isProfessor || state !== 'locked';
     const iconClass = state === 'completed' ? 'fa-check-circle text-green-500' : state === 'next' ? 'fa-play-circle text-blue-500' : 'fa-lock text-slate-400';
     const stateText = state === 'completed' ? 'Concluída' : state === 'next' ? 'Disponível agora' : 'Bloqueada';
+    const materialBadges = getLessonMaterials(lessonNumber)
+      .map((key) => {
+        const meta = materialMeta[key];
+        return `<span class="lesson-material-pill"><i class="fas ${meta.icon}"></i>${meta.label}</span>`;
+      })
+      .join('');
     const card = document.createElement('a');
     card.href = canOpen ? `licao-${padded}.html` : '#';
     card.className = `lesson-card ${state}`;
     card.dataset.lesson = String(lessonNumber);
     card.setAttribute('aria-disabled', canOpen ? 'false' : 'true');
-    card.innerHTML = `<div class="lesson-card-top"><span class="lesson-unit text-emerald-700">${unitLabels[lessonNumber - 1]}</span><i class="fas ${iconClass} text-2xl"></i></div><div><h3 class="lesson-title">${title}</h3><p class="lesson-meta mt-2">Lição ${lessonNumber}</p></div><div class="lesson-state"><i class="fas ${state === 'locked' ? 'fa-lock' : state === 'completed' ? 'fa-award' : 'fa-forward'} text-emerald-600"></i>${stateText}</div>`;
+    card.innerHTML = `<div class="lesson-card-top"><span class="lesson-unit text-emerald-700">${unitLabels[lessonNumber - 1]}</span><i class="fas ${iconClass} text-2xl"></i></div><div><h3 class="lesson-title">${title}</h3><p class="lesson-meta mt-2">Lição ${lessonNumber}</p><div class="lesson-materials">${materialBadges}</div></div><div class="lesson-state"><i class="fas ${state === 'locked' ? 'fa-lock' : state === 'completed' ? 'fa-award' : 'fa-forward'} text-emerald-600"></i>${stateText}</div>`;
     if (!canOpen) card.addEventListener('click', (event) => event.preventDefault());
     return card;
   }
