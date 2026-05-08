@@ -35,6 +35,10 @@
     const teacherLessonNote = document.getElementById('teacher-lesson-note');
     const assignedModulesStatus = document.getElementById('assigned-modules-status');
     const assignedModulesList = document.getElementById('assigned-modules-list');
+    const moduleReleasePanel = document.getElementById('module-release-panel');
+    const releaseModuleSelect = document.getElementById('release-module-select');
+    const releaseModuleBtn = document.getElementById('release-module-btn');
+    const releaseModuleHelper = document.getElementById('release-module-helper');
 
     const newPackageBtn = document.getElementById('new-package-btn');
     const newPackageModal = document.getElementById('new-package-modal');
@@ -148,6 +152,11 @@
         return Boolean(platformAccess?.canAccessModule(getModuleAccessSource(studentData), moduleId));
     }
 
+    function isModuleAssignableByManager(moduleId) {
+        if (moduleId === 'nivelamento') return false;
+        return Boolean(platformAccess?.canAccessModule(getModuleAccessSource(null), moduleId));
+    }
+
     function getModuleRequirementLabel(moduleId) {
         return platformAccess?.getModuleRequirementLabel(moduleId) || 'Pack indisponível';
     }
@@ -164,6 +173,7 @@
         if (studentOverviewCopy) {
             studentOverviewCopy.textContent = 'Selecione um aluno para ver pacote, progresso e a trilha principal. Os módulos do seu plano seguem visíveis abaixo.';
         }
+        renderModuleReleaseOptions(null, null);
     }
 
     function renderModuleCards(studentData = null, studentId = null) {
@@ -178,12 +188,13 @@
         modulesData.forEach((module) => {
             const accent = accentClasses(module.accent);
             const isComingSoon = module.isComingSoon === true;
-            const isAllowed = isComingSoon ? false : isModuleAvailableForContext(module.id, studentData);
+            const isAssignable = !isComingSoon && isModuleAssignableByManager(module.id);
+            const isAllowed = module.id === 'nivelamento' || (hasStudent ? assignedModules.includes(module.id) : isAssignable);
             const isAssigned = hasStudent && assignedModules.includes(module.id);
             const requirementLabel = getModuleRequirementLabel(module.id);
             const statusLabel = isComingSoon
                 ? 'Em breve'
-                : !isAllowed
+                : !isAssignable && module.id !== 'nivelamento'
                     ? requirementLabel
                     : hasStudent
                         ? (isAssigned ? 'Módulo liberado' : 'Disponível no plano')
@@ -195,6 +206,13 @@
                         Em breve
                     </button>
                 `
+                : hasStudent && !isAssigned && isAssignable && module.id !== 'nivelamento'
+                    ? `
+                        <button type="button" class="app-button w-full opacity-75 cursor-not-allowed" disabled aria-disabled="true">
+                            <i class="fas fa-unlock"></i>
+                            Libere para abrir
+                        </button>
+                    `
                 : !isAllowed
                     ? `
                         <button type="button" class="app-button w-full opacity-75 cursor-not-allowed" disabled aria-disabled="true">
@@ -215,7 +233,7 @@
                                 Abrir módulo
                             </a>
                         `;
-            const managementActions = hasStudent && module.id !== 'nivelamento' && !isComingSoon && isAllowed
+            const managementActions = hasStudent && module.id !== 'nivelamento' && !isComingSoon && isAssignable
                 ? `
                         <button type="button" class="app-button-secondary w-full ${isAssigned ? 'opacity-80' : ''}" data-assign-module="${module.id}" ${isAssigned ? 'disabled' : ''}>
                             <i class="fas ${isAssigned ? 'fa-check' : 'fa-plus'}"></i>
@@ -241,7 +259,7 @@
                 <div>
                     <h3 class="text-xl font-extrabold tracking-tight text-slate-950">${module.title}</h3>
                     <p class="section-copy mt-3">${module.description}</p>
-                    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 mt-4">${isAllowed ? 'Incluído no seu plano' : requirementLabel}</p>
+                    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 mt-4">${isAssignable || module.id === 'nivelamento' ? 'Incluído no seu plano' : requirementLabel}</p>
                 </div>
                 ${module.id === 'conversation' && hasStudent ? `
                     <div class="rounded-2xl border border-slate-200 bg-slate-50/80 p-4">
@@ -261,6 +279,42 @@
             modulesStatus.textContent = hasStudent
                 ? 'Módulos do aluno carregados com as restrições do plano.'
                 : 'Os módulos do seu plano estão sempre visíveis. Selecione um aluno para liberar e acompanhar.';
+        }
+    }
+
+    function renderModuleReleaseOptions(studentData = null, studentId = null) {
+        if (!moduleReleasePanel || !releaseModuleSelect || !releaseModuleBtn) return;
+
+        const hasStudent = Boolean(studentData && studentId);
+        moduleReleasePanel.classList.toggle('hidden', !hasStudent);
+        releaseModuleSelect.innerHTML = '<option value="">Selecione um módulo...</option>';
+        releaseModuleSelect.disabled = !hasStudent;
+        releaseModuleBtn.disabled = true;
+
+        if (!hasStudent) {
+            if (releaseModuleHelper) releaseModuleHelper.textContent = 'Selecione um aluno para liberar módulos sem iniciar um novo pacote.';
+            return;
+        }
+
+        const assignedModules = getAssignedModules(studentData);
+        const availableModules = modulesData.filter((module) => (
+            module.id !== 'nivelamento'
+            && module.isComingSoon !== true
+            && isModuleAssignableByManager(module.id)
+            && !assignedModules.includes(module.id)
+        ));
+
+        availableModules.forEach((module) => {
+            const option = document.createElement('option');
+            option.value = module.id;
+            option.textContent = module.title;
+            releaseModuleSelect.appendChild(option);
+        });
+
+        if (releaseModuleHelper) {
+            releaseModuleHelper.textContent = availableModules.length
+                ? 'Essa ação libera acesso ao módulo sem iniciar um novo pacote.'
+                : 'Todos os módulos disponíveis no seu plano já foram liberados para este aluno.';
         }
     }
 
@@ -557,6 +611,7 @@
             studentOverviewCopy.textContent = '';
 
             renderAssignedModules(studentData);
+            renderModuleReleaseOptions(studentData, studentId);
 
             if (modulesStatus) modulesStatus.textContent = 'Modulos carregados com sucesso.';
         } catch (error) {
@@ -574,7 +629,7 @@
             if (platformAccess && currentProfile) {
                 const accessResult = await platformAccess.assertStudentAccess(db, currentProfile, studentId);
                 if (!accessResult.ok) throw new Error('Acesso negado ao aluno selecionado.');
-                if (!isModuleAvailableForContext(moduleId, accessResult.doc.exists ? accessResult.doc.data() : null)) {
+                if (!isModuleAssignableByManager(moduleId)) {
                     throw new Error('Este modulo nao faz parte do plano atual.');
                 }
             }
@@ -603,7 +658,7 @@
             if (platformAccess && currentProfile) {
                 const accessResult = await platformAccess.assertStudentAccess(db, currentProfile, studentId);
                 if (!accessResult.ok) throw new Error('Acesso negado ao aluno selecionado.');
-                if (!isModuleAvailableForContext(moduleId, accessResult.doc.exists ? accessResult.doc.data() : null)) {
+                if (!isModuleAssignableByManager(moduleId)) {
                     throw new Error('Este modulo nao faz parte do plano atual.');
                 }
             }
@@ -739,6 +794,28 @@
             if (primaryTrigger) {
                 event.preventDefault();
                 await setPrimaryModuleForSelectedStudent(primaryTrigger.dataset.setPrimaryModule);
+            }
+        });
+    }
+
+    if (releaseModuleSelect && releaseModuleBtn) {
+        releaseModuleSelect.addEventListener('change', () => {
+            releaseModuleBtn.disabled = !releaseModuleSelect.value;
+        });
+
+        releaseModuleBtn.addEventListener('click', async () => {
+            const moduleId = releaseModuleSelect.value;
+            if (!moduleId) return;
+
+            releaseModuleBtn.disabled = true;
+            releaseModuleBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Liberando...';
+
+            try {
+                await assignModuleToSelectedStudent(moduleId);
+                releaseModuleSelect.value = '';
+            } finally {
+                releaseModuleBtn.innerHTML = '<i class="fas fa-unlock"></i> Liberar módulo';
+                releaseModuleBtn.disabled = !releaseModuleSelect.value;
             }
         });
     }
