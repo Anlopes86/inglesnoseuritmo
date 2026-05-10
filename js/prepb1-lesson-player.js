@@ -80,6 +80,25 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        const checkInputBtn = event.target.closest('.check-input-btn');
+        if (checkInputBtn) {
+            const targetId = checkInputBtn.dataset.target;
+            const input = document.getElementById(targetId);
+            const feedback = document.getElementById(`${targetId}-feedback`);
+            if (!input || !feedback) return;
+
+            const expected = normalizeAnswer(checkInputBtn.dataset.answer || '');
+            const actual = normalizeAnswer(input.value || '');
+            const isCorrect = actual === expected;
+            input.classList.toggle('border-green-500', isCorrect);
+            input.classList.toggle('border-red-500', !isCorrect);
+            feedback.textContent = isCorrect
+                ? 'Correto. Boa recuperacao da forma.'
+                : `Revise a dica: ${checkInputBtn.dataset.hint || 'compare com a resposta-modelo.'}`;
+            feedback.className = `mt-3 text-sm font-semibold ${isCorrect ? 'text-green-700' : 'text-red-700'}`;
+            return;
+        }
+
         const checklistBtn = event.target.closest('.checklist-btn');
         if (checklistBtn) {
             checklistBtn.classList.toggle('bg-teal-100');
@@ -111,10 +130,19 @@ function getLessonNumberFromPath() {
     return match ? parseInt(match[1], 10) : null;
 }
 
+function normalizeAnswer(value) {
+    return String(value)
+        .trim()
+        .toLowerCase()
+        .replace(/[.!?]+$/g, '')
+        .replace(/\s+/g, ' ');
+}
+
 function buildSlides(lesson) {
     const variant = lesson.variant || 'default';
     const builders = {
         default: buildDefaultSlides,
+        premium_bridge: buildPremiumBridgeSlides,
         advice_lab: buildAdviceLabSlides,
         compare_lab: buildCompareLabSlides,
         service_lab: buildServiceLabSlides,
@@ -131,6 +159,20 @@ function buildDefaultSlides(lesson) {
         ${buildReadingSlide(lesson)}
         ${buildComprehensionSlide(lesson)}
         ${buildResponseSlide(lesson)}
+        ${buildSpeakingSlide(lesson)}
+        ${buildCompleteSlide(lesson)}
+    `;
+}
+
+function buildPremiumBridgeSlides(lesson) {
+    return `
+        ${buildWarmupSlide(lesson)}
+        ${buildGrammarSlide(lesson)}
+        ${buildControlledPracticeSlide(lesson)}
+        ${buildReadingSlide(lesson)}
+        ${buildComprehensionSlide(lesson)}
+        ${buildTranslationSlide(lesson)}
+        ${buildPersonalQuestionsSlide(lesson)}
         ${buildSpeakingSlide(lesson)}
         ${buildCompleteSlide(lesson)}
     `;
@@ -181,6 +223,134 @@ function buildAdviceLabSlides(lesson) {
         </section>
         ${buildSpeakingSlide(lesson)}
         ${buildCompleteSlide(lesson)}
+    `;
+}
+
+function buildGrammarSlide(lesson) {
+    const grammar = lesson.grammar || {};
+    const examples = Array.isArray(grammar.examples) ? grammar.examples : [];
+
+    return `
+        <section class="slide" data-title="Grammar Review">
+            <div class="surface rounded-[2rem] p-8">
+                <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-8 items-start">
+                    <div>
+                        <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Grammar review</p>
+                        <h3 class="text-3xl font-black text-slate-900 mt-2">${grammar.title || lesson.focus}</h3>
+                        <p class="text-lg text-slate-700 mt-5 leading-8">${grammar.rule || lesson.objective}</p>
+                        <div class="mt-6 p-5 rounded-2xl bg-teal-50 border border-teal-100">
+                            <p class="text-sm uppercase tracking-[0.18em] text-teal-700 font-bold">Dica de regra</p>
+                            <p class="text-slate-700 mt-3">${grammar.source || 'Revise a regra e aplique em respostas curtas antes de produzir fala longa.'}</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        ${examples.map((example, index) => `
+                            <div class="question-card rounded-[1.5rem] p-5">
+                                <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Example ${index + 1}</p>
+                                <p class="text-xl font-bold text-slate-900 mt-3">${example[0]}</p>
+                                <p class="text-slate-600 mt-2">${example[1]}</p>
+                                <button class="speak-btn mt-4" data-speak="${escapeAttribute(example[0])}">
+                                    <i class="fas fa-volume-up"></i> Ouvir
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+        </section>
+    `;
+}
+
+function buildControlledPracticeSlide(lesson) {
+    const practice = Array.isArray(lesson.practice) ? lesson.practice : [];
+
+    return `
+        <section class="slide" data-title="Practice">
+            <div class="surface rounded-[2rem] p-8">
+                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Controlled practice</p>
+                <h3 class="text-3xl font-black text-slate-900 mt-2">Complete, check and adjust</h3>
+                <div class="grid lg:grid-cols-3 gap-6 mt-8">
+                    ${practice.map((item, index) => {
+                        const inputId = `practice-${lesson.number}-${index}`;
+                        return `
+                            <div class="response-card rounded-[1.5rem] p-6">
+                                <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Gap ${index + 1}</p>
+                                <p class="text-lg font-semibold text-slate-800 mt-3">${item.prompt}</p>
+                                <input id="${inputId}" class="response-input mt-5 min-h-0 h-14" type="text" placeholder="Type your answer">
+                                <button
+                                    type="button"
+                                    class="check-input-btn reveal-btn mt-4"
+                                    data-target="${inputId}"
+                                    data-answer="${escapeAttribute(item.answer)}"
+                                    data-hint="${escapeAttribute(item.hint || '')}"
+                                >
+                                    <i class="fas fa-check"></i> Checar
+                                </button>
+                                <button type="button" class="reveal-btn mt-4 ml-2" data-target="${inputId}-answer">
+                                    <i class="fas fa-eye"></i> Ver resposta
+                                </button>
+                                <p id="${inputId}-feedback" class="mt-3 text-sm font-semibold text-slate-500"></p>
+                                <div id="${inputId}-answer" class="model-answer hidden rounded-[1rem] p-4 mt-4">
+                                    <p class="text-sm font-bold uppercase tracking-[0.15em]">Answer</p>
+                                    <p class="mt-2">${item.answer}</p>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            </div>
+        </section>
+    `;
+}
+
+function buildTranslationSlide(lesson) {
+    const translations = Array.isArray(lesson.translations) ? lesson.translations : [];
+
+    return `
+        <section class="slide" data-title="Translation">
+            <div class="surface rounded-[2rem] p-8">
+                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Translation lab</p>
+                <h3 class="text-3xl font-black text-slate-900 mt-2">Translate and compare</h3>
+                <div class="grid lg:grid-cols-2 gap-6 mt-8">
+                    ${translations.map((item, index) => `
+                        <div class="response-card rounded-[1.5rem] p-6">
+                            <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Translation ${index + 1}</p>
+                            <p class="text-lg font-semibold text-slate-800 mt-3">${item.from}</p>
+                            <textarea class="response-input mt-5" placeholder="Write your translation here"></textarea>
+                            <button type="button" class="reveal-btn mt-4" data-target="translation-${lesson.number}-${index}">
+                                <i class="fas fa-language"></i> Comparar
+                            </button>
+                            <div id="translation-${lesson.number}-${index}" class="model-answer hidden rounded-[1rem] p-4 mt-4">
+                                <p class="text-sm font-bold uppercase tracking-[0.15em]">Suggested translation</p>
+                                <p class="mt-3">${item.to}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        </section>
+    `;
+}
+
+function buildPersonalQuestionsSlide(lesson) {
+    const questions = Array.isArray(lesson.personalQuestions) ? lesson.personalQuestions : [];
+
+    return `
+        <section class="slide" data-title="Personal Questions">
+            <div class="surface rounded-[2rem] p-8">
+                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Personal production</p>
+                <h3 class="text-3xl font-black text-slate-900 mt-2">Answer with 2-3 connected sentences</h3>
+                <div class="grid lg:grid-cols-3 gap-6 mt-8">
+                    ${questions.map((question, index) => `
+                        <div class="response-card rounded-[1.5rem] p-6">
+                            <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Question ${index + 1}</p>
+                            <p class="text-lg font-semibold text-slate-800 mt-3">${question}</p>
+                            <textarea class="response-input mt-5" placeholder="Use because, but, so, first, then or examples."></textarea>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        </section>
     `;
 }
 
@@ -385,6 +555,8 @@ function buildConversationSlide(lesson) {
 }
 
 function buildReadingSlide(lesson) {
+    const vocabulary = Array.isArray(lesson.vocabulary) ? lesson.vocabulary : [];
+
     return `
         <section class="slide" data-title="Reading">
             <div class="surface rounded-[2rem] p-8">
@@ -400,6 +572,14 @@ function buildReadingSlide(lesson) {
                 <div class="reading-block rounded-[1.5rem] p-6 md:p-8 space-y-5 text-lg leading-8">
                     ${lesson.reading.map(paragraph => `<p>${paragraph}</p>`).join('')}
                 </div>
+                ${vocabulary.length ? `
+                    <div class="mt-6 rounded-[1.5rem] bg-teal-50 border border-teal-100 p-6">
+                        <p class="text-sm uppercase tracking-[0.18em] text-teal-700 font-bold">Vocabulary support</p>
+                        <div class="flex flex-wrap gap-3 mt-4">
+                            ${vocabulary.map(item => `<span class="chip">${item[0]} = ${item[1]}</span>`).join('')}
+                        </div>
+                    </div>
+                ` : ''}
             </div>
         </section>
     `;

@@ -5,19 +5,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('lessons-grid');
 
     const lessonTitles = [
-        'Daily Life, Preferences and Longer Answers',
-        'Past Events, Experiences and Personal Stories',
-        'Plans, Invitations and Future Arrangements',
-        'Around Town, Directions and Small Problems',
-        'Food, Health and Everyday Advice',
-        'Study, Work and Communication Routines',
-        'Travel, Service Situations and Practical English',
-        'Bridge Review Project: Read, Speak and Respond'
+        'Daily Routine and Preferences',
+        'Past Stories and Experiences',
+        'Plans and Invitations',
+        'Around Town and Directions',
+        'Food, Health and Advice',
+        'Study, Work and Obligations',
+        'Travel and Service Situations',
+        'Technology and Communication',
+        'Culture, Leisure and Recommendations',
+        'Final Bridge Project'
     ];
 
     const unitLabels = [
         'Bridge 1', 'Bridge 1', 'Bridge 1', 'Bridge 1',
-        'Bridge 2', 'Bridge 2', 'Bridge 2', 'Final Review'
+        'Bridge 2', 'Bridge 2', 'Bridge 2', 'Bridge 2',
+        'Bridge 3', 'Final Review'
     ];
 
     function buildLessonCard(title, lessonNumber, state, isProfessor) {

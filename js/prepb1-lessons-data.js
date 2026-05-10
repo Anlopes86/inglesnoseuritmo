@@ -1,855 +1,570 @@
+const bridgeSources = {
+    frequency: "Adverbs of frequency normally go before the main verb: I usually study at night.",
+    past: "Past simple uses regular -ed forms, irregular past forms, and did/didn't for questions and negatives.",
+    future: "Use present continuous for fixed arrangements and going to for intentions or planned decisions.",
+    directions: "Clear directions combine action verbs, distance and landmarks: go straight for two blocks, then turn left.",
+    should: "Should is used for advice and suggestions: You should rest more.",
+    comparatives: "Short adjectives often use -er; longer adjectives use more; irregular forms include better and worse.",
+    obligations: "Have to is common for everyday obligations. Must is stronger or more formal. Don't have to means it is not necessary.",
+    requests: "Could and may make requests sound more polite than a direct can question.",
+    presentPerfect: "Present perfect uses have/has + past participle for experiences without a finished time.",
+    superlatives: "Superlatives compare one item with a whole group: the best option, the most interesting movie."
+};
+
+function makeLesson(data) {
+    return {
+        variant: "premium_bridge",
+        cefr: "Bridge A2-B1",
+        checkpoint: data.checkpoint || [
+            "Revisar a regra sem excesso de teoria.",
+            "Praticar com frases, leitura, traducao e fala."
+        ],
+        ...data
+    };
+}
+
 window.PREPB1_LESSONS = [
-    {
+    makeLesson({
         number: 1,
         unit: "Bridge 1",
-        title: "Daily Life, Preferences and Longer Answers",
-        objective: "Review A1/A2 daily life language while training fuller spoken answers and basic reading interpretation.",
-        cefr: "Can describe routine, preferences and simple reasons in connected everyday language.",
-        focus: "Present simple, adverbs of frequency and because",
-        warmup: "How does your weekday usually go, and which part of the day do you enjoy most?",
-        checkpoint: [
-            "Expand answers beyond one short sentence.",
-            "Connect routine and preference with a reason."
+        title: "Daily Routine and Preferences",
+        objective: "Revisar present simple e adverbios de frequencia para falar da rotina com respostas mais completas.",
+        focus: "Present simple + adverbs of frequency",
+        icon: "fa-calendar-check",
+        warmup: "What do you usually do in the morning? Com que frequencia voce pratica ingles fora da aula?",
+        grammar: {
+            title: "Present simple com frequencia",
+            rule: "Use o present simple para habitos, fatos e rotinas. Em frases afirmativas com he, she e it, lembre do -s no verbo. Adverbios como always, usually, often, sometimes e rarely normalmente aparecem entre o sujeito e o verbo principal.",
+            source: bridgeSources.frequency,
+            examples: [
+                ["I usually study after dinner.", "Eu geralmente estudo depois do jantar."],
+                ["She rarely checks social media in the morning.", "Ela raramente verifica redes sociais de manha."],
+                ["Do you often work from home?", "Voce costuma trabalhar de casa?"]
+            ]
+        },
+        practice: [
+            { prompt: "She ____ to the gym before work.", answer: "goes", hint: "he/she/it + verbo com -s" },
+            { prompt: "I ____ check my messages during class.", answer: "rarely", hint: "Use um adverbio de frequencia." },
+            { prompt: "____ your brother study English every week?", answer: "Does", hint: "Pergunta no present simple com he/she/it." }
         ],
-        dialogueTitle: "Talking about a normal weekday",
-        dialogue: [
-            ["Teacher", "What does your morning usually look like?"],
-            ["Student", "I usually wake up at 6:30, make coffee and check my schedule before work."],
-            ["Teacher", "Do you enjoy mornings?"],
-            ["Student", "Sometimes, yes. I like them because I feel more focused early in the day."]
-        ],
-        languageBank: [
-            "I usually...",
-            "Most days, I...",
-            "I like it because...",
-            "In the evening, I normally..."
-        ],
-        readingTitle: "Camila's weekday routine",
+        readingTitle: "A balanced weekday",
         reading: [
-            "Camila works at a small clinic and studies English three evenings a week. On weekdays, she usually wakes up before 7 a.m. and leaves home at 8. Her job starts at 9, but she likes to arrive a little early because she feels calmer when she has time to organize her desk.",
-            "At lunchtime, Camila often eats with two coworkers. They usually talk about patients, family plans or weekend ideas. After work, she does not go home immediately on Mondays, Wednesdays and Fridays. On those days, she stays in a quiet room at the clinic for her online English class.",
-            "Camila says the classes are tiring after a full day of work, but they are also motivating. She can already understand more short texts and answer simple questions with more confidence. Her next goal is to speak for longer without stopping so much."
+            "Marina studies marketing and works remotely three days a week. She usually starts her morning with coffee, a short walk and ten minutes of English practice. On busy days, she does not study for a long time, but she always reviews a few useful phrases.",
+            "In the evening, Marina often watches short videos in English because she wants to understand natural speech better. She says her routine is simple, but it works because it is realistic."
+        ],
+        vocabulary: [
+            ["remotely", "remotamente"],
+            ["busy", "ocupado"],
+            ["realistic", "realista"]
         ],
         comprehension: [
-            {
-                question: "Why does Camila like to arrive early at work?",
-                options: [
-                    "Because her coworkers always arrive late.",
-                    "Because she feels calmer when she has time to organize.",
-                    "Because she starts work before 8 a.m."
-                ],
-                correctIndex: 1,
-                feedback: "The text says she likes to arrive early because she feels calmer when she can organize her desk first."
-            },
-            {
-                question: "What does Camila do three evenings a week?",
-                options: [
-                    "She takes online English classes.",
-                    "She visits her family.",
-                    "She works extra hours at the clinic."
-                ],
-                correctIndex: 0,
-                feedback: "The reading explains that on Mondays, Wednesdays and Fridays she stays for her online English class."
-            },
-            {
-                question: "What is Camila's next goal?",
-                options: [
-                    "To change jobs soon.",
-                    "To stop studying at night.",
-                    "To speak for longer with fewer pauses."
-                ],
-                correctIndex: 2,
-                feedback: "At the end, the text says her next goal is to speak for longer without stopping so much."
-            }
+            { question: "How often does Marina review useful phrases?", options: ["Always", "Never", "Only on weekends"], correctIndex: 0, feedback: "The text says she always reviews a few useful phrases." },
+            { question: "Why does she watch short videos in English?", options: ["To understand natural speech better", "To become a marketing teacher", "To avoid work"], correctIndex: 0, feedback: "She wants to understand natural speech better." },
+            { question: "True or false: Marina's routine works because it is realistic.", options: ["True", "False"], correctIndex: 0, feedback: "The final sentence says exactly that." }
         ],
-        responseBuilder: [
-            {
-                prompt: "Compare your routine with Camila's. What is similar and what is different?",
-                tip: "Use at least one sentence with usually and one with but.",
-                placeholder: "Write 3-4 sentences comparing your routine with hers.",
-                model: "My routine is similar because I also start my day early and I like to organize my tasks before work. However, I do not study after work three times a week. I usually study at home, but I also want to speak more confidently."
-            },
-            {
-                prompt: "Why is it important to answer questions with more detail at this level?",
-                tip: "Mention communication, clarity or confidence.",
-                placeholder: "Explain your idea in 2-3 complete sentences.",
-                model: "It is important because longer answers help the other person understand me better. They also show that I can connect ideas, not only say isolated words or very short sentences."
-            }
+        translations: [
+            { from: "I usually study English at night.", to: "Eu geralmente estudo ingles a noite." },
+            { from: "She does not work from home every day.", to: "Ela nao trabalha de casa todos os dias." },
+            { from: "Com que frequencia voce le em ingles?", to: "How often do you read in English?" },
+            { from: "Meu amigo raramente acorda cedo.", to: "My friend rarely wakes up early." }
+        ],
+        personalQuestions: [
+            "What do you usually do before work or school?",
+            "Which habit helps you learn English more consistently?",
+            "How is your weekend routine different from your weekday routine?"
         ],
         speakingTask: {
-            title: "Describe your real weekday",
+            title: "Describe your real routine",
             steps: [
-                "Describe your morning, afternoon and evening.",
-                "Say one part you enjoy and one part that is difficult.",
-                "Give at least two reasons using because, so or but."
+                "Fale sobre manha, tarde e noite.",
+                "Use pelo menos tres adverbios de frequencia.",
+                "Explique uma preferencia com because."
             ],
-            model: "On weekdays, I usually start early because I like calm mornings. In the afternoon, I feel busy, but in the evening I try to study or relax for a while. This routine is not perfect, but it helps me stay organized."
+            model: "I usually start my day early because I feel more organized. I often study English at night, but I rarely practice for more than thirty minutes. This routine works for me because it is simple."
         },
-        homework: "Prepare a short spoken routine report with 6 to 8 sentences about a normal weekday and a normal weekend day.",
-        celebration: "This first bridge lesson pushes the learner to turn familiar A1 routine language into fuller, more natural A2-style communication."
-    },
-    {
+        homework: "Mantenha um mini diario por uma semana com cinco frases em ingles sobre frequencia.",
+        celebration: "Voce revisou rotina e frequencia com uma base mais organizada para respostas longas."
+    }),
+    makeLesson({
         number: 2,
         unit: "Bridge 1",
-        title: "Past Events, Experiences and Personal Stories",
-        variant: "compare_lab",
-        objective: "Review past simple and basic experience language from A2 while practicing longer retelling and reading comprehension.",
-        cefr: "Can describe past events and simple experiences in a connected sequence.",
-        focus: "Past simple, time markers and simple experience talk",
+        title: "Past Stories and Experiences",
+        objective: "Reforcar past simple, marcadores temporais e used to para contar historias curtas.",
+        focus: "Past simple + used to",
+        icon: "fa-clock-rotate-left",
         warmup: "Tell me about a day that was different from your normal routine.",
-        checkpoint: [
-            "Organize a short story in a clear order.",
-            "Use past markers like first, then, after that and finally."
+        grammar: {
+            title: "Past simple e used to",
+            rule: "Use past simple para acoes terminadas em um tempo definido. Verbos regulares recebem -ed, verbos irregulares mudam de forma, e perguntas/negativas usam did. Use used to para habitos do passado que mudaram.",
+            source: bridgeSources.past,
+            examples: [
+                ["We visited Gramado last year.", "Nos visitamos Gramado no ano passado."],
+                ["Did you enjoy the festival?", "Voce gostou do festival?"],
+                ["I used to play soccer every weekend.", "Eu costumava jogar futebol todo fim de semana."]
+            ]
+        },
+        practice: [
+            { prompt: "Last weekend, I ____ my cousins in another city.", answer: "visited", hint: "visit no passado regular." },
+            { prompt: "She ____ use public transportation when she was a child.", answer: "used to", hint: "Habito antigo." },
+            { prompt: "____ you watch the concert online yesterday?", answer: "Did", hint: "Pergunta no passado simples." }
         ],
-        dialogueTitle: "Remembering an unusual day",
-        dialogue: [
-            ["Teacher", "What happened on your most stressful day last month?"],
-            ["Student", "I missed the bus, arrived late to work and had three urgent tasks before lunch."],
-            ["Teacher", "How did the day finish?"],
-            ["Student", "It finished better than I expected because I solved the main problem before the end of the day."]
-        ],
-        languageBank: [
-            "First...",
-            "Then...",
-            "After that...",
-            "In the end..."
-        ],
-        compareTitle: "Two ways to tell a past event",
-        compareCards: [
-            {
-                label: "Version A",
-                summary: "A clearer story with order, feeling and result.",
-                points: [
-                    "Uses time markers like first, then and in the end.",
-                    "Includes one problem and how it changed.",
-                    "Feels easier for the listener to follow."
-                ]
-            },
-            {
-                label: "Version B",
-                summary: "A less clear story with missing order and fewer links.",
-                points: [
-                    "Jumps between ideas too quickly.",
-                    "Does not explain the result very well.",
-                    "Needs more connectors and better sequence."
-                ]
-            }
-        ],
-        readingTitle: "Rafael's first day in a new job",
+        readingTitle: "A festival memory",
         reading: [
-            "Last month, Rafael started a new job at a language school. He felt nervous on the first day because he did not know the team well and the school was larger than he expected. He arrived early, but he still got confused when he tried to find the teachers' room.",
-            "A receptionist helped him, and after a few minutes he finally met the coordinator. During the morning, Rafael observed two classes, took notes and introduced himself to some students. At lunchtime, he sat with other teachers and felt more relaxed because everyone was friendly and open.",
-            "In the afternoon, Rafael taught a short conversation activity for the first time. He made one small mistake with the instructions, but he corrected it quickly and the class went well. When he went home, he still felt tired, but he also felt proud because the day was difficult and successful at the same time."
+            "Last July, Pedro travelled to a winter festival with two friends. They arrived in the afternoon, walked around the city center and tried local food. At first, Pedro felt tired because the bus trip was long, but the music in the main square changed his mood.",
+            "When he was younger, Pedro used to avoid crowded events. Now he enjoys them when he goes with close friends. At the end of the night, they took photos, bought hot chocolate and promised to return the next year."
         ],
+        vocabulary: [["crowded", "cheio"], ["mood", "humor"], ["promised", "prometeram"]],
         comprehension: [
-            {
-                question: "Why was Rafael nervous at the beginning of the day?",
-                options: [
-                    "Because he had to teach a full class immediately.",
-                    "Because he did not know the team and the school was bigger than expected.",
-                    "Because the receptionist was not helpful."
-                ],
-                correctIndex: 1,
-                feedback: "The text explains that he felt nervous because he did not know the team well and the school was larger than he expected."
-            },
-            {
-                question: "What helped Rafael feel more relaxed?",
-                options: [
-                    "Lunch with the other teachers.",
-                    "Leaving work early.",
-                    "Teaching the whole afternoon alone."
-                ],
-                correctIndex: 0,
-                feedback: "At lunchtime he sat with other teachers, and that made him feel more relaxed."
-            },
-            {
-                question: "How does the text describe the end of the day?",
-                options: [
-                    "Only negative.",
-                    "Easy and calm.",
-                    "Difficult but also successful."
-                ],
-                correctIndex: 2,
-                feedback: "The final paragraph says he felt proud because the day was difficult and successful at the same time."
-            }
+            { question: "When did Pedro travel?", options: ["Last July", "Last January", "Next year"], correctIndex: 0, feedback: "The first sentence says Last July." },
+            { question: "What changed Pedro's mood?", options: ["The music", "The bus trip", "The cold weather"], correctIndex: 0, feedback: "The music in the main square changed his mood." },
+            { question: "What did Pedro use to avoid?", options: ["Crowded events", "Hot chocolate", "Close friends"], correctIndex: 0, feedback: "The reading says he used to avoid crowded events." }
         ],
-        responseBuilder: [
-            {
-                prompt: "Why is Rafael's story a good example of an A2 learner text?",
-                tip: "Think about sequence, feelings and simple detail.",
-                placeholder: "Write 3 sentences about how the story is organized.",
-                model: "It is a good A2 text because the story is clear and follows a simple order. It includes feelings, actions and details without becoming too complex. The reader can understand what happened and why it mattered."
-            },
-            {
-                prompt: "Describe a first day, first class or first experience in your own life.",
-                tip: "Use at least four time markers.",
-                placeholder: "Write a short personal story here.",
-                model: "First, I felt very nervous because everything was new. Then I met the people around me and started to feel calmer. After that, I understood what I needed to do. In the end, I was tired but happy because I learned a lot."
-            }
+        translations: [
+            { from: "We visited Gramado last year.", to: "Nos visitamos Gramado no ano passado." },
+            { from: "Did you travel with your family?", to: "Voce viajou com sua familia?" },
+            { from: "Eu costumava estudar de manha.", to: "I used to study in the morning." },
+            { from: "Ela nao gostou do hotel.", to: "She didn't like the hotel." }
         ],
-        voiceNoteTitle: "Build a short audio story step by step",
-        voiceNoteSteps: [
-            {
-                prompt: "Part 1: Start the story clearly.",
-                placeholder: "Last month / last year / one day..."
-            },
-            {
-                prompt: "Part 2: Explain the main event or problem.",
-                placeholder: "First..., then..., after that..."
-            },
-            {
-                prompt: "Part 3: Finish with the result and feeling.",
-                placeholder: "In the end..., I felt..."
-            }
+        personalQuestions: [
+            "What is one childhood memory you can describe in English?",
+            "Did you use to have a very different routine?",
+            "Tell a short story with first, then, after that and finally."
         ],
         speakingTask: {
-            title: "Tell a short personal story",
-            steps: [
-                "Choose one real event from school, work, family or travel.",
-                "Tell it in order with 5 to 7 sentences.",
-                "Include one problem, one feeling and one result."
-            ],
-            model: "Last year, I had my first online presentation. First, I prepared my notes and checked my internet connection. Then, I felt nervous when I started speaking, but after a minute I felt more comfortable. In the end, the presentation went well and I felt proud."
+            title: "Tell a mini story",
+            steps: ["Escolha um evento real.", "Use quatro marcadores temporais.", "Inclua um problema, uma emocao e um resultado."],
+            model: "Last year, I started a new course. First, I felt nervous because I did not know anyone. Then I met two classmates and felt better. In the end, the experience was useful and fun."
         },
-        homework: "Write and practice one short story called A difficult day that ended well.",
-        celebration: "This review helps the learner move from isolated past tense sentences to a clearer mini narrative."
-    },
-    {
+        homework: "Entreviste um parente sobre como era a rotina dele 20 anos atras e apresente um resumo em ingles.",
+        celebration: "Historias ficam mais claras quando voce controla tempo, ordem e detalhes simples."
+    }),
+    makeLesson({
         number: 3,
         unit: "Bridge 1",
-        title: "Plans, Invitations and Future Arrangements",
-        objective: "Review invitations, plans and future language from A2 in more realistic conversation and reading tasks.",
-        cefr: "Can discuss near-future plans, arrangements and invitations in practical contexts.",
-        focus: "Going to, present continuous and invitation language",
-        warmup: "What are you doing this week, and what are you going to do next month?",
-        checkpoint: [
-            "Distinguish a clear arrangement from a personal intention.",
-            "Accept or refuse an invitation politely."
+        title: "Plans and Invitations",
+        objective: "Revisar going to e present continuous para convites, planos e compromissos.",
+        focus: "Going to + present continuous for future",
+        icon: "fa-calendar-plus",
+        warmup: "What are you doing this weekend? What are you going to do next month?",
+        grammar: {
+            title: "Dois futuros praticos",
+            rule: "Use be going to para intencoes e planos pessoais. Use present continuous para compromissos ja marcados, normalmente com horario, pessoa ou lugar combinados.",
+            source: bridgeSources.future,
+            examples: [
+                ["I am going to study more this month.", "Eu vou estudar mais este mes."],
+                ["I am meeting Ana at 7 p.m.", "Vou encontrar a Ana as 19h."],
+                ["Are you coming to the workshop?", "Voce vem para o workshop?"]
+            ]
+        },
+        practice: [
+            { prompt: "I ____ meet my friends at 8 tonight.", answer: "am meeting", hint: "Compromisso marcado." },
+            { prompt: "We ____ start a new project soon.", answer: "are going to", hint: "Intencao/plano." },
+            { prompt: "____ you coming to class tomorrow?", answer: "Are", hint: "Present continuous para futuro." }
         ],
-        dialogueTitle: "Making and changing plans",
-        dialogue: [
-            ["Teacher", "Are you doing anything after class on Friday?"],
-            ["Student", "Yes, I am meeting a friend for dinner, but I am free earlier."],
-            ["Teacher", "Great. We are going to review speaking questions at 5. Do you want to join?"],
-            ["Student", "Yes, that sounds good. If possible, I will stay for about an hour."]
-        ],
-        languageBank: [
-            "Are you free...?",
-            "I am meeting...",
-            "I am going to...",
-            "That sounds good."
-        ],
-        readingTitle: "A message about weekend plans",
+        readingTitle: "A local tech fair",
         reading: [
-            "Hi Laura, I hope you are well. I am writing because our plans for Saturday need a small change. We are still going to visit the outdoor market in the morning, but we are meeting a little later than before. Instead of 9:00, we are meeting at 10:30 near the main entrance.",
-            "After that, we are probably going to have lunch at the new cafe across the street. I checked the menu online, and it looks simple and affordable. In the afternoon, I am helping my sister move to a new apartment, so I cannot stay out too long.",
-            "If you are still interested, please send me a message tonight. If Saturday is difficult for you now, no problem. We can reschedule and do the same plan next weekend."
+            "Two friends are planning to visit a local technology fair on Saturday. Lucas is meeting his cousin at the entrance at 10 a.m., and they are going to watch a presentation about artificial intelligence. Julia is interested too, but she is working in the morning.",
+            "They decide to meet for lunch after the first presentation. Julia is going to bring her notebook because she wants to collect ideas for a university project."
         ],
+        vocabulary: [["fair", "feira"], ["entrance", "entrada"], ["collect ideas", "coletar ideias"]],
         comprehension: [
-            {
-                question: "What changed in the original plan?",
-                options: [
-                    "The place changed completely.",
-                    "The meeting time became later.",
-                    "The lunch was cancelled."
-                ],
-                correctIndex: 1,
-                feedback: "The message says they are still going to the market, but they are meeting later than before."
-            },
-            {
-                question: "Why can't the writer stay out too long?",
-                options: [
-                    "Because there is another family plan in the afternoon.",
-                    "Because the cafe is expensive.",
-                    "Because the market closes early."
-                ],
-                correctIndex: 0,
-                feedback: "In the afternoon, the writer is helping a sister move to a new apartment."
-            },
-            {
-                question: "What solution does the writer offer if Saturday is difficult?",
-                options: [
-                    "Meet on Sunday morning.",
-                    "Cancel everything.",
-                    "Reschedule for next weekend."
-                ],
-                correctIndex: 2,
-                feedback: "The final paragraph offers to reschedule and do the same plan next weekend."
-            }
+            { question: "Where is Lucas meeting his cousin?", options: ["At the entrance", "At the restaurant", "At the university"], correctIndex: 0, feedback: "He is meeting his cousin at the entrance." },
+            { question: "Why is Julia bringing her notebook?", options: ["For a university project", "For a cooking class", "For a job interview"], correctIndex: 0, feedback: "She wants ideas for a university project." },
+            { question: "True or false: Julia is free on Saturday morning.", options: ["False", "True"], correctIndex: 0, feedback: "She is working in the morning." }
         ],
-        responseBuilder: [
-            {
-                prompt: "Write a short reply to accept the invitation but ask one question.",
-                tip: "Keep your tone friendly and practical.",
-                placeholder: "Write your reply here.",
-                model: "Hi, thanks for the update. Saturday at 10:30 works for me, and I would love to join you. Should I meet you exactly at the main entrance or near the cafe?"
-            },
-            {
-                prompt: "Write a different reply to refuse politely and suggest a new day.",
-                tip: "Use sorry, but and can we...?",
-                placeholder: "Write your reply here.",
-                model: "Hi, thanks for inviting me. I am sorry, but I already have plans on Saturday morning. Can we do the same plan next Sunday or next weekend instead?"
-            }
+        translations: [
+            { from: "Are you going to the party?", to: "Voce vai para a festa?" },
+            { from: "I am meeting my teacher tomorrow.", to: "Vou encontrar meu professor amanha." },
+            { from: "Nos vamos visitar uma feira de tecnologia.", to: "We are going to visit a technology fair." },
+            { from: "Desculpa, nao posso ir hoje.", to: "Sorry, I can't go today." }
+        ],
+        personalQuestions: [
+            "What are you doing this weekend?",
+            "Are you going to travel or study more this year?",
+            "How do you usually accept or refuse invitations politely?"
         ],
         speakingTask: {
-            title: "Plan something with a partner",
-            steps: [
-                "Invite someone to a simple activity.",
-                "Mention one arrangement and one intention.",
-                "Change one detail and solve the new plan together."
-            ],
-            model: "I am meeting a friend on Saturday, but I am going to finish early. Do you want to have coffee after that? If 5 is too early, we can meet at 6 instead."
+            title: "Invite, accept and reschedule",
+            steps: ["Convide alguem para uma atividade.", "Use going to e present continuous.", "Mude um detalhe e resolva o plano."],
+            model: "Are you free on Friday? I am meeting some friends for coffee at 6. We are going to talk about our course. If Friday is difficult, we can meet on Saturday."
         },
-        homework: "Prepare one invitation, one polite refusal and one rescheduling message for class.",
-        celebration: "The learner is now reviewing familiar future language in a more flexible, real-life way."
-    },
-    {
+        homework: "Monte um roteiro ficticio de viagem de fim de semana usando going to e present continuous.",
+        celebration: "Voce agora tem um roteiro claro para falar de planos sem misturar todas as formas de futuro."
+    }),
+    makeLesson({
         number: 4,
         unit: "Bridge 1",
-        title: "Around Town, Directions and Small Problems",
-        variant: "service_lab",
-        objective: "Review places in town, directions, requests and practical problem-solving with longer reading and response tasks.",
-        cefr: "Can ask for help, describe location and deal with simple practical problems in everyday settings.",
-        focus: "There is/are, imperatives, requests and directions",
-        warmup: "What do you usually say when you are lost or cannot find a place?",
-        checkpoint: [
-            "Use location language clearly.",
-            "Explain a problem and ask for practical help."
+        title: "Around Town and Directions",
+        objective: "Revisar there is/there are, preposicoes de lugar e instrucoes pela cidade.",
+        focus: "There is/are + directions",
+        icon: "fa-map-location-dot",
+        warmup: "How do you get to your favorite cafe, school or supermarket?",
+        grammar: {
+            title: "Localizacao e direcoes",
+            rule: "Use there is para singular e there are para plural. Para direcoes, combine verbo de acao, distancia e ponto de referencia: go straight, turn left, cross the street, next to the bank.",
+            source: bridgeSources.directions,
+            examples: [
+                ["There is a pharmacy across from the bank.", "Ha uma farmacia em frente ao banco."],
+                ["Go straight for two blocks.", "Siga reto por dois quarteiroes."],
+                ["Turn right at the second street.", "Vire a direita na segunda rua."]
+            ]
+        },
+        practice: [
+            { prompt: "There ____ two cafes near the station.", answer: "are", hint: "Plural." },
+            { prompt: "The museum is ____ from the park.", answer: "across", hint: "Em frente / do outro lado." },
+            { prompt: "____ left after the supermarket.", answer: "Turn", hint: "Verbo de direcao." }
         ],
-        dialogueTitle: "Finding the right place",
-        dialogue: [
-            ["Teacher", "Excuse me, is there a bank near here?"],
-            ["Student", "Yes, there is one on the next street, across from the pharmacy."],
-            ["Teacher", "How do I get there?"],
-            ["Student", "Go straight, turn left at the corner and walk for about two minutes."]
-        ],
-        languageBank: [
-            "Go straight",
-            "Turn left/right",
-            "next to / across from",
-            "Could you help me?"
-        ],
-        serviceMovesTitle: "Four useful moves when you are lost or confused",
-        serviceMoves: [
-            {
-                step: "Say where you want to go",
-                use: "Start with the place you need to find.",
-                example: "Excuse me, I am trying to find the language school."
-            },
-            {
-                step: "Explain the problem briefly",
-                use: "Say what is confusing or what went wrong.",
-                example: "I think I am on the wrong street."
-            },
-            {
-                step: "Ask for clear help",
-                use: "Use a direct but polite request.",
-                example: "Could you tell me how to get there, please?"
-            },
-            {
-                step: "Confirm what you heard",
-                use: "Repeat the main steps so you can check them.",
-                example: "So I cross the avenue and go straight for one block, right?"
-            }
-        ],
-        readingTitle: "A problem on the way to class",
+        readingTitle: "Lost before class",
         reading: [
-            "On Tuesday evening, Bruno was on his way to an English class in a new part of the city. He left work on time and checked the address on his phone before getting on the bus. At first, everything seemed easy. However, when he got off, he noticed that the street names around him were different from the names on the map.",
-            "Bruno walked for ten minutes and became more confused. He finally stopped near a bakery and asked a woman for help. She explained that he was close, but on the wrong side of the avenue. She told him to cross at the traffic light, go straight for one block and look for a blue building next to a gym.",
-            "Bruno followed the directions and found the building. He arrived a few minutes late, but he still entered the class. Later, he said that the situation was stressful, but useful, because he had to listen carefully, ask questions and confirm information in a real context."
+            "Nina was visiting a new city and wanted to find her English school. There were many small streets near the bus station, and her phone battery was almost dead. She asked a woman for help outside a bakery.",
+            "The woman said, 'Go straight for one block, cross the street and turn right after the pharmacy. The school is next to a small bookstore.' Nina repeated the directions, thanked her and arrived five minutes before class."
         ],
+        vocabulary: [["bakery", "padaria"], ["battery", "bateria"], ["bookstore", "livraria"]],
         comprehension: [
-            {
-                question: "Why did Bruno become confused?",
-                options: [
-                    "Because his phone battery died immediately.",
-                    "Because the street names around him did not match what he expected.",
-                    "Because the bakery was closed."
-                ],
-                correctIndex: 1,
-                feedback: "The reading says he saw different street names around him, which made him confused."
-            },
-            {
-                question: "What helped Bruno solve the problem?",
-                options: [
-                    "He asked someone nearby and followed detailed directions.",
-                    "He took another bus home.",
-                    "He called the teacher and cancelled."
-                ],
-                correctIndex: 0,
-                feedback: "He asked a woman for help, listened to her directions and then found the building."
-            },
-            {
-                question: "Why does the text call the situation useful?",
-                options: [
-                    "Because it gave Bruno real practice with listening and asking for help.",
-                    "Because Bruno decided to move to that area.",
-                    "Because the class finished early."
-                ],
-                correctIndex: 0,
-                feedback: "The last paragraph says it was useful because he had to listen carefully, ask questions and confirm information."
-            }
+            { question: "What problem did Nina have?", options: ["Her phone battery was almost dead", "She lost her passport", "The school was closed"], correctIndex: 0, feedback: "The text says her phone battery was almost dead." },
+            { question: "Where is the school?", options: ["Next to a bookstore", "Behind the bus station", "Inside a bakery"], correctIndex: 0, feedback: "The woman says the school is next to a small bookstore." },
+            { question: "Did Nina arrive late?", options: ["No", "Yes"], correctIndex: 0, feedback: "She arrived five minutes before class." }
         ],
-        responseBuilder: [
-            {
-                prompt: "What should Bruno say if he wants to confirm the directions before walking away?",
-                tip: "Use So I..., right? or Let me check...",
-                placeholder: "Write 2-3 confirmation questions.",
-                model: "Let me check if I understood. I cross at the traffic light, go straight for one block and then look for a blue building next to a gym, right?"
-            },
-            {
-                prompt: "Describe a time when you needed help to find a place or solve a small problem.",
-                tip: "Mention the place, the problem and the solution.",
-                placeholder: "Write your short description here.",
-                model: "Once I needed to find a clinic in a part of town I did not know. I got confused near the bus stop, so I asked a shop assistant for help. She explained the route clearly, and I arrived a little late but without bigger problems."
-            }
+        translations: [
+            { from: "Turn right at the second street.", to: "Vire a direita na segunda rua." },
+            { from: "There is a bank next to the pharmacy.", to: "Ha um banco ao lado da farmacia." },
+            { from: "Siga reto por dois quarteiroes.", to: "Go straight for two blocks." },
+            { from: "O cafe fica em frente ao parque.", to: "The cafe is across from the park." }
         ],
-        scriptTitle: "Build two short help-seeking scripts",
-        scriptPrompts: [
-            {
-                prompt: "Write a script for asking directions to a school, clinic or bank.",
-                tip: "Include the place and one question.",
-                placeholder: "Excuse me, I need to find...",
-                model: "Excuse me, I need to find the language school near this avenue. Could you tell me how to get there, please?"
-            },
-            {
-                prompt: "Write a script for confirming directions after someone helps you.",
-                tip: "Repeat the route in a short, clear way.",
-                placeholder: "So I go..., then...",
-                model: "So I go straight to the traffic light, turn left and look for the blue building next to the gym, right?"
-            }
+        personalQuestions: [
+            "Describe the way from your house to a place you like.",
+            "When was the last time you got lost?",
+            "Which landmarks are useful near your home?"
         ],
         speakingTask: {
-            title: "Explain a route and a problem",
-            steps: [
-                "Describe where a place is.",
-                "Give clear directions with at least three steps.",
-                "Add one problem and explain how to solve it."
-            ],
-            model: "The language school is near the library, across from a small cafe. Go straight from the station, turn right at the second corner and walk until you see the blue building. If you reach the supermarket, you went too far, so go back one block."
+            title: "Give directions from a simple map",
+            steps: ["Escolha dois lugares.", "Explique o caminho com tres comandos.", "Confirme se a pessoa entendeu."],
+            model: "Go straight for two blocks, then turn left after the bakery. Cross the street, and the cafe is next to the bookstore. Is that clear?"
         },
-        homework: "Create a mini map description of your neighborhood with one place, one route and one possible problem.",
-        celebration: "This lesson turns classic A1/A2 city vocabulary into more useful problem-solving communication."
-    },
-    {
+        homework: "Use um mapa em ingles por um dia e registre cinco palavras novas.",
+        celebration: "Direcoes ficam mais faceis quando cada passo tem acao, distancia e referencia."
+    }),
+    makeLesson({
         number: 5,
         unit: "Bridge 2",
-        title: "Food, Health and Everyday Advice",
-        objective: "Review food, habits, health vocabulary and simple advice while asking for more complete responses.",
-        cefr: "Can describe habits, basic health situations and simple advice in connected everyday language.",
-        focus: "Should, some/any, habits and health language",
-        warmup: "What do you do when you feel tired, stressed or unhealthy for a few days?",
-        checkpoint: [
-            "Describe a habit and its effect.",
-            "Give practical advice with simple reasons."
+        title: "Food, Health and Advice",
+        objective: "Revisar contaveis/incontaveis, quantificadores e should para conselhos simples.",
+        focus: "Countable/uncountable + should",
+        icon: "fa-heart-pulse",
+        warmup: "What should people do to stay healthy during a busy week?",
+        grammar: {
+            title: "Quantidade e conselho",
+            rule: "Substantivos contaveis podem ter plural: apples, bananas. Incontaveis normalmente nao recebem plural: water, advice. Use some/any, much/many, a few/a little conforme a ideia. Use should para sugestoes e conselhos.",
+            source: bridgeSources.should,
+            examples: [
+                ["You should drink more water.", "Voce deveria beber mais agua."],
+                ["There are a few apples in the kitchen.", "Ha algumas macas na cozinha."],
+                ["I don't have much time for exercise.", "Nao tenho muito tempo para exercicio."]
+            ]
+        },
+        practice: [
+            { prompt: "You ____ sleep more if you feel tired.", answer: "should", hint: "Conselho." },
+            { prompt: "How ____ water do you drink every day?", answer: "much", hint: "Water e incontavel." },
+            { prompt: "I bought a ____ bananas for breakfast.", answer: "few", hint: "Bananas e contavel plural." }
         ],
-        dialogueTitle: "Talking about small health habits",
-        dialogue: [
-            ["Teacher", "What do you usually do when you feel low on energy?"],
-            ["Student", "I try to sleep earlier, drink more water and eat something lighter."],
-            ["Teacher", "Do those changes help?"],
-            ["Student", "Yes, they usually help because my routine becomes more balanced."]
-        ],
-        languageBank: [
-            "You should...",
-            "I usually try to...",
-            "It helps because...",
-            "I need to improve..."
-        ],
-        readingTitle: "A short blog post about healthier routines",
+        readingTitle: "Small health changes",
         reading: [
-            "Many people think healthy routines need to be perfect, but that idea often causes frustration. In reality, small habits are usually easier to keep. For example, drinking more water, preparing simple meals at home and walking for twenty minutes can already make a difference in daily energy.",
-            "One office worker named Daniela decided to change only three things for one month. First, she stopped skipping breakfast. Second, she prepared lunch at home three times a week. Third, she walked after dinner when possible. She said the changes were not dramatic, but they helped her feel more active and less stressed.",
-            "Daniela also learned an important lesson: progress is easier when the plan is realistic. She did not try to change everything at once. Instead, she chose habits that fit her real schedule. Because of that, the routine became more stable and less stressful."
+            "Many people think a healthy routine needs big changes, but small actions can help a lot. You can drink more water, prepare a few simple meals at home and take short breaks during work. You should also sleep enough because tired people often make worse food choices.",
+            "A realistic plan is better than a perfect plan. If you do not have much time, start with ten minutes of walking or a little stretching after work."
         ],
+        vocabulary: [["breaks", "pausas"], ["stretching", "alongamento"], ["choices", "escolhas"]],
         comprehension: [
-            {
-                question: "What is the main idea of the text?",
-                options: [
-                    "Healthy routines only work with strict rules.",
-                    "Small realistic habits can be more effective than big perfect plans.",
-                    "People should always cook every meal at home."
-                ],
-                correctIndex: 1,
-                feedback: "The reading argues that small, realistic habits are easier to keep and can still help a lot."
-            },
-            {
-                question: "Which change was NOT one of Daniela's three habits?",
-                options: [
-                    "Stopping skipping breakfast.",
-                    "Going to the gym every day.",
-                    "Walking after dinner when possible."
-                ],
-                correctIndex: 1,
-                feedback: "She changed breakfast, lunch and walking habits. The text does not say she went to the gym every day."
-            },
-            {
-                question: "Why did Daniela's plan become more stable?",
-                options: [
-                    "Because it matched her real schedule.",
-                    "Because it was very strict.",
-                    "Because a doctor created it for her."
-                ],
-                correctIndex: 0,
-                feedback: "The final paragraph says her routine became more stable because she chose habits that fit her real schedule."
-            }
+            { question: "What kind of plan is better?", options: ["A realistic plan", "A perfect but impossible plan", "No plan"], correctIndex: 0, feedback: "The reading says a realistic plan is better than a perfect plan." },
+            { question: "Why should people sleep enough?", options: ["Because tired people often make worse food choices", "Because walking is dangerous", "Because water is expensive"], correctIndex: 0, feedback: "The text connects sleep with food choices." },
+            { question: "What can busy people start with?", options: ["Ten minutes of walking", "A long gym program", "No exercise"], correctIndex: 0, feedback: "The final sentence suggests ten minutes of walking." }
         ],
-        responseBuilder: [
-            {
-                prompt: "Give Daniela one more realistic suggestion.",
-                tip: "Use should and keep it practical.",
-                placeholder: "Write one suggestion with a reason.",
-                model: "Daniela should prepare a short shopping list before the week starts because that can make healthy meals easier to organize."
-            },
-            {
-                prompt: "Which small health habit would be easiest for you to improve now?",
-                tip: "Name the habit and explain why it is realistic.",
-                placeholder: "Write 3-4 sentences.",
-                model: "For me, the easiest habit to improve would be drinking more water during the day. It is realistic because I can keep a bottle near me at work. It is a small change, but I think it would help my energy and focus."
-            }
+        translations: [
+            { from: "You should drink more water.", to: "Voce deveria beber mais agua." },
+            { from: "I don't eat much sugar.", to: "Eu nao como muito acucar." },
+            { from: "Voce deveria descansar hoje.", to: "You should rest today." },
+            { from: "Ha algumas frutas na mesa.", to: "There are a few fruits on the table." }
+        ],
+        personalQuestions: [
+            "Which habit would you like to change?",
+            "What advice would you give to a very busy student?",
+            "Do you eat many vegetables during the week?"
         ],
         speakingTask: {
-            title: "Talk about one realistic healthy change",
-            steps: [
-                "Describe your current habit.",
-                "Say what you want to improve.",
-                "Give one realistic plan and one reason."
-            ],
-            model: "Right now, I often eat too quickly during busy days. I want to improve that because I feel better when my meals are calmer. A realistic plan is to prepare something simple at home two or three times a week."
+            title: "Doctor and patient role-play",
+            steps: ["Descreva dois sintomas.", "Peca conselho.", "Responda com should/shouldn't."],
+            model: "I have a headache and I feel tired. You should drink water, rest for a while and avoid screens tonight. You shouldn't work until very late."
         },
-        homework: "Write a simple one-week health plan with three realistic actions and short reasons.",
-        celebration: "This review keeps the language accessible while pushing the learner to justify advice and habits more clearly."
-    },
-    {
+        homework: "Crie um cardapio semanal simples em ingles com conselhos de saude.",
+        celebration: "Voce praticou conselhos uteis com linguagem de quantidade do dia a dia."
+    }),
+    makeLesson({
         number: 6,
         unit: "Bridge 2",
-        title: "Study, Work and Communication Routines",
-        variant: "compare_lab",
-        objective: "Review A2 language for study, work, ability and obligation with more detailed speaking and reading tasks.",
-        cefr: "Can describe study and work routines, obligations and preferences in familiar contexts.",
-        focus: "Can, have to, comparative ideas and work-study vocabulary",
-        warmup: "What makes a study or work routine productive for you?",
-        checkpoint: [
-            "Describe what you can do and what you have to do.",
-            "Compare routines and explain what works better."
+        title: "Study, Work and Obligations",
+        objective: "Revisar can/can't, have to, must e comparativos em contextos de estudo e trabalho.",
+        focus: "Can/can't + have to/must + comparatives",
+        icon: "fa-briefcase",
+        warmup: "Can you work or study from home? What do you have to do every week?",
+        grammar: {
+            title: "Habilidade, obrigacao e comparacao",
+            rule: "Can expressa habilidade ou permissao e usa verbo base. Have to e comum para obrigacoes cotidianas; must e mais forte/formal. Don't have to significa que nao e necessario. Comparativos usam -er, more ou formas irregulares como better/worse.",
+            source: `${bridgeSources.obligations} ${bridgeSources.comparatives}`,
+            examples: [
+                ["I can work from home twice a week.", "Eu posso trabalhar de casa duas vezes por semana."],
+                ["We have to finish the project by Friday.", "Temos que terminar o projeto ate sexta."],
+                ["This routine is more flexible than my old one.", "Esta rotina e mais flexivel que a antiga."]
+            ]
+        },
+        practice: [
+            { prompt: "My job is ____ stressful than my last job.", answer: "more", hint: "Adjetivo longo." },
+            { prompt: "Students ____ use phones during the test.", answer: "must not", hint: "Proibicao formal." },
+            { prompt: "I ____ prepare reports every Monday.", answer: "have to", hint: "Obrigacao cotidiana." }
         ],
-        dialogueTitle: "Talking about study and work balance",
-        dialogue: [
-            ["Teacher", "What do you have to do every week for work or study?"],
-            ["Student", "I have to answer messages, organize my schedule and review materials before meetings."],
-            ["Teacher", "What helps you work better?"],
-            ["Student", "A clear plan helps because I can focus more and waste less time."]
-        ],
-        languageBank: [
-            "I have to...",
-            "I can...",
-            "It works better because...",
-            "Compared with..."
-        ],
-        compareTitle: "Two ways to study and work",
-        compareCards: [
-            {
-                label: "Routine A",
-                summary: "Short daily study with more regular contact.",
-                points: [
-                    "Helps create consistency during the week.",
-                    "Feels easier to include in busy schedules.",
-                    "May be better for memory and habit-building."
-                ]
-            },
-            {
-                label: "Routine B",
-                summary: "Longer weekend sessions with fewer interruptions.",
-                points: [
-                    "Creates more time for long reading or projects.",
-                    "May feel calmer for some learners.",
-                    "Needs discipline to avoid skipping the session."
-                ]
-            }
-        ],
-        readingTitle: "Two students, two routines",
+        readingTitle: "Remote work routines",
         reading: [
-            "Marcos and Julia are both studying English while working full time, but their routines are very different. Marcos studies for forty minutes every night from Monday to Friday. He likes this plan because it is regular, and he says short daily practice helps him remember more.",
-            "Julia does not study every day. Instead, she prefers two long sessions on Saturday and Sunday. During the week, she only reviews flashcards for a few minutes when she has free time. She likes weekend study because she feels less rushed and can read longer texts more calmly.",
-            "Both routines have strong points. Marcos has more consistency during the week, while Julia has more time for deeper practice at the weekend. Their teacher says the best routine depends on the student's energy, schedule and ability to stay consistent over time."
+            "Remote work can be more flexible than office work, but it is not always easier. Some professionals can organize their own schedule, but they also have to answer messages, attend online meetings and separate work time from personal time.",
+            "Companies must create clear rules for communication. Without clear rules, people may work longer hours and feel more tired. A balanced routine is usually better than a routine with no limits."
         ],
+        vocabulary: [["schedule", "agenda"], ["attend", "participar"], ["limits", "limites"]],
         comprehension: [
-            {
-                question: "What is one advantage of Marcos's routine?",
-                options: [
-                    "He can read longer texts every night.",
-                    "He studies with more regularity.",
-                    "He has more free weekends."
-                ],
-                correctIndex: 1,
-                feedback: "The text says Marcos likes his routine because it is regular and helps him remember more."
-            },
-            {
-                question: "Why does Julia prefer weekend study?",
-                options: [
-                    "Because she feels less rushed and can read longer texts.",
-                    "Because she does not work on weekends.",
-                    "Because she dislikes flashcards."
-                ],
-                correctIndex: 0,
-                feedback: "The text explains that Julia likes weekend study because she feels less rushed and can read more calmly."
-            },
-            {
-                question: "What is the teacher's main conclusion?",
-                options: [
-                    "Daily study is always better.",
-                    "Weekend study is always more efficient.",
-                    "The best routine depends on the learner's real situation."
-                ],
-                correctIndex: 2,
-                feedback: "The teacher says the best routine depends on energy, schedule and consistency."
-            }
+            { question: "What is one advantage of remote work?", options: ["It can be more flexible", "It has no meetings", "It is always easier"], correctIndex: 0, feedback: "The text says it can be more flexible." },
+            { question: "What must companies create?", options: ["Clear communication rules", "More traffic", "Less technology"], correctIndex: 0, feedback: "Companies must create clear rules for communication." },
+            { question: "True or false: Remote work is always easier than office work.", options: ["False", "True"], correctIndex: 0, feedback: "The text says it is not always easier." }
         ],
-        responseBuilder: [
-            {
-                prompt: "Which routine is closer to yours: Marcos's or Julia's?",
-                tip: "Compare your reality with one of them.",
-                placeholder: "Write 3-4 sentences.",
-                model: "My routine is closer to Marcos's because I prefer shorter and more regular study sessions. They are easier to include during the week, even when I am busy. However, I also need some longer reading practice like Julia's plan."
-            },
-            {
-                prompt: "What do you have to do to keep your routine working?",
-                tip: "Use have to at least twice.",
-                placeholder: "Write your answer here.",
-                model: "I have to plan my week in advance, and I have to protect a small study time from other tasks. I also have to keep the routine realistic, or I stop following it after a few days."
-            }
+        translations: [
+            { from: "We have to finish the project by Friday.", to: "Temos que terminar o projeto ate sexta-feira." },
+            { from: "This routine is better than my old routine.", to: "Esta rotina e melhor que minha rotina antiga." },
+            { from: "Eu posso trabalhar de casa.", to: "I can work from home." },
+            { from: "Voce nao precisa estudar no domingo.", to: "You don't have to study on Sunday." }
         ],
-        voiceNoteTitle: "Build a short voice message about your ideal routine",
-        voiceNoteSteps: [
-            {
-                prompt: "Open your message: describe your current reality.",
-                placeholder: "Right now, my routine is..."
-            },
-            {
-                prompt: "Compare two possibilities for yourself.",
-                placeholder: "Compared with..., I think..."
-            },
-            {
-                prompt: "Close with a realistic decision.",
-                placeholder: "For me, the best plan is..."
-            }
+        personalQuestions: [
+            "Compare your study routine with a friend's routine.",
+            "What do you have to do every week?",
+            "Which is better for you: studying at home or in a classroom?"
         ],
         speakingTask: {
-            title: "Explain your ideal study routine",
-            steps: [
-                "Say what you can do well now.",
-                "Say what you still have to improve.",
-                "Explain which routine would work best for you and why."
-            ],
-            model: "I can understand more than before, but I still have to improve my speaking speed. For me, a short routine during the week works best because it fits my schedule better. I also need one longer session at the weekend for reading and review."
+            title: "Remote work mini debate",
+            steps: ["Diga uma vantagem.", "Diga uma desvantagem.", "Use pelo menos um comparativo e uma obrigacao."],
+            model: "Remote work is more flexible than office work, but people have to be disciplined. For me, it is better when the company has clear rules."
         },
-        homework: "Create your own balanced study plan for one week and bring it to class to explain it.",
-        celebration: "This lesson prepares the learner to talk about responsibilities and strategies more clearly before B1."
-    },
-    {
+        homework: "Escreva um paragrafo comparando duas profissoes e as habilidades necessarias.",
+        celebration: "Voce conectou trabalho, estudo e regras com comparacoes mais naturais."
+    }),
+    makeLesson({
         number: 7,
         unit: "Bridge 2",
-        title: "Travel, Service Situations and Practical English",
-        objective: "Review common A1/A2 travel and service language in more connected reading and speaking tasks.",
-        cefr: "Can manage simple travel, hotel and service situations with enough clarity for practical needs.",
-        focus: "Requests, past travel description and practical problem-solving",
-        warmup: "What do you usually need when you travel or stay in a new place?",
-        checkpoint: [
-            "Ask clearly for information or help.",
-            "Explain a practical problem and respond politely."
+        title: "Travel and Service Situations",
+        objective: "Praticar pedidos educados, vocabulario de viagem e solucao de problemas em servicos.",
+        focus: "Can/could/may for polite requests",
+        icon: "fa-plane-departure",
+        warmup: "Tell me about a time you had a small problem while travelling.",
+        grammar: {
+            title: "Pedidos educados",
+            rule: "Use can para pedidos simples, could para soar mais educado e may em contextos mais formais. Em servicos, explique o problema brevemente e peca uma solucao clara.",
+            source: bridgeSources.requests,
+            examples: [
+                ["Could you check my reservation, please?", "Voce poderia verificar minha reserva, por favor?"],
+                ["May I see the menu?", "Posso ver o cardapio?"],
+                ["Can you help me with this room key?", "Voce pode me ajudar com esta chave?"]
+            ]
+        },
+        practice: [
+            { prompt: "____ you give me the menu, please?", answer: "Could", hint: "Pedido educado." },
+            { prompt: "There ____ to be a problem with my reservation.", answer: "seems", hint: "There seems to be..." },
+            { prompt: "May I ____ your passport, please?", answer: "see", hint: "Verbo base depois de may." }
         ],
-        dialogueTitle: "At the hotel desk",
-        dialogue: [
-            ["Teacher", "Good evening. How can I help you?"],
-            ["Student", "Hi. I booked a room for two nights, but I think there is a problem with the reservation."],
-            ["Teacher", "Can you tell me your name, please?"],
-            ["Student", "Of course. It is under Lucas Almeida. I also wanted to ask if breakfast is included."]
-        ],
-        languageBank: [
-            "I booked...",
-            "There seems to be a problem...",
-            "Could you check...?",
-            "Is ... included?"
-        ],
-        readingTitle: "A travel diary with a small problem",
+        readingTitle: "A problem at the airport",
         reading: [
-            "Last holiday, Fernanda visited another city for a short weekend trip. She booked a simple hotel in the center because she wanted to walk to most places. On the first day, everything went well. She visited a museum, had lunch in a local restaurant and took many photos in the historic area.",
-            "The only problem happened at night. When Fernanda returned to the hotel, the key card did not open the room door. She went back to reception and explained the situation calmly. The receptionist checked the system, apologized and gave her a new card immediately.",
-            "Fernanda said the problem was small, but the situation was still useful. She had to explain what happened, answer questions and understand the solution in English. For her, travel is not only enjoyable, but also a good chance to practice practical communication."
+            "Bianca arrived at the airport early, but she noticed that her name was spelled incorrectly on the boarding pass. She felt worried, so she went to the service desk and explained the problem calmly.",
+            "The attendant checked her document, corrected the spelling and printed a new boarding pass. Bianca thanked him and learned an important lesson: in travel situations, clear and polite language can solve problems faster."
         ],
+        vocabulary: [["boarding pass", "cartao de embarque"], ["spelled", "soletrado"], ["service desk", "balcao de atendimento"]],
         comprehension: [
-            {
-                question: "Why did Fernanda choose a hotel in the center?",
-                options: [
-                    "Because it was the cheapest in the city.",
-                    "Because she wanted to walk to most places.",
-                    "Because her friends stayed there."
-                ],
-                correctIndex: 1,
-                feedback: "The reading says she chose that hotel because she wanted to walk to most places."
-            },
-            {
-                question: "What was the travel problem?",
-                options: [
-                    "She lost her passport.",
-                    "The restaurant was closed.",
-                    "Her key card did not open the room door."
-                ],
-                correctIndex: 2,
-                feedback: "The text clearly says the key card did not open the room door."
-            },
-            {
-                question: "What lesson did Fernanda take from the experience?",
-                options: [
-                    "Travel is useful for practicing real communication.",
-                    "It is better not to stay in hotels.",
-                    "She should avoid speaking English when stressed."
-                ],
-                correctIndex: 0,
-                feedback: "The final paragraph says travel is enjoyable and also a chance to practice practical communication."
-            }
+            { question: "What was wrong with Bianca's boarding pass?", options: ["Her name was spelled incorrectly", "The flight time was missing", "The seat was broken"], correctIndex: 0, feedback: "The text says her name was spelled incorrectly." },
+            { question: "How did she explain the problem?", options: ["Calmly", "Angrily", "In Portuguese only"], correctIndex: 0, feedback: "She explained the problem calmly." },
+            { question: "What did the attendant do?", options: ["Printed a new boarding pass", "Cancelled the trip", "Changed the hotel"], correctIndex: 0, feedback: "He corrected the spelling and printed a new boarding pass." }
         ],
-        responseBuilder: [
-            {
-                prompt: "What should Fernanda say at the reception desk in this situation?",
-                tip: "Be polite, clear and direct.",
-                placeholder: "Write a short service interaction.",
-                model: "Hi, sorry, but my key card is not working. I tried it twice, and the room door did not open. Could you check the reservation and help me, please?"
-            },
-            {
-                prompt: "Why are travel situations useful for an English learner?",
-                tip: "Mention real needs, confidence or quick thinking.",
-                placeholder: "Write 2-4 connected sentences.",
-                model: "Travel situations are useful because they create real communication needs. You have to ask, explain, understand and solve small problems. That can build confidence faster than only studying isolated sentences."
-            }
+        translations: [
+            { from: "Could you check my reservation, please?", to: "Voce poderia verificar minha reserva, por favor?" },
+            { from: "There is a problem with my room.", to: "Ha um problema com meu quarto." },
+            { from: "Posso ver o cardapio?", to: "May I see the menu?" },
+            { from: "Eu perdi meu documento no aeroporto.", to: "I lost my document at the airport." }
+        ],
+        personalQuestions: [
+            "Where would you like to travel and why?",
+            "What service situation makes you nervous in English?",
+            "How can polite language help during a problem?"
         ],
         speakingTask: {
-            title: "Role-play a travel problem",
-            steps: [
-                "Choose a practical problem in a hotel, airport, bus station or restaurant.",
-                "Explain the problem politely.",
-                "Ask for a solution and respond to the answer."
-            ],
-            model: "Excuse me, I think there is a mistake with my reservation. I booked a single room for two nights, but I cannot find my name here. Could you check again, please? If necessary, I can show the confirmation on my phone."
+            title: "Hotel, airport or restaurant role-play",
+            steps: ["Escolha uma situacao de servico.", "Explique o problema em duas frases.", "Faca um pedido educado com could ou may."],
+            model: "Excuse me, there seems to be a problem with my reservation. I booked a room for two nights, but my name is not here. Could you check again, please?"
         },
-        homework: "Write one short role-play for a travel or service problem and practice both sides of the conversation.",
-        celebration: "This bridge lesson gives the learner a practical review of real-world English before B1 demands become more varied."
-    },
-    {
+        homework: "Pesquise um destino turistico e prepare um mini guia em ingles.",
+        celebration: "Voce praticou ingles pratico para resolver situacoes reais com mais calma."
+    }),
+    makeLesson({
         number: 8,
-        unit: "Final Review",
-        title: "Bridge Review Project: Read, Speak and Respond",
-        variant: "final_bridge",
-        objective: "Integrate A1/A2 language in a final bridge lesson with reading, interpretation and connected speaking before B1.",
-        cefr: "Can combine familiar language from A1/A2 to read, respond and speak with growing control.",
-        focus: "Integrated review of routine, past, plans, opinions and practical language",
-        warmup: "What can you already do in English that was difficult for you at the beginning of A1 or A2?",
-        checkpoint: [
-            "Move between past, present and future more naturally.",
-            "Support your answers with simple detail and examples."
+        unit: "Bridge 2",
+        title: "Technology and Communication",
+        objective: "Introduzir a diferenca entre present perfect para experiencias e past simple para eventos finalizados.",
+        focus: "Present perfect vs past simple",
+        icon: "fa-mobile-screen-button",
+        warmup: "How has technology changed your daily communication?",
+        grammar: {
+            title: "Experiencia x tempo finalizado",
+            rule: "Use present perfect com have/has + past participle para experiencias sem tempo definido ou com efeito no presente. Use past simple quando o tempo esta claro e terminado, como yesterday, last week ou in 2024.",
+            source: bridgeSources.presentPerfect,
+            examples: [
+                ["I have never used virtual reality.", "Eu nunca usei realidade virtual."],
+                ["I downloaded the app yesterday.", "Eu baixei o aplicativo ontem."],
+                ["She has changed her phone twice this year.", "Ela trocou de celular duas vezes este ano."]
+            ]
+        },
+        practice: [
+            { prompt: "I ____ never used a smartwatch.", answer: "have", hint: "Present perfect." },
+            { prompt: "She ____ the app yesterday.", answer: "downloaded", hint: "Yesterday pede past simple." },
+            { prompt: "Have you ever ____ a video call in English?", answer: "had", hint: "Past participle de have." }
         ],
-        dialogueTitle: "Looking back before B1",
-        dialogue: [
-            ["Teacher", "How has your English changed from A1 to now?"],
-            ["Student", "Now I can read more, answer with more detail and talk about my plans and experiences more clearly."],
-            ["Teacher", "What still feels challenging?"],
-            ["Student", "Longer speaking still feels hard sometimes, but I am much more confident than before."]
-        ],
-        languageBank: [
-            "Before, I...",
-            "Now, I can...",
-            "My next step is...",
-            "One example is..."
-        ],
-        checkTitle: "Mark the things that feel more possible now",
-        canDoChecklist: [
-            "I can answer personal and routine questions with more than one short sentence.",
-            "I can describe a past event in order with simple details.",
-            "I can explain plans or invitations with more clarity.",
-            "I can understand a longer A2-level text and find the main idea.",
-            "I can ask for help and explain simple problems in real situations.",
-            "I can speak for a little longer without stopping after every sentence."
-        ],
-        readingTitle: "Ana's path from beginner to bridge review",
+        readingTitle: "From email to instant messages",
         reading: [
-            "When Ana started studying English, she could only answer very basic personal questions. She could say her name, job and a few daily activities, but she often stopped after one short sentence. During A1, she learned how to describe routines, preferences, family members, places and simple needs.",
-            "In A2, Ana became more flexible. She started to talk about past events, future plans, comparisons, travel situations and short opinions. She still made mistakes, of course, but her communication became more useful. Instead of saying only small isolated answers, she began to connect ideas with because, but, then, so and other simple linkers.",
-            "Now Ana is doing a review module before B1. Her teacher says this step is important because B1 asks for more independence in reading and speaking. The goal is not to add a lot of difficult grammar immediately. The goal is to make old language stronger, so longer answers and longer texts become less stressful."
+            "Communication has changed quickly in the last twenty years. Many people have stopped writing long emails for simple daily conversations. Instead, they use instant messages, voice notes and short videos.",
+            "Last month, a small company tested a new communication app with its team. The workers liked the app because it organized tasks and messages in one place. However, some people said they still preferred email for formal decisions."
         ],
+        vocabulary: [["voice notes", "audios curtos"], ["tasks", "tarefas"], ["formal decisions", "decisoes formais"]],
         comprehension: [
-            {
-                question: "What was Ana able to do at the beginning?",
-                options: [
-                    "Discuss abstract topics in detail.",
-                    "Answer only very basic personal questions.",
-                    "Read long articles with confidence."
-                ],
-                correctIndex: 1,
-                feedback: "The first paragraph says she could only answer basic personal questions at the start."
-            },
-            {
-                question: "What changed during A2?",
-                options: [
-                    "She stopped making mistakes completely.",
-                    "She became more flexible and could connect ideas better.",
-                    "She focused only on grammar exercises."
-                ],
-                correctIndex: 1,
-                feedback: "The second paragraph explains that in A2 she became more flexible and started connecting ideas with simple linkers."
-            },
-            {
-                question: "What is the purpose of this bridge module?",
-                options: [
-                    "To replace B1 entirely.",
-                    "To add many difficult grammar rules immediately.",
-                    "To strengthen known language before the learner enters B1."
-                ],
-                correctIndex: 2,
-                feedback: "The final paragraph says the goal is to make old language stronger before B1."
-            }
+            { question: "What has changed in daily communication?", options: ["People use more instant messages and voice notes", "People stopped using phones", "Email disappeared completely"], correctIndex: 0, feedback: "The text mentions instant messages, voice notes and short videos." },
+            { question: "When did the company test the app?", options: ["Last month", "Tomorrow", "In 2010"], correctIndex: 0, feedback: "Last month is in the second paragraph." },
+            { question: "Why did workers like the app?", options: ["It organized tasks and messages", "It blocked all emails", "It translated everything"], correctIndex: 0, feedback: "The app organized tasks and messages in one place." }
         ],
-        responseBuilder: [
-            {
-                prompt: "Why is a bridge module useful before B1?",
-                tip: "Mention confidence, longer answers, reading or stability.",
-                placeholder: "Write your reflection here.",
-                model: "A bridge module is useful because it strengthens what the learner already knows before the next level becomes more demanding. It helps with confidence, longer answers and reading comprehension, so the transition to B1 feels more natural."
-            },
-            {
-                prompt: "Describe your own progress from beginner until now.",
-                tip: "Use before, now and next.",
-                placeholder: "Write 4-6 connected sentences.",
-                model: "Before, I could answer only very short questions and I needed more help. Now, I can talk more about my routine, my plans and some past experiences with better organization. I still want to improve my speaking fluency, and my next step is to give longer answers with more confidence."
-            }
+        translations: [
+            { from: "I have never used virtual reality.", to: "Eu nunca usei realidade virtual." },
+            { from: "I downloaded the app yesterday.", to: "Eu baixei o aplicativo ontem." },
+            { from: "Voce ja fez uma chamada de video em ingles?", to: "Have you ever had a video call in English?" },
+            { from: "Ela comprou um celular novo no mes passado.", to: "She bought a new phone last month." }
         ],
-        finalBuildTitle: "Prepare your final bridge talk in three parts",
-        finalBuildSteps: [
-            {
-                prompt: "Part 1: Before",
-                tip: "Say what was difficult for you at the beginning.",
-                placeholder: "At the beginning, I..."
-            },
-            {
-                prompt: "Part 2: Now",
-                tip: "Give 2 or 3 examples of what you can do now.",
-                placeholder: "Now, I can..."
-            },
-            {
-                prompt: "Part 3: Next",
-                tip: "Say what you want to improve before B1.",
-                placeholder: "Before B1, I want to..."
-            }
+        personalQuestions: [
+            "Which app has helped you study or work better?",
+            "When did you last turn off your phone for a long time?",
+            "Have you ever used AI to practice English?"
         ],
         speakingTask: {
-            title: "Mini final bridge presentation",
-            steps: [
-                "Say what you could do before.",
-                "Say what you can do now with examples.",
-                "Say what you want to improve before entering B1."
-            ],
-            model: "At the beginning, I could answer only simple personal questions. Now, I can read short texts, describe my routine, talk about past events and explain some plans more clearly. Before B1, I want to become more confident with longer speaking answers and reading interpretation."
+            title: "Technology opinion talk",
+            steps: ["Diga uma experiencia com tecnologia usando present perfect.", "Diga um evento especifico usando past simple.", "Explique uma opiniao com because."],
+            model: "I have used AI tools to practice English, and they have helped me with vocabulary. Last week, I used one app to correct a short text. I think technology is useful because it gives fast feedback."
         },
-        homework: "Prepare a one-minute transition talk called From A2 to B1 and bring it ready to present.",
-        celebration: "This final bridge lesson closes the gap between review and progression, giving the learner a calmer and more coherent entry into B1."
-    }
+        homework: "Escreva um post curto em ingles sobre uma inovacao tecnologica que voce admira.",
+        celebration: "Voce deu o primeiro passo para diferenciar experiencias gerais de eventos terminados."
+    }),
+    makeLesson({
+        number: 9,
+        unit: "Bridge 3",
+        title: "Culture, Leisure and Recommendations",
+        objective: "Praticar comparativos e superlativos para falar de filmes, eventos, hobbies e recomendacoes.",
+        focus: "Comparatives + superlatives",
+        icon: "fa-masks-theater",
+        warmup: "What is the most interesting movie, concert or event you have experienced recently?",
+        grammar: {
+            title: "Comparar uma coisa ou o grupo todo",
+            rule: "Use comparativos para comparar duas coisas: cheaper, more interesting, better. Use superlativos para destacar uma coisa dentro de um grupo: the cheapest, the most interesting, the best.",
+            source: `${bridgeSources.comparatives} ${bridgeSources.superlatives}`,
+            examples: [
+                ["This series is more exciting than the book.", "Esta serie e mais empolgante que o livro."],
+                ["It was the best concert of the year.", "Foi o melhor show do ano."],
+                ["The theater is smaller but more comfortable.", "O teatro e menor, mas mais confortavel."]
+            ]
+        },
+        practice: [
+            { prompt: "This is the ____ movie I have ever seen. (funny)", answer: "funniest", hint: "Superlativo de funny." },
+            { prompt: "The museum is ____ interesting than the mall.", answer: "more", hint: "Comparativo com adjetivo longo." },
+            { prompt: "That was the ____ show of the festival. (good)", answer: "best", hint: "Irregular." }
+        ],
+        readingTitle: "A short movie review",
+        reading: [
+            "I watched a Brazilian documentary last weekend, and it was one of the most inspiring films I have seen this year. The story was slower than an action movie, but it was more emotional and more realistic.",
+            "The best part was the interview with a young musician who used art to transform his neighborhood. I would recommend the film to people who enjoy culture, music and real stories."
+        ],
+        vocabulary: [["documentary", "documentario"], ["inspiring", "inspirador"], ["neighborhood", "bairro"]],
+        comprehension: [
+            { question: "What kind of film did the writer watch?", options: ["A documentary", "An action movie", "A comedy series"], correctIndex: 0, feedback: "The first sentence says Brazilian documentary." },
+            { question: "How was it compared with an action movie?", options: ["Slower but more emotional", "Faster and cheaper", "Shorter and boring"], correctIndex: 0, feedback: "The text says slower, but more emotional and realistic." },
+            { question: "Who was in the best part?", options: ["A young musician", "A famous chef", "A soccer player"], correctIndex: 0, feedback: "The best part was the interview with a young musician." }
+        ],
+        translations: [
+            { from: "This book is more interesting than the movie.", to: "Este livro e mais interessante que o filme." },
+            { from: "It was the best concert of the year.", to: "Foi o melhor show do ano." },
+            { from: "O teatro e menor que o cinema.", to: "The theater is smaller than the cinema." },
+            { from: "Esta e a serie mais divertida que eu ja vi.", to: "This is the funniest series I have ever seen." }
+        ],
+        personalQuestions: [
+            "What is the best series you have watched recently?",
+            "Compare two hobbies you enjoy.",
+            "Compared with last year, how has your English improved?"
+        ],
+        speakingTask: {
+            title: "Recommend something cultural",
+            steps: ["Escolha filme, serie, livro, musica ou evento.", "Use dois comparativos.", "Use um superlativo e explique sua recomendacao."],
+            model: "I recommend this series because it is more realistic than many dramas and more emotional than I expected. For me, it is the best series I have watched this year."
+        },
+        homework: "Crie uma lista de tres recomendacoes culturais em ingles e justifique cada uma.",
+        celebration: "Voce agora consegue recomendar e comparar experiencias com mais precisao."
+    }),
+    makeLesson({
+        number: 10,
+        unit: "Final Review",
+        title: "Final Bridge Project",
+        objective: "Consolidar o modulo com revisao integrada, leitura, escrita, fala e autoavaliacao.",
+        focus: "Integrated A2-B1 review",
+        icon: "fa-trophy",
+        warmup: "What can you do in English now that was difficult at the beginning of A1 or A2?",
+        grammar: {
+            title: "Revisao rapida antes do B1",
+            rule: "Nesta aula, o foco e combinar o que voce revisou: rotina, passado, planos, direcoes, conselhos, obrigacoes, comparacoes, pedidos e experiencias. A meta nao e perfeicao; e comunicacao mais independente.",
+            source: "Integrated review based on the grammar boxes from lessons 1-9.",
+            examples: [
+                ["Before, I could answer only short questions.", "Antes, eu conseguia responder apenas perguntas curtas."],
+                ["Now, I can explain plans and past experiences.", "Agora, consigo explicar planos e experiencias passadas."],
+                ["My next goal is to speak more naturally.", "Minha proxima meta e falar com mais naturalidade."]
+            ]
+        },
+        practice: [
+            { prompt: "Before A2, I ____ to speak very slowly.", answer: "used to", hint: "Habito antigo." },
+            { prompt: "Next month, I ____ going to practice speaking more.", answer: "am", hint: "Going to precisa do verbo be." },
+            { prompt: "B1 texts are usually ____ challenging than A2 texts.", answer: "more", hint: "Comparativo." }
+        ],
+        readingTitle: "Ana's bridge to B1",
+        reading: [
+            "When Ana started English, she could answer basic personal questions, but she usually stopped after one sentence. During A1 and A2, she learned to describe routines, talk about past events, make plans, ask for help and understand short texts.",
+            "Now she is preparing for B1. Last week, she recorded a two-minute audio about her progress. She said that speaking is still more challenging than reading, but she has become more confident. Her next goal is to give longer answers with examples and clearer opinions.",
+            "Ana knows she will make mistakes, but she also knows that mistakes are part of communication. The bridge module helped her review old language and use it in more connected ways."
+        ],
+        vocabulary: [["progress", "progresso"], ["challenging", "desafiador"], ["connected", "conectado"]],
+        comprehension: [
+            { question: "What could Ana do at the beginning?", options: ["Answer basic personal questions", "Debate complex topics", "Read academic articles"], correctIndex: 0, feedback: "The first sentence says she could answer basic personal questions." },
+            { question: "What did she record last week?", options: ["A two-minute audio", "A movie review", "A travel complaint"], correctIndex: 0, feedback: "The second paragraph mentions a two-minute audio." },
+            { question: "What is her next goal?", options: ["Give longer answers with examples", "Stop reading", "Avoid opinions"], correctIndex: 0, feedback: "Her next goal is to give longer answers with examples and clearer opinions." }
+        ],
+        translations: [
+            { from: "Now I can talk about past experiences.", to: "Agora eu consigo falar sobre experiencias passadas." },
+            { from: "My next goal is to speak more naturally.", to: "Minha proxima meta e falar com mais naturalidade." },
+            { from: "Eu ja usei ingles em uma viagem.", to: "I have used English on a trip." },
+            { from: "Antes, eu costumava responder com frases muito curtas.", to: "Before, I used to answer with very short sentences." }
+        ],
+        personalQuestions: [
+            "What do you still find challenging?",
+            "Which lesson helped you the most?",
+            "What are your plans for continuing English after this module?"
+        ],
+        speakingTask: {
+            title: "Final 2-3 minute presentation",
+            steps: [
+                "Parte 1: diga o que era dificil antes.",
+                "Parte 2: diga o que voce consegue fazer agora com exemplos.",
+                "Parte 3: compare seu ingles atual com o anterior e defina metas para B1."
+            ],
+            model: "Before, I used to answer with very short sentences. Now, I can talk about my routine, past experiences and plans with more detail. Speaking is still more difficult than reading, but I am more confident. My next goal is to give clearer opinions in B1."
+        },
+        homework: "Grave um audio ou video de 2 a 3 minutos sobre sua jornada no ingles e escreva uma autoavaliacao curta.",
+        celebration: "Parabens: voce fechou a ponte A2-B1 com revisao, producao e mais prontidao para o B1."
+    })
 ];
