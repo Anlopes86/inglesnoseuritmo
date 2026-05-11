@@ -568,3 +568,543 @@ window.PREPB1_LESSONS = [
         celebration: "Parabens: voce fechou a ponte A2-B1 com revisao, producao e mais prontidao para o B1."
     })
 ];
+
+const bridgeEnhancements = {
+    1: {
+        grammar: {
+            points: [
+                "Na afirmativa, he/she/it recebe -s ou -es: she works, he watches.",
+                "Na negativa e na pergunta, use do/does e mantenha o verbo principal na forma base: Does she work? She doesn't work.",
+                "Adverbios de frequencia normalmente aparecem antes do verbo principal, mas depois do verbo be: I usually study. She is always busy."
+            ],
+            table: [
+                ["Affirmative", "I work / She works"],
+                ["Negative", "I don't work / She doesn't work"],
+                ["Question", "Do you work? / Does she work?"],
+                ["Frequency", "always = sempre; usually = geralmente; often = frequentemente; sometimes = as vezes; rarely = raramente; never = nunca"]
+            ]
+        },
+        activities: [
+            {
+                type: "sequence",
+                title: "Order a morning routine",
+                instruction: "Coloque as acoes em uma ordem logica antes de contar a rotina em voz alta.",
+                items: ["wake up", "make coffee", "check the schedule", "go to work", "study English at night"],
+                model: "I usually wake up, make coffee, check my schedule, go to work and study English at night."
+            },
+            {
+                type: "match",
+                title: "Frequency memory cards",
+                instruction: "Combine o adverbio em ingles com a ideia em portugues.",
+                items: [
+                    { left: "always", right: "sempre" },
+                    { left: "usually", right: "geralmente" },
+                    { left: "rarely", right: "raramente" },
+                    { left: "never", right: "nunca" }
+                ]
+            }
+        ],
+        secondaryReading: {
+            title: "Another routine: night study",
+            paragraphs: [
+                "Daniel works during the day, so he usually studies English after 10 p.m. He does not study for a long time, but he often listens to short dialogues before sleeping.",
+                "He says night study is quiet and practical, but sometimes he feels too tired to concentrate."
+            ],
+            tasks: [
+                "Find two adverbs of frequency in the text.",
+                "Underline or copy two present simple verbs.",
+                "Do you prefer morning study or night study? Why?"
+            ]
+        },
+        translations: [
+            { from: "Does your sister usually work on Saturdays?", to: "Sua irma geralmente trabalha aos sabados?" },
+            { from: "I don't often study before breakfast.", to: "Eu nao estudo com frequencia antes do cafe da manha." },
+            { from: "Com que frequencia seu professor envia tarefas?", to: "How often does your teacher send homework?" },
+            { from: "Eles nunca chegam atrasados para a aula.", to: "They never arrive late for class." }
+        ]
+    },
+    2: {
+        grammar: {
+            points: [
+                "Verbos regulares recebem -ed, mas alguns mudam a grafia: study -> studied, stop -> stopped.",
+                "Perguntas e negativas usam did/didn't; o verbo principal volta para a forma base: Did you go? I didn't go.",
+                "Used to descreve habitos ou estados do passado que nao sao mais verdadeiros: I used to play soccer."
+            ],
+            table: [
+                ["Regular", "visit -> visited; travel -> travelled; study -> studied"],
+                ["Irregular", "go -> went; have -> had; buy -> bought; feel -> felt"],
+                ["Question", "Did you enjoy the trip?"],
+                ["Used to", "I used to wake up late. / I didn't use to study at night."]
+            ]
+        },
+        activities: [
+            {
+                type: "match",
+                title: "Irregular verb quick match",
+                instruction: "Associe o infinitivo ao passado.",
+                items: [
+                    { left: "go", right: "went" },
+                    { left: "have", right: "had" },
+                    { left: "buy", right: "bought" },
+                    { left: "feel", right: "felt" }
+                ]
+            },
+            {
+                type: "sequence",
+                title: "Timeline builder",
+                instruction: "Use os marcadores para organizar uma historia curta.",
+                items: ["first", "then", "after that", "finally"],
+                model: "First, I arrived at the festival. Then, I met my friends. After that, we watched a concert. Finally, we went home tired but happy."
+            }
+        ],
+        secondaryReading: {
+            title: "A different kind of trip",
+            paragraphs: [
+                "When Laura was a teenager, she used to travel only with her family. Last year, she travelled with friends for the first time. They planned everything together and learned how to solve small problems.",
+                "The trip was not perfect, but Laura felt more independent after it."
+            ],
+            tasks: [
+                "Why did Laura feel more independent?",
+                "Find one sentence with used to.",
+                "Write one question you could ask Laura about the trip."
+            ]
+        },
+        translations: [
+            { from: "I didn't use to like crowded places.", to: "Eu nao costumava gostar de lugares cheios." },
+            { from: "Did they buy tickets last month?", to: "Eles compraram ingressos no mes passado?" },
+            { from: "No ano passado, ela viajou sozinha pela primeira vez.", to: "Last year, she travelled alone for the first time." },
+            { from: "Nos costumavamos visitar nossos avos aos domingos.", to: "We used to visit our grandparents on Sundays." }
+        ]
+    },
+    3: {
+        grammar: {
+            points: [
+                "Present continuous para futuro combina melhor com arranjos ja marcados: hora, lugar ou pessoa definida.",
+                "Going to destaca intencao, plano ou decisao ja pensada, mesmo sem compromisso fixo.",
+                "Will pode aparecer em decisoes espontaneas e previsoes; o modulo aprofunda isso no B1."
+            ],
+            table: [
+                ["Arrangement", "I'm meeting Carol at 7 p.m."],
+                ["Intention", "I'm going to study more this month."],
+                ["Invitation", "Are you coming to the workshop?"],
+                ["Polite refusal", "Sorry, I can't. I'm working that morning."]
+            ]
+        },
+        activities: [
+            {
+                type: "scenario",
+                title: "Accept, refuse or reschedule",
+                instruction: "Complete um mini-dialogo para cada situacao.",
+                items: [
+                    { title: "Accept", detail: "Your friend invites you to a cafe on Friday." },
+                    { title: "Refuse", detail: "You already have an appointment." },
+                    { title: "Reschedule", detail: "Suggest Saturday afternoon." }
+                ],
+                prompt: "Write three short replies.",
+                model: "I'd love to. I'm free on Friday. / Sorry, I can't. I'm seeing my dentist. / Can we meet on Saturday afternoon instead?"
+            },
+            {
+                type: "transform",
+                title: "Future form transformer",
+                instruction: "Decida se a frase soa melhor como arranjo marcado ou intencao.",
+                items: [
+                    { from: "I'm going to meet Ana at 8 p.m.", task: "Rewrite as a fixed arrangement." },
+                    { from: "I'm taking an English test someday.", task: "Rewrite as an intention." }
+                ],
+                model: "I'm meeting Ana at 8 p.m. / I'm going to take an English test."
+            }
+        ],
+        secondaryReading: {
+            title: "Planning a surprise party",
+            paragraphs: [
+                "Four friends are organizing a surprise party for Leo. They are meeting at Julia's apartment on Friday night to prepare the decorations. They are going to buy snacks after work because nobody has time during the week.",
+                "If Leo asks questions, they are going to say they are studying together."
+            ],
+            tasks: [
+                "Which actions are fixed arrangements?",
+                "Which actions are intentions or plans?",
+                "Write one invitation for this party."
+            ]
+        }
+    },
+    4: {
+        grammar: {
+            points: [
+                "Use there is com um lugar ou item singular; use there are com itens no plural.",
+                "Preposicoes ajudam a localizar: next to, across from, between, in front of, behind.",
+                "Direcoes claras devem ter comando, distancia e referencia visual."
+            ],
+            table: [
+                ["next to", "ao lado de"],
+                ["across from", "em frente / do outro lado"],
+                ["between", "entre dois lugares"],
+                ["behind", "atras de"],
+                ["in front of", "na frente de"]
+            ]
+        },
+        activities: [
+            {
+                type: "classify",
+                title: "Preposition map labels",
+                instruction: "Imagine um mapa simples e posicione mentalmente cada etiqueta.",
+                items: [
+                    { term: "The bakery is next to the bank.", category: "side by side" },
+                    { term: "The school is across from the park.", category: "opposite side" },
+                    { term: "The cafe is between the pharmacy and the bookstore.", category: "middle" }
+                ]
+            },
+            {
+                type: "scenario",
+                title: "Lost tourist dialogue",
+                instruction: "Monte uma resposta completa para um turista perdido.",
+                items: [
+                    { title: "Need", detail: "The tourist wants the subway station." },
+                    { title: "Route", detail: "Two blocks straight, left after the bakery." }
+                ],
+                prompt: "Write directions with at least three direction verbs.",
+                model: "Go straight for two blocks, turn left after the bakery and cross the street. The subway station is across from the pharmacy."
+            }
+        ],
+        secondaryReading: {
+            title: "A second wrong turn",
+            paragraphs: [
+                "Mateus left the bus station and turned right too early. He walked behind a supermarket and realized the street name was wrong. Instead of panicking, he asked a shop assistant for help.",
+                "The assistant showed him that the museum was between the library and the city hall, not behind the supermarket."
+            ],
+            tasks: [
+                "What mistake did Mateus make?",
+                "What could he have done before walking?",
+                "Describe the museum location in your own words."
+            ]
+        }
+    },
+    5: {
+        grammar: {
+            points: [
+                "Much combina com incontaveis; many combina com contaveis no plural.",
+                "Much/many aparecem muito em perguntas e negativas. Em afirmativas, a lot of/lots of soa mais natural.",
+                "A few significa algumas unidades; few sugere poucas. A little significa um pouco; little sugere pouco ou insuficiente.",
+                "Depois de should/shouldn't, use o verbo base: should drink, shouldn't skip."
+            ],
+            table: [
+                ["Countable", "many apples, a few eggs, few vegetables"],
+                ["Uncountable", "much water, a little sugar, little time"],
+                ["Affirmative", "I drink a lot of water."],
+                ["Question/negative", "How much water? / I don't eat many snacks."]
+            ]
+        },
+        activities: [
+            {
+                type: "classify",
+                title: "Countable or uncountable",
+                instruction: "Classifique os itens antes de escolher o quantificador.",
+                items: [
+                    { term: "apple", category: "countable" },
+                    { term: "rice", category: "uncountable" },
+                    { term: "advice", category: "uncountable" },
+                    { term: "egg", category: "countable" }
+                ]
+            },
+            {
+                type: "scenario",
+                title: "Advice to a busy friend",
+                instruction: "Seu amigo esta cansado, come mal e nao se exercita.",
+                items: [
+                    { title: "Problem 1", detail: "headache" },
+                    { title: "Problem 2", detail: "too much screen time" },
+                    { title: "Problem 3", detail: "not many healthy meals" }
+                ],
+                prompt: "Write three pieces of advice with should/shouldn't.",
+                model: "You should drink more water. You shouldn't use your phone before bed. You should prepare a few simple meals at home."
+            }
+        ],
+        secondaryReading: {
+            title: "A simple recipe note",
+            paragraphs: [
+                "For a quick breakfast, mix two bananas, a little milk, some oats and a few strawberries. You do not need much sugar because the fruit is already sweet.",
+                "This recipe is simple, but it gives you a lot of energy before work or class."
+            ],
+            tasks: [
+                "Find two countable nouns.",
+                "Find two uncountable nouns.",
+                "Write your own healthy recipe with quantities."
+            ]
+        }
+    },
+    6: {
+        grammar: {
+            points: [
+                "Must often shows a strong obligation from the speaker or from official rules: You must wear an ID badge.",
+                "Have to often points to an external obligation or routine requirement: I have to send reports every Friday.",
+                "Mustn't means prohibition. Don't have to means it is optional or not necessary.",
+                "Comparatives: short adjectives use -er; long adjectives use more; good/bad are irregular."
+            ],
+            table: [
+                ["Ability/permission", "I can work from home."],
+                ["External obligation", "I have to follow company rules."],
+                ["Strong rule", "Visitors must sign in."],
+                ["Prohibition", "You mustn't share passwords."],
+                ["Not necessary", "You don't have to work on Sunday."]
+            ]
+        },
+        activities: [
+            {
+                type: "classify",
+                title: "Obligation sorter",
+                instruction: "Classifique a funcao de cada frase.",
+                items: [
+                    { term: "You mustn't use your phone during the exam.", category: "prohibition" },
+                    { term: "I have to send invoices every Monday.", category: "routine obligation" },
+                    { term: "You don't have to attend the optional meeting.", category: "not necessary" }
+                ]
+            },
+            {
+                type: "correct",
+                title: "Fix common modal mistakes",
+                instruction: "Observe o erro e a correcao.",
+                items: [
+                    { wrong: "I must to finish this report.", correct: "I must finish this report." },
+                    { wrong: "She doesn't has to work today.", correct: "She doesn't have to work today." },
+                    { wrong: "This job is more easy.", correct: "This job is easier." }
+                ]
+            }
+        ],
+        secondaryReading: {
+            title: "Two work routines compared",
+            paragraphs: [
+                "In Carla's office, employees must arrive before 9 a.m. and they have to register every client call. In Diego's remote job, the schedule is more flexible, but he has to send a daily update.",
+                "Carla thinks office work is clearer. Diego thinks remote work is better for concentration."
+            ],
+            tasks: [
+                "Find one must rule and one have to obligation.",
+                "Compare Carla's routine and Diego's routine.",
+                "Which routine would work better for you?"
+            ]
+        }
+    },
+    7: {
+        grammar: {
+            points: [
+                "For requests, can and could are common; could sounds more polite.",
+                "For permission, can and may are possible; may sounds more formal.",
+                "May is less common for asking someone to do something for you. Use could you for polite requests.",
+                "Service English works best when you explain the problem briefly, then ask for a solution."
+            ],
+            table: [
+                ["Direct request", "Can you check my reservation?"],
+                ["Polite request", "Could you check my reservation, please?"],
+                ["Formal permission", "May I see the menu?"],
+                ["Problem frame", "There seems to be a problem with my boarding pass."]
+            ]
+        },
+        activities: [
+            {
+                type: "scenario",
+                title: "Airport problem simulator",
+                instruction: "Escolha um problema e escreva o pedido ao atendente.",
+                items: [
+                    { title: "Boarding pass", detail: "Your name is spelled incorrectly." },
+                    { title: "Lost bag", detail: "Your suitcase did not arrive." },
+                    { title: "Delay", detail: "Your flight is delayed and you need information." }
+                ],
+                prompt: "Use there seems to be and could you.",
+                model: "Excuse me, there seems to be a problem with my boarding pass. My name is spelled incorrectly. Could you help me correct it, please?"
+            },
+            {
+                type: "match",
+                title: "Politeness scale",
+                instruction: "Compare the tone of each request.",
+                items: [
+                    { left: "Can you check this?", right: "neutral/direct" },
+                    { left: "Could you check this, please?", right: "polite" },
+                    { left: "May I see the manager?", right: "formal permission/request to speak" }
+                ]
+            }
+        ],
+        secondaryReading: {
+            title: "At the hotel desk",
+            paragraphs: [
+                "Rafaela booked a quiet room, but the room faced a noisy avenue. She went to reception and said, 'There seems to be a problem with my room. I requested a quiet room. Could you check if another room is available?'",
+                "The receptionist apologized and moved her to a room on a higher floor."
+            ],
+            tasks: [
+                "Which phrase makes Rafaela sound polite?",
+                "What problem did she explain?",
+                "Write a similar request for a restaurant problem."
+            ]
+        }
+    },
+    8: {
+        grammar: {
+            points: [
+                "Present perfect form: have/has + past participle.",
+                "Regular participles often end in -ed: worked, tested, downloaded.",
+                "Common irregular participles: been, gone, seen, used, had, bought, written.",
+                "Use ever/never for life experience; use yesterday, last week and in 2024 with past simple."
+            ],
+            table: [
+                ["Experience", "Have you ever used AI?"],
+                ["No specific time", "I have tested three apps."],
+                ["Finished time", "I downloaded the app yesterday."],
+                ["Markers", "ever, never, just, for, since vs. yesterday, last month, in 2024"]
+            ]
+        },
+        activities: [
+            {
+                type: "classify",
+                title: "Perfect or past simple?",
+                instruction: "Decida qual tempo verbal combina com o marcador.",
+                items: [
+                    { term: "ever", category: "present perfect" },
+                    { term: "yesterday", category: "past simple" },
+                    { term: "last month", category: "past simple" },
+                    { term: "never", category: "present perfect" }
+                ]
+            },
+            {
+                type: "checklist",
+                title: "Experience bingo",
+                instruction: "Marque mentalmente experiencias que voce ja teve e transforme em frases.",
+                items: [
+                    "used virtual reality",
+                    "talked to a foreigner online",
+                    "taken an online course",
+                    "used AI to correct English"
+                ],
+                model: "I have used AI to correct English. Last week, I used it to improve a short paragraph."
+            }
+        ],
+        secondaryReading: {
+            title: "A short tech diary",
+            paragraphs: [
+                "I have changed the way I study because of technology. I have used flashcard apps, online dictionaries and video calls with teachers. Last month, I also joined an online speaking group.",
+                "The group helped me because I had to speak with real people, not only type answers."
+            ],
+            tasks: [
+                "Copy three present perfect sentences or verb phrases.",
+                "Find one past simple sentence.",
+                "Write two sentences about your own technology habits."
+            ]
+        }
+    },
+    9: {
+        grammar: {
+            points: [
+                "One-syllable adjectives usually use -er/-est: small, smaller, the smallest.",
+                "Adjectives ending in -y change to -ier/-iest: funny, funnier, the funniest.",
+                "Long adjectives use more/the most: more realistic, the most realistic.",
+                "Do not double the comparison: avoid more easier or most funniest."
+            ],
+            table: [
+                ["Short", "cheap -> cheaper -> the cheapest"],
+                ["-y", "funny -> funnier -> the funniest"],
+                ["Long", "interesting -> more interesting -> the most interesting"],
+                ["Irregular", "good -> better -> the best; bad -> worse -> the worst"],
+                ["Nouns", "more time / fewer mistakes / less stress"]
+            ]
+        },
+        activities: [
+            {
+                type: "ranking",
+                title: "Cultural ranking",
+                instruction: "Ordene mentalmente tres filmes, series ou livros e justifique.",
+                items: ["Most interesting", "More relaxing than...", "The best recommendation for a friend"],
+                prompt: "Write a mini ranking with two comparatives and one superlative.",
+                model: "For me, this documentary is the most interesting. The comedy is more relaxing than the drama, but the drama has the best story."
+            },
+            {
+                type: "correct",
+                title: "Avoid double comparatives",
+                instruction: "Corrija os erros comuns.",
+                items: [
+                    { wrong: "This movie is more funnier.", correct: "This movie is funnier." },
+                    { wrong: "It is the most cheapest option.", correct: "It is the cheapest option." },
+                    { wrong: "I made less mistakes.", correct: "I made fewer mistakes." }
+                ]
+            }
+        ],
+        secondaryReading: {
+            title: "Two weekend options",
+            paragraphs: [
+                "The theater is more expensive than the cinema, but it feels more personal. The cinema is cheaper and more comfortable for a simple night out.",
+                "For me, the best option depends on the mood: theater for a special evening, cinema for a relaxing weekend."
+            ],
+            tasks: [
+                "Find two comparatives.",
+                "Find one superlative.",
+                "Which option is better for you and why?"
+            ]
+        }
+    },
+    10: {
+        grammar: {
+            points: [
+                "Use this final lesson to move between present, past, future, modals, quantifiers and comparisons.",
+                "A strong B1-prep answer usually includes context, one example and one reason.",
+                "Mistakes are useful data: identify the topic, review the rule and try again in a personal sentence."
+            ],
+            table: [
+                ["Routine", "I usually study after work."],
+                ["Past", "Last year, I started speaking more."],
+                ["Future", "I am going to practice twice a week."],
+                ["Advice", "I should review my mistakes."],
+                ["Comparison", "Speaking is more challenging than reading."]
+            ]
+        },
+        activities: [
+            {
+                type: "checklist",
+                title: "Can-do self-assessment",
+                instruction: "Marque mentalmente o que voce ja consegue fazer e escolha dois pontos para revisar.",
+                items: [
+                    "I can describe my routine clearly.",
+                    "I can tell a short past story.",
+                    "I can give directions.",
+                    "I can use comparatives and superlatives.",
+                    "I can explain a service problem politely."
+                ],
+                model: "My strongest point is routine language. My next review points are present perfect and polite requests."
+            },
+            {
+                type: "project",
+                title: "200-word written project",
+                instruction: "Escreva um relato sobre sua evolucao no ingles.",
+                items: [
+                    "Mention your old routine.",
+                    "Tell one past learning moment.",
+                    "Explain future plans.",
+                    "Compare your English before and now.",
+                    "Include one piece of advice for yourself."
+                ],
+                prompt: "Write your final bridge reflection here.",
+                model: "Before, I used to answer with very short sentences. Now, I can explain my routine, past experiences and future plans with more detail. My next goal is to speak more naturally in B1."
+            }
+        ],
+        secondaryReading: {
+            title: "Final integrated challenge",
+            paragraphs: [
+                "Before B1, a learner does not need perfect grammar, but they need control. Control means noticing time markers, choosing a useful structure and connecting ideas with reasons and examples.",
+                "A good final answer can include a present habit, a past experience, a future plan and one comparison."
+            ],
+            tasks: [
+                "Write one sentence for each structure: present, past, future and comparison.",
+                "Which grammar point still feels unstable?",
+                "Choose one topic to review before starting B1."
+            ]
+        }
+    }
+};
+
+window.PREPB1_LESSONS = window.PREPB1_LESSONS.map(lesson => {
+    const enhancement = bridgeEnhancements[lesson.number];
+    if (!enhancement) return lesson;
+
+    return {
+        ...lesson,
+        ...enhancement,
+        grammar: {
+            ...lesson.grammar,
+            ...enhancement.grammar
+        }
+    };
+});

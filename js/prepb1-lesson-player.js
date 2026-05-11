@@ -50,6 +50,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     root.addEventListener('click', event => {
+        const audioBtn = event.target.closest('.audio-record-btn');
+        if (audioBtn) {
+            handleAudioRecordButton(audioBtn);
+            return;
+        }
+
         const speakBtn = event.target.closest('.speak-btn');
         if (speakBtn) {
             speak(speakBtn.dataset.speak || '');
@@ -72,14 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const revealBtn = event.target.closest('.reveal-btn');
-        if (revealBtn) {
-            const targetId = revealBtn.dataset.target;
-            const target = document.getElementById(targetId);
-            if (target) target.classList.toggle('hidden');
-            return;
-        }
-
         const checkInputBtn = event.target.closest('.check-input-btn');
         if (checkInputBtn) {
             const targetId = checkInputBtn.dataset.target;
@@ -99,11 +97,64 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        const revealBtn = event.target.closest('.reveal-btn');
+        if (revealBtn) {
+            const targetId = revealBtn.dataset.target;
+            const target = document.getElementById(targetId);
+            if (target) target.classList.toggle('hidden');
+            return;
+        }
+
         const checklistBtn = event.target.closest('.checklist-btn');
         if (checklistBtn) {
             checklistBtn.classList.toggle('bg-teal-100');
             checklistBtn.classList.toggle('border-teal-300');
             checklistBtn.classList.toggle('text-teal-800');
+        }
+
+        const checkActivityBtn = event.target.closest('.check-activity-btn');
+        if (checkActivityBtn) {
+            checkActivity(checkActivityBtn.dataset.target, checkActivityBtn.dataset.type);
+            return;
+        }
+
+    });
+
+    root.addEventListener('dragstart', event => {
+        const item = event.target.closest('.sequence-item');
+        if (!item) return;
+        event.dataTransfer.setData('text/plain', item.dataset.value);
+        item.classList.add('opacity-50');
+    });
+
+    root.addEventListener('dragend', event => {
+        const item = event.target.closest('.sequence-item');
+        if (item) item.classList.remove('opacity-50');
+    });
+
+    root.addEventListener('dragover', event => {
+        const item = event.target.closest('.sequence-item');
+        if (!item) return;
+        event.preventDefault();
+    });
+
+    root.addEventListener('drop', event => {
+        const target = event.target.closest('.sequence-item');
+        if (!target) return;
+
+        event.preventDefault();
+        const list = target.closest('.sequence-list');
+        const draggedValue = event.dataTransfer.getData('text/plain');
+        const dragged = list?.querySelector(`[data-value="${CSS.escape(draggedValue)}"]`);
+        if (!dragged || dragged === target) return;
+
+        const nodes = Array.from(list.children);
+        const draggedIndex = nodes.indexOf(dragged);
+        const targetIndex = nodes.indexOf(target);
+        if (draggedIndex < targetIndex) {
+            target.after(dragged);
+        } else {
+            target.before(dragged);
         }
     });
 
@@ -123,6 +174,71 @@ document.addEventListener('DOMContentLoaded', () => {
 
     showSlide(0);
 });
+
+let activeRecorder = null;
+let activeRecorderChunks = [];
+
+async function handleAudioRecordButton(button) {
+    const targetId = button.dataset.target;
+    const status = document.getElementById(`${targetId}-status`);
+    const audio = document.getElementById(`${targetId}-audio`);
+
+    if (activeRecorder && activeRecorder.state === 'recording') {
+        activeRecorder.stop();
+        button.innerHTML = '<i class="fas fa-microphone"></i> Gravar novamente';
+        if (status) status.textContent = 'Audio gravado. Ouça e compare com o modelo.';
+        return;
+    }
+
+    if (!navigator.mediaDevices || !window.MediaRecorder) {
+        if (status) status.textContent = 'Gravacao nao disponivel neste navegador. Use o campo de anotacoes.';
+        return;
+    }
+
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        activeRecorderChunks = [];
+        activeRecorder = new MediaRecorder(stream);
+        activeRecorder.ondataavailable = event => {
+            if (event.data.size > 0) activeRecorderChunks.push(event.data);
+        };
+        activeRecorder.onstop = () => {
+            const blob = new Blob(activeRecorderChunks, { type: 'audio/webm' });
+            if (audio) {
+                audio.src = URL.createObjectURL(blob);
+                audio.classList.remove('hidden');
+            }
+            stream.getTracks().forEach(track => track.stop());
+        };
+        activeRecorder.start();
+        button.innerHTML = '<i class="fas fa-stop"></i> Parar gravacao';
+        if (status) status.textContent = 'Gravando... fale por 30 a 60 segundos.';
+    } catch (error) {
+        console.error('Erro ao iniciar gravacao:', error);
+        if (status) status.textContent = 'Nao foi possivel acessar o microfone.';
+    }
+}
+
+function checkActivity(targetId, type) {
+    const root = document.getElementById(targetId);
+    const feedback = document.getElementById(`${targetId}-feedback`);
+    if (!root || !feedback) return;
+
+    let correct = false;
+    if (type === 'sequence') {
+        const actual = Array.from(root.querySelectorAll('.sequence-item')).map(item => item.dataset.answer).join('|');
+        const expected = root.dataset.expected;
+        correct = actual === expected;
+    } else {
+        const controls = Array.from(root.querySelectorAll('[data-answer]'));
+        correct = controls.length > 0 && controls.every(control => normalizeAnswer(control.value) === normalizeAnswer(control.dataset.answer));
+    }
+
+    feedback.textContent = correct
+        ? 'Correto. A logica da atividade esta consistente.'
+        : 'Ainda nao. Revise as pistas e tente reorganizar ou selecionar novamente.';
+    feedback.className = `mt-3 text-sm font-semibold ${correct ? 'text-green-700' : 'text-red-700'}`;
+}
 
 function getLessonNumberFromPath() {
     const path = window.location.pathname.replace(/\\/g, '/');
@@ -169,7 +285,9 @@ function buildPremiumBridgeSlides(lesson) {
         ${buildWarmupSlide(lesson)}
         ${buildGrammarSlide(lesson)}
         ${buildControlledPracticeSlide(lesson)}
+        ${buildActivitySlide(lesson)}
         ${buildReadingSlide(lesson)}
+        ${buildSecondaryReadingSlide(lesson)}
         ${buildComprehensionSlide(lesson)}
         ${buildTranslationSlide(lesson)}
         ${buildPersonalQuestionsSlide(lesson)}
@@ -229,6 +347,8 @@ function buildAdviceLabSlides(lesson) {
 function buildGrammarSlide(lesson) {
     const grammar = lesson.grammar || {};
     const examples = Array.isArray(grammar.examples) ? grammar.examples : [];
+    const points = Array.isArray(grammar.points) ? grammar.points : [];
+    const table = Array.isArray(grammar.table) ? grammar.table : [];
 
     return `
         <section class="slide" data-title="Grammar Review">
@@ -242,8 +362,34 @@ function buildGrammarSlide(lesson) {
                             <p class="text-sm uppercase tracking-[0.18em] text-teal-700 font-bold">Dica de regra</p>
                             <p class="text-slate-700 mt-3">${grammar.source || 'Revise a regra e aplique em respostas curtas antes de produzir fala longa.'}</p>
                         </div>
+                        ${points.length ? `
+                            <div class="mt-6 grid gap-3">
+                                ${points.map(point => `
+                                    <div class="flex items-start gap-3 rounded-2xl bg-slate-50 border border-slate-200 p-4">
+                                        <i class="fas fa-circle-info text-teal-600 mt-1"></i>
+                                        <p class="text-slate-700">${point}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
                     </div>
                     <div class="space-y-4">
+                        ${table.length ? `
+                            <div class="question-card rounded-[1.5rem] p-5">
+                                <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Quick table</p>
+                                <div class="lesson-table-scroll mt-4">
+                                    <table class="w-full text-left text-sm">
+                                        <tbody>
+                                            ${table.map(row => `
+                                                <tr class="border-b border-slate-200 last:border-0">
+                                                    ${row.map((cell, cellIndex) => `<${cellIndex === 0 ? 'th' : 'td'} class="py-3 pr-4 align-top ${cellIndex === 0 ? 'font-bold text-slate-900' : 'text-slate-700'}">${cell}</${cellIndex === 0 ? 'th' : 'td'}>`).join('')}
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        ` : ''}
                         ${examples.map((example, index) => `
                             <div class="question-card rounded-[1.5rem] p-5">
                                 <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Example ${index + 1}</p>
@@ -259,6 +405,179 @@ function buildGrammarSlide(lesson) {
             </div>
         </section>
     `;
+}
+
+function buildActivitySlide(lesson) {
+    const activities = Array.isArray(lesson.activities) ? lesson.activities : [];
+    if (!activities.length) return '';
+
+    return `
+        <section class="slide" data-title="Practice Lab">
+            <div class="surface rounded-[2rem] p-8">
+                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Practice lab</p>
+                <h3 class="text-3xl font-black text-slate-900 mt-2">Varied practice, same target</h3>
+                <div class="grid lg:grid-cols-2 gap-6 mt-8">
+                    ${activities.map((activity, index) => buildActivityCard(activity, lesson.number, index)).join('')}
+                </div>
+            </div>
+        </section>
+    `;
+}
+
+function buildActivityCard(activity, lessonNumber, index) {
+    const targetId = `activity-${lessonNumber}-${index}`;
+    const modelId = `${targetId}-model`;
+    const items = Array.isArray(activity.items) ? activity.items : [];
+    const icon = activity.icon || getActivityIcon(activity.type);
+    const interactiveTypes = ['sequence', 'match', 'classify'];
+
+    return `
+        <div class="response-card rounded-[1.5rem] p-6">
+            <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">
+                <i class="fas ${icon} mr-2"></i>${activity.label || `Activity ${index + 1}`}
+            </p>
+            <h4 class="text-xl font-black text-slate-900 mt-3">${activity.title}</h4>
+            <p class="text-slate-600 mt-3">${activity.instruction || ''}</p>
+            <div class="mt-5 space-y-3">
+                ${buildActivityItems(activity, lessonNumber, index)}
+            </div>
+            ${interactiveTypes.includes(activity.type) ? `
+                <button type="button" class="check-activity-btn reveal-btn mt-4" data-target="${targetId}" data-type="${activity.type}">
+                    <i class="fas fa-check"></i> Checar atividade
+                </button>
+                <p id="${targetId}-feedback" class="mt-3 text-sm font-semibold text-slate-500"></p>
+            ` : ''}
+            ${activity.prompt ? `<textarea class="response-input mt-5" placeholder="${activity.prompt}"></textarea>` : ''}
+            ${activity.model ? `
+                <button type="button" class="reveal-btn mt-4" data-target="${modelId}">
+                    <i class="fas fa-lightbulb"></i> Ver modelo
+                </button>
+                <div id="${modelId}" class="model-answer hidden rounded-[1rem] p-4 mt-4">
+                    <p class="text-sm font-bold uppercase tracking-[0.15em]">Model / Key</p>
+                    <p class="mt-3">${activity.model}</p>
+                </div>
+            ` : ''}
+        </div>
+    `;
+}
+
+function buildActivityItems(activity, lessonNumber, index) {
+    const items = Array.isArray(activity.items) ? activity.items : [];
+    const targetId = `activity-${lessonNumber}-${index}`;
+
+    if (activity.type === 'sequence') {
+        const displayItems = [...items].reverse();
+        return `
+            <div id="${targetId}" class="sequence-list space-y-3" data-expected="${items.map(item => escapeAttribute(item)).join('|')}">
+                ${displayItems.map((item, itemIndex) => `
+                    <div draggable="true" class="sequence-item rounded-2xl border border-slate-200 bg-slate-50 p-4 text-slate-700 cursor-move" data-value="${escapeAttribute(item)}" data-answer="${escapeAttribute(item)}">
+                        <i class="fas fa-grip-lines text-slate-400 mr-2"></i>${itemIndex + 1}. ${item}
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    if (activity.type === 'match') {
+        const options = items.map(item => item.right);
+        return `
+            <div id="${targetId}" class="space-y-3">
+                ${items.map((item, itemIndex) => `
+                    <label class="grid sm:grid-cols-[1fr_1fr] gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                        <span class="font-bold text-slate-900">${item.left}</span>
+                        <select class="response-input min-h-0" data-answer="${escapeAttribute(item.right)}" aria-label="Match ${escapeAttribute(item.left)}">
+                            <option value="">Choose...</option>
+                            ${options.map(option => `<option value="${escapeAttribute(option)}">${option}</option>`).join('')}
+                        </select>
+                    </label>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    if (activity.type === 'classify') {
+        const categories = Array.from(new Set(items.map(item => item.category)));
+        return `
+            <div id="${targetId}" class="space-y-3">
+                ${items.map(item => `
+                    <label class="grid sm:grid-cols-[1fr_1fr] gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                        <span class="font-bold text-slate-900">${item.term}</span>
+                        <select class="response-input min-h-0" data-answer="${escapeAttribute(item.category)}" aria-label="Classify ${escapeAttribute(item.term)}">
+                            <option value="">Choose a column...</option>
+                            ${categories.map(category => `<option value="${escapeAttribute(category)}">${category}</option>`).join('')}
+                        </select>
+                    </label>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    return items.map((item, itemIndex) => buildActivityItem(item, activity.type, itemIndex)).join('');
+}
+
+function buildActivityItem(item, type, index) {
+    if (typeof item === 'string') {
+        return `<div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-slate-700">${index + 1}. ${item}</div>`;
+    }
+
+    if (type === 'match') {
+        return `
+            <div class="grid sm:grid-cols-2 gap-3">
+                <div class="rounded-2xl border border-teal-100 bg-teal-50 p-4 font-bold text-slate-800">${item.left}</div>
+                <div class="rounded-2xl border border-amber-100 bg-amber-50 p-4 text-slate-700">${item.right}</div>
+            </div>
+        `;
+    }
+
+    if (type === 'classify') {
+        return `
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <p class="font-bold text-slate-900">${item.term}</p>
+                <p class="text-sm text-slate-600 mt-1">Target column: ${item.category}</p>
+            </div>
+        `;
+    }
+
+    if (type === 'correct') {
+        return `
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <p class="text-red-700 font-semibold">${item.wrong}</p>
+                <p class="text-green-700 mt-2">${item.correct}</p>
+            </div>
+        `;
+    }
+
+    if (type === 'transform') {
+        return `
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <p class="font-semibold text-slate-800">${item.from}</p>
+                <p class="text-sm text-slate-500 mt-1">${item.task}</p>
+            </div>
+        `;
+    }
+
+    return `
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p class="font-semibold text-slate-800">${item.title || item.prompt || `Item ${index + 1}`}</p>
+            ${item.detail ? `<p class="text-slate-600 mt-2">${item.detail}</p>` : ''}
+        </div>
+    `;
+}
+
+function getActivityIcon(type) {
+    const icons = {
+        sequence: 'fa-arrow-down-1-9',
+        match: 'fa-table-cells',
+        classify: 'fa-layer-group',
+        scenario: 'fa-comments',
+        transform: 'fa-repeat',
+        correct: 'fa-wand-magic-sparkles',
+        ranking: 'fa-ranking-star',
+        project: 'fa-pen-to-square',
+        checklist: 'fa-list-check'
+    };
+
+    return icons[type] || 'fa-shapes';
 }
 
 function buildControlledPracticeSlide(lesson) {
@@ -585,6 +904,39 @@ function buildReadingSlide(lesson) {
     `;
 }
 
+function buildSecondaryReadingSlide(lesson) {
+    if (!lesson.secondaryReading) return '';
+
+    const reading = lesson.secondaryReading;
+    const paragraphs = Array.isArray(reading.paragraphs) ? reading.paragraphs : [];
+    const tasks = Array.isArray(reading.tasks) ? reading.tasks : [];
+
+    return `
+        <section class="slide" data-title="Reading Plus">
+            <div class="surface rounded-[2rem] p-8">
+                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Reading plus</p>
+                <h3 class="text-3xl font-black text-slate-900 mt-2">${reading.title}</h3>
+                <div class="grid lg:grid-cols-[1.05fr_0.95fr] gap-6 mt-8">
+                    <div class="reading-block rounded-[1.5rem] p-6 md:p-8 space-y-5 text-lg leading-8">
+                        ${paragraphs.map(paragraph => `<p>${paragraph}</p>`).join('')}
+                    </div>
+                    <div class="response-card rounded-[1.5rem] p-6">
+                        <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Deeper check</p>
+                        <div class="space-y-4 mt-5">
+                            ${tasks.map((task, index) => `
+                                <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                                    <p class="font-semibold text-slate-800">${index + 1}. ${task}</p>
+                                    <textarea class="response-input mt-3" placeholder="Write a short answer."></textarea>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    `;
+}
+
 function buildComprehensionSlide(lesson) {
     return `
         <section class="slide" data-title="Interpretation">
@@ -647,6 +999,8 @@ function buildResponseSlide(lesson) {
 }
 
 function buildSpeakingSlide(lesson) {
+    const audioId = `speaking-audio-${lesson.number}`;
+
     return `
         <section class="slide" data-title="Speaking Task">
             <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6">
@@ -667,6 +1021,16 @@ function buildSpeakingSlide(lesson) {
                         <button class="speak-btn mt-4" data-speak="${escapeAttribute(lesson.speakingTask.model)}">
                             <i class="fas fa-volume-up"></i> Ouvir modelo
                         </button>
+                    </div>
+                    <div class="mt-6 p-5 rounded-2xl bg-teal-50 border border-teal-100">
+                        <p class="text-sm uppercase tracking-[0.18em] text-teal-700 font-bold">Voice practice</p>
+                        <p class="text-slate-700 mt-3">Grave uma resposta curta, ouca novamente e anote um ponto forte e um ponto para revisar.</p>
+                        <button type="button" class="audio-record-btn speak-btn mt-4" data-target="${audioId}">
+                            <i class="fas fa-microphone"></i> Gravar resposta
+                        </button>
+                        <p id="${audioId}-status" class="mt-3 text-sm font-semibold text-slate-500"></p>
+                        <audio id="${audioId}-audio" class="hidden mt-4 w-full" controls></audio>
+                        <textarea class="response-input mt-4" placeholder="Self-check: What sounded clear? What should you improve?"></textarea>
                     </div>
                 </div>
                 <div class="surface rounded-[2rem] p-8">
