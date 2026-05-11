@@ -8,7 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; background-color: #111827; }
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -16,21 +16,32 @@
         .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #4a5568; }
-        .flashcard-front { background-color: #2d3748; color: #a0aec0; text-align: center; }
-        .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
-        .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
-        .lyrics-box { max-height: 300px; overflow-y: auto; }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; border: 1px solid #4b5563; }
+        .flashcard-front { background-color: #1f2937; color: #fb923c; text-align: center; }
+        .flashcard-back { background-color: #c2410c; color: white; transform: rotateY(180deg); text-align: center; }
+        .lyrics-box { max-height: 400px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #fb923c #1f2937; }
+        .word-pill { cursor: grab; background-color: #ea580c; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
+        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
+        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #fb923c; text-align: center; color: #fdba74; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
+        .drop-zone.hover { border-color: #fed7aa; background-color: rgba(251, 146, 60, 0.12); }
+        .drop-zone.filled { border-bottom-style: solid; }
+        .drop-zone.correct { color: #34d399 !important; border-color: #34d399; background-color: rgba(16, 185, 129, 0.12); }
+        .drop-zone.incorrect { color: #f87171 !important; border-color: #f87171; background-color: rgba(239, 68, 68, 0.12); }
+        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
+        .answer-btn:hover { color: #fb923c; }
+        .debate-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s, border-color 0.2s; text-align: left; }
+        .debate-card:hover { transform: translateY(-2px); border-color: #fb923c; }
+        .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
     </style>
     <link rel="stylesheet" href="conversation-lesson-theme.css">
 </head>
 <body class="bg-gray-900 text-white">
 
-    <header class="bg-gray-800 shadow-lg sticky top-0 z-10">
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="conversation.html" class="text-lg font-bold text-orange-400 hover:text-orange-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
+            <a href="conversation.html" class="text-lg font-bold text-orange-400 hover:text-orange-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back</a>
             <h1 class="text-xl font-semibold text-center">Lesson 14: Food & Culture</h1>
-            <div class="w-32"></div>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 11</div>
         </div>
         <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
@@ -58,10 +69,15 @@
         </div>
         
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-orange-300"><i class="fas fa-music text-red-500"></i> Music Time: American Pie</h2>
+            <h2 class="text-4xl font-bold mb-4 text-center text-orange-300"><i class="fas fa-music text-red-500"></i> Song 1: American Pie <span class="text-xl text-gray-400">- Don McLean</span></h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2RnPATK99oGOZygnD2GTO6?utm_source=generator5" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-orange-500">
+                <div class="mb-4 rounded-xl overflow-hidden">
+                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1fDsrQ23eTAVFElUMaf38X?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+                <div class="mb-4 bg-orange-900/30 p-4 rounded-lg border border-orange-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-orange-400"></i> A cultural classic where food and drink become symbols of memory, identity, nostalgia, and American life.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-4"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-orange-500">
                     <p>A long, long time ago, I can still <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="remember"><i class="fas fa-eye"></i></button></p>
                     <p>How that music used to make me <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="smile"><i class="fas fa-eye"></i></button></p>
                     <p>And I knew if I had my chance</p>
@@ -75,17 +91,40 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-orange-300"><i class="fas fa-question-circle text-purple-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>The song mentions "American Pie" and "whiskey 'n' rye". How do specific foods or drinks represent a country's culture?</p>
-                <p>Can you think of a Brazilian food that is as iconic as American Pie?</p>
-            </div></div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-2 text-orange-300"><i class="fas fa-comments"></i> Song 1 Debate</h2>
+                <p class="text-lg text-gray-400 mb-6 italic">"American Pie" - Food, memory, and national symbols</p>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card">
+                        <span class="debate-label bg-orange-500/20 text-orange-400">Culture</span>
+                        <p class="text-xl"><i class="fas fa-flag-usa mr-2 text-orange-400"></i> Why do some foods become national symbols, even when people do not eat them every day?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Personal</span>
+                        <p class="text-xl"><i class="fas fa-utensils mr-2 text-yellow-400"></i> What Brazilian food or drink could represent home, childhood, or tradition for you?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
+                        <p class="text-xl"><i class="fas fa-clock-rotate-left mr-2 text-blue-400"></i> Can a taste or smell bring back memories more strongly than a photo or a song?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-red-500/20 text-red-400">Debate</span>
+                        <p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-red-400"></i> Is food one of the best ways to understand a culture, or can it create stereotypes?</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-orange-300"><i class="fas fa-music text-red-500"></i> Music Time: Watermelon Sugar</h2>
+            <h2 class="text-4xl font-bold mb-4 text-center text-orange-300"><i class="fas fa-music text-pink-500"></i> Song 2: Watermelon Sugar <span class="text-xl text-gray-400">- Harry Styles</span></h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2RnPATK99oGOZygnD2GTO6?utm_source=generator6" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-orange-500">
+                <div class="mb-4 rounded-xl overflow-hidden">
+                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6UelLqGlWMcVH1E5c4H7lY?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+                <div class="mb-4 bg-pink-900/30 p-4 rounded-lg border border-pink-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-pink-400"></i> A sensory pop song that uses taste, fruit, summer, and warmth to describe a feeling rather than a literal recipe.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-4"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-pink-500">
                     <p>Tastes like <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="strawberries"><i class="fas fa-eye"></i></button> on a summer evenin'</p>
                     <p>And it sounds just like a <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="song"><i class="fas fa-eye"></i></button></p>
                     <p>I want more berries and that summer <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="feelin'"><i class="fas fa-eye"></i></button></p>
@@ -97,17 +136,40 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-orange-300"><i class="fas fa-question-circle text-purple-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>What do you think this song is about?</p>
-                <p>What tastes or smells remind you of summer?</p>
-            </div></div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-2 text-orange-300"><i class="fas fa-comments"></i> Song 2 Debate</h2>
+                <p class="text-lg text-gray-400 mb-6 italic">"Watermelon Sugar" - Senses, summer, and metaphor</p>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card">
+                        <span class="debate-label bg-pink-500/20 text-pink-400">Interpretation</span>
+                        <p class="text-xl"><i class="fas fa-magnifying-glass mr-2 text-pink-400"></i> Why do artists often use food and fruit as metaphors for emotions or relationships?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Personal</span>
+                        <p class="text-xl"><i class="fas fa-sun mr-2 text-yellow-400"></i> Which taste, smell, or dish immediately reminds you of summer?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-green-500/20 text-green-400">Language</span>
+                        <p class="text-xl"><i class="fas fa-comment-dots mr-2 text-green-400"></i> How would you describe a perfect summer day using only sensory words?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-purple-500/20 text-purple-400">Debate</span>
+                        <p class="text-xl"><i class="fas fa-masks-theater mr-2 text-purple-400"></i> Should song lyrics be clear and direct, or is it better when they leave room for interpretation?</p>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-orange-300"><i class="fas fa-music text-red-500"></i> Music Time: Red Red Wine</h2>
+            <h2 class="text-4xl font-bold mb-4 text-center text-orange-300"><i class="fas fa-music text-red-500"></i> Song 3: Red Red Wine <span class="text-xl text-gray-400">- UB40</span></h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2RnPATK99oGOZygnD2GTO6?utm_source=generator7" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-orange-500">
+                <div class="mb-4 rounded-xl overflow-hidden">
+                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4uOKFydzAejjSFqYbv1XPt?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+                <div class="mb-4 bg-red-900/30 p-4 rounded-lg border border-red-500/30">
+                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-red-400"></i> A reggae-pop version of a heartbreak song where a drink represents escape, memory, and emotional comfort.</p>
+                </div>
+                <div class="mt-4 lyrics-box pr-4"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-red-500">
                     <p>Red, red <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="wine"><i class="fas fa-eye"></i></button></p>
                     <p>Goes to my <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="head"><i class="fas fa-eye"></i></button></p>
                     <p>Makes me forget that I</p>
@@ -122,14 +184,41 @@
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-orange-300"><i class="fas fa-question-circle text-purple-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>In this song, wine helps the singer to "forget". How are food and drinks often connected to our emotions?</p>
-                <p>What is a typical drink from your country or region?</p>
-            </div></div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-2 text-orange-300"><i class="fas fa-comments"></i> Song 3 Debate</h2>
+                <p class="text-lg text-gray-400 mb-6 italic">"Red Red Wine" - Comfort, memory, and emotional habits</p>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card">
+                        <span class="debate-label bg-red-500/20 text-red-400">Emotion</span>
+                        <p class="text-xl"><i class="fas fa-heart-crack mr-2 text-red-400"></i> Why do people often connect drinks, meals, or places with heartbreak and memories?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-purple-500/20 text-purple-400">Reflection</span>
+                        <p class="text-xl"><i class="fas fa-brain mr-2 text-purple-400"></i> Can comfort food or comfort drinks help people heal, or can they become a way to avoid problems?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-blue-500/20 text-blue-400">Culture</span>
+                        <p class="text-xl"><i class="fas fa-globe-americas mr-2 text-blue-400"></i> What drink from your region carries a strong cultural or social meaning?</p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-orange-500/20 text-orange-400">Debate</span>
+                        <p class="text-xl"><i class="fas fa-users mr-2 text-orange-400"></i> Why are food and drinks so present in songs about love, celebration, and sadness?</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-orange-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="matching-activity" class="space-y-4"></div><button id="check-answers-btn" class="mt-8 bg-orange-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-orange-700">Check Answers</button></div></div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-orange-300"><i class="fas fa-puzzle-piece"></i> Practice: Match the Expressions</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-2xl mb-8 text-gray-300">Drag the expression to the correct sentence:</p>
+                    <div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div>
+                    <div id="matching-activity" class="space-y-8 text-left"></div>
+                    <button id="check-answers-btn" class="mt-12 bg-orange-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-orange-700 shadow-lg">Check Answers</button>
+                    <p id="practice-feedback" class="mt-4 text-lg font-semibold text-gray-300"></p>
+                </div>
+            </div>
         </div>
 
         <div class="slide">
@@ -175,12 +264,14 @@
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
             const progressBar = document.getElementById('progress-bar');
+            const slideCounter = document.getElementById('slide-counter');
             let currentSlide = 0;
 
             function showSlide(index) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
                 if (progressBar) progressBar.style.width = slides.length > 1 ? `${((index + 1) / slides.length) * 100}%` : '100%';
+                if (slideCounter) slideCounter.innerText = `${index + 1} / ${slides.length}`;
                 if (prevBtn) prevBtn.disabled = index === 0;
                 const isLastSlide = index === slides.length - 1;
                 if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
@@ -207,30 +298,100 @@
                 });
             });
 
-            const activityContainer = document.getElementById('matching-activity'), checkAnswersBtn = document.getElementById('check-answers-btn');
-            if(activityContainer && checkAnswersBtn) {
-                const expressions=[{id:'foodie',text:'A foodie'},{id:'sweet_tooth',text:'To have a sweet tooth'},{id:'picky_eater',text:'A picky eater'},{id:'comfort_food',text:'Comfort food'},{id:'wine_dine',text:'To wine and dine'},{id:'mouth_watering',text:'My mouth is watering'}];
-                const situations=[{text:"I can't resist chocolate cake. I really...",answer:'sweet_tooth'},{text:"My brother only eats chicken nuggets and fries. He is a...",answer:'picky_eater'},{text:"The smell of that barbecue is incredible. My...",answer:'mouth_watering'},{text:"For my birthday, my husband took me to an expensive restaurant. He wanted to...",answer:'wine_dine'},{text:"When I'm sad, I always want to eat my mom's lasagna. It's my...",answer:'comfort_food'},{text:"He loves trying new restaurants and exotic dishes. He is a true...",answer:'foodie'}];
-                function shuffle(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
-                function createActivity() {
-                    const shuffledSituations = shuffle(situations);
-                    let html = shuffledSituations.map((sit, index) => {
-                        return `<div id="q-${index}" class="p-4 rounded-lg bg-gray-800 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300"><p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p><select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg shadow-sm text-lg focus:border-orange-400 focus:ring focus:ring-orange-300 focus:ring-opacity-50"><option value="">Select an expression...</option>${shuffle([...expressions]).map(exp => `<option value="${exp.id}">${exp.text}</option>`).join('')}</select></div>`;
-                    }).join('');
-                    activityContainer.innerHTML = html;
+            const wordBank = document.getElementById('word-bank');
+            const activityContainer = document.getElementById('matching-activity');
+            const checkAnswersBtn = document.getElementById('check-answers-btn');
+
+            function shuffle(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
                 }
-                createActivity();
-                checkAnswersBtn.addEventListener('click', () => {
-                    activityContainer.querySelectorAll('select').forEach((select, index) => {
-                        const questionDiv = document.getElementById(`q-${index}`);
-                        questionDiv.classList.remove('bg-green-900/50', 'border-green-500', 'bg-red-900/50', 'border-red-500');
-                        if (select.value === select.dataset.answer) {
-                            questionDiv.classList.add('bg-green-900/50', 'border-green-500');
-                        } else {
-                            questionDiv.classList.add('bg-red-900/50', 'border-red-500');
-                        }
+                return array;
+            }
+
+            const expressions = [
+                { id: 'foodie', text: 'A foodie' },
+                { id: 'sweet_tooth', text: 'To have a sweet tooth' },
+                { id: 'picky_eater', text: 'A picky eater' },
+                { id: 'comfort_food', text: 'Comfort food' },
+                { id: 'wine_dine', text: 'To wine and dine' },
+                { id: 'mouth_watering', text: 'My mouth is watering' }
+            ];
+
+            const situations = [
+                { text: "I can't resist chocolate cake. I really <span class='drop-zone' data-answer='To have a sweet tooth'>________</span>.", answer: 'To have a sweet tooth' },
+                { text: "My brother only eats chicken nuggets and fries. He is <span class='drop-zone' data-answer='A picky eater'>________</span>.", answer: 'A picky eater' },
+                { text: "The smell of that barbecue is incredible. <span class='drop-zone' data-answer='My mouth is watering'>________</span>.", answer: 'My mouth is watering' },
+                { text: "For my birthday, my husband took me to an expensive restaurant. He wanted <span class='drop-zone' data-answer='To wine and dine'>________</span> me.", answer: 'To wine and dine' },
+                { text: "When I'm sad, I always want my mom's lasagna. It is my <span class='drop-zone' data-answer='Comfort food'>________</span>.", answer: 'Comfort food' },
+                { text: "He loves trying new restaurants and exotic dishes. He is <span class='drop-zone' data-answer='A foodie'>________</span>.", answer: 'A foodie' }
+            ];
+
+            if (wordBank) {
+                shuffle([...expressions]).forEach(word => {
+                    const pill = document.createElement('div');
+                    pill.className = 'word-pill';
+                    pill.draggable = true;
+                    pill.innerText = word.text;
+                    pill.id = `word-${word.id}`;
+                    pill.addEventListener('dragstart', event => {
+                        event.dataTransfer.setData('text/plain', word.text);
                     });
+                    wordBank.appendChild(pill);
                 });
+            }
+
+            if (activityContainer) {
+                activityContainer.innerHTML = shuffle([...situations]).map(situation => `<p class="text-xl text-gray-200">${situation.text}</p>`).join('');
+            }
+
+            const dropZones = document.querySelectorAll('.drop-zone');
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', event => {
+                    event.preventDefault();
+                    zone.classList.add('hover');
+                });
+                zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
+                zone.addEventListener('drop', event => {
+                    event.preventDefault();
+                    zone.classList.remove('hover');
+                    zone.innerText = event.dataTransfer.getData('text/plain');
+                    zone.classList.add('filled');
+                    zone.classList.remove('correct', 'incorrect');
+                    zone.style.color = '';
+                });
+                zone.addEventListener('click', () => {
+                    zone.innerText = '________';
+                    zone.classList.remove('filled', 'correct', 'incorrect');
+                    zone.style.color = '';
+                });
+            });
+
+            function checkPracticeAnswers() {
+                const feedback = document.getElementById('practice-feedback');
+                let correctCount = 0;
+
+                dropZones.forEach(zone => {
+                    const currentValue = zone.textContent.trim().toLowerCase();
+                    const answerValue = (zone.dataset.answer || '').trim().toLowerCase();
+                    zone.classList.remove('correct', 'incorrect');
+                    if (currentValue === answerValue) {
+                        zone.classList.add('correct');
+                        correctCount++;
+                    } else if (currentValue !== '________') {
+                        zone.classList.add('incorrect');
+                    }
+                });
+
+                if (feedback) {
+                    feedback.textContent = `You got ${correctCount} of ${dropZones.length} correct.`;
+                    feedback.className = 'mt-4 text-lg font-semibold ' + (correctCount === dropZones.length ? 'text-emerald-400' : 'text-orange-300');
+                }
+            }
+
+            if (checkAnswersBtn) {
+                checkAnswersBtn.addEventListener('click', checkPracticeAnswers);
             }
 
             showSlide(0);
