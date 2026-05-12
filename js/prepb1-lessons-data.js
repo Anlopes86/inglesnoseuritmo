@@ -1,4 +1,4 @@
-const bridgeSources = {
+﻿const bridgeSources = {
     frequency: "Adverbs of frequency normally go before the main verb: I usually study at night.",
     past: "Past simple uses regular -ed forms, irregular past forms, and did/didn't for questions and negatives.",
     future: "Use present continuous for fixed arrangements and going to for intentions or planned decisions.",
@@ -17,7 +17,7 @@ function makeLesson(data) {
         cefr: "Bridge A2-B1",
         checkpoint: data.checkpoint || [
             "Revisar a regra sem excesso de teoria.",
-            "Praticar com frases, leitura, traducao e fala."
+            "Praticar com frases, leitura, tradução e fala."
         ],
         ...data
     };
@@ -28,23 +28,23 @@ window.PREPB1_LESSONS = [
         number: 1,
         unit: "Bridge 1",
         title: "Daily Routine and Preferences",
-        objective: "Revisar present simple e adverbios de frequencia para falar da rotina com respostas mais completas.",
+        objective: "Revisar present simple e advérbios de frequência para falar da rotina com respostas mais completas.",
         focus: "Present simple + adverbs of frequency",
         icon: "fa-calendar-check",
-        warmup: "What do you usually do in the morning? Com que frequencia voce pratica ingles fora da aula?",
+        warmup: "What do you usually do in the morning? Com que frequência você pratica inglês fora da aula?",
         grammar: {
-            title: "Present simple com frequencia",
-            rule: "Use o present simple para habitos, fatos e rotinas. Em frases afirmativas com he, she e it, lembre do -s no verbo. Adverbios como always, usually, often, sometimes e rarely normalmente aparecem entre o sujeito e o verbo principal.",
+            title: "Present simple com frequência",
+            rule: "Use o present simple para hábitos, fatos e rotinas. Em frases afirmativas com he, she e it, lembre do -s no verbo. Advérbios como always, usually, often, sometimes e rarely normalmente aparecem entre o sujeito e o verbo principal.",
             source: bridgeSources.frequency,
             examples: [
                 ["I usually study after dinner.", "Eu geralmente estudo depois do jantar."],
-                ["She rarely checks social media in the morning.", "Ela raramente verifica redes sociais de manha."],
-                ["Do you often work from home?", "Voce costuma trabalhar de casa?"]
+                ["She rarely checks social media in the morning.", "Ela raramente verifica redes sociais de manhã."],
+                ["Do you often work from home?", "Você costuma trabalhar de casa?"]
             ]
         },
         practice: [
             { prompt: "She ____ to the gym before work.", answer: "goes", hint: "he/she/it + verbo com -s" },
-            { prompt: "I ____ check my messages during class.", answer: "rarely", hint: "Use um adverbio de frequencia." },
+            { prompt: "I ____ check my messages during class.", answer: "rarely", hint: "Use um advérbio de frequência." },
             { prompt: "____ your brother study English every week?", answer: "Does", hint: "Pergunta no present simple com he/she/it." }
         ],
         readingTitle: "A balanced weekday",
@@ -63,9 +63,9 @@ window.PREPB1_LESSONS = [
             { question: "True or false: Marina's routine works because it is realistic.", options: ["True", "False"], correctIndex: 0, feedback: "The final sentence says exactly that." }
         ],
         translations: [
-            { from: "I usually study English at night.", to: "Eu geralmente estudo ingles a noite." },
-            { from: "She does not work from home every day.", to: "Ela nao trabalha de casa todos os dias." },
-            { from: "Com que frequencia voce le em ingles?", to: "How often do you read in English?" },
+            { from: "I usually study English at night.", to: "Eu geralmente estudo inglês à noite." },
+            { from: "She does not work from home every day.", to: "Ela não trabalha de casa todos os dias." },
+            { from: "Com que frequência você lê em inglês?", to: "How often do you read in English?" },
             { from: "Meu amigo raramente acorda cedo.", to: "My friend rarely wakes up early." }
         ],
         personalQuestions: [
@@ -76,36 +76,36 @@ window.PREPB1_LESSONS = [
         speakingTask: {
             title: "Describe your real routine",
             steps: [
-                "Fale sobre manha, tarde e noite.",
-                "Use pelo menos tres adverbios de frequencia.",
-                "Explique uma preferencia com because."
+                "Fale sobre manhã, tarde e noite.",
+                "Use pelo menos três advérbios de frequência.",
+                "Explique uma preferência com because."
             ],
             model: "I usually start my day early because I feel more organized. I often study English at night, but I rarely practice for more than thirty minutes. This routine works for me because it is simple."
         },
-        homework: "Mantenha um mini diario por uma semana com cinco frases em ingles sobre frequencia.",
-        celebration: "Voce revisou rotina e frequencia com uma base mais organizada para respostas longas."
+        homework: "Mantenha um mini diário por uma semana com cinco frases em inglês sobre frequência.",
+        celebration: "Você revisou rotina e frequência com uma base mais organizada para respostas longas."
     }),
     makeLesson({
         number: 2,
         unit: "Bridge 1",
         title: "Past Stories and Experiences",
-        objective: "Reforcar past simple, marcadores temporais e used to para contar historias curtas.",
+        objective: "Reforçar past simple, marcadores temporais e used to para contar histórias curtas.",
         focus: "Past simple + used to",
         icon: "fa-clock-rotate-left",
         warmup: "Tell me about a day that was different from your normal routine.",
         grammar: {
             title: "Past simple e used to",
-            rule: "Use past simple para acoes terminadas em um tempo definido. Verbos regulares recebem -ed, verbos irregulares mudam de forma, e perguntas/negativas usam did. Use used to para habitos do passado que mudaram.",
+            rule: "Use past simple para ações terminadas em um tempo definido. Verbos regulares recebem -ed, verbos irregulares mudam de forma, e perguntas/negativas usam did. Use used to para hábitos do passado que mudaram.",
             source: bridgeSources.past,
             examples: [
-                ["We visited Gramado last year.", "Nos visitamos Gramado no ano passado."],
-                ["Did you enjoy the festival?", "Voce gostou do festival?"],
+                ["We visited Gramado last year.", "Nós visitamos Gramado no ano passado."],
+                ["Did you enjoy the festival?", "Você gostou do festival?"],
                 ["I used to play soccer every weekend.", "Eu costumava jogar futebol todo fim de semana."]
             ]
         },
         practice: [
             { prompt: "Last weekend, I ____ my cousins in another city.", answer: "visited", hint: "visit no passado regular." },
-            { prompt: "She ____ use public transportation when she was a child.", answer: "used to", hint: "Habito antigo." },
+            { prompt: "She ____ use public transportation when she was a child.", answer: "used to", hint: "Hábito antigo." },
             { prompt: "____ you watch the concert online yesterday?", answer: "Did", hint: "Pergunta no passado simples." }
         ],
         readingTitle: "A festival memory",
@@ -120,10 +120,10 @@ window.PREPB1_LESSONS = [
             { question: "What did Pedro use to avoid?", options: ["Crowded events", "Hot chocolate", "Close friends"], correctIndex: 0, feedback: "The reading says he used to avoid crowded events." }
         ],
         translations: [
-            { from: "We visited Gramado last year.", to: "Nos visitamos Gramado no ano passado." },
-            { from: "Did you travel with your family?", to: "Voce viajou com sua familia?" },
-            { from: "Eu costumava estudar de manha.", to: "I used to study in the morning." },
-            { from: "Ela nao gostou do hotel.", to: "She didn't like the hotel." }
+            { from: "We visited Gramado last year.", to: "Nós visitamos Gramado no ano passado." },
+            { from: "Did you travel with your family?", to: "Você viajou com sua familia?" },
+            { from: "Eu costumava estudar de manhã.", to: "I used to study in the morning." },
+            { from: "Ela não gostou do hotel.", to: "She didn't like the hotel." }
         ],
         personalQuestions: [
             "What is one childhood memory you can describe in English?",
@@ -132,11 +132,11 @@ window.PREPB1_LESSONS = [
         ],
         speakingTask: {
             title: "Tell a mini story",
-            steps: ["Escolha um evento real.", "Use quatro marcadores temporais.", "Inclua um problema, uma emocao e um resultado."],
+            steps: ["Escolha um evento real.", "Use quatro marcadores temporais.", "Inclua um problema, uma emoção e um resultado."],
             model: "Last year, I started a new course. First, I felt nervous because I did not know anyone. Then I met two classmates and felt better. In the end, the experience was useful and fun."
         },
-        homework: "Entreviste um parente sobre como era a rotina dele 20 anos atras e apresente um resumo em ingles.",
-        celebration: "Historias ficam mais claras quando voce controla tempo, ordem e detalhes simples."
+        homework: "Entreviste um parente sobre como era a rotina dele 20 anos atrás e apresente um resumo em inglês.",
+        celebration: "Histórias ficam mais claras quando você controla tempo, ordem e detalhes simples."
     }),
     makeLesson({
         number: 3,
@@ -147,13 +147,13 @@ window.PREPB1_LESSONS = [
         icon: "fa-calendar-plus",
         warmup: "What are you doing this weekend? What are you going to do next month?",
         grammar: {
-            title: "Dois futuros praticos",
-            rule: "Use be going to para intencoes e planos pessoais. Use present continuous para compromissos ja marcados, normalmente com horario, pessoa ou lugar combinados.",
+            title: "Dois futuros práticos",
+            rule: "Use be going to para intencoes e planos pessoais. Use present continuous para compromissos já marcados, normalmente com horario, pessoa ou lugar combinados.",
             source: bridgeSources.future,
             examples: [
                 ["I am going to study more this month.", "Eu vou estudar mais este mes."],
                 ["I am meeting Ana at 7 p.m.", "Vou encontrar a Ana as 19h."],
-                ["Are you coming to the workshop?", "Voce vem para o workshop?"]
+                ["Are you coming to the workshop?", "Você vem para o workshop?"]
             ]
         },
         practice: [
@@ -173,10 +173,10 @@ window.PREPB1_LESSONS = [
             { question: "True or false: Julia is free on Saturday morning.", options: ["False", "True"], correctIndex: 0, feedback: "She is working in the morning." }
         ],
         translations: [
-            { from: "Are you going to the party?", to: "Voce vai para a festa?" },
-            { from: "I am meeting my teacher tomorrow.", to: "Vou encontrar meu professor amanha." },
-            { from: "Nos vamos visitar uma feira de tecnologia.", to: "We are going to visit a technology fair." },
-            { from: "Desculpa, nao posso ir hoje.", to: "Sorry, I can't go today." }
+            { from: "Are you going to the party?", to: "Você vai para a festa?" },
+            { from: "I am meeting my teacher tomorrow.", to: "Vou encontrar meu professor amanhã." },
+            { from: "Nós vamos visitar uma feira de tecnologia.", to: "We are going to visit a technology fair." },
+            { from: "Desculpa, não posso ir hoje.", to: "Sorry, I can't go today." }
         ],
         personalQuestions: [
             "What are you doing this weekend?",
@@ -189,7 +189,7 @@ window.PREPB1_LESSONS = [
             model: "Are you free on Friday? I am meeting some friends for coffee at 6. We are going to talk about our course. If Friday is difficult, we can meet on Saturday."
         },
         homework: "Monte um roteiro ficticio de viagem de fim de semana usando going to e present continuous.",
-        celebration: "Voce agora tem um roteiro claro para falar de planos sem misturar todas as formas de futuro."
+        celebration: "Você agora tem um roteiro claro para falar de planos sem misturar todas as formas de futuro."
     }),
     makeLesson({
         number: 4,
@@ -200,11 +200,11 @@ window.PREPB1_LESSONS = [
         icon: "fa-map-location-dot",
         warmup: "How do you get to your favorite cafe, school or supermarket?",
         grammar: {
-            title: "Localizacao e direcoes",
-            rule: "Use there is para singular e there are para plural. Para direcoes, combine verbo de acao, distancia e ponto de referencia: go straight, turn left, cross the street, next to the bank.",
+            title: "Localizacao e direções",
+            rule: "Use there is para singular e there are para plural. Para direções, combine verbo de ação, distância e ponto de referência: go straight, turn left, cross the street, next to the bank.",
             source: bridgeSources.directions,
             examples: [
-                ["There is a pharmacy across from the bank.", "Ha uma farmacia em frente ao banco."],
+                ["There is a pharmacy across from the bank.", "Há uma farmácia em frente ao banco."],
                 ["Go straight for two blocks.", "Siga reto por dois quarteiroes."],
                 ["Turn right at the second street.", "Vire a direita na segunda rua."]
             ]
@@ -227,7 +227,7 @@ window.PREPB1_LESSONS = [
         ],
         translations: [
             { from: "Turn right at the second street.", to: "Vire a direita na segunda rua." },
-            { from: "There is a bank next to the pharmacy.", to: "Ha um banco ao lado da farmacia." },
+            { from: "There is a bank next to the pharmacy.", to: "Há um banco ao lado da farmácia." },
             { from: "Siga reto por dois quarteiroes.", to: "Go straight for two blocks." },
             { from: "O cafe fica em frente ao parque.", to: "The cafe is across from the park." }
         ],
@@ -238,28 +238,28 @@ window.PREPB1_LESSONS = [
         ],
         speakingTask: {
             title: "Give directions from a simple map",
-            steps: ["Escolha dois lugares.", "Explique o caminho com tres comandos.", "Confirme se a pessoa entendeu."],
+            steps: ["Escolha dois lugares.", "Explique o caminho com três comandos.", "Confirme se a pessoa entendeu."],
             model: "Go straight for two blocks, then turn left after the bakery. Cross the street, and the cafe is next to the bookstore. Is that clear?"
         },
-        homework: "Use um mapa em ingles por um dia e registre cinco palavras novas.",
-        celebration: "Direcoes ficam mais faceis quando cada passo tem acao, distancia e referencia."
+        homework: "Use um mapa em inglês por um dia e registre cinco palavras novas.",
+        celebration: "Direções ficam mais fáceis quando cada passo tem ação, distância e referência."
     }),
     makeLesson({
         number: 5,
         unit: "Bridge 2",
         title: "Food, Health and Advice",
-        objective: "Revisar contaveis/incontaveis, quantificadores e should para conselhos simples.",
+        objective: "Revisar contáveis/incontáveis, quantificadores e should para conselhos simples.",
         focus: "Countable/uncountable + should",
         icon: "fa-heart-pulse",
         warmup: "What should people do to stay healthy during a busy week?",
         grammar: {
             title: "Quantidade e conselho",
-            rule: "Substantivos contaveis podem ter plural: apples, bananas. Incontaveis normalmente nao recebem plural: water, advice. Use some/any, much/many, a few/a little conforme a ideia. Use should para sugestoes e conselhos.",
+            rule: "Substantivos contáveis podem ter plural: apples, bananas. Incontáveis normalmente não recebem plural: water, advice. Use some/any, much/many, a few/a little conforme a ideia. Use should para sugestões e conselhos.",
             source: bridgeSources.should,
             examples: [
-                ["You should drink more water.", "Voce deveria beber mais agua."],
-                ["There are a few apples in the kitchen.", "Ha algumas macas na cozinha."],
-                ["I don't have much time for exercise.", "Nao tenho muito tempo para exercicio."]
+                ["You should drink more water.", "Você deveria beber mais água."],
+                ["There are a few apples in the kitchen.", "Há algumas maçãs na cozinha."],
+                ["I don't have much time for exercise.", "Não tenho muito tempo para exercício."]
             ]
         },
         practice: [
@@ -279,10 +279,10 @@ window.PREPB1_LESSONS = [
             { question: "What can busy people start with?", options: ["Ten minutes of walking", "A long gym program", "No exercise"], correctIndex: 0, feedback: "The final sentence suggests ten minutes of walking." }
         ],
         translations: [
-            { from: "You should drink more water.", to: "Voce deveria beber mais agua." },
-            { from: "I don't eat much sugar.", to: "Eu nao como muito acucar." },
-            { from: "Voce deveria descansar hoje.", to: "You should rest today." },
-            { from: "Ha algumas frutas na mesa.", to: "There are a few fruits on the table." }
+            { from: "You should drink more water.", to: "Você deveria beber mais água." },
+            { from: "I don't eat much sugar.", to: "Eu não como muito açúcar." },
+            { from: "Você deveria descansar hoje.", to: "You should rest today." },
+            { from: "Há algumas frutas na mesa.", to: "There are a few fruits on the table." }
         ],
         personalQuestions: [
             "Which habit would you like to change?",
@@ -294,8 +294,8 @@ window.PREPB1_LESSONS = [
             steps: ["Descreva dois sintomas.", "Peca conselho.", "Responda com should/shouldn't."],
             model: "I have a headache and I feel tired. You should drink water, rest for a while and avoid screens tonight. You shouldn't work until very late."
         },
-        homework: "Crie um cardapio semanal simples em ingles com conselhos de saude.",
-        celebration: "Voce praticou conselhos uteis com linguagem de quantidade do dia a dia."
+        homework: "Crie um cardápio semanal simples em inglês com conselhos de saúde.",
+        celebration: "Você praticou conselhos úteis com linguagem de quantidade do dia a dia."
     }),
     makeLesson({
         number: 6,
@@ -306,8 +306,8 @@ window.PREPB1_LESSONS = [
         icon: "fa-briefcase",
         warmup: "Can you work or study from home? What do you have to do every week?",
         grammar: {
-            title: "Habilidade, obrigacao e comparacao",
-            rule: "Can expressa habilidade ou permissao e usa verbo base. Have to e comum para obrigacoes cotidianas; must e mais forte/formal. Don't have to significa que nao e necessario. Comparativos usam -er, more ou formas irregulares como better/worse.",
+            title: "Habilidade, obrigação e comparação",
+            rule: "Can expressa habilidade ou permissão e usa verbo base. Have to e comum para obrigações cotidianas; must e mais forte/formal. Don't have to significa que não e necessario. Comparativos usam -er, more ou formas irregulares como better/worse.",
             source: `${bridgeSources.obligations} ${bridgeSources.comparatives}`,
             examples: [
                 ["I can work from home twice a week.", "Eu posso trabalhar de casa duas vezes por semana."],
@@ -333,9 +333,9 @@ window.PREPB1_LESSONS = [
         ],
         translations: [
             { from: "We have to finish the project by Friday.", to: "Temos que terminar o projeto ate sexta-feira." },
-            { from: "This routine is better than my old routine.", to: "Esta rotina e melhor que minha rotina antiga." },
+            { from: "This routine is better than my old routine.", to: "Esta rotina é melhor que minha rotina antiga." },
             { from: "Eu posso trabalhar de casa.", to: "I can work from home." },
-            { from: "Voce nao precisa estudar no domingo.", to: "You don't have to study on Sunday." }
+            { from: "Você não precisa estudar no domingo.", to: "You don't have to study on Sunday." }
         ],
         personalQuestions: [
             "Compare your study routine with a friend's routine.",
@@ -344,28 +344,28 @@ window.PREPB1_LESSONS = [
         ],
         speakingTask: {
             title: "Remote work mini debate",
-            steps: ["Diga uma vantagem.", "Diga uma desvantagem.", "Use pelo menos um comparativo e uma obrigacao."],
+            steps: ["Diga uma vantagem.", "Diga uma desvantagem.", "Use pelo menos um comparativo e uma obrigação."],
             model: "Remote work is more flexible than office work, but people have to be disciplined. For me, it is better when the company has clear rules."
         },
         homework: "Escreva um paragrafo comparando duas profissoes e as habilidades necessarias.",
-        celebration: "Voce conectou trabalho, estudo e regras com comparacoes mais naturais."
+        celebration: "Você conectou trabalho, estudo e regras com comparações mais naturais."
     }),
     makeLesson({
         number: 7,
         unit: "Bridge 2",
         title: "Travel and Service Situations",
-        objective: "Praticar pedidos educados, vocabulario de viagem e solucao de problemas em servicos.",
+        objective: "Praticar pedidos educados, vocabulario de viagem e solucao de problemas em serviços.",
         focus: "Can/could/may for polite requests",
         icon: "fa-plane-departure",
         warmup: "Tell me about a time you had a small problem while travelling.",
         grammar: {
             title: "Pedidos educados",
-            rule: "Use can para pedidos simples, could para soar mais educado e may em contextos mais formais. Em servicos, explique o problema brevemente e peca uma solucao clara.",
+            rule: "Use can para pedidos simples, could para soar mais educado e may em contextos mais formais. Em serviços, explique o problema brevemente e peca uma solucao clara.",
             source: bridgeSources.requests,
             examples: [
-                ["Could you check my reservation, please?", "Voce poderia verificar minha reserva, por favor?"],
-                ["May I see the menu?", "Posso ver o cardapio?"],
-                ["Can you help me with this room key?", "Voce pode me ajudar com esta chave?"]
+                ["Could you check my reservation, please?", "Você poderia verificar minha reserva, por favor?"],
+                ["May I see the menu?", "Posso ver o cardápio?"],
+                ["Can you help me with this room key?", "Você pode me ajudar com esta chave?"]
             ]
         },
         practice: [
@@ -385,9 +385,9 @@ window.PREPB1_LESSONS = [
             { question: "What did the attendant do?", options: ["Printed a new boarding pass", "Cancelled the trip", "Changed the hotel"], correctIndex: 0, feedback: "He corrected the spelling and printed a new boarding pass." }
         ],
         translations: [
-            { from: "Could you check my reservation, please?", to: "Voce poderia verificar minha reserva, por favor?" },
-            { from: "There is a problem with my room.", to: "Ha um problema com meu quarto." },
-            { from: "Posso ver o cardapio?", to: "May I see the menu?" },
+            { from: "Could you check my reservation, please?", to: "Você poderia verificar minha reserva, por favor?" },
+            { from: "There is a problem with my room.", to: "Há um problema com meu quarto." },
+            { from: "Posso ver o cardápio?", to: "May I see the menu?" },
             { from: "Eu perdi meu documento no aeroporto.", to: "I lost my document at the airport." }
         ],
         personalQuestions: [
@@ -397,23 +397,23 @@ window.PREPB1_LESSONS = [
         ],
         speakingTask: {
             title: "Hotel, airport or restaurant role-play",
-            steps: ["Escolha uma situacao de servico.", "Explique o problema em duas frases.", "Faca um pedido educado com could ou may."],
+            steps: ["Escolha uma situação de serviço.", "Explique o problema em duas frases.", "Faça um pedido educado com could ou may."],
             model: "Excuse me, there seems to be a problem with my reservation. I booked a room for two nights, but my name is not here. Could you check again, please?"
         },
-        homework: "Pesquise um destino turistico e prepare um mini guia em ingles.",
-        celebration: "Voce praticou ingles pratico para resolver situacoes reais com mais calma."
+        homework: "Pesquise um destino turístico e prepare um mini guia em inglês.",
+        celebration: "Você praticou inglês prático para resolver situações reais com mais calma."
     }),
     makeLesson({
         number: 8,
         unit: "Bridge 2",
         title: "Technology and Communication",
-        objective: "Introduzir a diferenca entre present perfect para experiencias e past simple para eventos finalizados.",
+        objective: "Introduzir a diferenca entre present perfect para experiências e past simple para eventos finalizados.",
         focus: "Present perfect vs past simple",
         icon: "fa-mobile-screen-button",
         warmup: "How has technology changed your daily communication?",
         grammar: {
             title: "Experiencia x tempo finalizado",
-            rule: "Use present perfect com have/has + past participle para experiencias sem tempo definido ou com efeito no presente. Use past simple quando o tempo esta claro e terminado, como yesterday, last week ou in 2024.",
+            rule: "Use present perfect com have/has + past participle para experiências sem tempo definido ou com efeito no presente. Use past simple quando o tempo está claro e terminado, como yesterday, last week ou in 2024.",
             source: bridgeSources.presentPerfect,
             examples: [
                 ["I have never used virtual reality.", "Eu nunca usei realidade virtual."],
@@ -431,7 +431,7 @@ window.PREPB1_LESSONS = [
             "Communication has changed quickly in the last twenty years. Many people have stopped writing long emails for simple daily conversations. Instead, they use instant messages, voice notes and short videos.",
             "Last month, a small company tested a new communication app with its team. The workers liked the app because it organized tasks and messages in one place. However, some people said they still preferred email for formal decisions."
         ],
-        vocabulary: [["voice notes", "audios curtos"], ["tasks", "tarefas"], ["formal decisions", "decisoes formais"]],
+        vocabulary: [["voice notes", "áudios curtos"], ["tasks", "tarefas"], ["formal decisions", "decisões formais"]],
         comprehension: [
             { question: "What has changed in daily communication?", options: ["People use more instant messages and voice notes", "People stopped using phones", "Email disappeared completely"], correctIndex: 0, feedback: "The text mentions instant messages, voice notes and short videos." },
             { question: "When did the company test the app?", options: ["Last month", "Tomorrow", "In 2010"], correctIndex: 0, feedback: "Last month is in the second paragraph." },
@@ -440,7 +440,7 @@ window.PREPB1_LESSONS = [
         translations: [
             { from: "I have never used virtual reality.", to: "Eu nunca usei realidade virtual." },
             { from: "I downloaded the app yesterday.", to: "Eu baixei o aplicativo ontem." },
-            { from: "Voce ja fez uma chamada de video em ingles?", to: "Have you ever had a video call in English?" },
+            { from: "Você já fez uma chamada de vídeo em inglês?", to: "Have you ever had a video call in English?" },
             { from: "Ela comprou um celular novo no mes passado.", to: "She bought a new phone last month." }
         ],
         personalQuestions: [
@@ -453,14 +453,14 @@ window.PREPB1_LESSONS = [
             steps: ["Diga uma experiencia com tecnologia usando present perfect.", "Diga um evento especifico usando past simple.", "Explique uma opiniao com because."],
             model: "I have used AI tools to practice English, and they have helped me with vocabulary. Last week, I used one app to correct a short text. I think technology is useful because it gives fast feedback."
         },
-        homework: "Escreva um post curto em ingles sobre uma inovacao tecnologica que voce admira.",
-        celebration: "Voce deu o primeiro passo para diferenciar experiencias gerais de eventos terminados."
+        homework: "Escreva um post curto em inglês sobre uma inovação tecnológica que você admira.",
+        celebration: "Você deu o primeiro passo para diferenciar experiências gerais de eventos terminados."
     }),
     makeLesson({
         number: 9,
         unit: "Bridge 3",
         title: "Culture, Leisure and Recommendations",
-        objective: "Praticar comparativos e superlativos para falar de filmes, eventos, hobbies e recomendacoes.",
+        objective: "Praticar comparativos e superlativos para falar de filmes, eventos, hobbies e recomendações.",
         focus: "Comparatives + superlatives",
         icon: "fa-masks-theater",
         warmup: "What is the most interesting movie, concert or event you have experienced recently?",
@@ -469,7 +469,7 @@ window.PREPB1_LESSONS = [
             rule: "Use comparativos para comparar duas coisas: cheaper, more interesting, better. Use superlativos para destacar uma coisa dentro de um grupo: the cheapest, the most interesting, the best.",
             source: `${bridgeSources.comparatives} ${bridgeSources.superlatives}`,
             examples: [
-                ["This series is more exciting than the book.", "Esta serie e mais empolgante que o livro."],
+                ["This séries is more exciting than the book.", "Esta série e mais empolgante que o livro."],
                 ["It was the best concert of the year.", "Foi o melhor show do ano."],
                 ["The theater is smaller but more comfortable.", "O teatro e menor, mas mais confortavel."]
             ]
@@ -486,7 +486,7 @@ window.PREPB1_LESSONS = [
         ],
         vocabulary: [["documentary", "documentario"], ["inspiring", "inspirador"], ["neighborhood", "bairro"]],
         comprehension: [
-            { question: "What kind of film did the writer watch?", options: ["A documentary", "An action movie", "A comedy series"], correctIndex: 0, feedback: "The first sentence says Brazilian documentary." },
+            { question: "What kind of film did the writer watch?", options: ["A documentary", "An action movie", "A comedy séries"], correctIndex: 0, feedback: "The first sentence says Brazilian documentary." },
             { question: "How was it compared with an action movie?", options: ["Slower but more emotional", "Faster and cheaper", "Shorter and boring"], correctIndex: 0, feedback: "The text says slower, but more emotional and realistic." },
             { question: "Who was in the best part?", options: ["A young musician", "A famous chef", "A soccer player"], correctIndex: 0, feedback: "The best part was the interview with a young musician." }
         ],
@@ -494,60 +494,60 @@ window.PREPB1_LESSONS = [
             { from: "This book is more interesting than the movie.", to: "Este livro e mais interessante que o filme." },
             { from: "It was the best concert of the year.", to: "Foi o melhor show do ano." },
             { from: "O teatro e menor que o cinema.", to: "The theater is smaller than the cinema." },
-            { from: "Esta e a serie mais divertida que eu ja vi.", to: "This is the funniest series I have ever seen." }
+            { from: "Esta e a série mais divertida que eu já vi.", to: "This is the funniest séries I have ever seen." }
         ],
         personalQuestions: [
-            "What is the best series you have watched recently?",
+            "What is the best séries you have watched recently?",
             "Compare two hobbies you enjoy.",
             "Compared with last year, how has your English improved?"
         ],
         speakingTask: {
             title: "Recommend something cultural",
-            steps: ["Escolha filme, serie, livro, musica ou evento.", "Use dois comparativos.", "Use um superlativo e explique sua recomendacao."],
-            model: "I recommend this series because it is more realistic than many dramas and more emotional than I expected. For me, it is the best series I have watched this year."
+            steps: ["Escolha filme, série, livro, música ou evento.", "Use dois comparativos.", "Use um superlativo e explique sua recomendação."],
+            model: "I recommend this séries because it is more realistic than many dramas and more emotional than I expected. For me, it is the best séries I have watched this year."
         },
-        homework: "Crie uma lista de tres recomendacoes culturais em ingles e justifique cada uma.",
-        celebration: "Voce agora consegue recomendar e comparar experiencias com mais precisao."
+        homework: "Crie uma lista de três recomendações culturais em inglês e justifique cada uma.",
+        celebration: "Você agora consegue recomendar e comparar experiências com mais precisao."
     }),
     makeLesson({
         number: 10,
         unit: "Final Review",
         title: "Final Bridge Project",
-        objective: "Consolidar o modulo com revisao integrada, leitura, escrita, fala e autoavaliacao.",
+        objective: "Consolidar o módulo com revisão integrada, leitura, escrita, fala e autoavaliação.",
         focus: "Integrated A2-B1 review",
         icon: "fa-trophy",
         warmup: "What can you do in English now that was difficult at the beginning of A1 or A2?",
         grammar: {
             title: "Revisao rapida antes do B1",
-            rule: "Nesta aula, o foco e combinar o que voce revisou: rotina, passado, planos, direcoes, conselhos, obrigacoes, comparacoes, pedidos e experiencias. A meta nao e perfeicao; e comunicacao mais independente.",
+            rule: "Nesta aula, o foco é combinar o que você revisou: rotina, passado, planos, direções, conselhos, obrigações, comparações, pedidos e experiências. A meta não é perfeição; é comunicação mais independente.",
             source: "Integrated review based on the grammar boxes from lessons 1-9.",
             examples: [
                 ["Before, I could answer only short questions.", "Antes, eu conseguia responder apenas perguntas curtas."],
-                ["Now, I can explain plans and past experiences.", "Agora, consigo explicar planos e experiencias passadas."],
-                ["My next goal is to speak more naturally.", "Minha proxima meta e falar com mais naturalidade."]
+                ["Now, I can explain plans and past experiences.", "Agora, consigo explicar planos e experiências passadas."],
+                ["My next goal is to speak more naturally.", "Minha próxima meta é falar com mais naturalidade."]
             ]
         },
         practice: [
-            { prompt: "Before A2, I ____ to speak very slowly.", answer: "used to", hint: "Habito antigo." },
+            { prompt: "Before A2, I ____ to speak very slowly.", answer: "used to", hint: "Hábito antigo." },
             { prompt: "Next month, I ____ going to practice speaking more.", answer: "am", hint: "Going to precisa do verbo be." },
             { prompt: "B1 texts are usually ____ challenging than A2 texts.", answer: "more", hint: "Comparativo." }
         ],
         readingTitle: "Ana's bridge to B1",
         reading: [
             "When Ana started English, she could answer basic personal questions, but she usually stopped after one sentence. During A1 and A2, she learned to describe routines, talk about past events, make plans, ask for help and understand short texts.",
-            "Now she is preparing for B1. Last week, she recorded a two-minute audio about her progress. She said that speaking is still more challenging than reading, but she has become more confident. Her next goal is to give longer answers with examples and clearer opinions.",
+            "Now she is preparing for B1. Last week, she gave a two-minute live presentation about her progress. She said that speaking is still more challenging than reading, but she has become more confident. Her next goal is to give longer answers with examples and clearer opinions.",
             "Ana knows she will make mistakes, but she also knows that mistakes are part of communication. The bridge module helped her review old language and use it in more connected ways."
         ],
         vocabulary: [["progress", "progresso"], ["challenging", "desafiador"], ["connected", "conectado"]],
         comprehension: [
             { question: "What could Ana do at the beginning?", options: ["Answer basic personal questions", "Debate complex topics", "Read academic articles"], correctIndex: 0, feedback: "The first sentence says she could answer basic personal questions." },
-            { question: "What did she record last week?", options: ["A two-minute audio", "A movie review", "A travel complaint"], correctIndex: 0, feedback: "The second paragraph mentions a two-minute audio." },
+            { question: "What did she present last week?", options: ["A two-minute live presentation", "A movie review", "A travel complaint"], correctIndex: 0, feedback: "The second paragraph mentions a two-minute live presentation." },
             { question: "What is her next goal?", options: ["Give longer answers with examples", "Stop reading", "Avoid opinions"], correctIndex: 0, feedback: "Her next goal is to give longer answers with examples and clearer opinions." }
         ],
         translations: [
-            { from: "Now I can talk about past experiences.", to: "Agora eu consigo falar sobre experiencias passadas." },
-            { from: "My next goal is to speak more naturally.", to: "Minha proxima meta e falar com mais naturalidade." },
-            { from: "Eu ja usei ingles em uma viagem.", to: "I have used English on a trip." },
+            { from: "Now I can talk about past experiences.", to: "Agora eu consigo falar sobre experiências passadas." },
+            { from: "My next goal is to speak more naturally.", to: "Minha próxima meta é falar com mais naturalidade." },
+            { from: "Eu já usei inglês em uma viagem.", to: "I have used English on a trip." },
             { from: "Antes, eu costumava responder com frases muito curtas.", to: "Before, I used to answer with very short sentences." }
         ],
         personalQuestions: [
@@ -559,13 +559,13 @@ window.PREPB1_LESSONS = [
             title: "Final 2-3 minute presentation",
             steps: [
                 "Parte 1: diga o que era dificil antes.",
-                "Parte 2: diga o que voce consegue fazer agora com exemplos.",
-                "Parte 3: compare seu ingles atual com o anterior e defina metas para B1."
+                "Parte 2: diga o que você consegue fazer agora com exemplos.",
+                "Parte 3: compare seu inglês atual com o anterior e defina metas para B1."
             ],
             model: "Before, I used to answer with very short sentences. Now, I can talk about my routine, past experiences and plans with more detail. Speaking is still more difficult than reading, but I am more confident. My next goal is to give clearer opinions in B1."
         },
-        homework: "Grave um audio ou video de 2 a 3 minutos sobre sua jornada no ingles e escreva uma autoavaliacao curta.",
-        celebration: "Parabens: voce fechou a ponte A2-B1 com revisao, producao e mais prontidao para o B1."
+        homework: "Prepare uma apresentação oral de 2 a 3 minutos sobre sua jornada no inglês e escreva uma autoavaliação curta.",
+        celebration: "Parabéns: você fechou a ponte A2-B1 com revisão, produção e mais prontidão para o B1."
     })
 ];
 
@@ -575,7 +575,7 @@ const bridgeEnhancements = {
             points: [
                 "Na afirmativa, he/she/it recebe -s ou -es: she works, he watches.",
                 "Na negativa e na pergunta, use do/does e mantenha o verbo principal na forma base: Does she work? She doesn't work.",
-                "Adverbios de frequencia normalmente aparecem antes do verbo principal, mas depois do verbo be: I usually study. She is always busy."
+                "Advérbios de frequência normalmente aparecem antes do verbo principal, mas depois do verbo be: I usually study. She is always busy."
             ],
             table: [
                 ["Affirmative", "I work / She works"],
@@ -588,19 +588,29 @@ const bridgeEnhancements = {
             {
                 type: "sequence",
                 title: "Order a morning routine",
-                instruction: "Coloque as acoes em uma ordem logica antes de contar a rotina em voz alta.",
+                instruction: "Coloque as ações em uma ordem lógica antes de contar a rotina em voz alta.",
                 items: ["wake up", "make coffee", "check the schedule", "go to work", "study English at night"],
                 model: "I usually wake up, make coffee, check my schedule, go to work and study English at night."
             },
             {
                 type: "match",
                 title: "Frequency memory cards",
-                instruction: "Combine o adverbio em ingles com a ideia em portugues.",
+                instruction: "Combine o advérbio em inglês com a ideia em português.",
                 items: [
                     { left: "always", right: "sempre" },
                     { left: "usually", right: "geralmente" },
                     { left: "rarely", right: "raramente" },
                     { left: "never", right: "nunca" }
+                ]
+            },
+            {
+                type: "correct",
+                title: "Certo ou errado?",
+                instruction: "Use este bloco como caça ao erro durante a aula compartilhada.",
+                items: [
+                    { wrong: "She go to work at 8.", correct: "She goes to work at 8." },
+                    { wrong: "I hardly never exercise.", correct: "I hardly ever exercise. / I never exercise." },
+                    { wrong: "Does he usually studies at night?", correct: "Does he usually study at night?" }
                 ]
             }
         ],
@@ -617,10 +627,10 @@ const bridgeEnhancements = {
             ]
         },
         translations: [
-            { from: "Does your sister usually work on Saturdays?", to: "Sua irma geralmente trabalha aos sabados?" },
-            { from: "I don't often study before breakfast.", to: "Eu nao estudo com frequencia antes do cafe da manha." },
-            { from: "Com que frequencia seu professor envia tarefas?", to: "How often does your teacher send homework?" },
-            { from: "Eles nunca chegam atrasados para a aula.", to: "They never arrive late for class." }
+            { from: "Does your sister usually work on Saturdays?", to: "Sua irmã geralmente trabalha aos sábados?" },
+            { from: "I don't often study before breakfast.", to: "Eu não estudo com frequência antes do cafe da manhã." },
+            { from: "Com que frequência seu professor envia tarefas?", to: "How often does your teacher send homework?" },
+            { from: "Eles nunca chegam atrásados para a aula.", to: "They never arrive late for class." }
         ]
     },
     2: {
@@ -628,7 +638,7 @@ const bridgeEnhancements = {
             points: [
                 "Verbos regulares recebem -ed, mas alguns mudam a grafia: study -> studied, stop -> stopped.",
                 "Perguntas e negativas usam did/didn't; o verbo principal volta para a forma base: Did you go? I didn't go.",
-                "Used to descreve habitos ou estados do passado que nao sao mais verdadeiros: I used to play soccer."
+                "Used to descreve hábitos ou estados do passado que não são mais verdadeiros: I used to play soccer."
             ],
             table: [
                 ["Regular", "visit -> visited; travel -> travelled; study -> studied"],
@@ -652,9 +662,20 @@ const bridgeEnhancements = {
             {
                 type: "sequence",
                 title: "Timeline builder",
-                instruction: "Use os marcadores para organizar uma historia curta.",
+                instruction: "Use os marcadores para organizar uma história curta.",
                 items: ["first", "then", "after that", "finally"],
                 model: "First, I arrived at the festival. Then, I met my friends. After that, we watched a concert. Finally, we went home tired but happy."
+            },
+            {
+                type: "match",
+                title: "Irregular verb bingo",
+                instruction: "O professor sorteia o passado; o aluno marca o infinitivo correspondente e depois cria uma frase.",
+                items: [
+                    { left: "went", right: "go" },
+                    { left: "saw", right: "see" },
+                    { left: "took", right: "take" },
+                    { left: "bought", right: "buy" }
+                ]
             }
         ],
         secondaryReading: {
@@ -670,18 +691,18 @@ const bridgeEnhancements = {
             ]
         },
         translations: [
-            { from: "I didn't use to like crowded places.", to: "Eu nao costumava gostar de lugares cheios." },
+            { from: "I didn't use to like crowded places.", to: "Eu não costumava gostar de lugares cheios." },
             { from: "Did they buy tickets last month?", to: "Eles compraram ingressos no mes passado?" },
             { from: "No ano passado, ela viajou sozinha pela primeira vez.", to: "Last year, she travelled alone for the first time." },
-            { from: "Nos costumavamos visitar nossos avos aos domingos.", to: "We used to visit our grandparents on Sundays." }
+            { from: "Nós costumávamos visitar nossos avós aos domingos.", to: "We used to visit our grandparents on Sundays." }
         ]
     },
     3: {
         grammar: {
             points: [
-                "Present continuous para futuro combina melhor com arranjos ja marcados: hora, lugar ou pessoa definida.",
-                "Going to destaca intencao, plano ou decisao ja pensada, mesmo sem compromisso fixo.",
-                "Will pode aparecer em decisoes espontaneas e previsoes; o modulo aprofunda isso no B1."
+                "Present continuous para futuro combina melhor com arranjos já marcados: hora, lugar ou pessoa definida.",
+                "Going to destaca intenção, plano ou decisão já pensada, mesmo sem compromisso fixo.",
+                "Will pode aparecer em decisões espontâneas e previsões; o módulo aprofunda isso no B1."
             ],
             table: [
                 ["Arrangement", "I'm meeting Carol at 7 p.m."],
@@ -694,7 +715,7 @@ const bridgeEnhancements = {
             {
                 type: "scenario",
                 title: "Accept, refuse or reschedule",
-                instruction: "Complete um mini-dialogo para cada situacao.",
+                instruction: "Complete um mini-dialogo para cada situação.",
                 items: [
                     { title: "Accept", detail: "Your friend invites you to a cafe on Friday." },
                     { title: "Refuse", detail: "You already have an appointment." },
@@ -706,12 +727,25 @@ const bridgeEnhancements = {
             {
                 type: "transform",
                 title: "Future form transformer",
-                instruction: "Decida se a frase soa melhor como arranjo marcado ou intencao.",
+                instruction: "Decida se a frase soa melhor como arranjo marcado ou intenção.",
                 items: [
                     { from: "I'm going to meet Ana at 8 p.m.", task: "Rewrite as a fixed arrangement." },
                     { from: "I'm taking an English test someday.", task: "Rewrite as an intention." }
                 ],
                 model: "I'm meeting Ana at 8 p.m. / I'm going to take an English test."
+            },
+            {
+                type: "project",
+                title: "Weekly planner negotiation",
+                instruction: "Preencha mentalmente uma semana com compromissos fixos e planos ainda flexíveis. Depois, negocie um convite com o professor.",
+                items: [
+                    "Monday 7 p.m.: English class",
+                    "Friday 6 p.m.: possible dinner plan",
+                    "Saturday morning: going to study",
+                    "Sunday afternoon: free time"
+                ],
+                prompt: "Write one invitation, one conflict and one rescheduling sentence.",
+                model: "I'm having English class on Monday at 7. I'm going to study on Saturday morning. Can we meet on Sunday afternoon instead?"
             }
         ],
         secondaryReading: {
@@ -731,14 +765,14 @@ const bridgeEnhancements = {
         grammar: {
             points: [
                 "Use there is com um lugar ou item singular; use there are com itens no plural.",
-                "Preposicoes ajudam a localizar: next to, across from, between, in front of, behind.",
-                "Direcoes claras devem ter comando, distancia e referencia visual."
+                "Preposições ajudam a localizar: next to, across from, between, in front of, behind.",
+                "Direções claras devem ter comando, distância e referência visual."
             ],
             table: [
                 ["next to", "ao lado de"],
                 ["across from", "em frente / do outro lado"],
                 ["between", "entre dois lugares"],
-                ["behind", "atras de"],
+                ["behind", "atrás de"],
                 ["in front of", "na frente de"]
             ]
         },
@@ -763,6 +797,16 @@ const bridgeEnhancements = {
                 ],
                 prompt: "Write directions with at least three direction verbs.",
                 model: "Go straight for two blocks, turn left after the bakery and cross the street. The subway station is across from the pharmacy."
+            },
+            {
+                type: "correct",
+                title: "Preposition error hunt",
+                instruction: "Corrija as frases que confundem preposições de lugar.",
+                items: [
+                    { wrong: "The bank is at the cinema.", correct: "The bank is next to the cinema." },
+                    { wrong: "The school is in front the park.", correct: "The school is in front of the park." },
+                    { wrong: "There are a pharmacy near here.", correct: "There is a pharmacy near here." }
+                ]
             }
         ],
         secondaryReading: {
@@ -781,7 +825,7 @@ const bridgeEnhancements = {
     5: {
         grammar: {
             points: [
-                "Much combina com incontaveis; many combina com contaveis no plural.",
+                "Much combina com incontáveis; many combina com contáveis no plural.",
                 "Much/many aparecem muito em perguntas e negativas. Em afirmativas, a lot of/lots of soa mais natural.",
                 "A few significa algumas unidades; few sugere poucas. A little significa um pouco; little sugere pouco ou insuficiente.",
                 "Depois de should/shouldn't, use o verbo base: should drink, shouldn't skip."
@@ -808,7 +852,7 @@ const bridgeEnhancements = {
             {
                 type: "scenario",
                 title: "Advice to a busy friend",
-                instruction: "Seu amigo esta cansado, come mal e nao se exercita.",
+                instruction: "Seu amigo está cansado, come mal e não se exercita.",
                 items: [
                     { title: "Problem 1", detail: "headache" },
                     { title: "Problem 2", detail: "too much screen time" },
@@ -816,6 +860,13 @@ const bridgeEnhancements = {
                 ],
                 prompt: "Write three pieces of advice with should/shouldn't.",
                 model: "You should drink more water. You shouldn't use your phone before bed. You should prepare a few simple meals at home."
+            },
+            {
+                type: "sequence",
+                title: "Healthy recipe order",
+                instruction: "Coloque os passos da receita em ordem e depois diga quais ingredientes são contáveis ou incontáveis.",
+                items: ["wash the fruit", "cut two bananas", "add a little milk", "mix everything", "serve with a few strawberries"],
+                model: "First, wash the fruit. Then, cut two bananas, add a little milk, mix everything and serve with a few strawberries."
             }
         ],
         secondaryReading: {
@@ -851,7 +902,7 @@ const bridgeEnhancements = {
             {
                 type: "classify",
                 title: "Obligation sorter",
-                instruction: "Classifique a funcao de cada frase.",
+                instruction: "Classifique a função de cada frase.",
                 items: [
                     { term: "You mustn't use your phone during the exam.", category: "prohibition" },
                     { term: "I have to send invoices every Monday.", category: "routine obligation" },
@@ -861,12 +912,24 @@ const bridgeEnhancements = {
             {
                 type: "correct",
                 title: "Fix common modal mistakes",
-                instruction: "Observe o erro e a correcao.",
+                instruction: "Observe o erro e a correção.",
                 items: [
                     { wrong: "I must to finish this report.", correct: "I must finish this report." },
                     { wrong: "She doesn't has to work today.", correct: "She doesn't have to work today." },
                     { wrong: "This job is more easy.", correct: "This job is easier." }
                 ]
+            },
+            {
+                type: "scenario",
+                title: "Remote work limits",
+                instruction: "Decida se cada regra é obrigatória, recomendada ou opcional e justifique ao professor.",
+                items: [
+                    { title: "After-hours email", detail: "No emails after 7 p.m." },
+                    { title: "Meeting length", detail: "Meetings should be shorter than 30 minutes." },
+                    { title: "Daily update", detail: "Everyone has to send a short update." }
+                ],
+                prompt: "Use must, have to, should or don't have to.",
+                model: "Employees must not send emails after 7 p.m. They should keep meetings short. Everyone has to send a daily update."
             }
         ],
         secondaryReading: {
@@ -919,6 +982,18 @@ const bridgeEnhancements = {
                     { left: "Could you check this, please?", right: "polite" },
                     { left: "May I see the manager?", right: "formal permission/request to speak" }
                 ]
+            },
+            {
+                type: "scenario",
+                title: "Refund negotiation",
+                instruction: "Use este cenário para negociar mudança de passagem, reembolso ou nova reserva.",
+                items: [
+                    { title: "Problem", detail: "The flight time changed and you cannot travel." },
+                    { title: "Request", detail: "Ask for a refund or a new schedule." },
+                    { title: "Language", detail: "Use could, reservation, refund and schedule." }
+                ],
+                prompt: "Write a polite service request.",
+                model: "Excuse me, my flight schedule changed and I cannot travel at this time. Could you help me request a refund or change my reservation?"
             }
         ],
         secondaryReading: {
@@ -964,7 +1039,7 @@ const bridgeEnhancements = {
             {
                 type: "checklist",
                 title: "Experience bingo",
-                instruction: "Marque mentalmente experiencias que voce ja teve e transforme em frases.",
+                instruction: "Marque mentalmente experiências que você já teve e transforme em frases.",
                 items: [
                     "used virtual reality",
                     "talked to a foreigner online",
@@ -972,6 +1047,17 @@ const bridgeEnhancements = {
                     "used AI to correct English"
                 ],
                 model: "I have used AI to correct English. Last week, I used it to improve a short paragraph."
+            },
+            {
+                type: "classify",
+                title: "Tech news tense choice",
+                instruction: "Escolha o tempo verbal que combina com cada manchete simplificada.",
+                items: [
+                    { term: "The company announced a new app yesterday.", category: "past simple" },
+                    { term: "Online meetings have changed work routines.", category: "present perfect" },
+                    { term: "Smartphone use increased in 2024.", category: "past simple" },
+                    { term: "People have used more AI tools this year.", category: "present perfect" }
+                ]
             }
         ],
         secondaryReading: {
@@ -1007,7 +1093,7 @@ const bridgeEnhancements = {
             {
                 type: "ranking",
                 title: "Cultural ranking",
-                instruction: "Ordene mentalmente tres filmes, series ou livros e justifique.",
+                instruction: "Ordene mentalmente três filmes, séries ou livros e justifique.",
                 items: ["Most interesting", "More relaxing than...", "The best recommendation for a friend"],
                 prompt: "Write a mini ranking with two comparatives and one superlative.",
                 model: "For me, this documentary is the most interesting. The comedy is more relaxing than the drama, but the drama has the best story."
@@ -1021,6 +1107,18 @@ const bridgeEnhancements = {
                     { wrong: "It is the most cheapest option.", correct: "It is the cheapest option." },
                     { wrong: "I made less mistakes.", correct: "I made fewer mistakes." }
                 ]
+            },
+            {
+                type: "scenario",
+                title: "Detective recommendation game",
+                instruction: "Dê pistas sobre um filme, livro ou show. O professor tenta adivinhar; depois, invertam os papéis.",
+                items: [
+                    { title: "Clue 1", detail: "It is more emotional than an action movie." },
+                    { title: "Clue 2", detail: "It is the most inspiring story I have watched this year." },
+                    { title: "Clue 3", detail: "It is less predictable than many dramas." }
+                ],
+                prompt: "Write three clues with comparatives or superlatives.",
+                model: "It is funnier than most comedies. It has the best soundtrack. It is less famous than the director's last movie."
             }
         ],
         secondaryReading: {
@@ -1055,7 +1153,7 @@ const bridgeEnhancements = {
             {
                 type: "checklist",
                 title: "Can-do self-assessment",
-                instruction: "Marque mentalmente o que voce ja consegue fazer e escolha dois pontos para revisar.",
+                instruction: "Marque mentalmente o que você já consegue fazer e escolha dois pontos para revisar.",
                 items: [
                     "I can describe my routine clearly.",
                     "I can tell a short past story.",
@@ -1068,7 +1166,7 @@ const bridgeEnhancements = {
             {
                 type: "project",
                 title: "200-word written project",
-                instruction: "Escreva um relato sobre sua evolucao no ingles.",
+                instruction: "Escreva um relato sobre sua evolução no inglês.",
                 items: [
                     "Mention your old routine.",
                     "Tell one past learning moment.",
@@ -1078,6 +1176,23 @@ const bridgeEnhancements = {
                 ],
                 prompt: "Write your final bridge reflection here.",
                 model: "Before, I used to answer with very short sentences. Now, I can explain my routine, past experiences and future plans with more detail. My next goal is to speak more naturally in B1."
+            },
+            {
+                type: "checklist",
+                title: "Progress board game",
+                instruction: "Use como tabuleiro digital: escolha um número de 1 a 9 e responda ao desafio do tema correspondente.",
+                items: [
+                    "1 Routine: say two habits with frequency.",
+                    "2 Past: tell one short past event.",
+                    "3 Plans: accept or refuse an invitation.",
+                    "4 Directions: explain a route.",
+                    "5 Health: give one piece of advice.",
+                    "6 Work: use must or have to.",
+                    "7 Service: make one polite request.",
+                    "8 Technology: use present perfect.",
+                    "9 Culture: make one comparison."
+                ],
+                model: "House 8: I have used an app to practice English, but I downloaded a new one last week."
             }
         ],
         secondaryReading: {

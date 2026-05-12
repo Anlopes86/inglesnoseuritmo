@@ -1,12 +1,12 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
     const lessonNumber = getLessonNumberFromPath();
     const lesson = Array.isArray(window.PREPB1_LESSONS) ? window.PREPB1_LESSONS.find(item => item.number === lessonNumber) : null;
 
     if (!lesson) {
         document.getElementById('slides-root').innerHTML = `
             <div class="surface rounded-[2rem] p-10 text-center">
-                <h2 class="text-3xl font-black text-slate-900 mb-3">Lição não encontrada</h2>
-                <p class="text-slate-600">Não foi possível carregar os dados desta aula preparatória.</p>
+                <h2 class="text-3xl font-black text-slate-900 mb-3">LiÃ§Ã£o nÃ£o encontrada</h2>
+                <p class="text-slate-600">NÃ£o foi possÃ­vel carregar os dados desta aula preparatÃ³ria.</p>
             </div>
         `;
         return;
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     root.innerHTML = slides;
 
     document.getElementById('lesson-title').textContent = `Bridge - Lesson ${lesson.number}: ${lesson.title}`;
-    document.title = `Bridge - Lesson ${lesson.number}: ${lesson.title} | Inglês no seu Ritmo`;
+    document.title = `Bridge - Lesson ${lesson.number}: ${lesson.title} | InglÃªs no seu Ritmo`;
 
     let currentSlide = 0;
     const slideEls = Array.from(document.querySelectorAll('.slide'));
@@ -50,12 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     root.addEventListener('click', event => {
-        const audioBtn = event.target.closest('.audio-record-btn');
-        if (audioBtn) {
-            handleAudioRecordButton(audioBtn);
-            return;
-        }
-
         const speakBtn = event.target.closest('.speak-btn');
         if (speakBtn) {
             speak(speakBtn.dataset.speak || '');
@@ -91,9 +85,15 @@ document.addEventListener('DOMContentLoaded', () => {
             input.classList.toggle('border-green-500', isCorrect);
             input.classList.toggle('border-red-500', !isCorrect);
             feedback.textContent = isCorrect
-                ? 'Correto. Boa recuperacao da forma.'
+                ? 'Correto. Boa recuperação da forma.'
                 : `Revise a dica: ${checkInputBtn.dataset.hint || 'compare com a resposta-modelo.'}`;
             feedback.className = `mt-3 text-sm font-semibold ${isCorrect ? 'text-green-700' : 'text-red-700'}`;
+            return;
+        }
+
+        const checkActivityBtn = event.target.closest('.check-activity-btn');
+        if (checkActivityBtn) {
+            checkActivity(checkActivityBtn.dataset.target, checkActivityBtn.dataset.type);
             return;
         }
 
@@ -110,12 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
             checklistBtn.classList.toggle('bg-teal-100');
             checklistBtn.classList.toggle('border-teal-300');
             checklistBtn.classList.toggle('text-teal-800');
-        }
-
-        const checkActivityBtn = event.target.closest('.check-activity-btn');
-        if (checkActivityBtn) {
-            checkActivity(checkActivityBtn.dataset.target, checkActivityBtn.dataset.type);
-            return;
         }
 
     });
@@ -145,7 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         const list = target.closest('.sequence-list');
         const draggedValue = event.dataTransfer.getData('text/plain');
-        const dragged = list?.querySelector(`[data-value="${CSS.escape(draggedValue)}"]`);
+        const dragged = Array.from(list?.querySelectorAll('.sequence-item') || [])
+            .find(item => item.dataset.value === draggedValue);
         if (!dragged || dragged === target) return;
 
         const nodes = Array.from(list.children);
@@ -175,50 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
     showSlide(0);
 });
 
-let activeRecorder = null;
-let activeRecorderChunks = [];
-
-async function handleAudioRecordButton(button) {
-    const targetId = button.dataset.target;
-    const status = document.getElementById(`${targetId}-status`);
-    const audio = document.getElementById(`${targetId}-audio`);
-
-    if (activeRecorder && activeRecorder.state === 'recording') {
-        activeRecorder.stop();
-        button.innerHTML = '<i class="fas fa-microphone"></i> Gravar novamente';
-        if (status) status.textContent = 'Audio gravado. Ouça e compare com o modelo.';
-        return;
-    }
-
-    if (!navigator.mediaDevices || !window.MediaRecorder) {
-        if (status) status.textContent = 'Gravacao nao disponivel neste navegador. Use o campo de anotacoes.';
-        return;
-    }
-
-    try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        activeRecorderChunks = [];
-        activeRecorder = new MediaRecorder(stream);
-        activeRecorder.ondataavailable = event => {
-            if (event.data.size > 0) activeRecorderChunks.push(event.data);
-        };
-        activeRecorder.onstop = () => {
-            const blob = new Blob(activeRecorderChunks, { type: 'audio/webm' });
-            if (audio) {
-                audio.src = URL.createObjectURL(blob);
-                audio.classList.remove('hidden');
-            }
-            stream.getTracks().forEach(track => track.stop());
-        };
-        activeRecorder.start();
-        button.innerHTML = '<i class="fas fa-stop"></i> Parar gravacao';
-        if (status) status.textContent = 'Gravando... fale por 30 a 60 segundos.';
-    } catch (error) {
-        console.error('Erro ao iniciar gravacao:', error);
-        if (status) status.textContent = 'Nao foi possivel acessar o microfone.';
-    }
-}
-
 function checkActivity(targetId, type) {
     const root = document.getElementById(targetId);
     const feedback = document.getElementById(`${targetId}-feedback`);
@@ -235,8 +186,8 @@ function checkActivity(targetId, type) {
     }
 
     feedback.textContent = correct
-        ? 'Correto. A logica da atividade esta consistente.'
-        : 'Ainda nao. Revise as pistas e tente reorganizar ou selecionar novamente.';
+        ? 'Correto. A lógica da atividade está consistente.'
+        : 'Ainda não. Revise as pistas e tente reorganizar ou selecionar novamente.';
     feedback.className = `mt-3 text-sm font-semibold ${correct ? 'text-green-700' : 'text-red-700'}`;
 }
 
@@ -783,7 +734,7 @@ function buildFinalBridgeSlides(lesson) {
                         </button>
                     `).join('')}
                 </div>
-                <p class="text-sm text-slate-500 mt-6">Clique nos cards que você sente que já consegue fazer com mais segurança.</p>
+                <p class="text-sm text-slate-500 mt-6">Clique nos cards que vocÃª sente que jÃ¡ consegue fazer com mais seguranÃ§a.</p>
             </div>
         </section>
         ${buildReadingSlide(lesson)}
@@ -846,7 +797,7 @@ function buildConversationSlide(lesson) {
                         <h3 class="text-3xl font-black text-slate-900 mt-2">${lesson.dialogueTitle}</h3>
                     </div>
                     <button class="speak-btn" data-speak="${escapeAttribute(lesson.dialogue.map(line => line[1]).join(' '))}">
-                        <i class="fas fa-volume-up"></i> Ouvir diálogo
+                        <i class="fas fa-volume-up"></i> Ouvir diÃ¡logo
                     </button>
                 </div>
                 <div class="space-y-5 text-lg">
@@ -999,8 +950,6 @@ function buildResponseSlide(lesson) {
 }
 
 function buildSpeakingSlide(lesson) {
-    const audioId = `speaking-audio-${lesson.number}`;
-
     return `
         <section class="slide" data-title="Speaking Task">
             <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6">
@@ -1023,14 +972,9 @@ function buildSpeakingSlide(lesson) {
                         </button>
                     </div>
                     <div class="mt-6 p-5 rounded-2xl bg-teal-50 border border-teal-100">
-                        <p class="text-sm uppercase tracking-[0.18em] text-teal-700 font-bold">Voice practice</p>
-                        <p class="text-slate-700 mt-3">Grave uma resposta curta, ouca novamente e anote um ponto forte e um ponto para revisar.</p>
-                        <button type="button" class="audio-record-btn speak-btn mt-4" data-target="${audioId}">
-                            <i class="fas fa-microphone"></i> Gravar resposta
-                        </button>
-                        <p id="${audioId}-status" class="mt-3 text-sm font-semibold text-slate-500"></p>
-                        <audio id="${audioId}-audio" class="hidden mt-4 w-full" controls></audio>
-                        <textarea class="response-input mt-4" placeholder="Self-check: What sounded clear? What should you improve?"></textarea>
+                        <p class="text-sm uppercase tracking-[0.18em] text-teal-700 font-bold">Live speaking practice</p>
+                        <p class="text-slate-700 mt-3">Use este espaÃ§o durante a aula online: o aluno responde ao vivo, o professor anota pontos fortes, correÃ§Ãµes e uma meta para a prÃ³xima tentativa.</p>
+                        <textarea class="response-input mt-4" placeholder="Teacher notes: accuracy, fluency, vocabulary, next correction."></textarea>
                     </div>
                 </div>
                 <div class="surface rounded-[2rem] p-8">
@@ -1039,7 +983,7 @@ function buildSpeakingSlide(lesson) {
                     <p class="text-lg text-slate-700 mt-6">${lesson.homework}</p>
                     <div class="mt-8 p-5 rounded-2xl bg-slate-50 border border-slate-200">
                         <p class="text-sm uppercase tracking-[0.18em] text-slate-500 font-bold">Bridge reminder</p>
-                        <p class="text-slate-700 mt-3">Aqui o objetivo não é decorar mais regras, e sim recuperar o repertório de A1/A2 com respostas mais longas, interpretação mais estável e fala mais organizada.</p>
+                        <p class="text-slate-700 mt-3">Aqui o objetivo nÃ£o Ã© decorar mais regras, e sim recuperar o repertÃ³rio de A1/A2 com respostas mais longas, interpretaÃ§Ã£o mais estÃ¡vel e fala mais organizada.</p>
                     </div>
                 </div>
             </div>
