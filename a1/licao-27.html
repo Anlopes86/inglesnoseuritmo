@@ -141,37 +141,44 @@
                 </div>
             </div>
         </div>
-
-        <div class="slide" data-title="Yesterday Timeline">
+        <div class="slide" data-title="Where Was Everyone?">
             <div class="text-center">
-                <h2 class="text-4xl font-black mb-6 text-zinc-700">Yesterday timeline</h2>
+                <h2 class="text-4xl font-black mb-6 text-zinc-700">Where was everyone?</h2>
                 <div class="section-card p-8 max-w-5xl mx-auto text-left">
-                    <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6 items-start">
-                        <div class="activity-lab">
-                            <p class="activity-lab-title">Monte uma linha do tempo com was / were</p>
-                            <p class="text-slate-600 mb-4">Essa etapa ajuda o aluno a sair da frase isolada e organizar manhã, tarde e noite com clareza temporal.</p>
-                            <div class="option-cloud">
-                                <button type="button" class="option-chip" data-yesterday-step="Yesterday morning, I was at work.">morning: at work</button>
-                                <button type="button" class="option-chip" data-yesterday-step="In the afternoon, I was at home.">afternoon: at home</button>
-                                <button type="button" class="option-chip" data-yesterday-step="At night, my parents were with me.">night: parents with me</button>
-                                <button type="button" class="option-chip" data-yesterday-step="My sister wasn't there.">negative: sister wasn't there</button>
+                    <div class="grid lg:grid-cols-[1fr_1fr] gap-6 items-start">
+                        <div class="space-y-4">
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-3">Case file</p>
+                                <p class="text-lg leading-8">Yesterday at 7 p.m., four people were in different places. Use the clues to discover where each person was.</p>
+                            </div>
+                            <div class="prompt-stack">
+                                <div class="prompt-card">1. Ana was not at school and not at the restaurant.</div>
+                                <div class="prompt-card">2. Bruno was with books, but he was not at school.</div>
+                                <div class="prompt-card">3. Carla was hungry. She was not at home.</div>
+                                <div class="prompt-card">4. Leo was with a teacher.</div>
+                                <div class="prompt-card">Places: home, library, restaurant, school.</div>
                             </div>
                         </div>
                         <div class="space-y-4">
-                            <div id="yesterday-preview" class="preview-card">
-                                <p class="lesson-panel-title mb-3">Timeline preview</p>
-                                <p id="yesterday-preview-text" class="text-lg leading-8 text-slate-500">Clique nos blocos para montar um pequeno relato de ontem.</p>
+                            <div class="activity-card">
+                                <p class="lesson-panel-title mb-3">Write the solution</p>
+                                <div class="space-y-4 text-lg">
+                                    <p>Carla was at the <input id="case-carla" data-case-answer="restaurant" class="practice-input">. <button type="button" class="answer-btn" data-case-check="case-carla"><i class="fas fa-eye"></i></button></p>
+                                    <p>Ana was at <input id="case-ana" data-case-answer="home" class="practice-input">. <button type="button" class="answer-btn" data-case-check="case-ana"><i class="fas fa-eye"></i></button></p>
+                                    <p>Leo was at <input id="case-leo" data-case-answer="school" class="practice-input">. <button type="button" class="answer-btn" data-case-check="case-leo"><i class="fas fa-eye"></i></button></p>
+                                    <p>Bruno was at the <input id="case-bruno" data-case-answer="library" class="practice-input">. <button type="button" class="answer-btn" data-case-check="case-bruno"><i class="fas fa-eye"></i></button></p>
+                                </div>
+                            </div>
+                            <div id="case-status" class="preview-card">
+                                <p class="lesson-panel-title mb-3">Reasoning board</p>
+                                <p id="case-status-text" class="text-lg leading-8 text-slate-500">Complete the four places. Then explain your logic using was / were.</p>
                             </div>
                             <div class="activity-card">
-                                <p class="lesson-panel-title mb-2">Teacher use</p>
-                                <div class="prompt-stack">
-                                    <div class="prompt-card">1. Monte a versão básica com 3 momentos do dia.</div>
-                                    <div class="prompt-card">2. Acrescente uma negativa.</div>
-                                    <div class="prompt-card">3. Troque um lugar para forçar nova versão oral.</div>
-                                </div>
+                                <p class="lesson-panel-title mb-2">Challenge</p>
+                                <p class="text-lg leading-8">Say two proof sentences: <strong>Bruno was at the library because...</strong> and <strong>Leo was at school because...</strong></p>
                                 <div class="mt-5 flex flex-wrap gap-3">
-                                    <button id="speak-yesterday-btn" type="button" class="speak-btn"><i class="fas fa-volume-up"></i> Ouvir timeline</button>
-                                    <button id="reset-yesterday-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Limpar</button>
+                                    <button id="check-case-btn" type="button" class="reveal-chip"><i class="fas fa-check"></i> Check case</button>
+                                    <button id="reset-case-btn" type="button" class="reveal-chip"><i class="fas fa-rotate-left"></i> Limpar</button>
                                 </div>
                             </div>
                         </div>
@@ -179,6 +186,7 @@
                 </div>
             </div>
         </div>
+
 
         <div class="slide" data-title="Music">
             <div>
@@ -291,46 +299,56 @@
             input.classList.add(value === answer ? 'correct' : 'incorrect');
         }));
 
-        const yesterdaySteps = [];
-        const yesterdayPreview = document.getElementById('yesterday-preview');
-        const yesterdayPreviewText = document.getElementById('yesterday-preview-text');
+        const caseInputs = Array.from(document.querySelectorAll('[data-case-answer]'));
+        const caseStatus = document.getElementById('case-status');
+        const caseStatusText = document.getElementById('case-status-text');
 
-        function updateYesterdayPreview() {
-            if (!yesterdayPreview || !yesterdayPreviewText) return;
-            if (!yesterdaySteps.length) {
-                yesterdayPreview.classList.remove('is-complete');
-                yesterdayPreviewText.textContent = 'Clique nos blocos para montar um pequeno relato de ontem.';
-                return;
-            }
-            yesterdayPreviewText.textContent = yesterdaySteps.join(' ');
-            yesterdayPreview.classList.toggle('is-complete', yesterdaySteps.length >= 3);
+        function checkCaseInput(input, reveal = false) {
+            const answer = input.dataset.caseAnswer || '';
+            const value = input.value.trim().toLowerCase();
+            input.classList.remove('correct', 'incorrect');
+            if (reveal) input.value = answer;
+            if (input.value.trim()) input.classList.add(input.value.trim().toLowerCase() === answer ? 'correct' : 'incorrect');
         }
 
+        function updateCaseStatus() {
+            const score = caseInputs.filter((input) => input.value.trim().toLowerCase() === input.dataset.caseAnswer).length;
+            if (!caseStatus || !caseStatusText) return;
+            caseStatus.classList.toggle('is-complete', score === caseInputs.length);
+            caseStatusText.textContent = score === caseInputs.length
+                ? 'Solved. Now explain the clues aloud using was and were.'
+                : `You solved ${score} of ${caseInputs.length}. Check each clue again.`;
+        }
+
+        caseInputs.forEach((input) => input.addEventListener('input', () => {
+            checkCaseInput(input);
+            updateCaseStatus();
+        }));
+
         document.addEventListener('click', (event) => {
-            const chip = event.target.closest('.option-chip[data-yesterday-step]');
-            if (!chip) return;
-            const step = chip.dataset.yesterdayStep || '';
-            if (!step || chip.classList.contains('is-active')) return;
-            chip.classList.add('is-active');
-            yesterdaySteps.push(step);
-            updateYesterdayPreview();
+            const checkButton = event.target.closest('[data-case-check]');
+            if (!checkButton) return;
+            const input = document.getElementById(checkButton.dataset.caseCheck);
+            if (input) {
+                checkCaseInput(input, true);
+                updateCaseStatus();
+            }
         });
 
-        document.getElementById('reset-yesterday-btn')?.addEventListener('click', () => {
-            yesterdaySteps.splice(0, yesterdaySteps.length);
-            document.querySelectorAll('.option-chip[data-yesterday-step]').forEach((chip) => chip.classList.remove('is-active'));
-            updateYesterdayPreview();
+        document.getElementById('check-case-btn')?.addEventListener('click', () => {
+            caseInputs.forEach((input) => checkCaseInput(input));
+            updateCaseStatus();
         });
 
-        document.getElementById('speak-yesterday-btn')?.addEventListener('click', () => {
-            if (!yesterdaySteps.length) return;
-            const utterance = new SpeechSynthesisUtterance(yesterdaySteps.join(' '));
-            utterance.lang = 'en-US';
-            speechSynthesis.cancel();
-            speechSynthesis.speak(utterance);
+        document.getElementById('reset-case-btn')?.addEventListener('click', () => {
+            caseInputs.forEach((input) => {
+                input.value = '';
+                input.classList.remove('correct', 'incorrect');
+            });
+            updateCaseStatus();
         });
 
-        updateYesterdayPreview();
+        updateCaseStatus();
         prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
         nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
         showSlide(0);
