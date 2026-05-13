@@ -358,6 +358,7 @@
             const moduleRoutes = {
                 a1: { href: 'a1/a1.html', label: 'M\u00f3dulo A1', helper: 'Volte ao A1 para consolidar base, rotina e primeiras intera\u00e7\u00f5es com mais seguran\u00e7a.', total: 32 },
                 a2: { href: 'a2/a2.html', label: 'M\u00f3dulo A2', helper: 'Siga no A2 para ampliar repert\u00f3rio, tempos verbais e conversas do cotidiano.', total: 32 },
+                'a2-v2': { href: 'a2-v2/a2.html', label: 'M\u00f3dulo A2 V2', helper: 'Teste a nova versão do A2 com tradução PT-EN, fala, listening e gramática mais aprofundada.', total: 32 },
                 prepb1: { href: 'prepb1/prepb1.html', label: 'Ponte A2-B1', helper: 'Use este m\u00f3dulo de transi\u00e7\u00e3o para revisar A1/A2 com mais leitura, interpreta\u00e7\u00e3o e conversa\u00e7\u00e3o antes do B1.', total: 8 },
                 b1: { href: 'b1/b1.html', label: 'M\u00f3dulo B1', helper: 'Continue no B1 para explicar experi\u00eancias, opini\u00f5es e planos com mais autonomia.', total: 32 },
                 conversation: { href: 'conversation/conversation.html', label: 'Conversation Club', helper: 'Entre nas aulas de conversa\u00e7\u00e3o para destravar fala, opini\u00e3o e repert\u00f3rio tem\u00e1tico.', total: 48 },
@@ -378,9 +379,14 @@
                         ...fallbackModules
                     ];
 
-                return [...new Set([...savedModules, ...fallbackModules])]
+                const assigned = [...new Set([...savedModules, ...fallbackModules])];
+                if (assigned.includes('a2') && !assigned.includes('a2-v2')) {
+                    assigned.push('a2-v2');
+                }
+
+                return assigned
                     .filter((moduleId) => validModules.has(moduleId))
-                    .filter((moduleId) => !platformAccess || platformAccess.canAccessModule(allowedSource.length ? allowedSource : studentData.modules || [], moduleId));
+                    .filter((moduleId) => !platformAccess || platformAccess.canAccessModule(allowedSource.length ? allowedSource : studentData.modules || [], moduleId === 'a2-v2' ? 'a2' : moduleId));
             }
 
             function getModuleStorageKey(studentId) {

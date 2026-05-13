@@ -1,0 +1,293 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | LiÃ§Ã£o 25: Giving Directions - The Basics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .flip-card { background: transparent; min-height: 190px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.2rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; text-align: center; }
+        .flip-card-front { background: #fff; color: #0f766e; }
+        .flip-card-back { background: #ecfeff; color: #115e59; transform: rotateY(180deg); }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.35rem; }
+        .answer-btn:hover { color: #0f766e; }
+        .speak-btn { border: 1px solid #99f6e4; background: #f0fdfa; color: #0f766e; font-size: 0.9rem; font-weight: 700; padding: 0.45rem 0.8rem; border-radius: 9999px; transition: 0.2s ease; }
+        .speak-btn:hover { background: #ccfbf1; }
+        .dialogue-line { display: grid; grid-template-columns: 90px 1fr auto; gap: 1rem; align-items: start; }
+        input { border: none; border-bottom: 2px solid #cbd5e1; background: transparent; outline: none; text-align: center; padding: 0 6px; }
+        input.correct { border-color: #22c55e; color: #166534; background: #f0fdf4; }
+        input.incorrect { border-color: #ef4444; color: #991b1b; background: #fef2f2; }
+    </style>
+    <link rel="stylesheet" href="a2-lesson-theme.css">
+</head>
+<body class="lesson-loading a2-lesson-page bg-slate-50 text-slate-800">
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+            <a href="a2.html" class="text-lg font-bold text-teal-600 hover:text-teal-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao MÃ³dulo A2 V2</a>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 25: Giving Directions - The Basics</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
+        </div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-teal-500 h-1.5 transition-all duration-300"></div></div>
+    </header>
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
+                    <div class="a2-hero-copy">
+                        <h2>Give short, clear directions</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno passa de pedir ajuda para realmente dar direÃ§Ãµes curtas com verbos no imperativo, landmarks e passos organizados.</p>
+                    </div>
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">You will practice</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span><strong>go</strong>, <strong>turn</strong>, <strong>cross</strong>, <strong>stop</strong> e <strong>keep going</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Rotas de 2, 3 e 4 passos</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>ConfirmaÃ§Ã£o de entendimento</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-card p-8 mt-8">
+                <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+                    <div><p class="lesson-panel-title mb-2">Model dialogue</p><h2 class="text-3xl font-black text-teal-700">Start, turn, landmark, destination</h2></div>
+                    <button type="button" class="speak-btn" data-speak="Excuse me, how do I get to the subway station? Go straight for one block, turn left at the bank, and cross the street. Is it far? No, not really. It is next to the bakery. So I go straight, turn left, cross the street, and the station is next to the bakery? Exactly."><i class="fas fa-volume-up"></i> Ouvir diÃ¡logo</button>
+                </div>
+                <div class="space-y-4 text-xl">
+                    <div class="dialogue-line"><span class="font-bold text-teal-600">Visitor:</span><p>Excuse me, how do I get to the subway station?</p><button type="button" class="speak-btn" data-speak="Excuse me, how do I get to the subway station?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="dialogue-line"><span class="font-bold text-orange-600">Local:</span><p>Go straight for one block, turn left at the bank, and cross the street.</p><button type="button" class="speak-btn" data-speak="Go straight for one block, turn left at the bank, and cross the street."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="dialogue-line"><span class="font-bold text-teal-600">Visitor:</span><p>Is it far?</p><button type="button" class="speak-btn" data-speak="Is it far?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="dialogue-line"><span class="font-bold text-orange-600">Local:</span><p>No, not really. It is next to the bakery.</p><button type="button" class="speak-btn" data-speak="No, not really. It is next to the bakery."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="dialogue-line"><span class="font-bold text-teal-600">Visitor:</span><p>So I go straight, turn left, cross the street, and the station is next to the bakery?</p><button type="button" class="speak-btn" data-speak="So I go straight, turn left, cross the street, and the station is next to the bakery?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="dialogue-line"><span class="font-bold text-orange-600">Local:</span><p>Exactly.</p><button type="button" class="speak-btn" data-speak="Exactly."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Vocabulary">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-4 text-teal-700">Direction verbs and landmarks</h2>
+                <div class="flashcard-grid max-w-5xl mx-auto">
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Go straight</h3></div><div class="flip-card-back"><p>Siga em frente</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Turn left</h3></div><div class="flip-card-back"><p>Vire Ã  esquerda</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Turn right</h3></div><div class="flip-card-back"><p>Vire Ã  direita</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Cross the street</h3></div><div class="flip-card-back"><p>Atravesse a rua</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">At the corner</h3></div><div class="flip-card-back"><p>Na esquina</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Traffic light</h3></div><div class="flip-card-back"><p>SemÃ¡foro</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">On your left</h3></div><div class="flip-card-back"><p>Ã€ sua esquerda</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Near</h3></div><div class="flip-card-back"><p>Perto de</p></div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Grammar">
+            <div class="section-card p-8 max-w-5xl mx-auto text-lg">
+                <h2 class="text-4xl font-black mb-6 text-center text-teal-700">Imperatives for directions</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="activity-card"><p class="lesson-panel-title mb-2">Form</p><p><strong>Go</strong> straight.</p><p><strong>Turn</strong> left.</p><p><strong>Cross</strong> the street.</p><p><strong>Stop</strong> at the corner.</p></div>
+                    <div class="activity-card"><p class="lesson-panel-title mb-2">Why it works</p><p>Imperatives sÃ£o diretos e naturais para instruÃ§Ãµes. Ligue etapas com <strong>and</strong>, <strong>then</strong> ou <strong>after that</strong>.</p></div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-4 mt-6">
+                    <div class="callout-success"><strong>1.</strong> Start moving.</div>
+                    <div class="callout-note"><strong>2.</strong> Change direction.</div>
+                    <div class="callout-warning"><strong>3.</strong> Give the landmark.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Practice 1">
+            <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+                <h2 class="text-4xl font-black mb-4 text-center text-teal-700">Complete the direction</h2>
+                <p>1. <input id="b1" data-answer="Go" class="w-20"> straight for one block. <span class="text-base text-slate-500">(dica: siga)</span> <button class="answer-btn" data-target="b1"><i class="fas fa-eye"></i></button></p>
+                <p>2. Turn <input id="b2" data-answer="left" class="w-24"> at the supermarket. <span class="text-base text-slate-500">(dica: esquerda)</span> <button class="answer-btn" data-target="b2"><i class="fas fa-eye"></i></button></p>
+                <p>3. <input id="b3" data-answer="Cross" class="w-24"> the street and stop at the corner. <span class="text-base text-slate-500">(dica: atravesse)</span> <button class="answer-btn" data-target="b3"><i class="fas fa-eye"></i></button></p>
+                <p>4. The station is <input id="b4" data-answer="near" class="w-24"> the bank. <span class="text-base text-slate-500">(dica: perto de)</span> <button class="answer-btn" data-target="b4"><i class="fas fa-eye"></i></button></p>
+                <p>5. It is <input id="b5" data-answer="next to" class="w-28"> the bakery. <span class="text-base text-slate-500">(dica: ao lado de)</span> <button class="answer-btn" data-target="b5"><i class="fas fa-eye"></i></button></p>
+                <p>6. Turn right at the <input id="b12" data-answer="traffic light" class="w-36">. <span class="text-base text-slate-500">(dica: semÃ¡foro)</span> <button class="answer-btn" data-target="b12"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Practice 2">
+            <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+                <h2 class="text-4xl font-black mb-4 text-center text-teal-700">Build a 3-step route</h2>
+                <p>1. Go straight. Then <input id="b6" data-answer="turn right" class="w-32">. <span class="text-base text-slate-500">(dica: vire Ã  direita)</span> <button class="answer-btn" data-target="b6"><i class="fas fa-eye"></i></button></p>
+                <p>2. Cross the street and go to the <input id="b7" data-answer="corner" class="w-28">. <span class="text-base text-slate-500">(dica: esquina)</span> <button class="answer-btn" data-target="b7"><i class="fas fa-eye"></i></button></p>
+                <p>3. The pharmacy is <input id="b8" data-answer="on your left" class="w-36">. <span class="text-base text-slate-500">(dica: Ã  sua esquerda)</span> <button class="answer-btn" data-target="b8"><i class="fas fa-eye"></i></button></p>
+                <p>4. The hotel is <input id="b9" data-answer="across from" class="w-36"> the museum. <span class="text-base text-slate-500">(dica: em frente a)</span> <button class="answer-btn" data-target="b9"><i class="fas fa-eye"></i></button></p>
+                <p>5. After that, <input id="b13" data-answer="keep going straight" class="w-48"> for one more block. <span class="text-base text-slate-500">(dica: continue em frente)</span> <button class="answer-btn" data-target="b13"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Route Builder">
+            <div class="section-card p-8 max-w-5xl mx-auto">
+                <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
+                    <div><p class="lesson-panel-title mb-2">Route Builder</p><h2 class="text-4xl font-black text-teal-700">Build one clear route</h2></div>
+                    <div class="callout-note max-w-xl">Monte uma rota curta com comeÃ§o, movimento e chegada.</div>
+                </div>
+                <div class="activity-lab" data-choice-builder data-template="{start}, {move}, and the {place} is {location}." data-required="start,move,place,location" data-preview-empty="Escolha as partes da rota para montar uma instruÃ§Ã£o simples e natural.">
+                    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+                        <div><p class="lesson-panel-title mb-3">1. Start</p><div class="option-cloud"><button type="button" class="option-chip" data-choice-slot="start" data-choice-value="Go straight for one block">Go straight for one block</button><button type="button" class="option-chip" data-choice-slot="start" data-choice-value="Cross the street first">Cross the street first</button><button type="button" class="option-chip" data-choice-slot="start" data-choice-value="Turn left at the corner">Turn left at the corner</button></div></div>
+                        <div><p class="lesson-panel-title mb-3">2. Move</p><div class="option-cloud"><button type="button" class="option-chip" data-choice-slot="move" data-choice-value="turn right at the bank">turn right at the bank</button><button type="button" class="option-chip" data-choice-slot="move" data-choice-value="keep going straight">keep going straight</button><button type="button" class="option-chip" data-choice-slot="move" data-choice-value="stop at the traffic light">stop at the traffic light</button></div></div>
+                        <div><p class="lesson-panel-title mb-3">3. Place</p><div class="option-cloud"><button type="button" class="option-chip" data-choice-slot="place" data-choice-value="station">station</button><button type="button" class="option-chip" data-choice-slot="place" data-choice-value="pharmacy">pharmacy</button><button type="button" class="option-chip" data-choice-slot="place" data-choice-value="museum">museum</button></div></div>
+                        <div><p class="lesson-panel-title mb-3">4. Location</p><div class="option-cloud"><button type="button" class="option-chip" data-choice-slot="location" data-choice-value="next to the bakery">next to the bakery</button><button type="button" class="option-chip" data-choice-slot="location" data-choice-value="near the supermarket">near the supermarket</button><button type="button" class="option-chip" data-choice-slot="location" data-choice-value="on your left">on your left</button></div></div>
+                    </div>
+                    <div class="preview-card mt-6" data-choice-preview></div>
+                    <div class="flex gap-3 mt-5 flex-wrap"><button type="button" class="option-chip" data-choice-reset>Reset</button><button type="button" class="primary-action-btn" data-choice-speak>Ouvir frase</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Map Mission">
+            <div class="section-card p-8 max-w-5xl mx-auto">
+                <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
+                    <div><p class="lesson-panel-title mb-2">Map mission</p><h2 class="text-4xl font-black text-teal-700">Build a longer route</h2></div>
+                    <div class="callout-success max-w-xl">Agora o aluno pratica uma explicaÃ§Ã£o mais completa, com 4 partes.</div>
+                </div>
+                <div class="activity-lab" data-choice-builder data-template="{start}, {step2}, {step3}, and the {place} is {location} the {landmark}." data-required="start,step2,step3,place,location,landmark" data-preview-empty="Monte uma resposta mais detalhada para guiar alguÃ©m atÃ© o destino.">
+                    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                        <div><p class="lesson-panel-title mb-3">1. Start</p><div class="option-cloud"><button type="button" class="option-chip" data-choice-slot="start" data-choice-value="Go straight for two blocks">Go straight for two blocks</button><button type="button" class="option-chip" data-choice-slot="start" data-choice-value="Walk to the traffic light">Walk to the traffic light</button><button type="button" class="option-chip" data-choice-slot="start" data-choice-value="Cross the street first">Cross the street first</button></div></div>
+                        <div><p class="lesson-panel-title mb-3">2. Step 2</p><div class="option-cloud"><button type="button" class="option-chip" data-choice-slot="step2" data-choice-value="turn right at the bank">turn right at the bank</button><button type="button" class="option-chip" data-choice-slot="step2" data-choice-value="turn left at the corner">turn left at the corner</button><button type="button" class="option-chip" data-choice-slot="step2" data-choice-value="keep going straight">keep going straight</button></div></div>
+                        <div><p class="lesson-panel-title mb-3">3. Step 3</p><div class="option-cloud"><button type="button" class="option-chip" data-choice-slot="step3" data-choice-value="go past the pharmacy">go past the pharmacy</button><button type="button" class="option-chip" data-choice-slot="step3" data-choice-value="stop at the second corner">stop at the second corner</button><button type="button" class="option-chip" data-choice-slot="step3" data-choice-value="cross the street again">cross the street again</button></div></div>
+                        <div><p class="lesson-panel-title mb-3">4. Place</p><div class="option-cloud"><button type="button" class="option-chip" data-choice-slot="place" data-choice-value="hotel">hotel</button><button type="button" class="option-chip" data-choice-slot="place" data-choice-value="museum">museum</button><button type="button" class="option-chip" data-choice-slot="place" data-choice-value="station">station</button></div></div>
+                        <div><p class="lesson-panel-title mb-3">5. Location</p><div class="option-cloud"><button type="button" class="option-chip" data-choice-slot="location" data-choice-value="next to">next to</button><button type="button" class="option-chip" data-choice-slot="location" data-choice-value="across from">across from</button><button type="button" class="option-chip" data-choice-slot="location" data-choice-value="near">near</button></div></div>
+                        <div><p class="lesson-panel-title mb-3">6. Landmark</p><div class="option-cloud"><button type="button" class="option-chip" data-choice-slot="landmark" data-choice-value="the bakery">the bakery</button><button type="button" class="option-chip" data-choice-slot="landmark" data-choice-value="the bank">the bank</button><button type="button" class="option-chip" data-choice-slot="landmark" data-choice-value="the park">the park</button></div></div>
+                    </div>
+                    <div class="preview-card mt-6" data-choice-preview></div>
+                    <div class="flex gap-3 mt-5 flex-wrap"><button type="button" class="option-chip" data-choice-reset>Reset</button><button type="button" class="primary-action-btn" data-choice-speak>Ouvir frase</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Check Understanding">
+            <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+                <h2 class="text-4xl font-black mb-4 text-center text-teal-700">Check understanding</h2>
+                <p>1. "So I turn left at the bank?" "Yes, that's <input id="b14" data-answer="right" class="w-24">." <span class="text-base text-slate-500">(dica: certo)</span> <button class="answer-btn" data-target="b14"><i class="fas fa-eye"></i></button></p>
+                <p>2. "Do I cross the street?" "Yes, <input id="b15" data-answer="after that" class="w-32">." <span class="text-base text-slate-500">(dica: depois disso)</span> <button class="answer-btn" data-target="b15"><i class="fas fa-eye"></i></button></p>
+                <p>3. "Is the museum near the station?" "No, it is <input id="b16" data-answer="across from" class="w-36"> the park." <span class="text-base text-slate-500">(dica: em frente a)</span> <button class="answer-btn" data-target="b16"><i class="fas fa-eye"></i></button></p>
+                <p>4. "Is it on my left?" "No, it is on your <input id="b17" data-answer="right" class="w-24">." <span class="text-base text-slate-500">(dica: direita)</span> <button class="answer-btn" data-target="b17"><i class="fas fa-eye"></i></button></p>
+                <p>5. "Can you repeat that?" "Sure. Go straight and <input id="b18" data-answer="turn right" class="w-32"> at the corner." <span class="text-base text-slate-500">(dica: vire Ã  direita)</span> <button class="answer-btn" data-target="b18"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Reading">
+            <div class="section-card p-8 max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-6 text-center text-teal-700">Reading: helping a tourist</h2>
+                <div class="activity-card text-lg space-y-4">
+                    <p>Tom is visiting a new city. He wants to go to the history museum, but he is lost. He asks a woman for help near the station.</p>
+                    <p>She says, "Go straight for two blocks and turn right at the traffic light. Then walk past the bank. The museum is next to the park, across from a bakery."</p>
+                    <p>Tom repeats the directions to check: "So I go straight, turn right, walk past the bank, and the museum is next to the park?" The woman smiles and says, "That's right."</p>
+                </div>
+                <div class="mt-8 text-xl space-y-5">
+                    <p>1. Where does Tom want to go? <input id="b10" data-answer="the history museum" class="w-52"> <span class="text-base text-slate-500">(dica: o museu de histÃ³ria)</span> <button class="answer-btn" data-target="b10"><i class="fas fa-eye"></i></button></p>
+                    <p>2. Where does Tom ask for help? <input id="b11" data-answer="near the station" class="w-44"> <span class="text-base text-slate-500">(dica: perto da estaÃ§Ã£o)</span> <button class="answer-btn" data-target="b11"><i class="fas fa-eye"></i></button></p>
+                    <p>3. What does he do at the traffic light? He <input id="b19" data-answer="turns right" class="w-32">. <span class="text-base text-slate-500">(dica: vira Ã  direita)</span> <button class="answer-btn" data-target="b19"><i class="fas fa-eye"></i></button></p>
+                    <p>4. The museum is next to the <input id="b20" data-answer="park" class="w-24">. <span class="text-base text-slate-500">(dica: parque)</span> <button class="answer-btn" data-target="b20"><i class="fas fa-eye"></i></button></p>
+                    <p>5. The museum is across from a <input id="b21" data-answer="bakery" class="w-24">. <span class="text-base text-slate-500">(dica: padaria)</span> <button class="answer-btn" data-target="b21"><i class="fas fa-eye"></i></button></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Homework">
+            <div class="section-card p-8 max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-6 text-center text-teal-700">Homework</h2>
+                <p class="text-lg text-slate-600 mb-5">Write directions from your home or school to a place nearby using at least 4 imperative verbs.</p>
+                <p class="text-lg text-slate-600 mb-5">Include one landmark, one confirmation sentence and one final location clue such as <em>next to</em> or <em>on your left</em>.</p>
+                <div class="callout-note mb-5 text-lg"><em>Go straight for one block, turn right at the bakery, and keep going until the traffic light.</em></div>
+                <textarea rows="6" class="w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-teal-500" placeholder="Go straight, turn left..."></textarea>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Lesson Complete">
+            <div class="text-center">
+                <i class="fas fa-route text-teal-500 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">Basic directions unlocked</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl mx-auto">Short imperatives make your directions clear, natural and useful.</p>
+            </div>
+        </div>
+    </main>
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
+        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Anterior</button>
+            <button id="next-btn" class="bg-teal-600 text-white font-bold py-3 px-8 rounded-lg transition">PrÃ³ximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Finalizar aula</button>
+        </div>
+    </footer>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2-v2', lessonNumber = 25;
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            let currentSlide = 0;
+            const normalize = (text) => text.trim().toLowerCase().replace(/[.?!"']/g, '');
+            const checkAnswer = (input) => {
+                const ok = normalize(input.value) === normalize(input.dataset.answer || '');
+                input.classList.remove('correct', 'incorrect');
+                if (!input.value.trim()) return;
+                input.classList.add(ok ? 'correct' : 'incorrect');
+            };
+            const speak = (text) => {
+                if (!text || !('speechSynthesis' in window)) return;
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.95;
+                window.speechSynthesis.cancel();
+                window.speechSynthesis.speak(utterance);
+            };
+            const update = () => {
+                slides.forEach((slide, index) => slide.classList.toggle('active', index === currentSlide));
+                document.getElementById('progress-bar').style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
+                document.getElementById('slide-counter').textContent = `${currentSlide + 1} / ${slides.length}`;
+                document.getElementById('slide-title-header').textContent = slides[currentSlide]?.dataset.title || '';
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+                finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+            };
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; update(); } });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; update(); } });
+            finishLessonBtn.addEventListener('click', () => {
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.textContent = 'Salvando...';
+                if (typeof markLessonAsComplete === 'function') {
+                    Promise.resolve(markLessonAsComplete(moduleId, lessonNumber)).catch(() => {
+                        finishLessonBtn.disabled = false;
+                        finishLessonBtn.textContent = 'Finalizar aula';
+                    });
+                }
+            });
+            document.querySelectorAll('input[data-answer]').forEach((input) => input.addEventListener('blur', () => checkAnswer(input)));
+            document.querySelectorAll('.answer-btn[data-target]').forEach((button) => button.addEventListener('click', () => {
+                const input = document.getElementById(button.dataset.target);
+                if (!input) return;
+                input.value = input.dataset.answer;
+                checkAnswer(input);
+            }));
+            document.querySelectorAll('.speak-btn[data-speak]').forEach((button) => button.addEventListener('click', () => speak(button.dataset.speak || '')));
+            update();
+        });
+    </script>
+    <script src="../js/flashcard-pronunciation.js"></script>
+    <script src="../js/lesson-flashcard-save.js"></script>
+    <script src="a2-v2-template.js"></script>
+    <script src="a2-lesson-theme.js"></script>
+</body>
+</html>

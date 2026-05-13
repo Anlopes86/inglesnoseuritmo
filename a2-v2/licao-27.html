@@ -1,0 +1,722 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | LiÃ§Ã£o 27: Getting Around</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
+        .flip-card { background: transparent; min-height: 176px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 1rem;
+            border-radius: 1.25rem;
+            border: 1px solid #e5e7eb;
+            text-align: center;
+        }
+        .flip-card-front { background: #fff; color: #1d4ed8; }
+        .flip-card-back { background: #eff6ff; color: #1e40af; transform: rotateY(180deg); }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.35rem; }
+        .answer-btn:hover { color: #1d4ed8; }
+        input { border: none; border-bottom: 2px solid #cbd5e1; background: transparent; outline: none; text-align: center; padding: 0 6px; }
+        input.correct { border-color: #22c55e; color: #166534; background: #f0fdf4; }
+        input.incorrect { border-color: #ef4444; color: #991b1b; background: #fef2f2; }
+        .route-grid { display: grid; gap: 1rem; }
+        .route-result {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 1rem;
+            padding: 1rem 1.1rem;
+            color: #1e3a8a;
+        }
+        .route-canvas {
+            width: 100%;
+            border: 1px solid #e5e7eb;
+            border-radius: 1rem;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            touch-action: none;
+        }
+    </style>
+    <link rel="stylesheet" href="a2-lesson-theme.css">
+</head>
+<body class="lesson-loading a2-lesson-page bg-slate-50 text-slate-800">
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+            <a href="a2.html" class="text-lg font-bold text-blue-600 hover:text-blue-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A2</a>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 27: Getting Around</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
+        </div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-blue-500 h-1.5 transition-all duration-300"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
+                    <div class="a2-hero-copy">
+                        <h2>Give clear directions in real life</h2>
+                        <p class="mt-4 text-sm font-semibold text-blue-600">Novo foco: distancia, tempo estimado e transporte para tornar a rota mais real.</p>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a guiar alguem com rotas curtas, landmarks naturais e confirmaÃ§Ãµes simples.</p>
+                    </div>
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">You will practice</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span><strong>go straight</strong>, <strong>turn</strong> and <strong>cross</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Landmarks like <strong>next to</strong> and <strong>across from</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Time and distance clues like <strong>10 minutes</strong> and <strong>500 meters</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Confirmation with <strong>Exactly</strong> and <strong>Is that clear?</strong></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-card p-8 mt-8">
+                <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+                    <div>
+                        <p class="lesson-panel-title mb-2">Street dialogue</p>
+                        <h2 class="text-3xl font-black text-blue-700">Ask, explain and confirm</h2>
+                    </div>
+                    <button type="button" class="speak-btn" data-speak="Excuse me, how do I get to the community library? Go straight for one block, turn right at the bakery, and cross the street. The library is next to the park, across from the cafe. So I go straight, turn right at the bakery, cross the street and the library is next to the park? Exactly."><i class="fas fa-volume-up"></i> Ouvir diÃ¡logo</button>
+                </div>
+                <div class="space-y-4 text-xl">
+                    <div class="dialogue-line"><span class="font-bold text-blue-600">Visitor:</span><p>Excuse me, how do I get to the community library?</p><button type="button" class="speak-btn" data-speak="Excuse me, how do I get to the community library?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="dialogue-line"><span class="font-bold text-orange-600">Local:</span><p>Go straight for one block, turn right at the bakery, and cross the street.</p><button type="button" class="speak-btn" data-speak="Go straight for one block, turn right at the bakery, and cross the street."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="dialogue-line"><span class="font-bold text-blue-600">Visitor:</span><p>Is it far?</p><button type="button" class="speak-btn" data-speak="Is it far?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="dialogue-line"><span class="font-bold text-orange-600">Local:</span><p>No, it is quite close. The library is next to the park, across from the cafe.</p><button type="button" class="speak-btn" data-speak="No, it is quite close. The library is next to the park, across from the cafe."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="dialogue-line"><span class="font-bold text-blue-600">Visitor:</span><p>So I go straight, turn right at the bakery, cross the street, and the library is next to the park?</p><button type="button" class="speak-btn" data-speak="So I go straight, turn right at the bakery, cross the street, and the library is next to the park?"><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="dialogue-line"><span class="font-bold text-orange-600">Local:</span><p>Exactly.</p><button type="button" class="speak-btn" data-speak="Exactly."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Vocabulary">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-4 text-blue-700">Route language flashcards</h2>
+                <p class="text-slate-500 text-lg mb-6">Palavras e expressÃµes que fazem a rota soar natural e clara.</p>
+                <div class="flashcard-grid max-w-5xl mx-auto">
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">go straight</h3></div><div class="flip-card-back"><p>siga em frente</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">turn left</h3></div><div class="flip-card-back"><p>vire a esquerda</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">turn right</h3></div><div class="flip-card-back"><p>vire a direita</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">cross the street</h3></div><div class="flip-card-back"><p>atravesse a rua</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">walk past</h3></div><div class="flip-card-back"><p>passe por</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">at the corner</h3></div><div class="flip-card-back"><p>na esquina</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">next to</h3></div><div class="flip-card-back"><p>ao lado de</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">across from</h3></div><div class="flip-card-back"><p>em frente a</p></div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Route Logic">
+            <div class="section-card p-8 max-w-5xl mx-auto">
+                <h2 class="text-4xl font-black mb-4 text-center text-blue-700">A good route has a clear order</h2>
+                <p class="text-center text-slate-500 text-lg max-w-3xl mx-auto mb-8">First show the movement, then add one or two landmarks, and finish with the exact place.</p>
+                <div class="grid md:grid-cols-2 gap-5 text-lg mb-6">
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">How it sounds</p>
+                        <p><strong>Start:</strong> Go straight for one block.</p>
+                        <p><strong>Move:</strong> Turn right at the bakery.</p>
+                        <p><strong>Landmark:</strong> Walk past the park.</p>
+                        <p><strong>Arrival:</strong> The library is next to the cafe.</p>
+                    </div>
+                    <div class="callout-note">
+                        Say the route like a helper on the street: short, calm and easy to follow.
+                        <div class="mt-4 space-y-2 text-sm">
+                            <p><strong>Tip:</strong> Use <em>then</em> and <em>after that</em> to connect steps.</p>
+                            <p><strong>Tip:</strong> Finish with a clear location clue.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-4 gap-4 text-lg">
+                    <div class="activity-card"><p class="lesson-panel-title mb-2">Start</p><p>From the bus stop...</p></div>
+                    <div class="activity-card"><p class="lesson-panel-title mb-2">Movement</p><p>Go straight, turn, cross...</p></div>
+                    <div class="activity-card"><p class="lesson-panel-title mb-2">Landmarks</p><p>Past the bakery, near the park...</p></div>
+                    <div class="activity-card"><p class="lesson-panel-title mb-2">Arrival</p><p>It is on your left.</p></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Travel Mix">
+            <div class="section-card p-8 max-w-5xl mx-auto">
+                <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
+                    <div>
+                        <p class="lesson-panel-title mb-2">Travel mix</p>
+                        <h2 class="text-4xl font-black text-blue-700">Time, distance and transport</h2>
+                    </div>
+                    <div class="callout-note max-w-xl">The doc asks for routes that feel real, so this slide adds transport and distance clues.</div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-5 text-lg mb-6">
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Time clues</p>
+                        <p>It takes 5 minutes.</p>
+                        <p>It takes about 10 minutes by bus.</p>
+                        <p>It is a short walk from here.</p>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Distance clues</p>
+                        <p>It is 500 meters away.</p>
+                        <p>It is one kilometer from the station.</p>
+                        <p>It is not far from the clinic.</p>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Transport clues</p>
+                        <p>Go on foot, take the bus, ride the metro or take a taxi.</p>
+                        <p>Use <strong>need to</strong> and <strong>have to</strong> when the route has a clear step.</p>
+                        <p>Finish with a simple confirmation: <strong>Is that clear?</strong></p>
+                    </div>
+                </div>
+                <div class="activity-lab" data-choice-builder data-template="It takes {time} to get there by {transport}, and it is {distance} from here to the {place}." data-required="time,transport,distance,place" data-preview-empty="Escolha as partes para montar uma rota completa.">
+                    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+                        <div>
+                            <p class="lesson-panel-title mb-3">1. Time</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="time" data-choice-value="5 minutes">5 minutes</button>
+                                <button type="button" class="option-chip" data-choice-slot="time" data-choice-value="10 minutes">10 minutes</button>
+                                <button type="button" class="option-chip" data-choice-slot="time" data-choice-value="a short walk">a short walk</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">2. Transport</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="transport" data-choice-value="walking">walking</button>
+                                <button type="button" class="option-chip" data-choice-slot="transport" data-choice-value="the bus">the bus</button>
+                                <button type="button" class="option-chip" data-choice-slot="transport" data-choice-value="the metro">the metro</button>
+                                <button type="button" class="option-chip" data-choice-slot="transport" data-choice-value="a taxi">a taxi</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">3. Distance</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="distance" data-choice-value="500 meters">500 meters</button>
+                                <button type="button" class="option-chip" data-choice-slot="distance" data-choice-value="one kilometer">one kilometer</button>
+                                <button type="button" class="option-chip" data-choice-slot="distance" data-choice-value="a short ride">a short ride</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">4. Place</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="library">library</button>
+                                <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="clinic">clinic</button>
+                                <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="station">station</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-card mt-6" data-choice-preview></div>
+                    <p class="mt-4 text-sm text-slate-500">Use this as a spoken model: short movement, one distance clue and one final check.</p>
+                    <div class="flex gap-3 mt-5 flex-wrap">
+                        <button type="button" class="option-chip" data-choice-reset>Reset</button>
+                        <button type="button" class="option-chip" data-choice-speak>Ouvir frase</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Practice 1">
+            <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+                <h2 class="text-4xl font-black mb-4 text-center text-blue-700">Complete the route</h2>
+                <p>1. Go straight <input id="f1" data-answer="until" class="w-24"> the traffic lights. <button class="answer-btn" data-target="f1"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">(dica: ate)</span></p>
+                <p>2. Turn right at the <input id="f2" data-answer="corner" class="w-32">. <button class="answer-btn" data-target="f2"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">(dica: esquina)</span></p>
+                <p>3. Walk <input id="f3" data-answer="past" class="w-24"> the pharmacy. <button class="answer-btn" data-target="f3"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">(dica: passe por)</span></p>
+                <p>4. The museum is on your <input id="f4" data-answer="left" class="w-24">. <button class="answer-btn" data-target="f4"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">(dica: esquerda)</span></p>
+                <p>5. Go straight for two <input id="f5" data-answer="blocks" class="w-24">. <button class="answer-btn" data-target="f5"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">(dica: quarteirÃµes)</span></p>
+                <p>6. Take the second <input id="f6" data-answer="exit" class="w-24">. <button class="answer-btn" data-target="f6"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">(dica: saida)</span></p>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Practice 2">
+            <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+                <h2 class="text-4xl font-black mb-4 text-center text-blue-700">Check the confirmation</h2>
+                <p>1. So I turn left at the bakery? <input id="f7" data-answer="Exactly" class="w-28">. <button class="answer-btn" data-target="f7"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">(dica: exatamente)</span></p>
+                <p>2. Is the library far? No, it is <input id="f8" data-answer="quite close" class="w-36">. <button class="answer-btn" data-target="f8"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">(dica: bem perto)</span></p>
+                <p>3. The cafe is <input id="f9" data-answer="on the corner" class="w-40">. <button class="answer-btn" data-target="f9"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">(dica: na esquina)</span></p>
+                <p>4. After that, <input id="f10" data-answer="cross the street" class="w-40">. <button class="answer-btn" data-target="f10"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">(dica: atravesse a rua)</span></p>
+                <p>5. Do not <input id="f11" data-answer="take the first exit" class="w-44">. <button class="answer-btn" data-target="f11"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">(dica: nÃ£o pegue a primeira saÃ­da)</span></p>
+                <p>6. The park is <input id="f14" data-answer="across from" class="w-36"> the station. <button class="answer-btn" data-target="f14"><i class="fas fa-eye"></i></button> <span class="text-base text-slate-500">(dica: em frente a)</span></p>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Route Builder">
+            <div class="section-card p-8 max-w-5xl mx-auto">
+                <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
+                    <div>
+                        <p class="lesson-panel-title mb-2">Route Builder</p>
+                        <h2 class="text-4xl font-black text-blue-700">Connect the whole route</h2>
+                    </div>
+                    <div class="callout-note max-w-xl">
+                        Monte uma resposta curta, natural e fÃ¡cil de seguir do ponto de partida ate o destino.
+                    </div>
+                </div>
+                <div class="activity-lab" data-choice-builder data-template="{start}, {middle}, and the {place} is {location}." data-required="start,middle,place,location" data-preview-empty="Escolha as partes para montar uma rota completa.">
+                    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+                        <div>
+                            <p class="lesson-panel-title mb-3">1. Start</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="start" data-choice-value="Go straight for one block">Go straight for one block</button>
+                                <button type="button" class="option-chip" data-choice-slot="start" data-choice-value="Leave the bus stop and turn left">Leave the bus stop and turn left</button>
+                                <button type="button" class="option-chip" data-choice-slot="start" data-choice-value="Cross the street and keep walking">Cross the street and keep walking</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">2. Middle</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="middle" data-choice-value="then turn right at the corner">then turn right at the corner</button>
+                                <button type="button" class="option-chip" data-choice-slot="middle" data-choice-value="after that walk past the bakery">after that walk past the bakery</button>
+                                <button type="button" class="option-chip" data-choice-slot="middle" data-choice-value="then cross the street again">then cross the street again</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">3. Place</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="library">library</button>
+                                <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="museum">museum</button>
+                                <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="station">station</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">4. Location</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="location" data-choice-value="next to the cafe">next to the cafe</button>
+                                <button type="button" class="option-chip" data-choice-slot="location" data-choice-value="across from the park">across from the park</button>
+                                <button type="button" class="option-chip" data-choice-slot="location" data-choice-value="on your left">on your left</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-card mt-6" data-choice-preview></div>
+                    <p class="mt-4 text-sm text-slate-500">Leia como se estivesse ajudando um visitante perdido na rua.</p>
+                    <div class="flex gap-3 mt-5 flex-wrap">
+                        <button type="button" class="option-chip" data-choice-reset>Reset</button>
+                        <button type="button" class="option-chip" data-choice-speak>Ouvir frase</button>
+                    </div>
+                </div>
+                <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6 mt-6">
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Shortest path simulator</p>
+                        <p class="text-slate-600 mb-4">Escolha o ponto de partida e o destino. O sistema calcula o caminho mais curto e mostra a sequÃªncia passo a passo.</p>
+                        <div class="route-grid sm:grid-cols-2">
+                            <label class="space-y-2 text-sm font-semibold text-slate-700">
+                                <span>Start</span>
+                                <select id="route-start" class="w-full p-3 rounded-xl border-2 border-slate-200 text-left">
+                                    <option value="bus stop">Bus stop</option>
+                                    <option value="bakery">Bakery</option>
+                                    <option value="park">Park</option>
+                                    <option value="library">Library</option>
+                                </select>
+                            </label>
+                            <label class="space-y-2 text-sm font-semibold text-slate-700">
+                                <span>End</span>
+                                <select id="route-end" class="w-full p-3 rounded-xl border-2 border-slate-200 text-left">
+                                    <option value="clinic">Clinic</option>
+                                    <option value="museum">Museum</option>
+                                    <option value="station">Station</option>
+                                    <option value="library">Library</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="flex gap-3 mt-4 flex-wrap">
+                            <button type="button" id="route-solve-btn" class="option-chip">Calculate route</button>
+                            <button type="button" id="route-reset-btn" class="option-chip">Reset result</button>
+                        </div>
+                        <div id="route-result" class="route-result mt-4">Pick two points to calculate the shortest path.</div>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Trace the route</p>
+                        <p class="text-slate-600 mb-4">Use the canvas to sketch the route that the teacher would draw on a board.</p>
+                        <canvas id="route-canvas" class="route-canvas" width="640" height="320"></canvas>
+                        <div class="flex gap-3 mt-4 flex-wrap">
+                            <button type="button" id="route-clear-btn" class="option-chip">Clear canvas</button>
+                            <button type="button" id="route-compare-btn" class="option-chip">Show model route</button>
+                        </div>
+                        <p id="route-canvas-feedback" class="mt-3 text-sm text-slate-500">Draw from the bus stop to the clinic, or compare with the model path.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Roleplay">
+            <div class="section-card p-8 max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-6 text-center text-blue-700">Roleplay route challenge</h2>
+                <div class="grid md:grid-cols-2 gap-5 text-lg">
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Student A</p>
+                        <p>You are at the bus station. Ask how to get to the clinic.</p>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Student B</p>
+                        <p>Give a 4-step route using one landmark and one confirmation phrase.</p>
+                    </div>
+                </div>
+                <p class="mt-6 text-lg text-slate-600">Do one round fast and direct, then repeat it with more detail, like a real local helping someone in a hurry.</p>
+                <textarea rows="6" class="mt-6 w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-blue-500" placeholder="Excuse me, how do I get to..."></textarea>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Reading">
+            <div class="section-card p-8 max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-4 text-center text-blue-700">Short route reading</h2>
+                <div class="activity-card text-lg leading-8">
+                    <p><strong>Notice:</strong> Mia is looking for the sports center. She goes straight for two blocks, turns right at the corner and walks past the bakery. The center is on her left, across from the park. If she reaches the station, she went too far.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-5 mt-6 text-xl">
+                    <div class="activity-card">
+                        <p>1. Mia goes straight for <input id="f15" data-answer="two" class="w-20"> blocks. <button class="answer-btn" data-target="f15"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                    <div class="activity-card">
+                        <p>2. She turns right at the <input id="f16" data-answer="corner" class="w-24">. <button class="answer-btn" data-target="f16"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                    <div class="activity-card">
+                        <p>3. The center is on her <input id="f17" data-answer="left" class="w-20">. <button class="answer-btn" data-target="f17"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                    <div class="activity-card">
+                        <p>4. It is <input id="f18" data-answer="across from" class="w-36"> the park. <button class="answer-btn" data-target="f18"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Homework">
+            <div class="section-card p-8 max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-6 text-center text-blue-700">Homework</h2>
+                <p class="text-lg text-slate-600 mb-5">Write directions from your home or school to a place nearby using at least 4 imperative verbs.</p>
+                <p class="text-lg text-slate-600 mb-5">Include one landmark, one confirmation sentence and one final location clue such as <em>next to</em> or <em>on your left</em>.</p>
+                <p class="text-lg text-slate-600 mb-5">If possible, add a time or distance clue too, like <em>It takes 10 minutes</em> or <em>It is 500 meters away</em>.</p>
+                <div class="callout-note mb-5 text-lg"><em>Go straight for one block, turn right at the bakery, walk past the park and the library is next to the cafe.</em></div>
+                <textarea rows="6" class="w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-teal-500" placeholder="Go straight, turn left..."></textarea>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Lesson Complete">
+            <div class="text-center">
+                <i class="fas fa-route text-teal-500 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">Clear directions unlocked</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl mx-auto">You can now guide someone with short, natural and useful directions in English.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
+        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Anterior</button>
+            <button id="next-btn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">PrÃ³ximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Finalizar aula</button>
+        </div>
+    </footer>
+
+    <script src="a2-v2-template.js"></script>
+    <script src="a2-lesson-theme.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2-v2';
+            const lessonNumber = 27;
+            const slides = Array.from(document.querySelectorAll('.slide'));
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishBtn = document.getElementById('finish-lesson-btn');
+            const progressBar = document.getElementById('progress-bar');
+            const normalize = (text) => (text || '').trim().toLowerCase().replace(/[.?!"']/g, '');
+            let currentSlide = Math.max(0, slides.findIndex((slide) => slide.classList.contains('active')));
+            if (currentSlide < 0) currentSlide = 0;
+
+            const checkAnswer = (input) => {
+                input.classList.remove('correct', 'incorrect');
+                if (!input.value.trim()) return;
+                const isCorrect = normalize(input.value) === normalize(input.dataset.answer || '');
+                input.classList.add(isCorrect ? 'correct' : 'incorrect');
+            };
+
+            const render = () => {
+                slides.forEach((slide, index) => slide.classList.toggle('active', index === currentSlide));
+                if (progressBar) {
+                    progressBar.style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
+                }
+                if (prevBtn) prevBtn.disabled = currentSlide === 0;
+                if (nextBtn) nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+                if (finishBtn) finishBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+            };
+
+            prevBtn?.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide -= 1;
+                    render();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+
+            nextBtn?.addEventListener('click', () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide += 1;
+                    render();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+
+            finishBtn?.addEventListener('click', () => {
+                finishBtn.disabled = true;
+                finishBtn.textContent = 'Salvando...';
+                if (typeof markLessonAsComplete === 'function') {
+                    Promise.resolve(markLessonAsComplete(moduleId, lessonNumber)).catch(() => {
+                        finishBtn.disabled = false;
+                        finishBtn.textContent = 'Finalizar aula';
+                    });
+                }
+            });
+
+            document.querySelectorAll('input[data-answer]').forEach((input) => {
+                input.addEventListener('blur', () => checkAnswer(input));
+            });
+
+            document.querySelectorAll('.answer-btn[data-target]').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const input = document.getElementById(button.dataset.target);
+                    if (!input) return;
+                    input.value = input.dataset.answer || '';
+                    checkAnswer(input);
+                });
+            });
+
+            document.querySelectorAll('.flip-card').forEach((card) => {
+                card.addEventListener('click', () => card.classList.toggle('flipped'));
+            });
+
+            const routeGraph = {
+                'bus stop': { bakery: 3, park: 4 },
+                bakery: { 'bus stop': 3, park: 2, library: 4, museum: 6 },
+                park: { 'bus stop': 4, bakery: 2, library: 2, station: 5 },
+                library: { bakery: 4, park: 2, clinic: 2, station: 4 },
+                museum: { bakery: 6, station: 3 },
+                station: { museum: 3, park: 5, clinic: 4, library: 4 },
+                clinic: { library: 2, station: 4 }
+            };
+            const routePoints = {
+                'bus stop': [60, 250],
+                bakery: [170, 165],
+                park: [275, 245],
+                library: [390, 150],
+                museum: [510, 105],
+                station: [560, 250],
+                clinic: [470, 275]
+            };
+            const routeStart = document.getElementById('route-start');
+            const routeEnd = document.getElementById('route-end');
+            const routeResult = document.getElementById('route-result');
+            const routeSolveBtn = document.getElementById('route-solve-btn');
+            const routeResetBtn = document.getElementById('route-reset-btn');
+            const routeCanvas = document.getElementById('route-canvas');
+            const routeCanvasFeedback = document.getElementById('route-canvas-feedback');
+            const routeClearBtn = document.getElementById('route-clear-btn');
+            const routeCompareBtn = document.getElementById('route-compare-btn');
+            const ctx = routeCanvas?.getContext('2d');
+            const userStrokes = [];
+            let currentStroke = [];
+            let drawMode = false;
+            let showModelRoute = false;
+
+            const shortestPath = (start, end) => {
+                const distances = {};
+                const previous = {};
+                const queue = new Set(Object.keys(routeGraph));
+
+                Object.keys(routeGraph).forEach((node) => {
+                    distances[node] = node === start ? 0 : Infinity;
+                    previous[node] = null;
+                });
+
+                while (queue.size) {
+                    let current = null;
+                    let currentDistance = Infinity;
+                    queue.forEach((node) => {
+                        if (distances[node] < currentDistance) {
+                            currentDistance = distances[node];
+                            current = node;
+                        }
+                    });
+
+                    if (current === null) break;
+                    queue.delete(current);
+                    if (current === end) break;
+
+                    Object.entries(routeGraph[current]).forEach(([neighbor, weight]) => {
+                        if (!queue.has(neighbor)) return;
+                        const candidate = distances[current] + weight;
+                        if (candidate < distances[neighbor]) {
+                            distances[neighbor] = candidate;
+                            previous[neighbor] = current;
+                        }
+                    });
+                }
+
+                const path = [];
+                let cursor = end;
+                while (cursor) {
+                    path.unshift(cursor);
+                    cursor = previous[cursor];
+                }
+
+                return {
+                    path,
+                    distance: distances[end]
+                };
+            };
+
+            const drawMap = () => {
+                if (!ctx || !routeCanvas) return;
+                ctx.clearRect(0, 0, routeCanvas.width, routeCanvas.height);
+                ctx.lineWidth = 4;
+                ctx.lineCap = 'round';
+
+                const drawEdge = (from, to, color = '#cbd5e1', dashed = false) => {
+                    const [x1, y1] = routePoints[from];
+                    const [x2, y2] = routePoints[to];
+                    ctx.strokeStyle = color;
+                    ctx.setLineDash(dashed ? [8, 8] : []);
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                };
+
+                Object.entries(routeGraph).forEach(([from, neighbors]) => {
+                    Object.keys(neighbors).forEach((to) => {
+                        if (from < to) drawEdge(from, to);
+                    });
+                });
+
+                if (showModelRoute && routeStart?.value && routeEnd?.value) {
+                    const solved = shortestPath(routeStart.value, routeEnd.value);
+                    solved.path.forEach((node, index) => {
+                        if (index === solved.path.length - 1) return;
+                        drawEdge(node, solved.path[index + 1], '#22c55e', false);
+                    });
+                }
+
+                userStrokes.forEach((stroke) => {
+                    if (stroke.length < 2) return;
+                    ctx.strokeStyle = '#1d4ed8';
+                    ctx.lineWidth = 3.5;
+                    ctx.beginPath();
+                    ctx.moveTo(stroke[0].x, stroke[0].y);
+                    stroke.slice(1).forEach((point) => ctx.lineTo(point.x, point.y));
+                    ctx.stroke();
+                });
+
+                Object.entries(routePoints).forEach(([label, [x, y]]) => {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.strokeStyle = '#1d4ed8';
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.arc(x, y, 16, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.stroke();
+                    ctx.fillStyle = '#1e3a8a';
+                    ctx.font = '700 13px Inter, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(label, x, y - 24);
+                });
+            };
+
+            routeSolveBtn?.addEventListener('click', () => {
+                const start = routeStart?.value || 'bus stop';
+                const end = routeEnd?.value || 'clinic';
+                if (start === end) {
+                    if (routeResult) routeResult.innerHTML = '<strong>Choose two different points.</strong>';
+                    return;
+                }
+                const solved = shortestPath(start, end);
+                if (routeResult) {
+                    routeResult.innerHTML = `
+                        <p class="font-semibold text-blue-800 mb-2">Shortest route</p>
+                        <p>${solved.path.map((node) => `<strong>${node}</strong>`).join(' -> ')}</p>
+                        <p class="mt-2">Total distance: <strong>${solved.distance}</strong> steps on the map.</p>
+                    `;
+                }
+            });
+
+            routeResetBtn?.addEventListener('click', () => {
+                if (routeResult) routeResult.textContent = 'Pick two points to calculate the shortest path.';
+            });
+
+            if (routeCanvas) {
+                const getPoint = (event) => {
+                    const rect = routeCanvas.getBoundingClientRect();
+                    return {
+                        x: ((event.clientX - rect.left) / rect.width) * routeCanvas.width,
+                        y: ((event.clientY - rect.top) / rect.height) * routeCanvas.height
+                    };
+                };
+
+                routeCanvas.addEventListener('pointerdown', (event) => {
+                    drawMode = true;
+                    currentStroke = [getPoint(event)];
+                    userStrokes.push(currentStroke);
+                    routeCanvas.setPointerCapture(event.pointerId);
+                    drawMap();
+                });
+                routeCanvas.addEventListener('pointermove', (event) => {
+                    if (!drawMode) return;
+                    currentStroke.push(getPoint(event));
+                    drawMap();
+                });
+                routeCanvas.addEventListener('pointerup', () => {
+                    drawMode = false;
+                    currentStroke = [];
+                });
+                routeCanvas.addEventListener('pointerleave', () => {
+                    drawMode = false;
+                    currentStroke = [];
+                });
+            }
+
+            routeClearBtn?.addEventListener('click', () => {
+                userStrokes.length = 0;
+                showModelRoute = false;
+                drawMap();
+                if (routeCanvasFeedback) routeCanvasFeedback.textContent = 'Canvas cleared. Draw the route again.';
+            });
+
+            routeCompareBtn?.addEventListener('click', () => {
+                showModelRoute = true;
+                drawMap();
+                if (routeCanvasFeedback) routeCanvasFeedback.textContent = 'Green line shows one model route that the teacher can compare with your drawing.';
+            });
+
+            routeStart?.addEventListener('change', () => {
+                showModelRoute = false;
+                drawMap();
+            });
+            routeEnd?.addEventListener('change', () => {
+                showModelRoute = false;
+                drawMap();
+            });
+
+            drawMap();
+
+            render();
+        });
+    </script>
+    <script src="../js/flashcard-pronunciation.js"></script>
+    <script src="../js/lesson-flashcard-save.js"></script>
+</body>
+</html>

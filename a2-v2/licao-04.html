@@ -1,0 +1,390 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | LiÃ§Ã£o 04: Comparing Opinions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="../enhanced-styles.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.75rem; }
+        .flip-card { background-color: transparent; width: 100%; max-width: none; min-height: 220px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); padding: 2rem;
+            font-size: 1.1rem; line-height: 1.5;
+        }
+        .flip-card-front { background-color: #fff; border: 1px solid #e5e7eb; }
+        .flip-card-back { background-color: #dbeafe; transform: rotateY(180deg); font-size: 1.25rem; }
+
+        input.correct { border-color: #22c55e; background-color: #f0fdf4; }
+        input.incorrect { border-color: #ef4444; background-color: #fef2f2; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
+        .answer-btn:hover { color: #db2777; }
+    </style>
+    <link rel='stylesheet' href='a2-lesson-theme.css'>
+</head>
+<body class="a2-lesson-page bg-slate-50 text-slate-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+            <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao MÃ³dulo A2 V2</a>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 04: Comparing Opinions</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
+        </div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="max-w-3xl">
+                    <div class="a2-hero-copy">
+                        <h2>State opinions and react more naturally</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a dar opiniÃµes com mais clareza, concordar, discordar com educaÃ§Ã£o e sustentar sua ideia com uma justificativa simples.</p>
+                    </div>
+                    <div class="lesson-panel p-6 mt-6">
+                        <p class="lesson-panel-title mb-4">You will practice</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Using <strong>I think</strong>, <strong>in my opinion</strong> and <strong>for me</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Agreeing and disagreeing politely</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Giving a reason for your opinion</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-card p-8 mt-8">
+                <p class="lesson-panel-title mb-4">Sharing opinions</p>
+                <div class="text-left text-xl space-y-5">
+                    <p><strong class="text-blue-600">Teacher:</strong> "Which do you prefer for a pet, dogs or cats?"</p>
+                    <p><strong class="text-orange-600">Student:</strong> "I think dogs are friendlier and more active."</p>
+                    <p><strong class="text-blue-600">Teacher:</strong> "Interesting. In my opinion, cats are easier to take care of."</p>
+                    <p><strong class="text-orange-600">Student:</strong> "That's true, but for me dogs are more fun because they like to play."</p>
+                    <p><strong class="text-blue-600">Teacher:</strong> "So you agree that cats are easier, but you still prefer dogs?"</p>
+                    <p><strong class="text-orange-600">Student:</strong> "Exactly. I understand both sides, but I still prefer dogs."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Grammar">
+            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-book-open text-pink-500"></i> Grammar: Expressing Opinions</h2>
+            <div class="max-w-4xl mx-auto space-y-6">
+                <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
+                    <h3 class="text-3xl font-semibold mb-4 text-blue-600">Giving Your Opinion</h3>
+                    <p class="mb-6 text-xl">To express what you think, you can use these phrases:</p>
+                    <ul class="list-disc list-inside ml-4 space-y-3 text-2xl">
+                        <li><strong class="text-purple-600">I think</strong> pizza is delicious.</li>
+                        <li><strong class="text-purple-600">In my opinion,</strong> summer is better than winter.</li>
+                        <li><strong class="text-purple-600">For me,</strong> reading is more interesting than watching TV.</li>
+                    </ul>
+                </div>
+                 <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
+                    <h3 class="text-3xl font-semibold mb-4 text-blue-600">Agreeing and Disagreeing</h3>
+                     <p class="mb-4 text-xl">Here's how you can respond to someone's opinion.</p>
+                     <div class="grid md:grid-cols-2 gap-8 text-2xl">
+                        <div>
+                            <h4 class="text-2xl font-semibold mb-3 text-green-600"><i class="fas fa-check-circle"></i> Agreeing</h4>
+                             <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li>I agree.</li>
+                                <li>I think so too.</li>
+                                <li>That's true.</li>
+                             </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-2xl font-semibold mb-3 text-red-600"><i class="fas fa-times-circle"></i> Disagreeing</h4>
+                             <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li>I disagree.</li>
+                                <li>I don't think so.</li>
+                                <li>I'm not so sure.</li>
+                             </ul>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide" data-title="Vocabulary">
+            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-lightbulb text-purple-500"></i> Vocabulary: Opinion Adjectives</h2>
+            <div class="flashcard-grid max-w-5xl mx-auto">
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">interesting</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">interessante</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">boring</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">chato / entediante</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">delicious</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">delicioso</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">awful</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">horrÃ­vel</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">difficult</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">difÃ­cil</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">easy</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">fÃ¡cil</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">fun</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">divertido</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">relaxing</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">relaxante</h3></div></div></div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Practice 1">
+            <div class="text-center">
+                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-pencil-alt text-teal-500"></i> Practice 1: Complete the Opinions</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">Use the words in parentheses to complete the sentences.</p>
+                    <div id="practice-sentences" class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Practice 2">
+            <div class="text-center">
+                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-check-double text-cyan-500"></i> Practice 2: Agree or Disagree</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-3xl mb-8 text-gray-600">Read the opinions and write if you agree or disagree. Give a reason!</p>
+                    <div id="practice-agree-disagree" class="text-left text-2xl space-y-6 bg-gray-50 p-8 rounded-lg">
+                         </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide" data-title="Opinion Meter">
+            <div class="section-card p-8">
+                <h2 class="text-5xl font-bold mb-6 text-center text-orange-700"><i class="fas fa-comments text-violet-500"></i> Opinion Meter</h2>
+                <p class="text-2xl text-slate-600 text-center max-w-3xl mx-auto">Monte uma opiniÃ£o completa, escolhendo posiÃ§Ã£o, tema e justificativa. Isso ajuda a sair do â€œI like / I don't likeâ€ e chegar em uma fala mais rica.</p>
+                <div class="activity-card p-6 mt-8" data-choice-builder data-template="{starter}, {topic} is {position} because {reason}." data-required="starter,topic,position,reason" data-preview-empty="Monte sua opiniÃ£o usando os blocos abaixo.">
+                    <div class="grid gap-6 lg:grid-cols-2">
+                        <div class="space-y-5">
+                            <div>
+                                <p class="font-semibold text-lg text-slate-700 mb-3">1. Como vocÃª vai comeÃ§ar?</p>
+                                <div class="flex flex-wrap gap-3">
+                                    <button type="button" class="choice-chip" data-choice-slot="starter" data-choice-value="I think">I think</button>
+                                    <button type="button" class="choice-chip" data-choice-slot="starter" data-choice-value="In my opinion">In my opinion</button>
+                                    <button type="button" class="choice-chip" data-choice-slot="starter" data-choice-value="For me">For me</button>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-lg text-slate-700 mb-3">2. Tema</p>
+                                <div class="flex flex-wrap gap-3">
+                                    <button type="button" class="choice-chip" data-choice-slot="topic" data-choice-value="social media">social media</button>
+                                    <button type="button" class="choice-chip" data-choice-slot="topic" data-choice-value="online classes">online classes</button>
+                                    <button type="button" class="choice-chip" data-choice-slot="topic" data-choice-value="video games">video games</button>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-lg text-slate-700 mb-3">3. PosiÃ§Ã£o</p>
+                                <div class="flex flex-wrap gap-3">
+                                    <button type="button" class="choice-chip" data-choice-slot="position" data-choice-value="very useful">very useful</button>
+                                    <button type="button" class="choice-chip" data-choice-slot="position" data-choice-value="a little overrated">a little overrated</button>
+                                    <button type="button" class="choice-chip" data-choice-slot="position" data-choice-value="more fun than people say">more fun than people say</button>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-lg text-slate-700 mb-3">4. Justificativa</p>
+                                <div class="flex flex-wrap gap-3">
+                                    <button type="button" class="choice-chip" data-choice-slot="reason" data-choice-value="it helps people stay connected">it helps people stay connected</button>
+                                    <button type="button" class="choice-chip" data-choice-slot="reason" data-choice-value="it can be distracting sometimes">it can be distracting sometimes</button>
+                                    <button type="button" class="choice-chip" data-choice-slot="reason" data-choice-value="it makes learning more flexible">it makes learning more flexible</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="callout-note p-6 rounded-3xl">
+                            <p class="lesson-panel-title mb-3">Your opinion</p>
+                            <p class="text-base text-slate-600 mb-4">Depois de montar, diga a frase e complete oralmente com uma segunda frase de apoio, como <strong>That's why I like it</strong> ou <strong>But I understand the other side</strong>.</p>
+                            <div class="text-xl leading-relaxed min-h-[140px] font-medium" data-choice-preview></div>
+                            <div class="flex flex-wrap gap-3 mt-6">
+                                <button type="button" class="secondary-action-btn" data-choice-reset>Limpar</button>
+                                <button type="button" class="primary-action-btn" data-choice-speak>Ouvir frase</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Music">
+            <h2 class="text-5xl font-bold mb-6 text-center text-orange-700"><i class="fas fa-music text-red-500"></i> Music Time: Katy Perry</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1TEjSXPdAakDotj2Wji3PU?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <p class="text-3xl my-6 text-gray-600 text-center">Listen to "Hot N Cold" and fill in the blanks about disagreement.</p>
+                <div class="text-2xl space-y-4 bg-gray-50 p-6 rounded-lg border-l-4 border-orange-500 text-center">
+                       <p>You change your <input type="text" id="music-q1" class="w-32 border-b-2 text-center bg-transparent" data-answer="mind"><button class="answer-btn" data-target="music-q1"><i class="fas fa-eye"></i></button> like a girl changes clothes</p>
+                       <p>We used to be just like twins, so in <input type="text" id="music-q2" class="w-32 border-b-2 text-center bg-transparent" data-answer="sync"><button class="answer-btn" data-target="music-q2"><i class="fas fa-eye"></i></button></p>
+                       <hr class="my-2 border-gray-300">
+                       <p class="font-bold text-orange-600">Chorus:</p>
+                       <p>'Cause you're hot then you're <input type="text" id="music-q3" class="w-32 border-b-2 text-center bg-transparent" data-answer="cold"><button class="answer-btn" data-target="music-q3"><i class="fas fa-eye"></i></button></p>
+                       <p>You're <input type="text" id="music-q4" class="w-32 border-b-2 text-center bg-transparent" data-answer="yes"><button class="answer-btn" data-target="music-q4"><i class="fas fa-eye"></i></button> then you're no</p>
+                       <p>You're <input type="text" id="music-q5" class="w-32 border-b-2 text-center bg-transparent" data-answer="in"><button class="answer-btn" data-target="music-q5"><i class="fas fa-eye"></i></button> then you're out</p>
+                       <p>You're <input type="text" id="music-q6" class="w-32 border-b-2 text-center bg-transparent" data-answer="up"><button class="answer-btn" data-target="music-q6"><i class="fas fa-eye"></i></button> then you're down</p>
+                       <p>You're <input type="text" id="music-q7" class="w-32 border-b-2 text-center bg-transparent" data-answer="wrong"><button class="answer-btn" data-target="music-q7"><i class="fas fa-eye"></i></button> when it's right</p>
+                       <p>It's <input type="text" id="music-q8" class="w-32 border-b-2 text-center bg-transparent" data-answer="black"><button class="answer-btn" data-target="music-q8"><i class="fas fa-eye"></i></button> and it's white</p>
+                       <p>We fight, we break <input type="text" id="music-q9" class="w-32 border-b-2 text-center bg-transparent" data-answer="up"><button class="answer-btn" data-target="music-q9"><i class="fas fa-eye"></i></button></p>
+                       <p>We kiss, we make <input type="text" id="music-q10" class="w-32 border-b-2 text-center bg-transparent" data-answer="up"><button class="answer-btn" data-target="music-q10"><i class="fas fa-eye"></i></button></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide" data-title="Homework">
+             <div class="text-center">
+                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-home text-blue-500"></i> Homework</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <p class="text-3xl mb-5 text-gray-600">What do you think about social media? Is it good or bad? Write a short paragraph with your opinion.</p>
+                    <div class="text-left text-xl mt-4 bg-gray-50 p-6 rounded-lg">
+                        <p class="mb-4 text-lg text-slate-600">Try this structure: state your opinion, give one positive point, one negative point, and finish with your final position.</p>
+                        <textarea class="w-full mt-2 p-3 border-2 rounded-lg text-xl" rows="6" placeholder="In my opinion, social media is... I think it is good/bad because..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Lesson Complete">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <i class="fas fa-check-circle text-green-500 text-8xl mb-6"></i>
+                <h2 class="text-6xl font-bold mb-6 text-gray-800">Lesson 4 Complete!</h2>
+                <p class="text-4xl text-gray-600 max-w-3xl">Great work sharing your ideas! Now you can express your opinions with confidence.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Previous</button>
+            <button id="next-btn" class="bg-orange-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-orange-700">Next</button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finish Lesson</button>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2-v2';
+            const lessonNumber = 4;
+
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            const slideCounter = document.getElementById('slide-counter');
+            const slideTitleHeader = document.getElementById('slide-title-header');
+            let currentSlide = 0;
+
+            function updateSlideView() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+                const progressBar = document.getElementById('progress-bar');
+                progressBar.style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
+                if (slideCounter) slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+                if (slideTitleHeader) slideTitleHeader.textContent = slides[currentSlide]?.dataset.title || '';
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+                finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+            }
+
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; updateSlideView(); } });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; updateSlideView(); } });
+
+            finishLessonBtn.addEventListener('click', () => {
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.textContent = 'Salvando...';
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber).catch(error => {
+                        console.error('Erro ao marcar a liÃ§Ã£o como completa:', error);
+                        alert('Ocorreu um erro ao finalizar a liÃ§Ã£o. Por favor, tente novamente.');
+                        finishLessonBtn.disabled = false;
+                        finishLessonBtn.textContent = 'Finish Lesson';
+                    });
+                } else {
+                    console.error('FunÃ§Ã£o markLessonAsComplete nÃ£o encontrada.');
+                    alert('Erro ao salvar progresso.');
+                    finishLessonBtn.disabled = false;
+                    finishLessonBtn.textContent = 'Finish Lesson';
+                }
+            });
+
+            function checkAnswer(input) {
+                const userAnswer = input.value.trim().toLowerCase().replace(/[.!?]/g, '');
+                const correctAnswer = input.dataset.answer.toLowerCase().replace(/[.!?]/g, '');
+                input.classList.remove('correct', 'incorrect');
+                if(userAnswer.length === 0) return;
+                input.classList.toggle('correct', userAnswer === correctAnswer);
+                input.classList.toggle('incorrect', userAnswer !== correctAnswer);
+            }
+            
+            function addIndividualRevealListeners() {
+                document.querySelectorAll('.answer-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const targetId = button.dataset.target;
+                        const inputField = document.getElementById(targetId);
+                        if(inputField) {
+                            inputField.value = inputField.dataset.answer;
+                            checkAnswer(inputField);
+                        }
+                    });
+                });
+            }
+
+            document.querySelectorAll('.flip-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('flipped');
+                });
+            });
+
+            // Practice 1: Complete the Opinions
+            function createPracticeSentences() {
+                const container = document.getElementById('practice-sentences');
+                if (!container) return;
+                const sentences = [
+                    { id: 'p1q1', question: "A: Rock music is great. B: ___ . It's my favorite. (Eu concordo)", answer: "I agree" },
+                    { id: 'p1q2', question: "___, math is very difficult. (For me)", answer: "For me" },
+                    { id: 'p1q3', question: "A: This movie is boring. B: ___ . I think it's very interesting. (Eu nÃ£o acho)", answer: "I don't think so" },
+                    { id: 'p1q4', question: "___ vegetables are more delicious than fruit. (Eu acho)", answer: "I think" },
+                    { id: 'p1q5', question: "A: The beach is relaxing. B: ___. I love the sound of the ocean. (Ã‰ verdade)", answer: "That's true" }
+                ];
+                container.innerHTML = sentences.map(item => {
+                    const inputHtml = `<input id="${item.id}" data-answer="${item.answer}" class="w-64 p-1 border-b-2 text-2xl bg-transparent text-center">`;
+                    const buttonHtml = `<button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>`;
+                    return `<p>${item.question.replace('___', inputHtml + buttonHtml)}</p>`;
+                }).join('');
+                 container.querySelectorAll('input').forEach(input => input.addEventListener('blur', () => checkAnswer(input)));
+            }
+
+            // Practice 2: Agree or Disagree
+            function createAgreeDisagreeActivity() {
+                const container = document.getElementById('practice-agree-disagree');
+                if (!container) return;
+                const opinions = [
+                    { statement: "Video games are for kids.", example: "I disagree. I think many adults play video games." },
+                    { statement: "Traveling is the best way to spend money.", example: "I agree. In my opinion, experiences are more important than things." },
+                    { statement: "Learning English is easy.", example: "I'm not so sure. For me, it is difficult but fun." }
+                ];
+                container.innerHTML = opinions.map(item => `
+                    <div>
+                        <p class="font-semibold text-gray-800">Opinion: "${item.statement}"</p>
+                        <textarea class="w-full mt-2 p-3 border-2 rounded-lg text-xl" rows="2" placeholder="Write your opinion here..."></textarea>
+                        <div class="text-right mt-1"><button class="text-sm text-blue-600 hover:underline" onclick="alert('Example: ${item.example}')">Show Example</button></div>
+                    </div>
+                `).join('');
+            }
+
+            createPracticeSentences();
+            createAgreeDisagreeActivity();
+            addIndividualRevealListeners();
+            updateSlideView();
+        });
+    </script>
+    <script src="../js/flashcard-pronunciation.js"></script>
+    <script src="../js/lesson-flashcard-save.js"></script>
+    <script src='a2-v2-template.js'></script>
+    <script src='a2-lesson-theme.js'></script>
+</body>
+</html>

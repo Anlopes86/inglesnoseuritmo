@@ -1,0 +1,407 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | LiÃ§Ã£o 09: Whatâ€™s the Weather Like?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; font-size: 1.1rem; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .flip-card { background-color: transparent; width: 100%; max-width: none; min-height: 140px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 1rem;
+        }
+        .flip-card-front { background-color: #fff; border: 1px solid #e5e7eb; font-weight: bold; }
+        .flip-card-back { background-color: #fefce8; transform: rotateY(180deg); font-weight: bold; color: #854d0e; }
+
+        input.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        input.incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.2rem; transition: color 0.2s; }
+        .answer-btn:hover { color: #f97316; }
+        
+        input { border-bottom: 2px solid #cbd5e1; outline: none; transition: all 0.2s; font-weight: 600; background: transparent; padding: 0 5px; }
+        .choice-btn { border: 2px solid #e5e7eb; padding: 10px; border-radius: 12px; transition: all 0.2s; cursor: pointer; text-align: left; font-size: 1rem; }
+        .choice-btn:hover { border-color: #f97316; background-color: #fff7ed; }
+        .selected-correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        .selected-incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+
+        .music-card { background: linear-gradient(135deg, #1db954 0%, #191414 100%); color: white; }
+    </style>
+    <link rel='stylesheet' href='a2-lesson-theme.css'>
+</head>
+<body class="a2-lesson-page lesson-loading bg-slate-50 text-slate-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+            <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> MÃ³dulo A2</a>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 09: What's the Weather Like?</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 7</div>
+        </div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300"></div></div>
+    </header>
+
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="max-w-3xl">
+                    <div class="a2-hero-copy">
+                        <p class="lesson-panel-title">Weather plans</p>
+                        <h2 class="text-4xl md:text-5xl font-black text-slate-900">Use the weather forecast to plan your weekend.</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno pratica vocabulÃ¡rio de clima e usa <strong>will</strong> para fazer previsÃµes e tomar decisÃµes espontÃ¢neas com mais naturalidade.</p>
+                    </div>
+                    <div class="lesson-panel p-6 mt-6">
+                        <p class="lesson-panel-title">In this lesson, you will:</p>
+                        <ul class="space-y-3 text-slate-600 text-base">
+                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>descrever o tempo em diferentes situaÃ§Ãµes;</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>fazer previsÃµes curtas com mais confianÃ§a;</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>usar o clima para decidir um plano.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="section-card p-8 mt-8">
+                <p class="lesson-panel-title mb-4">Opening Dialogue</p>
+                <div class="space-y-4 text-left text-lg text-slate-700">
+                    <div class="flex gap-4">
+                        <span class="font-black text-orange-600 min-w-16">Alex:</span>
+                        <p>"Do you still want to go to the beach on Saturday?"</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-blue-600 min-w-16">Sam:</span>
+                        <p>"Maybe. I think it <strong>will be</strong> cloudy in the morning, and I don't want a cold day."</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-orange-600 min-w-16">Alex:</span>
+                        <p>"The weather app says it <strong>will be</strong> sunny after lunch, so we can go later."</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-blue-600 min-w-16">Sam:</span>
+                        <p>"That sounds better. If it gets hot, I <strong>will bring</strong> cold drinks for us."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Vocabulary">
+            <h2 class="text-3xl font-bold mb-8 text-center text-orange-700 uppercase tracking-widest">Weather Vocabulary</h2>
+            <div class="flashcard-grid max-w-5xl mx-auto">
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-yellow-500"><i class="fas fa-sun text-4xl mb-2"></i>Sunny</div><div class="flip-card-back">Ensolarado</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-blue-400"><i class="fas fa-cloud-rain text-4xl mb-2"></i>Rainy</div><div class="flip-card-back">Chuvoso</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-gray-400"><i class="fas fa-cloud text-4xl mb-2"></i>Cloudy</div><div class="flip-card-back">Nublado</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-slate-400"><i class="fas fa-wind text-4xl mb-2"></i>Windy</div><div class="flip-card-back">Com vento</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-blue-200"><i class="fas fa-snowflake text-4xl mb-2"></i>Snowy</div><div class="flip-card-back">Com neve</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-indigo-500"><i class="fas fa-bolt text-4xl mb-2"></i>Stormy</div><div class="flip-card-back">Tempestuoso</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-red-600"><i class="fas fa-temperature-high text-4xl mb-2"></i>Boiling</div><div class="flip-card-back">Muito Quente</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front text-blue-800"><i class="fas fa-icicles text-4xl mb-2"></i>Freezing</div><div class="flip-card-back">Congelando</div></div></div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-8 text-center text-orange-700 italic">Grammar: Future with WILL</h2>
+            <div class="max-w-4xl mx-auto space-y-6">
+                <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-orange-500">
+                    <h3 class="text-2xl font-bold mb-4">How to use:</h3>
+                    <p class="text-xl mb-4">Usamos o <strong>WILL</strong> para falar de um futuro que nÃ£o Ã© totalmente certo (previsÃµes) ou decisÃµes tomadas agora.</p>
+                    <ul class="list-disc ml-6 space-y-2 text-lg">
+                        <li><strong>Affirmative:</strong> I will travel (Eu viajarei)</li>
+                        <li><strong>Negative:</strong> I <strong>won't</strong> (will not) travel</li>
+                        <li><strong>Interrogative:</strong> <strong>Will</strong> you travel?</li>
+                    </ul>
+                </div>
+                <div class="bg-indigo-600 text-white p-6 rounded-xl text-center">
+                    <p class="text-2xl font-mono uppercase tracking-widest">Subject + WILL + Verb (Base)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-6 text-center text-orange-700">Task 1: Future Forecast</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-5 text-xl">
+                <div class="flex items-center justify-between border-b pb-2">
+                    <p>1. I think it <input id="t1q1" data-answer="will be" class="w-32 text-center"> rainy.</p>
+                    <span class="text-sm text-gray-400 italic">(Dica: estarÃ¡)</span>
+                    <button class="answer-btn" data-target="t1q1"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-2">
+                    <p>2. We <input id="t1q2" data-answer="will need" class="w-32 text-center"> an umbrella.</p>
+                    <span class="text-sm text-gray-400 italic">(Dica: precisaremos)</span>
+                    <button class="answer-btn" data-target="t1q2"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-2">
+                    <p>3. It <input id="t1q3" data-answer="won't be" class="w-32 text-center"> cold today.</p>
+                    <span class="text-sm text-gray-400 italic">(Dica: NÃ£o estarÃ¡)</span>
+                    <button class="answer-btn" data-target="t1q3"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-2">
+                    <p>4. <input id="t1q4" data-answer="Will it snow" class="w-40 text-center"> in July?</p>
+                    <span class="text-sm text-gray-400 italic">(Dica: Vai nevar)</span>
+                    <button class="answer-btn" data-target="t1q4"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="flex items-center justify-between border-b pb-2">
+                    <p>5. They <input id="t1q5" data-answer="will travel" class="w-32 text-center"> tomorrow.</p>
+                    <span class="text-sm text-gray-400 italic">(Dica: viajarÃ£o)</span>
+                    <button class="answer-btn" data-target="t1q5"><i class="fas fa-eye"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-3xl font-bold mb-6 text-center text-orange-700">Task 2: Quick Decisions</h2>
+            <div class="grid md:grid-cols-2 gap-4 max-w-6xl mx-auto">
+                <div class="bg-white p-4 rounded-xl shadow-md border-t-4 border-orange-500">
+                    <p class="font-bold mb-2">1. "The phone is ringing!"</p>
+                    <button class="choice-btn w-full mb-2" onclick="checkChoice(this, true)">I will answer it.</button>
+                    <button class="choice-btn w-full" onclick="checkChoice(this, false)">I will eat it.</button>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md border-t-4 border-orange-500">
+                    <p class="font-bold mb-2">2. "I'm very thirsty."</p>
+                    <button class="choice-btn w-full mb-2" onclick="checkChoice(this, true)">I will get some water.</button>
+                    <button class="choice-btn w-full" onclick="checkChoice(this, false)">I will sleep now.</button>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md border-t-4 border-orange-500">
+                    <p class="font-bold mb-2">3. "It's boiling outside!"</p>
+                    <button class="choice-btn w-full mb-2" onclick="checkChoice(this, false)">I will wear a sweater.</button>
+                    <button class="choice-btn w-full" onclick="checkChoice(this, true)">I will go to the pool.</button>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md border-t-4 border-orange-500">
+                    <p class="font-bold mb-2">4. "I forgot my wallet!"</p>
+                    <button class="choice-btn w-full mb-2" onclick="checkChoice(this, true)">Don't worry, I will pay.</button>
+                    <button class="choice-btn w-full" onclick="checkChoice(this, false)">I will buy a car.</button>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md border-t-4 border-orange-500">
+                    <p class="font-bold mb-2">5. "Look at the clear sky!"</p>
+                    <button class="choice-btn w-full mb-2" onclick="checkChoice(this, true)">It will be a sunny day.</button>
+                    <button class="choice-btn w-full" onclick="checkChoice(this, false)">It will rain a lot.</button>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md border-t-4 border-orange-500">
+                    <p class="font-bold mb-2">6. "The test is difficult."</p>
+                    <button class="choice-btn w-full mb-2" onclick="checkChoice(this, false)">I won't study.</button>
+                    <button class="choice-btn w-full" onclick="checkChoice(this, true)">I will study tonight.</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+    <h2 class="text-3xl font-bold mb-4 text-center text-orange-700 uppercase">Music: Lyrics Activity</h2>
+    
+    <div class="music-card p-8 rounded-3xl shadow-2xl max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 items-stretch">
+        
+        <div class="flex-1 space-y-4">
+            <div class="flex items-center gap-4 border-b border-white/20 pb-4">
+                <i class="fab fa-spotify text-4xl text-[#1db954]"></i>
+                <div>
+                    <h3 class="text-xl font-black">I Will Always Love You</h3>
+                    <p class="text-amber-400 font-bold text-sm">Whitney Houston</p>
+                </div>
+            </div>
+            
+            <div class="font-serif italic text-xl leading-relaxed bg-black/20 p-6 rounded-xl">
+                <p>If I should stay</p>
+                <p>I would only be in your way</p>
+                <p>So I <input id="m1" data-answer="will go" class="w-24 border-b border-white text-white bg-transparent outline-none"> <button class="answer-btn" data-target="m1"><i class="fas fa-eye text-white/50"></i></button>, but I know</p>
+                <p>I <input id="m2" data-answer="will think" class="w-28 border-b border-white text-white bg-transparent outline-none"> <button class="answer-btn" data-target="m2"><i class="fas fa-eye text-white/50"></i></button> of you every step of the way</p>
+                <p class="mt-4 font-bold">And I...</p>
+                <p><input id="m3" data-answer="will always" class="w-32 border-b border-white text-white bg-transparent outline-none"> <button class="answer-btn" data-target="m3"><i class="fas fa-eye text-white/50"></i></button> love you</p>
+            </div>
+        </div>
+
+        <div class="w-full lg:w-80 flex items-center justify-center">
+            <iframe 
+                data-testid="embed-iframe" 
+                style="border-radius:12px" 
+                src="https://open.spotify.com/embed/track/4eHbdreAnSOrDDsFfc4Fpm?utm_source=generator" 
+                width="100%" 
+                height="152" 
+                frameBorder="0" 
+                allowfullscreen="" 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                loading="lazy">
+            </iframe>
+        </div>
+
+    </div>
+</div>
+
+        <div class="slide" data-title="Forecast Planner">
+            <div class="section-card p-8">
+                <h2 class="text-5xl font-bold mb-6 text-center text-orange-700"><i class="fas fa-cloud-sun text-sky-500"></i> Forecast Planner</h2>
+                <p class="text-2xl text-slate-600 text-center max-w-3xl mx-auto">Monte uma previsÃ£o e transforme o clima em plano. Assim o aluno pratica <strong>will</strong> para prever e para decidir em seguida.</p>
+                <div class="activity-card p-6 mt-8" data-choice-builder data-template="I think it will be {weather}, so I will {plan}." data-required="weather,plan" data-preview-empty="Escolha o clima e a decisÃ£o para montar sua previsÃ£o.">
+                    <div class="grid gap-6 lg:grid-cols-2">
+                        <div class="space-y-5">
+                            <div>
+                                <p class="font-semibold text-lg text-slate-700 mb-3">1. Forecast</p>
+                                <div class="flex flex-wrap gap-3">
+                                    <button type="button" class="choice-chip" data-choice-slot="weather" data-choice-value="sunny in the afternoon">sunny in the afternoon</button>
+                                    <button type="button" class="choice-chip" data-choice-slot="weather" data-choice-value="rainy all day">rainy all day</button>
+                                    <button type="button" class="choice-chip" data-choice-slot="weather" data-choice-value="windy near the beach">windy near the beach</button>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-lg text-slate-700 mb-3">2. Decision</p>
+                                <div class="flex flex-wrap gap-3">
+                                    <button type="button" class="choice-chip" data-choice-slot="plan" data-choice-value="go to the park later">go to the park later</button>
+                                    <button type="button" class="choice-chip" data-choice-slot="plan" data-choice-value="stay home and watch a movie">stay home and watch a movie</button>
+                                    <button type="button" class="choice-chip" data-choice-slot="plan" data-choice-value="take an umbrella with me">take an umbrella with me</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="callout-note p-6 rounded-3xl">
+                            <p class="lesson-panel-title mb-3">Your forecast</p>
+                            <p class="text-base text-slate-600 mb-4">Leia a frase e depois acrescente oralmente uma segunda previsÃ£o, como <strong>It will be colder at night</strong>.</p>
+                            <div class="text-xl leading-relaxed min-h-[140px] font-medium" data-choice-preview></div>
+                            <div class="flex flex-wrap gap-3 mt-6">
+                                <button type="button" class="secondary-action-btn" data-choice-reset>Limpar</button>
+                                <button type="button" class="primary-action-btn" data-choice-speak>Ouvir frase</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-orange-700 italic">Homework: Predictions for 2035</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-xl max-w-3xl mx-auto text-left border-t-4 border-orange-500">
+                    <p class="text-xl font-bold mb-4">What will the world be like in 2035?</p>
+                    <p class="text-lg text-gray-600 mb-4">Write 5 predictions about anything for 2035. Example: "I think it will be much hotter than today."</p>
+                    <p class="text-base text-slate-600 mb-6">Try to include weather, technology, transportation, daily life and one personal prediction about yourself.</p>
+                    <div class="space-y-4">
+                        <div class="flex gap-4 items-center"><span>1.</span><input class="w-full border-b" placeholder="In 2035, the weather will..."></div>
+                        <div class="flex gap-4 items-center"><span>2.</span><input class="w-full border-b"></div>
+                        <div class="flex gap-4 items-center"><span>3.</span><input class="w-full border-b"></div>
+                        <div class="flex gap-4 items-center"><span>4.</span><input class="w-full border-b"></div>
+                        <div class="flex gap-4 items-center"><span>5.</span><input class="w-full border-b"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <div class="bg-white p-12 rounded-3xl shadow-2xl border-t-8 border-orange-500 max-w-3xl">
+                    <i class="fas fa-rocket text-orange-400 text-7xl mb-6"></i>
+                    <h2 class="text-5xl font-black mb-8 text-gray-800">You did it!</h2>
+                    <p class="text-2xl text-gray-600 mb-12">VocÃª dominou o uso do <strong>will</strong> para o clima e previsÃµes.</p>
+                    <div class="p-8 bg-orange-50 rounded-2xl border-2 border-orange-100 italic">
+                        <p class="text-3xl font-serif text-orange-900 mb-4">"The future will be bright if you bring your own light."</p>
+                        <p class="text-xl text-orange-600 font-bold">â€” Motivation for 2035</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t p-4 z-20">
+        <div class="container mx-auto flex justify-between items-center px-8">
+            <button id="prev-btn" class="px-8 py-3 bg-gray-200 rounded-xl font-bold hover:bg-gray-300 disabled:opacity-50">Previous</button>
+            <button id="next-btn" class="px-10 py-3 bg-orange-600 text-white rounded-xl font-bold hover:bg-orange-700">Next</button>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2-v2';
+            const lessonNumber = 9;
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const slideCounter = document.getElementById('slide-counter');
+            const slideTitleHeader = document.getElementById('slide-title-header');
+            let currentSlide = 0;
+
+            function updateView() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+                document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
+                if (slideCounter) slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+                if (slideTitleHeader) slideTitleHeader.textContent = slides[currentSlide]?.dataset.title || '';
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.innerText = currentSlide === slides.length - 1 ? 'Finish' : 'Next';
+            }
+
+            prevBtn.onclick = () => { if(currentSlide > 0) currentSlide--; updateView(); };
+            nextBtn.onclick = () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateView();
+                    return;
+                }
+
+                nextBtn.disabled = true;
+                nextBtn.textContent = 'Saving...';
+
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber).catch(error => {
+                        console.error('Erro ao marcar a liÃ§Ã£o como completa:', error);
+                        alert('Ocorreu um erro ao finalizar a liÃ§Ã£o. Por favor, tente novamente.');
+                        nextBtn.disabled = false;
+                        nextBtn.textContent = 'Finish';
+                    });
+                } else {
+                    alert('Erro ao salvar progresso.');
+                    nextBtn.disabled = false;
+                    nextBtn.textContent = 'Finish';
+                }
+            };
+
+            function checkAnswer(input) {
+                const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
+                input.classList.toggle('correct', isCorrect);
+                input.classList.toggle('incorrect', !isCorrect);
+            }
+
+            document.querySelectorAll('input[data-answer]').forEach(input => {
+                input.onblur = () => checkAnswer(input);
+            });
+
+            window.checkChoice = (btn, isCorrect) => {
+                const parent = btn.parentElement;
+                parent.querySelectorAll('.choice-btn').forEach(b => {
+                    b.classList.remove('selected-correct', 'selected-incorrect');
+                });
+                btn.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+            };
+
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const input = document.getElementById(btn.dataset.target);
+                    if(input) { input.value = input.dataset.answer; checkAnswer(input); }
+                };
+            });
+
+            document.querySelectorAll('.flip-card').forEach(card => {
+                card.onclick = () => card.classList.toggle('flipped');
+            });
+
+            updateView();
+            document.body.classList.remove('lesson-loading');
+        });
+    </script>
+    <script src="../js/flashcard-pronunciation.js"></script>
+    <script src="../js/lesson-flashcard-save.js"></script>
+    <script src='a2-v2-template.js'></script>
+    <script src='a2-lesson-theme.js'></script>
+</body>
+</html>

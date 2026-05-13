@@ -1,0 +1,813 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | LiÃ§Ã£o 28: At the Hotel</title>
+    <script src="https://cdn.tailwindcss.com">
+      </script>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+      <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
+        .flip-card { background: transparent; min-height: 180px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; min-height: 180px; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; inset: 0; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; text-align: center; }
+        .flip-card-front { background: #fff; color: #7c3aed; }
+        .flip-card-back { background: #f5f3ff; color: #4c1d95; transform: rotateY(180deg); font-size: 1.25rem; font-weight: 700; }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.35rem; }
+        .practice-input, input[data-answer] { border: none; border-bottom: 2px solid #cbd5e1; background: transparent; outline: none; text-align: center; padding: 0 6px; }
+        input.correct { border-color: #22c55e; color: #166534; background: #f0fdf4; }
+        input.incorrect { border-color: #ef4444; color: #991b1b; background: #fef2f2; }
+        .speak-btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid #ddd6fe; background: #f5f3ff; color: #6d28d9; padding: 0.4rem 0.75rem; border-radius: 999px; font-size: 0.85rem; font-weight: 700; }
+        .dialogue-line { display: flex; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
+        .dialogue-line p { flex: 1 1 420px; }
+        </style>
+        <link rel="stylesheet" href="a2-lesson-theme.css">
+      </head>
+      <body class="lesson-loading a2-lesson-page bg-slate-50 text-slate-800">
+        <header class="bg-white shadow-sm sticky top-0 z-10">
+          <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+            <a href="a2.html" class="text-lg font-bold text-violet-700 hover:text-violet-900 flex items-center gap-2">
+              <i class="fas fa-chevron-left">
+                </i> Voltar para A2</a>
+                <div class="text-center">
+                  <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 28: At the Hotel</h1>
+                  <p id="slide-title-header" class="text-xs text-slate-400 font-medium">
+                  </p>
+                </div>
+                <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 12</div>
+              </div>
+              <div class="w-full bg-slate-200 h-1.5">
+                <div id="progress-bar" class="bg-violet-500 h-1.5 transition-all duration-300">
+                </div>
+              </div>
+            </header>
+            <main class="container mx-auto p-8 pb-28 max-w-5xl">
+              <div class="slide active" data-title="Intro Dialogue">
+                <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                  <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
+                    <div class="a2-hero-copy">
+                      <h2>Handle a hotel stay in English</h2>
+                      <p class="mt-4 text-sm font-semibold text-violet-700">Reservations, room requests, polite complaints and clear front desk responses.</p>
+                      <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno pratica check-in, pedidos simples, problemas no quarto e respostas educadas na recepÃ§Ã£o.</p>
+                    </div>
+                    <div class="lesson-panel p-6">
+                      <p class="lesson-panel-title mb-4">You will use</p>
+                      <div class="lesson-checklist">
+                        <div class="lesson-checklist-item">
+                          <i class="fas fa-check-circle">
+                            </i>
+                            <span>I have a reservation under...</span>
+                          </div>
+                          <div class="lesson-checklist-item">
+                            <i class="fas fa-check-circle">
+                              </i>
+                              <span>Could I have another towel?</span>
+                            </div>
+                            <div class="lesson-checklist-item">
+                              <i class="fas fa-check-circle">
+                                </i>
+                                <span>The shower does not work.</span>
+                              </div>
+                              <div class="lesson-checklist-item">
+                                <i class="fas fa-check-circle">
+                                  </i>
+                                  <span>Is breakfast included?</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="section-card p-8 mt-8">
+                          <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+                            <div>
+                              <p class="lesson-panel-title mb-2">Introductory dialogue</p>
+                              <h2 class="text-3xl font-black text-violet-700">Dialog Sample</h2>
+                            </div>
+                            <button type="button" class="speak-btn" data-speak="Good evening. Welcome to the Blue River Hotel. How can I help you? Hi. I have a reservation under Carla Mendes. Great. You are in room 304. Here is your key card. Thank you. Could I have another towel, please?">
+                              <i class="fas fa-volume-up">
+                                </i> Ouvir diÃ¡logo</button>
+                              </div>
+                              <div class="space-y-4 text-xl">
+                                <div class="dialogue-line">
+                                  <strong class="text-violet-700">Receptionist:</strong>
+                                  <p>Good evening. Welcome to the Blue River Hotel. How can I help you?</p>
+                                  <button type="button" class="speak-btn" data-speak="Good evening. Welcome to the Blue River Hotel. How can I help you?">
+                                    <i class="fas fa-volume-up">
+                                      </i> Ouvir</button>
+                                    </div>
+                                    <div class="dialogue-line">
+                                      <strong class="text-orange-600">Guest:</strong>
+                                      <p>Hi. I have a reservation under Carla Mendes.</p>
+                                      <button type="button" class="speak-btn" data-speak="Hi. I have a reservation under Carla Mendes.">
+                                        <i class="fas fa-volume-up">
+                                          </i> Ouvir</button>
+                                        </div>
+                                        <div class="dialogue-line">
+                                          <strong class="text-violet-700">Receptionist:</strong>
+                                          <p>Great. You are in room 304. Here is your key card.</p>
+                                          <button type="button" class="speak-btn" data-speak="Great. You are in room 304. Here is your key card.">
+                                            <i class="fas fa-volume-up">
+                                              </i> Ouvir</button>
+                                            </div>
+                                            <div class="dialogue-line">
+                                              <strong class="text-orange-600">Guest:</strong>
+                                              <p>Thank you. Could I have another towel, please?</p>
+                                              <button type="button" class="speak-btn" data-speak="Thank you. Could I have another towel, please?">
+                                                <i class="fas fa-volume-up">
+                                                  </i> Ouvir</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="slide" data-title="Vocabulary">
+                                            <div class="text-center mb-6">
+                                              <h2 class="text-4xl font-black text-violet-700">Hotel vocabulary</h2>
+                                              <p class="text-slate-500 text-lg mt-2">Clique nos cartÃµes para ver o significado.</p>
+                                            </div>
+                                            <div class="flashcard-grid max-w-6xl mx-auto">
+                                              <div class="flip-card">
+                                                <div class="flip-card-inner">
+                                                  <div class="flip-card-front">
+                                                    <h3 class="text-2xl font-bold">reservation</h3>
+                                                    <button type="button" class="speak-btn mt-3" data-speak="reservation">
+                                                      <i class="fas fa-volume-up">
+                                                        </i> Ouvir</button>
+                                                      </div>
+                                                      <div class="flip-card-back">
+                                                        <p>reserva</p>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="flip-card">
+                                                    <div class="flip-card-inner">
+                                                      <div class="flip-card-front">
+                                                        <h3 class="text-2xl font-bold">front desk</h3>
+                                                        <button type="button" class="speak-btn mt-3" data-speak="front desk">
+                                                          <i class="fas fa-volume-up">
+                                                            </i> Ouvir</button>
+                                                          </div>
+                                                          <div class="flip-card-back">
+                                                            <p>recepÃ§Ã£o</p>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                      <div class="flip-card">
+                                                        <div class="flip-card-inner">
+                                                          <div class="flip-card-front">
+                                                            <h3 class="text-2xl font-bold">key card</h3>
+                                                            <button type="button" class="speak-btn mt-3" data-speak="key card">
+                                                              <i class="fas fa-volume-up">
+                                                                </i> Ouvir</button>
+                                                              </div>
+                                                              <div class="flip-card-back">
+                                                                <p>cartÃ£o da porta</p>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                          <div class="flip-card">
+                                                            <div class="flip-card-inner">
+                                                              <div class="flip-card-front">
+                                                                <h3 class="text-2xl font-bold">double room</h3>
+                                                                <button type="button" class="speak-btn mt-3" data-speak="double room">
+                                                                  <i class="fas fa-volume-up">
+                                                                    </i> Ouvir</button>
+                                                                  </div>
+                                                                  <div class="flip-card-back">
+                                                                    <p>quarto para duas pessoas</p>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                              <div class="flip-card">
+                                                                <div class="flip-card-inner">
+                                                                  <div class="flip-card-front">
+                                                                    <h3 class="text-2xl font-bold">towel</h3>
+                                                                    <button type="button" class="speak-btn mt-3" data-speak="towel">
+                                                                      <i class="fas fa-volume-up">
+                                                                        </i> Ouvir</button>
+                                                                      </div>
+                                                                      <div class="flip-card-back">
+                                                                        <p>toalha</p>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                  <div class="flip-card">
+                                                                    <div class="flip-card-inner">
+                                                                      <div class="flip-card-front">
+                                                                        <h3 class="text-2xl font-bold">shower</h3>
+                                                                        <button type="button" class="speak-btn mt-3" data-speak="shower">
+                                                                          <i class="fas fa-volume-up">
+                                                                            </i> Ouvir</button>
+                                                                          </div>
+                                                                          <div class="flip-card-back">
+                                                                            <p>chuveiro</p>
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="flip-card">
+                                                                        <div class="flip-card-inner">
+                                                                          <div class="flip-card-front">
+                                                                            <h3 class="text-2xl font-bold">breakfast</h3>
+                                                                            <button type="button" class="speak-btn mt-3" data-speak="breakfast">
+                                                                              <i class="fas fa-volume-up">
+                                                                                </i> Ouvir</button>
+                                                                              </div>
+                                                                              <div class="flip-card-back">
+                                                                                <p>cafÃ© da manhÃ£</p>
+                                                                              </div>
+                                                                            </div>
+                                                                          </div>
+                                                                          <div class="flip-card">
+                                                                            <div class="flip-card-inner">
+                                                                              <div class="flip-card-front">
+                                                                                <h3 class="text-2xl font-bold">late checkout</h3>
+                                                                                <button type="button" class="speak-btn mt-3" data-speak="late checkout">
+                                                                                  <i class="fas fa-volume-up">
+                                                                                    </i> Ouvir</button>
+                                                                                  </div>
+                                                                                  <div class="flip-card-back">
+                                                                                    <p>saÃ­da mais tarde</p>
+                                                                                  </div>
+                                                                                </div>
+                                                                              </div>
+                                                                              <div class="flip-card">
+                                                                                <div class="flip-card-inner">
+                                                                                  <div class="flip-card-front">
+                                                                                    <h3 class="text-2xl font-bold">receipt</h3>
+                                                                                    <button type="button" class="speak-btn mt-3" data-speak="receipt">
+                                                                                      <i class="fas fa-volume-up">
+                                                                                        </i> Ouvir</button>
+                                                                                      </div>
+                                                                                      <div class="flip-card-back">
+                                                                                        <p>comprovante</p>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                  <div class="flip-card">
+                                                                                    <div class="flip-card-inner">
+                                                                                      <div class="flip-card-front">
+                                                                                        <h3 class="text-2xl font-bold">maintenance</h3>
+                                                                                        <button type="button" class="speak-btn mt-3" data-speak="maintenance">
+                                                                                          <i class="fas fa-volume-up">
+                                                                                            </i> Ouvir</button>
+                                                                                          </div>
+                                                                                          <div class="flip-card-back">
+                                                                                            <p>manutenÃ§Ã£o</p>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                  <div class="slide" data-title="Grammar">
+                                                                                    <div class="section-card p-8">
+                                                                                      <div class="text-center mb-8">
+                                                                                        <p class="lesson-panel-title mb-2">Grammar focus</p>
+                                                                                        <h2 class="text-4xl font-black text-violet-700">Understand the pattern</h2>
+                                                                                        <p class="text-slate-500 text-lg mt-2">Exemplos com traduÃ§Ã£o para o aluno conseguir revisar sozinho.</p>
+                                                                                      </div>
+                                                                                      <div class="grid gap-5">
+                                                                                        <div class="activity-card border-l-4 border-violet-500">
+                                                                                          <h3 class="text-2xl font-black text-violet-700 mb-3">Polite Requests</h3>
+                                                                                          <p class="text-lg text-slate-700 mb-4">Use <strong>Could I have...?</strong> para pedir algo de forma educada no hotel.</p>
+                                                                                          <div class="grid md:grid-cols-3 gap-3">
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">Could I have another towel, please?</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">VocÃª poderia me trazer outra toalha, por favor?</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">Could I get a wake-up call at 6 a.m.?</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">Eu poderia receber uma ligaÃ§Ã£o para acordar Ã s 6 da manhÃ£?</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">Could you check the room, please?</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">VocÃª poderia verificar o quarto, por favor?</p>
+                                                                                            </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                        <div class="activity-card border-l-4 border-violet-500">
+                                                                                          <h3 class="text-2xl font-black text-violet-700 mb-3">Explaining Problems</h3>
+                                                                                          <p class="text-lg text-slate-700 mb-4">Use <strong>does not work</strong> ou <strong>is not working</strong> para dizer que algo estÃ¡ com problema.</p>
+                                                                                          <div class="grid md:grid-cols-3 gap-3">
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">The shower does not work.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">O chuveiro nÃ£o funciona.</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">The air conditioner is not working.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">O ar-condicionado nÃ£o estÃ¡ funcionando.</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">The key card does not open the door.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">O cartÃ£o da porta nÃ£o abre a porta.</p>
+                                                                                            </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                        <div class="activity-card border-l-4 border-violet-500">
+                                                                                          <h3 class="text-2xl font-black text-violet-700 mb-3">Hotel Information Questions</h3>
+                                                                                          <p class="text-lg text-slate-700 mb-4">Use <strong>Is...?</strong>, <strong>What time...?</strong> e <strong>Where...?</strong> para confirmar detalhes.</p>
+                                                                                          <div class="grid md:grid-cols-3 gap-3">
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">Is breakfast included?</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">O cafÃ© da manhÃ£ estÃ¡ incluÃ­do?</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">What time is checkout?</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">A que horas Ã© o checkout?</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">Where is the front desk?</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">Onde fica a recepÃ§Ã£o?</p>
+                                                                                            </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                  <div class="slide" data-title="Random Activity">
+                                                                                    <div class="section-card p-8 max-w-6xl mx-auto">
+                                                                                      <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
+                                                                                        <div>
+                                                                                          <p class="lesson-panel-title mb-2">Random activity - 10 questions</p>
+                                                                                          <h2 class="text-4xl font-black text-violet-700">Hotel check-in quiz</h2>
+                                                                                        </div>
+                                                                                        <div id="quiz-score" class="preview-card min-w-[180px] text-center">0 / 10</div>
+                                                                                      </div>
+                                                                                      <div class="grid md:grid-cols-2 gap-4">
+                                                                                        <div class="activity-card" data-quiz-item data-answer="reservation">
+                                                                                          <p class="font-semibold mb-3">1. I have a ___ under Ana.</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="reservation">reservation</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="reserved">reserved</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="reserve">reserve</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opÃ§Ã£o.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card" data-quiz-item data-answer="towel">
+                                                                                          <p class="font-semibold mb-3">2. Could I have another ___?</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="towel">towel</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="tower">tower</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="table">table</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opÃ§Ã£o.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card" data-quiz-item data-answer="work">
+                                                                                          <p class="font-semibold mb-3">3. The shower does not ___.</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="work">work</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="works">works</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="working">working</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opÃ§Ã£o.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card" data-quiz-item data-answer="included">
+                                                                                          <p class="font-semibold mb-3">4. Is breakfast ___?</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="included">included</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="including">including</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="include">include</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opÃ§Ã£o.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card" data-quiz-item data-answer="card">
+                                                                                          <p class="font-semibold mb-3">5. Here is your key ___.</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="card">card</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="paper">paper</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="number">number</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opÃ§Ã£o.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card" data-quiz-item data-answer="double">
+                                                                                          <p class="font-semibold mb-3">6. I booked a ___ room.</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="double">double</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="twice">twice</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="couple">couple</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opÃ§Ã£o.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card" data-quiz-item data-answer="maintenance">
+                                                                                          <p class="font-semibold mb-3">7. Could you send ___?</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="maintenance">maintenance</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="maintain">maintain</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="machine">machine</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opÃ§Ã£o.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card" data-quiz-item data-answer="checkout">
+                                                                                          <p class="font-semibold mb-3">8. What time is ___?</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="checkout">checkout</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="checkouting">checkouting</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="checked">checked</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opÃ§Ã£o.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card" data-quiz-item data-answer="receipt">
+                                                                                          <p class="font-semibold mb-3">9. Can I get a ___?</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="receipt">receipt</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="recipe">recipe</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="receive">receive</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opÃ§Ã£o.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card" data-quiz-item data-answer="bags">
+                                                                                          <p class="font-semibold mb-3">10. I need help with my ___.</p>
+                                                                                          <div class="option-cloud">
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="bags">bags</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="bagging">bagging</button>
+                                                                                            <button type="button" class="option-chip" data-quiz-choice="baggage claim">baggage claim</button>
+                                                                                          </div>
+                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opÃ§Ã£o.</p>
+                                                                                        </div>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                  <div class="slide" data-title="Key Expressions">
+                                                                                    <div class="section-card p-8">
+                                                                                      <h2 class="text-4xl font-black text-violet-700 mb-6 text-center">Key expressions</h2>
+                                                                                      <div class="grid md:grid-cols-2 gap-4 text-lg">
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">I have a reservation under...</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">Tenho uma reserva no nome de...</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">I booked a double room.</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">Reservei um quarto de casal.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">Could I have another towel?</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">VocÃª poderia me trazer outra toalha?</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">Could you check the room?</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">VocÃª poderia verificar o quarto?</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">The shower does not work.</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">O chuveiro nÃ£o funciona.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">The air conditioner is not working.</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">O ar-condicionado nÃ£o estÃ¡ funcionando.</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">Is breakfast included?</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">O cafÃ© da manhÃ£ estÃ¡ incluÃ­do?</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">What time is checkout?</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">A que horas Ã© o checkout?</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">Can you help me with my bags?</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">VocÃª pode me ajudar com minhas malas?</p>
+                                                                                        </div>
+                                                                                        <div class="activity-card">
+                                                                                          <p class="font-semibold text-slate-900">Thank you for your help.</p>
+                                                                                          <p class="text-sm text-slate-600 mt-2">Obrigado pela sua ajuda.</p>
+                                                                                        </div>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                  <div class="slide" data-title="Grammar of Expressions">
+                                                                                    <div class="section-card p-8">
+                                                                                      <div class="text-center mb-8">
+                                                                                        <p class="lesson-panel-title mb-2">Grammar of expressions</p>
+                                                                                        <h2 class="text-4xl font-black text-violet-700">How hotel phrases work</h2>
+                                                                                        <p class="text-slate-500 text-lg mt-2">Veja o padrÃ£o, quando usar e exemplos com traduÃ§Ã£o para revisar sozinho.</p>
+                                                                                      </div>
+                                                                                      <div class="grid gap-5">
+                                                                                        <div class="activity-card border-l-4 border-violet-500">
+                                                                                          <h3 class="text-2xl font-black text-violet-700 mb-3">Reservation Name: <span class="text-slate-900">under + name</span>
+                                                                                          </h3>
+                                                                                          <p class="text-lg text-slate-700 mb-4">Use <strong>under</strong> para dizer em qual nome estÃ¡ a reserva. Em portuguÃªs, a ideia Ã© <strong>no nome de</strong>.</p>
+                                                                                          <div class="grid md:grid-cols-3 gap-3">
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">I have a reservation under Carla Mendes.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">Tenho uma reserva no nome de Carla Mendes.</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">The booking is under JoÃ£o Silva.</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">A reserva estÃ¡ no nome de JoÃ£o Silva.</p>
+                                                                                            </div>
+                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                              <p class="font-bold text-slate-900">Is the room under my name?</p>
+                                                                                              <p class="text-sm text-slate-600 mt-2">O quarto estÃ¡ no meu nome?</p>
+                                                                                            </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                        <div class="activity-card border-l-4 border-violet-500">
+                                                                                          <h3 class="text-2xl font-black text-violet-700 mb-3">Polite Help: <span class="text-slate-900">Could I / Could you</span>
+                                                                                          </h3>
+                                                                                          <p class="text-lg text-slate-700 mb-4">
+                                                                                            <strong>Could I</strong> pede algo para vocÃª. <strong>Could you</strong> pede uma aÃ§Ã£o da outra pessoa.</p>
+                                                                                            <div class="grid md:grid-cols-3 gap-3">
+                                                                                              <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                                <p class="font-bold text-slate-900">Could I have another towel?</p>
+                                                                                                <p class="text-sm text-slate-600 mt-2">VocÃª poderia me trazer outra toalha?</p>
+                                                                                              </div>
+                                                                                              <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                                <p class="font-bold text-slate-900">Could you send maintenance?</p>
+                                                                                                <p class="text-sm text-slate-600 mt-2">VocÃª poderia chamar a manutenÃ§Ã£o?</p>
+                                                                                              </div>
+                                                                                              <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                                <p class="font-bold text-slate-900">Could I get a receipt, please?</p>
+                                                                                                <p class="text-sm text-slate-600 mt-2">Eu poderia receber um comprovante, por favor?</p>
+                                                                                              </div>
+                                                                                            </div>
+                                                                                          </div>
+                                                                                          <div class="activity-card border-l-4 border-violet-500">
+                                                                                            <h3 class="text-2xl font-black text-violet-700 mb-3">Problems: <span class="text-slate-900">does not work / is not working</span>
+                                                                                            </h3>
+                                                                                            <p class="text-lg text-slate-700 mb-4">
+                                                                                              <strong>Does not work</strong> descreve falha geral. <strong>Is not working</strong> destaca o problema acontecendo agora.</p>
+                                                                                              <div class="grid md:grid-cols-3 gap-3">
+                                                                                                <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                                  <p class="font-bold text-slate-900">The shower does not work.</p>
+                                                                                                  <p class="text-sm text-slate-600 mt-2">O chuveiro nÃ£o funciona.</p>
+                                                                                                </div>
+                                                                                                <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                                  <p class="font-bold text-slate-900">The Wi-Fi is not working.</p>
+                                                                                                  <p class="text-sm text-slate-600 mt-2">O Wi-Fi nÃ£o estÃ¡ funcionando.</p>
+                                                                                                </div>
+                                                                                                <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
+                                                                                                  <p class="font-bold text-slate-900">My key card does not open the door.</p>
+                                                                                                  <p class="text-sm text-slate-600 mt-2">Meu cartÃ£o nÃ£o abre a porta.</p>
+                                                                                                </div>
+                                                                                              </div>
+                                                                                            </div>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                      </div>
+                                                                                      <div class="slide" data-title="Expression Activity">
+                                                                                        <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+                                                                                          <div class="text-center mb-6">
+                                                                                            <p class="lesson-panel-title mb-2">Expression activity - 10 questions</p>
+                                                                                            <h2 class="text-4xl font-black text-violet-700">Complete hotel expressions</h2>
+                                                                                          </div>
+                                                                                          <div class="space-y-5">
+                                                                                            <p>1. I have a reservation <input id="e0" data-answer="under" class="practice-input w-32">
+                                                                                              <button class="answer-btn" data-target="e0">
+                                                                                                <i class="fas fa-eye">
+                                                                                                  </i>
+                                                                                                </button> Ana. <span class="text-sm text-slate-500">Dica: no nome de</span>
+                                                                                              </p>
+                                                                                              <p>2. Could I <input id="e1" data-answer="have" class="practice-input w-32">
+                                                                                                <button class="answer-btn" data-target="e1">
+                                                                                                  <i class="fas fa-eye">
+                                                                                                    </i>
+                                                                                                  </button> another towel? <span class="text-sm text-slate-500">Dica: ter/receber</span>
+                                                                                                </p>
+                                                                                                <p>3. The shower does not <input id="e2" data-answer="work" class="practice-input w-32">
+                                                                                                  <button class="answer-btn" data-target="e2">
+                                                                                                    <i class="fas fa-eye">
+                                                                                                      </i>
+                                                                                                    </button>. <span class="text-sm text-slate-500">Dica: funcionar</span>
+                                                                                                  </p>
+                                                                                                  <p>4. Is breakfast <input id="e3" data-answer="included" class="practice-input w-32">
+                                                                                                    <button class="answer-btn" data-target="e3">
+                                                                                                      <i class="fas fa-eye">
+                                                                                                        </i>
+                                                                                                      </button>? <span class="text-sm text-slate-500">Dica: incluÃ­do</span>
+                                                                                                    </p>
+                                                                                                    <p>5. What time is <input id="e4" data-answer="checkout" class="practice-input w-32">
+                                                                                                      <button class="answer-btn" data-target="e4">
+                                                                                                        <i class="fas fa-eye">
+                                                                                                          </i>
+                                                                                                        </button>? <span class="text-sm text-slate-500">Dica: checkout/saÃ­da</span>
+                                                                                                      </p>
+                                                                                                      <p>6. Can you help me with my <input id="e5" data-answer="bags" class="practice-input w-32">
+                                                                                                        <button class="answer-btn" data-target="e5">
+                                                                                                          <i class="fas fa-eye">
+                                                                                                            </i>
+                                                                                                          </button>? <span class="text-sm text-slate-500">Dica: malas/sacolas</span>
+                                                                                                        </p>
+                                                                                                        <p>7. The air conditioner is not <input id="e6" data-answer="working" class="practice-input w-32">
+                                                                                                          <button class="answer-btn" data-target="e6">
+                                                                                                            <i class="fas fa-eye">
+                                                                                                              </i>
+                                                                                                            </button>. <span class="text-sm text-slate-500">Dica: funcionando</span>
+                                                                                                          </p>
+                                                                                                          <p>8. I booked a <input id="e7" data-answer="double" class="practice-input w-32">
+                                                                                                            <button class="answer-btn" data-target="e7">
+                                                                                                              <i class="fas fa-eye">
+                                                                                                                </i>
+                                                                                                              </button> room. <span class="text-sm text-slate-500">Dica: duplo/casal</span>
+                                                                                                            </p>
+                                                                                                            <p>9. Could you <input id="e8" data-answer="check" class="practice-input w-32">
+                                                                                                              <button class="answer-btn" data-target="e8">
+                                                                                                                <i class="fas fa-eye">
+                                                                                                                  </i>
+                                                                                                                </button> the room? <span class="text-sm text-slate-500">Dica: verificar</span>
+                                                                                                              </p>
+                                                                                                              <p>10. Thank you <input id="e9" data-answer="for" class="practice-input w-32">
+                                                                                                                <button class="answer-btn" data-target="e9">
+                                                                                                                  <i class="fas fa-eye">
+                                                                                                                    </i>
+                                                                                                                  </button> your help. <span class="text-sm text-slate-500">Dica: por</span>
+                                                                                                                </p>
+                                                                                                              </div>
+                                                                                                            </div>
+                                                                                                          </div>
+                                                                                                          <div class="slide" data-title="Elaborated Dialogue">
+                                                                                                            <div class="section-card p-8">
+                                                                                                              <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+                                                                                                                <div>
+                                                                                                                  <p class="lesson-panel-title mb-2">Elaborated dialogue</p>
+                                                                                                                  <h2 class="text-4xl font-black text-violet-700">Hotel situations</h2>
+                                                                                                                </div>
+                                                                                                                <button type="button" class="speak-btn" data-speak="Good evening. I have a reservation under Paula Martins. Welcome, Paula. You booked a double room for two nights, correct? Yes, that is right. Is breakfast included? Yes. Breakfast is served from 7 to 10 a.m. Could I have another pillow and another towel, please? Of course. I will send them to your room in a few minutes. Excuse me, the air conditioner is not working, and the room is too warm. I am sorry about that. I will send maintenance right away. If they cannot fix it, we can change your room. What time is checkout tomorrow? Checkout is at 11 a.m., but you can ask for late checkout at the front desk.">
+                                                                                                                  <i class="fas fa-volume-up">
+                                                                                                                    </i> Ouvir diÃ¡logos</button>
+                                                                                                                  </div>
+                                                                                                                  <div class="grid md:grid-cols-2 gap-4 text-lg">
+                                                                                                                    <div class="activity-card">
+                                                                                                                      <p class="lesson-panel-title mb-3">Situation 1</p>
+                                                                                                                      <div class="space-y-3">
+                                                                                                                        <div class="dialogue-line">
+                                                                                                                          <strong class="text-violet-700">Guest:</strong>
+                                                                                                                          <p>Good evening. I have a reservation under Paula Martins.</p>
+                                                                                                                        </div>
+                                                                                                                        <div class="dialogue-line">
+                                                                                                                          <strong class="text-orange-600">Receptionist:</strong>
+                                                                                                                          <p>Welcome, Paula. You booked a double room for two nights, correct?</p>
+                                                                                                                        </div>
+                                                                                                                        <div class="dialogue-line">
+                                                                                                                          <strong class="text-violet-700">Guest:</strong>
+                                                                                                                          <p>Yes, that is right. Is breakfast included?</p>
+                                                                                                                        </div>
+                                                                                                                        <div class="dialogue-line">
+                                                                                                                          <strong class="text-orange-600">Receptionist:</strong>
+                                                                                                                          <p>Yes. Breakfast is served from 7 to 10 a.m.</p>
+                                                                                                                        </div>
+                                                                                                                      </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="activity-card">
+                                                                                                                      <p class="lesson-panel-title mb-3">Situation 2</p>
+                                                                                                                      <div class="space-y-3">
+                                                                                                                        <div class="dialogue-line">
+                                                                                                                          <strong class="text-violet-700">Guest:</strong>
+                                                                                                                          <p>Could I have another pillow and another towel, please?</p>
+                                                                                                                        </div>
+                                                                                                                        <div class="dialogue-line">
+                                                                                                                          <strong class="text-orange-600">Receptionist:</strong>
+                                                                                                                          <p>Of course. I will send them to your room in a few minutes.</p>
+                                                                                                                        </div>
+                                                                                                                      </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="activity-card">
+                                                                                                                      <p class="lesson-panel-title mb-3">Situation 3</p>
+                                                                                                                      <div class="space-y-3">
+                                                                                                                        <div class="dialogue-line">
+                                                                                                                          <strong class="text-violet-700">Guest:</strong>
+                                                                                                                          <p>Excuse me, the air conditioner is not working, and the room is too warm.</p>
+                                                                                                                        </div>
+                                                                                                                        <div class="dialogue-line">
+                                                                                                                          <strong class="text-orange-600">Receptionist:</strong>
+                                                                                                                          <p>I am sorry about that. I will send maintenance right away. If they cannot fix it, we can change your room.</p>
+                                                                                                                        </div>
+                                                                                                                      </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="activity-card">
+                                                                                                                      <p class="lesson-panel-title mb-3">Situation 4</p>
+                                                                                                                      <div class="space-y-3">
+                                                                                                                        <div class="dialogue-line">
+                                                                                                                          <strong class="text-violet-700">Guest:</strong>
+                                                                                                                          <p>What time is checkout tomorrow?</p>
+                                                                                                                        </div>
+                                                                                                                        <div class="dialogue-line">
+                                                                                                                          <strong class="text-orange-600">Receptionist:</strong>
+                                                                                                                          <p>Checkout is at 11 a.m., but you can ask for late checkout at the front desk.</p>
+                                                                                                                        </div>
+                                                                                                                      </div>
+                                                                                                                    </div>
+                                                                                                                  </div>
+                                                                                                                </div>
+                                                                                                              </div>
+                                                                                                              <div class="slide" data-title="Oral Translation">
+                                                                                                                <div class="section-card p-8">
+                                                                                                                  <h2 class="text-4xl font-black text-violet-700 mb-4 text-center">Oral translation</h2>
+                                                                                                                  <p class="text-lg text-slate-600 mb-6 text-center">O professor lÃª em portuguÃªs; o aluno traduz oralmente para o inglÃªs.</p>
+                                                                                                                  <div class="grid md:grid-cols-2 gap-4 text-lg">
+                                                                                                                    <div class="activity-card">
+                                                                                                                      <span class="font-bold text-violet-700">1.</span> Tenho uma reserva no nome de Ana.</div>
+                                                                                                                      <div class="activity-card">
+                                                                                                                        <span class="font-bold text-violet-700">2.</span> VocÃª poderia me trazer outra toalha?</div>
+                                                                                                                        <div class="activity-card">
+                                                                                                                          <span class="font-bold text-violet-700">3.</span> O chuveiro nÃ£o estÃ¡ funcionando.</div>
+                                                                                                                          <div class="activity-card">
+                                                                                                                            <span class="font-bold text-violet-700">4.</span> O cafÃ© da manhÃ£ estÃ¡ incluÃ­do?</div>
+                                                                                                                            <div class="activity-card">
+                                                                                                                              <span class="font-bold text-violet-700">5.</span> A que horas Ã© o checkout?</div>
+                                                                                                                            </div>
+                                                                                                                          </div>
+                                                                                                                        </div>
+        <div class="slide" data-title="Song">
+          <div class="section-card p-8 max-w-4xl mx-auto">
+            <h2 class="text-4xl font-black text-violet-700 mb-4 text-center">Song: Hotel California</h2>
+            <p class="text-center text-slate-500 text-lg mb-6">Eagles - escuta guiada com letra e lacunas.</p>
+            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/40riOy7x9W7GXjyGp4pjAv?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <div class="activity-card text-lg space-y-4 mt-5">
+              <p class="lesson-panel-title">Lyrics</p>
+              <p>On a <input id="song28-0" data-answer="dark" class="practice-input w-28"> <button type="button" class="answer-btn" data-target="song28-0"><i class="fas fa-eye"></i></button> desert highway</p>
+              <p>Cool wind in my hair</p>
+              <p>Warm smell of colitas</p>
+              <p>Rising up through the air</p>
+              <p>Up ahead in the <input id="song28-1" data-answer="distance" class="practice-input w-32"> <button type="button" class="answer-btn" data-target="song28-1"><i class="fas fa-eye"></i></button></p>
+              <p>I saw a shimmering light</p>
+              <p>My head grew heavy and my sight grew dim</p>
+              <p>I had to stop for the <input id="song28-2" data-answer="night" class="practice-input w-28"> <button type="button" class="answer-btn" data-target="song28-2"><i class="fas fa-eye"></i></button></p>
+              <p>There she stood in the doorway</p>
+              <p>I heard the mission bell</p>
+              <p>And I was thinking to myself</p>
+              <p>This could be heaven or this could be hell</p>
+              <p>Then she lit up a candle</p>
+              <p>And she showed me the way</p>
+              <p>There were voices down the corridor</p>
+              <p>I thought I heard them say</p>
+              <p>Welcome to the Hotel <input id="song28-3" data-answer="California" class="practice-input w-36"> <button type="button" class="answer-btn" data-target="song28-3"><i class="fas fa-eye"></i></button></p>
+              <p>Such a lovely place (such a lovely place)</p>
+              <p>Such a lovely face</p>
+              <p>Plenty of room at the Hotel California</p>
+              <p>Any time of year (any time of year)</p>
+              <p>You can find it here</p>
+            </div>
+          </div>
+        </div>
+
+                                                                                                                        <div class="slide" data-title="Homework">
+                                                                                                                          <div class="section-card p-8 max-w-5xl mx-auto">
+                                                                                                                            <h2 class="text-4xl font-black text-violet-700 mb-4 text-center">Homework</h2>
+                                                                                                                            <div class="activity-card text-lg">
+                                                                                                                              <p>Escreva uma mensagem curta para a recepÃ§Ã£o de um hotel. Inclua seu nome, uma reserva, um pedido e um problema no quarto.</p>
+                                                                                                                            </div>
+                                                                                                                            <textarea rows="8" class="mt-5 w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-violet-500" placeholder="Write your homework draft here...">
+                                                                                                                            </textarea>
+                                                                                                                          </div>
+                                                                                                                        </div>
+                                                                                                                        <div class="slide" data-title="Lesson Complete">
+                                                                                                                          <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
+                                                                                                                            <i class="fas fa-bell-concierge text-violet-700 text-7xl mb-6">
+                                                                                                                              </i>
+                                                                                                                              <p class="lesson-panel-title mb-2">Motivational phrase</p>
+                                                                                                                              <h2 class="text-5xl font-black mb-4 text-slate-900">Polite hotel English helps you solve problems calmly and clearly.</h2>
+                                                                                                                              <p class="text-2xl text-slate-600 max-w-3xl">Lesson 28 complete.</p>
+                                                                                                                            </div>
+                                                                                                                          </div>
+                                                                                                                        </main>
+                                                                                                                        <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
+                                                                                                                          <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+                                                                                                                            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Anterior</button>
+                                                                                                                            <button id="next-btn" class="bg-violet-600 text-white font-bold py-3 px-8 rounded-lg transition">PrÃ³ximo</button>
+                                                                                                                            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Finalizar aula</button>
+                                                                                                                          </div>
+                                                                                                                        </footer>
+                                                                                                                        <script src="a2-v2-template.js"></script>
+                                                                                                                        <script src="a2-lesson-theme.js">
+                                                                                                                          </script>
+                                                                                                                          <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js">
+                                                                                                                            </script>
+                                                                                                                            <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js">
+                                                                                                                              </script>
+                                                                                                                              <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js">
+                                                                                                                                </script>
+                                                                                                                                <script src="../js/firebase-config.js">
+                                                                                                                                  </script>
+                                                                                                                                  <script src="../js/progress-manager.js">
+                                                                                                                                    </script>
+                                                                                                                                    <script>
+                                                                                                                                      document.addEventListener('DOMContentLoaded', () => {
+                                                                                                                                      const moduleId = 'a2-v2', lessonNumber = 28;
+                                                                                                                                      const slides = Array.from(document.querySelectorAll('.slide'));
+                                                                                                                                      const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishBtn = document.getElementById('finish-lesson-btn'), progressBar = document.getElementById('progress-bar');
+                                                                                                                                      const normalize = (text) => (text || '').trim().toLowerCase().replace(/[.?!"']/g, '').replace(/\s+/g, ' ');
+                                                                                                                                      let currentSlide = 0;
+                                                                                                                                      const checkAnswer = (input) => { input.classList.remove('correct', 'incorrect'); if (!input.value.trim()) return; input.classList.add(normalize(input.value) === normalize(input.dataset.answer || '') ? 'correct' : 'incorrect'); };
+                                                                                                                                      const updateQuizScore = () => { const items = Array.from(document.querySelectorAll('[data-quiz-item]')); const correct = items.filter((item) => item.dataset.correct === 'true').length; const score = document.getElementById('quiz-score'); if (score) score.textContent = correct + ' / ' + items.length; };
+                                                                                                                                      document.querySelectorAll('[data-quiz-choice]').forEach((button) => button.addEventListener('click', () => { const item = button.closest('[data-quiz-item]'); const ok = normalize(button.dataset.quizChoice) === normalize(item.dataset.answer); item.dataset.correct = ok ? 'true' : 'false'; item.querySelectorAll('[data-quiz-choice]').forEach((choice) => choice.classList.remove('is-active', 'selected-correct', 'selected-incorrect')); button.classList.add('is-active', ok ? 'selected-correct' : 'selected-incorrect'); const feedback = item.querySelector('[data-quiz-feedback]'); if (feedback) { feedback.textContent = ok ? 'Correct!' : 'Try again. Correct answer: ' + item.dataset.answer; feedback.className = ok ? 'mt-3 text-sm text-green-700' : 'mt-3 text-sm text-amber-700'; } updateQuizScore(); }));
+                                                                                                                                      const render = () => { slides.forEach((slide, i) => slide.classList.toggle('active', i === currentSlide)); if (progressBar) progressBar.style.width = slides.length > 1 ? ((currentSlide / (slides.length - 1)) * 100) + '%' : '100%'; if (prevBtn) prevBtn.disabled = currentSlide === 0; if (nextBtn) nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1); if (finishBtn) finishBtn.classList.toggle('hidden', currentSlide !== slides.length - 1); };
+                                                                                                                                      prevBtn?.addEventListener('click', () => { if (currentSlide > 0) { currentSlide -= 1; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
+                                                                                                                                      nextBtn?.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide += 1; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
+                                                                                                                                      finishBtn?.addEventListener('click', () => { finishBtn.disabled = true; finishBtn.textContent = 'Salvando...'; if (typeof markLessonAsComplete === 'function') Promise.resolve(markLessonAsComplete(moduleId, lessonNumber)).catch(() => { finishBtn.disabled = false; finishBtn.textContent = 'Finalizar aula'; }); });
+                                                                                                                                      document.querySelectorAll('input[data-answer]').forEach((input) => input.addEventListener('blur', () => checkAnswer(input)));
+                                                                                                                                      document.querySelectorAll('.answer-btn[data-target]').forEach((button) => button.addEventListener('click', () => { const input = document.getElementById(button.dataset.target); if (!input) return; input.value = input.dataset.answer || ''; checkAnswer(input); }));
+                                                                                                                                      document.querySelectorAll('.speak-btn[data-speak]').forEach((button) => button.addEventListener('click', (event) => { event.stopPropagation(); const utterance = new SpeechSynthesisUtterance(button.dataset.speak || ''); utterance.lang = 'en-US'; speechSynthesis.cancel(); speechSynthesis.speak(utterance); }));
+                                                                                                                                      updateQuizScore(); render();
+                                                                                                                                      });
+                                                                                                                                      </script>
+                                                                                                                                      <script src="../js/flashcard-pronunciation.js">
+                                                                                                                                        </script>
+                                                                                                                                        <script src="../js/lesson-flashcard-save.js">
+                                                                                                                                          </script>
+                                                                                                                                        </body>
+                                                                                                                                      </html>

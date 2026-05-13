@@ -1,0 +1,374 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | LiÃ§Ã£o 24: Review Checkpoint #3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.35rem; }
+        .answer-btn:hover { color: #7c3aed; }
+        .speak-btn {
+            border: 1px solid #ddd6fe;
+            background: #faf5ff;
+            color: #6d28d9;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.45rem 0.8rem;
+            border-radius: 9999px;
+            transition: 0.2s ease;
+        }
+        .speak-btn:hover { background: #ede9fe; }
+        .dialogue-line {
+            display: grid;
+            grid-template-columns: 110px 1fr auto;
+            gap: 1rem;
+            align-items: start;
+        }
+        input { border: none; border-bottom: 2px solid #cbd5e1; background: transparent; outline: none; text-align: center; padding: 0 6px; }
+        input.correct { border-color: #22c55e; color: #166534; background: #f0fdf4; }
+        input.incorrect { border-color: #ef4444; color: #991b1b; background: #fef2f2; }
+    </style>
+    <link rel="stylesheet" href="a2-lesson-theme.css">
+</head>
+<body class="lesson-loading a2-lesson-page bg-slate-50 text-slate-800">
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+            <a href="a2.html" class="text-lg font-bold text-violet-600 hover:text-violet-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao MÃ³dulo A2 V2</a>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 24: Review Checkpoint #3</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
+        </div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-violet-500 h-1.5 transition-all duration-300"></div></div>
+    </header>
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
+                    <div class="a2-hero-copy">
+                        <h2>Review experiences, health and imperatives together</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Esta aula fecha o bloco 3 do A2 com revisÃ£o mais guiada. O aluno vai reconhecer o tipo de resposta esperado, completar frases com apoio claro e misturar present perfect, saÃºde e imperatives em contextos reais.</p>
+                    </div>
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">You will review</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span><strong>have / has</strong> + particÃ­pio</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>symptoms and doctor follow-up questions</span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>affirmative and negative imperatives</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-card p-8 mt-8 text-lg space-y-4">
+                <div class="flex flex-wrap justify-between items-center gap-4 mb-3">
+                    <p class="lesson-panel-title">Review dialogue</p>
+                    <button type="button" class="speak-btn" data-speak="I have never taken this medicine before. Take one tablet after lunch and drink a lot of water. Okay. And don't drive if you feel sleepy. Thank you, doctor. I have had a headache since yesterday, so I will go home and rest."><i class="fas fa-volume-up"></i> Ouvir diÃ¡logo</button>
+                </div>
+                <div class="dialogue-line"><strong class="text-violet-600">Patient:</strong><p>I have never taken this medicine before.</p><button type="button" class="speak-btn" data-speak="I have never taken this medicine before."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                <div class="dialogue-line"><strong class="text-orange-600">Doctor:</strong><p>Take one tablet after lunch and drink a lot of water.</p><button type="button" class="speak-btn" data-speak="Take one tablet after lunch and drink a lot of water."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                <div class="dialogue-line"><strong class="text-violet-600">Patient:</strong><p>Okay.</p><button type="button" class="speak-btn" data-speak="Okay."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                <div class="dialogue-line"><strong class="text-orange-600">Doctor:</strong><p>And don't drive if you feel sleepy.</p><button type="button" class="speak-btn" data-speak="And don't drive if you feel sleepy."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                <div class="dialogue-line"><strong class="text-violet-600">Patient:</strong><p>Thank you, doctor. I have had a headache since yesterday, so I will go home and rest.</p><button type="button" class="speak-btn" data-speak="Thank you, doctor. I have had a headache since yesterday, so I will go home and rest."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Review Map">
+            <h2 class="text-4xl font-black mb-6 text-center text-violet-700">Quick review map</h2>
+            <div class="callout-success max-w-5xl mx-auto mb-6">
+                <strong>Como usar esta revisÃ£o:</strong> antes de preencher, pergunte "Que tipo de resposta falta aqui?".
+            </div>
+            <div class="callout-note max-w-5xl mx-auto mb-6">
+                Nesta aula, as dicas mostram em portuguÃªs o que precisa entrar no espaÃ§o: verbo, expressÃ£o de lugar, sintoma, resposta curta ou tempo.
+            </div>
+            <div class="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto text-lg">
+                <div class="activity-card"><p class="lesson-panel-title mb-2">Present Perfect</p><p><strong>Forma:</strong> have / has + particÃ­pio.</p><p><strong>Use quando:</strong> a experiÃªncia importa agora.</p><p><strong>Exemplo:</strong> I have been there before.</p></div>
+                <div class="activity-card"><p class="lesson-panel-title mb-2">Health</p><p><strong>Foco:</strong> dizer sintoma e duraÃ§Ã£o.</p><p><strong>Modelo:</strong> I have had a fever since yesterday.</p><p><strong>Pergunta-chave:</strong> How long have you felt like this?</p></div>
+                <div class="activity-card"><p class="lesson-panel-title mb-2">Imperatives</p><p><strong>Foco:</strong> dar instruÃ§Ãµes, conselhos e regras.</p><p><strong>Modelo:</strong> Take this medicine after lunch.</p><p><strong>Negativo:</strong> Don't drive today.</p></div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Task 1">
+            <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+                <h2 class="text-4xl font-black mb-4 text-violet-700 text-center">Mixed grammar check</h2>
+                <p class="text-base text-slate-500">As dicas agora mostram em portuguÃªs o que deve aparecer no espaÃ§o. O foco Ã© reduzir dÃºvida e aumentar acerto consciente.</p>
+                <p>1. She <input id="r1" data-answer="has been" class="w-32"> to that hospital before. <span class="text-base text-slate-500">(dica: esteve)</span> <button class="answer-btn" data-target="r1"><i class="fas fa-eye"></i></button></p>
+                <p>2. I <input id="r2" data-answer="have never tried" class="w-40"> that medicine. <span class="text-base text-slate-500">(dica: nunca experimentei)</span> <button class="answer-btn" data-target="r2"><i class="fas fa-eye"></i></button></p>
+                <p>3. My throat <input id="r3" data-answer="hurts" class="w-24"> today. <span class="text-base text-slate-500">(dica: dÃ³i)</span> <button class="answer-btn" data-target="r3"><i class="fas fa-eye"></i></button></p>
+                <p>4. <input id="r4" data-answer="Take" class="w-24"> this medicine after lunch. <span class="text-base text-slate-500">(dica: tome)</span> <button class="answer-btn" data-target="r4"><i class="fas fa-eye"></i></button></p>
+                <p>5. <input id="r5" data-answer="Don't drive" class="w-36"> today. <span class="text-base text-slate-500">(dica: nÃ£o dirija)</span> <button class="answer-btn" data-target="r5"><i class="fas fa-eye"></i></button></p>
+                <p>6. He <input id="r13" data-answer="has had" class="w-32"> a fever since yesterday. <span class="text-base text-slate-500">(dica: estÃ¡ com)</span> <button class="answer-btn" data-target="r13"><i class="fas fa-eye"></i></button></p>
+                <p>7. Have you ever <input id="r14" data-answer="been" class="w-24"> to this clinic before? <span class="text-base text-slate-500">(dica: estado / esteve)</span> <button class="answer-btn" data-target="r14"><i class="fas fa-eye"></i></button></p>
+                <p>8. Turn <input id="r15" data-answer="left" class="w-24"> at the pharmacy. <span class="text-base text-slate-500">(dica: esquerda)</span> <button class="answer-btn" data-target="r15"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Task 2">
+            <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+                <h2 class="text-4xl font-black mb-4 text-violet-700 text-center">Doctor response check</h2>
+                <p class="text-base text-slate-500">Agora o aluno responde como paciente. As dicas indicam exatamente o tipo de palavra ou expressÃ£o esperada.</p>
+                <p>1. "How long have you felt like this?" "I have felt like this <input id="r6" data-answer="since yesterday" class="w-40">." <span class="text-base text-slate-500">(dica: desde ontem)</span> <button class="answer-btn" data-target="r6"><i class="fas fa-eye"></i></button></p>
+                <p>2. "What seems to be the problem?" "I <input id="r9" data-answer="have a fever" class="w-36">." <span class="text-base text-slate-500">(dica: estou com febre)</span> <button class="answer-btn" data-target="r9"><i class="fas fa-eye"></i></button></p>
+                <p>3. "Do you have any other symptoms?" "Yes, I also feel <input id="r16" data-answer="dizzy" class="w-24">." <span class="text-base text-slate-500">(dica: tonto)</span> <button class="answer-btn" data-target="r16"><i class="fas fa-eye"></i></button></p>
+                <p>4. "Have you ever tried this medicine?" "No, I <input id="r18" data-answer="haven't" class="w-24">." <span class="text-base text-slate-500">(dica: nÃ£o)</span> <button class="answer-btn" data-target="r18"><i class="fas fa-eye"></i></button></p>
+                <p>5. "Are you feeling better now?" "Yes, a little, but my head still <input id="r19" data-answer="hurts" class="w-24">." <span class="text-base text-slate-500">(dica: dÃ³i)</span> <button class="answer-btn" data-target="r19"><i class="fas fa-eye"></i></button></p>
+                <p>6. "Have you been to this clinic before?" "Yes, I <input id="r20" data-answer="have" class="w-20">." <span class="text-base text-slate-500">(dica: sim)</span> <button class="answer-btn" data-target="r20"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Task 3">
+            <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+                <h2 class="text-4xl font-black mb-4 text-violet-700 text-center">Imperative review</h2>
+                <p class="text-base text-slate-500">Nesta parte o aluno revisa comandos afirmativos e negativos em situaÃ§Ãµes prÃ¡ticas.</p>
+                <p>1. "What should I do now?" "<input id="r7" data-answer="Sit down" class="w-32"> and relax." <span class="text-base text-slate-500">(dica: sente-se)</span> <button class="answer-btn" data-target="r7"><i class="fas fa-eye"></i></button></p>
+                <p>2. "Is this dangerous?" "Yes. Be very <input id="r10" data-answer="careful" class="w-24">." <span class="text-base text-slate-500">(dica: cuidadoso)</span> <button class="answer-btn" data-target="r10"><i class="fas fa-eye"></i></button></p>
+                <p>3. "Can I use my phone?" "No, <input id="r17" data-answer="don't use" class="w-28"> it now." <span class="text-base text-slate-500">(dica: nÃ£o use)</span> <button class="answer-btn" data-target="r17"><i class="fas fa-eye"></i></button></p>
+                <p>4. "What do I do first?" "<input id="r21" data-answer="Open" class="w-24"> your book." <span class="text-base text-slate-500">(dica: abra)</span> <button class="answer-btn" data-target="r21"><i class="fas fa-eye"></i></button></p>
+                <p>5. "What should I do after that?" "Then <input id="r22" data-answer="turn left" class="w-32"> the page and continue." <span class="text-base text-slate-500">(dica: vire Ã  esquerda)</span> <button class="answer-btn" data-target="r22"><i class="fas fa-eye"></i></button></p>
+                <p>6. "Can I stand here?" "No, <input id="r23" data-answer="don't stand" class="w-32"> there." <span class="text-base text-slate-500">(dica: nÃ£o fique)</span> <button class="answer-btn" data-target="r23"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Review Mission">
+            <div class="section-card p-8 max-w-5xl mx-auto">
+                <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
+                    <div>
+                        <p class="lesson-panel-title mb-2">Review Mission</p>
+                        <h2 class="text-4xl font-black text-violet-700">Build one mixed survival response</h2>
+                    </div>
+                    <div class="callout-note max-w-xl">
+                        Junte experiÃªncia, sintoma e imperative em uma Ãºnica resposta guiada para revisar o bloco inteiro.
+                    </div>
+                </div>
+                <div class="activity-lab" data-choice-builder data-template="I have {experience}, and today I have {symptom}. Please {direction} {place}." data-required="experience,symptom,direction,place" data-preview-empty="Monte uma resposta que misture present perfect, saÃºde e imperative.">
+                    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+                        <div>
+                            <p class="lesson-panel-title mb-3">1. Experience</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="experience" data-choice-value="never been to this clinic">never been to this clinic</button>
+                                <button type="button" class="option-chip" data-choice-slot="experience" data-choice-value="already talked to the receptionist">already talked to the receptionist</button>
+                                <button type="button" class="option-chip" data-choice-slot="experience" data-choice-value="never visited this part of town">never visited this part of town</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">2. Symptom</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="symptom" data-choice-value="a fever">a fever</button>
+                                <button type="button" class="option-chip" data-choice-slot="symptom" data-choice-value="a sore throat">a sore throat</button>
+                                <button type="button" class="option-chip" data-choice-slot="symptom" data-choice-value="dizziness">dizziness</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">3. Imperative</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="direction" data-choice-value="take">take</button>
+                                <button type="button" class="option-chip" data-choice-slot="direction" data-choice-value="don't take">don't take</button>
+                                <button type="button" class="option-chip" data-choice-slot="direction" data-choice-value="bring">bring</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">4. Complement</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="this medicine after lunch">this medicine after lunch</button>
+                                <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="your water bottle tomorrow">your water bottle tomorrow</button>
+                                <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="that pill before breakfast">that pill before breakfast</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-card mt-6" data-choice-preview></div>
+                    <div class="callout-note mt-5">
+                        <strong>ExtensÃ£o oral:</strong> depois da frase, adicione mais uma informaÃ§Ã£o. Exemplo: <em>I feel weak today.</em> ou <em>I have never used it before.</em>
+                    </div>
+                    <div class="flex gap-3 mt-5 flex-wrap">
+                        <button type="button" class="option-chip" data-choice-reset>Reset</button>
+                        <button type="button" class="primary-action-btn" data-choice-speak>Ouvir frase</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Guided Output">
+            <div class="section-card p-8 max-w-5xl mx-auto">
+                <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
+                    <div>
+                        <p class="lesson-panel-title mb-2">Guided final task</p>
+                        <h2 class="text-4xl font-black text-violet-700">Build a full review answer</h2>
+                    </div>
+                    <div class="callout-success max-w-xl">
+                        Esta atividade substitui o speaking checkpoint antigo. Agora o aluno monta uma resposta completa e clara antes de falar.
+                    </div>
+                </div>
+                <div class="activity-lab" data-choice-builder data-template="I have {health}. I have felt like this {time}. Please {place}. {distance}" data-required="health,time,place,distance" data-preview-empty="Monte uma fala completa: problema de saÃºde + tempo + imperative + resposta final.">
+                    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+                        <div>
+                            <p class="lesson-panel-title mb-3">1. Health problem</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="health" data-choice-value="a fever">a fever</button>
+                                <button type="button" class="option-chip" data-choice-slot="health" data-choice-value="a headache">a headache</button>
+                                <button type="button" class="option-chip" data-choice-slot="health" data-choice-value="dizziness">dizziness</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">2. Time</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="time" data-choice-value="since yesterday">since yesterday</button>
+                                <button type="button" class="option-chip" data-choice-slot="time" data-choice-value="since this morning">since this morning</button>
+                                <button type="button" class="option-chip" data-choice-slot="time" data-choice-value="for two days">for two days</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">3. Imperative</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="sit down and rest">sit down and rest</button>
+                                <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="take this medicine now">take this medicine now</button>
+                                <button type="button" class="option-chip" data-choice-slot="place" data-choice-value="don't drive today">don't drive today</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lesson-panel-title mb-3">4. Final sentence</p>
+                            <div class="option-cloud">
+                                <button type="button" class="option-chip" data-choice-slot="distance" data-choice-value="I need help today.">I need help today.</button>
+                                <button type="button" class="option-chip" data-choice-slot="distance" data-choice-value="It is my first time with this problem.">It is my first time with this problem.</button>
+                                <button type="button" class="option-chip" data-choice-slot="distance" data-choice-value="I want to feel better soon.">I want to feel better soon.</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-card mt-6" data-choice-preview></div>
+                    <div class="flex gap-3 mt-5 flex-wrap">
+                        <button type="button" class="option-chip" data-choice-reset>Reset</button>
+                        <button type="button" class="primary-action-btn" data-choice-speak>Ouvir frase</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Reading">
+            <div class="section-card p-8 max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-6 text-center text-violet-700">Reading: a first health experience</h2>
+                <div class="activity-card text-lg space-y-4">
+                    <p>Marina has never had this problem before. This week, she has felt tired every day and has had a bad headache since Monday.</p>
+                    <p>She has already talked to a doctor, but she hasn't started the medicine yet. The doctor says, "Drink more water, rest at home and don't work late tonight."</p>
+                    <p>Marina feels calmer now because she understands what to do next.</p>
+                </div>
+                <div class="mt-8 text-xl space-y-5">
+                    <p>1. What problem has Marina had since Monday? <input id="r24" data-answer="a bad headache" class="w-44"> <button class="answer-btn" data-target="r24"><i class="fas fa-eye"></i></button></p>
+                    <p>2. Has she talked to a doctor already? <input id="r25" data-answer="yes she has" class="w-40"> <button class="answer-btn" data-target="r25"><i class="fas fa-eye"></i></button></p>
+                    <p>3. Has she started the medicine yet? <input id="r26" data-answer="no she hasn't" class="w-40"> <button class="answer-btn" data-target="r26"><i class="fas fa-eye"></i></button></p>
+                    <p>4. What does the doctor tell her to do? <input id="r27" data-answer="drink more water" class="w-44"> <button class="answer-btn" data-target="r27"><i class="fas fa-eye"></i></button></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Homework">
+            <div class="section-card p-8 max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-6 text-violet-700 text-center">Homework</h2>
+                <p class="text-lg text-slate-600 text-center mb-6">Prepare two short review dialogues.</p>
+                <div class="grid md:grid-cols-2 gap-5 text-lg">
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Dialogue 1</p>
+                        <p>Patient + doctor</p>
+                        <p>Include one symptom, one time expression and one short answer.</p>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-2">Dialogue 2</p>
+                        <p>Patient + teacher / family member</p>
+                        <p>Include one imperative affirmative and one imperative negative.</p>
+                    </div>
+                </div>
+                <p class="mt-6 text-lg text-slate-600 text-center">Se quiser, conecte os contextos: alguÃ©m estÃ¡ se sentindo mal e recebe instruÃ§Ãµes claras sobre o que fazer.</p>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Lesson Complete">
+            <div class="text-center">
+                <i class="fas fa-check-circle text-violet-500 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Checkpoint complete</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">Block 3 reviewed</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl mx-auto">You are connecting grammar and real-life survival communication more naturally now.</p>
+            </div>
+        </div>
+    </main>
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
+        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Anterior</button>
+            <button id="next-btn" class="bg-violet-600 text-white font-bold py-3 px-8 rounded-lg transition">PrÃ³ximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Finalizar aula</button>
+        </div>
+    </footer>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2-v2', lessonNumber = 24;
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            let currentSlide = 0;
+
+            const normalize = (text) => text.trim().toLowerCase().replace(/[.?!"']/g, '');
+            const checkAnswer = (input) => {
+                const ok = normalize(input.value) === normalize(input.dataset.answer || '');
+                input.classList.remove('correct', 'incorrect');
+                if (!input.value.trim()) return;
+                input.classList.add(ok ? 'correct' : 'incorrect');
+            };
+            const speak = (text) => {
+                if (!text || !('speechSynthesis' in window)) return;
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.95;
+                window.speechSynthesis.cancel();
+                window.speechSynthesis.speak(utterance);
+            };
+            const update = () => {
+                slides.forEach((slide, index) => slide.classList.toggle('active', index === currentSlide));
+                document.getElementById('progress-bar').style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
+                document.getElementById('slide-counter').textContent = `${currentSlide + 1} / ${slides.length}`;
+                document.getElementById('slide-title-header').textContent = slides[currentSlide]?.dataset.title || '';
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+                finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+            };
+
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; update(); } });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; update(); } });
+            finishLessonBtn.addEventListener('click', () => {
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.textContent = 'Salvando...';
+                if (typeof markLessonAsComplete === 'function') {
+                    Promise.resolve(markLessonAsComplete(moduleId, lessonNumber)).catch(() => {
+                        finishLessonBtn.disabled = false;
+                        finishLessonBtn.textContent = 'Finalizar aula';
+                    });
+                }
+            });
+            document.querySelectorAll('input[data-answer]').forEach((input) => input.addEventListener('blur', () => checkAnswer(input)));
+            document.querySelectorAll('.answer-btn[data-target]').forEach((button) => button.addEventListener('click', () => {
+                const input = document.getElementById(button.dataset.target);
+                if (!input) return;
+                input.value = input.dataset.answer;
+                checkAnswer(input);
+            }));
+            document.querySelectorAll('.speak-btn[data-speak]').forEach((button) => {
+                button.addEventListener('click', () => speak(button.dataset.speak || ''));
+            });
+            update();
+        });
+    </script>
+    <script src="../js/flashcard-pronunciation.js"></script>
+    <script src="../js/lesson-flashcard-save.js"></script>
+    <script src="a2-v2-template.js"></script>
+    <script src="a2-lesson-theme.js"></script>
+</body>
+</html>

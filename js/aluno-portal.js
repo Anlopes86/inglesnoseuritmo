@@ -31,6 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'Continue evoluindo com as lições do A2.',
             url: 'a2/a2.html'
         },
+        'a2-v2': {
+            name: 'Módulo A2 V2',
+            description: 'Teste a nova versão do A2 com tradução, fala e prática CEFR mais completa.',
+            url: 'a2-v2/a2.html'
+        },
         prepb1: {
             name: 'Ponte A2-B1',
             description: 'Revise A1 e A2 com mais leitura, interpretação e fala antes de entrar no B1.',

@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 | LiÃ§Ã£o 23: Imperatives in Real Life</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .flip-card { background: transparent; min-height: 190px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.2rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; text-align: center; }
+        .flip-card-front { background: #fff; color: #6d28d9; }
+        .flip-card-back { background: #f5f3ff; color: #5b21b6; transform: rotateY(180deg); }
+        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.35rem; }
+        .answer-btn:hover { color: #7c3aed; }
+        .speak-btn { border: 1px solid #ddd6fe; background: #faf5ff; color: #6d28d9; font-size: 0.9rem; font-weight: 600; padding: 0.45rem 0.8rem; border-radius: 9999px; transition: 0.2s ease; }
+        .speak-btn:hover { background: #ede9fe; }
+        .dialogue-line { display: grid; grid-template-columns: 100px 1fr auto; gap: 1rem; align-items: start; }
+        input { border: none; border-bottom: 2px solid #cbd5e1; background: transparent; outline: none; text-align: center; padding: 0 6px; }
+        input.correct { border-color: #22c55e; color: #166534; background: #f0fdf4; }
+        input.incorrect { border-color: #ef4444; color: #991b1b; background: #fef2f2; }
+    </style>
+    <link rel="stylesheet" href="a2-lesson-theme.css">
+</head>
+<body class="lesson-loading a2-lesson-page bg-slate-50 text-slate-800">
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+            <a href="a2.html" class="text-lg font-bold text-violet-600 hover:text-violet-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao MÃ³dulo A2 V2</a>
+            <div class="text-center">
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 23: Imperatives in Real Life</h1>
+                <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+            </div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 10</div>
+        </div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-violet-500 h-1.5 transition-all duration-300"></div></div>
+    </header>
+    <main class="container mx-auto p-8 pb-28 max-w-5xl">
+        <div class="slide active" data-title="Warm-up">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+                <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
+                    <div class="a2-hero-copy">
+                        <h2>Use imperatives in real situations</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a usar <strong>imperatives</strong> para instruÃ§Ãµes, avisos, conselhos rÃ¡pidos e regras simples, incluindo a forma negativa com <strong>don't</strong>.</p>
+                    </div>
+                    <div class="lesson-panel p-6">
+                        <p class="lesson-panel-title mb-4">You will practice</p>
+                        <div class="lesson-checklist">
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>affirmative imperatives: <strong>sit</strong>, <strong>open</strong>, <strong>turn</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>negative imperatives: <strong>don't run</strong>, <strong>don't touch</strong></span></div>
+                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>commands for classroom, home, street and emergency contexts</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-card p-8 mt-8">
+                <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+                    <div><p class="lesson-panel-title mb-2">Real-life dialogue</p><h2 class="text-3xl font-black text-violet-700">Listen for affirmative and negative commands</h2></div>
+                    <button type="button" class="speak-btn" data-speak="Come in, please. Sit down here and open your book. Look at page ten. Don't use your phone now. Listen carefully and repeat the example. When you finish, close the book and ask your question."><i class="fas fa-volume-up"></i> Ouvir diÃ¡logo</button>
+                </div>
+                <div class="space-y-4 text-xl">
+                    <div class="dialogue-line"><span class="font-bold text-violet-600">Teacher:</span><p>Come in, please. Sit down here and open your book.</p><button type="button" class="speak-btn" data-speak="Come in, please. Sit down here and open your book."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="dialogue-line"><span class="font-bold text-orange-600">Student:</span><p>Okay.</p><button type="button" class="speak-btn" data-speak="Okay."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="dialogue-line"><span class="font-bold text-violet-600">Teacher:</span><p>Look at page ten. Don't use your phone now.</p><button type="button" class="speak-btn" data-speak="Look at page ten. Don't use your phone now."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="dialogue-line"><span class="font-bold text-violet-600">Teacher:</span><p>Listen carefully and repeat the example.</p><button type="button" class="speak-btn" data-speak="Listen carefully and repeat the example."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                    <div class="dialogue-line"><span class="font-bold text-violet-600">Teacher:</span><p>When you finish, close the book and ask your question.</p><button type="button" class="speak-btn" data-speak="When you finish, close the book and ask your question."><i class="fas fa-volume-up"></i> Ouvir</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Vocabulary">
+            <div class="text-center">
+                <h2 class="text-4xl font-black mb-4 text-violet-700">Imperative verbs</h2>
+                <p class="text-slate-500 text-lg mb-6">Clique para revisar os verbos mais Ãºteis desta aula.</p>
+                <div class="flashcard-grid max-w-5xl mx-auto">
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Sit down</h3></div><div class="flip-card-back"><p>Sente-se</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Stand up</h3></div><div class="flip-card-back"><p>Levante-se</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Open</h3></div><div class="flip-card-back"><p>Abra</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Close</h3></div><div class="flip-card-back"><p>Feche</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Wait</h3></div><div class="flip-card-back"><p>Espere</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Be careful</h3></div><div class="flip-card-back"><p>Tome cuidado</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Don't touch</h3></div><div class="flip-card-back"><p>NÃ£o toque</p></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">Don't run</h3></div><div class="flip-card-back"><p>NÃ£o corra</p></div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Grammar">
+            <div class="section-card p-8 max-w-5xl mx-auto text-lg">
+                <h2 class="text-4xl font-black mb-6 text-center text-violet-700">How imperatives work</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-3">Affirmative</p>
+                        <p><strong>Base verb only:</strong> Open the door.</p>
+                        <p>Listen carefully.</p>
+                        <p>Turn left here.</p>
+                    </div>
+                    <div class="activity-card">
+                        <p class="lesson-panel-title mb-3">Negative</p>
+                        <p><strong>Don't + base verb:</strong> Don't open the window.</p>
+                        <p>Don't run.</p>
+                        <p>Don't touch that.</p>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-4 mt-6">
+                    <div class="callout-success"><strong>Instruction:</strong> Sit down.</div>
+                    <div class="callout-note"><strong>Warning:</strong> Be careful.</div>
+                    <div class="callout-warning"><strong>Rule:</strong> Don't park here.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Situations">
+            <div class="section-card p-8 max-w-5xl mx-auto">
+                <h2 class="text-4xl font-black mb-6 text-center text-violet-700">Common situations for imperatives</h2>
+                <div class="grid md:grid-cols-2 gap-6 text-lg">
+                    <div class="activity-card"><p class="lesson-panel-title mb-2">Classroom</p><p>Open your notebook.</p><p>Don't talk now.</p><p>Listen to the audio.</p></div>
+                    <div class="activity-card"><p class="lesson-panel-title mb-2">Street</p><p>Turn left here.</p><p>Wait at the corner.</p><p>Don't cross now.</p></div>
+                    <div class="activity-card"><p class="lesson-panel-title mb-2">Home</p><p>Close the window.</p><p>Put the keys here.</p><p>Don't leave the door open.</p></div>
+                    <div class="activity-card"><p class="lesson-panel-title mb-2">Emergency</p><p>Call the doctor.</p><p>Stay calm.</p><p>Don't move.</p></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Practice 1">
+            <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+                <h2 class="text-4xl font-black mb-4 text-center text-violet-700">Complete the imperative</h2>
+                <p>1. <input id="q1" data-answer="Open" class="w-24"> your book. <span class="text-base text-slate-500">(dica: abra)</span> <button class="answer-btn" data-target="q1"><i class="fas fa-eye"></i></button></p>
+                <p>2. <input id="q2" data-answer="Sit" class="w-24"> down, please. <span class="text-base text-slate-500">(dica: sente)</span> <button class="answer-btn" data-target="q2"><i class="fas fa-eye"></i></button></p>
+                <p>3. <input id="q3" data-answer="Don't run" class="w-36"> in the hall. <span class="text-base text-slate-500">(dica: nÃ£o corra)</span> <button class="answer-btn" data-target="q3"><i class="fas fa-eye"></i></button></p>
+                <p>4. <input id="q4" data-answer="Wait" class="w-24"> here. <span class="text-base text-slate-500">(dica: espere)</span> <button class="answer-btn" data-target="q4"><i class="fas fa-eye"></i></button></p>
+                <p>5. <input id="q5" data-answer="Don't touch" class="w-36"> the glass. <span class="text-base text-slate-500">(dica: nÃ£o toque)</span> <button class="answer-btn" data-target="q5"><i class="fas fa-eye"></i></button></p>
+                <p>6. <input id="q6" data-answer="Be careful" class="w-36"> on the stairs. <span class="text-base text-slate-500">(dica: tome cuidado)</span> <button class="answer-btn" data-target="q6"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Practice 2">
+            <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+                <h2 class="text-4xl font-black mb-4 text-center text-violet-700">Choose affirmative or negative</h2>
+                <p>1. It is a library. <input id="q7" data-answer="Don't talk" class="w-36"> loudly. <span class="text-base text-slate-500">(dica: nÃ£o fale)</span> <button class="answer-btn" data-target="q7"><i class="fas fa-eye"></i></button></p>
+                <p>2. The baby is sleeping. <input id="q8" data-answer="Close" class="w-24"> the door quietly. <span class="text-base text-slate-500">(dica: feche)</span> <button class="answer-btn" data-target="q8"><i class="fas fa-eye"></i></button></p>
+                <p>3. The light is red. <input id="q9" data-answer="Don't cross" class="w-36"> now. <span class="text-base text-slate-500">(dica: nÃ£o atravesse)</span> <button class="answer-btn" data-target="q9"><i class="fas fa-eye"></i></button></p>
+                <p>4. The teacher is speaking. <input id="q10" data-answer="Listen" class="w-24"> carefully. <span class="text-base text-slate-500">(dica: escute)</span> <button class="answer-btn" data-target="q10"><i class="fas fa-eye"></i></button></p>
+                <p>5. It is dangerous here. <input id="q11" data-answer="Don't stop" class="w-36"> in the street. <span class="text-base text-slate-500">(dica: nÃ£o pare)</span> <button class="answer-btn" data-target="q11"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Imperative Builder">
+            <div class="section-card p-8 max-w-5xl mx-auto">
+                <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
+                    <div><p class="lesson-panel-title mb-2">Imperative Builder</p><h2 class="text-4xl font-black text-violet-700">Build useful commands</h2></div>
+                    <div class="callout-note max-w-xl">Monte frases naturais para situaÃ§Ãµes reais.</div>
+                </div>
+                <div class="activity-lab" data-choice-builder data-template="{command} {place} {extra}" data-required="command,place,extra" data-preview-empty="Escolha as partes para montar um imperative completo.">
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div><p class="lesson-panel-title mb-3">1. Command</p><div class="option-cloud"><button type="button" class="option-chip" data-choice-slot="command" data-choice-value="Turn left at">Turn left at</button><button type="button" class="option-chip" data-choice-slot="command" data-choice-value="Open">Open</button><button type="button" class="option-chip" data-choice-slot="command" data-choice-value="Don't use">Don't use</button></div></div>
+                        <div><p class="lesson-panel-title mb-3">2. Place/Object</p><div class="option-cloud"><button type="button" class="option-chip" data-choice-slot="place" data-choice-value="the corner">the corner</button><button type="button" class="option-chip" data-choice-slot="place" data-choice-value="your notebook">your notebook</button><button type="button" class="option-chip" data-choice-slot="place" data-choice-value="your phone">your phone</button></div></div>
+                        <div><p class="lesson-panel-title mb-3">3. Extra</p><div class="option-cloud"><button type="button" class="option-chip" data-choice-slot="extra" data-choice-value="please.">please.</button><button type="button" class="option-chip" data-choice-slot="extra" data-choice-value="now.">now.</button><button type="button" class="option-chip" data-choice-slot="extra" data-choice-value="in class.">in class.</button></div></div>
+                    </div>
+                    <div class="preview-card mt-6" data-choice-preview></div>
+                    <div class="flex gap-3 mt-5 flex-wrap"><button type="button" class="option-chip" data-choice-reset>Reset</button><button type="button" class="primary-action-btn" data-choice-speak>Ouvir frase</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Reading">
+            <div class="section-card p-8 max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-6 text-center text-violet-700">Reading: safety instructions</h2>
+                <div class="activity-card text-lg space-y-4">
+                    <p>Welcome to the language lab. Please leave your bag under the table. Sit down before the class starts and open your notebook.</p>
+                    <p>Listen carefully during the audio activity. Don't use your phone and don't talk while other students are speaking.</p>
+                    <p>If you finish early, close your book, wait quietly and ask the teacher for the next task.</p>
+                </div>
+                <div class="mt-8 text-xl space-y-5">
+                    <p>1. Where should students leave their bags? <input id="q12" data-answer="under the table" class="w-44"> <button class="answer-btn" data-target="q12"><i class="fas fa-eye"></i></button></p>
+                    <p>2. What should students open? <input id="q13" data-answer="their notebook" class="w-44"> <button class="answer-btn" data-target="q13"><i class="fas fa-eye"></i></button></p>
+                    <p>3. What must students not use? <input id="q14" data-answer="their phone" class="w-40"> <button class="answer-btn" data-target="q14"><i class="fas fa-eye"></i></button></p>
+                    <p>4. What should students do if they finish early? <input id="q15" data-answer="wait quietly" class="w-40"> <button class="answer-btn" data-target="q15"><i class="fas fa-eye"></i></button></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Homework">
+            <div class="section-card p-8 max-w-4xl mx-auto">
+                <h2 class="text-4xl font-black mb-6 text-violet-700 text-center">Homework</h2>
+                <div class="grid md:grid-cols-2 gap-5 text-lg">
+                    <div class="activity-card"><p class="lesson-panel-title mb-2">Task A</p><p>Write 4 affirmative imperatives for a classroom, kitchen or street situation.</p></div>
+                    <div class="activity-card"><p class="lesson-panel-title mb-2">Task B</p><p>Write 4 negative imperatives using <strong>don't</strong>.</p></div>
+                </div>
+                <p class="mt-6 text-lg text-slate-600">Try to use different situations: advice, rules, directions and warnings.</p>
+                <textarea rows="6" class="mt-6 w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-violet-500" placeholder="Open the window. Don't run here."></textarea>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Lesson Complete">
+            <div class="text-center">
+                <i class="fas fa-bullhorn text-violet-500 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">Imperatives unlocked</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl mx-auto">Now you can give instructions, warnings and simple rules more naturally.</p>
+            </div>
+        </div>
+    </main>
+    <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
+        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+            <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Anterior</button>
+            <button id="next-btn" class="bg-violet-600 text-white font-bold py-3 px-8 rounded-lg transition">PrÃ³ximo</button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Finalizar aula</button>
+        </div>
+    </footer>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const moduleId = 'a2-v2', lessonNumber = 23;
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
+            let currentSlide = 0;
+            const normalize = (text) => text.trim().toLowerCase().replace(/[.?!"']/g, '');
+            const checkAnswer = (input) => {
+                const ok = normalize(input.value) === normalize(input.dataset.answer || '');
+                input.classList.remove('correct', 'incorrect');
+                if (!input.value.trim()) return;
+                input.classList.add(ok ? 'correct' : 'incorrect');
+            };
+            const speak = (text) => {
+                if (!text || !('speechSynthesis' in window)) return;
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.95;
+                window.speechSynthesis.cancel();
+                window.speechSynthesis.speak(utterance);
+            };
+            const update = () => {
+                slides.forEach((slide, index) => slide.classList.toggle('active', index === currentSlide));
+                document.getElementById('progress-bar').style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
+                document.getElementById('slide-counter').textContent = `${currentSlide + 1} / ${slides.length}`;
+                document.getElementById('slide-title-header').textContent = slides[currentSlide]?.dataset.title || '';
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+                finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+            };
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; update(); } });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; update(); } });
+            finishLessonBtn.addEventListener('click', () => {
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.textContent = 'Salvando...';
+                if (typeof markLessonAsComplete === 'function') {
+                    Promise.resolve(markLessonAsComplete(moduleId, lessonNumber)).catch(() => {
+                        finishLessonBtn.disabled = false;
+                        finishLessonBtn.textContent = 'Finalizar aula';
+                    });
+                }
+            });
+            document.querySelectorAll('input[data-answer]').forEach((input) => input.addEventListener('blur', () => checkAnswer(input)));
+            document.querySelectorAll('.answer-btn[data-target]').forEach((button) => button.addEventListener('click', () => {
+                const input = document.getElementById(button.dataset.target);
+                if (!input) return;
+                input.value = input.dataset.answer;
+                checkAnswer(input);
+            }));
+            document.querySelectorAll('.speak-btn[data-speak]').forEach((button) => button.addEventListener('click', () => speak(button.dataset.speak || '')));
+            update();
+        });
+    </script>
+    <script src="../js/flashcard-pronunciation.js"></script>
+    <script src="../js/lesson-flashcard-save.js"></script>
+    <script src="a2-v2-template.js"></script>
+    <script src="a2-lesson-theme.js"></script>
+</body>
+</html>
