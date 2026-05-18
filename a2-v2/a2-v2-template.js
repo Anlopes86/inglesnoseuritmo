@@ -31,52 +31,7 @@
     }
 
     function createLessonIndex() {
-        const slides = Array.from(document.querySelectorAll('.slide'));
-        const header = document.querySelector('header');
-        if (!slides.length || !header || document.querySelector('[data-lesson-index]')) return;
-
-        const nav = document.createElement('nav');
-        nav.className = 'lesson-index';
-        nav.setAttribute('data-lesson-index', 'true');
-        nav.setAttribute('aria-label', 'Índice da lição');
-        nav.innerHTML = slides.map((slide, index) => {
-            const title = slide.dataset.title || `Slide ${index + 1}`;
-            return `<button type="button" data-jump-slide="${index}">${index + 1}. ${title}</button>`;
-        }).join('');
-
-        header.insertAdjacentElement('afterend', nav);
-
-        nav.addEventListener('click', (event) => {
-            const trigger = event.target.closest('[data-jump-slide]');
-            if (!trigger) return;
-
-            const targetIndex = Number(trigger.dataset.jumpSlide);
-            if (!Number.isInteger(targetIndex)) return;
-
-            const activeIndex = slides.findIndex((slide) => slide.classList.contains('active'));
-            const delta = targetIndex - activeIndex;
-            const buttonId = delta > 0 ? 'next-btn' : 'prev-btn';
-            const button = document.getElementById(buttonId);
-
-            for (let step = 0; step < Math.abs(delta); step += 1) {
-                button?.click();
-            }
-
-            document.dispatchEvent(new CustomEvent('a2v2:slide-jump', { detail: { index: targetIndex } }));
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        const sync = () => {
-            const activeIndex = slides.findIndex((slide) => slide.classList.contains('active'));
-            nav.querySelectorAll('[data-jump-slide]').forEach((button, index) => {
-                button.classList.toggle('is-active', index === activeIndex);
-            });
-        };
-
-        slides.forEach((slide) => {
-            new MutationObserver(sync).observe(slide, { attributes: true, attributeFilter: ['class'] });
-        });
-        sync();
+        document.querySelector('[data-lesson-index]')?.remove();
     }
 
     window.A2V2Template = {
