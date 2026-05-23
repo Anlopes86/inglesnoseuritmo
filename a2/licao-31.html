@@ -711,16 +711,30 @@
                                                                                                                         <div class="section-card p-8 max-w-4xl mx-auto">
                                                                                                                           <h2 class="text-4xl font-black text-violet-700 mb-4 text-center">Song: If I Had a Million Dollars</h2>
                                                                                                                           <p class="text-center text-slate-500 text-lg mb-6">Barenaked Ladies - escuta guiada com sample editável.</p>
-                                                                                                                          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/search/If%20I%20Had%20a%20Million%20Dollars%20Barenaked%20Ladies?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
+                                                                                                                          <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0KeDuUqEX3P0cKzRD5pEom?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                                                                                                                           </iframe>
                                                                                                                           <div class="activity-card text-lg space-y-3 mt-5">
                                                                                                                             <p class="lesson-panel-title">Lyrics sample</p>
-                                                                                                                            <p>[Sample lyrics - replace manually]</p>
-                                                                                                                            <p>Line 1: If I had a million dollars...</p>
-                                                                                                                            <p>Line 2: I would buy a house.</p>
-                                                                                                                            <p>Line 3: I would help my family.</p>
-                                                                                                                            <p>Line 4: I would follow a dream.</p>
-                                                                                                                            <p class="text-sm text-slate-500">Substitua este sample pela letra completa ou pelo trecho que você quiser trabalhar na aula.</p>
+                                                                                                                            <p>If I had a million dollars</p>
+                                                                                                                            <p>(If I had a million dollars)</p>
+                                                                                                                            <p>Well, I'd buy you a house</p>
+                                                                                                                            <p>(I would buy you a house)</p>
+                                                                                                                            <p>And if I had a million dollars</p>
+                                                                                                                            <p>(If I had a million dollars)</p>
+                                                                                                                            <p>I'd buy you furniture for your house</p>
+                                                                                                                            <p>(Maybe a nice Chesterfield or an ottoman)</p>
+                                                                                                                            <p>And if I had a million dollars</p>
+                                                                                                                            <p>(If I had a million dollars)</p>
+                                                                                                                            <p>Well, I'd buy you a K-Car</p>
+                                                                                                                            <p>(A nice Reliant automobile)</p>
+                                                                                                                            <p>And if I had a million dollars</p>
+                                                                                                                            <p>I'd buy your love</p>
+                                                                                                                            <p>If I had a million dollars</p>
+                                                                                                                            <p>I'd build a tree fort in our yard</p>
+                                                                                                                            <p>If I had million dollars</p>
+                                                                                                                            <p>You could help, it wouldn't be that hard</p>
+                                                                                                                            <p>If I had million dollars</p>
+                                                                                                                            <p>Maybe we could put like a little tiny fridge in there somewhere</p>
                                                                                                                           </div>
                                                                                                                         </div>
                                                                                                                       </div>
@@ -772,6 +786,24 @@
                                                                                                                                     let currentSlide = 0;
                                                                                                                                     const checkAnswer = (input) => { input.classList.remove('correct', 'incorrect'); if (!input.value.trim()) return; input.classList.add(normalize(input.value) === normalize(input.dataset.answer || '') ? 'correct' : 'incorrect'); };
                                                                                                                                     const updateQuizScore = () => { const items = Array.from(document.querySelectorAll('[data-quiz-item]')); const correct = items.filter((item) => item.dataset.correct === 'true').length; const score = document.getElementById('quiz-score'); if (score) score.textContent = correct + ' / ' + items.length; };
+                                                                                                                                    // Shuffle choices inside each quiz item so the correct answer isn't always first
+                                                                                                                                    const shuffleChoices = () => {
+                                                                                                                                      document.querySelectorAll('[data-quiz-item]').forEach((item) => {
+                                                                                                                                        const container = item.querySelector('.option-cloud') || item.querySelector('.flex');
+                                                                                                                                        if (!container) return;
+                                                                                                                                        const buttons = Array.from(container.querySelectorAll('button[data-quiz-choice]'));
+                                                                                                                                        if (buttons.length <= 1) return;
+                                                                                                                                        for (let i = buttons.length - 1; i > 0; i--) {
+                                                                                                                                          const j = Math.floor(Math.random() * (i + 1));
+                                                                                                                                          const tmp = buttons[i];
+                                                                                                                                          buttons[i] = buttons[j];
+                                                                                                                                          buttons[j] = tmp;
+                                                                                                                                        }
+                                                                                                                                        buttons.forEach((b) => container.appendChild(b));
+                                                                                                                                      });
+                                                                                                                                    };
+                                                                                                                                    shuffleChoices();
+
                                                                                                                                     document.querySelectorAll('[data-quiz-choice]').forEach((button) => button.addEventListener('click', () => { const item = button.closest('[data-quiz-item]'); const ok = normalize(button.dataset.quizChoice) === normalize(item.dataset.answer); item.dataset.correct = ok ? 'true' : 'false'; item.querySelectorAll('[data-quiz-choice]').forEach((choice) => choice.classList.remove('is-active', 'selected-correct', 'selected-incorrect')); button.classList.add('is-active', ok ? 'selected-correct' : 'selected-incorrect'); const feedback = item.querySelector('[data-quiz-feedback]'); if (feedback) { feedback.textContent = ok ? 'Correct!' : 'Try again. Correct answer: ' + item.dataset.answer; feedback.className = ok ? 'mt-3 text-sm text-green-700' : 'mt-3 text-sm text-amber-700'; } updateQuizScore(); }));
                                                                                                                                     const render = () => { slides.forEach((slide, i) => slide.classList.toggle('active', i === currentSlide)); if (progressBar) progressBar.style.width = slides.length > 1 ? ((currentSlide / (slides.length - 1)) * 100) + '%' : '100%'; if (prevBtn) prevBtn.disabled = currentSlide === 0; if (nextBtn) nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1); if (finishBtn) finishBtn.classList.toggle('hidden', currentSlide !== slides.length - 1); };
                                                                                                                                     prevBtn?.addEventListener('click', () => { if (currentSlide > 0) { currentSlide -= 1; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
