@@ -1,0 +1,228 @@
+$ErrorActionPreference = 'Stop'
+
+$lessons = @(
+    @{
+        Number = 41
+        Title = 'The Paradox of Choice'
+        Icon = 'fa-code-branch'
+        WarmTitle = 'Warm-up: Too Many Options'
+        WarmLead = "Let's talk about freedom, indecision, and modern decision-making."
+        Q1 = 'Do more options really make people happier?'
+        Q2 = 'When does choice become stressful?'
+        Q3 = 'Why do people regret decisions even after choosing carefully?'
+        Q4 = 'Is "good enough" sometimes better than "perfect"?'
+        Expr = @(
+            @('Choice overload', 'Stress caused by having too many options.'),
+            @('To weigh pros and cons', 'To compare advantages and disadvantages.'),
+            @('To second-guess', 'To doubt a decision after making it.'),
+            @('Decision fatigue', 'Mental exhaustion from many decisions.'),
+            @('To narrow it down', 'To reduce many options to a few.'),
+            @('Good enough', 'Acceptable even if not perfect.')
+        )
+    },
+    @{
+        Number = 42
+        Title = 'The Ethics of Biohacking'
+        Icon = 'fa-dna'
+        WarmTitle = 'Warm-up: Upgrading Ourselves'
+        WarmLead = "Let's discuss science, enhancement, and moral boundaries."
+        Q1 = 'Should people be free to enhance body and mind?'
+        Q2 = 'What risks are acceptable in human experimentation?'
+        Q3 = 'Who decides what is ethical in biohacking?'
+        Q4 = 'Can enhancement increase social inequality?'
+        Expr = @(
+            @('Human enhancement', 'Improving abilities through biological or technological means.'),
+            @('Ethical dilemma', 'A difficult choice between competing moral principles.'),
+            @('Informed consent', 'Permission given with full understanding of risks.'),
+            @('Long-term effects', 'Consequences that appear over time.'),
+            @('To push the limits', 'To go beyond normal boundaries.'),
+            @('To level the playing field', 'To make opportunities fairer for everyone.')
+        )
+    },
+    @{
+        Number = 43
+        Title = 'The Art of Storytelling'
+        Icon = 'fa-feather-pointed'
+        WarmTitle = 'Warm-up: Stories That Stay'
+        WarmLead = "Let's explore narrative, emotion, and meaning."
+        Q1 = 'Why do stories influence people more than facts alone?'
+        Q2 = 'What makes a story memorable?'
+        Q3 = 'How do good storytellers keep attention?'
+        Q4 = 'Can storytelling be used to manipulate people?'
+        Expr = @(
+            @('To set the scene', 'To establish context at the start of a story.'),
+            @('To build suspense', 'To create tension and anticipation.'),
+            @('Plot twist', 'An unexpected change in the narrative.'),
+            @('Relatable character', 'A character people emotionally connect with.'),
+            @('To keep someone hooked', "To hold someone's attention strongly."),
+            @('Moral of the story', 'The main lesson communicated.')
+        )
+    },
+    @{
+        Number = 44
+        Title = 'Leadership & Influence'
+        Icon = 'fa-chess-king'
+        WarmTitle = 'Warm-up: Leading People'
+        WarmLead = "Let's examine leadership behavior, trust, and impact."
+        Q1 = 'What separates real leadership from authority?'
+        Q2 = 'How is trust built inside a team?'
+        Q3 = 'Is charisma more important than competence?'
+        Q4 = 'Can anyone learn to influence others positively?'
+        Expr = @(
+            @('To lead by example', 'To influence through actions, not just words.'),
+            @('To earn trust', 'To gain confidence through consistent behavior.'),
+            @('To delegate effectively', 'To assign responsibilities clearly and strategically.'),
+            @('Accountability', 'Taking responsibility for decisions and outcomes.'),
+            @('To motivate a team', 'To inspire people to perform well together.'),
+            @('To call the shots', 'To make the final decisions.')
+        )
+    },
+    @{
+        Number = 45
+        Title = 'Winning & Playing Fair'
+        Icon = 'fa-trophy'
+        WarmTitle = 'Warm-up: Victory and Integrity'
+        WarmLead = "Let's debate competition, integrity, and respect."
+        Q1 = 'Is winning always the main objective?'
+        Q2 = 'Why do some people cheat even when they can win fairly?'
+        Q3 = 'What does fair play look like outside sports?'
+        Q4 = 'Can you lose and still succeed ethically?'
+        Expr = @(
+            @('Fair play', 'Competing honestly and respectfully.'),
+            @('To bend the rules', 'To stretch rules without fully breaking them.'),
+            @('Win at all costs', 'To prioritize victory over ethics.'),
+            @('Sportsmanship', 'Respectful conduct in competition.'),
+            @('Level playing field', 'A fair context with equal opportunity.'),
+            @('To take the high road', 'To choose the ethical path.')
+        )
+    },
+    @{
+        Number = 46
+        Title = 'Identity & Who We Are'
+        Icon = 'fa-id-card'
+        WarmTitle = 'Warm-up: The Self We Show'
+        WarmLead = "Let's talk about self-image, belonging, and change."
+        Q1 = 'Is identity fixed, or always evolving?'
+        Q2 = 'How do culture and language shape who we are?'
+        Q3 = 'What is the difference between fitting in and being authentic?'
+        Q4 = 'Can people reinvent themselves without losing their core?'
+        Expr = @(
+            @('Sense of self', 'Your internal understanding of who you are.'),
+            @('Core values', 'Principles that guide your choices.'),
+            @('Self-image', 'How you see yourself.'),
+            @('To fit in', 'To be socially accepted by a group.'),
+            @('To stand out', 'To be distinct from others.'),
+            @('To reinvent yourself', 'To significantly reshape your identity or path.')
+        )
+    },
+    @{
+        Number = 47
+        Title = 'Humor & The Power of Laughter'
+        Icon = 'fa-face-laugh-beam'
+        WarmTitle = 'Warm-up: Why We Laugh'
+        WarmLead = "Let's discuss laughter, connection, and social boundaries."
+        Q1 = 'Why does humor reduce tension?'
+        Q2 = 'Where is the line between funny and offensive?'
+        Q3 = 'Can humor help in difficult conversations?'
+        Q4 = "What does someone's humor reveal about them?"
+        Expr = @(
+            @('To crack a joke', 'To say something funny.'),
+            @('Comic relief', 'Humor that reduces stress in serious moments.'),
+            @('Inside joke', 'A joke understood mainly by a specific group.'),
+            @('Punchline', 'The final and funniest part of a joke.'),
+            @('To laugh something off', 'To treat a problem lightly with humor.'),
+            @('Sense of humor', "A person's ability to appreciate or create humor.")
+        )
+    },
+    @{
+        Number = 48
+        Title = 'Comfort Zones & Personal Growth'
+        Icon = 'fa-mountain'
+        WarmTitle = 'Warm-up: Safe or Stuck?'
+        WarmLead = "Let's explore risk, discomfort, and personal development."
+        Q1 = 'Can growth happen without discomfort?'
+        Q2 = 'Why do people stay in familiar situations too long?'
+        Q3 = 'How can you take risks without being reckless?'
+        Q4 = 'What does a personal breakthrough look like?'
+        Expr = @(
+            @('Comfort zone', 'A familiar, low-risk environment.'),
+            @('To take a leap', 'To make a bold decision despite uncertainty.'),
+            @('Growing pains', 'Difficulties that come with development.'),
+            @('To play it safe', 'To avoid risks and choose security.'),
+            @('Breakthrough', 'A significant step forward after struggle.'),
+            @('To step out of your comfort zone', 'To do something unfamiliar or challenging.')
+        )
+    }
+)
+
+function Esc([string]$s) { return $s.Replace("'", "\'") }
+
+foreach ($l in $lessons) {
+    $exprHtml = ($l.Expr | ForEach-Object {
+        "<div class=""flashcard""><div class=""flashcard-inner""><div class=""flashcard-front""><h4 class=""text-2xl font-bold"">$($_[0])</h4></div><div class=""flashcard-back""><p class=""text-xl"">$($_[1])</p></div></div></div>"
+    }) -join ''
+
+    $vocabJs = ($l.Expr | ForEach-Object -Begin { $i = 1 } -Process {
+        "{ id: 'w$i', text: '" + (Esc $_[0]) + "' }"; $i++
+    }) -join ', '
+
+    $situJs = ($l.Expr | ForEach-Object {
+        $e = Esc $_[0]
+        "{ text: ""This lesson explores <span class='drop-zone' data-answer='$e'>________</span> through real discussion."", answer: '$e' }"
+    }) -join ', '
+
+    $html = @'
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation Class - Lesson __LESSON__: __TITLE__</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; background-color: #111827; }.slide { display: none; }.slide.active { display: block; animation: fadeIn 0.5s ease-in-out; } @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }.flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }.flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }.flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }.flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; border: 1px solid #4b5563; }.flashcard-front { background-color: #1f2937; color: #22c55e; text-align: center; }.flashcard-back { background-color: #166534; color: white; transform: rotateY(180deg); text-align: center; }.lyrics-box { max-height: 420px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #22c55e #1f2937; }.word-pill { cursor: grab; background-color: #16a34a; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }.word-pill:active { cursor: grabbing; transform: scale(0.95); }.drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #22c55e; text-align: center; color: #86efac; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }.drop-zone.hover { border-color: #86efac; background-color: rgba(34, 197, 94, 0.1); }.drop-zone.filled { border-bottom-style: solid; }.answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }.answer-btn:hover { color: #22c55e; }.debate-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }.debate-card:hover { transform: translateY(-2px); }.debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }</style>
+    <link rel="stylesheet" href="conversation-lesson-theme.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700"><div class="container mx-auto px-6 py-3 flex justify-between items-center"><a href="conversation.html" class="text-lg font-bold text-green-500 hover:text-green-400 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back</a><h1 class="text-xl font-semibold text-center">Lesson __LESSON__: __TITLE__</h1><div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 14</div></div><div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-300 ease-in-out"></div></div></header>
+    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+        <div class="slide active"><div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas __ICON__"></i> __WARM_TITLE__</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-3xl mx-auto space-y-6 text-2xl"><p class="font-semibold text-gray-300">__WARM_LEAD__</p><p><i class="fas fa-lightbulb mr-2 text-green-500"></i> __Q1__</p><p><i class="fas fa-brain mr-2 text-green-500"></i> __Q2__</p><p><i class="fas fa-scale-balanced mr-2 text-green-500"></i> __Q3__</p><p><i class="fas fa-compass mr-2 text-green-500"></i> __Q4__</p></div></div></div>
+        <div class="slide"><div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-book-open"></i> Key Expressions</h2><div class="flashcard-grid max-w-6xl mx-auto">__EXPRESSIONS__</div></div></div>
+        <div class="slide"><h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-music text-yellow-500"></i> Song 1: Open Discussion Track <span class="text-xl text-gray-400">- Class Selection</span></h2><div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto"><div class="mb-4 bg-green-900/30 p-4 rounded-lg border border-green-500/30"><p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-green-400"></i> Use this slot to connect the theme with language in context.</p></div><div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-green-500"><p>Theme keyword: <input type="text" class="w-44 border-b-2 text-center bg-transparent border-gray-500 focus:border-green-400 outline-none"> <button class="answer-btn" data-answer="insight"><i class="fas fa-eye"></i></button></p><p>Main conflict: <input type="text" class="w-44 border-b-2 text-center bg-transparent border-gray-500 focus:border-green-400 outline-none"> <button class="answer-btn" data-answer="tension"><i class="fas fa-eye"></i></button></p><p>Message: <input type="text" class="w-44 border-b-2 text-center bg-transparent border-gray-500 focus:border-green-400 outline-none"> <button class="answer-btn" data-answer="reflection"><i class="fas fa-eye"></i></button></p></div></div></div></div>
+        <div class="slide"><div class="text-center"><h2 class="text-4xl font-bold mb-2 text-green-500"><i class="fas fa-comments"></i> Song 1 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">Language and meaning</p><div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6"><div class="debate-card"><span class="debate-label bg-green-500/20 text-green-400">Personal</span><p class="text-xl"><i class="fas fa-user mr-2 text-green-400"></i> Which lyric idea connected with your experience?</p></div><div class="debate-card"><span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span><p class="text-xl"><i class="fas fa-brain mr-2 text-blue-400"></i> What hidden message can we infer from the song?</p></div><div class="debate-card"><span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span><p class="text-xl"><i class="fas fa-comment-dots mr-2 text-purple-400"></i> Is the message optimistic, realistic, or critical?</p></div><div class="debate-card"><span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span><p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-yellow-400"></i> Can music change people's views about this topic?</p></div></div></div></div>
+        <div class="slide"><div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-route"></i> Theme in Context</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto text-left"><p class="text-xl mb-4 text-green-400 font-bold">__TITLE__ influences how people think, decide, and communicate.</p><p class="text-2xl mb-6">In real life, this topic appears in family decisions, education, social media, work, and public discussions. The key is learning to argue with clarity and empathy.</p><div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6"><div class="p-4 bg-gray-700 rounded-lg border-l-4 border-blue-500"><b>Risk:</b> oversimplifying complex ideas.</div><div class="p-4 bg-gray-700 rounded-lg border-l-4 border-orange-500"><b>Opportunity:</b> discussing complexity with better language.</div></div><p class="mt-8 text-2xl text-center font-semibold italic">Good conversation is not about winning. It is about understanding.</p></div></div></div>
+        <div class="slide"><h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-music text-blue-500"></i> Song 2: Critical Listening <span class="text-xl text-gray-400">- Class Selection</span></h2><div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto"><div class="mb-4 bg-blue-900/30 p-4 rounded-lg border border-blue-500/30"><p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-blue-400"></i> Focus on tone, argument, and implied values in the lyrics.</p></div><div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-blue-500"><p>The speaker's tone feels <input type="text" class="w-44 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="ambivalent"><i class="fas fa-eye"></i></button></p><p>The strongest image is <input type="text" class="w-44 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="contrast"><i class="fas fa-eye"></i></button></p><p>The implied value is <input type="text" class="w-44 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="integrity"><i class="fas fa-eye"></i></button></p></div></div></div></div>
+        <div class="slide"><div class="text-center"><h2 class="text-4xl font-bold mb-2 text-green-500"><i class="fas fa-comments"></i> Song 2 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">Interpretation and evidence</p><div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6"><div class="debate-card"><span class="debate-label bg-blue-500/20 text-blue-400">Personal</span><p class="text-xl"><i class="fas fa-user mr-2 text-blue-400"></i> Did your interpretation change after hearing classmates?</p></div><div class="debate-card"><span class="debate-label bg-green-500/20 text-green-400">Reflection</span><p class="text-xl"><i class="fas fa-brain mr-2 text-green-400"></i> Which argument was best supported by lyric evidence?</p></div><div class="debate-card"><span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span><p class="text-xl"><i class="fas fa-comment-dots mr-2 text-purple-400"></i> Is interpretation mostly subjective or evidence-based?</p></div><div class="debate-card"><span class="debate-label bg-red-500/20 text-red-400">Debate</span><p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-red-400"></i> Should we separate artist intention from audience meaning?</p></div></div></div></div>
+        <div class="slide"><div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-brain"></i> Open Reflection</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-8 text-2xl"><p>What makes this topic difficult to discuss without polarization?</p><p>How can language become more precise and less emotional?</p><p>What assumption did you question during this lesson?</p><p>What viewpoint do you still need to understand better?</p></div></div></div>
+        <div class="slide"><h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-music text-cyan-500"></i> Song 3: Synthesis Track <span class="text-xl text-gray-400">- Class Selection</span></h2><div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto"><div class="mb-4 bg-cyan-900/30 p-4 rounded-lg border border-cyan-500/30"><p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-cyan-400"></i> Use this final song to consolidate vocabulary and opinion.</p></div><div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-cyan-500"><p>Main symbol: <input type="text" class="w-44 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="journey"><i class="fas fa-eye"></i></button></p><p>Main emotion: <input type="text" class="w-44 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="tension"><i class="fas fa-eye"></i></button></p><p>Main takeaway: <input type="text" class="w-44 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="balance"><i class="fas fa-eye"></i></button></p></div></div></div></div>
+        <div class="slide"><div class="text-center"><h2 class="text-4xl font-bold mb-2 text-green-500"><i class="fas fa-comments"></i> Song 3 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">Synthesis and position</p><div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6"><div class="debate-card"><span class="debate-label bg-cyan-500/20 text-cyan-400">Personal</span><p class="text-xl"><i class="fas fa-user mr-2 text-cyan-400"></i> Which expression from today felt most useful to you?</p></div><div class="debate-card"><span class="debate-label bg-yellow-500/20 text-yellow-400">Reflection</span><p class="text-xl"><i class="fas fa-brain mr-2 text-yellow-400"></i> What idea from this lesson should people discuss more often?</p></div><div class="debate-card"><span class="debate-label bg-green-500/20 text-green-400">Opinion</span><p class="text-xl"><i class="fas fa-comment-dots mr-2 text-green-400"></i> Has your position changed since the warm-up?</p></div><div class="debate-card"><span class="debate-label bg-purple-500/20 text-purple-400">Debate</span><p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-purple-400"></i> What is the strongest counterargument to your current view?</p></div></div></div></div>
+        <div class="slide"><div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-puzzle-piece"></i> Practice: Match the Expressions</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Drag the expression to the correct sentence:</p><div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div><div id="matching-activity" class="space-y-8 text-left"></div><button id="check-answers-btn" class="mt-12 bg-green-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-green-700 shadow-lg">Check Answers</button></div></div></div>
+        <div class="slide"><div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-compass-drafting"></i> Your Position</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto"><div class="flex flex-col md:flex-row gap-8 items-center"><div class="flex-1 space-y-4 text-left text-xl"><p><b class="text-green-500">Think about it:</b> state a position, justify it, and address one opposing idea respectfully.</p><p>1. What is your current position on "__TITLE__"?</p><p>2. Which expression helps you explain that position best?</p><p>3. What is one practical implication in real life?</p></div><div class="w-full md:w-1/3 bg-gray-700 p-4 rounded-xl border border-green-500/50 text-center"><i class="fas fa-rocket text-green-500 text-4xl mb-2"></i><p class="italic">"Strong opinions become stronger with better language."</p></div></div></div></div></div>
+        <div class="slide"><div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-pen-nib"></i> Homework</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto"><p class="text-2xl mb-6 text-gray-300">Write a short text (120-180 words) explaining your opinion about "__TITLE__".</p><div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg"><p><strong>Use at least 3 expressions</strong> from today's lesson.</p></div></div></div></div>
+        <div class="slide"><div class="text-center flex flex-col items-center justify-center h-full"><i class="fas __ICON__ text-green-500 text-7xl mb-6"></i><h2 class="text-5xl font-bold mb-4 text-gray-100">Well Done!</h2><p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">"Great conversations begin where certainty ends."</p><div class="pt-8"><button id="finish-lesson-btn-main" class="bg-green-600 hover:bg-green-500 text-white text-2xl font-bold py-4 px-12 rounded-full transition-all transform hover:scale-105 shadow-lg">Finalizar e Sair <i class="fas fa-check-circle ml-2"></i></button></div></div></div>
+    </main>
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20"><div class="container mx-auto px-8 h-20 flex justify-between items-center"><button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button><button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Proximo</button></div></footer>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script><script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script><script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script><script src="../js/firebase-config.js"></script><script src="../js/progress-manager.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => { const moduleId = 'conversation', lessonNumber = __LESSON__, slides = document.querySelectorAll('.slide'), prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn-main'), progressBar = document.getElementById('progress-bar'), slideCounter = document.getElementById('slide-counter'); let currentSlide = 0; function showSlide(index) { window.scrollTo({ top: 0, behavior: 'smooth' }); slides.forEach((s, i) => s.classList.toggle('active', i === index)); if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`; if (slideCounter) slideCounter.innerText = `${index + 1} / ${slides.length}`; if (prevBtn) prevBtn.disabled = index === 0; const isLastSlide = index === slides.length - 1; if (nextBtn) nextBtn.style.display = isLastSlide ? 'none' : 'block'; } if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } }; if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } }; if (finishLessonBtn) finishLessonBtn.onclick = () => { finishLessonBtn.disabled = true; finishLessonBtn.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>'; if (typeof markLessonAsComplete === 'function') markLessonAsComplete(moduleId, lessonNumber); else { console.error('Funcao markLessonAsComplete nao encontrada.'); localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true'); window.location.href = 'conversation.html'; } }; document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped'))); document.querySelectorAll('.answer-btn').forEach(button => button.addEventListener('click', () => { const inputField = button.previousElementSibling; if (inputField) { inputField.value = button.dataset.answer; inputField.classList.add('text-green-400', 'font-bold'); } })); const wordBank = document.getElementById('word-bank'), activityContainer = document.getElementById('matching-activity'), checkBtn = document.getElementById('check-answers-btn'); const vocabulary = [__VOCAB_JS__]; const situations = [__SITUATIONS_JS__]; vocabulary.sort(() => Math.random() - 0.5).forEach(word => { const pill = document.createElement('div'); pill.className = 'word-pill'; pill.draggable = true; pill.innerText = word.text; pill.id = `word-${word.id}`; pill.addEventListener('dragstart', (e) => e.dataTransfer.setData('text/plain', word.text)); wordBank.appendChild(pill); }); activityContainer.innerHTML = situations.map(s => `<p class="text-xl text-gray-200">${s.text}</p>`).join(''); const dropZones = document.querySelectorAll('.drop-zone'); dropZones.forEach(zone => { zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('hover'); }); zone.addEventListener('dragleave', () => zone.classList.remove('hover')); zone.addEventListener('drop', (e) => { e.preventDefault(); zone.classList.remove('hover'); zone.innerText = e.dataTransfer.getData('text/plain'); zone.classList.add('filled'); }); zone.addEventListener('click', () => { zone.innerText = '________'; zone.classList.remove('filled'); zone.style.color = '#86efac'; }); }); if (checkBtn) checkBtn.onclick = () => { dropZones.forEach(zone => { if (zone.innerText.trim().toLowerCase() === zone.dataset.answer.toLowerCase()) zone.style.color = '#10b981'; else if (zone.innerText !== '________') zone.style.color = '#ef4444'; }); }; showSlide(0); });</script>
+    <script src="../js/flashcard-pronunciation.js"></script><script src="../js/lesson-flashcard-save.js"></script><script src="conversation-lesson-theme.js"></script>
+</body>
+</html>
+'@
+
+    $html = $html.Replace('__LESSON__', [string]$l.Number)
+    $html = $html.Replace('__TITLE__', $l.Title)
+    $html = $html.Replace('__ICON__', $l.Icon)
+    $html = $html.Replace('__WARM_TITLE__', $l.WarmTitle)
+    $html = $html.Replace('__WARM_LEAD__', $l.WarmLead)
+    $html = $html.Replace('__Q1__', $l.Q1)
+    $html = $html.Replace('__Q2__', $l.Q2)
+    $html = $html.Replace('__Q3__', $l.Q3)
+    $html = $html.Replace('__Q4__', $l.Q4)
+    $html = $html.Replace('__EXPRESSIONS__', $exprHtml)
+    $html = $html.Replace('__VOCAB_JS__', $vocabJs)
+    $html = $html.Replace('__SITUATIONS_JS__', $situJs)
+
+    $out = "conversation\licao-{0:d2}.html" -f $l.Number
+    Set-Content -Path $out -Value $html -Encoding UTF8
+}
