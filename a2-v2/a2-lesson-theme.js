@@ -464,10 +464,16 @@
                     const start = item.sentence.split(item.answer)[0] || 'I need to use ';
                     return `<button type="button" class="match-option" data-match-side="left" data-match-id="${index}"><strong>${index + 1}.</strong> ${start}</button>`;
                 }).join('');
-                const right = items.map((item, index) => {
+                // Build right side entries and shuffle their order so matching isn't obvious
+                let rightItems = items.map((item, index) => {
                     const ending = `${item.answer}${item.sentence.split(item.answer)[1] || ''}`;
-                    return `<button type="button" class="match-option" data-match-side="right" data-match-id="${index}"><strong>${String.fromCharCode(65 + index)}.</strong> ${ending}</button>`;
-                }).reverse().join('');
+                    return { id: index, text: ending };
+                });
+                for (let i = rightItems.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [rightItems[i], rightItems[j]] = [rightItems[j], rightItems[i]];
+                }
+                const right = rightItems.map((it) => `<button type="button" class="match-option" data-match-side="right" data-match-id="${it.id}">${it.text}</button>`).join('');
                 return `
                     <div class="activity-card md:col-span-2" data-matching-activity>
                         <div class="matching-board">
@@ -654,8 +660,26 @@
         `);
     }
 
-    function buildOralTranslationSlide(bank) {
-        const phrases = bank.pt.map((phrase, index) => `
+    function getOralPhrases(lessonNumber, bank) {
+        // Custom overrides for specific lessons
+        if (lessonNumber === 2) {
+            return [
+                'Primeiro, eu fiz o check-in no hotel.',
+                'Depois, nós caminhamos pela praia.',
+                'Almoçamos em um restaurante pequeno.',
+                'Tirei muitas fotos durante a tarde.',
+                'Comprei lembrancinhas para a família.',
+                'À noite, assistimos ao pôr do sol.',
+                'No dia seguinte, visitei um museu.',
+                'Finalmente, pegamos o avião de volta para casa.'
+            ];
+        }
+        return bank.pt;
+    }
+
+    function buildOralTranslationSlide(bank, lessonNumber) {
+        const phrasesList = getOralPhrases(lessonNumber, bank);
+        const phrases = phrasesList.map((phrase, index) => `
             <div class="activity-card oral-translation-card">
                 <span class="generated-question-number">${index + 1}</span>
                 <span>${phrase}</span>
@@ -736,7 +760,7 @@
             insertBeforeClosingSlides(buildDialogSlide(bank));
         }
         if (!document.querySelector('.a2-generated-slide[data-title="Oral Translation"]')) {
-            insertBeforeClosingSlides(buildOralTranslationSlide(bank));
+            insertBeforeClosingSlides(buildOralTranslationSlide(bank, lessonNumber));
         }
 
         document.addEventListener('DOMContentLoaded', () => {
