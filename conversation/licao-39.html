@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="pt-BR">
 
@@ -295,7 +295,7 @@
 
                 <div class="mb-4 bg-green-900/30 p-4 rounded-lg border border-green-500/30">
                     <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-green-400"></i>
-                        "My Hero" celebrates ordinary people who act bravely and consistently — everyday heroes.
+                        "My Hero" celebrates ordinary people who act bravely and consistently â€” everyday heroes.
                     </p>
                 </div>
 
@@ -672,7 +672,7 @@
                 if (typeof markLessonAsComplete === 'function') {
                     markLessonAsComplete(moduleId, lessonNumber);
                 } else {
-                    console.error('Função markLessonAsComplete não encontrada.');
+                    console.error('FunÃ§Ã£o markLessonAsComplete nÃ£o encontrada.');
                     localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true');
                     window.location.href = 'conversation.html';
                 }
@@ -742,16 +742,11 @@
                 zone.addEventListener('click', () => {
                     zone.innerText = '________';
                     zone.classList.remove('filled');
-                    zone.style.color = '#86efac';
+                    zone.style.color = '#86efac'; zone.style.backgroundColor = 'transparent'; zone.style.borderRadius = '0';
                 });
             });
 
-            if (checkBtn) checkBtn.onclick = () => {
-                dropZones.forEach(zone => {
-                    if (zone.innerText.trim().toLowerCase() === zone.dataset.answer.toLowerCase()) zone.style.color = '#10b981';
-                    else if (zone.innerText !== '________') zone.style.color = '#ef4444';
-                });
-            };
+            if (checkBtn) checkBtn.onclick = () => { let correctCount = 0; let answeredCount = 0; dropZones.forEach(zone => { const current = zone.innerText.trim(); const expected = (zone.dataset.answer || '').trim(); if (current !== '________') answeredCount++; if (current.toLowerCase() === expected.toLowerCase()) { zone.style.color = '#10b981'; zone.style.fontWeight = '700'; zone.style.backgroundColor = 'rgba(16, 185, 129, 0.18)'; zone.style.borderRadius = '8px'; correctCount++; } else if (current !== '________') { zone.style.color = '#ef4444'; zone.style.fontWeight = '700'; zone.style.backgroundColor = 'rgba(239, 68, 68, 0.18)'; zone.style.borderRadius = '8px'; } else { zone.style.color = '#86efac'; zone.style.backgroundColor = 'transparent'; zone.style.borderRadius = '0'; zone.style.fontWeight = '700'; zone.style.backgroundColor = 'transparent'; zone.style.borderRadius = '0'; } }); const total = dropZones.length; const old = document.getElementById('practice-feedback'); if (old) old.remove(); const feedback = document.createElement('p'); feedback.id = 'practice-feedback'; feedback.className = 'mt-4 text-lg font-semibold'; feedback.style.color = correctCount === total ? '#10b981' : '#fbbf24'; feedback.innerText = 'Score: ' + correctCount + '/' + total + ' correct (' + answeredCount + ' answered).'; checkBtn.insertAdjacentElement('afterend', feedback); };
 
             // Utility: escape regex
             function escapeRegExp(string) {
@@ -762,7 +757,7 @@
             function makeBlanksInContainer(container, blanksCount = 5) {
                 if (!container) return;
                 const text = container.textContent || '';
-                const words = text.match(/\b[A-Za-zÀ-ÖØ-öø-ÿ']+\b/g) || [];
+                const words = text.match(/\b[A-Za-z']+\b/g) || [];
                 const stop = new Set(['the','and','that','with','this','your','you','for','are','was','from','have','just','they','their','theyre','youre','what','when','then','will','your','dont','cant','could','would','been','its','its','im','ive','a','an','in','on','of','to','is','be','as','by','at','or','we','i','he','she','it','my','me']);
 
                 const candidates = words.filter(w => w.length > 3 && !stop.has(w.toLowerCase()));
@@ -814,3 +809,6 @@
 </body>
 
 </html>
+
+
+

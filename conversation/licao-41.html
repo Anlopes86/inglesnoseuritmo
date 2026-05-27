@@ -1,36 +1,491 @@
 ﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversation Class - Lesson 41: The Paradox of Choice</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Inter', sans-serif; background-color: #111827; }.slide { display: none; }.slide.active { display: block; animation: fadeIn 0.5s ease-in-out; } @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }.flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }.flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }.flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }.flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; border: 1px solid #4b5563; }.flashcard-front { background-color: #1f2937; color: #22c55e; text-align: center; }.flashcard-back { background-color: #166534; color: white; transform: rotateY(180deg); text-align: center; }.lyrics-box { max-height: 420px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #22c55e #1f2937; }.word-pill { cursor: grab; background-color: #16a34a; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }.word-pill:active { cursor: grabbing; transform: scale(0.95); }.drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #22c55e; text-align: center; color: #86efac; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }.drop-zone.hover { border-color: #86efac; background-color: rgba(34, 197, 94, 0.1); }.drop-zone.filled { border-bottom-style: solid; }.answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }.answer-btn:hover { color: #22c55e; }.debate-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }.debate-card:hover { transform: translateY(-2px); }.debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }</style>
-    <link rel="stylesheet" href="conversation-lesson-theme.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conversation Class - Lesson 41: The Paradox of Choice</title>
+<script src="https://cdn.tailwindcss.com">
+</script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body { font-family: 'Inter', sans-serif; background-color: #111827; }.slide { display: none; }.slide.active { display: block; animation: fadeIn 0.5s ease-in-out; } @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }.flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }.flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }.flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }.flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; border: 1px solid #4b5563; }.flashcard-front { background-color: #1f2937; color: #22c55e; text-align: center; }.flashcard-back { background-color: #166534; color: white; transform: rotateY(180deg); text-align: center; }.lyrics-box { max-height: 420px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #22c55e #1f2937; }.blank { background: rgba(255,255,255,0.04); border-bottom: 2px dashed #9ca3af; padding: 0 0.35rem; font-weight: 700; color: #e6f4ea; }.reveal-btn { margin-left: 0.5rem; background: transparent; color: #9ca3af; border: none; padding: 0; border-radius: 0.15rem; font-weight: 700; cursor: pointer; }.reveal-btn:hover { color: #22c55e; }.reveal-btn[disabled] { opacity: 0.45; cursor: default; }.word-pill { cursor: grab; background-color: #16a34a; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }.word-pill:active { cursor: grabbing; transform: scale(0.95); }.drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #22c55e; text-align: center; color: #86efac; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }.drop-zone.hover { border-color: #86efac; background-color: rgba(34, 197, 94, 0.1); }.drop-zone.filled { border-bottom-style: solid; }.answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }.answer-btn:hover { color: #22c55e; }.debate-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }.debate-card:hover { transform: translateY(-2px); }.debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }</style>
+<link rel="stylesheet" href="conversation-lesson-theme.css">
 </head>
 <body class="bg-gray-900 text-white">
-    <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700"><div class="container mx-auto px-6 py-3 flex justify-between items-center"><a href="conversation.html" class="text-lg font-bold text-green-500 hover:text-green-400 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back</a><h1 class="text-xl font-semibold text-center">Lesson 41: The Paradox of Choice</h1><div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 14</div></div><div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-300 ease-in-out"></div></div></header>
-    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
-        <div class="slide active"><div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-code-branch"></i> Warm-up: Too Many Options</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-3xl mx-auto space-y-6 text-2xl"><p class="font-semibold text-gray-300">Let's talk about freedom, indecision, and modern decision-making.</p><p><i class="fas fa-lightbulb mr-2 text-green-500"></i> Do more options really make people happier?</p><p><i class="fas fa-brain mr-2 text-green-500"></i> When does choice become stressful?</p><p><i class="fas fa-scale-balanced mr-2 text-green-500"></i> Why do people regret decisions even after choosing carefully?</p><p><i class="fas fa-compass mr-2 text-green-500"></i> Is "good enough" sometimes better than "perfect"?</p></div></div></div>
-        <div class="slide"><div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-book-open"></i> Key Expressions</h2><div class="flashcard-grid max-w-6xl mx-auto"><div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Choice overload</h4></div><div class="flashcard-back"><p class="text-xl">Stress caused by having too many options.</p></div></div></div><div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To weigh pros and cons</h4></div><div class="flashcard-back"><p class="text-xl">To compare advantages and disadvantages.</p></div></div></div><div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To second-guess</h4></div><div class="flashcard-back"><p class="text-xl">To doubt a decision after making it.</p></div></div></div><div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Decision fatigue</h4></div><div class="flashcard-back"><p class="text-xl">Mental exhaustion from many decisions.</p></div></div></div><div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To narrow it down</h4></div><div class="flashcard-back"><p class="text-xl">To reduce many options to a few.</p></div></div></div><div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Good enough</h4></div><div class="flashcard-back"><p class="text-xl">Acceptable even if not perfect.</p></div></div></div></div></div></div>
-        <div class="slide"><h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-music text-yellow-500"></i> Song 1: Any Road <span class="text-xl text-gray-400">- George Harrison</span></h2><div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto"><div class="mb-4 rounded-xl overflow-hidden"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/search/Any%20Road%20George%20Harrison?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div><div class="mb-4 bg-green-900/30 p-4 rounded-lg border border-green-500/30"><p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-green-400"></i> Theme: when you do not know what you want, any road can seem acceptable.</p></div><div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-green-500"><p><b>Lyric focus (paraphrased):</b> uncertainty, movement, and searching for direction.</p><p>State of mind: <input type="text" class="w-44 border-b-2 text-center bg-transparent border-gray-500 focus:border-green-400 outline-none"> <button class="answer-btn" data-answer="uncertainty"><i class="fas fa-eye"></i></button></p><p>Main dilemma: <input type="text" class="w-44 border-b-2 text-center bg-transparent border-gray-500 focus:border-green-400 outline-none"> <button class="answer-btn" data-answer="direction"><i class="fas fa-eye"></i></button></p><p>Core message: <input type="text" class="w-44 border-b-2 text-center bg-transparent border-gray-500 focus:border-green-400 outline-none"> <button class="answer-btn" data-answer="purpose"><i class="fas fa-eye"></i></button></p></div></div></div></div>
-        <div class="slide"><div class="text-center"><h2 class="text-4xl font-bold mb-2 text-green-500"><i class="fas fa-comments"></i> Song 1 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">Indecision and direction</p><div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6"><div class="debate-card"><span class="debate-label bg-green-500/20 text-green-400">Personal</span><p class="text-xl"><i class="fas fa-user mr-2 text-green-400"></i> In which stage of life did you feel directionless?</p></div><div class="debate-card"><span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span><p class="text-xl"><i class="fas fa-brain mr-2 text-blue-400"></i> When does "any road" help, and when does it hurt?</p></div><div class="debate-card"><span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span><p class="text-xl"><i class="fas fa-comment-dots mr-2 text-purple-400"></i> Do many options create freedom or anxiety?</p></div><div class="debate-card"><span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span><p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-yellow-400"></i> Is it better to decide quickly or wait for full clarity?</p></div></div></div></div>
-        <div class="slide"><div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-route"></i> Theme in Context</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto text-left"><p class="text-xl mb-4 text-green-400 font-bold">The Paradox of Choice influences how people think, decide, and communicate.</p><p class="text-2xl mb-6">In real life, this topic appears in family decisions, education, social media, work, and public discussions. The key is learning to argue with clarity and empathy.</p><div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6"><div class="p-4 bg-gray-700 rounded-lg border-l-4 border-blue-500"><b>Risk:</b> oversimplifying complex ideas.</div><div class="p-4 bg-gray-700 rounded-lg border-l-4 border-orange-500"><b>Opportunity:</b> discussing complexity with better language.</div></div><p class="mt-8 text-2xl text-center font-semibold italic">Good conversation is not about winning. It is about understanding.</p></div></div></div>
-        <div class="slide"><h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-music text-blue-500"></i> Song 2: Sleep on the Floor <span class="text-xl text-gray-400">- The Lumineers</span></h2><div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto"><div class="mb-4 rounded-xl overflow-hidden"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/search/Sleep%20on%20the%20Floor%20The%20Lumineers?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div><div class="mb-4 bg-blue-900/30 p-4 rounded-lg border border-blue-500/30"><p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-blue-400"></i> Theme: making life decisions with another person and facing emotional consequences.</p></div><div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-blue-500"><p><b>Lyric focus (paraphrased):</b> urgency, shared risk, and choosing together.</p><p>Relationship dynamic: <input type="text" class="w-44 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="partnership"><i class="fas fa-eye"></i></button></p><p>Decision tension: <input type="text" class="w-44 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="trade-off"><i class="fas fa-eye"></i></button></p><p>Underlying value: <input type="text" class="w-44 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="commitment"><i class="fas fa-eye"></i></button></p></div></div></div></div>
-        <div class="slide"><div class="text-center"><h2 class="text-4xl font-bold mb-2 text-green-500"><i class="fas fa-comments"></i> Song 2 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">Deciding with another person</p><div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6"><div class="debate-card"><span class="debate-label bg-blue-500/20 text-blue-400">Personal</span><p class="text-xl"><i class="fas fa-user mr-2 text-blue-400"></i> What is harder: deciding alone or deciding as a couple?</p></div><div class="debate-card"><span class="debate-label bg-green-500/20 text-green-400">Reflection</span><p class="text-xl"><i class="fas fa-brain mr-2 text-green-400"></i> How can two people align different desires without losing identity?</p></div><div class="debate-card"><span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span><p class="text-xl"><i class="fas fa-comment-dots mr-2 text-purple-400"></i> Does love require compromise or radical authenticity?</p></div><div class="debate-card"><span class="debate-label bg-red-500/20 text-red-400">Debate</span><p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-red-400"></i> In major choices, should "we" come before "I"?</p></div></div></div></div>
-        <div class="slide"><div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-brain"></i> Open Reflection</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-8 text-2xl"><p>What makes this topic difficult to discuss without polarization?</p><p>How can language become more precise and less emotional?</p><p>What assumption did you question during this lesson?</p><p>What viewpoint do you still need to understand better?</p></div></div></div>
-        <div class="slide"><h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-music text-cyan-500"></i> Song 3: My Way <span class="text-xl text-gray-400">- Frank Sinatra</span></h2><div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto"><div class="mb-4 rounded-xl overflow-hidden"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/search/My%20Way%20Frank%20Sinatra?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div><div class="mb-4 bg-cyan-900/30 p-4 rounded-lg border border-cyan-500/30"><p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-cyan-400"></i> Theme: looking back at life decisions and reflecting on regret versus pride.</p></div><div class="mt-4 lyrics-box pr-4"><div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-cyan-500"><p><b>Lyric focus (paraphrased):</b> ownership, reflection, and acceptance of one’s path.</p><p>Life stance: <input type="text" class="w-44 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="ownership"><i class="fas fa-eye"></i></button></p><p>Main emotion: <input type="text" class="w-44 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="acceptance"><i class="fas fa-eye"></i></button></p><p>Final takeaway: <input type="text" class="w-44 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="no regrets"><i class="fas fa-eye"></i></button></p></div></div></div></div>
-        <div class="slide"><div class="text-center"><h2 class="text-4xl font-bold mb-2 text-green-500"><i class="fas fa-comments"></i> Song 3 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">Regret, responsibility, and peace</p><div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6"><div class="debate-card"><span class="debate-label bg-cyan-500/20 text-cyan-400">Personal</span><p class="text-xl"><i class="fas fa-user mr-2 text-cyan-400"></i> Which past decision do you now see with more maturity?</p></div><div class="debate-card"><span class="debate-label bg-yellow-500/20 text-yellow-400">Reflection</span><p class="text-xl"><i class="fas fa-brain mr-2 text-yellow-400"></i> Is there a difference between not regretting and not learning?</p></div><div class="debate-card"><span class="debate-label bg-green-500/20 text-green-400">Opinion</span><p class="text-xl"><i class="fas fa-comment-dots mr-2 text-green-400"></i> Is living "your way" courage, ego, or both?</p></div><div class="debate-card"><span class="debate-label bg-purple-500/20 text-purple-400">Debate</span><p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-purple-400"></i> Is it better to carry honest regrets or safe choices without identity?</p></div></div></div></div>
-        <div class="slide"><div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-puzzle-piece"></i> Practice: Match the Expressions</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Drag the expression to the correct sentence:</p><div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div><div id="matching-activity" class="space-y-8 text-left"></div><button id="check-answers-btn" class="mt-12 bg-green-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-green-700 shadow-lg">Check Answers</button></div></div></div>
-        <div class="slide"><div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-compass-drafting"></i> Your Position</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto"><div class="flex flex-col md:flex-row gap-8 items-center"><div class="flex-1 space-y-4 text-left text-xl"><p><b class="text-green-500">Think about it:</b> state a position, justify it, and address one opposing idea respectfully.</p><p>1. What is your current position on "The Paradox of Choice"?</p><p>2. Which expression helps you explain that position best?</p><p>3. What is one practical implication in real life?</p></div><div class="w-full md:w-1/3 bg-gray-700 p-4 rounded-xl border border-green-500/50 text-center"><i class="fas fa-rocket text-green-500 text-4xl mb-2"></i><p class="italic">"Strong opinions become stronger with better language."</p></div></div></div></div></div>
-        <div class="slide"><div class="text-center"><h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-pen-nib"></i> Homework</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto"><p class="text-2xl mb-6 text-gray-300">Write a short text (120-180 words) explaining your opinion about "The Paradox of Choice".</p><div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg"><p><strong>Use at least 3 expressions</strong> from today's lesson.</p></div></div></div></div>
-        <div class="slide"><div class="text-center flex flex-col items-center justify-center h-full"><i class="fas fa-code-branch text-green-500 text-7xl mb-6"></i><h2 class="text-5xl font-bold mb-4 text-gray-100">Well Done!</h2><p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">"Great conversations begin where certainty ends."</p><div class="pt-8"><button id="finish-lesson-btn-main" class="bg-green-600 hover:bg-green-500 text-white text-2xl font-bold py-4 px-12 rounded-full transition-all transform hover:scale-105 shadow-lg">Finish and Exit <i class="fas fa-check-circle ml-2"></i></button></div></div></div>
-    </main>
-    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20"><div class="container mx-auto px-8 h-20 flex justify-between items-center"><button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Previous</button><button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Next</button></div></footer>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script><script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script><script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script><script src="../js/firebase-config.js"></script><script src="../js/progress-manager.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', () => { const moduleId = 'conversation', lessonNumber = 41, slides = document.querySelectorAll('.slide'), prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn-main'), progressBar = document.getElementById('progress-bar'), slideCounter = document.getElementById('slide-counter'); let currentSlide = 0; function showSlide(index) { window.scrollTo({ top: 0, behavior: 'smooth' }); slides.forEach((s, i) => s.classList.toggle('active', i === index)); if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`; if (slideCounter) slideCounter.innerText = `${index + 1} / ${slides.length}`; if (prevBtn) prevBtn.disabled = index === 0; const isLastSlide = index === slides.length - 1; if (nextBtn) nextBtn.style.display = isLastSlide ? 'none' : 'block'; } if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } }; if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } }; if (finishLessonBtn) finishLessonBtn.onclick = () => { finishLessonBtn.disabled = true; finishLessonBtn.innerHTML = 'Saving... <i class="fas fa-spinner fa-spin ml-2"></i>'; if (typeof markLessonAsComplete === 'function') markLessonAsComplete(moduleId, lessonNumber); else { console.error('markLessonAsComplete function not found.'); localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true'); window.location.href = 'conversation.html'; } }; document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped'))); document.querySelectorAll('.answer-btn').forEach(button => button.addEventListener('click', () => { const inputField = button.previousElementSibling; if (inputField) { inputField.value = button.dataset.answer; inputField.classList.add('text-green-400', 'font-bold'); } })); const wordBank = document.getElementById('word-bank'), activityContainer = document.getElementById('matching-activity'), checkBtn = document.getElementById('check-answers-btn'); const vocabulary = [{ id: 'w1', text: 'Choice overload' }, { id: 'w2', text: 'To weigh pros and cons' }, { id: 'w3', text: 'To second-guess' }, { id: 'w4', text: 'Decision fatigue' }, { id: 'w5', text: 'To narrow it down' }, { id: 'w6', text: 'Good enough' }]; const situations = [{ text: "This lesson explores <span class='drop-zone' data-answer='Choice overload'>________</span> through real discussion.", answer: 'Choice overload' }, { text: "This lesson explores <span class='drop-zone' data-answer='To weigh pros and cons'>________</span> through real discussion.", answer: 'To weigh pros and cons' }, { text: "This lesson explores <span class='drop-zone' data-answer='To second-guess'>________</span> through real discussion.", answer: 'To second-guess' }, { text: "This lesson explores <span class='drop-zone' data-answer='Decision fatigue'>________</span> through real discussion.", answer: 'Decision fatigue' }, { text: "This lesson explores <span class='drop-zone' data-answer='To narrow it down'>________</span> through real discussion.", answer: 'To narrow it down' }, { text: "This lesson explores <span class='drop-zone' data-answer='Good enough'>________</span> through real discussion.", answer: 'Good enough' }]; vocabulary.sort(() => Math.random() - 0.5).forEach(word => { const pill = document.createElement('div'); pill.className = 'word-pill'; pill.draggable = true; pill.innerText = word.text; pill.id = `word-${word.id}`; pill.addEventListener('dragstart', (e) => e.dataTransfer.setData('text/plain', word.text)); wordBank.appendChild(pill); }); activityContainer.innerHTML = situations.map(s => `<p class="text-xl text-gray-200">${s.text}</p>`).join(''); const dropZones = document.querySelectorAll('.drop-zone'); dropZones.forEach(zone => { zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('hover'); }); zone.addEventListener('dragleave', () => zone.classList.remove('hover')); zone.addEventListener('drop', (e) => { e.preventDefault(); zone.classList.remove('hover'); zone.innerText = e.dataTransfer.getData('text/plain'); zone.classList.add('filled'); }); zone.addEventListener('click', () => { zone.innerText = '________'; zone.classList.remove('filled'); zone.style.color = '#86efac'; }); }); if (checkBtn) checkBtn.onclick = () => { dropZones.forEach(zone => { if (zone.innerText.trim().toLowerCase() === zone.dataset.answer.toLowerCase()) zone.style.color = '#10b981'; else if (zone.innerText !== '________') zone.style.color = '#ef4444'; }); }; showSlide(0); });</script>
-    <script src="../js/flashcard-pronunciation.js"></script><script src="../js/lesson-flashcard-save.js"></script><script src="conversation-lesson-theme.js"></script>
+<header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
+<div class="container mx-auto px-6 py-3 flex justify-between items-center">
+<a href="conversation.html" class="text-lg font-bold text-green-500 hover:text-green-400 flex items-center gap-2">
+<i class="fas fa-chevron-left">
+</i> Back</a>
+<h1 class="text-xl font-semibold text-center">Lesson 41: The Paradox of Choice</h1>
+<div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 14</div>
+</div>
+<div class="w-full bg-gray-700 h-1.5">
+<div id="progress-bar" class="bg-green-500 h-1.5 transition-all duration-300 ease-in-out">
+</div>
+</div>
+</header>
+<main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+<div class="slide active">
+<div class="text-center">
+<h2 class="text-4xl font-bold mb-6 text-green-500">
+<i class="fas fa-code-branch">
+</i> Warm-up: Too Many Options</h2>
+<div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-3xl mx-auto space-y-6 text-2xl">
+<p class="font-semibold text-gray-300">Let's talk about freedom, indecision, and modern decision-making.</p>
+<p>
+<i class="fas fa-lightbulb mr-2 text-green-500">
+</i> Do more options really make people happier?</p>
+<p>
+<i class="fas fa-brain mr-2 text-green-500">
+</i> When does choice become stressful?</p>
+<p>
+<i class="fas fa-scale-balanced mr-2 text-green-500">
+</i> Why do people regret decisions even after choosing carefully?</p>
+<p>
+<i class="fas fa-compass mr-2 text-green-500">
+</i> Is "good enough" sometimes better than "perfect"?</p>
+</div>
+</div>
+</div>
+<div class="slide">
+<div class="text-center">
+<h2 class="text-4xl font-bold mb-6 text-green-500">
+<i class="fas fa-book-open">
+</i> Key Expressions</h2>
+<div class="flashcard-grid max-w-6xl mx-auto">
+<div class="flashcard">
+<div class="flashcard-inner">
+<div class="flashcard-front">
+<h4 class="text-2xl font-bold">Choice overload</h4>
+</div>
+<div class="flashcard-back">
+<p class="text-xl">Stress caused by having too many options.</p>
+</div>
+</div>
+</div>
+<div class="flashcard">
+<div class="flashcard-inner">
+<div class="flashcard-front">
+<h4 class="text-2xl font-bold">To weigh pros and cons</h4>
+</div>
+<div class="flashcard-back">
+<p class="text-xl">To compare advantages and disadvantages.</p>
+</div>
+</div>
+</div>
+<div class="flashcard">
+<div class="flashcard-inner">
+<div class="flashcard-front">
+<h4 class="text-2xl font-bold">To second-guess</h4>
+</div>
+<div class="flashcard-back">
+<p class="text-xl">To doubt a decision after making it.</p>
+</div>
+</div>
+</div>
+<div class="flashcard">
+<div class="flashcard-inner">
+<div class="flashcard-front">
+<h4 class="text-2xl font-bold">Decision fatigue</h4>
+</div>
+<div class="flashcard-back">
+<p class="text-xl">Mental exhaustion from many decisions.</p>
+</div>
+</div>
+</div>
+<div class="flashcard">
+<div class="flashcard-inner">
+<div class="flashcard-front">
+<h4 class="text-2xl font-bold">To narrow it down</h4>
+</div>
+<div class="flashcard-back">
+<p class="text-xl">To reduce many options to a few.</p>
+</div>
+</div>
+</div>
+<div class="flashcard">
+<div class="flashcard-inner">
+<div class="flashcard-front">
+<h4 class="text-2xl font-bold">Good enough</h4>
+</div>
+<div class="flashcard-back">
+<p class="text-xl">Acceptable even if not perfect.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="slide">
+<h2 class="text-4xl font-bold mb-4 text-center text-green-500">
+<i class="fas fa-music text-yellow-500">
+</i> Song 1: Any Road <span class="text-xl text-gray-400">- George Harrison</span>
+</h2>
+<div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+<div class="mb-4 rounded-xl overflow-hidden">
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1KF9zf1ueWVFAVFs4QhY4Y?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
+</iframe>
+</div>
+<div class="mb-4 bg-green-900/30 p-4 rounded-lg border border-green-500/30">
+<p class="text-sm italic">
+<i class="fas fa-info-circle mr-2 text-green-400">
+</i> Theme: when you do not know what you want, any road can seem acceptable.</p>
+</div>
+<div class="mt-4 lyrics-box pr-4">
+<div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-green-500">
+<p>Oh I've been <span class="blank" data-answer="traveling">________</span><button class="reveal-btn" data-answer="traveling" aria-label="Reveal"><i class="fa fa-eye" aria-hidden="true"></i></button> on a boat and a plane</p>
+    <p>In a car on a bike with a bus and a train</p>
+    <p>Traveling there and traveling here</p>
+    <p>Everywhere in every gear</p>
+    <p>But oh Lord we pay the <span class="blank" data-answer="price">________</span><button class="reveal-btn" data-answer="price" aria-label="Reveal"><i class="fa fa-eye" aria-hidden="true"></i></button> with a</p>
+    <p>Spin of a <span class="blank" data-answer="wheel">________</span><button class="reveal-btn" data-answer="wheel" aria-label="Reveal"><i class="fa fa-eye" aria-hidden="true"></i></button> with a roll of a dice</p>
+    <p>Ah yeah you pay your fare</p>
+    <p>And if you don't know where you're going</p>
+    <p>Any road will take you there</p>
+    <p>And I've been traveling through the dirt and the grime</p>
+    <p>From the past to the future through the space and the time</p>
+    <p>Traveling deep beneath the waves in</p>
+    <p>Watery grottoes and mountainous caves</p>
+    <p>But oh Lord we've got to fight</p>
+    <p>With the thoughts in the head with the dark and the light</p>
+    <p>No use to stop and stare</p>
+    <p>And if you don't know where you're <span class="blank" data-answer="going">________</span><button class="reveal-btn" data-answer="going" aria-label="Reveal"><i class="fa fa-eye" aria-hidden="true"></i></button></p>
+    <p>Any road will take you <span class="blank" data-answer="there">________</span><button class="reveal-btn" data-answer="there" aria-label="Reveal"><i class="fa fa-eye" aria-hidden="true"></i></button></p>
+</div>
+</div>
+</div>
+</div>
+<div class="slide">
+<div class="text-center">
+<h2 class="text-4xl font-bold mb-2 text-green-500">
+<i class="fas fa-comments">
+</i> Song 1 Debate</h2>
+<p class="text-lg text-gray-400 mb-6 italic">Indecision and direction</p>
+<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="debate-card">
+<span class="debate-label bg-green-500/20 text-green-400">Personal</span>
+<p class="text-xl">
+<i class="fas fa-user mr-2 text-green-400">
+</i> In which stage of life did you feel directionless?</p>
+</div>
+<div class="debate-card">
+<span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
+<p class="text-xl">
+<i class="fas fa-brain mr-2 text-blue-400">
+</i> When does "any road" help, and when does it hurt?</p>
+</div>
+<div class="debate-card">
+<span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
+<p class="text-xl">
+<i class="fas fa-comment-dots mr-2 text-purple-400">
+</i> Do many options create freedom or anxiety?</p>
+</div>
+<div class="debate-card">
+<span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
+<p class="text-xl">
+<i class="fas fa-scale-balanced mr-2 text-yellow-400">
+</i> Is it better to decide quickly or wait for full clarity?</p>
+</div>
+</div>
+</div>
+</div>
+<div class="slide">
+<div class="text-center">
+<h2 class="text-4xl font-bold mb-6 text-green-500">
+<i class="fas fa-route">
+</i> Theme in Context</h2>
+<div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto text-left">
+<p class="text-xl mb-4 text-green-400 font-bold">Too many options do not only affect shopping choices. They shape identity, relationships, and long-term goals.</p>
+<p class="text-2xl mb-6">When everything feels possible, commitment feels risky. People delay decisions, compare themselves constantly, and confuse curiosity with direction.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 text-xl">
+<div class="p-4 bg-gray-700 rounded-lg border-l-4 border-blue-500">
+<b>In career:</b> keeping every door open can delay real growth.</div>
+<div class="p-4 bg-gray-700 rounded-lg border-l-4 border-orange-500">
+<b>In relationships:</b> fear of "missing out" can prevent emotional commitment.</div>
+<div class="p-4 bg-gray-700 rounded-lg border-l-4 border-purple-500">
+<b>In daily life:</b> small repeated choices can drain energy before important decisions.</div>
+<div class="p-4 bg-gray-700 rounded-lg border-l-4 border-green-500">
+<b>In mindset:</b> clarity often comes after commitment, not before it.</div>
+</div>
+<div class="mt-8 bg-gray-700 p-5 rounded-lg border border-green-500/40">
+<p class="text-2xl font-semibold mb-3">Debate Prompt Bank</p>
+<p class="text-xl">1. Is indecision a sign of intelligence or fear?</p>
+<p class="text-xl">2. At what point does freedom become a burden?</p>
+<p class="text-xl">3. Should we optimize choices, or simplify our standards?</p>
+</div>
+</div>
+</div>
+</div>
+<div class="slide">
+<h2 class="text-4xl font-bold mb-4 text-center text-green-500">
+<i class="fas fa-music text-blue-500">
+</i> Song 2: Sleep on the Floor <span class="text-xl text-gray-400">- The Lumineers</span>
+</h2>
+<div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+<div class="mb-4 rounded-xl overflow-hidden">
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1GyGbuygQglghYhqvakwsK?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
+</iframe>
+</div>
+<div class="mb-4 bg-blue-900/30 p-4 rounded-lg border border-blue-500/30">
+<p class="text-sm italic">
+<i class="fas fa-info-circle mr-2 text-blue-400">
+</i> Theme: making life decisions with another person and facing emotional consequences.</p>
+</div>
+<div class="mt-4 lyrics-box pr-4">
+<div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-blue-500">
+<p>Pack yourself a <span class="blank" data-answer="toothbrush">________</span><button class="reveal-btn" data-answer="toothbrush" aria-label="Reveal"><i class="fa fa-eye" aria-hidden="true"></i></button>, dear</p>
+    <p>Pack yourself a favorite blouse</p>
+    <p>Take a withdrawal slip</p>
+    <p>Take all of your <span class="blank" data-answer="savings">________</span><button class="reveal-btn" data-answer="savings" aria-label="Reveal"><i class="fa fa-eye" aria-hidden="true"></i></button> out</p>
+    <p>'Cause if we don't leave this town</p>
+    <p>We might never make it out</p>
+    <p>I was not born to <span class="blank" data-answer="drown">________</span><button class="reveal-btn" data-answer="drown" aria-label="Reveal"><i class="fa fa-eye" aria-hidden="true"></i></button></p>
+    <p>Baby, come on</p>
+    <p>Forget what Father Brennan said</p>
+    <p>We were not born in sin</p>
+    <p>Leave a note on your bed</p>
+    <p>Let your mother know you're safe</p>
+    <p>And by the time she wakes</p>
+    <p>We'll have driven through the state</p>
+    <p>We'll have driven through the night</p>
+    <p>Baby, come on</p>
+    <p>If the sun don't shine on me today</p>
+    <p>And if the <span class="blank" data-answer="subways">________</span><button class="reveal-btn" data-answer="subways" aria-label="Reveal"><i class="fa fa-eye" aria-hidden="true"></i></button> flood and bridges break</p>
+    <p>Will you lay yourself down and dig your <span class="blank" data-answer="grave">________</span><button class="reveal-btn" data-answer="grave" aria-label="Reveal"><i class="fa fa-eye" aria-hidden="true"></i></button></p>
+    <p>Or will you rail against the dying day?</p>
+</div>
+</div>
+</div>
+</div>
+<div class="slide">
+<div class="text-center">
+<h2 class="text-4xl font-bold mb-2 text-green-500">
+<i class="fas fa-comments">
+</i> Song 2 Debate</h2>
+<p class="text-lg text-gray-400 mb-6 italic">Deciding with another person</p>
+<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="debate-card">
+<span class="debate-label bg-blue-500/20 text-blue-400">Personal</span>
+<p class="text-xl">
+<i class="fas fa-user mr-2 text-blue-400">
+</i> What is harder: deciding alone or deciding as a couple?</p>
+</div>
+<div class="debate-card">
+<span class="debate-label bg-green-500/20 text-green-400">Reflection</span>
+<p class="text-xl">
+<i class="fas fa-brain mr-2 text-green-400">
+</i> How can two people align different desires without losing identity?</p>
+</div>
+<div class="debate-card">
+<span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
+<p class="text-xl">
+<i class="fas fa-comment-dots mr-2 text-purple-400">
+</i> Does love require compromise or radical authenticity?</p>
+</div>
+<div class="debate-card">
+<span class="debate-label bg-red-500/20 text-red-400">Debate</span>
+<p class="text-xl">
+<i class="fas fa-scale-balanced mr-2 text-red-400">
+</i> In major choices, should "we" come before "I"?</p>
+</div>
+</div>
+</div>
+</div>
+<div class="slide">
+<div class="text-center">
+<h2 class="text-4xl font-bold mb-6 text-green-500">
+<i class="fas fa-brain">
+</i> Open Reflection</h2>
+<div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-5xl mx-auto text-left">
+<p class="text-2xl mb-6 text-gray-300">Choose 2-3 prompts and push your answer beyond first impressions.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-2xl">
+<div class="p-4 rounded-lg bg-gray-700 border border-gray-600">What decision in your life looked rational but felt emotionally wrong?</div>
+<div class="p-4 rounded-lg bg-gray-700 border border-gray-600">Have you ever confused "more options" with "better options"?</div>
+<div class="p-4 rounded-lg bg-gray-700 border border-gray-600">Is regret caused more by bad choices or by unrealistic expectations?</div>
+<div class="p-4 rounded-lg bg-gray-700 border border-gray-600">How do social media and comparison culture intensify decision fatigue?</div>
+<div class="p-4 rounded-lg bg-gray-700 border border-gray-600">What personal rule could help you make difficult decisions faster?</div>
+<div class="p-4 rounded-lg bg-gray-700 border border-gray-600">Can choosing one path deeply be more liberating than keeping all paths open?</div>
+</div>
+</div>
+</div>
+</div>
+<div class="slide">
+<h2 class="text-4xl font-bold mb-4 text-center text-green-500">
+<i class="fas fa-music text-cyan-500">
+</i> Song 3: My Way <span class="text-xl text-gray-400">- Frank Sinatra</span>
+</h2>
+<div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+<div class="mb-4 rounded-xl overflow-hidden">
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3spdoTYpuCpmq19tuD0bOe?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
+</iframe>
+</div>
+<div class="mb-4 bg-cyan-900/30 p-4 rounded-lg border border-cyan-500/30">
+<p class="text-sm italic">
+<i class="fas fa-info-circle mr-2 text-cyan-400">
+</i> Theme: looking back at life decisions and reflecting on regret versus pride.</p>
+</div>
+<div class="mt-4 lyrics-box pr-4">
+<div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-cyan-500">
+<p>And now, the <span class="blank" data-answer="end">________</span><button class="reveal-btn" data-answer="end" aria-label="Reveal"><i class="fa fa-eye" aria-hidden="true"></i></button> is near</p>
+    <p>And so I face the final <span class="blank" data-answer="curtain">________</span><button class="reveal-btn" data-answer="curtain" aria-label="Reveal"><i class="fa fa-eye" aria-hidden="true"></i></button></p>
+    <p>My friend, I'll say it clear</p>
+    <p>I'll state my case, of which I'm certain</p>
+    <p>I've lived a life that's full</p>
+    <p>I travelled each and every <span class="blank" data-answer="highway">________</span><button class="reveal-btn" data-answer="highway" aria-label="Reveal"><i class="fa fa-eye" aria-hidden="true"></i></button></p>
+    <p>And more, much more than this</p>
+    <p>I did it my way</p>
+    <p><span class="blank" data-answer="Regrets">________</span><button class="reveal-btn" data-answer="Regrets" aria-label="Reveal"><i class="fa fa-eye" aria-hidden="true"></i></button>, I've had a few</p>
+    <p>But then again, too few to mention</p>
+    <p>I did what I had to do</p>
+    <p>And saw it through without exemption</p>
+    <p>I planned each charted course</p>
+    <p>Each careful step along the byway</p>
+    <p>And more, much more than this</p>
+    <p>I did it my way</p>
+    <p>Yes, there were times</p>
+    <p>I'm sure you knew</p>
+    <p>When I bit off</p>
+    <p>More than I could <span class="blank" data-answer="chew">________</span><button class="reveal-btn" data-answer="chew" aria-label="Reveal"><i class="fa fa-eye" aria-hidden="true"></i></button></p>
+</div>
+</div>
+</div>
+</div>
+<div class="slide">
+<div class="text-center">
+<h2 class="text-4xl font-bold mb-2 text-green-500">
+<i class="fas fa-comments">
+</i> Song 3 Debate</h2>
+<p class="text-lg text-gray-400 mb-6 italic">Regret, responsibility, and peace</p>
+<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="debate-card">
+<span class="debate-label bg-cyan-500/20 text-cyan-400">Personal</span>
+<p class="text-xl">
+<i class="fas fa-user mr-2 text-cyan-400">
+</i> Which past decision do you now see with more maturity?</p>
+</div>
+<div class="debate-card">
+<span class="debate-label bg-yellow-500/20 text-yellow-400">Reflection</span>
+<p class="text-xl">
+<i class="fas fa-brain mr-2 text-yellow-400">
+</i> Is there a difference between not regretting and not learning?</p>
+</div>
+<div class="debate-card">
+<span class="debate-label bg-green-500/20 text-green-400">Opinion</span>
+<p class="text-xl">
+<i class="fas fa-comment-dots mr-2 text-green-400">
+</i> Is living "your way" courage, ego, or both?</p>
+</div>
+<div class="debate-card">
+<span class="debate-label bg-purple-500/20 text-purple-400">Debate</span>
+<p class="text-xl">
+<i class="fas fa-scale-balanced mr-2 text-purple-400">
+</i> Is it better to carry honest regrets or safe choices without identity?</p>
+</div>
+</div>
+</div>
+</div>
+<div class="slide">
+<div class="text-center">
+<h2 class="text-4xl font-bold mb-6 text-green-500">
+<i class="fas fa-puzzle-piece">
+</i> Practice: Match the Expressions</h2>
+<div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+<p class="text-2xl mb-8 text-gray-300">Drag the expression to the correct sentence:</p>
+<div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700">
+</div>
+<div id="matching-activity" class="space-y-8 text-left">
+</div>
+<button id="check-answers-btn" class="mt-12 bg-green-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-green-700 shadow-lg">Check Answers</button>
+</div>
+</div>
+</div>
+<div class="slide">
+<div class="text-center">
+<h2 class="text-4xl font-bold mb-6 text-green-500">
+<i class="fas fa-compass-drafting">
+</i> Food for Thought</h2>
+<div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto">
+<div class="flex flex-col md:flex-row gap-8 items-center">
+<div class="flex-1 space-y-4 text-left text-xl">
+<p><b class="text-green-500">Think about it:</b> choosing one path always means giving up others. The challenge is deciding what kind of regret you can live with.</p>
+<p>1. Is it better to make an imperfect decision now or a perfect decision too late?</p>
+<p>2. In your life today, where do you need more courage: choosing or committing?</p>
+<p>3. What matters more to you right now: keeping options open or building depth in one direction?</p>
+</div>
+<div class="w-full md:w-1/3 bg-gray-700 p-4 rounded-xl border border-green-500/50 text-center">
+<i class="fas fa-rocket text-green-500 text-4xl mb-2">
+</i>
+<p class="italic">"Clarity often comes after commitment, not before it."</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="slide">
+<div class="text-center">
+<h2 class="text-4xl font-bold mb-6 text-green-500">
+<i class="fas fa-pen-nib">
+</i> Homework</h2>
+<div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto text-left">
+<p class="text-2xl mb-6 text-gray-300">Choose one writing path (120-180 words):</p>
+<div class="space-y-4 text-xl">
+<div class="bg-gray-700 p-4 rounded-lg border-l-4 border-green-500">
+<b>Option 1 - Personal Story:</b> Describe a real decision you delayed for too long. Explain what made it hard, what finally moved you, and what you learned.</div>
+<div class="bg-gray-700 p-4 rounded-lg border-l-4 border-blue-500">
+<b>Option 2 - Social Analysis:</b> Argue whether modern platforms (streaming, dating apps, social media, shopping apps) increase freedom or anxiety. Use concrete examples.</div>
+<div class="bg-gray-700 p-4 rounded-lg border-l-4 border-purple-500">
+<b>Option 3 - Philosophy in Practice:</b> Defend one rule for better decisions (for example: "choose values over options"). Explain how this rule would change daily life.</div>
+</div>
+<div class="text-left text-xl space-y-2 mt-5 bg-gray-700 p-4 rounded-lg">
+<p>
+<strong>Use at least 3 expressions</strong> from today's lesson.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="slide">
+<div class="text-center flex flex-col items-center justify-center h-full">
+<i class="fas fa-code-branch text-green-500 text-7xl mb-6">
+</i>
+<h2 class="text-5xl font-bold mb-4 text-gray-100">Well Done!</h2>
+<p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">"Great conversations begin where certainty ends."</p>
+<div class="pt-8">
+<button id="finish-lesson-btn-main" class="bg-green-600 hover:bg-green-500 text-white text-2xl font-bold py-4 px-12 rounded-full transition-all transform hover:scale-105 shadow-lg">Finish and Exit <i class="fas fa-check-circle ml-2">
+</i>
+</button>
+</div>
+</div>
+</div>
+</main>
+<footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
+<div class="container mx-auto px-8 h-20 flex justify-between items-center">
+<button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Previous</button>
+<button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Next</button>
+</div>
+</footer>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js">
+</script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js">
+</script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js">
+</script>
+<script src="../js/firebase-config.js">
+</script>
+<script src="../js/progress-manager.js">
+</script>
+<script>document.addEventListener('DOMContentLoaded', () => { const moduleId = 'conversation', lessonNumber = 41, slides = document.querySelectorAll('.slide'), prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn-main'), progressBar = document.getElementById('progress-bar'), slideCounter = document.getElementById('slide-counter'); let currentSlide = 0; function showSlide(index) { window.scrollTo({ top: 0, behavior: 'smooth' }); slides.forEach((s, i) => s.classList.toggle('active', i === index)); if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`; if (slideCounter) slideCounter.innerText = `${index + 1} / ${slides.length}`; if (prevBtn) prevBtn.disabled = index === 0; const isLastSlide = index === slides.length - 1; if (nextBtn) nextBtn.style.display = isLastSlide ? 'none' : 'block'; } if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } }; if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } }; if (finishLessonBtn) finishLessonBtn.onclick = () => { finishLessonBtn.disabled = true; finishLessonBtn.innerHTML = 'Saving... <i class="fas fa-spinner fa-spin ml-2"></i>'; if (typeof markLessonAsComplete === 'function') markLessonAsComplete(moduleId, lessonNumber); else { console.error('markLessonAsComplete function not found.'); localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true'); window.location.href = 'conversation.html'; } }; document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped'))); document.querySelectorAll('.answer-btn').forEach(button => button.addEventListener('click', () => { const inputField = button.previousElementSibling; if (inputField) { inputField.value = button.dataset.answer; inputField.classList.add('text-green-400', 'font-bold'); } })); const wordBank = document.getElementById('word-bank'), activityContainer = document.getElementById('matching-activity'), checkBtn = document.getElementById('check-answers-btn'); const vocabulary = [{ id: 'w1', text: 'Choice overload' }, { id: 'w2', text: 'To weigh pros and cons' }, { id: 'w3', text: 'To second-guess' }, { id: 'w4', text: 'Decision fatigue' }, { id: 'w5', text: 'To narrow it down' }, { id: 'w6', text: 'Good enough' }]; const situations = [{ text: "After comparing 50 online reviews, I had total <span class='drop-zone' data-answer='Choice overload'>________</span>.", answer: 'Choice overload' }, { text: "Before accepting the job offer, I needed <span class='drop-zone' data-answer='To weigh pros and cons'>________</span>.", answer: 'To weigh pros and cons' }, { text: "Even after choosing the apartment, she kept <span class='drop-zone' data-answer='To second-guess'>________</span>.", answer: 'To second-guess' }, { text: "By the end of the day, he could not decide what to eat because of <span class='drop-zone' data-answer='Decision fatigue'>________</span>.", answer: 'Decision fatigue' }, { text: "There were too many graduate programs, so I had <span class='drop-zone' data-answer='To narrow it down'>________</span> to three options.", answer: 'To narrow it down' }, { text: "We did not find the perfect plan, but we chose one that was <span class='drop-zone' data-answer='Good enough'>________</span> and moved forward.", answer: 'Good enough' }]; vocabulary.sort(() => Math.random() - 0.5).forEach(word => { const pill = document.createElement('div'); pill.className = 'word-pill'; pill.draggable = true; pill.innerText = word.text; pill.id = `word-${word.id}`; pill.addEventListener('dragstart', (e) => e.dataTransfer.setData('text/plain', word.text)); wordBank.appendChild(pill); }); activityContainer.innerHTML = situations.map(s => `<p class="text-xl text-gray-200">${s.text}</p>`).join(''); const dropZones = document.querySelectorAll('.drop-zone'); dropZones.forEach(zone => { zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('hover'); }); zone.addEventListener('dragleave', () => zone.classList.remove('hover')); zone.addEventListener('drop', (e) => { e.preventDefault(); zone.classList.remove('hover'); zone.innerText = e.dataTransfer.getData('text/plain'); zone.classList.add('filled'); }); zone.addEventListener('click', () => { zone.innerText = '________'; zone.classList.remove('filled'); zone.style.color = '#86efac'; zone.style.backgroundColor = 'transparent'; zone.style.borderRadius = '0'; }); }); if (checkBtn) checkBtn.onclick = () => { let correctCount = 0; let answeredCount = 0; dropZones.forEach(zone => { const current = zone.innerText.trim(); const expected = (zone.dataset.answer || '').trim(); if (current !== '________') answeredCount++; if (current.toLowerCase() === expected.toLowerCase()) { zone.style.color = '#10b981'; zone.style.fontWeight = '700'; zone.style.backgroundColor = 'rgba(16, 185, 129, 0.18)'; zone.style.borderRadius = '8px'; correctCount++; } else if (current !== '________') { zone.style.color = '#ef4444'; zone.style.fontWeight = '700'; zone.style.backgroundColor = 'rgba(239, 68, 68, 0.18)'; zone.style.borderRadius = '8px'; } else { zone.style.color = '#86efac'; zone.style.backgroundColor = 'transparent'; zone.style.borderRadius = '0'; zone.style.fontWeight = '700'; zone.style.backgroundColor = 'transparent'; zone.style.borderRadius = '0'; } }); const total = dropZones.length; const old = document.getElementById('practice-feedback'); if (old) old.remove(); const feedback = document.createElement('p'); feedback.id = 'practice-feedback'; feedback.className = 'mt-4 text-lg font-semibold'; feedback.style.color = correctCount === total ? '#10b981' : '#fbbf24'; feedback.innerText = 'Score: ' + correctCount + '/' + total + ' correct (' + answeredCount + ' answered).'; checkBtn.insertAdjacentElement('afterend', feedback); }; showSlide(0); });</script>
+<script>document.addEventListener('DOMContentLoaded', () => { const moduleId = 'conversation', lessonNumber = 41, slides = document.querySelectorAll('.slide'), prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn-main'), progressBar = document.getElementById('progress-bar'), slideCounter = document.getElementById('slide-counter'); let currentSlide = 0; function showSlide(index) { window.scrollTo({ top: 0, behavior: 'smooth' }); slides.forEach((s, i) => s.classList.toggle('active', i === index)); if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`; if (slideCounter) slideCounter.innerText = `${index + 1} / ${slides.length}`; if (prevBtn) prevBtn.disabled = index === 0; const isLastSlide = index === slides.length - 1; if (nextBtn) nextBtn.style.display = isLastSlide ? 'none' : 'block'; } if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } }; if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } }; if (finishLessonBtn) finishLessonBtn.onclick = () => { finishLessonBtn.disabled = true; finishLessonBtn.innerHTML = 'Saving... <i class="fas fa-spinner fa-spin ml-2"></i>'; if (typeof markLessonAsComplete === 'function') markLessonAsComplete(moduleId, lessonNumber); else { console.error('markLessonAsComplete function not found.'); localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true'); window.location.href = 'conversation.html'; } }; document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped'))); document.querySelectorAll('.answer-btn').forEach(button => button.addEventListener('click', () => { const inputField = button.previousElementSibling; if (inputField) { inputField.value = button.dataset.answer; inputField.classList.add('text-green-400', 'font-bold'); } })); document.querySelectorAll('.reveal-btn').forEach(button => button.addEventListener('click', () => { const span = button.previousElementSibling; if (span && span.classList.contains('blank')) { span.textContent = button.dataset.answer; button.disabled = true; button.innerHTML = '<i class=\"fa fa-check\" aria-hidden=\"true\"></i>'; } })); const wordBank = document.getElementById('word-bank'), activityContainer = document.getElementById('matching-activity'), checkBtn = document.getElementById('check-answers-btn'); const vocabulary = [{ id: 'w1', text: 'Choice overload' }, { id: 'w2', text: 'To weigh pros and cons' }, { id: 'w3', text: 'To second-guess' }, { id: 'w4', text: 'Decision fatigue' }, { id: 'w5', text: 'To narrow it down' }, { id: 'w6', text: 'Good enough' }]; const situations = [{ text: "After comparing 50 online reviews, I had total <span class='drop-zone' data-answer='Choice overload'>________</span>.", answer: 'Choice overload' }, { text: "Before accepting the job offer, I needed <span class='drop-zone' data-answer='To weigh pros and cons'>________</span>.", answer: 'To weigh pros and cons' }, { text: "Even after choosing the apartment, she kept <span class='drop-zone' data-answer='To second-guess'>________</span>.", answer: 'To second-guess' }, { text: "By the end of the day, he could not decide what to eat because of <span class='drop-zone' data-answer='Decision fatigue'>________</span>.", answer: 'Decision fatigue' }, { text: "There were too many graduate programs, so I had <span class='drop-zone' data-answer='To narrow it down'>________</span> to three options.", answer: 'To narrow it down' }, { text: "We did not find the perfect plan, but we chose one that was <span class='drop-zone' data-answer='Good enough'>________</span> and moved forward.", answer: 'Good enough' }]; vocabulary.sort(() => Math.random() - 0.5).forEach(word => { const pill = document.createElement('div'); pill.className = 'word-pill'; pill.draggable = true; pill.innerText = word.text; pill.id = `word-${word.id}`; pill.addEventListener('dragstart', (e) => e.dataTransfer.setData('text/plain', word.text)); wordBank.appendChild(pill); }); activityContainer.innerHTML = situations.map(s => `<p class="text-xl text-gray-200">${s.text}</p>`).join(''); const dropZones = document.querySelectorAll('.drop-zone'); dropZones.forEach(zone => { zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('hover'); }); zone.addEventListener('dragleave', () => zone.classList.remove('hover')); zone.addEventListener('drop', (e) => { e.preventDefault(); zone.classList.remove('hover'); zone.innerText = e.dataTransfer.getData('text/plain'); zone.classList.add('filled'); }); zone.addEventListener('click', () => { zone.innerText = '________'; zone.classList.remove('filled'); zone.style.color = '#86efac'; zone.style.backgroundColor = 'transparent'; zone.style.borderRadius = '0'; }); }); if (checkBtn) checkBtn.onclick = () => { let correctCount = 0; let answeredCount = 0; dropZones.forEach(zone => { const current = zone.innerText.trim(); const expected = (zone.dataset.answer || '').trim(); if (current !== '________') answeredCount++; if (current.toLowerCase() === expected.toLowerCase()) { zone.style.color = '#10b981'; zone.style.fontWeight = '700'; zone.style.backgroundColor = 'rgba(16, 185, 129, 0.18)'; zone.style.borderRadius = '8px'; correctCount++; } else if (current !== '________') { zone.style.color = '#ef4444'; zone.style.fontWeight = '700'; zone.style.backgroundColor = 'rgba(239, 68, 68, 0.18)'; zone.style.borderRadius = '8px'; } else { zone.style.color = '#86efac'; zone.style.backgroundColor = 'transparent'; zone.style.borderRadius = '0'; zone.style.fontWeight = '700'; zone.style.backgroundColor = 'transparent'; zone.style.borderRadius = '0'; } }); const total = dropZones.length; const old = document.getElementById('practice-feedback'); if (old) old.remove(); const feedback = document.createElement('p'); feedback.id = 'practice-feedback'; feedback.className = 'mt-4 text-lg font-semibold'; feedback.style.color = correctCount === total ? '#10b981' : '#fbbf24'; feedback.innerText = 'Score: ' + correctCount + '/' + total + ' correct (' + answeredCount + ' answered).'; checkBtn.insertAdjacentElement('afterend', feedback); }; showSlide(0); });</script>
+<script src="../js/flashcard-pronunciation.js">
+</script>
+<script src="../js/lesson-flashcard-save.js">
+</script>
+<script src="conversation-lesson-theme.js">
+</script>
 </body>
 </html>
+
+
+
+
