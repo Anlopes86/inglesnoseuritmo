@@ -150,8 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
             grid.innerHTML = '';
             lessonTitles.forEach((title, index) => {
                 const lessonNumber = index + 1;
-                const withinPack = lessonNumber <= lessonLimit;
-                const isCompleted = withinPack && progress[`lesson_${lessonNumber}`] === true;
+                // Consider a lesson part of the visible pack if it's within the student's
+                // declared lesson limit OR if the student already has it completed.
+                const withinPack = lessonNumber <= lessonLimit || progress[`lesson_${lessonNumber}`] === true;
+                const isCompleted = progress[`lesson_${lessonNumber}`] === true;
                 const state = !withinPack
                     ? 'locked'
                     : isCompleted
