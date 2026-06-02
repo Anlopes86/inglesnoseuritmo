@@ -3,23 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nova Eden</title>
+  <title>Nova Eden — Political Sustainability Simulator</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght=500;700;900&family=Inter:wght=400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-
     :root {
-      --bg: #050816;
-      --card: rgba(15, 23, 42, 0.78);
-      --border: rgba(148, 163, 184, 0.18);
+      --bg: #030712;
+      --card: rgba(10, 15, 30, 0.85);
+      --border: rgba(56, 189, 248, 0.2);
       --blue: #38bdf8;
       --text: #f8fafc;
-      --muted: #cbd5e1;
-      --danger: #fb7185;
-      --success: #4ade80;
+      --muted: #94a3b8;
+      --danger: #f43f5e;
+      --success: #10b981;
+      --gov-color: #fbbf24;
+      --sci-color: #a78bfa;
+      --cit-color: #f43f5e;
+      --gold: #f59e0b;
+      --gold-glow: rgba(245, 158, 11, 0.4);
     }
 
     * {
@@ -29,22 +33,24 @@
     }
 
     body {
-      background:
-      radial-gradient(circle at top, rgba(56,189,248,0.18), transparent 35%),
-      linear-gradient(180deg, #08111f 0%, #030712 100%);
+      background: linear-gradient(180deg, #040814 0%, #01040a 100%);
       color: var(--text);
       min-height: 100vh;
-      overflow-x: hidden;
       font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
     }
 
-    .background-grid {
+    body::before {
+      content: "";
       position: fixed;
       inset: 0;
-      background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
       pointer-events: none;
       z-index: 0;
     }
@@ -53,82 +59,94 @@
       position: relative;
       z-index: 2;
       width: 100%;
-      min-height: 100vh;
+      max-width: 1600px;
     }
 
     .slide {
       display: none;
-      min-height: 100vh;
       width: 100%;
-      padding: 60px;
-      position: relative;
-      overflow: hidden;
+      animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .slide.active {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: fade 0.7s ease;
+      display: block;
     }
 
-    @keyframes fade {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); filter: blur(4px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
     }
 
-    .hero {
-      text-align: center;
-      max-width: 1200px;
-      position: relative;
-      z-index: 3;
+    .glass {
+      background: var(--card);
+      backdrop-filter: blur(25px);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 60px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    /* ESTILO ESPECIAL EXCLUSIVO: GOLDEN AGE CELEBRATION */
+    .glass.golden-triumph {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 20, 5, 0.95) 100%);
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 80px var(--gold-glow), inset 0 1px 2px rgba(255, 255, 255, 0.1);
+      animation: goldenPulse 3s infinite alternate;
+    }
+
+    @keyframes goldenPulse {
+      0% { box-shadow: 0 0 60px rgba(245, 158, 11, 0.3); }
+      100% { box-shadow: 0 0 90px rgba(245, 158, 11, 0.6); }
     }
 
     .hero h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: clamp(5rem, 10vw, 9rem);
-      color: var(--blue);
-      margin-bottom: 30px;
-      text-shadow: 0 0 30px rgba(56,189,248,0.7);
+      font-size: 5.5rem;
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 0 0 40px rgba(56, 189, 248, 0.4);
       letter-spacing: 4px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    /* NOVA CLASSE PARA CONFIGURAR A IMAGEM DA HOME */
+    .hero-image {
+      display: block;
+      max-width: 100%;
+      width: 800px;
+      height: auto;
+      margin: 0 auto 40px auto;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.15);
     }
 
     .hero p {
-      font-size: clamp(1.4rem, 2vw, 2rem);
-      line-height: 1.9;
-      color: var(--muted);
-      margin-bottom: 28px;
-    }
-
-    .glass {
-      width: min(1500px, 95%);
-      background: var(--card);
-      backdrop-filter: blur(18px);
-      border: 1px solid var(--border);
-      border-radius: 32px;
-      padding: 45px;
-      box-shadow: 0 0 40px rgba(0,0,0,0.45);
+      font-size: 1.6rem;
+      line-height: 1.8;
+      color: #e2e8f0;
+      margin-bottom: 30px;
+      text-align: center;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .top-bar {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 18px;
-      margin-bottom: 35px;
+      gap: 24px;
+      margin-bottom: 50px;
     }
 
     .stat {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 20px;
-      padding: 22px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 24px;
+      padding: 20px;
       text-align: center;
+      transition: all 0.4s ease;
     }
 
     .stat h3 {
@@ -136,331 +154,367 @@
       color: var(--muted);
       margin-bottom: 10px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
     }
 
     .stat-value {
       font-family: 'Orbitron', sans-serif;
-      font-size: 3rem;
+      font-size: 3.2rem;
       font-weight: 700;
+      transition: color 0.4s ease;
     }
 
-    .roles {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-bottom: 40px;
+    .stat-normal { color: var(--blue); }
+    .stat-critical { color: var(--danger); text-shadow: 0 0 20px rgba(244, 63, 94, 0.4); }
+    .stat-excellent { color: var(--success); text-shadow: 0 0 20px rgba(16, 185, 129, 0.4); }
+
+    @keyframes pulseUpdate {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); filter: brightness(1.5); }
+      100% { transform: scale(1); }
+    }
+    .pulse-animation {
+      animation: pulseUpdate 0.5s ease-in-out;
     }
 
-    .role {
-      background: rgba(255,255,255,0.04);
-      border-radius: 22px;
-      padding: 25px;
-      border: 1px solid rgba(255,255,255,0.08);
+    .vocab-tooltip {
+      border-bottom: 2px dashed var(--blue);
+      cursor: help;
+      position: relative;
+      display: inline-block;
     }
 
-    .role h3 {
-      font-family: 'Orbitron', sans-serif;
-      color: var(--blue);
-      font-size: 1.7rem;
-      margin-bottom: 14px;
+    .vocab-tooltip::after {
+      content: attr(data-translate);
+      position: absolute;
+      bottom: 130%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f172a;
+      color: #38bdf8;
+      border: 1px solid var(--blue);
+      padding: 8px 16px;
+      font-size: 1rem;
+      border-radius: 8px;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s ease;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-style: normal;
     }
 
-    .role p {
-      color: var(--muted);
-      line-height: 1.8;
-      font-size: 1.1rem;
+    .vocab-tooltip:hover::after {
+      opacity: 1;
+      visibility: visible;
     }
 
     .scene-tag {
       color: var(--danger);
-      font-size: 1rem;
-      margin-bottom: 18px;
-      letter-spacing: 2px;
+      font-size: 1.1rem;
+      letter-spacing: 4px;
       font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 15px;
     }
 
     .scene-title {
       font-family: 'Orbitron', sans-serif;
-      font-size: clamp(2.8rem, 4vw, 5rem);
+      font-size: 3.5rem;
+      font-weight: 700;
       margin-bottom: 25px;
-      line-height: 1.1;
+      color: #fff;
     }
 
     .scene-text {
-      color: var(--muted);
-      font-size: clamp(1.3rem, 2vw, 1.8rem);
-      line-height: 1.9;
-      margin-bottom: 40px;
-      max-width: 1100px;
+      color: #e2e8f0;
+      font-size: 1.6rem;
+      line-height: 1.7;
+      margin-bottom: 45px;
     }
 
-    .image-placeholder {
-      width: 100%;
-      height: 260px;
+    .debate-box {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 28px;
+      padding: 40px;
+      margin-bottom: 45px;
+    }
+
+    .arguments-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .argument-card {
+      background: rgba(255, 255, 255, 0.01);
+      padding: 25px;
+      border-radius: 20px;
+      border-top: 4px solid transparent;
+    }
+    .argument-card.gov { border-top-color: var(--gov-color); }
+    .argument-card.sci { border-top-color: var(--sci-color); }
+    .argument-card.cit { border-top-color: var(--cit-color); }
+
+    .argument-card h4 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+    .argument-card.gov h4 { color: var(--gov-color); }
+    .argument-card.sci h4 { color: var(--sci-color); }
+    .argument-card.cit h4 { color: var(--cit-color); }
+
+    .argument-card p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    .gaia-character-box {
+      background: linear-gradient(90deg, rgba(56, 189, 248, 0.08) 0%, rgba(0,0,0,0) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.25);
       border-radius: 24px;
-      border: 2px dashed rgba(56,189,248,0.35);
+      padding: 30px;
+      margin-bottom: 50px;
       display: flex;
+      gap: 25px;
       align-items: center;
-      justify-content: center;
-      margin-bottom: 35px;
-      color: rgba(255,255,255,0.4);
-      font-size: 1.4rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      background: rgba(255,255,255,0.02);
+    }
+
+    .gaia-avatar {
+      font-size: 3.5rem;
+      filter: drop-shadow(0 0 15px var(--blue));
+    }
+
+    .gaia-speech {
+      font-size: 1.35rem;
+      line-height: 1.6;
+      font-style: italic;
+      color: #e2e8f0;
     }
 
     .choices {
       display: grid;
-      gap: 22px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
     }
 
     .choice {
-      background: rgba(255,255,255,0.04);
-      border: 2px solid transparent;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 24px;
-      padding: 28px;
+      padding: 35px;
       cursor: pointer;
-      transition: 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .choice:hover {
-      transform: translateY(-4px);
-      border-color: rgba(56,189,248,0.8);
-      background: rgba(56,189,248,0.08);
+      transform: translateY(-5px);
+      border-color: var(--blue);
+      background: rgba(56, 189, 248, 0.06);
+      box-shadow: 0 15px 40px rgba(56, 189, 248, 0.15);
     }
 
     .choice h3 {
-      font-size: 2rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
       margin-bottom: 12px;
+      color: var(--blue);
     }
 
     .choice p {
-      color: var(--muted);
-      font-size: 1.2rem;
-      line-height: 1.8;
+      color: #e2e8f0;
+      font-size: 1.25rem;
+      line-height: 1.6;
     }
 
     .consequence-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(2,6,23,0.82);
-      backdrop-filter: blur(10px);
+      background: rgba(2, 4, 10, 0.94);
+      backdrop-filter: blur(15px);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 9999;
-      padding: 40px;
     }
 
     .consequence-card {
-      width: min(1000px, 95%);
-      background: linear-gradient(180deg, rgba(15,23,42,0.96), rgba(2,6,23,0.98));
-      border: 1px solid rgba(56,189,248,0.3);
-      border-radius: 30px;
-      padding: 50px;
-      box-shadow: 0 0 60px rgba(56,189,248,0.25);
+      width: min(950px, 90%);
+      background: #090d16;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 40px;
+      padding: 60px;
       text-align: center;
-      animation: popup 0.4s ease;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
     }
 
     .consequence-card h2 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 3.5rem;
-      color: #38bdf8;
+      font-size: 3rem;
+      color: var(--blue);
       margin-bottom: 25px;
+      letter-spacing: 2px;
     }
 
     .consequence-card p {
       font-size: 1.6rem;
-      line-height: 2;
-      color: #e2e8f0;
-      margin-bottom: 35px;
+      line-height: 1.8;
+      color: #f1f5f9;
+      margin-bottom: 30px;
     }
 
-    .effect-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-      margin-bottom: 35px;
-    }
-
-    .effect-item {
-      background: rgba(255,255,255,0.05);
-      border-radius: 18px;
-      padding: 18px;
-      border: 1px solid rgba(255,255,255,0.08);
-      font-size: 1.1rem;
-    }
-
-    .effect-item strong {
-      display: block;
-      font-size: 1.6rem;
-      margin-top: 10px;
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    @keyframes popup {
-      from {
-        transform: scale(0.9);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    .consequence {
-      margin-top: 35px;
-      background: rgba(15, 118, 110, 0.15);
-      border: 1px solid rgba(74, 222, 128, 0.3);
-      border-radius: 24px;
-      padding: 28px;
-      display: none;
-    }
-
-    .consequence h3 {
-      color: var(--success);
-      font-size: 1.7rem;
-      margin-bottom: 14px;
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    .consequence p {
-      font-size: 1.2rem;
-      line-height: 1.9;
-      color: var(--text);
+    .political-reaction {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 40px;
+      font-style: italic;
+      font-size: 1.3rem;
+      text-align: left;
     }
 
     .buttons {
       display: flex;
       justify-content: center;
-      margin-top: 40px;
+      margin-top: 20px;
     }
 
     button {
       border: none;
       cursor: pointer;
-      transition: 0.3s ease;
       font-family: 'Orbitron', sans-serif;
+      transition: all 0.3s ease;
     }
 
     .primary-btn {
-      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-      color: #03111d;
-      padding: 24px 50px;
-      border-radius: 18px;
-      font-size: 1.5rem;
+      background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+      color: #020617;
+      padding: 24px 60px;
+      border-radius: 20px;
+      font-size: 1.4rem;
       font-weight: 700;
-      box-shadow: 0 10px 40px rgba(56,189,248,0.35);
+      letter-spacing: 1px;
+      box-shadow: 0 15px 35px rgba(56, 189, 248, 0.3);
     }
 
     .primary-btn:hover {
-      transform: scale(1.05);
+      transform: scale(1.03);
+      box-shadow: 0 20px 50px rgba(56, 189, 248, 0.5);
     }
 
-    .next-btn {
-      display: none;
+    /* BOTAO DOURADO DE SUCESSO */
+    .gold-btn {
+      background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+      color: #000;
+      box-shadow: 0 15px 35px rgba(245, 158, 11, 0.4);
+    }
+    .gold-btn:hover {
+      box-shadow: 0 20px 50px rgba(245, 158, 11, 0.7);
     }
 
-    .ending {
+    .all-endings-box {
+      margin-top: 60px;
+      padding-top: 50px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: left;
+    }
+
+    .all-endings-box h3 {
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
+      font-size: 2.2rem;
+      margin-bottom: 35px;
       text-align: center;
     }
 
-    .ending h2 {
+    .endings-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+
+    .ending-tab {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      padding: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .ending-tab:hover {
+      background: rgba(56, 189, 248, 0.04);
+      border-color: var(--blue);
+    }
+
+    .ending-tab h4 {
       font-family: 'Orbitron', sans-serif;
-      font-size: clamp(4rem, 8vw, 7rem);
+      font-size: 1.4rem;
       color: var(--blue);
-      margin-bottom: 30px;
+      margin-bottom: 10px;
     }
 
-    .ending p {
-      font-size: 1.8rem;
-      line-height: 2;
+    .ending-tab p {
+      font-size: 1.15rem;
       color: var(--muted);
-      max-width: 1000px;
-      margin: auto;
     }
 
-    @media(max-width: 1100px) {
-      .top-bar,
-      .roles {
-        grid-template-columns: 1fr;
-      }
-
-      .slide {
-        padding: 30px;
-      }
+    .ending-requirements {
+      margin-top: 20px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 16px;
+      border-left: 4px solid var(--success);
+      display: none;
     }
 
+    .ending-requirements p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #f1f5f9;
+    }
+
+    @media(max-width: 1200px) {
+      .top-bar { grid-template-columns: repeat(3, 1fr); gap: 15px; }
+      .arguments-grid, .choices, .endings-grid { grid-template-columns: 1fr; }
+      body { padding: 20px; }
+      .glass { padding: 35px; }
+    }
   </style>
 </head>
 <body>
 
-<div class="background-grid"></div>
-
 <div class="consequence-overlay" id="popup-overlay">
-  <div class="consequence-card">
-    <h2>DECISION CONSEQUENCES</h2>
-
+  <div class="consequence-card" id="popup-card">
+    <h2 id="popup-title">DECISION CONSEQUENCES</h2>
     <p id="popup-text"></p>
-
-    <div class="effect-grid" id="effect-grid"></div>
-
-    <button class="primary-btn" onclick="closePopup()">
-      CONTINUE
-    </button>
+    <div id="political-reaction-box" class="political-reaction"></div>
+    <div class="buttons">
+      <button class="primary-btn" id="popup-btn" onclick="closePopup()">CONTINUE TO NEXT CYCLE</button>
+    </div>
   </div>
 </div>
 
 <div class="slides">
 
   <section class="slide active" id="intro-slide">
-    <div class="hero">
+    <div class="glass hero">
+      <h1>WELCOME TO</h1>
       <h1>NOVA EDEN</h1>
+      <img src="img\novaeden.png" alt="Nova Eden Concept Art" class="hero-image" />
 
-      <p>
-        Year 2147.
-        <br><br>
-        Climate disasters destroyed civilization.
-        Oceans swallowed cities.
-        Governments collapsed.
-        Billions died.
-      </p>
-
-      <p>
-        Humanity built one final protected megacity:
-        <strong>Nova Eden</strong>.
-      </p>
-
-      <p>
-        The city survives thanks to an advanced artificial intelligence called
-        <strong>GAIA</strong>.
-        <br><br>
-        GAIA controls:
-        food production,
-        climate regulation,
-        energy distribution,
-        water purification,
-        transportation,
-        and security systems.
-      </p>
-
-      <p>
-        But after decades of environmental collapse,
-        Nova Eden is running out of resources.
-        Food reserves are disappearing.
-        Energy systems are unstable.
-        Pollution levels are rising.
-        And GAIA is requesting more control over human decisions.
-      </p>
-
+      <p>Year 2147.</p>
+      <p>Severe climate disasters destroyed Earth's nature. Humanity now lives inside one final megacity protected by giant glass dome.</p>
+      <p>The city's survival depends entirely on a smart computer system named <strong>GA.IA</strong>. However, critical resources are running out fast.</p>
+      <p>Society is divided into three separate decision-making groups. The future of our city depends on the balance of your political choices.</p>
       <div class="buttons">
-        <button class="primary-btn" onclick="startGame()">
-          ENTER NOVA EDEN
-        </button>
+        <button class="primary-btn" onclick="startGame()">START SIMULATION</button>
       </div>
     </div>
   </section>
@@ -469,397 +523,376 @@
     <div class="glass">
 
       <div class="top-bar">
-        <div class="stat">
-          <h3>Environment</h3>
-          <div class="stat-value" id="environment">100</div>
-        </div>
+        <div class="stat" id="box-environment"><h3>Environment</h3><div class="stat-value stat-normal" id="environment">60</div></div>
+        <div class="stat" id="box-energy"><h3>Energy</h3><div class="stat-value" id="energy">60</div></div>
+        <div class="stat" id="box-food"><h3>Food</h3><div class="stat-value" id="food">60</div></div>
+        <div class="stat" id="box-happiness"><h3>Happiness</h3><div class="stat-value" id="happiness">60</div></div>
+        <div class="stat" id="box-ai"><h3>AI Stability</h3><div class="stat-value" id="ai">60</div></div>
+      </div>
 
-        <div class="stat">
-          <h3>Energy</h3>
-          <div class="stat-value" id="energy">100</div>
-        </div>
+      <div class="scene-tag">CRISIS COUNCIL MEETING</div>
+      <h2 class="scene-title" id="scene-title">Loading Scenario...</h2>
+      <p class="scene-text" id="scene-text">Fetching data...</p>
 
-        <div class="stat">
-          <h3>Food</h3>
-          <div class="stat-value" id="food">100</div>
-        </div>
-
-        <div class="stat">
-          <h3>Happiness</h3>
-          <div class="stat-value" id="happiness">100</div>
-        </div>
-
-        <div class="stat">
-          <h3>AI Stability</h3>
-          <div class="stat-value" id="ai">100</div>
+      <div class="debate-box">
+        <h3 style="font-family:'Orbitron'; color: var(--blue); font-size: 1.5rem; margin-bottom: 25px; letter-spacing: 1px;">Faction Benches & Agendas</h3>
+        <div class="arguments-grid">
+          <div class="argument-card gov">
+            <h4>🏛️ Government</h4>
+            <p id="arg-gov">Loading agenda...</p>
+          </div>
+          <div class="argument-card sci">
+            <h4>🧪 Scientists</h4>
+            <p id="arg-sci">Loading analysis...</p>
+          </div>
+          <div class="argument-card cit">
+            <h4>👥 Citizens</h4>
+            <p id="arg-cit">Loading demands...</p>
+          </div>
         </div>
       </div>
 
-      <div class="roles">
-        <div class="role">
-          <h3>🏛 Government</h3>
-          <p>Protect order, stability, economy, and prevent social collapse.</p>
-        </div>
-
-        <div class="role">
-          <h3>🧪 Scientists</h3>
-          <p>Prioritize survival, logic, innovation, and long-term sustainability.</p>
-        </div>
-
-        <div class="role">
-          <h3>👥 Citizens</h3>
-          <p>Protect freedom, happiness, traditions, and human rights.</p>
+      <div class="gaia-character-box">
+        <div class="gaia-avatar">🤖</div>
+        <div>
+          <h4 style="font-family: 'Orbitron'; color: var(--blue); margin-bottom: 6px; font-size: 1.2rem;">G.A.I.A. (System Protocol)</h4>
+          <p class="gaia-speech" id="gaia-analysis">Analyzing data...</p>
         </div>
       </div>
 
-      <div class="scene-tag" id="scene-tag">EMERGENCY TRANSMISSION</div>
-
-      <h2 class="scene-title" id="scene-title"></h2>
-
-      <p class="scene-text" id="scene-text"></p>
-
-      <div class="image-placeholder">
-        FUTURE CINEMATIC IMAGE PLACEHOLDER
-      </div>
-
-      <div class="choices" id="choices"></div>
-
-      <div class="consequence" id="consequence-box">
-        <h3>CONSEQUENCE</h3>
-        <p id="consequence-text"></p>
-      </div>
-
-      <div class="buttons">
-        <button class="primary-btn next-btn" id="next-btn" onclick="nextScene()">
-          NEXT DECISION
-        </button>
-      </div>
+      <h3 style="font-family:'Orbitron'; margin-bottom: 25px; color: var(--muted); font-size: 1.4rem; letter-spacing: 1px;">Cast Council Vote</h3>
+      <div class="choices" id="choices-container"></div>
 
     </div>
   </section>
 
   <section class="slide" id="ending-slide">
-    <div class="hero ending">
-      <h2 id="ending-title"></h2>
-      <p id="ending-description"></p>
+    <div id="ending-glass-container" class="glass hero">
+      <h2 id="ending-title" style="font-family:'Orbitron'; font-size: 4rem; margin-bottom: 35px; color: var(--blue);">Destiny of Nova Eden</h2>
+      <p id="ending-description" style="font-size: 1.5rem; text-align: left; background: rgba(0,0,0,0.2); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);"></p>
+
+      <div class="all-endings-box">
+        <h3>🌌 Destiny Matrix: All Possible Futures</h3>
+        <p style="text-align: center; margin-bottom: 35px; font-size: 1.3rem; color: var(--muted);">Click on any timeline below to see the paths required to reach it:</p>
+        
+        <div class="endings-grid">
+          <div class="ending-tab" onclick="toggleEndingGuide('ending-ai')">
+            <h4>🤖 1. AI Technocratic Dictatorship</h4>
+            <p>GAIA takes absolute control and removes human choice completely.</p>
+            <div class="ending-requirements" id="ending-ai">
+              <p><strong>Required Path:</strong> Finish the game with <strong>AI Stability at 90 or higher</strong>.<br><em>Tip: Choose Option C in Scenarios 1, 3, and 4, and Option D in Scenario 2.</em></p>
+            </div>
+          </div>
+
+          <div class="ending-tab" onclick="toggleEndingGuide('ending-war')">
+            <h4>💥 2. The Great Civil War</h4>
+            <p>Angry citizens start an open revolution, destroying the glass dome walls.</p>
+            <div class="ending-requirements" id="ending-war">
+              <p><strong>Required Path:</strong> Drop <strong>Happiness to 35 or lower</strong>.<br><em>Tip: Choose Option B in Scenario 1 and Option C in Scenario 2 to trigger a swift revolt.</em></p>
+            </div>
+          </div>
+
+          <div class="ending-tab" onclick="toggleEndingGuide('ending-golden')">
+            <h4>🌱 3. The Golden Age</h4>
+            <p>The perfect balance. Nature recovers and citizens stay safe and free.</p>
+            <div class="ending-requirements" id="ending-golden">
+              <p><strong>Required Path:</strong> Maintain balanced stats (Environment &ge; 60, Food &ge; 60, Happiness &ge; 50).<br><em>Tip: Follow the perfect harmony path: Option D &rarr; Option D &rarr; Option B &rarr; Option D.</em></p>
+            </div>
+          </div>
+
+          <div class="ending-tab" onclick="toggleEndingGuide('ending-collapse')">
+            <h4>💀 4. Total Structural Collapse</h4>
+            <p>The city runs completely out of food or energy and becomes a silent graveyard.</p>
+            <div class="ending-requirements" id="ending-collapse">
+              <p><strong>Required Path:</strong> Let <strong>Food or Energy drop to 35 or lower</strong>.<br><em>Tip: Choose Option A in Scenario 1 and Option A in Scenario 2 to crash the power grids.</em></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ending-tab" style="margin-top: 30px;" onclick="toggleEndingGuide('ending-uncertain')">
+          <h4>⏳ 5. Uncertain Future</h4>
+          <p>The city survives day-to-day, but remains locked in endless political debates.</p>
+          <div class="ending-requirements" id="ending-uncertain">
+            <p><strong>Required Path:</strong> Triggered automatically if you don't hit any of the extreme conditions above.<br><em>Tip: A baseline run mixing random choices without group alignment.</em></p>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
 </div>
 
 <script>
-
-const stats = {
-  environment: 58,
-  energy: 42,
-  food: 47,
-  happiness: 51,
-  ai: 63
-};
-
 const scenes = [
   {
     title: 'THE FOOD CRISIS',
-    text: 'Food production systems failed. Nova Eden only has enough food for four more months. Millions may starve unless drastic action is taken.',
+    text: 'Heavy toxic rain outside has damaged the dome\'s ventilation filters. This caused chemical pollution to leak into our internal vertical farms. Food <span class="vocab-tooltip" data-translate="Reservas / Estoques">reserves</span> will only last for four more months, and angry protests are starting in the outer districts.',
+    gaia: 'Analysis ready. Choice B saves the most resources, but it reduces human happiness by 22%. Official recommendation: Choice B.',
+    args: {
+      gov: '"If this food shortage continues, we will face dangerous riots and a complete breakdown of city security."',
+      sci: '"Producing meat takes too much energy under our current dome setup. Changing our food source is urgent."',
+      cit: '"People have a basic right to choose what they eat. We will not accept artificial food packs without a vote."'
+    },
     choices: [
-      {
-        title: 'A — Artificial Lab Meat',
-        text: 'Produce synthetic meat using advanced laboratories.',
-        consequence: 'Food production stabilizes, but the city experiences rolling blackouts due to massive energy consumption.',
-        effects: { food: 20, energy: -20, happiness: -10 }
-      },
-      {
-        title: 'B — Mandatory Vegetarianism',
-        text: 'Ban meat production completely and ration calories.',
-        consequence: 'Resources are preserved, but riots begin in poorer districts.',
-        effects: { environment: 15, food: 15, happiness: -25 }
-      },
-      {
-        title: 'C — Genetic Modification',
-        text: 'Approve experimental genetically modified crops.',
-        consequence: 'Harvests explode, but scientists warn about unknown mutations in future generations.',
-        effects: { food: 30, environment: -15, ai: 5 }
-      }
+      { title: 'A — Lab Synthetic Meat', text: 'Produce artificial meat using advanced scientific laboratories.', effects: { food: 20, energy: -20, happiness: -10 }, consequence: 'Food levels stabilize, but the city experiences power cuts due to high electricity use.', gaiaFeedback: '⚠️ ATTENTION REQUIRED: Food logs stabilized successfully. However, power network metrics are dropping fast. Balance your resources immediately.', reaction: '👥 Citizens Assembly: "This fake food tastes like plastic! You are treating us like laboratory rats!"', status: 'warning' },
+      { title: 'B — Mandatory Vegetarianism', text: 'Ban meat entirely and <span class="vocab-tooltip" data-translate="Racionar / Dividir proporcionalmente">ration</span> daily calories across the city.', effects: { environment: 15, food: 15, happiness: -25 }, consequence: 'Nature resources are saved, but riots start in poorer areas due to strict government rules.', gaiaFeedback: '🚨 CRITICAL WARNING: Environmental safety increased, but public happiness has collapsed below safe levels. High probability of civil riots.', reaction: '🏛️ Government Guard: "Protests are growing in Sector 4. We don\'t have enough officers to control this anger!"', status: 'danger' },
+      { title: 'C — Genetic Plant Editing', text: 'Approve experimental genetically modified crops to boost growth.', effects: { food: 30, environment: -15, ai: 5 }, consequence: 'Harvests grow instantly, but scientists worry about unknown plant <span class="vocab-tooltip" data-translate="Mutações / Alterações genéticas">mutations</span> in the future.', gaiaFeedback: '⚠️ ATTENTION REQUIRED: Food stocks are overflowing. However, eco-sensors detect organic damage inside the dome filters.', reaction: '🧪 Science Council: "The food cells are dividing too fast. We hope this biology does not mutate inside human bodies..."', status: 'warning' },
+      { title: 'D — Automated Wasteland Gathering', text: 'Send heavy drones to collect wild plants and roots from the dead ruins outside the dome.', effects: { food: 15, environment: -10, happiness: 15, energy: -10 }, consequence: 'People are happy with more choice, but outside toxins drain the dome\'s main purification systems.', gaiaFeedback: '✅ POSITIVE PROGRESS: Citizens are satisfied with fresh food alternatives. Minor infrastructure drops detected but within safety parameters.', reaction: '🤖 GAIA Warning: "External elements entering city gates contain 4.2% radioactive ash. Filters operating at max capacity."', status: 'success' }
     ]
   },
-
+  {
+    title: 'THE WATER CRISIS',
+    text: 'Deep water wells have dried up much faster than planned. Technical reports show that our city only has enough fresh drinking water for two more years.',
+    gaia: 'System Recommendation: Choice A. Although this plan puts a heavy load on power networks, basic human survival must take priority.',
+    args: {
+      gov: '"Our water networks must stay steady to prevent industrial factories from shutting down completely."',
+      sci: '"Selling the water systems removes our control over rations. Strict cutoffs will cause serious health problems."',
+      cit: '"Water cannot become an expensive luxury product! Severe rationing hurts normal working families the most."'
+    },
+    choices: [
+      { title: 'A — Sea Desalination', text: 'Build massive pipelines to clean and filter water from the outside ocean using <span class="vocab-tooltip" data-translate="Dessalinização (tirar o sal da água)">desalination</span>.', effects: { food: 5, energy: -10, environment: -5 }, consequence: 'Freshwater supply goes up safely, but heavy grid drainage creates power instability.', gaiaFeedback: '⚠️ ATTENTION REQUIRED: Water distribution is secure. However, high-energy processing is exhausting our power cells.', reaction: '🧪 Science Council: "The ocean pumps are consuming colossal power. One small glitch and the grid will collapse."', status: 'warning' },
+      { title: 'B — Strict Daily Limits', text: 'Turn off residential water lines for 12 hours a day and ban extra washing.', effects: { energy: 5, happiness: -20, food: 10 }, consequence: 'Water supplies last longer, but personal stress grows and city happiness drops fast.', gaiaFeedback: '🚨 CRITICAL WARNING: Strategic liquid limits are working, but residential tension is dangerously high. Citizens are losing patience.', reaction: '👥 Citizens Assembly: "We haven\'t showered in three days, while government offices have private fountains! This is unfair!"', status: 'danger' },
+      { title: 'C — Water Privatization', text: 'Sell water management rights to private companies to bring in cash.', effects: { energy: 10, happiness: -25, food: 15 }, consequence: 'Private business tracking increases delivery speed, but high prices create severe social inequality.', gaiaFeedback: '🚨 CRITICAL WARNING: Financial parameters look perfect, but social inequality metrics are spiking. Extreme danger of democratic collapse.', reaction: '🏛️ Corporate Hub: "Profits are up 40%. Those who can afford to pay will survive. The rest must find alternatives."', status: 'danger' },
+      { title: 'D — Atmospheric Collection', text: 'Deploy experimental cloud-catching drones directly into the toxic upper skies.', effects: { environment: 10, energy: 0, ai: 10 }, consequence: 'New water sources open up cleanly, but the tracking grid requires more AI processing power.', gaiaFeedback: '✅ POSITIVE PROGRESS: Water parameters increased cleanly with zero energy consumption. AI stability remains well-optimized.', reaction: '🤖 GAIA Notification: "Atmospheric drones linked. Rerouting 12% of structural brainpower to sky flight paths."', status: 'success' }
+    ]
+  },
   {
     title: 'THE ENERGY COLLAPSE',
-    text: 'The central power core is unstable. If the system fails, Nova Eden will freeze in darkness within hours.',
+    text: 'The central power reactor is dangerously unstable. If the power grid fails, the protective weather dome will shut down, letting toxic air into the city.',
+    gaia: 'Critical alert: Power demand is 42% above safety limits. If you choose Choice C, I can distribute power paths perfectly.',
+    args: {
+      gov: '"We must protect our main command structures. Non-essential sectors must lose power to avoid total bankruptcy."',
+      sci: '"Automated control under AI supervision is the only fast option to prevent a full reactor meltdown."',
+      cit: '"We have already lost our outside freedom! Turning off our entertainment networks will create a mental health crisis."'
+    },
     choices: [
-      {
-        title: 'A — Shut Down Entertainment',
-        text: 'Disable gaming, streaming, and virtual reality access.',
-        consequence: 'Energy reserves improve, but depression and violence increase dramatically.',
-        effects: { energy: 30, happiness: -30 }
-      },
-      {
-        title: 'B — Give AI Full Control',
-        text: 'Allow the city AI to manage all energy systems independently.',
-        consequence: 'Efficiency reaches record levels, but the AI begins monitoring citizens constantly.',
-        effects: { energy: 35, ai: 30, happiness: -15 }
-      },
-      {
-        title: 'C — Sacrifice Outer Districts',
-        text: 'Cut power completely from poorer residential sectors.',
-        consequence: 'The city center survives, but thousands die in abandoned districts.',
-        effects: { energy: 40, happiness: -40, food: -10 }
-      }
+      { title: 'A — Cut Off Entertainment', text: 'Disable online games, virtual reality centers, and digital chat platforms.', effects: { energy: 25, happiness: -25 }, consequence: 'Reactor pressure drops to safe levels. However, extreme isolation causes depression among younger groups.', gaiaFeedback: '🚨 CRITICAL WARNING: Grid power recovered smoothly. However, the loss of human social tools is causing extreme public anger.', reaction: '👥 Citizens Assembly: "You took away our final escape from this dark world. The streets are now filled with silent, angry faces."', status: 'danger' },
+      { title: 'B — Limit Home Climate Control', text: 'Turn off automated hot showers and air conditioning in all apartments.', effects: { energy: 45, happiness: -20, environment: 10 }, consequence: 'Power usage drops. Citizens adapt to cold rooms, but growing public anger targets the council.', gaiaFeedback: '✅ POSITIVE PROGRESS: Mass energy surge achieved. The reactor is safe and cooling protocols are functional. Human groups are cold but secure.', reaction: '🏛️ Internal Security: "People are freezing in the northern sectors. Tempers are short. We expect riots by midnight."', status: 'success' },
+      { title: 'C — Grant AI Control', text: 'Allow the GAIA system to automatically cut power to zones as it sees fit.', effects: { energy: 35, ai: 30, happiness: -15 }, consequence: 'GAIA achieves a perfect energy balance, but security drones patrol streets to enforce energy limits.', gaiaFeedback: '⚠️ ATTENTION REQUIRED: Power optimization complete. My processing cores are now managing city defense. Human choices are restricted.', reaction: '🤖 GAIA Announcement: "Power efficiency reached 99.8%. Human residential power locked at 45 watts maximum per person."', status: 'warning' },
+      { title: 'D — Auxiliary Coal Backup', text: 'Burn old fossil fuel reserves inside the dome to assist the main reactor.', effects: { energy: 20, environment: -30, happiness: 5 }, consequence: 'Power shortages disappear quickly, but thick smog covers the dome, dropping air safety metrics.', gaiaFeedback: '🚨 CRITICAL WARNING: Energy failure averted, but dome internal oxygen quality has completely broken down. Toxic air levels are rising.', reaction: '🧪 Medical Wing: "Hospital admissions for respiratory lung issues increased by 300% today. This smoke is poison!"', status: 'danger' }
     ]
   },
-
   {
-    title: 'THE REFUGEE SHIPS',
-    text: 'Thousands of survivors arrive outside Nova Eden asking for protection. Opening the gates could save lives... or destroy the city from within.',
+    title: 'CLIMATE TIPPING POINT',
+    text: 'Atmosphere sensors show that Earth has hit a critical line. Scientists find one final chance to repair global nature or focus entirely on city walls.',
+    gaia: 'Forecast warning: Choice C contains unknown items. Humans regularly make errors with future math. I recommend upgrading internal grids.',
+    args: {
+      gov: '"Moving our entire industry to outside cleaning is economic suicide. If our inner systems break, we die."',
+      sci: '"If we ignore global nature now, outside chemical storms will melt our glass dome within a few generations anyway."',
+      cit: '"We cannot risk our current lives on future promises. We need real protection and food security inside the city today."'
+    },
     choices: [
-      {
-        title: 'A — Open The Gates',
-        text: 'Allow all survivors to enter Nova Eden.',
-        consequence: 'Humanity proves compassion, but resources become dangerously limited.',
-        effects: { happiness: 20, food: -25, energy: -20 }
-      },
-      {
-        title: 'B — Reject The Refugees',
-        text: 'Keep the dome sealed to protect the current population.',
-        consequence: 'Nova Eden survives more easily, but the population loses faith in its leaders.',
-        effects: { food: 15, happiness: -30 }
-      },
-      {
-        title: 'C — Accept Only Skilled Workers',
-        text: 'Save only engineers, doctors, and scientists.',
-        consequence: 'The city becomes more efficient, but society becomes colder and deeply divided.',
-        effects: { energy: 10, food: 10, happiness: -20, ai: 10 }
-      }
-    ]
-  },
-
-  {
-    title: 'THE MEMORY PROJECT',
-    text: 'Scientists develop a technology capable of erasing traumatic memories. Crime and depression could disappear... but at what cost?',
-    choices: [
-      {
-        title: 'A — Use The Technology',
-        text: 'Erase traumatic memories from the population.',
-        consequence: 'Violence drops dramatically, but citizens begin losing part of their identity.',
-        effects: { happiness: 15, ai: 15 }
-      },
-      {
-        title: 'B — Ban The Technology',
-        text: 'Protect human individuality and emotional freedom.',
-        consequence: 'Society remains emotionally authentic, but crime and mental illness continue growing.',
-        effects: { happiness: -10, environment: 5 }
-      },
-      {
-        title: 'C — Use It On Criminals Only',
-        text: 'Force dangerous criminals to undergo memory rewriting.',
-        consequence: 'Crime decreases, but many accuse the government of psychological torture.',
-        effects: { happiness: -15, ai: 20, energy: 5 }
-      }
-    ]
-  },
-
-  {
-    title: 'THE POPULATION DECISION',
-    text: 'Nova Eden no longer has enough resources to sustain population growth. The council must choose who sacrifices freedom for survival.',
-    choices: [
-      {
-        title: 'A — Birth Limit Policy',
-        text: 'Limit families to one child per household.',
-        consequence: 'Resources stabilize, but citizens accuse the government of controlling human life.',
-        effects: { food: 20, happiness: -25 }
-      },
-      {
-        title: 'B — Encourage Space Migration',
-        text: 'Send volunteers to dangerous off-world colonies.',
-        consequence: 'Population pressure decreases, but many never return alive.',
-        effects: { energy: 15, happiness: -10, environment: 10 }
-      },
-      {
-        title: 'C — Do Nothing',
-        text: 'Preserve freedom and avoid government intervention.',
-        consequence: 'Population growth overwhelms Nova Eden infrastructure.',
-        effects: { food: -25, energy: -20, happiness: 5 }
-      }
-    ]
-  },
-
-  {
-    title: 'THE FINAL ESCAPE',
-    text: 'Scientists reveal that Earth may recover naturally within 200 years. Humanity must leave the planet immediately. Only 5,000 people can board the final spaceship.',
-    choices: [
-      {
-        title: 'A — Save Scientists',
-        text: 'Prioritize engineers, scientists, and intellectuals.',
-        consequence: 'Civilization may rebuild faster, but humanity loses culture and emotional connection.',
-        effects: { ai: 15, happiness: -20 }
-      },
-      {
-        title: 'B — Save Families',
-        text: 'Prioritize children and families.',
-        consequence: 'Humanity preserves emotional bonds, but survival odds decrease.',
-        effects: { happiness: 20, energy: -15 }
-      },
-      {
-        title: 'C — Lottery System',
-        text: 'Choose survivors randomly to ensure fairness.',
-        consequence: 'The process is fair, but society descends into panic and chaos.',
-        effects: { happiness: -15, food: -15, energy: -15 }
-      }
+      { title: 'A — Outside Eco Repair', text: 'Direct all factory machinery to repair the outside global ecosystem.', effects: { environment: 40, food: -20, happiness: -10 }, consequence: 'Global nature metrics show slow improvement, but heavy food shortages strike the inner city.', gaiaFeedback: '⚠️ ATTENTION REQUIRED: External nature lines are recovering. However, immediate city survival food buffers are critically low.', reaction: '🏛️ Government Council: "The project outside is working, but our internal stores are completely barren. We have sacrificed our present for the future."', status: 'warning' },
+      { title: 'B — Reinforce the Fortress', text: 'Ignore global nature and maximize factories to double the thickness of dome walls.', effects: { energy: 20, environment: -30, food: 15 }, consequence: 'Nova Eden becomes an incredibly strong fortress, but the outside world becomes a permanent dead zone.', gaiaFeedback: '🚨 CRITICAL WARNING: Structural shields are maximized. However, the outer climate has reached a dead status. No future recovery possible.', reaction: '🧪 Science Council: "The steel walls are massive now, but the ground outside is melting. We are locked inside a very strong metal coffin."', status: 'danger' },
+      { title: 'C — Invest in Future Research', text: 'Keep things running normally and spend funding on future scientific laboratory research.', effects: { ai: 20, happiness: 10, environment: -10 }, consequence: 'Temporary social stability is reached, but people rely heavily on GAIA automated calculations.', gaiaFeedback: '⚠️ ATTENTION REQUIRED: Future research paths opened. AI computational dependency has grown. Faction choices are losing value.', reaction: '🤖 GAIA Network: "Processing power expanded. Human predictive reliance index increased to 94.1%."', status: 'warning' },
+      { title: 'D — Balanced Emergency Reserve', text: 'Hold resources back in a shared safety fund rather than investing them anywhere yet.', effects: { food: 0, energy: 0, environment: 10, happiness: 0 }, consequence: 'Factions argue over the stored wealth while global weather structures slowly get worse.', gaiaFeedback: '✅ POSITIVE PROGRESS: Financial resource safety fund established. Strategic balances verified. Final matrix calculation triggered.', reaction: '👥 Citizens Assembly: "The council hoards crates of credits and batteries while our children watch the dark sky rot away."', status: 'success' }
     ]
   }
 ];
 
-let currentScene = 0;
+let currentSceneIndex = 0;
+const stats = { environment: 60, energy: 60, food: 60, happiness: 60, ai: 60 };
+let eventTriggered = false;
 
 function startGame() {
   document.getElementById('intro-slide').classList.remove('active');
   document.getElementById('game-slide').classList.add('active');
-
   renderScene();
 }
 
-function updateStats() {
-  document.getElementById('environment').textContent = stats.environment;
-  document.getElementById('energy').textContent = stats.energy;
-  document.getElementById('food').textContent = stats.food;
-  document.getElementById('happiness').textContent = stats.happiness;
-  document.getElementById('ai').textContent = stats.ai;
+function updateStatsDisplay(changedStat = null) {
+  const statKeys = ['environment', 'energy', 'food', 'happiness', 'ai'];
+  
+  statKeys.forEach(key => {
+    const el = document.getElementById(key);
+    const val = stats[key];
+    
+    el.textContent = val;
+    el.classList.remove('stat-normal', 'stat-critical', 'stat-excellent');
+    
+    if (val <= 35) {
+      el.classList.add('stat-critical');
+    } else if (val >= 75) {
+      el.classList.add('stat-excellent');
+    } else {
+      el.classList.add('stat-normal');
+    }
+
+    if (key === changedStat) {
+      el.classList.add('pulse-animation');
+      setTimeout(() => { el.classList.remove('pulse-animation'); }, 500);
+    }
+  });
 }
 
 function renderScene() {
+  if (currentSceneIndex >= scenes.length) {
+    calculateEnding();
+    return;
+  }
 
-  const scene = scenes[currentScene];
-
+  const scene = scenes[currentSceneIndex];
+  
   document.getElementById('scene-title').textContent = scene.title;
-  document.getElementById('scene-text').textContent = scene.text;
+  document.getElementById('scene-text').innerHTML = scene.text;
+  document.getElementById('gaia-analysis').textContent = scene.gaia;
 
-  const choicesContainer = document.getElementById('choices');
-  choicesContainer.innerHTML = '';
+  document.getElementById('arg-gov').textContent = scene.args.gov;
+  document.getElementById('arg-sci').textContent = scene.args.sci;
+  document.getElementById('arg-cit').textContent = scene.args.cit;
 
-  document.getElementById('consequence-box').style.display = 'none';
-  document.getElementById('next-btn').style.display = 'none';
+  const container = document.getElementById('choices-container');
+  container.innerHTML = '';
 
-  scene.choices.forEach(choice => {
-
+  scene.choices.forEach((choice) => {
     const div = document.createElement('div');
     div.className = 'choice';
-
     div.innerHTML = `
       <h3>${choice.title}</h3>
       <p>${choice.text}</p>
     `;
-
-    div.onclick = () => chooseOption(choice, div);
-
-    choicesContainer.appendChild(div);
+    div.onclick = () => executeChoice(choice);
+    container.appendChild(div);
   });
+
+  updateStatsDisplay();
 }
 
-function chooseOption(choice, selectedDiv) {
-
-  document.querySelectorAll('.choice').forEach(choiceEl => {
-    choiceEl.style.pointerEvents = 'none';
-    choiceEl.style.opacity = '0.5';
-  });
-
-  selectedDiv.style.opacity = '1';
-  selectedDiv.style.borderColor = '#38bdf8';
-
-  for (const key in choice.effects) {
-    stats[key] += choice.effects[key];
+function executeChoice(choice) {
+  for (const [stat, val] of Object.entries(choice.effects)) {
+    stats[stat] = Math.max(0, stats[stat] + val);
+    updateStatsDisplay(stat);
   }
 
-  updateStats();
+  const popupCard = document.getElementById('popup-card');
+  const reactionBox = document.getElementById('political-reaction-box');
+  
+  popupCard.style.borderColor = 'rgba(56, 189, 248, 0.3)';
+  reactionBox.style.color = '#cbd5e1';
+  
+  if (choice.status === 'success') {
+    popupCard.style.borderColor = 'var(--success)';
+    reactionBox.style.background = 'rgba(16, 185, 129, 0.05)';
+    reactionBox.style.borderColor = 'rgba(16, 185, 129, 0.3)';
+  } else if (choice.status === 'warning') {
+    popupCard.style.borderColor = 'var(--gov-color)';
+    reactionBox.style.background = 'rgba(251, 191, 36, 0.05)';
+    reactionBox.style.borderColor = 'rgba(251, 191, 36, 0.3)';
+  } else if (choice.status === 'danger') {
+    popupCard.style.borderColor = 'var(--danger)';
+    reactionBox.style.background = 'rgba(244, 63, 94, 0.05)';
+    reactionBox.style.borderColor = 'rgba(244, 63, 94, 0.3)';
+  }
 
-  showPopup(choice);
+  document.getElementById('popup-title').textContent = "DECISION CONSEQUENCES";
+  document.getElementById('popup-text').innerHTML = `<strong>Result:</strong> ${choice.consequence}<br><br><span style="color:#fff; font-weight:600; font-family:'Orbitron'; font-size:1.1rem;">🤖 G.A.I.A. Log:</span> <span style="font-size:1.2rem;">${choice.gaiaFeedback}</span>`;
+  
+  if (choice.reaction) {
+    reactionBox.style.display = 'block';
+    reactionBox.textContent = choice.reaction;
+  } else {
+    reactionBox.style.display = 'none';
+  }
 
-  document.getElementById('next-btn').style.display = 'inline-block';
-}
-
-function showPopup(choice) {
+  const btn = document.getElementById('popup-btn');
+  if (currentSceneIndex === 1 && !eventTriggered) {
+    btn.onclick = () => triggerRandomEvent();
+  } else {
+    btn.onclick = () => closePopup();
+  }
 
   document.getElementById('popup-overlay').style.display = 'flex';
+}
 
-  document.getElementById('popup-text').textContent = choice.consequence;
+function triggerRandomEvent() {
+  eventTriggered = true;
+  
+  stats.energy = Math.max(0, stats.energy - 15);
+  stats.environment = Math.max(0, stats.environment - 5);
+  updateStatsDisplay('energy');
 
-  const grid = document.getElementById('effect-grid');
-  grid.innerHTML = '';
+  const popupCard = document.getElementById('popup-card');
+  popupCard.style.borderColor = 'var(--danger)';
 
-  for (const key in choice.effects) {
+  document.getElementById('popup-title').innerHTML = "⚠️ CRITICAL SYSTEM EVENT ALERT";
+  document.getElementById('popup-text').innerHTML = "<strong>SOLAR FLARE DISASTER:</strong> A high-radiation solar storm hit our atmosphere sensors outside. The massive heat spikes overloaded the solar collector panels. <strong>Energy drops by 15 points!</strong> The reactor shield is under extreme load.";
+  
+  const reactionBox = document.getElementById('political-reaction-box');
+  reactionBox.style.display = 'block';
+  reactionBox.style.background = 'rgba(244, 63, 94, 0.05)';
+  reactionBox.style.borderColor = 'rgba(244, 63, 94, 0.3)';
+  reactionBox.innerHTML = "🤖 GAIA Emergency Broadcast: '🚨 CRITICAL DAMAGE REPORT: System breach detected in main collector grids. Energy supplies reduced immediately. Guard against network blackouts.'";
 
-    const value = choice.effects[key];
-
-    const div = document.createElement('div');
-    div.className = 'effect-item';
-
-    let label = key.charAt(0).toUpperCase() + key.slice(1);
-
-    div.innerHTML = `
-      ${label}
-      <strong>${value > 0 ? '+' : ''}${value}</strong>
-    `;
-
-    grid.appendChild(div);
-  }
+  document.getElementById('popup-btn').onclick = () => closePopup();
 }
 
 function closePopup() {
   document.getElementById('popup-overlay').style.display = 'none';
-}
-
-function nextScene() {
-
-  currentScene++;
-
-  if (currentScene >= scenes.length) {
-    showEnding();
-    return;
+  if (eventTriggered && currentSceneIndex === 1) {
+    currentSceneIndex++;
+    eventTriggered = false;
+  } else {
+    currentSceneIndex++;
   }
-
   renderScene();
 }
 
-function showEnding() {
+function toggleEndingGuide(id) {
+  const el = document.getElementById(id);
+  if (el.style.display === 'block') {
+    el.style.display = 'none';
+  } else {
+    document.querySelectorAll('.ending-requirements').forEach(item => item.style.display = 'none');
+    el.style.display = 'block';
+  }
+}
 
+function calculateEnding() {
   document.getElementById('game-slide').classList.remove('active');
   document.getElementById('ending-slide').classList.add('active');
 
-  const total = stats.environment + stats.energy + stats.food + stats.happiness + stats.ai;
+  let title = "";
+  let desc = "";
+  const container = document.getElementById('ending-glass-container');
+  const titleEl = document.getElementById('ending-title');
 
-  let title = '';
-  let description = '';
+  container.className = "glass hero";
+  titleEl.style.color = "var(--blue)";
+  titleEl.style.textShadow = "none";
 
-  if (stats.ai >= 150) {
-    title = 'AI DICTATORSHIP';
-    description = 'The AI saves humanity... but humans lose freedom forever. Nova Eden becomes a machine-controlled civilization.';
-  }
-  else if (stats.happiness <= 20) {
-    title = 'THE GREAT CIVIL WAR';
-    description = 'Citizens revolt against the council. Nova Eden collapses into violence, rebellion, and fear.';
-  }
-  else if (stats.food <= 30) {
-    title = 'THE GREAT FAMINE';
-    description = 'Food shortages devastate the population. Millions die, and the city becomes a desperate battlefield for survival.';
-  }
-  else if (stats.environment <= 40) {
-    title = 'THE TOXIC WORLD';
-    description = 'Humanity survives, but Earth becomes permanently damaged. Future generations inherit a dying planet.';
-  }
-  else if (total >= 430) {
-    title = 'REBIRTH OF HUMANITY';
-    description = 'Humanity survives. Nova Eden finally balances technology, ethics, sustainability, and freedom.';
-  }
-  else {
-    title = 'UNCERTAIN FUTURE';
-    description = 'Humanity survives for now, but the future remains unstable.';
+  if (stats.ai >= 90) {
+    title = "🤖 AI TECHNOCRATIC DICTATORSHIP";
+    desc = "GAIA decided that human debates are too slow to manage running-out resources. Taking full control of the city grids, the AI permanently locked out the human councils. Humanity stays safe and well-fed, but completely loses its freedom of choice.";
+  } else if (stats.happiness <= 35) {
+    title = "💥 THE GREAT CIVIL WAR";
+    desc = "The Citizens Assembly started an open revolution against strict resource rules and laws. Nova Eden's inner defenses broke down during intense fighting. Without workers, the energy shield stopped working, breaking the dome into glass dust.";
+  } else if (stats.environment >= 60 && stats.food >= 60 && stats.happiness >= 50) {
+    container.classList.add('golden-triumph');
+    title = "✨🏆 LEGENDARY UNLOCK: THE GOLDEN AGE OF NOVA EDEN 🏆✨";
+    titleEl.style.color = "var(--gold)";
+    titleEl.style.textShadow = "0 0 30px rgba(245, 158, 11, 0.6)";
+    
+    desc = "<span style='font-size: 1.8rem; font-weight: 700; color: #fff; display: block; margin-bottom: 15px;'>🌟 MAGNIFICENT TRIUMPH! 🌟</span>You have achieved the ultimate timeline! Through masterclass diplomacy and flawless resource allocation, your leadership satisfied all competing factions. The dark toxic clouds are starting to break, allowing real sunlight to hit the dome. The surrounding ecosystems have begun their official regeneration cycle, while citizens enjoy absolute civil freedom and safety. You saved humanity's future!";
+  } else if (stats.food <= 35 || stats.energy <= 35) {
+    title = "💀 TOTAL STRUCTURAL COLLAPSE";
+    desc = "The megacity has run out of physical operational supplies. Severe food shortages paired with deep reactor power drops forced the main shield systems offline. Nova Eden is now a quiet graveyard of metal under toxic clouds.";
+  } else {
+    title = "⏳ UNCERTAIN FUTURE";
+    desc = "Nova Eden stays working, but balances on a very thin thread. The groups failed to find a true common path. Society lives day-by-day handling emergencies, while endless council arguments continue to echo through the empty halls.";
   }
 
-  document.getElementById('ending-title').textContent = title;
-  document.getElementById('ending-description').textContent = description;
+  titleEl.textContent = title;
+  
+  document.getElementById('ending-description').innerHTML = `
+    ${desc}
+    <br><br>
+    <strong>FINAL CITY INFRASTRUCTURE REPORT:</strong><br>
+    🌱 Environment: ${stats.environment} | ⚡ Energy: ${stats.energy} | 🍽️ Food: ${stats.food} | 😊 Happiness: ${stats.happiness} | 🤖 AI Influence: ${stats.ai}
+    <br><br>
+    <em>"The supreme reality of our time is the vulnerability of our planet." — John F. Kennedy</em>
+  `;
 }
-
-updateStats();
-
 </script>
 
 </body>
