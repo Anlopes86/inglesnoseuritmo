@@ -1,0 +1,781 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B1 – Lesson 5: Dreams & Ambitions</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1a1a2e;
+    --accent: #e85a2a;
+    --accent2: #3a7bd5;
+    --bg: #fafaf7;
+    --surface: #ffffff;
+    --surface2: #f4f3ee;
+    --text: #1a1a2e;
+    --muted: #6b6b7a;
+    --border: #e2e1d9;
+    --success: #2d7a4f;
+    --success-bg: #edf7f1;
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'DM Sans', sans-serif;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  :root[data-theme="dark"] {
+    --primary: #f5f5f7;
+    --accent: #ff8c42;
+    --accent2: #7cb3ff;
+    --bg: #0d0d12;
+    --surface: #ffffff;
+    --surface2: #f4f3ee;
+    --text: #f5f5f7;
+    --muted: #9b9ba8;
+    --border: #3a3a4a;
+    --success: #4da872;
+    --success-bg: #edf7f1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); background: var(--bg); color: var(--text); font-size: 22px; line-height: 1.9; }
+  .top-nav { background: var(--primary); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--font-display); color: #fff; font-size: 1.1rem; font-weight: 600; letter-spacing: 0.02em; }
+  .nav-meta { color: rgba(255,255,255,0.5); font-size: 0.8rem; }
+  .nav-progress { display: flex; gap: 6px; align-items: center; }
+  .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); cursor: pointer; transition: all 0.2s; border: none; }
+  .nav-dot.active { background: var(--accent); transform: scale(1.3); }
+  .nav-dot.done { background: rgba(255,255,255,0.6); }
+  .theme-toggle { background: transparent; border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: all 0.3s; color: #fff; }
+  .theme-toggle:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.1); }
+  .back-btn { display:inline-flex; align-items:center; gap:8px; color:#fff; text-decoration:none; background: transparent; border: 2px solid rgba(255,255,255,0.18); padding:6px 10px; border-radius:10px; font-weight:700; font-size:1rem; }
+  .back-btn:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.4); }
+  .slide { display: none; min-height: calc(100vh - 60px); padding: 3rem 1rem 5rem; max-width: 1400px; margin: 0 auto; animation: fadeIn 0.4s ease; }
+  .slide.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  .slide-badge { display: inline-block; background: var(--accent); color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 1.25rem; }
+  .slide-badge.blue { background: var(--accent2); }
+  .slide-badge.green { background: var(--success); }
+  h1.slide-title { font-family: var(--font-display); font-size: 3.5rem; font-weight: 800; color: var(--primary); line-height: 1.1; margin-bottom: 0.5rem; }
+  h2.section-title { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 2rem; }
+  .slide-subtitle { color: var(--muted); font-size: 1.25rem; margin-bottom: 3rem; }
+  .obj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+  .obj-card { background: #ffffff; border: 1px solid var(--border); color: #1a1a2e; border-radius: var(--radius); padding: 1.75rem; }
+  .obj-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .obj-label { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #6b6b7a; margin-bottom: 0.5rem; }
+  .obj-text { font-size: 1.05rem; color: #1a1a2e; font-weight: 500; }
+  .dialogue-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .dialogue-header { background: #1a1a2e; color: #fff; padding: 1rem 1.5rem; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+  .dialogue-body { padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; background: var(--surface); }
+  .msg { display: flex; gap: 1rem; align-items: flex-start; }
+  .msg.right { flex-direction: row-reverse; }
+  .avatar { width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; }
+  .avatar.a { background: #e8eaf6; color: #3949ab; }
+  .avatar.b { background: #fce4ec; color: #c62828; }
+  .bubble { max-width: 78%; padding: 1rem 1.25rem; border-radius: 18px; font-size: 1.05rem; line-height: 1.6; color: #1a1a2e; }
+  .msg:not(.right) .bubble { background: #f4f3ee; border-bottom-left-radius: 4px; }
+  .msg.right .bubble { background: #1a1a2e; color: #fff; border-bottom-right-radius: 4px; }
+  .speaker-name { font-size: 0.8rem; font-weight: 700; color: #6b6b7a; margin-bottom: 4px; }
+  .fc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-bottom: 2.5rem; }
+  .fc { perspective: 600px; height: 200px; cursor: pointer; }
+  .fc-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.5s; border-radius: var(--radius-sm); }
+  .fc.flipped .fc-inner { transform: rotateY(180deg); }
+  .fc-front, .fc-back { position: absolute; inset: 0; backface-visibility: hidden; border-radius: var(--radius-sm); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; text-align: center; border: 2px solid var(--border); }
+  .fc-front { background: #ffffff !important; color: #1a1a2e !important; }
+  .fc-back { background: #1a1a2e !important; color: #ffffff !important; transform: rotateY(180deg); }
+  .fc-en { font-size: 1.35rem; font-weight: 800; color: var(--primary); }
+  .fc-type { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: #e85a2a; font-weight: 700; margin-bottom: 8px; }
+  .fc-pt { font-size: 1.2rem; color: #ffffff; font-weight: 600; }
+  .fc-ex { font-size: 0.95rem; color: #e8e8e8; margin-top: 10px; font-style: italic; line-height: 1.5; }
+  .fc-hint { font-size: 0.85rem; color: #6b6b7a; margin-top: 8px; }
+  @media (max-width: 1200px) { .fc-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 800px) { .fc-grid { grid-template-columns: repeat(2, 1fr); } }
+  .fc-all-btn { background: transparent; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.5rem 1.25rem; font-size: 0.82rem; cursor: pointer; color: var(--muted); font-family: var(--font-body); transition: all 0.2s; }
+  .fc-all-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .grammar-block { background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; margin-bottom: 2rem; }
+  .grammar-block h3 { font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--primary); }
+  .rule-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .rule-table th { background: #1a1a2e; color: #fff; padding: 0.8rem 1.2rem; text-align: left; font-weight: 600; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .rule-table td { padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--border); vertical-align: top; font-size: 0.95rem; color: #1a1a2e; }
+  .rule-table .label { color: #3a7bd5; font-weight: 700; }
+  .formula { background: #f4f3ee; border-left: 4px solid #e85a2a; padding: 1rem 1.25rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 1rem; margin: 1.25rem 0; font-family: monospace; font-weight: 600; color: #1a1a2e; }
+  .note-box { background: #fff8f0; border: 1px solid #f5c89a; border-radius: var(--radius-sm); padding: 0.75rem 1rem; font-size: 0.85rem; color: #7a4a10; margin-top: 0.75rem; }
+  .activity { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.5rem; margin-bottom: 2rem; color: #1a1a2e; }
+  .activity-num { font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #e85a2a; margin-bottom: 1.25rem; }
+  .activity-q { font-size: 1.35rem; margin-bottom: 1.5rem; line-height: 2; font-weight: 500; color: #1a1a2e; }
+  .activity-q .blank { display: inline-block; width: 140px; border-bottom: 4px solid #1a1a2e; margin: 0 10px; }
+  .hint-pt { font-size: 1.05rem; color: #6b6b7a; font-style: italic; margin-left: 8px; }
+  .reveal-btn { background: transparent; border: 2px solid var(--border); border-radius: var(--radius-sm); padding: 0.7rem 1.5rem; font-size: 1.1rem; cursor: pointer; color: #3a7bd5; font-family: var(--font-body); font-weight: 600; transition: all 0.2s; display: flex; align-items: center; gap: 10px; }
+  .reveal-btn:hover { border-color: #3a7bd5; background: rgba(58, 123, 213, 0.08); }
+  .answer { display: none; background: var(--success-bg); color: #2d7a4f; border: 2px solid #a8dfc0; border-radius: var(--radius-sm); padding: 1.1rem 1.5rem; font-size: 1.2rem; font-weight: 600; margin-top: 1.1rem; }
+  .answer.shown { display: block; }
+  .trans-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem 2rem; margin-bottom: 1.25rem; color: #1a1a2e; }
+  .trans-pt { font-size: 1.25rem; margin-bottom: 1rem; font-weight: 500; color: #1a1a2e; }
+  .trans-num { color: #e85a2a; font-weight: 800; margin-right: 10px; font-size: 1.25rem; }
+  .expr-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem 2.5rem; margin-bottom: 1.5rem; color: #1a1a2e; }
+  .expr-title { font-weight: 800; font-size: 1.4rem; color: #3a7bd5; margin-bottom: 0.75rem; font-family: monospace; }
+  .expr-type { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: #6b6b7a; font-weight: 700; margin-bottom: 1rem; }
+  .expr-meaning { font-size: 1.2rem; margin-bottom: 1rem; font-weight: 500; color: #1a1a2e; }
+  .expr-example { font-size: 1.1rem; color: #6b6b7a; font-style: italic; padding-left: 1.5rem; border-left: 3px solid var(--border); line-height: 1.7; }
+  .reading-text { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 3rem; margin-bottom: 2rem; font-size: 1.1rem; line-height: 2.1; color: #1a1a2e !important; }
+  .reading-text h4 { font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 2rem; font-weight: 800; color: var(--primary); }
+  .reading-text p { margin-bottom: 1.25rem; color: #1a1a2e !important; }
+  .music-header { background: var(--primary); color: #fff; border-radius: var(--radius) var(--radius) 0 0; padding: 1.25rem 1.5rem; }
+  .music-header h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; }
+  .music-body { background: #ffffff; border: 1px solid var(--border); border-top: none; border-radius: 0 0 var(--radius) var(--radius); padding: 1.5rem; color: #1a1a2e; }
+  .lyric-line { font-size: 1.05rem; line-height: 1.8; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; color: #1a1a2e; }
+  .hw-section { background: #ffffff; border: 1px solid var(--border); color: #1a1a2e; border-radius: var(--radius); padding: 2rem; margin-bottom: 1.25rem; }
+  .hw-section h3 { font-size: 1.1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #1a1a2e; margin-bottom: 1.5rem; }
+  .hw-item { display: flex; gap: 0.75rem; align-items: flex-start; font-size: 1.05rem; margin-bottom: 1rem; line-height: 1.7; color: #1a1a2e; }
+  .hw-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 7px; }
+  .nav-footer { position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface); border-top: 1px solid var(--border); padding: 0.9rem 2rem; display: flex; align-items: center; justify-content: space-between; z-index: 100; }
+  .nav-btn { display: flex; align-items: center; gap: 6px; padding: 0.55rem 1.25rem; border-radius: var(--radius-sm); font-size: 0.88rem; font-weight: 500; cursor: pointer; font-family: var(--font-body); transition: all 0.2s; border: 1px solid var(--border); background: #ffffff; color: #1a1a2e; }
+  .nav-btn:hover { background: #1a1a2e; color: #fff; border-color: #1a1a2e; }
+  .nav-btn.primary { background: #1a1a2e; color: #fff; border-color: #1a1a2e; }
+  .nav-btn.primary:hover { background: #e85a2a; border-color: #e85a2a; }
+  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .slide-counter { font-size: 0.95rem; color: #1a1a2e; font-weight: 600; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+  @media (max-width: 1000px) { .two-col { grid-template-columns: 1fr; } }
+  .activity-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  @media (max-width: 1200px) { .activity-col { grid-template-columns: 1fr; } }
+  .expr-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  @media (max-width: 1200px) { .expr-col { grid-template-columns: 1fr; } }
+  .trans-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media (max-width: 1200px) { .trans-col { grid-template-columns: 1fr; } }
+  :root[data-theme="dark"] { color-scheme: dark; }
+  :root[data-theme="dark"] .grammar-block h3 { color: #1a1a2e !important; }
+  :root[data-theme="dark"] .reading-text p, :root[data-theme="dark"] .reading-text h4 { color: #1a1a2e !important; }
+  :root[data-theme="dark"] .activity, :root[data-theme="dark"] .activity-q { color: #1a1a2e !important; }
+  :root[data-theme="dark"] .trans-item, :root[data-theme="dark"] .trans-pt { color: #1a1a2e !important; }
+  :root[data-theme="dark"] .expr-card { color: #1a1a2e !important; }
+  :root[data-theme="dark"] .rule-table td { color: #1a1a2e !important; }
+  :root[data-theme="dark"] .music-body { color: #1a1a2e !important; }
+  :root[data-theme="dark"] .hw-section { color: #1a1a2e !important; }
+  :root[data-theme="dark"] .fc-front { background: #ffffff !important; color: #1a1a2e !important; }
+  :root[data-theme="dark"] .fc-front .fc-type { color: #e85a2a !important; }
+  :root[data-theme="dark"] .fc-front .fc-en { color: #1a1a2e !important; }
+  :root[data-theme="dark"] .fc-front .fc-hint { color: #6b6b7a !important; }
+  :root[data-theme="dark"] .fc-back { background: #1a1a2e !important; color: #ffffff !important; }
+  #slide-12 .quote-card { max-width: 800px; margin: 1rem auto 0; background: #ffffff; border: 2px solid var(--border); border-radius: var(--radius); padding: 1.5rem 1.25rem; text-align: center; color: #1a1a2e; }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="b1-v2.html" class="back-btn">← Lições</a>
+  <div class="nav-logo">B1 · Unit 1 · Lesson 5</div>
+  <div class="nav-progress" id="navDots"></div>
+  <div style="display:flex;align-items:center;gap:1.5rem;">
+    <div class="nav-meta">Dreams & Ambitions</div>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙</button>
+  </div>
+</nav>
+
+<div class="slide active" id="slide-1">
+  <div class="slide-badge">Slide 1 / 12</div>
+  <h1 class="slide-title">Dreams & Ambitions</h1>
+  <p class="slide-subtitle">Unit 1 · Life Experiences & Personal Growth</p>
+
+  <div class="obj-grid">
+    <div class="obj-card">
+      <div class="obj-icon">📚</div>
+      <div class="obj-label">Grammar</div>
+      <div class="obj-text">Mixed Tenses Review (All Unit 1 Tenses)</div>
+    </div>
+    <div class="obj-card">
+      <div class="obj-icon">💬</div>
+      <div class="obj-label">Topics</div>
+      <div class="obj-text">Goals, aspirations, future plans, overcoming obstacles</div>
+    </div>
+    <div class="obj-card">
+      <div class="obj-icon">🎯</div>
+      <div class="obj-label">Skills</div>
+      <div class="obj-text">Use all tenses together to tell your complete story</div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Opening Dialogue</h2>
+  <div class="dialogue-box">
+    <div class="dialogue-header">🎙 Conversation — Following your dreams</div>
+    <div class="dialogue-body">
+      <div class="msg">
+        <div class="avatar a">A</div>
+        <div><div class="speaker-name">Sarah</div>
+        <div class="bubble">Tell me about your dream job. What do you want to be?</div></div>
+      </div>
+      <div class="msg right">
+        <div class="avatar b">B</div>
+        <div><div class="speaker-name">David</div>
+        <div class="bubble">I've always wanted to be a photographer. I used to spend hours taking pictures when I was younger.</div></div>
+      </div>
+      <div class="msg">
+        <div class="avatar a">A</div>
+        <div><div class="speaker-name">Sarah</div>
+        <div class="bubble">Have you been working towards that goal recently?</div></div>
+      </div>
+      <div class="msg right">
+        <div class="avatar b">B</div>
+        <div><div class="speaker-name">David</div>
+        <div class="bubble">Yes! I've been taking courses since last year. I've learned so much, and I've made several friends in the industry.</div></div>
+      </div>
+      <div class="msg">
+        <div class="avatar a">A</div>
+        <div><div class="speaker-name">Sarah</div>
+        <div class="bubble">That's amazing! What's your next step?</div></div>
+      </div>
+      <div class="msg right">
+        <div class="avatar b">B</div>
+        <div><div class="speaker-name">David</div>
+        <div class="bubble">I'm planning to start my own photography business next year. It's a big dream, but I believe I can make it happen if I keep working hard.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="slide" id="slide-2">
+  <div class="slide-badge blue">Slide 2 / 12</div>
+  <h2 class="section-title">Vocabulary — Dreams & Goals</h2>
+  <p class="slide-subtitle">Click a card to see the translation and an example.</p>
+  <div class="fc-grid" id="flashcardGrid"></div>
+  <button class="fc-all-btn" onclick="flipAll()">Reveal all translations</button>
+</div>
+
+<div class="slide" id="slide-3">
+  <div class="slide-badge">Slide 3 / 12</div>
+  <h2 class="section-title">Grammar — Mixed Tenses Review (Unit 1 Summary)</h2>
+
+  <div class="grammar-block">
+    <h3>1. Past Simple — Single events with specific time</h3>
+    <div class="note-box">
+      <strong>Use:</strong> One-time events, completed actions, specific past moments<br>
+      <strong>Example:</strong> "I graduated in 2020." "We met last year."
+    </div>
+  </div>
+
+  <div class="grammar-block">
+    <h3>2. Used To — Past habits (no longer true)</h3>
+    <div class="note-box">
+      <strong>Use:</strong> Repeated past actions that stopped, contrast past vs now<br>
+      <strong>Example:</strong> "I used to play soccer every day." "He didn't use to like coffee."
+    </div>
+  </div>
+
+  <div class="grammar-block">
+    <h3>3. Present Perfect — Past connection to now</h3>
+    <div class="note-box">
+      <strong>Use:</strong> Experiences, recent actions, unspecified time, life achievements<br>
+      <strong>Example:</strong> "I've visited 10 countries." "She has never been late."
+    </div>
+  </div>
+
+  <div class="grammar-block">
+    <h3>4. Present Perfect: Since/For — Duration</h3>
+    <div class="note-box">
+      <strong>Use:</strong> How long something has been happening<br>
+      <strong>Example:</strong> "I've lived here for 5 years." "She's worked here since 2019."
+    </div>
+  </div>
+
+  <div class="grammar-block">
+    <h3>5. Present Perfect Continuous — Ongoing activity</h3>
+    <div class="note-box">
+      <strong>Use:</strong> Actions that started in past and continue now, duration of activity<br>
+      <strong>Example:</strong> "I've been studying English for two years." "We've been planning a trip."
+    </div>
+  </div>
+
+  <div class="grammar-block">
+    <h3>6. Quick comparison table</h3>
+    <table class="rule-table">
+      <tr><th>Tense</th><th>Example</th><th>Focus</th></tr>
+      <tr><td class="label">Past Simple</td><td>I studied French in school.</td><td>Finished action, specific time</td></tr>
+      <tr><td class="label">Used To</td><td>I used to study French.</td><td>Repeated past habit (stopped)</td></tr>
+      <tr><td class="label">Present Perfect</td><td>I have studied French.</td><td>Unspecified past, connected to now</td></tr>
+      <tr><td class="label">Pres. Perf. (Since/For)</td><td>I've studied French for 3 years.</td><td>Duration (how long)</td></tr>
+      <tr><td class="label">Pres. Perf. Continuous</td><td>I've been studying French.</td><td>Ongoing activity, duration</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="slide" id="slide-4">
+  <div class="slide-badge">Slide 4 / 12</div>
+  <h2 class="section-title">Practice Activities — Mixed Tenses</h2>
+
+  <div class="activity-type-label">Part A — Identify the correct tense</div>
+  <div class="activity-col">
+    <div class="activity">
+      <div class="activity-num">Question 1</div>
+      <div class="activity-q">When I was young, I <span class="blank"></span> (want) to be an astronaut. <span class="hint-pt">(querida ser)</span></div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal answer</button></div>
+      <div class="answer">used to want (past habit - no longer true)</div>
+    </div>
+    <div class="activity">
+      <div class="activity-num">Question 2</div>
+      <div class="activity-q">I <span class="blank"></span> (study) engineering since 2021. <span class="hint-pt">(desde 2021)</span></div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal answer</button></div>
+      <div class="answer">have been studying (Present Perfect Continuous - duration)</div>
+    </div>
+    <div class="activity">
+      <div class="activity-num">Question 3</div>
+      <div class="activity-q">She <span class="blank"></span> (graduate) five years ago. <span class="hint-pt">(formou-se)</span></div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal answer</button></div>
+      <div class="answer">graduated (Past Simple - specific time in past)</div>
+    </div>
+    <div class="activity">
+      <div class="activity-num">Question 4</div>
+      <div class="activity-q">They <span class="blank"></span> (achieve) their first goal. <span class="hint-pt">(alcançaram)</span></div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal answer</button></div>
+      <div class="answer">have achieved (Present Perfect - achievement, unspecified time)</div>
+    </div>
+  </div>
+
+  <div class="activity-type-label">Part B — Complete the story</div>
+  <div class="activity">
+    <div class="activity-num">Question 5</div>
+    <div class="activity-q">My dream: "I <span class="blank"></span> (want) to be a teacher. I <span class="blank"></span> (always / love) helping others. I <span class="blank"></span> (study) education for three years, and I <span class="blank"></span> (already / complete) my degree. Next year, I <span class="blank"></span> (start) my first job!" <span class="hint-pt">(Preencha os 5 espaços)</span></div>
+    <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal answer</button></div>
+    <div class="answer">have wanted / have always loved / have been studying / have already completed / will start</div>
+  </div>
+
+  <div class="activity-type-label">Part C — Error correction</div>
+  <div class="activity-col">
+    <div class="activity">
+      <div class="activity-num">Question 6</div>
+      <div class="activity-q">Find the error: "Since I was a kid, I've wanted to be a doctor. I used to hope that one day this dream will come true." <span class="hint-pt">(Há um erro de tempo verbal)</span></div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal answer</button></div>
+      <div class="answer">Error: "will come true" should be "would come true" (past wish, past tense needed after used to)</div>
+    </div>
+    <div class="activity">
+      <div class="activity-num">Question 7</div>
+      <div class="activity-q">Find the error: "I studied French for five years now and I have never been to France." <span class="hint-pt">(Há um erro)</span></div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal answer</button></div>
+      <div class="answer">Error: "studied" should be "have been studying" (ongoing action from past to now, use Present Perfect Continuous)</div>
+    </div>
+  </div>
+</div>
+
+<div class="slide" id="slide-5">
+  <div class="slide-badge blue">Slide 5 / 12</div>
+  <h2 class="section-title">Translation Practice — Your Story</h2>
+  <p class="slide-subtitle">Translate each sentence aloud into English. Notice the different tenses.</p>
+
+  <div class="trans-col">
+    <div class="trans-item">
+      <div class="trans-pt"><span class="trans-num">1.</span> Eu sempre sonhei em viajar pelo mundo.</div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+      <div class="answer">I have always dreamed of traveling around the world.</div>
+    </div>
+    <div class="trans-item">
+      <div class="trans-pt"><span class="trans-num">2.</span> Quando era criança, eu costumava desenhar para horas.</div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+      <div class="answer">When I was a child, I used to draw for hours.</div>
+    </div>
+    <div class="trans-item">
+      <div class="trans-pt"><span class="trans-num">3.</span> Estou trabalhando em meu projeto há um ano.</div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+      <div class="answer">I've been working on my project for a year.</div>
+    </div>
+    <div class="trans-item">
+      <div class="trans-pt"><span class="trans-num">4.</span> Consegui meu primeiro emprego em 2021.</div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+      <div class="answer">I got my first job in 2021.</div>
+    </div>
+    <div class="trans-item">
+      <div class="trans-pt"><span class="trans-num">5.</span> Tenho perseguido meu objetivo desde então.</div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+      <div class="answer">I have been pursuing my goal since then.</div>
+    </div>
+
+    <div class="trans-item">
+      <div class="trans-pt"><span class="trans-num">6.</span> Meus pais sempre apoiaram meus sonhos.</div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+      <div class="answer">My parents have always supported my dreams.</div>
+    </div>
+    <div class="trans-item">
+      <div class="trans-pt"><span class="trans-num">7.</span> Eu planejei esta jornada há muito tempo.</div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+      <div class="answer">I have been planning this journey for a long time. / I planned this journey long ago.</div>
+    </div>
+    <div class="trans-item">
+      <div class="trans-pt"><span class="trans-num">8.</span> Meus amigos estão me apoiando nesta jornada.</div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+      <div class="answer">My friends have been supporting me on this journey. / My friends are supporting me.</div>
+    </div>
+    <div class="trans-item">
+      <div class="trans-pt"><span class="trans-num">9.</span> Nunca desisti do meu sonho.</div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+      <div class="answer">I have never given up on my dream.</div>
+    </div>
+    <div class="trans-item">
+      <div class="trans-pt"><span class="trans-num">10.</span> Este é apenas o começo da minha história.</div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+      <div class="answer">This is just the beginning of my story.</div>
+    </div>
+  </div>
+</div>
+
+<div class="slide" id="slide-6">
+  <div class="slide-badge">Slide 6 / 12</div>
+  <h2 class="section-title">Expressions & Phrasal Verbs — Ambitions</h2>
+
+  <div class="expr-col">
+    <div class="expr-card">
+      <div class="expr-type">Expression</div>
+      <div class="expr-title">to follow your dreams</div>
+      <div class="expr-meaning">Perseguir seus sonhos; realizar seus objetivos.</div>
+      <div class="expr-example">"I'm following my dream of becoming a writer."</div>
+    </div>
+    <div class="expr-card">
+      <div class="expr-type">Phrasal Verb</div>
+      <div class="expr-title">to work towards</div>
+      <div class="expr-meaning">Trabalhar com o objetivo de; esforçar-se para alcançar.</div>
+      <div class="expr-example">"I've been working towards my promotion for months."</div>
+    </div>
+    <div class="expr-card">
+      <div class="expr-type">Expression</div>
+      <div class="expr-title">to never give up</div>
+      <div class="expr-meaning">Nunca desistir; perseverar.</div>
+      <div class="expr-example">"Even when it's hard, I never give up on my goals."</div>
+    </div>
+    <div class="expr-card">
+      <div class="expr-type">Phrasal Verb</div>
+      <div class="expr-title">to achieve a goal</div>
+      <div class="expr-meaning">Alcançar um objetivo; realizar uma meta.</div>
+      <div class="expr-example">"I finally achieved my goal of finishing the marathon!"</div>
+    </div>
+    <div class="expr-card">
+      <div class="expr-type">Expression</div>
+      <div class="expr-title">to make a difference</div>
+      <div class="expr-meaning">Fazer diferença; causar impacto positivo.</div>
+      <div class="expr-example">"I want to make a difference in the world."</div>
+    </div>
+    <div class="expr-card">
+      <div class="expr-type">Phrasal Verb</div>
+      <div class="expr-title">to bring about change</div>
+      <div class="expr-meaning">Causar mudança; promover transformação.</div>
+      <div class="expr-example">"Education brings about positive change in society."</div>
+    </div>
+    <div class="expr-card">
+      <div class="expr-type">Expression</div>
+      <div class="expr-title">to have big plans</div>
+      <div class="expr-meaning">Ter grandes planos; objetivos ambiciosos.</div>
+      <div class="expr-example">"She has big plans for her future career."</div>
+    </div>
+  </div>
+</div>
+
+<div class="slide" id="slide-7">
+  <div class="slide-badge blue">Slide 7 / 12</div>
+  <h2 class="section-title">Mini Dialogues — Dreams & Goals</h2>
+  <p class="slide-subtitle">Practice with your teacher. Notice the mixed tenses!</p>
+
+  <div class="activity-col">
+    <div class="dialogue-box">
+      <div class="dialogue-header">Dialogue 1 — Short (2 turns)</div>
+      <div class="dialogue-body">
+        <div class="msg"><div class="avatar a">A</div><div><div class="speaker-name">A</div>
+        <div class="bubble">What are your biggest dreams for the future?</div></div></div>
+        <div class="msg right"><div class="avatar b">B</div><div><div class="speaker-name">B</div>
+        <div class="bubble">I've always wanted to travel. I used to spend hours watching travel documentaries as a kid. Now I'm saving money and planning trips!</div></div></div>
+      </div>
+    </div>
+
+    <div class="dialogue-box">
+      <div class="dialogue-header">Dialogue 2 — Medium (4 turns)</div>
+      <div class="dialogue-body">
+        <div class="msg"><div class="avatar a">A</div><div><div class="speaker-name">A</div>
+        <div class="bubble">How long have you been working towards your goal?</div></div></div>
+        <div class="msg right"><div class="avatar b">B</div><div><div class="speaker-name">B</div>
+        <div class="bubble">For about two years. I've taken several courses and I've learned a lot from my mentors.</div></div></div>
+        <div class="msg"><div class="avatar a">A</div><div><div class="speaker-name">A</div>
+        <div class="bubble">Have you achieved any milestones yet?</div></div></div>
+        <div class="msg right"><div class="avatar b">B</div><div><div class="speaker-name">B</div>
+        <div class="bubble">Yes! Last year, I completed my certification. It was a defining moment for me.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="activity-col">
+    <div class="dialogue-box">
+      <div class="dialogue-header">Dialogue 3 — Long (6 turns)</div>
+      <div class="dialogue-body">
+        <div class="msg"><div class="avatar a">A</div><div><div class="speaker-name">A</div>
+        <div class="bubble">I'm thinking about changing careers. What do you think?</div></div></div>
+        <div class="msg right"><div class="avatar b">B</div><div><div class="speaker-name">B</div>
+        <div class="bubble">That's exciting! I've made a similar change. When I was younger, I used to think I'd never leave my first job.</div></div></div>
+        <div class="msg"><div class="avatar a">A</div><div><div class="speaker-name">A</div>
+        <div class="bubble">How long have you been in this new career?</div></div></div>
+        <div class="msg right"><div class="avatar b">B</div><div><div class="speaker-name">B</div>
+        <div class="bubble">Since 2022. I've learned so much and I'm much happier. I've been building great relationships with my new team.</div></div></div>
+        <div class="msg"><div class="avatar a">A</div><div><div class="speaker-name">A</div>
+        <div class="bubble">Do you have any regrets?</div></div></div>
+        <div class="msg right"><div class="avatar b">B</div><div><div class="speaker-name">B</div>
+        <div class="bubble">Not at all! Following my dream was the best decision I've ever made. I encourage you to do the same!</div></div></div>
+      </div>
+    </div>
+
+    <div class="dialogue-box">
+      <div class="dialogue-header">Dialogue 4 — Short (2 turns)</div>
+      <div class="dialogue-body">
+        <div class="msg"><div class="avatar a">A</div><div><div class="speaker-name">A</div>
+        <div class="bubble">You look determined! What are you working on?</div></div></div>
+        <div class="msg right"><div class="avatar b">B</div><div><div class="speaker-name">B</div>
+        <div class="bubble">I've been preparing for my big presentation. I've been practicing for weeks and I hope it will make a difference!</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="slide" id="slide-8">
+  <div class="slide-badge green">Slide 8 / 12</div>
+  <h2 class="section-title">Reading — Success Stories</h2>
+
+  <div class="two-col">
+    <div class="reading-text">
+      <h4>From Dreaming to Achieving</h4>
+      <p>I used to work in an office job that I didn't enjoy. I spent eight hours a day wishing I was doing something else. For years, I had a dream: to open my own business. But I never took action.</p>
+      <p>Everything changed when I turned 30. I realized that I've been waiting too long. I've wasted so much time on excuses. That's when I decided to make my dream a reality.</p>
+      <p>Since that moment, my life has been completely different. I've been taking business courses for the last two years. I've learned about marketing, finance, and customer service. I've made friendships with other entrepreneurs who share my passion.</p>
+      <p>Three months ago, I officially launched my business. I've already served hundreds of customers, and I've received wonderful feedback. It hasn't always been easy — there have been challenging days when I wanted to give up. But I've never stopped believing in myself.</p>
+      <p>Looking back at my journey, I realize that the past defines us only if we allow it. I used to doubt myself, but I've grown so much. I've achieved my dream, and I'm just getting started. My advice to anyone who has a big goal: don't wait. Start today. Your dream is worth pursuing.</p>
+    </div>
+
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:var(--primary);margin-bottom:1.5rem;">Comprehension Questions</h3>
+
+      <div class="activity">
+        <div class="activity-num">Question 1</div>
+        <div class="activity-q" style="font-weight:400;">What was the narrator's dream?</div>
+        <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+        <div class="answer">To open their own business.</div>
+      </div>
+      <div class="activity">
+        <div class="activity-num">Question 2</div>
+        <div class="activity-q" style="font-weight:400;">What changed when they turned 30?</div>
+        <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+        <div class="answer">They realized they'd been waiting too long and decided to make their dream a reality.</div>
+      </div>
+      <div class="activity">
+        <div class="activity-num">Question 3</div>
+        <div class="activity-q" style="font-weight:400;">How long have they been taking business courses?</div>
+        <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+        <div class="answer">For the last two years.</div>
+      </div>
+      <div class="activity">
+        <div class="activity-num">Question 4</div>
+        <div class="activity-q" style="font-weight:400;">Find examples of each tense learned in Unit 1: Past Simple, Used To, Present Perfect, Present Perfect Continuous.</div>
+        <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+        <div class="answer">Past Simple: "I turned 30". Used To: "I used to work / I used to doubt". Present Perfect: "I've been waiting / I've made". Present Perfect Continuous: "I've been taking courses / I've been completely different".</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="slide" id="slide-9">
+  <div class="slide-badge blue">Slide 9 / 12</div>
+  <h2 class="section-title">Translation — Your Ambitions</h2>
+  <p class="slide-subtitle">Translate aloud. Use mixed tenses!</p>
+
+  <div class="trans-col">
+    <div class="trans-item">
+      <div class="trans-pt"><span class="trans-num">1.</span> Eu sempre sonhei em fazer diferença no mundo.</div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+      <div class="answer">I have always dreamed of making a difference in the world.</div>
+    </div>
+    <div class="trans-item">
+      <div class="trans-pt"><span class="trans-num">2.</span> Quando era adolescente, eu costumava estudar sozinho à noite.</div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+      <div class="answer">When I was a teenager, I used to study alone at night.</div>
+    </div>
+    <div class="trans-item">
+      <div class="trans-pt"><span class="trans-num">3.</span> Estou trabalhando em meu objetivo desde o ano passado.</div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+      <div class="answer">I've been working towards my goal since last year.</div>
+    </div>
+    <div class="trans-item">
+      <div class="trans-pt"><span class="trans-num">4.</span> Nunca desisti, mesmo quando era difícil.</div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+      <div class="answer">I never gave up, even when it was difficult.</div>
+    </div>
+
+    <div class="trans-item">
+      <div class="trans-pt"><span class="trans-num">5.</span> Alcancei um marco importante há três meses.</div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+      <div class="answer">I achieved an important milestone three months ago.</div>
+    </div>
+    <div class="trans-item">
+      <div class="trans-pt"><span class="trans-num">6.</span> Meus mentores têm me apoiado nesta jornada.</div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+      <div class="answer">My mentors have been supporting me on this journey.</div>
+    </div>
+    <div class="trans-item">
+      <div class="trans-pt"><span class="trans-num">7.</span> Há cinco anos, eu não acreditava em mim mesmo.</div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+      <div class="answer">Five years ago, I didn't believe in myself.</div>
+    </div>
+    <div class="trans-item">
+      <div class="trans-pt"><span class="trans-num">8.</span> Agora, tenho confiança e planos ambiciosos.</div>
+      <div class="activity-footer"><button class="reveal-btn" onclick="revealAnswer(this)">👁 Reveal</button></div>
+      <div class="answer">Now, I have confidence and big plans.</div>
+    </div>
+  </div>
+</div>
+
+<div class="slide" id="slide-10">
+  <div class="slide-badge">Slide 10 / 12</div>
+  <h2 class="section-title">Music Activity</h2>
+
+      <div style="max-width:900px;margin:0 auto;background:var(--accent2);color:#fff;border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem;">
+    <div style="font-weight:700;font-size:1.2rem;margin-bottom:0.75rem;">🎵 "Don't Give Up" — Peter Gabriel ft. Kate Bush</div>
+    <p style="font-size:1rem;opacity:0.95;">Listen to the song on Spotify, then fill in the <strong>5 missing words</strong> related to <strong>perseverance & goals</strong>.</p>
+  </div>
+
+  <div style="max-width:900px;margin:0 auto 2.5rem;border-radius:var(--radius);overflow:hidden;display:flex;justify-content:center;">
+    <iframe style="border-radius:var(--radius);" src="https://open.spotify.com/embed/track/0b9qbArAhBjQMnLxlx8_d5?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  </div>
+
+  <div style="max-width:900px;margin:0 auto;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:3rem;font-size:1.15rem;line-height:2.6;color:#1a1a2e;font-weight:500;">
+    <div style="font-size:0.95rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:2.5rem;">🎤 5 blanks to fill (words about never giving up)</div>
+    
+    Don't <span id="lyric1" style="display:inline-block;min-width:120px;border-bottom:4px solid var(--primary);margin:0 10px;text-align:center;"></span> <button class="reveal-btn" onclick="revealLyricWord(this, 'lyric1', 'give')" style="margin:0;font-size:0.85rem;padding:0.3rem 0.7rem;">👁</button> up, 'cause you have <span id="lyric2" style="display:inline-block;min-width:120px;border-bottom:4px solid var(--primary);margin:0 10px;text-align:center;"></span> <button class="reveal-btn" onclick="revealLyricWord(this, 'lyric2', 'friends')" style="margin:0;font-size:0.85rem;padding:0.3rem 0.7rem;">👁</button>,<br>
+    Right now, right now.<br>
+    In the end, you won't be <span id="lyric3" style="display:inline-block;min-width:120px;border-bottom:4px solid var(--primary);margin:0 10px;text-align:center;"></span> <button class="reveal-btn" onclick="revealLyricWord(this, 'lyric3', 'sorry')" style="margin:0;font-size:0.85rem;padding:0.3rem 0.7rem;">👁</button> 'cause you made the <span id="lyric4" style="display:inline-block;min-width:120px;border-bottom:4px solid var(--primary);margin:0 10px;text-align:center;"></span> <button class="reveal-btn" onclick="revealLyricWord(this, 'lyric4', 'choice')" style="margin:0;font-size:0.85rem;padding:0.3rem 0.7rem;">👁</button>,<br>
+    In the end, when you're looking <span id="lyric5" style="display:inline-block;min-width:120px;border-bottom:4px solid var(--primary);margin:0 10px;text-align:center;"></span> <button class="reveal-btn" onclick="revealLyricWord(this, 'lyric5', 'back')" style="margin:0;font-size:0.85rem;padding:0.3rem 0.7rem;">👁</button>, you know who to thank.
+  </div><div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);">
+      <div style="font-size:0.9rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #1a1a2e; margin-bottom: 1rem;">Discussion questions</div>
+      <div style="font-size: 1.15rem; line-height: 2.3; color: #1a1a2e; font-weight: 500;">
+        <div style="margin-bottom:1rem;"><strong>1.</strong> What is the message of the song "Don't Give Up"?</div>
+        <div style="margin-bottom:1rem;"><strong>2.</strong> How does this song relate to pursuing your dreams?</div>
+        <div><strong>3.</strong> Have you ever wanted to give up on something? How did you overcome it?</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="slide" id="slide-11">
+  <div class="slide-badge green">Slide 11 / 12</div>
+  <h2 class="section-title">Homework — Final Unit 1 Project</h2>
+
+  <div class="hw-section">
+    <h3>📝 Writing Task — Your Journey (Choose one):</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:0.5rem;">
+      <div style="border:1px solid var(--border);border-radius:var(--radius);padding:1rem;background:var(--surface);">
+        <div style="font-weight:600;margin-bottom:0.5rem;">Option A</div>
+        <div style="font-size:1.2rem;color:#000;">Write your life story (150–200 words) using all 5 tenses from Unit 1. Include: past habits, specific past events, present achievements, ongoing activities, and duration.</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:var(--radius);padding:1rem;background:var(--surface);">
+        <div style="font-weight:600;margin-bottom:0.5rem;">Option B</div>
+        <div style="font-size:1.2rem;color:#000;">Write about your dreams and ambitions (150–200 words). Use mixed tenses to describe your past, present progress, and future goals.</div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:var(--radius);padding:1rem;background:var(--surface);">
+        <div style="font-weight:600;margin-bottom:0.5rem;">Option C</div>
+        <div style="font-size:1.2rem;color:#000;">Write a letter to yourself 5 years from now (150–200 words) describing what you hope to have achieved and how you will have changed.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hw-section">
+    <h3>📖 Grammar Review — Unit 1 Mastery</h3>
+    <div class="hw-item"><div class="hw-dot"></div><div>Review all 5 tenses. Create one example sentence for each, explaining WHY you chose that tense.</div></div>
+    <div class="hw-item"><div class="hw-dot"></div><div>Take the reading text from Slide 8 and highlight each tense. Can you explain why each one was used?</div></div>
+    <div class="hw-item"><div class="hw-dot"></div><div>Create 10 mixed-tense sentences about your own life, mixing all 5 tenses you've learned.</div></div>
+  </div>
+
+  <div class="hw-section">
+    <h3>💬 Speaking Practice — Your Story</h3>
+    <div class="hw-item"><div class="hw-dot"></div><div>Record a 3-minute video telling your life story using all 5 tenses. Include past, present, and future.</div></div>
+    <div class="hw-item"><div class="hw-dot"></div><div>Practice the Unit 1 dialogues with a partner. Each person should use mixed tenses naturally.</div></div>
+    <div class="hw-item"><div class="hw-dot"></div><div>Present your dreams and goals to someone in English, using all the tenses you've learned.</div></div>
+  </div>
+
+  <div class="hw-section" style="background:#fafff6;border-color:#a8dfc0;">
+    <h3 style="color:var(--success);">🎉 CONGRATULATIONS!</h3>
+    <div style="font-size:1rem;color:var(--muted);margin-bottom:1rem;">You've completed Unit 1 — Life Experiences & Personal Growth!</div>
+    <div style="font-size:1rem;color:var(--muted);font-weight:600;">Next Unit: <strong>Unit 2 — Opinions & Communication</strong><br>You've mastered past and present tenses. Ready for conditionals and modals?</div>
+  </div>
+</div>
+
+<div class="slide" id="slide-12">
+  <div class="slide-badge green">Slide 12 / 12</div>
+  <h2 class="section-title" style="text-align:center;margin-top:4rem;">Your Journey Continues</h2>
+  <div class="quote-card">
+    <div id="quoteText"></div>
+    <div style="font-size:1.2rem;color:#6b6b7a;margin-bottom:0.25rem;font-weight:600;">— <span id="quoteAuthor"></span></div>
+    <div style="font-size:0.85rem;color:#9b9ba8;margin-bottom:0.75rem;">Related to: Dreams, Success & Perseverance</div>
+    <div style="margin-top:0.75rem;">
+      <button class="reveal-btn" onclick="newQuote()" style="margin:0 auto;justify-content:center;font-size:1rem;padding:0.5rem 0.85rem;">🔄 Get another quote</button>
+    </div>
+  </div>
+</div>
+
+<div class="nav-footer">
+  <button class="nav-btn" id="prev-btn" onclick="navigate(-1)" disabled>← Previous</button>
+  <span class="slide-counter" id="slideCounter">Slide 1 of 12</span>
+  <button class="nav-btn primary" id="next-btn" onclick="navigate(1)">Next →</button>
+</div>
+
+<script>
+const SLIDES = 12;
+let current = 1;
+
+const vocab = [
+  { en: "dream", type: "noun", pt: "sonho", ex: "My dream is to travel the world." },
+  { en: "ambition", type: "noun", pt: "ambição", ex: "His ambition is to become a CEO." },
+  { en: "goal", type: "noun", pt: "objetivo", ex: "What are your goals for this year?" },
+  { en: "to achieve", type: "verb", pt: "alcançar", ex: "I achieved my dream!" },
+  { en: "to pursue", type: "verb", pt: "perseguir", ex: "She pursues her passion with dedication." },
+  { en: "passion", type: "noun", pt: "paixão", ex: "His passion is photography." },
+  { en: "determination", type: "noun", pt: "determinação", ex: "With determination, anything is possible." },
+  { en: "obstacle", type: "noun", pt: "obstáculo", ex: "Every obstacle is a chance to grow." },
+  { en: "success", type: "noun", pt: "sucesso", ex: "Success takes time and effort." },
+  { en: "to inspire", type: "verb", pt: "inspirar", ex: "She inspires everyone around her." },
+  { en: "motivation", type: "noun", pt: "motivação", ex: "What is your main motivation?" },
+  { en: "perseverance", type: "noun", pt: "perseverança", ex: "Perseverance is key to success." },
+];
+
+const quotes = [
+  { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+  { text: "It is during our darkest moments that we must focus to see the light.", author: "Aristotle" },
+  { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" },
+  { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+  { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
+  { text: "Your limitation—it's only your imagination.", author: "Unknown" },
+  { text: "Dream bigger. Do bigger.", author: "Unknown" },
+  { text: "What lies behind us and what lies before us are tiny matters compared to what lies within us.", author: "Ralph Waldo Emerson" },
+  { text: "The only impossible journey is the one you never begin.", author: "Tony Robbins" },
+  { text: "Your dreams don't have an expiration date.", author: "Unknown" },
+];
+
+function buildFlashcards() {
+  const grid = document.getElementById('flashcardGrid');
+  vocab.forEach((v, i) => {
+    grid.innerHTML += `<div class="fc" id="fc${i}" onclick="toggleFlip(event)">
+      <div class="fc-inner">
+        <div class="fc-front"><div class="fc-type">${v.type}</div><div class="fc-en">${v.en}</div><div class="fc-hint">click to flip</div></div>
+        <div class="fc-back"><div class="fc-pt">${v.pt}</div><div class="fc-ex">${v.ex}</div></div>
+      </div></div>`;
+  });
+}
+
+function toggleFlip(event) { event.currentTarget.classList.toggle('flipped'); }
+function flipAll() { document.querySelectorAll('.fc').forEach(fc => fc.classList.add('flipped')); }
+function revealAnswer(btn) { btn.closest('.activity,.trans-item').querySelector('.answer').classList.add('shown'); btn.style.display = 'none'; }
+function revealLyricWord(btn, elementId, word) { const e = document.getElementById(elementId); e.textContent = word; e.style.color = 'var(--success)'; e.style.fontWeight = '600'; btn.style.display = 'none'; }
+function buildDots() { const nav = document.getElementById('navDots'); for (let i = 1; i <= SLIDES; i++) nav.innerHTML += `<button class="nav-dot ${i === 1 ? 'active' : ''}" onclick="goTo(${i})"></button>`; }
+function goTo(n) { document.getElementById(`slide-${current}`).classList.remove('active'); document.querySelectorAll('.nav-dot')[current - 1].classList.remove('active'); document.querySelectorAll('.nav-dot')[current - 1].classList.add('done'); current = n; document.getElementById(`slide-${current}`).classList.add('active'); document.querySelectorAll('.nav-dot').forEach((d, i) => { d.classList.toggle('active', i + 1 === current); }); document.getElementById('slideCounter').textContent = `Slide ${current} of ${SLIDES}`; document.getElementById('prev-btn').disabled = current === 1; const nextBtn = document.getElementById('next-btn'); if (current === SLIDES) { nextBtn.textContent = '💾 Save Lesson'; nextBtn.onclick = function() { saveLessonAlert(); }; } else { nextBtn.textContent = 'Next →'; nextBtn.onclick = function() { navigate(1); }; } window.scrollTo({ top: 0, behavior: 'smooth' }); }
+function saveLessonAlert() { alert('✅ Lesson saved! Amazing work completing Unit 1 · Lesson 5!\n\nYou\'ve mastered Life Experiences & Personal Growth. Ready for Unit 2?'); }
+function navigate(dir) { if (current === SLIDES && dir > 0) return; goTo(current + dir); }
+function newQuote() { const q = quotes[Math.floor(Math.random() * quotes.length)]; document.getElementById('quoteText').textContent = `"${q.text}"`; document.getElementById('quoteAuthor').textContent = q.author; }
+function toggleTheme() { const html = document.documentElement; const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; html.setAttribute('data-theme', newTheme); localStorage.setItem('theme', newTheme); updateThemeButton(newTheme); }
+function updateThemeButton(theme) { document.getElementById('themeToggle').textContent = theme === 'dark' ? '☀️' : '🌙'; }
+function initTheme() { const saved = localStorage.getItem('theme') || 'light'; document.documentElement.setAttribute('data-theme', saved); updateThemeButton(saved); }
+
+initTheme(); newQuote(); buildFlashcards(); buildDots();
+</script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/progress-manager.js"></script>
+</body>
+</html>

@@ -140,6 +140,7 @@
             a2: 'Pack 32',
             prepb1: 'Pack 32',
             b1: 'Pack 32',
+            'b1-v2': 'Pack 32',
             business: 'Pack 32',
             essentials: 'Pack 32',
             vestibular: 'Pack 32',

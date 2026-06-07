@@ -58,6 +58,7 @@
         { id: 'a2-v2', href: 'a2-v2/a2.html', title: 'M\u00f3dulo A2 V2', lessons: 32, buttonText: 'Testar trilha', icon: 'fa-flask', accent: 'violet', description: 'Vers\u00e3o paralela do A2 com tradu\u00e7\u00e3o PT-EN, fala, listening e gram\u00e1tica mais profunda.' },
         { id: 'prepb1', href: 'prepb1/prepb1.html', title: 'Ponte A2-B1', lessons: 8, buttonText: 'Ver trilha', icon: 'fa-arrow-right-arrow-left', accent: 'cyan', description: 'Revis\u00e3o de transi\u00e7\u00e3o com leitura, interpreta\u00e7\u00e3o e conversa\u00e7\u00e3o antes do B1.' },
         { id: 'b1', href: 'b1/b1.html', title: 'M\u00f3dulo B1', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-chart-line', accent: 'rose', description: 'Experi\u00eancias, opini\u00f5es e autonomia comunicativa.' },
+        { id: 'b1-v2', href: 'b1-v2/b1-v2.html', title: 'M\u00f3dulo B1 V2', lessons: 32, buttonText: 'Testar trilha', icon: 'fa-flask', accent: 'rose', description: 'Vers\u00e3o paralela do B1 para testar novas ideias sem alterar a trilha original.' },
         { id: 'b2', href: 'b2/b2.html', title: 'M\u00f3dulo B2', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-arrow-trend-up', accent: 'amber', description: 'Argumenta\u00e7\u00e3o, nuance e compreens\u00e3o de temas mais densos.', isComingSoon: true },
         { id: 'c1', href: 'c1/c1.html', title: 'M\u00f3dulo C1', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-trophy', accent: 'cyan', description: 'Comunica\u00e7\u00e3o avan\u00e7ada para contextos sociais e profissionais.', isComingSoon: true },
         { id: 'c2', href: 'c2/c2.html', title: 'M\u00f3dulo C2', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-crown', accent: 'slate', description: 'Refinamento total da express\u00e3o e da compreens\u00e3o.', isComingSoon: true }
@@ -150,12 +151,26 @@
 
     function isModuleAvailableForContext(moduleId, studentData) {
         if (moduleId === 'nivelamento') return true;
-        return Boolean(platformAccess?.canAccessModule(getModuleAccessSource(studentData), moduleId === 'a2-v2' ? 'a2' : moduleId));
+        const source = getModuleAccessSource(studentData);
+        if (moduleId === 'a2-v2') {
+            return Boolean(platformAccess?.canAccessModule(source, 'a2-v2') || platformAccess?.canAccessModule(source, 'a2'));
+        }
+        if (moduleId === 'b1-v2') {
+            return Boolean(platformAccess?.canAccessModule(source, 'b1-v2') || platformAccess?.canAccessModule(source, 'b1'));
+        }
+        return Boolean(platformAccess?.canAccessModule(source, moduleId));
     }
 
     function isModuleAssignableByManager(moduleId) {
         if (moduleId === 'nivelamento') return false;
-        return Boolean(platformAccess?.canAccessModule(getModuleAccessSource(null), moduleId === 'a2-v2' ? 'a2' : moduleId));
+        const source = getModuleAccessSource(null);
+        if (moduleId === 'a2-v2') {
+            return Boolean(platformAccess?.canAccessModule(source, 'a2-v2') || platformAccess?.canAccessModule(source, 'a2'));
+        }
+        if (moduleId === 'b1-v2') {
+            return Boolean(platformAccess?.canAccessModule(source, 'b1-v2') || platformAccess?.canAccessModule(source, 'b1'));
+        }
+        return Boolean(platformAccess?.canAccessModule(source, moduleId));
     }
 
     function getModuleRequirementLabel(moduleId) {
@@ -327,6 +342,9 @@
         const assigned = [...new Set([...currentModules, ...fallbackModules])];
         if (assigned.includes('a2') && !assigned.includes('a2-v2')) {
             assigned.push('a2-v2');
+        }
+        if (assigned.includes('b1') && !assigned.includes('b1-v2')) {
+            assigned.push('b1-v2');
         }
 
         return assigned
