@@ -1,787 +1,1004 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A2 | Lição 32: Final Review and Project</title>
-    <script src="https://cdn.tailwindcss.com">
-      </script>
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-      <style>
-        body { font-family: 'Inter', sans-serif; }
-        .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
-        .flip-card { background: transparent; min-height: 180px; perspective: 1000px; cursor: pointer; }
-        .flip-card-inner { position: relative; width: 100%; min-height: 180px; transition: transform 0.7s; transform-style: preserve-3d; }
-        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back { position: absolute; inset: 0; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1.25rem; border: 1px solid #e5e7eb; text-align: center; }
-        .flip-card-front { background: #fff; color: #7c3aed; }
-        .flip-card-back { background: #f5f3ff; color: #4c1d95; transform: rotateY(180deg); font-size: 1.25rem; font-weight: 700; }
-        .answer-btn { background: none; border: none; cursor: pointer; color: #6b7280; margin-left: 0.35rem; }
-        .practice-input, input[data-answer] { border: none; border-bottom: 2px solid #cbd5e1; background: transparent; outline: none; text-align: center; padding: 0 6px; }
-        input.correct { border-color: #22c55e; color: #166534; background: #f0fdf4; }
-        input.incorrect { border-color: #ef4444; color: #991b1b; background: #fef2f2; }
-        .speak-btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid #ddd6fe; background: #f5f3ff; color: #6d28d9; padding: 0.4rem 0.75rem; border-radius: 999px; font-size: 0.85rem; font-weight: 700; }
-        .dialogue-line { display: flex; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
-        .dialogue-line p { flex: 1 1 420px; }
-        </style>
-        <link rel="stylesheet" href="a2-lesson-theme.css">
-      </head>
-      <body class="lesson-loading a2-lesson-page bg-slate-50 text-slate-800">
-        <header class="bg-white shadow-sm sticky top-0 z-10">
-          <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
-            <a href="a2.html" class="text-lg font-bold text-violet-700 hover:text-violet-900 flex items-center gap-2">
-              <i class="fas fa-chevron-left">
-                </i> Voltar para A2</a>
-                <div class="text-center">
-                  <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 32: Final Review and Project</h1>
-                  <p id="slide-title-header" class="text-xs text-slate-400 font-medium">
-                  </p>
-                </div>
-                <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 12</div>
-              </div>
-              <div class="w-full bg-slate-200 h-1.5">
-                <div id="progress-bar" class="bg-violet-500 h-1.5 transition-all duration-300">
-                </div>
-              </div>
-            </header>
-            <main class="container mx-auto p-8 pb-28 max-w-5xl">
-              <div class="slide active" data-title="Intro Dialogue">
-                <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
-                  <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
-                    <div class="a2-hero-copy">
-                      <h2>Finish A2 with a complete personal project</h2>
-                      <p class="mt-4 text-sm font-semibold text-violet-700">A comprehensive review of A2 grammar, vocabulary, expressions, speaking and writing.</p>
-                      <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Esta é a revisão final do A2. O aluno revisa os principais pontos do módulo e prepara uma apresentação curta sobre si mesmo.</p>
-                    </div>
-                    <div class="lesson-panel p-6">
-                      <p class="lesson-panel-title mb-4">You will use</p>
-                      <div class="lesson-checklist">
-                        <div class="lesson-checklist-item">
-                          <i class="fas fa-check-circle">
-                            </i>
-                            <span>past, future and present perfect</span>
-                          </div>
-                          <div class="lesson-checklist-item">
-                            <i class="fas fa-check-circle">
-                              </i>
-                              <span>comparatives, modals and conditionals</span>
-                            </div>
-                            <div class="lesson-checklist-item">
-                              <i class="fas fa-check-circle">
-                                </i>
-                                <span>phrasal verbs and reported speech</span>
-                              </div>
-                              <div class="lesson-checklist-item">
-                                <i class="fas fa-check-circle">
-                                  </i>
-                                  <span>final presentation project</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="section-card p-8 mt-8">
-                          <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
-                            <div>
-                              <p class="lesson-panel-title mb-2">Introductory dialogue</p>
-                              <h2 class="text-3xl font-black text-violet-700">Dialog Sample</h2>
-                            </div>
-                            <button type="button" class="speak-btn" data-speak="Looking back at A2, which topics feel stronger now? I can tell stories, compare places, make plans and talk about dreams. What still feels challenging? I still need to practice reported speech and longer answers.">
-                              <i class="fas fa-volume-up">
-                                </i> Ouvir diálogo</button>
-                              </div>
-                              <div class="space-y-4 text-xl">
-                                <div class="dialogue-line">
-                                  <strong class="text-violet-700">Teacher:</strong>
-                                  <p>Looking back at A2, which topics feel stronger now?</p>
-                                  <button type="button" class="speak-btn" data-speak="Looking back at A2, which topics feel stronger now?">
-                                    <i class="fas fa-volume-up">
-                                      </i> Ouvir</button>
-                                    </div>
-                                    <div class="dialogue-line">
-                                      <strong class="text-orange-600">Student:</strong>
-                                      <p>I can tell stories, compare places, make plans and talk about dreams.</p>
-                                      <button type="button" class="speak-btn" data-speak="I can tell stories, compare places, make plans and talk about dreams.">
-                                        <i class="fas fa-volume-up">
-                                          </i> Ouvir</button>
-                                        </div>
-                                        <div class="dialogue-line">
-                                          <strong class="text-violet-700">Teacher:</strong>
-                                          <p>What still feels challenging?</p>
-                                          <button type="button" class="speak-btn" data-speak="What still feels challenging?">
-                                            <i class="fas fa-volume-up">
-                                              </i> Ouvir</button>
-                                            </div>
-                                            <div class="dialogue-line">
-                                              <strong class="text-orange-600">Student:</strong>
-                                              <p>I still need to practice reported speech and longer answers.</p>
-                                              <button type="button" class="speak-btn" data-speak="I still need to practice reported speech and longer answers.">
-                                                <i class="fas fa-volume-up">
-                                                  </i> Ouvir</button>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="slide" data-title="Vocabulary">
-                                            <div class="text-center mb-6">
-                                              <h2 class="text-4xl font-black text-violet-700">Vocabulary</h2>
-                                              <p class="text-slate-500 text-lg mt-2">Clique nos cartões para ver o significado.</p>
-                                            </div>
-                                            <div class="flashcard-grid max-w-6xl mx-auto">
-                                              <div class="flip-card">
-                                                <div class="flip-card-inner">
-                                                  <div class="flip-card-front">
-                                                    <h3 class="text-2xl font-bold">experience</h3>
-                                                    <button type="button" class="speak-btn mt-3" data-speak="experience">
-                                                      <i class="fas fa-volume-up">
-                                                        </i> Ouvir</button>
-                                                      </div>
-                                                      <div class="flip-card-back">
-                                                        <p>experiência</p>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                  <div class="flip-card">
-                                                    <div class="flip-card-inner">
-                                                      <div class="flip-card-front">
-                                                        <h3 class="text-2xl font-bold">plan</h3>
-                                                        <button type="button" class="speak-btn mt-3" data-speak="plan">
-                                                          <i class="fas fa-volume-up">
-                                                            </i> Ouvir</button>
-                                                          </div>
-                                                          <div class="flip-card-back">
-                                                            <p>plano</p>
-                                                          </div>
-                                                        </div>
-                                                      </div>
-                                                      <div class="flip-card">
-                                                        <div class="flip-card-inner">
-                                                          <div class="flip-card-front">
-                                                            <h3 class="text-2xl font-bold">advice</h3>
-                                                            <button type="button" class="speak-btn mt-3" data-speak="advice">
-                                                              <i class="fas fa-volume-up">
-                                                                </i> Ouvir</button>
-                                                              </div>
-                                                              <div class="flip-card-back">
-                                                                <p>conselho</p>
-                                                              </div>
-                                                            </div>
-                                                          </div>
-                                                          <div class="flip-card">
-                                                            <div class="flip-card-inner">
-                                                              <div class="flip-card-front">
-                                                                <h3 class="text-2xl font-bold">comparison</h3>
-                                                                <button type="button" class="speak-btn mt-3" data-speak="comparison">
-                                                                  <i class="fas fa-volume-up">
-                                                                    </i> Ouvir</button>
-                                                                  </div>
-                                                                  <div class="flip-card-back">
-                                                                    <p>comparação</p>
-                                                                  </div>
-                                                                </div>
-                                                              </div>
-                                                              <div class="flip-card">
-                                                                <div class="flip-card-inner">
-                                                                  <div class="flip-card-front">
-                                                                    <h3 class="text-2xl font-bold">tradition</h3>
-                                                                    <button type="button" class="speak-btn mt-3" data-speak="tradition">
-                                                                      <i class="fas fa-volume-up">
-                                                                        </i> Ouvir</button>
-                                                                      </div>
-                                                                      <div class="flip-card-back">
-                                                                        <p>tradição</p>
-                                                                      </div>
-                                                                    </div>
-                                                                  </div>
-                                                                  <div class="flip-card">
-                                                                    <div class="flip-card-inner">
-                                                                      <div class="flip-card-front">
-                                                                        <h3 class="text-2xl font-bold">environment</h3>
-                                                                        <button type="button" class="speak-btn mt-3" data-speak="environment">
-                                                                          <i class="fas fa-volume-up">
-                                                                            </i> Ouvir</button>
-                                                                          </div>
-                                                                          <div class="flip-card-back">
-                                                                            <p>meio ambiente</p>
-                                                                          </div>
-                                                                        </div>
-                                                                      </div>
-                                                                      <div class="flip-card">
-                                                                        <div class="flip-card-inner">
-                                                                          <div class="flip-card-front">
-                                                                            <h3 class="text-2xl font-bold">dream</h3>
-                                                                            <button type="button" class="speak-btn mt-3" data-speak="dream">
-                                                                              <i class="fas fa-volume-up">
-                                                                                </i> Ouvir</button>
-                                                                              </div>
-                                                                              <div class="flip-card-back">
-                                                                                <p>sonho</p>
-                                                                              </div>
-                                                                            </div>
-                                                                          </div>
-                                                                          <div class="flip-card">
-                                                                            <div class="flip-card-inner">
-                                                                              <div class="flip-card-front">
-                                                                                <h3 class="text-2xl font-bold">goal</h3>
-                                                                                <button type="button" class="speak-btn mt-3" data-speak="goal">
-                                                                                  <i class="fas fa-volume-up">
-                                                                                    </i> Ouvir</button>
-                                                                                  </div>
-                                                                                  <div class="flip-card-back">
-                                                                                    <p>meta</p>
-                                                                                  </div>
-                                                                                </div>
-                                                                              </div>
-                                                                              <div class="flip-card">
-                                                                                <div class="flip-card-inner">
-                                                                                  <div class="flip-card-front">
-                                                                                    <h3 class="text-2xl font-bold">source</h3>
-                                                                                    <button type="button" class="speak-btn mt-3" data-speak="source">
-                                                                                      <i class="fas fa-volume-up">
-                                                                                        </i> Ouvir</button>
-                                                                                      </div>
-                                                                                      <div class="flip-card-back">
-                                                                                        <p>fonte</p>
-                                                                                      </div>
-                                                                                    </div>
-                                                                                  </div>
-                                                                                  <div class="flip-card">
-                                                                                    <div class="flip-card-inner">
-                                                                                      <div class="flip-card-front">
-                                                                                        <h3 class="text-2xl font-bold">confidence</h3>
-                                                                                        <button type="button" class="speak-btn mt-3" data-speak="confidence">
-                                                                                          <i class="fas fa-volume-up">
-                                                                                            </i> Ouvir</button>
-                                                                                          </div>
-                                                                                          <div class="flip-card-back">
-                                                                                            <p>confiança</p>
-                                                                                          </div>
-                                                                                        </div>
-                                                                                      </div>
-                                                                                    </div>
-                                                                                  </div>
-                                                                                  <div class="slide" data-title="Grammar">
-                                                                                    <div class="section-card p-8">
-                                                                                      <div class="text-center mb-8">
-                                                                                        <p class="lesson-panel-title mb-2">Grammar focus</p>
-                                                                                        <h2 class="text-4xl font-black text-violet-700">Understand the pattern</h2>
-                                                                                        <p class="text-slate-500 text-lg mt-2">Exemplos com tradução para o aluno conseguir revisar sozinho.</p>
-                                                                                      </div>
-                                                                                      <div class="grid gap-5">
-                                                                                        <div class="activity-card border-l-4 border-violet-500">
-                                                                                          <h3 class="text-2xl font-black text-violet-700 mb-3">Past and Experiences</h3>
-                                                                                          <p class="text-lg text-slate-700 mb-4">Use <strong>past simple</strong> para ações finalizadas e <strong>present perfect</strong> para experiências.</p>
-                                                                                          <div class="grid md:grid-cols-3 gap-3">
-                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
-                                                                                              <p class="font-bold text-slate-900">I studied English last year.</p>
-                                                                                              <p class="text-sm text-slate-600 mt-2">Eu estudei inglês no ano passado.</p>
-                                                                                            </div>
-                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
-                                                                                              <p class="font-bold text-slate-900">I have visited another city.</p>
-                                                                                              <p class="text-sm text-slate-600 mt-2">Eu já visitei outra cidade.</p>
-                                                                                            </div>
-                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
-                                                                                              <p class="font-bold text-slate-900">She has never tried sushi.</p>
-                                                                                              <p class="text-sm text-slate-600 mt-2">Ela nunca experimentou sushi.</p>
-                                                                                            </div>
-                                                                                          </div>
-                                                                                        </div>
-                                                                                        <div class="activity-card border-l-4 border-violet-500">
-                                                                                          <h3 class="text-2xl font-black text-violet-700 mb-3">Plans, Advice and Comparison</h3>
-                                                                                          <p class="text-lg text-slate-700 mb-4">Use <strong>going to/will</strong> para futuro, <strong>should</strong> para conselho e comparativos para diferenças.</p>
-                                                                                          <div class="grid md:grid-cols-3 gap-3">
-                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
-                                                                                              <p class="font-bold text-slate-900">I am going to practice more.</p>
-                                                                                              <p class="text-sm text-slate-600 mt-2">Eu vou praticar mais.</p>
-                                                                                            </div>
-                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
-                                                                                              <p class="font-bold text-slate-900">You should speak every week.</p>
-                                                                                              <p class="text-sm text-slate-600 mt-2">Você deveria falar toda semana.</p>
-                                                                                            </div>
-                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
-                                                                                              <p class="font-bold text-slate-900">My answers are clearer now.</p>
-                                                                                              <p class="text-sm text-slate-600 mt-2">Minhas respostas estão mais claras agora.</p>
-                                                                                            </div>
-                                                                                          </div>
-                                                                                        </div>
-                                                                                        <div class="activity-card border-l-4 border-violet-500">
-                                                                                          <h3 class="text-2xl font-black text-violet-700 mb-3">Conditionals for Projects</h3>
-                                                                                          <p class="text-lg text-slate-700 mb-4">Use <strong>first conditional</strong> para futuro real e <strong>second conditional</strong> para sonhos.</p>
-                                                                                          <div class="grid md:grid-cols-3 gap-3">
-                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
-                                                                                              <p class="font-bold text-slate-900">If I have time, I will review.</p>
-                                                                                              <p class="text-sm text-slate-600 mt-2">Se eu tiver tempo, vou revisar.</p>
-                                                                                            </div>
-                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
-                                                                                              <p class="font-bold text-slate-900">If I had more confidence, I would speak more.</p>
-                                                                                              <p class="text-sm text-slate-600 mt-2">Se eu tivesse mais confiança, falaria mais.</p>
-                                                                                            </div>
-                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
-                                                                                              <p class="font-bold text-slate-900">If I keep practicing, I will improve.</p>
-                                                                                              <p class="text-sm text-slate-600 mt-2">Se eu continuar praticando, vou melhorar.</p>
-                                                                                            </div>
-                                                                                          </div>
-                                                                                        </div>
-                                                                                      </div>
-                                                                                    </div>
-                                                                                  </div>
-                                                                                  <div class="slide" data-title="Random Activity">
-                                                                                    <div class="section-card p-8 max-w-6xl mx-auto">
-                                                                                      <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
-                                                                                        <div>
-                                                                                          <p class="lesson-panel-title mb-2">Random activity - 10 questions</p>
-                                                                                          <h2 class="text-4xl font-black text-violet-700">Mixed practice</h2>
-                                                                                        </div>
-                                                                                        <div id="quiz-score" class="preview-card min-w-[180px] text-center">0 / 10</div>
-                                                                                      </div>
-                                                                                      <div class="grid md:grid-cols-2 gap-4">
-                                                                                        <div class="activity-card" data-quiz-item data-answer="visited">
-                                                                                          <p class="font-semibold mb-3">1. Yesterday, I ___ my friend.</p>
-                                                                                          <div class="option-cloud">
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="visited">visited</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="visit">visit</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="will visit">will visit</button>
-                                                                                          </div>
-                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
-                                                                                        </div>
-                                                                                        <div class="activity-card" data-quiz-item data-answer="called">
-                                                                                          <p class="font-semibold mb-3">2. I was cooking when you ___.</p>
-                                                                                          <div class="option-cloud">
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="called">called</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="call">call</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="were call">were call</button>
-                                                                                          </div>
-                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
-                                                                                        </div>
-                                                                                        <div class="activity-card" data-quiz-item data-answer="cleaner">
-                                                                                          <p class="font-semibold mb-3">3. This park is ___ than that one.</p>
-                                                                                          <div class="option-cloud">
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="cleaner">cleaner</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="clean">clean</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="cleanest">cleanest</button>
-                                                                                          </div>
-                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
-                                                                                        </div>
-                                                                                        <div class="activity-card" data-quiz-item data-answer="tried">
-                                                                                          <p class="font-semibold mb-3">4. She has never ___ sushi.</p>
-                                                                                          <div class="option-cloud">
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="tried">tried</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="try">try</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="trying">trying</button>
-                                                                                          </div>
-                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
-                                                                                        </div>
-                                                                                        <div class="activity-card" data-quiz-item data-answer="should">
-                                                                                          <p class="font-semibold mb-3">5. You ___ drink more water.</p>
-                                                                                          <div class="option-cloud">
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="should">should</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="were">were</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="did">did</button>
-                                                                                          </div>
-                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
-                                                                                        </div>
-                                                                                        <div class="activity-card" data-quiz-item data-answer="will">
-                                                                                          <p class="font-semibold mb-3">6. If it rains, we ___ stay home.</p>
-                                                                                          <div class="option-cloud">
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="will">will</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="would">would</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="were">were</button>
-                                                                                          </div>
-                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
-                                                                                        </div>
-                                                                                        <div class="activity-card" data-quiz-item data-answer="off">
-                                                                                          <p class="font-semibold mb-3">7. Please turn ___ the computer.</p>
-                                                                                          <div class="option-cloud">
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="off">off</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="of">of</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="in">in</button>
-                                                                                          </div>
-                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
-                                                                                        </div>
-                                                                                        <div class="activity-card" data-quiz-item data-answer="was">
-                                                                                          <p class="font-semibold mb-3">8. He said that he ___ busy.</p>
-                                                                                          <div class="option-cloud">
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="was">was</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="is">is</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="will">will</button>
-                                                                                          </div>
-                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
-                                                                                        </div>
-                                                                                        <div class="activity-card" data-quiz-item data-answer="recycled">
-                                                                                          <p class="font-semibold mb-3">9. Plastic should be ___.</p>
-                                                                                          <div class="option-cloud">
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="recycled">recycled</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="recycle">recycle</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="recycling">recycling</button>
-                                                                                          </div>
-                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
-                                                                                        </div>
-                                                                                        <div class="activity-card" data-quiz-item data-answer="would">
-                                                                                          <p class="font-semibold mb-3">10. If I had more time, I ___ study more.</p>
-                                                                                          <div class="option-cloud">
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="would">would</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="will">will</button>
-                                                                                            <button type="button" class="option-chip" data-quiz-choice="did">did</button>
-                                                                                          </div>
-                                                                                          <p class="mt-3 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
-                                                                                        </div>
-                                                                                      </div>
-                                                                                    </div>
-                                                                                  </div>
-                                                                                  <div class="slide" data-title="Key Expressions">
-                                                                                    <div class="section-card p-8">
-                                                                                      <h2 class="text-4xl font-black text-violet-700 mb-6 text-center">Key expressions</h2>
-                                                                                      <div class="grid md:grid-cols-2 gap-4 text-lg">
-                                                                                        <div class="activity-card">
-                                                                                          <p class="font-semibold text-slate-900">Have you ever...?</p>
-                                                                                          <p class="text-sm text-slate-600 mt-2">Você já...?</p>
-                                                                                        </div>
-                                                                                        <div class="activity-card">
-                                                                                          <p class="font-semibold text-slate-900">I prefer... because...</p>
-                                                                                          <p class="text-sm text-slate-600 mt-2">Eu prefiro... porque...</p>
-                                                                                        </div>
-                                                                                        <div class="activity-card">
-                                                                                          <p class="font-semibold text-slate-900">You should...</p>
-                                                                                          <p class="text-sm text-slate-600 mt-2">Você deveria...</p>
-                                                                                        </div>
-                                                                                        <div class="activity-card">
-                                                                                          <p class="font-semibold text-slate-900">According to...</p>
-                                                                                          <p class="text-sm text-slate-600 mt-2">De acordo com...</p>
-                                                                                        </div>
-                                                                                        <div class="activity-card">
-                                                                                          <p class="font-semibold text-slate-900">They said that...</p>
-                                                                                          <p class="text-sm text-slate-600 mt-2">Eles disseram que...</p>
-                                                                                        </div>
-                                                                                        <div class="activity-card">
-                                                                                          <p class="font-semibold text-slate-900">If I have time, I will...</p>
-                                                                                          <p class="text-sm text-slate-600 mt-2">Se eu tiver tempo, eu vou...</p>
-                                                                                        </div>
-                                                                                        <div class="activity-card">
-                                                                                          <p class="font-semibold text-slate-900">If I had more time, I would...</p>
-                                                                                          <p class="text-sm text-slate-600 mt-2">Se eu tivesse mais tempo, eu...</p>
-                                                                                        </div>
-                                                                                        <div class="activity-card">
-                                                                                          <p class="font-semibold text-slate-900">I used to...</p>
-                                                                                          <p class="text-sm text-slate-600 mt-2">Eu costumava...</p>
-                                                                                        </div>
-                                                                                        <div class="activity-card">
-                                                                                          <p class="font-semibold text-slate-900">I would like to...</p>
-                                                                                          <p class="text-sm text-slate-600 mt-2">Eu gostaria de...</p>
-                                                                                        </div>
-                                                                                        <div class="activity-card">
-                                                                                          <p class="font-semibold text-slate-900">My next goal is...</p>
-                                                                                          <p class="text-sm text-slate-600 mt-2">Meu próximo objetivo é...</p>
-                                                                                        </div>
-                                                                                      </div>
-                                                                                    </div>
-                                                                                  </div>
-                                                                                  <div class="slide" data-title="Grammar of Expressions">
-                                                                                    <div class="section-card p-8">
-                                                                                      <div class="text-center mb-8">
-                                                                                        <p class="lesson-panel-title mb-2">Grammar of expressions</p>
-                                                                                        <h2 class="text-4xl font-black text-violet-700">Review patterns that keep answers clear</h2>
-                                                                                        <p class="text-slate-500 text-lg mt-2">Use estes padrões para montar perguntas, justificar ideias e revisar pontos recorrentes do A2.</p>
-                                                                                      </div>
-                                                                                      <div class="grid gap-5">
-                                                                                        <div class="activity-card border-l-4 border-violet-500">
-                                                                                          <h3 class="text-2xl font-black text-violet-700 mb-3">Questions: <span class="text-slate-900">auxiliary + subject + verb</span>
-                                                                                          </h3>
-                                                                                          <p class="text-lg text-slate-700 mb-4">Em perguntas, coloque o auxiliar antes do sujeito. Isso aparece em <strong>Have you ever...?</strong>, <strong>Do you...?</strong> e <strong>Would you...?</strong>.</p>
-                                                                                          <div class="grid md:grid-cols-3 gap-3">
-                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
-                                                                                              <p class="font-bold text-slate-900">Have you ever visited another country?</p>
-                                                                                              <p class="text-sm text-slate-600 mt-2">Você já visitou outro país?</p>
-                                                                                            </div>
-                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
-                                                                                              <p class="font-bold text-slate-900">Do you prefer studying at night?</p>
-                                                                                              <p class="text-sm text-slate-600 mt-2">Você prefere estudar à noite?</p>
-                                                                                            </div>
-                                                                                            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
-                                                                                              <p class="font-bold text-slate-900">Would you like to improve pronunciation?</p>
-                                                                                              <p class="text-sm text-slate-600 mt-2">Você gostaria de melhorar a pronúncia?</p>
-                                                                                            </div>
-                                                                                          </div>
-                                                                                        </div>
-                                                                                        <div class="activity-card border-l-4 border-violet-500">
-                                                                                          <h3 class="text-2xl font-black text-violet-700 mb-3">Reasons and Contrast: <span class="text-slate-900">because / although</span>
-                                                                                          </h3>
-                                                                                          <p class="text-lg text-slate-700 mb-4">
-                                                                                            <strong>Because</strong> explica o motivo. <strong>Although</strong> mostra contraste entre duas ideias.</p>
-                                                                                            <div class="grid md:grid-cols-3 gap-3">
-                                                                                              <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
-                                                                                                <p class="font-bold text-slate-900">I study at night because it is quiet.</p>
-                                                                                                <p class="text-sm text-slate-600 mt-2">Eu estudo à noite porque é silencioso.</p>
-                                                                                              </div>
-                                                                                              <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
-                                                                                                <p class="font-bold text-slate-900">Although grammar is difficult, I can improve.</p>
-                                                                                                <p class="text-sm text-slate-600 mt-2">Embora a gramática seja difícil, eu posso melhorar.</p>
-                                                                                              </div>
-                                                                                              <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
-                                                                                                <p class="font-bold text-slate-900">I prefer videos because they are practical.</p>
-                                                                                                <p class="text-sm text-slate-600 mt-2">Eu prefiro vídeos porque eles são práticos.</p>
-                                                                                              </div>
-                                                                                            </div>
-                                                                                          </div>
-                                                                                          <div class="activity-card border-l-4 border-violet-500">
-                                                                                            <h3 class="text-2xl font-black text-violet-700 mb-3">Recurring A2 Patterns: <span class="text-slate-900">prepositions, phrasal verbs and adverbs</span>
-                                                                                            </h3>
-                                                                                            <p class="text-lg text-slate-700 mb-4">Observe padrões que se repetem: preposições fixas, phrasal verbs separáveis e palavras como <strong>already</strong>, <strong>ever</strong> e <strong>never</strong>.</p>
-                                                                                            <div class="grid md:grid-cols-3 gap-3">
-                                                                                              <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
-                                                                                                <p class="font-bold text-slate-900">I am interested in practicing more.</p>
-                                                                                                <p class="text-sm text-slate-600 mt-2">Estou interessado em praticar mais.</p>
-                                                                                              </div>
-                                                                                              <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
-                                                                                                <p class="font-bold text-slate-900">Please turn it off.</p>
-                                                                                                <p class="text-sm text-slate-600 mt-2">Por favor, desligue isso.</p>
-                                                                                              </div>
-                                                                                              <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
-                                                                                                <p class="font-bold text-slate-900">I have already finished the review.</p>
-                                                                                                <p class="text-sm text-slate-600 mt-2">Eu já terminei a revisão.</p>
-                                                                                              </div>
-                                                                                            </div>
-                                                                                          </div>
-                                                                                        </div>
-                                                                                      </div>
-                                                                                    </div>
-                                                                                    <div class="slide" data-title="Expression Activity">
-                                                                                      <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
-                                                                                        <div class="text-center mb-6">
-                                                                                          <p class="lesson-panel-title mb-2">Expression activity - 10 questions</p>
-                                                                                          <h2 class="text-4xl font-black text-violet-700">Complete the expressions</h2>
-                                                                                        </div>
-                                                                                        <div class="space-y-5">
-                                                                                          <p>1. Have you <input id="e0" data-answer="ever" class="practice-input w-32">
-                                                                                            <button class="answer-btn" data-target="e0">
-                                                                                              <i class="fas fa-eye">
-                                                                                                </i>
-                                                                                              </button> visited another country? <span class="text-sm text-slate-500">Dica: já alguma vez</span>
-                                                                                            </p>
-                                                                                            <p>2. I prefer studying at night <input id="e1" data-answer="because" class="practice-input w-32">
-                                                                                              <button class="answer-btn" data-target="e1">
-                                                                                                <i class="fas fa-eye">
-                                                                                                  </i>
-                                                                                                </button> it is quiet. <span class="text-sm text-slate-500">Dica: porque</span>
-                                                                                              </p>
-                                                                                              <p>3. You <input id="e2" data-answer="should" class="practice-input w-32">
-                                                                                                <button class="answer-btn" data-target="e2">
-                                                                                                  <i class="fas fa-eye">
-                                                                                                    </i>
-                                                                                                  </button> practice speaking every week. <span class="text-sm text-slate-500">Dica: deveria</span>
-                                                                                                </p>
-                                                                                                <p>4. According <input id="e3" data-answer="to" class="practice-input w-32">
-                                                                                                  <button class="answer-btn" data-target="e3">
-                                                                                                    <i class="fas fa-eye">
-                                                                                                      </i>
-                                                                                                    </button> the article, the source is reliable. <span class="text-sm text-slate-500">Dica: a/de acordo com</span>
-                                                                                                  </p>
-                                                                                                  <p>5. They said <input id="e4" data-answer="that" class="practice-input w-32">
-                                                                                                    <button class="answer-btn" data-target="e4">
-                                                                                                      <i class="fas fa-eye">
-                                                                                                        </i>
-                                                                                                      </button> the event was full. <span class="text-sm text-slate-500">Dica: que</span>
-                                                                                                    </p>
-                                                                                                    <p>6. If I have time, I <input id="e5" data-answer="will" class="practice-input w-32">
-                                                                                                      <button class="answer-btn" data-target="e5">
-                                                                                                        <i class="fas fa-eye">
-                                                                                                          </i>
-                                                                                                        </button> review the lesson. <span class="text-sm text-slate-500">Dica: vou/irei</span>
-                                                                                                      </p>
-                                                                                                      <p>7. If I had more money, I <input id="e6" data-answer="would" class="practice-input w-32">
-                                                                                                        <button class="answer-btn" data-target="e6">
-                                                                                                          <i class="fas fa-eye">
-                                                                                                            </i>
-                                                                                                          </button> travel more. <span class="text-sm text-slate-500">Dica: iria/faria</span>
-                                                                                                        </p>
-                                                                                                        <p>8. I used <input id="e7" data-answer="to" class="practice-input w-32">
-                                                                                                          <button class="answer-btn" data-target="e7">
-                                                                                                            <i class="fas fa-eye">
-                                                                                                              </i>
-                                                                                                            </button> watch cartoons. <span class="text-sm text-slate-500">Dica: costumava</span>
-                                                                                                          </p>
-                                                                                                          <p>9. I would like <input id="e8" data-answer="to" class="practice-input w-32">
-                                                                                                            <button class="answer-btn" data-target="e8">
-                                                                                                              <i class="fas fa-eye">
-                                                                                                                </i>
-                                                                                                              </button> improve pronunciation. <span class="text-sm text-slate-500">Dica: para</span>
-                                                                                                            </p>
-                                                                                                            <p>10. My next <input id="e9" data-answer="goal" class="practice-input w-32">
-                                                                                                              <button class="answer-btn" data-target="e9">
-                                                                                                                <i class="fas fa-eye">
-                                                                                                                  </i>
-                                                                                                                </button> is speaking naturally. <span class="text-sm text-slate-500">Dica: objetivo/meta</span>
-                                                                                                              </p>
-                                                                                                            </div>
-                                                                                                          </div>
-                                                                                                        </div>
-                                                                                                        <div class="slide" data-title="Elaborated Dialogue">
-                                                                                                          <div class="section-card p-8">
-                                                                                                            <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
-                                                                                                              <div>
-                                                                                                                <p class="lesson-panel-title mb-2">Elaborated dialogue</p>
-                                                                                                                <h2 class="text-4xl font-black text-violet-700">Usage situations</h2>
-                                                                                                              </div>
-                                                                                                              <button type="button" class="speak-btn" data-speak="Tell me one thing you can do now. I can compare places and explain everyday problems with more confidence. Use a past experience in your project. Last year, I studied English twice a week, and I learned how to talk about my routine. Add one future plan. I am going to practice speaking more often, and I will review difficult grammar. Finish with a dream. If I had more confidence, I would travel and speak more with people from other countries.">
-                                                                                                                <i class="fas fa-volume-up">
-                                                                                                                  </i> Ouvir diálogos</button>
-                                                                                                                </div>
-                                                                                                                <div class="grid md:grid-cols-2 gap-4 text-lg">
-                                                                                                                  <div class="activity-card">
-                                                                                                                    <p class="lesson-panel-title mb-3">Situation 1</p>
-                                                                                                                    <div class="space-y-3">
-                                                                                                                      <div class="dialogue-line">
-                                                                                                                        <strong class="text-violet-700">Teacher:</strong>
-                                                                                                                        <p>Tell me one thing you can do now.</p>
-                                                                                                                      </div>
-                                                                                                                      <div class="dialogue-line">
-                                                                                                                        <strong class="text-orange-600">Student:</strong>
-                                                                                                                        <p>I can compare places and explain everyday problems with more confidence.</p>
-                                                                                                                      </div>
-                                                                                                                    </div>
-                                                                                                                  </div>
-                                                                                                                  <div class="activity-card">
-                                                                                                                    <p class="lesson-panel-title mb-3">Situation 2</p>
-                                                                                                                    <div class="space-y-3">
-                                                                                                                      <div class="dialogue-line">
-                                                                                                                        <strong class="text-violet-700">Teacher:</strong>
-                                                                                                                        <p>Use a past experience in your project.</p>
-                                                                                                                      </div>
-                                                                                                                      <div class="dialogue-line">
-                                                                                                                        <strong class="text-orange-600">Student:</strong>
-                                                                                                                        <p>Last year, I studied English twice a week, and I learned how to talk about my routine.</p>
-                                                                                                                      </div>
-                                                                                                                    </div>
-                                                                                                                  </div>
-                                                                                                                  <div class="activity-card">
-                                                                                                                    <p class="lesson-panel-title mb-3">Situation 3</p>
-                                                                                                                    <div class="space-y-3">
-                                                                                                                      <div class="dialogue-line">
-                                                                                                                        <strong class="text-violet-700">Teacher:</strong>
-                                                                                                                        <p>Add one future plan.</p>
-                                                                                                                      </div>
-                                                                                                                      <div class="dialogue-line">
-                                                                                                                        <strong class="text-orange-600">Student:</strong>
-                                                                                                                        <p>I am going to practice speaking more often, and I will review difficult grammar.</p>
-                                                                                                                      </div>
-                                                                                                                    </div>
-                                                                                                                  </div>
-                                                                                                                  <div class="activity-card">
-                                                                                                                    <p class="lesson-panel-title mb-3">Situation 4</p>
-                                                                                                                    <div class="space-y-3">
-                                                                                                                      <div class="dialogue-line">
-                                                                                                                        <strong class="text-violet-700">Teacher:</strong>
-                                                                                                                        <p>Finish with a dream.</p>
-                                                                                                                      </div>
-                                                                                                                      <div class="dialogue-line">
-                                                                                                                        <strong class="text-orange-600">Student:</strong>
-                                                                                                                        <p>If I had more confidence, I would travel and speak more with people from other countries.</p>
-                                                                                                                      </div>
-                                                                                                                    </div>
-                                                                                                                  </div>
-                                                                                                                </div>
-                                                                                                              </div>
-                                                                                                            </div>
-                                                                                                            <div class="slide" data-title="Oral Translation">
-                                                                                                              <div class="section-card p-8">
-                                                                                                                <h2 class="text-4xl font-black text-violet-700 mb-4 text-center">Oral translation</h2>
-                                                                                                                <p class="text-lg text-slate-600 mb-6 text-center">O professor lê em português; o aluno traduz oralmente para o inglês.</p>
-                                                                                                                <div class="grid md:grid-cols-2 gap-4 text-lg">
-                                                                                                                  <div class="activity-card">
-                                                                                                                    <span class="font-bold text-violet-700">1.</span> Eu já visitei aquela cidade.</div>
-                                                                                                                    <div class="activity-card">
-                                                                                                                      <span class="font-bold text-violet-700">2.</span> Se eu tiver tempo, vou praticar mais.</div>
-                                                                                                                      <div class="activity-card">
-                                                                                                                        <span class="font-bold text-violet-700">3.</span> Se eu tivesse mais confiança, falaria mais.</div>
-                                                                                                                        <div class="activity-card">
-                                                                                                                          <span class="font-bold text-violet-700">4.</span> Ela disse que estava ocupada.</div>
-                                                                                                                          <div class="activity-card">
-                                                                                                                            <span class="font-bold text-violet-700">5.</span> Meu próximo objetivo é falar com mais naturalidade.</div>
-                                                                                                                          </div>
-                                                                                                                        </div>
-                                                                                                                      </div>
-                                                                                                                      <div class="slide" data-title="Song">
-                                                                                                                        <div class="section-card p-8 max-w-4xl mx-auto">
-                                                                                                                          <h2 class="text-4xl font-black text-violet-700 mb-4 text-center">Song: A Million Dreams</h2>
-                                                                                                                          <p class="text-center text-slate-500 text-lg mb-6">The Greatest Showman - escuta guiada com sample editável.</p>
-                                                                                                                          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/search/A%20Million%20Dreams%20The%20Greatest%20Showman?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
-                                                                                                                          </iframe>
-                                                                                                                          <div class="activity-card text-lg space-y-3 mt-5">
-                                                                                                                            <p class="lesson-panel-title">Lyrics sample</p>
-                                                                                                                            <p>[Sample lyrics - replace manually]</p>
-                                                                                                                            <p>Line 1: I close my eyes and imagine a future.</p>
-                                                                                                                            <p>Line 2: I see a world I want to build.</p>
-                                                                                                                            <p>Line 3: My dreams are bigger than before.</p>
-                                                                                                                            <p>Line 4: I am ready for the next step.</p>
-                                                                                                                            <p class="text-sm text-slate-500">Substitua este sample pela letra completa ou pelo trecho que você quiser trabalhar na aula.</p>
-                                                                                                                          </div>
-                                                                                                                        </div>
-                                                                                                                      </div>
-                                                                                                                      <div class="slide" data-title="Homework">
-                                                                                                                        <div class="section-card p-8 max-w-5xl mx-auto">
-                                                                                                                          <h2 class="text-4xl font-black text-violet-700 mb-4 text-center">Homework</h2>
-                                                                                                                          <div class="activity-card text-lg">
-                                                                                                                            <p>Prepare uma apresentação curta sobre você. Inclua experiências passadas, comparações, planos futuros e sonhos usando vocabulário e gramática do A2.</p>
-                                                                                                                          </div>
-                                                                                                                          <textarea rows="8" class="mt-5 w-full p-4 border-2 border-slate-200 rounded-xl outline-none focus:border-violet-500" placeholder="Write your homework draft here...">
-                                                                                                                          </textarea>
-                                                                                                                        </div>
-                                                                                                                      </div>
-                                                                                                                      <div class="slide" data-title="Lesson Complete">
-                                                                                                                        <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
-                                                                                                                          <i class="fas fa-award text-violet-700 text-7xl mb-6">
-                                                                                                                            </i>
-                                                                                                                            <p class="lesson-panel-title mb-2">Motivational phrase</p>
-                                                                                                                            <h2 class="text-5xl font-black mb-4 text-slate-900">You have climbed another step; now look forward to the next level of your English journey.</h2>
-                                                                                                                            <p class="text-2xl text-slate-600 max-w-3xl">Lesson 32 complete.</p>
-                                                                                                                          </div>
-                                                                                                                        </div>
-                                                                                                                      </main>
-                                                                                                                      <footer class="fixed bottom-0 left-0 w-full z-20 h-16">
-                                                                                                                        <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
-                                                                                                                          <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Anterior</button>
-                                                                                                                          <button id="next-btn" class="bg-violet-600 text-white font-bold py-3 px-8 rounded-lg transition">Próximo</button>
-                                                                                                                          <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Finalizar aula</button>
-                                                                                                                        </div>
-                                                                                                                      </footer>
-                                                                                                                      <script src="a2-lesson-theme.js">
-                                                                                                                        </script>
-                                                                                                                        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js">
-                                                                                                                          </script>
-                                                                                                                          <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js">
-                                                                                                                            </script>
-                                                                                                                            <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js">
-                                                                                                                              </script>
-                                                                                                                              <script src="../js/firebase-config.js">
-                                                                                                                                </script>
-                                                                                                                                <script src="../js/progress-manager.js">
-                                                                                                                                  </script>
-                                                                                                                                  <script>
-                                                                                                                                    document.addEventListener('DOMContentLoaded', () => {
-                                                                                                                                    const moduleId = 'a2', lessonNumber = 32;
-                                                                                                                                    const slides = Array.from(document.querySelectorAll('.slide'));
-                                                                                                                                    const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishBtn = document.getElementById('finish-lesson-btn'), progressBar = document.getElementById('progress-bar');
-                                                                                                                                    const normalize = (text) => (text || '').trim().toLowerCase().replace(/[.?!"']/g, '').replace(/\s+/g, ' ');
-                                                                                                                                    let currentSlide = 0;
-                                                                                                                                    const checkAnswer = (input) => { input.classList.remove('correct', 'incorrect'); if (!input.value.trim()) return; input.classList.add(normalize(input.value) === normalize(input.dataset.answer || '') ? 'correct' : 'incorrect'); };
-                                                                                                                                    const updateQuizScore = () => { const items = Array.from(document.querySelectorAll('[data-quiz-item]')); const correct = items.filter((item) => item.dataset.correct === 'true').length; const score = document.getElementById('quiz-score'); if (score) score.textContent = correct + ' / ' + items.length; };
-                                                                                                                                    document.querySelectorAll('[data-quiz-choice]').forEach((button) => button.addEventListener('click', () => { const item = button.closest('[data-quiz-item]'); const ok = normalize(button.dataset.quizChoice) === normalize(item.dataset.answer); item.dataset.correct = ok ? 'true' : 'false'; item.querySelectorAll('[data-quiz-choice]').forEach((choice) => choice.classList.remove('is-active', 'selected-correct', 'selected-incorrect')); button.classList.add('is-active', ok ? 'selected-correct' : 'selected-incorrect'); const feedback = item.querySelector('[data-quiz-feedback]'); if (feedback) { feedback.textContent = ok ? 'Correct!' : 'Try again. Correct answer: ' + item.dataset.answer; feedback.className = ok ? 'mt-3 text-sm text-green-700' : 'mt-3 text-sm text-amber-700'; } updateQuizScore(); }));
-                                                                                                                                    const render = () => { slides.forEach((slide, i) => slide.classList.toggle('active', i === currentSlide)); if (progressBar) progressBar.style.width = slides.length > 1 ? ((currentSlide / (slides.length - 1)) * 100) + '%' : '100%'; if (prevBtn) prevBtn.disabled = currentSlide === 0; if (nextBtn) nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1); if (finishBtn) finishBtn.classList.toggle('hidden', currentSlide !== slides.length - 1); };
-                                                                                                                                    prevBtn?.addEventListener('click', () => { if (currentSlide > 0) { currentSlide -= 1; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
-                                                                                                                                    nextBtn?.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide += 1; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
-                                                                                                                                    finishBtn?.addEventListener('click', () => { finishBtn.disabled = true; finishBtn.textContent = 'Salvando...'; if (typeof markLessonAsComplete === 'function') Promise.resolve(markLessonAsComplete(moduleId, lessonNumber)).catch(() => { finishBtn.disabled = false; finishBtn.textContent = 'Finalizar aula'; }); });
-                                                                                                                                    document.querySelectorAll('input[data-answer]').forEach((input) => input.addEventListener('blur', () => checkAnswer(input)));
-                                                                                                                                    document.querySelectorAll('.answer-btn[data-target]').forEach((button) => button.addEventListener('click', () => { const input = document.getElementById(button.dataset.target); if (!input) return; input.value = input.dataset.answer || ''; checkAnswer(input); }));
-                                                                                                                                    document.querySelectorAll('.speak-btn[data-speak]').forEach((button) => button.addEventListener('click', (event) => { event.stopPropagation(); const utterance = new SpeechSynthesisUtterance(button.dataset.speak || ''); utterance.lang = 'en-US'; speechSynthesis.cancel(); speechSynthesis.speak(utterance); }));
-                                                                                                                                    updateQuizScore(); render();
-                                                                                                                                    });
-                                                                                                                                    </script>
-                                                                                                                                    <script src="../js/flashcard-pronunciation.js">
-                                                                                                                                      </script>
-                                                                                                                                      <script src="../js/lesson-flashcard-save.js">
-                                                                                                                                        </script>
-                                                                                                                                      </body>
-                                                                                                                                    </html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A2 | Lição 32: Final Review and Project</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .slide { display: none; }
+    .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── Flashcards ── */
+    .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; }
+    .flip-card { background: transparent; min-height: 160px; perspective: 1000px; cursor: pointer; }
+    .flip-card-inner { position: relative; width: 100%; min-height: 160px; transition: transform 0.7s; transform-style: preserve-3d; }
+    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+    .flip-card-front, .flip-card-back { position: absolute; inset: 0; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1rem; border-radius: 1.25rem; border: 1px solid #c4b5fd; text-align: center; }
+    .flip-card-front { background: #7c3aed; color: #fff; }
+    .flip-card-front h3 { color: #fff; }
+    .flip-card-back { background: #4c1d95; color: #fff; transform: rotateY(180deg); font-size: 1.2rem; font-weight: 700; }
+
+    /* ── Inputs ── */
+    .practice-input { border: none; border-bottom: 2px solid #a78bfa; background: transparent; outline: none; text-align: center; padding: 0 6px; font-size: 1rem; min-width: 100px; color: inherit; }
+    input.correct { border-color: #22c55e; color: #166534; background: #f0fdf4; border-radius: 4px; padding: 2px 6px; }
+    input.incorrect { border-color: #ef4444; color: #991b1b; background: #fef2f2; border-radius: 4px; padding: 2px 6px; }
+
+    /* ── Speak button ── */
+    .speak-btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid #7c3aed; background: #7c3aed; color: #fff; padding: 0.4rem 0.75rem; border-radius: 999px; font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: background .15s; }
+    .speak-btn:hover { background: #6d28d9; }
+    .answer-btn { background: none; border: none; cursor: pointer; color: #a78bfa; margin-left: 0.35rem; font-size: 1rem; }
+    .answer-btn:hover { color: #7c3aed; }
+
+    /* ── Dialogue ── */
+    .dialogue-line { display: flex; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
+    .dialogue-line p { flex: 1 1 300px; }
+
+    /* ── Error correction ── */
+    .error-card { background: #1e1b4b; border: 1px solid #4c1d95; border-radius: 1rem; padding: 1rem 1.25rem; color: #e0e7ff; }
+    .error-reveal { display: none; margin-top: 0.75rem; color: #86efac; font-weight: 700; font-size: 1rem; }
+    .error-reveal.show { display: block; }
+
+    /* ── Sorting ── */
+    .category-zone { min-height: 60px; border: 2px dashed #6d28d9; border-radius: 0.75rem; padding: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.5rem; transition: background .2s; }
+    .category-zone.drag-over { background: #3b0764; border-color: #a78bfa; }
+    .sort-chip { display: inline-flex; align-items: center; background: #4c1d95; border: 1.5px solid #7c3aed; color: #e9d5ff; font-weight: 700; padding: 0.35rem 0.85rem; border-radius: 999px; cursor: grab; font-size: 0.95rem; user-select: none; transition: transform .15s, box-shadow .15s; }
+    .sort-chip:active { cursor: grabbing; transform: scale(1.05); }
+    .sort-chip.placed { opacity: .75; }
+
+    /* ── Timeline ── */
+    .timeline { position: relative; padding-left: 2.5rem; }
+    .timeline::before { content: ''; position: absolute; left: 0.75rem; top: 0; bottom: 0; width: 2px; background: #6d28d9; }
+    .timeline-item { position: relative; margin-bottom: 1.5rem; }
+    .timeline-item::before { content: ''; position: absolute; left: -1.85rem; top: 0.4rem; width: 12px; height: 12px; background: #7c3aed; border-radius: 50%; border: 2px solid #1e1b4b; box-shadow: 0 0 0 2px #7c3aed; }
+
+    /* ── Matching ── */
+    .match-col { display: flex; flex-direction: column; gap: .6rem; }
+    .match-chip { background: #1e1b4b; border: 1.5px solid #4c1d95; color: #e0e7ff; border-radius: .75rem; padding: .6rem 1rem; cursor: pointer; font-weight: 600; transition: all .15s; text-align: center; }
+    .match-chip.selected { background: #4c1d95; border-color: #a78bfa; color: #fff; }
+    .match-chip.match-correct { background: #14532d; border-color: #22c55e; color: #86efac; cursor: default; }
+    .match-chip.match-wrong { background: #450a0a; border-color: #ef4444; color: #fca5a5; animation: shake .3s; }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+
+    /* ── Quiz chips ── */
+    .option-cloud { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .5rem; }
+    .option-chip { background: #1e1b4b; border: 1.5px solid #4c1d95; color: #e0e7ff; font-weight: 600; padding: .4rem 1rem; border-radius: 999px; cursor: pointer; font-size: .9rem; transition: all .15s; }
+    .option-chip:hover { border-color: #a78bfa; background: #3b0764; color: #fff; }
+    .option-chip.selected-correct { background: #14532d; border-color: #22c55e; color: #86efac; }
+    .option-chip.selected-incorrect { background: #450a0a; border-color: #ef4444; color: #fca5a5; }
+
+    /* ── Progress indicator ── */
+    .preview-card { background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%); color: #fff; border-radius: 1rem; padding: .75rem 1.5rem; font-size: 1.5rem; font-weight: 900; }
+
+    /* ── Project form ── */
+    .project-field { border: 1.5px solid #4c1d95; border-radius: .75rem; padding: .75rem 1rem; width: 100%; font-size: 1rem; font-family: inherit; outline: none; transition: border .2s; resize: vertical; background: #1e1b4b; color: #e0e7ff; }
+    .project-field::placeholder { color: #6b7280; }
+    .project-field:focus { border-color: #a78bfa; }
+
+    /* ── Checklist ── */
+    .skill-check { display: flex; align-items: center; gap: .75rem; padding: .75rem 1rem; border-radius: .75rem; border: 1.5px solid #4c1d95; cursor: pointer; transition: all .15s; background: #1e1b4b; color: #e0e7ff; }
+    .skill-check.checked { background: #14532d; border-color: #22c55e; color: #86efac; }
+    .skill-check input { accent-color: #22c55e; width: 1.1rem; height: 1.1rem; cursor: pointer; }
+
+    /* ── Section cards & activity cards ── */
+    .section-card { background: #13111c; border-radius: 1.5rem; border: 1px solid #3b0764; box-shadow: 0 1px 8px rgba(0,0,0,.3); color: #e0e7ff; }
+    .activity-card { background: #1e1b4b; border: 1px solid #4c1d95; border-radius: 1rem; padding: 1.25rem; color: #e0e7ff; }
+    .activity-card.border-l-4 { padding-left: 1rem; }
+    .lesson-hero { background: linear-gradient(135deg, #2e1065 0%, #1e1b4b 60%, #312e81 100%); }
+    .lesson-panel { background: #1e1b4b; border-radius: 1.25rem; border: 1px solid #4c1d95; color: #e0e7ff; }
+    .lesson-panel-title { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #a78bfa; }
+    .lesson-checklist { display: flex; flex-direction: column; gap: .65rem; }
+    .lesson-checklist-item { display: flex; align-items: center; gap: .6rem; font-size: .95rem; color: #c4b5fd; font-weight: 500; }
+    .lesson-checklist-item i { color: #a78bfa; font-size: .9rem; }
+
+    /* grammar example boxes */
+    .gram-box { border-radius: .75rem; border: 1px solid #4c1d95; background: #2e1065; padding: 1rem; }
+    .gram-box p { color: #e0e7ff; }
+    .gram-box p.text-sm { color: #a78bfa; }
+  </style>
+  <link rel="stylesheet" href="a2-lesson-theme.css">
+</head>
+<body class="lesson-loading a2-lesson-page bg-slate-50 text-slate-800">
+
+<!-- ════ HEADER ════ -->
+<header class="bg-white shadow-sm sticky top-0 z-10">
+  <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
+    <a href="a2.html" class="text-lg font-bold text-violet-700 hover:text-violet-900 flex items-center gap-2">
+      <i class="fas fa-chevron-left"></i> Voltar para A2
+    </a>
+    <div class="text-center">
+      <h1 class="text-base font-semibold text-slate-800">A2 – Lesson 32: Final Review and Project</h1>
+      <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
+    </div>
+    <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 15</div>
+  </div>
+  <div class="w-full bg-slate-200 h-1.5">
+    <div id="progress-bar" class="bg-violet-500 h-1.5 transition-all duration-300"></div>
+  </div>
+</header>
+
+<main class="container mx-auto p-8 pb-28 max-w-5xl">
+
+<!-- ══ SLIDE 1 – INTRO ══ -->
+<div class="slide active" data-title="Introduction">
+  <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+    <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
+      <div>
+        <h2 class="text-4xl font-black text-white">Finish A2 strong 🎓</h2>
+        <p class="mt-3 text-sm font-semibold text-violet-300">Comprehensive review of A2 grammar, vocabulary, expressions, speaking and writing.</p>
+        <p class="mt-3 text-lg text-violet-200">Esta é a revisão final do A2. Você vai revisitar os pontos mais importantes do módulo e construir uma apresentação pessoal completa.</p>
+      </div>
+      <div class="lesson-panel p-6">
+        <p class="lesson-panel-title mb-4">You will review</p>
+        <div class="lesson-checklist">
+          <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Past simple, present perfect &amp; future</span></div>
+          <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Comparatives, modals &amp; conditionals</span></div>
+          <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Phrasal verbs &amp; reported speech</span></div>
+          <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Key expressions &amp; connectors</span></div>
+          <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Final personal presentation project</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Intro Dialogue -->
+  <div class="section-card p-8 mt-8">
+    <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+      <div>
+        <p class="lesson-panel-title mb-2">Warm-up dialogue</p>
+        <h2 class="text-3xl font-black text-violet-400">Checking in after A2</h2>
+      </div>
+      <button class="speak-btn" data-speak="So, we are almost done with A2. How are you feeling about it? Honestly, better than I expected. I can understand a lot more now. What surprised you the most? That I can actually tell stories now. Like, real stories with details. That is great! Which part was hardest for you? Reported speech, for sure. I always forget to change the verb tense. That is very common. Do not worry — we will keep practising it. Is there anything you still feel unsure about? Yes, conditionals. Sometimes I mix up when to use will and when to use would. OK, so let us use this lesson to clear that up once and for all.">
+        <i class="fas fa-volume-up"></i> Ouvir diálogo
+      </button>
+    </div>
+    <div class="space-y-4 text-xl">
+      <div class="dialogue-line">
+        <strong class="text-violet-400 shrink-0">Teacher:</strong>
+        <p class="text-violet-100">So, we are almost done with A2. How are you feeling about it?</p>
+        <button class="speak-btn" data-speak="So, we are almost done with A2. How are you feeling about it?"><i class="fas fa-volume-up"></i></button>
+      </div>
+      <div class="dialogue-line">
+        <strong class="text-orange-400 shrink-0">Student:</strong>
+        <p class="text-violet-100">Honestly, better than I expected. I can understand a lot more now.</p>
+        <button class="speak-btn" data-speak="Honestly, better than I expected. I can understand a lot more now."><i class="fas fa-volume-up"></i></button>
+      </div>
+      <div class="dialogue-line">
+        <strong class="text-violet-400 shrink-0">Teacher:</strong>
+        <p class="text-violet-100">What surprised you the most?</p>
+        <button class="speak-btn" data-speak="What surprised you the most?"><i class="fas fa-volume-up"></i></button>
+      </div>
+      <div class="dialogue-line">
+        <strong class="text-orange-400 shrink-0">Student:</strong>
+        <p class="text-violet-100">That I can actually tell stories now. Like, real stories with details.</p>
+        <button class="speak-btn" data-speak="That I can actually tell stories now. Like, real stories with details."><i class="fas fa-volume-up"></i></button>
+      </div>
+      <div class="dialogue-line">
+        <strong class="text-violet-400 shrink-0">Teacher:</strong>
+        <p class="text-violet-100">That is great! Which part was hardest for you?</p>
+        <button class="speak-btn" data-speak="That is great! Which part was hardest for you?"><i class="fas fa-volume-up"></i></button>
+      </div>
+      <div class="dialogue-line">
+        <strong class="text-orange-400 shrink-0">Student:</strong>
+        <p class="text-violet-100">Reported speech, for sure. I always forget to change the verb tense.</p>
+        <button class="speak-btn" data-speak="Reported speech, for sure. I always forget to change the verb tense."><i class="fas fa-volume-up"></i></button>
+      </div>
+      <div class="dialogue-line">
+        <strong class="text-violet-400 shrink-0">Teacher:</strong>
+        <p class="text-violet-100">That is very common. Don't worry — we will keep practising it. Is there anything you still feel unsure about?</p>
+        <button class="speak-btn" data-speak="That is very common. Don't worry, we will keep practising it. Is there anything you still feel unsure about?"><i class="fas fa-volume-up"></i></button>
+      </div>
+      <div class="dialogue-line">
+        <strong class="text-orange-400 shrink-0">Student:</strong>
+        <p class="text-violet-100">Yes, conditionals. Sometimes I mix up when to use <em>will</em> and when to use <em>would</em>.</p>
+        <button class="speak-btn" data-speak="Yes, conditionals. Sometimes I mix up when to use will and when to use would."><i class="fas fa-volume-up"></i></button>
+      </div>
+      <div class="dialogue-line">
+        <strong class="text-violet-400 shrink-0">Teacher:</strong>
+        <p class="text-violet-100">OK, so let's use this lesson to clear that up once and for all.</p>
+        <button class="speak-btn" data-speak="OK, so let us use this lesson to clear that up once and for all."><i class="fas fa-volume-up"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 2 – VOCABULARY FLASHCARDS ══ -->
+<div class="slide" data-title="Vocabulary: Flashcards">
+  <div class="text-center mb-6">
+    <p class="lesson-panel-title">Vocabulary review</p>
+    <h2 class="text-4xl font-black text-violet-400 mt-1">Tap the cards to reveal the meaning</h2>
+    <p class="text-slate-500 text-lg mt-2">Clique nos cartões para ver o significado em português.</p>
+  </div>
+  <div class="flashcard-grid max-w-6xl mx-auto">
+    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">experience</h3><button class="speak-btn mt-3" data-speak="experience"><i class="fas fa-volume-up"></i></button></div><div class="flip-card-back"><p>experiência</p></div></div></div>
+    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">advice</h3><button class="speak-btn mt-3" data-speak="advice"><i class="fas fa-volume-up"></i></button></div><div class="flip-card-back"><p>conselho</p></div></div></div>
+    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">comparison</h3><button class="speak-btn mt-3" data-speak="comparison"><i class="fas fa-volume-up"></i></button></div><div class="flip-card-back"><p>comparação</p></div></div></div>
+    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">tradition</h3><button class="speak-btn mt-3" data-speak="tradition"><i class="fas fa-volume-up"></i></button></div><div class="flip-card-back"><p>tradição</p></div></div></div>
+    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">environment</h3><button class="speak-btn mt-3" data-speak="environment"><i class="fas fa-volume-up"></i></button></div><div class="flip-card-back"><p>meio ambiente</p></div></div></div>
+    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">dream</h3><button class="speak-btn mt-3" data-speak="dream"><i class="fas fa-volume-up"></i></button></div><div class="flip-card-back"><p>sonho</p></div></div></div>
+    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">goal</h3><button class="speak-btn mt-3" data-speak="goal"><i class="fas fa-volume-up"></i></button></div><div class="flip-card-back"><p>meta / objetivo</p></div></div></div>
+    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">confidence</h3><button class="speak-btn mt-3" data-speak="confidence"><i class="fas fa-volume-up"></i></button></div><div class="flip-card-back"><p>confiança</p></div></div></div>
+    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">improvement</h3><button class="speak-btn mt-3" data-speak="improvement"><i class="fas fa-volume-up"></i></button></div><div class="flip-card-back"><p>melhora / progresso</p></div></div></div>
+    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">challenge</h3><button class="speak-btn mt-3" data-speak="challenge"><i class="fas fa-volume-up"></i></button></div><div class="flip-card-back"><p>desafio</p></div></div></div>
+    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">opportunity</h3><button class="speak-btn mt-3" data-speak="opportunity"><i class="fas fa-volume-up"></i></button></div><div class="flip-card-back"><p>oportunidade</p></div></div></div>
+    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">achievement</h3><button class="speak-btn mt-3" data-speak="achievement"><i class="fas fa-volume-up"></i></button></div><div class="flip-card-back"><p>conquista / realização</p></div></div></div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 3 – VOCABULARY CATEGORIZE ══ -->
+<div class="slide" data-title="Vocabulary: Categorize">
+  <div class="section-card p-8">
+    <div class="text-center mb-6">
+      <p class="lesson-panel-title">Vocabulary activity</p>
+      <h2 class="text-4xl font-black text-violet-400 mt-1">Sort the words by category</h2>
+      <p class="text-violet-300 text-lg mt-2">Arraste ou clique nas palavras e coloque-as na categoria correta.</p>
+    </div>
+    <div id="word-bank" class="flex flex-wrap gap-2 justify-center mb-8 min-h-[52px]">
+      <span class="sort-chip" data-word="visited" data-cat="past" draggable="true">visited</span>
+      <span class="sort-chip" data-word="dream" data-cat="future" draggable="true">dream</span>
+      <span class="sort-chip" data-word="studied" data-cat="past" draggable="true">studied</span>
+      <span class="sort-chip" data-word="will travel" data-cat="future" draggable="true">will travel</span>
+      <span class="sort-chip" data-word="have tried" data-cat="perfect" draggable="true">have tried</span>
+      <span class="sort-chip" data-word="used to" data-cat="past" draggable="true">used to</span>
+      <span class="sort-chip" data-word="going to study" data-cat="future" draggable="true">going to study</span>
+      <span class="sort-chip" data-word="has never seen" data-cat="perfect" draggable="true">has never seen</span>
+      <span class="sort-chip" data-word="had" data-cat="past" draggable="true">had</span>
+      <span class="sort-chip" data-word="have already finished" data-cat="perfect" draggable="true">have already finished</span>
+      <span class="sort-chip" data-word="would like to" data-cat="future" draggable="true">would like to</span>
+      <span class="sort-chip" data-word="have ever eaten" data-cat="perfect" draggable="true">have ever eaten</span>
+    </div>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div>
+        <p class="font-bold text-violet-300 mb-2 text-center">⏰ Past Simple / Used to</p>
+        <div class="category-zone" id="cat-past" data-cat="past"></div>
+      </div>
+      <div>
+        <p class="font-bold text-violet-300 mb-2 text-center">🔮 Future / Dreams</p>
+        <div class="category-zone" id="cat-future" data-cat="future"></div>
+      </div>
+      <div>
+        <p class="font-bold text-violet-300 mb-2 text-center">✅ Present Perfect</p>
+        <div class="category-zone" id="cat-perfect" data-cat="perfect"></div>
+      </div>
+    </div>
+    <div id="sort-feedback" class="text-center mt-6 text-lg font-bold text-violet-400 min-h-[28px]"></div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 4 – GRAMMAR REVIEW ══ -->
+<div class="slide" data-title="Grammar Review">
+  <div class="section-card p-8">
+    <div class="text-center mb-8">
+      <p class="lesson-panel-title mb-2">Grammar focus</p>
+      <h2 class="text-4xl font-black text-violet-400">A2 Grammar at a glance</h2>
+    </div>
+    <div class="grid gap-5">
+      <div class="activity-card border-l-4 border-violet-500">
+        <h3 class="text-xl font-black text-violet-400 mb-2">1 · Past Simple vs Present Perfect</h3>
+        <p class="text-violet-200 mb-3">Use <strong>past simple</strong> para ações com tempo definido. Use <strong>present perfect</strong> para experiências sem tempo definido.</p>
+        <div class="grid md:grid-cols-2 gap-3">
+          <div class="gram-box"><p class="font-bold">I studied English last year.</p><p class="text-sm mt-1">✔ Tempo definido: "last year"</p></div>
+          <div class="gram-box"><p class="font-bold">I have visited another city.</p><p class="text-sm mt-1">✔ Experiência de vida, sem tempo</p></div>
+        </div>
+      </div>
+      <div class="activity-card border-l-4 border-violet-500">
+        <h3 class="text-xl font-black text-violet-400 mb-2">2 · Future: will vs going to</h3>
+        <p class="text-violet-200 mb-3"><strong>Going to</strong> = plano já decidido. <strong>Will</strong> = decisão espontânea ou promessa.</p>
+        <div class="grid md:grid-cols-2 gap-3">
+          <div class="gram-box"><p class="font-bold">I am going to practice more.</p><p class="text-sm mt-1">✔ Plano já feito</p></div>
+          <div class="gram-box"><p class="font-bold">I will help you right now.</p><p class="text-sm mt-1">✔ Decisão no momento</p></div>
+        </div>
+      </div>
+      <div class="activity-card border-l-4 border-violet-500">
+        <h3 class="text-xl font-black text-violet-400 mb-2">3 · Conditionals</h3>
+        <p class="text-violet-200 mb-3"><strong>1st conditional</strong> (futuro real): if + present → will. <strong>2nd conditional</strong> (hipótese): if + past → would.</p>
+        <div class="grid md:grid-cols-2 gap-3">
+          <div class="gram-box"><p class="font-bold">If I have time, I will review.</p><p class="text-sm mt-1">✔ Real / provável</p></div>
+          <div class="gram-box"><p class="font-bold">If I had more confidence, I would speak more.</p><p class="text-sm mt-1">✔ Hipotético / sonho</p></div>
+        </div>
+      </div>
+      <div class="activity-card border-l-4 border-violet-500">
+        <h3 class="text-xl font-black text-violet-400 mb-2">4 · Modals &amp; Comparatives</h3>
+        <div class="grid md:grid-cols-3 gap-3">
+          <div class="gram-box"><p class="font-bold">You should speak every week.</p><p class="text-sm mt-1">should = conselho</p></div>
+          <div class="gram-box"><p class="font-bold">You must review this lesson.</p><p class="text-sm mt-1">must = obrigação</p></div>
+          <div class="gram-box"><p class="font-bold">My answers are clearer now.</p><p class="text-sm mt-1">comparativo regular</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 5 – ERROR CORRECTION ══ -->
+<div class="slide" data-title="Error Correction">
+  <div class="section-card p-8">
+    <div class="text-center mb-8">
+      <p class="lesson-panel-title mb-2">Error correction</p>
+      <h2 class="text-4xl font-black text-violet-400">Find and fix the mistake</h2>
+      <p class="text-violet-300 text-lg mt-2">Cada frase tem um erro gramatical típico do A2. Identifique o erro, corrija oralmente e depois clique em "Revelar".</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-4">
+
+      <div class="error-card">
+        <p class="text-lg">1. I have visited Paris last summer.</p>
+        <p class="text-sm text-violet-400 mt-1">Dica: o tempo verbal e "last summer"</p>
+        <button class="mt-3 speak-btn" onclick="this.nextElementSibling.classList.toggle('show')"><i class="fas fa-eye"></i> Revelar</button>
+        <div class="error-reveal">✅ I <strong>visited</strong> Paris last summer. <span class="text-violet-400 text-sm">("last summer" exige past simple)</span></div>
+      </div>
+
+      <div class="error-card">
+        <p class="text-lg">2. She don't study yesterday.</p>
+        <p class="text-sm text-violet-400 mt-1">Dica: auxiliar negativo no passado</p>
+        <button class="mt-3 speak-btn" onclick="this.nextElementSibling.classList.toggle('show')"><i class="fas fa-eye"></i> Revelar</button>
+        <div class="error-reveal">✅ She <strong>didn't</strong> study yesterday.</div>
+      </div>
+
+      <div class="error-card">
+        <p class="text-lg">3. If it will rain, we stay home.</p>
+        <p class="text-sm text-violet-400 mt-1">Dica: 1st conditional — estrutura do if</p>
+        <button class="mt-3 speak-btn" onclick="this.nextElementSibling.classList.toggle('show')"><i class="fas fa-eye"></i> Revelar</button>
+        <div class="error-reveal">✅ If it <strong>rains</strong>, we <strong>will</strong> stay home.</div>
+      </div>
+
+      <div class="error-card">
+        <p class="text-lg">4. He said that he is busy yesterday.</p>
+        <p class="text-sm text-violet-400 mt-1">Dica: reported speech — backshift</p>
+        <button class="mt-3 speak-btn" onclick="this.nextElementSibling.classList.toggle('show')"><i class="fas fa-eye"></i> Revelar</button>
+        <div class="error-reveal">✅ He said that he <strong>was</strong> busy.</div>
+      </div>
+
+      <div class="error-card">
+        <p class="text-lg">5. This city is more clean than before.</p>
+        <p class="text-sm text-violet-400 mt-1">Dica: comparativo de adjetivos curtos</p>
+        <button class="mt-3 speak-btn" onclick="this.nextElementSibling.classList.toggle('show')"><i class="fas fa-eye"></i> Revelar</button>
+        <div class="error-reveal">✅ This city is <strong>cleaner</strong> than before.</div>
+      </div>
+
+      <div class="error-card">
+        <p class="text-lg">6. I am going to call you — I decide right now.</p>
+        <p class="text-sm text-violet-400 mt-1">Dica: decisão espontânea no momento</p>
+        <button class="mt-3 speak-btn" onclick="this.nextElementSibling.classList.toggle('show')"><i class="fas fa-eye"></i> Revelar</button>
+        <div class="error-reveal">✅ I <strong>will</strong> call you. <span class="text-violet-400 text-sm">(decisão espontânea → will)</span></div>
+      </div>
+
+      <div class="error-card">
+        <p class="text-lg">7. Please turn of the computer.</p>
+        <p class="text-sm text-violet-400 mt-1">Dica: phrasal verb</p>
+        <button class="mt-3 speak-btn" onclick="this.nextElementSibling.classList.toggle('show')"><i class="fas fa-eye"></i> Revelar</button>
+        <div class="error-reveal">✅ Please turn <strong>off</strong> the computer.</div>
+      </div>
+
+      <div class="error-card">
+        <p class="text-lg">8. If I will have more time, I would study more.</p>
+        <p class="text-sm text-violet-400 mt-1">Dica: 2nd conditional — if + ?</p>
+        <button class="mt-3 speak-btn" onclick="this.nextElementSibling.classList.toggle('show')"><i class="fas fa-eye"></i> Revelar</button>
+        <div class="error-reveal">✅ If I <strong>had</strong> more time, I would study more.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 6 – MATCHING ══ -->
+<div class="slide" data-title="Matching: Expressions">
+  <div class="section-card p-8">
+    <div class="text-center mb-8">
+      <p class="lesson-panel-title mb-2">Expression activity</p>
+      <h2 class="text-4xl font-black text-violet-400">Match the expression to its meaning</h2>
+      <p class="text-violet-300 text-lg mt-2">Clique em uma expressão à esquerda e depois no significado correto à direita.</p>
+    </div>
+    <div id="match-score-bar" class="text-center mb-6 text-violet-400 font-bold text-xl">0 / 8 corretos</div>
+    <div class="grid grid-cols-2 gap-4 max-w-3xl mx-auto">
+      <div class="match-col" id="match-left">
+        <div class="match-chip" data-mid="1">Have you ever...?</div>
+        <div class="match-chip" data-mid="2">You should...</div>
+        <div class="match-chip" data-mid="3">They said that...</div>
+        <div class="match-chip" data-mid="4">I used to...</div>
+        <div class="match-chip" data-mid="5">If I had more time...</div>
+        <div class="match-chip" data-mid="6">I would like to...</div>
+        <div class="match-chip" data-mid="7">According to...</div>
+        <div class="match-chip" data-mid="8">My next goal is...</div>
+      </div>
+      <div class="match-col" id="match-right">
+        <div class="match-chip" data-mval="3">Reported speech</div>
+        <div class="match-chip" data-mval="6">Expressing wish / desire</div>
+        <div class="match-chip" data-mval="1">Asking about life experience</div>
+        <div class="match-chip" data-mval="8">Talking about future objective</div>
+        <div class="match-chip" data-mval="2">Giving advice</div>
+        <div class="match-chip" data-mval="7">Citing a source</div>
+        <div class="match-chip" data-mval="4">Past habit (no longer true)</div>
+        <div class="match-chip" data-mval="5">2nd conditional / hypothetical</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 7 – GRAMMAR QUIZ ══ -->
+<div class="slide" data-title="Grammar Quiz">
+  <div class="section-card p-8 max-w-6xl mx-auto">
+    <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
+      <div>
+        <p class="lesson-panel-title mb-2">Grammar quiz — 10 questions</p>
+        <h2 class="text-4xl font-black text-violet-400">Mixed practice</h2>
+      </div>
+      <div id="quiz-score" class="preview-card min-w-[180px] text-center">0 / 10</div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-4">
+
+      <div class="activity-card" data-quiz-item data-answer="visited">
+        <p class="font-semibold mb-3">1. Yesterday, I ___ my friend.</p>
+        <div class="option-cloud">
+          <button class="option-chip" data-quiz-choice="visited">visited</button>
+          <button class="option-chip" data-quiz-choice="have visited">have visited</button>
+          <button class="option-chip" data-quiz-choice="will visit">will visit</button>
+        </div>
+        <p class="mt-3 text-sm text-violet-400" data-quiz-feedback>Escolha uma opção.</p>
+      </div>
+
+      <div class="activity-card" data-quiz-item data-answer="called">
+        <p class="font-semibold mb-3">2. I was cooking when you ___.</p>
+        <div class="option-cloud">
+          <button class="option-chip" data-quiz-choice="called">called</button>
+          <button class="option-chip" data-quiz-choice="were calling">were calling</button>
+          <button class="option-chip" data-quiz-choice="call">call</button>
+        </div>
+        <p class="mt-3 text-sm text-violet-400" data-quiz-feedback>Escolha uma opção.</p>
+      </div>
+
+      <div class="activity-card" data-quiz-item data-answer="cleaner">
+        <p class="font-semibold mb-3">3. This park is ___ than that one.</p>
+        <div class="option-cloud">
+          <button class="option-chip" data-quiz-choice="cleaner">cleaner</button>
+          <button class="option-chip" data-quiz-choice="more clean">more clean</button>
+          <button class="option-chip" data-quiz-choice="cleanest">cleanest</button>
+        </div>
+        <p class="mt-3 text-sm text-violet-400" data-quiz-feedback>Escolha uma opção.</p>
+      </div>
+
+      <div class="activity-card" data-quiz-item data-answer="tried">
+        <p class="font-semibold mb-3">4. She has never ___ sushi.</p>
+        <div class="option-cloud">
+          <button class="option-chip" data-quiz-choice="tried">tried</button>
+          <button class="option-chip" data-quiz-choice="try">try</button>
+          <button class="option-chip" data-quiz-choice="trying">trying</button>
+        </div>
+        <p class="mt-3 text-sm text-violet-400" data-quiz-feedback>Escolha uma opção.</p>
+      </div>
+
+      <div class="activity-card" data-quiz-item data-answer="should">
+        <p class="font-semibold mb-3">5. You ___ drink more water every day.</p>
+        <div class="option-cloud">
+          <button class="option-chip" data-quiz-choice="should">should</button>
+          <button class="option-chip" data-quiz-choice="must to">must to</button>
+          <button class="option-chip" data-quiz-choice="did">did</button>
+        </div>
+        <p class="mt-3 text-sm text-violet-400" data-quiz-feedback>Escolha uma opção.</p>
+      </div>
+
+      <div class="activity-card" data-quiz-item data-answer="will">
+        <p class="font-semibold mb-3">6. If it rains, we ___ stay home.</p>
+        <div class="option-cloud">
+          <button class="option-chip" data-quiz-choice="will">will</button>
+          <button class="option-chip" data-quiz-choice="would">would</button>
+          <button class="option-chip" data-quiz-choice="are">are</button>
+        </div>
+        <p class="mt-3 text-sm text-violet-400" data-quiz-feedback>Escolha uma opção.</p>
+      </div>
+
+      <div class="activity-card" data-quiz-item data-answer="off">
+        <p class="font-semibold mb-3">7. Please turn ___ the lights before you leave.</p>
+        <div class="option-cloud">
+          <button class="option-chip" data-quiz-choice="off">off</button>
+          <button class="option-chip" data-quiz-choice="of">of</button>
+          <button class="option-chip" data-quiz-choice="out">out</button>
+        </div>
+        <p class="mt-3 text-sm text-violet-400" data-quiz-feedback>Escolha uma opção.</p>
+      </div>
+
+      <div class="activity-card" data-quiz-item data-answer="was">
+        <p class="font-semibold mb-3">8. He said that he ___ very tired.</p>
+        <div class="option-cloud">
+          <button class="option-chip" data-quiz-choice="was">was</button>
+          <button class="option-chip" data-quiz-choice="is">is</button>
+          <button class="option-chip" data-quiz-choice="will be">will be</button>
+        </div>
+        <p class="mt-3 text-sm text-violet-400" data-quiz-feedback>Escolha uma opção.</p>
+      </div>
+
+      <div class="activity-card" data-quiz-item data-answer="recycled">
+        <p class="font-semibold mb-3">9. Plastic should be ___.</p>
+        <div class="option-cloud">
+          <button class="option-chip" data-quiz-choice="recycled">recycled</button>
+          <button class="option-chip" data-quiz-choice="recycle">recycle</button>
+          <button class="option-chip" data-quiz-choice="recycling">recycling</button>
+        </div>
+        <p class="mt-3 text-sm text-violet-400" data-quiz-feedback>Escolha uma opção.</p>
+      </div>
+
+      <div class="activity-card" data-quiz-item data-answer="would">
+        <p class="font-semibold mb-3">10. If I had more free time, I ___ travel the world.</p>
+        <div class="option-cloud">
+          <button class="option-chip" data-quiz-choice="would">would</button>
+          <button class="option-chip" data-quiz-choice="will">will</button>
+          <button class="option-chip" data-quiz-choice="had">had</button>
+        </div>
+        <p class="mt-3 text-sm text-violet-400" data-quiz-feedback>Escolha uma opção.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 8 – KEY EXPRESSIONS ══ -->
+<div class="slide" data-title="Key Expressions">
+  <div class="section-card p-8">
+    <h2 class="text-4xl font-black text-violet-400 mb-6 text-center">Key expressions</h2>
+    <div class="grid md:grid-cols-2 gap-4 text-lg">
+      <div class="activity-card flex items-start justify-between gap-3"><div><p class="font-semibold text-violet-100">Have you ever...?</p><p class="text-sm text-violet-400 mt-1">Você já...?</p></div><button class="speak-btn shrink-0" data-speak="Have you ever visited another country?"><i class="fas fa-volume-up"></i></button></div>
+      <div class="activity-card flex items-start justify-between gap-3"><div><p class="font-semibold text-violet-100">I prefer... because...</p><p class="text-sm text-violet-400 mt-1">Eu prefiro... porque...</p></div><button class="speak-btn shrink-0" data-speak="I prefer studying at night because it is quiet."><i class="fas fa-volume-up"></i></button></div>
+      <div class="activity-card flex items-start justify-between gap-3"><div><p class="font-semibold text-violet-100">You should...</p><p class="text-sm text-violet-400 mt-1">Você deveria...</p></div><button class="speak-btn shrink-0" data-speak="You should practice speaking every week."><i class="fas fa-volume-up"></i></button></div>
+      <div class="activity-card flex items-start justify-between gap-3"><div><p class="font-semibold text-violet-100">According to...</p><p class="text-sm text-violet-400 mt-1">De acordo com...</p></div><button class="speak-btn shrink-0" data-speak="According to my teacher, I am improving fast."><i class="fas fa-volume-up"></i></button></div>
+      <div class="activity-card flex items-start justify-between gap-3"><div><p class="font-semibold text-violet-100">They said that...</p><p class="text-sm text-violet-400 mt-1">Eles disseram que...</p></div><button class="speak-btn shrink-0" data-speak="They said that the event was full."><i class="fas fa-volume-up"></i></button></div>
+      <div class="activity-card flex items-start justify-between gap-3"><div><p class="font-semibold text-violet-100">If I have time, I will...</p><p class="text-sm text-violet-400 mt-1">Se eu tiver tempo, eu vou...</p></div><button class="speak-btn shrink-0" data-speak="If I have time, I will review the lesson."><i class="fas fa-volume-up"></i></button></div>
+      <div class="activity-card flex items-start justify-between gap-3"><div><p class="font-semibold text-violet-100">If I had more time, I would...</p><p class="text-sm text-violet-400 mt-1">Se eu tivesse mais tempo, eu...</p></div><button class="speak-btn shrink-0" data-speak="If I had more time, I would travel more."><i class="fas fa-volume-up"></i></button></div>
+      <div class="activity-card flex items-start justify-between gap-3"><div><p class="font-semibold text-violet-100">I used to...</p><p class="text-sm text-violet-400 mt-1">Eu costumava...</p></div><button class="speak-btn shrink-0" data-speak="I used to watch cartoons every morning."><i class="fas fa-volume-up"></i></button></div>
+      <div class="activity-card flex items-start justify-between gap-3"><div><p class="font-semibold text-violet-100">I would like to...</p><p class="text-sm text-violet-400 mt-1">Eu gostaria de...</p></div><button class="speak-btn shrink-0" data-speak="I would like to improve my pronunciation."><i class="fas fa-volume-up"></i></button></div>
+      <div class="activity-card flex items-start justify-between gap-3"><div><p class="font-semibold text-violet-100">My next goal is...</p><p class="text-sm text-violet-400 mt-1">Meu próximo objetivo é...</p></div><button class="speak-btn shrink-0" data-speak="My next goal is to speak more naturally."><i class="fas fa-volume-up"></i></button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 9 – EXPRESSION FILL IN ══ -->
+<div class="slide" data-title="Expression Activity">
+  <div class="section-card p-8 max-w-4xl mx-auto text-xl space-y-5">
+    <div class="text-center mb-6">
+      <p class="lesson-panel-title mb-2">Expression activity — 10 questions</p>
+      <h2 class="text-4xl font-black text-violet-400">Complete the expressions</h2>
+      <p class="text-violet-300 mt-2">Digite a palavra que falta. Use as dicas.</p>
+    </div>
+    <div class="space-y-5 text-violet-100">
+      <p>1. Have you <input id="e0" data-answer="ever" class="practice-input w-28"><button class="answer-btn" data-target="e0"><i class="fas fa-eye"></i></button> visited another country? <span class="text-sm text-violet-400">Dica: já (alguma vez)</span></p>
+      <p>2. I prefer studying at night <input id="e1" data-answer="because" class="practice-input w-32"><button class="answer-btn" data-target="e1"><i class="fas fa-eye"></i></button> it is quiet. <span class="text-sm text-violet-400">Dica: porque</span></p>
+      <p>3. You <input id="e2" data-answer="should" class="practice-input w-28"><button class="answer-btn" data-target="e2"><i class="fas fa-eye"></i></button> practice speaking every week. <span class="text-sm text-violet-400">Dica: deveria</span></p>
+      <p>4. According <input id="e3" data-answer="to" class="practice-input w-20"><button class="answer-btn" data-target="e3"><i class="fas fa-eye"></i></button> the article, the source is reliable. <span class="text-sm text-violet-400">Dica: preposição</span></p>
+      <p>5. They said <input id="e4" data-answer="that" class="practice-input w-24"><button class="answer-btn" data-target="e4"><i class="fas fa-eye"></i></button> the event was full. <span class="text-sm text-violet-400">Dica: que</span></p>
+      <p>6. If I have time, I <input id="e5" data-answer="will" class="practice-input w-24"><button class="answer-btn" data-target="e5"><i class="fas fa-eye"></i></button> review the lesson. <span class="text-sm text-violet-400">Dica: 1st conditional</span></p>
+      <p>7. If I had more money, I <input id="e6" data-answer="would" class="practice-input w-28"><button class="answer-btn" data-target="e6"><i class="fas fa-eye"></i></button> travel more. <span class="text-sm text-violet-400">Dica: 2nd conditional</span></p>
+      <p>8. I used <input id="e7" data-answer="to" class="practice-input w-20"><button class="answer-btn" data-target="e7"><i class="fas fa-eye"></i></button> watch cartoons every morning. <span class="text-sm text-violet-400">Dica: costumava</span></p>
+      <p>9. I would like <input id="e8" data-answer="to" class="practice-input w-20"><button class="answer-btn" data-target="e8"><i class="fas fa-eye"></i></button> improve my pronunciation. <span class="text-sm text-violet-400">Dica: to + verb</span></p>
+      <p>10. My next <input id="e9" data-answer="goal" class="practice-input w-24"><button class="answer-btn" data-target="e9"><i class="fas fa-eye"></i></button> is speaking naturally. <span class="text-sm text-violet-400">Dica: objetivo / meta</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 10 – ELABORATED DIALOGUE ══ -->
+<div class="slide" data-title="Situations Dialogue">
+  <div class="section-card p-8">
+    <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+      <div>
+        <p class="lesson-panel-title mb-2">Elaborated dialogue</p>
+        <h2 class="text-4xl font-black text-violet-400">Real conversations</h2>
+      </div>
+      <button class="speak-btn" data-speak="Hey, you look different today. Did something happen? Yeah, I just got some great news. My company offered me a position in the international team. Wow, that is amazing! How do you feel about it? Excited, but a bit nervous too. I mean, I will have to use English every single day now. That is actually perfect for you. What made them choose you? My manager said that I had improved a lot this year. She mentioned that my written English was especially good. That is great feedback. And what about speaking? That is still my weak point, honestly. I get nervous when I have to speak in meetings. I understand. What do you think would help? If I had more chances to practice in real situations, I think I would feel more confident. That is exactly what we are going to work on.">
+        <i class="fas fa-volume-up"></i> Ouvir tudo
+      </button>
+    </div>
+    <div class="grid md:grid-cols-2 gap-4 text-lg">
+
+      <div class="activity-card">
+        <p class="lesson-panel-title mb-3">Conversation 1 — Good news</p>
+        <div class="space-y-3">
+          <div class="dialogue-line"><strong class="text-violet-400 shrink-0">T:</strong><p class="text-violet-100">Hey, you look different today. Did something happen?</p><button class="speak-btn shrink-0" data-speak="Hey, you look different today. Did something happen?"><i class="fas fa-volume-up"></i></button></div>
+          <div class="dialogue-line"><strong class="text-orange-400 shrink-0">S:</strong><p class="text-violet-100">Yeah, I just got some great news. My company offered me a position in the international team.</p><button class="speak-btn shrink-0" data-speak="Yeah, I just got some great news. My company offered me a position in the international team."><i class="fas fa-volume-up"></i></button></div>
+          <div class="dialogue-line"><strong class="text-violet-400 shrink-0">T:</strong><p class="text-violet-100">Wow, that is amazing! How do you feel about it?</p><button class="speak-btn shrink-0" data-speak="Wow, that is amazing! How do you feel about it?"><i class="fas fa-volume-up"></i></button></div>
+          <div class="dialogue-line"><strong class="text-orange-400 shrink-0">S:</strong><p class="text-violet-100">Excited, but a bit nervous too. I mean, I will have to use English every single day now.</p><button class="speak-btn shrink-0" data-speak="Excited, but a bit nervous too. I mean, I will have to use English every single day now."><i class="fas fa-volume-up"></i></button></div>
+          <div class="dialogue-line"><strong class="text-violet-400 shrink-0">T:</strong><p class="text-violet-100">That is actually perfect for you. What made them choose you?</p><button class="speak-btn shrink-0" data-speak="That is actually perfect for you. What made them choose you?"><i class="fas fa-volume-up"></i></button></div>
+          <div class="dialogue-line"><strong class="text-orange-400 shrink-0">S:</strong><p class="text-violet-100">My manager said that I had improved a lot this year. She mentioned that my written English was especially good.</p><button class="speak-btn shrink-0" data-speak="My manager said that I had improved a lot this year. She mentioned that my written English was especially good."><i class="fas fa-volume-up"></i></button></div>
+        </div>
+      </div>
+
+      <div class="activity-card">
+        <p class="lesson-panel-title mb-3">Conversation 2 — Still improving</p>
+        <div class="space-y-3">
+          <div class="dialogue-line"><strong class="text-violet-400 shrink-0">T:</strong><p class="text-violet-100">That is great feedback. And what about speaking?</p><button class="speak-btn shrink-0" data-speak="That is great feedback. And what about speaking?"><i class="fas fa-volume-up"></i></button></div>
+          <div class="dialogue-line"><strong class="text-orange-400 shrink-0">S:</strong><p class="text-violet-100">That is still my weak point, honestly. I get nervous when I have to speak in meetings.</p><button class="speak-btn shrink-0" data-speak="That is still my weak point, honestly. I get nervous when I have to speak in meetings."><i class="fas fa-volume-up"></i></button></div>
+          <div class="dialogue-line"><strong class="text-violet-400 shrink-0">T:</strong><p class="text-violet-100">I understand. What do you think would help?</p><button class="speak-btn shrink-0" data-speak="I understand. What do you think would help?"><i class="fas fa-volume-up"></i></button></div>
+          <div class="dialogue-line"><strong class="text-orange-400 shrink-0">S:</strong><p class="text-violet-100">If I had more chances to practice in real situations, I think I would feel more confident.</p><button class="speak-btn shrink-0" data-speak="If I had more chances to practice in real situations, I think I would feel more confident."><i class="fas fa-volume-up"></i></button></div>
+          <div class="dialogue-line"><strong class="text-violet-400 shrink-0">T:</strong><p class="text-violet-100">That is exactly what we are going to work on.</p><button class="speak-btn shrink-0" data-speak="That is exactly what we are going to work on."><i class="fas fa-volume-up"></i></button></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 11 – ORAL TRANSLATION ══ -->
+<div class="slide" data-title="Oral Translation">
+  <div class="section-card p-8">
+    <h2 class="text-4xl font-black text-violet-400 mb-2 text-center">Oral Translation</h2>
+    <p class="text-violet-300 text-lg mb-6 text-center">O professor lê em português; o aluno traduz para o inglês. Depois clique em "Ver resposta".</p>
+    <div class="grid md:grid-cols-2 gap-4 text-lg">
+
+      <div class="activity-card space-y-2">
+        <p class="text-violet-100"><span class="font-bold text-violet-400">1.</span> Eu já visitei aquela cidade.</p>
+        <button class="speak-btn" onclick="this.nextElementSibling.classList.toggle('show')"><i class="fas fa-eye"></i> Ver resposta</button>
+        <div class="error-reveal">I have visited that city.</div>
+      </div>
+
+      <div class="activity-card space-y-2">
+        <p class="text-violet-100"><span class="font-bold text-violet-400">2.</span> Se eu tiver tempo, vou praticar mais.</p>
+        <button class="speak-btn" onclick="this.nextElementSibling.classList.toggle('show')"><i class="fas fa-eye"></i> Ver resposta</button>
+        <div class="error-reveal">If I have time, I will practice more.</div>
+      </div>
+
+      <div class="activity-card space-y-2">
+        <p class="text-violet-100"><span class="font-bold text-violet-400">3.</span> Se eu tivesse mais confiança, falaria mais.</p>
+        <button class="speak-btn" onclick="this.nextElementSibling.classList.toggle('show')"><i class="fas fa-eye"></i> Ver resposta</button>
+        <div class="error-reveal">If I had more confidence, I would speak more.</div>
+      </div>
+
+      <div class="activity-card space-y-2">
+        <p class="text-violet-100"><span class="font-bold text-violet-400">4.</span> Ela disse que estava ocupada.</p>
+        <button class="speak-btn" onclick="this.nextElementSibling.classList.toggle('show')"><i class="fas fa-eye"></i> Ver resposta</button>
+        <div class="error-reveal">She said that she was busy.</div>
+      </div>
+
+      <div class="activity-card space-y-2">
+        <p class="text-violet-100"><span class="font-bold text-violet-400">5.</span> Meu próximo objetivo é falar com mais naturalidade.</p>
+        <button class="speak-btn" onclick="this.nextElementSibling.classList.toggle('show')"><i class="fas fa-eye"></i> Ver resposta</button>
+        <div class="error-reveal">My next goal is to speak more naturally.</div>
+      </div>
+
+      <div class="activity-card space-y-2">
+        <p class="text-violet-100"><span class="font-bold text-violet-400">6.</span> Eu costumava assistir desenhos animados toda manhã.</p>
+        <button class="speak-btn" onclick="this.nextElementSibling.classList.toggle('show')"><i class="fas fa-eye"></i> Ver resposta</button>
+        <div class="error-reveal">I used to watch cartoons every morning.</div>
+      </div>
+
+      <div class="activity-card space-y-2">
+        <p class="text-violet-100"><span class="font-bold text-violet-400">7.</span> Ele estava dormindo quando o telefone tocou.</p>
+        <button class="speak-btn" onclick="this.nextElementSibling.classList.toggle('show')"><i class="fas fa-eye"></i> Ver resposta</button>
+        <div class="error-reveal">He was sleeping when the phone rang.</div>
+      </div>
+
+      <div class="activity-card space-y-2">
+        <p class="text-violet-100"><span class="font-bold text-violet-400">8.</span> Este bairro é mais tranquilo do que o meu.</p>
+        <button class="speak-btn" onclick="this.nextElementSibling.classList.toggle('show')"><i class="fas fa-eye"></i> Ver resposta</button>
+        <div class="error-reveal">This neighborhood is quieter than mine.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 12 – SPEAKING PROMPTS ══ -->
+<div class="slide" data-title="Speaking Prompts">
+  <div class="section-card p-8">
+    <div class="text-center mb-8">
+      <p class="lesson-panel-title mb-2">Speaking activity</p>
+      <h2 class="text-4xl font-black text-violet-400">Open questions — answer in full sentences</h2>
+      <p class="text-violet-300 text-lg mt-2">O professor faz as perguntas. O aluno responde em pelo menos 2 frases.</p>
+    </div>
+    <div class="timeline max-w-3xl mx-auto">
+      <div class="timeline-item">
+        <div class="activity-card">
+          <p class="font-bold text-violet-400 mb-1">Question 1</p>
+          <p class="text-lg text-violet-100">What is the most interesting thing you have done this year?</p>
+          <p class="text-sm text-violet-400 mt-2">Use: <em>I have..., Last week I..., It was...</em></p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="activity-card">
+          <p class="font-bold text-violet-400 mb-1">Question 2</p>
+          <p class="text-lg text-violet-100">How is your English now compared to when you started A2?</p>
+          <p class="text-sm text-violet-400 mt-2">Use: <em>My English is much..., I can now..., Before I couldn't...</em></p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="activity-card">
+          <p class="font-bold text-violet-400 mb-1">Question 3</p>
+          <p class="text-lg text-violet-100">What are your plans for improving your English in the next three months?</p>
+          <p class="text-sm text-violet-400 mt-2">Use: <em>I am going to..., I will..., I also plan to...</em></p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="activity-card">
+          <p class="font-bold text-violet-400 mb-1">Question 4</p>
+          <p class="text-lg text-violet-100">If you could live in an English-speaking country for one year, what would you do?</p>
+          <p class="text-sm text-violet-400 mt-2">Use: <em>If I lived there, I would..., I would also..., The best part would be...</em></p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="activity-card">
+          <p class="font-bold text-violet-400 mb-1">Question 5</p>
+          <p class="text-lg text-violet-100">What advice would you give to someone who is starting to learn English?</p>
+          <p class="text-sm text-violet-400 mt-2">Use: <em>You should..., You must..., I would suggest...</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 13 – FINAL PROJECT ══ -->
+<div class="slide" data-title="Final Project">
+  <div class="section-card p-8 max-w-5xl mx-auto">
+    <div class="text-center mb-8">
+      <p class="lesson-panel-title mb-2">Final project</p>
+      <h2 class="text-4xl font-black text-violet-400">My A2 Personal Presentation</h2>
+      <p class="text-violet-300 text-lg mt-2">Preencha cada campo com uma ou duas frases em inglês. Use a gramática do A2.</p>
+    </div>
+    <div class="space-y-5">
+      <div>
+        <p class="font-bold text-violet-400 mb-1">1. Who are you? <span class="text-violet-500 font-normal text-sm">(present simple / general facts)</span></p>
+        <textarea rows="2" class="project-field" placeholder="My name is... I live in... I work / study..."></textarea>
+      </div>
+      <div>
+        <p class="font-bold text-violet-400 mb-1">2. A past experience <span class="text-violet-500 font-normal text-sm">(present perfect)</span></p>
+        <textarea rows="2" class="project-field" placeholder="I have already... / I have never... / One interesting thing I have done is..."></textarea>
+      </div>
+      <div>
+        <p class="font-bold text-violet-400 mb-1">3. Something specific that happened <span class="text-violet-500 font-normal text-sm">(past simple)</span></p>
+        <textarea rows="2" class="project-field" placeholder="Last year I... / When I was a child, I used to... / Two years ago..."></textarea>
+      </div>
+      <div>
+        <p class="font-bold text-violet-400 mb-1">4. A comparison <span class="text-violet-500 font-normal text-sm">(comparative adjective)</span></p>
+        <textarea rows="2" class="project-field" placeholder="My English is much... than before. / I am more... now."></textarea>
+      </div>
+      <div>
+        <p class="font-bold text-violet-400 mb-1">5. Future plans <span class="text-violet-500 font-normal text-sm">(going to / will)</span></p>
+        <textarea rows="2" class="project-field" placeholder="I am going to... / I will also... / Next year I plan to..."></textarea>
+      </div>
+      <div>
+        <p class="font-bold text-violet-400 mb-1">6. A dream or wish <span class="text-violet-500 font-normal text-sm">(2nd conditional)</span></p>
+        <textarea rows="2" class="project-field" placeholder="If I had more time, I would... / If I lived in..., I would..."></textarea>
+      </div>
+      <div>
+        <p class="font-bold text-violet-400 mb-1">7. Advice for other learners <span class="text-violet-500 font-normal text-sm">(should / must)</span></p>
+        <textarea rows="2" class="project-field" placeholder="If you want to learn English, you should... / You must also..."></textarea>
+      </div>
+    </div>
+    <p class="text-sm text-violet-500 mt-5 text-center">💡 Depois de preencher, leia sua apresentação em voz alta para o professor!</p>
+  </div>
+</div>
+
+<!-- ══ SLIDE 14 – HOMEWORK ══ -->
+<div class="slide" data-title="Homework">
+  <div class="section-card p-8 max-w-5xl mx-auto">
+    <h2 class="text-4xl font-black text-violet-400 mb-4 text-center">Homework</h2>
+    <div class="grid md:grid-cols-2 gap-4 mb-6">
+      <div class="activity-card border-l-4 border-violet-500">
+        <p class="font-bold text-violet-400 mb-2">📝 Task 1 — Write</p>
+        <p class="text-violet-200">Escreva uma versão completa da sua apresentação pessoal usando todos os 7 tópicos do projeto. Mínimo de 100 palavras.</p>
+      </div>
+      <div class="activity-card border-l-4 border-orange-500">
+        <p class="font-bold text-orange-400 mb-2">🎙️ Task 2 — Speak</p>
+        <p class="text-violet-200">Grave um áudio de 1 a 2 minutos lendo sua apresentação. Tente soar natural, sem ler palavra por palavra.</p>
+      </div>
+      <div class="activity-card border-l-4 border-violet-500">
+        <p class="font-bold text-violet-400 mb-2">📖 Task 3 — Review</p>
+        <p class="text-violet-200">Revise as expressões-chave desta lição e escreva 3 frases originais suas usando expressões diferentes.</p>
+      </div>
+      <div class="activity-card border-l-4 border-orange-500">
+        <p class="font-bold text-orange-400 mb-2">💬 Task 4 — Challenge</p>
+        <p class="text-violet-200">Tente ter uma conversa de 5 minutos em inglês usando pelo menos 2 condicionais e 2 expressões desta aula.</p>
+      </div>
+    </div>
+    <textarea rows="6" class="project-field" placeholder="Write your homework draft here..."></textarea>
+  </div>
+</div>
+
+<!-- ══ SLIDE 15 – A2 COMPLETE ══ -->
+<div class="slide" data-title="A2 Complete!">
+  <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center mb-8 min-h-[220px]">
+    <i class="fas fa-award text-yellow-400 text-7xl mb-5"></i>
+    <p class="lesson-panel-title mb-2">Motivational phrase</p>
+    <h2 class="text-4xl font-black mb-3 text-white">You have climbed another step — now look forward to B1!</h2>
+    <p class="text-2xl text-violet-300">Lesson 32 complete. A2 done! 🚀</p>
+  </div>
+
+  <div class="section-card p-8 max-w-3xl mx-auto">
+    <h3 class="text-2xl font-black text-violet-400 mb-5 text-center">A2 Skills Self-Assessment</h3>
+    <p class="text-violet-300 text-center mb-5">Marque o que você já consegue fazer. Seja honesto — isso vai ajudar a planejar o B1!</p>
+    <div class="space-y-3" id="skills-checklist">
+      <label class="skill-check"><input type="checkbox"> <span>I can tell a story using past simple and present perfect.</span></label>
+      <label class="skill-check"><input type="checkbox"> <span>I can compare two places, people or things using comparatives.</span></label>
+      <label class="skill-check"><input type="checkbox"> <span>I can make plans and talk about the future (going to / will).</span></label>
+      <label class="skill-check"><input type="checkbox"> <span>I can give advice using should and must.</span></label>
+      <label class="skill-check"><input type="checkbox"> <span>I can talk about real future situations (1st conditional).</span></label>
+      <label class="skill-check"><input type="checkbox"> <span>I can talk about hypothetical situations and dreams (2nd conditional).</span></label>
+      <label class="skill-check"><input type="checkbox"> <span>I can use phrasal verbs like turn off, look up, find out.</span></label>
+      <label class="skill-check"><input type="checkbox"> <span>I can report what someone said (reported speech).</span></label>
+      <label class="skill-check"><input type="checkbox"> <span>I can connect ideas using because, although, however.</span></label>
+      <label class="skill-check"><input type="checkbox"> <span>I can hold a conversation for at least 3 minutes on familiar topics.</span></label>
+    </div>
+    <div id="skill-summary" class="mt-5 text-center text-violet-400 font-bold text-lg min-h-[28px]"></div>
+  </div>
+</div>
+
+</main>
+
+<!-- ════ FOOTER NAV ════ -->
+<footer class="fixed bottom-0 left-0 w-full z-20 h-16 bg-white border-t border-slate-100 shadow-lg">
+  <div class="container mx-auto px-8 h-full flex justify-between items-center max-w-5xl">
+    <button id="prev-btn" class="bg-slate-200 text-slate-700 font-bold py-3 px-8 rounded-lg disabled:opacity-40 transition">Anterior</button>
+    <button id="next-btn" class="bg-violet-600 text-white font-bold py-3 px-8 rounded-lg transition">Próximo</button>
+    <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition">Finalizar aula</button>
+  </div>
+</footer>
+
+<script src="a2-lesson-theme.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/progress-manager.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const moduleId = 'a2', lessonNumber = 32;
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const finishBtn = document.getElementById('finish-lesson-btn');
+  const progressBar = document.getElementById('progress-bar');
+  const slideCounter = document.getElementById('slide-counter');
+  const slideTitleHeader = document.getElementById('slide-title-header');
+  let currentSlide = 0;
+
+  const normalize = t => (t || '').trim().toLowerCase().replace(/[.?!"']/g, '').replace(/\s+/g, ' ');
+
+  const render = () => {
+    slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+    if (progressBar) progressBar.style.width = slides.length > 1 ? ((currentSlide / (slides.length - 1)) * 100) + '%' : '100%';
+    if (prevBtn) prevBtn.disabled = currentSlide === 0;
+    if (nextBtn) nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+    if (finishBtn) finishBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+    if (slideCounter) slideCounter.textContent = (currentSlide + 1) + ' / ' + slides.length;
+    if (slideTitleHeader) slideTitleHeader.textContent = slides[currentSlide]?.dataset.title || '';
+  };
+
+  prevBtn?.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; render(); scrollTo({ top: 0, behavior: 'smooth' }); } });
+  nextBtn?.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; render(); scrollTo({ top: 0, behavior: 'smooth' }); } });
+  finishBtn?.addEventListener('click', () => {
+    finishBtn.disabled = true; finishBtn.textContent = 'Salvando...';
+    if (typeof markLessonAsComplete === 'function') Promise.resolve(markLessonAsComplete(moduleId, lessonNumber)).catch(() => { finishBtn.disabled = false; finishBtn.textContent = 'Finalizar aula'; });
+  });
+
+  // Fill-in
+  const checkAnswer = input => {
+    input.classList.remove('correct', 'incorrect');
+    if (!input.value.trim()) return;
+    input.classList.add(normalize(input.value) === normalize(input.dataset.answer || '') ? 'correct' : 'incorrect');
+  };
+  document.querySelectorAll('input[data-answer]').forEach(i => i.addEventListener('blur', () => checkAnswer(i)));
+  document.querySelectorAll('.answer-btn[data-target]').forEach(btn => btn.addEventListener('click', () => {
+    const inp = document.getElementById(btn.dataset.target);
+    if (!inp) return;
+    inp.value = inp.dataset.answer || '';
+    checkAnswer(inp);
+  }));
+
+  // Quiz
+  const updateQuizScore = () => {
+    const items = Array.from(document.querySelectorAll('[data-quiz-item]'));
+    const correct = items.filter(i => i.dataset.correct === 'true').length;
+    const el = document.getElementById('quiz-score');
+    if (el) el.textContent = correct + ' / ' + items.length;
+  };
+  document.querySelectorAll('[data-quiz-choice]').forEach(btn => btn.addEventListener('click', () => {
+    const item = btn.closest('[data-quiz-item]');
+    if (item.dataset.correct === 'true') return;
+    const ok = normalize(btn.dataset.quizChoice) === normalize(item.dataset.answer);
+    item.dataset.correct = ok ? 'true' : 'false';
+    item.querySelectorAll('[data-quiz-choice]').forEach(c => c.classList.remove('is-active', 'selected-correct', 'selected-incorrect'));
+    btn.classList.add('is-active', ok ? 'selected-correct' : 'selected-incorrect');
+    const fb = item.querySelector('[data-quiz-feedback]');
+    if (fb) { fb.textContent = ok ? '✅ Correct!' : '❌ Try again. Correct: ' + item.dataset.answer; fb.className = ok ? 'mt-3 text-sm text-green-400 font-semibold' : 'mt-3 text-sm text-red-400 font-semibold'; }
+    updateQuizScore();
+  }));
+
+  // Speak
+  document.querySelectorAll('.speak-btn[data-speak]').forEach(btn => btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const u = new SpeechSynthesisUtterance(btn.dataset.speak || '');
+    u.lang = 'en-US';
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+  }));
+
+  // Flashcards
+  document.querySelectorAll('.flip-card').forEach(card => card.addEventListener('click', e => {
+    if (e.target.closest('.speak-btn')) return;
+    card.classList.toggle('flipped');
+  }));
+
+  // Drag & drop sort
+  let dragging = null;
+  document.querySelectorAll('.sort-chip').forEach(chip => {
+    chip.addEventListener('dragstart', e => { dragging = chip; e.dataTransfer.effectAllowed = 'move'; });
+    chip.addEventListener('dragend', () => { dragging = null; });
+  });
+  document.querySelectorAll('.category-zone').forEach(zone => {
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+    zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('drag-over'); if (!dragging) return; zone.appendChild(dragging); evaluateSort(); });
+  });
+  // Click-to-place
+  let selectedChip = null;
+  document.querySelectorAll('.sort-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.sort-chip').forEach(c => c.style.outline = '');
+      if (selectedChip === chip) { selectedChip = null; return; }
+      selectedChip = chip;
+      chip.style.outline = '3px solid #a78bfa';
+    });
+  });
+  document.querySelectorAll('.category-zone').forEach(zone => {
+    zone.addEventListener('click', () => {
+      if (!selectedChip) return;
+      zone.appendChild(selectedChip);
+      selectedChip.style.outline = '';
+      selectedChip = null;
+      evaluateSort();
+    });
+  });
+  const evaluateSort = () => {
+    let total = 0, correct = 0;
+    document.querySelectorAll('.category-zone').forEach(zone => {
+      zone.querySelectorAll('.sort-chip').forEach(chip => {
+        total++;
+        const ok = chip.dataset.cat === zone.dataset.cat;
+        if (ok) correct++;
+        chip.style.background = ok ? '#14532d' : '#450a0a';
+        chip.style.borderColor = ok ? '#22c55e' : '#ef4444';
+        chip.style.color = ok ? '#86efac' : '#fca5a5';
+      });
+    });
+    const fb = document.getElementById('sort-feedback');
+    if (fb && total > 0) fb.textContent = correct + ' / ' + total + ' corretos' + (correct === total ? ' — Perfeito! 🎉' : '');
+  };
+
+  // Matching
+  let matchLeft = null, matchScore = 0;
+  const updateMatchScore = () => { const el = document.getElementById('match-score-bar'); if (el) el.textContent = matchScore + ' / 8 corretos'; };
+  document.querySelectorAll('#match-left .match-chip').forEach(lc => {
+    lc.addEventListener('click', () => {
+      if (lc.classList.contains('match-correct')) return;
+      document.querySelectorAll('#match-left .match-chip').forEach(c => c.classList.remove('selected'));
+      matchLeft = lc; lc.classList.add('selected');
+    });
+  });
+  document.querySelectorAll('#match-right .match-chip').forEach(rc => {
+    rc.addEventListener('click', () => {
+      if (!matchLeft || rc.classList.contains('match-correct')) return;
+      const ok = matchLeft.dataset.mid === rc.dataset.mval;
+      if (ok) { matchLeft.classList.remove('selected'); matchLeft.classList.add('match-correct'); rc.classList.add('match-correct'); matchScore++; updateMatchScore(); }
+      else { matchLeft.classList.add('match-wrong'); rc.classList.add('match-wrong'); setTimeout(() => { matchLeft?.classList.remove('match-wrong'); rc.classList.remove('match-wrong'); }, 600); }
+      matchLeft = null;
+    });
+  });
+
+  // Skills checklist
+  document.querySelectorAll('#skills-checklist input[type=checkbox]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      cb.closest('label').classList.toggle('checked', cb.checked);
+      const total = document.querySelectorAll('#skills-checklist input').length;
+      const checked = document.querySelectorAll('#skills-checklist input:checked').length;
+      const el = document.getElementById('skill-summary');
+      if (el) el.textContent = checked + ' / ' + total + ' skills' + (checked === total ? ' — Amazing! You are ready for B1! 🚀' : checked >= 7 ? ' — Almost there! Keep going! 💪' : '');
+    });
+  });
+
+  updateQuizScore();
+  render();
+});
+</script>
+
+<script src="../js/flashcard-pronunciation.js"></script>
+<script src="../js/lesson-flashcard-save.js"></script>
+</body>
+</html>
