@@ -3,49 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A2 | Lição 04: Comparing Opinions</title>
+    <title>A2 | Lição 11: The Biggest and The Best</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-    <link href="../enhanced-styles.css" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; font-size: 1.25rem; }
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.75rem; }
-        .flip-card { background-color: transparent; width: 100%; max-width: none; min-height: 220px; perspective: 1000px; cursor: pointer; }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .flip-card { background-color: transparent; width: 100%; max-width: none; min-height: 150px; perspective: 1000px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back {
             position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); padding: 2rem;
-            font-size: 1.1rem; line-height: 1.5;
+            border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 1.5rem;
         }
-        .flip-card-front { background-color: #fff; border: 1px solid #e5e7eb; }
-        .flip-card-back { background-color: #dbeafe; transform: rotateY(180deg); font-size: 1.25rem; }
+        .flip-card-front { background-color: #fff; border: 2px solid #e5e7eb; font-weight: bold; font-size: 1.5rem; }
+        .flip-card-back { background-color: #fdf2f8; transform: rotateY(180deg); font-weight: bold; color: #be185d; font-size: 1.4rem; }
 
-        input.correct { border-color: #22c55e; background-color: #f0fdf4; }
-        input.incorrect { border-color: #ef4444; background-color: #fef2f2; }
+        input.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        input.incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
         .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
         .answer-btn:hover { color: #db2777; }
+        
+        input { border-bottom: 3px solid #cbd5e1; outline: none; transition: all 0.2s; font-weight: 600; background: transparent; padding: 0 10px; }
+        .choice-btn { border: 2px solid #e5e7eb; padding: 16px; border-radius: 12px; transition: all 0.2s; cursor: pointer; text-align: left; width: 100%; font-size: 1.3rem; }
+        .choice-btn:hover { border-color: #db2777; background-color: #fdf2f8; }
+        .selected-correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        .selected-incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
     </style>
     <link rel='stylesheet' href='a2-lesson-theme.css'>
 </head>
-<body class="a2-lesson-page bg-slate-50 text-slate-800">
+<body class="a2-lesson-page lesson-loading bg-slate-50 text-slate-800">
 
     <header class="bg-white shadow-sm sticky top-0 z-10">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
-            <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2 V2</a>
+            <a href="a2.html" class="text-xl font-bold text-pink-600 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Módulo A2</a>
             <div class="text-center">
-                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 04: Comparing Opinions</h1>
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 11: The Biggest and The Best</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
             <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
         </div>
-        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-pink-500 h-1.5 transition-all duration-300"></div></div>
     </header>
 
     <main class="container mx-auto p-8 pb-28 max-w-5xl">
@@ -54,208 +58,263 @@
             <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
                 <div class="max-w-3xl">
                     <div class="a2-hero-copy">
-                        <h2>State opinions and react more naturally</h2>
-                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a dar opiniões com mais clareza, concordar, discordar com educação e sustentar sua ideia com uma justificativa simples.</p>
+                        <p class="lesson-panel-title">World records</p>
+                        <h2 class="text-4xl md:text-5xl font-black text-slate-900">Describe places and things using superlatives with confidence.</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno usa superlativos para falar de lugares famosos, prédios, paisagens e experiências marcantes com frases mais completas.</p>
                     </div>
                     <div class="lesson-panel p-6 mt-6">
-                        <p class="lesson-panel-title mb-4">You will practice</p>
-                        <div class="lesson-checklist">
-                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Using <strong>I think</strong>, <strong>in my opinion</strong> and <strong>for me</strong></span></div>
-                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Agreeing and disagreeing politely</span></div>
-                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>Giving a reason for your opinion</span></div>
-                        </div>
+                        <p class="lesson-panel-title">Focus points</p>
+                        <ul class="space-y-3 text-slate-600 text-base">
+                            <li class="flex gap-3"><i class="fas fa-check text-pink-500 mt-1"></i><span>adjetivos curtos e longos no superlativo;</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-pink-500 mt-1"></i><span>formas irregulares como <strong>best</strong> e <strong>worst</strong>;</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-pink-500 mt-1"></i><span>contraste entre <strong>tall</strong> e <strong>high</strong>.</span></li>
+                        </ul>
                     </div>
                 </div>
             </div>
             <div class="section-card p-8 mt-8">
-                <p class="lesson-panel-title mb-4">Sharing opinions</p>
-                <div class="text-left text-xl space-y-5">
-                    <p><strong class="text-blue-600">Teacher:</strong> "Which do you prefer for a pet, dogs or cats?"</p>
-                    <p><strong class="text-orange-600">Student:</strong> "I think dogs are friendlier and more active."</p>
-                    <p><strong class="text-blue-600">Teacher:</strong> "Interesting. In my opinion, cats are easier to take care of."</p>
-                    <p><strong class="text-orange-600">Student:</strong> "That's true, but for me dogs are more fun because they like to play."</p>
-                    <p><strong class="text-blue-600">Teacher:</strong> "So you agree that cats are easier, but you still prefer dogs?"</p>
-                    <p><strong class="text-orange-600">Student:</strong> "Exactly. I understand both sides, but I still prefer dogs."</p>
+                <p class="lesson-panel-title mb-4">Opening Dialogue</p>
+                <div class="space-y-4 text-left text-lg text-slate-700">
+                    <div class="flex gap-4">
+                        <span class="font-black text-pink-600 min-w-20">Guide:</span>
+                        <p>"Welcome! This is <strong>the tallest</strong> building in the city, and it attracts visitors from all over the world."</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-blue-600 min-w-20">Tourist:</span>
+                        <p>"Wow! Is it also <strong>the most expensive</strong> hotel in the area?"</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-pink-600 min-w-20">Guide:</span>
+                        <p>"No, but it has <strong>the best</strong> view of the ocean and the most famous rooftop restaurant."</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-blue-600 min-w-20">Tourist:</span>
+                        <p>"I understand now. This is <strong>the most amazing</strong> experience of my trip."</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="slide" data-title="Grammar">
-            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-book-open text-pink-500"></i> Grammar: Expressing Opinions</h2>
-            <div class="max-w-4xl mx-auto space-y-6">
-                <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
-                    <h3 class="text-3xl font-semibold mb-4 text-blue-600">Giving Your Opinion</h3>
-                    <p class="mb-6 text-xl">To express what you think, you can use these phrases:</p>
-                    <ul class="list-disc list-inside ml-4 space-y-3 text-2xl">
-                        <li><strong class="text-purple-600">I think</strong> pizza is delicious.</li>
-                        <li><strong class="text-purple-600">In my opinion,</strong> summer is better than winter.</li>
-                        <li><strong class="text-purple-600">For me,</strong> reading is more interesting than watching TV.</li>
-                    </ul>
-                </div>
-                 <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
-                    <h3 class="text-3xl font-semibold mb-4 text-blue-600">Agreeing and Disagreeing</h3>
-                     <p class="mb-4 text-xl">Here's how you can respond to someone's opinion.</p>
-                     <div class="grid md:grid-cols-2 gap-8 text-2xl">
-                        <div>
-                            <h4 class="text-2xl font-semibold mb-3 text-green-600"><i class="fas fa-check-circle"></i> Agreeing</h4>
-                             <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>I agree.</li>
-                                <li>I think so too.</li>
-                                <li>That's true.</li>
-                             </ul>
-                        </div>
-                        <div>
-                            <h4 class="text-2xl font-semibold mb-3 text-red-600"><i class="fas fa-times-circle"></i> Disagreeing</h4>
-                             <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>I disagree.</li>
-                                <li>I don't think so.</li>
-                                <li>I'm not so sure.</li>
-                             </ul>
-                        </div>
-                     </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide" data-title="Vocabulary">
-            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-lightbulb text-purple-500"></i> Vocabulary: Opinion Adjectives</h2>
-            <div class="flashcard-grid max-w-5xl mx-auto">
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">interesting</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">interessante</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">boring</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">chato / entediante</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">delicious</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">delicioso</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">awful</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">horrível</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">difficult</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">difícil</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">easy</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">fácil</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">fun</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">divertido</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">relaxing</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-blue-800">relaxante</h3></div></div></div>
-            </div>
-        </div>
+            <h2 class="text-4xl font-bold mb-6 text-center text-pink-700">Grammar Focus: Superlatives</h2>
+            <div class="max-w-6xl mx-auto space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-pink-500">
+                        <h3 class="text-2xl font-bold mb-4 text-pink-800"><i class="fas fa-bolt mr-2"></i>Short Adjectives</h3>
+                        <p class="mb-4 text-gray-600">Adicione <strong>-est</strong> ao final. Use sempre <strong>"the"</strong> antes.</p>
+                        <table class="w-full text-left text-xl">
+                            <tr class="border-b"> <td class="py-2">Fast</td> <td class="py-2">→</td> <td class="py-2 font-bold text-pink-600">The fastest</td> </tr>
+                            <tr class="border-b"> <td class="py-2">Old</td> <td class="py-2">→</td> <td class="py-2 font-bold text-pink-600">The oldest</td> </tr>
+                            <tr class="border-b"> <td class="py-2">Big*</td> <td class="py-2">→</td> <td class="py-2 font-bold text-pink-600">The biggest</td> </tr>
+                            <tr> <td class="py-2">Happy*</td> <td class="py-2">→</td> <td class="py-2 font-bold text-pink-600">The happiest</td> </tr>
+                        </table>
+                        <p class="mt-4 text-sm text-gray-500">*CVC (consoante-vogal-consoante) dobra a letra final. Terminado em 'y' vira 'iest'.</p>
+                    </div>
 
-        <div class="slide" data-title="Practice 1">
-            <div class="text-center">
-                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-pencil-alt text-teal-500"></i> Practice 1: Complete the Opinions</h2>
-                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-3xl mb-8 text-gray-600">Use the words in parentheses to complete the sentences.</p>
-                    <div id="practice-sentences" class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
-                        </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-blue-500">
+                        <h3 class="text-2xl font-bold mb-4 text-blue-800"><i class="fas fa-layer-group mr-2"></i>Long Adjectives</h3>
+                        <p class="mb-4 text-gray-600">Use <strong>the most</strong> antes do adjetivo. O adjetivo não muda.</p>
+                        <table class="w-full text-left text-xl">
+                            <tr class="border-b"> <td class="py-2">Modern</td> <td class="py-2">→</td> <td class="py-2 font-bold text-blue-600">The most modern</td> </tr>
+                            <tr class="border-b"> <td class="py-2">Beautiful</td> <td class="py-2">→</td> <td class="py-2 font-bold text-blue-600">The most beautiful</td> </tr>
+                            <tr class="border-b"> <td class="py-2">Interesting</td> <td class="py-2">→</td> <td class="py-2 font-bold text-blue-600">The most interesting</td> </tr>
+                            <tr> <td class="py-2">Expensive</td> <td class="py-2">→</td> <td class="py-2 font-bold text-blue-600">The most expensive</td> </tr>
+                        </table>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="slide" data-title="Practice 2">
-            <div class="text-center">
-                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-check-double text-cyan-500"></i> Practice 2: Agree or Disagree</h2>
-                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-3xl mb-8 text-gray-600">Read the opinions and write if you agree or disagree. Give a reason!</p>
-                    <div id="practice-agree-disagree" class="text-left text-2xl space-y-6 bg-gray-50 p-8 rounded-lg">
-                         </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide" data-title="Opinion Meter">
-            <div class="section-card p-8">
-                <h2 class="text-5xl font-bold mb-6 text-center text-orange-700"><i class="fas fa-comments text-violet-500"></i> Opinion Meter</h2>
-                <p class="text-2xl text-slate-600 text-center max-w-3xl mx-auto">Monte uma opinião completa, escolhendo posição, tema e justificativa. Isso ajuda a sair do “I like / I don't like” e chegar em uma fala mais rica.</p>
-                <div class="activity-card p-6 mt-8" data-choice-builder data-template="{starter}, {topic} is {position} because {reason}." data-required="starter,topic,position,reason" data-preview-empty="Monte sua opinião usando os blocos abaixo.">
-                    <div class="grid gap-6 lg:grid-cols-2">
-                        <div class="space-y-5">
-                            <div>
-                                <p class="font-semibold text-lg text-slate-700 mb-3">1. Como você vai começar?</p>
-                                <div class="flex flex-wrap gap-3">
-                                    <button type="button" class="choice-chip" data-choice-slot="starter" data-choice-value="I think">I think</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="starter" data-choice-value="In my opinion">In my opinion</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="starter" data-choice-value="For me">For me</button>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-lg text-slate-700 mb-3">2. Tema</p>
-                                <div class="flex flex-wrap gap-3">
-                                    <button type="button" class="choice-chip" data-choice-slot="topic" data-choice-value="social media">social media</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="topic" data-choice-value="online classes">online classes</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="topic" data-choice-value="video games">video games</button>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-lg text-slate-700 mb-3">3. Posição</p>
-                                <div class="flex flex-wrap gap-3">
-                                    <button type="button" class="choice-chip" data-choice-slot="position" data-choice-value="very useful">very useful</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="position" data-choice-value="a little overrated">a little overrated</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="position" data-choice-value="more fun than people say">more fun than people say</button>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-lg text-slate-700 mb-3">4. Justificativa</p>
-                                <div class="flex flex-wrap gap-3">
-                                    <button type="button" class="choice-chip" data-choice-slot="reason" data-choice-value="it helps people stay connected">it helps people stay connected</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="reason" data-choice-value="it can be distracting sometimes">it can be distracting sometimes</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="reason" data-choice-value="it makes learning more flexible">it makes learning more flexible</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="callout-note p-6 rounded-3xl">
-                            <p class="lesson-panel-title mb-3">Your opinion</p>
-                            <p class="text-base text-slate-600 mb-4">Depois de montar, diga a frase e complete oralmente com uma segunda frase de apoio, como <strong>That's why I like it</strong> ou <strong>But I understand the other side</strong>.</p>
-                            <div class="text-xl leading-relaxed min-h-[140px] font-medium" data-choice-preview></div>
-                            <div class="flex flex-wrap gap-3 mt-6">
-                                <button type="button" class="secondary-action-btn" data-choice-reset>Limpar</button>
-                                <button type="button" class="primary-action-btn" data-choice-speak>Ouvir frase</button>
-                            </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-indigo-50 p-8 rounded-2xl shadow-md border-l-8 border-indigo-600">
+                        <h3 class="text-2xl font-bold mb-4 text-indigo-800">The Difference: Tall vs. High</h3>
+                        <div class="space-y-4 text-xl">
+                            <p><strong><i class="fas fa-user mr-2"></i>Tall:</strong> Para altura vertical de seres vivos (pessoas, girafas) ou objetos estreitos e altos (prédios, torres).</p>
+                            <p class="italic text-gray-600">"He is the tallest man." | "The Eiffel Tower is tall."</p>
+                            <p><strong><i class="fas fa-mountain mr-2"></i>High:</strong> Para altitude ou distância em relação ao chão. Usado para montanhas, muros, prateleiras ou nuvens.</p>
+                            <p class="italic text-gray-600">"Everest is the highest mountain." | "The plane is high."</p>
                         </div>
                     </div>
+                    <div class="bg-yellow-50 dark:bg-yellow-900 dark:text-yellow-100 p-8 rounded-2xl shadow-md border-l-8 border-yellow-600">
+                        <h3 class="text-2xl font-bold mb-4 text-yellow-800">Irregular Forms (The Exceptions)</h3>
+                        <ul class="space-y-4 text-xl">
+                            <li><strong>Good</strong> → <span class="font-bold text-green-700">The best</span> (O melhor)</li>
+                            <li><strong>Bad</strong> → <span class="font-bold text-red-700">The worst</span> (O pior)</li>
+                            <li><strong>Far</strong> → <span class="font-bold text-orange-700">The farthest / furthest</span> (O mais longe)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Vocabulary">
+            <h2 class="text-4xl font-bold mb-10 text-center text-pink-700 uppercase">World Landmarks</h2>
+            <div class="flashcard-grid max-w-5xl mx-auto">
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-mountain text-emerald-600 mb-3 text-4xl"></i><br>Mountain</div><div class="flip-card-back">Montanha</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-water text-blue-500 mb-3 text-4xl"></i><br>River</div><div class="flip-card-back">Rio</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-city text-gray-600 mb-3 text-4xl"></i><br>City</div><div class="flip-card-back">Cidade</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-sun text-yellow-500 mb-3 text-4xl"></i><br>Desert</div><div class="flip-card-back">Deserto</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-bridge text-amber-700 mb-3 text-4xl"></i><br>Bridge</div><div class="flip-card-back">Ponte</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-monument text-purple-500 mb-3 text-4xl"></i><br>Monument</div><div class="flip-card-back">Monumento</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-tree text-green-700 mb-3 text-4xl"></i><br>Forest</div><div class="flip-card-back">Floresta</div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-building text-blue-900 mb-3 text-4xl"></i><br>Building</div><div class="flip-card-back">Prédio</div></div></div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Dialog Samples">
+            <h2 class="text-3xl font-bold mb-6 text-center text-pink-700">Dialog Samples: Using Superlatives</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-6xl mx-auto space-y-6 text-lg">
+                <div class="flex gap-4">
+                    <span class="font-black text-pink-600">Guide:</span>
+                    <p>"This is the most famous museum in the country. It's the best place to learn about our history."</p>
+                </div>
+                <div class="flex gap-4">
+                    <span class="font-black text-blue-600">Student:</span>
+                    <p>"Is it also the oldest building in the city?"</p>
+                </div>
+                <div class="flex gap-4">
+                    <span class="font-black text-pink-600">Guide:</span>
+                    <p>"No, but it has the most complete collection and the friendliest staff."</p>
+                </div>
+                <hr>
+                <div class="flex gap-4">
+                    <span class="font-black text-pink-600">A:</span>
+                    <p>"Which restaurant do you recommend?"</p>
+                </div>
+                <div class="flex gap-4">
+                    <span class="font-black text-blue-600">B:</span>
+                    <p>"Try Rosa's — it has the most delicious food and the coziest atmosphere. It's the best in town."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Translate to English">
+            <h2 class="text-3xl font-bold mb-6 text-center text-pink-700">Translate to English: Superlative Sentences</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-6xl mx-auto space-y-6 text-2xl">
+                <p>1. Esta é a cidade mais bonita que eu já visitei.</p>
+                <p>2. Este é o prédio mais alto da cidade.</p>
+                <p>3. Ela é a pessoa mais inteligente que eu conheço.</p>
+                <p>4. Foi o pior dia da minha vida.</p>
+                <p>5. Esse restaurante tem a comida mais deliciosa.</p>
+                <p>6. Este é o lugar mais tranquilo da cidade.</p>
+                <p class="text-base text-slate-500 mt-4">Peça ao aluno para traduzir essas frases para inglês usando superlativos (the + -est / the most / irregular forms).</p>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Task 1">
+            <h2 class="text-3xl font-bold mb-8 text-center text-pink-700">Task 1: The Short Superlatives</h2>
+            <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
+                <p>1. Mount Everest is <input id="t1q1" data-answer="the highest" class="w-48 text-center"> mountain. <span class="text-gray-400 text-lg">(use: alto)</span> <button class="answer-btn" data-target="t1q1"><i class="fas fa-eye"></i></button></p>
+                <p>2. The Sahara is <input id="t1q2" data-answer="the hottest" class="w-48 text-center"> desert. <span class="text-gray-400 text-lg">(use: quente)</span> <button class="answer-btn" data-target="t1q2"><i class="fas fa-eye"></i></button></p>
+                <p>3. Russia is <input id="t1q3" data-answer="the biggest" class="w-48 text-center"> country. <span class="text-gray-400 text-lg">(use: grande)</span> <button class="answer-btn" data-target="t1q3"><i class="fas fa-eye"></i></button></p>
+                <p>4. He is <input id="t1q4" data-answer="the tallest" class="w-48 text-center"> basketball player. <span class="text-gray-400 text-lg">(use: alto)</span> <button class="answer-btn" data-target="t1q4"><i class="fas fa-eye"></i></button></p>
+                <p>5. This is <input id="t1q5" data-answer="the smallest" class="w-48 text-center"> bird in the world. <span class="text-gray-400 text-lg">(use: pequeno)</span> <button class="answer-btn" data-target="t1q5"><i class="fas fa-eye"></i></button></p>
+                <p>6. Antarctica is <input id="t1q6" data-answer="the coldest" class="w-48 text-center"> place. <span class="text-gray-400 text-lg">(use: frio)</span> <button class="answer-btn" data-target="t1q6"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Task 2">
+            <h2 class="text-3xl font-bold mb-8 text-center text-pink-700">Task 2: Long & Irregular Superlatives</h2>
+            <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
+                <p>1. Paris is <input id="t2q1" data-answer="the most beautiful" class="w-80 text-center"> city. <span class="text-gray-400 text-lg">(use: bonito)</span> <button class="answer-btn" data-target="t2q1"><i class="fas fa-eye"></i></button></p>
+                <p>2. That was <input id="t2q2" data-answer="the best" class="w-48 text-center"> pizza ever! <span class="text-gray-400 text-lg">(use: bom)</span> <button class="answer-btn" data-target="t2q2"><i class="fas fa-eye"></i></button></p>
+                <p>3. This is <input id="t2q3" data-answer="the most expensive" class="w-80 text-center"> car. <span class="text-gray-400 text-lg">(use: caro)</span> <button class="answer-btn" data-target="t2q3"><i class="fas fa-eye"></i></button></p>
+                <p>4. It was <input id="t2q4" data-answer="the worst" class="w-48 text-center"> movie ever. <span class="text-gray-400 text-lg">(use: pior)</span> <button class="answer-btn" data-target="t2q4"><i class="fas fa-eye"></i></button></p>
+                <p>5. She is <input id="t2q5" data-answer="the most popular" class="w-80 text-center"> singer. <span class="text-gray-400 text-lg">(use: popular)</span> <button class="answer-btn" data-target="t2q5"><i class="fas fa-eye"></i></button></p>
+                <p>6. Science is <input id="t2q6" data-answer="the most interesting" class="w-80 text-center"> subject. <span class="text-gray-400 text-lg">(use: interessante)</span> <button class="answer-btn" data-target="t2q6"><i class="fas fa-eye"></i></button></p>
+            </div>
+        </div>
+
+        <div class="slide" data-title="Task 3">
+            <h2 class="text-3xl font-bold mb-6 text-center text-pink-700">Task 3: Making Comparisons</h2>
+            <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">1. You are at the top of a mountain.</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">This is the highest point I've reached.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">This is the tallest point I've reached.</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">2. Meeting a giant person.</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, false)">You are the most high person here.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, true)">You are the tallest person I know!</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">3. Looking at a 0/10 grade.</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">This is the worst result in the class.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">This is the baddest result.</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">4. Describing a 5-star hotel.</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">It's the most luxurious hotel in town.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">It's the more luxury hotel.</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">5. About the Burj Khalifa tower.</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, false)">It's the highest tower.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, true)">It's the tallest building in the world.</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="font-bold mb-4">6. A perfect vacation.</p>
+                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">It was the best time of my life.</button>
+                    <button class="choice-btn" onclick="checkChoice(this, false)">It was the goodest time.</button>
                 </div>
             </div>
         </div>
 
         <div class="slide" data-title="Music">
-            <h2 class="text-5xl font-bold mb-6 text-center text-orange-700"><i class="fas fa-music text-red-500"></i> Music Time: Katy Perry</h2>
-            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1TEjSXPdAakDotj2Wji3PU?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <p class="text-3xl my-6 text-gray-600 text-center">Listen to "Hot N Cold" and fill in the blanks about disagreement.</p>
-                <div class="text-2xl space-y-4 bg-gray-50 p-6 rounded-lg border-l-4 border-orange-500 text-center">
-                       <p>You change your <input type="text" id="music-q1" class="w-32 border-b-2 text-center bg-transparent" data-answer="mind"><button class="answer-btn" data-target="music-q1"><i class="fas fa-eye"></i></button> like a girl changes clothes</p>
-                       <p>We used to be just like twins, so in <input type="text" id="music-q2" class="w-32 border-b-2 text-center bg-transparent" data-answer="sync"><button class="answer-btn" data-target="music-q2"><i class="fas fa-eye"></i></button></p>
-                       <hr class="my-2 border-gray-300">
-                       <p class="font-bold text-orange-600">Chorus:</p>
-                       <p>'Cause you're hot then you're <input type="text" id="music-q3" class="w-32 border-b-2 text-center bg-transparent" data-answer="cold"><button class="answer-btn" data-target="music-q3"><i class="fas fa-eye"></i></button></p>
-                       <p>You're <input type="text" id="music-q4" class="w-32 border-b-2 text-center bg-transparent" data-answer="yes"><button class="answer-btn" data-target="music-q4"><i class="fas fa-eye"></i></button> then you're no</p>
-                       <p>You're <input type="text" id="music-q5" class="w-32 border-b-2 text-center bg-transparent" data-answer="in"><button class="answer-btn" data-target="music-q5"><i class="fas fa-eye"></i></button> then you're out</p>
-                       <p>You're <input type="text" id="music-q6" class="w-32 border-b-2 text-center bg-transparent" data-answer="up"><button class="answer-btn" data-target="music-q6"><i class="fas fa-eye"></i></button> then you're down</p>
-                       <p>You're <input type="text" id="music-q7" class="w-32 border-b-2 text-center bg-transparent" data-answer="wrong"><button class="answer-btn" data-target="music-q7"><i class="fas fa-eye"></i></button> when it's right</p>
-                       <p>It's <input type="text" id="music-q8" class="w-32 border-b-2 text-center bg-transparent" data-answer="black"><button class="answer-btn" data-target="music-q8"><i class="fas fa-eye"></i></button> and it's white</p>
-                       <p>We fight, we break <input type="text" id="music-q9" class="w-32 border-b-2 text-center bg-transparent" data-answer="up"><button class="answer-btn" data-target="music-q9"><i class="fas fa-eye"></i></button></p>
-                       <p>We kiss, we make <input type="text" id="music-q10" class="w-32 border-b-2 text-center bg-transparent" data-answer="up"><button class="answer-btn" data-target="music-q10"><i class="fas fa-eye"></i></button></p>
+            <h2 class="text-3xl font-bold mb-6 text-center text-pink-700 italic">Music: "(Simply) The Best" – Tina Turner</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-6xl mx-auto flex flex-col md:flex-row gap-10">
+                <div class="flex-1 text-center">
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6pPWRBubXOBAHnjl5ZIujB?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                    <p class="mt-6 italic text-gray-500">The most iconic song about being number one!</p>
+                </div>
+                <div class="flex-1 bg-slate-50 p-8 rounded-xl text-xl leading-relaxed font-serif overflow-y-auto" style="max-height: 450px;">
+                    <p class="font-bold text-pink-600 mb-2">[Chorus]</p>
+                    <p>You're simply <input id="m1" data-answer="the best" class="w-40 text-center"> <button class="answer-btn" data-target="m1"><i class="fas fa-eye"></i></button></p>
+                    <p>Better than <input id="m2" data-answer="all the rest" class="w-40 text-center"> <button class="answer-btn" data-target="m2"><i class="fas fa-eye"></i></button></p>
+                    <p>Better than <input id="m3" data-answer="anyone" class="w-40 text-center"> <button class="answer-btn" data-target="m3"><i class="fas fa-eye"></i></button></p>
+                    <p>Anyone I've ever met</p><br>
                 </div>
             </div>
         </div>
-        
+
         <div class="slide" data-title="Homework">
-             <div class="text-center">
-                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-home text-blue-500"></i> Homework</h2>
-                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-3xl mb-5 text-gray-600">What do you think about social media? Is it good or bad? Write a short paragraph with your opinion.</p>
-                    <div class="text-left text-xl mt-4 bg-gray-50 p-6 rounded-lg">
-                        <p class="mb-4 text-lg text-slate-600">Try this structure: state your opinion, give one positive point, one negative point, and finish with your final position.</p>
-                        <textarea class="w-full mt-2 p-3 border-2 rounded-lg text-xl" rows="6" placeholder="In my opinion, social media is... I think it is good/bad because..."></textarea>
-                    </div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-8 text-pink-700">Homework: Your Records</h2>
+                <div class="bg-white p-12 rounded-3xl shadow-xl max-w-4xl mx-auto text-left border-t-8 border-pink-500">
+                    <p class="text-2xl font-bold mb-4">Write 6 superlative sentences about your life:</p>
+                    <p class="text-base text-slate-600 mb-6">Try to include places, people, food and one personal opinion. This helps the superlatives sound more natural and less isolated.</p>
+                    <ul class="list-disc ml-8 space-y-4 text-xl text-gray-700">
+                        <li><strong>The best</strong> city you know.</li>
+                        <li><strong>The most beautiful</strong> beach you visited.</li>
+                        <li><strong>The oldest</strong> person you know.</li>
+                        <li><strong>The most delicious</strong> meal you've had.</li>
+                        <li><strong>The tallest</strong> building in your city.</li>
+                        <li><strong>The most interesting</strong> hobby you have.</li>
+                    </ul>
+                    <textarea class="w-full mt-8 p-6 border-2 rounded-2xl text-2xl" rows="4" placeholder="In my opinion..."></textarea>
                 </div>
             </div>
         </div>
 
         <div class="slide" data-title="Lesson Complete">
             <div class="text-center flex flex-col items-center justify-center h-full">
-                <i class="fas fa-check-circle text-green-500 text-8xl mb-6"></i>
-                <h2 class="text-6xl font-bold mb-6 text-gray-800">Lesson 4 Complete!</h2>
-                <p class="text-4xl text-gray-600 max-w-3xl">Great work sharing your ideas! Now you can express your opinions with confidence.</p>
+                <div class="bg-white p-16 rounded-3xl shadow-2xl border-t-8 border-pink-500 max-w-4xl">
+                    <i class="fas fa-trophy text-pink-400 text-8xl mb-10"></i>
+                    <h2 class="text-6xl font-black mb-10 text-gray-800">Top of the World!</h2>
+                    <p class="text-3xl text-gray-600 mb-16">Agora você sabe como descrever o que há de mais extraordinário no mundo!</p>
+                    
+                    <div class="p-10 bg-pink-50 rounded-2xl border-2 border-pink-100 italic">
+                        <p class="text-4xl font-serif text-pink-900 mb-6">"You don't have to be the best to start, but you have to start to be the best."</p>
+                        <p class="text-2xl text-pink-600 font-bold">— Zig Ziglar</p>
+                    </div>
+                </div>
             </div>
         </div>
 
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20">
-        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Previous</button>
-            <button id="next-btn" class="bg-orange-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-orange-700">Next</button>
-            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finish Lesson</button>
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t p-6 z-20">
+        <div class="container mx-auto flex justify-between items-center px-8">
+            <button id="prev-btn" class="px-10 py-4 bg-gray-200 rounded-xl font-bold text-xl hover:bg-gray-300 disabled:opacity-50">Previous</button>
+            <button id="next-btn" class="px-12 py-4 bg-pink-600 text-white rounded-xl font-bold text-xl hover:bg-pink-700">Next</button>
         </div>
     </footer>
 
@@ -264,127 +323,81 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
     <script src="../js/progress-manager.js"></script>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const moduleId = 'a2-v2';
-            const lessonNumber = 4;
-
+            const moduleId = 'a2';
+            const lessonNumber = 11;
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
             const slideCounter = document.getElementById('slide-counter');
             const slideTitleHeader = document.getElementById('slide-title-header');
             let currentSlide = 0;
 
-            function updateSlideView() {
+            function updateView() {
                 slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
-                const progressBar = document.getElementById('progress-bar');
-                progressBar.style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
+                document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
                 if (slideCounter) slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
                 if (slideTitleHeader) slideTitleHeader.textContent = slides[currentSlide]?.dataset.title || '';
                 prevBtn.disabled = currentSlide === 0;
-                nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
-                finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+                nextBtn.innerText = currentSlide === slides.length - 1 ? 'Finish' : 'Next';
             }
 
-            prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; updateSlideView(); } });
-            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; updateSlideView(); } });
+            prevBtn.onclick = () => { if(currentSlide > 0) currentSlide--; updateView(); };
+            nextBtn.onclick = () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateView();
+                    return;
+                }
 
-            finishLessonBtn.addEventListener('click', () => {
-                finishLessonBtn.disabled = true;
-                finishLessonBtn.textContent = 'Salvando...';
+                nextBtn.disabled = true;
+                nextBtn.textContent = 'Saving...';
+
                 if (typeof markLessonAsComplete === 'function') {
                     markLessonAsComplete(moduleId, lessonNumber).catch(error => {
                         console.error('Erro ao marcar a lição como completa:', error);
                         alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');
-                        finishLessonBtn.disabled = false;
-                        finishLessonBtn.textContent = 'Finish Lesson';
+                        nextBtn.disabled = false;
+                        nextBtn.textContent = 'Finish';
                     });
                 } else {
-                    console.error('Função markLessonAsComplete não encontrada.');
                     alert('Erro ao salvar progresso.');
-                    finishLessonBtn.disabled = false;
-                    finishLessonBtn.textContent = 'Finish Lesson';
+                    nextBtn.disabled = false;
+                    nextBtn.textContent = 'Finish';
                 }
-            });
+            };
 
             function checkAnswer(input) {
-                const userAnswer = input.value.trim().toLowerCase().replace(/[.!?]/g, '');
-                const correctAnswer = input.dataset.answer.toLowerCase().replace(/[.!?]/g, '');
-                input.classList.remove('correct', 'incorrect');
-                if(userAnswer.length === 0) return;
-                input.classList.toggle('correct', userAnswer === correctAnswer);
-                input.classList.toggle('incorrect', userAnswer !== correctAnswer);
-            }
-            
-            function addIndividualRevealListeners() {
-                document.querySelectorAll('.answer-btn').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const targetId = button.dataset.target;
-                        const inputField = document.getElementById(targetId);
-                        if(inputField) {
-                            inputField.value = inputField.dataset.answer;
-                            checkAnswer(inputField);
-                        }
-                    });
-                });
+                const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
+                input.classList.toggle('correct', isCorrect);
+                input.classList.toggle('incorrect', !isCorrect);
             }
 
-            document.querySelectorAll('.flip-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    card.classList.toggle('flipped');
-                });
+            document.querySelectorAll('input[data-answer]').forEach(input => {
+                input.onblur = () => checkAnswer(input);
             });
 
-            // Practice 1: Complete the Opinions
-            function createPracticeSentences() {
-                const container = document.getElementById('practice-sentences');
-                if (!container) return;
-                const sentences = [
-                    { id: 'p1q1', question: "A: Rock music is great. B: ___ . It's my favorite. (Eu concordo)", answer: "I agree" },
-                    { id: 'p1q2', question: "___, math is very difficult. (For me)", answer: "For me" },
-                    { id: 'p1q3', question: "A: This movie is boring. B: ___ . I think it's very interesting. (Eu não acho)", answer: "I don't think so" },
-                    { id: 'p1q4', question: "___ vegetables are more delicious than fruit. (Eu acho)", answer: "I think" },
-                    { id: 'p1q5', question: "A: The beach is relaxing. B: ___. I love the sound of the ocean. (É verdade)", answer: "That's true" }
-                ];
-                container.innerHTML = sentences.map(item => {
-                    const inputHtml = `<input id="${item.id}" data-answer="${item.answer}" class="w-64 p-1 border-b-2 text-2xl bg-transparent text-center">`;
-                    const buttonHtml = `<button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>`;
-                    return `<p>${item.question.replace('___', inputHtml + buttonHtml)}</p>`;
-                }).join('');
-                 container.querySelectorAll('input').forEach(input => input.addEventListener('blur', () => checkAnswer(input)));
-            }
+            window.checkChoice = (btn, isCorrect) => {
+                const parent = btn.parentElement;
+                parent.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected-correct', 'selected-incorrect'));
+                btn.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+            };
 
-            // Practice 2: Agree or Disagree
-            function createAgreeDisagreeActivity() {
-                const container = document.getElementById('practice-agree-disagree');
-                if (!container) return;
-                const opinions = [
-                    { statement: "Video games are for kids.", example: "I disagree. I think many adults play video games." },
-                    { statement: "Traveling is the best way to spend money.", example: "I agree. In my opinion, experiences are more important than things." },
-                    { statement: "Learning English is easy.", example: "I'm not so sure. For me, it is difficult but fun." }
-                ];
-                container.innerHTML = opinions.map(item => `
-                    <div>
-                        <p class="font-semibold text-gray-800">Opinion: "${item.statement}"</p>
-                        <textarea class="w-full mt-2 p-3 border-2 rounded-lg text-xl" rows="2" placeholder="Write your opinion here..."></textarea>
-                        <div class="text-right mt-1"><button class="text-sm text-blue-600 hover:underline" onclick="alert('Example: ${item.example}')">Show Example</button></div>
-                    </div>
-                `).join('');
-            }
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const input = document.getElementById(btn.dataset.target);
+                    if (input) { input.value = input.dataset.answer; checkAnswer(input); }
+                };
+            });
 
-            createPracticeSentences();
-            createAgreeDisagreeActivity();
-            addIndividualRevealListeners();
-            updateSlideView();
+            document.querySelectorAll('.flip-card').forEach(card => card.onclick = () => card.classList.toggle('flipped'));
+            updateView();
+            document.body.classList.remove('lesson-loading');
         });
     </script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
-    <script src='a2-v2-template.js'></script>
     <script src='a2-lesson-theme.js'></script>
 </body>
 </html>
