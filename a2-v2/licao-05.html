@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A2 | Lição 05: Same or Different?</title>
+    <title>A2 V2 | Lição 05: Same or Different?</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
@@ -21,16 +21,17 @@
         .flip-card-front, .flip-card-back {
             position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); padding: 2rem;
+            border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 2rem;
             font-size: 1.1rem; line-height: 1.5;
         }
         .flip-card-front { background-color: #fff; border: 1px solid #e5e7eb; }
-        .flip-card-back { background-color: #fef9c3; transform: rotateY(180deg); font-size: 1.25rem; }
+        .flip-card-back { background-color: #ecfdf5; transform: rotateY(180deg); font-size: 1.25rem; color: #065f46; font-weight: 700; }
 
         input.correct { border-color: #22c55e; background-color: #f0fdf4; }
         input.incorrect { border-color: #ef4444; background-color: #fef2f2; }
         .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
-        .answer-btn:hover { color: #db2777; }
+        .answer-btn:hover { color: #059669; }
+        input[data-answer], .practice-input { border: none; border-bottom: 2px solid #cbd5e1; outline: none; background: transparent; text-align: center; padding: 0 6px; font-weight: 600; }
     </style>
     <link rel='stylesheet' href='a2-lesson-theme.css'>
 </head>
@@ -38,237 +39,394 @@
 
     <header class="bg-white shadow-sm sticky top-0 z-10">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
-            <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2 V2</a>
+            <a href="a2.html" class="text-lg font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2 V2</a>
             <div class="text-center">
                 <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 05: Same or Different?</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 12</div>
         </div>
-        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-emerald-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
     <main class="container mx-auto p-8 pb-28 max-w-5xl">
 
-        <div class="slide active" data-title="Warm-up">
+        <!-- SLIDE 1: Intro + Diálogo -->
+        <div class="slide active" data-title="Intro &amp; Dialogue">
             <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
                 <div class="max-w-3xl">
                     <div class="a2-hero-copy">
-                        <p class="lesson-panel-title">Comparing habits and hobbies</p>
-                        <h2 class="text-4xl md:text-5xl font-black text-slate-900">Talk about things that are equally fun, too difficult or relaxing enough.</h2>
-                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno compara hobbies e atividades usando <strong>as...as</strong>, <strong>not as...as</strong>, <strong>too</strong> e <strong>enough</strong> em situações reais.</p>
+                        <p class="lesson-panel-title">Comparisons in everyday life</p>
+                        <h2 class="text-4xl md:text-5xl font-black text-slate-900">Compare people, places and things using as...as, too and enough.</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula você aprende três formas poderosas de fazer comparações no inglês cotidiano.</p>
                     </div>
                     <div class="lesson-panel p-6 mt-6">
-                        <p class="lesson-panel-title">You will practice:</p>
+                        <p class="lesson-panel-title">By the end, you can:</p>
                         <ul class="space-y-3 text-slate-600 text-base">
-                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>comparar duas atividades com mais precisao;</span></li>
-                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>dizer quando algo é exagerado ou suficiente;</span></li>
-                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>falar de preferencias em contexto de aula.</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-emerald-500 mt-1"></i><span>usar <strong>as...as</strong> para dizer que duas coisas são iguais;</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-emerald-500 mt-1"></i><span>usar <strong>too</strong> para indicar excesso;</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-emerald-500 mt-1"></i><span>usar <strong>enough</strong> para indicar suficiência ou falta dela.</span></li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="section-card p-8 mt-8">
-                <p class="lesson-panel-title mb-4">Opening Dialogue</p>
+                <p class="lesson-panel-title mb-4">Opening Dialogue — At the gym</p>
                 <div class="space-y-4 text-left text-lg text-slate-700">
                     <div class="flex gap-4">
-                        <span class="font-black text-blue-600 min-w-20">Teacher:</span>
-                        <p>"I like watching movies after work. What about you?"</p>
+                        <span class="font-black text-emerald-700 min-w-10">A:</span>
+                        <p>"I want to run the marathon, but I'm not sure I'm ready."</p>
                     </div>
                     <div class="flex gap-4">
-                        <span class="font-black text-orange-600 min-w-20">Student:</span>
-                        <p>"Me too. I think watching movies is <strong>as fun as</strong> reading books on the weekend."</p>
+                        <span class="font-black text-orange-600 min-w-10">B:</span>
+                        <p>"You're <strong>fast enough</strong> to finish it. You just need more training."</p>
                     </div>
                     <div class="flex gap-4">
-                        <span class="font-black text-blue-600 min-w-20">Teacher:</span>
-                        <p>"Interesting. For me, a long book is <strong>not as relaxing as</strong> a good comedy film."</p>
+                        <span class="font-black text-emerald-700 min-w-10">A:</span>
+                        <p>"But the course is <strong>too long</strong> for me. It's 42 kilometers!"</p>
                     </div>
                     <div class="flex gap-4">
-                        <span class="font-black text-orange-600 min-w-20">Student:</span>
-                        <p>"I agree, and some movies are <strong>too long</strong> to watch on a busy night."</p>
+                        <span class="font-black text-orange-600 min-w-10">B:</span>
+                        <p>"You're <strong>as strong as</strong> any other runner here. Just believe in yourself!"</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-emerald-700 min-w-10">A:</span>
+                        <p>"You're right. I'm <strong>not too old</strong> to try new things!"</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide" data-title="Grammar">
-            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-book-open text-pink-500"></i> Grammar: More Comparisons</h2>
-            <div class="max-w-6xl mx-auto space-y-6">
-                <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
-                    <h3 class="text-3xl font-semibold mb-4 text-blue-600">Comparing Equality: (not) as ... as</h3>
-                    <p class="mb-6 text-xl">We use <strong class="text-green-600">as + adjective + as</strong> to say two things are the same. We use <strong class="text-red-600">not as + adjective + as</strong> to say they are different.</p>
-                    <ul class="list-disc list-inside ml-4 space-y-3 text-2xl">
-                        <li><span class="font-bold text-green-700">(+)</span> My car is <strong class="text-green-600">as fast as</strong> your car. (They have the same speed)</li>
-                        <li><span class="font-bold text-red-700">(-)</span> The book is <strong class="text-red-600">not as expensive as</strong> the game. (The game is more expensive)</li>
-                    </ul>
-                </div>
-                 <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
-                    <h3 class="text-3xl font-semibold mb-4 text-blue-600">Limits: too & enough</h3>
-                     <p class="mb-4 text-xl">We use <strong class="text-purple-600">too</strong> to show something is excessive (more than necessary). We use <strong class="text-indigo-600">enough</strong> to show the correct or sufficient amount.</p>
-                     <div class="grid md:grid-cols-2 gap-8 text-2xl">
-                        <div>
-                            <h4 class="text-2xl font-semibold mb-3 text-gray-700">too + adjective</h4>
-                             <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>The coffee is <strong class="text-purple-600">too hot</strong> to drink.</li>
-                                <li>This box is <strong class="text-purple-600">too heavy</strong> for me.</li>
-                             </ul>
-                        </div>
-                        <div>
-                            <h4 class="text-2xl font-semibold mb-3 text-gray-700">adjective + enough</h4>
-                             <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>He is <strong class="text-indigo-600">strong enough</strong> to lift it.</li>
-                                <li>The water is <strong class="text-indigo-600">warm enough</strong> to swim.</li>
-                             </ul>
-                        </div>
-                     </div>
-                </div>
-            </div>
-        </div>
-        
+        <!-- SLIDE 2: Vocabulário -->
         <div class="slide" data-title="Vocabulary">
-            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-tags text-purple-500"></i> Vocabulary: Comparisons</h2>
+            <h2 class="text-4xl font-bold mb-4 text-center text-emerald-700">Vocabulary: Qualities &amp; Characteristics</h2>
+            <p class="text-center text-slate-500 text-lg mb-8">Clique nos cartões para ver o significado em português.</p>
             <div class="flashcard-grid max-w-5xl mx-auto">
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">as big as</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">tão grande quanto</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">not as tall as</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">não tão alto quanto</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">too expensive</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">caro demais</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">strong enough</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">forte o suficiente</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">the same as</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">o mesmo que</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">different from</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">diferente de</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">too difficult</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">difícil demais</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">easy enough</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-orange-800">fácil o suficiente</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">strong</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>forte</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">fast</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>rápido</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">heavy</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>pesado</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">light</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>leve / claro</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">comfortable</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>confortável</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">quiet</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>silencioso / tranquilo</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">noisy</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>barulhento</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">confident</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>confiante / seguro</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">flexible</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>flexível</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">patient</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>paciente</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">reliable</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>confiável / de confiança</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">skilled</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>habilidoso / qualificado</p></div></div></div>
             </div>
         </div>
 
-        <div class="slide" data-title="Practice 1">
-            <div class="text-center">
-                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-pencil-alt text-teal-500"></i> Practice 1: Complete the Sentences</h2>
-                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-3xl mb-8 text-gray-600">Use 'as...as', 'too', or 'enough' to complete the sentences.</p>
-                    <div id="practice-sentences" class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
+        <!-- SLIDE 3: Gramática -->
+        <div class="slide" data-title="Grammar">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Grammar Focus: as...as / too / enough</h2>
+            <div class="max-w-5xl mx-auto space-y-6">
+                <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-emerald-500">
+                    <h3 class="text-2xl font-bold mb-4 text-emerald-800"><i class="fas fa-equals mr-2"></i>as...as — Igualdade</h3>
+                    <p class="mb-4 text-gray-600">Use <strong>as + adjective + as</strong> para dizer que duas coisas são iguais. Para negar, use <strong>not as...as</strong>.</p>
+                    <div class="grid md:grid-cols-2 gap-4 text-lg">
+                        <div class="bg-emerald-50 rounded-xl p-4"><p class="font-bold">She is as fast as her brother.</p><p class="text-sm text-slate-500 mt-1">Ela é tão rápida quanto o irmão.</p></div>
+                        <div class="bg-emerald-50 rounded-xl p-4"><p class="font-bold">This hotel is not as expensive as that one.</p><p class="text-sm text-slate-500 mt-1">Este hotel não é tão caro quanto aquele.</p></div>
+                        <div class="bg-emerald-50 rounded-xl p-4"><p class="font-bold">Is he as strong as you?</p><p class="text-sm text-slate-500 mt-1">Ele é tão forte quanto você?</p></div>
+                        <div class="bg-emerald-50 rounded-xl p-4"><p class="font-bold">This city is as noisy as New York.</p><p class="text-sm text-slate-500 mt-1">Esta cidade é tão barulhenta quanto Nova York.</p></div>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-red-400">
+                        <h3 class="text-2xl font-bold mb-4 text-red-700"><i class="fas fa-exclamation-circle mr-2"></i>too — Excesso</h3>
+                        <p class="mb-4 text-gray-600">Use <strong>too + adjective</strong> para dizer que algo é mais do que o desejado ou necessário. Tem sentido negativo.</p>
+                        <div class="space-y-3 text-lg">
+                            <div class="bg-red-50 rounded-xl p-4"><p class="font-bold">This bag is too heavy.</p><p class="text-sm text-slate-500 mt-1">Esta bolsa é pesada demais.</p></div>
+                            <div class="bg-red-50 rounded-xl p-4"><p class="font-bold">The music is too loud for me.</p><p class="text-sm text-slate-500 mt-1">A música está alta demais para mim.</p></div>
                         </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-blue-400">
+                        <h3 class="text-2xl font-bold mb-4 text-blue-700"><i class="fas fa-check-circle mr-2"></i>enough — Suficiência</h3>
+                        <p class="mb-4 text-gray-600">Use <strong>adjective + enough</strong> para dizer que algo tem a quantidade certa. Para negar, use <strong>not + adjective + enough</strong>.</p>
+                        <div class="space-y-3 text-lg">
+                            <div class="bg-blue-50 rounded-xl p-4"><p class="font-bold">She is confident enough to lead the team.</p><p class="text-sm text-slate-500 mt-1">Ela é confiante o suficiente para liderar.</p></div>
+                            <div class="bg-blue-50 rounded-xl p-4"><p class="font-bold">He is not fast enough to win.</p><p class="text-sm text-slate-500 mt-1">Ele não é rápido o suficiente para ganhar.</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-6">
+                    <p class="font-bold text-yellow-800 mb-2">⚠️ Atenção: posição de <em>enough</em></p>
+                    <p class="text-slate-700"><strong>enough</strong> sempre vem <em>depois</em> do adjetivo: <em>fast <strong>enough</strong></em> ✅ — nunca antes: <em><strong>enough</strong> fast</em> ❌</p>
                 </div>
             </div>
         </div>
 
-        <div class="slide" data-title="Practice 2">
-            <div class="text-center">
-                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-random text-cyan-500"></i> Practice 2: Rewrite the Sentences</h2>
-                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-3xl mb-8 text-gray-600">Rewrite the first sentence using the word in parentheses.</p>
-                    <div id="practice-rewrite" class="text-left text-2xl space-y-6 bg-gray-50 p-8 rounded-lg">
-                         </div>
+        <!-- SLIDE 4: Atividades Práticas -->
+        <div class="slide" data-title="Practice">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Practice: as...as / too / enough</h2>
+            <div class="max-w-5xl mx-auto space-y-8">
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <h3 class="text-2xl font-bold text-emerald-700 mb-5">A — Complete the sentences</h3>
+                    <div class="space-y-5 text-xl" id="practice-fill"></div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <h3 class="text-2xl font-bold text-emerald-700 mb-5">B — Choose: too or enough?</h3>
+                    <div class="space-y-5 text-xl" id="practice-choose"></div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <h3 class="text-2xl font-bold text-emerald-700 mb-5">C — Find and fix the error</h3>
+                    <div class="space-y-5 text-xl" id="practice-error"></div>
                 </div>
             </div>
         </div>
-        
-        <div class="slide" data-title="Comparison Lab">
+
+        <!-- SLIDE 5: Tradução Oral 1 (Gramática) -->
+        <div class="slide" data-title="Oral Translation I">
             <div class="section-card p-8">
-                <h2 class="text-5xl font-bold mb-6 text-center text-orange-700"><i class="fas fa-flask text-cyan-500"></i> Comparison Lab</h2>
-                <p class="text-2xl text-slate-600 text-center max-w-3xl mx-auto">Monte frases para decidir se duas coisas são parecidas, exageradas ou suficientes. Isso evita que a aula fique só no reescrever e ajuda o aluno a pensar no significado da estrutura.</p>
-                <div class="activity-card p-6 mt-8" data-choice-builder data-template="This {item} is {structure} for {situation}, but {contrast}." data-required="item,structure,situation,contrast" data-preview-empty="Escolha uma opção em cada grupo para testar sua comparação.">
-                    <div class="grid gap-6 lg:grid-cols-2">
-                        <div class="space-y-5">
-                            <div>
-                                <p class="font-semibold text-lg text-slate-700 mb-3">1. Item</p>
-                                <div class="flex flex-wrap gap-3">
-                                    <button type="button" class="choice-chip" data-choice-slot="item" data-choice-value="phone">phone</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="item" data-choice-value="backpack">backpack</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="item" data-choice-value="car">car</button>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-lg text-slate-700 mb-3">2. Estrutura</p>
-                                <div class="flex flex-wrap gap-3">
-                                    <button type="button" class="choice-chip" data-choice-slot="structure" data-choice-value="as useful as mine">as useful as mine</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="structure" data-choice-value="too expensive">too expensive</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="structure" data-choice-value="good enough">good enough</button>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-lg text-slate-700 mb-3">3. Situação</p>
-                                <div class="flex flex-wrap gap-3">
-                                    <button type="button" class="choice-chip" data-choice-slot="situation" data-choice-value="daily use">daily use</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="situation" data-choice-value="a long trip">a long trip</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="situation" data-choice-value="my current budget">my current budget</button>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-lg text-slate-700 mb-3">4. Contraste</p>
-                                <div class="flex flex-wrap gap-3">
-                                    <button type="button" class="choice-chip" data-choice-slot="contrast" data-choice-value="I still want a better one">I still want a better one</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="contrast" data-choice-value="it works well for now">it works well for now</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="contrast" data-choice-value="I need something cheaper">I need something cheaper</button>
-                                </div>
-                            </div>
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-5xl font-bold mb-6 text-emerald-700"><i class="fas fa-microphone-alt text-emerald-500 mr-2"></i> Traduza para inglês</h2>
+                    <p class="text-2xl text-slate-600">Ouça a frase em português, produza a versão em inglês e compare com a sugestão.</p>
+                </div>
+                <div class="translation-card activity-card p-6 mt-8 max-w-4xl mx-auto" data-translation-exercise>
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <p class="lesson-panel-title">PT → EN Drill — Grammar Focus</p>
+                        <span class="lesson-chip"><i class="fas fa-layer-group text-emerald-600"></i><span data-translation-progress>1 / 6</span></span>
+                    </div>
+                    <div class="translation-source text-center">
+                        <p class="text-sm font-bold uppercase text-slate-500 mb-3">Frase em português</p>
+                        <p data-translation-source class="text-2xl font-black leading-relaxed"></p>
+                    </div>
+                    <div class="grid gap-4">
+                        <input type="text" data-translation-input class="translation-input" placeholder="Digite sua tradução em inglês...">
+                        <p data-translation-feedback class="translation-feedback"></p>
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <button type="button" class="primary-action-btn" data-translation-play><i class="fas fa-volume-up mr-2"></i>Ouvir PT</button>
+                        <button type="button" class="primary-action-btn" data-translation-check><i class="fas fa-check mr-2"></i>Verificar</button>
+                        <button type="button" class="secondary-action-btn" data-translation-speak-answer><i class="fas fa-comment-dots mr-2"></i>Ouvir sugestão</button>
+                        <button type="button" class="secondary-action-btn" data-translation-reveal><i class="fas fa-eye mr-2"></i>Mostrar sugestão</button>
+                        <button type="button" class="secondary-action-btn" data-translation-next><i class="fas fa-forward mr-2"></i>Próxima</button>
+                    </div>
+                    <div class="callout-note">
+                        <p class="font-semibold">Para prática oral: o professor pode esconder a sugestão, pedir a resposta em voz alta e só depois usar o campo para conferir.</p>
+                    </div>
+                    <script type="application/json">
+                    [
+                        { "pt": "Ela é tão rápida quanto o irmão.", "en": "She is as fast as her brother." },
+                        { "pt": "Esta bolsa é pesada demais.", "en": "This bag is too heavy." },
+                        { "pt": "Ele não é rápido o suficiente para ganhar.", "en": "He is not fast enough to win." },
+                        { "pt": "Este hotel não é tão caro quanto aquele.", "en": "This hotel is not as expensive as that one." },
+                        { "pt": "A música está alta demais para mim.", "en": "The music is too loud for me." },
+                        { "pt": "Ela é confiante o suficiente para liderar a equipe.", "en": "She is confident enough to lead the team." }
+                    ]
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Expressões e Phrasal Verbs -->
+        <div class="slide" data-title="Expressions &amp; Phrasal Verbs">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Expressions &amp; Phrasal Verbs</h2>
+            <p class="text-center text-slate-500 text-lg mb-8">Expressões naturais para comparar e avaliar situações.</p>
+            <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto text-lg">
+                <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-emerald-500">
+                    <p class="text-xs font-bold uppercase text-emerald-600 tracking-widest mb-2">Expression</p>
+                    <h3 class="text-2xl font-black text-emerald-700 mb-3">Keep up with</h3>
+                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> acompanhar, manter o ritmo de algo ou alguém</p>
+                    <p class="text-slate-700 italic mb-1">"She runs as fast as me — I can barely keep up with her."</p>
+                    <p class="text-slate-400 text-sm">Ela corre tão rápido quanto eu — mal consigo acompanhá-la.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-emerald-500">
+                    <p class="text-xs font-bold uppercase text-emerald-600 tracking-widest mb-2">Phrasal Verb</p>
+                    <h3 class="text-2xl font-black text-emerald-700 mb-3">Give up</h3>
+                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> desistir, parar de tentar</p>
+                    <p class="text-slate-700 italic mb-1">"Don't give up — you are good enough to succeed."</p>
+                    <p class="text-slate-400 text-sm">Não desista — você é bom o suficiente para ter sucesso.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-orange-400">
+                    <p class="text-xs font-bold uppercase text-orange-500 tracking-widest mb-2">Expression</p>
+                    <h3 class="text-2xl font-black text-orange-600 mb-3">Way too + adjective</h3>
+                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> muito mais do que o necessário (intensificador de "too")</p>
+                    <p class="text-slate-700 italic mb-1">"This coffee is way too strong for me."</p>
+                    <p class="text-slate-400 text-sm">Este café é forte demais para mim. (muito mais do que deveria)</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-orange-400">
+                    <p class="text-xs font-bold uppercase text-orange-500 tracking-widest mb-2">Expression</p>
+                    <h3 class="text-2xl font-black text-orange-600 mb-3">More than enough</h3>
+                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> mais do que suficiente, de sobra</p>
+                    <p class="text-slate-700 italic mb-1">"We have more than enough food for everyone."</p>
+                    <p class="text-slate-400 text-sm">Temos comida mais do que suficiente para todos.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Mini Diálogos -->
+        <div class="slide" data-title="Mini Dialogues">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Mini Dialogues</h2>
+            <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto text-lg">
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <p class="text-xs font-bold uppercase text-emerald-600 tracking-widest mb-3">Situation 1 — At the gym</p>
+                    <div class="space-y-3">
+                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"Can you keep up with the instructor?"</p></div>
+                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"Not really. She's way too fast for me!"</p></div>
+                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"Don't give up. You'll be as fast as her soon."</p></div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <p class="text-xs font-bold uppercase text-emerald-600 tracking-widest mb-3">Situation 2 — Choosing a restaurant</p>
+                    <div class="space-y-3">
+                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"Is this restaurant good enough for a birthday dinner?"</p></div>
+                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"It's more than enough! The food is amazing."</p></div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <p class="text-xs font-bold uppercase text-emerald-600 tracking-widest mb-3">Situation 3 — At work</p>
+                    <div class="space-y-3">
+                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"Do you think I'm experienced enough for this job?"</p></div>
+                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"Absolutely. You're as skilled as anyone on the team."</p></div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <p class="text-xs font-bold uppercase text-emerald-600 tracking-widest mb-3">Situation 4 — Planning a trip</p>
+                    <div class="space-y-3">
+                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"The hotel is way too expensive. Let's find another one."</p></div>
+                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"Good idea. This one is not as comfortable anyway."</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Leitura -->
+        <div class="slide" data-title="Reading">
+            <h2 class="text-4xl font-bold mb-4 text-center text-emerald-700">Reading: The New Employee</h2>
+            <p class="text-center text-slate-500 text-lg mb-6">Leitura guiada com as...as, too, enough e vocabulário de qualidades profissionais.</p>
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white p-8 rounded-2xl shadow-md text-lg space-y-4 leading-relaxed mb-6">
+                    <p class="text-xs font-bold uppercase text-emerald-600 tracking-widest">Text</p>
+                    <p>Marcus just started his new job at a tech company. On his first day, he felt the office was <strong>way too quiet</strong> — he was used to working in noisy places. His new colleagues were <strong>as friendly as</strong> the people at his old job, but the work was more demanding.</p>
+                    <p>His manager, Sarah, told him: "You are <strong>skilled enough</strong> to handle this project. Just don't <strong>give up</strong> when things get difficult." Marcus tried to <strong>keep up with</strong> the team's pace, but the deadlines were <strong>too tight</strong> for him at first.</p>
+                    <p>After two weeks, Marcus felt more confident. The team had <strong>more than enough</strong> resources to finish the project, and Marcus was working <strong>as efficiently as</strong> his colleagues. He realized that the job was not <strong>too hard</strong> — it was just new.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-5 text-lg">
+                    <div class="bg-white p-6 rounded-2xl shadow-md">
+                        <p class="font-bold text-emerald-700 mb-3">Comprehension Questions</p>
+                        <div class="space-y-3">
+                            <p>1. Why did Marcus find the office too quiet?</p>
+                            <p>2. What did his manager tell him about giving up?</p>
+                            <p>3. How did Marcus feel after two weeks?</p>
+                            <p>4. Find one example of "as...as" in the last paragraph.</p>
                         </div>
-                        <div class="callout-note p-6 rounded-3xl">
-                            <p class="lesson-panel-title mb-3">Your test sentence</p>
-                            <p class="text-base text-slate-600 mb-4">Leia a frase e depois diga oralmente se ela expressa igualdade, excesso ou suficiência.</p>
-                            <div class="text-xl leading-relaxed min-h-[140px] font-medium" data-choice-preview></div>
-                            <div class="flex flex-wrap gap-3 mt-6">
-                                <button type="button" class="secondary-action-btn" data-choice-reset>Limpar</button>
-                                <button type="button" class="primary-action-btn" data-choice-speak>Ouvir frase</button>
-                            </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-md">
+                        <p class="font-bold text-emerald-700 mb-3">Language Focus</p>
+                        <div class="space-y-2 text-slate-700">
+                            <p>→ Find two examples of <strong>too + adjective</strong>.</p>
+                            <p>→ Find two examples of <strong>adjective + enough</strong>.</p>
+                            <p>→ Find the two <strong>phrasal verbs / expressions</strong> from today's lesson.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- SLIDE 9: Tradução Oral 2 (Expressões) -->
+        <div class="slide" data-title="Oral Translation II">
+            <div class="section-card p-8">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-5xl font-bold mb-6 text-emerald-700"><i class="fas fa-microphone-alt text-emerald-500 mr-2"></i> Traduza para inglês</h2>
+                    <p class="text-2xl text-slate-600">Agora pratique as expressões e phrasal verbs da aula.</p>
+                </div>
+                <div class="translation-card activity-card p-6 mt-8 max-w-4xl mx-auto" data-translation-exercise>
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <p class="lesson-panel-title">PT → EN Drill — Expressions Focus</p>
+                        <span class="lesson-chip"><i class="fas fa-layer-group text-emerald-600"></i><span data-translation-progress>1 / 5</span></span>
+                    </div>
+                    <div class="translation-source text-center">
+                        <p class="text-sm font-bold uppercase text-slate-500 mb-3">Frase em português</p>
+                        <p data-translation-source class="text-2xl font-black leading-relaxed"></p>
+                    </div>
+                    <div class="grid gap-4">
+                        <input type="text" data-translation-input class="translation-input" placeholder="Digite sua tradução em inglês...">
+                        <p data-translation-feedback class="translation-feedback"></p>
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <button type="button" class="primary-action-btn" data-translation-play><i class="fas fa-volume-up mr-2"></i>Ouvir PT</button>
+                        <button type="button" class="primary-action-btn" data-translation-check><i class="fas fa-check mr-2"></i>Verificar</button>
+                        <button type="button" class="secondary-action-btn" data-translation-speak-answer><i class="fas fa-comment-dots mr-2"></i>Ouvir sugestão</button>
+                        <button type="button" class="secondary-action-btn" data-translation-reveal><i class="fas fa-eye mr-2"></i>Mostrar sugestão</button>
+                        <button type="button" class="secondary-action-btn" data-translation-next><i class="fas fa-forward mr-2"></i>Próxima</button>
+                    </div>
+                    <div class="callout-note">
+                        <p class="font-semibold">Para prática oral: o professor pode esconder a sugestão, pedir a resposta em voz alta e só depois usar o campo para conferir.</p>
+                    </div>
+                    <script type="application/json">
+                    [
+                        { "pt": "Não desista — você é bom o suficiente.", "en": "Don't give up — you are good enough." },
+                        { "pt": "Mal consigo acompanhar o ritmo dela.", "en": "I can barely keep up with her." },
+                        { "pt": "Este café é forte demais para mim.", "en": "This coffee is way too strong for me." },
+                        { "pt": "Temos comida mais do que suficiente.", "en": "We have more than enough food." },
+                        { "pt": "Não desista. Você vai acompanhar o ritmo da equipe em breve.", "en": "Don't give up. You will keep up with the team soon." }
+                    ]
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Música -->
         <div class="slide" data-title="Music">
-    <h2 class="text-5xl font-bold mb-6 text-center text-orange-700">
-        <i class="fas fa-music text-red-500"></i> Music Time: The Chainsmokers & Coldplay
-    </h2>
-    <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6RUKPb4LETWmmr3iAEQktW?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        
-        <div class="text-xl space-y-4 bg-gray-50 p-6 rounded-lg border-l-4 border-orange-500 text-center leading-relaxed">
-            <p>
-                I've been reading books of old<br>
-                The legends and the <input type="text" id="music-q1" class="w-32 border-b-2 text-center bg-transparent" data-answer="myths"><button class="answer-btn" data-target="music-q1"><i class="fas fa-eye"></i></button><br>
-                Achilles and his gold<br>
-                Hercules and his gifts<br>
-                Spider-Man's control<br>
-                And Batman with his <input type="text" id="music-q2" class="w-32 border-b-2 text-center bg-transparent" data-answer="fists"><button class="answer-btn" data-target="music-q2"><i class="fas fa-eye"></i></button><br>
-                And clearly I don't see myself upon that list
-            </p>
-
-            <p class="pt-4 border-t border-gray-200">
-                But she said, "Where'd you wanna go?<br>
-                How much you wanna <input type="text" id="music-q3" class="w-32 border-b-2 text-center bg-transparent" data-answer="risk"><button class="answer-btn" data-target="music-q3"><i class="fas fa-eye"></i></button>?"<br>
-                I'm not lookin' for somebody<br>
-                With some superhuman <input type="text" id="music-q4" class="w-32 border-b-2 text-center bg-transparent" data-answer="gifts"><button class="answer-btn" data-target="music-q4"><i class="fas fa-eye"></i></button><br>
-                Some superhero<br>
-                Some fairy-tale <input type="text" id="music-q5" class="w-32 border-b-2 text-center bg-transparent" data-answer="bliss"><button class="answer-btn" data-target="music-q5"><i class="fas fa-eye"></i></button><br>
-                Just something I can turn to<br>
-                Somebody I can <input type="text" id="music-q6" class="w-32 border-b-2 text-center bg-transparent" data-answer="kiss"><button class="answer-btn" data-target="music-q6"><i class="fas fa-eye"></i></button>
-            </p>
-
-            <p class="font-bold text-orange-600">
-                I want something just like <input type="text" id="music-q7" class="w-32 border-b-2 text-center bg-transparent" data-answer="this"><button class="answer-btn" data-target="music-q7"><i class="fas fa-eye"></i></button>
-            </p>
-        </div>
-    </div>
-</div>
-        
-        <div class="slide" data-title="Homework">
-             <div class="text-center">
-                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-home text-blue-500"></i> Homework</h2>
-                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-3xl mb-5 text-gray-600">Compare two of your favorite things (e.g., movies, foods, singers). Write a paragraph using at least two comparison structures from today's lesson.</p>
-                    <div class="text-left text-xl mt-4 bg-gray-50 p-6 rounded-lg">
-                        <p class="mb-4 text-lg text-slate-600">Try to include one sentence with <strong>as...as</strong>, one with <strong>too</strong> or <strong>enough</strong>, and a final opinion.</p>
-                        <textarea class="w-full mt-2 p-3 border-2 rounded-lg text-xl" rows="6" placeholder="For me, pizza is as delicious as... However, it is not as..."></textarea>
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700 italic"><i class="fas fa-music text-emerald-500 mr-2"></i>Music: "Good Enough" — Evanescence</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-5xl mx-auto flex flex-col md:flex-row gap-8">
+                <div class="flex-1">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4mMRXMoUFgqHBJvmqxGBRr?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 mt-5">
+                        <p class="font-bold text-emerald-700 mb-1">Conexão com a aula</p>
+                        <p class="text-sm text-slate-600">A música usa a expressão <em>"good enough"</em> — exatamente a estrutura <strong>adjective + enough</strong> que aprendemos hoje. Perceba como o contexto emocional da letra dá um significado mais profundo à gramática!</p>
                     </div>
+                </div>
+                <div class="flex-1 bg-slate-50 p-8 rounded-xl text-xl leading-loose font-serif">
+                    <p class="font-bold text-emerald-600 mb-2">[Verse 1]</p>
+                    <p>Under your spell again</p>
+                    <p>I can't say no to you</p>
+                    <p>Crave my heart and it's <input id="m1" data-answer="bleeding" class="w-28 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-target="m1"><i class="fas fa-eye"></i></button> for you</p>
+                    <br>
+                    <p class="font-bold text-emerald-600 mb-2">[Chorus]</p>
+                    <p>And I love you so much</p>
+                    <p>I'm gonna let you kill me</p>
+                    <p>There's <input id="m2" data-answer="nothing" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-target="m2"><i class="fas fa-eye"></i></button> I wouldn't do</p>
+                    <p>I'd give my life for you</p>
+                    <br>
+                    <p class="font-bold text-emerald-600 mb-2">[Bridge]</p>
+                    <p>Am I <input id="m3" data-answer="good enough" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-target="m3"><i class="fas fa-eye"></i></button> for you to love me too?</p>
+                    <p>So take a chance and don't ever look back</p>
+                    <p>I'm <input id="m4" data-answer="good enough" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-target="m4"><i class="fas fa-eye"></i></button></p>
                 </div>
             </div>
         </div>
 
+        <!-- SLIDE 11: Homework -->
+        <div class="slide" data-title="Homework">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Homework</h2>
+            <div class="max-w-4xl mx-auto space-y-6">
+                <div class="bg-white p-8 rounded-2xl shadow-md text-lg">
+                    <p class="font-bold text-slate-800 mb-3">Compare two people you know (friends, family members, or colleagues).</p>
+                    <p class="text-slate-600 mb-4">Escreva um parágrafo usando pelo menos <strong>2 estruturas diferentes</strong> da aula e pelo menos <strong>1 expressão</strong> aprendida hoje.</p>
+                    <div class="grid md:grid-cols-2 gap-3 text-base mt-4">
+                        <div class="rounded-lg bg-emerald-50 border border-emerald-100 p-3">✅ 1 frase com <strong>as...as</strong></div>
+                        <div class="rounded-lg bg-emerald-50 border border-emerald-100 p-3">✅ 1 frase com <strong>too</strong></div>
+                        <div class="rounded-lg bg-emerald-50 border border-emerald-100 p-3">✅ 1 frase com <strong>enough</strong></div>
+                        <div class="rounded-lg bg-emerald-50 border border-emerald-100 p-3">✅ keep up with / give up / way too / more than enough</div>
+                    </div>
+                </div>
+                <textarea rows="6" class="w-full p-4 border-2 border-slate-200 rounded-2xl text-lg outline-none focus:border-emerald-500 bg-white" placeholder="Write your paragraph here... (e.g., My friend Ana is as patient as a teacher, but she is way too...)"></textarea>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: Lesson Complete -->
         <div class="slide" data-title="Lesson Complete">
-            <div class="text-center flex flex-col items-center justify-center h-full">
-                <i class="fas fa-check-circle text-green-500 text-8xl mb-6"></i>
-                <h2 class="text-6xl font-bold mb-6 text-gray-800">Lesson 5 Complete!</h2>
-                <p class="text-4xl text-gray-600 max-w-3xl">You're getting better and better at comparing things. Awesome job!</p>
+            <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
+                <i class="fas fa-balance-scale text-emerald-600 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete!</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">You are more than enough!</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl mb-6">Agora você sabe comparar, avaliar e expressar suficiência e excesso em inglês!</p>
+                <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-2xl max-w-2xl">
+                    <p class="text-xl font-serif italic text-emerald-900">"You are enough. You have always been enough. You will always be enough."</p>
+                </div>
+                <p class="text-slate-400 mt-6 text-lg">See you in Lesson 06!</p>
             </div>
         </div>
 
@@ -277,7 +435,7 @@
     <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20">
         <div class="container mx-auto px-8 h-20 flex justify-between items-center">
             <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Previous</button>
-            <button id="next-btn" class="bg-orange-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-orange-700">Next</button>
+            <button id="next-btn" class="bg-emerald-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-emerald-700">Next</button>
             <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finish Lesson</button>
         </div>
     </footer>
@@ -312,105 +470,124 @@
                 finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
             }
 
-            prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; updateSlideView(); } });
-            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; updateSlideView(); } });
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; updateSlideView(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; updateSlideView(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
 
             finishLessonBtn.addEventListener('click', () => {
                 finishLessonBtn.disabled = true;
-                finishLessonBtn.textContent = 'Salvando...';
+                finishLessonBtn.textContent = 'Saving...';
                 if (typeof markLessonAsComplete === 'function') {
-                    markLessonAsComplete(moduleId, lessonNumber).catch(error => {
-                        console.error('Erro ao marcar a lição como completa:', error);
-                        alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');
+                    markLessonAsComplete(moduleId, lessonNumber).catch(() => {
                         finishLessonBtn.disabled = false;
                         finishLessonBtn.textContent = 'Finish Lesson';
                     });
-                } else {
-                    console.error("Função markLessonAsComplete não encontrada.");
-                    alert("Erro ao salvar progresso.");
                 }
             });
 
             function checkAnswer(input) {
-                const userAnswer = input.value.trim().toLowerCase().replace(/[.!?]/g, '');
-                const correctAnswer = input.dataset.answer.toLowerCase().replace(/[.!?]/g, '');
+                const userAnswer = input.value.trim().toLowerCase().replace(/[.!?,'"]/g, '');
+                const correctAnswer = (input.dataset.answer || '').toLowerCase().replace(/[.!?,'"]/g, '');
                 input.classList.remove('correct', 'incorrect');
-                if(userAnswer.length === 0) return;
+                if (userAnswer.length === 0) return;
                 input.classList.toggle('correct', userAnswer === correctAnswer);
                 input.classList.toggle('incorrect', userAnswer !== correctAnswer);
             }
-            
-            function addIndividualRevealListeners() {
-                document.querySelectorAll('.answer-btn').forEach(button => {
+
+            function addRevealListeners(container) {
+                (container || document).querySelectorAll('.answer-btn[data-target]').forEach(button => {
                     button.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        const targetId = button.dataset.target;
-                        const inputField = document.getElementById(targetId);
-                        if(inputField) {
-                            inputField.value = inputField.dataset.answer;
-                            checkAnswer(inputField);
-                        }
+                        const input = document.getElementById(button.dataset.target);
+                        if (input) { input.value = input.dataset.answer; checkAnswer(input); }
                     });
+                });
+                (container || document).querySelectorAll('input[data-answer]').forEach(input => {
+                    input.addEventListener('blur', () => checkAnswer(input));
                 });
             }
 
             document.querySelectorAll('.flip-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    card.classList.toggle('flipped');
-                });
+                card.addEventListener('click', () => card.classList.toggle('flipped'));
             });
 
-            // Practice 1: Complete the Sentences
-            function createPracticeSentences() {
-                const container = document.getElementById('practice-sentences');
-                if (!container) return;
-                const sentences = [
-                    { id: 'p1q1', question: "This jacket is ___ small for me. I need a bigger size. (too/enough)", answer: "too" },
-                    { id: 'p1q2', question: "He is not tall ___ to reach the shelf. (too/enough)", answer: "enough" },
-                    { id: 'p1q3', question: "My city is ___ beautiful ___ yours. (as...as)", answer: "as beautiful as" },
-                    { id: 'p1q4', question: "This coffee is ___ sweet. There's a lot of sugar. (too/enough)", answer: "too" },
-                    { id: 'p1q5', question: "The test was easy ___ for everyone to pass. (too/enough)", answer: "enough" }
-                ];
-                container.innerHTML = sentences.map(item => {
-                    const inputHtml = `<input id="${item.id}" data-answer="${item.answer}" class="w-64 p-1 border-b-2 text-2xl bg-transparent text-center">`;
-                    const buttonHtml = `<button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>`;
-                    return `<p>${item.question.replace('___', inputHtml + buttonHtml)}</p>`;
-                }).join('');
-                 container.querySelectorAll('input').forEach(input => input.addEventListener('blur', () => checkAnswer(input)));
+            // Practice A: Fill in
+            const fillData = [
+                { id: 'f1', sentence: 'She is ___ her brother.', hint: 'as fast as', answer: 'as fast as' },
+                { id: 'f2', sentence: 'This bag is ___. I can\'t carry it.', hint: 'too heavy', answer: 'too heavy' },
+                { id: 'f3', sentence: 'He is ___ to lead the team.', hint: 'confident enough', answer: 'confident enough' },
+                { id: 'f4', sentence: 'This city is ___ New York.', hint: 'as noisy as', answer: 'as noisy as' },
+                { id: 'f5', sentence: 'The deadline is ___. We need more time.', hint: 'too tight', answer: 'too tight' },
+                { id: 'f6', sentence: 'She is not ___ to run the marathon.', hint: 'fast enough', answer: 'fast enough' }
+            ];
+            const fillContainer = document.getElementById('practice-fill');
+            if (fillContainer) {
+                fillContainer.innerHTML = fillData.map(item => `
+                    <p>${item.sentence.replace('___', `<input id="${item.id}" data-answer="${item.answer}" class="w-48 border-b-2 text-center bg-transparent border-gray-400">
+                    <button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>`)}
+                    <span class="text-gray-400 text-base ml-2">(${item.hint})</span></p>
+                `).join('');
+                addRevealListeners(fillContainer);
             }
 
-            // Practice 2: Rewrite the Sentences
-            function createRewriteActivity() {
-                const container = document.getElementById('practice-rewrite');
-                if (!container) return;
-                const sentences = [
-                    { id: 'p2q1', original: "The blue car is faster than the red car.", word: "(not as...as)", answer: "The red car is not as fast as the blue car." },
-                    { id: 'p2q2', original: "The movie was very boring. I fell asleep.", word: "(too)", answer: "The movie was too boring." },
-                    { id: 'p2q3', original: "I don't have enough money to buy this.", word: "(too)", answer: "This is too expensive for me." },
-                    { id: 'p2q4', original: "She can vote because she is 18.", word: "(enough)", answer: "She is old enough to vote." },
-                    { id: 'p2q5', original: "My brother and I have the same height.", word: "(as...as)", answer: "I am as tall as my brother." }
-                ];
-                container.innerHTML = sentences.map(item => `
+            // Practice B: Choose too or enough
+            const chooseData = [
+                { id: 'c1', sentence: 'The coffee is ___ hot. I can\'t drink it.', answer: 'too', options: ['too', 'enough'] },
+                { id: 'c2', sentence: 'She is old ___  to drive.', answer: 'enough', options: ['too', 'enough'] },
+                { id: 'c3', sentence: 'This jacket is ___ small for me.', answer: 'too', options: ['too', 'enough'] },
+                { id: 'c4', sentence: 'He is not strong ___ to lift that box.', answer: 'enough', options: ['too', 'enough'] }
+            ];
+            const chooseContainer = document.getElementById('practice-choose');
+            if (chooseContainer) {
+                chooseContainer.innerHTML = chooseData.map(item => `
+                    <div data-quiz-item data-answer="${item.answer}">
+                        <p class="font-semibold mb-2">${item.sentence.replace('___', '<strong>[___]</strong>')}</p>
+                        <div class="flex gap-3">
+                            ${item.options.map(opt => `<button type="button" class="option-chip" data-quiz-choice="${opt}">${opt}</button>`).join('')}
+                        </div>
+                        <p class="mt-2 text-sm text-slate-500" data-quiz-feedback>Escolha uma opção.</p>
+                    </div>
+                `).join('');
+                chooseContainer.querySelectorAll('[data-quiz-choice]').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const item = button.closest('[data-quiz-item]');
+                        const ok = button.dataset.quizChoice === item.dataset.answer;
+                        item.querySelectorAll('[data-quiz-choice]').forEach(b => b.classList.remove('selected-correct', 'selected-incorrect', 'is-active'));
+                        button.classList.add('is-active', ok ? 'selected-correct' : 'selected-incorrect');
+                        const feedback = item.querySelector('[data-quiz-feedback]');
+                        if (feedback) { feedback.textContent = ok ? 'Correct!' : `Try again. Correct: ${item.dataset.answer}`; feedback.className = ok ? 'mt-2 text-sm text-green-700' : 'mt-2 text-sm text-amber-700'; }
+                    });
+                });
+            }
+
+            // Practice C: Error correction
+            const errorData = [
+                { id: 'e1', wrong: 'She is enough fast to win.', answer: 'She is fast enough to win.' },
+                { id: 'e2', wrong: 'This room is too much noisy.', answer: 'This room is too noisy.' },
+                { id: 'e3', wrong: 'He is as stronger as his brother.', answer: 'He is as strong as his brother.' },
+                { id: 'e4', wrong: 'The bag is enough heavy to carry.', answer: 'The bag is too heavy to carry.' }
+            ];
+            const errorContainer = document.getElementById('practice-error');
+            if (errorContainer) {
+                errorContainer.innerHTML = errorData.map(item => `
                     <div>
-                        <p class="text-gray-500 italic">"${item.original}"</p>
-                        <div class="flex items-center">
-                            <input id="${item.id}" data-answer="${item.answer}" class="w-full p-1 border-b-2 text-2xl bg-transparent" placeholder="Rewrite using '${item.word}'...">
+                        <p class="text-red-500 font-semibold mb-1">Erro: <span class="font-normal text-slate-700">${item.wrong}</span></p>
+                        <div class="flex items-center gap-2">
+                            <input id="${item.id}" data-answer="${item.answer}" class="w-full border-b-2 bg-transparent border-gray-400" placeholder="Write the correct sentence...">
                             <button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>
                         </div>
                     </div>
                 `).join('');
-                container.querySelectorAll('input').forEach(input => input.addEventListener('blur', () => checkAnswer(input)));
+                addRevealListeners(errorContainer);
             }
 
-            createPracticeSentences();
-            createRewriteActivity();
-            addIndividualRevealListeners();
+            addRevealListeners();
             updateSlideView();
             document.body.classList.remove('lesson-loading');
         });
     </script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
+    <script src="translation-exercises.js"></script>
     <script src='a2-v2-template.js'></script>
     <script src='a2-lesson-theme.js'></script>
 </body>
