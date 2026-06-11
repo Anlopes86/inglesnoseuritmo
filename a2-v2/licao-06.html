@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A2 V2 | Lição 06: Setting the Scene - Past Continuous</title>
+    <title>A2 V2 | Lição 06: Setting the Scene</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
@@ -21,16 +21,17 @@
         .flip-card-front, .flip-card-back {
             position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); padding: 2rem;
+            border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 2rem;
             font-size: 1.1rem; line-height: 1.5;
         }
         .flip-card-front { background-color: #fff; border: 1px solid #e5e7eb; }
-        .flip-card-back { background-color: #dcfce7; transform: rotateY(180deg); font-size: 1.25rem; }
+        .flip-card-back { background-color: #eff6ff; transform: rotateY(180deg); font-size: 1.25rem; color: #1e3a8a; font-weight: 700; }
 
         input.correct { border-color: #22c55e; background-color: #f0fdf4; }
         input.incorrect { border-color: #ef4444; background-color: #fef2f2; }
         .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
-        .answer-btn:hover { color: #db2777; }
+        .answer-btn:hover { color: #2563eb; }
+        input[data-answer] { border: none; border-bottom: 2px solid #cbd5e1; outline: none; background: transparent; text-align: center; padding: 0 6px; font-weight: 600; }
     </style>
     <link rel='stylesheet' href='a2-lesson-theme.css'>
 </head>
@@ -38,280 +39,429 @@
 
     <header class="bg-white shadow-sm sticky top-0 z-10">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
-            <a href="a2.html" class="text-lg font-bold text-orange-600 hover:text-orange-800 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2 V2</a>
+            <a href="a2.html" class="text-lg font-bold text-blue-700 hover:text-blue-900 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2 V2</a>
             <div class="text-center">
                 <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 06: Setting the Scene</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 12</div>
         </div>
-        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-blue-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
     <main class="container mx-auto p-8 pb-28 max-w-5xl">
 
-        <div class="slide active" data-title="Warm-up">
+        <!-- SLIDE 1: Intro + Diálogo -->
+        <div class="slide active" data-title="Intro &amp; Dialogue">
             <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
                 <div class="max-w-3xl">
                     <div class="a2-hero-copy">
                         <p class="lesson-panel-title">Past actions in progress</p>
-                        <h2 class="text-4xl md:text-5xl font-black text-slate-900">Describe what was happening at a specific time in the past.</h2>
-                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno aprende a usar o <strong>past continuous</strong> para contar o que estava acontecendo quando algo interrompeu a situação.</p>
+                        <h2 class="text-4xl md:text-5xl font-black text-slate-900">Describe what was happening at a specific moment in the past.</h2>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula você aprende a usar o <strong>past continuous</strong> para contar o que estava acontecendo quando algo interrompeu a situação — ou simplesmente para criar cenas vívidas.</p>
                     </div>
                     <div class="lesson-panel p-6 mt-6">
                         <p class="lesson-panel-title">By the end, you can:</p>
                         <ul class="space-y-3 text-slate-600 text-base">
-                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>falar de ações em andamento no passado;</span></li>
-                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>usar <strong>was</strong> e <strong>were</strong> corretamente;</span></li>
-                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>descrever o que outras pessoas estavam fazendo.</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-blue-500 mt-1"></i><span>usar <strong>was / were + verb-ing</strong> para ações em andamento no passado;</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-blue-500 mt-1"></i><span>combinar past continuous com <strong>when</strong> e <strong>while</strong>;</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-blue-500 mt-1"></i><span>descrever cenas e situações passadas com mais detalhes.</span></li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="section-card p-8 mt-8">
-                <p class="lesson-panel-title mb-4">Opening Dialogue</p>
+                <p class="lesson-panel-title mb-4">Opening Dialogue — A rainy afternoon</p>
                 <div class="space-y-4 text-left text-lg text-slate-700">
                     <div class="flex gap-4">
-                        <span class="font-black text-blue-600 min-w-16">A:</span>
-                        <p>"I called you at 8 PM yesterday, but you didn't answer."</p>
+                        <span class="font-black text-blue-700 min-w-10">A:</span>
+                        <p>"Where were you yesterday? I called you three times!"</p>
                     </div>
                     <div class="flex gap-4">
-                        <span class="font-black text-orange-600 min-w-16">B:</span>
-                        <p>"Oh, sorry. I <strong>was having</strong> dinner with my family at that time."</p>
+                        <span class="font-black text-orange-600 min-w-10">B:</span>
+                        <p>"Sorry! I <strong>was watching</strong> a movie and didn't hear my phone."</p>
                     </div>
                     <div class="flex gap-4">
-                        <span class="font-black text-blue-600 min-w-16">A:</span>
-                        <p>"Was your brother having dinner too, or was he doing something else?"</p>
+                        <span class="font-black text-blue-700 min-w-10">A:</span>
+                        <p>"What movie?"</p>
                     </div>
                     <div class="flex gap-4">
-                        <span class="font-black text-orange-600 min-w-16">B:</span>
-                        <p>"No, he <strong>wasn't eating</strong>. He <strong>was playing</strong> video games in his room."</p>
+                        <span class="font-black text-orange-600 min-w-10">B:</span>
+                        <p>"Inception. <strong>While I was watching</strong> it, the power went out!"</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-blue-700 min-w-10">A:</span>
+                        <p>"No way! What <strong>were</strong> you <strong>doing</strong> when the lights came back on?"</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-orange-600 min-w-10">B:</span>
+                        <p>"I <strong>was sitting</strong> in the dark, waiting!"</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide" data-title="Grammar">
-            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-book text-pink-500"></i> Grammar: Past Continuous</h2>
-            <div class="max-w-6xl mx-auto space-y-6">
-                <div class="bg-white p-8 rounded-2xl shadow-lg text-lg">
-                    <h3 class="text-3xl font-semibold mb-4 text-blue-600">Actions in Progress</h3>
-                    <p class="mb-6 text-xl">Usamos o <strong>Past Continuous</strong> para descrever ações que estavam acontecendo em um momento específico no passado.</p>
-                    
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div class="bg-blue-50 p-6 rounded-xl border-l-8 border-blue-500">
-                            <h4 class="text-2xl font-bold mb-4">Structure</h4>
-                            <p class="text-xl">Subject + <span class="text-blue-600 font-bold">was/were</span> + Verb-<span class="text-green-600 font-bold">ing</span></p>
-                            <ul class="mt-4 space-y-2">
-                                <li>I / He / She / It → <span class="font-bold">was</span></li>
-                                <li>You / We / They → <span class="font-bold">were</span></li>
-                            </ul>
-                        </div>
-                        <div class="bg-red-50 p-6 rounded-xl border-l-8 border-red-500">
-                            <h4 class="text-2xl font-bold mb-4">Negative</h4>
-                            <p class="text-xl">Subject + <span class="text-red-600 font-bold">wasn't/weren't</span> + Verb-ing</p>
-                            <p class="mt-4 italic">"I <span class="font-bold">wasn't</span> sleeping at 10 AM."</p>
-                            <p class="italic">"They <span class="font-bold">weren't</span> working."</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
+        <!-- SLIDE 2: Vocabulário -->
         <div class="slide" data-title="Vocabulary">
-            <h2 class="text-5xl font-bold mb-8 text-center text-orange-700"><i class="fas fa-home text-purple-500"></i> Vocabulary: Action Verbs</h2>
+            <h2 class="text-4xl font-bold mb-4 text-center text-blue-700">Vocabulary: Daily Activities &amp; Action Verbs</h2>
+            <p class="text-center text-slate-500 text-lg mb-8">Clique nos cartões para ver o significado e a forma -ing.</p>
             <div class="flashcard-grid max-w-5xl mx-auto">
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Cooking dinner</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-green-800">Cozinhando o jantar</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Taking a shower</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-green-800">Tomando banho</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Cleaning the house</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-green-800">Limpando a casa</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Studying English</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-green-800">Estudando inglês</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Working out</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-green-800">Fazendo exercício</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Sleeping</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-green-800">Dormindo</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Reading a book</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-green-800">Lendo um livro</h3></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-xl font-bold">Walking the dog</h3></div><div class="flip-card-back"><h3 class="text-xl font-bold text-green-800">Passeando com o cão</h3></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">watch</h3><p class="text-slate-400 text-sm mt-2">verb</p></div><div class="flip-card-back"><p>assistir</p><p class="text-sm font-normal mt-2 text-blue-600">watching</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">drive</h3><p class="text-slate-400 text-sm mt-2">verb</p></div><div class="flip-card-back"><p>dirigir</p><p class="text-sm font-normal mt-2 text-blue-600">driving</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">sleep</h3><p class="text-slate-400 text-sm mt-2">verb</p></div><div class="flip-card-back"><p>dormir</p><p class="text-sm font-normal mt-2 text-blue-600">sleeping</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">cook</h3><p class="text-slate-400 text-sm mt-2">verb</p></div><div class="flip-card-back"><p>cozinhar</p><p class="text-sm font-normal mt-2 text-blue-600">cooking</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">argue</h3><p class="text-slate-400 text-sm mt-2">verb</p></div><div class="flip-card-back"><p>discutir / brigar</p><p class="text-sm font-normal mt-2 text-blue-600">arguing</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">wait</h3><p class="text-slate-400 text-sm mt-2">verb</p></div><div class="flip-card-back"><p>esperar</p><p class="text-sm font-normal mt-2 text-blue-600">waiting</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">laugh</h3><p class="text-slate-400 text-sm mt-2">verb</p></div><div class="flip-card-back"><p>rir</p><p class="text-sm font-normal mt-2 text-blue-600">laughing</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">run</h3><p class="text-slate-400 text-sm mt-2">verb</p></div><div class="flip-card-back"><p>correr</p><p class="text-sm font-normal mt-2 text-blue-600">running*</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">sit</h3><p class="text-slate-400 text-sm mt-2">verb</p></div><div class="flip-card-back"><p>sentar / estar sentado</p><p class="text-sm font-normal mt-2 text-blue-600">sitting*</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">listen</h3><p class="text-slate-400 text-sm mt-2">verb</p></div><div class="flip-card-back"><p>ouvir / escutar</p><p class="text-sm font-normal mt-2 text-blue-600">listening</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">carry</h3><p class="text-slate-400 text-sm mt-2">verb</p></div><div class="flip-card-back"><p>carregar</p><p class="text-sm font-normal mt-2 text-blue-600">carrying</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">chat</h3><p class="text-slate-400 text-sm mt-2">verb</p></div><div class="flip-card-back"><p>conversar / bater papo</p><p class="text-sm font-normal mt-2 text-blue-600">chatting*</p></div></div></div>
+            </div>
+            <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4 mt-6 max-w-5xl mx-auto text-base">
+                <p class="font-bold text-blue-700">* Atenção:</p>
+                <p class="text-slate-700">Verbos CVC (consoante-vogal-consoante) dobram a consoante final antes de -ing: <strong>run → running</strong>, <strong>sit → sitting</strong>, <strong>chat → chatting</strong>.</p>
             </div>
         </div>
 
-        <div class="slide" data-title="Practice 1">
-            <div class="text-center">
-                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-edit text-teal-500"></i> Practice 1: Fill in the Blanks</h2>
-                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-3xl mb-8 text-gray-600">Complete as frases com a forma correta do Past Continuous.</p>
-                    <div id="practice-sentences" class="text-left text-2xl space-y-5 bg-gray-50 p-8 rounded-lg">
-                        </div>
+        <!-- SLIDE 3: Gramática -->
+        <div class="slide" data-title="Grammar">
+            <h2 class="text-4xl font-bold mb-6 text-center text-blue-700">Grammar Focus: Past Continuous</h2>
+            <div class="max-w-5xl mx-auto space-y-6">
+                <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-blue-500">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-800">Formation: was / were + verb-ing</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-lg border-collapse">
+                            <thead><tr class="bg-blue-50"><th class="p-3 font-bold">Subject</th><th class="p-3 font-bold">Affirmative</th><th class="p-3 font-bold">Negative</th><th class="p-3 font-bold">Question</th></tr></thead>
+                            <tbody>
+                                <tr class="border-b"><td class="p-3">I / He / She / It</td><td class="p-3 text-blue-700 font-bold">was watching</td><td class="p-3 text-red-600">wasn't watching</td><td class="p-3 text-green-700">Was I watching?</td></tr>
+                                <tr><td class="p-3">You / We / They</td><td class="p-3 text-blue-700 font-bold">were watching</td><td class="p-3 text-red-600">weren't watching</td><td class="p-3 text-green-700">Were they watching?</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Practice 2">
-            <div class="text-center">
-                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-layer-group text-cyan-500"></i> Practice 2: Order the Words</h2>
-                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-3xl mb-8 text-gray-600">Organize as frases corretamente.</p>
-                    <div id="practice-unscramble" class="text-left text-2xl space-y-6 bg-gray-50 p-8 rounded-lg">
-                        </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Scene Scanner">
-            <div class="section-card p-8">
-                <h2 class="text-5xl font-bold mb-6 text-center text-orange-700"><i class="fas fa-camera-retro text-emerald-500"></i> Scene Scanner</h2>
-                <p class="text-2xl text-slate-600 text-center max-w-3xl mx-auto">Monte uma cena em progresso no passado. O objetivo é treinar descrição de contexto, não só forma verbal.</p>
-                <div class="activity-card p-6 mt-8" data-choice-builder data-template="At {time}, I was {action} while {background}." data-required="time,action,background" data-preview-empty="Escolha as opções para montar sua cena.">
-                    <div class="grid gap-6 lg:grid-cols-2">
-                        <div class="space-y-5">
-                            <div>
-                                <p class="font-semibold text-lg text-slate-700 mb-3">1. Horário</p>
-                                <div class="flex flex-wrap gap-3">
-                                    <button type="button" class="choice-chip" data-choice-slot="time" data-choice-value="7 p.m. yesterday">7 p.m. yesterday</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="time" data-choice-value="late at night">late at night</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="time" data-choice-value="during lunch">during lunch</button>
-                                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-blue-400">
+                        <h3 class="text-2xl font-bold mb-4 text-blue-700">when — Interrupção</h3>
+                        <p class="text-gray-600 mb-4">Use <strong>when</strong> para indicar que uma ação mais curta (Simple Past) interrompeu uma ação em andamento (Past Continuous).</p>
+                        <div class="space-y-3 text-lg">
+                            <div class="bg-blue-50 rounded-xl p-4">
+                                <p class="font-bold">I was cooking <span class="text-blue-700">when</span> the phone rang.</p>
+                                <p class="text-sm text-slate-500 mt-1">Eu estava cozinhando quando o telefone tocou.</p>
                             </div>
-                            <div>
-                                <p class="font-semibold text-lg text-slate-700 mb-3">2. Ação principal</p>
-                                <div class="flex flex-wrap gap-3">
-                                    <button type="button" class="choice-chip" data-choice-slot="action" data-choice-value="studying English">studying English</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="action" data-choice-value="cooking dinner">cooking dinner</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="action" data-choice-value="walking the dog">walking the dog</button>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-lg text-slate-700 mb-3">3. Fundo da cena</p>
-                                <div class="flex flex-wrap gap-3">
-                                    <button type="button" class="choice-chip" data-choice-slot="background" data-choice-value="my phone was ringing">my phone was ringing</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="background" data-choice-value="it was raining outside">it was raining outside</button>
-                                    <button type="button" class="choice-chip" data-choice-slot="background" data-choice-value="my family was watching TV">my family was watching TV</button>
-                                </div>
+                            <div class="bg-blue-50 rounded-xl p-4">
+                                <p class="font-bold">She was sleeping <span class="text-blue-700">when</span> I arrived.</p>
+                                <p class="text-sm text-slate-500 mt-1">Ela estava dormindo quando eu cheguei.</p>
                             </div>
                         </div>
-                        <div class="callout-note p-6 rounded-3xl">
-                            <p class="lesson-panel-title mb-3">Scene preview</p>
-                            <p class="text-base text-slate-600 mb-4">Depois de montar, acrescente oralmente uma continuação curta, como <strong>and I felt tired</strong> ou <strong>because I had a test</strong>.</p>
-                            <div class="text-xl leading-relaxed min-h-[140px] font-medium" data-choice-preview></div>
-                            <div class="flex flex-wrap gap-3 mt-6">
-                                <button type="button" class="secondary-action-btn" data-choice-reset>Limpar</button>
-                                <button type="button" class="primary-action-btn" data-choice-speak>Ouvir frase</button>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-indigo-400">
+                        <h3 class="text-2xl font-bold mb-4 text-indigo-700">while — Simultaneidade</h3>
+                        <p class="text-gray-600 mb-4">Use <strong>while</strong> para indicar que duas ações aconteciam ao mesmo tempo no passado.</p>
+                        <div class="space-y-3 text-lg">
+                            <div class="bg-indigo-50 rounded-xl p-4">
+                                <p class="font-bold"><span class="text-indigo-700">While</span> I was studying, she was watching TV.</p>
+                                <p class="text-sm text-slate-500 mt-1">Enquanto eu estudava, ela assistia TV.</p>
+                            </div>
+                            <div class="bg-indigo-50 rounded-xl p-4">
+                                <p class="font-bold">He was cooking <span class="text-indigo-700">while</span> she was chatting.</p>
+                                <p class="text-sm text-slate-500 mt-1">Ele estava cozinhando enquanto ela conversava.</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-6">
+                    <p class="font-bold text-yellow-800 mb-2">⚠️ Verbos de estado não usam -ing</p>
+                    <p class="text-slate-700">Verbos como <strong>know, love, believe, want, need, understand</strong> normalmente não aparecem no Past Continuous: <em>I was knowing</em> ❌ → <em>I knew</em> ✅</p>
+                </div>
             </div>
         </div>
 
-        <div class="slide" data-title="Tradução Oral">
+        <!-- SLIDE 4: Atividades Práticas -->
+        <div class="slide" data-title="Practice">
+            <h2 class="text-4xl font-bold mb-6 text-center text-blue-700">Practice: Past Continuous</h2>
+            <div class="max-w-5xl mx-auto space-y-8">
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <h3 class="text-2xl font-bold text-blue-700 mb-5">A — Complete the sentences</h3>
+                    <div class="space-y-5 text-xl" id="practice-fill"></div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <h3 class="text-2xl font-bold text-blue-700 mb-5">B — Unscramble the words</h3>
+                    <div class="space-y-5 text-xl" id="practice-unscramble"></div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <h3 class="text-2xl font-bold text-blue-700 mb-5">C — Find and fix the error</h3>
+                    <div class="space-y-5 text-xl" id="practice-error"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Tradução Oral 1 (Gramática) -->
+        <div class="slide" data-title="Oral Translation I">
             <div class="section-card p-8">
                 <div class="text-center max-w-3xl mx-auto">
-                    <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-microphone-alt text-green-500"></i> Traduza para inglês</h2>
+                    <h2 class="text-5xl font-bold mb-6 text-blue-700"><i class="fas fa-microphone-alt text-blue-500 mr-2"></i> Traduza para inglês</h2>
                     <p class="text-2xl text-slate-600">Ouça a frase em português, produza a versão em inglês e compare com a sugestão.</p>
                 </div>
-
                 <div class="translation-card activity-card p-6 mt-8 max-w-4xl mx-auto" data-translation-exercise>
                     <div class="flex flex-wrap items-center justify-between gap-3">
-                        <p class="lesson-panel-title">PT → EN Drill</p>
-                        <span class="lesson-chip"><i class="fas fa-layer-group text-violet-600"></i><span data-translation-progress>1 / 5</span></span>
+                        <p class="lesson-panel-title">PT → EN Drill — Grammar Focus</p>
+                        <span class="lesson-chip"><i class="fas fa-layer-group text-blue-600"></i><span data-translation-progress>1 / 6</span></span>
                     </div>
-
                     <div class="translation-source text-center">
                         <p class="text-sm font-bold uppercase text-slate-500 mb-3">Frase em português</p>
                         <p data-translation-source class="text-2xl font-black leading-relaxed"></p>
                     </div>
-
                     <div class="grid gap-4">
                         <input type="text" data-translation-input class="translation-input" placeholder="Digite sua tradução em inglês...">
                         <p data-translation-feedback class="translation-feedback"></p>
                     </div>
-
                     <div class="flex flex-wrap gap-3">
                         <button type="button" class="primary-action-btn" data-translation-play><i class="fas fa-volume-up mr-2"></i>Ouvir PT</button>
                         <button type="button" class="primary-action-btn" data-translation-check><i class="fas fa-check mr-2"></i>Verificar</button>
-                        <button type="button" class="secondary-action-btn" data-translation-speak-answer><i class="fas fa-comment-dots mr-2"></i>Ouvir minha resposta</button>
+                        <button type="button" class="secondary-action-btn" data-translation-speak-answer><i class="fas fa-comment-dots mr-2"></i>Ouvir sugestão</button>
                         <button type="button" class="secondary-action-btn" data-translation-reveal><i class="fas fa-eye mr-2"></i>Mostrar sugestão</button>
                         <button type="button" class="secondary-action-btn" data-translation-next><i class="fas fa-forward mr-2"></i>Próxima</button>
                     </div>
-
                     <div class="callout-note">
                         <p class="font-semibold">Para prática oral: o professor pode esconder a sugestão, pedir a resposta em voz alta e só depois usar o campo para conferir.</p>
                     </div>
-
                     <script type="application/json">
                     [
                         { "pt": "Eu estava lendo um livro quando o telefone tocou.", "en": "I was reading a book when the phone rang." },
                         { "pt": "Eles estavam estudando enquanto nós cozinhávamos.", "en": "They were studying while we were cooking." },
                         { "pt": "O que você estava fazendo às dez horas?", "en": "What were you doing at ten o'clock?" },
                         { "pt": "Ela não estava dormindo quando eu cheguei.", "en": "She wasn't sleeping when I arrived." },
-                        { "pt": "Nós estávamos conversando quando começou a chover.", "en": "We were talking when it started to rain." }
+                        { "pt": "Nós estávamos conversando quando começou a chover.", "en": "We were talking when it started to rain." },
+                        { "pt": "Ele estava dirigindo enquanto ela escutava música.", "en": "He was driving while she was listening to music." }
                     ]
                     </script>
                 </div>
             </div>
         </div>
 
-<div class="slide" data-title="Music">
-            <h2 class="text-4xl font-bold mb-6 text-center text-orange-700 italic"><i class="fas fa-music text-red-500 mr-2"></i>Music: "Jealous Guy" - John Lennon</h2>
-            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-5xl mx-auto flex flex-col md:flex-row gap-8">
-                <div class="flex-1 text-center">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4ZMofBIe1948b23GZJriAd?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                </div>
-                <div class="flex-1 bg-slate-50 p-8 rounded-xl text-xl leading-relaxed font-serif overflow-y-auto" style="max-height: 450px;">
-                    <p>I <input type="text" class="w-48 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="was dreaming"><i class="fas fa-eye"></i></button> of the past</p>
-                <p>And my heart <input type="text" class="w-48 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="was beating"><i class="fas fa-eye"></i></button> fast</p>
-                <p>I began to lose control</p>
-                <p>I began to lose control</p>
-                
-                <p class="font-bold text-yellow-400 mt-4 italic">Chorus:</p>
-                <p>I didn't mean to hurt you</p>
-                <p>I'm sorry that I made you cry</p>
-                <p>Oh no, I didn't want to hurt you</p>
-                <p>I'm just a jealous guy</p>
-                
-                <p class="mt-4">I <input type="text" class="w-48 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="was feeling"><i class="fas fa-eye"></i></button> insecure</p>
-                <p>You might not love me anymore</p>
-                <p>I <input type="text" class="w-48 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="was shivering"><i class="fas fa-eye"></i></button> inside</p>
-                <p>I was shivering inside</p>
+        <!-- SLIDE 6: Expressões e Phrasal Verbs -->
+        <div class="slide" data-title="Expressions &amp; Phrasal Verbs">
+            <h2 class="text-4xl font-bold mb-6 text-center text-blue-700">Expressions &amp; Phrasal Verbs</h2>
+            <p class="text-center text-slate-500 text-lg mb-8">Expressões naturais para narrar situações e contar histórias.</p>
+            <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto text-lg">
+                <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-blue-500">
+                    <p class="text-xs font-bold uppercase text-blue-600 tracking-widest mb-2">Phrasal Verb</p>
+                    <h3 class="text-2xl font-black text-blue-700 mb-3">Break down</h3>
+                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> quebrar, parar de funcionar (máquinas/carros)</p>
+                    <p class="text-slate-700 italic mb-1">"I was driving home when my car broke down."</p>
+                    <p class="text-slate-400 text-sm">Eu estava dirigindo para casa quando meu carro quebrou.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-blue-500">
+                    <p class="text-xs font-bold uppercase text-blue-600 tracking-widest mb-2">Phrasal Verb</p>
+                    <h3 class="text-2xl font-black text-blue-700 mb-3">Run into</h3>
+                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> encontrar alguém por acaso</p>
+                    <p class="text-slate-700 italic mb-1">"While I was walking in the park, I ran into an old friend."</p>
+                    <p class="text-slate-400 text-sm">Enquanto eu caminhava no parque, encontrei um velho amigo por acaso.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-orange-400">
+                    <p class="text-xs font-bold uppercase text-orange-500 tracking-widest mb-2">Expression</p>
+                    <h3 class="text-2xl font-black text-orange-600 mb-3">Out of nowhere</h3>
+                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> do nada, de repente, sem aviso</p>
+                    <p class="text-slate-700 italic mb-1">"We were chatting when, out of nowhere, the alarm went off."</p>
+                    <p class="text-slate-400 text-sm">Estávamos conversando quando, do nada, o alarme disparou.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-orange-400">
+                    <p class="text-xs font-bold uppercase text-orange-500 tracking-widest mb-2">Expression</p>
+                    <h3 class="text-2xl font-black text-orange-600 mb-3">At that moment</h3>
+                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> naquele momento, naquela hora</p>
+                    <p class="text-slate-700 italic mb-1">"At that moment, everyone was laughing and having fun."</p>
+                    <p class="text-slate-400 text-sm">Naquele momento, todos estavam rindo e se divertindo.</p>
                 </div>
             </div>
         </div>
-        
-        <div class="slide" data-title="Homework">
-             <div class="text-center">
-                <h2 class="text-5xl font-bold mb-6 text-orange-700"><i class="fas fa-tasks text-blue-500"></i> Homework</h2>
-                <div class="bg-white p-10 rounded-2xl shadow-lg max-w-3xl mx-auto">
-                    <p class="text-3xl mb-5 text-gray-600">What were you doing at these times yesterday? Write full sentences.</p>
-                    <div class="text-left text-xl mt-4 bg-gray-50 p-6 rounded-lg">
-                        <p class="mb-4 text-lg text-slate-600">Add a small detail to each answer, for example: <strong>I was studying English because I had a class later</strong>.</p>
-                        <p class="mb-2"><strong>7:00 AM:</strong> I was sleeping.</p>
-                        <p class="mb-2"><strong>1:00 PM:</strong> ________________________</p>
-                        <p class="mb-2"><strong>6:00 PM:</strong> ________________________</p>
-                        <p class="mb-2"><strong>10:00 PM:</strong> ________________________</p>
-                        <textarea class="w-full mt-4 p-3 border-2 rounded-lg text-xl" rows="4" placeholder="Type your answers here..."></textarea>
+
+        <!-- SLIDE 7: Mini Diálogos -->
+        <div class="slide" data-title="Mini Dialogues">
+            <h2 class="text-4xl font-bold mb-6 text-center text-blue-700">Mini Dialogues</h2>
+            <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto text-lg">
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <p class="text-xs font-bold uppercase text-blue-600 tracking-widest mb-3">Situation 1 — A car problem</p>
+                    <div class="space-y-3">
+                        <div class="flex gap-3"><span class="font-black text-blue-700 min-w-10">A:</span><p>"Why were you late?"</p></div>
+                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"I was driving to work when my car broke down."</p></div>
+                        <div class="flex gap-3"><span class="font-black text-blue-700 min-w-10">A:</span><p>"That's terrible! What were you doing while you waited?"</p></div>
+                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"I was just sitting there, out of nowhere, in the rain!"</p></div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <p class="text-xs font-bold uppercase text-blue-600 tracking-widest mb-3">Situation 2 — An unexpected meeting</p>
+                    <div class="space-y-3">
+                        <div class="flex gap-3"><span class="font-black text-blue-700 min-w-10">A:</span><p>"Guess what? I ran into Maria yesterday!"</p></div>
+                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"Really? What were you doing?"</p></div>
+                        <div class="flex gap-3"><span class="font-black text-blue-700 min-w-10">A:</span><p>"I was buying coffee. At that moment, she walked in!"</p></div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <p class="text-xs font-bold uppercase text-blue-600 tracking-widest mb-3">Situation 3 — A surprise party</p>
+                    <div class="space-y-3">
+                        <div class="flex gap-3"><span class="font-black text-blue-700 min-w-10">A:</span><p>"Were you surprised at the party?"</p></div>
+                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"Completely! I was watching TV and, out of nowhere, everyone was there!"</p></div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <p class="text-xs font-bold uppercase text-blue-600 tracking-widest mb-3">Situation 4 — At the office</p>
+                    <div class="space-y-3">
+                        <div class="flex gap-3"><span class="font-black text-blue-700 min-w-10">A:</span><p>"What was everyone doing when the boss arrived?"</p></div>
+                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"Some were working, some were chatting. At that moment, it got very quiet!"</p></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide" data-title="Lesson Complete">
-    <div class="text-center flex flex-col items-center justify-center h-full">
-        <div class="bg-white p-16 rounded-3xl shadow-2xl border-t-8 border-orange-500 max-w-4xl">
-            <i class="fas fa-star text-yellow-500 text-8xl mb-10"></i>
-            <h2 class="text-6xl font-black mb-10 text-gray-800">Amazing Job!</h2>
-            
-            <div class="space-y-6 mb-12">
-                <p class="text-4xl text-gray-600">Agora você sabe descrever cenas e ações em progresso no passado.</p>
-                <p class="text-3xl font-bold text-orange-600 italic">"You were learning and improving every minute of this lesson!"</p>
+        <!-- SLIDE 8: Leitura -->
+        <div class="slide" data-title="Reading">
+            <h2 class="text-4xl font-bold mb-4 text-center text-blue-700">Reading: The Blackout</h2>
+            <p class="text-center text-slate-500 text-lg mb-6">Leitura guiada com past continuous, when, while e expressões da aula.</p>
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white p-8 rounded-2xl shadow-md text-lg space-y-4 leading-relaxed mb-6">
+                    <p class="text-xs font-bold uppercase text-blue-600 tracking-widest">Text</p>
+                    <p>Last Tuesday evening, the whole neighbourhood experienced a power outage. At 8 PM, people were doing all kinds of things. Some families <strong>were having</strong> dinner, children <strong>were doing</strong> their homework, and teenagers <strong>were chatting</strong> online.</p>
+                    <p>Lucas <strong>was watching</strong> his favourite series <strong>when</strong>, <strong>out of nowhere</strong>, everything went dark. His sister Ana <strong>was cooking</strong> in the kitchen <strong>while</strong> their mother <strong>was reading</strong> a book. <strong>At that moment</strong>, the whole family stopped and looked at each other in the dark.</p>
+                    <p>Lucas grabbed his phone to call the electricity company, but <strong>while he was looking</strong> for the number, he <strong>ran into</strong> his neighbour's message in the group chat. The neighbour's car had also <strong>broken down</strong> outside, blocking the street. It was quite a night!</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-5 text-lg">
+                    <div class="bg-white p-6 rounded-2xl shadow-md">
+                        <p class="font-bold text-blue-700 mb-3">Comprehension Questions</p>
+                        <div class="space-y-3">
+                            <p>1. What was Lucas doing when the power went out?</p>
+                            <p>2. What were Ana and their mother doing at that moment?</p>
+                            <p>3. What was Lucas doing when he found the neighbour's message?</p>
+                            <p>4. What had happened to the neighbour's car?</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-md">
+                        <p class="font-bold text-blue-700 mb-3">Language Focus</p>
+                        <div class="space-y-2 text-slate-700">
+                            <p>→ Find two examples of <strong>past continuous + when</strong>.</p>
+                            <p>→ Find one example of <strong>while + past continuous</strong>.</p>
+                            <p>→ Find the two <strong>phrasal verbs / expressions</strong> from today's lesson.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <p class="text-2xl text-gray-400 uppercase tracking-widest">See you in Lesson 07!</p>
         </div>
-    </div>
-</div>
+
+        <!-- SLIDE 9: Tradução Oral 2 (Expressões) -->
+        <div class="slide" data-title="Oral Translation II">
+            <div class="section-card p-8">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-5xl font-bold mb-6 text-blue-700"><i class="fas fa-microphone-alt text-blue-500 mr-2"></i> Traduza para inglês</h2>
+                    <p class="text-2xl text-slate-600">Agora pratique as expressões e phrasal verbs da aula.</p>
+                </div>
+                <div class="translation-card activity-card p-6 mt-8 max-w-4xl mx-auto" data-translation-exercise>
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <p class="lesson-panel-title">PT → EN Drill — Expressions Focus</p>
+                        <span class="lesson-chip"><i class="fas fa-layer-group text-blue-600"></i><span data-translation-progress>1 / 5</span></span>
+                    </div>
+                    <div class="translation-source text-center">
+                        <p class="text-sm font-bold uppercase text-slate-500 mb-3">Frase em português</p>
+                        <p data-translation-source class="text-2xl font-black leading-relaxed"></p>
+                    </div>
+                    <div class="grid gap-4">
+                        <input type="text" data-translation-input class="translation-input" placeholder="Digite sua tradução em inglês...">
+                        <p data-translation-feedback class="translation-feedback"></p>
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <button type="button" class="primary-action-btn" data-translation-play><i class="fas fa-volume-up mr-2"></i>Ouvir PT</button>
+                        <button type="button" class="primary-action-btn" data-translation-check><i class="fas fa-check mr-2"></i>Verificar</button>
+                        <button type="button" class="secondary-action-btn" data-translation-speak-answer><i class="fas fa-comment-dots mr-2"></i>Ouvir sugestão</button>
+                        <button type="button" class="secondary-action-btn" data-translation-reveal><i class="fas fa-eye mr-2"></i>Mostrar sugestão</button>
+                        <button type="button" class="secondary-action-btn" data-translation-next><i class="fas fa-forward mr-2"></i>Próxima</button>
+                    </div>
+                    <div class="callout-note">
+                        <p class="font-semibold">Para prática oral: o professor pode esconder a sugestão, pedir a resposta em voz alta e só depois usar o campo para conferir.</p>
+                    </div>
+                    <script type="application/json">
+                    [
+                        { "pt": "Eu estava dirigindo para casa quando meu carro quebrou.", "en": "I was driving home when my car broke down." },
+                        { "pt": "Enquanto eu caminhava, encontrei um velho amigo por acaso.", "en": "While I was walking, I ran into an old friend." },
+                        { "pt": "Do nada, o alarme disparou.", "en": "Out of nowhere, the alarm went off." },
+                        { "pt": "Naquele momento, todos estavam rindo.", "en": "At that moment, everyone was laughing." },
+                        { "pt": "Enquanto ela cozinhava, ele quebrou o carro.", "en": "While she was cooking, his car broke down." }
+                    ]
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Música -->
+        <div class="slide" data-title="Music">
+            <h2 class="text-4xl font-bold mb-6 text-center text-blue-700 italic"><i class="fas fa-music text-blue-500 mr-2"></i>Music: "Jealous Guy" — John Lennon</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-5xl mx-auto flex flex-col md:flex-row gap-8">
+                <div class="flex-1">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4ZMofBIe1948b23GZJriAd?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mt-5">
+                        <p class="font-bold text-blue-700 mb-1">Conexão com a aula</p>
+                        <p class="text-sm text-slate-600">A música usa o past continuous para descrever estados emocionais e ações em andamento no passado: <em>"I was dreaming of the past"</em>, <em>"my heart was beating fast"</em>. Perceba como o tempo verbal cria uma atmosfera de cena em andamento.</p>
+                    </div>
+                </div>
+                <div class="flex-1 bg-slate-50 p-8 rounded-xl text-xl leading-loose font-serif overflow-y-auto" style="max-height: 450px;">
+                    <p class="font-bold text-blue-600 mb-2">[Verse 1]</p>
+                    <p>I <input id="m1" data-answer="was dreaming" class="w-40 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-target="m1"><i class="fas fa-eye"></i></button> of the past</p>
+                    <p>And my heart <input id="m2" data-answer="was beating" class="w-36 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-target="m2"><i class="fas fa-eye"></i></button> fast</p>
+                    <p>I began to lose control</p>
+                    <p>I began to lose control</p>
+                    <br>
+                    <p class="font-bold text-blue-600 mb-2">[Chorus]</p>
+                    <p>I didn't mean to hurt you</p>
+                    <p>I'm sorry that I made you cry</p>
+                    <p>I didn't mean to hurt you</p>
+                    <p>I'm just a jealous guy</p>
+                    <br>
+                    <p class="font-bold text-blue-600 mb-2">[Verse 2]</p>
+                    <p>I <input id="m3" data-answer="was feeling" class="w-36 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-target="m3"><i class="fas fa-eye"></i></button> insecure</p>
+                    <p>You might not love me anymore</p>
+                    <p>I <input id="m4" data-answer="was shivering" class="w-40 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-target="m4"><i class="fas fa-eye"></i></button> inside</p>
+                    <p>I was shivering inside</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Homework -->
+        <div class="slide" data-title="Homework">
+            <h2 class="text-4xl font-bold mb-6 text-center text-blue-700">Homework</h2>
+            <div class="max-w-4xl mx-auto space-y-6">
+                <div class="bg-white p-8 rounded-2xl shadow-md text-lg">
+                    <p class="font-bold text-slate-800 mb-3">Write a short story about an unexpected event that happened to you (real or imaginary).</p>
+                    <p class="text-slate-600 mb-4">Escreva 5 a 6 frases usando o past continuous para descrever a cena e o simple past para a interrupção. Use pelo menos <strong>1 expressão</strong> da aula.</p>
+                    <div class="grid md:grid-cols-2 gap-3 text-base mt-4">
+                        <div class="rounded-lg bg-blue-50 border border-blue-100 p-3">✅ 2+ frases com <strong>was/were + -ing</strong></div>
+                        <div class="rounded-lg bg-blue-50 border border-blue-100 p-3">✅ 1 frase com <strong>when</strong> (interrupção)</div>
+                        <div class="rounded-lg bg-blue-50 border border-blue-100 p-3">✅ 1 frase com <strong>while</strong> (simultaneidade)</div>
+                        <div class="rounded-lg bg-blue-50 border border-blue-100 p-3">✅ break down / run into / out of nowhere / at that moment</div>
+                    </div>
+                </div>
+                <textarea rows="6" class="w-full p-4 border-2 border-slate-200 rounded-2xl text-lg outline-none focus:border-blue-500 bg-white" placeholder="Write your story here... (e.g., Last Saturday, I was walking in the park when, out of nowhere...)"></textarea>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: Lesson Complete -->
+        <div class="slide" data-title="Lesson Complete">
+            <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
+                <i class="fas fa-film text-blue-600 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete!</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">You set the scene perfectly!</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl mb-6">Agora você consegue narrar histórias e descrever cenas do passado com muito mais detalhes!</p>
+                <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl max-w-2xl">
+                    <p class="text-xl font-serif italic text-blue-900">"Every story has a beginning. Now you can tell yours — in English."</p>
+                </div>
+                <p class="text-slate-400 mt-6 text-lg">See you in Lesson 07!</p>
+            </div>
+        </div>
 
     </main>
 
     <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20">
         <div class="container mx-auto px-8 h-20 flex justify-between items-center">
             <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Previous</button>
-            <button id="next-btn" class="bg-orange-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-orange-700">Next</button>
+            <button id="next-btn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Next</button>
             <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finish Lesson</button>
         </div>
     </footer>
@@ -346,16 +496,14 @@
                 finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
             }
 
-            prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; updateSlideView(); } });
-            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; updateSlideView(); } });
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; updateSlideView(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; updateSlideView(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
 
             finishLessonBtn.addEventListener('click', () => {
                 finishLessonBtn.disabled = true;
                 finishLessonBtn.textContent = 'Saving...';
                 if (typeof markLessonAsComplete === 'function') {
-                    markLessonAsComplete(moduleId, lessonNumber).catch(error => {
-                        console.error('Erro ao marcar a lição como completa:', error);
-                        alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');
+                    markLessonAsComplete(moduleId, lessonNumber).catch(() => {
                         finishLessonBtn.disabled = false;
                         finishLessonBtn.textContent = 'Finish Lesson';
                     });
@@ -363,25 +511,24 @@
             });
 
             function checkAnswer(input) {
-                const userAnswer = input.value.trim().toLowerCase().replace(/[.!?]/g, '');
-                const correctAnswer = input.dataset.answer.toLowerCase().replace(/[.!?]/g, '');
+                const userAnswer = input.value.trim().toLowerCase().replace(/[.!?,'"]/g, '');
+                const correctAnswer = (input.dataset.answer || '').toLowerCase().replace(/[.!?,'"]/g, '');
                 input.classList.remove('correct', 'incorrect');
-                if(userAnswer.length === 0) return;
+                if (userAnswer.length === 0) return;
                 input.classList.toggle('correct', userAnswer === correctAnswer);
                 input.classList.toggle('incorrect', userAnswer !== correctAnswer);
             }
-            
-            function addIndividualRevealListeners() {
-                document.querySelectorAll('.answer-btn').forEach(button => {
+
+            function addRevealListeners(container) {
+                (container || document).querySelectorAll('.answer-btn[data-target]').forEach(button => {
                     button.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        const targetId = button.dataset.target;
-                        const inputField = document.getElementById(targetId);
-                        if(inputField) {
-                            inputField.value = inputField.dataset.answer;
-                            checkAnswer(inputField);
-                        }
+                        const input = document.getElementById(button.dataset.target);
+                        if (input) { input.value = input.dataset.answer; checkAnswer(input); }
                     });
+                });
+                (container || document).querySelectorAll('input[data-answer]').forEach(input => {
+                    input.addEventListener('blur', () => checkAnswer(input));
                 });
             }
 
@@ -389,49 +536,71 @@
                 card.addEventListener('click', () => card.classList.toggle('flipped'));
             });
 
-            // Practice 1: Fill in
-            function createPracticeSentences() {
-                const container = document.getElementById('practice-sentences');
-                if (!container) return;
-                const sentences = [
-                    { id: 'p1q1', question: "I ___ (read) a book at 9 PM last night.", answer: "was reading" },
-                    { id: 'p1q2', question: "They ___ (not / study) when I arrived.", answer: "weren't studying" },
-                    { id: 'p1q3', question: "___ she ___ (watch) TV in the afternoon?", answer: "Was she watching" },
-                    { id: 'p1q4', question: "We ___ (have) a great time at the party.", answer: "were having" },
-                    { id: 'p1q5', question: "It ___ (not / rain) this morning.", answer: "wasn't raining" }
-                ];
-                container.innerHTML = sentences.map(item => {
-                    const inputHtml = `<input id="${item.id}" data-answer="${item.answer}" class="w-64 p-1 border-b-2 text-2xl bg-transparent text-center">`;
-                    const buttonHtml = `<button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>`;
-                    return `<p>${item.question.replace('___', inputHtml + buttonHtml)}</p>`;
+            // Practice A: Fill in
+            const fillData = [
+                { id: 'f1', sentence: 'I ___ (read) a book at 9 PM last night.', answer: 'was reading' },
+                { id: 'f2', sentence: 'They ___ (not / study) when I arrived.', answer: "weren't studying" },
+                { id: 'f3', sentence: '___ she ___ (watch) TV in the afternoon?', answer: 'Was she watching' },
+                { id: 'f4', sentence: 'We ___ (have) a great time at the party.', answer: 'were having' },
+                { id: 'f5', sentence: 'It ___ (not / rain) this morning.', answer: "wasn't raining" },
+                { id: 'f6', sentence: 'He ___ (drive) home when his car broke down.', answer: 'was driving' }
+            ];
+            const fillContainer = document.getElementById('practice-fill');
+            if (fillContainer) {
+                fillContainer.innerHTML = fillData.map(item => {
+                    const parts = item.sentence.split('___');
+                    if (parts.length === 3) {
+                        return `<p>${parts[0]}<input id="${item.id}a" data-answer="${item.answer.split(' ')[0]}" class="w-24 border-b-2 text-center bg-transparent border-gray-400"> ${parts[1]}<input id="${item.id}b" data-answer="${item.answer.split(' ').slice(1).join(' ')}" class="w-36 border-b-2 text-center bg-transparent border-gray-400">${parts[2]}<button class="answer-btn" data-target="${item.id}a" onclick="document.getElementById('${item.id}b').value='${item.answer.split(' ').slice(1).join(' ')}';"><i class="fas fa-eye"></i></button></p>`;
+                    }
+                    return `<p>${item.sentence.replace('___', `<input id="${item.id}" data-answer="${item.answer}" class="w-48 border-b-2 text-center bg-transparent border-gray-400">
+                    <button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>`)}</p>`;
                 }).join('');
-                container.querySelectorAll('input').forEach(input => input.addEventListener('blur', () => checkAnswer(input)));
+                addRevealListeners(fillContainer);
             }
 
-            // Practice 2: Unscramble
-            function createUnscrambleActivity() {
-                const container = document.getElementById('practice-unscramble');
-                if (!container) return;
-                const sentences = [
-                    { id: 'p2q1', question: "working / I / wasn't / yesterday", answer: "I wasn't working yesterday" },
-                    { id: 'p2q2', question: "they / what / doing / were / ?", answer: "What were they doing?" },
-                    { id: 'p2q3', question: "cleaning / she / the kitchen / was", answer: "She was cleaning the kitchen" }
-                ];
-                container.innerHTML = sentences.map(item => `
-                    <div class="mb-4">
-                        <p class="text-gray-500 italic text-xl">${item.question}</p>
-                        <div class="flex items-center">
-                            <input id="${item.id}" data-answer="${item.answer}" class="w-full p-1 border-b-2 text-2xl bg-transparent" placeholder="Sua resposta...">
+            // Practice B: Unscramble
+            const unscrambleData = [
+                { id: 'u1', hint: 'working / I / wasn\'t / yesterday', answer: "I wasn't working yesterday" },
+                { id: 'u2', hint: 'they / what / doing / were / ?', answer: 'What were they doing?' },
+                { id: 'u3', hint: 'cleaning / she / the kitchen / was', answer: 'She was cleaning the kitchen' },
+                { id: 'u4', hint: 'while / chatting / were / they / I / was / cooking', answer: 'While they were chatting, I was cooking' }
+            ];
+            const unscrambleContainer = document.getElementById('practice-unscramble');
+            if (unscrambleContainer) {
+                unscrambleContainer.innerHTML = unscrambleData.map(item => `
+                    <div>
+                        <p class="text-gray-500 italic mb-1">${item.hint}</p>
+                        <div class="flex items-center gap-2">
+                            <input id="${item.id}" data-answer="${item.answer}" class="w-full border-b-2 bg-transparent border-gray-400" placeholder="Write the correct sentence...">
                             <button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>
                         </div>
                     </div>
                 `).join('');
-                container.querySelectorAll('input').forEach(input => input.addEventListener('blur', () => checkAnswer(input)));
+                addRevealListeners(unscrambleContainer);
             }
 
-            createPracticeSentences();
-            createUnscrambleActivity();
-            addIndividualRevealListeners();
+            // Practice C: Error correction
+            const errorData = [
+                { id: 'e1', wrong: 'I was watch TV when she called.', answer: 'I was watching TV when she called.' },
+                { id: 'e2', wrong: 'They were study while I was cooking.', answer: 'They were studying while I was cooking.' },
+                { id: 'e3', wrong: 'She was knowing the answer.', answer: 'She knew the answer.' },
+                { id: 'e4', wrong: 'Were you sleeping when I was called you?', answer: 'Were you sleeping when I called you?' }
+            ];
+            const errorContainer = document.getElementById('practice-error');
+            if (errorContainer) {
+                errorContainer.innerHTML = errorData.map(item => `
+                    <div>
+                        <p class="text-red-500 font-semibold mb-1">Erro: <span class="font-normal text-slate-700">${item.wrong}</span></p>
+                        <div class="flex items-center gap-2">
+                            <input id="${item.id}" data-answer="${item.answer}" class="w-full border-b-2 bg-transparent border-gray-400" placeholder="Write the correct sentence...">
+                            <button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>
+                        </div>
+                    </div>
+                `).join('');
+                addRevealListeners(errorContainer);
+            }
+
+            addRevealListeners();
             updateSlideView();
             document.body.classList.remove('lesson-loading');
         });
