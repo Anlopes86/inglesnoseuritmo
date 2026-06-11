@@ -1,40 +1,37 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A2 | Lição 11: The Biggest and The Best</title>
+    <title>A2 V2 | Lição 04: The Biggest and The Best</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="../enhanced-styles.css" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; font-size: 1.25rem; }
+        body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
-        .flip-card { background-color: transparent; width: 100%; max-width: none; min-height: 150px; perspective: 1000px; cursor: pointer; }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.75rem; }
+        .flip-card { background-color: transparent; width: 100%; max-width: none; min-height: 220px; perspective: 1000px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back {
             position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 1.5rem;
+            border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); padding: 2rem;
+            font-size: 1.1rem; line-height: 1.5;
         }
-        .flip-card-front { background-color: #fff; border: 2px solid #e5e7eb; font-weight: bold; font-size: 1.5rem; }
-        .flip-card-back { background-color: #fdf2f8; transform: rotateY(180deg); font-weight: bold; color: #be185d; font-size: 1.4rem; }
+        .flip-card-front { background-color: #fff; border: 1px solid #e5e7eb; }
+        .flip-card-back { background-color: #f5f3ff; transform: rotateY(180deg); font-size: 1.25rem; color: #4c1d95; font-weight: 700; }
 
-        input.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
-        input.incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+        input.correct { border-color: #22c55e; background-color: #f0fdf4; }
+        input.incorrect { border-color: #ef4444; background-color: #fef2f2; }
         .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
-        .answer-btn:hover { color: #db2777; }
-        
-        input { border-bottom: 3px solid #cbd5e1; outline: none; transition: all 0.2s; font-weight: 600; background: transparent; padding: 0 10px; }
-        .choice-btn { border: 2px solid #e5e7eb; padding: 16px; border-radius: 12px; transition: all 0.2s; cursor: pointer; text-align: left; width: 100%; font-size: 1.3rem; }
-        .choice-btn:hover { border-color: #db2777; background-color: #fdf2f8; }
-        .selected-correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
-        .selected-incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+        .answer-btn:hover { color: #7c3aed; }
+        input[data-answer], .practice-input { border: none; border-bottom: 2px solid #cbd5e1; outline: none; background: transparent; text-align: center; padding: 0 6px; font-weight: 600; }
     </style>
     <link rel='stylesheet' href='a2-lesson-theme.css'>
 </head>
@@ -42,279 +39,409 @@
 
     <header class="bg-white shadow-sm sticky top-0 z-10">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
-            <a href="a2.html" class="text-xl font-bold text-pink-600 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Módulo A2</a>
+            <a href="a2.html" class="text-lg font-bold text-violet-700 hover:text-violet-900 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2 V2</a>
             <div class="text-center">
-                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 11: The Biggest and The Best</h1>
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 04: The Biggest and The Best</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 12</div>
         </div>
-        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-pink-500 h-1.5 transition-all duration-300"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-violet-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
     <main class="container mx-auto p-8 pb-28 max-w-5xl">
 
-        <div class="slide active" data-title="Warm-up">
+        <!-- SLIDE 1: Intro + Diálogo -->
+        <div class="slide active" data-title="Intro &amp; Dialogue">
             <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
                 <div class="max-w-3xl">
                     <div class="a2-hero-copy">
-                        <p class="lesson-panel-title">World records</p>
+                        <p class="lesson-panel-title">World records &amp; landmarks</p>
                         <h2 class="text-4xl md:text-5xl font-black text-slate-900">Describe places and things using superlatives with confidence.</h2>
-                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno usa superlativos para falar de lugares famosos, prédios, paisagens e experiências marcantes com frases mais completas.</p>
+                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula você aprende a usar superlativos para falar sobre os maiores, melhores e mais incríveis lugares, pessoas e experiências.</p>
                     </div>
                     <div class="lesson-panel p-6 mt-6">
-                        <p class="lesson-panel-title">Focus points</p>
+                        <p class="lesson-panel-title">By the end, you can:</p>
                         <ul class="space-y-3 text-slate-600 text-base">
-                            <li class="flex gap-3"><i class="fas fa-check text-pink-500 mt-1"></i><span>adjetivos curtos e longos no superlativo;</span></li>
-                            <li class="flex gap-3"><i class="fas fa-check text-pink-500 mt-1"></i><span>formas irregulares como <strong>best</strong> e <strong>worst</strong>;</span></li>
-                            <li class="flex gap-3"><i class="fas fa-check text-pink-500 mt-1"></i><span>contraste entre <strong>tall</strong> e <strong>high</strong>.</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-violet-500 mt-1"></i><span>usar superlativos com adjetivos curtos e longos;</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-violet-500 mt-1"></i><span>usar as formas irregulares <strong>best</strong>, <strong>worst</strong> e <strong>farthest</strong>;</span></li>
+                            <li class="flex gap-3"><i class="fas fa-check text-violet-500 mt-1"></i><span>diferenciar <strong>tall</strong> e <strong>high</strong> corretamente.</span></li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="section-card p-8 mt-8">
-                <p class="lesson-panel-title mb-4">Opening Dialogue</p>
+                <p class="lesson-panel-title mb-4">Opening Dialogue — At the top of the city</p>
                 <div class="space-y-4 text-left text-lg text-slate-700">
                     <div class="flex gap-4">
-                        <span class="font-black text-pink-600 min-w-20">Guide:</span>
+                        <span class="font-black text-violet-700 min-w-20">Guide:</span>
                         <p>"Welcome! This is <strong>the tallest</strong> building in the city, and it attracts visitors from all over the world."</p>
                     </div>
                     <div class="flex gap-4">
-                        <span class="font-black text-blue-600 min-w-20">Tourist:</span>
+                        <span class="font-black text-orange-600 min-w-20">Tourist:</span>
                         <p>"Wow! Is it also <strong>the most expensive</strong> hotel in the area?"</p>
                     </div>
                     <div class="flex gap-4">
-                        <span class="font-black text-pink-600 min-w-20">Guide:</span>
-                        <p>"No, but it has <strong>the best</strong> view of the ocean and the most famous rooftop restaurant."</p>
+                        <span class="font-black text-violet-700 min-w-20">Guide:</span>
+                        <p>"No, but it has <strong>the best</strong> view of the ocean and <strong>the most famous</strong> rooftop restaurant."</p>
                     </div>
                     <div class="flex gap-4">
-                        <span class="font-black text-blue-600 min-w-20">Tourist:</span>
+                        <span class="font-black text-orange-600 min-w-20">Tourist:</span>
                         <p>"I understand now. This is <strong>the most amazing</strong> experience of my trip."</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide" data-title="Grammar">
-            <h2 class="text-4xl font-bold mb-6 text-center text-pink-700">Grammar Focus: Superlatives</h2>
-            <div class="max-w-6xl mx-auto space-y-6">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-pink-500">
-                        <h3 class="text-2xl font-bold mb-4 text-pink-800"><i class="fas fa-bolt mr-2"></i>Short Adjectives</h3>
-                        <p class="mb-4 text-gray-600">Adicione <strong>-est</strong> ao final. Use sempre <strong>"the"</strong> antes.</p>
-                        <table class="w-full text-left text-xl">
-                            <tr class="border-b"> <td class="py-2">Fast</td> <td class="py-2">→</td> <td class="py-2 font-bold text-pink-600">The fastest</td> </tr>
-                            <tr class="border-b"> <td class="py-2">Old</td> <td class="py-2">→</td> <td class="py-2 font-bold text-pink-600">The oldest</td> </tr>
-                            <tr class="border-b"> <td class="py-2">Big*</td> <td class="py-2">→</td> <td class="py-2 font-bold text-pink-600">The biggest</td> </tr>
-                            <tr> <td class="py-2">Happy*</td> <td class="py-2">→</td> <td class="py-2 font-bold text-pink-600">The happiest</td> </tr>
-                        </table>
-                        <p class="mt-4 text-sm text-gray-500">*CVC (consoante-vogal-consoante) dobra a letra final. Terminado em 'y' vira 'iest'.</p>
-                    </div>
+        <!-- SLIDE 2: Vocabulário -->
+        <div class="slide" data-title="Vocabulary">
+            <h2 class="text-4xl font-bold mb-4 text-center text-violet-700">Vocabulary: Describing Places &amp; Things</h2>
+            <p class="text-center text-slate-500 text-lg mb-8">Clique nos cartões para ver o significado em português.</p>
+            <div class="flashcard-grid max-w-5xl mx-auto">
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">tall</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>alto</p><p class="text-sm font-normal mt-2 text-purple-600">(prédios, pessoas)</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">high</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>alto</p><p class="text-sm font-normal mt-2 text-purple-600">(montanhas, altitude)</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">crowded</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>lotado</p><p class="text-sm font-normal mt-2 text-purple-600">cheio de gente</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">expensive</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>caro</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">modern</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>moderno</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">peaceful</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>tranquilo</p><p class="text-sm font-normal mt-2 text-purple-600">pacífico</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">amazing</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>incrível</p><p class="text-sm font-normal mt-2 text-purple-600">impressionante</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">deep</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>profundo</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">popular</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>popular</p><p class="text-sm font-normal mt-2 text-purple-600">famoso</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">ancient</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>antigo</p><p class="text-sm font-normal mt-2 text-purple-600">ancestral</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">dangerous</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>perigoso</p></div></div></div>
+                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">delicious</h3><p class="text-slate-400 text-sm mt-2">adjective</p></div><div class="flip-card-back"><p>delicioso</p></div></div></div>
+            </div>
+        </div>
 
-                    <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-blue-500">
-                        <h3 class="text-2xl font-bold mb-4 text-blue-800"><i class="fas fa-layer-group mr-2"></i>Long Adjectives</h3>
-                        <p class="mb-4 text-gray-600">Use <strong>the most</strong> antes do adjetivo. O adjetivo não muda.</p>
+        <!-- SLIDE 3: Gramática -->
+        <div class="slide" data-title="Grammar">
+            <h2 class="text-4xl font-bold mb-6 text-center text-violet-700">Grammar Focus: Superlatives</h2>
+            <div class="max-w-5xl mx-auto space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-violet-500">
+                        <h3 class="text-2xl font-bold mb-4 text-violet-800"><i class="fas fa-bolt mr-2"></i>Short Adjectives → <em>the + -est</em></h3>
+                        <p class="mb-4 text-gray-600">Adjetivos curtos (1 sílaba): adicione <strong>-est</strong>. Use sempre <strong>"the"</strong> antes. CVC dobra a consoante final; terminados em <em>-y</em> viram <em>-iest</em>.</p>
                         <table class="w-full text-left text-xl">
-                            <tr class="border-b"> <td class="py-2">Modern</td> <td class="py-2">→</td> <td class="py-2 font-bold text-blue-600">The most modern</td> </tr>
-                            <tr class="border-b"> <td class="py-2">Beautiful</td> <td class="py-2">→</td> <td class="py-2 font-bold text-blue-600">The most beautiful</td> </tr>
-                            <tr class="border-b"> <td class="py-2">Interesting</td> <td class="py-2">→</td> <td class="py-2 font-bold text-blue-600">The most interesting</td> </tr>
-                            <tr> <td class="py-2">Expensive</td> <td class="py-2">→</td> <td class="py-2 font-bold text-blue-600">The most expensive</td> </tr>
+                            <tr class="border-b"><td class="py-2">fast</td><td class="py-2">→</td><td class="py-2 font-bold text-violet-600">the fastest</td></tr>
+                            <tr class="border-b"><td class="py-2">old</td><td class="py-2">→</td><td class="py-2 font-bold text-violet-600">the oldest</td></tr>
+                            <tr class="border-b"><td class="py-2">big*</td><td class="py-2">→</td><td class="py-2 font-bold text-violet-600">the biggest</td></tr>
+                            <tr><td class="py-2">happy*</td><td class="py-2">→</td><td class="py-2 font-bold text-violet-600">the happiest</td></tr>
+                        </table>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-blue-500">
+                        <h3 class="text-2xl font-bold mb-4 text-blue-800"><i class="fas fa-layer-group mr-2"></i>Long Adjectives → <em>the most + adj</em></h3>
+                        <p class="mb-4 text-gray-600">Adjetivos longos (2+ sílabas): use <strong>the most</strong> antes. O adjetivo não muda.</p>
+                        <table class="w-full text-left text-xl">
+                            <tr class="border-b"><td class="py-2">modern</td><td class="py-2">→</td><td class="py-2 font-bold text-blue-600">the most modern</td></tr>
+                            <tr class="border-b"><td class="py-2">beautiful</td><td class="py-2">→</td><td class="py-2 font-bold text-blue-600">the most beautiful</td></tr>
+                            <tr class="border-b"><td class="py-2">expensive</td><td class="py-2">→</td><td class="py-2 font-bold text-blue-600">the most expensive</td></tr>
+                            <tr><td class="py-2">amazing</td><td class="py-2">→</td><td class="py-2 font-bold text-blue-600">the most amazing</td></tr>
                         </table>
                     </div>
                 </div>
-
                 <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-indigo-50 p-8 rounded-2xl shadow-md border-l-8 border-indigo-600">
-                        <h3 class="text-2xl font-bold mb-4 text-indigo-800">The Difference: Tall vs. High</h3>
-                        <div class="space-y-4 text-xl">
-                            <p><strong><i class="fas fa-user mr-2"></i>Tall:</strong> Para altura vertical de seres vivos (pessoas, girafas) ou objetos estreitos e altos (prédios, torres).</p>
-                            <p class="italic text-gray-600">"He is the tallest man." | "The Eiffel Tower is tall."</p>
-                            <p><strong><i class="fas fa-mountain mr-2"></i>High:</strong> Para altitude ou distância em relação ao chão. Usado para montanhas, muros, prateleiras ou nuvens.</p>
-                            <p class="italic text-gray-600">"Everest is the highest mountain." | "The plane is high."</p>
-                        </div>
-                    </div>
-                    <div class="bg-yellow-50 dark:bg-yellow-900 dark:text-yellow-100 p-8 rounded-2xl shadow-md border-l-8 border-yellow-600">
-                        <h3 class="text-2xl font-bold mb-4 text-yellow-800">Irregular Forms (The Exceptions)</h3>
+                    <div class="bg-yellow-50 p-8 rounded-2xl shadow-md border-l-8 border-yellow-500">
+                        <h3 class="text-2xl font-bold mb-4 text-yellow-800">Irregular Forms</h3>
                         <ul class="space-y-4 text-xl">
-                            <li><strong>Good</strong> → <span class="font-bold text-green-700">The best</span> (O melhor)</li>
-                            <li><strong>Bad</strong> → <span class="font-bold text-red-700">The worst</span> (O pior)</li>
-                            <li><strong>Far</strong> → <span class="font-bold text-orange-700">The farthest / furthest</span> (O mais longe)</li>
+                            <li><strong>good</strong> → <span class="font-bold text-green-700">the best</span> — o melhor</li>
+                            <li><strong>bad</strong> → <span class="font-bold text-red-700">the worst</span> — o pior</li>
+                            <li><strong>far</strong> → <span class="font-bold text-orange-700">the farthest</span> — o mais longe</li>
                         </ul>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Vocabulary">
-            <h2 class="text-4xl font-bold mb-10 text-center text-pink-700 uppercase">World Landmarks</h2>
-            <div class="flashcard-grid max-w-5xl mx-auto">
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-mountain text-emerald-600 mb-3 text-4xl"></i><br>Mountain</div><div class="flip-card-back">Montanha</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-water text-blue-500 mb-3 text-4xl"></i><br>River</div><div class="flip-card-back">Rio</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-city text-gray-600 mb-3 text-4xl"></i><br>City</div><div class="flip-card-back">Cidade</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-sun text-yellow-500 mb-3 text-4xl"></i><br>Desert</div><div class="flip-card-back">Deserto</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-bridge text-amber-700 mb-3 text-4xl"></i><br>Bridge</div><div class="flip-card-back">Ponte</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-monument text-purple-500 mb-3 text-4xl"></i><br>Monument</div><div class="flip-card-back">Monumento</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-tree text-green-700 mb-3 text-4xl"></i><br>Forest</div><div class="flip-card-back">Floresta</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-building text-blue-900 mb-3 text-4xl"></i><br>Building</div><div class="flip-card-back">Prédio</div></div></div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Dialog Samples">
-            <h2 class="text-3xl font-bold mb-6 text-center text-pink-700">Dialog Samples: Using Superlatives</h2>
-            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-6xl mx-auto space-y-6 text-lg">
-                <div class="flex gap-4">
-                    <span class="font-black text-pink-600">Guide:</span>
-                    <p>"This is the most famous museum in the country. It's the best place to learn about our history."</p>
-                </div>
-                <div class="flex gap-4">
-                    <span class="font-black text-blue-600">Student:</span>
-                    <p>"Is it also the oldest building in the city?"</p>
-                </div>
-                <div class="flex gap-4">
-                    <span class="font-black text-pink-600">Guide:</span>
-                    <p>"No, but it has the most complete collection and the friendliest staff."</p>
-                </div>
-                <hr>
-                <div class="flex gap-4">
-                    <span class="font-black text-pink-600">A:</span>
-                    <p>"Which restaurant do you recommend?"</p>
-                </div>
-                <div class="flex gap-4">
-                    <span class="font-black text-blue-600">B:</span>
-                    <p>"Try Rosa's — it has the most delicious food and the coziest atmosphere. It's the best in town."</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Translate to English">
-            <h2 class="text-3xl font-bold mb-6 text-center text-pink-700">Translate to English: Superlative Sentences</h2>
-            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-6xl mx-auto space-y-6 text-2xl">
-                <p>1. Esta é a cidade mais bonita que eu já visitei.</p>
-                <p>2. Este é o prédio mais alto da cidade.</p>
-                <p>3. Ela é a pessoa mais inteligente que eu conheço.</p>
-                <p>4. Foi o pior dia da minha vida.</p>
-                <p>5. Esse restaurante tem a comida mais deliciosa.</p>
-                <p>6. Este é o lugar mais tranquilo da cidade.</p>
-                <p class="text-base text-slate-500 mt-4">Peça ao aluno para traduzir essas frases para inglês usando superlativos (the + -est / the most / irregular forms).</p>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Task 1">
-            <h2 class="text-3xl font-bold mb-8 text-center text-pink-700">Task 1: The Short Superlatives</h2>
-            <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
-                <p>1. Mount Everest is <input id="t1q1" data-answer="the highest" class="w-48 text-center"> mountain. <span class="text-gray-400 text-lg">(use: alto)</span> <button class="answer-btn" data-target="t1q1"><i class="fas fa-eye"></i></button></p>
-                <p>2. The Sahara is <input id="t1q2" data-answer="the hottest" class="w-48 text-center"> desert. <span class="text-gray-400 text-lg">(use: quente)</span> <button class="answer-btn" data-target="t1q2"><i class="fas fa-eye"></i></button></p>
-                <p>3. Russia is <input id="t1q3" data-answer="the biggest" class="w-48 text-center"> country. <span class="text-gray-400 text-lg">(use: grande)</span> <button class="answer-btn" data-target="t1q3"><i class="fas fa-eye"></i></button></p>
-                <p>4. He is <input id="t1q4" data-answer="the tallest" class="w-48 text-center"> basketball player. <span class="text-gray-400 text-lg">(use: alto)</span> <button class="answer-btn" data-target="t1q4"><i class="fas fa-eye"></i></button></p>
-                <p>5. This is <input id="t1q5" data-answer="the smallest" class="w-48 text-center"> bird in the world. <span class="text-gray-400 text-lg">(use: pequeno)</span> <button class="answer-btn" data-target="t1q5"><i class="fas fa-eye"></i></button></p>
-                <p>6. Antarctica is <input id="t1q6" data-answer="the coldest" class="w-48 text-center"> place. <span class="text-gray-400 text-lg">(use: frio)</span> <button class="answer-btn" data-target="t1q6"><i class="fas fa-eye"></i></button></p>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Task 2">
-            <h2 class="text-3xl font-bold mb-8 text-center text-pink-700">Task 2: Long & Irregular Superlatives</h2>
-            <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
-                <p>1. Paris is <input id="t2q1" data-answer="the most beautiful" class="w-80 text-center"> city. <span class="text-gray-400 text-lg">(use: bonito)</span> <button class="answer-btn" data-target="t2q1"><i class="fas fa-eye"></i></button></p>
-                <p>2. That was <input id="t2q2" data-answer="the best" class="w-48 text-center"> pizza ever! <span class="text-gray-400 text-lg">(use: bom)</span> <button class="answer-btn" data-target="t2q2"><i class="fas fa-eye"></i></button></p>
-                <p>3. This is <input id="t2q3" data-answer="the most expensive" class="w-80 text-center"> car. <span class="text-gray-400 text-lg">(use: caro)</span> <button class="answer-btn" data-target="t2q3"><i class="fas fa-eye"></i></button></p>
-                <p>4. It was <input id="t2q4" data-answer="the worst" class="w-48 text-center"> movie ever. <span class="text-gray-400 text-lg">(use: pior)</span> <button class="answer-btn" data-target="t2q4"><i class="fas fa-eye"></i></button></p>
-                <p>5. She is <input id="t2q5" data-answer="the most popular" class="w-80 text-center"> singer. <span class="text-gray-400 text-lg">(use: popular)</span> <button class="answer-btn" data-target="t2q5"><i class="fas fa-eye"></i></button></p>
-                <p>6. Science is <input id="t2q6" data-answer="the most interesting" class="w-80 text-center"> subject. <span class="text-gray-400 text-lg">(use: interessante)</span> <button class="answer-btn" data-target="t2q6"><i class="fas fa-eye"></i></button></p>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Task 3">
-            <h2 class="text-3xl font-bold mb-6 text-center text-pink-700">Task 3: Making Comparisons</h2>
-            <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="font-bold mb-4">1. You are at the top of a mountain.</p>
-                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">This is the highest point I've reached.</button>
-                    <button class="choice-btn" onclick="checkChoice(this, false)">This is the tallest point I've reached.</button>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="font-bold mb-4">2. Meeting a giant person.</p>
-                    <button class="choice-btn mb-2" onclick="checkChoice(this, false)">You are the most high person here.</button>
-                    <button class="choice-btn" onclick="checkChoice(this, true)">You are the tallest person I know!</button>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="font-bold mb-4">3. Looking at a 0/10 grade.</p>
-                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">This is the worst result in the class.</button>
-                    <button class="choice-btn" onclick="checkChoice(this, false)">This is the baddest result.</button>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="font-bold mb-4">4. Describing a 5-star hotel.</p>
-                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">It's the most luxurious hotel in town.</button>
-                    <button class="choice-btn" onclick="checkChoice(this, false)">It's the more luxury hotel.</button>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="font-bold mb-4">5. About the Burj Khalifa tower.</p>
-                    <button class="choice-btn mb-2" onclick="checkChoice(this, false)">It's the highest tower.</button>
-                    <button class="choice-btn" onclick="checkChoice(this, true)">It's the tallest building in the world.</button>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="font-bold mb-4">6. A perfect vacation.</p>
-                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">It was the best time of my life.</button>
-                    <button class="choice-btn" onclick="checkChoice(this, false)">It was the goodest time.</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Music">
-            <h2 class="text-3xl font-bold mb-6 text-center text-pink-700 italic">Music: "(Simply) The Best" – Tina Turner</h2>
-            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-6xl mx-auto flex flex-col md:flex-row gap-10">
-                <div class="flex-1 text-center">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6pPWRBubXOBAHnjl5ZIujB?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                    <p class="mt-6 italic text-gray-500">The most iconic song about being number one!</p>
-                </div>
-                <div class="flex-1 bg-slate-50 p-8 rounded-xl text-xl leading-relaxed font-serif overflow-y-auto" style="max-height: 450px;">
-                    <p class="font-bold text-pink-600 mb-2">[Chorus]</p>
-                    <p>You're simply <input id="m1" data-answer="the best" class="w-40 text-center"> <button class="answer-btn" data-target="m1"><i class="fas fa-eye"></i></button></p>
-                    <p>Better than <input id="m2" data-answer="all the rest" class="w-40 text-center"> <button class="answer-btn" data-target="m2"><i class="fas fa-eye"></i></button></p>
-                    <p>Better than <input id="m3" data-answer="anyone" class="w-40 text-center"> <button class="answer-btn" data-target="m3"><i class="fas fa-eye"></i></button></p>
-                    <p>Anyone I've ever met</p><br>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Homework">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-8 text-pink-700">Homework: Your Records</h2>
-                <div class="bg-white p-12 rounded-3xl shadow-xl max-w-4xl mx-auto text-left border-t-8 border-pink-500">
-                    <p class="text-2xl font-bold mb-4">Write 6 superlative sentences about your life:</p>
-                    <p class="text-base text-slate-600 mb-6">Try to include places, people, food and one personal opinion. This helps the superlatives sound more natural and less isolated.</p>
-                    <ul class="list-disc ml-8 space-y-4 text-xl text-gray-700">
-                        <li><strong>The best</strong> city you know.</li>
-                        <li><strong>The most beautiful</strong> beach you visited.</li>
-                        <li><strong>The oldest</strong> person you know.</li>
-                        <li><strong>The most delicious</strong> meal you've had.</li>
-                        <li><strong>The tallest</strong> building in your city.</li>
-                        <li><strong>The most interesting</strong> hobby you have.</li>
-                    </ul>
-                    <textarea class="w-full mt-8 p-6 border-2 rounded-2xl text-2xl" rows="4" placeholder="In my opinion..."></textarea>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Lesson Complete">
-            <div class="text-center flex flex-col items-center justify-center h-full">
-                <div class="bg-white p-16 rounded-3xl shadow-2xl border-t-8 border-pink-500 max-w-4xl">
-                    <i class="fas fa-trophy text-pink-400 text-8xl mb-10"></i>
-                    <h2 class="text-6xl font-black mb-10 text-gray-800">Top of the World!</h2>
-                    <p class="text-3xl text-gray-600 mb-16">Agora você sabe como descrever o que há de mais extraordinário no mundo!</p>
-                    
-                    <div class="p-10 bg-pink-50 rounded-2xl border-2 border-pink-100 italic">
-                        <p class="text-4xl font-serif text-pink-900 mb-6">"You don't have to be the best to start, but you have to start to be the best."</p>
-                        <p class="text-2xl text-pink-600 font-bold">— Zig Ziglar</p>
+                    <div class="bg-indigo-50 p-8 rounded-2xl shadow-md border-l-8 border-indigo-500">
+                        <h3 class="text-2xl font-bold mb-4 text-indigo-800">Tall vs. High</h3>
+                        <div class="space-y-4 text-lg">
+                            <p><strong>Tall:</strong> altura de pessoas, animais e objetos estreitos (prédios, torres).<br><em class="text-gray-500">"He is the tallest man I know."</em></p>
+                            <p><strong>High:</strong> altitude ou distância do chão (montanhas, aviões, prateleiras).<br><em class="text-gray-500">"Everest is the highest mountain."</em></p>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Atividades Práticas -->
+        <div class="slide" data-title="Practice">
+            <h2 class="text-4xl font-bold mb-6 text-center text-violet-700">Practice: Superlatives</h2>
+            <div class="max-w-5xl mx-auto space-y-8">
+                <!-- Part A: Complete -->
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <h3 class="text-2xl font-bold text-violet-700 mb-5">A — Complete the sentences</h3>
+                    <div class="space-y-5 text-xl" id="practice-fill"></div>
+                </div>
+                <!-- Part B: Unscramble -->
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <h3 class="text-2xl font-bold text-violet-700 mb-5">B — Unscramble the words</h3>
+                    <div class="space-y-5 text-xl" id="practice-unscramble"></div>
+                </div>
+                <!-- Part C: Find the error -->
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <h3 class="text-2xl font-bold text-violet-700 mb-5">C — Find and fix the error</h3>
+                    <div class="space-y-5 text-xl" id="practice-error"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Tradução Oral 1 (Gramática) -->
+        <div class="slide" data-title="Oral Translation I">
+            <div class="section-card p-8">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-5xl font-bold mb-6 text-violet-700"><i class="fas fa-microphone-alt text-violet-500 mr-2"></i> Traduza para inglês</h2>
+                    <p class="text-2xl text-slate-600">Ouça a frase em português, produza a versão em inglês e compare com a sugestão.</p>
+                </div>
+                <div class="translation-card activity-card p-6 mt-8 max-w-4xl mx-auto" data-translation-exercise>
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <p class="lesson-panel-title">PT → EN Drill — Grammar Focus</p>
+                        <span class="lesson-chip"><i class="fas fa-layer-group text-violet-600"></i><span data-translation-progress>1 / 5</span></span>
+                    </div>
+                    <div class="translation-source text-center">
+                        <p class="text-sm font-bold uppercase text-slate-500 mb-3">Frase em português</p>
+                        <p data-translation-source class="text-2xl font-black leading-relaxed"></p>
+                    </div>
+                    <div class="grid gap-4">
+                        <input type="text" data-translation-input class="translation-input" placeholder="Digite sua tradução em inglês...">
+                        <p data-translation-feedback class="translation-feedback"></p>
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <button type="button" class="primary-action-btn" data-translation-play><i class="fas fa-volume-up mr-2"></i>Ouvir PT</button>
+                        <button type="button" class="primary-action-btn" data-translation-check><i class="fas fa-check mr-2"></i>Verificar</button>
+                        <button type="button" class="secondary-action-btn" data-translation-speak-answer><i class="fas fa-comment-dots mr-2"></i>Ouvir sugestão</button>
+                        <button type="button" class="secondary-action-btn" data-translation-reveal><i class="fas fa-eye mr-2"></i>Mostrar sugestão</button>
+                        <button type="button" class="secondary-action-btn" data-translation-next><i class="fas fa-forward mr-2"></i>Próxima</button>
+                    </div>
+                    <div class="callout-note">
+                        <p class="font-semibold">Para prática oral: o professor pode esconder a sugestão, pedir a resposta em voz alta e só depois usar o campo para conferir.</p>
+                    </div>
+                    <script type="application/json">
+                    [
+                        { "pt": "Este é o prédio mais alto da cidade.", "en": "This is the tallest building in the city." },
+                        { "pt": "É o restaurante mais caro daqui.", "en": "It is the most expensive restaurant here." },
+                        { "pt": "Foi o pior dia da minha vida.", "en": "It was the worst day of my life." },
+                        { "pt": "Ela é a pessoa mais inteligente que eu conheço.", "en": "She is the smartest person I know." },
+                        { "pt": "Esta é a praia mais bonita do país.", "en": "This is the most beautiful beach in the country." }
+                    ]
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Expressões e Phrasal Verbs -->
+        <div class="slide" data-title="Expressions &amp; Phrasal Verbs">
+            <h2 class="text-4xl font-bold mb-6 text-center text-violet-700">Expressions &amp; Phrasal Verbs</h2>
+            <p class="text-center text-slate-500 text-lg mb-8">Expressões naturais para falar sobre lugares e experiências incríveis.</p>
+            <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto text-lg">
+                <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-violet-500">
+                    <p class="text-xs font-bold uppercase text-violet-500 tracking-widest mb-2">Phrasal Verb</p>
+                    <h3 class="text-2xl font-black text-violet-700 mb-3">Stand out</h3>
+                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> destacar-se, chamar atenção</p>
+                    <p class="text-slate-700 italic mb-1">"The tallest building stands out in the city skyline."</p>
+                    <p class="text-slate-400 text-sm">O prédio mais alto se destaca no horizonte da cidade.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-violet-500">
+                    <p class="text-xs font-bold uppercase text-violet-500 tracking-widest mb-2">Phrasal Verb</p>
+                    <h3 class="text-2xl font-black text-violet-700 mb-3">Check out</h3>
+                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> conferir, dar uma olhada em algo</p>
+                    <p class="text-slate-700 italic mb-1">"You should check out the most famous museum in the city."</p>
+                    <p class="text-slate-400 text-sm">Você deveria conferir o museu mais famoso da cidade.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-orange-400">
+                    <p class="text-xs font-bold uppercase text-orange-500 tracking-widest mb-2">Expression</p>
+                    <h3 class="text-2xl font-black text-orange-600 mb-3">To top it off</h3>
+                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> para completar, para coroar tudo</p>
+                    <p class="text-slate-700 italic mb-1">"To top it off, we had the best dessert of our lives."</p>
+                    <p class="text-slate-400 text-sm">Para completar, tivemos a melhor sobremesa das nossas vidas.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-orange-400">
+                    <p class="text-xs font-bold uppercase text-orange-500 tracking-widest mb-2">Expression</p>
+                    <h3 class="text-2xl font-black text-orange-600 mb-3">Once in a lifetime</h3>
+                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> uma vez na vida, experiência única</p>
+                    <p class="text-slate-700 italic mb-1">"Climbing that mountain was a once in a lifetime experience."</p>
+                    <p class="text-slate-400 text-sm">Escalar aquela montanha foi uma experiência única na vida.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Mini Diálogos -->
+        <div class="slide" data-title="Mini Dialogues">
+            <h2 class="text-4xl font-bold mb-6 text-center text-violet-700">Mini Dialogues</h2>
+            <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto text-lg">
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <p class="text-xs font-bold uppercase text-violet-500 tracking-widest mb-3">Situation 1 — Recommending a place</p>
+                    <div class="space-y-3">
+                        <div class="flex gap-3"><span class="font-black text-violet-700 min-w-10">A:</span><p>"You have to check out the new mall."</p></div>
+                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"Is it good?"</p></div>
+                        <div class="flex gap-3"><span class="font-black text-violet-700 min-w-10">A:</span><p>"It's the biggest mall in the country!"</p></div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <p class="text-xs font-bold uppercase text-violet-500 tracking-widest mb-3">Situation 2 — Standing out</p>
+                    <div class="space-y-3">
+                        <div class="flex gap-3"><span class="font-black text-violet-700 min-w-10">A:</span><p>"Which dress should I buy?"</p></div>
+                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"The red one stands out the most."</p></div>
+                        <div class="flex gap-3"><span class="font-black text-violet-700 min-w-10">A:</span><p>"True, it's the most beautiful."</p></div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <p class="text-xs font-bold uppercase text-violet-500 tracking-widest mb-3">Situation 3 — A perfect trip</p>
+                    <div class="space-y-3">
+                        <div class="flex gap-3"><span class="font-black text-violet-700 min-w-10">A:</span><p>"How was your vacation?"</p></div>
+                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"It was the best trip ever. And to top it off, we saw dolphins!"</p></div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <p class="text-xs font-bold uppercase text-violet-500 tracking-widest mb-3">Situation 4 — A unique adventure</p>
+                    <div class="space-y-3">
+                        <div class="flex gap-3"><span class="font-black text-violet-700 min-w-10">A:</span><p>"I'm going to climb Mount Everest next year."</p></div>
+                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"Wow! That's a once in a lifetime adventure."</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Leitura -->
+        <div class="slide" data-title="Reading">
+            <h2 class="text-4xl font-bold mb-4 text-center text-violet-700">Reading: The Ultimate Travel Guide — Dubai</h2>
+            <p class="text-center text-slate-500 text-lg mb-6">Leitura guiada com superlativos e vocabulário de lugares e experiências.</p>
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white p-8 rounded-2xl shadow-md text-lg space-y-4 leading-relaxed mb-6">
+                    <p class="text-xs font-bold uppercase text-violet-500 tracking-widest">Text</p>
+                    <p>Welcome to Dubai, a city of extremes. It has <strong>the tallest building</strong> in the world, the Burj Khalifa, which <strong>stands out</strong> in the skyline from miles away. If you want to go shopping, you must <strong>check out</strong> the Dubai Mall, the largest mall on the planet.</p>
+                    <p>For food, the city offers some of <strong>the most expensive</strong> restaurants, but also <strong>the most delicious</strong> street food. The desert outside the city is <strong>the hottest</strong> place many visitors have ever been, but watching the sunset from the dunes is <strong>the most peaceful</strong> experience you can imagine.</p>
+                    <p><strong>To top it off</strong>, the city never sleeps — it is one of <strong>the most modern</strong> and <strong>the most visited</strong> cities in the world. For millions of travelers, a trip to Dubai is truly a <strong>once in a lifetime</strong> experience.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-5 text-lg">
+                    <div class="bg-white p-6 rounded-2xl shadow-md">
+                        <p class="font-bold text-violet-700 mb-3">Comprehension Questions</p>
+                        <div class="space-y-3">
+                            <p>1. What is the tallest building in the world mentioned in the text?</p>
+                            <p>2. What should you check out if you want to go shopping?</p>
+                            <p>3. What is the most peaceful experience in Dubai?</p>
+                            <p>4. Find two superlatives in the last paragraph.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-md">
+                        <p class="font-bold text-violet-700 mb-3">Language Focus</p>
+                        <div class="space-y-2 text-slate-700">
+                            <p>→ Find two examples of <strong>short superlatives</strong> (-est).</p>
+                            <p>→ Find two examples of <strong>long superlatives</strong> (the most).</p>
+                            <p>→ Find the two <strong>phrasal verbs / expressions</strong> from today's lesson.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: Tradução Oral 2 (Expressões) -->
+        <div class="slide" data-title="Oral Translation II">
+            <div class="section-card p-8">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-5xl font-bold mb-6 text-violet-700"><i class="fas fa-microphone-alt text-violet-500 mr-2"></i> Traduza para inglês</h2>
+                    <p class="text-2xl text-slate-600">Agora pratique as expressões e phrasal verbs da aula.</p>
+                </div>
+                <div class="translation-card activity-card p-6 mt-8 max-w-4xl mx-auto" data-translation-exercise>
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <p class="lesson-panel-title">PT → EN Drill — Expressions Focus</p>
+                        <span class="lesson-chip"><i class="fas fa-layer-group text-violet-600"></i><span data-translation-progress>1 / 5</span></span>
+                    </div>
+                    <div class="translation-source text-center">
+                        <p class="text-sm font-bold uppercase text-slate-500 mb-3">Frase em português</p>
+                        <p data-translation-source class="text-2xl font-black leading-relaxed"></p>
+                    </div>
+                    <div class="grid gap-4">
+                        <input type="text" data-translation-input class="translation-input" placeholder="Digite sua tradução em inglês...">
+                        <p data-translation-feedback class="translation-feedback"></p>
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <button type="button" class="primary-action-btn" data-translation-play><i class="fas fa-volume-up mr-2"></i>Ouvir PT</button>
+                        <button type="button" class="primary-action-btn" data-translation-check><i class="fas fa-check mr-2"></i>Verificar</button>
+                        <button type="button" class="secondary-action-btn" data-translation-speak-answer><i class="fas fa-comment-dots mr-2"></i>Ouvir sugestão</button>
+                        <button type="button" class="secondary-action-btn" data-translation-reveal><i class="fas fa-eye mr-2"></i>Mostrar sugestão</button>
+                        <button type="button" class="secondary-action-btn" data-translation-next><i class="fas fa-forward mr-2"></i>Próxima</button>
+                    </div>
+                    <div class="callout-note">
+                        <p class="font-semibold">Para prática oral: o professor pode esconder a sugestão, pedir a resposta em voz alta e só depois usar o campo para conferir.</p>
+                    </div>
+                    <script type="application/json">
+                    [
+                        { "pt": "Aquele prédio se destaca no horizonte.", "en": "That building stands out in the skyline." },
+                        { "pt": "Você precisa conferir o novo parque.", "en": "You need to check out the new park." },
+                        { "pt": "Para completar, nós ganhamos o jogo.", "en": "To top it off, we won the game." },
+                        { "pt": "É uma experiência única na vida.", "en": "It is a once in a lifetime experience." },
+                        { "pt": "O museu mais antigo se destaca na cidade.", "en": "The most ancient museum stands out in the city." }
+                    ]
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Música -->
+        <div class="slide" data-title="Music">
+            <h2 class="text-4xl font-bold mb-6 text-center text-violet-700 italic"><i class="fas fa-music text-violet-500 mr-2"></i>Music: "(Simply) The Best" — Tina Turner</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-5xl mx-auto flex flex-col md:flex-row gap-8">
+                <div class="flex-1">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6pPWRBubXOBAHnjl5ZIujB?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <div class="bg-violet-50 border border-violet-200 rounded-xl p-4 mt-5">
+                        <p class="font-bold text-violet-700 mb-1">Conexão com a aula</p>
+                        <p class="text-sm text-slate-600">A música usa o superlativo <em>"the best"</em> para expressar admiração e afeto. Perceba como o superlativo aqui não fala de lugares, mas de pessoas — mostrando que essa estrutura é muito versátil!</p>
+                    </div>
+                </div>
+                <div class="flex-1 bg-slate-50 p-8 rounded-xl text-xl leading-loose font-serif">
+                    <p class="font-bold text-violet-600 mb-2">[Chorus]</p>
+                    <p>You're simply <input id="m1" data-answer="the best" class="w-28 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-target="m1"><i class="fas fa-eye"></i></button></p>
+                    <p>Better than <input id="m2" data-answer="all the rest" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-target="m2"><i class="fas fa-eye"></i></button></p>
+                    <p>Better than anyone I've ever met</p>
+                    <p>I'm stuck on your heart,</p>
+                    <p>I hang on every word you say</p>
+                    <p>Tear us apart,</p>
+                    <p>Baby, I would rather be dead</p>
+                    <br>
+                    <p class="font-bold text-violet-600 mb-2">[Verse]</p>
+                    <p>In your heart I see <input id="m3" data-answer="the start" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-target="m3"><i class="fas fa-eye"></i></button> of every night and every day</p>
+                    <p>I look inside myself and see your face,</p>
+                    <p>That's <input id="m4" data-answer="the best" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-target="m4"><i class="fas fa-eye"></i></button> I ever had</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Homework -->
+        <div class="slide" data-title="Homework">
+            <h2 class="text-4xl font-bold mb-6 text-center text-violet-700">Homework</h2>
+            <div class="max-w-4xl mx-auto space-y-6">
+                <div class="bg-white p-8 rounded-2xl shadow-md text-lg">
+                    <p class="font-bold text-slate-800 mb-3">Write a paragraph about the best trip you have ever taken (real or imaginary).</p>
+                    <p class="text-slate-600 mb-4">Use pelo menos <strong>3 superlativos</strong> (the best, the most beautiful, the tallest, etc.) e pelo menos <strong>1 das expressões</strong> aprendidas hoje.</p>
+                    <div class="grid md:grid-cols-2 gap-3 text-base mt-4">
+                        <div class="rounded-lg bg-violet-50 border border-violet-100 p-3">✅ 3+ superlativos (short, long ou irregular)</div>
+                        <div class="rounded-lg bg-violet-50 border border-violet-100 p-3">✅ stand out / check out / to top it off / once in a lifetime</div>
+                        <div class="rounded-lg bg-violet-50 border border-violet-100 p-3">✅ Pelo menos 4 frases completas</div>
+                        <div class="rounded-lg bg-violet-50 border border-violet-100 p-3">✅ Mencione um lugar, uma comida e uma pessoa</div>
+                    </div>
+                </div>
+                <textarea rows="6" class="w-full p-4 border-2 border-slate-200 rounded-2xl text-lg outline-none focus:border-violet-500 bg-white" placeholder="Write your paragraph here... (e.g., The best trip I ever took was to...)"></textarea>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: Lesson Complete -->
+        <div class="slide" data-title="Lesson Complete">
+            <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
+                <i class="fas fa-trophy text-violet-600 text-7xl mb-6"></i>
+                <p class="lesson-panel-title mb-2">Lesson complete!</p>
+                <h2 class="text-5xl font-black mb-4 text-slate-900">Top of the World!</h2>
+                <p class="text-2xl text-slate-600 max-w-3xl mb-6">Agora você sabe como descrever o que há de mais extraordinário no mundo!</p>
+                <div class="bg-violet-50 border border-violet-200 p-6 rounded-2xl max-w-2xl">
+                    <p class="text-xl font-serif italic text-violet-900">"You don't have to be the best to start, but you have to start to be the best."</p>
+                    <p class="text-base font-bold text-violet-600 mt-2">— Zig Ziglar</p>
+                </div>
+                <p class="text-slate-400 mt-6 text-lg">See you in Lesson 05!</p>
             </div>
         </div>
 
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t p-6 z-20">
-        <div class="container mx-auto flex justify-between items-center px-8">
-            <button id="prev-btn" class="px-10 py-4 bg-gray-200 rounded-xl font-bold text-xl hover:bg-gray-300 disabled:opacity-50">Previous</button>
-            <button id="next-btn" class="px-12 py-4 bg-pink-600 text-white rounded-xl font-bold text-xl hover:bg-pink-700">Next</button>
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Previous</button>
+            <button id="next-btn" class="bg-violet-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-violet-700">Next</button>
+            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finish Lesson</button>
         </div>
     </footer>
 
@@ -323,81 +450,145 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
     <script src="../js/progress-manager.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const moduleId = 'a2';
-            const lessonNumber = 11;
+            const moduleId = 'a2-v2';
+            const lessonNumber = 4;
+
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn');
             const slideCounter = document.getElementById('slide-counter');
             const slideTitleHeader = document.getElementById('slide-title-header');
             let currentSlide = 0;
 
-            function updateView() {
+            function updateSlideView() {
                 slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
-                document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
+                const progressBar = document.getElementById('progress-bar');
+                progressBar.style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
                 if (slideCounter) slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
                 if (slideTitleHeader) slideTitleHeader.textContent = slides[currentSlide]?.dataset.title || '';
                 prevBtn.disabled = currentSlide === 0;
-                nextBtn.innerText = currentSlide === slides.length - 1 ? 'Finish' : 'Next';
+                nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+                finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
             }
 
-            prevBtn.onclick = () => { if(currentSlide > 0) currentSlide--; updateView(); };
-            nextBtn.onclick = () => {
-                if (currentSlide < slides.length - 1) {
-                    currentSlide++;
-                    updateView();
-                    return;
-                }
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; updateSlideView(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; updateSlideView(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
 
-                nextBtn.disabled = true;
-                nextBtn.textContent = 'Saving...';
-
+            finishLessonBtn.addEventListener('click', () => {
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.textContent = 'Saving...';
                 if (typeof markLessonAsComplete === 'function') {
                     markLessonAsComplete(moduleId, lessonNumber).catch(error => {
                         console.error('Erro ao marcar a lição como completa:', error);
-                        alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');
-                        nextBtn.disabled = false;
-                        nextBtn.textContent = 'Finish';
+                        finishLessonBtn.disabled = false;
+                        finishLessonBtn.textContent = 'Finish Lesson';
                     });
-                } else {
-                    alert('Erro ao salvar progresso.');
-                    nextBtn.disabled = false;
-                    nextBtn.textContent = 'Finish';
                 }
-            };
+            });
 
             function checkAnswer(input) {
-                const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
-                input.classList.toggle('correct', isCorrect);
-                input.classList.toggle('incorrect', !isCorrect);
+                const userAnswer = input.value.trim().toLowerCase().replace(/[.!?,'"]/g, '');
+                const correctAnswer = (input.dataset.answer || '').toLowerCase().replace(/[.!?,'"]/g, '');
+                input.classList.remove('correct', 'incorrect');
+                if (userAnswer.length === 0) return;
+                input.classList.toggle('correct', userAnswer === correctAnswer);
+                input.classList.toggle('incorrect', userAnswer !== correctAnswer);
             }
 
-            document.querySelectorAll('input[data-answer]').forEach(input => {
-                input.onblur = () => checkAnswer(input);
+            function addRevealListeners(container) {
+                (container || document).querySelectorAll('.answer-btn[data-target]').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const input = document.getElementById(button.dataset.target);
+                        if (input) { input.value = input.dataset.answer; checkAnswer(input); }
+                    });
+                });
+                (container || document).querySelectorAll('input[data-answer]').forEach(input => {
+                    input.addEventListener('blur', () => checkAnswer(input));
+                });
+            }
+
+            // Flip cards
+            document.querySelectorAll('.flip-card').forEach(card => {
+                card.addEventListener('click', () => card.classList.toggle('flipped'));
             });
 
-            window.checkChoice = (btn, isCorrect) => {
-                const parent = btn.parentElement;
-                parent.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected-correct', 'selected-incorrect'));
-                btn.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
-            };
+            // Practice A: Fill in the blank
+            const fillData = [
+                { id: 'f1', sentence: 'Mount Everest is ___ mountain in the world.', hint: 'high', answer: 'the highest' },
+                { id: 'f2', sentence: 'The Sahara is ___ desert on Earth.', hint: 'hot', answer: 'the hottest' },
+                { id: 'f3', sentence: 'This is ___ car in the store.', hint: 'expensive', answer: 'the most expensive' },
+                { id: 'f4', sentence: 'She is ___ student in the class.', hint: 'smart', answer: 'the smartest' },
+                { id: 'f5', sentence: 'Today is ___ day of the year!', hint: 'bad', answer: 'the worst' },
+                { id: 'f6', sentence: 'The Amazon is ___ forest in the world.', hint: 'important', answer: 'the most important' }
+            ];
+            const fillContainer = document.getElementById('practice-fill');
+            if (fillContainer) {
+                fillContainer.innerHTML = fillData.map(item => `
+                    <p>${item.sentence.replace('___', `<input id="${item.id}" data-answer="${item.answer}" class="w-48 border-b-2 text-center bg-transparent border-gray-400">
+                    <button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>`)}
+                    <span class="text-gray-400 text-base ml-2">(${item.hint})</span></p>
+                `).join('');
+                addRevealListeners(fillContainer);
+            }
 
-            document.querySelectorAll('.answer-btn').forEach(btn => {
-                btn.onclick = () => {
-                    const input = document.getElementById(btn.dataset.target);
-                    if (input) { input.value = input.dataset.answer; checkAnswer(input); }
-                };
-            });
+            // Practice B: Unscramble
+            const unscrambleData = [
+                { id: 'u1', hint: 'building / the / is / tallest / this / city / in / the', answer: 'This is the tallest building in the city.' },
+                { id: 'u2', hint: 'best / pizza / ever / the / that / was', answer: 'That was the best pizza ever.' },
+                { id: 'u3', hint: 'most / the / popular / singer / she / is', answer: 'She is the most popular singer.' },
+                { id: 'u4', hint: 'deepest / lake / world / the / in / the / is / Baikal', answer: 'Baikal is the deepest lake in the world.' }
+            ];
+            const unscrambleContainer = document.getElementById('practice-unscramble');
+            if (unscrambleContainer) {
+                unscrambleContainer.innerHTML = unscrambleData.map(item => `
+                    <div>
+                        <p class="text-gray-500 italic mb-1">${item.hint}</p>
+                        <div class="flex items-center gap-2">
+                            <input id="${item.id}" data-answer="${item.answer}" class="w-full border-b-2 bg-transparent border-gray-400" placeholder="Write the correct sentence...">
+                            <button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>
+                        </div>
+                    </div>
+                `).join('');
+                addRevealListeners(unscrambleContainer);
+            }
 
-            document.querySelectorAll('.flip-card').forEach(card => card.onclick = () => card.classList.toggle('flipped'));
-            updateView();
+            // Practice C: Error correction
+            const errorData = [
+                { id: 'e1', wrong: 'This is the more beautiful city I know.', answer: 'This is the most beautiful city I know.' },
+                { id: 'e2', wrong: 'He is the goodest player in the team.', answer: 'He is the best player in the team.' },
+                { id: 'e3', wrong: 'She is the most tall person here.', answer: 'She is the tallest person here.' },
+                { id: 'e4', wrong: 'It was the baddest experience of my life.', answer: 'It was the worst experience of my life.' }
+            ];
+            const errorContainer = document.getElementById('practice-error');
+            if (errorContainer) {
+                errorContainer.innerHTML = errorData.map(item => `
+                    <div>
+                        <p class="text-red-500 font-semibold mb-1">Erro: <span class="font-normal text-slate-700">${item.wrong}</span></p>
+                        <div class="flex items-center gap-2">
+                            <input id="${item.id}" data-answer="${item.answer}" class="w-full border-b-2 bg-transparent border-gray-400" placeholder="Write the correct sentence...">
+                            <button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>
+                        </div>
+                    </div>
+                `).join('');
+                addRevealListeners(errorContainer);
+            }
+
+            // Music slide: direct answer-btn for inputs with data-target
+            addRevealListeners();
+
+            updateSlideView();
             document.body.classList.remove('lesson-loading');
         });
     </script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
+    <script src="translation-exercises.js"></script>
+    <script src='a2-v2-template.js'></script>
     <script src='a2-lesson-theme.js'></script>
 </body>
 </html>
