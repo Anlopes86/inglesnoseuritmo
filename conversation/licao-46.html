@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversation Class - Lesson 46: Identity & Who We Are</title>
+    <title>Conversation Class - Lesson 46: Technology & Future Trends</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
@@ -13,26 +13,16 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #111827; }
         .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
-        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+        .flashcard { background-color: transparent; height: 160px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; border: 1px solid #4b5563; }
-        .flashcard-front { background-color: #1f2937; color: #22c55e; text-align: center; }
-        .flashcard-back { background-color: #166534; color: white; transform: rotateY(180deg); text-align: center; }
-        .lyrics-box { max-height: 420px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #22c55e #1f2937; }
-        .word-pill { cursor: grab; background-color: #16a34a; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
-        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
-        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #22c55e; text-align: center; color: #86efac; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
-        .drop-zone.hover { border-color: #86efac; background-color: rgba(34, 197, 94, 0.1); }
-        .drop-zone.filled { border-bottom-style: solid; }
-        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
-        .answer-btn:hover { color: #22c55e; }
-        .debate-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }
-        .debate-card:hover { transform: translateY(-2px); }
-        .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display:flex; align-items:center; justify-content:center; padding:1rem; border-radius:.75rem; border:1px solid #374151; }
+        .flashcard-front { background:#0f172a; color:#22c55e; }
+        .flashcard-back { background:#065f46; color:#fff; transform:rotateY(180deg); }
+        .debate-card { background: linear-gradient(135deg,#0b1220 0%,#071023 100%); border:1px solid #334155; padding:1rem; border-radius:0.75rem; }
     </style>
 
     <link rel="stylesheet" href="conversation-lesson-theme.css">
@@ -41,514 +31,96 @@
 <body class="bg-gray-900 text-white">
     <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="conversation.html"
-               class="text-lg font-bold text-green-500 hover:text-green-400 flex items-center gap-2">
-                <i class="fas fa-chevron-left"></i>
-                Back
-            </a>
-
-            <h1 class="text-xl font-semibold text-center">Lesson 46: Identity & Who We Are</h1>
-
-            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 13</div>
+            <a href="conversation.html" class="text-lg font-bold text-green-500 hover:text-green-400 flex items-center gap-2"><i class="fas fa-chevron-left"></i>Back</a>
+            <h1 class="text-xl font-semibold text-center">Lesson 46: Technology & Future Trends</h1>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 14</div>
         </div>
-
-        <div class="w-full bg-gray-700 h-1.5">
-            <div id="progress-bar"
-                 class="bg-green-500 h-1.5 transition-all duration-300 ease-in-out"></div>
-        </div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5"></div></div>
     </header>
 
     <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
 
-        <!-- Slide 1: Warm-up -->
         <div class="slide active">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500">
-                    <i class="fas fa-fingerprint"></i>
-                    Warm-up: Discovering Ourselves
-                </h2>
-
+                <h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-robot"></i> Warm-up: Your Favorite Tech</h2>
                 <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-3xl mx-auto space-y-6 text-2xl">
-                    <p class="font-semibold text-gray-300">
-                        Let's explore self-expression, conformity, and individuality.
-                    </p>
-
-                    <p>
-                        <i class="fas fa-lightbulb mr-2 text-green-500"></i>
-                        How much of your identity is shaped by your family?
-                    </p>
-                    <p>
-                        <i class="fas fa-brain mr-2 text-green-500"></i>
-                        Do you act differently depending on who you are with?
-                    </p>
-                    <p>
-                        <i class="fas fa-scale-balanced mr-2 text-green-500"></i>
-                        Is it harder to be yourself today than it was 50 years ago?
-                    </p>
-                    <p>
-                        <i class="fas fa-compass mr-2 text-green-500"></i>
-                        Can a person's core identity change over time?
-                    </p>
+                    <p class="font-semibold text-gray-300">What technology made the biggest difference in your daily life?</p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 2: Key Expressions -->
         <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500">
-                    <i class="fas fa-book-open"></i>
-                    Key Expressions
-                </h2>
-
-                <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">To fit in</h4>
-                            </div>
-
-                            <div class="flashcard-back">
-                                <p class="text-xl">To conform to the norms of a group. <br>
-                                    <em>"When I moved to a new school, I just wanted to fit in."</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">To stand out</h4>
-                            </div>
-
-                            <div class="flashcard-back">
-                                <p class="text-xl">To be easily noticeable or different from others. <br>
-                                    <em>"Her bright red hair makes her stand out in a crowd."</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">True to yourself</h4>
-                            </div>
-
-                            <div class="flashcard-back">
-                                <p class="text-xl">Acting in accordance with your own beliefs and values. <br>
-                                    <em>"It's important to stay true to yourself, no matter what others think."</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">To find yourself</h4>
-                            </div>
-
-                            <div class="flashcard-back">
-                                <p class="text-xl">To discover your true identity or purpose. <br>
-                                    <em>"He traveled to India to find himself."</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">Peer pressure</h4>
-                            </div>
-
-                            <div class="flashcard-back">
-                                <p class="text-xl">Influence from members of one's peer group. <br>
-                                    <em>"Many teenagers smoke because of peer pressure."</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">To break the mold</h4>
-                            </div>
-
-                            <div class="flashcard-back">
-                                <p class="text-xl">To do something differently from how it has always been done. <br>
-                                    <em>"She broke the mold by becoming the first female CEO of the company."</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-lightbulb"></i> Key Expressions</h2>
+            <div class="flashcard-grid max-w-6xl mx-auto">
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Breakthrough</h4></div><div class="flashcard-back"><p class="text-xl">A major scientific discovery.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Disruptive</h4></div><div class="flashcard-back"><p class="text-xl">Causing major change in an industry.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Scalability</h4></div><div class="flashcard-back"><p class="text-xl">The ability to handle growth.</p></div></div></div>
             </div>
         </div>
 
-        <!-- Slide 3: Song 1 -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-500">
-                <i class="fas fa-music text-yellow-500"></i>
-                Song 1: Born This Way
-                <span class="text-xl text-gray-400">- Lady Gaga</span>
-            </h2>
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-comments"></i> Discussion</h2>
+            <div class="debate-card max-w-4xl mx-auto space-y-4">
+                <p>Will AI create more jobs than it destroys?</p>
+                <p>How should privacy be balanced with innovation?</p>
+            </div>
+        </div>
 
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-code"></i> Activity: Pitch an App</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-4">
+                <p class="font-semibold">Describe an app idea: user problem, main feature and one differentiator.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-music text-yellow-500"></i> Song 1</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <div class="mb-4 rounded-xl overflow-hidden">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/15xWRPHQVJyoXAgG12qBop?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </div>
-
-                <div class="mb-4 bg-yellow-900/30 p-4 rounded-lg border border-yellow-500/30">
-                    <p class="text-sm italic">
-                        <i class="fas fa-info-circle mr-2 text-yellow-400"></i>
-                        Theme: self-acceptance, pride in one's identity, and rejecting prejudice.
-                    </p>
-                </div>
-
-                <div class="mt-4 lyrics-box pr-4">
-                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-yellow-500">
-                        <p>I'm beautiful in my <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="way"><i class="fas fa-eye"></i></button></p>
-<p>'Cause God makes no <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="mistakes"><i class="fas fa-eye"></i></button></p>
-<p>I'm on the right <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="track"><i class="fas fa-eye"></i></button>, baby</p>
-<p>I was born this <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="way"><i class="fas fa-eye"></i></button></p>
-<br>
-<p>Don't hide yourself in regret</p>
-<p>Just love yourself and you're set</p>
-<p>I'm on the right track, baby</p>
-<p>I was born this way</p>
-                    </div>
-                </div>
+                <p class="text-sm italic text-gray-400">(Song placeholder)</p>
             </div>
         </div>
 
-        <!-- Slide 4: Song 1 Debate -->
         <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-2 text-green-500">
-                    <i class="fas fa-comments"></i>
-                    Song 1 Debate
-                </h2>
-
-                <p class="text-lg text-gray-400 mb-6 italic">Born This Way - Embracing Who You Are</p>
-
-                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="debate-card">
-                        <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
-                        <p class="text-xl">
-                            <i class="fas fa-heart text-green-400 mr-2"></i>
-                            What is something about yourself that you have learned to accept?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
-                        <p class="text-xl">
-                            <i class="fas fa-mirror text-blue-400 mr-2"></i>
-                            Why is 'loving yourself' often described as a difficult journey?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
-                        <p class="text-xl">
-                            <i class="fas fa-comment-dots text-purple-400 mr-2"></i>
-                            Do you believe that 'God makes no mistakes' when it comes to human identity?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
-                        <p class="text-xl">
-                            <i class="fas fa-scale-balanced text-yellow-400 mr-2"></i>
-                            Is identity something we are born with, or something we create?
-                        </p>
-                    </div>
-                </div>
+            <h2 class="text-4xl font-bold mb-2 text-green-500"><i class="fas fa-comments"></i> Song 1 Debate</h2>
+            <div class="debate-card max-w-4xl mx-auto">
+                <p class="text-xl">Does technology make us more or less human?</p>
             </div>
         </div>
 
-        <!-- Slide 5: Song 2 -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-500">
-                <i class="fas fa-music text-blue-500"></i>
-                Song 2: This Is Me
-                <span class="text-xl text-gray-400">- Keala Settle</span>
-            </h2>
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-puzzle-piece"></i> Practice: Tech Vocabulary</h2>
+            <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <p class="text-2xl mb-8 text-gray-300">Match words to definitions and use them in short sentences.</p>
+            </div>
+        </div>
 
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-music text-blue-500"></i> Song 2</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <div class="mb-4 rounded-xl overflow-hidden">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/45aBEnIPrEhkH13aWd6u6p?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </div>
-
-                <div class="mb-4 bg-blue-900/30 p-4 rounded-lg border border-blue-500/30">
-                    <p class="text-sm italic">
-                        <i class="fas fa-info-circle mr-2 text-blue-400"></i>
-                        Theme: defying expectations, finding strength in flaws, and unapologetic self-expression.
-                    </p>
-                </div>
-
-                <div class="mt-4 lyrics-box pr-4">
-                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-blue-500">
-                        <p>I am <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="brave"><i class="fas fa-eye"></i></button>, I am bruised</p>
-<p>I am who I'm meant to <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="be"><i class="fas fa-eye"></i></button></p>
-<p>This is <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="me"><i class="fas fa-eye"></i></button></p>
-<p>Look out 'cause here I <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="come"><i class="fas fa-eye"></i></button></p>
-<br>
-<p>And I'm marching on to the beat I drum</p>
-<p>I'm not scared to be seen</p>
-<p>I make no apologies, this is me</p>
-                    </div>
-                </div>
+                <p class="text-sm italic text-gray-400">(Song placeholder)</p>
             </div>
         </div>
 
-        <!-- Slide 6: Song 2 Debate -->
         <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-2 text-green-500">
-                    <i class="fas fa-comments"></i>
-                    Song 2 Debate
-                </h2>
-
-                <p class="text-lg text-gray-400 mb-6 italic">This Is Me - No Apologies</p>
-
-                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="debate-card">
-                        <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
-                        <p class="text-xl">
-                            <i class="fas fa-drum text-green-400 mr-2"></i>
-                            Have you ever felt like you were marching to the beat of your own drum?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
-                        <p class="text-xl">
-                            <i class="fas fa-eye text-blue-400 mr-2"></i>
-                            Why are people often 'scared to be seen' for who they truly are?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
-                        <p class="text-xl">
-                            <i class="fas fa-shield-halved text-purple-400 mr-2"></i>
-                            Does being 'bruised' make a person stronger in the end?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
-                        <p class="text-xl">
-                            <i class="fas fa-users-slash text-yellow-400 mr-2"></i>
-                            Should we ever apologize for aspects of our identity?
-                        </p>
-                    </div>
-                </div>
+            <h2 class="text-4xl font-bold mb-2 text-green-500"><i class="fas fa-comments"></i> Song 2 Debate</h2>
+            <div class="debate-card max-w-4xl mx-auto">
+                <p class="text-xl">Discuss ethical dilemmas around new technologies.</p>
             </div>
         </div>
 
-        <!-- Slide: Mid Reflection -->
         <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500">
-                    <i class="fas fa-masks-theater"></i>
-                    The Masks We Wear
-                </h2>
-
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-8 text-2xl text-left">
-                    <p class="text-xl mb-4 text-green-400 font-bold">Do we have one true identity, or many?</p>
-<p class="text-2xl mb-6">Most people adjust their behavior depending on their environment: work, family, friends, or online.</p>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-    <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-blue-500"><b>Authenticity:</b> The goal is to be exactly the same person in every situation.</div>
-    <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-orange-500"><b>Adaptability:</b> Wearing different 'masks' is a normal and necessary social skill.</div>
-</div>
-<p class="mt-8 text-2xl text-center font-semibold italic">Is adapting to fit in a form of lying, or just survival?</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 7: Song 3 -->
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-500">
-                <i class="fas fa-music text-cyan-500"></i>
-                Song 3: Creep
-                <span class="text-xl text-gray-400">- Radiohead</span>
-            </h2>
-
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-music text-cyan-500"></i> Song 3</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <div class="mb-4 rounded-xl overflow-hidden">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/70LxC31G05vZcsCw2O8zWe?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </div>
-
-                <div class="mb-4 bg-cyan-900/30 p-4 rounded-lg border border-cyan-500/30">
-                    <p class="text-sm italic">
-                        <i class="fas fa-info-circle mr-2 text-cyan-400"></i>
-                        Theme: alienation, insecurity, and the pain of feeling like an outsider.
-                    </p>
-                </div>
-
-                <div class="mt-4 lyrics-box pr-4">
-                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-cyan-500">
-                        <p>But I'm a <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="creep"><i class="fas fa-eye"></i></button></p>
-<p>I'm a <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="weirdo"><i class="fas fa-eye"></i></button></p>
-<p>What the hell am I doing <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="here"><i class="fas fa-eye"></i></button>?</p>
-<p>I don't <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="belong"><i class="fas fa-eye"></i></button> here</p>
-<br>
-<p>I don't care if it hurts</p>
-<p>I wanna have control</p>
-<p>I want a perfect body</p>
-<p>I want a perfect soul</p>
-<p>I want you to notice</p>
-<p>When I'm not around</p>
-                    </div>
-                </div>
+                <p class="text-sm italic text-gray-400">(Song placeholder)</p>
             </div>
         </div>
 
-        <!-- Slide 8: Song 3 Debate -->
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-2 text-green-500">
-                    <i class="fas fa-comments"></i>
-                    Song 3 Debate
-                </h2>
-
-                <p class="text-lg text-gray-400 mb-6 italic">Creep - Feeling Like an Outsider</p>
-
-                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="debate-card">
-                        <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
-                        <p class="text-xl">
-                            <i class="fas fa-ghost text-green-400 mr-2"></i>
-                            Have you ever felt like you didn't belong in a certain group or place?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
-                        <p class="text-xl">
-                            <i class="fas fa-magnifying-glass text-blue-400 mr-2"></i>
-                            Why do people crave 'a perfect body' and 'a perfect soul'?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
-                        <p class="text-xl">
-                            <i class="fas fa-user-ninja text-purple-400 mr-2"></i>
-                            Is the feeling of being a 'weirdo' universal, even for popular people?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
-                        <p class="text-xl">
-                            <i class="fas fa-scale-balanced text-yellow-400 mr-2"></i>
-                            Does society create outsiders, or do people isolate themselves?
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide: Practice -->
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500">
-                    <i class="fas fa-puzzle-piece"></i>
-                    Practice: Match the Expressions
-                </h2>
-
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-2xl mb-8 text-gray-300">Drag the expression to the correct sentence:</p>
-
-                    <div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div>
-
-                    <div id="matching-activity" class="space-y-8 text-left"></div>
-
-                    <button id="check-answers-btn" class="mt-12 bg-green-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-green-700 shadow-lg">Check Answers</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide: Speaking Activity -->
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500">
-                    <i class="fas fa-id-card"></i>
-                    Your Identity
-                </h2>
-
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto">
-                    <div class="space-y-6 text-left text-xl">
-                        <p>
-                            <b class="text-green-500">Choose ONE question and answer it in 2-3 minutes.</b>
-                            Discuss individuality and conformity.
-                        </p>
-
-                        <div class="space-y-4 mt-6">
-                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-green-500">
-                                <p>
-                                    <i class="fas fa-puzzle-piece text-green-500 mr-2"></i>
-                                    <strong>What are three words that define your core identity?</strong>
-                                </p>
-                            </div>
-                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-blue-500">
-                                <p>
-                                    <i class="fas fa-people-group text-blue-500 mr-2"></i>
-                                    <strong>Have you ever changed something about yourself to please others?</strong>
-                                </p>
-                            </div>
-                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-purple-500">
-                                <p>
-                                    <i class="fas fa-mask text-purple-500 mr-2"></i>
-                                    <strong>Do you act differently online compared to real life?</strong>
-                                </p>
-                            </div>
-                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-yellow-500">
-                                <p>
-                                    <i class="fas fa-star text-yellow-500 mr-2"></i>
-                                    <strong>Who is someone you admire for being unapologetically themselves?</strong>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-8 bg-gray-700 p-5 rounded-lg border border-green-500/40 text-center">
-                        <i class="fas fa-lightbulb text-green-500 text-3xl mb-3"></i>
-                        <p class="text-lg italic">"Be yourself; everyone else is already taken."</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide: Homework -->
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500">
-                    <i class="fas fa-pen-nib"></i>
-                    Homework
-                </h2>
-
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-300">
-                        Write a short paragraph (100-150 words) about a time you chose to 'stand out' rather than 'fit in'.
-                    </p>
-
-                    <div class="text-left text-xl space-y-4 mt-4 bg-gray-700 p-4 rounded-lg">
-                        <p>✓ Use at least 3 expressions from today's lesson.</p>
-                        <p>✓ Describe the situation and the pressure to conform.</p>
-                        <p>✓ Explain what you did differently and why.</p>
-                        <p>✓ Discuss how you felt about your decision afterwards.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide: Well Done -->
         <div class="slide">
             <div class="text-center flex flex-col items-center justify-center h-full">
-                <i class="fas fa-fingerprint text-green-500 text-7xl mb-6"></i>
+                <i class="fas fa-rocket text-green-500 text-7xl mb-6"></i>
                 <h2 class="text-5xl font-bold mb-4 text-gray-100">Well Done!</h2>
-                <p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">"Be yourself; everyone else is already taken."</p>
-
-                <div class="pt-8">
-                    <button id="finish-lesson-btn-main"
-                            class="bg-green-600 hover:bg-green-500 text-white text-2xl font-bold py-4 px-12 rounded-full transition-all transform hover:scale-105 shadow-lg">
-                        Finalizar e Sair <i class="fas fa-check-circle ml-2"></i>
-                    </button>
-                </div>
+                <p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">Think about a startup idea for homework.</p>
+                <div class="pt-8"><button id="finish-lesson-btn-main" class="bg-green-600 hover:bg-green-500 text-white text-2xl font-bold py-4 px-12 rounded-full transition-all transform hover:scale-105 shadow-lg">Finalizar e Sair <i class="fas fa-check-circle ml-2"></i></button></div>
             </div>
         </div>
 
@@ -556,11 +128,8 @@
 
     <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
         <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn"
-                    class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
-
-            <button id="next-btn"
-                    class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Proximo</button>
+            <button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Proximo</button>
         </div>
     </footer>
 
@@ -586,148 +155,37 @@
             function showSlide(index) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
-
-                if (progressBar) {
-                    progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
-                }
-
-                if (slideCounter) {
-                    slideCounter.innerText = `${index + 1} / ${slides.length}`;
-                }
-
+                if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+                if (slideCounter) slideCounter.innerText = `${index + 1} / ${slides.length}`;
                 if (prevBtn) prevBtn.disabled = index === 0;
-
                 const isLastSlide = index === slides.length - 1;
                 if (nextBtn) nextBtn.style.display = isLastSlide ? 'none' : 'block';
             }
 
-            if (prevBtn) {
-                prevBtn.onclick = () => {
-                    if (currentSlide > 0) {
-                        currentSlide--;
-                        showSlide(currentSlide);
-                    }
-                };
-            }
+            if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } };
+            if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } };
 
-            if (nextBtn) {
-                nextBtn.onclick = () => {
-                    if (currentSlide < slides.length - 1) {
-                        currentSlide++;
-                        showSlide(currentSlide);
-                    }
-                };
-            }
-
-            if (finishLessonBtn) {
-                finishLessonBtn.onclick = () => {
-                    finishLessonBtn.disabled = true;
-                    finishLessonBtn.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>';
-
-                    if (typeof markLessonAsComplete === 'function') {
-                        markLessonAsComplete(moduleId, lessonNumber);
-                    } else {
-                        console.error('Funcao markLessonAsComplete nao encontrada.');
-                        localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true');
-                        window.location.href = 'conversation.html';
-                    }
-                };
-            }
+            if (finishLessonBtn) finishLessonBtn.onclick = () => {
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>';
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber);
+                } else {
+                    localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true');
+                    window.location.href = 'conversation.html';
+                }
+            };
 
             document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+            document.querySelectorAll('.answer-btn').forEach(button => button.addEventListener('click', () => { const inputField = button.previousElementSibling; if (inputField) { inputField.value = button.dataset.answer; inputField.classList.add('text-green-400','font-bold'); } }));
 
-            document.querySelectorAll('.answer-btn').forEach(button => button.addEventListener('click', () => {
-                const inputField = button.previousElementSibling;
-                if (inputField) {
-                    inputField.value = button.dataset.answer;
-                    inputField.classList.add('text-green-400', 'font-bold');
-                }
-            }));
-
-            const wordBank = document.getElementById('word-bank');
-            const activityContainer = document.getElementById('matching-activity');
-            const checkBtn = document.getElementById('check-answers-btn');
-
-            const vocabulary = [{"id": "w1", "text": "To fit in"}, {"id": "w2", "text": "To stand out"}, {"id": "w3", "text": "True to yourself"}, {"id": "w4", "text": "To find yourself"}, {"id": "w5", "text": "Peer pressure"}, {"id": "w6", "text": "To break the mold"}];
-
-            const situations = [{"text": "She bought the same shoes as her friends because she wanted <span class='drop-zone' data-answer='To fit in'>________</span>.", "answer": "To fit in"}, {"text": "His unique style of painting really makes him <span class='drop-zone' data-answer='To stand out'>________</span> in the art world.", "answer": "To stand out"}, {"text": "Even when people criticized him, he remained <span class='drop-zone' data-answer='True to yourself'>________</span>.", "answer": "True to yourself"}, {"text": "After college, she took a gap year <span class='drop-zone' data-answer='To find yourself'>________</span> before starting a career.", "answer": "To find yourself"}, {"text": "Many teens do dangerous things because of <span class='drop-zone' data-answer='Peer pressure'>________</span>.", "answer": "Peer pressure"}, {"text": "By combining jazz with electronic music, the band managed <span class='drop-zone' data-answer='To break the mold'>________</span>.", "answer": "To break the mold"}];
-
-            if (wordBank && activityContainer) {
-                vocabulary.sort(() => Math.random() - 0.5).forEach(word => {
-                    const pill = document.createElement('div');
-                    pill.className = 'word-pill';
-                    pill.draggable = true;
-                    pill.innerText = word.text;
-                    pill.id = `word-${word.id}`;
-                    pill.addEventListener('dragstart', (e) => e.dataTransfer.setData('text/plain', word.text));
-                    wordBank.appendChild(pill);
-                });
-
-                activityContainer.innerHTML = situations.map(s => `<p class="text-xl text-gray-200">${s.text}</p>`).join('');
-
-                const dropZones = document.querySelectorAll('.drop-zone');
-                dropZones.forEach(zone => {
-                    zone.addEventListener('dragover', (e) => {
-                        e.preventDefault();
-                        zone.classList.add('hover');
-                    });
-
-                    zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
-
-                    zone.addEventListener('drop', (e) => {
-                        e.preventDefault();
-                        zone.classList.remove('hover');
-                        zone.innerText = e.dataTransfer.getData('text/plain');
-                        zone.classList.add('filled');
-                    });
-
-                    zone.addEventListener('click', () => {
-                        zone.innerText = '________';
-                        zone.classList.remove('filled');
-                        zone.style.color = '#86efac';
-                        zone.style.backgroundColor = 'transparent';
-                        zone.style.borderRadius = '0';
-                    });
-                });
-
-                if (checkBtn) checkBtn.onclick = () => {
-                    let correctCount = 0;
-                    let answeredCount = 0;
-
-                    dropZones.forEach(zone => {
-                        const current = zone.innerText.trim();
-                        const expected = (zone.dataset.answer || '').trim();
-
-                        if (current !== '________') answeredCount++;
-
-                        if (current.toLowerCase() === expected.toLowerCase()) {
-                            zone.style.color = '#10b981';
-                            zone.style.fontWeight = '700';
-                            zone.style.backgroundColor = 'rgba(16, 185, 129, 0.18)';
-                            zone.style.borderRadius = '8px';
-                            correctCount++;
-                        } else if (current !== '________') {
-                            zone.style.color = '#ef4444';
-                            zone.style.fontWeight = '700';
-                            zone.style.backgroundColor = 'rgba(239, 68, 68, 0.18)';
-                            zone.style.borderRadius = '8px';
-                        }
-                    });
-
-                    if (answeredCount === dropZones.length && correctCount === dropZones.length) {
-                        checkBtn.innerText = 'Perfect!';
-                        checkBtn.classList.replace('bg-green-600', 'bg-emerald-500');
-                    } else if (answeredCount === dropZones.length) {
-                        checkBtn.innerText = 'Try Again';
-                        checkBtn.classList.replace('bg-green-600', 'bg-orange-500');
-                        setTimeout(() => {
-                            checkBtn.innerText = 'Check Answers';
-                            checkBtn.classList.replace('bg-orange-500', 'bg-green-600');
-                        }, 2000);
-                    }
-                };
-            }
+            showSlide(0);
         });
     </script>
+
+    <script src="../js/flashcard-pronunciation.js"></script>
+    <script src="../js/lesson-flashcard-save.js"></script>
+    <script src="conversation-lesson-theme.js"></script>
 </body>
+
 </html>

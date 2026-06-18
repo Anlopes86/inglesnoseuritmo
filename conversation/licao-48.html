@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversation Class - Lesson 48: Comfort Zones & Personal Growth</title>
+    <title>Conversation Class - Lesson 48: Food & Culture</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
@@ -13,26 +13,16 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #111827; }
         .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
-        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+        .flashcard { background-color: transparent; height: 160px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; border: 1px solid #4b5563; }
-        .flashcard-front { background-color: #1f2937; color: #22c55e; text-align: center; }
-        .flashcard-back { background-color: #166534; color: white; transform: rotateY(180deg); text-align: center; }
-        .lyrics-box { max-height: 420px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #22c55e #1f2937; }
-        .word-pill { cursor: grab; background-color: #16a34a; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
-        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
-        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #22c55e; text-align: center; color: #86efac; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
-        .drop-zone.hover { border-color: #86efac; background-color: rgba(34, 197, 94, 0.1); }
-        .drop-zone.filled { border-bottom-style: solid; }
-        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
-        .answer-btn:hover { color: #22c55e; }
-        .debate-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }
-        .debate-card:hover { transform: translateY(-2px); }
-        .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display:flex; align-items:center; justify-content:center; padding:1rem; border-radius:.75rem; border:1px solid #374151; }
+        .flashcard-front { background:#0f172a; color:#22c55e; }
+        .flashcard-back { background:#065f46; color:#fff; transform:rotateY(180deg); }
+        .debate-card { background: linear-gradient(135deg,#0b1220 0%,#071023 100%); border:1px solid #334155; padding:1rem; border-radius:0.75rem; }
     </style>
 
     <link rel="stylesheet" href="conversation-lesson-theme.css">
@@ -41,515 +31,97 @@
 <body class="bg-gray-900 text-white">
     <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="conversation.html"
-               class="text-lg font-bold text-green-500 hover:text-green-400 flex items-center gap-2">
-                <i class="fas fa-chevron-left"></i>
-                Back
-            </a>
-
-            <h1 class="text-xl font-semibold text-center">Lesson 48: Comfort Zones & Personal Growth</h1>
-
-            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 13</div>
+            <a href="conversation.html" class="text-lg font-bold text-green-500 hover:text-green-400 flex items-center gap-2"><i class="fas fa-chevron-left"></i>Back</a>
+            <h1 class="text-xl font-semibold text-center">Lesson 48: Food & Culture</h1>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 14</div>
         </div>
-
-        <div class="w-full bg-gray-700 h-1.5">
-            <div id="progress-bar"
-                 class="bg-green-500 h-1.5 transition-all duration-300 ease-in-out"></div>
-        </div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5"></div></div>
     </header>
 
     <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
 
-        <!-- Slide 1: Warm-up -->
         <div class="slide active">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500">
-                    <i class="fas fa-mountain"></i>
-                    Warm-up: Safe or Stuck?
-                </h2>
-
+                <h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-utensils"></i> Warm-up: Favorite Dishes</h2>
                 <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-3xl mx-auto space-y-6 text-2xl">
-                    <p class="font-semibold text-gray-300">
-                        Let's explore risk, discomfort, and personal development.
-                    </p>
-
-                    <p>
-                        <i class="fas fa-lightbulb mr-2 text-green-500"></i>
-                        Can growth happen without discomfort?
-                    </p>
-                    <p>
-                        <i class="fas fa-brain mr-2 text-green-500"></i>
-                        Why do people stay in familiar situations too long?
-                    </p>
-                    <p>
-                        <i class="fas fa-scale-balanced mr-2 text-green-500"></i>
-                        How can you take risks without being reckless?
-                    </p>
-                    <p>
-                        <i class="fas fa-compass mr-2 text-green-500"></i>
-                        What does a personal breakthrough look like?
-                    </p>
+                    <p class="font-semibold text-gray-300">Share a traditional dish from your region and its story.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 2: Key Expressions -->
         <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500">
-                    <i class="fas fa-book-open"></i>
-                    Key Expressions
-                </h2>
-
-                <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">To step out of your comfort zone</h4>
-                            </div>
-
-                            <div class="flashcard-back">
-                                <p class="text-xl">To do something that makes you feel uncomfortable in order to grow. <br>
-                                    <em>"You need to step out of your comfort zone if you want to improve."</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">To take a leap of faith</h4>
-                            </div>
-
-                            <div class="flashcard-back">
-                                <p class="text-xl">To do something even though you are not sure of the outcome. <br>
-                                    <em>"Quitting his job to start a business was a huge leap of faith."</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">To play it safe</h4>
-                            </div>
-
-                            <div class="flashcard-back">
-                                <p class="text-xl">To avoid taking risks. <br>
-                                    <em>"I could have invested the money, but I decided to play it safe."</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">To hold yourself back</h4>
-                            </div>
-
-                            <div class="flashcard-back">
-                                <p class="text-xl">To prevent yourself from achieving something due to fear or doubt. <br>
-                                    <em>"Don't let fear hold you back from pursuing your dreams."</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">To face your fears</h4>
-                            </div>
-
-                            <div class="flashcard-back">
-                                <p class="text-xl">To confront the things that scare you. <br>
-                                    <em>"She finally faced her fears and learned how to swim."</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">A stepping stone</h4>
-                            </div>
-
-                            <div class="flashcard-back">
-                                <p class="text-xl">An action or event that helps you make progress towards a goal. <br>
-                                    <em>"This entry-level job is just a stepping stone to a better career."</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-lightbulb"></i> Key Expressions</h2>
+            <div class="flashcard-grid max-w-6xl mx-auto">
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Savory</h4></div><div class="flashcard-back"><p class="text-xl">Not sweet; often salty or spicy.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Umami</h4></div><div class="flashcard-back"><p class="text-xl">A rich savory taste.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Farm-to-table</h4></div><div class="flashcard-back"><p class="text-xl">Using local fresh ingredients.</p></div></div></div>
             </div>
         </div>
 
-        <!-- Slide 3: Song 1 -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-500">
-                <i class="fas fa-music text-yellow-500"></i>
-                Song 1: Brave
-                <span class="text-xl text-gray-400">- Sara Bareilles</span>
-            </h2>
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-comments"></i> Discussion</h2>
+            <div class="debate-card max-w-4xl mx-auto space-y-4">
+                <p>Is fast food hurting local cuisines?</p>
+                <p>Should recipes be preserved or adapted?</p>
+                <p>Is fusion cuisine respectful or cultural appropriation?</p>
+            </div>
+        </div>
 
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-utensils"></i> Activity: Create a Regional Menu</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-4">
+                <p class="font-semibold">Design a 3-course menu using local ingredients and explain cultural meanings behind each dish.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-music text-yellow-500"></i> Song 1</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <div class="mb-4 rounded-xl overflow-hidden">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/61nAJEJlEbbNgXz8N2P40r?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </div>
-
-                <div class="mb-4 bg-yellow-900/30 p-4 rounded-lg border border-yellow-500/30">
-                    <p class="text-sm italic">
-                        <i class="fas fa-info-circle mr-2 text-yellow-400"></i>
-                        Theme: courage, voice, and stepping out of silence.
-                    </p>
-                </div>
-
-                <div class="mt-4 lyrics-box pr-4">
-                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-yellow-500">
-                        <p>Say what you wanna <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="say"><i class="fas fa-eye"></i></button></p>
-<p>And let the words fall <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="out"><i class="fas fa-eye"></i></button></p>
-<p>Honestly, I wanna see you be <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="brave"><i class="fas fa-eye"></i></button></p>
-<p>With what you want to <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="say"><i class="fas fa-eye"></i></button></p>
-<br>
-<p>You can be amazing</p>
-<p>You can turn a phrase into a weapon or a drug</p>
-<p>You can be the outcast</p>
-<p>Or be the backlash of somebody's lack of love</p>
-<p>Or you can start speaking up</p>
-                    </div>
-                </div>
+                <p class="text-sm italic text-gray-400">(Song placeholder)</p>
             </div>
         </div>
 
-        <!-- Slide 4: Song 1 Debate -->
         <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-2 text-green-500">
-                    <i class="fas fa-comments"></i>
-                    Song 1 Debate
-                </h2>
-
-                <p class="text-lg text-gray-400 mb-6 italic">Brave - Voice and Courage</p>
-
-                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="debate-card">
-                        <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
-                        <p class="text-xl">
-                            <i class="fas fa-user text-green-400 mr-2"></i>
-                            The song focuses on words that stay trapped inside. What comfort zone is the speaker challenging?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
-                        <p class="text-xl">
-                            <i class="fas fa-brain text-blue-400 mr-2"></i>
-                            How does speaking openly become an act of personal growth?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
-                        <p class="text-xl">
-                            <i class="fas fa-comment-dots text-purple-400 mr-2"></i>
-                            Why does the song connect courage with honesty rather than physical risk?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
-                        <p class="text-xl">
-                            <i class="fas fa-scale-balanced text-yellow-400 mr-2"></i>
-                            What makes using your voice difficult when the message matters?
-                        </p>
-                    </div>
-                </div>
+            <h2 class="text-4xl font-bold mb-2 text-green-500"><i class="fas fa-comments"></i> Song 1 Debate</h2>
+            <div class="debate-card max-w-4xl mx-auto">
+                <p class="text-xl">How does food connect people across cultures?</p>
             </div>
         </div>
 
-        <!-- Slide 5: Song 2 -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-500">
-                <i class="fas fa-music text-blue-500"></i>
-                Song 2: The Climb
-                <span class="text-xl text-gray-400">- Miley Cyrus</span>
-            </h2>
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-puzzle-piece"></i> Practice: Food Vocabulary</h2>
+            <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <p class="text-2xl mb-8 text-gray-300">Match ingredients to dishes and describe flavors.</p>
+            </div>
+        </div>
 
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-music text-blue-500"></i> Song 2</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <div class="mb-4 rounded-xl overflow-hidden">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5x121w2N8rD12zZt2kQeYv?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </div>
-
-                <div class="mb-4 bg-blue-900/30 p-4 rounded-lg border border-blue-500/30">
-                    <p class="text-sm italic">
-                        <i class="fas fa-info-circle mr-2 text-blue-400"></i>
-                        Theme: perseverance, the journey over the destination, and facing challenges.
-                    </p>
-                </div>
-
-                <div class="mt-4 lyrics-box pr-4">
-                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-blue-500">
-                        <p>There's always gonna be another <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="mountain"><i class="fas fa-eye"></i></button></p>
-<p>I'm always gonna wanna make it <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="move"><i class="fas fa-eye"></i></button></p>
-<p>Always gonna be an uphill <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="battle"><i class="fas fa-eye"></i></button></p>
-<p>Sometimes I'm gonna have to <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="lose"><i class="fas fa-eye"></i></button></p>
-<br>
-<p>Ain't about how fast I get there</p>
-<p>Ain't about what's waiting on the other side</p>
-<p>It's the climb</p>
-                    </div>
-                </div>
+                <p class="text-sm italic text-gray-400">(Song placeholder)</p>
             </div>
         </div>
 
-        <!-- Slide 6: Song 2 Debate -->
         <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-2 text-green-500">
-                    <i class="fas fa-comments"></i>
-                    Song 2 Debate
-                </h2>
-
-                <p class="text-lg text-gray-400 mb-6 italic">The Climb - The Journey</p>
-
-                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="debate-card">
-                        <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
-                        <p class="text-xl">
-                            <i class="fas fa-person-hiking text-green-400 mr-2"></i>
-                            What 'mountain' are you currently trying to climb in your life?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
-                        <p class="text-xl">
-                            <i class="fas fa-road text-blue-400 mr-2"></i>
-                            Why is it important to accept that 'sometimes I'm gonna have to lose'?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
-                        <p class="text-xl">
-                            <i class="fas fa-compass text-purple-400 mr-2"></i>
-                            Do you agree that the journey ('the climb') is more important than the destination?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
-                        <p class="text-xl">
-                            <i class="fas fa-scale-balanced text-yellow-400 mr-2"></i>
-                            Does modern society focus too much on the result and not enough on the process?
-                        </p>
-                    </div>
-                </div>
+            <h2 class="text-4xl font-bold mb-2 text-green-500"><i class="fas fa-comments"></i> Song 2 Debate</h2>
+            <div class="debate-card max-w-4xl mx-auto">
+                <p class="text-xl">Discuss how migration influences food traditions.</p>
             </div>
         </div>
 
-        <!-- Slide: Mid Reflection -->
         <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500">
-                    <i class="fas fa-arrow-right-arrow-left"></i>
-                    The Growth Zone
-                </h2>
-
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-8 text-2xl text-left">
-                    <p class="text-xl mb-4 text-green-400 font-bold">Growth happens at the edge of your comfort zone.</p>
-<p class="text-2xl mb-6">Psychologists often talk about three zones: Comfort, Panic, and Growth.</p>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 text-lg">
-    <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-blue-500"><b>Comfort Zone:</b> Safe, familiar, but no learning happens here.</div>
-    <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-green-500"><b>Growth Zone:</b> Challenging, slightly scary, where skills are built.</div>
-    <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-red-500"><b>Panic Zone:</b> Too much stress, overwhelming, causes retreat.</div>
-</div>
-<p class="mt-8 text-2xl text-center font-semibold italic">How do you know when you are in the Growth Zone versus the Panic Zone?</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 7: Song 3 -->
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-500">
-                <i class="fas fa-music text-cyan-500"></i>
-                Song 3: Unwritten
-                <span class="text-xl text-gray-400">- Natasha Bedingfield</span>
-            </h2>
-
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-music text-cyan-500"></i> Song 3</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <div class="mb-4 rounded-xl overflow-hidden">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3U5JVgI2x4rDyHGObzJfjz?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </div>
-
-                <div class="mb-4 bg-cyan-900/30 p-4 rounded-lg border border-cyan-500/30">
-                    <p class="text-sm italic">
-                        <i class="fas fa-info-circle mr-2 text-cyan-400"></i>
-                        Theme: possibility, writing your own story, and embracing the unknown.
-                    </p>
-                </div>
-
-                <div class="mt-4 lyrics-box pr-4">
-                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-cyan-500">
-                        <p>Live your life with arms wide <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="open"><i class="fas fa-eye"></i></button></p>
-<p>Today is where your book <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="begins"><i class="fas fa-eye"></i></button></p>
-<p>The rest is still <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="unwritten"><i class="fas fa-eye"></i></button></p>
-<p>Yeah, the rest is still <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="unwritten"><i class="fas fa-eye"></i></button></p>
-<br>
-<p>I am unwritten, can't read my mind, I'm undefined</p>
-<p>I'm just beginning, the pen's in my hand, ending unplanned</p>
-<p>Staring at the blank page before you</p>
-<p>Open up the dirty window</p>
-<p>Let the sun illuminate the words that you could not find</p>
-                    </div>
-                </div>
+                <p class="text-sm italic text-gray-400">(Song placeholder)</p>
             </div>
         </div>
 
-        <!-- Slide 8: Song 3 Debate -->
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-2 text-green-500">
-                    <i class="fas fa-comments"></i>
-                    Song 3 Debate
-                </h2>
-
-                <p class="text-lg text-gray-400 mb-6 italic">Unwritten - Possibility and Reinvention</p>
-
-                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="debate-card">
-                        <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
-                        <p class="text-xl">
-                            <i class="fas fa-book-open text-green-400 mr-2"></i>
-                            The song presents life as an unfinished page. What kind of freedom does that image create?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
-                        <p class="text-xl">
-                            <i class="fas fa-brain text-blue-400 mr-2"></i>
-                            How does the song encourage risk without giving a detailed plan?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
-                        <p class="text-xl">
-                            <i class="fas fa-comment-dots text-purple-400 mr-2"></i>
-                            Why does openness to the unknown matter for leaving a comfort zone?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
-                        <p class="text-xl">
-                            <i class="fas fa-scale-balanced text-yellow-400 mr-2"></i>
-                            Can too much possibility be inspiring and frightening at the same time?
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide: Practice -->
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500">
-                    <i class="fas fa-puzzle-piece"></i>
-                    Practice: Match the Expressions
-                </h2>
-
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-2xl mb-8 text-gray-300">Drag the expression to the correct sentence:</p>
-
-                    <div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div>
-
-                    <div id="matching-activity" class="space-y-8 text-left"></div>
-
-                    <button id="check-answers-btn" class="mt-12 bg-green-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-green-700 shadow-lg">Check Answers</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide: Speaking Activity -->
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500">
-                    <i class="fas fa-compass-drafting"></i>
-                    Your Position
-                </h2>
-
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto">
-                    <div class="space-y-6 text-left text-xl">
-                        <p>
-                            <b class="text-green-500">Choose ONE question and answer it in 2-3 minutes.</b>
-                            State a position, justify it, and address one opposing idea respectfully.
-                        </p>
-
-                        <div class="space-y-4 mt-6">
-                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-green-500">
-                                <p>
-                                    <i class="fas fa-person-walking-arrow-right text-green-500 mr-2"></i>
-                                    <strong>Should people regularly force themselves to leave their comfort zones?</strong>
-                                </p>
-                            </div>
-                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-blue-500">
-                                <p>
-                                    <i class="fas fa-bullseye text-blue-500 mr-2"></i>
-                                    <strong>What is the next growth challenge you want to tackle?</strong>
-                                </p>
-                            </div>
-                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-purple-500">
-                                <p>
-                                    <i class="fas fa-parachute-box text-purple-500 mr-2"></i>
-                                    <strong>How can someone take a leap of faith without being reckless?</strong>
-                                </p>
-                            </div>
-                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-yellow-500">
-                                <p>
-                                    <i class="fas fa-clock-rotate-left text-yellow-500 mr-2"></i>
-                                    <strong>Think of a time you played it safe. Do you regret it now?</strong>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-8 bg-gray-700 p-5 rounded-lg border border-green-500/40 text-center">
-                        <i class="fas fa-lightbulb text-green-500 text-3xl mb-3"></i>
-                        <p class="text-lg italic">"Great conversations begin where certainty ends."</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide: Homework -->
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500">
-                    <i class="fas fa-pen-nib"></i>
-                    Homework
-                </h2>
-
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-300">
-                        Write a short action plan (120-180 words) for stepping out of one comfort zone.
-                    </p>
-
-                    <div class="text-left text-xl space-y-4 mt-4 bg-gray-700 p-4 rounded-lg">
-                        <p>✓ Use at least 3 expressions from today's lesson.</p>
-                        <p>✓ Identify the comfort zone you want to leave.</p>
-                        <p>✓ Describe the risk and the first small step you will take.</p>
-                        <p>✓ Explain how you will know you have grown.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide: Well Done -->
         <div class="slide">
             <div class="text-center flex flex-col items-center justify-center h-full">
-                <i class="fas fa-mountain text-green-500 text-7xl mb-6"></i>
+                <i class="fas fa-utensils text-green-500 text-7xl mb-6"></i>
                 <h2 class="text-5xl font-bold mb-4 text-gray-100">Well Done!</h2>
-                <p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">"Great conversations begin where certainty ends."</p>
-
-                <div class="pt-8">
-                    <button id="finish-lesson-btn-main"
-                            class="bg-green-600 hover:bg-green-500 text-white text-2xl font-bold py-4 px-12 rounded-full transition-all transform hover:scale-105 shadow-lg">
-                        Finalizar e Sair <i class="fas fa-check-circle ml-2"></i>
-                    </button>
-                </div>
+                <p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">Cook or research a traditional dish for homework.</p>
+                <div class="pt-8"><button id="finish-lesson-btn-main" class="bg-green-600 hover:bg-green-500 text-white text-2xl font-bold py-4 px-12 rounded-full transition-all transform hover:scale-105 shadow-lg">Finalizar e Sair <i class="fas fa-check-circle ml-2"></i></button></div>
             </div>
         </div>
 
@@ -557,11 +129,8 @@
 
     <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
         <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn"
-                    class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
-
-            <button id="next-btn"
-                    class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Proximo</button>
+            <button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Proximo</button>
         </div>
     </footer>
 
@@ -587,148 +156,37 @@
             function showSlide(index) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
-
-                if (progressBar) {
-                    progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
-                }
-
-                if (slideCounter) {
-                    slideCounter.innerText = `${index + 1} / ${slides.length}`;
-                }
-
+                if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+                if (slideCounter) slideCounter.innerText = `${index + 1} / ${slides.length}`;
                 if (prevBtn) prevBtn.disabled = index === 0;
-
                 const isLastSlide = index === slides.length - 1;
                 if (nextBtn) nextBtn.style.display = isLastSlide ? 'none' : 'block';
             }
 
-            if (prevBtn) {
-                prevBtn.onclick = () => {
-                    if (currentSlide > 0) {
-                        currentSlide--;
-                        showSlide(currentSlide);
-                    }
-                };
-            }
+            if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } };
+            if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } };
 
-            if (nextBtn) {
-                nextBtn.onclick = () => {
-                    if (currentSlide < slides.length - 1) {
-                        currentSlide++;
-                        showSlide(currentSlide);
-                    }
-                };
-            }
-
-            if (finishLessonBtn) {
-                finishLessonBtn.onclick = () => {
-                    finishLessonBtn.disabled = true;
-                    finishLessonBtn.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>';
-
-                    if (typeof markLessonAsComplete === 'function') {
-                        markLessonAsComplete(moduleId, lessonNumber);
-                    } else {
-                        console.error('Funcao markLessonAsComplete nao encontrada.');
-                        localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true');
-                        window.location.href = 'conversation.html';
-                    }
-                };
-            }
+            if (finishLessonBtn) finishLessonBtn.onclick = () => {
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>';
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber);
+                } else {
+                    localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true');
+                    window.location.href = 'conversation.html';
+                }
+            };
 
             document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+            document.querySelectorAll('.answer-btn').forEach(button => button.addEventListener('click', () => { const inputField = button.previousElementSibling; if (inputField) { inputField.value = button.dataset.answer; inputField.classList.add('text-green-400','font-bold'); } }));
 
-            document.querySelectorAll('.answer-btn').forEach(button => button.addEventListener('click', () => {
-                const inputField = button.previousElementSibling;
-                if (inputField) {
-                    inputField.value = button.dataset.answer;
-                    inputField.classList.add('text-green-400', 'font-bold');
-                }
-            }));
-
-            const wordBank = document.getElementById('word-bank');
-            const activityContainer = document.getElementById('matching-activity');
-            const checkBtn = document.getElementById('check-answers-btn');
-
-            const vocabulary = [{"id": "w1", "text": "To step out of your comfort zone"}, {"id": "w2", "text": "To take a leap of faith"}, {"id": "w3", "text": "To play it safe"}, {"id": "w4", "text": "To hold yourself back"}, {"id": "w5", "text": "To face your fears"}, {"id": "w6", "text": "A stepping stone"}];
-
-            const situations = [{"text": "She decided <span class='drop-zone' data-answer='To step out of your comfort zone'>________</span> and signed up for a public speaking class.", "answer": "To step out of your comfort zone"}, {"text": "Moving to a new country without a job was a big <span class='drop-zone' data-answer='To take a leap of faith'>________</span>.", "answer": "To take a leap of faith"}, {"text": "Instead of investing in the new startup, he chose <span class='drop-zone' data-answer='To play it safe'>________</span> and keep his money in the bank.", "answer": "To play it safe"}, {"text": "Her lack of confidence continues <span class='drop-zone' data-answer='To hold yourself back'>________</span> from applying for promotions.", "answer": "To hold yourself back"}, {"text": "It's time <span class='drop-zone' data-answer='To face your fears'>________</span> and finally learn how to drive.", "answer": "To face your fears"}, {"text": "Working as an assistant is just <span class='drop-zone' data-answer='A stepping stone'>________</span> to becoming a manager.", "answer": "A stepping stone"}];
-
-            if (wordBank && activityContainer) {
-                vocabulary.sort(() => Math.random() - 0.5).forEach(word => {
-                    const pill = document.createElement('div');
-                    pill.className = 'word-pill';
-                    pill.draggable = true;
-                    pill.innerText = word.text;
-                    pill.id = `word-${word.id}`;
-                    pill.addEventListener('dragstart', (e) => e.dataTransfer.setData('text/plain', word.text));
-                    wordBank.appendChild(pill);
-                });
-
-                activityContainer.innerHTML = situations.map(s => `<p class="text-xl text-gray-200">${s.text}</p>`).join('');
-
-                const dropZones = document.querySelectorAll('.drop-zone');
-                dropZones.forEach(zone => {
-                    zone.addEventListener('dragover', (e) => {
-                        e.preventDefault();
-                        zone.classList.add('hover');
-                    });
-
-                    zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
-
-                    zone.addEventListener('drop', (e) => {
-                        e.preventDefault();
-                        zone.classList.remove('hover');
-                        zone.innerText = e.dataTransfer.getData('text/plain');
-                        zone.classList.add('filled');
-                    });
-
-                    zone.addEventListener('click', () => {
-                        zone.innerText = '________';
-                        zone.classList.remove('filled');
-                        zone.style.color = '#86efac';
-                        zone.style.backgroundColor = 'transparent';
-                        zone.style.borderRadius = '0';
-                    });
-                });
-
-                if (checkBtn) checkBtn.onclick = () => {
-                    let correctCount = 0;
-                    let answeredCount = 0;
-
-                    dropZones.forEach(zone => {
-                        const current = zone.innerText.trim();
-                        const expected = (zone.dataset.answer || '').trim();
-
-                        if (current !== '________') answeredCount++;
-
-                        if (current.toLowerCase() === expected.toLowerCase()) {
-                            zone.style.color = '#10b981';
-                            zone.style.fontWeight = '700';
-                            zone.style.backgroundColor = 'rgba(16, 185, 129, 0.18)';
-                            zone.style.borderRadius = '8px';
-                            correctCount++;
-                        } else if (current !== '________') {
-                            zone.style.color = '#ef4444';
-                            zone.style.fontWeight = '700';
-                            zone.style.backgroundColor = 'rgba(239, 68, 68, 0.18)';
-                            zone.style.borderRadius = '8px';
-                        }
-                    });
-
-                    if (answeredCount === dropZones.length && correctCount === dropZones.length) {
-                        checkBtn.innerText = 'Perfect!';
-                        checkBtn.classList.replace('bg-green-600', 'bg-emerald-500');
-                    } else if (answeredCount === dropZones.length) {
-                        checkBtn.innerText = 'Try Again';
-                        checkBtn.classList.replace('bg-green-600', 'bg-orange-500');
-                        setTimeout(() => {
-                            checkBtn.innerText = 'Check Answers';
-                            checkBtn.classList.replace('bg-orange-500', 'bg-green-600');
-                        }, 2000);
-                    }
-                };
-            }
+            showSlide(0);
         });
     </script>
+
+    <script src="../js/flashcard-pronunciation.js"></script>
+    <script src="../js/lesson-flashcard-save.js"></script>
+    <script src="conversation-lesson-theme.js"></script>
 </body>
+
 </html>

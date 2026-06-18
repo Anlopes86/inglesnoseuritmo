@@ -13,9 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'The Media, News & Politics', 'Psychology & Human Behavior', 'History & Historical Figures', 'Ethics & Morality',
         'Science & Space Exploration', 'Fashion & Personal Style', 'Culture & Leisure', 'The Modern Face of Love',
         'Childhood & Growing Up', 'Conspiracy Theories', 'Music, Emotions & Identity', 'Aging & Getting Older', 'Language & Communication',
-        'Mistakes & Regrets', 'Heroes & Role Models', 'Strange Jobs & Unusual Careers', 'The Paradox of Choice', 'The Ethics of Biohacking',
-        'The Art of Storytelling', 'Leadership & Influence', 'Winning & Playing Fair', 'Identity & Who We Are', 'Humor & The Power of Laughter',
-        'Comfort Zones & Personal Growth'
+        'Sports, Rivalries & The World Cup', 'Heroes & Role Models', 'Food Around the World', 'The Paradox of Choice', 'The Ethics of Biohacking',
+        'The Art of Storytelling', 'Movies, Series & Pop Culture', 'The Most Interesting Places on Earth', 'Weird Inventions & Crazy Ideas', 'Humor & The Power of Laughter',
+        'Fun Predictions: Life in 2050'
     ];
 
     const unitLabels = [
@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'Modern Life', 'Mindset', 'Mystery', 'Memory', 'Society', 'Culture', 'Growth', 'Future',
         'Learning', 'Nature', 'Competition', 'Habits', 'Impact', 'Creativity', 'Money', 'Work Trends',
         'Media', 'Behavior', 'History', 'Ethics', 'Science', 'Style', 'Culture', 'Modern Love',
-        'Childhood', 'Ideas', 'Music', 'Aging', 'Language', 'Reflection', 'Inspiration', 'Careers',
-        'Decisions', 'Bioethics', 'Narrative', 'Leadership', 'Fair Play', 'Identity', 'Humor', 'Growth'
+        'Childhood', 'Ideas', 'Music', 'Aging', 'Language', 'Sports', 'Inspiration', 'Food',
+        'Decisions', 'Bioethics', 'Narrative', 'Pop Culture', 'Places', 'Innovation', 'Humor', 'Futures'
     ];
 
     function buildLessonCard(title, lessonNumber, state, isManager) {

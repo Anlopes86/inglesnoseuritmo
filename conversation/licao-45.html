@@ -1,10 +1,12 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversation Class - Lesson 45: Winning & Playing Fair</title>
+    <title>Conversation Class - Lesson 45: Movies, Series & Pop Culture</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
@@ -13,26 +15,16 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #111827; }
         .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
-        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+        .flashcard { background-color: transparent; height: 160px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; border: 1px solid #4b5563; }
-        .flashcard-front { background-color: #1f2937; color: #22c55e; text-align: center; }
-        .flashcard-back { background-color: #166534; color: white; transform: rotateY(180deg); text-align: center; }
-        .lyrics-box { max-height: 420px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #22c55e #1f2937; }
-        .word-pill { cursor: grab; background-color: #16a34a; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
-        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
-        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #22c55e; text-align: center; color: #86efac; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
-        .drop-zone.hover { border-color: #86efac; background-color: rgba(34, 197, 94, 0.1); }
-        .drop-zone.filled { border-bottom-style: solid; }
-        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
-        .answer-btn:hover { color: #22c55e; }
-        .debate-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }
-        .debate-card:hover { transform: translateY(-2px); }
-        .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display:flex; align-items:center; justify-content:center; padding:1rem; border-radius:.75rem; border:1px solid #374151; }
+        .flashcard-front { background:#0f172a; color:#22c55e; }
+        .flashcard-back { background:#065f46; color:#fff; transform:rotateY(180deg); }
+        .debate-card { background: linear-gradient(135deg,#0b1220 0%,#071023 100%); border:1px solid #334155; padding:1rem; border-radius:0.75rem; }
     </style>
 
     <link rel="stylesheet" href="conversation-lesson-theme.css">
@@ -41,530 +33,96 @@
 <body class="bg-gray-900 text-white">
     <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="conversation.html"
-               class="text-lg font-bold text-green-500 hover:text-green-400 flex items-center gap-2">
-                <i class="fas fa-chevron-left"></i>
-                Back
-            </a>
-
-            <h1 class="text-xl font-semibold text-center">Lesson 45: Winning & Playing Fair</h1>
-
-            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 13</div>
+            <a href="conversation.html" class="text-lg font-bold text-green-500 hover:text-green-400 flex items-center gap-2"><i class="fas fa-chevron-left"></i>Back</a>
+            <h1 class="text-xl font-semibold text-center">Lesson 45: Movies, Series & Pop Culture</h1>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 14</div>
         </div>
-
-        <div class="w-full bg-gray-700 h-1.5">
-            <div id="progress-bar"
-                 class="bg-green-500 h-1.5 transition-all duration-300 ease-in-out"></div>
-        </div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5"></div></div>
     </header>
 
     <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
 
-        <!-- Slide 1: Warm-up -->
         <div class="slide active">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500">
-                    <i class="fas fa-trophy"></i>
-                    Warm-up: The Cost of Victory
-                </h2>
-
+                <h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-film"></i> Warm-up: Pop Culture Moments</h2>
                 <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-3xl mx-auto space-y-6 text-2xl">
-                    <p class="font-semibold text-gray-300">
-                        Let's discuss competition, ethics, and success.
-                    </p>
-
-                    <p>
-                        <i class="fas fa-lightbulb mr-2 text-green-500"></i>
-                        Is winning the most important thing in a competition?
-                    </p>
-                    <p>
-                        <i class="fas fa-brain mr-2 text-green-500"></i>
-                        How do you define 'playing fair'?
-                    </p>
-                    <p>
-                        <i class="fas fa-scale-balanced mr-2 text-green-500"></i>
-                        Are there situations where bending the rules is acceptable?
-                    </p>
-                    <p>
-                        <i class="fas fa-compass mr-2 text-green-500"></i>
-                        How does society treat losers compared to winners?
-                    </p>
+                    <p class="font-semibold text-gray-300">Share a film or series that impacted you and explain why.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 2: Key Expressions -->
         <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500">
-                    <i class="fas fa-book-open"></i>
-                    Key Expressions
-                </h2>
-
-                <div class="flashcard-grid max-w-6xl mx-auto">
-                    <div class="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">To play by the rules</h4>
-                            </div>
-
-                            <div class="flashcard-back">
-                                <p class="text-xl">To act fairly and follow regulations. <br>
-                                    <em>"If you want to be respected, you have to play by the rules."</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">A level playing field</h4>
-                            </div>
-
-                            <div class="flashcard-back">
-                                <p class="text-xl">A situation where everyone has an equal chance of succeeding. <br>
-                                    <em>"We need to create a level playing field for all competitors."</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">To bend the rules</h4>
-                            </div>
-
-                            <div class="flashcard-back">
-                                <p class="text-xl">To interpret rules loosely without technically breaking them. <br>
-                                    <em>"Sometimes you have to bend the rules to get things done."</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">To win at all costs</h4>
-                            </div>
-
-                            <div class="flashcard-back">
-                                <p class="text-xl">To do whatever is necessary to achieve victory, regardless of ethics. <br>
-                                    <em>"His 'win at all costs' mentality made him unpopular."</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">A sore loser</h4>
-                            </div>
-
-                            <div class="flashcard-back">
-                                <p class="text-xl">Someone who gets angry or upset when they lose. <br>
-                                    <em>"Nobody likes playing with a sore loser."</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flashcard">
-                        <div class="flashcard-inner">
-                            <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">To throw in the towel</h4>
-                            </div>
-
-                            <div class="flashcard-back">
-                                <p class="text-xl">To give up or surrender. <br>
-                                    <em>"After three failed attempts, he finally threw in the towel."</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-lightbulb"></i> Key Expressions</h2>
+            <div class="flashcard-grid max-w-6xl mx-auto">
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Plot twist</h4></div><div class="flashcard-back"><p class="text-xl">An unexpected development.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Binge-watch</h4></div><div class="flashcard-back"><p class="text-xl">To watch many episodes in one go.</p></div></div></div>
+                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Cult classic</h4></div><div class="flashcard-back"><p class="text-xl">A film with a dedicated fanbase.</p></div></div></div>
             </div>
         </div>
 
-        <!-- Slide 3: Song 1 -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-500">
-                <i class="fas fa-music text-yellow-500"></i>
-                Song 1: We Are The Champions
-                <span class="text-xl text-gray-400">- Queen</span>
-            </h2>
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-comments"></i> Discussion</h2>
+            <div class="debate-card max-w-4xl mx-auto space-y-4">
+                <p>Which character would you like to be? Why?</p>
+                <p>Are remakes usually better or worse?</p>
+            </div>
+        </div>
 
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-clapper-board"></i> Activity: Pitch a Short Film</h2>
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-4">
+                <p class="font-semibold">Create a 60-second pitch: logline, protagonist, conflict, and a twist.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-music text-yellow-500"></i> Song 1</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <div class="mb-4 rounded-xl overflow-hidden">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7ccI9cStQbQdystvc6TvxD?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </div>
-
-                <div class="mb-4 bg-yellow-900/30 p-4 rounded-lg border border-yellow-500/30">
-                    <p class="text-sm italic">
-                        <i class="fas fa-info-circle mr-2 text-yellow-400"></i>
-                        Theme: perseverance, overcoming obstacles, and the ultimate triumph.
-                    </p>
-                </div>
-
-                <div class="mt-4 lyrics-box pr-4">
-                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-yellow-500">
-                        <p>I've paid my <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="dues"><i class="fas fa-eye"></i></button></p>
-<p>Time after <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="time"><i class="fas fa-eye"></i></button></p>
-<p>I've done my <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="sentence"><i class="fas fa-eye"></i></button></p>
-<p>But committed no <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="crime"><i class="fas fa-eye"></i></button></p>
-<br>
-<p>And bad mistakes</p>
-<p>I've made a few</p>
-<p>I've had my share of sand kicked in my face</p>
-<p>But I've come through</p>
-<br>
-<p>We are the champions, my friends</p>
-<p>And we'll keep on fighting 'til the end</p>
-<p>We are the champions</p>
-<p>We are the champions</p>
-<p>No time for losers</p>
-<p>'Cause we are the champions of the world</p>
-                    </div>
-                </div>
+                <p class="text-sm italic text-gray-400">(Song placeholder)</p>
             </div>
         </div>
 
-        <!-- Slide 4: Song 1 Debate -->
         <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-2 text-green-500">
-                    <i class="fas fa-comments"></i>
-                    Song 1 Debate
-                </h2>
-
-                <p class="text-lg text-gray-400 mb-6 italic">We Are The Champions - The Glory of Winning</p>
-
-                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="debate-card">
-                        <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
-                        <p class="text-xl">
-                            <i class="fas fa-medal text-green-400 mr-2"></i>
-                            What is the most satisfying victory you have ever experienced?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
-                        <p class="text-xl">
-                            <i class="fas fa-road text-blue-400 mr-2"></i>
-                            Why does the song emphasize the struggles before the victory?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
-                        <p class="text-xl">
-                            <i class="fas fa-thumbs-down text-purple-400 mr-2"></i>
-                            Do you agree with the line 'no time for losers'?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
-                        <p class="text-xl">
-                            <i class="fas fa-users text-yellow-400 mr-2"></i>
-                            Does celebrating a win too much show disrespect to the opponents?
-                        </p>
-                    </div>
-                </div>
+            <h2 class="text-4xl font-bold mb-2 text-green-500"><i class="fas fa-comments"></i> Song 1 Debate</h2>
+            <div class="debate-card max-w-4xl mx-auto">
+                <p class="text-xl">How does music in a film change the scene's meaning?</p>
             </div>
         </div>
 
-        <!-- Slide 5: Song 2 -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-500">
-                <i class="fas fa-music text-blue-500"></i>
-                Song 2: Hall of Fame
-                <span class="text-xl text-gray-400">- The Script ft. will.i.am</span>
-            </h2>
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-puzzle-piece"></i> Practice: Describe a Scene</h2>
+            <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <p class="text-2xl mb-8 text-gray-300">Describe a film scene focusing on senses, emotions and camera angles.</p>
+            </div>
+        </div>
 
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-music text-blue-500"></i> Song 2</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <div class="mb-4 rounded-xl overflow-hidden">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7OvwEGEE5vF7yEa01tJ14G?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </div>
-
-                <div class="mb-4 bg-blue-900/30 p-4 rounded-lg border border-blue-500/30">
-                    <p class="text-sm italic">
-                        <i class="fas fa-info-circle mr-2 text-blue-400"></i>
-                        Theme: dedication, potential, and achieving greatness through hard work.
-                    </p>
-                </div>
-
-                <div class="mt-4 lyrics-box pr-4">
-                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-blue-500">
-                        <p>You could be the <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="greatest"><i class="fas fa-eye"></i></button></p>
-<p>You can be the <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="best"><i class="fas fa-eye"></i></button></p>
-<p>You can be the <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="King Kong"><i class="fas fa-eye"></i></button></p>
-<p>Banging on your <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="chest"><i class="fas fa-eye"></i></button></p>
-<br>
-<p>You could beat the world</p>
-<p>You could beat the war</p>
-<p>You could talk to God, go banging on his door</p>
-<p>You can throw your hands up</p>
-<p>You can beat the clock</p>
-<p>You can move a mountain</p>
-<p>You can break rocks</p>
-<p>You can be a master</p>
-<p>Don't wait for luck</p>
-<p>Dedicate yourself and you gon' find yourself</p>
-<p>Standing in the hall of fame</p>
-                    </div>
-                </div>
+                <p class="text-sm italic text-gray-400">(Song placeholder)</p>
             </div>
         </div>
 
-        <!-- Slide 6: Song 2 Debate -->
         <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-2 text-green-500">
-                    <i class="fas fa-comments"></i>
-                    Song 2 Debate
-                </h2>
-
-                <p class="text-lg text-gray-400 mb-6 italic">Hall of Fame - Reaching Your Potential</p>
-
-                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="debate-card">
-                        <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
-                        <p class="text-xl">
-                            <i class="fas fa-star text-green-400 mr-2"></i>
-                            What is your personal 'Hall of Fame'?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
-                        <p class="text-xl">
-                            <i class="fas fa-dumbbell text-blue-400 mr-2"></i>
-                            How much of success is luck, and how much is dedication?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
-                        <p class="text-xl">
-                            <i class="fas fa-crown text-purple-400 mr-2"></i>
-                            Does everyone have the potential to be 'the greatest' at something?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
-                        <p class="text-xl">
-                            <i class="fas fa-scale-balanced text-yellow-400 mr-2"></i>
-                            Is the pressure to be the best harmful to our mental health?
-                        </p>
-                    </div>
-                </div>
+            <h2 class="text-4xl font-bold mb-2 text-green-500"><i class="fas fa-comments"></i> Song 2 Debate</h2>
+            <div class="debate-card max-w-4xl mx-auto">
+                <p class="text-xl">Discuss how pop culture reflects social values.</p>
             </div>
         </div>
 
-        <!-- Slide: Mid Reflection -->
         <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500">
-                    <i class="fas fa-balance-scale"></i>
-                    Ethics of Competition
-                </h2>
-
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-8 text-2xl text-left">
-                    <p class="text-xl mb-4 text-green-400 font-bold">Winning is celebrated, but how we win matters.</p>
-<p class="text-2xl mb-6">In sports, business, and life, the desire to succeed can sometimes push people to compromise their values.</p>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-    <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-blue-500"><b>Fair Play:</b> Winning only counts if the rules were respected.</div>
-    <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-orange-500"><b>The Real World:</b> The rules are often bent by those at the top.</div>
-</div>
-<p class="mt-8 text-2xl text-center font-semibold italic">Is a victory achieved by bending the rules still a victory?</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 7: Song 3 -->
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-500">
-                <i class="fas fa-music text-cyan-500"></i>
-                Song 3: Lose Yourself
-                <span class="text-xl text-gray-400">- Eminem</span>
-            </h2>
-
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-music text-cyan-500"></i> Song 3</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <div class="mb-4 rounded-xl overflow-hidden">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5Z01UMMQhpeWTnE51vHpwZ?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </div>
-
-                <div class="mb-4 bg-cyan-900/30 p-4 rounded-lg border border-cyan-500/30">
-                    <p class="text-sm italic">
-                        <i class="fas fa-info-circle mr-2 text-cyan-400"></i>
-                        Theme: seizing the moment, pressure, and giving everything you have.
-                    </p>
-                </div>
-
-                <div class="mt-4 lyrics-box pr-4">
-                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-cyan-500">
-                        <p>Look, if you had one <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="shot"><i class="fas fa-eye"></i></button></p>
-<p>Or one <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="opportunity"><i class="fas fa-eye"></i></button></p>
-<p>To seize everything you ever <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="wanted"><i class="fas fa-eye"></i></button></p>
-<p>In one <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="moment"><i class="fas fa-eye"></i></button></p>
-<br>
-<p>Would you capture it</p>
-<p>Or just let it slip?</p>
-<br>
-<p>You better lose yourself in the music, the moment</p>
-<p>You own it, you better never let it go</p>
-<p>You only get one shot, do not miss your chance to blow</p>
-<p>This opportunity comes once in a lifetime</p>
-                    </div>
-                </div>
+                <p class="text-sm italic text-gray-400">(Song placeholder)</p>
             </div>
         </div>
 
-        <!-- Slide 8: Song 3 Debate -->
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-2 text-green-500">
-                    <i class="fas fa-comments"></i>
-                    Song 3 Debate
-                </h2>
-
-                <p class="text-lg text-gray-400 mb-6 italic">Lose Yourself - Seizing the Moment</p>
-
-                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="debate-card">
-                        <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
-                        <p class="text-xl">
-                            <i class="fas fa-stopwatch text-green-400 mr-2"></i>
-                            Have you ever had a 'one shot' opportunity? What did you do?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
-                        <p class="text-xl">
-                            <i class="fas fa-gauge-high text-blue-400 mr-2"></i>
-                            How does intense pressure affect a person's performance?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
-                        <p class="text-xl">
-                            <i class="fas fa-hand-fist text-purple-400 mr-2"></i>
-                            Is it better to fail trying or to never take the shot?
-                        </p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
-                        <p class="text-xl">
-                            <i class="fas fa-scale-balanced text-yellow-400 mr-2"></i>
-                            Do we really only get 'one shot', or is life full of second chances?
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide: Practice -->
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500">
-                    <i class="fas fa-puzzle-piece"></i>
-                    Practice: Match the Expressions
-                </h2>
-
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-2xl mb-8 text-gray-300">Drag the expression to the correct sentence:</p>
-
-                    <div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div>
-
-                    <div id="matching-activity" class="space-y-8 text-left"></div>
-
-                    <button id="check-answers-btn" class="mt-12 bg-green-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-green-700 shadow-lg">Check Answers</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide: Speaking Activity -->
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500">
-                    <i class="fas fa-microphone"></i>
-                    Your Perspective
-                </h2>
-
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto">
-                    <div class="space-y-6 text-left text-xl">
-                        <p>
-                            <b class="text-green-500">Choose ONE question and answer it in 2-3 minutes.</b>
-                            Discuss competition and fairness.
-                        </p>
-
-                        <div class="space-y-4 mt-6">
-                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-green-500">
-                                <p>
-                                    <i class="fas fa-trophy text-green-500 mr-2"></i>
-                                    <strong>Can a person be too competitive?</strong>
-                                </p>
-                            </div>
-                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-blue-500">
-                                <p>
-                                    <i class="fas fa-handshake text-blue-500 mr-2"></i>
-                                    <strong>What is the best way to handle a defeat?</strong>
-                                </p>
-                            </div>
-                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-purple-500">
-                                <p>
-                                    <i class="fas fa-scale-unbalanced text-purple-500 mr-2"></i>
-                                    <strong>Have you ever been in a situation where the playing field was not level?</strong>
-                                </p>
-                            </div>
-                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-yellow-500">
-                                <p>
-                                    <i class="fas fa-eye-slash text-yellow-500 mr-2"></i>
-                                    <strong>If you knew you could cheat and definitely not get caught, would you?</strong>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-8 bg-gray-700 p-5 rounded-lg border border-green-500/40 text-center">
-                        <i class="fas fa-lightbulb text-green-500 text-3xl mb-3"></i>
-                        <p class="text-lg italic">"Winning isn't everything, but wanting to win is."</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide: Homework -->
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500">
-                    <i class="fas fa-pen-nib"></i>
-                    Homework
-                </h2>
-
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
-                    <p class="text-2xl mb-6 text-gray-300">
-                        Write a short paragraph (100-150 words) about a time you competed for something.
-                    </p>
-
-                    <div class="text-left text-xl space-y-4 mt-4 bg-gray-700 p-4 rounded-lg">
-                        <p>✓ Use at least 3 expressions from today's lesson.</p>
-                        <p>✓ Describe what the competition was and what was at stake.</p>
-                        <p>✓ Explain how you prepared and how you felt.</p>
-                        <p>✓ Discuss the outcome and what you learned from the experience.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide: Well Done -->
         <div class="slide">
             <div class="text-center flex flex-col items-center justify-center h-full">
-                <i class="fas fa-trophy text-green-500 text-7xl mb-6"></i>
+                <i class="fas fa-film text-green-500 text-7xl mb-6"></i>
                 <h2 class="text-5xl font-bold mb-4 text-gray-100">Well Done!</h2>
-                <p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">"Winning isn't everything, but wanting to win is."</p>
-
-                <div class="pt-8">
-                    <button id="finish-lesson-btn-main"
-                            class="bg-green-600 hover:bg-green-500 text-white text-2xl font-bold py-4 px-12 rounded-full transition-all transform hover:scale-105 shadow-lg">
-                        Finalizar e Sair <i class="fas fa-check-circle ml-2"></i>
-                    </button>
-                </div>
+                <p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">Prepare your pitch and bring a 30-second trailer idea for homework.</p>
+                <div class="pt-8"><button id="finish-lesson-btn-main" class="bg-green-600 hover:bg-green-500 text-white text-2xl font-bold py-4 px-12 rounded-full transition-all transform hover:scale-105 shadow-lg">Finalizar e Sair <i class="fas fa-check-circle ml-2"></i></button></div>
             </div>
         </div>
 
@@ -572,11 +130,8 @@
 
     <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
         <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn"
-                    class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
-
-            <button id="next-btn"
-                    class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Proximo</button>
+            <button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Proximo</button>
         </div>
     </footer>
 
@@ -602,148 +157,41 @@
             function showSlide(index) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
-
-                if (progressBar) {
-                    progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
-                }
-
-                if (slideCounter) {
-                    slideCounter.innerText = `${index + 1} / ${slides.length}`;
-                }
-
+                if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+                if (slideCounter) slideCounter.innerText = `${index + 1} / ${slides.length}`;
                 if (prevBtn) prevBtn.disabled = index === 0;
-
                 const isLastSlide = index === slides.length - 1;
                 if (nextBtn) nextBtn.style.display = isLastSlide ? 'none' : 'block';
             }
 
-            if (prevBtn) {
-                prevBtn.onclick = () => {
-                    if (currentSlide > 0) {
-                        currentSlide--;
-                        showSlide(currentSlide);
-                    }
-                };
-            }
+            if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } };
+            if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } };
 
-            if (nextBtn) {
-                nextBtn.onclick = () => {
-                    if (currentSlide < slides.length - 1) {
-                        currentSlide++;
-                        showSlide(currentSlide);
-                    }
-                };
-            }
-
-            if (finishLessonBtn) {
-                finishLessonBtn.onclick = () => {
-                    finishLessonBtn.disabled = true;
-                    finishLessonBtn.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>';
-
-                    if (typeof markLessonAsComplete === 'function') {
-                        markLessonAsComplete(moduleId, lessonNumber);
-                    } else {
-                        console.error('Funcao markLessonAsComplete nao encontrada.');
-                        localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true');
-                        window.location.href = 'conversation.html';
-                    }
-                };
-            }
+            if (finishLessonBtn) finishLessonBtn.onclick = () => {
+                finishLessonBtn.disabled = true;
+                finishLessonBtn.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>';
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber);
+                } else {
+                    localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true');
+                    window.location.href = 'conversation.html';
+                }
+            };
 
             document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+            document.querySelectorAll('.answer-btn').forEach(button => button.addEventListener('click', () => { const inputField = button.previousElementSibling; if (inputField) { inputField.value = button.dataset.answer; inputField.classList.add('text-green-400','font-bold'); } }));
 
-            document.querySelectorAll('.answer-btn').forEach(button => button.addEventListener('click', () => {
-                const inputField = button.previousElementSibling;
-                if (inputField) {
-                    inputField.value = button.dataset.answer;
-                    inputField.classList.add('text-green-400', 'font-bold');
-                }
-            }));
-
-            const wordBank = document.getElementById('word-bank');
-            const activityContainer = document.getElementById('matching-activity');
-            const checkBtn = document.getElementById('check-answers-btn');
-
-            const vocabulary = [{"id": "w1", "text": "To play by the rules"}, {"id": "w2", "text": "A level playing field"}, {"id": "w3", "text": "To bend the rules"}, {"id": "w4", "text": "To win at all costs"}, {"id": "w5", "text": "A sore loser"}, {"id": "w6", "text": "To throw in the towel"}];
-
-            const situations = [{"text": "The referee ensured that both teams had <span class='drop-zone' data-answer='A level playing field'>________</span>.", "answer": "A level playing field"}, {"text": "He refused to cheat because he always prefers <span class='drop-zone' data-answer='To play by the rules'>________</span>.", "answer": "To play by the rules"}, {"text": "When the project became too difficult, she decided <span class='drop-zone' data-answer='To throw in the towel'>________</span>.", "answer": "To throw in the towel"}, {"text": "His <span class='drop-zone' data-answer='To win at all costs'>________</span> attitude alienated his teammates.", "answer": "To win at all costs"}, {"text": "Nobody likes <span class='drop-zone' data-answer='A sore loser'>________</span> who complains after every defeat.", "answer": "A sore loser"}, {"text": "Sometimes, in order to innovate, you have <span class='drop-zone' data-answer='To bend the rules'>________</span> slightly.", "answer": "To bend the rules"}];
-
-            if (wordBank && activityContainer) {
-                vocabulary.sort(() => Math.random() - 0.5).forEach(word => {
-                    const pill = document.createElement('div');
-                    pill.className = 'word-pill';
-                    pill.draggable = true;
-                    pill.innerText = word.text;
-                    pill.id = `word-${word.id}`;
-                    pill.addEventListener('dragstart', (e) => e.dataTransfer.setData('text/plain', word.text));
-                    wordBank.appendChild(pill);
-                });
-
-                activityContainer.innerHTML = situations.map(s => `<p class="text-xl text-gray-200">${s.text}</p>`).join('');
-
-                const dropZones = document.querySelectorAll('.drop-zone');
-                dropZones.forEach(zone => {
-                    zone.addEventListener('dragover', (e) => {
-                        e.preventDefault();
-                        zone.classList.add('hover');
-                    });
-
-                    zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
-
-                    zone.addEventListener('drop', (e) => {
-                        e.preventDefault();
-                        zone.classList.remove('hover');
-                        zone.innerText = e.dataTransfer.getData('text/plain');
-                        zone.classList.add('filled');
-                    });
-
-                    zone.addEventListener('click', () => {
-                        zone.innerText = '________';
-                        zone.classList.remove('filled');
-                        zone.style.color = '#86efac';
-                        zone.style.backgroundColor = 'transparent';
-                        zone.style.borderRadius = '0';
-                    });
-                });
-
-                if (checkBtn) checkBtn.onclick = () => {
-                    let correctCount = 0;
-                    let answeredCount = 0;
-
-                    dropZones.forEach(zone => {
-                        const current = zone.innerText.trim();
-                        const expected = (zone.dataset.answer || '').trim();
-
-                        if (current !== '________') answeredCount++;
-
-                        if (current.toLowerCase() === expected.toLowerCase()) {
-                            zone.style.color = '#10b981';
-                            zone.style.fontWeight = '700';
-                            zone.style.backgroundColor = 'rgba(16, 185, 129, 0.18)';
-                            zone.style.borderRadius = '8px';
-                            correctCount++;
-                        } else if (current !== '________') {
-                            zone.style.color = '#ef4444';
-                            zone.style.fontWeight = '700';
-                            zone.style.backgroundColor = 'rgba(239, 68, 68, 0.18)';
-                            zone.style.borderRadius = '8px';
-                        }
-                    });
-
-                    if (answeredCount === dropZones.length && correctCount === dropZones.length) {
-                        checkBtn.innerText = 'Perfect!';
-                        checkBtn.classList.replace('bg-green-600', 'bg-emerald-500');
-                    } else if (answeredCount === dropZones.length) {
-                        checkBtn.innerText = 'Try Again';
-                        checkBtn.classList.replace('bg-green-600', 'bg-orange-500');
-                        setTimeout(() => {
-                            checkBtn.innerText = 'Check Answers';
-                            checkBtn.classList.replace('bg-orange-500', 'bg-green-600');
-                        }, 2000);
-                    }
-                };
-            }
+            showSlide(0);
         });
     </script>
+
+    <script src="../js/flashcard-pronunciation.js"></script>
+    <script src="../js/lesson-flashcard-save.js"></script>
+    <script src="conversation-lesson-theme.js"></script>
 </body>
+
 </html>
+
+
+
+
