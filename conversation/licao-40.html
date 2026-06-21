@@ -4,221 +4,535 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversation Class - Lesson 40: Would You Survive a Zombie Apocalypse?</title>
+    <title>Conversation Class - Lesson 40: Strange Jobs & Unusual Careers</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #111827;
-        }
-
-        .slide {
-            display: none;
-        }
-
-        .slide.active {
-            display: block;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .flashcard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .flashcard {
-            background-color: transparent;
-            height: 180px;
-            perspective: 1000px;
-            cursor: pointer;
-        }
-
-        .flashcard-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.7s;
-            transform-style: preserve-3d;
-        }
-
-        .flashcard.flipped .flashcard-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flashcard-front,
-        .flashcard-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            border: 1px solid #4b5563;
-        }
-
-        .flashcard-front {
-            background-color: #1f2937;
-            color: #22c55e;
-            text-align: center;
-        }
-
-        .flashcard-back {
-            background-color: #166534;
-            color: white;
-            transform: rotateY(180deg);
-            text-align: center;
-        }
-
-        .lyrics-box {
-            max-height: 420px;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: #22c55e #1f2937;
-        }
-
-        .word-pill {
-            cursor: grab;
-            background-color: #16a34a;
-            padding: 0.5rem 1.25rem;
-            border-radius: 9999px;
-            font-weight: 600;
-            transition: all 0.2s;
-            user-select: none;
-        }
-
-        .word-pill:active {
-            cursor: grabbing;
-            transform: scale(0.95);
-        }
-
-        .drop-zone {
-            display: inline-block;
-            min-width: 140px;
-            border-bottom: 2px dashed #22c55e;
-            text-align: center;
-            color: #86efac;
-            font-weight: 700;
-            padding: 0 10px;
-            margin: 0 5px;
-            transition: all 0.3s;
-        }
-
-        .drop-zone.hover {
-            border-color: #86efac;
-            background-color: rgba(34, 197, 94, 0.1);
-        }
-
-        .drop-zone.filled {
-            border-bottom-style: solid;
-        }
-
-        .answer-btn {
-            color: #9ca3af;
-            margin-left: 8px;
-            transition: color 0.2s;
-        }
-
-        .answer-btn:hover {
-            color: #22c55e;
-        }
-
-        .debate-card {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 1px solid #334155;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            transition: transform 0.2s;
-        }
-
-        .debate-card:hover {
-            transform: translateY(-2px);
-        }
-
-        .debate-label {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            margin-bottom: 0.75rem;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #111827; }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; border: 1px solid #4b5563; }
+        .flashcard-front { background-color: #1f2937; color: #22c55e; text-align: center; }
+        .flashcard-back { background-color: #166534; color: white; transform: rotateY(180deg); text-align: center; }
+        .lyrics-box { max-height: 420px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #22c55e #1f2937; }
+        .word-pill { cursor: grab; background-color: #16a34a; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
+        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
+        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #22c55e; text-align: center; color: #86efac; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
+        .drop-zone.hover { border-color: #86efac; background-color: rgba(34, 197, 94, 0.1); }
+        .drop-zone.filled { border-bottom-style: solid; }
+        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
+        .answer-btn:hover { color: #22c55e; }
+        .debate-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }
+        .debate-card:hover { transform: translateY(-2px); }
+        .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
     </style>
+
     <link rel="stylesheet" href="conversation-lesson-theme.css">
 </head>
 
 <body class="bg-gray-900 text-white">
     <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="conversation.html" class="text-lg font-bold text-green-500 hover:text-green-400 flex items-center gap-2"><i class="fas fa-chevron-left"></i>Back</a>
-            <h1 class="text-xl font-semibold text-center">Lesson 40: Would You Survive a Zombie Apocalypse?</h1>
-            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 8</div>
+            <a href="conversation.html"
+               class="text-lg font-bold text-green-500 hover:text-green-400 flex items-center gap-2">
+                <i class="fas fa-chevron-left"></i>
+                Back
+            </a>
+
+            <h1 class="text-xl font-semibold text-center">Lesson 40: Strange Jobs & Unusual Careers</h1>
+
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 13</div>
         </div>
-        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5"></div></div>
+
+        <div class="w-full bg-gray-700 h-1.5">
+            <div id="progress-bar"
+                 class="bg-green-500 h-1.5 transition-all duration-300 ease-in-out"></div>
+        </div>
     </header>
 
     <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
+
+        <!-- Slide 1: Warm-up -->
         <div class="slide active">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-ghost"></i> Warm-up: Survival Instincts</h2>
+                <h2 class="text-4xl font-bold mb-6 text-green-500">
+                    <i class="fas fa-briefcase"></i>
+                    Warm-up: Beyond 9 to 5
+                </h2>
+
                 <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-3xl mx-auto space-y-6 text-2xl">
-                    <p class="font-semibold text-gray-300">Who would survive longer and why?</p>
-                    <p>What three items would you take?</p>
-                    <p>Would you help strangers?</p>
+                    <p class="font-semibold text-gray-300">
+                        Let's talk about work, passion, and making a living.
+                    </p>
+
+                    <p>
+                        <i class="fas fa-lightbulb mr-2 text-green-500"></i>
+                        What is the strangest job you have ever heard of?
+                    </p>
+                    <p>
+                        <i class="fas fa-brain mr-2 text-green-500"></i>
+                        Would you rather have a boring job that pays well or an exciting job that pays poorly?
+                    </p>
+                    <p>
+                        <i class="fas fa-scale-balanced mr-2 text-green-500"></i>
+                        Is it possible to turn any passion into a career?
+                    </p>
+                    <p>
+                        <i class="fas fa-compass mr-2 text-green-500"></i>
+                        How do you think the concept of a 'career' will change in the next 20 years?
+                    </p>
                 </div>
             </div>
         </div>
 
+        <!-- Slide 2: Key Expressions -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-lightbulb"></i> Key Expressions</h2>
-            <div class="flashcard-grid max-w-6xl mx-auto">
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To fortify</h4></div><div class="flashcard-back"><p class="text-xl">To strengthen defenses. <em>"We need to fortify the house."</em></p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Ration</h4></div><div class="flashcard-back"><p class="text-xl">To distribute limited supplies. <em>"Let's ration food for a week."</em></p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Safe haven</h4></div><div class="flashcard-back"><p class="text-xl">A protected place. <em>"We found a safe haven in the hills."</em></p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To scavenge</h4></div><div class="flashcard-back"><p class="text-xl">To search for usable items. <em>"We scavenged an old supermarket."</em></p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Trust issues</h4></div><div class="flashcard-back"><p class="text-xl">Difficulty trusting others. <em>"Trust issues are common after disasters."</em></p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Moral dilemma</h4></div><div class="flashcard-back"><p class="text-xl">A hard ethical choice. <em>"Would you sacrifice one to save many?"</em></p></div></div></div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-500">
+                    <i class="fas fa-book-open"></i>
+                    Key Expressions
+                </h2>
+
+                <div class="flashcard-grid max-w-6xl mx-auto">
+                    <div class="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <h4 class="text-2xl font-bold">To make a living</h4>
+                            </div>
+
+                            <div class="flashcard-back">
+                                <p class="text-xl">To earn enough money to support oneself. <br>
+                                    <em>"He makes a living as a freelance photographer."</em>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <h4 class="text-2xl font-bold">A dead-end job</h4>
+                            </div>
+
+                            <div class="flashcard-back">
+                                <p class="text-xl">A job with no prospects for promotion or advancement. <br>
+                                    <em>"She quit her dead-end job to start her own business."</em>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <h4 class="text-2xl font-bold">To climb the corporate ladder</h4>
+                            </div>
+
+                            <div class="flashcard-back">
+                                <p class="text-xl">To advance in one's career within a company. <br>
+                                    <em>"He's working hard to climb the corporate ladder."</em>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <h4 class="text-2xl font-bold">To be your own boss</h4>
+                            </div>
+
+                            <div class="flashcard-back">
+                                <p class="text-xl">To be self-employed or run your own business. <br>
+                                    <em>"The best part of freelancing is being your own boss."</em>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <h4 class="text-2xl font-bold">To work nine to five</h4>
+                            </div>
+
+                            <div class="flashcard-back">
+                                <p class="text-xl">To work regular office hours. <br>
+                                    <em>"I'm tired of working nine to five; I need more flexibility."</em>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <h4 class="text-2xl font-bold">To think outside the box</h4>
+                            </div>
+
+                            <div class="flashcard-back">
+                                <p class="text-xl">To think creatively or unconventionally. <br>
+                                    <em>"In this unusual career, you really need to think outside the box."</em>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <!-- Slide 3: Song 1 -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-comments"></i> Discussion</h2>
-            <div class="debate-card max-w-4xl mx-auto space-y-4">
-                <p>Who would survive longer: teachers or doctors?</p>
-                <p>What three items would you take?</p>
-                <p>Would you help strangers?</p>
-                <p>Where would you hide?</p>
-                <p>Would you trust other survivors?</p>
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500">
+                <i class="fas fa-music text-yellow-500"></i>
+                Song 1: Money for Nothing
+                <span class="text-xl text-gray-400">- Dire Straits</span>
+            </h2>
+
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="mb-4 rounded-xl overflow-hidden">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4y1Ls9v9oevWyXvYnuuX9Y?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+
+                <div class="mb-4 bg-yellow-900/30 p-4 rounded-lg border border-yellow-500/30">
+                    <p class="text-sm italic">
+                        <i class="fas fa-info-circle mr-2 text-yellow-400"></i>
+                        Theme: the contrast between manual labor and the seemingly 'easy' jobs in the entertainment industry.
+                    </p>
+                </div>
+
+                <div class="mt-4 lyrics-box pr-4">
+                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-yellow-500">
+                        <p>Now that ain't <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="working"><i class="fas fa-eye"></i></button>, that's the way you do it.</p>
+<p>You play the guitar on the <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="MTV"><i class="fas fa-eye"></i></button>.</p>
+<p>That ain't working, that's the way you <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="do it"><i class="fas fa-eye"></i></button>.</p>
+<p>Money for nothing and your <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="chicks"><i class="fas fa-eye"></i></button> for free.</p>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <!-- Slide 4: Song 1 Debate -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-users"></i> Activity: Choose Your Team</h2>
-            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-4">
-                <p class="font-semibold">Pick 5 people for your survivor group from the list and justify your choices: athlete, scientist, chef, mechanic, influencer, soldier, teacher.</p>
-                <p>Discuss roles, strengths and weaknesses and create a short plan for the first 72 hours.</p>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-2 text-green-500">
+                    <i class="fas fa-comments"></i>
+                    Song 1 Debate
+                </h2>
+
+                <p class="text-lg text-gray-400 mb-6 italic">Money for Nothing - Labor vs. Fame</p>
+
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card">
+                        <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
+                        <p class="text-xl">
+                            <i class="fas fa-hammer text-green-400 mr-2"></i>
+                            Do you think some jobs are overpaid while others are underpaid?
+                        </p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
+                        <p class="text-xl">
+                            <i class="fas fa-tv text-blue-400 mr-2"></i>
+                            How has the definition of 'working' changed since the rise of social media influencers?
+                        </p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
+                        <p class="text-xl">
+                            <i class="fas fa-comments text-purple-400 mr-2"></i>
+                            Is 'easy money' a real thing, or does every job have its own hidden difficulties?
+                        </p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
+                        <p class="text-xl">
+                            <i class="fas fa-scale-balanced text-yellow-400 mr-2"></i>
+                            Should a person's salary be based on the physical effort they put in or the value they create?
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Song 2 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500">
+                <i class="fas fa-music text-blue-500"></i>
+                Song 2: Billionaire
+                <span class="text-xl text-gray-400">- Travie McCoy ft. Bruno Mars</span>
+            </h2>
+
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="mb-4 rounded-xl overflow-hidden">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2S9pZpI656O7I60S0ZqN1G?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+
+                <div class="mb-4 bg-blue-900/30 p-4 rounded-lg border border-blue-500/30">
+                    <p class="text-sm italic">
+                        <i class="fas fa-info-circle mr-2 text-blue-400"></i>
+                        Theme: the dream of extreme wealth and what people would do if they had no financial limits.
+                    </p>
+                </div>
+
+                <div class="mt-4 lyrics-box pr-4">
+                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-blue-500">
+                        <p>I wanna be a <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="billionaire"><i class="fas fa-eye"></i></button> so fucking bad.</p>
+<p>Buy all of the things I never <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="had"><i class="fas fa-eye"></i></button>.</p>
+<p>I wanna be on the cover of <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="Forbes"><i class="fas fa-eye"></i></button> magazine.</p>
+<p>Smiling next to Oprah and the <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="Queen"><i class="fas fa-eye"></i></button>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Song 2 Debate -->
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-2 text-green-500">
+                    <i class="fas fa-comments"></i>
+                    Song 2 Debate
+                </h2>
+
+                <p class="text-lg text-gray-400 mb-6 italic">Billionaire - The Dream of Wealth</p>
+
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card">
+                        <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
+                        <p class="text-xl">
+                            <i class="fas fa-money-bill-wave text-green-400 mr-2"></i>
+                            If you became a billionaire tomorrow, what is the first thing you would buy?
+                        </p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
+                        <p class="text-xl">
+                            <i class="fas fa-heart text-blue-400 mr-2"></i>
+                            Can money truly buy happiness, or does it just buy comfort?
+                        </p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
+                        <p class="text-xl">
+                            <i class="fas fa-globe text-purple-400 mr-2"></i>
+                            If you were incredibly rich, would you still choose to work? Why or why not?
+                        </p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
+                        <p class="text-xl">
+                            <i class="fas fa-scale-balanced text-yellow-400 mr-2"></i>
+                            Is the pursuit of extreme wealth a good motivation for a career, or is it a trap?
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide: Mid Reflection -->
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-500">
+                    <i class="fas fa-briefcase-medical"></i>
+                    Finding Meaning in Work
+                </h2>
+
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-8 text-2xl text-left">
+                    <p class="text-xl mb-4 text-green-400 font-bold">Is a job just a paycheck, or should it be more?</p>
+<p class="text-2xl mb-6">Many people seek purpose in their careers, while others are content to do their jobs and find meaning in their hobbies or families.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+    <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-blue-500"><b>The Passion View:</b> You spend most of your life working, so you must love what you do.</div>
+    <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-orange-500"><b>The Practical View:</b> Work pays the bills; passion is for your free time.</div>
+</div>
+<p class="mt-8 text-2xl text-center font-semibold italic">Which philosophy do you relate to more, and why?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Song 3 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500">
+                <i class="fas fa-music text-cyan-500"></i>
+                Song 3: Fast Car
+                <span class="text-xl text-gray-400">- Tracy Chapman</span>
+            </h2>
+
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                <div class="mb-4 rounded-xl overflow-hidden">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2M9ro2kr9YvuiZfs6uG1i0?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+
+                <div class="mb-4 bg-cyan-900/30 p-4 rounded-lg border border-cyan-500/30">
+                    <p class="text-sm italic">
+                        <i class="fas fa-info-circle mr-2 text-cyan-400"></i>
+                        Theme: the struggle to escape poverty through work and the hope for a better life.
+                    </p>
+                </div>
+
+                <div class="mt-4 lyrics-box pr-4">
+                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-cyan-500">
+                        <p>You got a fast car, I want a <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="ticket"><i class="fas fa-eye"></i></button> to anywhere.</p>
+<p>Maybe we make a <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="deal"><i class="fas fa-eye"></i></button>.</p>
+<p>Maybe together we can get somewhere, anyplace is <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="better"><i class="fas fa-eye"></i></button>.</p>
+<p>Starting from zero got nothing to <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="lose"><i class="fas fa-eye"></i></button>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Song 3 Debate -->
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-2 text-green-500">
+                    <i class="fas fa-comments"></i>
+                    Song 3 Debate
+                </h2>
+
+                <p class="text-lg text-gray-400 mb-6 italic">Fast Car - Escaping the Cycle</p>
+
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card">
+                        <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
+                        <p class="text-xl">
+                            <i class="fas fa-car text-green-400 mr-2"></i>
+                            Have you ever felt like you needed to 'escape' your current situation to grow?
+                        </p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
+                        <p class="text-xl">
+                            <i class="fas fa-briefcase text-blue-400 mr-2"></i>
+                            Why is it so difficult for people to 'start from zero' and build a new life?
+                        </p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
+                        <p class="text-xl">
+                            <i class="fas fa-road text-purple-400 mr-2"></i>
+                            Does hard work always lead to a better life, or is luck a major factor?
+                        </p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
+                        <p class="text-xl">
+                            <i class="fas fa-scale-balanced text-yellow-400 mr-2"></i>
+                            Should society do more to help people who are working hard but still struggling to survive?
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide: Practice -->
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-500">
+                    <i class="fas fa-puzzle-piece"></i>
+                    Practice: Match the Expressions
+                </h2>
+
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-2xl mb-8 text-gray-300">Drag the expression to the correct sentence:</p>
+
+                    <div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div>
+
+                    <div id="matching-activity" class="space-y-8 text-left"></div>
+
+                    <button id="check-answers-btn" class="mt-12 bg-green-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-green-700 shadow-lg">Check Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide: Speaking Activity -->
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-500">
+                    <i class="fas fa-route"></i>
+                    Your Career Path
+                </h2>
+
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto">
+                    <div class="space-y-6 text-left text-xl">
+                        <p>
+                            <b class="text-green-500">Choose ONE question and answer it in 2-3 minutes.</b>
+                            Reflect on unusual jobs and career choices.
+                        </p>
+
+                        <div class="space-y-4 mt-6">
+                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-green-500">
+                                <p>
+                                    <i class="fas fa-user-astronaut text-green-500 mr-2"></i>
+                                    <strong>If you had to choose an unusual or strange job for one year, what would it be?</strong>
+                                </p>
+                            </div>
+                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-blue-500">
+                                <p>
+                                    <i class="fas fa-building-user text-blue-500 mr-2"></i>
+                                    <strong>What is the biggest advantage and disadvantage of being your own boss?</strong>
+                                </p>
+                            </div>
+                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-purple-500">
+                                <p>
+                                    <i class="fas fa-lightbulb text-purple-500 mr-2"></i>
+                                    <strong>Do you think society values creative jobs enough?</strong>
+                                </p>
+                            </div>
+                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-yellow-500">
+                                <p>
+                                    <i class="fas fa-money-bill-trend-up text-yellow-500 mr-2"></i>
+                                    <strong>If money were not an issue, what would you do with your time?</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 bg-gray-700 p-5 rounded-lg border border-green-500/40 text-center">
+                        <i class="fas fa-lightbulb text-green-500 text-3xl mb-3"></i>
+                        <p class="text-lg italic">"Choose a job you love, and you will never have to work a day in your life."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide: Homework -->
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-500">
+                    <i class="fas fa-pen-nib"></i>
+                    Homework
+                </h2>
+
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <p class="text-2xl mb-6 text-gray-300">
+                        Write a short paragraph (100-150 words) about an unusual job you find interesting.
+                    </p>
+
+                    <div class="text-left text-xl space-y-4 mt-4 bg-gray-700 p-4 rounded-lg">
+                        <p>✓ <strong>Use at least 3 expressions</strong> from today's lesson.</p>
+                        <p>✓ <strong>Describe</strong> what the job involves.</p>
+                        <p>✓ <strong>Explain</strong> why you find it interesting.</p>
+                        <p>✓ <strong>State</strong> whether you would actually want to do this job and why.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide: Well Done -->
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <i class="fas fa-briefcase text-green-500 text-7xl mb-6"></i>
+                <h2 class="text-5xl font-bold mb-4 text-gray-100">Well Done!</h2>
+                <p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">"Choose a job you love, and you will never have to work a day in your life."</p>
+
+                <div class="pt-8">
+                    <button id="finish-lesson-btn-main"
+                            class="bg-green-600 hover:bg-green-500 text-white text-2xl font-bold py-4 px-12 rounded-full transition-all transform hover:scale-105 shadow-lg">
+                        Finalizar e Sair <i class="fas fa-check-circle ml-2"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -226,9 +540,11 @@
 
     <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
         <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
+            <button id="prev-btn"
+                    class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
 
-            <button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Proximo</button>
+            <button id="next-btn"
+                    class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Proximo</button>
         </div>
     </footer>
 
@@ -312,13 +628,90 @@
                 }
             }));
 
-            showSlide(0);
+            const wordBank = document.getElementById('word-bank');
+            const activityContainer = document.getElementById('matching-activity');
+            const checkBtn = document.getElementById('check-answers-btn');
+
+            const vocabulary = [{"id": "w1", "text": "To make a living"}, {"id": "w2", "text": "A dead-end job"}, {"id": "w3", "text": "To climb the corporate ladder"}, {"id": "w4", "text": "To be your own boss"}, {"id": "w5", "text": "To work nine to five"}, {"id": "w6", "text": "To think outside the box"}];
+
+            const situations = [{"text": "She decided to quit her <span class='drop-zone' data-answer='A dead-end job'>________</span> because there was no chance for promotion.", "answer": "A dead-end job"}, {"text": "It's hard to <span class='drop-zone' data-answer='To make a living'>________</span> as an artist, but it's very rewarding.", "answer": "To make a living"}, {"text": "He wants to <span class='drop-zone' data-answer='To be your own boss'>________</span>, so he's starting his own company.", "answer": "To be your own boss"}, {"text": "To solve this unique problem, we need to <span class='drop-zone' data-answer='To think outside the box'>________</span>.", "answer": "To think outside the box"}, {"text": "She worked hard for years to <span class='drop-zone' data-answer='To climb the corporate ladder'>________</span> and become CEO.", "answer": "To climb the corporate ladder"}, {"text": "I don't want to <span class='drop-zone' data-answer='To work nine to five'>________</span> anymore; I prefer flexible hours.", "answer": "To work nine to five"}];
+
+            if (wordBank && activityContainer) {
+                vocabulary.sort(() => Math.random() - 0.5).forEach(word => {
+                    const pill = document.createElement('div');
+                    pill.className = 'word-pill';
+                    pill.draggable = true;
+                    pill.innerText = word.text;
+                    pill.id = `word-${word.id}`;
+                    pill.addEventListener('dragstart', (e) => e.dataTransfer.setData('text/plain', word.text));
+                    wordBank.appendChild(pill);
+                });
+
+                activityContainer.innerHTML = situations.map(s => `<p class="text-xl text-gray-200">${s.text}</p>`).join('');
+
+                const dropZones = document.querySelectorAll('.drop-zone');
+                dropZones.forEach(zone => {
+                    zone.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        zone.classList.add('hover');
+                    });
+
+                    zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
+
+                    zone.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        zone.classList.remove('hover');
+                        zone.innerText = e.dataTransfer.getData('text/plain');
+                        zone.classList.add('filled');
+                    });
+
+                    zone.addEventListener('click', () => {
+                        zone.innerText = '________';
+                        zone.classList.remove('filled');
+                        zone.style.color = '#86efac';
+                        zone.style.backgroundColor = 'transparent';
+                        zone.style.borderRadius = '0';
+                    });
+                });
+
+                if (checkBtn) checkBtn.onclick = () => {
+                    let correctCount = 0;
+                    let answeredCount = 0;
+
+                    dropZones.forEach(zone => {
+                        const current = zone.innerText.trim();
+                        const expected = (zone.dataset.answer || '').trim();
+
+                        if (current !== '________') answeredCount++;
+
+                        if (current.toLowerCase() === expected.toLowerCase()) {
+                            zone.style.color = '#10b981';
+                            zone.style.fontWeight = '700';
+                            zone.style.backgroundColor = 'rgba(16, 185, 129, 0.18)';
+                            zone.style.borderRadius = '8px';
+                            correctCount++;
+                        } else if (current !== '________') {
+                            zone.style.color = '#ef4444';
+                            zone.style.fontWeight = '700';
+                            zone.style.backgroundColor = 'rgba(239, 68, 68, 0.18)';
+                            zone.style.borderRadius = '8px';
+                        }
+                    });
+
+                    if (answeredCount === dropZones.length && correctCount === dropZones.length) {
+                        checkBtn.innerText = 'Perfect!';
+                        checkBtn.classList.replace('bg-green-600', 'bg-emerald-500');
+                    } else if (answeredCount === dropZones.length) {
+                        checkBtn.innerText = 'Try Again';
+                        checkBtn.classList.replace('bg-green-600', 'bg-orange-500');
+                        setTimeout(() => {
+                            checkBtn.innerText = 'Check Answers';
+                            checkBtn.classList.replace('bg-orange-500', 'bg-green-600');
+                        }, 2000);
+                    }
+                };
+            }
         });
     </script>
-
-    <script src="../js/flashcard-pronunciation.js"></script>
-    <script src="../js/lesson-flashcard-save.js"></script>
-    <script src="conversation-lesson-theme.js"></script>
 </body>
-
 </html>
