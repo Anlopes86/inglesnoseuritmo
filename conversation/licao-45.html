@@ -1,12 +1,10 @@
-﻿<!DOCTYPE html>
-<html lang="pt-BR">
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversation Class - Lesson 45: Movies, Series & Pop Culture</title>
+    <title>Conversation Class - Lesson 45: The Most Interesting Places on Earth</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
@@ -15,16 +13,26 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #111827; }
         .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
-        .flashcard { background-color: transparent; height: 160px; perspective: 1000px; cursor: pointer; }
-        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display:flex; align-items:center; justify-content:center; padding:1rem; border-radius:.75rem; border:1px solid #374151; }
-        .flashcard-front { background:#0f172a; color:#22c55e; }
-        .flashcard-back { background:#065f46; color:#fff; transform:rotateY(180deg); }
-        .debate-card { background: linear-gradient(135deg,#0b1220 0%,#071023 100%); border:1px solid #334155; padding:1rem; border-radius:0.75rem; }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; border: 1px solid #4b5563; }
+        .flashcard-front { background-color: #1f2937; color: #22c55e; text-align: center; }
+        .flashcard-back { background-color: #166534; color: white; transform: rotateY(180deg); text-align: center; }
+        .lyrics-box { max-height: 420px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #22c55e #1f2937; }
+        .word-pill { cursor: grab; background-color: #16a34a; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
+        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
+        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #22c55e; text-align: center; color: #86efac; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
+        .drop-zone.hover { border-color: #86efac; background-color: rgba(34, 197, 94, 0.1); }
+        .drop-zone.filled { border-bottom-style: solid; }
+        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
+        .answer-btn:hover { color: #22c55e; }
+        .debate-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }
+        .debate-card:hover { transform: translateY(-2px); }
+        .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
     </style>
 
     <link rel="stylesheet" href="conversation-lesson-theme.css">
@@ -33,96 +41,498 @@
 <body class="bg-gray-900 text-white">
     <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="conversation.html" class="text-lg font-bold text-green-500 hover:text-green-400 flex items-center gap-2"><i class="fas fa-chevron-left"></i>Back</a>
-            <h1 class="text-xl font-semibold text-center">Lesson 45: Movies, Series & Pop Culture</h1>
-            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 14</div>
+            <a href="conversation.html"
+               class="text-lg font-bold text-green-500 hover:text-green-400 flex items-center gap-2">
+                <i class="fas fa-chevron-left"></i>
+                Back
+            </a>
+
+            <h1 class="text-xl font-semibold text-center">Lesson 45: The Most Interesting Places on Earth</h1>
+
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 13</div>
         </div>
-        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-green-500 h-1.5"></div></div>
+
+        <div class="w-full bg-gray-700 h-1.5">
+            <div id="progress-bar"
+                 class="bg-green-500 h-1.5 transition-all duration-300 ease-in-out"></div>
+        </div>
     </header>
 
     <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
 
+        <!-- Slide 1: Warm-up -->
         <div class="slide active">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-film"></i> Warm-up: Pop Culture Moments</h2>
+                <h2 class="text-4xl font-bold mb-6 text-green-500">
+                    <i class="fas fa-map-location-dot"></i>
+                    Warm-up: Wanderlust
+                </h2>
+
                 <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-3xl mx-auto space-y-6 text-2xl">
-                    <p class="font-semibold text-gray-300">Share a film or series that impacted you and explain why.</p>
+                    <p class="font-semibold text-gray-300">
+                        Let's travel to the most unique, mysterious, and beautiful corners of our planet.
+                    </p>
+
+                    <p>
+                        <i class="fas fa-mountain mr-2 text-green-500"></i>
+                        What is the most beautiful natural landscape you have ever seen in person?
+                    </p>
+                    <p>
+                        <i class="fas fa-city mr-2 text-green-500"></i>
+                        If you could live in any city in the world for one year, which would it be?
+                    </p>
+                    <p>
+                        <i class="fas fa-ghost mr-2 text-green-500"></i>
+                        Are you more attracted to famous tourist landmarks or hidden, mysterious places?
+                    </p>
+                    <p>
+                        <i class="fas fa-suitcase mr-2 text-green-500"></i>
+                        What is the one thing you always carry with you when you travel?
+                    </p>
                 </div>
             </div>
         </div>
 
+        <!-- Slide 2: Key Expressions -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-6 text-green-500"><i class="fas fa-lightbulb"></i> Key Expressions</h2>
-            <div class="flashcard-grid max-w-6xl mx-auto">
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Plot twist</h4></div><div class="flashcard-back"><p class="text-xl">An unexpected development.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Binge-watch</h4></div><div class="flashcard-back"><p class="text-xl">To watch many episodes in one go.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Cult classic</h4></div><div class="flashcard-back"><p class="text-xl">A film with a dedicated fanbase.</p></div></div></div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-500">
+                    <i class="fas fa-book-open"></i>
+                    Key Expressions
+                </h2>
+
+                <div class="flashcard-grid max-w-6xl mx-auto">
+                    <div class="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <h4 class="text-2xl font-bold">Off the beaten path</h4>
+                            </div>
+
+                            <div class="flashcard-back">
+                                <p class="text-xl">In a place where few people go, far from main roads or centers of population. <br>
+                                    <em>"We decided to explore some villages off the beaten path to see the real country."</em>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <h4 class="text-2xl font-bold">To satisfy one's wanderlust</h4>
+                            </div>
+
+                            <div class="flashcard-back">
+                                <p class="text-xl">To fulfill a strong desire to travel. <br>
+                                    <em>"He took a year off work to satisfy his wanderlust and travel through Asia."</em>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <h4 class="text-2xl font-bold">A home away from home</h4>
+                            </div>
+
+                            <div class="flashcard-back">
+                                <p class="text-xl">A place where you feel as comfortable as you do in your own home. <br>
+                                    <em>"The small hotel in the mountains was a true home away from home."</em>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <h4 class="text-2xl font-bold">To see the sights</h4>
+                            </div>
+
+                            <div class="flashcard-back">
+                                <p class="text-xl">To visit the famous and interesting places in a city or country. <br>
+                                    <em>"We spent the whole day in Paris seeing the sights, like the Eiffel Tower and the Louvre."</em>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <h4 class="text-2xl font-bold">To travel light</h4>
+                            </div>
+
+                            <div class="flashcard-back">
+                                <p class="text-xl">To travel with very little luggage. <br>
+                                    <em>"I always try to travel light so I don't have to wait for my bags at the airport."</em>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <h4 class="text-2xl font-bold">A stone's throw away</h4>
+                            </div>
+
+                            <div class="flashcard-back">
+                                <p class="text-xl">A very short distance. <br>
+                                    <em>"Our apartment was just a stone's throw away from the beach."</em>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <!-- Slide 3: Song 1 -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-comments"></i> Discussion</h2>
-            <div class="debate-card max-w-4xl mx-auto space-y-4">
-                <p>Which character would you like to be? Why?</p>
-                <p>Are remakes usually better or worse?</p>
-            </div>
-        </div>
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500">
+                <i class="fas fa-music text-yellow-500"></i>
+                Song 1: Paradise
+                <span class="text-xl text-gray-400">- Coldplay</span>
+            </h2>
 
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-clapper-board"></i> Activity: Pitch a Short Film</h2>
-            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-4">
-                <p class="font-semibold">Create a 60-second pitch: logline, protagonist, conflict, and a twist.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-music text-yellow-500"></i> Song 1</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <p class="text-sm italic text-gray-400">(Song placeholder)</p>
+                <div class="mb-4 rounded-xl overflow-hidden">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6nek1S9sUGHdTuI97z9Z9m?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+
+                <div class="mb-4 bg-yellow-900/30 p-4 rounded-lg border border-yellow-500/30">
+                    <p class="text-sm italic">
+                        <i class="fas fa-info-circle mr-2 text-yellow-400"></i>
+                        Theme: the dream of finding a perfect place to escape the struggles of reality.
+                    </p>
+                </div>
+
+                <div class="mt-4 lyrics-box pr-4">
+                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-yellow-500">
+                        <p>When she was just a girl, she expected the <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="world"><i class="fas fa-eye"></i></button></p>
+<p>But it flew away from her <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="reach"><i class="fas fa-eye"></i></button></p>
+<p>In the night, the stormy night, she'd close her <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="eyes"><i class="fas fa-eye"></i></button></p>
+<p>And dream of para-para-<input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="paradise"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <!-- Slide 4: Song 1 Debate -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-2 text-green-500"><i class="fas fa-comments"></i> Song 1 Debate</h2>
-            <div class="debate-card max-w-4xl mx-auto">
-                <p class="text-xl">How does music in a film change the scene's meaning?</p>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-2 text-green-500">
+                    <i class="fas fa-comments"></i>
+                    Song 1 Debate
+                </h2>
+
+                <p class="text-lg text-gray-400 mb-6 italic">Paradise - Defining Paradise</p>
+
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card">
+                        <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
+                        <p class="text-xl">
+                            <i class="fas fa-palm-tree text-green-400 mr-2"></i>
+                            What does your personal 'paradise' look like? Is it a real place?
+                        </p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
+                        <p class="text-xl">
+                            <i class="fas fa-cloud text-blue-400 mr-2"></i>
+                            Why do we feel the need to 'escape' our daily lives through travel?
+                        </p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
+                        <p class="text-xl">
+                            <i class="fas fa-comments text-purple-400 mr-2"></i>
+                            Can a place ever live up to the 'paradise' we imagine in our heads?
+                        </p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
+                        <p class="text-xl">
+                            <i class="fas fa-scale-balanced text-yellow-400 mr-2"></i>
+                            Is tourism destroying the very 'paradises' it tries to celebrate?
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <!-- Slide 5: Song 2 -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-puzzle-piece"></i> Practice: Describe a Scene</h2>
-            <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <p class="text-2xl mb-8 text-gray-300">Describe a film scene focusing on senses, emotions and camera angles.</p>
-            </div>
-        </div>
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500">
+                <i class="fas fa-music text-blue-500"></i>
+                Song 2: Empire State of Mind
+                <span class="text-xl text-gray-400">- Jay-Z ft. Alicia Keys</span>
+            </h2>
 
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-music text-blue-500"></i> Song 2</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <p class="text-sm italic text-gray-400">(Song placeholder)</p>
+                <div class="mb-4 rounded-xl overflow-hidden">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2igwKRXJB97LzBzIixp9tk?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+
+                <div class="mb-4 bg-blue-900/30 p-4 rounded-lg border border-blue-500/30">
+                    <p class="text-sm italic">
+                        <i class="fas fa-info-circle mr-2 text-blue-400"></i>
+                        Theme: the energy, ambition, and iconic status of New York City.
+                    </p>
+                </div>
+
+                <div class="mt-4 lyrics-box pr-4">
+                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-blue-500">
+                        <p>In New York, concrete jungle where dreams are <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="made of"><i class="fas fa-eye"></i></button></p>
+<p>There's nothing you <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="can't do"><i class="fas fa-eye"></i></button></p>
+<p>Now you're in New York, these streets will make you feel brand <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="new"><i class="fas fa-eye"></i></button></p>
+<p>Big lights will <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="inspire"><i class="fas fa-eye"></i></button> you</p>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <!-- Slide 6: Song 2 Debate -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-2 text-green-500"><i class="fas fa-comments"></i> Song 2 Debate</h2>
-            <div class="debate-card max-w-4xl mx-auto">
-                <p class="text-xl">Discuss how pop culture reflects social values.</p>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-2 text-green-500">
+                    <i class="fas fa-comments"></i>
+                    Song 2 Debate
+                </h2>
+
+                <p class="text-lg text-gray-400 mb-6 italic">Empire State of Mind - The Magic of the City</p>
+
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card">
+                        <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
+                        <p class="text-xl">
+                            <i class="fas fa-city text-green-400 mr-2"></i>
+                            Are you a 'city person' or a 'nature person'? Why?
+                        </p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
+                        <p class="text-xl">
+                            <i class="fas fa-lightbulb text-blue-400 mr-2"></i>
+                            Why do certain cities like New York, Paris, or Tokyo have such a strong 'mythology'?
+                        </p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
+                        <p class="text-xl">
+                            <i class="fas fa-fire text-purple-400 mr-2"></i>
+                            Does a city's energy actually help people achieve their dreams, or is it just a distraction?
+                        </p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
+                        <p class="text-xl">
+                            <i class="fas fa-scale-balanced text-yellow-400 mr-2"></i>
+                            Are big cities becoming too expensive and crowded to be truly 'inspirational' anymore?
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <!-- Slide: Mid Reflection -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-green-500"><i class="fas fa-music text-cyan-500"></i> Song 3</h2>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-500">
+                    <i class="fas fa-map"></i>
+                    Tourist vs. Traveler
+                </h2>
+
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto space-y-8 text-2xl text-left">
+                    <p class="text-xl mb-4 text-green-400 font-bold">Are you visiting a place or experiencing it?</p>
+<p class="text-2xl mb-6">Some people want to see the top 10 landmarks and take photos. Others want to get lost in the backstreets and eat where the locals eat.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+    <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-blue-500"><b>The Tourist:</b> Focuses on comfort, famous sights, and checking things off a list.</div>
+    <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-orange-500"><b>The Traveler:</b> Focuses on immersion, spontaneity, and understanding the local culture.</div>
+</div>
+<p class="mt-8 text-2xl text-center font-semibold italic">Is one way of traveling 'better' than the other?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Song 3 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-green-500">
+                <i class="fas fa-music text-cyan-500"></i>
+                Song 3: Africa
+                <span class="text-xl text-gray-400">- Toto</span>
+            </h2>
+
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <p class="text-sm italic text-gray-400">(Song placeholder)</p>
+                <div class="mb-4 rounded-xl overflow-hidden">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2372jSjT0o97v9p9z9v9z9?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+
+                <div class="mb-4 bg-cyan-900/30 p-4 rounded-lg border border-cyan-500/30">
+                    <p class="text-sm italic">
+                        <i class="fas fa-info-circle mr-2 text-cyan-400"></i>
+                        Theme: the mystery and longing for a continent and its vast, untamed landscapes.
+                    </p>
+                </div>
+
+                <div class="mt-4 lyrics-box pr-4">
+                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-cyan-500">
+                        <p>I hear the drums echoing <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="tonight"><i class="fas fa-eye"></i></button></p>
+<p>But she hears only whispers of some quiet <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="conversation"><i class="fas fa-eye"></i></button></p>
+<p>It's gonna take a lot to drag me <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="away"><i class="fas fa-eye"></i></button> from you</p>
+<p>There's nothing that a hundred men or more could ever <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="do"><i class="fas fa-eye"></i></button></p>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <!-- Slide 8: Song 3 Debate -->
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-2 text-green-500">
+                    <i class="fas fa-comments"></i>
+                    Song 3 Debate
+                </h2>
+
+                <p class="text-lg text-gray-400 mb-6 italic">Africa - The Call of the Wild</p>
+
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card">
+                        <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
+                        <p class="text-xl">
+                            <i class="fas fa-elephant text-green-400 mr-2"></i>
+                            What is the most 'exotic' place you have ever dreamed of visiting?
+                        </p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
+                        <p class="text-xl">
+                            <i class="fas fa-earth-africa text-blue-400 mr-2"></i>
+                            Why do vast, open landscapes (like the savannah or the desert) evoke such strong emotions?
+                        </p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
+                        <p class="text-xl">
+                            <i class="fas fa-compass text-purple-400 mr-2"></i>
+                            Is it better to travel to see nature or to see human history and architecture?
+                        </p>
+                    </div>
+                    <div class="debate-card">
+                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
+                        <p class="text-xl">
+                            <i class="fas fa-scale-balanced text-yellow-400 mr-2"></i>
+                            Can we truly 'experience' a place if we only stay for a week as tourists?
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide: Practice -->
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-500">
+                    <i class="fas fa-puzzle-piece"></i>
+                    Practice: Match the Expressions
+                </h2>
+
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-2xl mb-8 text-gray-300">Drag the expression to the correct sentence:</p>
+
+                    <div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div>
+
+                    <div id="matching-activity" class="space-y-8 text-left"></div>
+
+                    <button id="check-answers-btn" class="mt-12 bg-green-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-green-700 shadow-lg">Check Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide: Speaking Activity -->
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-500">
+                    <i class="fas fa-earth-americas"></i>
+                    World Explorer
+                </h2>
+
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto">
+                    <div class="space-y-6 text-left text-xl">
+                        <p>
+                            <b class="text-green-500">Choose ONE question and answer it in 2-3 minutes.</b>
+                            Share your travel stories and bucket list destinations.
+                        </p>
+
+                        <div class="space-y-4 mt-6">
+                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-green-500">
+                                <p>
+                                    <i class="fas fa-map-pin text-green-500 mr-2"></i>
+                                    <strong>If you could teleport to any place on Earth right now for 5 minutes, where would you go?</strong>
+                                </p>
+                            </div>
+                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-blue-500">
+                                <p>
+                                    <i class="fas fa-camera text-blue-500 mr-2"></i>
+                                    <strong>Do you think social media (like Instagram) is ruining travel or making it better?</strong>
+                                </p>
+                            </div>
+                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-purple-500">
+                                <p>
+                                    <i class="fas fa-person-hiking text-purple-500 mr-2"></i>
+                                    <strong>What is the most challenging trip you have ever taken?</strong>
+                                </p>
+                            </div>
+                            <div class="p-4 bg-gray-700 rounded-lg border-l-4 border-yellow-500">
+                                <p>
+                                    <i class="fas fa-book-atlas text-yellow-500 mr-2"></i>
+                                    <strong>If you could write a travel guide about one specific place, what would it be?</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 bg-gray-700 p-5 rounded-lg border border-green-500/40 text-center">
+                        <i class="fas fa-lightbulb text-green-500 text-3xl mb-3"></i>
+                        <p class="text-lg italic">"The world is a book and those who do not travel read only one page."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide: Homework -->
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-green-500">
+                    <i class="fas fa-pen-nib"></i>
+                    Homework
+                </h2>
+
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <p class="text-2xl mb-6 text-gray-300">
+                        Write a short travel itinerary (100-150 words) for your 'dream trip'.
+                    </p>
+
+                    <div class="text-left text-xl space-y-4 mt-4 bg-gray-700 p-4 rounded-lg">
+                        <p>✓ <strong>Use at least 3 expressions</strong> from today's lesson.</p>
+                        <p>✓ <strong>Describe</strong> the destination and why you chose it.</p>
+                        <p>✓ <strong>List</strong> at least three things you would do or see there.</p>
+                        <p>✓ <strong>Mention</strong> whether you would go alone or with someone else.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide: Well Done -->
         <div class="slide">
             <div class="text-center flex flex-col items-center justify-center h-full">
-                <i class="fas fa-film text-green-500 text-7xl mb-6"></i>
+                <i class="fas fa-map-location-dot text-green-500 text-7xl mb-6"></i>
                 <h2 class="text-5xl font-bold mb-4 text-gray-100">Well Done!</h2>
-                <p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">Prepare your pitch and bring a 30-second trailer idea for homework.</p>
-                <div class="pt-8"><button id="finish-lesson-btn-main" class="bg-green-600 hover:bg-green-500 text-white text-2xl font-bold py-4 px-12 rounded-full transition-all transform hover:scale-105 shadow-lg">Finalizar e Sair <i class="fas fa-check-circle ml-2"></i></button></div>
+                <p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">"The world is a book and those who do not travel read only one page."</p>
+
+                <div class="pt-8">
+                    <button id="finish-lesson-btn-main"
+                            class="bg-green-600 hover:bg-green-500 text-white text-2xl font-bold py-4 px-12 rounded-full transition-all transform hover:scale-105 shadow-lg">
+                        Finalizar e Sair <i class="fas fa-check-circle ml-2"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -130,8 +540,11 @@
 
     <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
         <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
-            <button id="next-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Proximo</button>
+            <button id="prev-btn"
+                    class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button>
+
+            <button id="next-btn"
+                    class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-700">Proximo</button>
         </div>
     </footer>
 
@@ -157,41 +570,148 @@
             function showSlide(index) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
-                if (slideCounter) slideCounter.innerText = `${index + 1} / ${slides.length}`;
+
+                if (progressBar) {
+                    progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+                }
+
+                if (slideCounter) {
+                    slideCounter.innerText = `${index + 1} / ${slides.length}`;
+                }
+
                 if (prevBtn) prevBtn.disabled = index === 0;
+
                 const isLastSlide = index === slides.length - 1;
                 if (nextBtn) nextBtn.style.display = isLastSlide ? 'none' : 'block';
             }
 
-            if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } };
-            if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) { currentSlide++; showSlide(currentSlide); } };
+            if (prevBtn) {
+                prevBtn.onclick = () => {
+                    if (currentSlide > 0) {
+                        currentSlide--;
+                        showSlide(currentSlide);
+                    }
+                };
+            }
 
-            if (finishLessonBtn) finishLessonBtn.onclick = () => {
-                finishLessonBtn.disabled = true;
-                finishLessonBtn.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>';
-                if (typeof markLessonAsComplete === 'function') {
-                    markLessonAsComplete(moduleId, lessonNumber);
-                } else {
-                    localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true');
-                    window.location.href = 'conversation.html';
-                }
-            };
+            if (nextBtn) {
+                nextBtn.onclick = () => {
+                    if (currentSlide < slides.length - 1) {
+                        currentSlide++;
+                        showSlide(currentSlide);
+                    }
+                };
+            }
+
+            if (finishLessonBtn) {
+                finishLessonBtn.onclick = () => {
+                    finishLessonBtn.disabled = true;
+                    finishLessonBtn.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>';
+
+                    if (typeof markLessonAsComplete === 'function') {
+                        markLessonAsComplete(moduleId, lessonNumber);
+                    } else {
+                        console.error('Funcao markLessonAsComplete nao encontrada.');
+                        localStorage.setItem(`lesson_${moduleId}_${lessonNumber}_completed`, 'true');
+                        window.location.href = 'conversation.html';
+                    }
+                };
+            }
 
             document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
-            document.querySelectorAll('.answer-btn').forEach(button => button.addEventListener('click', () => { const inputField = button.previousElementSibling; if (inputField) { inputField.value = button.dataset.answer; inputField.classList.add('text-green-400','font-bold'); } }));
 
-            showSlide(0);
+            document.querySelectorAll('.answer-btn').forEach(button => button.addEventListener('click', () => {
+                const inputField = button.previousElementSibling;
+                if (inputField) {
+                    inputField.value = button.dataset.answer;
+                    inputField.classList.add('text-green-400', 'font-bold');
+                }
+            }));
+
+            const wordBank = document.getElementById('word-bank');
+            const activityContainer = document.getElementById('matching-activity');
+            const checkBtn = document.getElementById('check-answers-btn');
+
+            const vocabulary = [{"id": "w1", "text": "Off the beaten path"}, {"id": "w2", "text": "To satisfy one's wanderlust"}, {"id": "w3", "text": "A home away from home"}, {"id": "w4", "text": "To see the sights"}, {"id": "w5", "text": "To travel light"}, {"id": "w6", "text": "A stone's throw away"}];
+
+            const situations = [{"text": "We found a beautiful hidden beach that was completely <span class='drop-zone' data-answer='Off the beaten path'>________</span>.", "answer": "Off the beaten path"}, {"text": "After years of working, she finally went to Europe to <span class='drop-zone' data-answer='To satisfy one's wanderlust'>________</span>.", "answer": "To satisfy one's wanderlust"}, {"text": "I've stayed at this hostel so many times it feels like a <span class='drop-zone' data-answer='A home away from home'>________</span>.", "answer": "A home away from home"}, {"text": "We only have two days in Rome, so we need to hurry to <span class='drop-zone' data-answer='To see the sights'>________</span>.", "answer": "To see the sights"}, {"text": "I don't like checking bags, so I always try to <span class='drop-zone' data-answer='To travel light'>________</span>.", "answer": "To travel light"}, {"text": "The train station is just <span class='drop-zone' data-answer='A stone's throw away'>________</span> from the hotel.", "answer": "A stone's throw away"}];
+
+            if (wordBank && activityContainer) {
+                vocabulary.sort(() => Math.random() - 0.5).forEach(word => {
+                    const pill = document.createElement('div');
+                    pill.className = 'word-pill';
+                    pill.draggable = true;
+                    pill.innerText = word.text;
+                    pill.id = `word-${word.id}`;
+                    pill.addEventListener('dragstart', (e) => e.dataTransfer.setData('text/plain', word.text));
+                    wordBank.appendChild(pill);
+                });
+
+                activityContainer.innerHTML = situations.map(s => `<p class="text-xl text-gray-200">${s.text}</p>`).join('');
+
+                const dropZones = document.querySelectorAll('.drop-zone');
+                dropZones.forEach(zone => {
+                    zone.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        zone.classList.add('hover');
+                    });
+
+                    zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
+
+                    zone.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        zone.classList.remove('hover');
+                        zone.innerText = e.dataTransfer.getData('text/plain');
+                        zone.classList.add('filled');
+                    });
+
+                    zone.addEventListener('click', () => {
+                        zone.innerText = '________';
+                        zone.classList.remove('filled');
+                        zone.style.color = '#86efac';
+                        zone.style.backgroundColor = 'transparent';
+                        zone.style.borderRadius = '0';
+                    });
+                });
+
+                if (checkBtn) checkBtn.onclick = () => {
+                    let correctCount = 0;
+                    let answeredCount = 0;
+
+                    dropZones.forEach(zone => {
+                        const current = zone.innerText.trim();
+                        const expected = (zone.dataset.answer || '').trim();
+
+                        if (current !== '________') answeredCount++;
+
+                        if (current.toLowerCase() === expected.toLowerCase()) {
+                            zone.style.color = '#10b981';
+                            zone.style.fontWeight = '700';
+                            zone.style.backgroundColor = 'rgba(16, 185, 129, 0.18)';
+                            zone.style.borderRadius = '8px';
+                            correctCount++;
+                        } else if (current !== '________') {
+                            zone.style.color = '#ef4444';
+                            zone.style.fontWeight = '700';
+                            zone.style.backgroundColor = 'rgba(239, 68, 68, 0.18)';
+                            zone.style.borderRadius = '8px';
+                        }
+                    });
+
+                    if (answeredCount === dropZones.length && correctCount === dropZones.length) {
+                        checkBtn.innerText = 'Perfect!';
+                        checkBtn.classList.replace('bg-green-600', 'bg-emerald-500');
+                    } else if (answeredCount === dropZones.length) {
+                        checkBtn.innerText = 'Try Again';
+                        checkBtn.classList.replace('bg-green-600', 'bg-orange-500');
+                        setTimeout(() => {
+                            checkBtn.innerText = 'Check Answers';
+                            checkBtn.classList.replace('bg-orange-500', 'bg-green-600');
+                        }, 2000);
+                    }
+                };
+            }
         });
     </script>
-
-    <script src="../js/flashcard-pronunciation.js"></script>
-    <script src="../js/lesson-flashcard-save.js"></script>
-    <script src="conversation-lesson-theme.js"></script>
 </body>
-
 </html>
-
-
-
-
