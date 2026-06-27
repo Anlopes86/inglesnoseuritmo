@@ -3,585 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A2 V2 | Lição 01: The Past — Regular &amp; Irregular Verbs</title>
+    <title>A2 V2 | Lição 01: Past Simple: Regular & Irregular Review</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <link href="../enhanced-styles.css" rel="stylesheet">
+    <link rel='stylesheet' href='a2-lesson-theme.css'>
     <style>
         body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.75rem; }
-        .flip-card { background-color: transparent; width: 100%; max-width: none; min-height: 220px; perspective: 1000px; cursor: pointer; }
-        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
-        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back {
-            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); padding: 2rem;
-            font-size: 1.1rem; line-height: 1.5;
-        }
-        .flip-card-front { background-color: #fff; border: 1px solid #e5e7eb; }
-        .flip-card-back { background-color: #ecfdf5; transform: rotateY(180deg); font-size: 1.25rem; color: #065f46; font-weight: 700; }
-        input.correct { border-color: #22c55e; background-color: #f0fdf4; }
-        input.incorrect { border-color: #ef4444; background-color: #fef2f2; }
         .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
         .answer-btn:hover { color: #059669; }
-        input[data-answer] { border: none; border-bottom: 2px solid #cbd5e1; outline: none; background: transparent; text-align: center; padding: 0 6px; font-weight: 600; }
-        .oral-drill-card { border-radius: 1rem; padding: 2rem; }
-        .oral-drill-pt { font-size: 1.75rem; font-weight: 900; text-align: center; margin: 1.5rem 0; }
-        .oral-drill-btns { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
-        .oral-drill-input { width: 100%; padding: 0.75rem 1rem; border: 2px solid #e2e8f0; border-radius: 0.75rem; font-size: 1.1rem; background: transparent; margin-top: 0.75rem; }
-        .oral-drill-input:focus { outline: none; border-color: #059669; }
-        .oral-drill-feedback { min-height: 1.5rem; font-size: 1rem; font-weight: 600; margin-top: 0.5rem; }
-        .oral-drill-progress { font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.5rem; }
+        .hidden-answer { display: none; color: #059669; font-weight: bold; margin-left: 0.5rem; }
+        .reveal-btn { cursor: pointer; color: #059669; font-size: 0.875rem; text-decoration: underline; }
     </style>
-    <link rel='stylesheet' href='a2-lesson-theme.css'>
 </head>
 <body class="a2-lesson-page lesson-loading bg-slate-50 text-slate-800">
     <header class="bg-white shadow-sm sticky top-0 z-10">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
-            <a href="a2.html" class="text-lg font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2 V2</a>
+            <a href="a2.html" class="text-lg font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A2 V2</a>
             <div class="text-center">
-                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 01: The Past</h1>
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 01: Past Simple: Regular & Irregular Review</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 12</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 11</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-emerald-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
     <main class="container mx-auto p-8 pb-28 max-w-5xl">
 
-        <!-- SLIDE 1: Intro + Diálogo -->
-        <div class="slide active" data-title="Intro &amp; Dialogue">
-            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+        <!-- SLIDE 1: O que será aprendido + Diálogo Introdutório -->
+        <div class="slide active" data-title="Intro & Dialogue">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10 mb-8">
                 <div class="max-w-3xl">
-                    <div class="a2-hero-copy">
-                        <p class="lesson-panel-title">Talking about the past</p>
-                        <h2 class="text-4xl md:text-5xl font-black text-slate-900">Use the Simple Past to talk about finished actions and tell stories.</h2>
-                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula você aprende a usar o Simple Past com verbos regulares e irregulares para falar sobre o que aconteceu ontem, no fim de semana ou em qualquer momento no passado.</p>
-                    </div>
+                    <p class="lesson-panel-title">O que será aprendido nesta lição</p>
+                    <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">Aprenda a dominar Past Simple: Regular & Irregular Review em contextos reais.</h2>
                     <div class="lesson-panel p-6 mt-6">
-                        <p class="lesson-panel-title">By the end, you can:</p>
+                        <p class="lesson-panel-title">Escolha um tema para focar hoje:</p>
                         <ul class="space-y-3 text-slate-600 text-base">
-                            <li class="flex gap-3"><i class="fas fa-check text-emerald-500 mt-1"></i><span>formar frases afirmativas, negativas e interrogativas no Simple Past;</span></li>
-                            <li class="flex gap-3"><i class="fas fa-check text-emerald-500 mt-1"></i><span>usar os principais verbos irregulares: <strong>go → went</strong>, <strong>see → saw</strong>, <strong>eat → ate</strong>;</span></li>
-                            <li class="flex gap-3"><i class="fas fa-check text-emerald-500 mt-1"></i><span>contar o que fez no fim de semana com naturalidade.</span></li>
+                            <li class="flex gap-3"><i class="fas fa-star text-emerald-500 mt-1"></i><span><strong>Opção 1:</strong> Tema A (Trabalho e Carreira)</span></li>
+                            <li class="flex gap-3"><i class="fas fa-star text-emerald-500 mt-1"></i><span><strong>Opção 2:</strong> Tema B (Viagens e Lazer)</span></li>
+                            <li class="flex gap-3"><i class="fas fa-star text-emerald-500 mt-1"></i><span><strong>Opção 3:</strong> Tema C (Vida Diária e Rotina)</span></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="section-card p-8 mt-8">
-                <p class="lesson-panel-title mb-4">Opening Dialogue — Monday morning at work</p>
-                <div class="space-y-4 text-left text-lg text-slate-700">
-                    <div class="flex gap-4">
-                        <span class="font-black text-emerald-700 min-w-20">Ana:</span>
-                        <p>"Hey! How was your weekend? <strong>Did you do</strong> anything fun?"</p>
-                    </div>
-                    <div class="flex gap-4">
-                        <span class="font-black text-orange-600 min-w-20">Tom:</span>
-                        <p>"Yes! I <strong>went</strong> to the beach on Saturday. The weather was perfect. We <strong>swam</strong> in the sea and <strong>ate</strong> at a great restaurant."</p>
-                    </div>
-                    <div class="flex gap-4">
-                        <span class="font-black text-emerald-700 min-w-20">Ana:</span>
-                        <p>"That sounds amazing! <strong>Did you go</strong> with your family?"</p>
-                    </div>
-                    <div class="flex gap-4">
-                        <span class="font-black text-orange-600 min-w-20">Tom:</span>
-                        <p>"No, I <strong>didn't go</strong> with my family. I <strong>went</strong> with some friends. We <strong>had</strong> a great time!"</p>
-                    </div>
-                    <div class="flex gap-4">
-                        <span class="font-black text-emerald-700 min-w-20">Ana:</span>
-                        <p>"Lucky you! I <strong>stayed</strong> home and <strong>watched</strong> movies all weekend."</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 2: Vocabulário -->
-        <div class="slide" data-title="Vocabulary">
-            <h2 class="text-4xl font-bold mb-4 text-center text-emerald-700">Vocabulary: Weekend Activities</h2>
-            <p class="text-center text-slate-500 text-lg mb-8">Clique nos cartões para ver o significado em português.</p>
-            <div class="flashcard-grid max-w-5xl mx-auto">
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">go → went</h3><p class="text-slate-400 text-sm mt-2">verbo irregular</p></div><div class="flip-card-back"><p>ir → foi/fui</p><p class="text-sm font-normal mt-2">"I went to the park."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">eat → ate</h3><p class="text-slate-400 text-sm mt-2">verbo irregular</p></div><div class="flip-card-back"><p>comer → comeu/comi</p><p class="text-sm font-normal mt-2">"We ate pizza."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">see → saw</h3><p class="text-slate-400 text-sm mt-2">verbo irregular</p></div><div class="flip-card-back"><p>ver → viu/vi</p><p class="text-sm font-normal mt-2">"She saw a movie."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">have → had</h3><p class="text-slate-400 text-sm mt-2">verbo irregular</p></div><div class="flip-card-back"><p>ter → teve/tive</p><p class="text-sm font-normal mt-2">"We had a great time."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">swim → swam</h3><p class="text-slate-400 text-sm mt-2">verbo irregular</p></div><div class="flip-card-back"><p>nadar → nadou/nadei</p><p class="text-sm font-normal mt-2">"They swam in the lake."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">stay → stayed</h3><p class="text-slate-400 text-sm mt-2">verbo regular</p></div><div class="flip-card-back"><p>ficar → ficou/fiquei</p><p class="text-sm font-normal mt-2">"I stayed home."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">watch → watched</h3><p class="text-slate-400 text-sm mt-2">verbo regular</p></div><div class="flip-card-back"><p>assistir → assistiu/assisti</p><p class="text-sm font-normal mt-2">"He watched TV."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">visit → visited</h3><p class="text-slate-400 text-sm mt-2">verbo regular</p></div><div class="flip-card-back"><p>visitar → visitou/visitei</p><p class="text-sm font-normal mt-2">"We visited the museum."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">meet → met</h3><p class="text-slate-400 text-sm mt-2">verbo irregular</p></div><div class="flip-card-back"><p>encontrar → encontrou/encontrei</p><p class="text-sm font-normal mt-2">"I met some friends."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">take → took</h3><p class="text-slate-400 text-sm mt-2">verbo irregular</p></div><div class="flip-card-back"><p>pegar / tirar → pegou/tirei</p><p class="text-sm font-normal mt-2">"She took a lot of photos."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">cook → cooked</h3><p class="text-slate-400 text-sm mt-2">verbo regular</p></div><div class="flip-card-back"><p>cozinhar → cozinhou/cozinhei</p><p class="text-sm font-normal mt-2">"He cooked dinner."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">wake up → woke up</h3><p class="text-slate-400 text-sm mt-2">verbo irregular</p></div><div class="flip-card-back"><p>acordar → acordou/acordei</p><p class="text-sm font-normal mt-2">"I woke up late."</p></div></div></div>
-            </div>
-        </div>
-
-        <!-- SLIDE 3: Gramática -->
-        <div class="slide" data-title="Grammar">
-            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Grammar Focus: Simple Past</h2>
-            <div class="max-w-5xl mx-auto space-y-6">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="activity-card border-t-8 border-emerald-500 p-8">
-                        <h3 class="text-2xl font-bold mb-4 text-emerald-700"><i class="fas fa-plus-circle mr-2"></i>Afirmativa</h3>
-                        <p class="mb-4 text-slate-600">Sujeito + verbo no passado. Verbos regulares recebem <strong>-ed</strong>. Irregulares têm forma própria — igual para todas as pessoas.</p>
-                        <table class="w-full text-left text-xl">
-                            <tr class="border-b border-slate-200"><td class="py-2 text-slate-500">I / You / He / She / We / They</td></tr>
-                            <tr class="border-b border-slate-200"><td class="py-2 font-bold text-emerald-600">+ <em>worked / went / ate</em></td></tr>
-                            <tr><td class="py-2 text-slate-500 italic">"She went to the beach."</td></tr>
-                        </table>
-                    </div>
-                    <div class="activity-card border-t-8 border-red-400 p-8">
-                        <h3 class="text-2xl font-bold mb-4 text-red-600"><i class="fas fa-minus-circle mr-2"></i>Negativa</h3>
-                        <p class="mb-4 text-slate-600">Use <strong>didn't</strong> (did not) + verbo no infinitivo. O verbo principal volta para a forma base — nunca no passado!</p>
-                        <table class="w-full text-left text-xl">
-                            <tr class="border-b border-slate-200"><td class="py-2 text-slate-500">I / You / He / She / We / They</td></tr>
-                            <tr class="border-b border-slate-200"><td class="py-2 font-bold text-red-500">+ <em>didn't + verb (base)</em></td></tr>
-                            <tr><td class="py-2 text-slate-500 italic">"She didn't go to work."</td></tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="activity-card border-t-8 border-blue-500 p-8">
-                        <h3 class="text-2xl font-bold mb-4 text-blue-700"><i class="fas fa-question-circle mr-2"></i>Interrogativa</h3>
-                        <p class="mb-4 text-slate-600">Comece com <strong>Did</strong> + sujeito + verbo base. Resposta curta: <em>Yes, I did / No, I didn't</em>.</p>
-                        <table class="w-full text-left text-xl">
-                            <tr class="border-b border-slate-200"><td class="py-2 font-bold text-blue-600">Did</td><td class="py-2">+ sujeito + verb (base)?</td></tr>
-                            <tr><td class="py-2 text-slate-500 italic" colspan="2">"Did you eat breakfast?"</td></tr>
-                        </table>
-                    </div>
-                    <div class="callout-warning p-8 rounded-2xl">
-                        <h3 class="text-2xl font-bold mb-4">Atenção!</h3>
-                        <div class="space-y-3 text-lg">
-                            <p>❌ <span class="line-through text-red-500">"She didn't went home."</span></p>
-                            <p>✅ <span class="text-green-700 font-bold">"She didn't go home."</span></p>
-                            <p class="text-slate-600 text-base mt-2">Após <em>did / didn't</em>, o verbo sempre fica no infinitivo (forma base), nunca no passado.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="callout-note p-6 rounded-2xl">
-                    <h3 class="text-xl font-bold mb-3">Verbos Irregulares — Os mais usados</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-lg">
-                        <span><strong>go</strong> → went</span><span><strong>eat</strong> → ate</span><span><strong>see</strong> → saw</span><span><strong>have</strong> → had</span>
-                        <span><strong>come</strong> → came</span><span><strong>take</strong> → took</span><span><strong>buy</strong> → bought</span><span><strong>meet</strong> → met</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 4: Atividades Práticas -->
-        <div class="slide" data-title="Practice">
-            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Atividades: Simple Past</h2>
-            <div class="max-w-5xl mx-auto space-y-8">
-                <div class="section-card p-8">
-                    <h3 class="text-2xl font-bold text-emerald-700 mb-5">A — Complete as frases</h3>
-                    <div class="space-y-5 text-xl" id="practice-fill"></div>
-                </div>
-                <div class="section-card p-8">
-                    <h3 class="text-2xl font-bold text-emerald-700 mb-5">B — Coloque as palavras na ordem correta</h3>
-                    <div class="space-y-5 text-xl" id="practice-unscramble"></div>
-                </div>
-                <div class="section-card p-8">
-                    <h3 class="text-2xl font-bold text-emerald-700 mb-5">C — Encontre e corrija o erro</h3>
-                    <div class="space-y-5 text-xl" id="practice-error"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 5: Tradução Oral I -->
-        <div class="slide" data-title="Tradução Oral I">
             <div class="section-card p-8">
-                <div class="text-center max-w-3xl mx-auto mb-8">
-                    <h2 class="text-5xl font-bold mb-4 text-emerald-700"><i class="fas fa-microphone-alt text-emerald-500 mr-2"></i> Traduza para inglês</h2>
-                    <p class="text-xl text-slate-600">Leia a frase em português em voz alta, produza a versão em inglês e depois confira a sugestão.</p>
-                </div>
-                <div class="activity-card oral-drill-card max-w-4xl mx-auto" data-translation-exercise>
-                    <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
-                        <p class="lesson-panel-title">PT → EN — Foco: Gramática</p>
-                        <span class="lesson-chip"><i class="fas fa-layer-group text-emerald-600"></i><span data-translation-progress>1 / 5</span></span>
+                <p class="lesson-panel-title mb-4">Introductory Dialogue</p>
+                <div id="intro-dialogue" class="space-y-4 text-lg text-slate-700">
+                    <!-- Dialogue content will be injected or placed here -->
+                    <div class="flex gap-4">
+                        <span class="font-black text-emerald-700 min-w-20">Ana:</span>
+                        <p>"Hi! Are you ready for today's lesson about Past Simple: Regular & Irregular Review?"</p>
                     </div>
-                    <p class="oral-drill-progress">Frase em português:</p>
-                    <p data-translation-source class="oral-drill-pt"></p>
-                    <input type="text" data-translation-input class="oral-drill-input" placeholder="Digite sua tradução em inglês...">
-                    <p data-translation-feedback class="oral-drill-feedback"></p>
-                    <div class="oral-drill-btns">
-                        <button type="button" class="primary-action-btn" data-translation-play><i class="fas fa-volume-up mr-2"></i>Ouvir PT</button>
-                        <button type="button" class="primary-action-btn" data-translation-check><i class="fas fa-check mr-2"></i>Verificar</button>
-                        <button type="button" class="secondary-action-btn" data-translation-reveal><i class="fas fa-eye mr-2"></i>Ver sugestão</button>
-                        <button type="button" class="secondary-action-btn" data-translation-next><i class="fas fa-forward mr-2"></i>Próxima</button>
+                    <div class="flex gap-4">
+                        <span class="font-black text-orange-600 min-w-20">Tom:</span>
+                        <p>"Yes! I want to improve my skills and speak more naturally."</p>
                     </div>
-                    <script type="application/json">
-                    [
-                        { "pt": "Eu fui ao mercado ontem.", "en": "I went to the supermarket yesterday." },
-                        { "pt": "Ela não foi ao trabalho na segunda-feira.", "en": "She didn't go to work on Monday." },
-                        { "pt": "Você comeu no restaurante?", "en": "Did you eat at the restaurant?" },
-                        { "pt": "Nós tivemos um ótimo fim de semana.", "en": "We had a great weekend." },
-                        { "pt": "Eles não viram o filme.", "en": "They didn't see the movie." }
-                    ]
-                    </script>
                 </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Vocabulário em Flashcards -->
+        <div class="slide" data-title="Vocabulary Flashcards">
+            <h2 class="text-4xl font-bold mb-4 text-center text-emerald-700">Vocabulary Flashcards</h2>
+            <p class="text-center text-slate-500 text-lg mb-8">Clique nos cartões para ver o significado e ouvir a pronúncia.</p>
+            <div id="flashcards-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Flashcards will be injected here -->
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Gramática Aprofundada -->
+        <div class="slide" data-title="Deep Grammar">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Grammar Focus: Past Simple: Regular & Irregular Review</h2>
+            <div class="max-w-4xl mx-auto space-y-8">
+                <div class="activity-card border-t-8 border-emerald-500 p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-emerald-700">Explicação Detalhada</h3>
+                    <p class="text-lg text-slate-600 leading-relaxed mb-4">
+                        Aqui vamos aprofundar nas regras de Past Simple: Regular & Irregular Review. É fundamental entender não apenas a estrutura, mas o contexto de uso.
+                    </p>
+                    <div class="bg-slate-100 p-6 rounded-xl space-y-4">
+                        <p><strong>Exemplo 1:</strong> "I have been there before." (Eu estive lá antes) - Foco na experiência.</p>
+                        <p><strong>Exemplo 2:</strong> "She is working now." (Ela está trabalhando agora) - Foco na ação contínua.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Atividades Práticas (10 questões) -->
+        <div class="slide" data-title="Practice Activities">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Practice Time (10 Questions)</h2>
+            <div id="practice-questions" class="max-w-4xl mx-auto space-y-6">
+                <!-- Questions with reveal buttons and hints -->
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Tradução Oral (Português -> Inglês) -->
+        <div class="slide" data-title="Oral Translation I">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Oral Translation: Challenge 1</h2>
+            <p class="text-center text-slate-500 text-lg mb-8">Traduza as frases em voz alta antes de revelar a resposta.</p>
+            <div id="oral-translation-1" class="max-w-4xl mx-auto space-y-6">
+                <!-- Phrases with reveal buttons -->
             </div>
         </div>
 
         <!-- SLIDE 6: Expressões e Phrasal Verbs -->
-        <div class="slide" data-title="Expressions &amp; Phrasal Verbs">
-            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Expressões &amp; Phrasal Verbs</h2>
-            <p class="text-center text-slate-500 text-lg mb-8">Expressões naturais para contar o que aconteceu.</p>
-            <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto text-lg">
-                <div class="activity-card border-l-8 border-emerald-500 p-8">
-                    <p class="text-xs font-bold uppercase text-emerald-500 tracking-widest mb-2">Phrasal Verb</p>
-                    <h3 class="text-2xl font-black text-emerald-700 mb-3">End up</h3>
-                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> acabar fazendo algo que não era o plano</p>
-                    <p class="text-slate-700 italic mb-1">"I planned to go out, but I ended up staying home."</p>
-                    <p class="text-slate-400 text-sm">Eu planejei sair, mas acabei ficando em casa.</p>
-                </div>
-                <div class="activity-card border-l-8 border-emerald-500 p-8">
-                    <p class="text-xs font-bold uppercase text-emerald-500 tracking-widest mb-2">Phrasal Verb</p>
-                    <h3 class="text-2xl font-black text-emerald-700 mb-3">Catch up with</h3>
-                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> colocar o papo em dia, reencontrar alguém</p>
-                    <p class="text-slate-700 italic mb-1">"I caught up with some old friends last weekend."</p>
-                    <p class="text-slate-400 text-sm">Pus o papo em dia com velhos amigos no fim de semana.</p>
-                </div>
-                <div class="activity-card border-l-8 border-orange-400 p-8">
-                    <p class="text-xs font-bold uppercase text-orange-500 tracking-widest mb-2">Expressão</p>
-                    <h3 class="text-2xl font-black text-orange-600 mb-3">Had a blast</h3>
-                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> se divertiu muito, curtiu demais</p>
-                    <p class="text-slate-700 italic mb-1">"We went to the concert and had a blast!"</p>
-                    <p class="text-slate-400 text-sm">Fomos ao show e nos divertimos muito!</p>
-                </div>
-                <div class="activity-card border-l-8 border-orange-400 p-8">
-                    <p class="text-xs font-bold uppercase text-orange-500 tracking-widest mb-2">Expressão</p>
-                    <h3 class="text-2xl font-black text-orange-600 mb-3">Out of nowhere</h3>
-                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> do nada, de repente, sem aviso</p>
-                    <p class="text-slate-700 italic mb-1">"Out of nowhere, it started to rain heavily."</p>
-                    <p class="text-slate-400 text-sm">Do nada, começou a chover muito.</p>
-                </div>
+        <div class="slide" data-title="Expressions & Phrasal Verbs">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Useful Expressions & Phrasal Verbs</h2>
+            <div id="expressions-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Expressions will be injected here -->
             </div>
         </div>
 
-        <!-- SLIDE 7: Mini Diálogos -->
+        <!-- SLIDE 7: Quatro Mini Diálogos -->
         <div class="slide" data-title="Mini Dialogues">
-            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Mini Diálogos</h2>
-            <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto text-lg">
-                <div class="activity-card p-8">
-                    <p class="text-xs font-bold uppercase text-emerald-500 tracking-widest mb-3">Situação 1 — Contando o fim de semana</p>
-                    <div class="space-y-3">
-                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"What did you do last weekend?"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"I went to the beach with my family. We had a blast!"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"Nice! Did you swim in the sea?"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"Yes, we did. The water was perfect."</p></div>
-                    </div>
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Mini Dialogues for Practice</h2>
+            <div id="mini-dialogues-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 4 Mini dialogues -->
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Reading & Comprehension -->
+        <div class="slide" data-title="Reading & Comprehension">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Reading: Past Simple: Regular & Irregular Review in Action</h2>
+            <div class="max-w-4xl mx-auto section-card p-8">
+                <div id="reading-text" class="text-lg text-slate-700 leading-relaxed mb-8">
+                    <!-- Elaborated text -->
                 </div>
-                <div class="activity-card p-8">
-                    <p class="text-xs font-bold uppercase text-emerald-500 tracking-widest mb-3">Situação 2 — Planos que mudaram</p>
-                    <div class="space-y-3">
-                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"Did you go to the party on Friday?"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"No, I didn't. I planned to go, but I ended up staying home."</p></div>
-                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"Oh no! Why?"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"Out of nowhere, I got a terrible headache."</p></div>
-                    </div>
-                </div>
-                <div class="activity-card p-8">
-                    <p class="text-xs font-bold uppercase text-emerald-500 tracking-widest mb-3">Situação 3 — Reencontro</p>
-                    <div class="space-y-3">
-                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"Did you see anyone special this weekend?"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"Yes! I caught up with my old school friends. We ate at our favourite restaurant."</p></div>
-                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"That's great! Did you have a good time?"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"Absolutely! We talked for hours."</p></div>
-                    </div>
-                </div>
-                <div class="activity-card p-8">
-                    <p class="text-xs font-bold uppercase text-emerald-500 tracking-widest mb-3">Situação 4 — Uma surpresa</p>
-                    <div class="space-y-3">
-                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"How was your walk in the park?"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"It was great! But out of nowhere, a dog ran up to me and took my sandwich!"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"Ha! Did you catch it?"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"No, I didn't. The dog was too fast!"</p></div>
-                    </div>
+                <hr class="my-8">
+                <div id="reading-questions" class="space-y-6">
+                    <p class="font-bold text-xl mb-4">Interpretation Questions:</p>
+                    <!-- 4 questions -->
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 8: Leitura -->
-        <div class="slide" data-title="Reading">
-            <h2 class="text-4xl font-bold mb-4 text-center text-emerald-700">Leitura: A Weekend to Remember</h2>
-            <p class="text-center text-slate-500 text-lg mb-6">Um relato de fim de semana usando Simple Past e as expressões da aula.</p>
-            <div class="max-w-4xl mx-auto">
-                <div class="section-card p-8 text-lg space-y-4 leading-relaxed mb-6">
-                    <p class="text-xs font-bold uppercase text-emerald-500 tracking-widest">Texto</p>
-                    <p>Last Saturday, my friend Leo and I <strong>decided</strong> to do something different. We <strong>woke up</strong> early, <strong>packed</strong> our bags, and <strong>took</strong> the bus to a small town about two hours away. We <strong>didn't plan</strong> much — we just <strong>wanted</strong> to explore.</p>
-                    <p>When we <strong>arrived</strong>, we <strong>walked</strong> around the old town centre and <strong>visited</strong> a beautiful church. Then, out of nowhere, it <strong>started</strong> to rain. We <strong>ran</strong> into a small café and <strong>ended up</strong> staying there for two hours. We <strong>drank</strong> hot chocolate, <strong>ate</strong> homemade cake, and <strong>caught up</strong> on everything in our lives.</p>
-                    <p>By the time the rain <strong>stopped</strong>, we <strong>felt</strong> completely relaxed. We <strong>took</strong> a lot of photos and <strong>went</strong> back home happy. We really <strong>had a blast</strong>. It <strong>was</strong> one of the best weekends I can remember.</p>
-                </div>
-                <div class="grid md:grid-cols-2 gap-5 text-lg">
-                    <div class="activity-card p-6">
-                        <p class="font-bold text-emerald-700 mb-3">Perguntas de interpretação</p>
-                        <div class="space-y-3">
-                            <p>1. O que Leo e o narrador decidiram fazer no sábado?</p>
-                            <p>2. O que aconteceu de repente quando eles estavam na cidade?</p>
-                            <p>3. O que eles fizeram no café?</p>
-                            <p>4. Como eles se sentiram no final do dia?</p>
-                        </div>
-                    </div>
-                    <div class="activity-card p-6">
-                        <p class="font-bold text-emerald-700 mb-3">Foco na língua</p>
-                        <div class="space-y-2 text-slate-600">
-                            <p>→ Encontre <strong>3 verbos irregulares</strong> no passado no texto.</p>
-                            <p>→ Encontre <strong>2 verbos regulares</strong> no passado.</p>
-                            <p>→ Encontre as <strong>2 expressões</strong> da aula de hoje no texto.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 9: Tradução Oral II -->
-        <div class="slide" data-title="Tradução Oral II">
-            <div class="section-card p-8">
-                <div class="text-center max-w-3xl mx-auto mb-8">
-                    <h2 class="text-5xl font-bold mb-4 text-emerald-700"><i class="fas fa-microphone-alt text-emerald-500 mr-2"></i> Traduza para inglês</h2>
-                    <p class="text-xl text-slate-600">Agora pratique as expressões e phrasal verbs da aula.</p>
-                </div>
-                <div class="activity-card oral-drill-card max-w-4xl mx-auto" data-translation-exercise>
-                    <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
-                        <p class="lesson-panel-title">PT → EN — Foco: Expressões</p>
-                        <span class="lesson-chip"><i class="fas fa-layer-group text-emerald-600"></i><span data-translation-progress>1 / 5</span></span>
-                    </div>
-                    <p class="oral-drill-progress">Frase em português:</p>
-                    <p data-translation-source class="oral-drill-pt"></p>
-                    <input type="text" data-translation-input class="oral-drill-input" placeholder="Digite sua tradução em inglês...">
-                    <p data-translation-feedback class="oral-drill-feedback"></p>
-                    <div class="oral-drill-btns">
-                        <button type="button" class="primary-action-btn" data-translation-play><i class="fas fa-volume-up mr-2"></i>Ouvir PT</button>
-                        <button type="button" class="primary-action-btn" data-translation-check><i class="fas fa-check mr-2"></i>Verificar</button>
-                        <button type="button" class="secondary-action-btn" data-translation-reveal><i class="fas fa-eye mr-2"></i>Ver sugestão</button>
-                        <button type="button" class="secondary-action-btn" data-translation-next><i class="fas fa-forward mr-2"></i>Próxima</button>
-                    </div>
-                    <script type="application/json">
-                    [
-                        { "pt": "Eu acabei ficando em casa no fim de semana.", "en": "I ended up staying home on the weekend." },
-                        { "pt": "Nós nos divertimos muito na festa.", "en": "We had a blast at the party." },
-                        { "pt": "Do nada, começou a chover.", "en": "Out of nowhere, it started to rain." },
-                        { "pt": "Eu coloquei o papo em dia com meus amigos.", "en": "I caught up with my friends." },
-                        { "pt": "Ela planejou sair, mas acabou ficando em casa.", "en": "She planned to go out, but she ended up staying home." }
-                    ]
-                    </script>
-                </div>
+        <!-- SLIDE 9: Tradução Oral II (Foco em Expressões) -->
+        <div class="slide" data-title="Oral Translation II">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Oral Translation: Expressions Focus</h2>
+            <p class="text-center text-slate-500 text-lg mb-8">Foco nas expressões e phrasal verbs aprendidos hoje.</p>
+            <div id="oral-translation-2" class="max-w-4xl mx-auto space-y-6">
+                <!-- Phrases with reveal buttons -->
             </div>
         </div>
 
         <!-- SLIDE 10: Música -->
-        <div class="slide" data-title="Music">
-            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700 italic"><i class="fas fa-music text-emerald-500 mr-2"></i>Music: "Yesterday" — The Beatles</h2>
-            <div class="section-card p-8 max-w-5xl mx-auto flex flex-col md:flex-row gap-8">
-                <div class="flex-1">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3BQHpFgAp4l80e1XslIjNI?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                    <div class="callout-note mt-5">
-                        <p class="font-bold mb-1">Conexão com a aula</p>
-                        <p class="text-sm">A música usa o Simple Past para falar de um passado que não volta mais. Perceba os verbos: <em>used to be, went away, had to go, said, believed</em> — todos no passado, contando uma história.</p>
-                    </div>
-                </div>
-                <div class="flex-1 activity-card p-8 text-xl leading-loose font-serif">
-                    <p class="font-bold text-emerald-600 mb-3">[Verse 1]</p>
-                    <p>Yesterday, all my <input id="m1" data-answer="troubles" class="w-28 border-b-2 text-center bg-transparent border-gray-400"> <button class="answer-btn" data-target="m1"><i class="fas fa-eye"></i></button> seemed so far away</p>
-                    <p>Now it looks as though they're here to stay</p>
-                    <p>Oh, I <input id="m2" data-answer="believe" class="w-24 border-b-2 text-center bg-transparent border-gray-400"> <button class="answer-btn" data-target="m2"><i class="fas fa-eye"></i></button> in yesterday</p>
-                    <br>
-                    <p class="font-bold text-emerald-600 mb-3">[Verse 2]</p>
-                    <p>Suddenly, I'm not half the man I <input id="m3" data-answer="used to be" class="w-28 border-b-2 text-center bg-transparent border-gray-400"> <button class="answer-btn" data-target="m3"><i class="fas fa-eye"></i></button></p>
-                    <p>There's a shadow hanging over me</p>
-                    <p>Oh, yesterday <input id="m4" data-answer="came suddenly" class="w-36 border-b-2 text-center bg-transparent border-gray-400"> <button class="answer-btn" data-target="m4"><i class="fas fa-eye"></i></button></p>
+        <div class="slide" data-title="Music Moment">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Music Moment</h2>
+            <div class="max-w-3xl mx-auto section-card p-8 text-center">
+                <p class="text-xl italic mb-6">Complete a letra da música:</p>
+                <div id="music-lyrics" class="text-2xl font-medium leading-loose space-y-4">
+                    <!-- Lyrics with blanks -->
                 </div>
             </div>
         </div>
 
         <!-- SLIDE 11: Homework -->
         <div class="slide" data-title="Homework">
-            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Homework</h2>
-            <div class="max-w-4xl mx-auto space-y-6">
-                <div class="section-card p-8 text-lg">
-                    <p class="font-bold text-slate-800 mb-3">Escreva um parágrafo sobre o que você fez no último fim de semana.</p>
-                    <p class="text-slate-600 mb-4">Use pelo menos <strong>5 verbos no Simple Past</strong> (misture regulares e irregulares) e pelo menos <strong>1 das expressões</strong> da aula.</p>
-                    <div class="grid md:grid-cols-2 gap-3 text-base mt-4">
-                        <div class="callout-note p-3">✅ 5+ verbos no Simple Past</div>
-                        <div class="callout-note p-3">✅ end up / catch up with / had a blast / out of nowhere</div>
-                        <div class="callout-note p-3">✅ Pelo menos 1 frase negativa (didn't)</div>
-                        <div class="callout-note p-3">✅ Pelo menos 1 pergunta (Did you...?)</div>
-                    </div>
+            <div class="lesson-hero rounded-[2rem] p-10 text-center">
+                <h2 class="text-5xl font-black mb-6">Homework Time!</h2>
+                <p class="text-xl mb-8">Aplique o que você aprendeu hoje em sua vida real.</p>
+                <div class="bg-white/20 backdrop-blur-sm p-8 rounded-2xl text-left max-w-2xl mx-auto">
+                    <ul id="homework-list" class="space-y-4 text-lg">
+                        <li class="flex gap-3"><i class="fas fa-edit mt-1"></i> Escreva 5 frases sobre seu dia usando Past Simple: Regular & Irregular Review.</li>
+                        <li class="flex gap-3"><i class="fas fa-microphone mt-1"></i> Grave um áudio contando uma pequena história.</li>
+                    </ul>
                 </div>
-                <textarea rows="6" class="w-full p-4 border-2 border-slate-200 rounded-2xl text-lg outline-none focus:border-emerald-500 bg-transparent" placeholder="Escreva seu parágrafo aqui... (ex: Last weekend, I woke up early and...)"></textarea>
-            </div>
-        </div>
-
-        <!-- SLIDE 12: Lesson Complete -->
-        <div class="slide" data-title="Lesson Complete">
-            <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
-                <i class="fas fa-trophy text-emerald-600 text-7xl mb-6"></i>
-                <p class="lesson-panel-title mb-2">Lição concluída!</p>
-                <h2 class="text-5xl font-black mb-4 text-slate-900">Great job!</h2>
-                <p class="text-2xl text-slate-600 max-w-3xl mb-6">Agora você consegue falar sobre o passado com verbos regulares e irregulares!</p>
-                <div class="lesson-panel p-6 max-w-2xl">
-                    <p class="text-xl font-serif italic">"Yesterday is history, tomorrow is a mystery, but today is a gift — that's why it's called the present."</p>
-                    <p class="text-base font-bold text-emerald-600 mt-2">— Eleanor Roosevelt</p>
-                </div>
-                <p class="text-slate-400 mt-6 text-lg">See you in Lesson 02!</p>
+                <button id="finish-btn" class="mt-12 bg-white text-emerald-700 font-bold py-4 px-10 rounded-full text-xl shadow-lg hover:bg-emerald-50 transition-colors">
+                    Finalizar Aula
+                </button>
             </div>
         </div>
 
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20">
-        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Previous</button>
-            <button id="next-btn" class="bg-emerald-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-emerald-700">Next</button>
-            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finish Lesson</button>
+    <footer class="fixed bottom-0 w-full bg-white border-t border-slate-200 p-4 z-10">
+        <div class="container mx-auto flex justify-between max-w-5xl">
+            <button id="prev-btn" class="px-6 py-2 rounded-lg font-semibold text-slate-500 hover:bg-slate-100 disabled:opacity-30">Anterior</button>
+            <button id="next-btn" class="px-8 py-2 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700 shadow-md transition-all">Próximo</button>
         </div>
     </footer>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    <script src="../js/firebase-config.js"></script>
-    <script src="../js/progress-manager.js"></script>
-
+    <script src="../js/flashcard-pronunciation.js"></script>
+    <script src="../js/lesson-flashcard-save.js"></script>
+    <script src='a2-v2-template.js'></script>
+    <script src='a2-lesson-theme.js'></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const moduleId = 'a2-v2';
-            const lessonNumber = 1;
-
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            const slideCounter = document.getElementById('slide-counter');
-            const slideTitleHeader = document.getElementById('slide-title-header');
+            const slides = Array.from(document.querySelectorAll('.slide'));
             let currentSlide = 0;
 
             function updateSlideView() {
                 slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
-                const progressBar = document.getElementById('progress-bar');
-                progressBar.style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
-                if (slideCounter) slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
-                if (slideTitleHeader) slideTitleHeader.textContent = slides[currentSlide]?.dataset.title || '';
-                prevBtn.disabled = currentSlide === 0;
-                nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
-                finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+                document.getElementById('slide-counter').textContent = `${currentSlide + 1} / ${slides.length}`;
+                document.getElementById('progress-bar').style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+                document.getElementById('prev-btn').disabled = currentSlide === 0;
+                document.getElementById('next-btn').style.display = currentSlide === slides.length - 1 ? 'none' : 'block';
+                
+                const title = slides[currentSlide].dataset.title;
+                document.getElementById('slide-title-header').textContent = title;
+                window.scrollTo(0, 0);
             }
 
-            prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; updateSlideView(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
-            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; updateSlideView(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
-
-            finishLessonBtn.addEventListener('click', () => {
-                finishLessonBtn.disabled = true;
-                finishLessonBtn.textContent = 'Saving...';
-                if (typeof markLessonAsComplete === 'function') {
-                    markLessonAsComplete(moduleId, lessonNumber).catch(() => {
-                        finishLessonBtn.disabled = false;
-                        finishLessonBtn.textContent = 'Finish Lesson';
-                    });
+            document.getElementById('next-btn').addEventListener('click', () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateSlideView();
                 }
             });
 
-            function checkAnswer(input) {
-                const userAnswer = input.value.trim().toLowerCase().replace(/[.!?,'"]/g, '');
-                const correctAnswer = (input.dataset.answer || '').toLowerCase().replace(/[.!?,'"]/g, '');
-                input.classList.remove('correct', 'incorrect');
-                if (userAnswer.length === 0) return;
-                input.classList.toggle('correct', userAnswer === correctAnswer);
-                input.classList.toggle('incorrect', userAnswer !== correctAnswer);
-            }
-
-            function addRevealListeners(container) {
-                (container || document).querySelectorAll('.answer-btn[data-target]').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const input = document.getElementById(button.dataset.target);
-                        if (input) { input.value = input.dataset.answer; checkAnswer(input); }
-                    });
-                });
-                (container || document).querySelectorAll('input[data-answer]').forEach(input => {
-                    input.addEventListener('blur', () => checkAnswer(input));
-                });
-            }
-
-            document.querySelectorAll('.flip-card').forEach(card => {
-                card.addEventListener('click', () => card.classList.toggle('flipped'));
+            document.getElementById('prev-btn').addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateSlideView();
+                }
             });
 
-            // Atividade A: Completar (frases em inglês, dicas em português)
-            const fillData = [
-                { id: 'f1', sentence: 'She ___ to the supermarket yesterday.', hint: 'passado de "go"', answer: 'went' },
-                { id: 'f2', sentence: 'We ___ a great time at the party.', hint: 'passado de "have"', answer: 'had' },
-                { id: 'f3', sentence: 'He ___ a movie last night.', hint: 'passado de "watch" (regular, +ed)', answer: 'watched' },
-                { id: 'f4', sentence: 'They ___ pizza for dinner.', hint: 'passado de "eat"', answer: 'ate' },
-                { id: 'f5', sentence: 'I ___ my old friends at the café.', hint: 'passado de "meet"', answer: 'met' },
-                { id: 'f6', sentence: 'She ___ a lot of photos on the trip.', hint: 'passado de "take"', answer: 'took' }
-            ];
-            const fillContainer = document.getElementById('practice-fill');
-            if (fillContainer) {
-                fillContainer.innerHTML = fillData.map(item => `
-                    <p>${item.sentence.replace('___', `<input id="${item.id}" data-answer="${item.answer}" class="w-32 border-b-2 text-center bg-transparent border-gray-400">
-                    <button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>`)}
-                    <span class="text-slate-400 text-base ml-2">(dica: ${item.hint})</span></p>
-                `).join('');
-                addRevealListeners(fillContainer);
-            }
+            // Lógica de Revelar Resposta
+            window.revealAnswer = function(id) {
+                const el = document.getElementById(id);
+                if (el) el.classList.toggle('hidden');
+            };
 
-            // Atividade B: Desembaralhar
-            const unscrambleData = [
-                { id: 'u1', hint: "didn't / she / to / go / work / yesterday", answer: "She didn't go to work yesterday" },
-                { id: 'u2', hint: 'did / you / the / see / movie / ?', answer: 'Did you see the movie?' },
-                { id: 'u3', hint: 'we / caught / up / friends / with / old / our', answer: 'We caught up with our old friends' },
-                { id: 'u4', hint: 'ended / I / staying / up / home / all / day', answer: 'I ended up staying home all day' }
-            ];
-            const unscrambleContainer = document.getElementById('practice-unscramble');
-            if (unscrambleContainer) {
-                unscrambleContainer.innerHTML = unscrambleData.map(item => `
-                    <div>
-                        <p class="text-slate-500 italic mb-1">${item.hint}</p>
-                        <div class="flex items-center gap-2">
-                            <input id="${item.id}" data-answer="${item.answer}" class="w-full border-b-2 bg-transparent border-gray-400" placeholder="Escreva a frase correta...">
-                            <button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>
-                        </div>
-                    </div>
-                `).join('');
-                addRevealListeners(unscrambleContainer);
-            }
-
-            // Atividade C: Corrigir erro
-            const errorData = [
-                { id: 'e1', wrong: "She didn't went to the party.", answer: "She didn't go to the party" },
-                { id: 'e2', wrong: 'Did he went to school yesterday?', answer: 'Did he go to school yesterday?' },
-                { id: 'e3', wrong: 'We eated at a great restaurant.', answer: 'We ate at a great restaurant' },
-                { id: 'e4', wrong: 'I goed to the beach last weekend.', answer: 'I went to the beach last weekend' }
-            ];
-            const errorContainer = document.getElementById('practice-error');
-            if (errorContainer) {
-                errorContainer.innerHTML = errorData.map(item => `
-                    <div>
-                        <p class="text-red-500 font-semibold mb-1">Erro: <span class="font-normal text-slate-700">${item.wrong}</span></p>
-                        <div class="flex items-center gap-2">
-                            <input id="${item.id}" data-answer="${item.answer}" class="w-full border-b-2 bg-transparent border-gray-400" placeholder="Escreva a frase correta...">
-                            <button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>
-                        </div>
-                    </div>
-                `).join('');
-                addRevealListeners(errorContainer);
-            }
-
-            addRevealListeners();
             updateSlideView();
-            document.body.classList.remove('lesson-loading');
         });
     </script>
-    <script src="../js/flashcard-pronunciation.js"></script>
-    <script src="../js/lesson-flashcard-save.js"></script>
-    <script src="translation-exercises.js"></script>
-    <script src='a2-v2-template.js'></script>
-    <script src='a2-lesson-theme.js'></script>
 </body>
 </html>

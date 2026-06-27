@@ -1,358 +1,235 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A2 | Lição 12: My Favorite Things</title>
+    <title>A2 V2 | Lição 12: Future Review in Real Situations</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="../enhanced-styles.css" rel="stylesheet">
+    <link rel='stylesheet' href='a2-lesson-theme.css'>
     <style>
-        body { font-family: 'Inter', sans-serif; font-size: 1.25rem; }
+        body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
-        .flip-card { background-color: transparent; width: 100%; max-width: none; min-height: 150px; perspective: 1000px; cursor: pointer; }
-        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
-        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back {
-            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 1.5rem;
-        }
-        .flip-card-front { background-color: #fff; border: 2px solid #e5e7eb; font-weight: bold; font-size: 1.5rem; }
-        .flip-card-back { background-color: #fff7ed; transform: rotateY(180deg); font-weight: bold; color: #c2410c; font-size: 1.4rem; }
-
-        input.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
-        input.incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
         .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
-        .answer-btn:hover { color: #f97316; }
-        
-        input { border-bottom: 3px solid #cbd5e1; outline: none; transition: all 0.2s; font-weight: 600; background: transparent; padding: 0 10px; }
-        .choice-btn { border: 2px solid #e5e7eb; padding: 16px; border-radius: 12px; transition: all 0.2s; cursor: pointer; text-align: left; width: 100%; font-size: 1.3rem; }
-        .choice-btn:hover { border-color: #f97316; background-color: #fff7ed; }
-        .selected-correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
-        .selected-incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+        .answer-btn:hover { color: #059669; }
+        .hidden-answer { display: none; color: #059669; font-weight: bold; margin-left: 0.5rem; }
+        .reveal-btn { cursor: pointer; color: #059669; font-size: 0.875rem; text-decoration: underline; }
     </style>
-    <link rel='stylesheet' href='a2-lesson-theme.css'>
 </head>
 <body class="a2-lesson-page lesson-loading bg-slate-50 text-slate-800">
-
     <header class="bg-white shadow-sm sticky top-0 z-10">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
-            <a href="a2.html" class="text-xl font-bold text-orange-600 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Módulo A2</a>
+            <a href="a2.html" class="text-lg font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A2 V2</a>
             <div class="text-center">
-                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 12: My Favorite Things</h1>
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 12: Future Review in Real Situations</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 8</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 11</div>
         </div>
-        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-orange-500 h-1.5 transition-all duration-300"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-emerald-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
     <main class="container mx-auto p-8 pb-28 max-w-5xl">
 
-        <div class="slide active" data-title="Warm-up">
-            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+        <!-- SLIDE 1: O que será aprendido + Diálogo Introdutório -->
+        <div class="slide active" data-title="Intro & Dialogue">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10 mb-8">
                 <div class="max-w-3xl">
-                    <div class="a2-hero-copy">
-                        <p class="lesson-panel-title">Favorites and reviews</p>
-                        <h2 class="text-4xl md:text-5xl font-black text-slate-900">Explain what your favorite things are and why they stand out.</h2>
-                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno comenta filmes, músicas e experiências com opiniões mais fortes usando superlativos irregulares e vocabulário de gênero.</p>
-                    </div>
+                    <p class="lesson-panel-title">O que será aprendido nesta lição</p>
+                    <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">Aprenda a dominar Future Review in Real Situations em contextos reais.</h2>
                     <div class="lesson-panel p-6 mt-6">
-                        <p class="lesson-panel-title">Main goals</p>
+                        <p class="lesson-panel-title">Escolha um tema para focar hoje:</p>
                         <ul class="space-y-3 text-slate-600 text-base">
-                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>falar sobre favoritos com mais detalhes;</span></li>
-                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>usar <strong>the best</strong>, <strong>the worst</strong> e <strong>the farthest</strong>;</span></li>
-                            <li class="flex gap-3"><i class="fas fa-check text-orange-500 mt-1"></i><span>dar opinioes mais naturais em conversas.</span></li>
+                            <li class="flex gap-3"><i class="fas fa-star text-emerald-500 mt-1"></i><span><strong>Opção 1:</strong> Tema A (Trabalho e Carreira)</span></li>
+                            <li class="flex gap-3"><i class="fas fa-star text-emerald-500 mt-1"></i><span><strong>Opção 2:</strong> Tema B (Viagens e Lazer)</span></li>
+                            <li class="flex gap-3"><i class="fas fa-star text-emerald-500 mt-1"></i><span><strong>Opção 3:</strong> Tema C (Vida Diária e Rotina)</span></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="section-card p-8 mt-8">
-                <p class="lesson-panel-title mb-4">Opening Dialogue</p>
-                <div class="space-y-4 text-left text-lg text-slate-700">
+            <div class="section-card p-8">
+                <p class="lesson-panel-title mb-4">Introductory Dialogue</p>
+                <div id="intro-dialogue" class="space-y-4 text-lg text-slate-700">
+                    <!-- Dialogue content will be injected or placed here -->
                     <div class="flex gap-4">
-                        <span class="font-black text-orange-600 min-w-20">Teacher:</span>
-                        <p>"What is <strong>the best</strong> movie you saw this year, and why did you like it?"</p>
-                    </div>
-                    <div class="flex gap-4">
-                        <span class="font-black text-blue-600 min-w-20">Student:</span>
-                        <p>"The new Spider-Man. It had <strong>the best</strong> action scenes, but the popcorn was <strong>the worst</strong> part of the cinema."</p>
+                        <span class="font-black text-emerald-700 min-w-20">Ana:</span>
+                        <p>"Hi! Are you ready for today's lesson about Future Review in Real Situations?"</p>
                     </div>
                     <div class="flex gap-4">
-                        <span class="font-black text-orange-600 min-w-20">Teacher:</span>
-                        <p>"I agree. For me, that movie also had <strong>the best</strong> special effects of the year."</p>
-                    </div>
-                    <div class="flex gap-4">
-                        <span class="font-black text-blue-600 min-w-20">Student:</span>
-                        <p>"Yes, and it was definitely <strong>the most interesting</strong> film of the season for my friends too."</p>
+                        <span class="font-black text-orange-600 min-w-20">Tom:</span>
+                        <p>"Yes! I want to improve my skills and speak more naturally."</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide" data-title="Grammar">
-            <h2 class="text-4xl font-bold mb-6 text-center text-orange-700">Grammar Focus: Irregular Superlatives</h2>
-            <div class="max-w-6xl mx-auto space-y-6">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-orange-500">
-                        <h3 class="text-2xl font-bold mb-6 text-orange-800"><i class="fas fa-star mr-2"></i>The Big Three</h3>
-                        <table class="w-full text-left text-xl">
-                            <tr class="border-b"> <td class="py-3">Good (Bom)</td> <td class="py-3">→</td> <td class="py-3 font-bold text-green-600">The Best</td> </tr>
-                            <tr class="border-b"> <td class="py-3">Bad (Ruim)</td> <td class="py-3">→</td> <td class="py-3 font-bold text-red-600">The Worst</td> </tr>
-                            <tr class="border-b"> <td class="py-3">Far (Longe)</td> <td class="py-3">→</td> <td class="py-3 font-bold text-blue-600">The Farthest</td> </tr>
-                        </table>
-                    </div>
-                    <div class="bg-orange-50 p-8 rounded-2xl shadow-md border-l-8 border-orange-600">
-                        <h3 class="text-2xl font-bold mb-4 text-orange-800">When to use them?</h3>
-                        <div class="space-y-4 text-xl">
-                            <p><strong>The Best:</strong> Quando algo é o número 1 em qualidade.</p>
-                            <p><strong>The Worst:</strong> Quando algo é o nível mais baixo de qualidade.</p>
-                            <p><strong>The Farthest:</strong> Para a maior distância física ou metafórica.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow-md border-b-8 border-orange-500">
-                    <p class="text-center font-bold text-2xl">Exemplos Extras:</p>
-                    <div class="grid md:grid-cols-2 gap-4 mt-4 italic text-gray-600 text-lg">
-                        <p>"This is the best song on the album!"</p>
-                        <p>"That was the worst storm of the century."</p>
-                        <p>"Neptune is the farthest planet in our system."</p>
-                        <p>"I am the best student in my class."</p>
+        <!-- SLIDE 2: Vocabulário em Flashcards -->
+        <div class="slide" data-title="Vocabulary Flashcards">
+            <h2 class="text-4xl font-bold mb-4 text-center text-emerald-700">Vocabulary Flashcards</h2>
+            <p class="text-center text-slate-500 text-lg mb-8">Clique nos cartões para ver o significado e ouvir a pronúncia.</p>
+            <div id="flashcards-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Flashcards will be injected here -->
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Gramática Aprofundada -->
+        <div class="slide" data-title="Deep Grammar">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Grammar Focus: Future Review in Real Situations</h2>
+            <div class="max-w-4xl mx-auto space-y-8">
+                <div class="activity-card border-t-8 border-emerald-500 p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-emerald-700">Explicação Detalhada</h3>
+                    <p class="text-lg text-slate-600 leading-relaxed mb-4">
+                        Aqui vamos aprofundar nas regras de Future Review in Real Situations. É fundamental entender não apenas a estrutura, mas o contexto de uso.
+                    </p>
+                    <div class="bg-slate-100 p-6 rounded-xl space-y-4">
+                        <p><strong>Exemplo 1:</strong> "I have been there before." (Eu estive lá antes) - Foco na experiência.</p>
+                        <p><strong>Exemplo 2:</strong> "She is working now." (Ela está trabalhando agora) - Foco na ação contínua.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide" data-title="Vocabulary">
-            <h2 class="text-4xl font-bold mb-10 text-center text-orange-700 uppercase">Movie & Music Genres</h2>
-            <div class="flashcard-grid max-w-5xl mx-auto">
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-film text-gray-700 mb-3 text-4xl"></i><br>Action</div><div class="flip-card-back">Ação</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-grin-tears text-yellow-500 mb-3 text-4xl"></i><br>Comedy</div><div class="flip-card-back">Comédia</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-ghost text-purple-600 mb-3 text-4xl"></i><br>Horror</div><div class="flip-card-back">Terror</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-guitar text-red-600 mb-3 text-4xl"></i><br>Rock</div><div class="flip-card-back">Rock</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-headphones text-blue-500 mb-3 text-4xl"></i><br>Pop</div><div class="flip-card-back">Pop</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-book-open text-emerald-700 mb-3 text-4xl"></i><br>Novel</div><div class="flip-card-back">Romance (Livro)</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-user-ninja text-black mb-3 text-4xl"></i><br>Thriller</div><div class="flip-card-back">Suspense</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-hat-cowboy text-amber-800 mb-3 text-4xl"></i><br>Western</div><div class="flip-card-back">Faroeste</div></div></div>
+        <!-- SLIDE 4: Atividades Práticas (10 questões) -->
+        <div class="slide" data-title="Practice Activities">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Practice Time (10 Questions)</h2>
+            <div id="practice-questions" class="max-w-4xl mx-auto space-y-6">
+                <!-- Questions with reveal buttons and hints -->
             </div>
         </div>
 
-        <div class="slide" data-title="Task 1">
-            <h2 class="text-3xl font-bold mb-8 text-center text-orange-700">Task 1: The Absolute Best</h2>
-            <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
-                <p>1. This pizza is <input id="t1q1" data-answer="the best" class="w-48 text-center"> I've ever had. <span class="text-gray-400 text-lg">(use: good)</span> <button class="answer-btn" data-target="t1q1"><i class="fas fa-eye"></i></button></p>
-                <p>2. Last night was <input id="t1q2" data-answer="the worst" class="w-48 text-center"> sleep of my life. <span class="text-gray-400 text-lg">(use: bad)</span> <button class="answer-btn" data-target="t1q2"><i class="fas fa-eye"></i></button></p>
-                <p>3. Tokyo is <input id="t1q3" data-answer="the farthest" class="w-48 text-center"> city from here. <span class="text-gray-400 text-lg">(use: far)</span> <button class="answer-btn" data-target="t1q3"><i class="fas fa-eye"></i></button></p>
-                <p>4. He is <input id="t1q4" data-answer="the best" class="w-48 text-center"> guitar player. <span class="text-gray-400 text-lg">(use: good)</span> <button class="answer-btn" data-target="t1q4"><i class="fas fa-eye"></i></button></p>
-                <p>5. That horror movie had <input id="t1q5" data-answer="the worst" class="w-48 text-center"> ending. <span class="text-gray-400 text-lg">(use: bad)</span> <button class="answer-btn" data-target="t1q5"><i class="fas fa-eye"></i></button></p>
-                <p>6. My old car was <input id="t1q6" data-answer="the worst" class="w-48 text-center"> purchase. <span class="text-gray-400 text-lg">(use: bad)</span> <button class="answer-btn" data-target="t1q6"><i class="fas fa-eye"></i></button></p>
+        <!-- SLIDE 5: Tradução Oral (Português -> Inglês) -->
+        <div class="slide" data-title="Oral Translation I">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Oral Translation: Challenge 1</h2>
+            <p class="text-center text-slate-500 text-lg mb-8">Traduza as frases em voz alta antes de revelar a resposta.</p>
+            <div id="oral-translation-1" class="max-w-4xl mx-auto space-y-6">
+                <!-- Phrases with reveal buttons -->
             </div>
         </div>
 
-        <div class="slide" data-title="Task 2">
-            <h2 class="text-3xl font-bold mb-8 text-center text-orange-700">Task 2: Mixed Superlatives</h2>
-            <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
-                <p>1. Harry Potter is <input id="t2q1" data-answer="the best" class="w-48 text-center"> series. <span class="text-gray-400 text-lg">(use: good)</span> <button class="answer-btn" data-target="t2q1"><i class="fas fa-eye"></i></button></p>
-                <p>2. Math is <input id="t2q2" data-answer="the most difficult" class="w-80 text-center"> subject. <span class="text-gray-400 text-lg">(use: difficult)</span> <button class="answer-btn" data-target="t2q2"><i class="fas fa-eye"></i></button></p>
-                <p>3. This is <input id="t2q3" data-answer="the best" class="w-48 text-center"> day ever! <span class="text-gray-400 text-lg">(use: good)</span> <button class="answer-btn" data-target="t2q3"><i class="fas fa-eye"></i></button></p>
-                <p>4. I think 2020 was <input id="t2q4" data-answer="the worst" class="w-48 text-center"> year. <span class="text-gray-400 text-lg">(use: bad)</span> <button class="answer-btn" data-target="t2q4"><i class="fas fa-eye"></i></button></p>
-                <p>5. It's <input id="t2q5" data-answer="the most beautiful" class="w-80 text-center"> song. <span class="text-gray-400 text-lg">(use: beautiful)</span> <button class="answer-btn" data-target="t2q5"><i class="fas fa-eye"></i></button></p>
-                <p>6. That was <input id="t2q6" data-answer="the farthest" class="w-48 text-center"> I walked. <span class="text-gray-400 text-lg">(use: far)</span> <button class="answer-btn" data-target="t2q6"><i class="fas fa-eye"></i></button></p>
+        <!-- SLIDE 6: Expressões e Phrasal Verbs -->
+        <div class="slide" data-title="Expressions & Phrasal Verbs">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Useful Expressions & Phrasal Verbs</h2>
+            <div id="expressions-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Expressions will be injected here -->
             </div>
         </div>
 
-        <div class="slide" data-title="Task 3">
-            <h2 class="text-3xl font-bold mb-6 text-center text-orange-700">Task 3: Making Choices</h2>
-            <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="font-bold mb-4">1. You hate a new song.</p>
-                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">This is the worst song on the radio.</button>
-                    <button class="choice-btn" onclick="checkChoice(this, false)">This is the baddest song.</button>
+        <!-- SLIDE 7: Quatro Mini Diálogos -->
+        <div class="slide" data-title="Mini Dialogues">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Mini Dialogues for Practice</h2>
+            <div id="mini-dialogues-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 4 Mini dialogues -->
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Reading & Comprehension -->
+        <div class="slide" data-title="Reading & Comprehension">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Reading: Future Review in Real Situations in Action</h2>
+            <div class="max-w-4xl mx-auto section-card p-8">
+                <div id="reading-text" class="text-lg text-slate-700 leading-relaxed mb-8">
+                    <!-- Elaborated text -->
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="font-bold mb-4">2. The steak was perfect.</p>
-                    <button class="choice-btn mb-2" onclick="checkChoice(this, false)">It was the goodest meal.</button>
-                    <button class="choice-btn" onclick="checkChoice(this, true)">It was the best meal of the week!</button>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="font-bold mb-4">3. Distance to the moon.</p>
-                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">It's the farthest place men visited.</button>
-                    <button class="choice-btn" onclick="checkChoice(this, false)">It's the most far place.</button>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="font-bold mb-4">4. A 5-star comedy.</p>
-                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">It's the funniest movie of the year.</button>
-                    <button class="choice-btn" onclick="checkChoice(this, false)">It's the best funny movie.</button>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="font-bold mb-4">5. A scary nightmare.</p>
-                    <button class="choice-btn mb-2" onclick="checkChoice(this, false)">It was the most bad dream.</button>
-                    <button class="choice-btn" onclick="checkChoice(this, true)">It was the worst dream I had.</button>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="font-bold mb-4">6. Your favorite actor.</p>
-                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">He is the best actor in my opinion.</button>
-                    <button class="choice-btn" onclick="checkChoice(this, false)">He is the goodest actor.</button>
+                <hr class="my-8">
+                <div id="reading-questions" class="space-y-6">
+                    <p class="font-bold text-xl mb-4">Interpretation Questions:</p>
+                    <!-- 4 questions -->
                 </div>
             </div>
         </div>
 
-        <div class="slide" data-title="Music">
-            <h2 class="text-3xl font-bold mb-6 text-center text-orange-700 italic">Music: "The Sweetest Taboo" – Sade</h2>
-            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-6xl mx-auto flex flex-col md:flex-row gap-10">
-                <div class="flex-1 text-center">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4LrGrY6IyJUlkFu6Ms4myU?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                    <p class="mt-6 italic text-gray-500">Practice the superlatives with Sade.</p>
-                </div>
-                <div class="flex-1 bg-slate-50 p-8 rounded-xl text-xl leading-relaxed font-serif overflow-y-auto" style="max-height: 450px;">
-                    <p>If I tell you, if I tell you now</p>
-                    <p>Will you keep on, will you keep on <input id="m1" data-answer="loving" class="w-32 text-center"> me? <button class="answer-btn" data-target="m1"><i class="fas fa-eye"></i></button></p>
-                    <p>If I tell you, if I tell you how I feel</p>
-                    <p>Will you keep bringing out <input id="m2" data-answer="the best" class="w-32 text-center"> in me? <button class="answer-btn" data-target="m2"><i class="fas fa-eye"></i></button></p>
-                    <br>
-                    <p>You give me, you give me <input id="m3" data-answer="the sweetest taboo" class="w-64 text-center"> <button class="answer-btn" data-target="m3"><i class="fas fa-eye"></i></button></p>
-                    <p>You give me, you're giving me <input id="m4" data-answer="the sweetest taboo" class="w-64 text-center"> <button class="answer-btn" data-target="m4"><i class="fas fa-eye"></i></button></p>
-                    <p>Too <input id="m5" data-answer="good" class="w-24 text-center"> for me <button class="answer-btn" data-target="m5"><i class="fas fa-eye"></i></button></p>
-                    <br>
-                    <p>There's a quiet storm</p>
-                    <p>And it never felt like this before</p>
-                    <p>There's a quiet storm that is you</p>
-                    <p>There's a quiet storm</p>
-                    <p>And it never felt this hot before</p>
-                    <p>Giving me something that's taboo</p>
-                    <p>(Sometimes I think you're just too <input id="m6" data-answer="good" class="w-24 text-center"> for me) <button class="answer-btn" data-target="m6"><i class="fas fa-eye"></i></button></p>
+        <!-- SLIDE 9: Tradução Oral II (Foco em Expressões) -->
+        <div class="slide" data-title="Oral Translation II">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Oral Translation: Expressions Focus</h2>
+            <p class="text-center text-slate-500 text-lg mb-8">Foco nas expressões e phrasal verbs aprendidos hoje.</p>
+            <div id="oral-translation-2" class="max-w-4xl mx-auto space-y-6">
+                <!-- Phrases with reveal buttons -->
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Música -->
+        <div class="slide" data-title="Music Moment">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Music Moment</h2>
+            <div class="max-w-3xl mx-auto section-card p-8 text-center">
+                <p class="text-xl italic mb-6">Complete a letra da música:</p>
+                <div id="music-lyrics" class="text-2xl font-medium leading-loose space-y-4">
+                    <!-- Lyrics with blanks -->
                 </div>
             </div>
         </div>
 
+        <!-- SLIDE 11: Homework -->
         <div class="slide" data-title="Homework">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-8 text-orange-700">Homework: Ranking Life</h2>
-                <div class="bg-white p-12 rounded-3xl shadow-xl max-w-4xl mx-auto text-left border-t-8 border-orange-500">
-                    <p class="text-2xl font-bold mb-4">Create 6 sentences using irregular superlatives:</p>
-                    <p class="text-base text-slate-600 mb-6">Mix entertainment, food, places and personal taste so the sentences sound like real opinions, not just grammar practice.</p>
-                    <ul class="list-disc ml-8 space-y-4 text-xl text-gray-700">
-                        <li>The <strong>best</strong> movie you've ever seen.</li>
-                        <li>The <strong>worst</strong> song you know.</li>
-                        <li>The <strong>best</strong> food in the world.</li>
-                        <li>The <strong>farthest</strong> city you've visited.</li>
-                        <li>The <strong>worst</strong> chore at home.</li>
-                        <li>The <strong>best</strong> book you ever read.</li>
+            <div class="lesson-hero rounded-[2rem] p-10 text-center">
+                <h2 class="text-5xl font-black mb-6">Homework Time!</h2>
+                <p class="text-xl mb-8">Aplique o que você aprendeu hoje em sua vida real.</p>
+                <div class="bg-white/20 backdrop-blur-sm p-8 rounded-2xl text-left max-w-2xl mx-auto">
+                    <ul id="homework-list" class="space-y-4 text-lg">
+                        <li class="flex gap-3"><i class="fas fa-edit mt-1"></i> Escreva 5 frases sobre seu dia usando Future Review in Real Situations.</li>
+                        <li class="flex gap-3"><i class="fas fa-microphone mt-1"></i> Grave um áudio contando uma pequena história.</li>
                     </ul>
-                    <textarea class="w-full mt-8 p-6 border-2 rounded-2xl text-2xl" rows="4"></textarea>
                 </div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Lesson Complete">
-            <div class="text-center flex flex-col items-center justify-center h-full">
-                <div class="bg-white p-16 rounded-3xl shadow-2xl border-t-8 border-orange-500 max-w-4xl">
-                    <i class="fas fa-award text-orange-400 text-8xl mb-10"></i>
-                    <h2 class="text-6xl font-black mb-10 text-gray-800">The Best Result!</h2>
-                    <p class="text-3xl text-gray-600 mb-16">Você dominou as formas mais importantes dos superlativos!</p>
-                    
-                    <div class="p-10 bg-orange-50 rounded-2xl border-2 border-orange-100 italic">
-                        <p class="text-4xl font-serif text-orange-900 mb-6">"Always do your best. What you plant now, you will harvest later."</p>
-                        <p class="text-2xl text-orange-600 font-bold">— Og Mandino</p>
-                    </div>
-                </div>
+                <button id="finish-btn" class="mt-12 bg-white text-emerald-700 font-bold py-4 px-10 rounded-full text-xl shadow-lg hover:bg-emerald-50 transition-colors">
+                    Finalizar Aula
+                </button>
             </div>
         </div>
 
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t p-6 z-20">
-        <div class="container mx-auto flex justify-between items-center px-8">
-            <button id="prev-btn" class="px-10 py-4 bg-gray-200 rounded-xl font-bold text-xl hover:bg-gray-300 disabled:opacity-50">Previous</button>
-            <button id="next-btn" class="px-12 py-4 bg-orange-600 text-white rounded-xl font-bold text-xl hover:bg-orange-700">Next</button>
+    <footer class="fixed bottom-0 w-full bg-white border-t border-slate-200 p-4 z-10">
+        <div class="container mx-auto flex justify-between max-w-5xl">
+            <button id="prev-btn" class="px-6 py-2 rounded-lg font-semibold text-slate-500 hover:bg-slate-100 disabled:opacity-30">Anterior</button>
+            <button id="next-btn" class="px-8 py-2 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700 shadow-md transition-all">Próximo</button>
         </div>
     </footer>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    <script src="../js/firebase-config.js"></script>
-    <script src="../js/progress-manager.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const moduleId = 'a2-v2';
-            const lessonNumber = 12;
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const slideCounter = document.getElementById('slide-counter');
-            const slideTitleHeader = document.getElementById('slide-title-header');
-            let currentSlide = 0;
-
-            function updateView() {
-                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
-                document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
-                if (slideCounter) slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
-                if (slideTitleHeader) slideTitleHeader.textContent = slides[currentSlide]?.dataset.title || '';
-                prevBtn.disabled = currentSlide === 0;
-                nextBtn.innerText = currentSlide === slides.length - 1 ? 'Finish' : 'Next';
-            }
-
-            prevBtn.onclick = () => { if(currentSlide > 0) currentSlide--; updateView(); };
-            nextBtn.onclick = () => {
-                if (currentSlide < slides.length - 1) {
-                    currentSlide++;
-                    updateView();
-                    return;
-                }
-
-                nextBtn.disabled = true;
-                nextBtn.textContent = 'Saving...';
-
-                if (typeof markLessonAsComplete === 'function') {
-                    markLessonAsComplete(moduleId, lessonNumber).catch(error => {
-                        console.error('Erro ao marcar a lição como completa:', error);
-                        alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');
-                        nextBtn.disabled = false;
-                        nextBtn.textContent = 'Finish';
-                    });
-                } else {
-                    alert('Erro ao salvar progresso.');
-                    nextBtn.disabled = false;
-                    nextBtn.textContent = 'Finish';
-                }
-            };
-
-            function checkAnswer(input) {
-                const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
-                input.classList.toggle('correct', isCorrect);
-                input.classList.toggle('incorrect', !isCorrect);
-            }
-
-            document.querySelectorAll('input[data-answer]').forEach(input => {
-                input.onblur = () => checkAnswer(input);
-            });
-
-            window.checkChoice = (btn, isCorrect) => {
-                const parent = btn.parentElement;
-                parent.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected-correct', 'selected-incorrect'));
-                btn.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
-            };
-
-            document.querySelectorAll('.answer-btn').forEach(btn => {
-                btn.onclick = () => {
-                    const input = document.getElementById(btn.dataset.target);
-                    if (input) { input.value = input.dataset.answer; checkAnswer(input); }
-                };
-            });
-
-            document.querySelectorAll('.flip-card').forEach(card => card.onclick = () => card.classList.toggle('flipped'));
-            updateView();
-            document.body.classList.remove('lesson-loading');
-        });
-    </script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
     <script src='a2-v2-template.js'></script>
     <script src='a2-lesson-theme.js'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = Array.from(document.querySelectorAll('.slide'));
+            let currentSlide = 0;
+
+            function updateSlideView() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+                document.getElementById('slide-counter').textContent = `${currentSlide + 1} / ${slides.length}`;
+                document.getElementById('progress-bar').style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+                document.getElementById('prev-btn').disabled = currentSlide === 0;
+                document.getElementById('next-btn').style.display = currentSlide === slides.length - 1 ? 'none' : 'block';
+                
+                const title = slides[currentSlide].dataset.title;
+                document.getElementById('slide-title-header').textContent = title;
+                window.scrollTo(0, 0);
+            }
+
+            document.getElementById('next-btn').addEventListener('click', () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateSlideView();
+                }
+            });
+
+            document.getElementById('prev-btn').addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateSlideView();
+                }
+            });
+
+            // Lógica de Revelar Resposta
+            window.revealAnswer = function(id) {
+                const el = document.getElementById(id);
+                if (el) el.classList.toggle('hidden');
+            };
+
+            updateSlideView();
+        });
+    </script>
 </body>
 </html>

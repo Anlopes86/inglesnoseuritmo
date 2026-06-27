@@ -1,341 +1,235 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A2 | Lição 14: Do I Have to...?</title>
+    <title>A2 V2 | Lição 14: Must, Have To and Need To</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="../enhanced-styles.css" rel="stylesheet">
+    <link rel='stylesheet' href='a2-lesson-theme.css'>
     <style>
-        body { font-family: 'Inter', sans-serif; font-size: 1.25rem; }
+        body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
-        .flip-card { background-color: transparent; width: 100%; max-width: none; min-height: 150px; perspective: 1000px; cursor: pointer; }
-        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
-        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back {
-            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 1.5rem;
-        }
-        .flip-card-front { background-color: #fff; border: 2px solid #e5e7eb; font-weight: bold; font-size: 1.5rem; }
-        .flip-card-back { background-color: #fdf2f8; transform: rotateY(180deg); font-weight: bold; color: #be185d; font-size: 1.4rem; }
-
-        input.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
-        input.incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
         .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
-        .answer-btn:hover { color: #db2777; }
-        
-        input { border-bottom: 3px solid #cbd5e1; outline: none; transition: all 0.2s; font-weight: 600; background: transparent; padding: 0 10px; }
-        .choice-btn { border: 2px solid #e5e7eb; padding: 16px; border-radius: 12px; transition: all 0.2s; cursor: pointer; text-align: left; width: 100%; font-size: 1.3rem; }
-        .choice-btn:hover { border-color: #db2777; background-color: #fdf2f8; }
-        .selected-correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
-        .selected-incorrect { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+        .answer-btn:hover { color: #059669; }
+        .hidden-answer { display: none; color: #059669; font-weight: bold; margin-left: 0.5rem; }
+        .reveal-btn { cursor: pointer; color: #059669; font-size: 0.875rem; text-decoration: underline; }
     </style>
-    <link rel='stylesheet' href='a2-lesson-theme.css'>
 </head>
 <body class="a2-lesson-page lesson-loading bg-slate-50 text-slate-800">
-
     <header class="bg-white shadow-sm sticky top-0 z-10">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
-            <a href="a2.html" class="text-xl font-bold text-pink-600 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Módulo A2</a>
+            <a href="a2.html" class="text-lg font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A2 V2</a>
             <div class="text-center">
-                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 14: Do I Have to...?</h1>
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 14: Must, Have To and Need To</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 9</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 11</div>
         </div>
-        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-pink-500 h-1.5 transition-all duration-300"></div></div>
+        <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-emerald-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
     <main class="container mx-auto p-8 pb-28 max-w-5xl">
 
-        <div class="slide active" data-title="Warm-up">
-            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+        <!-- SLIDE 1: O que será aprendido + Diálogo Introdutório -->
+        <div class="slide active" data-title="Intro & Dialogue">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10 mb-8">
                 <div class="max-w-3xl">
-                    <div class="a2-hero-copy">
-                        <p class="lesson-panel-title">Travel and security rules</p>
-                        <h2>Ask about rules and understand what is required or forbidden.</h2>
-                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula, o aluno combina perguntas com <strong>do I have to...?</strong> e regras com <strong>must</strong> e <strong>mustn't</strong> em contexto de viagem.</p>
-                    </div>
+                    <p class="lesson-panel-title">O que será aprendido nesta lição</p>
+                    <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">Aprenda a dominar Must, Have To and Need To em contextos reais.</h2>
                     <div class="lesson-panel p-6 mt-6">
-                        <p class="lesson-panel-title mb-4">You will practice</p>
-                        <div class="lesson-checklist">
-                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>perguntas sobre obrigações</span></div>
-                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>regras fortes e proibições</span></div>
-                            <div class="lesson-checklist-item"><i class="fas fa-check-circle"></i><span>vocabulário de aeroporto, museu e transporte</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="section-card p-8 mt-8">
-                <p class="lesson-panel-title mb-4">Opening Dialogue</p>
-                <div class="text-left text-xl space-y-5">
-                    <p><strong class="text-pink-600">Traveler:</strong> "Excuse me, <strong>do I have to</strong> show my passport now or only at the gate?"</p>
-                    <p><strong class="text-orange-600">Officer:</strong> "You <strong>must</strong> show it now, and you <strong>mustn't</strong> leave your bags alone at any time."</p>
-                    <p><strong class="text-pink-600">Traveler:</strong> "Understood. <strong>Does</strong> my friend <strong>have to</strong> take off his shoes too?"</p>
-                    <p><strong class="text-orange-600">Officer:</strong> "He <strong>doesn't have to</strong>, but he <strong>must</strong> put all metal objects in the tray before entering."</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Grammar">
-            <h2 class="text-4xl font-bold mb-6 text-center text-pink-700">Grammar Focus: Questions & Must</h2>
-            <div class="max-w-6xl mx-auto space-y-6">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-pink-500">
-                        <h3 class="text-2xl font-bold mb-6 text-pink-800"><i class="fas fa-question-circle mr-2"></i>Interrogative</h3>
-                        <p class="mb-4">Use <strong>Do</strong> ou <strong>Does</strong> para perguntar sobre obrigações:</p>
-                        <ul class="space-y-2 text-xl italic text-gray-600">
-                            <li>"<strong>Do</strong> you <strong>have to</strong> pay?"</li>
-                            <li>"<strong>Does</strong> he <strong>have to</strong> wait?"</li>
-                        </ul>
-                    </div>
-                    <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-red-500">
-                        <h3 class="text-2xl font-bold mb-6 text-red-800"><i class="fas fa-exclamation-triangle mr-2"></i>Must & Mustn't</h3>
-                        <p class="mb-4"><strong>Must:</strong> Obrigação forte/regra.</p>
-                        <p class="mb-4"><strong>Mustn't:</strong> Proibição absoluta.</p>
-                        <ul class="space-y-2 text-xl italic text-gray-600">
-                            <li>"You <strong>must</strong> wear a belt."</li>
-                            <li>"You <strong>mustn't</strong> park here."</li>
+                        <p class="lesson-panel-title">Escolha um tema para focar hoje:</p>
+                        <ul class="space-y-3 text-slate-600 text-base">
+                            <li class="flex gap-3"><i class="fas fa-star text-emerald-500 mt-1"></i><span><strong>Opção 1:</strong> Tema A (Trabalho e Carreira)</span></li>
+                            <li class="flex gap-3"><i class="fas fa-star text-emerald-500 mt-1"></i><span><strong>Opção 2:</strong> Tema B (Viagens e Lazer)</span></li>
+                            <li class="flex gap-3"><i class="fas fa-star text-emerald-500 mt-1"></i><span><strong>Opção 3:</strong> Tema C (Vida Diária e Rotina)</span></li>
                         </ul>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="slide" data-title="Vocabulary">
-            <h2 class="text-4xl font-bold mb-10 text-center text-pink-700 uppercase">Rules in Public Places</h2>
-            <div class="flashcard-grid max-w-5xl mx-auto">
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-passport mb-3 text-4xl"></i><br>Passport</div><div class="flip-card-back">Passaporte</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-ban mb-3 text-4xl"></i><br>Forbidden</div><div class="flip-card-back">Proibido</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-volume-mute mb-3 text-4xl"></i><br>Keep quiet</div><div class="flip-card-back">Fazer silêncio</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-smoking-ban mb-3 text-4xl"></i><br>No smoking</div><div class="flip-card-back">Não fume</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-mobile-alt mb-3 text-4xl"></i><br>Turn off phones</div><div class="flip-card-back">Desligar celulares</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-dog mb-3 text-4xl"></i><br>No pets</div><div class="flip-card-back">Sem animais</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-camera-retro mb-3 text-4xl"></i><br>No photos</div><div class="flip-card-back">Sem fotos</div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><i class="fas fa-ticket-alt mb-3 text-4xl"></i><br>Show ticket</div><div class="flip-card-back">Mostrar ticket</div></div></div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Task 1">
-            <h2 class="text-3xl font-bold mb-8 text-center text-pink-700">Task 1: Ask the Question</h2>
-            <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
-                <p>1. <input id="t1q1" data-answer="Do you have to" class="w-64 text-center"> pay for the water? <span class="text-gray-400 text-lg">(use: interrogative you/have to)</span> <button class="answer-btn" data-target="t1q1"><i class="fas fa-eye"></i></button></p>
-                <p>2. <input id="t1q2" data-answer="Does she have to" class="w-64 text-center"> bring a visa? <span class="text-gray-400 text-lg">(use: interrogative she/have to)</span> <button class="answer-btn" data-target="t1q2"><i class="fas fa-eye"></i></button></p>
-                <p>3. <input id="t1q3" data-answer="Do we have to" class="w-64 text-center"> wait in line? <span class="text-gray-400 text-lg">(use: interrogative we/have to)</span> <button class="answer-btn" data-target="t1q3"><i class="fas fa-eye"></i></button></p>
-                <p>4. <input id="t1q4" data-answer="Does he have to" class="w-64 text-center"> show his ID? <span class="text-gray-400 text-lg">(use: interrogative he/have to)</span> <button class="answer-btn" data-target="t1q4"><i class="fas fa-eye"></i></button></p>
-                <p>5. Why <input id="t1q5" data-answer="do I have to" class="w-64 text-center"> leave now? <span class="text-gray-400 text-lg">(use: interrogative I/have to)</span> <button class="answer-btn" data-target="t1q5"><i class="fas fa-eye"></i></button></p>
-                <p>6. <input id="t1q6" data-answer="Do they have to" class="w-64 text-center"> wear masks? <span class="text-gray-400 text-lg">(use: interrogative they/have to)</span> <button class="answer-btn" data-target="t1q6"><i class="fas fa-eye"></i></button></p>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Task 2">
-            <h2 class="text-3xl font-bold mb-8 text-center text-pink-700">Task 2: Absolute Rules</h2>
-            <div class="bg-white p-10 rounded-2xl shadow-lg max-w-5xl mx-auto space-y-6 text-2xl">
-                <p>1. You <input id="t2q1" data-answer="must" class="w-48 text-center"> follow the law. <span class="text-gray-400 text-lg">(obrigação forte)</span> <button class="answer-btn" data-target="t2q1"><i class="fas fa-eye"></i></button></p>
-                <p>2. You <input id="t2q2" data-answer="mustn't" class="w-48 text-center"> take photos here. <span class="text-gray-400 text-lg">(proibição)</span> <button class="answer-btn" data-target="t2q2"><i class="fas fa-eye"></i></button></p>
-                <p>3. Visitors <input id="t2q3" data-answer="must" class="w-48 text-center"> be quiet. <span class="text-gray-400 text-lg">(regra essencial)</span> <button class="answer-btn" data-target="t2q3"><i class="fas fa-eye"></i></button></p>
-                <p>4. You <input id="t2q4" data-answer="mustn't" class="w-48 text-center"> feed the animals. <span class="text-gray-400 text-lg">(proibição total)</span> <button class="answer-btn" data-target="t2q4"><i class="fas fa-eye"></i></button></p>
-                <p>5. All passengers <input id="t2q5" data-answer="must" class="w-48 text-center"> wear seatbelts. <span class="text-gray-400 text-lg">(obrigação legal)</span> <button class="answer-btn" data-target="t2q5"><i class="fas fa-eye"></i></button></p>
-                <p>6. You <input id="t2q6" data-answer="mustn't" class="w-48 text-center"> park here. <span class="text-gray-400 text-lg">(proibição de trânsito)</span> <button class="answer-btn" data-target="t2q6"><i class="fas fa-eye"></i></button></p>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Task 3">
-            <h2 class="text-3xl font-bold mb-6 text-center text-pink-700">Task 3: Travel Situations</h2>
-            <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="font-bold mb-4">1. No museu (proibição):</p>
-                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">You mustn't touch the art.</button>
-                    <button class="choice-btn" onclick="checkChoice(this, false)">You don't have to touch the art.</button>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="font-bold mb-4">2. Pergunta sobre o hotel:</p>
-                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">Do I have to pay for breakfast?</button>
-                    <button class="choice-btn" onclick="checkChoice(this, false)">Do I must pay for breakfast?</button>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="font-bold mb-4">3. No hospital:</p>
-                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">You must be quiet.</button>
-                    <button class="choice-btn" onclick="checkChoice(this, false)">You have to must be quiet.</button>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="font-bold mb-4">4. Bagagem de mão (opcional):</p>
-                    <button class="choice-btn mb-2" onclick="checkChoice(this, false)">You mustn't bring a bag.</button>
-                    <button class="choice-btn" onclick="checkChoice(this, true)">You don't have to bring a bag.</button>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="font-bold mb-4">5. Pergunta para o guia:</p>
-                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">Does he have to bring a jacket?</button>
-                    <button class="choice-btn" onclick="checkChoice(this, false)">Has he to bring a jacket?</button>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <p class="font-bold mb-4">6. Lei de trânsito:</p>
-                    <button class="choice-btn mb-2" onclick="checkChoice(this, true)">You must stop at the red light.</button>
-                    <button class="choice-btn" onclick="checkChoice(this, false)">You don't have to stop.</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Travel Rules Desk">
-            <div class="text-center">
-                <h2 class="text-3xl font-bold mb-6 text-center text-pink-700">Travel Rules Desk</h2>
-                <div class="section-card p-8 max-w-5xl mx-auto text-left">
-                    <div class="activity-lab" data-choice-builder data-template="{question} {answer}" data-required="question,answer" data-preview-empty="Monte uma micro interação entre viajante e atendente com pergunta e regra final.">
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <p class="lesson-panel-title mb-3">Pergunta do viajante</p>
-                                <div class="option-cloud mb-5">
-                                    <button type="button" class="option-chip" data-choice-slot="question" data-choice-value="Do I have to show my passport?">Do I have to show my passport?</button>
-                                    <button type="button" class="option-chip" data-choice-slot="question" data-choice-value="Does my friend have to take off his shoes?">Does my friend have to take off his shoes?</button>
-                                    <button type="button" class="option-chip" data-choice-slot="question" data-choice-value="Do we have to wait here?">Do we have to wait here?</button>
-                                    <button type="button" class="option-chip" data-choice-slot="question" data-choice-value="Do I have to print my ticket?">Do I have to print my ticket?</button>
-                                </div>
-                                <p class="lesson-panel-title mb-3">Resposta / regra</p>
-                                <div class="option-cloud">
-                                    <button type="button" class="option-chip" data-choice-slot="answer" data-choice-value="Yes, you must show it now.">Yes, you must show it now.</button>
-                                    <button type="button" class="option-chip" data-choice-slot="answer" data-choice-value="No, he doesn't have to, but he must remove metal objects.">No, he doesn't have to, but he must remove metal objects.</button>
-                                    <button type="button" class="option-chip" data-choice-slot="answer" data-choice-value="Yes, you must stay behind the line.">Yes, you must stay behind the line.</button>
-                                    <button type="button" class="option-chip" data-choice-slot="answer" data-choice-value="No, you don't have to print it, but you must keep it on your phone.">No, you don't have to print it, but you must keep it on your phone.</button>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="lesson-panel-title mb-3">Interação pronta</p>
-                                <div class="preview-card min-h-[180px] flex items-center justify-center text-center" data-choice-preview></div>
-                                <div class="flex flex-wrap gap-3 mt-5">
-                                    <button type="button" class="choice-btn" data-choice-speak>Ouvir interação</button>
-                                    <button type="button" class="choice-btn" data-choice-reset>Recomeçar</button>
-                                </div>
-                            </div>
-                        </div>
+            <div class="section-card p-8">
+                <p class="lesson-panel-title mb-4">Introductory Dialogue</p>
+                <div id="intro-dialogue" class="space-y-4 text-lg text-slate-700">
+                    <!-- Dialogue content will be injected or placed here -->
+                    <div class="flex gap-4">
+                        <span class="font-black text-emerald-700 min-w-20">Ana:</span>
+                        <p>"Hi! Are you ready for today's lesson about Must, Have To and Need To?"</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-black text-orange-600 min-w-20">Tom:</span>
+                        <p>"Yes! I want to improve my skills and speak more naturally."</p>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- SLIDE 2: Vocabulário em Flashcards -->
+        <div class="slide" data-title="Vocabulary Flashcards">
+            <h2 class="text-4xl font-bold mb-4 text-center text-emerald-700">Vocabulary Flashcards</h2>
+            <p class="text-center text-slate-500 text-lg mb-8">Clique nos cartões para ver o significado e ouvir a pronúncia.</p>
+            <div id="flashcards-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Flashcards will be injected here -->
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Gramática Aprofundada -->
+        <div class="slide" data-title="Deep Grammar">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Grammar Focus: Must, Have To and Need To</h2>
+            <div class="max-w-4xl mx-auto space-y-8">
+                <div class="activity-card border-t-8 border-emerald-500 p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-emerald-700">Explicação Detalhada</h3>
+                    <p class="text-lg text-slate-600 leading-relaxed mb-4">
+                        Aqui vamos aprofundar nas regras de Must, Have To and Need To. É fundamental entender não apenas a estrutura, mas o contexto de uso.
+                    </p>
+                    <div class="bg-slate-100 p-6 rounded-xl space-y-4">
+                        <p><strong>Exemplo 1:</strong> "I have been there before." (Eu estive lá antes) - Foco na experiência.</p>
+                        <p><strong>Exemplo 2:</strong> "She is working now." (Ela está trabalhando agora) - Foco na ação contínua.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Atividades Práticas (10 questões) -->
+        <div class="slide" data-title="Practice Activities">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Practice Time (10 Questions)</h2>
+            <div id="practice-questions" class="max-w-4xl mx-auto space-y-6">
+                <!-- Questions with reveal buttons and hints -->
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Tradução Oral (Português -> Inglês) -->
+        <div class="slide" data-title="Oral Translation I">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Oral Translation: Challenge 1</h2>
+            <p class="text-center text-slate-500 text-lg mb-8">Traduza as frases em voz alta antes de revelar a resposta.</p>
+            <div id="oral-translation-1" class="max-w-4xl mx-auto space-y-6">
+                <!-- Phrases with reveal buttons -->
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Expressões e Phrasal Verbs -->
+        <div class="slide" data-title="Expressions & Phrasal Verbs">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Useful Expressions & Phrasal Verbs</h2>
+            <div id="expressions-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Expressions will be injected here -->
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Quatro Mini Diálogos -->
+        <div class="slide" data-title="Mini Dialogues">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Mini Dialogues for Practice</h2>
+            <div id="mini-dialogues-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 4 Mini dialogues -->
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Reading & Comprehension -->
+        <div class="slide" data-title="Reading & Comprehension">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Reading: Must, Have To and Need To in Action</h2>
+            <div class="max-w-4xl mx-auto section-card p-8">
+                <div id="reading-text" class="text-lg text-slate-700 leading-relaxed mb-8">
+                    <!-- Elaborated text -->
+                </div>
+                <hr class="my-8">
+                <div id="reading-questions" class="space-y-6">
+                    <p class="font-bold text-xl mb-4">Interpretation Questions:</p>
+                    <!-- 4 questions -->
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: Tradução Oral II (Foco em Expressões) -->
+        <div class="slide" data-title="Oral Translation II">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Oral Translation: Expressions Focus</h2>
+            <p class="text-center text-slate-500 text-lg mb-8">Foco nas expressões e phrasal verbs aprendidos hoje.</p>
+            <div id="oral-translation-2" class="max-w-4xl mx-auto space-y-6">
+                <!-- Phrases with reveal buttons -->
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Música -->
+        <div class="slide" data-title="Music Moment">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Music Moment</h2>
+            <div class="max-w-3xl mx-auto section-card p-8 text-center">
+                <p class="text-xl italic mb-6">Complete a letra da música:</p>
+                <div id="music-lyrics" class="text-2xl font-medium leading-loose space-y-4">
+                    <!-- Lyrics with blanks -->
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Homework -->
         <div class="slide" data-title="Homework">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-8 text-pink-700">Homework: Traveling Rules</h2>
-                <div class="bg-white p-12 rounded-3xl shadow-xl max-w-4xl mx-auto text-left border-t-8 border-pink-500">
-                    <p class="text-2xl font-bold mb-4">Write 3 questions and 3 rules for a tourist:</p>
-                    <p class="text-base text-slate-600 mb-6">Try to imagine one place, such as an airport, museum or train station, and keep all your questions and rules in that same context.</p>
-                    <ul class="list-disc ml-8 space-y-4 text-xl text-gray-700">
-                        <li>Questions: "Do I have to...?"</li>
-                        <li>Rules: "You must..." or "You mustn't..."</li>
+            <div class="lesson-hero rounded-[2rem] p-10 text-center">
+                <h2 class="text-5xl font-black mb-6">Homework Time!</h2>
+                <p class="text-xl mb-8">Aplique o que você aprendeu hoje em sua vida real.</p>
+                <div class="bg-white/20 backdrop-blur-sm p-8 rounded-2xl text-left max-w-2xl mx-auto">
+                    <ul id="homework-list" class="space-y-4 text-lg">
+                        <li class="flex gap-3"><i class="fas fa-edit mt-1"></i> Escreva 5 frases sobre seu dia usando Must, Have To and Need To.</li>
+                        <li class="flex gap-3"><i class="fas fa-microphone mt-1"></i> Grave um áudio contando uma pequena história.</li>
                     </ul>
-                    <textarea class="w-full mt-8 p-6 border-2 rounded-2xl text-2xl" rows="4"></textarea>
                 </div>
-            </div>
-        </div>
-
-        <div class="slide" data-title="Lesson Complete">
-            <div class="text-center flex flex-col items-center justify-center h-full">
-                <div class="bg-white p-16 rounded-3xl shadow-2xl border-t-8 border-pink-500 max-w-4xl">
-                    <i class="fas fa-plane-departure text-pink-400 text-8xl mb-10"></i>
-                    <h2 class="text-6xl font-black mb-10 text-gray-800">Great Job!</h2>
-                    <p class="text-3xl text-gray-600 mb-16">Agora você sabe perguntar sobre regras em qualquer lugar do mundo!</p>
-                    
-                    <div class="p-10 bg-pink-50 rounded-2xl border-2 border-pink-100 italic">
-                        <p class="text-4xl font-serif text-pink-900 mb-6">"Rules are not necessarily sacred, principles are."</p>
-                        <p class="text-2xl text-pink-600 font-bold">— Franklin D. Roosevelt</p>
-                    </div>
-                </div>
+                <button id="finish-btn" class="mt-12 bg-white text-emerald-700 font-bold py-4 px-10 rounded-full text-xl shadow-lg hover:bg-emerald-50 transition-colors">
+                    Finalizar Aula
+                </button>
             </div>
         </div>
 
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t p-6 z-20">
-        <div class="container mx-auto flex justify-between items-center px-8">
-            <button id="prev-btn" class="px-10 py-4 bg-gray-200 rounded-xl font-bold text-xl hover:bg-gray-300 disabled:opacity-50">Previous</button>
-            <button id="next-btn" class="px-12 py-4 bg-pink-600 text-white rounded-xl font-bold text-xl hover:bg-pink-700">Next</button>
+    <footer class="fixed bottom-0 w-full bg-white border-t border-slate-200 p-4 z-10">
+        <div class="container mx-auto flex justify-between max-w-5xl">
+            <button id="prev-btn" class="px-6 py-2 rounded-lg font-semibold text-slate-500 hover:bg-slate-100 disabled:opacity-30">Anterior</button>
+            <button id="next-btn" class="px-8 py-2 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700 shadow-md transition-all">Próximo</button>
         </div>
     </footer>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    <script src="../js/firebase-config.js"></script>
-    <script src="../js/progress-manager.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const moduleId = 'a2-v2';
-            const lessonNumber = 14;
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const slideCounter = document.getElementById('slide-counter');
-            const slideTitleHeader = document.getElementById('slide-title-header');
-            let currentSlide = 0;
-
-            function updateView() {
-                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
-                document.getElementById('progress-bar').style.width = `${(currentSlide / (slides.length - 1)) * 100}%`;
-                if (slideCounter) slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
-                if (slideTitleHeader) slideTitleHeader.textContent = slides[currentSlide]?.dataset.title || '';
-                prevBtn.disabled = currentSlide === 0;
-                nextBtn.innerText = currentSlide === slides.length - 1 ? 'Finish' : 'Next';
-            }
-
-            prevBtn.onclick = () => { if(currentSlide > 0) currentSlide--; updateView(); };
-            nextBtn.onclick = () => {
-                if (currentSlide < slides.length - 1) {
-                    currentSlide++;
-                    updateView();
-                    return;
-                }
-                nextBtn.disabled = true;
-                nextBtn.textContent = 'Saving...';
-                if (typeof markLessonAsComplete === 'function') {
-                    markLessonAsComplete(moduleId, lessonNumber).catch(error => {
-                        console.error('Erro ao marcar a lição como completa:', error);
-                        alert('Ocorreu um erro ao finalizar a lição. Por favor, tente novamente.');
-                        nextBtn.disabled = false;
-                        nextBtn.textContent = 'Finish';
-                    });
-                } else {
-                    alert('Erro ao salvar progresso.');
-                    nextBtn.disabled = false;
-                    nextBtn.textContent = 'Finish';
-                }
-            };
-
-            function checkAnswer(input) {
-                const isCorrect = input.value.trim().toLowerCase() === input.dataset.answer.toLowerCase();
-                input.classList.toggle('correct', isCorrect);
-                input.classList.toggle('incorrect', !isCorrect);
-            }
-
-            document.querySelectorAll('input[data-answer]').forEach(input => {
-                input.onblur = () => checkAnswer(input);
-            });
-
-            window.checkChoice = (btn, isCorrect) => {
-                const parent = btn.parentElement;
-                parent.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected-correct', 'selected-incorrect'));
-                btn.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
-            };
-
-            document.querySelectorAll('.answer-btn').forEach(btn => {
-                btn.onclick = () => {
-                    const input = document.getElementById(btn.dataset.target);
-                    if (input) { input.value = input.dataset.answer; checkAnswer(input); }
-                };
-            });
-
-            document.querySelectorAll('.flip-card').forEach(card => card.onclick = () => card.classList.toggle('flipped'));
-            updateView();
-            document.body.classList.remove('lesson-loading');
-        });
-    </script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
     <script src='a2-v2-template.js'></script>
     <script src='a2-lesson-theme.js'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = Array.from(document.querySelectorAll('.slide'));
+            let currentSlide = 0;
+
+            function updateSlideView() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+                document.getElementById('slide-counter').textContent = `${currentSlide + 1} / ${slides.length}`;
+                document.getElementById('progress-bar').style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+                document.getElementById('prev-btn').disabled = currentSlide === 0;
+                document.getElementById('next-btn').style.display = currentSlide === slides.length - 1 ? 'none' : 'block';
+                
+                const title = slides[currentSlide].dataset.title;
+                document.getElementById('slide-title-header').textContent = title;
+                window.scrollTo(0, 0);
+            }
+
+            document.getElementById('next-btn').addEventListener('click', () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateSlideView();
+                }
+            });
+
+            document.getElementById('prev-btn').addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateSlideView();
+                }
+            });
+
+            // Lógica de Revelar Resposta
+            window.revealAnswer = function(id) {
+                const el = document.getElementById(id);
+                if (el) el.classList.toggle('hidden');
+            };
+
+            updateSlideView();
+        });
+    </script>
 </body>
 </html>

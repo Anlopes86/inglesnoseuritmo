@@ -486,35 +486,8 @@
                 `;
             }
         },
-        {
-            title: 'Memory Match',
-            icon: 'fa-clone',
-            instruction: 'Jogo da memória: encontre os pares entre expressão em inglês e significado em português. São 10 pares.',
-            render: (bank) => {
-                const items = makeExamples(bank);
-                const cards = items.flatMap((item, index) => [
-                    `<div class="memory-tile"><span>${index + 1}A</span><strong>${item.answer}</strong></div>`,
-                    `<div class="memory-tile"><span>${index + 1}B</span><strong>${item.pt}</strong></div>`
-                ]).sort((a, b) => a.length - b.length).join('');
-                return `<div class="memory-grid md:col-span-2">${cards}</div>`;
-            }
-        },
-        {
-            title: 'Hangman Clues',
-            icon: 'fa-keyboard',
-            instruction: 'Forca sem desenho: descubra a palavra/expressão pela pista. Depois use cada resposta em uma frase.',
-            render: (bank) => makeExamples(bank).map((item, index) => `
-                <div class="activity-card generated-task-card">
-                    <div class="flex items-center justify-between gap-3 mb-3">
-                        <span class="generated-question-number">${index + 1}</span>
-                        <span class="generated-tag">forca</span>
-                    </div>
-                    <p class="hangman-word">${blankWord(item.answer)}</p>
-                    <p class="text-sm text-slate-500 mt-2">Pista: ${item.pt}</p>
-                    <input class="mt-3" placeholder="Guess the word or expression...">
-                </div>
-            `).join('')
-        },
+        
+        
         {
             title: 'Choice Quest',
             icon: 'fa-circle-check',
@@ -567,7 +540,7 @@
         }
     ];
 
-    function buildChallengeSlide(lessonNumber, bank) {
+    function // buildChallengeSlide(lessonNumber, bank) {
         const topic = LESSON_TOPICS[lessonNumber - 1] || bank.title.toLowerCase();
         const builder = ACTIVITY_BUILDERS[(lessonNumber - 1) % ACTIVITY_BUILDERS.length];
         const cards = builder.render(bank);
@@ -585,7 +558,7 @@
         `);
     }
 
-    function buildDialogSlide(bank) {
+    function // buildDialogSlide(bank) {
         const extensions = {
             'Past stories': [
                 ['Teacher', 'Did you enjoy it?', 'Student', 'Yes, I did. It was simple, but I had a good time.'],
@@ -677,7 +650,7 @@
         return bank.pt;
     }
 
-    function buildOralTranslationSlide(bank, lessonNumber) {
+    function // buildOralTranslationSlide(bank, lessonNumber) {
         const phrasesList = getOralPhrases(lessonNumber, bank);
         const phrases = phrasesList.map((phrase, index) => `
             <div class="activity-card oral-translation-card">
@@ -754,13 +727,13 @@
         const bank = getBank(lessonNumber);
 
         if (!document.querySelector('[data-title="Challenge Lab"]')) {
-            insertBeforeClosingSlides(buildChallengeSlide(lessonNumber, bank));
+            insertBeforeClosingSlides(// buildChallengeSlide(lessonNumber, bank));
         }
         if (!document.querySelector('[data-title="Dialog Samples"]')) {
-            insertBeforeClosingSlides(buildDialogSlide(bank));
+            insertBeforeClosingSlides(// buildDialogSlide(bank));
         }
         if (!document.querySelector('.a2-generated-slide[data-title="Oral Translation"]')) {
-            insertBeforeClosingSlides(buildOralTranslationSlide(bank, lessonNumber));
+            insertBeforeClosingSlides(// buildOralTranslationSlide(bank, lessonNumber));
         }
 
         document.addEventListener('DOMContentLoaded', () => {

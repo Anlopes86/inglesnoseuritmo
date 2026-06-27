@@ -3,583 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A2 V2 | Lição 02: Telling a Story — Sequence Connectors</title>
+    <title>A2 V2 | Lição 02: Complete Past Stories</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <link href="../enhanced-styles.css" rel="stylesheet">
+    <link rel='stylesheet' href='a2-lesson-theme.css'>
     <style>
         body { font-family: 'Inter', sans-serif; }
         .slide { display: none; }
         .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.75rem; }
-        .flip-card { background-color: transparent; width: 100%; max-width: none; min-height: 220px; perspective: 1000px; cursor: pointer; }
-        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
-        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back {
-            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 2rem;
-            font-size: 1.1rem; line-height: 1.5;
-        }
-        .flip-card-front { background-color: #fff; border: 1px solid #e5e7eb; }
-        .flip-card-back { background-color: #ecfdf5; transform: rotateY(180deg); font-size: 1.25rem; color: #065f46; font-weight: 700; }
-        input.correct { border-color: #22c55e; background-color: #f0fdf4; }
-        input.incorrect { border-color: #ef4444; background-color: #fef2f2; }
         .answer-btn { background: none; border: none; cursor: pointer; color: #9ca3af; margin-left: 0.5rem; transition: color 0.2s; }
         .answer-btn:hover { color: #059669; }
-        input[data-answer] { border: none; border-bottom: 2px solid #cbd5e1; outline: none; background: transparent; text-align: center; padding: 0 6px; font-weight: 600; }
-        .oral-drill-card { border-radius: 1rem; padding: 2rem; }
-        .oral-drill-pt { font-size: 1.75rem; font-weight: 900; text-align: center; margin: 1.5rem 0; }
-        .oral-drill-btns { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
-        .oral-drill-input { width: 100%; padding: 0.75rem 1rem; border: 2px solid #e2e8f0; border-radius: 0.75rem; font-size: 1.1rem; background: transparent; margin-top: 0.75rem; }
-        .oral-drill-input:focus { outline: none; border-color: #059669; }
-        .oral-drill-feedback { min-height: 1.5rem; font-size: 1rem; font-weight: 600; margin-top: 0.5rem; }
-        .oral-drill-progress { font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.5rem; }
+        .hidden-answer { display: none; color: #059669; font-weight: bold; margin-left: 0.5rem; }
+        .reveal-btn { cursor: pointer; color: #059669; font-size: 0.875rem; text-decoration: underline; }
     </style>
-    <link rel='stylesheet' href='a2-lesson-theme.css'>
 </head>
 <body class="a2-lesson-page lesson-loading bg-slate-50 text-slate-800">
     <header class="bg-white shadow-sm sticky top-0 z-10">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center h-16">
-            <a href="a2.html" class="text-lg font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar ao Módulo A2 V2</a>
+            <a href="a2.html" class="text-lg font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para A2 V2</a>
             <div class="text-center">
-                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 02: Telling a Story</h1>
+                <h1 class="text-base font-semibold text-slate-800">A2 - Lesson 02: Complete Past Stories</h1>
                 <p id="slide-title-header" class="text-xs text-slate-400 font-medium"></p>
             </div>
-            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 12</div>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">1 / 11</div>
         </div>
         <div class="w-full bg-slate-200 h-1.5"><div id="progress-bar" class="bg-emerald-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
     <main class="container mx-auto p-8 pb-28 max-w-5xl">
 
-        <!-- SLIDE 1: Intro + Diálogo -->
-        <div class="slide active" data-title="Intro &amp; Dialogue">
-            <div class="lesson-hero rounded-[2rem] p-8 md:p-10">
+        <!-- SLIDE 1: O que será aprendido + Diálogo Introdutório -->
+        <div class="slide active" data-title="Intro & Dialogue">
+            <div class="lesson-hero rounded-[2rem] p-8 md:p-10 mb-8">
                 <div class="max-w-3xl">
-                    <div class="a2-hero-copy">
-                        <p class="lesson-panel-title">Telling a story</p>
-                        <h2 class="text-4xl md:text-5xl font-black text-slate-900">Use sequence connectors to tell stories in the right order.</h2>
-                        <p class="text-lg md:text-xl text-slate-600 max-w-2xl">Nesta aula você aprende a usar conectores de sequência — <em>first, then, after that, finally</em> — para contar histórias de forma clara e natural no Simple Past.</p>
-                    </div>
+                    <p class="lesson-panel-title">O que será aprendido nesta lição</p>
+                    <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">Aprenda a dominar Complete Past Stories em contextos reais.</h2>
                     <div class="lesson-panel p-6 mt-6">
-                        <p class="lesson-panel-title">By the end, you can:</p>
+                        <p class="lesson-panel-title">Escolha um tema para focar hoje:</p>
                         <ul class="space-y-3 text-slate-600 text-base">
-                            <li class="flex gap-3"><i class="fas fa-check text-emerald-500 mt-1"></i><span>usar <strong>first, then, after that, later</strong> e <strong>finally</strong> para ordenar eventos;</span></li>
-                            <li class="flex gap-3"><i class="fas fa-check text-emerald-500 mt-1"></i><span>combinar conectores com o Simple Past para contar uma história completa;</span></li>
-                            <li class="flex gap-3"><i class="fas fa-check text-emerald-500 mt-1"></i><span>usar <strong>suddenly</strong> e <strong>in the end</strong> para dar dinamismo à narrativa.</span></li>
+                            <li class="flex gap-3"><i class="fas fa-star text-emerald-500 mt-1"></i><span><strong>Opção 1:</strong> Tema A (Trabalho e Carreira)</span></li>
+                            <li class="flex gap-3"><i class="fas fa-star text-emerald-500 mt-1"></i><span><strong>Opção 2:</strong> Tema B (Viagens e Lazer)</span></li>
+                            <li class="flex gap-3"><i class="fas fa-star text-emerald-500 mt-1"></i><span><strong>Opção 3:</strong> Tema C (Vida Diária e Rotina)</span></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="section-card p-8 mt-8">
-                <p class="lesson-panel-title mb-4">Opening Dialogue — Two friends catching up</p>
-                <div class="space-y-4 text-left text-lg text-slate-700">
-                    <div class="flex gap-4">
-                        <span class="font-black text-emerald-700 min-w-20">Carla:</span>
-                        <p>"You look tired! What happened yesterday?"</p>
-                    </div>
-                    <div class="flex gap-4">
-                        <span class="font-black text-orange-600 min-w-20">Mark:</span>
-                        <p>"Oh, it was a crazy day! <strong>First</strong>, I missed the bus. <strong>Then</strong>, I had to walk to work in the rain."</p>
-                    </div>
-                    <div class="flex gap-4">
-                        <span class="font-black text-emerald-700 min-w-20">Carla:</span>
-                        <p>"That's terrible! What happened next?"</p>
-                    </div>
-                    <div class="flex gap-4">
-                        <span class="font-black text-orange-600 min-w-20">Mark:</span>
-                        <p>"<strong>After that</strong>, I arrived late and my boss was angry. <strong>Later</strong>, I spilled coffee on my laptop. <strong>Suddenly</strong>, everything went dark — the power went out!"</p>
-                    </div>
-                    <div class="flex gap-4">
-                        <span class="font-black text-emerald-700 min-w-20">Carla:</span>
-                        <p>"No way! So what did you do?"</p>
-                    </div>
-                    <div class="flex gap-4">
-                        <span class="font-black text-orange-600 min-w-20">Mark:</span>
-                        <p>"<strong>In the end</strong>, I just went home and ordered pizza. Best decision of the day!"</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 2: Vocabulário -->
-        <div class="slide" data-title="Vocabulary">
-            <h2 class="text-4xl font-bold mb-4 text-center text-emerald-700">Vocabulary: Story Words</h2>
-            <p class="text-center text-slate-500 text-lg mb-8">Clique nos cartões para ver o significado em português.</p>
-            <div class="flashcard-grid max-w-5xl mx-auto">
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">miss</h3><p class="text-slate-400 text-sm mt-2">verbo regular</p></div><div class="flip-card-back"><p>perder (ônibus, trem, etc.)</p><p class="text-sm font-normal mt-2">"I missed the bus."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">arrive</h3><p class="text-slate-400 text-sm mt-2">verbo regular</p></div><div class="flip-card-back"><p>chegar</p><p class="text-sm font-normal mt-2">"She arrived late."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">spill → spilled</h3><p class="text-slate-400 text-sm mt-2">verbo regular</p></div><div class="flip-card-back"><p>derramar</p><p class="text-sm font-normal mt-2">"He spilled his coffee."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">realize</h3><p class="text-slate-400 text-sm mt-2">verbo regular</p></div><div class="flip-card-back"><p>perceber, se dar conta</p><p class="text-sm font-normal mt-2">"I realized I forgot my keys."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">decide</h3><p class="text-slate-400 text-sm mt-2">verbo regular</p></div><div class="flip-card-back"><p>decidir</p><p class="text-sm font-normal mt-2">"We decided to stay."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">run → ran</h3><p class="text-slate-400 text-sm mt-2">verbo irregular</p></div><div class="flip-card-back"><p>correr → correu/corri</p><p class="text-sm font-normal mt-2">"I ran to catch the bus."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">fall → fell</h3><p class="text-slate-400 text-sm mt-2">verbo irregular</p></div><div class="flip-card-back"><p>cair → caiu/caí</p><p class="text-sm font-normal mt-2">"She fell on the stairs."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">forget → forgot</h3><p class="text-slate-400 text-sm mt-2">verbo irregular</p></div><div class="flip-card-back"><p>esquecer → esqueceu/esqueci</p><p class="text-sm font-normal mt-2">"I forgot my wallet."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">order</h3><p class="text-slate-400 text-sm mt-2">verbo regular</p></div><div class="flip-card-back"><p>pedir (comida, produto)</p><p class="text-sm font-normal mt-2">"We ordered pizza."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">happen</h3><p class="text-slate-400 text-sm mt-2">verbo regular</p></div><div class="flip-card-back"><p>acontecer</p><p class="text-sm font-normal mt-2">"What happened?"</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">rush</h3><p class="text-slate-400 text-sm mt-2">verbo regular</p></div><div class="flip-card-back"><p>se apressar, ir correndo</p><p class="text-sm font-normal mt-2">"I rushed to the station."</p></div></div></div>
-                <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><h3 class="text-2xl font-bold">find → found</h3><p class="text-slate-400 text-sm mt-2">verbo irregular</p></div><div class="flip-card-back"><p>encontrar, achar → encontrou/encontrei</p><p class="text-sm font-normal mt-2">"I found my keys."</p></div></div></div>
-            </div>
-        </div>
-
-        <!-- SLIDE 3: Gramática -->
-        <div class="slide" data-title="Grammar">
-            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Grammar Focus: Sequence Connectors</h2>
-            <div class="max-w-5xl mx-auto space-y-6">
-                <div class="callout-note p-6 rounded-2xl text-lg">
-                    <p class="font-bold mb-2">O que são conectores de sequência?</p>
-                    <p class="text-slate-600">São palavras ou expressões que indicam a <strong>ordem dos eventos</strong> em uma história. Eles deixam a narrativa mais clara e natural — como pontes entre as frases.</p>
-                </div>
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="activity-card border-t-8 border-emerald-500 p-8">
-                        <h3 class="text-2xl font-bold mb-4 text-emerald-700">Ordem dos eventos</h3>
-                        <table class="w-full text-left text-lg">
-                            <tr class="border-b border-slate-200"><td class="py-2 font-bold text-emerald-600 w-36">First</td><td class="py-2 text-slate-600">Primeiro (início da história)</td></tr>
-                            <tr class="border-b border-slate-200"><td class="py-2 font-bold text-emerald-600">Then</td><td class="py-2 text-slate-600">Então, depois</td></tr>
-                            <tr class="border-b border-slate-200"><td class="py-2 font-bold text-emerald-600">After that</td><td class="py-2 text-slate-600">Depois disso</td></tr>
-                            <tr class="border-b border-slate-200"><td class="py-2 font-bold text-emerald-600">Later</td><td class="py-2 text-slate-600">Mais tarde</td></tr>
-                            <tr><td class="py-2 font-bold text-emerald-600">Finally</td><td class="py-2 text-slate-600">Finalmente (conclusão)</td></tr>
-                        </table>
-                    </div>
-                    <div class="activity-card border-t-8 border-orange-400 p-8">
-                        <h3 class="text-2xl font-bold mb-4 text-orange-600">Expressões extras</h3>
-                        <table class="w-full text-left text-lg">
-                            <tr class="border-b border-slate-200"><td class="py-2 font-bold text-orange-500 w-36">Suddenly</td><td class="py-2 text-slate-600">De repente (surpresa)</td></tr>
-                            <tr class="border-b border-slate-200"><td class="py-2 font-bold text-orange-500">In the end</td><td class="py-2 text-slate-600">No final (resultado)</td></tr>
-                            <tr class="border-b border-slate-200"><td class="py-2 font-bold text-orange-500">At first</td><td class="py-2 text-slate-600">A princípio, no começo</td></tr>
-                            <tr><td class="py-2 font-bold text-orange-500">Eventually</td><td class="py-2 text-slate-600">Com o tempo, eventualmente</td></tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="activity-card p-8">
-                    <h3 class="text-xl font-bold mb-4 text-emerald-700">Como usar na frase</h3>
-                    <div class="space-y-3 text-lg text-slate-700">
-                        <p>Os conectores geralmente vêm no <strong>início da frase</strong>, seguidos de vírgula:</p>
-                        <p class="italic text-slate-600">"<strong>First,</strong> I woke up late. <strong>Then,</strong> I missed the bus. <strong>After that,</strong> I arrived at work soaking wet."</p>
-                    </div>
-                </div>
-                <div class="callout-warning p-6 rounded-2xl text-lg">
-                    <h3 class="font-bold mb-3">Finally vs. In the end</h3>
-                    <p class="mb-2">❌ <span class="line-through text-red-500">"Finally, I decided to go home."</span> (quando quer dizer "no final das contas")</p>
-                    <p class="mb-2">✅ <span class="text-green-700 font-bold">"In the end, I decided to go home."</span></p>
-                    <p class="text-slate-600 text-base mt-2"><strong>Finally</strong> = último passo de uma sequência. <strong>In the end</strong> = resultado geral, conclusão de uma situação.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 4: Atividades Práticas -->
-        <div class="slide" data-title="Practice">
-            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Atividades: Sequence Connectors</h2>
-            <div class="max-w-5xl mx-auto space-y-8">
-                <div class="section-card p-8">
-                    <h3 class="text-2xl font-bold text-emerald-700 mb-5">A — Complete com o conector correto</h3>
-                    <div class="space-y-5 text-xl" id="practice-fill"></div>
-                </div>
-                <div class="section-card p-8">
-                    <h3 class="text-2xl font-bold text-emerald-700 mb-5">B — Coloque as frases na ordem correta</h3>
-                    <div class="space-y-5 text-xl" id="practice-unscramble"></div>
-                </div>
-                <div class="section-card p-8">
-                    <h3 class="text-2xl font-bold text-emerald-700 mb-5">C — Encontre e corrija o erro</h3>
-                    <div class="space-y-5 text-xl" id="practice-error"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 5: Tradução Oral I -->
-        <div class="slide" data-title="Tradução Oral I">
             <div class="section-card p-8">
-                <div class="text-center max-w-3xl mx-auto mb-8">
-                    <h2 class="text-5xl font-bold mb-4 text-emerald-700"><i class="fas fa-microphone-alt text-emerald-500 mr-2"></i> Traduza para inglês</h2>
-                    <p class="text-xl text-slate-600">Leia a frase em português em voz alta, produza a versão em inglês e depois confira a sugestão.</p>
-                </div>
-                <div class="activity-card oral-drill-card max-w-4xl mx-auto" data-translation-exercise>
-                    <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
-                        <p class="lesson-panel-title">PT → EN — Foco: Gramática</p>
-                        <span class="lesson-chip"><i class="fas fa-layer-group text-emerald-600"></i><span data-translation-progress>1 / 5</span></span>
+                <p class="lesson-panel-title mb-4">Introductory Dialogue</p>
+                <div id="intro-dialogue" class="space-y-4 text-lg text-slate-700">
+                    <!-- Dialogue content will be injected or placed here -->
+                    <div class="flex gap-4">
+                        <span class="font-black text-emerald-700 min-w-20">Ana:</span>
+                        <p>"Hi! Are you ready for today's lesson about Complete Past Stories?"</p>
                     </div>
-                    <p class="oral-drill-progress">Frase em português:</p>
-                    <p data-translation-source class="oral-drill-pt"></p>
-                    <input type="text" data-translation-input class="oral-drill-input" placeholder="Digite sua tradução em inglês...">
-                    <p data-translation-feedback class="oral-drill-feedback"></p>
-                    <div class="oral-drill-btns">
-                        <button type="button" class="primary-action-btn" data-translation-play><i class="fas fa-volume-up mr-2"></i>Ouvir PT</button>
-                        <button type="button" class="primary-action-btn" data-translation-check><i class="fas fa-check mr-2"></i>Verificar</button>
-                        <button type="button" class="secondary-action-btn" data-translation-reveal><i class="fas fa-eye mr-2"></i>Ver sugestão</button>
-                        <button type="button" class="secondary-action-btn" data-translation-next><i class="fas fa-forward mr-2"></i>Próxima</button>
+                    <div class="flex gap-4">
+                        <span class="font-black text-orange-600 min-w-20">Tom:</span>
+                        <p>"Yes! I want to improve my skills and speak more naturally."</p>
                     </div>
-                    <script type="application/json">
-                    [
-                        { "pt": "Primeiro, eu acordei tarde.", "en": "First, I woke up late." },
-                        { "pt": "Então, eu perdi o ônibus.", "en": "Then, I missed the bus." },
-                        { "pt": "Depois disso, eu cheguei atrasado ao trabalho.", "en": "After that, I arrived late to work." },
-                        { "pt": "De repente, começou a chover.", "en": "Suddenly, it started to rain." },
-                        { "pt": "No final, eu decidi ficar em casa.", "en": "In the end, I decided to stay home." }
-                    ]
-                    </script>
                 </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Vocabulário em Flashcards -->
+        <div class="slide" data-title="Vocabulary Flashcards">
+            <h2 class="text-4xl font-bold mb-4 text-center text-emerald-700">Vocabulary Flashcards</h2>
+            <p class="text-center text-slate-500 text-lg mb-8">Clique nos cartões para ver o significado e ouvir a pronúncia.</p>
+            <div id="flashcards-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Flashcards will be injected here -->
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Gramática Aprofundada -->
+        <div class="slide" data-title="Deep Grammar">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Grammar Focus: Complete Past Stories</h2>
+            <div class="max-w-4xl mx-auto space-y-8">
+                <div class="activity-card border-t-8 border-emerald-500 p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-emerald-700">Explicação Detalhada</h3>
+                    <p class="text-lg text-slate-600 leading-relaxed mb-4">
+                        Aqui vamos aprofundar nas regras de Complete Past Stories. É fundamental entender não apenas a estrutura, mas o contexto de uso.
+                    </p>
+                    <div class="bg-slate-100 p-6 rounded-xl space-y-4">
+                        <p><strong>Exemplo 1:</strong> "I have been there before." (Eu estive lá antes) - Foco na experiência.</p>
+                        <p><strong>Exemplo 2:</strong> "She is working now." (Ela está trabalhando agora) - Foco na ação contínua.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Atividades Práticas (10 questões) -->
+        <div class="slide" data-title="Practice Activities">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Practice Time (10 Questions)</h2>
+            <div id="practice-questions" class="max-w-4xl mx-auto space-y-6">
+                <!-- Questions with reveal buttons and hints -->
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Tradução Oral (Português -> Inglês) -->
+        <div class="slide" data-title="Oral Translation I">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Oral Translation: Challenge 1</h2>
+            <p class="text-center text-slate-500 text-lg mb-8">Traduza as frases em voz alta antes de revelar a resposta.</p>
+            <div id="oral-translation-1" class="max-w-4xl mx-auto space-y-6">
+                <!-- Phrases with reveal buttons -->
             </div>
         </div>
 
         <!-- SLIDE 6: Expressões e Phrasal Verbs -->
-        <div class="slide" data-title="Expressions &amp; Phrasal Verbs">
-            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Expressões &amp; Phrasal Verbs</h2>
-            <p class="text-center text-slate-500 text-lg mb-8">Expressões para tornar sua história mais viva e natural.</p>
-            <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto text-lg">
-                <div class="activity-card border-l-8 border-emerald-500 p-8">
-                    <p class="text-xs font-bold uppercase text-emerald-500 tracking-widest mb-2">Phrasal Verb</p>
-                    <h3 class="text-2xl font-black text-emerald-700 mb-3">Run into</h3>
-                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> encontrar alguém por acaso, sem planejar</p>
-                    <p class="text-slate-700 italic mb-1">"I ran into my old teacher at the supermarket."</p>
-                    <p class="text-slate-400 text-sm">Encontrei meu antigo professor no supermercado por acaso.</p>
-                </div>
-                <div class="activity-card border-l-8 border-emerald-500 p-8">
-                    <p class="text-xs font-bold uppercase text-emerald-500 tracking-widest mb-2">Phrasal Verb</p>
-                    <h3 class="text-2xl font-black text-emerald-700 mb-3">Turn out</h3>
-                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> acabar sendo, resultar em algo inesperado</p>
-                    <p class="text-slate-700 italic mb-1">"It turned out to be a great day!"</p>
-                    <p class="text-slate-400 text-sm">Acabou sendo um ótimo dia!</p>
-                </div>
-                <div class="activity-card border-l-8 border-orange-400 p-8">
-                    <p class="text-xs font-bold uppercase text-orange-500 tracking-widest mb-2">Expressão</p>
-                    <h3 class="text-2xl font-black text-orange-600 mb-3">You won't believe it</h3>
-                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> você não vai acreditar (para introduzir algo surpreendente)</p>
-                    <p class="text-slate-700 italic mb-1">"You won't believe it — I won the lottery!"</p>
-                    <p class="text-slate-400 text-sm">Você não vai acreditar — ganhei na loteria!</p>
-                </div>
-                <div class="activity-card border-l-8 border-orange-400 p-8">
-                    <p class="text-xs font-bold uppercase text-orange-500 tracking-widest mb-2">Expressão</p>
-                    <h3 class="text-2xl font-black text-orange-600 mb-3">To make matters worse</h3>
-                    <p class="text-slate-600 mb-3"><strong>Significado:</strong> para piorar ainda mais a situação</p>
-                    <p class="text-slate-700 italic mb-1">"To make matters worse, I forgot my umbrella."</p>
-                    <p class="text-slate-400 text-sm">Para piorar ainda mais, esqueci meu guarda-chuva.</p>
-                </div>
+        <div class="slide" data-title="Expressions & Phrasal Verbs">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Useful Expressions & Phrasal Verbs</h2>
+            <div id="expressions-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Expressions will be injected here -->
             </div>
         </div>
 
-        <!-- SLIDE 7: Mini Diálogos -->
+        <!-- SLIDE 7: Quatro Mini Diálogos -->
         <div class="slide" data-title="Mini Dialogues">
-            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Mini Diálogos</h2>
-            <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto text-lg">
-                <div class="activity-card p-8">
-                    <p class="text-xs font-bold uppercase text-emerald-500 tracking-widest mb-3">Situação 1 — Um dia horrível</p>
-                    <div class="space-y-3">
-                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"How was your morning?"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"Terrible! First, I woke up late. Then, I couldn't find my keys."</p></div>
-                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"And then what?"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"After that, I missed the bus. To make matters worse, it started to rain!"</p></div>
-                    </div>
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Mini Dialogues for Practice</h2>
+            <div id="mini-dialogues-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 4 Mini dialogues -->
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Reading & Comprehension -->
+        <div class="slide" data-title="Reading & Comprehension">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Reading: Complete Past Stories in Action</h2>
+            <div class="max-w-4xl mx-auto section-card p-8">
+                <div id="reading-text" class="text-lg text-slate-700 leading-relaxed mb-8">
+                    <!-- Elaborated text -->
                 </div>
-                <div class="activity-card p-8">
-                    <p class="text-xs font-bold uppercase text-emerald-500 tracking-widest mb-3">Situação 2 — Uma surpresa boa</p>
-                    <div class="space-y-3">
-                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"You look happy! What happened?"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"You won't believe it! I ran into my old friend at the café."</p></div>
-                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"Really? What did you do?"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"We sat and talked for hours. It turned out to be a wonderful afternoon!"</p></div>
-                    </div>
-                </div>
-                <div class="activity-card p-8">
-                    <p class="text-xs font-bold uppercase text-emerald-500 tracking-widest mb-3">Situação 3 — Contando uma aventura</p>
-                    <div class="space-y-3">
-                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"Tell me about your trip!"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"First, we took the wrong train. Then, we got lost in the city."</p></div>
-                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"Oh no! How did it end?"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"In the end, we found a great restaurant and had an amazing dinner!"</p></div>
-                    </div>
-                </div>
-                <div class="activity-card p-8">
-                    <p class="text-xs font-bold uppercase text-emerald-500 tracking-widest mb-3">Situação 4 — Uma história engraçada</p>
-                    <div class="space-y-3">
-                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"What's the funniest thing that happened to you recently?"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"Yesterday, I rushed to work, but suddenly I realized I was wearing two different shoes!"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-emerald-700 min-w-10">A:</span><p>"Ha! What did you do?"</p></div>
-                        <div class="flex gap-3"><span class="font-black text-orange-600 min-w-10">B:</span><p>"I went home and changed. After that, I was very late — but at least I matched!"</p></div>
-                    </div>
+                <hr class="my-8">
+                <div id="reading-questions" class="space-y-6">
+                    <p class="font-bold text-xl mb-4">Interpretation Questions:</p>
+                    <!-- 4 questions -->
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 8: Leitura -->
-        <div class="slide" data-title="Reading">
-            <h2 class="text-4xl font-bold mb-4 text-center text-emerald-700">Leitura: The Day Everything Went Wrong</h2>
-            <p class="text-center text-slate-500 text-lg mb-6">Uma história em sequência usando os conectores da aula.</p>
-            <div class="max-w-4xl mx-auto">
-                <div class="section-card p-8 text-lg space-y-4 leading-relaxed mb-6">
-                    <p class="text-xs font-bold uppercase text-emerald-500 tracking-widest">Texto</p>
-                    <p>Last Monday was one of those days when nothing goes right. <strong>First</strong>, my alarm didn't ring, so I woke up an hour late. I jumped out of bed and got dressed in five minutes. <strong>Then</strong>, I ran to the kitchen, but there was no milk for my coffee. I grabbed a banana and rushed out the door.</p>
-                    <p><strong>After that</strong>, I ran to the bus stop, but the bus had already left. To make matters worse, it started to rain heavily. I called a taxi, but it took twenty minutes to arrive. <strong>Later</strong>, when I finally got to work, my boss was in a meeting and didn't even notice I was late.</p>
-                    <p><strong>Suddenly</strong>, I realized I had left my phone at home. I couldn't believe it. I ran into my colleague Sara in the hallway and she lent me her phone for the day. <strong>In the end</strong>, the day turned out to be okay — but I definitely need a better alarm clock!</p>
-                </div>
-                <div class="grid md:grid-cols-2 gap-5 text-lg">
-                    <div class="activity-card p-6">
-                        <p class="font-bold text-emerald-700 mb-3">Perguntas de interpretação</p>
-                        <div class="space-y-3">
-                            <p>1. Por que o narrador acordou tarde?</p>
-                            <p>2. O que aconteceu quando ele chegou ao ponto de ônibus?</p>
-                            <p>3. O que ele percebeu quando chegou ao trabalho?</p>
-                            <p>4. Como o dia terminou no final?</p>
-                        </div>
-                    </div>
-                    <div class="activity-card p-6">
-                        <p class="font-bold text-emerald-700 mb-3">Foco na língua</p>
-                        <div class="space-y-2 text-slate-600">
-                            <p>→ Encontre <strong>todos os conectores de sequência</strong> usados no texto.</p>
-                            <p>→ Encontre a expressão <strong>"to make matters worse"</strong> e explique o que aconteceu.</p>
-                            <p>→ Encontre o phrasal verb <strong>"run into"</strong> no texto.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 9: Tradução Oral II -->
-        <div class="slide" data-title="Tradução Oral II">
-            <div class="section-card p-8">
-                <div class="text-center max-w-3xl mx-auto mb-8">
-                    <h2 class="text-5xl font-bold mb-4 text-emerald-700"><i class="fas fa-microphone-alt text-emerald-500 mr-2"></i> Traduza para inglês</h2>
-                    <p class="text-xl text-slate-600">Agora pratique as expressões e phrasal verbs da aula.</p>
-                </div>
-                <div class="activity-card oral-drill-card max-w-4xl mx-auto" data-translation-exercise>
-                    <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
-                        <p class="lesson-panel-title">PT → EN — Foco: Expressões</p>
-                        <span class="lesson-chip"><i class="fas fa-layer-group text-emerald-600"></i><span data-translation-progress>1 / 5</span></span>
-                    </div>
-                    <p class="oral-drill-progress">Frase em português:</p>
-                    <p data-translation-source class="oral-drill-pt"></p>
-                    <input type="text" data-translation-input class="oral-drill-input" placeholder="Digite sua tradução em inglês...">
-                    <p data-translation-feedback class="oral-drill-feedback"></p>
-                    <div class="oral-drill-btns">
-                        <button type="button" class="primary-action-btn" data-translation-play><i class="fas fa-volume-up mr-2"></i>Ouvir PT</button>
-                        <button type="button" class="primary-action-btn" data-translation-check><i class="fas fa-check mr-2"></i>Verificar</button>
-                        <button type="button" class="secondary-action-btn" data-translation-reveal><i class="fas fa-eye mr-2"></i>Ver sugestão</button>
-                        <button type="button" class="secondary-action-btn" data-translation-next><i class="fas fa-forward mr-2"></i>Próxima</button>
-                    </div>
-                    <script type="application/json">
-                    [
-                        { "pt": "Você não vai acreditar — eu encontrei meu chefe no aeroporto!", "en": "You won't believe it — I ran into my boss at the airport!" },
-                        { "pt": "Para piorar ainda mais, eu esqueci minha carteira em casa.", "en": "To make matters worse, I forgot my wallet at home." },
-                        { "pt": "No final, o dia acabou sendo ótimo.", "en": "In the end, the day turned out to be great." },
-                        { "pt": "Eu encontrei minha professora por acaso no café.", "en": "I ran into my teacher at the café." },
-                        { "pt": "Acabou sendo uma viagem incrível!", "en": "It turned out to be an amazing trip!" }
-                    ]
-                    </script>
-                </div>
+        <!-- SLIDE 9: Tradução Oral II (Foco em Expressões) -->
+        <div class="slide" data-title="Oral Translation II">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Oral Translation: Expressions Focus</h2>
+            <p class="text-center text-slate-500 text-lg mb-8">Foco nas expressões e phrasal verbs aprendidos hoje.</p>
+            <div id="oral-translation-2" class="max-w-4xl mx-auto space-y-6">
+                <!-- Phrases with reveal buttons -->
             </div>
         </div>
 
         <!-- SLIDE 10: Música -->
-        <div class="slide" data-title="Music">
-            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700 italic"><i class="fas fa-music text-emerald-500 mr-2"></i>Music: "The Story" — Brandi Carlile</h2>
-            <div class="section-card p-8 max-w-5xl mx-auto flex flex-col md:flex-row gap-8">
-                <div class="flex-1">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3hRV0jL3vUpRrcy398teAU?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                    <div class="callout-note mt-5">
-                        <p class="font-bold mb-1">Conexão com a aula</p>
-                        <p class="text-sm">A música conta uma história de vida usando o Simple Past. Preste atenção nos verbos no passado e como a narrativa se desenvolve em sequência — exatamente o que praticamos hoje.</p>
-                    </div>
-                </div>
-                <div class="flex-1 activity-card p-8 text-xl leading-loose font-serif">
-                    <p class="font-bold text-emerald-600 mb-3">[Verse 1]</p>
-                    <p>All of these lines across my <input id="m1" data-answer="face" class="w-20 border-b-2 text-center bg-transparent border-gray-400"> <button class="answer-btn" data-target="m1"><i class="fas fa-eye"></i></button></p>
-                    <p>Tell you the story of who I <input id="m2" data-answer="am" class="w-16 border-b-2 text-center bg-transparent border-gray-400"> <button class="answer-btn" data-target="m2"><i class="fas fa-eye"></i></button></p>
-                    <p>So many stories of where I've <input id="m3" data-answer="been" class="w-20 border-b-2 text-center bg-transparent border-gray-400"> <button class="answer-btn" data-target="m3"><i class="fas fa-eye"></i></button></p>
-                    <p>And how I <input id="m4" data-answer="got" class="w-16 border-b-2 text-center bg-transparent border-gray-400"> <button class="answer-btn" data-target="m4"><i class="fas fa-eye"></i></button> to where I am</p>
-                    <br>
-                    <p class="font-bold text-emerald-600 mb-3">[Pre-Chorus]</p>
-                    <p>But these stories don't mean anything</p>
-                    <p>When you've got no one to tell them to</p>
-                    <p>It's true... I was made for you</p>
+        <div class="slide" data-title="Music Moment">
+            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Music Moment</h2>
+            <div class="max-w-3xl mx-auto section-card p-8 text-center">
+                <p class="text-xl italic mb-6">Complete a letra da música:</p>
+                <div id="music-lyrics" class="text-2xl font-medium leading-loose space-y-4">
+                    <!-- Lyrics with blanks -->
                 </div>
             </div>
         </div>
 
         <!-- SLIDE 11: Homework -->
         <div class="slide" data-title="Homework">
-            <h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Homework</h2>
-            <div class="max-w-4xl mx-auto space-y-6">
-                <div class="section-card p-8 text-lg">
-                    <p class="font-bold text-slate-800 mb-3">Escreva uma história curta sobre um dia especial (bom ou ruim) que você viveu.</p>
-                    <p class="text-slate-600 mb-4">Use pelo menos <strong>4 conectores de sequência</strong> diferentes e pelo menos <strong>1 expressão</strong> da aula para tornar a história mais interessante.</p>
-                    <div class="grid md:grid-cols-2 gap-3 text-base mt-4">
-                        <div class="callout-note p-3">✅ 4+ conectores (first, then, after that, finally...)</div>
-                        <div class="callout-note p-3">✅ run into / turn out / you won't believe it / to make matters worse</div>
-                        <div class="callout-note p-3">✅ Verbos no Simple Past (regulares e irregulares)</div>
-                        <div class="callout-note p-3">✅ Pelo menos 5 frases conectadas em sequência</div>
-                    </div>
+            <div class="lesson-hero rounded-[2rem] p-10 text-center">
+                <h2 class="text-5xl font-black mb-6">Homework Time!</h2>
+                <p class="text-xl mb-8">Aplique o que você aprendeu hoje em sua vida real.</p>
+                <div class="bg-white/20 backdrop-blur-sm p-8 rounded-2xl text-left max-w-2xl mx-auto">
+                    <ul id="homework-list" class="space-y-4 text-lg">
+                        <li class="flex gap-3"><i class="fas fa-edit mt-1"></i> Escreva 5 frases sobre seu dia usando Complete Past Stories.</li>
+                        <li class="flex gap-3"><i class="fas fa-microphone mt-1"></i> Grave um áudio contando uma pequena história.</li>
+                    </ul>
                 </div>
-                <textarea rows="7" class="w-full p-4 border-2 border-slate-200 rounded-2xl text-lg outline-none focus:border-emerald-500 bg-transparent" placeholder="Escreva sua história aqui... (ex: Last Saturday, something incredible happened. First, I woke up and...)"></textarea>
-            </div>
-        </div>
-
-        <!-- SLIDE 12: Lesson Complete -->
-        <div class="slide" data-title="Lesson Complete">
-            <div class="lesson-hero rounded-[2rem] p-10 text-center flex flex-col items-center justify-center min-h-[420px]">
-                <i class="fas fa-trophy text-emerald-600 text-7xl mb-6"></i>
-                <p class="lesson-panel-title mb-2">Lição concluída!</p>
-                <h2 class="text-5xl font-black mb-4 text-slate-900">Great job!</h2>
-                <p class="text-2xl text-slate-600 max-w-3xl mb-6">Agora você consegue contar histórias em inglês de forma clara e natural!</p>
-                <div class="lesson-panel p-6 max-w-2xl">
-                    <p class="text-xl font-serif italic">"Everyone has a story. The question is: how well can you tell it?"</p>
-                </div>
-                <p class="text-slate-400 mt-6 text-lg">See you in Lesson 03!</p>
+                <button id="finish-btn" class="mt-12 bg-white text-emerald-700 font-bold py-4 px-10 rounded-full text-xl shadow-lg hover:bg-emerald-50 transition-colors">
+                    Finalizar Aula
+                </button>
             </div>
         </div>
 
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-white border-t z-20">
-        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
-            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-300 disabled:opacity-50">Previous</button>
-            <button id="next-btn" class="bg-emerald-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-emerald-700">Next</button>
-            <button id="finish-lesson-btn" class="hidden bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-blue-700">Finish Lesson</button>
+    <footer class="fixed bottom-0 w-full bg-white border-t border-slate-200 p-4 z-10">
+        <div class="container mx-auto flex justify-between max-w-5xl">
+            <button id="prev-btn" class="px-6 py-2 rounded-lg font-semibold text-slate-500 hover:bg-slate-100 disabled:opacity-30">Anterior</button>
+            <button id="next-btn" class="px-8 py-2 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700 shadow-md transition-all">Próximo</button>
         </div>
     </footer>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    <script src="../js/firebase-config.js"></script>
-    <script src="../js/progress-manager.js"></script>
-
+    <script src="../js/flashcard-pronunciation.js"></script>
+    <script src="../js/lesson-flashcard-save.js"></script>
+    <script src='a2-v2-template.js'></script>
+    <script src='a2-lesson-theme.js'></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const moduleId = 'a2-v2';
-            const lessonNumber = 2;
-
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            const slideCounter = document.getElementById('slide-counter');
-            const slideTitleHeader = document.getElementById('slide-title-header');
+            const slides = Array.from(document.querySelectorAll('.slide'));
             let currentSlide = 0;
 
             function updateSlideView() {
                 slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
-                const progressBar = document.getElementById('progress-bar');
-                progressBar.style.width = slides.length > 1 ? `${(currentSlide / (slides.length - 1)) * 100}%` : '100%';
-                if (slideCounter) slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
-                if (slideTitleHeader) slideTitleHeader.textContent = slides[currentSlide]?.dataset.title || '';
-                prevBtn.disabled = currentSlide === 0;
-                nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
-                finishLessonBtn.classList.toggle('hidden', currentSlide !== slides.length - 1);
+                document.getElementById('slide-counter').textContent = `${currentSlide + 1} / ${slides.length}`;
+                document.getElementById('progress-bar').style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+                document.getElementById('prev-btn').disabled = currentSlide === 0;
+                document.getElementById('next-btn').style.display = currentSlide === slides.length - 1 ? 'none' : 'block';
+                
+                const title = slides[currentSlide].dataset.title;
+                document.getElementById('slide-title-header').textContent = title;
+                window.scrollTo(0, 0);
             }
 
-            prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; updateSlideView(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
-            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) { currentSlide++; updateSlideView(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
-
-            finishLessonBtn.addEventListener('click', () => {
-                finishLessonBtn.disabled = true;
-                finishLessonBtn.textContent = 'Saving...';
-                if (typeof markLessonAsComplete === 'function') {
-                    markLessonAsComplete(moduleId, lessonNumber).catch(() => {
-                        finishLessonBtn.disabled = false;
-                        finishLessonBtn.textContent = 'Finish Lesson';
-                    });
+            document.getElementById('next-btn').addEventListener('click', () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateSlideView();
                 }
             });
 
-            function checkAnswer(input) {
-                const userAnswer = input.value.trim().toLowerCase().replace(/[.!?,'"]/g, '');
-                const correctAnswer = (input.dataset.answer || '').toLowerCase().replace(/[.!?,'"]/g, '');
-                input.classList.remove('correct', 'incorrect');
-                if (userAnswer.length === 0) return;
-                input.classList.toggle('correct', userAnswer === correctAnswer);
-                input.classList.toggle('incorrect', userAnswer !== correctAnswer);
-            }
-
-            function addRevealListeners(container) {
-                (container || document).querySelectorAll('.answer-btn[data-target]').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const input = document.getElementById(button.dataset.target);
-                        if (input) { input.value = input.dataset.answer; checkAnswer(input); }
-                    });
-                });
-                (container || document).querySelectorAll('input[data-answer]').forEach(input => {
-                    input.addEventListener('blur', () => checkAnswer(input));
-                });
-            }
-
-            document.querySelectorAll('.flip-card').forEach(card => {
-                card.addEventListener('click', () => card.classList.toggle('flipped'));
+            document.getElementById('prev-btn').addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateSlideView();
+                }
             });
 
-            // Atividade A: Completar com o conector correto
-            const fillData = [
-                { id: 'f1', sentence: '___, I woke up late and missed breakfast.', hint: 'início da sequência', answer: 'First' },
-                { id: 'f2', sentence: 'I ran to the bus stop. ___, the bus was already gone.', hint: 'em seguida', answer: 'Then' },
-                { id: 'f3', sentence: '___, I called a taxi and waited in the rain.', hint: 'depois disso', answer: 'After that' },
-                { id: 'f4', sentence: '___, the taxi arrived and I got to work.', hint: 'mais tarde', answer: 'Later' },
-                { id: 'f5', sentence: '___, I forgot my phone at home!', hint: 'surpresa inesperada', answer: 'Suddenly' },
-                { id: 'f6', sentence: '___, the day turned out to be okay.', hint: 'resultado final', answer: 'In the end' }
-            ];
-            const fillContainer = document.getElementById('practice-fill');
-            if (fillContainer) {
-                fillContainer.innerHTML = fillData.map(item => `
-                    <p><input id="${item.id}" data-answer="${item.answer}" class="w-36 border-b-2 text-center bg-transparent border-gray-400">
-                    <button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>
-                    ${item.sentence.replace('___', '')}
-                    <span class="text-slate-400 text-base ml-2">(dica: ${item.hint})</span></p>
-                `).join('');
-                addRevealListeners(fillContainer);
-            }
+            // Lógica de Revelar Resposta
+            window.revealAnswer = function(id) {
+                const el = document.getElementById(id);
+                if (el) el.classList.toggle('hidden');
+            };
 
-            // Atividade B: Ordenar as frases
-            const unscrambleData = [
-                { id: 'u1', hint: 'after that / I / arrived / work / at / late', answer: 'After that, I arrived at work late' },
-                { id: 'u2', hint: 'turned / it / out / be / to / a / great / day', answer: 'It turned out to be a great day' },
-                { id: 'u3', hint: 'ran / I / into / my / old / friend / the / at / café', answer: 'I ran into my old friend at the café' },
-                { id: 'u4', hint: 'to / make / matters / worse / forgot / I / my / keys', answer: 'To make matters worse, I forgot my keys' }
-            ];
-            const unscrambleContainer = document.getElementById('practice-unscramble');
-            if (unscrambleContainer) {
-                unscrambleContainer.innerHTML = unscrambleData.map(item => `
-                    <div>
-                        <p class="text-slate-500 italic mb-1">${item.hint}</p>
-                        <div class="flex items-center gap-2">
-                            <input id="${item.id}" data-answer="${item.answer}" class="w-full border-b-2 bg-transparent border-gray-400" placeholder="Escreva a frase correta...">
-                            <button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>
-                        </div>
-                    </div>
-                `).join('');
-                addRevealListeners(unscrambleContainer);
-            }
-
-            // Atividade C: Corrigir erro
-            const errorData = [
-                { id: 'e1', wrong: 'First, she wakes up late and missed the bus.', answer: 'First, she woke up late and missed the bus.' },
-                { id: 'e2', wrong: 'In the end, he finally arrived home.', answer: 'Finally, he arrived home.' },
-                { id: 'e3', wrong: 'After that, I ran into to my teacher.', answer: 'After that, I ran into my teacher.' },
-                { id: 'e4', wrong: 'Suddenly, the day turned out good.', answer: 'In the end, the day turned out to be good.' }
-            ];
-            const errorContainer = document.getElementById('practice-error');
-            if (errorContainer) {
-                errorContainer.innerHTML = errorData.map(item => `
-                    <div>
-                        <p class="text-red-500 font-semibold mb-1">Erro: <span class="font-normal text-slate-700">${item.wrong}</span></p>
-                        <div class="flex items-center gap-2">
-                            <input id="${item.id}" data-answer="${item.answer}" class="w-full border-b-2 bg-transparent border-gray-400" placeholder="Escreva a frase correta...">
-                            <button class="answer-btn" data-target="${item.id}"><i class="fas fa-eye"></i></button>
-                        </div>
-                    </div>
-                `).join('');
-                addRevealListeners(errorContainer);
-            }
-
-            addRevealListeners();
             updateSlideView();
-            document.body.classList.remove('lesson-loading');
         });
     </script>
-    <script src="../js/flashcard-pronunciation.js"></script>
-    <script src="../js/lesson-flashcard-save.js"></script>
-    <script src="translation-exercises.js"></script>
-    <script src='a2-v2-template.js'></script>
-    <script src='a2-lesson-theme.js'></script>
 </body>
 </html>
