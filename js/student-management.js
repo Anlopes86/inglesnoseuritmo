@@ -1,11 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    if (typeof firebase === 'undefined' || !firebase.apps.length) {
-        console.error('Firebase nao inicializado.');
-        return;
-    }
-
-    const db = firebase.firestore();
-    const auth = firebase.auth();
+    const firebaseAvailable = Boolean(typeof firebase !== 'undefined' && firebase?.apps?.length);
+    const db = firebaseAvailable ? firebase.firestore() : null;
+    const auth = firebaseAvailable ? firebase.auth() : null;
     const platformAccess = window.PlatformAccess;
 
     const addStudentModal = document.getElementById('add-student-modal');
@@ -22,10 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastFocusedElement = null;
     let currentProfile = null;
 
+    if (!firebaseAvailable) {
+        console.warn('Firebase nao inicializado. O modal de cadastro abre normalmente, mas o salvamento depende da conexão.');
+    }
+
     async function loadCurrentProfile() {
-        currentProfile = platformAccess
-            ? await platformAccess.getCurrentProfile(auth, db)
-            : null;
+        if (!auth || !db || !platformAccess) return null;
+
+        currentProfile = await platformAccess.getCurrentProfile(auth, db);
         if (currentProfile) {
             const studentTypeSelect = document.getElementById('new-student-type');
             if (studentTypeSelect && platformAccess) {
@@ -77,6 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function assertStudentCapacity(profile) {
+        if (!db || !platformAccess?.countManagedStudents) {
+            throw new Error('Conexao com Firebase indisponivel.');
+        }
+
         const managedCount = await platformAccess.countManagedStudents(db, profile);
         if (platformAccess.isStudentLimitReached(profile.plan, managedCount)) {
             throw new Error('Limite de alunos atingido para o plano atual.');
@@ -104,6 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (addStudentForm) {
         addStudentForm.addEventListener('submit', async (event) => {
             event.preventDefault();
+
+            if (!db || !auth || !platformAccess) {
+                if (typeof showToast === 'function') {
+                    showToast('Nao foi possivel conectar ao banco de dados no momento. Tente novamente em instantes.', 'error', 'Falha ao adicionar');
+                }
+                return;
+            }
 
             const fullName = document.getElementById('new-student-fullname').value.trim();
             const username = document.getElementById('new-student-username').value.trim().toLowerCase();
@@ -256,14 +267,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    auth.onAuthStateChanged(async (user) => {
-        if (!user) return;
-        try {
-            await loadCurrentProfile();
-        } catch (error) {
-            console.error('Erro ao carregar perfil atual:', error);
-        }
-    });
+    if (auth) {
+        auth.onAuthStateChanged(async (user) => {
+            if (!user) return;
+            try {
+                await loadCurrentProfile();
+            } catch (error) {
+                console.error('Erro ao carregar perfil atual:', error);
+            }
+        });
+    }
 
     document.addEventListener('keydown', (event) => {
         if (event.key !== 'Escape') return;

@@ -6,6 +6,8 @@
     const platformAccess = window.PlatformAccess;
     let currentProfile = null;
     let studentsUnsubscribe = null;
+    let dashboardRefreshTimer = null;
+    let dashboardRefreshInFlight = false;
 
     const logoutBtn = document.getElementById('logout-btn');
     const studentSelect = document.getElementById('student-select');
@@ -399,9 +401,9 @@
 
         [openAddStudentModalBtn, openAddStudentEmptyBtn].forEach((button) => {
             if (!button) return;
-            button.disabled = Boolean(limitReached);
             button.classList.toggle('opacity-60', Boolean(limitReached));
             button.classList.toggle('cursor-not-allowed', Boolean(limitReached));
+            button.setAttribute('aria-disabled', String(Boolean(limitReached)));
             button.title = limitReached
                 ? 'Limite de alunos atingido para o plano atual.'
                 : '';
@@ -429,23 +431,94 @@
         displayNoStudentSelected();
     }
 
-    function loadStudentsIntoSelect() {
-        if (!currentProfile || !platformAccess) return;
-        if (studentsUnsubscribe) studentsUnsubscribe();
+    function scheduleDashboardRefresh(delay = 15000) {
+        if (dashboardRefreshTimer) {
+            window.clearTimeout(dashboardRefreshTimer);
+        }
 
-        studentSelect.innerHTML = '<option value="">Carregando...</option>';
+        dashboardRefreshTimer = window.setTimeout(() => {
+            refreshDashboardState().catch((error) => {
+                console.error('Erro ao atualizar painel:', error);
+            });
+        }, delay);
+    }
+
+    async function refreshDashboardState() {
+        if (!currentProfile || !platformAccess || !db || dashboardRefreshInFlight) return;
+
+        dashboardRefreshInFlight = true;
+        try {
+            await loadStudentsIntoSelect({ silent: true });
+
+            const selectedStudentId = localStorage.getItem('selectedStudentId');
+            if (!selectedStudentId) {
+                displayNoStudentSelected();
+                return;
+            }
+
+            const selectedStudentName = localStorage.getItem('selectedStudentName') || '';
+            const optionExists = Array.from(studentSelect.options).some((option) => option.value === selectedStudentId);
+            if (!optionExists) {
+                displayNoStudentSelected();
+                return;
+            }
+
+            await displayStudentDashboard(selectedStudentId, selectedStudentName || studentSelect.options[studentSelect.selectedIndex]?.text || 'Aluno');
+        } finally {
+            dashboardRefreshInFlight = false;
+        }
+    }
+
+    function loadStudentsIntoSelect(options = {}) {
+        if (!currentProfile || !platformAccess || !db) return Promise.resolve();
+        if (studentsUnsubscribe) {
+            studentsUnsubscribe();
+            studentsUnsubscribe = null;
+        }
+
+        if (!options.silent) {
+            studentSelect.innerHTML = '<option value="">Carregando...</option>';
+        }
+
         const teacherId = platformAccess.getManagedTeacherId(currentProfile);
         const query = platformAccess.buildManagedStudentsQuery(db, currentProfile, teacherId);
 
-        studentsUnsubscribe = query.onSnapshot((snapshot) => {
+        return query.get().then((snapshot) => {
             const students = [];
             snapshot.forEach((doc) => students.push({ id: doc.id, ...doc.data() }));
             renderStudentOptions(students);
-        }, (error) => {
+            scheduleDashboardRefresh();
+        }).catch((error) => {
             console.error('Erro ao buscar alunos:', error);
             studentSelect.innerHTML = '<option value="">Erro ao carregar</option>';
         });
     }
+
+    window.addEventListener('focus', () => {
+        refreshDashboardState().catch((error) => {
+            console.error('Erro ao atualizar painel ao ganhar foco:', error);
+        });
+    });
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            refreshDashboardState().catch((error) => {
+                console.error('Erro ao atualizar painel ao voltar para a aba:', error);
+            });
+        }
+    });
+
+    window.addEventListener('online', () => {
+        refreshDashboardState().catch((error) => {
+            console.error('Erro ao atualizar painel ao retornar online:', error);
+        });
+    });
+
+    window.addEventListener('student:created', () => {
+        loadStudentsIntoSelect().catch((error) => {
+            console.error('Erro ao recarregar alunos após criar aluno:', error);
+        });
+    });
 
     auth.onAuthStateChanged(async (user) => {
         if (window.location.pathname.includes('/a1/autonomo/')) return;
