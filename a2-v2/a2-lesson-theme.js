@@ -293,7 +293,7 @@
         main.insertBefore(slide, anchors[0] || null);
     }
 
-    function removeRepetitiveBuilders() {
+    function // removeRepetitiveBuilders() {
         document.querySelectorAll('[data-choice-builder]').forEach((builder) => {
             const slide = builder.closest('.slide');
             if (slide) slide.remove();
@@ -540,98 +540,9 @@
         }
     ];
 
-    function // buildChallengeSlide(lessonNumber, bank) {
-        const topic = LESSON_TOPICS[lessonNumber - 1] || bank.title.toLowerCase();
-        const builder = ACTIVITY_BUILDERS[(lessonNumber - 1) % ACTIVITY_BUILDERS.length];
-        const cards = builder.render(bank);
+    /* disabled */
 
-        return createSlide('Challenge Lab', `
-            <div class="section-card p-8">
-                <div class="text-center max-w-3xl mx-auto mb-8">
-                    <p class="lesson-panel-title mb-2">Atividade ${lessonNumber} - 10 tarefas</p>
-                    <h2 class="text-4xl font-black text-violet-700"><i class="fas ${builder.icon} mr-2"></i>${builder.title}: ${bank.title}</h2>
-                    <p class="text-lg text-slate-600 mt-3">${builder.instruction}</p>
-                    <p class="text-sm text-slate-500 mt-2">Tema da lição: ${topic}. Foco: ${bank.grammar}.</p>
-                </div>
-                <div class="generated-activity-grid md:grid-cols-2 text-lg">${cards}</div>
-            </div>
-        `);
-    }
-
-    function // buildDialogSlide(bank) {
-        const extensions = {
-            'Past stories': [
-                ['Teacher', 'Did you enjoy it?', 'Student', 'Yes, I did. It was simple, but I had a good time.'],
-                ['Friend', 'Were you tired the next day?', 'Student', 'A little. I woke up late and had breakfast at home.'],
-                ['Teacher', 'What happened after the call?', 'Student', 'I paused the movie and talked to him for ten minutes.'],
-                ['Friend', 'Did you take many photos?', 'Student', 'Yes, we took some photos near the lake.']
-            ],
-            'Comparisons': [
-                ['Teacher', 'Is it also cheaper?', 'Student', 'Not really. It is quieter, but it is a little more expensive.'],
-                ['Friend', 'Do you want to book it?', 'Student', 'Maybe. I want to compare one more hotel first.'],
-                ['Teacher', 'Why is the bus better today?', 'Student', 'Because it is cheaper and the traffic is not too bad.'],
-                ['Friend', 'Would you live there?', 'Student', 'Yes, but only if it were closer to work.']
-            ],
-            'Future plans': [
-                ['Friend', 'What time are you meeting her?', 'Student', 'At seven. We are going to try a new restaurant.'],
-                ['Teacher', 'Are you going to study alone?', 'Student', 'No. I am going to study with a friend online.'],
-                ['Friend', 'Do you have an umbrella?', 'Student', 'Yes, I do. I will take it with me.'],
-                ['Teacher', 'Can you send it before dinner?', 'Student', 'Yes. I will send it around six.']
-            ],
-            'Modals in real life': [
-                ['Student', 'Do I need to show it today?', 'Teacher', 'Yes, you have to show it before you leave.'],
-                ['Friend', 'Should I take medicine?', 'Student', 'Maybe, but you should talk to a doctor first.'],
-                ['Receptionist', 'Do you have your passport?', 'Guest', 'Yes, I do. It is in my bag.'],
-                ['Student', 'Can I write one more example?', 'Teacher', 'Of course. That will help you remember it.']
-            ],
-            'Experiences': [
-                ['Teacher', 'Would you like to try it?', 'Student', 'Yes, I would. It sounds interesting.'],
-                ['Friend', 'Can I read it?', 'Student', 'Sure. I can send it to you now.'],
-                ['Teacher', 'When did she leave?', 'Student', 'She left after lunch.'],
-                ['Friend', 'Do you enjoy studying?', 'Student', 'Yes. I enjoy it more when I practice speaking.']
-            ],
-            'Practical English': [
-                ['Tourist', 'Is it far from here?', 'Local', 'No, it is about five minutes on foot.'],
-                ['Guest', 'Can I change rooms?', 'Receptionist', 'Yes. I can check another room for you.'],
-                ['Patient', 'Should I take anything?', 'Doctor', 'Take this medicine after meals and rest today.'],
-                ['Tourist', 'Do I cross the street?', 'Local', 'Yes. Cross the street and the station is on your right.']
-            ],
-            'Conditions and choices': [
-                ['Teacher', 'Do you do that every day?', 'Student', 'Not every day, but I try to do it three times a week.'],
-                ['Friend', 'And if it does not rain?', 'Student', 'Then I will go for a walk after lunch.'],
-                ['Teacher', 'Where would you travel first?', 'Student', 'I would travel to Canada because I want to practice English.'],
-                ['Friend', 'What is your next step?', 'Student', 'I want to practice short conversations every day.']
-            ]
-        };
-        const extraLines = extensions[bank.title] || extensions['Practical English'];
-        const cards = bank.dialogues.map((dialogue, index) => `
-            <div class="activity-card">
-                <p class="lesson-panel-title mb-3">Dialog ${index + 1}</p>
-                <div class="space-y-3">
-                    <div class="dialogue-line"><strong class="text-violet-700">${dialogue[0]}:</strong><p>${dialogue[1]}</p></div>
-                    <div class="dialogue-line"><strong class="text-orange-600">${dialogue[2]}:</strong><p>${dialogue[3]}</p></div>
-                    <div class="dialogue-line"><strong class="text-violet-700">${extraLines[index][0]}:</strong><p>${extraLines[index][1]}</p></div>
-                    <div class="dialogue-line"><strong class="text-orange-600">${extraLines[index][2]}:</strong><p>${extraLines[index][3]}</p></div>
-                </div>
-            </div>
-        `).join('');
-        const speakText = bank.dialogues.map((item, index) => `${item[0]}: ${item[1]} ${item[2]}: ${item[3]} ${extraLines[index][0]}: ${extraLines[index][1]} ${extraLines[index][2]}: ${extraLines[index][3]}`).join(' ');
-
-        return createSlide('Dialog Samples', `
-            <div class="section-card p-8">
-                <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
-                    <div>
-                        <p class="lesson-panel-title mb-2">Dialog samples</p>
-                        <h2 class="text-4xl font-black text-violet-700">4 dialog samples: ${bank.context}</h2>
-                    </div>
-                    <button type="button" class="primary-action-btn" data-generated-speak="${speakText}">
-                        <i class="fas fa-volume-up mr-2"></i> Ouvir diálogos
-                    </button>
-                </div>
-                <div class="grid md:grid-cols-2 gap-4 text-lg">${cards}</div>
-            </div>
-        `);
-    }
+    /* disabled */
 
     function getOralPhrases(lessonNumber, bank) {
         // Custom overrides for specific lessons
@@ -650,26 +561,7 @@
         return bank.pt;
     }
 
-    function // buildOralTranslationSlide(bank, lessonNumber) {
-        const phrasesList = getOralPhrases(lessonNumber, bank);
-        const phrases = phrasesList.map((phrase, index) => `
-            <div class="activity-card oral-translation-card">
-                <span class="generated-question-number">${index + 1}</span>
-                <span>${phrase}</span>
-            </div>
-        `).join('');
-
-        return createSlide('Oral Translation', `
-            <div class="section-card p-8">
-                <div class="text-center max-w-3xl mx-auto mb-8">
-                    <p class="lesson-panel-title mb-2">Tradução oral - 8 frases</p>
-                    <h2 class="text-4xl font-black text-violet-700">Português para inglês</h2>
-                    <p class="text-lg text-slate-600 mt-3">O professor lê em português; o aluno fala a tradução em inglês. Depois, o aluno repete com ritmo natural.</p>
-                </div>
-                <div class="grid md:grid-cols-2 gap-4 text-lg">${phrases}</div>
-            </div>
-        `);
-    }
+    /* disabled */
 
     function normalizeActivityQuestionCounts(bank) {
         const activityTitles = /practice|activity|quiz|translation|review|correct|order|fix/i;
@@ -721,19 +613,19 @@
     }
 
     function enhanceLessonContent() {
-        removeRepetitiveBuilders();
+        // removeRepetitiveBuilders();
 
         const lessonNumber = getLessonNumber();
         const bank = getBank(lessonNumber);
 
         if (!document.querySelector('[data-title="Challenge Lab"]')) {
-            insertBeforeClosingSlides(// buildChallengeSlide(lessonNumber, bank));
+            // insertBeforeClosingSlides(buildChallengeSlide(lessonNumber, bank));
         }
         if (!document.querySelector('[data-title="Dialog Samples"]')) {
-            insertBeforeClosingSlides(// buildDialogSlide(bank));
+            // insertBeforeClosingSlides(buildDialogSlide(bank));
         }
         if (!document.querySelector('.a2-generated-slide[data-title="Oral Translation"]')) {
-            insertBeforeClosingSlides(// buildOralTranslationSlide(bank, lessonNumber));
+            // insertBeforeClosingSlides(buildOralTranslationSlide(bank, lessonNumber));
         }
 
         document.addEventListener('DOMContentLoaded', () => {
