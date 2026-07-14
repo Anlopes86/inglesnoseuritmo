@@ -8,13 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const accessModuleId = 'a2';
 
     const lessonTitles = [
-        'Past Simple: Regular & Irregular Review', 'Complete Past Stories', 'Comparatives in Context', 'Superlatives and Irregular Adjectives',
+        'Past Simple: Details and Time Markers', 'Complete Past Stories', 'Comparing Options: More, Less and As...As', 'Superlatives and Irregular Adjectives',
         'Articles and Quantifiers', 'Setting the Scene: Past Continuous', 'Interrupted Stories', 'Review & Rock Out! #1',
-        'Going To for Plans', 'Will for Predictions and Decisions', 'Present Continuous for Future Plans', 'Future Review in Real Situations',
-        'Can, Could and Permission', 'Must, Have To and Need To', 'Should for Advice', 'Review & Rock Out! #2',
+        'Going To: Evidence and Detailed Plans', 'Will for Predictions and Decisions', 'Present Continuous for Future Plans', 'Future Review in Real Situations',
+        'Can, Could and Permission', 'Must, Have To and Need To', 'Giving Specific and Tactful Advice', 'Review & Rock Out! #2',
         'Present Perfect: Experiences', 'Ever, Never, Already and Yet', 'Present Perfect vs Past Simple', 'Been and Gone',
-        'Health Problems and Advice', 'Medical Consultation & Conditions', 'Prepositions of Place', 'Review & Rock Out! #3',
-        'Prepositions of Movement', 'Prepositions of Time', 'From A to B: Directions', 'At the Hotel',
+        'Health Changes and Recovery', 'Medical Consultation & Conditions', 'Precise Location: In, On and At', 'Review & Rock Out! #3',
+        'Prepositions of Movement', 'Time Expressions and Deadlines', 'Clarifying Multi-Step Directions', 'At the Hotel',
         'Gerunds and Infinitives', 'Zero and First Conditional', 'Unless, Wishes and Real-Life Hopes', 'Final Review and Project'
     ];
 

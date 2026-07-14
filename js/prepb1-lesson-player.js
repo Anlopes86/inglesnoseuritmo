@@ -1,48 +1,55 @@
-﻿document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const lessonNumber = getLessonNumberFromPath();
-    const lesson = Array.isArray(window.PREPB1_LESSONS) ? window.PREPB1_LESSONS.find(item => item.number === lessonNumber) : null;
+    const lesson = Array.isArray(window.PREPB1_LESSONS)
+        ? window.PREPB1_LESSONS.find(item => item.number === lessonNumber)
+        : null;
+    const root = document.getElementById('slides-root');
 
-    if (!lesson) {
-        document.getElementById('slides-root').innerHTML = `
-            <div class="surface rounded-[2rem] p-10 text-center">
-                <h2 class="text-3xl font-black text-slate-900 mb-3">LiÃ§Ã£o nÃ£o encontrada</h2>
-                <p class="text-slate-600">NÃ£o foi possÃ­vel carregar os dados desta aula preparatÃ³ria.</p>
-            </div>
-        `;
+    if (!lesson || !root) {
+        if (root) {
+            root.innerHTML = `
+                <section class="slide active" data-title="Erro">
+                    <div class="surface lesson-stage p-8 text-center">
+                        <h2 class="text-3xl font-black text-slate-900">Lição não encontrada</h2>
+                        <p class="text-slate-600 mt-3">Não foi possível carregar os dados desta aula preparatória.</p>
+                    </div>
+                </section>
+            `;
+        }
         return;
     }
 
-    const slides = buildSlides(lesson);
-    const root = document.getElementById('slides-root');
-    root.innerHTML = slides;
+    root.innerHTML = lesson.slides
+        .map((slide, index) => renderSlide(slide, lesson, index))
+        .join('');
 
     document.getElementById('lesson-title').textContent = `Bridge - Lesson ${lesson.number}: ${lesson.title}`;
-    document.title = `Bridge - Lesson ${lesson.number}: ${lesson.title} | InglÃªs no seu Ritmo`;
+    document.title = `Bridge - Lesson ${lesson.number}: ${lesson.title} | Inglês no seu Ritmo`;
 
-    let currentSlide = 0;
-    const slideEls = Array.from(document.querySelectorAll('.slide'));
+    const slideEls = Array.from(root.querySelectorAll('.slide'));
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
     const finishLessonBtn = document.getElementById('finish-lesson-btn');
     const progressBar = document.getElementById('progress-bar');
     const slideCounter = document.getElementById('slide-counter');
     const slideTitleHeader = document.getElementById('slide-title-header');
-
-    function speak(text) {
-        if (!('speechSynthesis' in window) || !text) return;
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-US';
-        window.speechSynthesis.cancel();
-        window.speechSynthesis.speak(utterance);
-    }
+    let currentSlide = 0;
 
     function showSlide(index) {
-        slideEls.forEach((slide, i) => slide.classList.toggle('active', i === index));
+        if (!slideEls[index]) return;
+
+        currentSlide = index;
+        slideEls.forEach((slide, slideIndex) => {
+            slide.classList.toggle('active', slideIndex === index);
+            slide.setAttribute('aria-hidden', slideIndex === index ? 'false' : 'true');
+        });
+
         const total = slideEls.length;
         progressBar.style.width = `${((index + 1) / total) * 100}%`;
         slideCounter.textContent = `${index + 1} / ${total}`;
         slideTitleHeader.textContent = slideEls[index].dataset.title || '';
         prevBtn.disabled = index === 0;
+
         const isLast = index === total - 1;
         nextBtn.classList.toggle('hidden', isLast);
         finishLessonBtn.classList.toggle('hidden', !isLast);
@@ -50,145 +57,558 @@
     }
 
     root.addEventListener('click', event => {
-        const speakBtn = event.target.closest('.speak-btn');
-        if (speakBtn) {
-            speak(speakBtn.dataset.speak || '');
-            return;
-        }
-
-        const choiceBtn = event.target.closest('.choice-btn');
-        if (choiceBtn) {
-            const group = choiceBtn.dataset.group;
-            const feedback = document.getElementById(`feedback-${group}`);
-            document.querySelectorAll(`[data-group="${group}"]`).forEach(btn => {
-                btn.disabled = true;
-                const isCorrect = btn.dataset.correct === 'true';
-                btn.classList.add(isCorrect ? 'correct' : 'incorrect');
-            });
-            if (feedback) {
-                feedback.textContent = choiceBtn.dataset.feedback || '';
-                feedback.className = 'mt-3 text-sm font-semibold text-slate-600';
-            }
-            return;
-        }
-
-        const checkInputBtn = event.target.closest('.check-input-btn');
-        if (checkInputBtn) {
-            const targetId = checkInputBtn.dataset.target;
-            const input = document.getElementById(targetId);
-            const feedback = document.getElementById(`${targetId}-feedback`);
-            if (!input || !feedback) return;
-
-            const expected = normalizeAnswer(checkInputBtn.dataset.answer || '');
-            const actual = normalizeAnswer(input.value || '');
-            const isCorrect = actual === expected;
-            input.classList.toggle('border-green-500', isCorrect);
-            input.classList.toggle('border-red-500', !isCorrect);
-            feedback.textContent = isCorrect
-                ? 'Correto. Boa recuperação da forma.'
-                : `Revise a dica: ${checkInputBtn.dataset.hint || 'compare com a resposta-modelo.'}`;
-            feedback.className = `mt-3 text-sm font-semibold ${isCorrect ? 'text-green-700' : 'text-red-700'}`;
-            return;
-        }
-
-        const checkActivityBtn = event.target.closest('.check-activity-btn');
-        if (checkActivityBtn) {
-            checkActivity(checkActivityBtn.dataset.target, checkActivityBtn.dataset.type);
-            return;
-        }
-
         const revealBtn = event.target.closest('.reveal-btn');
         if (revealBtn) {
-            const targetId = revealBtn.dataset.target;
-            const target = document.getElementById(targetId);
-            if (target) target.classList.toggle('hidden');
+            toggleReveal(revealBtn);
             return;
         }
 
-        const checklistBtn = event.target.closest('.checklist-btn');
-        if (checklistBtn) {
-            checklistBtn.classList.toggle('bg-teal-100');
-            checklistBtn.classList.toggle('border-teal-300');
-            checklistBtn.classList.toggle('text-teal-800');
+        const optionBtn = event.target.closest('.prep-option-btn');
+        if (optionBtn) {
+            const group = optionBtn.dataset.group;
+            root.querySelectorAll(`.prep-option-btn[data-group="${cssEscape(group)}"]`).forEach(button => {
+                button.classList.toggle('selected', button === optionBtn);
+                button.setAttribute('aria-pressed', button === optionBtn ? 'true' : 'false');
+            });
+            return;
         }
 
-    });
-
-    root.addEventListener('dragstart', event => {
-        const item = event.target.closest('.sequence-item');
-        if (!item) return;
-        event.dataTransfer.setData('text/plain', item.dataset.value);
-        item.classList.add('opacity-50');
-    });
-
-    root.addEventListener('dragend', event => {
-        const item = event.target.closest('.sequence-item');
-        if (item) item.classList.remove('opacity-50');
-    });
-
-    root.addEventListener('dragover', event => {
-        const item = event.target.closest('.sequence-item');
-        if (!item) return;
-        event.preventDefault();
-    });
-
-    root.addEventListener('drop', event => {
-        const target = event.target.closest('.sequence-item');
-        if (!target) return;
-
-        event.preventDefault();
-        const list = target.closest('.sequence-list');
-        const draggedValue = event.dataTransfer.getData('text/plain');
-        const dragged = Array.from(list?.querySelectorAll('.sequence-item') || [])
-            .find(item => item.dataset.value === draggedValue);
-        if (!dragged || dragged === target) return;
-
-        const nodes = Array.from(list.children);
-        const draggedIndex = nodes.indexOf(dragged);
-        const targetIndex = nodes.indexOf(target);
-        if (draggedIndex < targetIndex) {
-            target.after(dragged);
-        } else {
-            target.before(dragged);
+        const checklistBtn = event.target.closest('.prep-check-btn');
+        if (checklistBtn) {
+            const selected = checklistBtn.getAttribute('aria-pressed') !== 'true';
+            checklistBtn.setAttribute('aria-pressed', selected ? 'true' : 'false');
+            checklistBtn.classList.toggle('selected', selected);
         }
     });
 
     prevBtn.addEventListener('click', () => {
-        if (currentSlide > 0) {
-            currentSlide -= 1;
-            showSlide(currentSlide);
-        }
+        if (currentSlide > 0) showSlide(currentSlide - 1);
     });
 
     nextBtn.addEventListener('click', () => {
-        if (currentSlide < slideEls.length - 1) {
-            currentSlide += 1;
-            showSlide(currentSlide);
-        }
+        if (currentSlide < slideEls.length - 1) showSlide(currentSlide + 1);
     });
 
     showSlide(0);
 });
 
-function checkActivity(targetId, type) {
-    const root = document.getElementById(targetId);
-    const feedback = document.getElementById(`${targetId}-feedback`);
-    if (!root || !feedback) return;
+function renderSlide(slide, lesson, slideIndex) {
+    const renderers = {
+        opening: renderOpeningSlide,
+        grammar: renderGrammarSlide,
+        languageBank: renderLanguageBankSlide,
+        practice: renderPracticeSlide,
+        reading: renderReadingSlide,
+        readingQuestions: renderReadingQuestionsSlide,
+        microReading: renderMicroReadingSlide,
+        teacherListening: renderTeacherListeningSlide,
+        translation: renderTranslationSlide,
+        speaking: renderSpeakingSlide,
+        assessment: renderAssessmentSlide,
+        homework: renderHomeworkSlide
+    };
 
-    let correct = false;
-    if (type === 'sequence') {
-        const actual = Array.from(root.querySelectorAll('.sequence-item')).map(item => item.dataset.answer).join('|');
-        const expected = root.dataset.expected;
-        correct = actual === expected;
-    } else {
-        const controls = Array.from(root.querySelectorAll('[data-answer]'));
-        correct = controls.length > 0 && controls.every(control => normalizeAnswer(control.value) === normalizeAnswer(control.dataset.answer));
+    const renderer = renderers[slide.type];
+    if (!renderer) {
+        return renderUnknownSlide(slide, lesson, slideIndex);
     }
 
-    feedback.textContent = correct
-        ? 'Correto. A lógica da atividade está consistente.'
-        : 'Ainda não. Revise as pistas e tente reorganizar ou selecionar novamente.';
-    feedback.className = `mt-3 text-sm font-semibold ${correct ? 'text-green-700' : 'text-red-700'}`;
+    return renderer(slide, lesson, slideIndex);
+}
+
+function slideSection(slide, slideIndex, content, classes = '') {
+    const activeClass = slideIndex === 0 ? ' active' : '';
+    return `
+        <section class="slide${activeClass} ${classes}" data-title="${escapeAttribute(slide.title || '')}" data-slide-type="${escapeAttribute(slide.type || '')}" aria-hidden="${slideIndex === 0 ? 'false' : 'true'}">
+            ${content}
+        </section>
+    `;
+}
+
+function renderOpeningSlide(slide, lesson, slideIndex) {
+    const objectives = Array.isArray(slide.objectives) ? slide.objectives : [];
+    const dialogue = slide.dialogue || {};
+    const lines = Array.isArray(dialogue.lines) ? dialogue.lines : [];
+
+    return slideSection(slide, slideIndex, `
+        <div class="hero-card lesson-stage p-7 md:p-9">
+            <div class="opening-heading">
+                <p class="prep-eyebrow"><i class="fas fa-route"></i> ${escapeHtml(lesson.unit)}</p>
+                <h2 class="prep-display-title mt-3">${escapeHtml(slide.title || lesson.title)}</h2>
+                <p class="text-lg text-slate-600 mt-4 max-w-4xl">${escapeHtml(lesson.objective)}</p>
+                <div class="flex flex-wrap gap-2 mt-5">
+                    <span class="chip"><i class="fas fa-layer-group"></i> ${escapeHtml(lesson.focus)}</span>
+                    <span class="chip"><i class="fas fa-arrow-trend-up"></i> ${escapeHtml(lesson.cefr)}</span>
+                </div>
+            </div>
+
+            <div class="opening-grid mt-8">
+                <div class="opening-objectives">
+                    <p class="prep-section-label">O que será trabalhado</p>
+                    <div class="grid gap-3 mt-4">
+                        ${objectives.map(objective => `
+                            <div class="prep-objective-row">
+                                <i class="fas fa-check-circle"></i>
+                                <span>${escapeHtml(objective)}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="opening-dialogue">
+                    <p class="prep-section-label">Introductory dialogue</p>
+                    <h3 class="text-xl font-black text-slate-900 mt-2">${escapeHtml(dialogue.title || 'Everyday conversation')}</h3>
+                    <div class="dialogue-lines mt-5">
+                        ${lines.map(([speaker, text]) => `
+                            <div class="dialogue-line">
+                                <span class="dialogue-speaker">${escapeHtml(speaker)}:</span>
+                                <strong>${escapeHtml(text)}</strong>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+        </div>
+    `, 'opening-slide');
+}
+
+function renderGrammarSlide(slide, lesson, slideIndex) {
+    const tables = Array.isArray(slide.tables) ? slide.tables : [];
+    const notes = Array.isArray(slide.notes) ? slide.notes : [];
+
+    return slideSection(slide, slideIndex, `
+        <div class="lesson-stage">
+            ${renderSlideHeading('fa-table-list', 'Grammar review', slide.title, slide.intro)}
+            <div class="grammar-grid mt-7">
+                ${tables.map(table => `
+                    <div class="grammar-panel">
+                        <h3 class="text-xl font-black text-slate-900">${escapeHtml(table.title)}</h3>
+                        <div class="lesson-table-scroll mt-4">
+                            <table class="prep-table">
+                                <thead>
+                                    <tr>${(table.headers || []).map(header => `<th>${escapeHtml(header)}</th>`).join('')}</tr>
+                                </thead>
+                                <tbody>
+                                    ${(table.rows || []).map(row => `
+                                        <tr>${row.map((cell, index) => `<${index === 0 ? 'th' : 'td'}>${escapeHtml(cell)}</${index === 0 ? 'th' : 'td'}>`).join('')}</tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+            ${notes.length ? `
+                <div class="prep-note-band mt-6">
+                    ${notes.map(note => `
+                        <div class="prep-note-item"><i class="fas fa-circle-info"></i><span>${escapeHtml(note)}</span></div>
+                    `).join('')}
+                </div>
+            ` : ''}
+        </div>
+    `);
+}
+
+function renderLanguageBankSlide(slide, lesson, slideIndex) {
+    const items = Array.isArray(slide.items) ? slide.items : [];
+
+    return slideSection(slide, slideIndex, `
+        <div class="lesson-stage">
+            ${renderSlideHeading('fa-comments', 'Language bank', slide.title, slide.intro)}
+            <div class="phrase-grid mt-7">
+                ${items.map(item => `
+                    <article class="phrase-card">
+                        <p class="phrase-term">${escapeHtml(item.term)}</p>
+                        <p class="text-sm font-semibold text-amber-700 mt-2">${escapeHtml(item.meaning)}</p>
+                        <p class="text-slate-700 mt-4">${escapeHtml(item.example)}</p>
+                    </article>
+                `).join('')}
+            </div>
+        </div>
+    `);
+}
+
+function renderPracticeSlide(slide, lesson, slideIndex) {
+    const items = Array.isArray(slide.items) ? slide.items : [];
+
+    return slideSection(slide, slideIndex, `
+        <div class="lesson-stage">
+            ${renderSlideHeading('fa-pen-to-square', 'Practice circuit', slide.title, slide.intro)}
+            <div class="practice-grid mt-7">
+                ${items.map((item, itemIndex) => renderPracticeItem(item, lesson.number, slideIndex, itemIndex)).join('')}
+            </div>
+        </div>
+    `);
+}
+
+function renderPracticeItem(item, lessonNumber, slideIndex, itemIndex) {
+    const answerId = `practice-answer-${lessonNumber}-${slideIndex}-${itemIndex}`;
+    const inputId = `practice-input-${lessonNumber}-${slideIndex}-${itemIndex}`;
+    const kindMeta = getPracticeKindMeta(item.kind);
+    const options = Array.isArray(item.options) ? item.options : [];
+    const group = `practice-option-${lessonNumber}-${slideIndex}-${itemIndex}`;
+    const longInputKinds = new Set(['summary', 'transform', 'timeline', 'sequence']);
+    const inputControl = options.length
+        ? `
+            <div class="prep-option-group mt-4" role="group" aria-label="Opções da atividade ${itemIndex + 1}">
+                ${options.map(option => `
+                    <button type="button" class="prep-option-btn" data-group="${escapeAttribute(group)}" aria-pressed="false">${escapeHtml(option)}</button>
+                `).join('')}
+            </div>
+        `
+        : longInputKinds.has(item.kind)
+            ? `<textarea id="${inputId}" class="response-input practice-response mt-4" rows="2" aria-label="Resposta da atividade ${itemIndex + 1}" placeholder="Resposta dada pelo aluno"></textarea>`
+            : `<input id="${inputId}" class="response-input practice-response mt-4" type="text" aria-label="Resposta da atividade ${itemIndex + 1}" placeholder="Resposta dada pelo aluno">`;
+
+    return `
+        <article class="practice-card">
+            <div class="practice-card-head">
+                <span class="practice-kind"><i class="fas ${kindMeta.icon}"></i> ${kindMeta.label}</span>
+                <span class="practice-number">${itemIndex + 1}</span>
+            </div>
+            <p class="practice-prompt mt-4">${escapeHtml(item.prompt)}</p>
+            ${item.hint ? `<p class="practice-hint mt-3"><i class="fas fa-lightbulb"></i> Dica: ${escapeHtml(item.hint)}</p>` : ''}
+            ${inputControl}
+            <div class="practice-actions mt-4">
+                ${renderRevealButton(answerId, 'Revelar resposta', 'Ocultar resposta', 'fa-eye')}
+            </div>
+            <div id="${answerId}" class="model-answer prep-answer hidden mt-4" aria-live="polite">
+                <p class="prep-answer-label">Resposta</p>
+                <p>${escapeHtml(item.answer)}</p>
+            </div>
+        </article>
+    `;
+}
+
+function renderReadingSlide(slide, lesson, slideIndex) {
+    const paragraphs = Array.isArray(slide.paragraphs) ? slide.paragraphs : [];
+    const vocabulary = Array.isArray(slide.vocabulary) ? slide.vocabulary : [];
+
+    return slideSection(slide, slideIndex, `
+        <div class="lesson-stage">
+            ${renderSlideHeading('fa-book-open', slide.genre || 'Reading', slide.title, 'Leia primeiro para entender a sequência geral; depois volte ao texto para localizar evidências.')}
+            <div class="reading-layout mt-7">
+                <article class="reading-block prep-reading-text">
+                    ${paragraphs.map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join('')}
+                </article>
+                <aside class="vocabulary-panel">
+                    <p class="prep-section-label">Vocabulary support</p>
+                    <div class="grid gap-3 mt-4">
+                        ${vocabulary.map(([term, meaning]) => `
+                            <div class="vocab-row">
+                                <strong>${escapeHtml(term)}</strong>
+                                <span>${escapeHtml(meaning)}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </aside>
+            </div>
+        </div>
+    `);
+}
+
+function renderReadingQuestionsSlide(slide, lesson, slideIndex) {
+    const questions = Array.isArray(slide.questions) ? slide.questions : [];
+
+    return slideSection(slide, slideIndex, `
+        <div class="lesson-stage">
+            ${renderSlideHeading('fa-magnifying-glass', 'Reading evidence', slide.title, 'Responda com informação do texto. Revele a resposta depois que o aluno localizar a evidência.')}
+            <div class="question-list mt-7">
+                ${questions.map((item, index) => renderOpenQuestion(item, lesson.number, slideIndex, index, 'reading')).join('')}
+            </div>
+        </div>
+    `);
+}
+
+function renderMicroReadingSlide(slide, lesson, slideIndex) {
+    const texts = Array.isArray(slide.texts) ? slide.texts : [];
+    const questions = Array.isArray(slide.questions) ? slide.questions : [];
+
+    return slideSection(slide, slideIndex, `
+        <div class="lesson-stage">
+            ${renderSlideHeading('fa-file-lines', 'Practical reading', slide.title, 'Cruze informações de avisos, mensagens, horários e pequenos documentos.')}
+            <div class="microtext-grid mt-7">
+                ${texts.map(text => `
+                    <article class="microtext-card">
+                        <p class="prep-section-label">${escapeHtml(text.label)}</p>
+                        <p class="text-slate-800 mt-3 leading-7">${escapeHtml(text.text)}</p>
+                    </article>
+                `).join('')}
+            </div>
+            <div class="question-list mt-7">
+                ${questions.map((item, index) => renderOpenQuestion(item, lesson.number, slideIndex, index, 'micro')).join('')}
+            </div>
+        </div>
+    `);
+}
+
+function renderTeacherListeningSlide(slide, lesson, slideIndex) {
+    const questions = Array.isArray(slide.questions) ? slide.questions : [];
+    const scriptId = `listening-script-${lesson.number}-${slideIndex}`;
+
+    return slideSection(slide, slideIndex, `
+        <div class="lesson-stage">
+            ${renderSlideHeading('fa-ear-listen', 'Teacher-read listening', slide.title, slide.setup)}
+            <div class="listening-toolbar mt-6">
+                ${renderRevealButton(scriptId, 'Mostrar roteiro', 'Ocultar roteiro', 'fa-file-lines')}
+            </div>
+            <div id="${scriptId}" class="model-answer listening-script hidden mt-5">
+                <p class="prep-answer-label">Roteiro do professor</p>
+                <p class="leading-8">${escapeHtml(slide.script)}</p>
+            </div>
+            <div class="question-list mt-7">
+                ${questions.map((item, index) => renderOpenQuestion(item, lesson.number, slideIndex, index, 'listening')).join('')}
+            </div>
+        </div>
+    `);
+}
+
+function renderTranslationSlide(slide, lesson, slideIndex) {
+    const items = Array.isArray(slide.items) ? slide.items : [];
+
+    return slideSection(slide, slideIndex, `
+        <div class="lesson-stage">
+            ${renderSlideHeading('fa-language', 'Oral translation', slide.title, 'O aluno traduz oralmente a frase completa. Use o botão apenas depois da tentativa.')}
+            <div class="translation-list mt-7">
+                ${items.map((item, index) => {
+                    const answerId = `translation-answer-${lesson.number}-${slideIndex}-${index}`;
+                    return `
+                        <article class="translation-row">
+                            <div class="translation-source">
+                                <span class="translation-number">${index + 1}</span>
+                                <strong>${escapeHtml(item.pt)}</strong>
+                            </div>
+                            <div class="translation-actions">
+                                ${renderRevealButton(answerId, 'Ver tradução', 'Ocultar tradução', 'fa-eye')}
+                            </div>
+                            <div id="${answerId}" class="model-answer prep-answer hidden">
+                                <p class="prep-answer-label">Suggested translation</p>
+                                <p>${escapeHtml(item.en)}</p>
+                            </div>
+                        </article>
+                    `;
+                }).join('')}
+            </div>
+        </div>
+    `);
+}
+
+function renderSpeakingSlide(slide, lesson, slideIndex) {
+    const rounds = Array.isArray(slide.rounds) ? slide.rounds : [];
+    const languageBank = Array.isArray(slide.languageBank) ? slide.languageBank : [];
+    const teacherFocus = Array.isArray(slide.teacherFocus) ? slide.teacherFocus : [];
+
+    return slideSection(slide, slideIndex, `
+        <div class="lesson-stage">
+            ${renderSlideHeading('fa-comments', slide.label || 'Live speaking', slide.title, slide.scenario)}
+            ${languageBank.length ? `
+                <div class="speaking-bank mt-6">
+                    ${languageBank.map(item => `<span>${escapeHtml(item)}</span>`).join('')}
+                </div>
+            ` : ''}
+            <div class="speaking-rounds mt-7">
+                ${rounds.map((round, index) => {
+                    const modelId = `speaking-model-${lesson.number}-${slideIndex}-${index}`;
+                    return `
+                        <article class="speaking-card">
+                            <div class="speaking-card-head">
+                                <span class="practice-number">${index + 1}</span>
+                                <h3>${escapeHtml(round.title)}</h3>
+                            </div>
+                            <p class="speaking-prompt mt-4">${escapeHtml(round.prompt)}</p>
+                            ${(round.followUps || []).length ? `
+                                <div class="follow-up-box mt-4">
+                                    <p class="prep-answer-label">Follow-up prompts</p>
+                                    <ul>${round.followUps.map(question => `<li>${escapeHtml(question)}</li>`).join('')}</ul>
+                                </div>
+                            ` : ''}
+                            <div class="mt-4">
+                                ${renderRevealButton(modelId, 'Revelar modelo', 'Ocultar modelo', 'fa-lightbulb')}
+                            </div>
+                            <div id="${modelId}" class="model-answer prep-answer hidden mt-4">
+                                <p class="prep-answer-label">Model after the first attempt</p>
+                                <p>${escapeHtml(round.model)}</p>
+                            </div>
+                        </article>
+                    `;
+                }).join('')}
+            </div>
+            <div class="teacher-notes-panel mt-7">
+                <div>
+                    <p class="prep-section-label">Teacher focus</p>
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        ${teacherFocus.map(item => `<span class="teacher-focus-chip">${escapeHtml(item)}</span>`).join('')}
+                    </div>
+                </div>
+                <label class="teacher-notes-field">
+                    <span>Notas da tentativa ao vivo</span>
+                    <textarea class="response-input" rows="3" placeholder="Acertos, correção prioritária e meta para a segunda tentativa"></textarea>
+                </label>
+            </div>
+        </div>
+    `);
+}
+
+function renderAssessmentSlide(slide, lesson, slideIndex) {
+    const criteria = Array.isArray(slide.criteria) ? slide.criteria : [];
+
+    return slideSection(slide, slideIndex, `
+        <div class="lesson-stage">
+            ${renderSlideHeading('fa-chart-line', 'Teacher assessment', slide.title, slide.intro)}
+            <div class="assessment-scale mt-6">
+                <span><strong>1</strong> precisa de apoio</span>
+                <span><strong>2</strong> em desenvolvimento</span>
+                <span><strong>3</strong> pronto para avançar</span>
+                <span><strong>4</strong> controle consistente</span>
+            </div>
+            <div class="assessment-list mt-7">
+                ${criteria.map((criterion, index) => `
+                    <article class="assessment-row">
+                        <div>
+                            <p class="text-lg font-black text-slate-900">${escapeHtml(criterion.name)}</p>
+                            <p class="text-slate-600 mt-2">${escapeHtml(criterion.descriptor)}</p>
+                        </div>
+                        <label>
+                            <span class="sr-only">Pontuação de ${escapeHtml(criterion.name)}</span>
+                            <select class="response-input assessment-select" aria-label="Pontuação de ${escapeAttribute(criterion.name)}">
+                                <option value="">Nota</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </label>
+                    </article>
+                `).join('')}
+            </div>
+            <label class="teacher-notes-field assessment-notes mt-7">
+                <span>Evidências e prioridade de revisão</span>
+                <textarea class="response-input" rows="4" placeholder="Registre exemplos observados durante a aula"></textarea>
+            </label>
+        </div>
+    `);
+}
+
+function renderHomeworkSlide(slide, lesson, slideIndex) {
+    const options = Array.isArray(slide.options) ? slide.options : [];
+    const checklist = Array.isArray(slide.checklist) ? slide.checklist : [];
+
+    return slideSection(slide, slideIndex, `
+        <div class="lesson-stage homework-stage">
+            ${renderSlideHeading('fa-house-laptop', 'Homework', slide.title, slide.deliverable)}
+            <div class="homework-options mt-7">
+                ${options.map((option, index) => `
+                    <article class="homework-card">
+                        <span class="homework-option-number">${index + 1}</span>
+                        <h3>${escapeHtml(option.title)}</h3>
+                        <p>${escapeHtml(option.prompt)}</p>
+                    </article>
+                `).join('')}
+            </div>
+            <div class="homework-checklist mt-7">
+                <p class="prep-section-label">Antes da próxima aula</p>
+                <div class="grid gap-3 mt-4">
+                    ${checklist.map(item => `
+                        <button type="button" class="prep-check-btn" aria-pressed="false">
+                            <i class="fas fa-check"></i><span>${escapeHtml(item)}</span>
+                        </button>
+                    `).join('')}
+                </div>
+            </div>
+        </div>
+    `, 'homework-slide');
+}
+
+function renderUnknownSlide(slide, lesson, slideIndex) {
+    return slideSection(slide, slideIndex, `
+        <div class="surface lesson-stage p-8">
+            <h2 class="text-3xl font-black text-slate-900">${escapeHtml(slide.title || 'Slide')}</h2>
+            <p class="text-slate-600 mt-3">Este conteúdo ainda não possui um formato de exibição.</p>
+        </div>
+    `);
+}
+
+function renderOpenQuestion(item, lessonNumber, slideIndex, index, prefix) {
+    const answerId = `${prefix}-answer-${lessonNumber}-${slideIndex}-${index}`;
+    const inputId = `${prefix}-input-${lessonNumber}-${slideIndex}-${index}`;
+
+    return `
+        <article class="open-question-row">
+            <span class="question-index">${index + 1}</span>
+            <div class="open-question-main">
+                <p class="text-lg font-bold text-slate-900">${escapeHtml(item.question)}</p>
+                <textarea id="${inputId}" class="response-input mt-3" rows="2" aria-label="Resposta da questão ${index + 1}" placeholder="Resposta dada pelo aluno"></textarea>
+            </div>
+            <div class="open-question-action">
+                ${renderRevealButton(answerId, 'Ver resposta', 'Ocultar resposta', 'fa-eye')}
+            </div>
+            <div id="${answerId}" class="model-answer prep-answer hidden open-question-answer">
+                <p class="prep-answer-label">Suggested answer</p>
+                <p>${escapeHtml(item.answer)}</p>
+            </div>
+        </article>
+    `;
+}
+
+function renderSlideHeading(icon, eyebrow, title, intro) {
+    return `
+        <header class="slide-heading">
+            <p class="prep-eyebrow"><i class="fas ${escapeAttribute(icon)}"></i> ${escapeHtml(eyebrow || '')}</p>
+            <h2 class="prep-slide-title mt-2">${escapeHtml(title || '')}</h2>
+            ${intro ? `<p class="prep-slide-intro mt-3">${escapeHtml(intro)}</p>` : ''}
+        </header>
+    `;
+}
+
+function renderRevealButton(targetId, showLabel, hideLabel, icon) {
+    return `
+        <button
+            type="button"
+            class="reveal-btn"
+            data-target="${escapeAttribute(targetId)}"
+            data-show-label="${escapeAttribute(showLabel)}"
+            data-hide-label="${escapeAttribute(hideLabel)}"
+            aria-controls="${escapeAttribute(targetId)}"
+            aria-expanded="false"
+        >
+            <i class="fas ${escapeAttribute(icon)}"></i><span>${escapeHtml(showLabel)}</span>
+        </button>
+    `;
+}
+
+function toggleReveal(button) {
+    const targetId = button.dataset.target;
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    const willShow = target.classList.contains('hidden');
+    target.classList.toggle('hidden', !willShow);
+    button.setAttribute('aria-expanded', willShow ? 'true' : 'false');
+
+    const label = button.querySelector('span');
+    if (label) {
+        label.textContent = willShow
+            ? button.dataset.hideLabel || 'Ocultar'
+            : button.dataset.showLabel || 'Revelar';
+    }
+}
+
+function getPracticeKindMeta(kind) {
+    const kinds = {
+        complete: { label: 'Completar', icon: 'fa-pen' },
+        choose: { label: 'Escolher', icon: 'fa-list-ul' },
+        reorder: { label: 'Desembaralhar', icon: 'fa-arrow-down-1-9' },
+        error: { label: 'Encontrar o erro', icon: 'fa-triangle-exclamation' },
+        transform: { label: 'Transformar', icon: 'fa-repeat' },
+        timeline: { label: 'Ordenar eventos', icon: 'fa-timeline' },
+        match: { label: 'Relacionar', icon: 'fa-link' },
+        reference: { label: 'Referência', icon: 'fa-magnifying-glass' },
+        connector: { label: 'Conector', icon: 'fa-code-branch' },
+        sequence: { label: 'Sequência', icon: 'fa-arrow-right' },
+        summary: { label: 'Resumir', icon: 'fa-align-left' }
+    };
+
+    return kinds[kind] || { label: 'Atividade', icon: 'fa-shapes' };
 }
 
 function getLessonNumberFromPath() {
@@ -197,817 +617,23 @@ function getLessonNumberFromPath() {
     return match ? parseInt(match[1], 10) : null;
 }
 
-function normalizeAnswer(value) {
-    return String(value)
-        .trim()
-        .toLowerCase()
-        .replace(/[.!?]+$/g, '')
-        .replace(/\s+/g, ' ');
-}
-
-function buildSlides(lesson) {
-    const variant = lesson.variant || 'default';
-    const builders = {
-        default: buildDefaultSlides,
-        premium_bridge: buildPremiumBridgeSlides,
-        advice_lab: buildAdviceLabSlides,
-        compare_lab: buildCompareLabSlides,
-        service_lab: buildServiceLabSlides,
-        final_bridge: buildFinalBridgeSlides
-    };
-
-    return (builders[variant] || buildDefaultSlides)(lesson);
-}
-
-function buildDefaultSlides(lesson) {
-    return `
-        ${buildWarmupSlide(lesson)}
-        ${buildConversationSlide(lesson)}
-        ${buildReadingSlide(lesson)}
-        ${buildComprehensionSlide(lesson)}
-        ${buildResponseSlide(lesson)}
-        ${buildSpeakingSlide(lesson)}
-        ${buildCompleteSlide(lesson)}
-    `;
-}
-
-function buildPremiumBridgeSlides(lesson) {
-    return `
-        ${buildWarmupSlide(lesson)}
-        ${buildGrammarSlide(lesson)}
-        ${buildControlledPracticeSlide(lesson)}
-        ${buildActivitySlide(lesson)}
-        ${buildReadingSlide(lesson)}
-        ${buildSecondaryReadingSlide(lesson)}
-        ${buildComprehensionSlide(lesson)}
-        ${buildTranslationSlide(lesson)}
-        ${buildPersonalQuestionsSlide(lesson)}
-        ${buildSpeakingSlide(lesson)}
-        ${buildCompleteSlide(lesson)}
-    `;
-}
-
-function buildAdviceLabSlides(lesson) {
-    return `
-        ${buildWarmupSlide(lesson)}
-        ${buildReadingSlide(lesson)}
-        <section class="slide" data-title="Healthy Choices">
-            <div class="surface rounded-[2rem] p-8">
-                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Healthy choices</p>
-                <h3 class="text-3xl font-black text-slate-900 mt-2">${lesson.activityTitle}</h3>
-                <div class="grid lg:grid-cols-3 gap-6 mt-8">
-                    ${lesson.activityCards.map((item, index) => `
-                        <div class="question-card rounded-[1.5rem] p-6">
-                            <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Card ${index + 1}</p>
-                            <p class="text-lg font-semibold text-slate-800 mt-3">${item.situation}</p>
-                            <p class="text-slate-600 mt-4">${item.task}</p>
-                            <button type="button" class="reveal-btn mt-5" data-target="advice-${lesson.number}-${index}">
-                                <i class="fas fa-lightbulb"></i> Ver ideia-modelo
-                            </button>
-                            <div id="advice-${lesson.number}-${index}" class="model-answer hidden rounded-[1rem] p-4 mt-4">
-                                <p class="text-sm font-bold uppercase tracking-[0.15em]">Model answer</p>
-                                <p class="mt-3">${item.model}</p>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        </section>
-        ${buildComprehensionSlide(lesson)}
-        <section class="slide" data-title="Weekly Planner">
-            <div class="surface rounded-[2rem] p-8">
-                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Planner task</p>
-                <h3 class="text-3xl font-black text-slate-900 mt-2">${lesson.plannerTitle}</h3>
-                <div class="grid lg:grid-cols-2 gap-6 mt-8">
-                    ${lesson.plannerPrompts.map((item, index) => `
-                        <div class="response-card rounded-[1.5rem] p-6">
-                            <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Plan ${index + 1}</p>
-                            <p class="text-lg font-semibold text-slate-800 mt-3">${item.prompt}</p>
-                            <p class="text-sm text-slate-500 mt-3">${item.tip}</p>
-                            <textarea class="response-input mt-5" placeholder="${item.placeholder}"></textarea>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        </section>
-        ${buildSpeakingSlide(lesson)}
-        ${buildCompleteSlide(lesson)}
-    `;
-}
-
-function buildGrammarSlide(lesson) {
-    const grammar = lesson.grammar || {};
-    const examples = Array.isArray(grammar.examples) ? grammar.examples : [];
-    const points = Array.isArray(grammar.points) ? grammar.points : [];
-    const table = Array.isArray(grammar.table) ? grammar.table : [];
-
-    return `
-        <section class="slide" data-title="Grammar Review">
-            <div class="surface rounded-[2rem] p-8">
-                <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-8 items-start">
-                    <div>
-                        <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Grammar review</p>
-                        <h3 class="text-3xl font-black text-slate-900 mt-2">${grammar.title || lesson.focus}</h3>
-                        <p class="text-lg text-slate-700 mt-5 leading-8">${grammar.rule || lesson.objective}</p>
-                        <div class="mt-6 p-5 rounded-2xl bg-teal-50 border border-teal-100">
-                            <p class="text-sm uppercase tracking-[0.18em] text-teal-700 font-bold">Dica de regra</p>
-                            <p class="text-slate-700 mt-3">${grammar.source || 'Revise a regra e aplique em respostas curtas antes de produzir fala longa.'}</p>
-                        </div>
-                        ${points.length ? `
-                            <div class="mt-6 grid gap-3">
-                                ${points.map(point => `
-                                    <div class="flex items-start gap-3 rounded-2xl bg-slate-50 border border-slate-200 p-4">
-                                        <i class="fas fa-circle-info text-teal-600 mt-1"></i>
-                                        <p class="text-slate-700">${point}</p>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        ` : ''}
-                    </div>
-                    <div class="space-y-4">
-                        ${table.length ? `
-                            <div class="question-card rounded-[1.5rem] p-5">
-                                <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Quick table</p>
-                                <div class="lesson-table-scroll mt-4">
-                                    <table class="w-full text-left text-sm">
-                                        <tbody>
-                                            ${table.map(row => `
-                                                <tr class="border-b border-slate-200 last:border-0">
-                                                    ${row.map((cell, cellIndex) => `<${cellIndex === 0 ? 'th' : 'td'} class="py-3 pr-4 align-top ${cellIndex === 0 ? 'font-bold text-slate-900' : 'text-slate-700'}">${cell}</${cellIndex === 0 ? 'th' : 'td'}>`).join('')}
-                                                </tr>
-                                            `).join('')}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        ` : ''}
-                        ${examples.map((example, index) => `
-                            <div class="question-card rounded-[1.5rem] p-5">
-                                <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Example ${index + 1}</p>
-                                <p class="text-xl font-bold text-slate-900 mt-3">${example[0]}</p>
-                                <p class="text-slate-600 mt-2">${example[1]}</p>
-                                <button class="speak-btn mt-4" data-speak="${escapeAttribute(example[0])}">
-                                    <i class="fas fa-volume-up"></i> Ouvir
-                                </button>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            </div>
-        </section>
-    `;
-}
-
-function buildActivitySlide(lesson) {
-    const activities = Array.isArray(lesson.activities) ? lesson.activities : [];
-    if (!activities.length) return '';
-
-    return `
-        <section class="slide" data-title="Practice Lab">
-            <div class="surface rounded-[2rem] p-8">
-                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Practice lab</p>
-                <h3 class="text-3xl font-black text-slate-900 mt-2">Varied practice, same target</h3>
-                <div class="grid lg:grid-cols-2 gap-6 mt-8">
-                    ${activities.map((activity, index) => buildActivityCard(activity, lesson.number, index)).join('')}
-                </div>
-            </div>
-        </section>
-    `;
-}
-
-function buildActivityCard(activity, lessonNumber, index) {
-    const targetId = `activity-${lessonNumber}-${index}`;
-    const modelId = `${targetId}-model`;
-    const items = Array.isArray(activity.items) ? activity.items : [];
-    const icon = activity.icon || getActivityIcon(activity.type);
-    const interactiveTypes = ['sequence', 'match', 'classify'];
-
-    return `
-        <div class="response-card rounded-[1.5rem] p-6">
-            <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">
-                <i class="fas ${icon} mr-2"></i>${activity.label || `Activity ${index + 1}`}
-            </p>
-            <h4 class="text-xl font-black text-slate-900 mt-3">${activity.title}</h4>
-            <p class="text-slate-600 mt-3">${activity.instruction || ''}</p>
-            <div class="mt-5 space-y-3">
-                ${buildActivityItems(activity, lessonNumber, index)}
-            </div>
-            ${interactiveTypes.includes(activity.type) ? `
-                <button type="button" class="check-activity-btn reveal-btn mt-4" data-target="${targetId}" data-type="${activity.type}">
-                    <i class="fas fa-check"></i> Checar atividade
-                </button>
-                <p id="${targetId}-feedback" class="mt-3 text-sm font-semibold text-slate-500"></p>
-            ` : ''}
-            ${activity.prompt ? `<textarea class="response-input mt-5" placeholder="${activity.prompt}"></textarea>` : ''}
-            ${activity.model ? `
-                <button type="button" class="reveal-btn mt-4" data-target="${modelId}">
-                    <i class="fas fa-lightbulb"></i> Ver modelo
-                </button>
-                <div id="${modelId}" class="model-answer hidden rounded-[1rem] p-4 mt-4">
-                    <p class="text-sm font-bold uppercase tracking-[0.15em]">Model / Key</p>
-                    <p class="mt-3">${activity.model}</p>
-                </div>
-            ` : ''}
-        </div>
-    `;
-}
-
-function buildActivityItems(activity, lessonNumber, index) {
-    const items = Array.isArray(activity.items) ? activity.items : [];
-    const targetId = `activity-${lessonNumber}-${index}`;
-
-    if (activity.type === 'sequence') {
-        const displayItems = [...items].reverse();
-        return `
-            <div id="${targetId}" class="sequence-list space-y-3" data-expected="${items.map(item => escapeAttribute(item)).join('|')}">
-                ${displayItems.map((item, itemIndex) => `
-                    <div draggable="true" class="sequence-item rounded-2xl border border-slate-200 bg-slate-50 p-4 text-slate-700 cursor-move" data-value="${escapeAttribute(item)}" data-answer="${escapeAttribute(item)}">
-                        <i class="fas fa-grip-lines text-slate-400 mr-2"></i>${itemIndex + 1}. ${item}
-                    </div>
-                `).join('')}
-            </div>
-        `;
+function cssEscape(value) {
+    if (window.CSS && typeof window.CSS.escape === 'function') {
+        return window.CSS.escape(String(value));
     }
 
-    if (activity.type === 'match') {
-        const options = items.map(item => item.right);
-        return `
-            <div id="${targetId}" class="space-y-3">
-                ${items.map((item, itemIndex) => `
-                    <label class="grid sm:grid-cols-[1fr_1fr] gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                        <span class="font-bold text-slate-900">${item.left}</span>
-                        <select class="response-input min-h-0" data-answer="${escapeAttribute(item.right)}" aria-label="Match ${escapeAttribute(item.left)}">
-                            <option value="">Choose...</option>
-                            ${options.map(option => `<option value="${escapeAttribute(option)}">${option}</option>`).join('')}
-                        </select>
-                    </label>
-                `).join('')}
-            </div>
-        `;
-    }
-
-    if (activity.type === 'classify') {
-        const categories = Array.from(new Set(items.map(item => item.category)));
-        return `
-            <div id="${targetId}" class="space-y-3">
-                ${items.map(item => `
-                    <label class="grid sm:grid-cols-[1fr_1fr] gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                        <span class="font-bold text-slate-900">${item.term}</span>
-                        <select class="response-input min-h-0" data-answer="${escapeAttribute(item.category)}" aria-label="Classify ${escapeAttribute(item.term)}">
-                            <option value="">Choose a column...</option>
-                            ${categories.map(category => `<option value="${escapeAttribute(category)}">${category}</option>`).join('')}
-                        </select>
-                    </label>
-                `).join('')}
-            </div>
-        `;
-    }
-
-    return items.map((item, itemIndex) => buildActivityItem(item, activity.type, itemIndex)).join('');
+    return String(value).replace(/[^a-zA-Z0-9_-]/g, '\\$&');
 }
 
-function buildActivityItem(item, type, index) {
-    if (typeof item === 'string') {
-        return `<div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-slate-700">${index + 1}. ${item}</div>`;
-    }
-
-    if (type === 'match') {
-        return `
-            <div class="grid sm:grid-cols-2 gap-3">
-                <div class="rounded-2xl border border-teal-100 bg-teal-50 p-4 font-bold text-slate-800">${item.left}</div>
-                <div class="rounded-2xl border border-amber-100 bg-amber-50 p-4 text-slate-700">${item.right}</div>
-            </div>
-        `;
-    }
-
-    if (type === 'classify') {
-        return `
-            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                <p class="font-bold text-slate-900">${item.term}</p>
-                <p class="text-sm text-slate-600 mt-1">Target column: ${item.category}</p>
-            </div>
-        `;
-    }
-
-    if (type === 'correct') {
-        return `
-            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                <p class="text-red-700 font-semibold">${item.wrong}</p>
-                <p class="text-green-700 mt-2">${item.correct}</p>
-            </div>
-        `;
-    }
-
-    if (type === 'transform') {
-        return `
-            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                <p class="font-semibold text-slate-800">${item.from}</p>
-                <p class="text-sm text-slate-500 mt-1">${item.task}</p>
-            </div>
-        `;
-    }
-
-    return `
-        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-            <p class="font-semibold text-slate-800">${item.title || item.prompt || `Item ${index + 1}`}</p>
-            ${item.detail ? `<p class="text-slate-600 mt-2">${item.detail}</p>` : ''}
-        </div>
-    `;
-}
-
-function getActivityIcon(type) {
-    const icons = {
-        sequence: 'fa-arrow-down-1-9',
-        match: 'fa-table-cells',
-        classify: 'fa-layer-group',
-        scenario: 'fa-comments',
-        transform: 'fa-repeat',
-        correct: 'fa-wand-magic-sparkles',
-        ranking: 'fa-ranking-star',
-        project: 'fa-pen-to-square',
-        checklist: 'fa-list-check'
-    };
-
-    return icons[type] || 'fa-shapes';
-}
-
-function buildControlledPracticeSlide(lesson) {
-    const practice = Array.isArray(lesson.practice) ? lesson.practice : [];
-
-    return `
-        <section class="slide" data-title="Practice">
-            <div class="surface rounded-[2rem] p-8">
-                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Controlled practice</p>
-                <h3 class="text-3xl font-black text-slate-900 mt-2">Complete, check and adjust</h3>
-                <div class="grid lg:grid-cols-3 gap-6 mt-8">
-                    ${practice.map((item, index) => {
-                        const inputId = `practice-${lesson.number}-${index}`;
-                        return `
-                            <div class="response-card rounded-[1.5rem] p-6">
-                                <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Gap ${index + 1}</p>
-                                <p class="text-lg font-semibold text-slate-800 mt-3">${item.prompt}</p>
-                                <input id="${inputId}" class="response-input mt-5 min-h-0 h-14" type="text" placeholder="Type your answer">
-                                <button
-                                    type="button"
-                                    class="check-input-btn reveal-btn mt-4"
-                                    data-target="${inputId}"
-                                    data-answer="${escapeAttribute(item.answer)}"
-                                    data-hint="${escapeAttribute(item.hint || '')}"
-                                >
-                                    <i class="fas fa-check"></i> Checar
-                                </button>
-                                <button type="button" class="reveal-btn mt-4 ml-2" data-target="${inputId}-answer">
-                                    <i class="fas fa-eye"></i> Ver resposta
-                                </button>
-                                <p id="${inputId}-feedback" class="mt-3 text-sm font-semibold text-slate-500"></p>
-                                <div id="${inputId}-answer" class="model-answer hidden rounded-[1rem] p-4 mt-4">
-                                    <p class="text-sm font-bold uppercase tracking-[0.15em]">Answer</p>
-                                    <p class="mt-2">${item.answer}</p>
-                                </div>
-                            </div>
-                        `;
-                    }).join('')}
-                </div>
-            </div>
-        </section>
-    `;
-}
-
-function buildTranslationSlide(lesson) {
-    const translations = Array.isArray(lesson.translations) ? lesson.translations : [];
-
-    return `
-        <section class="slide" data-title="Translation">
-            <div class="surface rounded-[2rem] p-8">
-                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Translation lab</p>
-                <h3 class="text-3xl font-black text-slate-900 mt-2">Translate and compare</h3>
-                <div class="grid lg:grid-cols-2 gap-6 mt-8">
-                    ${translations.map((item, index) => `
-                        <div class="response-card rounded-[1.5rem] p-6">
-                            <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Translation ${index + 1}</p>
-                            <p class="text-lg font-semibold text-slate-800 mt-3">${item.from}</p>
-                            <textarea class="response-input mt-5" placeholder="Write your translation here"></textarea>
-                            <button type="button" class="reveal-btn mt-4" data-target="translation-${lesson.number}-${index}">
-                                <i class="fas fa-language"></i> Comparar
-                            </button>
-                            <div id="translation-${lesson.number}-${index}" class="model-answer hidden rounded-[1rem] p-4 mt-4">
-                                <p class="text-sm font-bold uppercase tracking-[0.15em]">Suggested translation</p>
-                                <p class="mt-3">${item.to}</p>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        </section>
-    `;
-}
-
-function buildPersonalQuestionsSlide(lesson) {
-    const questions = Array.isArray(lesson.personalQuestions) ? lesson.personalQuestions : [];
-
-    return `
-        <section class="slide" data-title="Personal Questions">
-            <div class="surface rounded-[2rem] p-8">
-                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Personal production</p>
-                <h3 class="text-3xl font-black text-slate-900 mt-2">Answer with 2-3 connected sentences</h3>
-                <div class="grid lg:grid-cols-3 gap-6 mt-8">
-                    ${questions.map((question, index) => `
-                        <div class="response-card rounded-[1.5rem] p-6">
-                            <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Question ${index + 1}</p>
-                            <p class="text-lg font-semibold text-slate-800 mt-3">${question}</p>
-                            <textarea class="response-input mt-5" placeholder="Use because, but, so, first, then or examples."></textarea>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        </section>
-    `;
-}
-
-function buildCompareLabSlides(lesson) {
-    return `
-        ${buildWarmupSlide(lesson)}
-        <section class="slide" data-title="Compare">
-            <div class="surface rounded-[2rem] p-8">
-                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Compare routines</p>
-                <h3 class="text-3xl font-black text-slate-900 mt-2">${lesson.compareTitle}</h3>
-                <div class="grid lg:grid-cols-2 gap-6 mt-8">
-                    ${lesson.compareCards.map((item, index) => `
-                        <div class="question-card rounded-[1.5rem] p-6">
-                            <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">${item.label}</p>
-                            <p class="text-lg font-semibold text-slate-800 mt-3">${item.summary}</p>
-                            <ul class="mt-4 space-y-3 text-slate-700">
-                                ${item.points.map(point => `<li class="flex items-start gap-3"><i class="fas fa-check-circle text-teal-600 mt-1"></i><span>${point}</span></li>`).join('')}
-                            </ul>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        </section>
-        ${buildReadingSlide(lesson)}
-        ${buildComprehensionSlide(lesson)}
-        <section class="slide" data-title="Voice Note">
-            <div class="surface rounded-[2rem] p-8">
-                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Voice-note builder</p>
-                <h3 class="text-3xl font-black text-slate-900 mt-2">${lesson.voiceNoteTitle}</h3>
-                <div class="grid lg:grid-cols-3 gap-6 mt-8">
-                    ${lesson.voiceNoteSteps.map((item, index) => `
-                        <div class="response-card rounded-[1.5rem] p-6">
-                            <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Part ${index + 1}</p>
-                            <p class="text-lg font-semibold text-slate-800 mt-3">${item.prompt}</p>
-                            <textarea class="response-input mt-5" placeholder="${item.placeholder}"></textarea>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        </section>
-        ${buildSpeakingSlide(lesson)}
-        ${buildCompleteSlide(lesson)}
-    `;
-}
-
-function buildServiceLabSlides(lesson) {
-    return `
-        ${buildWarmupSlide(lesson)}
-        ${buildConversationSlide(lesson)}
-        ${buildReadingSlide(lesson)}
-        <section class="slide" data-title="Service Moves">
-            <div class="surface rounded-[2rem] p-8">
-                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Useful moves</p>
-                <h3 class="text-3xl font-black text-slate-900 mt-2">${lesson.serviceMovesTitle}</h3>
-                <div class="grid lg:grid-cols-2 gap-6 mt-8">
-                    ${lesson.serviceMoves.map((item, index) => `
-                        <div class="question-card rounded-[1.5rem] p-6">
-                            <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Move ${index + 1}</p>
-                            <p class="text-lg font-semibold text-slate-800 mt-3">${item.step}</p>
-                            <p class="text-slate-600 mt-3">${item.use}</p>
-                            <div class="model-answer rounded-[1rem] p-4 mt-4">
-                                <p class="text-sm font-bold uppercase tracking-[0.15em]">Example</p>
-                                <p class="mt-3">${item.example}</p>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        </section>
-        ${buildComprehensionSlide(lesson)}
-        <section class="slide" data-title="Build A Script">
-            <div class="surface rounded-[2rem] p-8">
-                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Mini script</p>
-                <h3 class="text-3xl font-black text-slate-900 mt-2">${lesson.scriptTitle}</h3>
-                <div class="grid lg:grid-cols-2 gap-6 mt-8">
-                    ${lesson.scriptPrompts.map((item, index) => `
-                        <div class="response-card rounded-[1.5rem] p-6">
-                            <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Script ${index + 1}</p>
-                            <p class="text-lg font-semibold text-slate-800 mt-3">${item.prompt}</p>
-                            <p class="text-sm text-slate-500 mt-3">${item.tip}</p>
-                            <textarea class="response-input mt-5" placeholder="${item.placeholder}"></textarea>
-                            <button type="button" class="reveal-btn mt-4" data-target="script-${lesson.number}-${index}">
-                                <i class="fas fa-lightbulb"></i> Ver resposta-modelo
-                            </button>
-                            <div id="script-${lesson.number}-${index}" class="model-answer hidden rounded-[1rem] p-4 mt-4">
-                                <p class="text-sm font-bold uppercase tracking-[0.15em]">Model answer</p>
-                                <p class="mt-3">${item.model}</p>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        </section>
-        ${buildSpeakingSlide(lesson)}
-        ${buildCompleteSlide(lesson)}
-    `;
-}
-
-function buildFinalBridgeSlides(lesson) {
-    return `
-        ${buildWarmupSlide(lesson)}
-        <section class="slide" data-title="Bridge Check">
-            <div class="surface rounded-[2rem] p-8">
-                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Bridge check</p>
-                <h3 class="text-3xl font-black text-slate-900 mt-2">${lesson.checkTitle}</h3>
-                <div class="grid lg:grid-cols-2 gap-6 mt-8">
-                    ${lesson.canDoChecklist.map((item, index) => `
-                        <button type="button" class="checklist-btn question-card rounded-[1.5rem] p-6 text-left transition border">
-                            <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Can-do ${index + 1}</p>
-                            <p class="text-lg font-semibold text-slate-800 mt-3">${item}</p>
-                        </button>
-                    `).join('')}
-                </div>
-                <p class="text-sm text-slate-500 mt-6">Clique nos cards que vocÃª sente que jÃ¡ consegue fazer com mais seguranÃ§a.</p>
-            </div>
-        </section>
-        ${buildReadingSlide(lesson)}
-        ${buildComprehensionSlide(lesson)}
-        <section class="slide" data-title="Final Build">
-            <div class="surface rounded-[2rem] p-8">
-                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Final build</p>
-                <h3 class="text-3xl font-black text-slate-900 mt-2">${lesson.finalBuildTitle}</h3>
-                <div class="grid lg:grid-cols-3 gap-6 mt-8">
-                    ${lesson.finalBuildSteps.map((item, index) => `
-                        <div class="response-card rounded-[1.5rem] p-6">
-                            <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Part ${index + 1}</p>
-                            <p class="text-lg font-semibold text-slate-800 mt-3">${item.prompt}</p>
-                            <p class="text-sm text-slate-500 mt-3">${item.tip}</p>
-                            <textarea class="response-input mt-5" placeholder="${item.placeholder}"></textarea>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        </section>
-        ${buildSpeakingSlide(lesson)}
-        ${buildCompleteSlide(lesson)}
-    `;
-}
-
-function buildWarmupSlide(lesson) {
-    return `
-        <section class="slide active" data-title="Warm-up">
-            <div class="hero-card rounded-[2rem] p-8 md:p-10">
-                <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-start">
-                    <div>
-                        <p class="text-sm font-extrabold uppercase tracking-[0.22em] text-teal-600">${lesson.unit}</p>
-                        <h2 class="text-4xl md:text-5xl font-black mt-3 text-slate-900">${lesson.title}</h2>
-                        <p class="text-lg text-slate-600 mt-5 max-w-2xl">${lesson.objective}</p>
-                        <div class="flex flex-wrap gap-3 mt-6">
-                            <span class="chip"><i class="fas fa-comments"></i> ${lesson.focus}</span>
-                            <span class="chip"><i class="fas fa-user-check"></i> ${lesson.cefr}</span>
-                        </div>
-                    </div>
-                    <div class="surface rounded-[1.5rem] p-6">
-                        <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Warm-up prompt</p>
-                        <p class="text-xl font-semibold text-slate-800 mt-3">${lesson.warmup}</p>
-                        <div class="mt-6 space-y-3">
-                            ${lesson.checkpoint.map(item => `<div class="flex items-start gap-3 text-slate-700"><i class="fas fa-check-circle text-amber-500 mt-1"></i><span>${item}</span></div>`).join('')}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    `;
-}
-
-function buildConversationSlide(lesson) {
-    return `
-        <section class="slide" data-title="Conversation Lab">
-            <div class="surface rounded-[2rem] p-8">
-                <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
-                    <div>
-                        <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Conversation lab</p>
-                        <h3 class="text-3xl font-black text-slate-900 mt-2">${lesson.dialogueTitle}</h3>
-                    </div>
-                    <button class="speak-btn" data-speak="${escapeAttribute(lesson.dialogue.map(line => line[1]).join(' '))}">
-                        <i class="fas fa-volume-up"></i> Ouvir diÃ¡logo
-                    </button>
-                </div>
-                <div class="space-y-5 text-lg">
-                    ${lesson.dialogue.map(line => `
-                        <div class="flex items-start gap-4 flex-wrap">
-                            <p class="w-24 font-bold ${line[0] === 'Teacher' ? 'text-teal-700' : 'text-amber-700'}">${line[0]}:</p>
-                            <div class="flex-1 min-w-[220px]">
-                                <p>${line[1]}</p>
-                            </div>
-                            <button class="speak-btn" data-speak="${escapeAttribute(line[1])}">
-                                <i class="fas fa-volume-up"></i> Ouvir
-                            </button>
-                        </div>
-                    `).join('')}
-                </div>
-                <div class="rounded-[1.5rem] bg-teal-50 border border-teal-100 p-6 mt-8">
-                    <p class="text-sm uppercase tracking-[0.18em] text-teal-700 font-bold">Language bank</p>
-                    <div class="flex flex-wrap gap-3 mt-4">
-                        ${lesson.languageBank.map(item => `<span class="chip">${item}</span>`).join('')}
-                    </div>
-                </div>
-            </div>
-        </section>
-    `;
-}
-
-function buildReadingSlide(lesson) {
-    const vocabulary = Array.isArray(lesson.vocabulary) ? lesson.vocabulary : [];
-
-    return `
-        <section class="slide" data-title="Reading">
-            <div class="surface rounded-[2rem] p-8">
-                <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
-                    <div>
-                        <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Reading focus</p>
-                        <h3 class="text-3xl font-black text-slate-900 mt-2">${lesson.readingTitle}</h3>
-                    </div>
-                    <button class="speak-btn" data-speak="${escapeAttribute(lesson.reading.join(' '))}">
-                        <i class="fas fa-volume-up"></i> Ouvir texto
-                    </button>
-                </div>
-                <div class="reading-block rounded-[1.5rem] p-6 md:p-8 space-y-5 text-lg leading-8">
-                    ${lesson.reading.map(paragraph => `<p>${paragraph}</p>`).join('')}
-                </div>
-                ${vocabulary.length ? `
-                    <div class="mt-6 rounded-[1.5rem] bg-teal-50 border border-teal-100 p-6">
-                        <p class="text-sm uppercase tracking-[0.18em] text-teal-700 font-bold">Vocabulary support</p>
-                        <div class="flex flex-wrap gap-3 mt-4">
-                            ${vocabulary.map(item => `<span class="chip">${item[0]} = ${item[1]}</span>`).join('')}
-                        </div>
-                    </div>
-                ` : ''}
-            </div>
-        </section>
-    `;
-}
-
-function buildSecondaryReadingSlide(lesson) {
-    if (!lesson.secondaryReading) return '';
-
-    const reading = lesson.secondaryReading;
-    const paragraphs = Array.isArray(reading.paragraphs) ? reading.paragraphs : [];
-    const tasks = Array.isArray(reading.tasks) ? reading.tasks : [];
-
-    return `
-        <section class="slide" data-title="Reading Plus">
-            <div class="surface rounded-[2rem] p-8">
-                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Reading plus</p>
-                <h3 class="text-3xl font-black text-slate-900 mt-2">${reading.title}</h3>
-                <div class="grid lg:grid-cols-[1.05fr_0.95fr] gap-6 mt-8">
-                    <div class="reading-block rounded-[1.5rem] p-6 md:p-8 space-y-5 text-lg leading-8">
-                        ${paragraphs.map(paragraph => `<p>${paragraph}</p>`).join('')}
-                    </div>
-                    <div class="response-card rounded-[1.5rem] p-6">
-                        <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Deeper check</p>
-                        <div class="space-y-4 mt-5">
-                            ${tasks.map((task, index) => `
-                                <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                                    <p class="font-semibold text-slate-800">${index + 1}. ${task}</p>
-                                    <textarea class="response-input mt-3" placeholder="Write a short answer."></textarea>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    `;
-}
-
-function buildComprehensionSlide(lesson) {
-    return `
-        <section class="slide" data-title="Interpretation">
-            <div class="surface rounded-[2rem] p-8">
-                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Reading check</p>
-                <h3 class="text-3xl font-black text-slate-900 mt-2">Read, think and choose the best answer</h3>
-                <div class="grid lg:grid-cols-2 gap-6 mt-8">
-                    ${lesson.comprehension.map((item, index) => `
-                        <div class="question-card rounded-[1.5rem] p-6">
-                            <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Question ${index + 1}</p>
-                            <p class="text-lg font-semibold text-slate-800 mt-3">${item.question}</p>
-                            <div class="space-y-3 mt-5">
-                                ${item.options.map((option, optionIndex) => `
-                                    <button
-                                        type="button"
-                                        class="choice-btn w-full text-left rounded-2xl border px-4 py-3 transition"
-                                        data-group="prep-${lesson.number}-${index}"
-                                        data-correct="${optionIndex === item.correctIndex ? 'true' : 'false'}"
-                                        data-feedback="${escapeAttribute(item.feedback)}"
-                                    >
-                                        ${option}
-                                    </button>
-                                `).join('')}
-                            </div>
-                            <p id="feedback-prep-${lesson.number}-${index}" class="mt-3 text-sm font-semibold text-slate-500"></p>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        </section>
-    `;
-}
-
-function buildResponseSlide(lesson) {
-    return `
-        <section class="slide" data-title="Build Your Answer">
-            <div class="surface rounded-[2rem] p-8">
-                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Written response</p>
-                <h3 class="text-3xl font-black text-slate-900 mt-2">Write fuller answers before you speak</h3>
-                <div class="grid lg:grid-cols-2 gap-6 mt-8">
-                    ${lesson.responseBuilder.map((item, index) => `
-                        <div class="response-card rounded-[1.5rem] p-6">
-                            <p class="text-sm uppercase tracking-[0.18em] text-amber-600 font-bold">Task ${index + 1}</p>
-                            <p class="text-lg font-semibold text-slate-800 mt-3">${item.prompt}</p>
-                            <p class="text-sm text-slate-500 mt-3">${item.tip}</p>
-                            <textarea class="response-input mt-5" placeholder="${item.placeholder}"></textarea>
-                            <button type="button" class="reveal-btn mt-4" data-target="model-${lesson.number}-${index}">
-                                <i class="fas fa-lightbulb"></i> Ver resposta-modelo
-                            </button>
-                            <div id="model-${lesson.number}-${index}" class="model-answer hidden rounded-[1rem] p-4 mt-4">
-                                <p class="text-sm font-bold uppercase tracking-[0.15em]">Model answer</p>
-                                <p class="mt-3">${item.model}</p>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        </section>
-    `;
-}
-
-function buildSpeakingSlide(lesson) {
-    return `
-        <section class="slide" data-title="Speaking Task">
-            <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6">
-                <div class="surface rounded-[2rem] p-8">
-                    <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Speaking task</p>
-                    <h3 class="text-3xl font-black text-slate-900 mt-2">${lesson.speakingTask.title}</h3>
-                    <div class="space-y-3 mt-6">
-                        ${lesson.speakingTask.steps.map(step => `
-                            <div class="flex items-start gap-3 text-slate-700">
-                                <i class="fas fa-angle-right text-amber-500 mt-1"></i>
-                                <span>${step}</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="mt-6 p-5 rounded-2xl bg-amber-50 border border-amber-100">
-                        <p class="text-sm uppercase tracking-[0.18em] text-amber-700 font-bold">Model</p>
-                        <p class="text-lg font-medium text-slate-800 mt-3">${lesson.speakingTask.model}</p>
-                        <button class="speak-btn mt-4" data-speak="${escapeAttribute(lesson.speakingTask.model)}">
-                            <i class="fas fa-volume-up"></i> Ouvir modelo
-                        </button>
-                    </div>
-                    <div class="mt-6 p-5 rounded-2xl bg-teal-50 border border-teal-100">
-                        <p class="text-sm uppercase tracking-[0.18em] text-teal-700 font-bold">Live speaking practice</p>
-                        <p class="text-slate-700 mt-3">Use este espaÃ§o durante a aula online: o aluno responde ao vivo, o professor anota pontos fortes, correÃ§Ãµes e uma meta para a prÃ³xima tentativa.</p>
-                        <textarea class="response-input mt-4" placeholder="Teacher notes: accuracy, fluency, vocabulary, next correction."></textarea>
-                    </div>
-                </div>
-                <div class="surface rounded-[2rem] p-8">
-                    <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Homework</p>
-                    <h3 class="text-3xl font-black text-slate-900 mt-2">Take it into class</h3>
-                    <p class="text-lg text-slate-700 mt-6">${lesson.homework}</p>
-                    <div class="mt-8 p-5 rounded-2xl bg-slate-50 border border-slate-200">
-                        <p class="text-sm uppercase tracking-[0.18em] text-slate-500 font-bold">Bridge reminder</p>
-                        <p class="text-slate-700 mt-3">Aqui o objetivo nÃ£o Ã© decorar mais regras, e sim recuperar o repertÃ³rio de A1/A2 com respostas mais longas, interpretaÃ§Ã£o mais estÃ¡vel e fala mais organizada.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    `;
-}
-
-function buildCompleteSlide(lesson) {
-    return `
-        <section class="slide" data-title="Lesson Complete">
-            <div class="hero-card rounded-[2rem] p-10 text-center min-h-[420px] flex flex-col items-center justify-center">
-                <i class="fas fa-arrow-right-arrow-left text-teal-600 text-7xl mb-6"></i>
-                <p class="text-sm uppercase tracking-[0.18em] text-teal-600 font-bold">Lesson complete</p>
-                <h3 class="text-5xl font-black text-slate-900 mt-2">${lesson.title}</h3>
-                <p class="text-xl text-slate-600 mt-4 max-w-3xl">${lesson.celebration}</p>
-            </div>
-        </section>
-    `;
-}
-
-function escapeAttribute(text) {
-    return String(text)
+function escapeHtml(value) {
+    return String(value ?? '')
         .replace(/&/g, '&amp;')
-        .replace(/"/g, '&quot;')
         .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+function escapeAttribute(value) {
+    return escapeHtml(value);
 }

@@ -5,22 +5,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('lessons-grid');
 
     const lessonTitles = [
-        'Daily Routine and Preferences',
-        'Past Stories and Experiences',
-        'Plans and Invitations',
-        'Around Town and Directions',
-        'Food, Health and Advice',
-        'Study, Work and Obligations',
-        'Travel and Service Situations',
-        'Technology and Communication',
-        'Culture, Leisure and Recommendations',
-        'Final Bridge Project'
+        'Everyday English Diagnostic',
+        'Telling Clear Past Stories',
+        'Experiences and Life Changes',
+        'Plans, Predictions and Backup Plans',
+        'Choices, Quantities and Opinions',
+        'Rules, Health and Practical Advice',
+        'Travel, Directions and Service Problems',
+        'Habits, Technology and Learning',
+        'Reading and Speaking Workshop',
+        'B1 Readiness Challenge'
     ];
 
     const unitLabels = [
-        'Bridge 1', 'Bridge 1', 'Bridge 1', 'Bridge 1',
-        'Bridge 2', 'Bridge 2', 'Bridge 2', 'Bridge 2',
-        'Bridge 3', 'Final Review'
+        'Diagnóstico', 'Narrativas', 'Experiências', 'Futuro',
+        'Escolhas', 'Regras e saúde', 'Situações reais', 'Hábitos',
+        'Reading + speaking', 'Avaliação final'
     ];
 
     function buildLessonCard(title, lessonNumber, state, isProfessor) {
@@ -32,9 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? 'fa-play-circle text-teal-600'
                 : 'fa-lock text-slate-400';
         const stateText = state === 'completed'
-            ? 'Concluida'
+            ? 'Concluída'
             : state === 'next'
-                ? 'Disponivel agora'
+                ? 'Disponível agora'
                 : 'Bloqueada';
 
         const card = document.createElement('a');
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <i class="fas ${iconClass} text-2xl"></i>
             </div>
             <div>
-                <p class="lesson-meta mt-2">Licao ${lessonNumber}</p>
+                <p class="lesson-meta mt-2">Lição ${lessonNumber}</p>
                 <h3 class="lesson-title mt-2">${title}</h3>
             </div>
             <div class="lesson-state">
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (role !== 'aluno') {
-            throw new Error('Perfil sem acesso ao modulo.');
+            throw new Error('Perfil sem acesso ao módulo.');
         }
 
         return { role, studentId: user.uid };
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadLessons() {
         try {
             const { role, studentId } = await resolveViewerContext();
-            if (!studentId) throw new Error('Usuario nao identificado.');
+            if (!studentId) throw new Error('Usuário não identificado.');
 
             const isProfessor = role === 'professor' || role === 'admin';
             const doc = await db.collection('students').doc(studentId).get();
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ];
 
             if (platformAccess && !platformAccess.canAccessModule(allowedProducts, 'prepb1')) {
-                loadingDiv.textContent = 'Este aluno nao possui acesso a esta ponte.';
+                loadingDiv.textContent = 'Este aluno não possui acesso a esta ponte.';
                 return;
             }
 
@@ -137,8 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
             loadingDiv.classList.add('hidden');
             grid.classList.remove('hidden');
         } catch (error) {
-            console.error('Erro ao carregar licoes da ponte A2-B1:', error);
-            loadingDiv.textContent = 'Erro ao carregar licoes.';
+            console.error('Erro ao carregar lições da ponte A2-B1:', error);
+            loadingDiv.textContent = 'Erro ao carregar lições.';
         }
     }
 
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (user) {
             loadLessons();
         } else {
-            loadingDiv.textContent = 'Faca login para ver as licoes.';
+            loadingDiv.textContent = 'Faça login para ver as lições.';
         }
     });
 });
