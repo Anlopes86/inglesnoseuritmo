@@ -2277,6 +2277,33 @@
         31: { song: 'Wish You Were Here', artist: 'Pink Floyd', spotifyId: '6mFkJmJqdDVQ1REhVfGgd1', focus: 'wish e situacao imaginada' }
     };
 
+    const musicLyricsByLesson = {
+        9: [
+            [
+                ['When I ________', 'wake up'],
+                ["Well, I know I'm ________", 'gonna be'],
+                "I'm gonna be the man who wakes up next to you",
+                ['When I ________', 'go out'],
+                "Yeah, I know I'm gonna be",
+                ["I'm gonna be the man who ________ with you", 'goes along']
+            ],
+            [
+                ['If I ________', 'get drunk'],
+                "Well, I know I'm gonna be",
+                "I'm gonna be the man who gets drunk next to you",
+                ['And if I ________', 'haver'],
+                "Yeah, I know I'm gonna be",
+                ["I'm gonna be the man who's ________ to you", "haverin'"]
+            ],
+            [
+                ['But I would ________ five hundred miles', 'walk'],
+                ['And I would walk five hundred ________', 'more'],
+                'Just to be the man who walked a thousand miles',
+                ['To fall down at your ________', 'door']
+            ]
+        ]
+    };
+
     function getMusicSelection(title, bank) {
         const specificSelection = musicSelectionsByLesson[getLessonNumber()];
         if (specificSelection) return specificSelection;
@@ -3229,6 +3256,7 @@
 
     function fillMusic(bank) {
         const selection = getMusicSelection(document.title, bank);
+        const lessonLyrics = musicLyricsByLesson[getLessonNumber()];
         const lines = bank.musicLines || [
             ['I looked at the road and chose to keep moving ____.', 'forward'],
             ['Every mistake became a lesson I could ____.', 'learn'],
@@ -3239,6 +3267,13 @@
         const lyricText = lines
             .map(([line, answer]) => line.replace(String(answer), '________'))
             .join(' ');
+        const lyricMarkup = lessonLyrics
+            ? lessonLyrics.map((stanza, stanzaIndex) => `
+                <p class="music-lyrics-stanza">
+                    ${stanza.map((entry, lineIndex) => renderMusicLyricLine(entry, stanzaIndex, lineIndex)).join('')}
+                </p>
+            `).join('')
+            : `<p class="leading-loose text-slate-800">${escapeHtml(lyricText)}</p>`;
 
         setHtml('#music-lyrics', `
             <div class="text-left text-lg space-y-5">
@@ -3250,11 +3285,48 @@
                     </div>
                     <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/${escapeHtml(selection.spotifyId)}?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
-                <div class="activity-card p-6">
-                    <p class="leading-loose text-slate-800">${escapeHtml(lyricText)}</p>
+                <div class="activity-card p-6 space-y-5">
+                    ${lyricMarkup}
                 </div>
             </div>
         `);
+    }
+
+    function renderMusicLyricLine(entry, stanzaIndex, lineIndex) {
+        if (!Array.isArray(entry)) {
+            return `<span class="music-lyric-line">${escapeHtml(entry)}</span>`;
+        }
+
+        const [line, answer] = entry;
+        const marker = '________';
+        const markerIndex = line.indexOf(marker);
+        if (markerIndex < 0) {
+            return `<span class="music-lyric-line">${escapeHtml(line)}</span>`;
+        }
+
+        const answerId = `music-gap-answer-${stanzaIndex}-${lineIndex}`;
+        const placeholderId = `music-gap-placeholder-${stanzaIndex}-${lineIndex}`;
+        const before = line.slice(0, markerIndex);
+        const after = line.slice(markerIndex + marker.length);
+
+        return `
+            <span class="music-lyric-line">
+                ${escapeHtml(before)}<span class="music-gap-control">
+                    <span id="${placeholderId}" class="music-gap-placeholder">${marker}</span>
+                    <strong id="${answerId}" class="music-gap-answer hidden" aria-live="polite">${escapeHtml(answer)}</strong>
+                    <button
+                        type="button"
+                        class="music-answer-toggle"
+                        data-music-reveal
+                        data-placeholder-id="${placeholderId}"
+                        aria-controls="${answerId}"
+                        aria-expanded="false"
+                        aria-label="Revelar resposta desta lacuna"
+                        title="Revelar resposta"
+                    ><i class="fas fa-eye" aria-hidden="true"></i></button>
+                </span>${escapeHtml(after)}
+            </span>
+        `;
     }
 
     function fillHomework(data) {
@@ -3608,6 +3680,27 @@
 
     function wireActions() {
         document.addEventListener('click', (event) => {
+            const musicReveal = event.target.closest('[data-music-reveal]');
+            if (musicReveal) {
+                const answer = document.getElementById(musicReveal.getAttribute('aria-controls'));
+                const placeholder = document.getElementById(musicReveal.dataset.placeholderId);
+                if (!answer || !placeholder) return;
+
+                const willReveal = answer.classList.contains('hidden');
+                answer.classList.toggle('hidden', !willReveal);
+                placeholder.classList.toggle('hidden', willReveal);
+                musicReveal.setAttribute('aria-expanded', willReveal ? 'true' : 'false');
+                musicReveal.setAttribute('aria-label', willReveal ? 'Ocultar resposta desta lacuna' : 'Revelar resposta desta lacuna');
+                musicReveal.setAttribute('title', willReveal ? 'Ocultar resposta' : 'Revelar resposta');
+
+                const icon = musicReveal.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('fa-eye', !willReveal);
+                    icon.classList.toggle('fa-eye-slash', willReveal);
+                }
+                return;
+            }
+
             const reveal = event.target.closest('[data-a2-reveal]');
             if (reveal) {
                 const card = reveal.closest('.activity-card') || reveal.parentElement;
@@ -3634,7 +3727,7 @@
                     if (saved) return;
                 }
 
-                window.location.href = 'a2.html';
+                window.location.href = 'a2-v2.html';
             });
         }
     }

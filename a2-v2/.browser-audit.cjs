@@ -246,6 +246,49 @@ async function main() {
             failures.push(`Music slide failed: ${JSON.stringify(music)}.`);
         }
 
+        await openLesson(9, mobile);
+        await goToSlide(9);
+        const lessonNineMusic = await evaluate(`(() => {
+            const buttons = [...document.querySelectorAll('#music-lyrics [data-music-reveal]')];
+            const answers = [...document.querySelectorAll('#music-lyrics .music-gap-answer')];
+            const placeholders = [...document.querySelectorAll('#music-lyrics .music-gap-placeholder')];
+            const initiallyHidden = answers.every((answer) => answer.classList.contains('hidden'));
+            const firstButton = buttons[0];
+            const firstAnswer = firstButton ? document.getElementById(firstButton.getAttribute('aria-controls')) : null;
+            const firstPlaceholder = firstButton ? document.getElementById(firstButton.dataset.placeholderId) : null;
+            firstButton?.click();
+            return {
+                buttons: buttons.length,
+                answers: answers.length,
+                placeholders: placeholders.length,
+                initiallyHidden,
+                firstAnswer: firstAnswer?.textContent.trim() || '',
+                firstRevealed: Boolean(firstAnswer && !firstAnswer.classList.contains('hidden')),
+                firstPlaceholderHidden: Boolean(firstPlaceholder?.classList.contains('hidden')),
+                expanded: firstButton?.getAttribute('aria-expanded') || '',
+                otherAnswersHidden: answers.slice(1).every((answer) => answer.classList.contains('hidden'))
+            };
+        })()`);
+        if (lessonNineMusic.buttons !== 10 || lessonNineMusic.answers !== 10 || lessonNineMusic.placeholders !== 10
+            || !lessonNineMusic.initiallyHidden || lessonNineMusic.firstAnswer !== 'wake up'
+            || !lessonNineMusic.firstRevealed || !lessonNineMusic.firstPlaceholderHidden
+            || lessonNineMusic.expanded !== 'true' || !lessonNineMusic.otherAnswersHidden) {
+            failures.push(`Lesson 09 lyric reveals failed: ${JSON.stringify(lessonNineMusic)}.`);
+        }
+
+        await goToSlide(10);
+        await evaluate(`(() => {
+            window.markLessonAsComplete = async () => false;
+            document.getElementById('finish-btn').click();
+        })()`);
+        await delay(600);
+        const navigationHistory = await client.send('Page.getNavigationHistory');
+        const finishDestinations = (navigationHistory.entries || []).map((entry) => entry.url);
+        if (!finishDestinations.some((url) => /\/a2-v2\/a2-v2\.html$/i.test(url))) {
+            failures.push(`Finish button did not request a2-v2.html: ${JSON.stringify(finishDestinations.slice(-5))}.`);
+        }
+
+        await openLesson(1, desktop);
         await goToSlide(10);
         const homework = await evaluate(`({
             themes: document.querySelectorAll('#homework-list > li:first-child .grid > div').length,

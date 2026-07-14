@@ -265,6 +265,18 @@ if (/open\.spotify\.com\/embed\/search/i.test(contentSource)) {
     fail('A2 V2 renderer still uses a generic Spotify search instead of direct tracks.');
 }
 
+if (!/data-music-reveal/.test(contentSource)) {
+    fail('Music lyric gaps do not expose individual reveal controls.');
+}
+
+if (/window\.location\.href\s*=\s*['"]a2\.html['"]/i.test(contentSource)) {
+    fail('Finish button still points to the nonexistent a2.html page.');
+}
+
+if (!/window\.location\.href\s*=\s*['"]a2-v2\.html['"]/i.test(contentSource)) {
+    fail('Finish button does not have the a2-v2.html fallback.');
+}
+
 if (errors.length) {
     console.error(`A2 V2 audit failed with ${errors.length} issue(s):`);
     for (const error of errors) console.error(`- ${error}`);
