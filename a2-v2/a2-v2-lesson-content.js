@@ -3727,7 +3727,7 @@
                     if (saved) return;
                 }
 
-                window.location.href = 'a2-v2.html';
+                window.location.href = 'a2.html';
             });
         }
     }

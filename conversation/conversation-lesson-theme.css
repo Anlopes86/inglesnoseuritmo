@@ -62,6 +62,13 @@ body footer {
     box-shadow: 0 -18px 40px rgba(2, 6, 23, 0.35);
 }
 
+body #dot-navigation {
+    max-width: min(58vw, 720px);
+    overflow-x: auto;
+    padding: 0.4rem;
+    scrollbar-width: thin;
+}
+
 body header h1,
 body .slide > h2,
 body .slide h2.text-4xl,
@@ -107,6 +114,13 @@ body .flashcard-grid {
 
 body .flashcard {
     height: 260px !important;
+    outline: none;
+}
+
+body .flashcard:focus-visible .flashcard-front,
+body .flashcard:focus-visible .flashcard-back {
+    border-color: var(--conversation26-accent) !important;
+    box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.22), 0 18px 34px rgba(2, 6, 23, 0.28);
 }
 
 body .flashcard-front,
@@ -268,6 +282,13 @@ body .word-pill {
     box-shadow: 0 12px 20px rgba(250, 204, 21, 0.18);
 }
 
+body .word-pill.is-selected,
+body .conversation-dd-pill.is-selected {
+    outline: 4px solid rgba(248, 250, 252, 0.92);
+    outline-offset: 3px;
+    transform: translateY(-2px);
+}
+
 body .conversation-dd-drop-zone {
     min-height: 58px;
     width: 100%;
@@ -343,6 +364,10 @@ body .conversation-dd-hidden-select {
     body header h1 {
         font-size: 0.95rem !important;
         line-height: 1.2 !important;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     body header a {
@@ -351,19 +376,30 @@ body .conversation-dd-hidden-select {
 
     body #slide-counter,
     body #slide-count {
-        width: auto !important;
-        font-size: 0.8rem !important;
-        text-align: right;
+        display: none !important;
     }
 
     body main {
         height: auto !important;
         min-height: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
         padding-bottom: 110px !important;
     }
 
     body .slide {
+        box-sizing: border-box;
+        min-width: 0;
+        width: 100%;
         padding: 28px 16px;
+    }
+
+    body .slide > div,
+    body .slide [class*="max-w-"] {
+        min-width: 0;
+        max-width: 100% !important;
     }
 
     body .slide h2.text-4xl,
@@ -399,5 +435,13 @@ body .conversation-dd-hidden-select {
     body footer button {
         padding: 0.8rem 1rem !important;
         font-size: 0.95rem !important;
+    }
+
+    body #dot-navigation {
+        display: none !important;
+    }
+
+    body footer .container {
+        height: 68px !important;
     }
 }

@@ -3,6 +3,7 @@ const path = require('path');
 const vm = require('vm');
 
 const contentPath = path.join(__dirname, 'a2-v2-lesson-content.js');
+const progressManagerPath = path.join(__dirname, '..', 'js', 'progress-manager.js');
 const exportNames = [
     'lessonTitles',
     'getLessonData',
@@ -12,6 +13,7 @@ const exportNames = [
 ];
 
 const contentSource = fs.readFileSync(contentPath, 'utf8');
+const progressManagerSource = fs.readFileSync(progressManagerPath, 'utf8');
 let source = contentSource;
 source = source.replace(
     /\}\(\)\);\s*$/,
@@ -269,12 +271,16 @@ if (!/data-music-reveal/.test(contentSource)) {
     fail('Music lyric gaps do not expose individual reveal controls.');
 }
 
-if (/window\.location\.href\s*=\s*['"]a2\.html['"]/i.test(contentSource)) {
-    fail('Finish button still points to the nonexistent a2.html page.');
+if (!/window\.location\.href\s*=\s*['"]a2\.html['"]/i.test(contentSource)) {
+    fail('Finish button does not have the a2.html fallback.');
 }
 
-if (!/window\.location\.href\s*=\s*['"]a2-v2\.html['"]/i.test(contentSource)) {
-    fail('Finish button does not have the a2-v2.html fallback.');
+if (/window\.location\.href\s*=\s*['"]a2-v2\.html['"]/i.test(contentSource)) {
+    fail('Finish button still points to the nonexistent a2-v2.html page.');
+}
+
+if (!/['"]a2-v2['"]\s*:\s*['"]a2\.html['"]/.test(progressManagerSource)) {
+    fail('Progress manager does not map a2-v2 progress to the a2.html landing page.');
 }
 
 if (errors.length) {

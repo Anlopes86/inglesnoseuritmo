@@ -14,6 +14,14 @@ async function updateStudentData(studentId, dataToUpdate) {
     }
 }
 
+function getModuleLandingPage(moduleId) {
+    const landingPages = {
+        'a2-v2': 'a2.html'
+    };
+
+    return landingPages[moduleId] || `${moduleId}.html`;
+}
+
 async function resolveProgressViewerContext() {
     const db = firebase.firestore();
     const auth = firebase.auth();
@@ -91,7 +99,7 @@ async function markLessonAsComplete(moduleId, lessonId) {
         const path = window.location.pathname;
         const lastSlashIndex = path.lastIndexOf('/');
         const basePath = path.substring(0, lastSlashIndex + 1);
-        window.location.href = basePath + `${moduleId}.html`;
+        window.location.href = basePath + getModuleLandingPage(moduleId);
         return true;
     } catch (error) {
         console.error('Erro ao salvar progresso:', error);
@@ -164,7 +172,7 @@ function wireStandardLessonFinish() {
         const path = window.location.pathname;
         const lastSlashIndex = path.lastIndexOf('/');
         const basePath = path.substring(0, lastSlashIndex + 1);
-        window.location.href = basePath + `${context.moduleId}.html`;
+        window.location.href = basePath + getModuleLandingPage(context.moduleId);
     }, true);
 }
 
