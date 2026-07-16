@@ -3,160 +3,350 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversation Class - Lesson 17: Learning & Education</title>
+    <title>Conversation Class - Lesson 17: Learning &amp; Education</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; background-color: #111827; }
         .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .slide.active { display: block; animation: fadeIn 0.45s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .flashcard { background-color: transparent; height: 190px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #4a5568; }
-        .flashcard-front { background-color: #2d3748; color: #a0aec0; text-align: center; }
-        .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
-        .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
-        .lyrics-box { max-height: 300px; overflow-y: auto; }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; border: 1px solid #475569; text-align: center; }
+        .flashcard-front { background-color: #1f2937; color: #38bdf8; }
+        .flashcard-back { background-color: #0c4a6e; color: white; transform: rotateY(180deg); }
+        .lyrics-box { max-height: 340px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #38bdf8 #1f2937; }
+        .word-pill { cursor: grab; background-color: #0284c7; padding: 0.55rem 1.25rem; border-radius: 9999px; font-weight: 700; user-select: none; }
+        .drop-zone { display: inline-block; min-width: 160px; border-bottom: 2px dashed #38bdf8; color: #7dd3fc; font-weight: 700; text-align: center; padding: 0 8px; }
+        .drop-zone.filled { border-bottom-style: solid; }
+        .debate-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 1rem; padding: 1.5rem; text-align: left; }
+        .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
     </style>
     <link rel="stylesheet" href="conversation-lesson-theme.css">
 </head>
 <body class="bg-gray-900 text-white">
-
-    <header class="bg-gray-800 shadow-lg sticky top-0 z-10">
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="conversation.html" class="text-lg font-bold text-pink-400 hover:text-pink-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
-            <h1 class="text-xl font-semibold text-center">Lesson 17: Learning & Education</h1>
-            <div class="w-32"></div>
+            <a href="conversation.html" class="text-lg font-bold text-sky-400 hover:text-sky-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back</a>
+            <h1 class="text-xl font-semibold text-center">Lesson 17: Learning &amp; Education</h1>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 14</div>
         </div>
-        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-pink-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-sky-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
 
     <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
-
+        <!-- Slide 1: Warm-up -->
         <div class="slide active">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-pink-300"><i class="fas fa-book-open text-yellow-400"></i> Warm-up: About School</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6 text-2xl">
-                <p class="font-semibold text-gray-300">Let's start our conversation:</p>
-                <p><i class="fas fa-arrow-right mr-2 text-pink-400"></i> What is the most important subject you learned in school?</p>
-                <p><i class="fas fa-arrow-right mr-2 text-pink-400"></i> Do you think traditional schools prepare us for real life?</p>
-                <p><i class="fas fa-arrow-right mr-2 text-pink-400"></i> If you could learn any skill instantly, what would you choose?</p>
-            </div></div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-sky-400"><i class="fas fa-brain"></i> Warm-up: How Do You Learn?</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-3xl mx-auto space-y-6 text-2xl">
+                    <p class="font-semibold text-gray-300">Learning is bigger than tests and classrooms.</p>
+                    <p><i class="fas fa-wand-magic-sparkles mr-2 text-yellow-400"></i> Which skill would you download into your brain instantly?</p>
+                    <p><i class="fas fa-face-laugh mr-2 text-pink-400"></i> What is something simple that took you an embarrassingly long time to learn?</p>
+                    <p><i class="fas fa-person-chalkboard mr-2 text-green-400"></i> Describe a teacher—at school or outside it—who made learning enjoyable.</p>
+                    <p><i class="fas fa-screwdriver-wrench mr-2 text-orange-400"></i> Rank these methods: watching, reading, listening, practicing, and making mistakes.</p>
+                </div>
+            </div>
         </div>
 
+        <!-- Slide 2: Expressions -->
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-pink-300"><i class="fas fa-comments text-teal-400"></i> Key Vocabulary & Expressions</h2><p class="text-2xl mb-8 text-gray-300 max-w-3xl mx-auto">Click the cards to explore ideas about education.</p><div class="flashcard-grid max-w-6xl mx-auto">
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To hit the books</h4></div><div class="flashcard-back"><p class="text-xl">To begin to study seriously.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">A steep learning curve</h4></div><div class="flashcard-back"><p class="text-xl">When something is very difficult to learn quickly.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To learn by heart</h4></div><div class="flashcard-back"><p class="text-xl">To memorize something perfectly.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">You can't teach an old dog new tricks</h4></div><div class="flashcard-back"><p class="text-xl">It's difficult for older people to learn new things.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To drop out</h4></div><div class="flashcard-back"><p class="text-xl">To leave school or a course before finishing it.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Lifelong learning</h4></div><div class="flashcard-back"><p class="text-xl">The continuous process of learning throughout life.</p></div></div></div>
-            </div></div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-sky-400"><i class="fas fa-book-open"></i> Useful Learning Expressions</h2>
+                <p class="text-xl mb-7 text-gray-400">Flip each card, then give a quick personal example.</p>
+                <div class="flashcard-grid max-w-6xl mx-auto">
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To be a quick study</h4></div><div class="flashcard-back"><p class="text-xl">To learn or understand something quickly.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To pick something up</h4></div><div class="flashcard-back"><p class="text-xl">To learn a skill naturally, often through experience.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To brush up on</h4></div><div class="flashcard-back"><p class="text-xl">To improve a skill or knowledge you learned before.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Trial and error</h4></div><div class="flashcard-back"><p class="text-xl">Learning by trying different solutions and correcting mistakes.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To connect the dots</h4></div><div class="flashcard-back"><p class="text-xl">To understand how separate facts or ideas relate.</p></div></div></div>
+                    <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Hands-on learning</h4></div><div class="flashcard-back"><p class="text-xl">Learning by actively doing and experimenting.</p></div></div></div>
+                </div>
+            </div>
         </div>
-        
+
+        <!-- Slide 3: Song 1 -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-pink-300"><i class="fas fa-music text-red-500"></i> Music Time: Another Brick in the Wall, Pt. 2</h2>
+            <h2 class="text-4xl font-bold mb-4 text-center text-sky-400"><i class="fas fa-music text-red-500"></i> Song 1: Another Brick in the Wall, Pt. 2 <span class="text-xl text-gray-400">- Pink Floyd</span></h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4gMgiXfqyzZLMhsksGmbQV?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-pink-500">
-                    <p>We don't need no <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="education"><i class="fas fa-eye"></i></button></p>
-                    <p>We don't need no thought <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="control"><i class="fas fa-eye"></i></button></p>
-                    <p>No dark sarcasm in the classroom</p>
-                    <p>Teachers, leave them <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="kids"><i class="fas fa-eye"></i></button> alone</p>
-                    <p>Hey! Teacher! Leave them kids alone!</p>
-                    <p>All in all it's just another brick in the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="wall"><i class="fas fa-eye"></i></button></p>
+                <div class="mb-4 rounded-xl overflow-hidden"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4gMgiXfqyzZLMhsksGmbQV?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+                <div class="mb-4 bg-sky-900/30 p-4 rounded-lg border border-sky-500/30"><p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-sky-400"></i> A protest against rigid education—not against curiosity, knowledge, or good teachers.</p></div>
+                <div class="lyrics-box"><div class="text-lg space-y-4 bg-gray-700 p-6 rounded-lg border-l-4 border-sky-500 text-left">
+                    <p class="text-sm text-gray-400 uppercase tracking-wider">Complete the interpretation after listening:</p>
+                    <p>The repeated group voice creates a feeling of student <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="rebellion"><i class="fas fa-eye"></i></button>.</p>
+                    <p>The “wall” can represent a system that limits individual <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="thinking"><i class="fas fa-eye"></i></button>.</p>
+                    <p>The song criticizes humiliation and excessive <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="control"><i class="fas fa-eye"></i></button>.</p>
                 </div></div>
             </div>
         </div>
 
+        <!-- Slide 4: Song 1 debate -->
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-pink-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>This song is a famous critique of formal education. What do you think the "wall" represents?</p>
-                <p>Do you agree that some schools use "thought control"?</p>
-            </div></div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-2 text-sky-400"><i class="fas fa-comments"></i> Song 1 Conversation</h2>
+                <p class="text-lg text-gray-400 mb-6 italic">Another Brick in the Wall — structure, freedom, and memorable teachers</p>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card"><span class="debate-label bg-green-500/20 text-green-400">Personal</span><p class="text-xl">Which classroom rule helped you learn, and which one felt completely pointless?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-blue-500/20 text-blue-400">Creative</span><p class="text-xl">Rewrite one boring school rule so it becomes useful—and slightly funny.</p></div>
+                    <div class="debate-card"><span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span><p class="text-xl">What separates healthy discipline from “thought control” in education?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-yellow-500/20 text-yellow-400">Balance</span><p class="text-xl">How can a school give students freedom without turning every class into chaos?</p></div>
+                </div>
+            </div>
         </div>
 
+        <!-- Slide 5: Practical activity -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-pink-300"><i class="fas fa-music text-red-500"></i> Music Time: The Kids Aren't Alright</h2>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-sky-400"><i class="fas fa-toolbox"></i> The School of Real Life</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto">
+                    <p class="text-2xl mb-7">Choose three classes for a one-day “real life” school.</p>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-lg">
+                        <div class="p-4 bg-gray-700 rounded-xl">Fixing simple things</div><div class="p-4 bg-gray-700 rounded-xl">Reading a contract</div><div class="p-4 bg-gray-700 rounded-xl">Cooking with leftovers</div><div class="p-4 bg-gray-700 rounded-xl">Handling awkward conversations</div><div class="p-4 bg-gray-700 rounded-xl">Spotting fake news</div><div class="p-4 bg-gray-700 rounded-xl">Resting without guilt</div>
+                    </div>
+                    <div class="mt-8 text-xl space-y-3 text-left bg-sky-950/40 p-5 rounded-xl border border-sky-500/30">
+                        <p><b class="text-sky-300">Pitch it:</b> give each class a funny name.</p>
+                        <p>Explain the activity, the teacher, and the final test.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Song 2 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-sky-400"><i class="fas fa-music text-green-500"></i> Song 2: Teach Your Children <span class="text-xl text-gray-400">- Crosby, Stills, Nash &amp; Young</span></h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4EchqUKQ3qAQuRNKmeIpnf?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-pink-500">
-                    <p>When we were <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="young"><i class="fas fa-eye"></i></button> the future was so bright</p>
-                    <p>The old neighborhood was so <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="alive"><i class="fas fa-eye"></i></button></p>
-                    <p>And every kid on the whole damn street</p>
-                    <p>Was gonna make it <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="big"><i class="fas fa-eye"></i></button> and not be beat</p>
-                    <p>Now the neighborhood's cracked and torn</p>
-                    <p>The kids are grown up but their lives are <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="worn"><i class="fas fa-eye"></i></button></p>
+                <div class="mb-4 rounded-xl overflow-hidden"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/search/Teach%20Your%20Children%20Crosby%20Stills%20Nash%20Young?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+                <div class="mb-4 bg-green-900/30 p-4 rounded-lg border border-green-500/30"><p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-green-400"></i> Learning travels in both directions: adults guide younger people, and younger people challenge adults to grow.</p></div>
+                <div class="lyrics-box"><div class="text-lg space-y-4 bg-gray-700 p-6 rounded-lg border-l-4 border-green-500 text-left">
+                    <p class="text-sm text-gray-400 uppercase tracking-wider">Complete the interpretation after listening:</p>
+                    <p>The gentle sound makes the advice feel patient rather than <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="authoritarian"><i class="fas fa-eye"></i></button>.</p>
+                    <p>Parents pass on experience, but children offer a different <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="perspective"><i class="fas fa-eye"></i></button>.</p>
+                    <p>The song presents education as an ongoing <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="conversation"><i class="fas fa-eye"></i></button>.</p>
                 </div></div>
             </div>
         </div>
 
+        <!-- Slide 7: Song 2 debate -->
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-pink-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>This song talks about how the promise of a bright future doesn't always come true. Why do you think that happens?</p>
-                <p>What does the phrase "The Kids Aren't Alright" mean?</p>
-            </div></div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-2 text-sky-400"><i class="fas fa-comments"></i> Song 2 Conversation</h2>
+                <p class="text-lg text-gray-400 mb-6 italic">Teach Your Children — who teaches whom?</p>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card"><span class="debate-label bg-green-500/20 text-green-400">Personal</span><p class="text-xl">What useful thing did you learn from someone much younger or older than you?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-blue-500/20 text-blue-400">Humor</span><p class="text-xl">Which technology would be funniest to watch two generations teach each other?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-purple-500/20 text-purple-400">Reflection</span><p class="text-xl">Which lessons should families teach that schools usually cannot?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-yellow-500/20 text-yellow-400">Scenario</span><p class="text-xl">Pair a teenager and a grandparent for a skill swap. What does each person teach?</p></div>
+                </div>
+            </div>
         </div>
-        
+
+        <!-- Slide 8: Learning lab -->
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-pink-300"><i class="fas fa-music text-red-500"></i> Music Time: School's Out</h2>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-sky-400"><i class="fas fa-flask"></i> Learning Lab: Make It Stick</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto text-left">
+                    <p class="text-2xl mb-6 text-center">A friend must learn a five-minute presentation by tomorrow. Build the plan.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xl">
+                        <div class="p-5 bg-gray-700 rounded-xl border-l-4 border-sky-500"><b>Explain it:</b> teach the idea in simple words.</div>
+                        <div class="p-5 bg-gray-700 rounded-xl border-l-4 border-green-500"><b>Retrieve it:</b> close the notes and remember.</div>
+                        <div class="p-5 bg-gray-700 rounded-xl border-l-4 border-yellow-500"><b>Space it:</b> use short sessions with breaks.</div>
+                        <div class="p-5 bg-gray-700 rounded-xl border-l-4 border-pink-500"><b>Use it:</b> practice in a realistic situation.</div>
+                    </div>
+                    <p class="mt-7 text-xl text-center">Which step would your friend try to skip, and how would you convince them?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Song 3 -->
+        <div class="slide">
+            <h2 class="text-4xl font-bold mb-4 text-center text-sky-400"><i class="fas fa-music text-yellow-500"></i> Song 3: School's Out <span class="text-xl text-gray-400">- Alice Cooper</span></h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5Z8EDau8uNcP1E8JvmfkZe?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-pink-500">
-                    <p>Well we got no choice, all the girls and <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="boys"><i class="fas fa-eye"></i></button></p>
-                    <p>Makin' all that noise 'cause they found new <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="toys"><i class="fas fa-eye"></i></button></p>
-                    <p>School's out for <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="summer"><i class="fas fa-eye"></i></button></p>
-                    <p>School's out <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="forever"><i class="fas fa-eye"></i></button></p>
-                    <p>School's been blown to <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="pieces"><i class="fas fa-eye"></i></button></p>
-                    <p>No more pencils, no more books</p>
-                    <p>No more teacher's dirty looks</p>
+                <div class="mb-4 rounded-xl overflow-hidden"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5Z8EDau8uNcP1E8JvmfkZe?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+                <div class="mb-4 bg-yellow-900/30 p-4 rounded-lg border border-yellow-500/30"><p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-yellow-400"></i> A theatrical celebration of the moment structure disappears and summer freedom begins.</p></div>
+                <div class="lyrics-box"><div class="text-lg space-y-4 bg-gray-700 p-6 rounded-lg border-l-4 border-yellow-500 text-left">
+                    <p class="text-sm text-gray-400 uppercase tracking-wider">Complete the interpretation after listening:</p>
+                    <p>The exaggerated performance turns the end of school into a dramatic <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="celebration"><i class="fas fa-eye"></i></button>.</p>
+                    <p>The energy captures the contrast between routine and summer <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="freedom"><i class="fas fa-eye"></i></button>.</p>
+                    <p>The humor comes from treating school supplies and rules as the great <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="enemy"><i class="fas fa-eye"></i></button>.</p>
                 </div></div>
             </div>
         </div>
 
+        <!-- Slide 10: Song 3 debate -->
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-pink-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>This song celebrates the end of school. What was your favorite part about school holidays?</p>
-                <p>The song says "no more teacher's dirty looks". Do you have any funny stories about a strict teacher?</p>
-            </div></div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-2 text-sky-400"><i class="fas fa-comments"></i> Song 3 Conversation</h2>
+                <p class="text-lg text-gray-400 mb-6 italic">School's Out — freedom, holidays, and learning without noticing</p>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card"><span class="debate-label bg-green-500/20 text-green-400">Memory</span><p class="text-xl">What sound, smell, or ritual meant “the holidays have started” to you?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-blue-500/20 text-blue-400">Choice</span><p class="text-xl">Design the perfect first day of vacation with no screens and very little money.</p></div>
+                    <div class="debate-card"><span class="debate-label bg-purple-500/20 text-purple-400">Observation</span><p class="text-xl">Which useful skills do people often learn during holidays without calling it education?</p></div>
+                    <div class="debate-card"><span class="debate-label bg-yellow-500/20 text-yellow-400">Creative</span><p class="text-xl">Invent a ridiculous end-of-school tradition that would be safe enough to become real.</p></div>
+                </div>
+            </div>
         </div>
 
+        <!-- Slide 11: Practice -->
         <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-pink-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="matching-activity" class="space-y-4"></div><button id="check-answers-btn" class="mt-8 bg-pink-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-pink-700">Check Answers</button></div></div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-sky-400"><i class="fas fa-puzzle-piece"></i> Practice: Learning Expressions</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <p class="text-2xl mb-8 text-gray-300">Place each expression in its natural context:</p>
+                    <div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div>
+                    <div id="matching-activity" class="space-y-7 text-left"></div>
+                    <button id="check-answers-btn" class="mt-10 bg-sky-600 text-white font-bold py-3 px-10 rounded-lg hover:bg-sky-700 shadow-lg">Check Answers</button>
+                </div>
+            </div>
         </div>
 
+        <!-- Slide 12: Design challenge -->
         <div class="slide">
-             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-pink-300"><i class="fas fa-home text-blue-400"></i>Homework</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto"><p class="text-2xl mb-6 text-gray-300">If you could go back to school, what subject would you like to study more seriously and why?</p><div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg"><p><strong>Example:</strong> "If I could go back, I would study... more because now I think it's very important for..."</p></div></div></div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-sky-400"><i class="fas fa-school-circle-check"></i> Design a Class Nobody Skips</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto text-left">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xl">
+                        <div class="p-5 bg-gray-700 rounded-xl"><b class="text-sky-300">Topic:</b> useful, unusual, or entertaining?</div>
+                        <div class="p-5 bg-gray-700 rounded-xl"><b class="text-green-300">Method:</b> game, project, trip, debate, or experiment?</div>
+                        <div class="p-5 bg-gray-700 rounded-xl"><b class="text-yellow-300">Teacher:</b> expert, celebrity, relative, or fictional character?</div>
+                        <div class="p-5 bg-gray-700 rounded-xl"><b class="text-pink-300">Assessment:</b> what replaces the traditional test?</div>
+                    </div>
+                    <p class="text-2xl mt-8 text-center">Give your class a memorable name and deliver a 45-second pitch.</p>
+                </div>
+            </div>
         </div>
 
+        <!-- Slide 13: Homework -->
         <div class="slide">
-             <div class="text-center flex flex-col items-center justify-center h-full"><i class="fas fa-graduation-cap text-yellow-300 text-7xl mb-6"></i><h2 class="text-5xl font-bold mb-4 text-gray-100">Lesson Complete!</h2><p class="text-2xl italic text-gray-400 max-w-2xl mx-auto">"Education is what remains after one has forgotten what one has learned in school." - Albert Einstein</p></div>
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-sky-400"><i class="fas fa-calendar-check"></i> Homework: A Tiny Learning Experiment</h2>
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <p class="text-2xl mb-6 text-gray-300">Choose one small skill and create a realistic seven-day learning plan.</p>
+                    <div class="text-left text-xl space-y-3 bg-gray-700 p-5 rounded-xl">
+                        <p>• Define a result you can demonstrate.</p>
+                        <p>• Use at least two learning methods.</p>
+                        <p>• Predict one mistake or obstacle.</p>
+                        <p>• Include three expressions from today's lesson.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="custom-alert-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center transition-opacity duration-300"></div>
+
+        <!-- Slide 14: Finish -->
+        <div class="slide">
+            <div class="text-center flex flex-col items-center justify-center h-full">
+                <i class="fas fa-graduation-cap text-sky-400 text-7xl mb-6"></i>
+                <h2 class="text-5xl font-bold mb-4 text-gray-100">Lesson Complete!</h2>
+                <p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">“Learning works best when curiosity has something real to do.”</p>
+                <div class="pt-8"><button id="finish-lesson-btn-main" class="bg-sky-600 hover:bg-sky-500 text-white text-2xl font-bold py-4 px-12 rounded-full transition-all transform hover:scale-105 shadow-lg">Finalizar e Sair <i class="fas fa-check-circle ml-2"></i></button></div>
+            </div>
+        </div>
     </main>
 
-    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20"><div class="container mx-auto px-8 h-20 flex justify-between items-center"><button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button><button id="next-btn" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-pink-700">Próximo</button><button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finalizar Aula</button></div></footer>
-    
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20">
+        <div class="container mx-auto px-8 h-20 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg hover:bg-gray-600 disabled:opacity-50">Anterior</button>
+            <button id="next-btn" class="bg-sky-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-sky-700">Pr&#243;ximo</button>
+        </div>
+    </footer>
+
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="../js/firebase-config.js"></script>
     <script src="../js/progress-manager.js"></script>
     <script>
-        function showCustomAlert(message,type='success',callback){const modal=document.getElementById('custom-alert-modal');if(!modal)return;modal.innerHTML=`<div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 text-center transform transition-all scale-95 opacity-0" id="custom-alert-box"><i id="custom-alert-icon" class="fas text-6xl mb-5"></i><h3 id="custom-alert-title" class="text-3xl font-bold mb-3"></h3><p id="custom-alert-message" class="text-lg text-gray-300 mb-8"></p><button id="custom-alert-close-btn" class="text-white font-bold py-3 px-10 rounded-lg text-lg transition-transform duration-200 hover:scale-105"></button></div>`;const box=document.getElementById('custom-alert-box'),icon=document.getElementById('custom-alert-icon'),title=document.getElementById('custom-alert-title'),messageEl=document.getElementById('custom-alert-message'),closeBtn=document.getElementById('custom-alert-close-btn');icon.className='fas text-6xl mb-5';title.className='text-3xl font-bold mb-3';closeBtn.className='text-white font-bold py-3 px-10 rounded-lg text-lg transition-transform duration-200 hover:scale-105';if(type==='success'){icon.classList.add('fa-check-circle','text-green-400');title.textContent='Success!';title.classList.add('text-green-300');closeBtn.textContent='OK';closeBtn.classList.add('bg-green-600','hover:bg-green-700')}else{icon.classList.add('fa-times-circle','text-red-400');title.textContent='Error!';title.classList.add('text-red-300');closeBtn.textContent='Try Again';closeBtn.classList.add('bg-red-600','hover:bg-red-700')}messageEl.textContent=message;modal.style.display='flex';setTimeout(()=>{modal.classList.add('opacity-100');box.classList.remove('scale-95','opacity-0');box.classList.add('scale-100','opacity-100')},10);closeBtn.onclick=()=>{modal.style.display='none';if(callback)callback()}}
-        document.addEventListener('DOMContentLoaded',()=>{const slides=document.querySelectorAll('.slide');const prevBtn=document.getElementById('prev-btn'),nextBtn=document.getElementById('next-btn'),finishLessonBtn=document.getElementById('finish-lesson-btn');let currentSlide=0;function showSlide(index){slides.forEach(s=>s.classList.remove('active'));if(slides[index]){slides[index].classList.add('active')}
-        const progressBar=document.getElementById('progress-bar');progressBar.style.width=`${((index+1)/slides.length)*100}%`;prevBtn.disabled=index===0;if(index===slides.length-1){nextBtn.classList.add('hidden');finishLessonBtn.classList.remove('hidden')}else{nextBtn.classList.remove('hidden');finishLessonBtn.classList.add('hidden')}}
-        prevBtn.addEventListener('click',()=>{if(currentSlide>0)showSlide(--currentSlide)});nextBtn.addEventListener('click',()=>{if(currentSlide<slides.length-1)showSlide(++currentSlide)});finishLessonBtn.addEventListener('click',()=>{finishLessonBtn.disabled=true;finishLessonBtn.textContent='Salvando...';if(typeof markLessonAsComplete==='function')markLessonAsComplete('conversation',17)});
-        document.querySelectorAll('.answer-btn').forEach(button=>{button.addEventListener('click',()=>{const inputField=button.previousElementSibling;const correctAnswer=button.dataset.answer;inputField.value=correctAnswer;inputField.classList.add('text-pink-400','font-bold')})});
-        
-        const activityContainer=document.getElementById('matching-activity'),checkAnswersBtn=document.getElementById('check-answers-btn');const expressions=[{id:'hit_books',text:'To hit the books'},{id:'learning_curve',text:'A steep learning curve'},{id:'learn_by_heart',text:'To learn by heart'},{id:'old_dog',text:"You can't teach an old dog new tricks"},{id:'drop_out',text:'To drop out'},{id:'lifelong',text:'Lifelong learning'}];const situations=[{text:"The final exam is next week, I really need to...",answer:'hit_books'},{text:"My grandfather doesn't want to learn how to use a smartphone. I guess...",answer:'old_dog'},{text:"Learning a new language as an adult can have a...",answer:'learning_curve'},{text:"She didn't finish college; she had to...",answer:'drop_out'},{text:"I had to memorize all the presidents for the history test.",answer:'learn_by_heart'},{text:"Even after you graduate, you should never stop studying. It's a process of...",answer:'lifelong'}];
-        function shuffle(array){for(let i=array.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[array[i],array[j]]=[array[j],array[i]]}return array}
-        function createActivity(){const shuffledSituations=shuffle(situations);let html='';shuffledSituations.forEach((sit,index)=>{html+=`<div id="q-${index}" class="p-4 rounded-lg bg-gray-800 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300"><p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p><select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg shadow-sm text-lg focus:border-pink-400 focus:ring focus:ring-pink-300 focus:ring-opacity-50"><option value="">Select an expression...</option>${shuffle([...expressions]).map(exp=>`<option value="${exp.id}">${exp.text}</option>`).join('')}</select></div>`});activityContainer.innerHTML=html}
-        if(activityContainer){createActivity();checkAnswersBtn.addEventListener('click',()=>{const selects=activityContainer.querySelectorAll('select');selects.forEach((select,index)=>{const questionDiv=document.getElementById(`q-${index}`);questionDiv.classList.remove('bg-green-900/50','border-green-500','bg-red-900/50','border-red-500');if(select.value===select.dataset.answer){questionDiv.classList.add('bg-green-900/50','border-green-500')}else{questionDiv.classList.add('bg-red-900/50','border-red-500')}})})};
-        showSlide(0)
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishBtn = document.getElementById('finish-lesson-btn-main');
+            const progressBar = document.getElementById('progress-bar');
+            const slideCounter = document.getElementById('slide-counter');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                slides.forEach((slide, position) => slide.classList.toggle('active', position === index));
+                if (progressBar) progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+                if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
+                if (prevBtn) prevBtn.disabled = index === 0;
+                if (nextBtn) nextBtn.style.display = index === slides.length - 1 ? 'none' : 'block';
+                const main = document.querySelector('main');
+                if (main) main.scrollTop = 0;
+            }
+
+            if (prevBtn) prevBtn.onclick = () => { if (currentSlide > 0) showSlide(--currentSlide); };
+            if (nextBtn) nextBtn.onclick = () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); };
+            if (finishBtn) finishBtn.onclick = () => {
+                finishBtn.disabled = true;
+                finishBtn.innerHTML = 'Salvando... <i class="fas fa-spinner fa-spin ml-2"></i>';
+                if (typeof markLessonAsComplete === 'function') markLessonAsComplete('conversation', 17);
+                else {
+                    localStorage.setItem('lesson_conversation_17_completed', 'true');
+                    window.location.href = 'conversation.html';
+                }
+            };
+
+            document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+            document.querySelectorAll('.answer-btn').forEach(button => button.addEventListener('click', () => {
+                const input = button.previousElementSibling;
+                if (input) {
+                    input.value = button.dataset.answer;
+                    input.classList.add('text-sky-300', 'font-bold');
+                }
+            }));
+
+            const vocabulary = ['To be a quick study', 'To pick something up', 'To brush up on', 'Trial and error', 'To connect the dots', 'Hands-on learning'];
+            const situations = [
+                ['Maya understood the software after one demonstration. This shows what it means ', 'To be a quick study', '.'],
+                ['Many children seem ', 'To pick something up', ' naturally by listening and playing.'],
+                ['Before my trip, I want ', 'To brush up on', ' my basic Italian.'],
+                ['We built the first prototype through ', 'Trial and error', ' and several funny failures.'],
+                ['After seeing all the evidence, the detective began ', 'To connect the dots', '.'],
+                ['The cooking workshop uses ', 'Hands-on learning', ' instead of long lectures.']
+            ];
+            const wordBank = document.getElementById('word-bank');
+            const activity = document.getElementById('matching-activity');
+            const checkBtn = document.getElementById('check-answers-btn');
+
+            if (wordBank && activity) {
+                [...vocabulary].sort(() => Math.random() - 0.5).forEach((text, index) => {
+                    const pill = document.createElement('div');
+                    pill.className = 'word-pill';
+                    pill.textContent = text;
+                    pill.draggable = true;
+                    pill.id = `learning-word-${index}`;
+                    pill.addEventListener('dragstart', event => event.dataTransfer.setData('text/plain', text));
+                    wordBank.appendChild(pill);
+                });
+                activity.innerHTML = situations.map(([before, answer, after]) => `<p class="text-xl text-gray-200">${before}<span class="drop-zone" data-answer="${answer}">________</span>${after}</p>`).join('');
+                activity.querySelectorAll('.drop-zone').forEach(zone => {
+                    zone.addEventListener('dragover', event => event.preventDefault());
+                    zone.addEventListener('drop', event => {
+                        event.preventDefault();
+                        zone.textContent = event.dataTransfer.getData('text/plain');
+                        zone.classList.add('filled');
+                    });
+                    zone.addEventListener('click', () => {
+                        zone.textContent = '________';
+                        zone.classList.remove('filled');
+                        zone.style.color = '';
+                    });
+                });
+            }
+
+            if (checkBtn) checkBtn.onclick = () => {
+                document.querySelectorAll('#matching-activity .drop-zone').forEach(zone => {
+                    const isCorrect = zone.textContent.trim().toLowerCase() === zone.dataset.answer.toLowerCase();
+                    zone.style.color = isCorrect ? '#34d399' : '#fb7185';
+                });
+            };
+            showSlide(0);
         });
     </script>
-    <script src="../js/lesson-handler.js"></script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
     <script src="conversation-lesson-theme.js"></script>
