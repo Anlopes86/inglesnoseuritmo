@@ -5,14 +5,14 @@
     const grid = document.getElementById('lessons-grid');
 
     const lessonTitles = [
-        'Life So Far', 'Since, For, Already, Yet', 'Experiences and Milestones', 'Used To and Change Over Time',
-        'Future Plans and Arrangements', 'Predictions and Possibilities', 'First Conditional in Real Life', 'Review 1: Past, Present and Future',
-        'Opinions and Polite Disagreement', 'Making Suggestions and Decisions', 'Comparatives, Too and Enough', 'Advice, Rules and Expectations',
-        'Relative Clauses for Clearer Descriptions', 'Passive Voice in Everyday English', 'News, Updates and Main Ideas', 'Review 2: Communicate Clearly',
-        'Stories in Progress', 'Sequence and Background', 'Reported Speech for Daily Conversations', 'Problems, Causes and Solutions',
-        'Travel Plans and Unexpected Issues', 'Health, Stress and Wellbeing', 'Study, Work and Career Paths', 'Review 3: Real-World Communication',
-        'Technology and Digital Habits', 'The Environment and Responsible Choices', 'Money, Shopping and Smart Decisions', 'Relationships and Social Situations',
-        'Wishes, Regrets and Possibilities', 'Presenting and Persuading', 'Final Project Workshop', 'B1 Final Project and Can-Do Check'
+        'Defining Moments', 'Changes in Progress', 'Habits and Adaptation', 'Plans in Motion',
+        'Degrees of Certainty', 'Conditions and Backup Plans', 'Stories with Layers', 'Review 1: Time and Change',
+        'Opinions with Reasons', 'Polite Disagreement and Clarification', 'Suggestions and Negotiation', 'Comparing Trade-Offs',
+        'Rules, Permission and Expectations', 'Relative Clauses for Detail', 'Passive Voice and News Summaries', 'Review 2: Clear Communication',
+        'Reported Speech and Messages', 'Indirect Questions and Polite Requests', 'Problems, Causes and Solutions', 'Complaints and Service Recovery',
+        'Travel Disruptions', 'Health, Stress and Wellbeing', 'Work, Study and Career Paths', 'Review 3: Real-World Problem Solving',
+        'Technology and Digital Balance', 'Environment and Community Choices', 'Money, Value and Spending', 'Relationships and Social Repair',
+        'Second Conditional and Wishes', 'Presenting and Persuading', 'Final Project Workshop', 'B1 Final Project and Can-Do Check'
     ];
 
     const unitLabels = [

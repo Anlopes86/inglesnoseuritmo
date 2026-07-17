@@ -61,7 +61,7 @@
 
         const themeButton = document.createElement('button');
         themeButton.type = 'button';
-        themeButton.className = 'lesson-theme-toggle';
+        themeButton.className = 'prep-theme-toggle lesson-theme-toggle';
         themeButton.setAttribute('data-b1-theme-toggle', 'true');
 
         slideCounter.parentNode.insertBefore(wrapper, slideCounter);
@@ -90,7 +90,7 @@
         });
     }
 
-    document.body.classList.add('b1-lesson-page');
+    document.body.classList.add('b1-lesson-page', 'prepb1-lesson-page');
     applyTheme(getPreferredTheme());
     injectThemeToggle();
     enhanceTables();
@@ -102,7 +102,7 @@
     const finishBtn = document.getElementById('finish-btn') || document.getElementById('finish-lesson-btn');
 
     if (backLink) {
-        backLink.innerHTML = '<i class="fas fa-chevron-left"></i> Voltar para B1-V2-V2';
+        backLink.innerHTML = '<i class="fas fa-chevron-left"></i> Voltar para B1-V2';
     }
 
     if (prevBtn) prevBtn.innerHTML = '<i class="fas fa-chevron-left mr-1"></i> Anterior';
@@ -118,8 +118,5 @@
         syncThemeToggle();
     });
 
-    document.body.classList.add('b1-theme-ready');
+    document.body.classList.add('b1-theme-ready', 'prepb1-theme-ready');
 });
-
-
-
