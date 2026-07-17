@@ -277,6 +277,10 @@ async function main() {
         }
 
         await goToSlide(10);
+        const configuredLandingPage = await evaluate(`typeof getModuleLandingPage === 'function' ? getModuleLandingPage('a2-v2') : ''`);
+        if (configuredLandingPage !== 'a2.html') {
+            failures.push(`Progress manager configured the wrong A2 landing page: ${configuredLandingPage || 'missing helper'}.`);
+        }
         await evaluate(`(() => {
             window.markLessonAsComplete = async () => false;
             document.getElementById('finish-btn').click();
@@ -284,8 +288,8 @@ async function main() {
         await delay(600);
         const navigationHistory = await client.send('Page.getNavigationHistory');
         const finishDestinations = (navigationHistory.entries || []).map((entry) => entry.url);
-        if (!finishDestinations.some((url) => /\/a2-v2\/a2-v2\.html$/i.test(url))) {
-            failures.push(`Finish button did not request a2-v2.html: ${JSON.stringify(finishDestinations.slice(-5))}.`);
+        if (!finishDestinations.some((url) => /\/a2-v2\/a2\.html$/i.test(url))) {
+            failures.push(`Finish button did not request a2.html: ${JSON.stringify(finishDestinations.slice(-5))}.`);
         }
 
         await openLesson(1, desktop);

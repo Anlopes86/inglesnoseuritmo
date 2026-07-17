@@ -33,6 +33,16 @@
         .debate-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }
         .debate-card:hover { transform: translateY(-2px); }
         .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
+        .flashcard.debate-flip-card { height: 285px !important; }
+        .debate-flip-card .flashcard-front,
+        .debate-flip-card .flashcard-back { align-items: flex-start; justify-content: flex-start; text-align: left; padding: 1.4rem; overflow-y: auto; }
+        .debate-flip-card .flashcard-front { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important; color: #f8fafc !important; }
+        .debate-flip-card .flashcard-back { background: linear-gradient(135deg, #14532d 0%, #052e16 100%) !important; color: #f8fafc !important; }
+        .debate-flip-card:focus-visible { outline: 3px solid #4ade80; outline-offset: 4px; border-radius: 1rem; }
+        .answer-ideas { list-style: none; padding: 0; margin: 0.25rem 0 0.75rem; }
+        .answer-ideas li { margin-bottom: 0.45rem; padding-left: 1.15rem; position: relative; }
+        .answer-ideas li::before { content: '•'; color: #86efac; font-weight: 700; position: absolute; left: 0; }
+        @media (max-width: 640px) { .flashcard.debate-flip-card { height: 260px !important; } }
     </style>
 
     <link rel="stylesheet" href="conversation-lesson-theme.css">
@@ -144,11 +154,11 @@
                     <div class="flashcard">
                         <div class="flashcard-inner">
                             <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">To think outside the box</h4>
+                                <h4 class="text-2xl font-bold">To dream up an idea</h4>
                             </div>
 
                             <div class="flashcard-back">
-                                <p class="text-xl">To think in an original, creative, and non-traditional way. <br>
+                                <p class="text-xl">To invent an imaginative or unusual idea. <br>
                                     <em>"To solve this problem, we really need to think outside the box and try something new."</em>
                                 </p>
                             </div>
@@ -157,11 +167,11 @@
                     <div class="flashcard">
                         <div class="flashcard-inner">
                             <div class="flashcard-front">
-                                <h4 class="text-2xl font-bold">A game changer</h4>
+                                <h4 class="text-2xl font-bold">To break new ground</h4>
                             </div>
 
                             <div class="flashcard-back">
-                                <p class="text-xl">A person, idea, or event that significantly changes the way something is done. <br>
+                                <p class="text-xl">To do something innovative that has not been done before. <br>
                                     <em>"The invention of the smartphone was a complete game changer for the entire world."</em>
                                 </p>
                             </div>
@@ -188,25 +198,30 @@
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-green-500">
                 <i class="fas fa-music text-yellow-500"></i>
-                Song 1: Virtual Insanity
-                <span class="text-xl text-gray-400">- Jamiroquai</span>
+                Song 1: Weird Science
+                <span class="text-xl text-gray-400">- Oingo Boingo</span>
             </h2>
 
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                 <div class="mb-4 rounded-xl overflow-hidden">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/47W6BsS8vSGR9pUUrIqlyC" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6as4X4jimNZPiGad46NejJ" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
 
                 <div class="mb-4 bg-yellow-900/30 p-4 rounded-lg border border-yellow-500/30">
                     <p class="text-sm italic">
                         <i class="fas fa-info-circle mr-2 text-yellow-400"></i>
-                        Theme: the strange and sometimes overwhelming nature of technological progress and its impact on reality.
+                        Theme: movie-style experiments, impossible inventions, and the comic chaos of a fantasy laboratory.
                     </p>
                 </div>
 
                 <div class="mt-4 lyrics-box pr-4">
-                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-yellow-500">
-                        <p>Futures made of virtual <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="insanity"><i class="fas fa-eye"></i></button></p><p>Always seem to be governed by this <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="love"><i class="fas fa-eye"></i></button></p><p>Everything is <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="changing"><i class="fas fa-eye"></i></button> now</p><p>There's no <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="sound"><i class="fas fa-eye"></i></button></p>
+                    <div class="text-lg leading-relaxed bg-gray-700 p-6 rounded-lg border-l-4 border-yellow-500 mb-4" aria-label="Lyrics for Weird Science">
+                        <p class="text-gray-400 text-sm uppercase tracking-wider mb-4">Listen and complete the missing words:</p>
+                        <p class="mb-5">From my heart and from my hand<br>Why don&apos;t people understand my <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="intention"><i class="fas fa-eye"></i></button>?<br>(Weird, ooh)<br>(Weird science)</p>
+                        <p class="mb-5">Plastic tubes and pots and pans<br>Bits and pieces and the <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="magic"><i class="fas fa-eye"></i></button> from the hand<br>We&apos;re makin&apos; weird science, ooh<br>Things I&apos;ve never seen before<br>Behind bolted doors, talent and <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="imagination"><i class="fas fa-eye"></i></button><br>Weird science</p>
+                        <p class="mb-5">Not what teacher said to do<br>Makin&apos; <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="dreams"><i class="fas fa-eye"></i></button> come true, living tissue, warm flesh<br>Weird science, ooh</p>
+                        <p class="mb-5">Plastic tubes and pots and pans<br>Bits and pieces and<br>Bits and pieces and (<input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="creation"><i class="fas fa-eye"></i></button>)<br>My creation, is it real?<br>It&apos;s my creation, ooh, my creation<br>It&apos;s my creation</p>
+                        <p>Magic and <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="technology"><i class="fas fa-eye"></i></button><br>Voodoo dolls and chants, electricity<br>We&apos;re makin&apos; weird science<br>Fantasy and <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="microchips"><i class="fas fa-eye"></i></button><br>Shooting from the hip, something <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-yellow-400 outline-none"> <button class="answer-btn" data-answer="different"><i class="fas fa-eye"></i></button><br>We&apos;re making weird science, ooh</p>
                     </div>
                 </div>
             </div>
@@ -220,36 +235,65 @@
                     Song 1 Debate
                 </h2>
 
-                <p class="text-lg text-gray-400 mb-6 italic">Virtual Insanity - Technological Reality</p>
+                <p class="text-lg text-gray-400 mb-2 italic">Weird Science - Welcome to the Fantasy Lab</p>
+                <p class="text-sm text-green-300 mb-6"><i class="fas fa-rotate mr-2"></i>Click a card to reveal possible ways to answer.</p>
 
                 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="debate-card">
-                        <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
-                        <p class="text-xl">
-                            <i class="fas fa-vr-cardboard text-green-400 mr-2"></i>
-                            Do you ever feel like the world is moving too fast for you to keep up?
-                        </p>
+                    <div class="flashcard debate-flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: most useful gadget">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
+                                <p class="text-xl font-semibold"><i class="fas fa-mobile-screen-button text-green-400 mr-2"></i>What is the most useful gadget you own, and what makes it so useful?</p>
+                                <span class="mt-auto text-sm text-gray-400"><i class="fas fa-rotate mr-2"></i>Turn for ideas</span>
+                            </div>
+                            <div class="flashcard-back">
+                                <p class="font-bold text-green-200 mb-1"><i class="fas fa-lightbulb mr-2"></i>Possible directions</p>
+                                <ul class="answer-ideas text-sm"><li>A smartphone for maps, banking, or messages</li><li>A robot vacuum or air fryer that saves time</li><li>Explain how often you use it and what problem it solves</li></ul>
+                                <p class="text-sm text-green-100"><b>Useful language:</b> “I use it mainly for…” / “I couldn’t do without it because…”</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
-                        <p class="text-xl">
-                            <i class="fas fa-brain text-blue-400 mr-2"></i>
-                            Is 'virtual' progress (like social media or VR) real progress for humanity?
-                        </p>
+                    <div class="flashcard debate-flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: most useless gadget">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <span class="debate-label bg-blue-500/20 text-blue-400">Personal</span>
+                                <p class="text-xl font-semibold"><i class="fas fa-box-open text-blue-400 mr-2"></i>What is the most useless gadget you own, and why do you still keep it?</p>
+                                <span class="mt-auto text-sm text-gray-400"><i class="fas fa-rotate mr-2"></i>Turn for ideas</span>
+                            </div>
+                            <div class="flashcard-back">
+                                <p class="font-bold text-green-200 mb-1"><i class="fas fa-lightbulb mr-2"></i>Possible directions</p>
+                                <ul class="answer-ideas text-sm"><li>A mug warmer, mini fan, or old smartwatch</li><li>You keep it because it was a gift or “might be useful someday”</li><li>Describe the last time you actually used it</li></ul>
+                                <p class="text-sm text-green-100"><b>Useful language:</b> “It seemed useful, but…” / “I keep it just in case.”</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
-                        <p class="text-xl">
-                            <i class="fas fa-earth-americas text-purple-400 mr-2"></i>
-                            Are we losing our connection to the physical world because of technology?
-                        </p>
+                    <div class="flashcard debate-flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: combine two objects">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <span class="debate-label bg-purple-500/20 text-purple-400">Creativity</span>
+                                <p class="text-xl font-semibold"><i class="fas fa-object-group text-purple-400 mr-2"></i>If you could combine two everyday objects, what new invention would you create?</p>
+                                <span class="mt-auto text-sm text-gray-400"><i class="fas fa-rotate mr-2"></i>Turn for ideas</span>
+                            </div>
+                            <div class="flashcard-back">
+                                <p class="font-bold text-green-200 mb-1"><i class="fas fa-lightbulb mr-2"></i>Possible directions</p>
+                                <ul class="answer-ideas text-sm"><li>A backpack with a built-in solar charger</li><li>An umbrella that sends weather alerts</li><li>Give it a name and explain who would use it</li></ul>
+                                <p class="text-sm text-green-100"><b>Useful language:</b> “It would combine…” / “Its main purpose would be…”</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
-                        <p class="text-xl">
-                            <i class="fas fa-scale-balanced text-yellow-400 mr-2"></i>
-                            Should we stop inventing things that make us lazy, or is that the whole point of progress?
-                        </p>
+                    <div class="flashcard debate-flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: underestimated invention">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <span class="debate-label bg-yellow-500/20 text-yellow-400">Everyday Life</span>
+                                <p class="text-xl font-semibold"><i class="fas fa-screwdriver-wrench text-yellow-400 mr-2"></i>Which simple invention do people underestimate, and how does it improve daily life?</p>
+                                <span class="mt-auto text-sm text-gray-400"><i class="fas fa-rotate mr-2"></i>Turn for ideas</span>
+                            </div>
+                            <div class="flashcard-back">
+                                <p class="font-bold text-green-200 mb-1"><i class="fas fa-lightbulb mr-2"></i>Possible directions</p>
+                                <ul class="answer-ideas text-sm"><li>The zipper, paperclip, or reusable bottle</li><li>Wheels on suitcases or the copy-and-paste command</li><li>Imagine daily life without your chosen invention</li></ul>
+                                <p class="text-sm text-green-100"><b>Useful language:</b> “We take it for granted, but…” / “Without it, we would…”</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -259,25 +303,30 @@
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-green-500">
                 <i class="fas fa-music text-blue-500"></i>
-                Song 2: Video Killed the Radio Star
-                <span class="text-xl text-gray-400">- The Buggles</span>
+                Song 2: The Future Soon
+                <span class="text-xl text-gray-400">- Jonathan Coulton</span>
             </h2>
 
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                 <div class="mb-4 rounded-xl overflow-hidden">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/69vToVA99Hj9B0oxIL5o9z" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2chEZfdAqJvlw9dM3hAU6p" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
 
                 <div class="mb-4 bg-blue-900/30 p-4 rounded-lg border border-blue-500/30">
                     <p class="text-sm italic">
                         <i class="fas fa-info-circle mr-2 text-blue-400"></i>
-                        Theme: how new inventions inevitably replace and destroy the old ones.
+                        Theme: an awkward present transformed into a funny daydream about robots, reinvention, and future technology.
                     </p>
                 </div>
 
                 <div class="mt-4 lyrics-box pr-4">
-                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-blue-500">
-                        <p>I heard you on the wireless back in <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="fifty two"><i class="fas fa-eye"></i></button></p><p>Lying awake intent on <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="tuning in"><i class="fas fa-eye"></i></button> to you</p><p>You were the first one, oh, radio <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="star"><i class="fas fa-eye"></i></button></p><p>Pictures came and broke your heart, oh-a-oh-a-oh in my <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="car"><i class="fas fa-eye"></i></button></p>
+                    <div class="text-lg leading-relaxed bg-gray-700 p-6 rounded-lg border-l-4 border-blue-500 mb-4" aria-label="Lyrics for The Future Soon">
+                        <p class="text-gray-400 text-sm uppercase tracking-wider mb-4">Listen and complete the missing words:</p>
+                        <p class="mb-5">Last week I left a note on Laura&apos;s desk<br>It said I love you signed <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="anonymous"><i class="fas fa-eye"></i></button> friend<br>Turns out she&apos;s <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="smarter"><i class="fas fa-eye"></i></button> than I thought she was<br>She knows I wrote it, now the whole class does too</p>
+                        <p class="mb-5">And I&apos;m <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="alone"><i class="fas fa-eye"></i></button> during couple skate<br>When she skates by with some guy on her arm<br>But I know that I&apos;ll forget the look of <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="pity"><i class="fas fa-eye"></i></button> in her face<br>When I&apos;m living in my solar dome on a platform in space</p>
+                        <p class="mb-5">Cause it&apos;s gonna be the <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="future"><i class="fas fa-eye"></i></button> soon<br>And I won&apos;t always be this way<br>When the things that make me weak and strange get <input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="engineered"><i class="fas fa-eye"></i></button> away<br>It&apos;s gonna be the future soon<br>I&apos;ve never seen it quite so clear<br>And when my heart is breaking I can close my eyes and it&apos;s already here</p>
+                        <p class="mb-5">I&apos;ll probably be some kind of <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="scientist"><i class="fas fa-eye"></i></button><br>Building inventions in my space lab in space<br>I&apos;ll end world <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="hunger"><i class="fas fa-eye"></i></button> I&apos;ll make dolphins speak<br>Work through the daytime, spend my nights and weekends<br>Perfecting my warrior <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="robot"><i class="fas fa-eye"></i></button> race</p>
+                        <p>Building them one laser gun at a time<br>I will do my best to teach them<br>About life and what it&apos;s worth<br>I just hope that I can keep them from <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-blue-400 outline-none"> <button class="answer-btn" data-answer="destroying"><i class="fas fa-eye"></i></button> the Earth</p>
                     </div>
                 </div>
             </div>
@@ -291,36 +340,65 @@
                     Song 2 Debate
                 </h2>
 
-                <p class="text-lg text-gray-400 mb-6 italic">Video Killed the Radio Star - The Cost of Innovation</p>
+                <p class="text-lg text-gray-400 mb-2 italic">The Future Soon - A Very Personal Tech Wishlist</p>
+                <p class="text-sm text-green-300 mb-6"><i class="fas fa-rotate mr-2"></i>Click a card to reveal possible ways to answer.</p>
 
                 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="debate-card">
-                        <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
-                        <p class="text-xl">
-                            <i class="fas fa-radio text-green-400 mr-2"></i>
-                            What is an 'old' piece of technology that you still love and refuse to give up?
-                        </p>
+                    <div class="flashcard debate-flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: new app or website feature">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <span class="debate-label bg-green-500/20 text-green-400">Creativity</span>
+                                <p class="text-xl font-semibold"><i class="fas fa-window-restore text-green-400 mr-2"></i>Is there a feature that does not exist yet that you would like to create for an app or website? How would it work?</p>
+                                <span class="mt-auto text-sm text-gray-400"><i class="fas fa-rotate mr-2"></i>Turn for ideas</span>
+                            </div>
+                            <div class="flashcard-back">
+                                <p class="font-bold text-green-200 mb-1"><i class="fas fa-lightbulb mr-2"></i>Possible directions</p>
+                                <ul class="answer-ideas text-sm"><li>One panel that finds and cancels subscriptions</li><li>A tool that compares conflicting information</li><li>Explain the users, the problem, and the steps</li></ul>
+                                <p class="text-sm text-green-100"><b>Useful language:</b> “I wish there were…” / “It would allow users to…”</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
-                        <p class="text-xl">
-                            <i class="fas fa-hourglass-half text-blue-400 mr-2"></i>
-                            When something new is invented, do you feel a sense of excitement or a sense of loss?
-                        </p>
+                    <div class="flashcard debate-flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: automate an online task">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <span class="debate-label bg-blue-500/20 text-blue-400">Convenience</span>
+                                <p class="text-xl font-semibold"><i class="fas fa-wand-magic-sparkles text-blue-400 mr-2"></i>What annoying online task should an app do automatically for you?</p>
+                                <span class="mt-auto text-sm text-gray-400"><i class="fas fa-rotate mr-2"></i>Turn for ideas</span>
+                            </div>
+                            <div class="flashcard-back">
+                                <p class="font-bold text-green-200 mb-1"><i class="fas fa-lightbulb mr-2"></i>Possible directions</p>
+                                <ul class="answer-ideas text-sm"><li>Organize photos and remove duplicates</li><li>Fill in repetitive forms or split group bills</li><li>Estimate how much time the feature would save</li></ul>
+                                <p class="text-sm text-green-100"><b>Useful language:</b> “I’m tired of…” / “The app could automatically…”</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
-                        <p class="text-xl">
-                            <i class="fas fa-robot text-purple-400 mr-2"></i>
-                            What current 'stars' or jobs do you think will be 'killed' by AI in the next 10 years?
-                        </p>
+                    <div class="flashcard debate-flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: ridiculous phone function">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <span class="debate-label bg-purple-500/20 text-purple-400">Fun</span>
+                                <p class="text-xl font-semibold"><i class="fas fa-mobile-screen text-purple-400 mr-2"></i>Imagine your phone could have one ridiculous new function. What would you choose?</p>
+                                <span class="mt-auto text-sm text-gray-400"><i class="fas fa-rotate mr-2"></i>Turn for ideas</span>
+                            </div>
+                            <div class="flashcard-back">
+                                <p class="font-bold text-green-200 mb-1"><i class="fas fa-lightbulb mr-2"></i>Possible directions</p>
+                                <ul class="answer-ideas text-sm"><li>Find any lost object in five seconds</li><li>Translate what your pet is thinking</li><li>Add one hilarious side effect or limitation</li></ul>
+                                <p class="text-sm text-green-100"><b>Useful language:</b> “With one tap, it would…” / “The only problem would be…”</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
-                        <p class="text-xl">
-                            <i class="fas fa-scale-balanced text-yellow-400 mr-2"></i>
-                            Is 'newer' always 'better', or do we lose something valuable with every new invention?
-                        </p>
+                    <div class="flashcard debate-flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: gadget you would refuse">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <span class="debate-label bg-yellow-500/20 text-yellow-400">Opinion</span>
+                                <p class="text-xl font-semibold"><i class="fas fa-ban text-yellow-400 mr-2"></i>Which futuristic gadget would you refuse to buy, even if it were cheap? Explain your choice.</p>
+                                <span class="mt-auto text-sm text-gray-400"><i class="fas fa-rotate mr-2"></i>Turn for ideas</span>
+                            </div>
+                            <div class="flashcard-back">
+                                <p class="font-bold text-green-200 mb-1"><i class="fas fa-lightbulb mr-2"></i>Possible directions</p>
+                                <ul class="answer-ideas text-sm"><li>Emotion-reading glasses or a robot pet</li><li>A device that records every conversation</li><li>Consider privacy, maintenance, or dependence</li></ul>
+                                <p class="text-sm text-green-100"><b>Useful language:</b> “Even if it were free…” / “I wouldn’t trust it to…”</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -350,25 +428,29 @@
         <div class="slide">
             <h2 class="text-4xl font-bold mb-4 text-center text-green-500">
                 <i class="fas fa-music text-cyan-500"></i>
-                Song 3: Mr. Roboto
-                <span class="text-xl text-gray-400">- Styx</span>
+                Song 3: Cars
+                <span class="text-xl text-gray-400">- Gary Numan</span>
             </h2>
 
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                 <div class="mb-4 rounded-xl overflow-hidden">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7995S8vSGR9pUUrIqlyC" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3CKLPDN1AIOYa7QPpy6oDH" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
 
                 <div class="mb-4 bg-cyan-900/30 p-4 rounded-lg border border-cyan-500/30">
                     <p class="text-sm italic">
                         <i class="fas fa-info-circle mr-2 text-cyan-400"></i>
-                        Theme: the relationship between humans and robots, and the fear of losing our identity to machines.
+                        Theme: the car as a private bubble—a piece of technology that can offer both comfort and distance.
                     </p>
                 </div>
 
                 <div class="mt-4 lyrics-box pr-4">
-                    <div class="text-lg space-y-3 bg-gray-700 p-6 rounded-lg border-l-4 border-cyan-500">
-                        <p>Domo arigato, Mr. <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="Roboto"><i class="fas fa-eye"></i></button></p><p>Mata au hi <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="made"><i class="fas fa-eye"></i></button></p><p>You're wondering who I <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="am"><i class="fas fa-eye"></i></button></p><p>The problem's plain to see: too much technology, machine or <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="man"><i class="fas fa-eye"></i></button></p>
+                    <div class="text-lg leading-relaxed bg-gray-700 p-6 rounded-lg border-l-4 border-cyan-500 mb-4" aria-label="Lyrics for Cars">
+                        <p class="text-gray-400 text-sm uppercase tracking-wider mb-4">Listen and complete the missing words:</p>
+                        <p class="mb-5">Here in my car<br>I feel <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="safest"><i class="fas fa-eye"></i></button> of all<br>I can lock all my <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="doors"><i class="fas fa-eye"></i></button><br>It&apos;s the only way to live<br>In cars</p>
+                        <p class="mb-5">Here in my car<br>I can only <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="receive"><i class="fas fa-eye"></i></button><br>I can listen to you<br>It keeps me <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="stable"><i class="fas fa-eye"></i></button> for days<br>In cars</p>
+                        <p class="mb-5">Here in my car<br>Where the <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="image"><i class="fas fa-eye"></i></button> breaks down<br>Will you visit me please<br>If I <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="open"><i class="fas fa-eye"></i></button> my door<br>In cars</p>
+                        <p>Here in my car<br>I know I&apos;ve started to think<br>About <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="leaving"><i class="fas fa-eye"></i></button> tonight<br>Although nothing seems <input type="text" class="w-28 border-b-2 text-center bg-transparent border-gray-500 focus:border-cyan-400 outline-none"> <button class="answer-btn" data-answer="right"><i class="fas fa-eye"></i></button><br>In cars</p>
                     </div>
                 </div>
             </div>
@@ -382,36 +464,65 @@
                     Song 3 Debate
                 </h2>
 
-                <p class="text-lg text-gray-400 mb-6 italic">Mr. Roboto - Human or Machine?</p>
+                <p class="text-lg text-gray-400 mb-2 italic">Cars - Technology as a Private Bubble</p>
+                <p class="text-sm text-green-300 mb-6"><i class="fas fa-rotate mr-2"></i>Click a card to reveal possible ways to answer.</p>
 
                 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="debate-card">
-                        <span class="debate-label bg-green-500/20 text-green-400">Personal</span>
-                        <p class="text-xl">
-                            <i class="fas fa-robot text-green-400 mr-2"></i>
-                            What is one thing you would NEVER let a robot do for you?
-                        </p>
+                    <div class="flashcard debate-flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: improve your commute">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <span class="debate-label bg-green-500/20 text-green-400">Routine</span>
+                                <p class="text-xl font-semibold"><i class="fas fa-bus text-green-400 mr-2"></i>Which new feature would most improve your daily commute by car, bike, or public transportation?</p>
+                                <span class="mt-auto text-sm text-gray-400"><i class="fas fa-rotate mr-2"></i>Turn for ideas</span>
+                            </div>
+                            <div class="flashcard-back">
+                                <p class="font-bold text-green-200 mb-1"><i class="fas fa-lightbulb mr-2"></i>Possible directions</p>
+                                <ul class="answer-ideas text-sm"><li>Accurate crowding information for buses</li><li>Safer bike routes or one universal payment system</li><li>Explain how the feature would change your routine</li></ul>
+                                <p class="text-sm text-green-100"><b>Useful language:</b> “My commute would be easier if…” / “It would help people avoid…”</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
-                        <p class="text-xl">
-                            <i class="fas fa-face-meh text-blue-400 mr-2"></i>
-                            Are you more fascinated by robots or terrified of them?
-                        </p>
+                    <div class="flashcard debate-flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: travel gadget">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <span class="debate-label bg-blue-500/20 text-blue-400">Travel</span>
+                                <p class="text-xl font-semibold"><i class="fas fa-suitcase text-blue-400 mr-2"></i>What gadget do you always take on a trip, and when has it been especially useful?</p>
+                                <span class="mt-auto text-sm text-gray-400"><i class="fas fa-rotate mr-2"></i>Turn for ideas</span>
+                            </div>
+                            <div class="flashcard-back">
+                                <p class="font-bold text-green-200 mb-1"><i class="fas fa-lightbulb mr-2"></i>Possible directions</p>
+                                <ul class="answer-ideas text-sm"><li>A power bank, headphones, or universal adapter</li><li>A luggage scale or e-reader</li><li>Tell a short story about a trip when it helped</li></ul>
+                                <p class="text-sm text-green-100"><b>Useful language:</b> “It came in handy when…” / “I never travel without…”</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
-                        <p class="text-xl">
-                            <i class="fas fa-microchip text-purple-400 mr-2"></i>
-                            Can a robot ever truly be 'creative', or is it just following a program?
-                        </p>
+                    <div class="flashcard debate-flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: add a clever feature">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <span class="debate-label bg-purple-500/20 text-purple-400">Creativity</span>
+                                <p class="text-xl font-semibold"><i class="fas fa-umbrella text-purple-400 mr-2"></i>Choose a shopping cart, backpack, or umbrella. What clever feature would you add to it?</p>
+                                <span class="mt-auto text-sm text-gray-400"><i class="fas fa-rotate mr-2"></i>Turn for ideas</span>
+                            </div>
+                            <div class="flashcard-back">
+                                <p class="font-bold text-green-200 mb-1"><i class="fas fa-lightbulb mr-2"></i>Possible directions</p>
+                                <ul class="answer-ideas text-sm"><li>A shopping cart that follows you</li><li>A backpack that displays its weight</li><li>An umbrella that dries itself after use</li></ul>
+                                <p class="text-sm text-green-100"><b>Useful language:</b> “I would add…” / “This feature would be useful whenever…”</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Debate</span>
-                        <p class="text-xl">
-                            <i class="fas fa-scale-balanced text-yellow-400 mr-2"></i>
-                            If a robot becomes as intelligent as a human, should it have 'human rights'?
-                        </p>
+                    <div class="flashcard debate-flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Flip card: old-fashioned object">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <span class="debate-label bg-yellow-500/20 text-yellow-400">Preference</span>
+                                <p class="text-xl font-semibold"><i class="fas fa-clock-rotate-left text-yellow-400 mr-2"></i>Which old-fashioned object do you prefer to its smart version, and what makes it better?</p>
+                                <span class="mt-auto text-sm text-gray-400"><i class="fas fa-rotate mr-2"></i>Turn for ideas</span>
+                            </div>
+                            <div class="flashcard-back">
+                                <p class="font-bold text-green-200 mb-1"><i class="fas fa-lightbulb mr-2"></i>Possible directions</p>
+                                <ul class="answer-ideas text-sm"><li>A paper notebook or printed book</li><li>An analog clock or a physical house key</li><li>Compare reliability, distractions, and how each feels</li></ul>
+                                <p class="text-sm text-green-100"><b>Useful language:</b> “I prefer the traditional version because…” / “It’s more reliable than…”</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -426,13 +537,14 @@
                 </h2>
 
                 <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-2xl mb-8 text-gray-300">Drag the expression to the correct sentence:</p>
+                    <p class="text-2xl mb-8 text-gray-300">Choose an expression, then place it in the sentence that matches its meaning:</p>
 
                     <div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div>
 
                     <div id="matching-activity" class="space-y-8 text-left"></div>
 
                     <button id="check-answers-btn" class="mt-12 bg-green-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-green-700 shadow-lg">Check Answers</button>
+                    <p id="practice-feedback" class="mt-4 min-h-7 text-lg font-semibold text-gray-300" aria-live="polite"></p>
                 </div>
             </div>
         </div>
@@ -625,8 +737,20 @@
             });
 
             document.querySelectorAll('.flashcard').forEach(card => {
-                card.addEventListener('click', () => card.classList.toggle('flipped'));
+                const toggleCard = () => {
+                    const isFlipped = card.classList.toggle('flipped');
+                    if (card.hasAttribute('aria-pressed')) card.setAttribute('aria-pressed', String(isFlipped));
+                };
+
+                card.addEventListener('click', toggleCard);
             });
+
+            setTimeout(() => {
+                document.querySelectorAll('.debate-flip-card').forEach(card => {
+                    const question = card.querySelector('.flashcard-front p');
+                    if (question) card.setAttribute('aria-label', `Flip discussion card: ${question.textContent.trim()}`);
+                });
+            }, 0);
 
             document.querySelectorAll('.answer-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -641,8 +765,9 @@
             const wordBank = document.getElementById('word-bank');
             const activityContainer = document.getElementById('matching-activity');
             const checkBtn = document.getElementById('check-answers-btn');
-            const vocabulary = [{"id": "w0", "text": "To reinvent the wheel"}, {"id": "w1", "text": "A lightbulb moment"}, {"id": "w2", "text": "Back to the drawing board"}, {"id": "w3", "text": "To think outside the box"}, {"id": "w4", "text": "A game changer"}, {"id": "w5", "text": "To get the hang of it"}];
-            const situations = [{"text": "We already have a great system; there's no need <span class='drop-zone' data-answer='To reinvent the wheel'>________</span>.", "answer": "To reinvent the wheel"}, {"text": "I was walking my dog when I had <span class='drop-zone' data-answer='A lightbulb moment'>________</span> for a new app.", "answer": "A lightbulb moment"}, {"text": "The marketing campaign was a disaster, so it's <span class='drop-zone' data-answer='Back to the drawing board'>________</span> for the team.", "answer": "Back to the drawing board"}, {"text": "If we want to win this competition, we have <span class='drop-zone' data-answer='To think outside the box'>________</span>.", "answer": "To think outside the box"}, {"text": "The discovery of penicillin was a complete <span class='drop-zone' data-answer='A game changer'>________</span> for medicine.", "answer": "A game changer"}, {"text": "Using a 3D printer is tricky at first, but you'll <span class='drop-zone' data-answer='To get the hang of it'>________</span> soon.", "answer": "To get the hang of it"}];
+            const practiceFeedback = document.getElementById('practice-feedback');
+            const vocabulary = [{"id": "w0", "text": "To reinvent the wheel"}, {"id": "w1", "text": "A lightbulb moment"}, {"id": "w2", "text": "Back to the drawing board"}, {"id": "w3", "text": "To dream up an idea"}, {"id": "w4", "text": "To break new ground"}, {"id": "w5", "text": "To get the hang of it"}];
+            const situations = [{"text": "The phrase <span class='drop-zone' data-answer='To reinvent the wheel'>________</span> means creating something that already exists.", "answer": "To reinvent the wheel"}, {"text": "Seeing the umbrella handle gave Ana <span class='drop-zone' data-answer='A lightbulb moment'>________</span> for a hands-free design.", "answer": "A lightbulb moment"}, {"text": "After the prototype collapsed, it was <span class='drop-zone' data-answer='Back to the drawing board'>________</span> for the team.", "answer": "Back to the drawing board"}, {"text": "The expression <span class='drop-zone' data-answer='To dream up an idea'>________</span> means imagining a new possible solution.", "answer": "To dream up an idea"}, {"text": "The researchers hope <span class='drop-zone' data-answer='To break new ground'>________</span> with a biodegradable battery.", "answer": "To break new ground"}, {"text": "After two practice sessions, Leo began <span class='drop-zone' data-answer='To get the hang of it'>________</span>.", "answer": "To get the hang of it"}];
 
             if (wordBank && activityContainer) {
                 vocabulary.sort(() => Math.random() - 0.5).forEach(word => {
@@ -703,17 +828,31 @@
                     if (answeredCount === dropZones.length && correctCount === dropZones.length) {
                         checkBtn.innerText = 'Perfect!';
                         checkBtn.classList.replace('bg-green-600', 'bg-emerald-500');
+                        if (practiceFeedback) {
+                            practiceFeedback.innerText = 'Excellent! Every expression is in the right place.';
+                            practiceFeedback.className = 'mt-4 min-h-7 text-lg font-semibold text-green-400';
+                        }
                     } else if (answeredCount === dropZones.length) {
                         checkBtn.innerText = 'Try Again';
                         checkBtn.classList.replace('bg-green-600', 'bg-orange-500');
+                        if (practiceFeedback) {
+                            practiceFeedback.innerText = `${correctCount} of ${dropZones.length} correct. Adjust the red answers and try again.`;
+                            practiceFeedback.className = 'mt-4 min-h-7 text-lg font-semibold text-orange-400';
+                        }
                         setTimeout(() => {
                             checkBtn.innerText = 'Check Answers';
                             checkBtn.classList.replace('bg-orange-500', 'bg-green-600');
                         }, 2000);
+                    } else if (practiceFeedback) {
+                        practiceFeedback.innerText = 'Complete every sentence before checking your answers.';
+                        practiceFeedback.className = 'mt-4 min-h-7 text-lg font-semibold text-yellow-400';
                     }
                 };
             }
         });
     </script>
+    <script src="../js/flashcard-pronunciation.js"></script>
+    <script src="../js/lesson-flashcard-save.js"></script>
+    <script src="conversation-lesson-theme.js"></script>
 </body>
 </html>
