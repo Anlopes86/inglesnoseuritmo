@@ -109,7 +109,7 @@
             vocab: [
                 ['crowded', 'lotado', 'The subway is crowded today.'],
                 ['convenient', 'conveniente', 'Online classes are convenient.'],
-                ['reliable', 'confiavel', 'This app is reliable.'],
+                ['reliable', 'confiável', 'This app is reliable.'],
                 ['affordable', 'acessivel', 'The hotel is affordable.'],
                 ['quiet', 'tranquilo', 'This neighborhood is quiet.'],
                 ['modern', 'moderno', 'The station is modern.'],
@@ -140,14 +140,14 @@
                 ['receipt', 'recibo', 'Keep the receipt.'],
                 ['ingredient', 'ingrediente', 'We need a few ingredients.'],
                 ['advice', 'conselho', 'She gave me useful advice.'],
-                ['information', 'informacao', 'I need some information.'],
+                ['information', 'informação', 'I need some information.'],
                 ['bottle', 'garrafa', 'Buy a bottle of water.'],
                 ['slice', 'fatia', 'Would you like a slice of cake?'],
                 ['enough', 'suficiente', 'We have enough time.'],
-                ['several', 'varios', 'Several people arrived late.']
+                ['several', 'vários', 'Several people arrived late.']
             ],
             grammar: [
-                ['Articles', 'Use a/an when something is one of many or mentioned for the first time. Use the when both people know which thing you mean: "I saw a cafe. The cafe was full."'],
+                ['Articles', 'Use a/an when something is one of many or mentioned for the first time. Use the when both people know which thing you mean: "I saw a café. The café was full."'],
                 ['Countable vs uncountable', 'Countable nouns can be plural: apples, chairs, ideas. Uncountable nouns usually do not take plural -s: information, advice, furniture, money.'],
                 ['Quantity words', 'Use many/few with countable nouns and much/little with uncountable nouns. Some and any can work with both, depending on sentence type and meaning.']
             ],
@@ -174,7 +174,7 @@
                 ['book', 'reservar', 'I am going to book a room.'],
                 ['confirm', 'confirmar', 'Please confirm the time.'],
                 ['postpone', 'adiar', 'They postponed the meeting.'],
-                ['expect', 'esperar / achar provavel', 'I expect good results.']
+                ['expect', 'esperar / achar provável', 'I expect good results.']
             ],
             grammar: [
                 ['Going to', 'Use going to when you already have a plan or evidence: "I am going to call her after class" or "Look at the clouds. It is going to rain."'],
@@ -197,14 +197,14 @@
             themeOptions: ['asking for permission at work', 'understanding rules in a course', 'solving a problem politely'],
             objectives: ['ask for permission politely', 'explain rules and obligations', 'distinguish must, have to, and need to'],
             vocab: [
-                ['permission', 'permissao', 'Ask for permission first.'],
+                ['permission', 'permissão', 'Ask for permission first.'],
                 ['rule', 'regra', 'This rule is important.'],
-                ['requirement', 'exigencia', 'It is a requirement.'],
+                ['requirement', 'exigência', 'It is a requirement.'],
                 ['optional', 'opcional', 'The last task is optional.'],
                 ['allowed', 'permitido', 'Phones are not allowed.'],
                 ['forbidden', 'proibido', 'Smoking is forbidden here.'],
                 ['request', 'pedido', 'Can I make a request?'],
-                ['policy', 'politica / regra interna', 'Read the company policy.']
+                ['policy', 'política / regra interna', 'Read the company policy.']
             ],
             grammar: [
                 ['Can and could', 'Can is direct and common. Could is softer and more polite. "Could I leave early?" sounds more careful than "Can I leave early?"'],
@@ -230,9 +230,9 @@
                 ['rest', 'descansar', 'You should rest.'],
                 ['avoid', 'evitar', 'Avoid too much caffeine.'],
                 ['improve', 'melhorar', 'Practice improves confidence.'],
-                ['habit', 'habito', 'Build a healthy habit.'],
+                ['habit', 'hábito', 'Build a healthy habit.'],
                 ['balanced', 'equilibrado', 'Keep a balanced routine.'],
-                ['pressure', 'pressao', 'She is under pressure.'],
+                ['pressure', 'pressão', 'She is under pressure.'],
                 ['support', 'apoio / apoiar', 'Ask for support.'],
                 ['overwhelmed', 'sobrecarregado', 'I feel overwhelmed.']
             ],
@@ -257,11 +257,11 @@
             themeOptions: ['travel experiences', 'professional achievements', 'new things you have tried'],
             objectives: ['talk about experiences without exact time', 'use ever, never, already, and yet', 'contrast experience and finished time'],
             vocab: [
-                ['experience', 'experiencia', 'It was a great experience.'],
+                ['experience', 'experiência', 'It was a great experience.'],
                 ['achievement', 'conquista', 'That was an important achievement.'],
                 ['recently', 'recentemente', 'I have recently changed jobs.'],
-                ['already', 'ja', 'I have already finished.'],
-                ['yet', 'ainda / ja em perguntas', 'Have you finished yet?'],
+                ['already', 'já', 'I have already finished.'],
+                ['yet', 'ainda / já em perguntas', 'Have you finished yet?'],
                 ['abroad', 'no exterior', 'She has lived abroad.'],
                 ['improve', 'melhorar', 'I have improved a lot.'],
                 ['challenge', 'desafio', 'This has been a challenge.']
@@ -288,10 +288,10 @@
             objectives: ['describe symptoms clearly', 'ask and answer medical questions', 'combine advice with present perfect when needed'],
             vocab: [
                 ['symptom', 'sintoma', 'What symptoms do you have?'],
-                ['headache', 'dor de cabeca', 'I have a headache.'],
+                ['headache', 'dor de cabeça', 'I have a headache.'],
                 ['sore throat', 'dor de garganta', 'She has a sore throat.'],
                 ['appointment', 'consulta / compromisso', 'I booked an appointment.'],
-                ['prescription', 'receita medica', 'The doctor gave me a prescription.'],
+                ['prescription', 'receita médica', 'The doctor gave me a prescription.'],
                 ['recover', 'se recuperar', 'He recovered quickly.'],
                 ['dizzy', 'tonto', 'I feel dizzy.'],
                 ['treatment', 'tratamento', 'The treatment helped.']
@@ -305,7 +305,7 @@
             expressions: [
                 ['come down with', 'ficar doente com', 'I came down with a cold.'],
                 ['get over', 'se recuperar de', 'She got over the flu.'],
-                ['check up on', 'verificar como alguem esta', 'I called to check up on him.'],
+                ['check up on', 'verificar como alguém está', 'I called to check up on him.'],
                 ['cut back on', 'reduzir', 'You should cut back on coffee.']
             ],
             readingTitle: 'Explaining the problem clearly',
@@ -318,9 +318,9 @@
             objectives: ['use prepositions of place', 'describe movement clearly', 'use at, on, and in for time'],
             vocab: [
                 ['across from', 'em frente a', 'The bank is across from the park.'],
-                ['next to', 'ao lado de', 'The cafe is next to the station.'],
-                ['through', 'atraves de', 'Walk through the park.'],
-                ['toward', 'em direcao a', 'Go toward the bridge.'],
+                ['next to', 'ao lado de', 'The café is next to the station.'],
+                ['through', 'através de', 'Walk through the park.'],
+                ['toward', 'em direção a', 'Go toward the bridge.'],
                 ['between', 'entre', 'It is between the pharmacy and the bank.'],
                 ['around', 'ao redor / por volta', 'Walk around the building.'],
                 ['entrance', 'entrada', 'Meet me at the entrance.'],
@@ -347,11 +347,11 @@
             themeOptions: ['helping a tourist downtown', 'giving instructions by phone', 'finding a place in a large building'],
             objectives: ['give step-by-step directions', 'ask for clarification politely', 'use landmarks and sequence words'],
             vocab: [
-                ['landmark', 'ponto de referencia', 'Use the museum as a landmark.'],
+                ['landmark', 'ponto de referência', 'Use the museum as a landmark.'],
                 ['intersection', 'cruzamento', 'Turn right at the intersection.'],
-                ['block', 'quarteirao', 'Walk two blocks.'],
+                ['block', 'quarteirão', 'Walk two blocks.'],
                 ['entrance', 'entrada', 'The entrance is on the left.'],
-                ['exit', 'saida', 'Use the main exit.'],
+                ['exit', 'saída', 'Use the main exit.'],
                 ['straight ahead', 'em frente', 'Go straight ahead.'],
                 ['nearby', 'perto', 'There is a pharmacy nearby.'],
                 ['route', 'rota', 'This route is faster.']
@@ -365,7 +365,7 @@
             expressions: [
                 ['get around', 'se locomover', 'It is easy to get around here.'],
                 ['pull over', 'encostar o carro', 'Pull over after the bridge.'],
-                ['come up to', 'chegar ate', 'Come up to the main gate.'],
+                ['come up to', 'chegar até', 'Come up to the main gate.'],
                 ['go past', 'passar por', 'Go past the school and turn right.']
             ],
             readingTitle: 'Directions that people can actually follow',
@@ -378,13 +378,13 @@
             objectives: ['handle hotel check-in', 'make polite requests', 'explain travel problems clearly'],
             vocab: [
                 ['reservation', 'reserva', 'I have a reservation.'],
-                ['reception', 'recepcao', 'Ask at reception.'],
+                ['reception', 'recepção', 'Ask at reception.'],
                 ['check-in', 'entrada', 'Check-in starts at two.'],
-                ['check-out', 'saida', 'Check-out is at noon.'],
+                ['check-out', 'saída', 'Check-out is at noon.'],
                 ['towel', 'toalha', 'Could I have another towel?'],
                 ['shower', 'chuveiro', 'The shower is not working.'],
-                ['key card', 'cartao-chave', 'My key card does not work.'],
-                ['available', 'disponivel', 'Is breakfast available?']
+                ['key card', 'cartão-chave', 'My key card does not work.'],
+                ['available', 'disponível', 'Is breakfast available?']
             ],
             grammar: [
                 ['Polite requests', 'Use "Could I have..." and "Could you..." when asking for help in hotels. These forms sound respectful and natural.'],
@@ -394,7 +394,7 @@
             examples: ['I have a reservation under my name.', 'Could I have another towel?', 'The shower is not working.', 'Is breakfast included?'],
             expressions: [
                 ['check in', 'fazer entrada', 'We checked in at 3 p.m.'],
-                ['check out', 'fazer saida', 'They checked out early.'],
+                ['check out', 'fazer saída', 'They checked out early.'],
                 ['sort out', 'resolver', 'Reception sorted out the problem.'],
                 ['make up for', 'compensar', 'They offered breakfast to make up for the mistake.']
             ],
@@ -438,9 +438,9 @@
             objectives: ['use zero conditional for facts and habits', 'use first conditional for real possibilities', 'use unless and wish carefully'],
             vocab: [
                 ['unless', 'a menos que', 'We will be late unless we leave now.'],
-                ['condition', 'condicao', 'There is one condition.'],
+                ['condition', 'condição', 'There is one condition.'],
                 ['result', 'resultado', 'The result depends on practice.'],
-                ['habit', 'habito', 'If I sleep well, I focus better.'],
+                ['habit', 'hábito', 'If I sleep well, I focus better.'],
                 ['possibility', 'possibilidade', 'There is a real possibility.'],
                 ['improve', 'melhorar', 'You will improve if you practice.'],
                 ['wish', 'desejar', 'I wish I had more time.'],
@@ -501,7 +501,7 @@
         {
             themes: ['telling a travel story in order', 'describing a memorable celebration', 'reporting a problem that was solved'],
             objectives: ['connect past events into a longer story', 'use sequence markers naturally', 'add reasons and consequences'],
-            vocab: [['check in', 'fazer check-in', 'We checked in at the hotel.'], ['get lost', 'se perder', 'They got lost downtown.'], ['notice', 'notar', 'I noticed a small cafe.'], ['decide', 'decidir', 'We decided to stay longer.'], ['book', 'reservar', 'She booked a room online.'], ['delay', 'atraso', 'The delay changed our plan.'], ['explore', 'explorar', 'We explored the old town.'], ['remember', 'lembrar', 'I remembered the address later.']],
+            vocab: [['check in', 'fazer check-in', 'We checked in at the hotel.'], ['get lost', 'se perder', 'They got lost downtown.'], ['notice', 'notar', 'I noticed a small café.'], ['decide', 'decidir', 'We decided to stay longer.'], ['book', 'reservar', 'She booked a room online.'], ['delay', 'atraso', 'The delay changed our plan.'], ['explore', 'explorar', 'We explored the old town.'], ['remember', 'lembrar', 'I remembered the address later.']],
             grammar: [['Narrative order', 'A complete past story needs order. Use sequence markers to show what happened first, next, and finally.'], ['Past reasons', 'Use because, so, and but to explain why events changed: The train was late, so we took a taxi.'], ['Past questions in stories', 'Use What happened?, Where did you go?, and How did you solve it? to keep the conversation moving.']],
             examples: ['First, we checked in at the hotel.', 'Then we got lost near the station.', 'We decided to explore the area on foot.', 'Finally, we found a restaurant by the river.'],
             expressions: [['set off', 'sair / partir', 'We set off early in the morning.'], ['come across', 'encontrar por acaso', 'We came across a quiet square.'], ['sort out', 'resolver', 'The receptionist sorted out the problem.'], ['head back', 'voltar', 'We headed back after dinner.']],
@@ -512,10 +512,10 @@
         {
             themes: ['comparing two cities', 'choosing between two courses', 'comparing online and in-person work'],
             objectives: ['compare differences with degree modifiers', 'express equality and inequality with as...as', 'weigh up options using more, less, and reasons'],
-            vocab: [['much more convenient', 'muito mais conveniente', 'The subway is much more convenient.'], ['a little cheaper', 'um pouco mais barato', 'The morning ticket is a little cheaper.'], ['not as crowded as', 'nao tao lotado quanto', 'This cafe is not as crowded as the other one.'], ['just as useful as', 'tao util quanto', 'The free version is just as useful as the paid one.'], ['far more reliable', 'muito mais confiavel', 'This app is far more reliable.'], ['slightly closer', 'um pouco mais perto', 'The new office is slightly closer.'], ['less stressful', 'menos estressante', 'The local route is less stressful.'], ['busier', 'mais movimentado', 'The center is busier after six.']],
+            vocab: [['much more convenient', 'muito mais conveniente', 'The subway is much more convenient.'], ['a little cheaper', 'um pouco mais barato', 'The morning ticket is a little cheaper.'], ['not as crowded as', 'não tão lotado quanto', 'This café is not as crowded as the other one.'], ['just as useful as', 'tão útil quanto', 'The free version is just as useful as the paid one.'], ['far more reliable', 'muito mais confiável', 'This app is far more reliable.'], ['slightly closer', 'um pouco mais perto', 'The new office is slightly closer.'], ['less stressful', 'menos estressante', 'The local route is less stressful.'], ['busier', 'mais movimentado', 'The center is busier after six.']],
             grammar: [['Degree modifiers', 'Use much, far, or a lot before a comparative for a big difference. Use a little or slightly for a small difference: much faster, slightly cheaper.'], ['Equality', 'Use as + adjective + as for equal qualities: The bus is as comfortable as the train. Use not as...as when the first option has less of that quality.'], ['Less and comparison', 'Use less + adjective + than to compare a lower degree: This route is less stressful than the highway. Add a reason to make the choice clear.']],
             examples: ['The subway is much more convenient than the bus.', 'The weekday plan is a little cheaper than the weekend plan.', 'The afternoon class is not as crowded as the evening class.', 'Online support is just as useful as in-person support.'],
-            expressions: [['weigh up', 'avaliar opcoes', 'We need to weigh up both plans.'], ['have an advantage over', 'ter uma vantagem sobre', 'The train has an advantage over the bus.'], ['be worth it', 'valer a pena', 'The extra cost is worth it.'], ['come down to', 'se resumir a', 'It comes down to time and money.']],
+            expressions: [['weigh up', 'avaliar opções', 'We need to weigh up both plans.'], ['have an advantage over', 'ter uma vantagem sobre', 'The train has an advantage over the bus.'], ['be worth it', 'valer a pena', 'The extra cost is worth it.'], ['come down to', 'se resumir a', 'It comes down to time and money.']],
             readingTitle: 'Choosing the more practical option',
             reading: 'When Rafael compared two English courses, the cheaper option was not automatically the best. The first course was cheaper and closer to home, but the second was more flexible and offered more speaking practice. Rafael made a table with price, schedule, teacher support, and travel time. After comparing everything, he chose the second course because it was more useful for his routine. The decision came down to value, not only cost.',
             music: ['More than one choice', 'comparatives']
@@ -523,18 +523,18 @@
         {
             themes: ['describing the best place in town', 'choosing the most useful app', 'talking about the worst travel problem'],
             objectives: ['use superlatives correctly', 'handle best/worst and irregular adjectives', 'support opinions with examples'],
-            vocab: [['the best', 'o melhor', 'This is the best option.'], ['the worst', 'o pior', 'That was the worst delay.'], ['the farthest', 'o mais distante', 'It is the farthest station.'], ['the most useful', 'o mais util', 'This is the most useful feature.'], ['the least expensive', 'o menos caro', 'It is the least expensive plan.'], ['the busiest', 'o mais movimentado', 'Friday is the busiest day.'], ['the easiest', 'o mais facil', 'This is the easiest route.'], ['the most comfortable', 'o mais confortavel', 'It was the most comfortable seat.']],
+            vocab: [['the best', 'o melhor', 'This is the best option.'], ['the worst', 'o pior', 'That was the worst delay.'], ['the farthest', 'o mais distante', 'It is the farthest station.'], ['the most useful', 'o mais útil', 'This is the most useful feature.'], ['the least expensive', 'o menos caro', 'It is the least expensive plan.'], ['the busiest', 'o mais movimentado', 'Friday is the busiest day.'], ['the easiest', 'o mais fácil', 'This is the easiest route.'], ['the most comfortable', 'o mais confortável', 'It was the most comfortable seat.']],
             grammar: [['The + superlative', 'Use the before superlatives because you are identifying one item in a group: the best hotel, the most useful app.'], ['Irregular forms', 'Good -> better -> the best. Bad -> worse -> the worst. Far -> farther/further -> the farthest/furthest.'], ['Superlative with context', 'Always make the group clear: the best restaurant in this neighborhood, the most useful app for studying.']],
             examples: ['This is the most useful app for vocabulary.', 'Monday morning is the worst time to drive downtown.', 'That was the easiest explanation in the course.', 'What is the best restaurant near your house?'],
             expressions: [['rank as', 'classificar como', 'It ranks as the best choice.'], ['stand above', 'ficar acima', 'This option stands above the rest.'], ['beat the others', 'superar os outros', 'The location beats the others.'], ['at its best', 'no seu melhor', 'The city is at its best in spring.']],
             readingTitle: 'The best is not always the biggest',
-            reading: 'A group of students had to choose the best place for a class meeting. The largest cafe had more tables, but it was also the noisiest. The cheapest place was too far from the subway. The smallest cafe was the quietest and had the most comfortable chairs. In the end, the group chose it because the best place was the one that helped them talk, listen, and study, not the one that looked most impressive.',
+            reading: 'A group of students had to choose the best place for a class meeting. The largest café had more tables, but it was also the noisiest. The cheapest place was too far from the subway. The smallest café was the quietest and had the most comfortable chairs. In the end, the group chose it because the best place was the one that helped them talk, listen, and study, not the one that looked most impressive.',
             music: ['The best part', 'superlatives']
         },
         {
             themes: ['planning food for a meeting', 'shopping for a trip', 'organizing supplies at home'],
             objectives: ['use articles with new and known information', 'separate countable and uncountable nouns', 'choose quantifiers correctly'],
-            vocab: [['a receipt', 'um recibo', 'Keep the receipt.'], ['some advice', 'alguns conselhos', 'I need some advice.'], ['a few chairs', 'algumas cadeiras', 'We need a few chairs.'], ['a little time', 'um pouco de tempo', 'We have a little time.'], ['much information', 'muita informacao', 'There is not much information.'], ['many people', 'muitas pessoas', 'Many people arrived early.'], ['enough water', 'agua suficiente', 'We have enough water.'], ['several options', 'varias opcoes', 'There are several options.']],
+            vocab: [['a receipt', 'um recibo', 'Keep the receipt.'], ['some advice', 'alguns conselhos', 'I need some advice.'], ['a few chairs', 'algumas cadeiras', 'We need a few chairs.'], ['a little time', 'um pouco de tempo', 'We have a little time.'], ['much information', 'muita informação', 'There is not much information.'], ['many people', 'muitas pessoas', 'Many people arrived early.'], ['enough water', 'água suficiente', 'We have enough water.'], ['several options', 'várias opções', 'There are several options.']],
             grammar: [['A/an/the', 'Use a/an for one item mentioned for the first time. Use the when both speakers know which item you mean.'], ['Countable nouns', 'Use many, a few, several, and numbers with countable nouns: many chairs, a few questions.'], ['Uncountable nouns', 'Use much, a little, some, and enough with uncountable nouns: much information, a little time.']],
             examples: ['I need some information about the event.', 'There are a few chairs in the next room.', 'We do not have much time before lunch.', 'Could you buy a bottle of water?'],
             expressions: [['run out of', 'ficar sem', 'We ran out of coffee.'], ['stock up on', 'comprar bastante', 'We stocked up on snacks.'], ['cut down on', 'reduzir', 'I want to cut down on sugar.'], ['make do with', 'se virar com', 'We can make do with two tables.']],
@@ -545,7 +545,7 @@
         {
             themes: ['describing a scene before an event', 'explaining what people were doing in a photo', 'telling what was happening during a problem'],
             objectives: ['use was/were + -ing for background', 'describe simultaneous actions', 'set the scene before the main event'],
-            vocab: [['crossing', 'atravessando', 'She was crossing the street.'], ['waiting', 'esperando', 'We were waiting outside.'], ['carrying', 'carregando', 'He was carrying two bags.'], ['raining', 'chovendo', 'It was raining hard.'], ['standing', 'em pe', 'They were standing near the door.'], ['watching', 'assistindo / observando', 'I was watching the news.'], ['listening', 'ouvindo', 'She was listening carefully.'], ['background', 'contexto/cenario', 'The background explains the story.']],
+            vocab: [['crossing', 'atravessando', 'She was crossing the street.'], ['waiting', 'esperando', 'We were waiting outside.'], ['carrying', 'carregando', 'He was carrying two bags.'], ['raining', 'chovendo', 'It was raining hard.'], ['standing', 'em pé', 'They were standing near the door.'], ['watching', 'assistindo / observando', 'I was watching the news.'], ['listening', 'ouvindo', 'She was listening carefully.'], ['background', 'contexto/cenário', 'The background explains the story.']],
             grammar: [['Past Continuous form', 'Use was/were + verb-ing: I was studying, they were waiting.'], ['Scene setting', 'Past Continuous describes what was in progress before something important happened.'], ['Two actions in progress', 'Use while to connect two longer actions: I was cooking while she was studying.']],
             examples: ['I was waiting outside the bank.', 'They were talking near the entrance.', 'It was raining when we arrived.', 'What were you doing at nine?'],
             expressions: [['hang around', 'ficar por perto', 'We were hanging around the lobby.'], ['look around', 'olhar ao redor', 'She was looking around the store.'], ['sit around', 'ficar sentado sem fazer muito', 'They were sitting around before class.'], ['walk by', 'passar andando', 'A man was walking by the window.']],
@@ -567,7 +567,7 @@
         {
             themes: ['reviewing a weekend story', 'comparing two memories', 'telling a story with a song theme'],
             objectives: ['review past forms from lessons 1-7', 'mix sequence and interruption language', 'speak longer without losing order'],
-            vocab: [['memory', 'memoria', 'That memory is important to me.'], ['unexpected', 'inesperado', 'It was an unexpected moment.'], ['fortunately', 'felizmente', 'Fortunately, nobody was hurt.'], ['unfortunately', 'infelizmente', 'Unfortunately, we arrived late.'], ['meanwhile', 'enquanto isso', 'Meanwhile, my sister was calling us.'], ['afterwards', 'depois disso', 'We talked about it afterwards.'], ['turning point', 'virada', 'That was the turning point.'], ['ending', 'final', 'The ending was funny.']],
+            vocab: [['memory', 'memória', 'That memory is important to me.'], ['unexpected', 'inesperado', 'It was an unexpected moment.'], ['fortunately', 'felizmente', 'Fortunately, nobody was hurt.'], ['unfortunately', 'infelizmente', 'Unfortunately, we arrived late.'], ['meanwhile', 'enquanto isso', 'Meanwhile, my sister was calling us.'], ['afterwards', 'depois disso', 'We talked about it afterwards.'], ['turning point', 'virada', 'That was the turning point.'], ['ending', 'final', 'The ending was funny.']],
             grammar: [['Reviewing past stories', 'Use Past Simple for completed events and Past Continuous for background or interruptions.'], ['Adding connectors', 'Use fortunately, unfortunately, meanwhile, and afterwards to make the story richer.'], ['Longer speaking', 'A longer story needs clear order, not just more sentences.']],
             examples: ['Fortunately, we found the address before dark.', 'Meanwhile, my phone was running out of battery.', 'The trip started badly but ended well.', 'What was the turning point in the story?'],
             expressions: [['bring back', 'trazer de volta', 'That song brings back memories.'], ['sum up', 'resumir', 'Can you sum up the story?'], ['go wrong', 'dar errado', 'Everything went wrong at first.'], ['work out', 'dar certo', 'In the end, it worked out.']],
@@ -578,10 +578,10 @@
         {
             themes: ['making personal plans', 'planning a study routine', 'organizing the next weekend'],
             objectives: ['describe detailed plans with purpose and timing', 'use going to for predictions based on visible evidence', 'ask follow-up questions about intentions'],
-            vocab: [['evidence', 'evidencia', 'There is clear evidence in the sky.'], ['sign', 'sinal', 'Those clouds are a sign of rain.'], ['intend to', 'pretender', 'I intend to reduce my expenses.'], ['prepare', 'preparar', 'We are going to prepare the room tonight.'], ['improve', 'melhorar', 'She is going to improve the schedule.'], ['reduce', 'reduzir', 'They are going to reduce the price.'], ['replace', 'substituir', 'We are going to replace the old chairs.'], ['continue', 'continuar', 'I am going to continue with the plan.']],
+            vocab: [['evidence', 'evidência', 'There is clear evidence in the sky.'], ['sign', 'sinal', 'Those clouds are a sign of rain.'], ['intend to', 'pretender', 'I intend to reduce my expenses.'], ['prepare', 'preparar', 'We are going to prepare the room tonight.'], ['improve', 'melhorar', 'She is going to improve the schedule.'], ['reduce', 'reduzir', 'They are going to reduce the price.'], ['replace', 'substituir', 'We are going to replace the old chairs.'], ['continue', 'continuar', 'I am going to continue with the plan.']],
             grammar: [['Detailed plans', 'Use be going to + base verb for a prior decision. Add when, where, or why: We are going to prepare the room tonight because the event starts early.'], ['Prediction from evidence', 'Use going to when a present sign supports the prediction: Look at those dark clouds. It is going to rain.'], ['Follow-up questions', 'Use What, When, Where, Why, or How + be + subject + going to + verb: What are you going to change first?']],
             examples: ['We are going to prepare the room tonight because the event starts early.', 'Look at those dark clouds. It is going to rain.', 'What are you going to change first?', 'They are not going to cancel the picnic; they are going to move it indoors.'],
-            expressions: [['map out', 'planejar em detalhes', 'I mapped out the whole week.'], ['follow through', 'levar o plano ate o fim', 'We are going to follow through with the plan.'], ['sign up for', 'se inscrever', 'He is going to sign up for the course.'], ['stick to', 'seguir firme', 'I want to stick to my plan.']],
+            expressions: [['map out', 'planejar em detalhes', 'I mapped out the whole week.'], ['follow through', 'levar o plano até o fim', 'We are going to follow through with the plan.'], ['sign up for', 'se inscrever', 'He is going to sign up for the course.'], ['stick to', 'seguir firme', 'I want to stick to my plan.']],
             readingTitle: 'A plan that fits real life',
             reading: 'Renata is going to improve her English this month, but she is not going to make an impossible plan. She is going to study for twenty minutes on weekdays and watch one short video on Sundays. She is also going to practice a short answer aloud twice a week. The plan is simple, but it fits her routine. Because of that, she believes she is going to continue even when work gets busy.',
             music: ['I am going to begin', 'future plans']
@@ -589,7 +589,7 @@
         {
             themes: ['making predictions about work', 'offering help quickly', 'deciding during a conversation'],
             objectives: ['use will for predictions', 'use will for offers and promises', 'separate will from going to'],
-            vocab: [['probably', 'provavelmente', 'It will probably rain.'], ['promise', 'prometer', 'I promise I will call.'], ['offer', 'oferecer', 'I will help you.'], ['decision', 'decisao', 'I will decide later.'], ['believe', 'acreditar', 'I believe it will work.'], ['expect', 'esperar/achar', 'We expect prices will rise.'], ['guess', 'chutar/imaginar', 'I guess she will agree.'], ['soon', 'em breve', 'They will arrive soon.']],
+            vocab: [['probably', 'provavelmente', 'It will probably rain.'], ['promise', 'prometer', 'I promise I will call.'], ['offer', 'oferecer', 'I will help you.'], ['decision', 'decisão', 'I will decide later.'], ['believe', 'acreditar', 'I believe it will work.'], ['expect', 'esperar/achar', 'We expect prices will rise.'], ['guess', 'chutar/imaginar', 'I guess she will agree.'], ['soon', 'em breve', 'They will arrive soon.']],
             grammar: [['Will for prediction', 'Use will when you predict based on opinion or belief: I think it will be difficult.'], ['Will for instant decisions', 'Use will when you decide at the moment of speaking: I will answer it.'], ['Will for offers', 'Use will to offer help: I will carry that for you.']],
             examples: ['I think the meeting will be short.', 'I will send you the address.', 'She will probably arrive late.', 'Will prices go up next year?'],
             expressions: [['count on', 'contar com', 'You can count on me.'], ['turn out', 'acabar sendo', 'It will turn out fine.'], ['come up', 'surgir', 'Something will come up.'], ['take care of', 'cuidar de', 'I will take care of the tickets.']],
@@ -600,8 +600,8 @@
         {
             themes: ['fixed plans with friends', 'appointments this week', 'professional arrangements'],
             objectives: ['use present continuous for future arrangements', 'include time and place', 'contrast arrangements with intentions'],
-            vocab: [['meeting', 'encontrando/reuniao', 'I am meeting Ana at six.'], ['leaving', 'saindo', 'We are leaving tomorrow.'], ['having lunch', 'almocando', 'She is having lunch with a client.'], ['flying', 'voando', 'They are flying to Recife.'], ['appointment', 'compromisso/consulta', 'I have an appointment on Friday.'], ['schedule', 'agenda', 'Check your schedule.'], ['confirmed', 'confirmado', 'The time is confirmed.'], ['reschedule', 'remarcar', 'Can we reschedule the call?']],
-            grammar: [['Arrangement meaning', 'Present Continuous can describe future plans that are arranged with time/place: I am meeting Joao at 7.'], ['Time expressions', 'Use future time expressions to avoid confusion: tomorrow, next week, on Friday.'], ['Not only now', 'I am meeting can mean now or future. Context tells the listener which one you mean.']],
+            vocab: [['meeting', 'encontrando/reunião', 'I am meeting Ana at six.'], ['leaving', 'saindo', 'We are leaving tomorrow.'], ['having lunch', 'almocando', 'She is having lunch with a client.'], ['flying', 'voando', 'They are flying to Recife.'], ['appointment', 'compromisso/consulta', 'I have an appointment on Friday.'], ['schedule', 'agenda', 'Check your schedule.'], ['confirmed', 'confirmado', 'The time is confirmed.'], ['reschedule', 'remarcar', 'Can we reschedule the call?']],
+            grammar: [['Arrangement meaning', 'Present Continuous can describe future plans that are arranged with time/place: I am meeting João at 7.'], ['Time expressions', 'Use future time expressions to avoid confusion: tomorrow, next week, on Friday.'], ['Not only now', 'I am meeting can mean now or future. Context tells the listener which one you mean.']],
             examples: ['I am meeting my teacher tomorrow.', 'We are leaving at seven on Saturday.', 'She is having lunch with a client on Friday.', 'Are you working from home next week?'],
             expressions: [['set up', 'marcar/organizar', 'We set up a call for Tuesday.'], ['move up', 'adiantar', 'They moved up the meeting.'], ['push back', 'adiar', 'Can we push back the appointment?'], ['show up', 'aparecer/comparecer', 'Please show up on time.']],
             readingTitle: 'A calendar full of arrangements',
@@ -611,7 +611,7 @@
         {
             themes: ['choosing the best future form', 'planning and predicting a project', 'talking about real future situations'],
             objectives: ['choose going to, will, or present continuous', 'explain why the form fits', 'speak about future situations naturally'],
-            vocab: [['arrangement', 'combinado', 'The arrangement is confirmed.'], ['prediction', 'previsao', 'My prediction is positive.'], ['intention', 'intencao', 'Her intention is to help.'], ['deadline', 'prazo', 'The deadline is next week.'], ['likely', 'provavel', 'It is likely to work.'], ['unlikely', 'improvavel', 'It is unlikely to rain.'], ['confirm', 'confirmar', 'Please confirm the time.'], ['cancel', 'cancelar', 'They will not cancel.']],
+            vocab: [['arrangement', 'combinado', 'The arrangement is confirmed.'], ['prediction', 'previsão', 'My prediction is positive.'], ['intention', 'intenção', 'Her intention is to help.'], ['deadline', 'prazo', 'The deadline is next week.'], ['likely', 'provável', 'It is likely to work.'], ['unlikely', 'improvável', 'It is unlikely to rain.'], ['confirm', 'confirmar', 'Please confirm the time.'], ['cancel', 'cancelar', 'They will not cancel.']],
             grammar: [['Choosing the form', 'Use going to for plans, will for instant decisions/predictions, and present continuous for fixed arrangements.'], ['Meaning first', 'Do not choose grammar by translating. Decide what you mean first: plan, prediction, offer, or arrangement.'], ['Mixed future talk', 'Real conversations often mix forms: I am meeting Ana, and I think we will finish early.']],
             examples: ['I am meeting the team at nine.', 'We are going to present the idea next month.', 'I think the client will like it.', 'I will send the file after class.'],
             expressions: [['follow up', 'dar seguimento', 'I will follow up tomorrow.'], ['work out', 'dar certo', 'The plan will work out.'], ['back up', 'apoiar/fazer backup', 'Back up the file before the meeting.'], ['line up', 'organizar/alinhar', 'We lined up three options.']],
@@ -622,7 +622,7 @@
         {
             themes: ['asking permission in class', 'making polite requests at work', 'talking about what is allowed'],
             objectives: ['use can and could for permission', 'sound polite without being too formal', 'answer permission requests clearly'],
-            vocab: [['permission', 'permissao', 'Can I ask for permission?'], ['allowed', 'permitido', 'Phones are allowed here.'], ['request', 'pedido', 'I have a small request.'], ['borrow', 'pegar emprestado', 'Could I borrow your pen?'], ['leave early', 'sair cedo', 'Can I leave early today?'], ['use', 'usar', 'Can I use your charger?'], ['repeat', 'repetir', 'Could you repeat that?'], ['interrupt', 'interromper', 'Sorry to interrupt.']],
+            vocab: [['permission', 'permissão', 'Can I ask for permission?'], ['allowed', 'permitido', 'Phones are allowed here.'], ['request', 'pedido', 'I have a small request.'], ['borrow', 'pegar emprestado', 'Could I borrow your pen?'], ['leave early', 'sair cedo', 'Can I leave early today?'], ['use', 'usar', 'Can I use your charger?'], ['repeat', 'repetir', 'Could you repeat that?'], ['interrupt', 'interromper', 'Sorry to interrupt.']],
             grammar: [['Can for permission', 'Use Can I...? for common permission requests: Can I open the window?'], ['Could for politeness', 'Could I...? and Could you...? sound softer and more polite.'], ['Short answers', 'Use clear answers: Yes, of course. Sorry, not right now. Sure, go ahead.']],
             examples: ['Can I use your charger?', 'Could I leave five minutes early?', 'Can we use this room?', 'Could you repeat the instruction?'],
             expressions: [['go ahead', 'va em frente', 'Sure, go ahead.'], ['hold on', 'esperar', 'Could you hold on a second?'], ['speak up', 'falar mais alto', 'Could you speak up, please?'], ['turn down', 'abaixar', 'Can you turn down the volume?']],
@@ -633,7 +633,7 @@
         {
             themes: ['rules at work', 'course requirements', 'things you need to do before a trip'],
             objectives: ['use must, have to, and need to', 'separate strong rules from practical necessities', 'explain obligations with reasons'],
-            vocab: [['must', 'deve/precisa', 'You must wear a badge.'], ['have to', 'ter que', 'We have to arrive early.'], ['need to', 'precisar', 'I need to finish this form.'], ['requirement', 'exigencia', 'This is a requirement.'], ['badge', 'cracha', 'Visitors must wear a badge.'], ['deadline', 'prazo', 'We have to meet the deadline.'], ['document', 'documento', 'You need to bring a document.'], ['mandatory', 'obrigatorio', 'Attendance is mandatory.']],
+            vocab: [['must', 'deve/precisa', 'You must wear a badge.'], ['have to', 'ter que', 'We have to arrive early.'], ['need to', 'precisar', 'I need to finish this form.'], ['requirement', 'exigência', 'This is a requirement.'], ['badge', 'crachá', 'Visitors must wear a badge.'], ['deadline', 'prazo', 'We have to meet the deadline.'], ['document', 'documento', 'You need to bring a document.'], ['mandatory', 'obrigatório', 'Attendance is mandatory.']],
             grammar: [['Must', 'Must often sounds like a strong rule or official instruction.'], ['Have to', 'Have to often shows an external obligation: a law, schedule, rule, or situation.'], ['Need to', 'Need to focuses on practical necessity: I need to call the hotel before check-in.']],
             examples: ['You must show your ID at reception.', 'We have to submit the form today.', 'She needs to call the doctor before noon.', 'Do we have to pay now?'],
             expressions: [['fill out', 'preencher', 'You need to fill out this form.'], ['hand in', 'entregar', 'We have to hand in the report.'], ['check in', 'registrar entrada', 'Visitors must check in first.'], ['keep up with', 'acompanhar', 'I have to keep up with the course.']],
@@ -644,7 +644,7 @@
         {
             themes: ['giving advice to a tired friend', 'study advice for consistency', 'healthier daily habits'],
             objectives: ['give specific advice that is realistic to follow', 'make recommendations sound tactful and supportive', 'explain priorities, reasons, and limits'],
-            vocab: [['specific', 'especifico', 'Try to give specific advice.'], ['realistic', 'realista', 'Choose a realistic goal.'], ['manageable', 'possivel de administrar', 'Make the task manageable.'], ['overwhelmed', 'sobrecarregado', 'She feels overwhelmed.'], ['priority', 'prioridade', 'Choose one priority today.'], ['boundary', 'limite', 'Set a clear boundary at work.'], ['supportive', 'acolhedor', 'His message was supportive.'], ['balanced', 'equilibrado', 'Keep a balanced routine.']],
+            vocab: [['specific', 'específico', 'Try to give specific advice.'], ['realistic', 'realista', 'Choose a realistic goal.'], ['manageable', 'possível de administrar', 'Make the task manageable.'], ['overwhelmed', 'sobrecarregado', 'She feels overwhelmed.'], ['priority', 'prioridade', 'Choose one priority today.'], ['boundary', 'limite', 'Set a clear boundary at work.'], ['supportive', 'acolhedor', 'His message was supportive.'], ['balanced', 'equilibrado', 'Keep a balanced routine.']],
             grammar: [['Action plus reason', 'Use should or could + base verb, then explain why: You should choose one priority because your list is too long.'], ['Tactful openings', 'Maybe, I think, and If I were you make advice less direct. Could suggests one possible option instead of one correct answer.'], ['Limits and boundaries', 'Use I do not think you should... for a careful warning. Use need to when the situation requires a stronger next step.']],
             examples: ['Maybe you should choose one priority because your list is too long.', 'If I were you, I would turn off notifications for an hour.', 'You could make the goal more manageable by dividing it into three steps.', 'I do not think you should compare your progress with someone else\'s.'],
             expressions: [['slow down', 'ir mais devagar', 'You should slow down this week.'], ['open up', 'se abrir', 'You should open up to someone.'], ['deal with', 'lidar com', 'She is dealing with stress.'], ['burn out', 'ficar esgotado', 'Do not burn out before the test.']],
@@ -655,7 +655,7 @@
         {
             themes: ['reviewing polite requests', 'discussing rules and advice', 'solving a classroom problem'],
             objectives: ['review can, could, must, have to, need to, and should', 'choose the best modal for meaning', 'make requests and advice sound natural'],
-            vocab: [['choice', 'escolha', 'The modal changes the choice.'], ['tone', 'tom', 'Tone changes the message.'], ['necessary', 'necessario', 'It is necessary today.'], ['optional', 'opcional', 'The last task is optional.'], ['polite', 'educado', 'Could sounds more polite.'], ['strict', 'rigido', 'Must sounds strict.'], ['helpful', 'util', 'Should gives helpful advice.'], ['rule', 'regra', 'This rule is clear.']],
+            vocab: [['choice', 'escolha', 'The modal changes the choice.'], ['tone', 'tom', 'Tone changes the message.'], ['necessary', 'necessário', 'It is necessary today.'], ['optional', 'opcional', 'The last task is optional.'], ['polite', 'educado', 'Could sounds more polite.'], ['strict', 'rígido', 'Must sounds strict.'], ['helpful', 'útil', 'Should gives helpful advice.'], ['rule', 'regra', 'This rule is clear.']],
             grammar: [['Modal meaning', 'Can/could ask permission, must/have to express obligation, and should gives advice.'], ['No to after modals', 'Use the base verb after modals: should study, must leave, can ask.'], ['Context decides', 'The correct modal depends on tone and situation, not only translation.']],
             examples: ['Could you help me with this exercise?', 'You must not share the test answers.', 'We have to finish before five.', 'You should review the examples aloud.'],
             expressions: [['speak up', 'falar mais alto', 'Could you speak up?'], ['hand in', 'entregar', 'You must hand in the form.'], ['keep up', 'acompanhar', 'You should keep up with the lessons.'], ['go ahead', 'va em frente', 'Can I start? Yes, go ahead.']],
@@ -666,7 +666,7 @@
         {
             themes: ['travel experiences', 'professional achievements', 'new things you have tried'],
             objectives: ['use Present Perfect for life experiences', 'ask questions with ever', 'answer with never and before'],
-            vocab: [['ever', 'ja alguma vez', 'Have you ever traveled alone?'], ['never', 'nunca', 'I have never tried sushi.'], ['experience', 'experiencia', 'It was a great experience.'], ['abroad', 'no exterior', 'She has studied abroad.'], ['achievement', 'conquista', 'It is an achievement.'], ['try', 'experimentar', 'Have you tried this app?'], ['visit', 'visitar', 'I have visited three capitals.'], ['before', 'antes', 'I have seen this before.']],
+            vocab: [['ever', 'já alguma vez', 'Have you ever traveled alone?'], ['never', 'nunca', 'I have never tried sushi.'], ['experience', 'experiência', 'It was a great experience.'], ['abroad', 'no exterior', 'She has studied abroad.'], ['achievement', 'conquista', 'It is an achievement.'], ['try', 'experimentar', 'Have you tried this app?'], ['visit', 'visitar', 'I have visited three capitals.'], ['before', 'antes', 'I have seen this before.']],
             grammar: [['Have/has + participle', 'Use have/has + past participle for experiences without exact finished time.'], ['Ever in questions', 'Use ever to ask about life experience: Have you ever...?'], ['Never in answers', 'Never means zero experience until now: I have never traveled alone.']],
             examples: ['Have you ever worked with foreign clients?', 'I have never traveled alone.', 'She has visited three countries.', 'We have tried that restaurant before.'],
             expressions: [['try out', 'testar', 'I have tried out a new app.'], ['come across', 'encontrar por acaso', 'I came across a useful article.'], ['go through', 'passar por', 'She has gone through many changes.'], ['build up', 'desenvolver aos poucos', 'He has built up confidence.']],
@@ -677,10 +677,10 @@
         {
             themes: ['things already done this week', 'tasks not finished yet', 'experiences you have never had'],
             objectives: ['use already in affirmative sentences', 'use yet in questions and negatives', 'use ever/never for experience'],
-            vocab: [['already', 'ja', 'I have already finished.'], ['yet', 'ainda/ja', 'Have you finished yet?'], ['still', 'ainda', 'I still need help.'], ['recently', 'recentemente', 'She has recently moved.'], ['complete', 'completar', 'We have completed the task.'], ['submit', 'enviar/entregar', 'He has submitted the file.'], ['reply', 'responder', 'They have not replied yet.'], ['update', 'atualizar', 'I have updated the document.']],
+            vocab: [['already', 'já', 'I have already finished.'], ['yet', 'ainda/já', 'Have you finished yet?'], ['still', 'ainda', 'I still need help.'], ['recently', 'recentemente', 'She has recently moved.'], ['complete', 'completar', 'We have completed the task.'], ['submit', 'enviar/entregar', 'He has submitted the file.'], ['reply', 'responder', 'They have not replied yet.'], ['update', 'atualizar', 'I have updated the document.']],
             grammar: [['Already', 'Already usually appears in affirmative sentences and suggests something happened sooner than expected.'], ['Yet', 'Yet is common in questions and negatives: Have you eaten yet? I have not eaten yet.'], ['Ever and never', 'Ever asks about experience; never gives a negative experience answer.']],
             examples: ['I have already sent the report.', 'She has not replied yet.', 'Have you updated the document yet?', 'He has never missed a deadline.'],
-            expressions: [['catch up on', 'colocar em dia', 'I need to catch up on emails.'], ['send out', 'enviar para varias pessoas', 'We have sent out the invitations.'], ['check off', 'marcar como feito', 'I checked off three tasks.'], ['fall behind', 'ficar atrasado', 'She has fallen behind this week.']],
+            expressions: [['catch up on', 'colocar em dia', 'I need to catch up on emails.'], ['send out', 'enviar para várias pessoas', 'We have sent out the invitations.'], ['check off', 'marcar como feito', 'I checked off three tasks.'], ['fall behind', 'ficar atrasado', 'She has fallen behind this week.']],
             readingTitle: 'The list that keeps changing',
             reading: 'By Thursday afternoon, Lucas had already completed three important tasks, but he had not replied to all his messages yet. He had sent out the invitations, updated the spreadsheet, and checked off the budget review. However, two clients still had not answered. The list showed his progress and his unfinished work at the same time. Already and yet helped him explain both sides clearly.',
             music: ['Not yet already', 'task progress']
@@ -688,7 +688,7 @@
         {
             themes: ['a trip with and without dates', 'work experience and finished events', 'talking about recent results'],
             objectives: ['contrast Present Perfect and Past Simple', 'use finished time expressions correctly', 'avoid mixing exact time with Present Perfect'],
-            vocab: [['in 2022', 'em 2022', 'I visited Recife in 2022.'], ['before', 'antes', 'I have been there before.'], ['last year', 'ano passado', 'She changed jobs last year.'], ['recently', 'recentemente', 'I have recently changed jobs.'], ['yesterday', 'ontem', 'We finished the project yesterday.'], ['so far', 'ate agora', 'We have finished three tasks so far.'], ['twice', 'duas vezes', 'I have visited Salvador twice.'], ['when', 'quando', 'When did you send the file?']],
+            vocab: [['in 2022', 'em 2022', 'I visited Recife in 2022.'], ['before', 'antes', 'I have been there before.'], ['last year', 'ano passado', 'She changed jobs last year.'], ['recently', 'recentemente', 'I have recently changed jobs.'], ['yesterday', 'ontem', 'We finished the project yesterday.'], ['so far', 'até agora', 'We have finished three tasks so far.'], ['twice', 'duas vezes', 'I have visited Salvador twice.'], ['when', 'quando', 'When did you send the file?']],
             grammar: [['Past Simple with when', 'Use Past Simple when you say when: yesterday, last month, in 2021.'], ['Present Perfect without exact time', 'Use Present Perfect when the experience or result matters more than the exact date.'], ['Do not mix', 'Avoid: I have visited London last year. Say: I visited London last year.']],
             examples: ['I visited Salvador in 2021.', 'I have visited Salvador twice.', 'She finished the course last month.', 'She has finished the course and feels more confident.'],
             expressions: [['look back on', 'relembrar', 'I look back on that trip often.'], ['bring up', 'mencionar', 'He brought up an old project.'], ['move on from', 'seguir em frente', 'She moved on from that job.'], ['come a long way', 'evoluir muito', 'You have come a long way.']],
@@ -699,18 +699,18 @@
         {
             themes: ['where someone has been', 'where someone has gone', 'travel and return', 'people not here right now'],
             objectives: ['separate been and gone', 'explain returned and not returned situations', 'use context to avoid confusion'],
-            vocab: [['been to', 'foi e voltou', 'I have been to Curitiba.'], ['gone to', 'foi e ainda esta la', 'She has gone to the bank.'], ['returned', 'voltou', 'He has returned home.'], ['away', 'fora/ausente', 'She is away this week.'], ['back', 'de volta', 'They are back now.'], ['trip', 'viagem', 'The trip was short.'], ['destination', 'destino', 'What was the destination?'], ['still there', 'ainda la', 'He is still there.']],
+            vocab: [['been to', 'foi e voltou', 'I have been to Curitiba.'], ['gone to', 'foi e ainda está lá', 'She has gone to the bank.'], ['returned', 'voltou', 'He has returned home.'], ['away', 'fora/ausente', 'She is away this week.'], ['back', 'de volta', 'They are back now.'], ['trip', 'viagem', 'The trip was short.'], ['destination', 'destino', 'What was the destination?'], ['still there', 'ainda lá', 'He is still there.']],
             grammar: [['Been to', 'Use been to when the person visited and returned: I have been to London.'], ['Gone to', 'Use gone to when the person went and is not back yet: She has gone to the store.'], ['Context matters', 'Been and gone can change the whole meaning of the sentence, especially when explaining where someone is.']],
             examples: ['I have been to that museum twice.', 'She has gone to the pharmacy and will be back soon.', 'Have you ever been to Argentina?', 'They have gone home already.'],
             expressions: [['get back', 'voltar', 'She will get back soon.'], ['go away', 'viajar/sair', 'He has gone away for the weekend.'], ['come back', 'voltar', 'They came back yesterday.'], ['stop by', 'passar rapidamente', 'I stopped by the office.']],
             readingTitle: 'Where is Clara?',
-            reading: 'At lunch, two coworkers talked about Clara. One said, "She has been to the new cafe," meaning Clara visited it before and returned. The other said, "No, she has gone to the cafe," meaning Clara was there at that moment. The small difference mattered because they were trying to find her. Been and gone are short words, but they can explain whether someone is back or still away.',
+            reading: 'At lunch, two coworkers talked about Clara. One said, "She has been to the new café," meaning Clara visited it before and returned. The other said, "No, she has gone to the café," meaning Clara was there at that moment. The small difference mattered because they were trying to find her. Been and gone are short words, but they can explain whether someone is back or still away.',
             music: ['Been there gone now', 'been and gone']
         },
         {
             themes: ['describing symptoms', 'giving simple health advice', 'explaining how long a problem has lasted'],
             objectives: ['describe changes in symptoms over time', 'use present perfect to report recovery and recent results', 'decide when a health change needs a next step'],
-            vocab: [['mild', 'leve', 'The pain is mild today.'], ['severe', 'forte / grave', 'Call the clinic if the pain becomes severe.'], ['swollen', 'inchado', 'My ankle is still swollen.'], ['rash', 'erupcao na pele', 'The rash has spread.'], ['congested', 'congestionado', 'I still feel congested.'], ['nauseous', 'enjoado', 'She has felt nauseous since lunch.'], ['improve', 'melhorar', 'The cough has improved.'], ['get worse', 'piorar', 'The pain has got worse.']],
+            vocab: [['mild', 'leve', 'The pain is mild today.'], ['severe', 'forte / grave', 'Call the clinic if the pain becomes severe.'], ['swollen', 'inchado', 'My ankle is still swollen.'], ['rash', 'erupção na pele', 'The rash has spread.'], ['congested', 'congestionado', 'I still feel congested.'], ['nauseous', 'enjoado', 'She has felt nauseous since lunch.'], ['improve', 'melhorar', 'The cough has improved.'], ['get worse', 'piorar', 'The pain has got worse.']],
             grammar: [['Change until now', 'Use have/has + past participle to report a change with a result now: My cough has got worse since yesterday.'], ['Still, already, and yet', 'Still shows a continuing symptom. Already shows an earlier result. Yet is common in questions and negatives: Has the swelling gone down yet?'], ['Change and next step', 'Describe the change first, then choose advice or necessity: The rash has spread, so you need to call the clinic.']],
             examples: ['My cough has got worse since yesterday.', 'The fever has already gone down.', 'I still feel weak, but the medicine has started to work.', 'The rash has spread, so I need to call the clinic.'],
             expressions: [['come down with', 'ficar doente', 'I came down with a cold.'], ['get over', 'se recuperar', 'She is getting over the flu.'], ['flare up', 'voltar a piorar', 'The rash flared up last night.'], ['wear off', 'perder o efeito', 'The medicine has worn off.']],
@@ -721,7 +721,7 @@
         {
             themes: ['talking to a doctor', 'describing pain and duration', 'asking about treatment'],
             objectives: ['handle a basic medical consultation', 'answer doctor questions clearly', 'use since/for with symptoms'],
-            vocab: [['symptom', 'sintoma', 'What symptoms do you have?'], ['pain', 'dor', 'Where is the pain?'], ['treatment', 'tratamento', 'The treatment helped.'], ['prescription', 'receita medica', 'The doctor gave me a prescription.'], ['allergy', 'alergia', 'Do you have any allergies?'], ['dose', 'dose', 'Take one dose at night.'], ['for three days', 'por tres dias', 'I have felt sick for three days.'], ['since Friday', 'desde sexta', 'I have had pain since Friday.']],
+            vocab: [['symptom', 'sintoma', 'What symptoms do you have?'], ['pain', 'dor', 'Where is the pain?'], ['treatment', 'tratamento', 'The treatment helped.'], ['prescription', 'receita médica', 'The doctor gave me a prescription.'], ['allergy', 'alergia', 'Do you have any allergies?'], ['dose', 'dose', 'Take one dose at night.'], ['for three days', 'por três dias', 'I have felt sick for three days.'], ['since Friday', 'desde sexta', 'I have had pain since Friday.']],
             grammar: [['How long questions', 'Use How long have you had...? to ask about duration.'], ['For and since', 'Use for with a period of time and since with a starting point.'], ['Medical clarity', 'Use specific words: sharp pain, mild fever, strong cough, light headache.']],
             examples: ['How long have you had this cough?', 'I have had back pain for three days.', 'She has felt dizzy since Friday.', 'Do you have any allergies?'],
             expressions: [['take in', 'ingerir/absorver', 'Take in more fluids.'], ['lie down', 'deitar', 'You should lie down for a while.'], ['clear up', 'melhorar/desaparecer', 'The rash cleared up.'], ['follow up', 'acompanhar', 'The doctor will follow up next week.']],
@@ -732,9 +732,9 @@
         {
             themes: ['describing a room', 'explaining where objects are', 'giving location clues'],
             objectives: ['distinguish points, areas, surfaces, and floors', 'use in the corner and at the corner accurately', 'give precise location details in buildings and streets'],
-            vocab: [['at the front desk', 'na recepcao', 'Leave the package at the front desk.'], ['on the second floor', 'no segundo andar', 'The office is on the second floor.'], ['in the corner', 'no canto interno', 'The chair is in the corner.'], ['at the corner', 'na esquina', 'Meet me at the corner of King Street.'], ['inside', 'dentro', 'Wait inside the building.'], ['outside', 'do lado de fora', 'The taxi is outside.'], ['at the back', 'nos fundos', 'The garden is at the back.'], ['on the left-hand side', 'do lado esquerdo', 'The elevator is on the left-hand side.']],
-            grammar: [['In or at', 'Use in for an area or enclosed space: in the lobby, in the office. Use at for a point or service location: at reception, at the entrance.'], ['On', 'Use on for surfaces, street names, and floors: on the desk, on Pine Street, on the third floor.'], ['Two kinds of corner', 'In the corner means inside a room or space. At the corner means a street intersection: a chair in the corner; a cafe at the corner.']],
-            examples: ['Leave the package at the front desk in the lobby.', 'The meeting room is on the second floor.', 'There is a small table in the corner of the office.', 'The cafe is at the corner of Lake Street and Park Road.'],
+            vocab: [['at the front desk', 'na recepção', 'Leave the package at the front desk.'], ['on the second floor', 'no segundo andar', 'The office is on the second floor.'], ['in the corner', 'no canto interno', 'The chair is in the corner.'], ['at the corner', 'na esquina', 'Meet me at the corner of King Street.'], ['inside', 'dentro', 'Wait inside the building.'], ['outside', 'do lado de fora', 'The taxi is outside.'], ['at the back', 'nos fundos', 'The garden is at the back.'], ['on the left-hand side', 'do lado esquerdo', 'The elevator is on the left-hand side.']],
+            grammar: [['In or at', 'Use in for an area or enclosed space: in the lobby, in the office. Use at for a point or service location: at reception, at the entrance.'], ['On', 'Use on for surfaces, street names, and floors: on the desk, on Pine Street, on the third floor.'], ['Two kinds of corner', 'In the corner means inside a room or space. At the corner means a street intersection: a chair in the corner; a café at the corner.']],
+            examples: ['Leave the package at the front desk in the lobby.', 'The meeting room is on the second floor.', 'There is a small table in the corner of the office.', 'The café is at the corner of Lake Street and Park Road.'],
             expressions: [['look for', 'procurar', 'I am looking for my keys.'], ['put away', 'guardar', 'Put away the documents.'], ['show around', 'mostrar o lugar', 'She showed me around the apartment.'], ['move around', 'mudar de lugar', 'We moved the chairs around.']],
             readingTitle: 'The missing keys',
             reading: 'Before leaving home, Sofia could not find her keys. She looked on the table, under the notebook, and behind the sofa. Then she remembered that she had put them in the small bowl next to the door. The search was annoying, but it was a perfect exercise in prepositions of place. Location language becomes useful when something is missing.',
@@ -743,21 +743,21 @@
         {
             themes: ['reviewing city directions', 'describing places and times', 'solving a practical problem in town'],
             objectives: ['review practical prepositions', 'combine place, movement, and time', 'speak through a real-life situation'],
-            vocab: [['landmark', 'ponto de referencia', 'Use the museum as a landmark.'], ['nearby', 'perto', 'There is a cafe nearby.'], ['corner', 'esquina', 'Turn at the corner.'], ['entrance', 'entrada', 'The entrance is on the left.'], ['at noon', 'ao meio-dia', 'Meet me at noon.'], ['on Monday', 'na segunda', 'The office opens on Monday.'], ['in July', 'em julho', 'The event is in July.'], ['around the block', 'ao redor do quarteirao', 'Walk around the block.']],
+            vocab: [['landmark', 'ponto de referência', 'Use the museum as a landmark.'], ['nearby', 'perto', 'There is a café nearby.'], ['corner', 'esquina', 'Turn at the corner.'], ['entrance', 'entrada', 'The entrance is on the left.'], ['at noon', 'ao meio-dia', 'Meet me at noon.'], ['on Monday', 'na segunda', 'The office opens on Monday.'], ['in July', 'em julho', 'The event is in July.'], ['around the block', 'ao redor do quarteirão', 'Walk around the block.']],
             grammar: [['Place review', 'Use at for points, in for areas, and on for streets/surfaces.'], ['Movement review', 'Use to, into, out of, across, through, and past for direction.'], ['Time review', 'Use at for times, on for days/dates, and in for months/years.']],
             examples: ['Walk past the museum and turn left at the corner.', 'The meeting is at noon on Monday.', 'The entrance is across from the parking lot.', 'We are staying in Recife in July.'],
             expressions: [['get around', 'se locomover', 'It is easy to get around here.'], ['drop by', 'passar rapidamente', 'Drop by the office later.'], ['show up', 'aparecer/chegar', 'He showed up at ten.'], ['head to', 'ir para', 'We are heading to the station.']],
             readingTitle: 'A practical message',
-            reading: 'Carla sent her friend a voice message with directions and time information. She said, "Meet me at the entrance of the museum at noon. Walk past the bank, turn left at the corner, and you will see a small cafe across from the parking lot." The message was short but complete because it combined place, movement, and time clearly.',
+            reading: 'Carla sent her friend a voice message with directions and time information. She said, "Meet me at the entrance of the museum at noon. Walk past the bank, turn left at the corner, and you will see a small café across from the parking lot." The message was short but complete because it combined place, movement, and time clearly.',
             music: ['Around the block', 'preposition review']
         },
         {
             themes: ['describing movement through a city', 'explaining how someone got somewhere', 'telling a route with action verbs'],
             objectives: ['use movement prepositions', 'describe routes step by step', 'separate destination from path'],
-            vocab: [['to', 'para', 'Go to the station.'], ['into', 'para dentro', 'Walk into the building.'], ['out of', 'para fora', 'Come out of the room.'], ['through', 'atraves de', 'Walk through the park.'], ['across', 'atravessando', 'Go across the street.'], ['past', 'passando por', 'Walk past the bank.'], ['toward', 'em direcao a', 'Go toward the bridge.'], ['along', 'ao longo de', 'Walk along the river.']],
+            vocab: [['to', 'para', 'Go to the station.'], ['into', 'para dentro', 'Walk into the building.'], ['out of', 'para fora', 'Come out of the room.'], ['through', 'através de', 'Walk through the park.'], ['across', 'atravessando', 'Go across the street.'], ['past', 'passando por', 'Walk past the bank.'], ['toward', 'em direção a', 'Go toward the bridge.'], ['along', 'ao longo de', 'Walk along the river.']],
             grammar: [['Destination', 'Use to for destination: go to the hotel.'], ['Path', 'Use through, across, past, along, and toward to describe the path.'], ['Into/out of', 'Use into and out of when movement crosses a boundary.']],
             examples: ['Walk through the park and across the bridge.', 'Go past the supermarket and turn right.', 'She ran into the station because she was late.', 'We walked along the river after lunch.'],
-            expressions: [['come across', 'encontrar por acaso', 'We came across a small bookstore.'], ['go past', 'passar por', 'Go past the church.'], ['pull into', 'entrar com veiculo', 'The bus pulled into the station.'], ['head toward', 'ir em direcao a', 'Head toward the main square.']],
+            expressions: [['come across', 'encontrar por acaso', 'We came across a small bookstore.'], ['go past', 'passar por', 'Go past the church.'], ['pull into', 'entrar com veículo', 'The bus pulled into the station.'], ['head toward', 'ir em direção a', 'Head toward the main square.']],
             readingTitle: 'The route by the river',
             reading: 'Instead of taking the fastest route, Leo walked along the river, through a quiet park, and across a small bridge. He went past a bookstore and came across a weekend market. The route took longer, but it helped him understand the neighborhood. Movement prepositions turned the walk into a clear mental map.',
             music: ['Through the streets', 'movement prepositions']
@@ -765,7 +765,7 @@
         {
             themes: ['talking about schedules', 'planning dates and times', 'explaining routines in a calendar'],
             objectives: ['distinguish deadlines from continuing periods', 'use during, for, before, and after accurately', 'negotiate time windows and schedule changes'],
-            vocab: [['by Friday', 'ate sexta como prazo', 'Please send the form by Friday.'], ['until noon', 'ate meio-dia continuamente', 'The office is open until noon.'], ['from...to...', 'de...ate...', 'The class runs from six to eight.'], ['during', 'durante', 'Do not use your phone during the meeting.'], ['before', 'antes de', 'Call me before lunch.'], ['after', 'depois de', 'We can talk after class.'], ['within', 'dentro de um prazo', 'We will reply within two days.'], ['in two days', 'daqui a dois dias', 'The order will arrive in two days.']],
+            vocab: [['by Friday', 'até sexta como prazo', 'Please send the form by Friday.'], ['until noon', 'até meio-dia continuamente', 'The office is open until noon.'], ['from...to...', 'de...até...', 'The class runs from six to eight.'], ['during', 'durante', 'Do not use your phone during the meeting.'], ['before', 'antes de', 'Call me before lunch.'], ['after', 'depois de', 'We can talk after class.'], ['within', 'dentro de um prazo', 'We will reply within two days.'], ['in two days', 'daqui a dois dias', 'The order will arrive in two days.']],
             grammar: [['By or until', 'By gives a deadline: Send it by Friday. Until describes continuation to an end point: The office is open until Friday.'], ['During or for', 'During comes before an event or period: during the meeting. For shows duration: for two hours.'], ['Time windows', 'Use from...to... for a complete range. Use before and after to position one event in relation to another. Within means before a period ends.']],
             examples: ['Please send the signed form by Friday.', 'The support desk is open until noon.', 'The workshop runs from nine to eleven.', 'We will reply within two business days.'],
             expressions: [['put off', 'adiar', 'Do not put off the task.'], ['move up', 'adiantar', 'They moved up the deadline.'], ['fit in', 'encaixar', 'Can we fit in a short call?'], ['run late', 'estar atrasado', 'I am running late.']],
@@ -776,9 +776,9 @@
         {
             themes: ['helping a tourist downtown', 'giving directions by phone', 'finding a room in a large building'],
             objectives: ['give multi-step directions with clear landmarks', 'locate turns before and after reference points', 'check and clarify a route during a conversation'],
-            vocab: [['intersection', 'cruzamento', 'Turn right at the next intersection.'], ['pedestrian crossing', 'faixa de pedestres', 'Cross at the pedestrian crossing.'], ['roundabout', 'rotatoria', 'Take the second exit at the roundabout.'], ['entrance', 'entrada', 'The side entrance is after the cafe.'], ['exit', 'saida', 'Use the north exit.'], ['landmark', 'ponto de referencia', 'The library is a useful landmark.'], ['before', 'antes de', 'Turn left before the bridge.'], ['after', 'depois de', 'The clinic is just after the bank.']],
+            vocab: [['intersection', 'cruzamento', 'Turn right at the next intersection.'], ['pedestrian crossing', 'faixa de pedestres', 'Cross at the pedestrian crossing.'], ['roundabout', 'rotatória', 'Take the second exit at the roundabout.'], ['entrance', 'entrada', 'The side entrance is after the café.'], ['exit', 'saída', 'Use the north exit.'], ['landmark', 'ponto de referência', 'The library is a useful landmark.'], ['before', 'antes de', 'Turn left before the bridge.'], ['after', 'depois de', 'The clinic is just after the bank.']],
             grammar: [['Route sequence', 'Divide a longer route into stages with first, then, after that, and finally. Give one landmark for each important turn.'], ['Before or after', 'Place before or after directly before the landmark: Turn left before the bridge. The entrance is just after the pharmacy.'], ['Clarify and check', 'Ask one precise question: Is that before or after the roundabout? Then check back: So I take the second exit, right?']],
-            examples: ['First, cross at the pedestrian crossing and keep going to the roundabout.', 'Take the second exit, then turn left after the library.', 'Is the side entrance before or after the cafe?', 'So I use the north exit and cross the parking lot, right?'],
+            examples: ['First, cross at the pedestrian crossing and keep going to the roundabout.', 'Take the second exit, then turn left after the library.', 'Is the side entrance before or after the café?', 'So I use the north exit and cross the parking lot, right?'],
             expressions: [['keep going', 'continuar em frente', 'Keep going until the roundabout.'], ['take the second left', 'pegar a segunda a esquerda', 'Take the second left after the bridge.'], ['cross over', 'atravessar', 'Cross over at the traffic lights.'], ['pull over', 'encostar o carro', 'Pull over after the corner.']],
             readingTitle: 'Simple directions work better',
             reading: 'When a tourist asked for directions, Bruno first gave too much information. The tourist looked confused. Bruno tried again: "Go straight for two blocks, turn left after the bank, and the museum is opposite the park." This time, the tourist understood. Good directions are not the longest directions; they are the clearest ones.',
@@ -787,10 +787,10 @@
         {
             themes: ['checking in at a hotel', 'reporting a room problem', 'asking politely for travel help'],
             objectives: ['use hotel vocabulary', 'make polite requests', 'explain problems with the room'],
-            vocab: [['reservation', 'reserva', 'I have a reservation.'], ['reception', 'recepcao', 'Ask at reception.'], ['check in', 'fazer entrada', 'We checked in at two.'], ['check out', 'fazer saida', 'Check-out is at noon.'], ['key card', 'cartao-chave', 'My key card does not work.'], ['towel', 'toalha', 'Could I have another towel?'], ['shower', 'chuveiro', 'The shower is not working.'], ['included', 'incluido', 'Is breakfast included?']],
+            vocab: [['reservation', 'reserva', 'I have a reservation.'], ['reception', 'recepção', 'Ask at reception.'], ['check in', 'fazer entrada', 'We checked in at two.'], ['check out', 'fazer saída', 'Check-out is at noon.'], ['key card', 'cartão-chave', 'My key card does not work.'], ['towel', 'toalha', 'Could I have another towel?'], ['shower', 'chuveiro', 'The shower is not working.'], ['included', 'incluído', 'Is breakfast included?']],
             grammar: [['Polite requests', 'Use Could I have...? and Could you...? for hotel requests.'], ['Current problems', 'Use simple present or present continuous: The key card does not work. The shower is not working.'], ['Under my name', 'Use under my name for reservations: I have a reservation under Ana Lima.']],
             examples: ['I have a reservation under my name.', 'Could I have another towel, please?', 'The air conditioner is not working.', 'Is breakfast included in the price?'],
-            expressions: [['check in', 'fazer entrada', 'We checked in late.'], ['check out', 'fazer saida', 'They checked out before breakfast.'], ['sort out', 'resolver', 'Reception sorted out the problem.'], ['make up for', 'compensar', 'They offered coffee to make up for the delay.']],
+            expressions: [['check in', 'fazer entrada', 'We checked in late.'], ['check out', 'fazer saída', 'They checked out before breakfast.'], ['sort out', 'resolver', 'Reception sorted out the problem.'], ['make up for', 'compensar', 'They offered coffee to make up for the delay.']],
             readingTitle: 'A calm hotel complaint',
             reading: 'When Laura entered her hotel room, the air conditioner was not working and there were no towels. She was tired, but she called reception calmly. She said, "I have just checked in, and the air conditioner is not working. Could you send someone to check it and bring two towels, please?" The receptionist understood immediately and sorted out the problem.',
             music: ['Room for tonight', 'hotel English']
@@ -798,7 +798,7 @@
         {
             themes: ['study habits', 'personal goals', 'likes, decisions, and plans'],
             objectives: ['use gerunds after common verbs', 'use infinitives after common verbs', 'memorize verb patterns in chunks'],
-            vocab: [['enjoy learning', 'gostar de aprender', 'I enjoy learning with examples.'], ['avoid studying late', 'evitar estudar tarde', 'I avoid studying late.'], ['decide to start', 'decidir comecar', 'She decided to start again.'], ['plan to travel', 'planejar viajar', 'We plan to travel soon.'], ['hope to improve', 'esperar melhorar', 'I hope to improve pronunciation.'], ['mind waiting', 'se importar de esperar', 'Do you mind waiting?'], ['practice speaking', 'praticar fala', 'Practice speaking every day.'], ['promise to call', 'prometer ligar', 'He promised to call.']],
+            vocab: [['enjoy learning', 'gostar de aprender', 'I enjoy learning with examples.'], ['avoid studying late', 'evitar estudar tarde', 'I avoid studying late.'], ['decide to start', 'decidir começar', 'She decided to start again.'], ['plan to travel', 'planejar viajar', 'We plan to travel soon.'], ['hope to improve', 'esperar melhorar', 'I hope to improve pronunciation.'], ['mind waiting', 'se importar de esperar', 'Do you mind waiting?'], ['practice speaking', 'praticar fala', 'Practice speaking every day.'], ['promise to call', 'prometer ligar', 'He promised to call.']],
             grammar: [['Gerund patterns', 'Use -ing after enjoy, avoid, mind, finish, and practice.'], ['Infinitive patterns', 'Use to + verb after decide, hope, plan, promise, and want.'], ['Chunks over rules', 'Learn full chunks like enjoy learning and decide to study. This is safer than translating word by word.']],
             examples: ['I enjoy studying in the morning.', 'She decided to take a short course.', 'Do you mind waiting a minute?', 'We hope to speak more naturally.'],
             expressions: [['keep on', 'continuar', 'Keep on practicing.'], ['give up', 'desistir', 'Do not give up learning.'], ['look forward to', 'esperar ansiosamente', 'I look forward to seeing you.'], ['get used to', 'se acostumar', 'I am getting used to speaking.']],
@@ -809,7 +809,7 @@
         {
             themes: ['facts and habits', 'real future possibilities', 'plans with consequences'],
             objectives: ['use zero conditional for facts/habits', 'use first conditional for real future results', 'connect condition and result clearly'],
-            vocab: [['if', 'se', 'If I sleep well, I focus better.'], ['result', 'resultado', 'The result depends on practice.'], ['habit', 'habito', 'This habit helps me.'], ['condition', 'condicao', 'There is one condition.'], ['will improve', 'vai melhorar', 'You will improve with practice.'], ['on time', 'no horario', 'If we hurry, we will arrive on time.'], ['depend on', 'depender de', 'It depends on the weather.'], ['realistic', 'realista', 'Make a realistic plan.']],
+            vocab: [['if', 'se', 'If I sleep well, I focus better.'], ['result', 'resultado', 'The result depends on practice.'], ['habit', 'hábito', 'This habit helps me.'], ['condition', 'condição', 'There is one condition.'], ['will improve', 'vai melhorar', 'You will improve with practice.'], ['on time', 'no horário', 'If we hurry, we will arrive on time.'], ['depend on', 'depender de', 'It depends on the weather.'], ['realistic', 'realista', 'Make a realistic plan.']],
             grammar: [['Zero conditional', 'Use if + present, present for facts and habits: If I sleep badly, I feel tired.'], ['First conditional', 'Use if + present, will + verb for real future possibilities.'], ['Comma option', 'When the if-clause comes first, a comma is common: If it rains, I will stay home.']],
             examples: ['If I study in the morning, I remember more.', 'If it rains tomorrow, we will cancel the picnic.', 'You will improve if you practice every day.', 'If the office is closed, I will call later.'],
             expressions: [['depend on', 'depender de', 'It depends on the schedule.'], ['work out', 'dar certo', 'If we prepare well, the plan will work out.'], ['stick to', 'manter-se fiel a', 'Stick to your routine.'], ['figure out', 'descobrir/resolver', 'We will figure out a solution.']],
@@ -820,7 +820,7 @@
         {
             themes: ['using unless in plans', 'talking about hopes', 'expressing wishes carefully'],
             objectives: ['use unless without double negatives', 'talk about real hopes', 'use wish for imagined situations'],
-            vocab: [['unless', 'a menos que', 'We will be late unless we leave now.'], ['hope to', 'esperar', 'I hope to get better.'], ['wish', 'gostaria/queria', 'I wish I had more time.'], ['interview', 'entrevista', 'I hope I get an interview.'], ['confident', 'confiante', 'I wish I felt more confident.'], ['consequence', 'consequencia', 'Every choice has a consequence.'], ['prepare', 'preparar', 'Prepare before the interview.'], ['opportunity', 'oportunidade', 'Do not miss the opportunity.']],
+            vocab: [['unless', 'a menos que', 'We will be late unless we leave now.'], ['hope to', 'esperar', 'I hope to get better.'], ['wish', 'gostaria/queria', 'I wish I had more time.'], ['interview', 'entrevista', 'I hope I get an interview.'], ['confident', 'confiante', 'I wish I felt more confident.'], ['consequence', 'consequência', 'Every choice has a consequence.'], ['prepare', 'preparar', 'Prepare before the interview.'], ['opportunity', 'oportunidade', 'Do not miss the opportunity.']],
             grammar: [['Unless means if not', 'Unless we leave now means if we do not leave now. Avoid unless we do not leave now.'], ['Hope', 'Use hope for possible or real future outcomes: I hope I pass.'], ['Wish', 'Use wish for situations that are not real or not easy to change: I wish I had more time.']],
             examples: ['Unless we hurry, we will miss the train.', 'I hope to speak more confidently.', 'I wish I had more free time.', 'You will miss the opportunity unless you apply today.'],
             expressions: [['miss out on', 'perder oportunidade', 'Do not miss out on this chance.'], ['count on', 'contar com', 'You can count on my help.'], ['prepare for', 'preparar-se para', 'Prepare for the interview.'], ['look ahead', 'olhar para frente', 'Let us look ahead and plan.']],
@@ -831,7 +831,7 @@
         {
             themes: ['presenting a personal learning project', 'telling your progress story', 'planning the next level'],
             objectives: ['review the main A2 V2 structures', 'speak in a longer organized answer', 'prepare a final personal project'],
-            vocab: [['progress', 'progresso', 'My progress is clear.'], ['goal', 'meta', 'My next goal is fluency.'], ['challenge', 'desafio', 'Pronunciation is my challenge.'], ['strategy', 'estrategia', 'My strategy is simple.'], ['evidence', 'evidencia', 'Give evidence in your answer.'], ['reflect', 'refletir', 'Reflect on your progress.'], ['improve', 'melhorar', 'I want to improve listening.'], ['next step', 'proximo passo', 'My next step is daily practice.']],
+            vocab: [['progress', 'progresso', 'My progress is clear.'], ['goal', 'meta', 'My next goal is fluency.'], ['challenge', 'desafio', 'Pronunciation is my challenge.'], ['strategy', 'estratégia', 'My strategy is simple.'], ['evidence', 'evidência', 'Give evidence in your answer.'], ['reflect', 'refletir', 'Reflect on your progress.'], ['improve', 'melhorar', 'I want to improve listening.'], ['next step', 'próximo passo', 'My next step is daily practice.']],
             grammar: [['Project structure', 'Use past forms to explain progress, present forms to describe your routine, and future forms to plan next steps.'], ['Evidence and examples', 'A final answer needs examples: what changed, what helped, and what still needs work.'], ['Connected speech', 'Use connectors like first, however, because, after that, and if to organize a longer answer.']],
             examples: ['I have improved my confidence since the first lesson.', 'I used to avoid speaking, but now I try more often.', 'If I practice every day, I will keep improving.', 'My next step is to answer one question aloud every day.'],
             expressions: [['look back on', 'relembrar', 'I look back on my first lesson.'], ['build up', 'desenvolver aos poucos', 'I built up confidence.'], ['keep going', 'continuar', 'I want to keep going.'], ['set a goal', 'definir meta', 'Set a clear goal for next month.']],
@@ -866,11 +866,11 @@
                 [['Customer', 'Is the unlimited phone plan much more expensive?'], ['Seller', 'It is a little more expensive, but it is far more reliable when you travel.'], ['Customer', 'The basic plan is not as useful for work, then.'], ['Seller', 'Exactly. The unlimited plan has an advantage over it outside the city.']],
                 [['Ana', 'Should we take the bus or the subway?'], ['Leo', 'The subway is much faster during rush hour.'], ['Ana', 'Is it as comfortable as the bus?'], ['Leo', 'Not quite, but it is less stressful than sitting in traffic.'], ['Ana', 'Then the subway is worth it today.']],
                 [['Friend', 'How is the new grocery store?'], ['You', 'It is slightly closer, and the prices are just as good as the old store.'], ['Friend', 'Is it as crowded on Saturdays?'], ['You', 'No, it is not as crowded, so shopping there is much quicker.']],
-                [['Mia', 'Do you want to work at this cafe?'], ['Dan', 'Yes. It is far quieter than the cafe near my office.'], ['Mia', 'The tables are a little smaller.'], ['Dan', 'True, but the Wi-Fi is just as reliable, so it comes down to noise.']]
+                [['Mia', 'Do you want to work at this café?'], ['Dan', 'Yes. It is far quieter than the café near my office.'], ['Mia', 'The tables are a little smaller.'], ['Dan', 'True, but the Wi-Fi is just as reliable, so it comes down to noise.']]
             ]
         },
         4: {
-            intro: [['Rafa', 'Which restaurant is the best in this neighborhood?'], ['Lu', 'The Italian place is the most popular, but the small cafe is the cheapest.'], ['Rafa', 'Which one has the best service?'], ['Lu', 'The cafe. The staff is the friendliest.'], ['Rafa', 'And what is the worst option?'], ['Lu', 'The burger place. It is the noisiest and the slowest.']],
+            intro: [['Rafa', 'Which restaurant is the best in this neighborhood?'], ['Lu', 'The Italian place is the most popular, but the small café is the cheapest.'], ['Rafa', 'Which one has the best service?'], ['Lu', 'The café. The staff is the friendliest.'], ['Rafa', 'And what is the worst option?'], ['Lu', 'The burger place. It is the noisiest and the slowest.']],
             dialogues: [
                 [['Traveler', 'What is the best hotel near the station?'], ['Local', 'The Central Hotel is the most convenient.'], ['Traveler', 'Is it expensive?'], ['Local', 'It is not the cheapest, but it has the best location.']],
                 [['Friend', 'Which app is the most useful for your routine?'], ['You', 'The calendar app. It is the simplest and the fastest.'], ['Friend', 'What is the least useful app?'], ['You', 'The shopping app. I almost never open it.']],
@@ -911,7 +911,7 @@
                 [['Brother', 'Did you fix the laptop?'], ['Sister', 'Yes. It was updating when the battery died.'], ['Brother', 'What did you do?'], ['Sister', 'I charged it, restarted it, and saved the files.']],
                 [['Host', 'How was the dinner?'], ['Guest', 'Great, but the oven stopped while we were baking the potatoes.'], ['Host', 'Did you finish them?'], ['Guest', 'Yes, we used a smaller oven.']],
                 [['Coworker', 'Why did the meeting start late?'], ['You', 'People were joining the call when the internet went down.'], ['Coworker', 'Did everyone come back?'], ['You', 'Yes, after ten minutes.']],
-                [['Friend', 'Did you find your bag?'], ['You', 'Yes. I was looking near the cafe when a guard called my name.'], ['Friend', 'Where was it?'], ['You', 'Behind the front desk.']]
+                [['Friend', 'Did you find your bag?'], ['You', 'Yes. I was looking near the café when a guard called my name.'], ['Friend', 'Where was it?'], ['You', 'Behind the front desk.']]
             ]
         },
         9: {
@@ -936,7 +936,7 @@
             intro: [['Mia', 'What are you doing after work?'], ['Dan', 'I am meeting my sister at seven.'], ['Mia', 'Where are you meeting her?'], ['Dan', 'At the Italian restaurant downtown.'], ['Mia', 'Are you doing anything before that?'], ['Dan', 'Yes, I am picking up a cake at six.']],
             dialogues: [
                 [['Receptionist', 'Are you seeing Dr. Lima tomorrow?'], ['Patient', 'Yes, I am seeing her at nine.'], ['Receptionist', 'Please arrive ten minutes early.'], ['Patient', 'Sure, I am taking the first bus.']],
-                [['Coworker', 'Are we having lunch with Paula today?'], ['You', 'Yes, we are meeting her at noon.'], ['Coworker', 'Where?'], ['You', 'At the cafe across from the office.']],
+                [['Coworker', 'Are we having lunch with Paula today?'], ['You', 'Yes, we are meeting her at noon.'], ['Coworker', 'Where?'], ['You', 'At the café across from the office.']],
                 [['Friend', 'Are you traveling this Friday?'], ['You', 'Yes, I am flying to Recife in the morning.'], ['Friend', 'Who is picking you up?'], ['You', 'My cousin is meeting me at the airport.']],
                 [['Ana', 'What are you doing tonight?'], ['Leo', 'I am studying with Bruno at the library.'], ['Ana', 'Is it a fixed plan?'], ['Leo', 'Yes, we booked a study room.']]
             ]
@@ -1044,13 +1044,13 @@
             intro: [['Courier', 'I have a package for the design office. Where should I leave it?'], ['Receptionist', 'Leave it at the front desk in the main lobby.'], ['Courier', 'Is the design office on this floor?'], ['Receptionist', 'No, it is on the second floor, on the left-hand side of the elevator.'], ['Courier', 'Should I wait inside or outside the office?'], ['Receptionist', 'Inside, please. There is a small waiting area in the corner.']],
             dialogues: [
                 [['Guest', 'Where is breakfast served?'], ['Clerk', 'In the dining room on the ground floor.'], ['Guest', 'Is it near reception?'], ['Clerk', 'Yes. The entrance is at the back of the lobby.']],
-                [['Customer', 'Is the new cafe on Market Street?'], ['Local', 'Yes, at the corner of Market Street and Hill Road.'], ['Customer', 'Is there seating outside?'], ['Local', 'Yes, and there are more tables inside near the window.']],
+                [['Customer', 'Is the new café on Market Street?'], ['Local', 'Yes, at the corner of Market Street and Hill Road.'], ['Customer', 'Is there seating outside?'], ['Local', 'Yes, and there are more tables inside near the window.']],
                 [['Tenant', 'Where should I put this plant?'], ['Roommate', 'Put it in the corner of the living room.'], ['Tenant', 'On the left-hand side of the bookcase?'], ['Roommate', 'Exactly. It will get more light there.']],
                 [['Visitor', 'I am at the front desk. How do I find room 204?'], ['Receptionist', 'Take the elevator to the second floor.'], ['Visitor', 'Is the room on the right?'], ['Receptionist', 'No, it is on the left-hand side, at the end of the hall.']]
             ]
         },
         24: {
-            intro: [['Carla', 'Meet me at the museum entrance at noon on Monday.'], ['Friend', 'How do I get there from the station?'], ['Carla', 'Walk past the bank and turn left at the corner.'], ['Friend', 'Is the museum entrance across from the parking lot?'], ['Carla', 'Yes, and it is next to the cafe.'], ['Friend', 'Perfect. I will be there before noon.']],
+            intro: [['Carla', 'Meet me at the museum entrance at noon on Monday.'], ['Friend', 'How do I get there from the station?'], ['Carla', 'Walk past the bank and turn left at the corner.'], ['Friend', 'Is the museum entrance across from the parking lot?'], ['Carla', 'Yes, and it is next to the café.'], ['Friend', 'Perfect. I will be there before noon.']],
             dialogues: [
                 [['Tourist', 'Is there a bus stop nearby?'], ['Local', 'Yes, it is around the corner.'], ['Tourist', 'On this street?'], ['Local', 'No, on Green Street.']],
                 [['Friend', 'When is the appointment?'], ['You', 'At noon on Monday.'], ['Friend', 'Where do we meet?'], ['You', 'At the main entrance.']],
@@ -1080,7 +1080,7 @@
             intro: [['Traveler', 'Excuse me, how do I get to the train station from here?'], ['Local', 'First, cross at the pedestrian crossing and keep going to the roundabout.'], ['Traveler', 'Which exit should I take?'], ['Local', 'Take the second exit, then turn left after the public library.'], ['Traveler', 'Is the station entrance before or after the parking garage?'], ['Local', 'Just after it, on your right.'], ['Traveler', 'So I take the second exit and turn left after the library, right?'], ['Local', 'Exactly. The clock tower is the last landmark before the entrance.']],
             dialogues: [
                 [['Driver', 'How do I reach the underground parking area?'], ['Passenger', 'Keep going to the roundabout and take the first exit.'], ['Driver', 'Do I turn before the hotel?'], ['Passenger', 'No, turn after it and pull over beside the blue sign.']],
-                [['Caller', 'I am at the hospital entrance. How do I find the X-ray department?'], ['Receptionist', 'Cross the main lobby and take the second left after the elevators.'], ['Caller', 'Is that before the cafe?'], ['Receptionist', 'Yes. The department is just before the cafe, opposite room 12.']],
+                [['Caller', 'I am at the hospital entrance. How do I find the X-ray department?'], ['Receptionist', 'Cross the main lobby and take the second left after the elevators.'], ['Caller', 'Is that before the café?'], ['Receptionist', 'Yes. The department is just before the café, opposite room 12.']],
                 [['Shopper', 'How do I get to the electronics store from here?'], ['Assistant', 'Use the north exit and cross over to the other building.'], ['Shopper', 'Then do I take the escalator?'], ['Assistant', 'Yes. Go up one floor, take the second left, and it is beside the bookstore.']],
                 [['Friend', 'Can you explain the route to your apartment again?'], ['You', 'First, cross at the pedestrian crossing. Then keep going past the pharmacy.'], ['Friend', 'Do I turn before or after the bakery?'], ['You', 'After the bakery. Take the second left, and my building is at the end of the street.'], ['Friend', 'Second left after the bakery, right?'], ['You', 'Right.']]
             ]
@@ -1135,11 +1135,11 @@
     const readingUpgrades = {
         1: {
             title: 'The morning everything went wrong',
-            text: `On Monday, Rafa woke up late because his alarm did not ring. He got dressed quickly, forgot his breakfast, and ran to the bus stop, but the bus left before he arrived. While he was waiting for the next one, he realized an important folder was still at home. Rafa called his manager, apologized, and explained the situation honestly. Then he borrowed a laptop at a cafe and sent a digital copy of the document. He reached the office twenty minutes before the client meeting. At the end of the day, his manager thanked him for solving the problem instead of hiding it.`,
+            text: `On Monday, Rafa woke up late because his alarm did not ring. He got dressed quickly, forgot his breakfast, and ran to the bus stop, but the bus left before he arrived. While he was waiting for the next one, he realized an important folder was still at home. Rafa called his manager, apologized, and explained the situation honestly. Then he borrowed a laptop at a café and sent a digital copy of the document. He reached the office twenty minutes before the client meeting. At the end of the day, his manager thanked him for solving the problem instead of hiding it.`,
             questions: [
                 ['Why did Rafa wake up late?', 'Because his alarm did not ring.'],
                 ['What did he realize at the bus stop?', 'He realized that an important folder was still at home.'],
-                ['How did he send the document?', 'He borrowed a laptop at a cafe and sent a digital copy.'],
+                ['How did he send the document?', 'He borrowed a laptop at a café and sent a digital copy.'],
                 ['What did his manager do at the end of the day?', 'His manager thanked him for solving the problem.']
             ]
         },
@@ -1165,12 +1165,12 @@
         },
         4: {
             title: 'The best place for a group meeting',
-            text: `A group of students visited three cafes before choosing a place for their monthly meeting. The largest cafe had the most tables, but it was also the noisiest. The cheapest cafe was near the bus terminal, although its chairs were the least comfortable. The smallest cafe was farther from the station, but it had the friendliest staff, the quietest room, and the best internet connection. The group tested the internet, checked the menu, and asked about reservations. In the end, they selected the smallest cafe. It was not the biggest or the cheapest option, but it was the most suitable place for a long conversation.`,
+            text: `A group of students visited three cafes before choosing a place for their monthly meeting. The largest café had the most tables, but it was also the noisiest. The cheapest café was near the bus terminal, although its chairs were the least comfortable. The smallest café was farther from the station, but it had the friendliest staff, the quietest room, and the best internet connection. The group tested the internet, checked the menu, and asked about reservations. In the end, they selected the smallest café. It was not the biggest or the cheapest option, but it was the most suitable place for a long conversation.`,
             questions: [
-                ['What was the problem with the largest cafe?', 'It was the noisiest cafe.'],
-                ['Which cafe had the least comfortable chairs?', 'The cheapest cafe near the bus terminal.'],
+                ['What was the problem with the largest café?', 'It was the noisiest café.'],
+                ['Which café had the least comfortable chairs?', 'The cheapest café near the bus terminal.'],
                 ['What did the group check before deciding?', 'They tested the internet, checked the menu, and asked about reservations.'],
-                ['Which cafe did they select?', 'They selected the smallest cafe.']
+                ['Which café did they select?', 'They selected the smallest café.']
             ]
         },
         5: {
@@ -1205,10 +1205,10 @@
         },
         8: {
             title: 'A difficult trip with a good ending',
-            text: `Leo and three friends planned a cheap weekend trip to see a concert. Their bus was less expensive than the train, but it was also slower. While they were traveling, the bus broke down outside a small town. The driver called another vehicle, and the passengers waited at a cafe across from the station. There were not many tables, but the owner brought a few extra chairs and enough water for everyone. The group missed the first song of the concert, yet they arrived before their favorite band played. At the hotel, they discovered that their room was larger and quieter than the one they originally booked.`,
+            text: `Leo and three friends planned a cheap weekend trip to see a concert. Their bus was less expensive than the train, but it was also slower. While they were traveling, the bus broke down outside a small town. The driver called another vehicle, and the passengers waited at a café across from the station. There were not many tables, but the owner brought a few extra chairs and enough water for everyone. The group missed the first song of the concert, yet they arrived before their favorite band played. At the hotel, they discovered that their room was larger and quieter than the one they originally booked.`,
             questions: [
                 ['Why did the friends choose the bus?', 'Because it was cheaper than the train.'],
-                ['Where did the passengers wait?', 'They waited at a cafe across from the station.'],
+                ['Where did the passengers wait?', 'They waited at a café across from the station.'],
                 ['What part of the concert did the group miss?', 'They missed the first song.'],
                 ['How was the hotel room different?', 'It was larger and quieter than the room they originally booked.']
             ]
@@ -1325,11 +1325,11 @@
         },
         20: {
             title: 'Where is Clara?',
-            text: `At lunchtime, two coworkers were looking for Clara because a delivery had arrived. Paulo said, "She has been to the new cafe across the street, so she probably knows its phone number." Renata checked Clara's desk and answered, "She has gone to the cafe now. Her coat and phone are not here." They called the cafe, and Clara answered. She had gone there to collect sandwiches for the team and was waiting for one final order. Paulo told her about the delivery, and she said she would get back in ten minutes. Clara has been to that cafe many times, but on this occasion she had gone there and was still away.`,
+            text: `At lunchtime, two coworkers were looking for Clara because a delivery had arrived. Paulo said, "She has been to the new café across the street, so she probably knows its phone number." Renata checked Clara's desk and answered, "She has gone to the café now. Her coat and phone are not here." They called the café, and Clara answered. She had gone there to collect sandwiches for the team and was waiting for one final order. Paulo told her about the delivery, and she said she would get back in ten minutes. Clara has been to that café many times, but on this occasion she had gone there and was still away.`,
             questions: [
                 ['Why were the coworkers looking for Clara?', 'Because a delivery had arrived.'],
                 ['How did Renata know Clara was away?', 'Clara\'s coat and phone were not at her desk.'],
-                ['Why had Clara gone to the cafe?', 'She had gone there to collect sandwiches for the team.'],
+                ['Why had Clara gone to the café?', 'She had gone there to collect sandwiches for the team.'],
                 ['When did Clara say she would return?', 'She said she would return in ten minutes.']
             ]
         },
@@ -1365,10 +1365,10 @@
         },
         24: {
             title: 'A clinic visit in an unfamiliar neighborhood',
-            text: `Carla had never visited the Westside Clinic, so she checked the address before leaving home. Her appointment was at noon on Monday, and she arrived in the neighborhood twenty minutes early. The clinic was on King Street, between a pharmacy and a small cafe. Carla had had a headache since Saturday, but she had not taken any medicine yet. At reception, she confirmed her name and waited near the window. The doctor asked how long the pain had lasted and whether she felt dizzy. After the consultation, Carla went across the street to the pharmacy, bought the prescribed medicine, and sent her family a message saying she was feeling calmer.`,
+            text: `Carla had never visited the Westside Clinic, so she checked the address before leaving home. Her appointment was at noon on Monday, and she arrived in the neighborhood twenty minutes early. The clinic was on King Street, between a pharmacy and a small café. Carla had had a headache since Saturday, but she had not taken any medicine yet. At reception, she confirmed her name and waited near the window. The doctor asked how long the pain had lasted and whether she felt dizzy. After the consultation, Carla went across the street to the pharmacy, bought the prescribed medicine, and sent her family a message saying she was feeling calmer.`,
             questions: [
                 ['When was Carla\'s appointment?', 'It was at noon on Monday.'],
-                ['Where was the clinic?', 'It was on King Street, between a pharmacy and a cafe.'],
+                ['Where was the clinic?', 'It was on King Street, between a pharmacy and a café.'],
                 ['How long had Carla had a headache?', 'She had had it since Saturday.'],
                 ['Where did she go after the consultation?', 'She went across the street to the pharmacy.']
             ]
@@ -1627,17 +1627,17 @@
             ['It will ____ rain this afternoon.', 'provavelmente', 'probably'],
             ['I ____ I will call after lunch.', 'prometo', 'promise'],
             ['Do not worry. I will ____ you with the boxes.', 'ajudar', 'help'],
-            ['I will make a ____ after I see the price.', 'decisao', 'decision']
+            ['I will make a ____ after I see the price.', 'decisão', 'decision']
         ],
         15: [
-            ['Dividing the project into three steps makes it more ____.', 'possivel de administrar', 'manageable'],
+            ['Dividing the project into three steps makes it more ____.', 'possível de administrar', 'manageable'],
             ['She feels ____ because every task seems urgent.', 'sobrecarregada', 'overwhelmed'],
             ['Choose one ____ before you answer your messages.', 'prioridade', 'priority'],
             ['You could set a clear ____ for the evening.', 'limite', 'boundary']
         ],
         28: [
             ['I have a ____ under my name.', 'reserva', 'reservation'],
-            ['Please ask for help at ____.', 'recepcao', 'reception'],
+            ['Please ask for help at ____.', 'recepção', 'reception'],
             ['We ____ at two yesterday.', 'fizemos check-in', 'checked in'],
             ['What time is ____?', 'check-out', 'check-out']
         ],
@@ -1652,48 +1652,48 @@
     const practiceChecks = {
         1: [
             ['Transform', 'Ask for the reason: "You overslept on Monday."', 'Why + did + verbo base', 'Why did you oversleep on Monday?'],
-            ['Choose', 'Choose: Where (were you / did you be) when the call arrived?', 'be no passado nao usa did', 'were you'],
+            ['Choose', 'Choose: Where (were you / did you be) when the call arrived?', 'be no passado não usa did', 'were you'],
             ['Find the error', 'Correct: "Did he apologized for the delay?"', 'did + verbo base', 'Did he apologize for the delay?'],
             ['Combine', 'Connect the result: "The bus left. I took a taxi."', 'so', 'The bus left, so I took a taxi.']
         ],
         2: [
             ['Find the error', 'Correct: "First, we check in at the hotel."', 'passado de check in', 'First, we checked in at the hotel.'],
-            ['Complete', 'The train was late, ____ we took a taxi.', 'consequencia', 'so'],
+            ['Complete', 'The train was late, ____ we took a taxi.', 'consequência', 'so'],
             ['Transform', 'Make a question: "They got lost near the station."', 'did + verbo base', 'Did they get lost near the station?'],
-            ['Choose', 'Choose the best final marker: (First / Finally), we found the hotel.', 'fim da historia', 'Finally']
+            ['Choose', 'Choose the best final marker: (First / Finally), we found the hotel.', 'fim da história', 'Finally']
         ],
         3: [
             ['Find the error', 'Correct: "The subway is more much convenient than the bus."', 'modificador antes do comparativo', 'The subway is much more convenient than the bus.'],
             ['Transform', 'Show equality: "The two plans are equally useful."', 'as + adjetivo + as', 'The first plan is as useful as the second plan.'],
-            ['Choose', 'Choose the small difference: The morning ticket is (a little / far) cheaper.', 'diferenca pequena', 'a little'],
+            ['Choose', 'Choose the small difference: The morning ticket is (a little / far) cheaper.', 'diferença pequena', 'a little'],
             ['Combine', 'Compare the crowds: "The afternoon class has fewer people than the evening class."', 'not as...as', 'The afternoon class is not as crowded as the evening class.']
         ],
         4: [
             ['Find the error', 'Correct: "This is the bestest option."', 'forma irregular', 'This is the best option.'],
-            ['Find the error', 'Correct: "It is the most cheapest hotel."', 'uma unica forma de superlativo', 'It is the cheapest hotel.'],
+            ['Find the error', 'Correct: "It is the most cheapest hotel."', 'uma única forma de superlativo', 'It is the cheapest hotel.'],
             ['Transform', 'Use a superlative: "No app is more useful than this one."', 'the most useful', 'This is the most useful app.'],
             ['Choose', 'Choose: That is the (farthest / most far) station.', 'superlativo irregular', 'farthest']
         ],
         5: [
-            ['Find the error', 'Correct: "She gave me two useful advices."', 'substantivo incontavel', 'She gave me some useful advice.'],
-            ['Find the error', 'Correct: "We do not have many time."', 'quantidade incontavel', 'We do not have much time.'],
-            ['Choose', 'Choose: I ate (a / an) apple before class.', 'som inicial', 'an'],
-            ['Choose', 'Choose: There are (a little / a few) chairs outside.', 'substantivo contavel', 'a few']
+            ['Find the error', 'Correct: "She gave me two useful advices."', 'substantivo incontável', 'She gave me some useful advice.'],
+            ['Find the error', 'Correct: "We do not have many time."', 'quantidade incontável', 'We do not have much time.'],
+            ['Choose', 'Choose: I até (a / an) apple before class.', 'som inicial', 'an'],
+            ['Choose', 'Choose: There are (a little / a few) chairs outside.', 'substantivo contável', 'a few']
         ],
         6: [
             ['Find the error', 'Correct: "They was waiting near the door."', 'they + were', 'They were waiting near the door.'],
             ['Find the error', 'Correct: "I were cooking at eight."', 'I + was', 'I was cooking at eight.'],
             ['Transform', 'Make negative: "She was listening carefully."', 'was not + -ing', 'She was not listening carefully.'],
-            ['Choose', 'Choose: I was cooking (while / when) she was setting the table.', 'duas acoes em progresso', 'while']
+            ['Choose', 'Choose: I was cooking (while / when) she was setting the table.', 'duas ações em progresso', 'while']
         ],
         7: [
             ['Find the error', 'Correct: "I was drive when the phone rang."', 'was + verbo-ing', 'I was driving when the phone rang.'],
-            ['Find the error', 'Correct: "The alarm was rang during dinner."', 'acao curta no Past Simple', 'The alarm rang during dinner.'],
-            ['Transform', 'Combine with when: "Marta was presenting. The projector stopped."', 'acao longa + when + interrupcao', 'Marta was presenting when the projector stopped.'],
+            ['Find the error', 'Correct: "The alarm was rang during dinner."', 'ação curta no Past Simple', 'The alarm rang during dinner.'],
+            ['Transform', 'Combine with when: "Marta was presenting. The projector stopped."', 'ação longa + when + interrupção', 'Marta was presenting when the projector stopped.'],
             ['Choose', 'Choose: We were walking home (when / while) it started to rain.', 'evento que interrompe', 'when']
         ],
         9: [
-            ['Choose', 'Look at the dark clouds. It (is going to / will probably) rain.', 'previsao com evidencia visivel', 'is going to'],
+            ['Choose', 'Look at the dark clouds. It (is going to / will probably) rain.', 'previsão com evidência visível', 'is going to'],
             ['Transform', 'Ask about the first change: "They are going to change the schedule."', 'What + are + subject + going to', 'What are they going to change first?'],
             ['Combine', 'Add the reason: "We are going to prepare tonight. The event starts early."', 'because', 'We are going to prepare tonight because the event starts early.'],
             ['Transform', 'Keep the event but change the location: "They are going to cancel the picnic."', 'not cancel; move indoors', 'They are not going to cancel the picnic; they are going to move it indoors.']
@@ -1702,13 +1702,13 @@
             ['Find the error', 'Correct: "I will to call the client."', 'will + verbo base', 'I will call the client.'],
             ['Find the error', 'Correct: "She will arrives late."', 'will + verbo sem s', 'She will arrive late.'],
             ['Transform', 'Make a question: "Prices will go up next year."', 'will antes do sujeito', 'Will prices go up next year?'],
-            ['Choose', 'The phone is ringing. I (will answer / am going to answer) it.', 'decisao tomada agora', 'will answer']
+            ['Choose', 'The phone is ringing. I (will answer / am going to answer) it.', 'decisão tomada agora', 'will answer']
         ],
         11: [
             ['Find the error', 'Correct: "I meeting my sister tonight."', 'am + verbo-ing', 'I am meeting my sister tonight.'],
             ['Find the error', 'Correct: "They are leave at seven."', 'are + verbo-ing', 'They are leaving at seven.'],
             ['Transform', 'Make a question: "She is having lunch with a client on Friday."', 'is antes do sujeito', 'Is she having lunch with a client on Friday?'],
-            ['Choose', 'Choose the fixed arrangement: (I am meeting Ana at six / I may call Ana someday).', 'horario confirmado', 'I am meeting Ana at six.']
+            ['Choose', 'Choose the fixed arrangement: (I am meeting Ana at six / I may call Ana someday).', 'horário confirmado', 'I am meeting Ana at six.']
         ],
         12: [
             ['Choose', 'Choose for a confirmed appointment: I (am meeting / will meet) the dentist at three.', 'compromisso marcado', 'am meeting'],
@@ -1726,19 +1726,19 @@
             ['Find the error', 'Correct: "Visitors must to wear a badge."', 'must + verbo base', 'Visitors must wear a badge.'],
             ['Find the error', 'Correct: "She needs call the doctor."', 'need + to + verbo', 'She needs to call the doctor.'],
             ['Transform', 'Make a question: "We have to pay now."', 'do + have to', 'Do we have to pay now?'],
-            ['Choose', '"You do not have to print it" means: (It is optional / It is forbidden).', 'ausencia de necessidade', 'It is optional.']
+            ['Choose', '"You do not have to print it" means: (It is optional / It is forbidden).', 'ausência de necessidade', 'It is optional.']
         ],
         15: [
             ['Transform', 'Make this advice tactful: "Finish the report now."', 'maybe + should', 'Maybe you should finish the report first.'],
             ['Combine', 'Add a reason: "You should choose one priority. Your list is too long."', 'because', 'You should choose one priority because your list is too long.'],
-            ['Choose', 'Choose the supportive advice: (Stop complaining. / You could divide the task into three steps.)', 'opcao gentil e especifica', 'You could divide the task into three steps.'],
+            ['Choose', 'Choose the supportive advice: (Stop complaining. / You could divide the task into three steps.)', 'opção gentil e específica', 'You could divide the task into three steps.'],
             ['Transform', 'Give a careful warning: "Do not compare your progress with other people."', 'I do not think you should', 'I do not think you should compare your progress with other people\'s.']
         ],
         17: [
             ['Find the error', 'Correct: "She have visited three countries."', 'she + has', 'She has visited three countries.'],
             ['Find the error', 'Correct: "Have you ever went abroad?"', 'past participle', 'Have you ever gone abroad?'],
             ['Transform', 'Make an experience question: "You tried Thai food."', 'Have you ever + participio', 'Have you ever tried Thai food?'],
-            ['Choose', 'Choose: I have (never traveled / traveled never) alone.', 'posicao de never', 'never traveled']
+            ['Choose', 'Choose: I have (never traveled / traveled never) alone.', 'posição de never', 'never traveled']
         ],
         18: [
             ['Find the error', 'Correct: "I have sent already the report."', 'already antes do participio', 'I have already sent the report.'],
@@ -1749,13 +1749,13 @@
         19: [
             ['Find the error', 'Correct: "I have visited Chile in 2019."', 'tempo terminado', 'I visited Chile in 2019.'],
             ['Find the error', 'Correct: "She has finished the course last month."', 'last month pede Past Simple', 'She finished the course last month.'],
-            ['Choose', 'Choose: I (have tried / tried) that restaurant twice, but I do not remember the dates.', 'experiencia sem tempo exato', 'have tried'],
+            ['Choose', 'Choose: I (have tried / tried) that restaurant twice, but I do not remember the dates.', 'experiência sem tempo exato', 'have tried'],
             ['Transform', 'Add yesterday: "I have sent the email."', 'mude para Past Simple', 'I sent the email yesterday.']
         ],
         20: [
-            ['Find the error', 'Clara is still at the pharmacy. Correct: "She has been to the pharmacy."', 'foi e ainda nao voltou', 'She has gone to the pharmacy.'],
+            ['Find the error', 'Clara is still at the pharmacy. Correct: "She has been to the pharmacy."', 'foi e ainda não voltou', 'She has gone to the pharmacy.'],
             ['Find the error', 'He visited London twice and returned. Correct: "He has gone to London twice."', 'visitou e voltou', 'He has been to London twice.'],
-            ['Choose', 'Paula is not at home. She has (been / gone) to work.', 'ainda esta fora', 'gone'],
+            ['Choose', 'Paula is not at home. She has (been / gone) to work.', 'ainda está fora', 'gone'],
             ['Transform', 'Make a question about experience: "You have been to Argentina."', 'have antes do sujeito', 'Have you been to Argentina?']
         ],
         21: [
@@ -1765,7 +1765,7 @@
             ['Combine', 'Connect the change and next step: "The rash has spread. I need to call the clinic."', 'so', 'The rash has spread, so I need to call the clinic.']
         ],
         22: [
-            ['Find the error', 'Correct: "I have had back pain since three days."', 'for + periodo', 'I have had back pain for three days.'],
+            ['Find the error', 'Correct: "I have had back pain since three days."', 'for + período', 'I have had back pain for three days.'],
             ['Find the error', 'Correct: "She has felt dizzy for Friday."', 'since + ponto inicial', 'She has felt dizzy since Friday.'],
             ['Transform', 'Ask about duration: "I have had this cough for a week."', 'How long...?', 'How long have you had this cough?'],
             ['Choose', 'Choose: The pain started Monday, so I have had it (for / since) Monday.', 'ponto inicial', 'since']
@@ -1773,8 +1773,8 @@
         23: [
             ['Find the error', 'Correct: "The meeting room is in the second floor."', 'andar pede on', 'The meeting room is on the second floor.'],
             ['Choose', 'The chair is (in / at) the corner of the office.', 'canto dentro de um ambiente', 'in'],
-            ['Choose', 'The cafe is (in / at) the corner of Lake Street and Park Road.', 'esquina entre ruas', 'at'],
-            ['Transform', 'Add both locations: "Leave the package. The front desk is in the lobby."', 'at + ponto; in + area', 'Leave the package at the front desk in the lobby.']
+            ['Choose', 'The café is (in / at) the corner of Lake Street and Park Road.', 'esquina entre ruas', 'at'],
+            ['Transform', 'Add both locations: "Leave the package. The front desk is in the lobby."', 'at + ponto; in + área', 'Leave the package at the front desk in the lobby.']
         ],
         25: [
             ['Find the error', 'Correct: "Walk across the park to reach the other gate."', 'caminho dentro do parque', 'Walk through the park to reach the other gate.'],
@@ -1784,13 +1784,13 @@
         ],
         26: [
             ['Choose', 'Please send the form (by / until) Friday.', 'prazo final', 'by'],
-            ['Choose', 'The support desk stays open (by / until) noon.', 'continua ate o horario', 'until'],
+            ['Choose', 'The support desk stays open (by / until) noon.', 'continua até o horário', 'until'],
             ['Find the error', 'Correct: "We talked for the meeting."', 'durante um evento', 'We talked during the meeting.'],
             ['Transform', 'Express the complete time window: "The workshop starts at nine and ends at eleven."', 'from...to...', 'The workshop runs from nine to eleven.']
         ],
         27: [
-            ['Order', 'Put the stages in order: turn left after the library / cross at the pedestrian crossing / take the second exit.', 'inicio, rotatoria, curva', 'Cross at the pedestrian crossing, take the second exit, and turn left after the library.'],
-            ['Choose', 'The entrance is (before / after) the cafe, so stop when you see it on your right.', 'a entrada vem primeiro', 'before'],
+            ['Order', 'Put the stages in order: turn left after the library / cross at the pedestrian crossing / take the second exit.', 'inicio, rotatória, curva', 'Cross at the pedestrian crossing, take the second exit, and turn left after the library.'],
+            ['Choose', 'The entrance is (before / after) the café, so stop when you see it on your right.', 'a entrada vem primeiro', 'before'],
             ['Transform', 'Check the route: "I take the second exit."', 'So...right?', 'So I take the second exit, right?'],
             ['Find the error', 'Correct: "Take the second exit in the roundabout."', 'at + ponto da rota', 'Take the second exit at the roundabout.']
         ],
@@ -1813,8 +1813,8 @@
             ['Transform', 'Make a real future condition: "Practice daily. You will improve."', 'if + presente, will + verbo', 'If you practice daily, you will improve.']
         ],
         31: [
-            ['Find the error', 'Correct: "Unless we do not hurry, we will miss the train."', 'unless ja significa if not', 'Unless we hurry, we will miss the train.'],
-            ['Find the error', 'Correct: "I wish I have more free time."', 'wish + passado para situacao imaginada', 'I wish I had more free time.'],
+            ['Find the error', 'Correct: "Unless we do not hurry, we will miss the train."', 'unless já significa if not', 'Unless we hurry, we will miss the train.'],
+            ['Find the error', 'Correct: "I wish I have more free time."', 'wish + passado para situação imaginada', 'I wish I had more free time.'],
             ['Choose', 'Choose for a realistic possibility: (I hope I get the job. / I wish I had wings.)', 'esperanca real', 'I hope I get the job.'],
             ['Transform', 'Use unless: "If you do not apply today, you will miss the opportunity."', 'unless = if not', 'Unless you apply today, you will miss the opportunity.']
         ]
@@ -1836,44 +1836,44 @@
             answer: example(index)
         }));
         const checks = (practiceChecks[lessonNumber] || [
-            ['Find the error', `Correct: "${example(2)}"`, 'estrutura da licao', example(2)],
+            ['Find the error', `Correct: "${example(2)}"`, 'estrutura da lição', example(2)],
             ['Choose', `Choose the sentence that follows the rule: "${example(0)}"`, 'regra principal', example(0)],
             ['Transform', `Rewrite using another form from the lesson: "${example(1)}"`, 'observe os exemplos', example(3)],
-            ['Complete', 'Complete with one key word from the lesson: ____', 'vocabulario da aula', term(0)[0]]
+            ['Complete', 'Complete with one key word from the lesson: ____', 'vocabulário da aula', term(0)[0]]
         ]).map(([type, prompt, hint, answer]) => ({ type, prompt, hint, answer }));
 
         return [...completeItems, ...unscrambleItems, ...checks];
     }
 
     const translationPortuguese = {
-        1: ['Por que voce acordou tarde na segunda-feira?', 'Onde voce estava quando percebeu que a pasta tinha desaparecido?', 'Primeiro, eu liguei para meu gerente; depois, enviei o arquivo.', 'Nos conseguimos resolver o problema antes da reuniao.', 'Eu peguei emprestado o carregador do meu irmao.', 'Eles voltaram para casa tarde.'],
-        2: ['Primeiro, nos fizemos check-in no hotel.', 'Depois, nos nos perdemos perto da estacao.', 'Nos decidimos explorar a area a pe.', 'Finalmente, encontramos um restaurante perto do rio.', 'Ela reservou um quarto pela internet.', 'O atraso mudou nosso plano.'],
-        3: ['O metro e muito mais conveniente do que o onibus.', 'O plano de dias uteis e um pouco mais barato do que o plano de fim de semana.', 'A turma da tarde nao e tao lotada quanto a turma da noite.', 'O suporte online e tao util quanto o suporte presencial.', 'Este aplicativo e muito mais confiavel.', 'O novo escritorio e um pouco mais perto.'],
-        4: ['Este e o aplicativo mais util para vocabulario.', 'Segunda de manha e o pior horario para dirigir no centro.', 'Essa foi a explicacao mais facil do curso.', 'Qual e o melhor restaurante perto da sua casa?', 'Este e o plano menos caro.', 'Sexta-feira e o dia mais movimentado.'],
-        5: ['Eu preciso de algumas informacoes sobre o evento.', 'Ha algumas cadeiras na outra sala.', 'Nos nao temos muito tempo antes do almoco.', 'Voce poderia comprar uma garrafa de agua?', 'Nao ha muita informacao.', 'Muitas pessoas chegaram cedo.'],
-        6: ['Eu estava esperando do lado de fora do banco.', 'Eles estavam conversando perto da entrada.', 'Estava chovendo quando nos chegamos.', 'O que voce estava fazendo as nove?', 'Eles estavam em pe perto da porta.', 'Eu estava assistindo ao noticiario.'],
-        7: ['Eu estava apresentando quando o computador travou.', 'Ela estava cozinhando enquanto eu arrumava a mesa.', 'O que voce estava fazendo quando o alarme tocou?', 'Eles estavam voltando para casa quando comecou a chover.', 'Alguem bateu na porta.', 'Meu telefone tocou duas vezes.'],
-        9: ['Nos vamos preparar a sala hoje a noite porque o evento comeca cedo.', 'Olhe para aquelas nuvens escuras. Vai chover.', 'O que voce vai mudar primeiro?', 'Eles nao vao cancelar o piquenique; eles vao leva-lo para um local fechado.', 'Ela vai melhorar o horario.', 'Eles vao reduzir o preco.'],
-        10: ['Eu acho que a reuniao sera curta.', 'Eu vou enviar o endereco para voce.', 'Ela provavelmente vai chegar atrasada.', 'Os precos vao subir no proximo ano?', 'Eu acredito que vai dar certo.', 'Nos esperamos que os precos subam.'],
-        11: ['Eu vou encontrar meu professor amanha.', 'Nos vamos sair as sete no sabado.', 'Ela vai almocar com um cliente na sexta-feira.', 'Voce vai trabalhar de casa na proxima semana?', 'Eu tenho uma consulta na sexta-feira.', 'Confira sua agenda.'],
-        12: ['Eu vou encontrar a equipe as nove.', 'Nos vamos apresentar a ideia no proximo mes.', 'Eu acho que o cliente vai gostar.', 'Eu vou enviar o arquivo depois da aula.', 'E provavel que de certo.', 'E improvavel que chova.'],
-        13: ['Posso usar seu carregador?', 'Eu poderia sair cinco minutos mais cedo?', 'Podemos usar esta sala?', 'Voce poderia repetir a instrucao?', 'Posso sair mais cedo hoje?', 'Eu poderia pegar sua caneta emprestada?'],
-        14: ['Voce deve mostrar seu documento na recepcao.', 'Nos temos que entregar o formulario hoje.', 'Ela precisa ligar para o medico antes do meio-dia.', 'Nos temos que pagar agora?', 'Visitantes devem usar cracha.', 'Nos temos que cumprir o prazo.'],
-        15: ['Talvez voce devesse escolher uma prioridade porque sua lista esta muito longa.', 'Se eu fosse voce, desligaria as notificacoes por uma hora.', 'Voce poderia tornar a meta mais administravel dividindo-a em tres etapas.', 'Eu nao acho que voce deveria comparar seu progresso com o de outra pessoa.', 'Escolha uma prioridade hoje.', 'Estabeleca um limite claro no trabalho.'],
-        17: ['Voce ja trabalhou com clientes estrangeiros?', 'Eu nunca viajei sozinho.', 'Ela ja visitou tres paises.', 'Nos ja experimentamos aquele restaurante.', 'Isso e uma conquista.', 'Voce ja experimentou este aplicativo?'],
-        18: ['Eu ja enviei o relatorio.', 'Ela ainda nao respondeu.', 'Voce ja atualizou o documento?', 'Ele nunca perdeu um prazo.', 'Nos concluimos a tarefa.', 'Ele entregou o arquivo.'],
-        19: ['Eu visitei Salvador em 2021.', 'Eu ja visitei Salvador duas vezes.', 'Ela terminou o curso no mes passado.', 'Ela terminou o curso e agora se sente mais confiante.', 'Nos terminamos o projeto na sexta-feira passada.', 'Nos ja terminamos o projeto.'],
-        20: ['Eu ja fui a esse museu duas vezes.', 'Ela foi a farmacia e voltara logo.', 'Voce ja foi a Argentina?', 'Eles ja foram para casa.', 'Eles ja voltaram.', 'Ela foi ao banco e ainda nao voltou.'],
-        21: ['Minha tosse piorou desde ontem.', 'A febre ja baixou.', 'Eu ainda me sinto fraco, mas o remedio comecou a fazer efeito.', 'A erupcao se espalhou, entao preciso ligar para a clinica.', 'Eu ainda me sinto congestionado.', 'Ela tem se sentido enjoada desde o almoco.'],
-        22: ['Ha quanto tempo voce esta com essa tosse?', 'Estou com dor nas costas ha tres dias.', 'Ela se sente tonta desde sexta-feira.', 'Voce tem alguma alergia?', 'Tome uma dose a noite.', 'O medico me deu uma receita.'],
-        23: ['Deixe o pacote na recepcao do saguao.', 'A sala de reuniao fica no segundo andar.', 'Ha uma pequena mesa no canto do escritorio.', 'O cafe fica na esquina da Lake Street com a Park Road.', 'Espere dentro do predio.', 'O taxi esta do lado de fora.'],
-        25: ['Atravesse o parque e a ponte.', 'Passe pelo supermercado e vire a direita.', 'Ela correu para dentro da estacao porque estava atrasada.', 'Nos caminhamos ao longo do rio depois do almoco.', 'Atravesse a rua.', 'Passe pelo banco.'],
-        26: ['Por favor, envie o formulario assinado ate sexta-feira.', 'O atendimento fica aberto ate o meio-dia.', 'A oficina acontece das nove as onze.', 'Nos responderemos dentro de dois dias uteis.', 'Ligue para mim antes do almoco.', 'Podemos conversar depois da aula.'],
-        27: ['Primeiro, atravesse na faixa de pedestres e continue ate a rotatoria.', 'Pegue a segunda saida e depois vire a esquerda apos a biblioteca.', 'A entrada lateral fica antes ou depois do cafe?', 'Entao eu uso a saida norte e atravesso o estacionamento, certo?', 'Use a saida norte.', 'A biblioteca e um ponto de referencia util.'],
-        28: ['Eu tenho uma reserva no meu nome.', 'Eu poderia receber outra toalha, por favor?', 'O ar-condicionado nao esta funcionando.', 'O cafe da manha esta incluido no preco?', 'Meu cartao-chave nao funciona.', 'Que horas e o check-out?'],
-        29: ['Eu gosto de estudar de manha.', 'Ela decidiu fazer um curso curto.', 'Voce se importa de esperar um minuto?', 'Nos esperamos falar com mais naturalidade.', 'Eu espero melhorar minha pronuncia.', 'Voce se importa de esperar?'],
-        30: ['Se eu estudo de manha, lembro mais.', 'Se chover amanha, vamos cancelar o piquenique.', 'Voce vai melhorar se praticar todos os dias.', 'Se o escritorio estiver fechado, vou ligar mais tarde.', 'Voce vai melhorar com pratica.', 'Se nos nos apressarmos, chegaremos no horario.'],
-        31: ['A menos que nos nos apressemos, vamos perder o trem.', 'Eu espero falar com mais confianca.', 'Eu queria ter mais tempo livre.', 'Voce vai perder a oportunidade a menos que se candidate hoje.', 'Eu espero conseguir o emprego.', 'Eu queria ter mais confianca.']
+        1: ['Por que você acordou tarde na segunda-feira?', 'Onde você estava quando percebeu que a pasta tinha desaparecido?', 'Primeiro, eu liguei para meu gerente; depois, enviei o arquivo.', 'Nós conseguimos resolver o problema antes da reunião.', 'Eu peguei emprestado o carregador do meu irmão.', 'Eles voltaram para casa tarde.'],
+        2: ['Primeiro, nós fizemos check-in no hotel.', 'Depois, nós nos perdemos perto da estação.', 'Nós decidimos explorar a área a pé.', 'Finalmente, encontramos um restaurante perto do rio.', 'Ela reservou um quarto pela internet.', 'O atraso mudou nosso plano.'],
+        3: ['O metrô é muito mais conveniente do que o ônibus.', 'O plano de dias úteis é um pouco mais barato do que o plano de fim de semana.', 'A turma da tarde não é tão lotada quanto a turma da noite.', 'O suporte online é tão útil quanto o suporte presencial.', 'Este aplicativo é muito mais confiável.', 'O novo escritório é um pouco mais perto.'],
+        4: ['Este é o aplicativo mais útil para vocabulário.', 'Segunda de manhã é o pior horário para dirigir no centro.', 'Essa foi a explicação mais fácil do curso.', 'Qual é o melhor restaurante perto da sua casa?', 'Este é o plano menos caro.', 'Sexta-feira é o dia mais movimentado.'],
+        5: ['Eu preciso de algumas informações sobre o evento.', 'Há algumas cadeiras na outra sala.', 'Nós não temos muito tempo antes do almoço.', 'Você poderia comprar uma garrafa de água?', 'Não há muita informação.', 'Muitas pessoas chegaram cedo.'],
+        6: ['Eu estava esperando do lado de fora do banco.', 'Eles estavam conversando perto da entrada.', 'Estava chovendo quando nós chegamos.', 'O que você estava fazendo às nove?', 'Eles estavam em pé perto da porta.', 'Eu estava assistindo ao noticiário.'],
+        7: ['Eu estava apresentando quando o computador travou.', 'Ela estava cozinhando enquanto eu arrumava a mesa.', 'O que você estava fazendo quando o alarme tocou?', 'Eles estavam voltando para casa quando começou a chover.', 'Alguém bateu na porta.', 'Meu telefone tocou duas vezes.'],
+        9: ['Nós vamos preparar a sala hoje à noite porque o evento começa cedo.', 'Olhe para aquelas nuvens escuras. Vai chover.', 'O que você vai mudar primeiro?', 'Eles não vão cancelar o piquenique; eles vão levá-lo para um local fechado.', 'Ela vai melhorar o horário.', 'Eles vão reduzir o preço.'],
+        10: ['Eu acho que a reunião será curta.', 'Eu vou enviar o endereço para você.', 'Ela provavelmente vai chegar atrasada.', 'Os preços vão subir no próximo ano?', 'Eu acredito que vai dar certo.', 'Nós esperamos que os preços subam.'],
+        11: ['Eu vou encontrar meu professor amanhã.', 'Nós vamos sair às sete no sábado.', 'Ela vai almoçar com um cliente na sexta-feira.', 'Você vai trabalhar de casa na próxima semana?', 'Eu tenho uma consulta na sexta-feira.', 'Confira sua agenda.'],
+        12: ['Eu vou encontrar a equipe às nove.', 'Nós vamos apresentar a ideia no próximo mês.', 'Eu acho que o cliente vai gostar.', 'Eu vou enviar o arquivo depois da aula.', 'É provável que dê certo.', 'É improvável que chova.'],
+        13: ['Posso usar seu carregador?', 'Eu poderia sair cinco minutos mais cedo?', 'Podemos usar esta sala?', 'Você poderia repetir a instrução?', 'Posso sair mais cedo hoje?', 'Eu poderia pegar sua caneta emprestada?'],
+        14: ['Você deve mostrar seu documento na recepção.', 'Nós temos que entregar o formulário hoje.', 'Ela precisa ligar para o médico antes do meio-dia.', 'Nós temos que pagar agora?', 'Visitantes devem usar crachá.', 'Nós temos que cumprir o prazo.'],
+        15: ['Talvez você devesse escolher uma prioridade porque sua lista está muito longa.', 'Se eu fosse você, desligaria as notificações por uma hora.', 'Você poderia tornar a meta mais administrável dividindo-a em três etapas.', 'Eu não acho que você deveria comparar seu progresso com o de outra pessoa.', 'Escolha uma prioridade hoje.', 'Estabeleça um limite claro no trabalho.'],
+        17: ['Você já trabalhou com clientes estrangeiros?', 'Eu nunca viajei sozinho.', 'Ela já visitou três países.', 'Nós já experimentamos aquele restaurante.', 'Isso é uma conquista.', 'Você já experimentou este aplicativo?'],
+        18: ['Eu já enviei o relatório.', 'Ela ainda não respondeu.', 'Você já atualizou o documento?', 'Ele nunca perdeu um prazo.', 'Nós concluímos a tarefa.', 'Ele entregou o arquivo.'],
+        19: ['Eu visitei Salvador em 2021.', 'Eu já visitei Salvador duas vezes.', 'Ela terminou o curso no mês passado.', 'Ela terminou o curso e agora se sente mais confiante.', 'Nós terminamos o projeto na sexta-feira passada.', 'Nós já terminamos o projeto.'],
+        20: ['Eu já fui a esse museu duas vezes.', 'Ela foi à farmácia e voltará logo.', 'Você já foi à Argentina?', 'Eles já foram para casa.', 'Eles já voltaram.', 'Ela foi ao banco e ainda não voltou.'],
+        21: ['Minha tosse piorou desde ontem.', 'A febre já baixou.', 'Eu ainda me sinto fraco, mas o remédio começou a fazer efeito.', 'A erupção se espalhou, então preciso ligar para a clínica.', 'Eu ainda me sinto congestionado.', 'Ela tem se sentido enjoada desde o almoço.'],
+        22: ['Há quanto tempo você está com essa tosse?', 'Estou com dor nas costas há três dias.', 'Ela se sente tonta desde sexta-feira.', 'Você tem alguma alergia?', 'Tome uma dose à noite.', 'O médico me deu uma receita.'],
+        23: ['Deixe o pacote na recepção do saguão.', 'A sala de reunião fica no segundo andar.', 'Há uma pequena mesa no canto do escritório.', 'O café fica na esquina da Lake Street com a Park Road.', 'Espere dentro do prédio.', 'O táxi está do lado de fora.'],
+        25: ['Atravesse o parque e a ponte.', 'Passe pelo supermercado e vire à direita.', 'Ela correu para dentro da estação porque estava atrasada.', 'Nós caminhamos ao longo do rio depois do almoço.', 'Atravesse a rua.', 'Passe pelo banco.'],
+        26: ['Por favor, envie o formulário assinado até sexta-feira.', 'O atendimento fica aberto até o meio-dia.', 'A oficina acontece das nove às onze.', 'Nós responderemos dentro de dois dias úteis.', 'Ligue para mim antes do almoço.', 'Podemos conversar depois da aula.'],
+        27: ['Primeiro, atravesse na faixa de pedestres e continue até a rotatória.', 'Pegue a segunda saída e depois vire à esquerda após a biblioteca.', 'A entrada lateral fica antes ou depois do café?', 'Então eu uso a saída norte e atravesso o estacionamento, certo?', 'Use a saída norte.', 'A biblioteca é um ponto de referência útil.'],
+        28: ['Eu tenho uma reserva no meu nome.', 'Eu poderia receber outra toalha, por favor?', 'O ar-condicionado não está funcionando.', 'O café da manhã está incluído no preço?', 'Meu cartão-chave não funciona.', 'Que horas é o check-out?'],
+        29: ['Eu gosto de estudar de manhã.', 'Ela decidiu fazer um curso curto.', 'Você se importa de esperar um minuto?', 'Nós esperamos falar com mais naturalidade.', 'Eu espero melhorar minha pronúncia.', 'Você se importa de esperar?'],
+        30: ['Se eu estudo de manhã, lembro mais.', 'Se chover amanhã, vamos cancelar o piquenique.', 'Você vai melhorar se praticar todos os dias.', 'Se o escritório estiver fechado, vou ligar mais tarde.', 'Você vai melhorar com prática.', 'Se nós nos apressarmos, chegaremos no horário.'],
+        31: ['A menos que nós nos apressemos, vamos perder o trem.', 'Eu espero falar com mais confiança.', 'Eu queria ter mais tempo livre.', 'Você vai perder a oportunidade a menos que se candidate hoje.', 'Eu espero conseguir o emprego.', 'Eu queria ter mais confiança.']
     };
 
     const translationExtraAnswers = {
@@ -1896,196 +1896,196 @@
 
         const label = (bank.matchLabel || bank.label || '').toLowerCase();
         if (/past simple/.test(label)) return [
-            { pt: 'Eu acordei tarde e perdi o primeiro onibus.', en: 'I overslept and missed the first bus.' },
-            { pt: 'Ela nao esqueceu a reuniao.', en: 'She did not forget the meeting.' },
-            { pt: 'Voce conseguiu resolver o problema?', en: 'Did you manage to solve the problem?' },
-            { pt: 'Nos voltamos para casa depois da meia-noite.', en: 'We returned home after midnight.' },
+            { pt: 'Eu acordei tarde e perdi o primeiro ônibus.', en: 'I overslept and missed the first bus.' },
+            { pt: 'Ela não esqueceu a reunião.', en: 'She did not forget the meeting.' },
+            { pt: 'Você conseguiu resolver o problema?', en: 'Did you manage to solve the problem?' },
+            { pt: 'Nós voltamos para casa depois da meia-noite.', en: 'We returned home after midnight.' },
             { pt: 'Eu pedi desculpas pelo atraso.', en: 'I apologized for the delay.' },
             { pt: 'Eles terminaram o projeto ontem.', en: 'They finished the project yesterday.' }
         ];
         if (/complete past/.test(label)) return [
-            { pt: 'Primeiro, nos fizemos check-in no hotel.', en: 'First, we checked in at the hotel.' },
-            { pt: 'Depois, nos nos perdemos perto da estacao.', en: 'Then we got lost near the station.' },
-            { pt: 'Nos decidimos explorar a area a pe.', en: 'We decided to explore the area on foot.' },
+            { pt: 'Primeiro, nós fizemos check-in no hotel.', en: 'First, we checked in at the hotel.' },
+            { pt: 'Depois, nós nos perdemos perto da estação.', en: 'Then we got lost near the station.' },
+            { pt: 'Nós decidimos explorar a área a pé.', en: 'We decided to explore the area on foot.' },
             { pt: 'Finalmente, encontramos um restaurante perto do rio.', en: 'Finally, we found a restaurant by the river.' },
-            { pt: 'A viagem comecou com um atraso.', en: 'The trip started with a delay.' },
-            { pt: 'Eu lembrei o endereco mais tarde.', en: 'I remembered the address later.' }
+            { pt: 'A viagem começou com um atraso.', en: 'The trip started with a delay.' },
+            { pt: 'Eu lembrei o endereço mais tarde.', en: 'I remembered the address later.' }
         ];
         if (/comparative/.test(label)) return [
-            { pt: 'O escritorio novo e mais perto do que o antigo.', en: 'The new office is closer than the old one.' },
-            { pt: 'Aulas online sao mais flexiveis do que aulas presenciais.', en: 'Online classes are more flexible than in-person classes.' },
-            { pt: 'Essa rota e menos estressante do que a rodovia.', en: 'This route is less stressful than the highway.' },
-            { pt: 'O trem e mais rapido do que o onibus?', en: 'Is the train faster than the bus?' },
-            { pt: 'Esse aplicativo e mais confiavel.', en: 'This app is more reliable.' },
-            { pt: 'O centro e mais movimentado a noite.', en: 'The center is busier at night.' }
+            { pt: 'O escritório novo é mais perto do que o antigo.', en: 'The new office is closer than the old one.' },
+            { pt: 'Aulas online são mais flexíveis do que aulas presenciais.', en: 'Online classes are more flexible than in-person classes.' },
+            { pt: 'Essa rota é menos estressante do que a rodovia.', en: 'This route is less stressful than the highway.' },
+            { pt: 'O trem é mais rápido do que o ônibus?', en: 'Is the train faster than the bus?' },
+            { pt: 'Esse aplicativo é mais confiável.', en: 'This app is more reliable.' },
+            { pt: 'O centro é mais movimentado à noite.', en: 'The center is busier at night.' }
         ];
         if (/superlative/.test(label)) return [
-            { pt: 'Esse e o aplicativo mais util para vocabulario.', en: 'This is the most useful app for vocabulary.' },
-            { pt: 'Segunda de manha e o pior horario para dirigir no centro.', en: 'Monday morning is the worst time to drive downtown.' },
-            { pt: 'Essa foi a explicacao mais facil do curso.', en: 'That was the easiest explanation in the course.' },
-            { pt: 'Qual e o melhor restaurante perto da sua casa?', en: 'What is the best restaurant near your house?' },
-            { pt: 'Esse e o plano menos caro.', en: 'This is the least expensive plan.' },
-            { pt: 'Foi o assento mais confortavel.', en: 'It was the most comfortable seat.' }
+            { pt: 'Esse é o aplicativo mais útil para vocabulário.', en: 'This is the most useful app for vocabulary.' },
+            { pt: 'Segunda de manhã é o pior horário para dirigir no centro.', en: 'Monday morning is the worst time to drive downtown.' },
+            { pt: 'Essa foi a explicação mais fácil do curso.', en: 'That was the easiest explanation in the course.' },
+            { pt: 'Qual é o melhor restaurante perto da sua casa?', en: 'What is the best restaurant near your house?' },
+            { pt: 'Esse é o plano menos caro.', en: 'This is the least expensive plan.' },
+            { pt: 'Foi o assento mais confortável.', en: 'It was the most comfortable seat.' }
         ];
         if (/articles|quantifiers/.test(label)) return [
-            { pt: 'Eu preciso de algumas informacoes sobre o evento.', en: 'I need some information about the event.' },
-            { pt: 'Ha algumas cadeiras na outra sala.', en: 'There are a few chairs in the next room.' },
-            { pt: 'Nos nao temos muito tempo antes do almoco.', en: 'We do not have much time before lunch.' },
-            { pt: 'Voce pode comprar uma garrafa de agua?', en: 'Could you buy a bottle of water?' },
+            { pt: 'Eu preciso de algumas informações sobre o evento.', en: 'I need some information about the event.' },
+            { pt: 'Há algumas cadeiras na outra sala.', en: 'There are a few chairs in the next room.' },
+            { pt: 'Nós não temos muito tempo antes do almoço.', en: 'We do not have much time before lunch.' },
+            { pt: 'Você pode comprar uma garrafa de água?', en: 'Could you buy a bottle of water?' },
             { pt: 'Muitas pessoas chegaram cedo.', en: 'Many people arrived early.' },
-            { pt: 'Nos temos agua suficiente para o grupo.', en: 'We have enough water for the group.' }
+            { pt: 'Nós temos água suficiente para o grupo.', en: 'We have enough water for the group.' }
         ];
         if (/past continuous|interrupted|setting the scene/.test(label)) return [
             { pt: 'Eu estava esperando do lado de fora do banco.', en: 'I was waiting outside the bank.' },
             { pt: 'Eles estavam conversando perto da entrada.', en: 'They were talking near the entrance.' },
-            { pt: 'Estava chovendo quando nos chegamos.', en: 'It was raining when we arrived.' },
-            { pt: 'O que voce estava fazendo as nove?', en: 'What were you doing at nine?' },
+            { pt: 'Estava chovendo quando nós chegamos.', en: 'It was raining when we arrived.' },
+            { pt: 'O que você estava fazendo às nove?', en: 'What were you doing at nine?' },
             { pt: 'Eu estava apresentando quando o computador travou.', en: 'I was presenting when the computer crashed.' },
             { pt: 'Ela estava cozinhando enquanto eu arrumava a mesa.', en: 'She was cooking while I was setting the table.' }
         ];
         if (/going to/.test(label)) return [
-            { pt: 'Eu vou revisar a licao hoje a noite.', en: 'I am going to review the lesson tonight.' },
+            { pt: 'Eu vou revisar a lição hoje à noite.', en: 'I am going to review the lesson tonight.' },
             { pt: 'Ela vai economizar dinheiro para uma viagem.', en: 'She is going to save money for a trip.' },
-            { pt: 'Voce vai comecar uma nova rotina?', en: 'Are you going to start a new routine?' },
-            { pt: 'Eles nao vao cancelar o evento.', en: 'They are not going to cancel the event.' },
+            { pt: 'Você vai começar uma nova rotina?', en: 'Are you going to start a new routine?' },
+            { pt: 'Eles não vão cancelar o evento.', en: 'They are not going to cancel the event.' },
             { pt: 'Eu vou preparar o jantar.', en: 'I am going to prepare dinner.' },
-            { pt: 'Nos vamos visitar minha tia.', en: 'We are going to visit my aunt.' }
+            { pt: 'Nós vamos visitar minha tia.', en: 'We are going to visit my aunt.' }
         ];
         if (/will/.test(label)) return [
-            { pt: 'Eu acho que a reuniao sera curta.', en: 'I think the meeting will be short.' },
-            { pt: 'Eu vou te enviar o endereco.', en: 'I will send you the address.' },
+            { pt: 'Eu acho que a reunião será curta.', en: 'I think the meeting will be short.' },
+            { pt: 'Eu vou te enviar o endereço.', en: 'I will send you the address.' },
             { pt: 'Ela provavelmente vai chegar atrasada.', en: 'She will probably arrive late.' },
-            { pt: 'Os precos vao subir no proximo ano?', en: 'Will prices go up next year?' },
+            { pt: 'Os preços vão subir no próximo ano?', en: 'Will prices go up next year?' },
             { pt: 'Eu vou cuidar dos ingressos.', en: 'I will take care of the tickets.' },
             { pt: 'Eu prometo que vou ligar.', en: 'I promise I will call.' }
         ];
         if (/present continuous for future/.test(label)) return [
-            { pt: 'Eu vou encontrar meu professor amanha.', en: 'I am meeting my teacher tomorrow.' },
-            { pt: 'Nos vamos sair as sete no sabado.', en: 'We are leaving at seven on Saturday.' },
-            { pt: 'Ela vai almocar com um cliente na sexta.', en: 'She is having lunch with a client on Friday.' },
-            { pt: 'Voce vai trabalhar de casa na proxima semana?', en: 'Are you working from home next week?' },
-            { pt: 'Eles vao voar para Recife.', en: 'They are flying to Recife.' },
-            { pt: 'Nos vamos remarcar a ligacao.', en: 'We are rescheduling the call.' }
+            { pt: 'Eu vou encontrar meu professor amanhã.', en: 'I am meeting my teacher tomorrow.' },
+            { pt: 'Nós vamos sair às sete no sábado.', en: 'We are leaving at seven on Saturday.' },
+            { pt: 'Ela vai almoçar com um cliente na sexta.', en: 'She is having lunch with a client on Friday.' },
+            { pt: 'Você vai trabalhar de casa na próxima semana?', en: 'Are you working from home next week?' },
+            { pt: 'Eles vão voar para Recife.', en: 'They are flying to Recife.' },
+            { pt: 'Nós vamos remarcar a ligação.', en: 'We are rescheduling the call.' }
         ];
         if (/future review/.test(label)) return [
-            { pt: 'Eu vou encontrar a equipe as nove.', en: 'I am meeting the team at nine.' },
-            { pt: 'Nos vamos apresentar a ideia no proximo mes.', en: 'We are going to present the idea next month.' },
+            { pt: 'Eu vou encontrar a equipe às nove.', en: 'I am meeting the team at nine.' },
+            { pt: 'Nós vamos apresentar a ideia no próximo mês.', en: 'We are going to present the idea next month.' },
             { pt: 'Eu acho que o cliente vai gostar.', en: 'I think the client will like it.' },
             { pt: 'Eu vou enviar o arquivo depois da aula.', en: 'I will send the file after class.' },
-            { pt: 'A reuniao esta confirmada para terca.', en: 'The meeting is confirmed for Tuesday.' },
+            { pt: 'A reunião está confirmada para terça.', en: 'The meeting is confirmed for Tuesday.' },
             { pt: 'Provavelmente vai dar certo.', en: 'It will probably work out.' }
         ];
         if (/permission|can, could/.test(label)) return [
             { pt: 'Posso usar seu carregador?', en: 'Can I use your charger?' },
             { pt: 'Eu poderia sair cinco minutos mais cedo?', en: 'Could I leave five minutes early?' },
             { pt: 'Podemos usar esta sala?', en: 'Can we use this room?' },
-            { pt: 'Voce poderia repetir a instrucao?', en: 'Could you repeat the instruction?' },
+            { pt: 'Você poderia repetir a instrução?', en: 'Could you repeat the instruction?' },
             { pt: 'Posso pegar sua caneta emprestada?', en: 'Could I borrow your pen?' },
             { pt: 'Desculpa interromper.', en: 'Sorry to interrupt.' }
         ];
         if (/must|have to|need to/.test(label)) return [
-            { pt: 'Voce deve mostrar seu documento na recepcao.', en: 'You must show your ID at reception.' },
-            { pt: 'Nos temos que enviar o formulario hoje.', en: 'We have to submit the form today.' },
-            { pt: 'Ela precisa ligar para o medico antes do meio-dia.', en: 'She needs to call the doctor before noon.' },
-            { pt: 'Nos temos que pagar agora?', en: 'Do we have to pay now?' },
-            { pt: 'Visitantes devem usar cracha.', en: 'Visitors must wear a badge.' },
-            { pt: 'Eu preciso terminar este formulario.', en: 'I need to finish this form.' }
+            { pt: 'Você deve mostrar seu documento na recepção.', en: 'You must show your ID at reception.' },
+            { pt: 'Nós temos que enviar o formulário hoje.', en: 'We have to submit the form today.' },
+            { pt: 'Ela precisa ligar para o médico antes do meio-dia.', en: 'She needs to call the doctor before noon.' },
+            { pt: 'Nós temos que pagar agora?', en: 'Do we have to pay now?' },
+            { pt: 'Visitantes devem usar crachá.', en: 'Visitors must wear a badge.' },
+            { pt: 'Eu preciso terminar este formulário.', en: 'I need to finish this form.' }
         ];
         if (/should|advice/.test(label)) return [
-            { pt: 'Voce deveria fazer uma pausa curta.', en: 'You should take a short break.' },
-            { pt: 'Talvez voce devesse escrever um plano de estudo.', en: 'Maybe you should write a study plan.' },
-            { pt: 'Voce nao deveria se comparar com os outros.', en: 'You should not compare yourself to others.' },
-            { pt: 'Se eu fosse voce, eu praticaria dez minutos por dia.', en: 'If I were you, I would practice for ten minutes a day.' },
-            { pt: 'Voce deveria descansar esta semana.', en: 'You should rest this week.' },
-            { pt: 'Ele deveria evitar cafe demais.', en: 'He should avoid too much coffee.' }
+            { pt: 'Você deveria fazer uma pausa curta.', en: 'You should take a short break.' },
+            { pt: 'Talvez você devesse escrever um plano de estudo.', en: 'Maybe you should write a study plan.' },
+            { pt: 'Você não deveria se comparar com os outros.', en: 'You should not compare yourself to others.' },
+            { pt: 'Se eu fosse você, eu praticaria dez minutos por dia.', en: 'If I were you, I would practice for ten minutes a day.' },
+            { pt: 'Você deveria descansar esta semana.', en: 'You should rest this week.' },
+            { pt: 'Ele deveria evitar café demais.', en: 'He should avoid too much coffee.' }
         ];
         if (/present perfect|ever|never|already|yet|been and gone/.test(label)) return [
-            { pt: 'Voce ja trabalhou com clientes estrangeiros?', en: 'Have you ever worked with foreign clients?' },
+            { pt: 'Você já trabalhou com clientes estrangeiros?', en: 'Have you ever worked with foreign clients?' },
             { pt: 'Eu nunca viajei sozinho.', en: 'I have never traveled alone.' },
-            { pt: 'Ela ja visitou tres paises.', en: 'She has visited three countries.' },
-            { pt: 'Nos ja experimentamos aquele restaurante antes.', en: 'We have tried that restaurant before.' },
-            { pt: 'Eu ja enviei o relatorio.', en: 'I have already sent the report.' },
-            { pt: 'Ela ainda nao respondeu.', en: 'She has not replied yet.' }
+            { pt: 'Ela já visitou três países.', en: 'She has visited three countries.' },
+            { pt: 'Nós já experimentamos aquele restaurante antes.', en: 'We have tried that restaurant before.' },
+            { pt: 'Eu já enviei o relatório.', en: 'I have already sent the report.' },
+            { pt: 'Ela ainda não respondeu.', en: 'She has not replied yet.' }
         ];
         if (/health|medical/.test(label)) return [
-            { pt: 'Eu estou com dor de cabeca.', en: 'I have a headache.' },
-            { pt: 'Ela esta com dor de garganta.', en: 'She has a sore throat.' },
-            { pt: 'Ele esta tossindo ha dois dias.', en: 'He has had a cough for two days.' },
-            { pt: 'Voce esta com febre?', en: 'Do you have a fever?' },
-            { pt: 'Eu me sinto tonto de manha.', en: 'I feel dizzy in the morning.' },
-            { pt: 'Voce deveria marcar uma consulta.', en: 'You should book an appointment.' }
+            { pt: 'Eu estou com dor de cabeça.', en: 'I have a headache.' },
+            { pt: 'Ela está com dor de garganta.', en: 'She has a sore throat.' },
+            { pt: 'Ele está tossindo há dois dias.', en: 'He has had a cough for two days.' },
+            { pt: 'Você está com febre?', en: 'Do you have a fever?' },
+            { pt: 'Eu me sinto tonto de manhã.', en: 'I feel dizzy in the morning.' },
+            { pt: 'Você deveria marcar uma consulta.', en: 'You should book an appointment.' }
         ];
         if (/prepositions of place/.test(label)) return [
-            { pt: 'A farmacia fica em frente ao banco.', en: 'The pharmacy is across from the bank.' },
-            { pt: 'Minhas chaves estao embaixo do caderno.', en: 'My keys are under the notebook.' },
+            { pt: 'A farmácia fica em frente ao banco.', en: 'The pharmacy is across from the bank.' },
+            { pt: 'Minhas chaves estão embaixo do caderno.', en: 'My keys are under the notebook.' },
             { pt: 'O hotel fica na Green Street.', en: 'The hotel is on Green Street.' },
             { pt: 'Encontre-me na entrada principal.', en: 'Meet me at the main entrance.' },
-            { pt: 'A bolsa esta atras da cadeira.', en: 'The bag is behind the chair.' },
-            { pt: 'A luminaria esta ao lado da cama.', en: 'The lamp is next to the bed.' }
+            { pt: 'A bolsa está atrás da cadeira.', en: 'The bag is behind the chair.' },
+            { pt: 'A luminária está ao lado da cama.', en: 'The lamp is next to the bed.' }
         ];
         if (/movement|directions|hotel|time|at the hotel|from a to b/.test(label)) return [
-            { pt: 'Siga em frente por dois quarteiroes e vire a esquerda.', en: 'Go straight for two blocks and turn left.' },
+            { pt: 'Siga em frente por dois quarteirões e vire à esquerda.', en: 'Go straight for two blocks and turn left.' },
             { pt: 'A entrada fica em frente ao supermercado.', en: 'The entrance is opposite the supermarket.' },
             { pt: 'Eu tenho uma reserva no meu nome.', en: 'I have a reservation under my name.' },
-            { pt: 'O chuveiro nao esta funcionando.', en: 'The shower is not working.' },
-            { pt: 'Minha consulta e as tres na quinta-feira.', en: 'My appointment is at three on Thursday.' },
-            { pt: 'Atravesse o parque e vire a direita.', en: 'Walk through the park and turn right.' }
+            { pt: 'O chuveiro não está funcionando.', en: 'The shower is not working.' },
+            { pt: 'Minha consulta é as três na quinta-feira.', en: 'My appointment is at three on Thursday.' },
+            { pt: 'Atravesse o parque e vire à direita.', en: 'Walk through the park and turn right.' }
         ];
         if (/gerunds|infinitives/.test(label)) return [
-            { pt: 'Eu gosto de estudar de manha.', en: 'I enjoy studying in the morning.' },
+            { pt: 'Eu gosto de estudar de manhã.', en: 'I enjoy studying in the morning.' },
             { pt: 'Ela decidiu fazer um curso curto.', en: 'She decided to take a short course.' },
-            { pt: 'Voce se importa de esperar um minuto?', en: 'Do you mind waiting a minute?' },
-            { pt: 'Nos esperamos falar com mais naturalidade.', en: 'We hope to speak more naturally.' },
+            { pt: 'Você se importa de esperar um minuto?', en: 'Do you mind waiting a minute?' },
+            { pt: 'Nós esperamos falar com mais naturalidade.', en: 'We hope to speak more naturally.' },
             { pt: 'Eu evito estudar quando estou exausto.', en: 'I avoid studying when I am exhausted.' },
             { pt: 'Ele prometeu ligar.', en: 'He promised to call.' }
         ];
         if (/conditional|unless|wishes/.test(label)) return [
-            { pt: 'Se eu estudo de manha, eu lembro mais.', en: 'If I study in the morning, I remember more.' },
-            { pt: 'Se chover amanha, nos vamos cancelar o piquenique.', en: 'If it rains tomorrow, we will cancel the picnic.' },
-            { pt: 'Voce vai melhorar se praticar todos os dias.', en: 'You will improve if you practice every day.' },
+            { pt: 'Se eu estudo de manhã, eu lembro mais.', en: 'If I study in the morning, I remember more.' },
+            { pt: 'Se chover amanhã, nós vamos cancelar o piquenique.', en: 'If it rains tomorrow, we will cancel the picnic.' },
+            { pt: 'Você vai melhorar se praticar todos os dias.', en: 'You will improve if you practice every day.' },
             { pt: 'A menos que a gente se apresse, vamos perder o trem.', en: 'Unless we hurry, we will miss the train.' },
-            { pt: 'Eu espero falar com mais confianca.', en: 'I hope to speak more confidently.' },
+            { pt: 'Eu espero falar com mais confiança.', en: 'I hope to speak more confidently.' },
             { pt: 'Eu queria ter mais tempo livre.', en: 'I wish I had more free time.' }
         ];
         return [
-            { pt: 'Eu melhorei minha confianca desde a primeira aula.', en: 'I have improved my confidence since the first lesson.' },
-            { pt: 'Eu evitava falar, mas agora tento com mais frequencia.', en: 'I used to avoid speaking, but now I try more often.' },
+            { pt: 'Eu melhorei minha confiança desde a primeira aula.', en: 'I have improved my confidence since the first lesson.' },
+            { pt: 'Eu evitava falar, mas agora tento com mais frequência.', en: 'I used to avoid speaking, but now I try more often.' },
             { pt: 'Se eu praticar todos os dias, vou continuar melhorando.', en: 'If I practice every day, I will keep improving.' },
-            { pt: 'Meu proximo passo e responder uma pergunta em voz alta todos os dias.', en: 'My next step is to answer one question aloud every day.' },
+            { pt: 'Meu próximo passo é responder uma pergunta em voz alta todos os dias.', en: 'My next step is to answer one question aloud every day.' },
             { pt: 'Eu quero continuar estudando.', en: 'I want to keep going.' },
-            { pt: 'Minha meta e falar com mais clareza.', en: 'My goal is to speak more clearly.' }
+            { pt: 'Minha meta é falar com mais clareza.', en: 'My goal is to speak more clearly.' }
         ];
     }
 
     const expressionTranslationPortuguese = {
-        1: ['O problema acabou sendo simples.', 'Eu encontrei meu antigo professor por acaso.', 'No fim, nos pegamos um taxi.', 'Eu relembro aquele dia e dou risada.'],
-        2: ['Nos partimos cedo de manha.', 'Nos encontramos uma praca tranquila por acaso.', 'A recepcionista resolveu o problema.', 'Nos voltamos depois do jantar.'],
-        3: ['Precisamos avaliar os dois planos.', 'O trem tem uma vantagem sobre o onibus.', 'O custo extra vale a pena.', 'A decisao se resume a tempo e dinheiro.'],
-        4: ['Ela e considerada a melhor opcao.', 'Esta opcao fica acima das demais.', 'A localizacao supera as outras.', 'A cidade esta no seu melhor na primavera.'],
-        5: ['Nos ficamos sem cafe.', 'Nos compramos bastante lanche.', 'Eu quero reduzir o acucar.', 'Podemos nos virar com duas mesas.'],
-        6: ['Nos estavamos passando o tempo no saguao.', 'Ela estava olhando ao redor da loja.', 'Eles estavam sentados sem fazer muita coisa antes da aula.', 'Um homem estava passando pela janela.'],
-        7: ['O alarme disparou durante a reuniao.', 'O elevador parou de funcionar.', 'Todos se acalmaram depois de um minuto.', 'Nos descobrimos o que causou o problema.'],
-        9: ['Eu planejei a semana inteira em detalhes.', 'Nos vamos levar o plano ate o fim.', 'Ele vai se inscrever no curso.', 'Eu quero seguir firme com meu plano.'],
-        10: ['Voce pode contar comigo.', 'No fim, tudo vai dar certo.', 'Alguma coisa vai surgir.', 'Eu vou cuidar dos ingressos.'],
-        11: ['Nos marcamos uma ligacao para terca-feira.', 'Eles adiantaram a reuniao.', 'Podemos adiar a consulta?', 'Por favor, chegue no horario.'],
-        12: ['Eu vou dar seguimento amanha.', 'O plano vai dar certo.', 'Faca uma copia do arquivo antes da reuniao.', 'Nos organizamos tres opcoes.'],
-        13: ['Claro, pode ir em frente.', 'Voce poderia esperar um segundo?', 'Voce poderia falar mais alto, por favor?', 'Voce pode abaixar o volume?'],
-        14: ['Voce precisa preencher este formulario.', 'Nos temos que entregar o relatorio.', 'Visitantes devem fazer o registro primeiro.', 'Eu tenho que acompanhar o curso.'],
-        15: ['Voce deveria ir mais devagar esta semana.', 'Voce deveria se abrir com alguem.', 'Ela esta lidando com estresse.', 'Nao se esgote antes da prova.'],
-        17: ['Eu experimentei um aplicativo novo.', 'Eu encontrei um artigo util por acaso.', 'Ela passou por muitas mudancas.', 'Ele desenvolveu confianca aos poucos.'],
-        18: ['Eu preciso colocar os e-mails em dia.', 'Nos enviamos os convites.', 'Eu marquei tres tarefas como concluidas.', 'Ela ficou atrasada nas tarefas esta semana.'],
-        19: ['Eu relembro aquela viagem com frequencia.', 'Ele mencionou um projeto antigo.', 'Ela seguiu em frente depois daquele emprego.', 'Voce avancou muito.'],
-        20: ['Ela vai voltar logo.', 'Ele viajou no fim de semana.', 'Eles voltaram ontem.', 'Eu passei rapidamente no escritorio.'],
-        21: ['Eu fiquei resfriado.', 'Ela esta se recuperando da gripe.', 'A erupcao voltou a piorar ontem a noite.', 'O efeito do remedio passou.'],
-        22: ['Beba mais liquidos.', 'Voce deveria se deitar por um tempo.', 'A irritacao desapareceu.', 'O medico fara o acompanhamento na proxima semana.'],
-        23: ['Eu estou procurando minhas chaves.', 'Guarde os documentos.', 'Ela me mostrou o apartamento.', 'Nos mudamos as cadeiras de lugar.'],
-        25: ['Nos encontramos uma pequena livraria por acaso.', 'Passe pela igreja.', 'O onibus entrou na estacao.', 'Siga em direcao a praca principal.'],
-        26: ['Nao adie a tarefa.', 'Eles adiantaram o prazo.', 'Podemos encaixar uma ligacao curta?', 'Eu estou atrasado.'],
-        27: ['Continue ate a rotatoria.', 'Pegue a segunda rua a esquerda depois da ponte.', 'Atravesse no semaforo.', 'Encoste depois da esquina.'],
-        28: ['Nos fizemos check-in tarde.', 'Eles fizeram check-out antes do cafe da manha.', 'A recepcao resolveu o problema.', 'Eles ofereceram cafe para compensar o atraso.'],
-        29: ['Continue praticando.', 'Nao desista de aprender.', 'Estou ansioso para ver voce.', 'Estou me acostumando a falar.'],
-        30: ['Isso depende do horario.', 'Se nos nos prepararmos bem, o plano vai dar certo.', 'Siga sua rotina.', 'Nos vamos encontrar uma solucao.'],
-        31: ['Nao perca esta oportunidade.', 'Voce pode contar com minha ajuda.', 'Prepare-se para a entrevista.', 'Vamos olhar para frente e planejar.']
+        1: ['O problema acabou sendo simples.', 'Eu encontrei meu antigo professor por acaso.', 'No fim, nós pegamos um táxi.', 'Eu relembro aquele dia e dou risada.'],
+        2: ['Nós partimos cedo de manhã.', 'Nós encontramos uma praça tranquila por acaso.', 'A recepcionista resolveu o problema.', 'Nós voltamos depois do jantar.'],
+        3: ['Precisamos avaliar os dois planos.', 'O trem tem uma vantagem sobre o ônibus.', 'O custo extra vale a pena.', 'A decisão se resume a tempo e dinheiro.'],
+        4: ['Ela é considerada a melhor opção.', 'Esta opção fica acima das demais.', 'A localização supera as outras.', 'A cidade está no seu melhor na primavera.'],
+        5: ['Nós ficamos sem café.', 'Nós compramos bastante lanche.', 'Eu quero reduzir o açúcar.', 'Podemos nos virar com duas mesas.'],
+        6: ['Nós estavamos passando o tempo no saguão.', 'Ela estava olhando ao redor da loja.', 'Eles estavam sentados sem fazer muita coisa antes da aula.', 'Um homem estava passando pela janela.'],
+        7: ['O alarme disparou durante a reunião.', 'O elevador parou de funcionar.', 'Todos se acalmaram depois de um minuto.', 'Nós descobrimos o que causou o problema.'],
+        9: ['Eu planejei a semana inteira em detalhes.', 'Nós vamos levar o plano até o fim.', 'Ele vai se inscrever no curso.', 'Eu quero seguir firme com meu plano.'],
+        10: ['Você pode contar comigo.', 'No fim, tudo vai dar certo.', 'Alguma coisa vai surgir.', 'Eu vou cuidar dos ingressos.'],
+        11: ['Nós marcamos uma ligação para terça-feira.', 'Eles adiantaram a reunião.', 'Podemos adiar a consulta?', 'Por favor, chegue no horário.'],
+        12: ['Eu vou dar seguimento amanhã.', 'O plano vai dar certo.', 'Faça uma cópia do arquivo antes da reunião.', 'Nós organizamos três opções.'],
+        13: ['Claro, pode ir em frente.', 'Você poderia esperar um segundo?', 'Você poderia falar mais alto, por favor?', 'Você pode abaixar o volume?'],
+        14: ['Você precisa preencher este formulário.', 'Nós temos que entregar o relatório.', 'Visitantes devem fazer o registro primeiro.', 'Eu tenho que acompanhar o curso.'],
+        15: ['Você deveria ir mais devagar esta semana.', 'Você deveria se abrir com alguém.', 'Ela está lidando com estresse.', 'Não se esgote antes da prova.'],
+        17: ['Eu experimentei um aplicativo novo.', 'Eu encontrei um artigo útil por acaso.', 'Ela passou por muitas mudanças.', 'Ele desenvolveu confiança aos poucos.'],
+        18: ['Eu preciso colocar os e-mails em dia.', 'Nós enviamos os convites.', 'Eu marquei três tarefas como concluídas.', 'Ela ficou atrasada nas tarefas esta semana.'],
+        19: ['Eu relembro aquela viagem com frequência.', 'Ele mencionou um projeto antigo.', 'Ela seguiu em frente depois daquele emprego.', 'Você avançou muito.'],
+        20: ['Ela vai voltar logo.', 'Ele viajou no fim de semana.', 'Eles voltaram ontem.', 'Eu passei rapidamente no escritório.'],
+        21: ['Eu fiquei resfriado.', 'Ela está se recuperando da gripe.', 'A erupção voltou a piorar ontem à noite.', 'O efeito do remédio passou.'],
+        22: ['Beba mais líquidos.', 'Você deveria se deitar por um tempo.', 'A irritação desapareceu.', 'O médico fará o acompanhamento na próxima semana.'],
+        23: ['Eu estou procurando minhas chaves.', 'Guarde os documentos.', 'Ela me mostrou o apartamento.', 'Nós mudamos as cadeiras de lugar.'],
+        25: ['Nós encontramos uma pequena livraria por acaso.', 'Passe pela igreja.', 'O ônibus entrou na estação.', 'Siga em direção à praça principal.'],
+        26: ['Não adie a tarefa.', 'Eles adiantaram o prazo.', 'Podemos encaixar uma ligação curta?', 'Eu estou atrasado.'],
+        27: ['Continue até a rotatória.', 'Pegue a segunda rua à esquerda depois da ponte.', 'Atravesse no semáforo.', 'Encoste depois da esquina.'],
+        28: ['Nós fizemos check-in tarde.', 'Eles fizeram check-out antes do café da manhã.', 'A recepção resolveu o problema.', 'Eles ofereceram café para compensar o atraso.'],
+        29: ['Continue praticando.', 'Não desista de aprender.', 'Estou ansioso para ver você.', 'Estou me acostumando a falar.'],
+        30: ['Isso depende do horário.', 'Se nós nos prepararmos bem, o plano vai dar certo.', 'Siga sua rotina.', 'Nós vamos encontrar uma solução.'],
+        31: ['Não perca esta oportunidade.', 'Você pode contar com minha ajuda.', 'Prepare-se para a entrevista.', 'Vamos olhar para frente e planejar.']
     };
 
     function createExpressionTranslations(bank, lessonNumber) {
@@ -2096,75 +2096,75 @@
 
         const label = bank.matchLabel || bank.label || '';
         if (/past simple|complete past|past continuous|interrupted/.test(label)) return [
-            { pt: 'No fim, nos pegamos um taxi.', en: 'We ended up taking a taxi.' },
+            { pt: 'No fim, nós pegamos um táxi.', en: 'We ended up taking a taxi.' },
             { pt: 'Eu encontrei um velho amigo por acaso.', en: 'I ran into an old friend.' },
-            { pt: 'O alarme tocou durante a reuniao.', en: 'The alarm went off during the meeting.' },
+            { pt: 'O alarme tocou durante a reunião.', en: 'The alarm went off during the meeting.' },
             { pt: 'O carro parou de funcionar na estrada.', en: 'The car broke down on the road.' },
             { pt: 'Todo mundo se acalmou depois de alguns minutos.', en: 'Everyone calmed down after a few minutes.' },
-            { pt: 'Nos descobrimos o que aconteceu mais tarde.', en: 'We found out what happened later.' }
+            { pt: 'Nós descobrimos o que aconteceu mais tarde.', en: 'We found out what happened later.' }
         ];
         if (/comparative|superlative|articles|quantifiers/.test(label)) return [
-            { pt: 'A opcao mais flexivel se destaca.', en: 'The more flexible option stands out.' },
-            { pt: 'A decisao se resume a tempo e dinheiro.', en: 'The decision comes down to time and money.' },
+            { pt: 'A opção mais flexível se destaca.', en: 'The more flexible option stands out.' },
+            { pt: 'A decisão se resume a tempo e dinheiro.', en: 'The decision comes down to time and money.' },
             { pt: 'Eu escolheria a rota mais segura.', en: 'I would go for the safer route.' },
-            { pt: 'Nos ficamos sem cafe.', en: 'We ran out of coffee.' },
-            { pt: 'Nos compramos bastante lanche.', en: 'We stocked up on snacks.' },
+            { pt: 'Nós ficamos sem café.', en: 'We ran out of coffee.' },
+            { pt: 'Nós compramos bastante lanche.', en: 'We stocked up on snacks.' },
             { pt: 'Podemos nos virar com duas mesas.', en: 'We can make do with two tables.' }
         ];
         if (/going to|will|present continuous for future|future review/.test(label)) return [
-            { pt: 'Nos marcamos uma ligacao para terca.', en: 'We set up a call for Tuesday.' },
-            { pt: 'Nao adie a decisao.', en: 'Do not put off the decision.' },
-            { pt: 'Eu espero que o plano de certo.', en: 'I hope the plan works out.' },
-            { pt: 'Voce pode contar comigo amanha.', en: 'You can count on me tomorrow.' },
-            { pt: 'Eu vou dar seguimento amanha.', en: 'I will follow up tomorrow.' },
-            { pt: 'Eles adiaram a reuniao.', en: 'They pushed back the meeting.' }
+            { pt: 'Nós marcamos uma ligação para terça.', en: 'We set up a call for Tuesday.' },
+            { pt: 'Não adie a decisão.', en: 'Do not put off the decision.' },
+            { pt: 'Eu espero que o plano dê certo.', en: 'I hope the plan works out.' },
+            { pt: 'Você pode contar comigo amanhã.', en: 'You can count on me tomorrow.' },
+            { pt: 'Eu vou dar seguimento amanhã.', en: 'I will follow up tomorrow.' },
+            { pt: 'Eles adiaram a reunião.', en: 'They pushed back the meeting.' }
         ];
         if (/permission|must|have to|need to|should|advice/.test(label)) return [
             { pt: 'Claro, va em frente.', en: 'Sure, go ahead.' },
-            { pt: 'Voce poderia falar mais alto?', en: 'Could you speak up?' },
-            { pt: 'Voce precisa preencher este formulario.', en: 'You need to fill out this form.' },
-            { pt: 'Nos temos que entregar o relatorio.', en: 'We have to hand in the report.' },
-            { pt: 'Voce deveria ir mais devagar esta semana.', en: 'You should slow down this week.' },
-            { pt: 'Ela esta lidando com estresse.', en: 'She is dealing with stress.' }
+            { pt: 'Você poderia falar mais alto?', en: 'Could you speak up?' },
+            { pt: 'Você precisa preencher este formulário.', en: 'You need to fill out this form.' },
+            { pt: 'Nós temos que entregar o relatório.', en: 'We have to hand in the report.' },
+            { pt: 'Você deveria ir mais devagar esta semana.', en: 'You should slow down this week.' },
+            { pt: 'Ela está lidando com estresse.', en: 'She is dealing with stress.' }
         ];
         if (/present perfect|ever|never|already|yet|been and gone/.test(label)) return [
             { pt: 'Eu testei um aplicativo novo.', en: 'I have tried out a new app.' },
             { pt: 'Eu preciso colocar as aulas em dia.', en: 'I need to catch up on the lessons.' },
             { pt: 'Eu encontrei um artigo interessante por acaso.', en: 'I came across an interesting article.' },
-            { pt: 'Ela passou por muitas mudancas.', en: 'She has gone through many changes.' },
+            { pt: 'Ela passou por muitas mudanças.', en: 'She has gone through many changes.' },
             { pt: 'Ela vai voltar em breve.', en: 'She will get back soon.' },
             { pt: 'Eles voltaram ontem.', en: 'They came back yesterday.' }
         ];
         if (/health|medical/.test(label)) return [
             { pt: 'Eu fiquei resfriado.', en: 'I came down with a cold.' },
             { pt: 'Ela se recuperou da gripe.', en: 'She got over the flu.' },
-            { pt: 'Voce deveria reduzir o cafe.', en: 'You should cut back on coffee.' },
+            { pt: 'Você deveria reduzir o café.', en: 'You should cut back on coffee.' },
             { pt: 'Eu liguei para saber como ele estava.', en: 'I called to check up on him.' },
-            { pt: 'Voce deveria deitar por um tempo.', en: 'You should lie down for a while.' },
-            { pt: 'A medica vai acompanhar na proxima semana.', en: 'The doctor will follow up next week.' }
+            { pt: 'Você deveria deitar por um tempo.', en: 'You should lie down for a while.' },
+            { pt: 'A médica vai acompanhar na próxima semana.', en: 'The doctor will follow up next week.' }
         ];
         if (/prepositions|movement|directions|hotel|time|at the hotel|from a to b/.test(label)) return [
             { pt: 'Eu estou procurando minhas chaves.', en: 'I am looking for my keys.' },
             { pt: 'Guarde os documentos.', en: 'Put away the documents.' },
-            { pt: 'E facil se locomover aqui.', en: 'It is easy to get around here.' },
-            { pt: 'Passe no escritorio mais tarde.', en: 'Drop by the office later.' },
-            { pt: 'A recepcao resolveu o problema.', en: 'Reception sorted out the problem.' },
-            { pt: 'Nos fizemos check-in tarde.', en: 'We checked in late.' }
+            { pt: 'É fácil se locomover aqui.', en: 'It is easy to get around here.' },
+            { pt: 'Passe no escritório mais tarde.', en: 'Drop by the office later.' },
+            { pt: 'A recepção resolveu o problema.', en: 'Reception sorted out the problem.' },
+            { pt: 'Nós fizemos check-in tarde.', en: 'We checked in late.' }
         ];
         if (/gerunds|infinitives|conditional|unless|wishes/.test(label)) return [
             { pt: 'Continue praticando.', en: 'Keep on practicing.' },
-            { pt: 'Nao desista de aprender.', en: 'Do not give up learning.' },
+            { pt: 'Não desista de aprender.', en: 'Do not give up learning.' },
             { pt: 'Eu estou me acostumando a falar.', en: 'I am getting used to speaking.' },
-            { pt: 'O sucesso depende de pratica.', en: 'Success depends on practice.' },
-            { pt: 'Nos vamos encontrar uma solucao.', en: 'We will figure out a solution.' },
-            { pt: 'Nao perca essa oportunidade.', en: 'Do not miss out on this chance.' }
+            { pt: 'O sucesso depende de prática.', en: 'Success depends on practice.' },
+            { pt: 'Nós vamos encontrar uma solução.', en: 'We will figure out a solution.' },
+            { pt: 'Não perca essa oportunidade.', en: 'Do not miss out on this chance.' }
         ];
         return [
-            { pt: 'Eu olho para tras e vejo progresso.', en: 'I look back and see progress.' },
-            { pt: 'Eu desenvolvi confianca aos poucos.', en: 'I built up confidence.' },
+            { pt: 'Eu olho para trás e vejo progresso.', en: 'I look back and see progress.' },
+            { pt: 'Eu desenvolvi confiança aos poucos.', en: 'I built up confidence.' },
             { pt: 'Eu quero continuar.', en: 'I want to keep going.' },
             { pt: 'Defina uma meta clara.', en: 'Set a clear goal.' },
-            { pt: 'Meu proximo passo e praticar mais.', en: 'My next step is to practice more.' },
+            { pt: 'Meu próximo passo é praticar mais.', en: 'My next step is to practice more.' },
             { pt: 'Eu posso explicar meu progresso.', en: 'I can explain my progress.' }
         ];
     }
@@ -2193,7 +2193,7 @@
             [['Guest', 'What time is check-out?'], ['Receptionist', 'Check-out is at noon.'], ['Guest', expression(2, 'Could I leave my bags here after check-out?')[2]], ['Receptionist', 'Yes, you can leave them at reception.']]
         ];
         if (/prepositions|movement|directions|from a to b|practical english review/.test(label)) return [
-            [['Tourist', 'Excuse me, where is the pharmacy?'], ['Local', example(0, 'It is across from the bank, next to the cafe.')], ['Tourist', 'Is it far from here?'], ['Local', 'No, go straight for one block.']],
+            [['Tourist', 'Excuse me, where is the pharmacy?'], ['Local', example(0, 'It is across from the bank, next to the café.')], ['Tourist', 'Is it far from here?'], ['Local', 'No, go straight for one block.']],
             [['Ana', 'I cannot find my keys.'], ['Leo', example(1, 'Did you look under the notebook?')], ['Ana', 'Yes, and behind the sofa too.'], ['Leo', 'Maybe they are in the bowl next to the door.']],
             [['Driver', 'Do I turn before or after the bridge?'], ['Friend', example(2, 'Turn right after the bridge, then go past the supermarket.')], ['Driver', 'Got it. Is the entrance on the left?'], ['Friend', 'Yes, opposite the parking lot.']],
             [['Client', 'What time is the appointment?'], ['Receptionist', example(3, 'It is at three on Thursday.')], ['Client', 'And where do I go?'], ['Receptionist', expression(0, 'Go straight and turn left at the corner.')[2]]]
@@ -2220,7 +2220,7 @@
             [['Rafa', 'Which apartment should we rent?'], ['Lu', example(0, 'This one is cheaper, but the other one is bigger.')], ['Rafa', expression(0, 'The quiet street stands out for me.')[2]], ['Lu', 'Then I would choose this one.']],
             [['Customer', 'What is the best phone for work?'], ['Seller', example(1, 'This model is the most reliable option.')], ['Customer', 'Does it have enough storage?'], ['Seller', 'Yes, and the battery lasts longer.']],
             [['Host', 'Do we have enough water for everyone?'], ['Assistant', example(2, 'We have a few bottles, but not many cups.')], ['Host', expression(2, 'Please stock up on cups and coffee.')[2]], ['Assistant', 'I will go to the supermarket now.']],
-            [['Friend', 'This cafe is quieter than the other one.'], ['You', example(3, 'And the chairs are more comfortable.')], ['Friend', 'Is it the best place for our meeting?'], ['You', 'For me, yes. It is the least stressful option.']]
+            [['Friend', 'This café is quieter than the other one.'], ['You', example(3, 'And the chairs are more comfortable.')], ['Friend', 'Is it the best place for our meeting?'], ['You', 'For me, yes. It is the least stressful option.']]
         ];
         if (/gerunds|infinitives|conditional|unless|wishes/.test(label)) return [
             [['Roommate', 'Do you mind cooking tonight?'], ['You', example(0, 'I do not mind cooking, but I want to finish work first.')], ['Roommate', 'No problem. I can wash the dishes later.'], ['You', expression(0, 'Thanks for helping out.')[2]]],
@@ -2247,34 +2247,34 @@
     }
 
     const musicSelectionsByLesson = {
-        1: { song: 'Yesterday', artist: 'The Beatles', spotifyId: '3BQHpFgAp4l80e1XslIjNI', focus: 'yesterday e acoes terminadas no passado' },
-        2: { song: 'The Story', artist: 'Brandi Carlile', spotifyId: '0EKBV6GybPtALXUgWqWrym', focus: 'story, acontecimentos e sequencia' },
-        3: { song: 'Stronger', artist: 'Kelly Clarkson', spotifyId: '1nInOsHbtotAmEOQhtvnzP', focus: 'stronger e comparacoes' },
+        1: { song: 'Yesterday', artist: 'The Beatles', spotifyId: '3BQHpFgAp4l80e1XslIjNI', focus: 'yesterday e ações terminadas no passado' },
+        2: { song: 'The Story', artist: 'Brandi Carlile', spotifyId: '0EKBV6GybPtALXUgWqWrym', focus: 'story, acontecimentos e sequência' },
+        3: { song: 'Stronger', artist: 'Kelly Clarkson', spotifyId: '1nInOsHbtotAmEOQhtvnzP', focus: 'stronger e comparações' },
         4: { song: 'The Best', artist: 'Tina Turner', spotifyId: '6pPWRBubXOBAHnjl5ZIujB', focus: 'best e superlativos' },
         5: { song: 'Count on Me', artist: 'Bruno Mars', spotifyId: '3B5UbSndRz907IZhhmUfLi', focus: 'count, one, two e quantidade' },
-        6: { song: 'While My Guitar Gently Weeps', artist: 'The Beatles', spotifyId: '389QX9Q1eUOEZ19vtzzI9O', focus: 'while e acoes em andamento' },
-        7: { song: 'When the Party\'s Over', artist: 'Billie Eilish', spotifyId: '43zdsphuZLzwA9k4DJhU0I', focus: 'when e mudanca de acontecimento' },
-        9: { song: 'I\'m Gonna Be (500 Miles)', artist: 'The Proclaimers', spotifyId: '67iAlVNDDdddxqSD2EZhFs', focus: 'gonna e intencao futura' },
+        6: { song: 'While My Guitar Gently Weeps', artist: 'The Beatles', spotifyId: '389QX9Q1eUOEZ19vtzzI9O', focus: 'while e ações em andamento' },
+        7: { song: 'When the Party\'s Over', artist: 'Billie Eilish', spotifyId: '43zdsphuZLzwA9k4DJhU0I', focus: 'when e mudança de acontecimento' },
+        9: { song: 'I\'m Gonna Be (500 Miles)', artist: 'The Proclaimers', spotifyId: '67iAlVNDDdddxqSD2EZhFs', focus: 'gonna e intenção futura' },
         10: { song: 'I\'ll Be There', artist: 'Jackson 5', spotifyId: '6Dt6QsLEEYyZ0fMjEEpIjP', focus: 'will e promessa' },
         11: { song: 'Leaving on a Jet Plane', artist: 'John Denver', spotifyId: '3D8dwH690MXQRhtIZTSS9c', focus: 'leaving e compromisso de viagem' },
-        12: { song: 'Que Sera, Sera', artist: 'Doris Day', spotifyId: '1Rf1RkpFDKat8IDa8OvZKE', focus: 'will e previsoes sobre o futuro' },
-        13: { song: 'Can I Kick It?', artist: 'A Tribe Called Quest', spotifyId: '5q6pg1kvXfT7z5MqG0KKSs', focus: 'Can I...? e permissao' },
+        12: { song: 'Que Será, Será', artist: 'Doris Day', spotifyId: '1Rf1RkpFDKat8IDa8OvZKE', focus: 'will e previsões sobre o futuro' },
+        13: { song: 'Can I Kick It?', artist: 'A Tribe Called Quest', spotifyId: '5q6pg1kvXfT7z5MqG0KKSs', focus: 'Can I...? e permissão' },
         14: { song: 'I\'ll Have to Say I Love You in a Song', artist: 'Jim Croce', spotifyId: '0QnabBTpfVdrjhE4XznAuE', focus: 'have to e necessidade' },
-        15: { song: 'Should I Stay or Should I Go', artist: 'The Clash', spotifyId: '39shmbIHICJ2Wxnk1fPSdz', focus: 'should e decisao' },
-        17: { song: 'Have You Ever', artist: 'Brandy', spotifyId: '6tBD4yjOf9P8rWwUlXdJFm', focus: 'Have you ever...? e experiencias' },
+        15: { song: 'Should I Stay or Should I Go', artist: 'The Clash', spotifyId: '39shmbIHICJ2Wxnk1fPSdz', focus: 'should e decisão' },
+        17: { song: 'Have You Ever', artist: 'Brandy', spotifyId: '6tBD4yjOf9P8rWwUlXdJFm', focus: 'Have you ever...? e experiências' },
         18: { song: 'Never Ever', artist: 'All Saints', spotifyId: '596XLiW6tohIgkcTMf4M6a', focus: 'never e ever' },
-        19: { song: 'Since U Been Gone', artist: 'Kelly Clarkson', spotifyId: '6JY1IdkZGeIcPegKxjSKeb', focus: 'since, been e referencia ao passado' },
-        20: { song: 'Gone, Gone, Gone', artist: 'Phillip Phillips', spotifyId: '20S0KRq4z2v2Utym0C246s', focus: 'gone e ausencia' },
+        19: { song: 'Since U Been Gone', artist: 'Kelly Clarkson', spotifyId: '6JY1IdkZGeIcPegKxjSKeb', focus: 'since, been e referência ao passado' },
+        20: { song: 'Gone, Gone, Gone', artist: 'Phillip Phillips', spotifyId: '20S0KRq4z2v2Utym0C246s', focus: 'gone e ausência' },
         21: { song: 'Fix You', artist: 'Coldplay', spotifyId: '7LVHVU3tWfcxj5aiPFEW4Q', focus: 'tired, fix e cuidado' },
-        22: { song: 'Doctor My Eyes', artist: 'Jackson Browne', spotifyId: '5OuaAMBmGjjJMK7yXpaFAK', focus: 'doctor e descricao de um problema' },
-        23: { song: 'Next to Me', artist: 'Emeli Sande', spotifyId: '5VHuGRvkB61pvdQjAgUazm', focus: 'next to e localizacao' },
+        22: { song: 'Doctor My Eyes', artist: 'Jackson Browne', spotifyId: '5OuaAMBmGjjJMK7yXpaFAK', focus: 'doctor e descrição de um problema' },
+        23: { song: 'Next to Me', artist: 'Emeli Sande', spotifyId: '5VHuGRvkB61pvdQjAgUazm', focus: 'next to e localização' },
         25: { song: 'Across the Universe', artist: 'The Beatles', spotifyId: '4dkoqJrP0L8FXftrMZongF', focus: 'across e movimento' },
         26: { song: 'Time After Time', artist: 'Cyndi Lauper', spotifyId: '7o9uu2GDtVDr9nsR7ZRN73', focus: 'time e marcadores temporais' },
-        27: { song: 'Follow Me', artist: 'Uncle Kracker', spotifyId: '4KoecuyOpZaNFZ0UqVsllc', focus: 'follow e orientacao' },
-        28: { song: 'Hotel California', artist: 'Eagles', spotifyId: '1rh232CwAy3EDEWFJkwH88', focus: 'hotel e situacoes de viagem' },
+        27: { song: 'Follow Me', artist: 'Uncle Kracker', spotifyId: '4KoecuyOpZaNFZ0UqVsllc', focus: 'follow e orientação' },
+        28: { song: 'Hotel California', artist: 'Eagles', spotifyId: '1rh232CwAy3EDEWFJkwH88', focus: 'hotel e situações de viagem' },
         29: { song: 'Don\'t Stop Believin\'', artist: 'Journey', spotifyId: '4bHsxqR3GMrXTxEPLuK5ue', focus: 'stop + -ing e continuidade' },
-        30: { song: 'If I Ain\'t Got You', artist: 'Alicia Keys', spotifyId: '3XVBdLihbNbxUwZosxcGuJ', focus: 'if e condicao' },
-        31: { song: 'Wish You Were Here', artist: 'Pink Floyd', spotifyId: '6mFkJmJqdDVQ1REhVfGgd1', focus: 'wish e situacao imaginada' }
+        30: { song: 'If I Ain\'t Got You', artist: 'Alicia Keys', spotifyId: '3XVBdLihbNbxUwZosxcGuJ', focus: 'if e condição' },
+        31: { song: 'Wish You Were Here', artist: 'Pink Floyd', spotifyId: '6mFkJmJqdDVQ1REhVfGgd1', focus: 'wish e situação imaginada' }
     };
 
     const musicLyricsByLesson = {
@@ -2378,7 +2378,7 @@
         return options.map((theme, index) => `
             <li class="flex gap-3">
                 <i class="fas fa-star text-emerald-500 mt-1"></i>
-                <span><strong>Opcao ${index + 1}:</strong> ${escapeHtml(theme)}</span>
+                <span><strong>Opção ${index + 1}:</strong> ${escapeHtml(theme)}</span>
             </li>
         `).join('');
     }
@@ -2387,121 +2387,121 @@
         const translations = {
             'ask detailed questions about past events': 'fazer perguntas detalhadas sobre acontecimentos passados',
             'use past forms without mixing did and changed verbs': 'usar as formas de passado sem misturar did com o verbo alterado',
-            'organize an account with precise time and sequence markers': 'organizar um relato com marcadores precisos de tempo e sequencia',
+            'organize an account with precise time and sequence markers': 'organizar um relato com marcadores precisos de tempo e sequência',
             'compare differences with degree modifiers': 'comparar diferencas usando modificadores de intensidade',
             'express equality and inequality with as...as': 'expressar igualdade e desigualdade com as...as',
-            'weigh up options using more, less, and reasons': 'avaliar opcoes usando more, less e motivos claros',
-            'describe detailed plans with purpose and timing': 'descrever planos detalhados com objetivo e horario',
-            'use going to for predictions based on visible evidence': 'usar going to para previsoes baseadas em evidencias visiveis',
-            'ask follow-up questions about intentions': 'fazer perguntas de continuacao sobre intencoes',
-            'give specific advice that is realistic to follow': 'dar conselhos especificos e realistas de seguir',
-            'make recommendations sound tactful and supportive': 'fazer recomendacoes com um tom cuidadoso e acolhedor',
+            'weigh up options using more, less, and reasons': 'avaliar opções usando more, less e motivos claros',
+            'describe detailed plans with purpose and timing': 'descrever planos detalhados com objetivo e horário',
+            'use going to for predictions based on visible evidence': 'usar going to para previsões baseadas em evidências visíveis',
+            'ask follow-up questions about intentions': 'fazer perguntas de continuação sobre intenções',
+            'give specific advice that is realistic to follow': 'dar conselhos específicos e realistas de seguir',
+            'make recommendations sound tactful and supportive': 'fazer recomendações com um tom cuidadoso e acolhedor',
             'explain priorities, reasons, and limits': 'explicar prioridades, motivos e limites',
-            'describe changes in symptoms over time': 'descrever mudancas nos sintomas ao longo do tempo',
-            'use present perfect to report recovery and recent results': 'usar Present Perfect para relatar recuperacao e resultados recentes',
-            'decide when a health change needs a next step': 'identificar quando uma mudanca de saude exige uma proxima acao',
-            'distinguish points, areas, surfaces, and floors': 'diferenciar pontos, areas, superficies e andares',
+            'describe changes in symptoms over time': 'descrever mudanças nos sintomas ao longo do tempo',
+            'use present perfect to report recovery and recent results': 'usar Present Perfect para relatar recuperação e resultados recentes',
+            'decide when a health change needs a next step': 'identificar quando uma mudança de saúde exige uma próxima ação',
+            'distinguish points, areas, surfaces, and floors': 'diferenciar pontos, áreas, superfícies e andares',
             'use in the corner and at the corner accurately': 'usar in the corner e at the corner corretamente',
-            'give precise location details in buildings and streets': 'dar detalhes precisos de localizacao em predios e ruas',
-            'distinguish deadlines from continuing periods': 'diferenciar prazos de periodos que continuam ate um ponto',
+            'give precise location details in buildings and streets': 'dar detalhes precisos de localização em prédios e ruas',
+            'distinguish deadlines from continuing periods': 'diferenciar prazos de periodos que continuam até um ponto',
             'use during, for, before, and after accurately': 'usar during, for, before e after corretamente',
-            'negotiate time windows and schedule changes': 'negociar janelas de horario e mudancas na agenda',
-            'give multi-step directions with clear landmarks': 'dar orientacoes em varias etapas com referencias claras',
-            'locate turns before and after reference points': 'posicionar curvas antes e depois de pontos de referencia',
+            'negotiate time windows and schedule changes': 'negociar janelas de horário e mudanças na agenda',
+            'give multi-step directions with clear landmarks': 'dar orientações em várias etapas com referências claras',
+            'locate turns before and after reference points': 'posicionar curvas antes e depois de pontos de referência',
             'check and clarify a route during a conversation': 'confirmar e esclarecer uma rota durante a conversa',
             'review regular and irregular past verbs': 'revisar verbos regulares e irregulares no passado',
             'form negatives and questions with did': 'formar perguntas e frases negativas com did',
             'tell a complete past event with time markers': 'contar um acontecimento completo no passado com marcadores de tempo',
-            'connect past events into a longer story': 'conectar acontecimentos passados em uma historia mais longa',
-            'use sequence markers naturally': 'usar marcadores de sequencia com naturalidade',
-            'add reasons and consequences': 'adicionar motivos e consequencias',
+            'connect past events into a longer story': 'conectar acontecimentos passados em uma história mais longa',
+            'use sequence markers naturally': 'usar marcadores de sequência com naturalidade',
+            'add reasons and consequences': 'adicionar motivos e consequências',
             'use comparative adjectives accurately': 'usar adjetivos comparativos corretamente',
             'compare with reasons': 'comparar dando motivos',
             'talk about advantages and disadvantages': 'falar sobre vantagens e desvantagens',
             'use superlatives correctly': 'usar superlativos corretamente',
             'handle best/worst and irregular adjectives': 'usar best, worst e adjetivos irregulares',
-            'support opinions with examples': 'apoiar opinioes com exemplos',
-            'use articles with new and known information': 'usar artigos para informacoes novas e ja conhecidas',
-            'separate countable and uncountable nouns': 'diferenciar substantivos contaveis e incontaveis',
+            'support opinions with examples': 'apoiar opiniões com exemplos',
+            'use articles with new and known information': 'usar artigos para informações novas e já conhecidas',
+            'separate countable and uncountable nouns': 'diferenciar substantivos contáveis e incontáveis',
             'choose quantifiers correctly': 'escolher quantificadores corretamente',
             'use was/were + -ing for background': 'usar was/were + -ing para criar contexto',
-            'describe simultaneous actions': 'descrever acoes simultaneas',
+            'describe simultaneous actions': 'descrever ações simultaneas',
             'set the scene before the main event': 'preparar a cena antes do evento principal',
             'combine Past Continuous and Past Simple': 'combinar Past Continuous e Past Simple',
             'use when and while accurately': 'usar when e while corretamente',
-            'tell interrupted stories with clarity': 'contar historias interrompidas com clareza',
-            'review past forms from lessons 1-7': 'revisar as formas de passado das licoes 1 a 7',
-            'mix sequence and interruption language': 'misturar linguagem de sequencia e interrupcao',
+            'tell interrupted stories with clarity': 'contar histórias interrompidas com clareza',
+            'review past forms from lessons 1-7': 'revisar as formas de passado das lições 1 a 7',
+            'mix sequence and interruption language': 'misturar linguagem de sequência e interrupção',
             'speak longer without losing order': 'falar por mais tempo sem perder a ordem das ideias',
             'use going to for plans': 'usar going to para planos',
-            'talk about intentions': 'falar sobre intencoes',
+            'talk about intentions': 'falar sobre intenções',
             'ask about future plans': 'perguntar sobre planos futuros',
-            'use will for predictions': 'usar will para previsoes',
+            'use will for predictions': 'usar will para previsões',
             'use will for offers and promises': 'usar will para ofertas e promessas',
             'separate will from going to': 'diferenciar will de going to',
             'use present continuous for future arrangements': 'usar Present Continuous para compromissos futuros marcados',
             'include time and place': 'incluir hora e lugar',
-            'contrast arrangements with intentions': 'comparar compromissos marcados com intencoes',
+            'contrast arrangements with intentions': 'comparar compromissos marcados com intenções',
             'choose going to, will, or present continuous': 'escolher entre going to, will e Present Continuous',
-            'explain why the form fits': 'explicar por que a forma combina com a situacao',
-            'speak about future situations naturally': 'falar sobre situacoes futuras com naturalidade',
-            'use can and could for permission': 'usar can e could para pedir permissao',
+            'explain why the form fits': 'explicar por que a forma combina com a situação',
+            'speak about future situations naturally': 'falar sobre situações futuras com naturalidade',
+            'use can and could for permission': 'usar can e could para pedir permissão',
             'sound polite without being too formal': 'soar educado sem ficar formal demais',
-            'answer permission requests clearly': 'responder pedidos de permissao com clareza',
+            'answer permission requests clearly': 'responder pedidos de permissão com clareza',
             'use must, have to, and need to': 'usar must, have to e need to',
-            'separate strong rules from practical necessities': 'diferenciar regras fortes de necessidades praticas',
-            'explain obligations with reasons': 'explicar obrigacoes com motivos',
+            'separate strong rules from practical necessities': 'diferenciar regras fortes de necessidades práticas',
+            'explain obligations with reasons': 'explicar obrigações com motivos',
             'use should and should not': 'usar should e should not',
-            'soften advice politely': 'suavizar conselhos com educacao',
+            'soften advice politely': 'suavizar conselhos com educação',
             'support advice with reasons': 'apoiar conselhos com motivos',
             'review can, could, must, have to, need to, and should': 'revisar can, could, must, have to, need to e should',
             'choose the best modal for meaning': 'escolher o modal mais adequado ao significado',
             'make requests and advice sound natural': 'fazer pedidos e conselhos soarem naturais',
-            'use Present Perfect for life experiences': 'usar Present Perfect para experiencias de vida',
+            'use Present Perfect for life experiences': 'usar Present Perfect para experiências de vida',
             'ask questions with ever': 'fazer perguntas com ever',
             'answer with never and before': 'responder com never e before',
             'use already in affirmative sentences': 'usar already em frases afirmativas',
             'use yet in questions and negatives': 'usar yet em perguntas e negativas',
-            'use ever/never for experience': 'usar ever e never para experiencias',
+            'use ever/never for experience': 'usar ever e never para experiências',
             'contrast Present Perfect and Past Simple': 'comparar Present Perfect e Past Simple',
-            'use finished time expressions correctly': 'usar expressoes de tempo finalizado corretamente',
+            'use finished time expressions correctly': 'usar expressões de tempo finalizado corretamente',
             'avoid mixing exact time with Present Perfect': 'evitar misturar tempo exato com Present Perfect',
             'separate been and gone': 'diferenciar been e gone',
-            'explain returned and not returned situations': 'explicar situacoes de quem voltou e de quem ainda nao voltou',
-            'use context to avoid confusion': 'usar o contexto para evitar confusao',
-            'name common health problems': 'nomear problemas de saude comuns',
+            'explain returned and not returned situations': 'explicar situações de quem voltou e de quem ainda não voltou',
+            'use context to avoid confusion': 'usar o contexto para evitar confusão',
+            'name common health problems': 'nomear problemas de saúde comuns',
             'use have/feel for symptoms': 'usar have e feel para sintomas',
             'give advice with should and need to': 'dar conselhos com should e need to',
-            'handle a basic medical consultation': 'participar de uma consulta medica basica',
-            'answer doctor questions clearly': 'responder perguntas medicas com clareza',
+            'handle a basic medical consultation': 'participar de uma consulta médica básica',
+            'answer doctor questions clearly': 'responder perguntas médicas com clareza',
             'use since/for with symptoms': 'usar since e for com sintomas',
             'use in/on/at accurately': 'usar in, on e at corretamente',
-            'describe relative position': 'descrever posicao relativa',
-            'ask where something is': 'perguntar onde algo esta',
-            'review practical prepositions': 'revisar preposicoes praticas',
+            'describe relative position': 'descrever posição relativa',
+            'ask where something is': 'perguntar onde algo está',
+            'review practical prepositions': 'revisar preposições práticas',
             'combine place, movement, and time': 'combinar lugar, movimento e tempo',
-            'speak through a real-life situation': 'falar em uma situacao real do dia a dia',
-            'use movement prepositions': 'usar preposicoes de movimento',
+            'speak through a real-life situation': 'falar em uma situação real do dia a dia',
+            'use movement prepositions': 'usar preposições de movimento',
             'describe routes step by step': 'descrever rotas passo a passo',
             'separate destination from path': 'diferenciar destino de caminho',
             'use at, on, and in for time': 'usar at, on e in para tempo',
             'talk about deadlines and appointments': 'falar sobre prazos e compromissos',
-            'avoid direct translation from Portuguese': 'evitar traducao direta do portugues',
-            'give directions step by step': 'dar direcoes passo a passo',
-            'use landmarks': 'usar pontos de referencia',
+            'avoid direct translation from Portuguese': 'evitar tradução direta do português',
+            'give directions step by step': 'dar direções passo a passo',
+            'use landmarks': 'usar pontos de referência',
             'ask for clarification': 'pedir esclarecimento',
-            'use hotel vocabulary': 'usar vocabulario de hotel',
+            'use hotel vocabulary': 'usar vocabulário de hotel',
             'make polite requests': 'fazer pedidos educados',
             'explain problems with the room': 'explicar problemas no quarto',
             'use gerunds after common verbs': 'usar gerundios depois de verbos comuns',
             'use infinitives after common verbs': 'usar infinitivos depois de verbos comuns',
-            'memorize verb patterns in chunks': 'memorizar padroes de verbos em blocos',
-            'use zero conditional for facts/habits': 'usar zero conditional para fatos e habitos',
+            'memorize verb patterns in chunks': 'memorizar padrões de verbos em blocos',
+            'use zero conditional for facts/habits': 'usar zero conditional para fatos e hábitos',
             'use first conditional for real future results': 'usar first conditional para resultados futuros reais',
-            'connect condition and result clearly': 'conectar condicao e resultado com clareza',
+            'connect condition and result clearly': 'conectar condição e resultado com clareza',
             'use unless without double negatives': 'usar unless sem dupla negativa',
             'talk about real hopes': 'falar sobre esperancas reais',
-            'use wish for imagined situations': 'usar wish para situacoes imaginadas',
+            'use wish for imagined situations': 'usar wish para situações imaginadas',
             'review the main A2 V2 structures': 'revisar as principais estruturas do A2 V2',
             'speak in a longer organized answer': 'falar em uma resposta mais longa e organizada',
             'prepare a final personal project': 'preparar um projeto pessoal final'
@@ -2531,13 +2531,13 @@
         } else if (/hotel|at the hotel/.test(label)) {
             lines = [['Guest', 'Hi, I have a reservation under Ana Lima.'], ['Receptionist', 'Welcome. May I see your ID, please?'], ['Guest', 'Of course. Is breakfast included?'], ['Receptionist', 'Yes, breakfast is served until ten.'], ['Guest', 'Great. Also, my key card is not working.'], ['Receptionist', 'No problem. I will sort it out now.']];
         } else if (/prepositions|movement|directions|from a to b|practical english review/.test(label)) {
-            lines = [['Tourist', 'Excuse me, is there a pharmacy nearby?'], ['Local', 'Yes. Walk past the bank and turn left at the corner.'], ['Tourist', 'Do I go through the park or along this street?'], ['Local', 'Stay on this street. The park is behind the museum.'], ['Tourist', 'Is the pharmacy across from the cafe?'], ['Local', 'Exactly. The entrance is next to the parking lot.']];
+            lines = [['Tourist', 'Excuse me, is there a pharmacy nearby?'], ['Local', 'Yes. Walk past the bank and turn left at the corner.'], ['Tourist', 'Do I go through the park or along this street?'], ['Local', 'Stay on this street. The park is behind the museum.'], ['Tourist', 'Is the pharmacy across from the café?'], ['Local', 'Exactly. The entrance is next to the parking lot.']];
         } else if (/permission|must|have to|need to|should|advice|modals/.test(label)) {
             lines = [['Neighbor', 'Could I borrow your charger for a few minutes?'], ['You', 'Sure, but I need it back before I leave.'], ['Neighbor', 'Of course. Do I have to bring it upstairs?'], ['You', 'No, just leave it on the kitchen table.'], ['Neighbor', 'Thanks. Should I close the door when I leave?'], ['You', 'Yes, please. You can leave the key under the mat.']];
         } else if (/going to|will|present continuous for future|future review/.test(label)) {
             lines = [['Mia', 'What are you doing after work?'], ['Dan', 'I am meeting my sister at seven.'], ['Mia', 'Are you going to have dinner downtown?'], ['Dan', 'Yes, we are going to try the new Italian place.'], ['Mia', 'Nice. Do you think it will be crowded?'], ['Dan', 'Maybe. I will send you the restaurant later.']];
         } else if (/superlative/.test(label)) {
-            lines = [['Rafa', 'Which restaurant is the best in this neighborhood?'], ['Lu', 'The Italian place is the most popular, but the small cafe is the cheapest.'], ['Rafa', 'Which one has the best service?'], ['Lu', 'The cafe. The staff is the friendliest.'], ['Rafa', 'And what is the worst option?'], ['Lu', 'The burger place. It is the noisiest and the slowest.']];
+            lines = [['Rafa', 'Which restaurant is the best in this neighborhood?'], ['Lu', 'The Italian place is the most popular, but the small café is the cheapest.'], ['Rafa', 'Which one has the best service?'], ['Lu', 'The café. The staff is the friendliest.'], ['Rafa', 'And what is the worst option?'], ['Lu', 'The burger place. It is the noisiest and the slowest.']];
         } else if (/comparative/.test(label)) {
             lines = [['Rafa', 'Which apartment do you prefer?'], ['Lu', 'This one is cheaper, but the other one is quieter.'], ['Rafa', 'The second one seems better for me.'], ['Lu', 'I agree. The location is more convenient.'], ['Rafa', 'Is it farther from work?'], ['Lu', 'A little, but the street is safer at night.']];
         } else if (/articles|quantifiers/.test(label)) {
@@ -2559,7 +2559,7 @@
     function fillIntro(data) {
         const { title, bank } = data;
         setHtml('.slide[data-title="Intro & Dialogue"] .lesson-hero .max-w-3xl', `
-            <p class="lesson-panel-title">O que sera aprendido nesta licao</p>
+            <p class="lesson-panel-title">O que será aprendido nesta lição</p>
             <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">${escapeHtml(title)} em contexto real.</h2>
             <div class="grid md:grid-cols-3 gap-4 mt-6">
                 ${bank.objectives.map((item) => `<div class="lesson-panel p-4"><p class="font-bold text-slate-900">${escapeHtml(translateObjective(item))}</p></div>`).join('')}
@@ -2576,43 +2576,43 @@
 
     const grammarTablesByTitle = {
         'Past Simple: Details and Time Markers': {
-            title: 'Past Simple: perguntas detalhadas e uma unica marca de passado',
-            headers: ['Funcao', 'Estrutura', 'Exemplo'],
+            title: 'Past Simple: perguntas detalhadas e uma única marca de passado',
+            headers: ['Função', 'Estrutura', 'Exemplo'],
             rows: [
                 ['Afirmativa', 'subject + past form', 'She forgot the folder.'],
                 ['Pergunta com did', 'Wh-word + did + subject + base verb?', 'Why did she leave?'],
                 ['Pergunta com be', 'Wh-word + was/were + subject?', 'Where were you?'],
                 ['Negativa', 'subject + did not + base verb', 'She did not forget.'],
-                ['Sequencia e resultado', 'first / then / before / so', 'The bus left, so I took a taxi.']
+                ['Sequência e resultado', 'first / then / before / so', 'The bus left, so I took a taxi.']
             ]
         },
         'Complete Past Stories': {
             title: 'Past stories: ordem, motivo e resultado',
-            headers: ['Funcao', 'Palavras uteis', 'Exemplo'],
+            headers: ['Função', 'Palavras úteis', 'Exemplo'],
             rows: [
                 ['Inicio', 'first / at first', 'First, we checked in.'],
-                ['Sequencia', 'then / after that / later', 'Then we explored the town.'],
+                ['Sequência', 'then / after that / later', 'Then we explored the town.'],
                 ['Motivo', 'because', 'We stopped because it was raining.'],
                 ['Resultado', 'so', 'The map failed, so we asked for help.'],
                 ['Final', 'finally / in the end', 'Finally, we found the hotel.']
             ]
         },
         'Comparing Options: More, Less and As...As': {
-            title: 'Comparacoes: tamanho da diferenca e igualdade',
+            title: 'Comparações: tamanho da diferença e igualdade',
             headers: ['Ideia', 'Forma', 'Exemplo'],
             rows: [
-                ['Diferenca grande', 'much/far + comparative', 'The train is much faster.'],
-                ['Diferenca pequena', 'a little/slightly + comparative', 'This plan is slightly cheaper.'],
+                ['Diferença grande', 'much/far + comparative', 'The train is much faster.'],
+                ['Diferença pequena', 'a little/slightly + comparative', 'This plan is slightly cheaper.'],
                 ['Igualdade', 'as + adjective + as', 'The bus is as comfortable as the train.'],
-                ['Desigualdade', 'not as + adjective + as', 'This cafe is not as crowded as that one.'],
+                ['Desigualdade', 'not as + adjective + as', 'This café is not as crowded as that one.'],
                 ['Menor grau', 'less + adjective + than', 'This route is less stressful than the highway.']
             ]
         },
         'Superlatives and Irregular Adjectives': {
-            title: 'Superlatives: uma opcao dentro de um grupo',
+            title: 'Superlatives: uma opção dentro de um grupo',
             headers: ['Tipo', 'Forma', 'Exemplo'],
             rows: [
-                ['Adjetivo curto', 'the + adjective-est', 'It is the cheapest cafe.'],
+                ['Adjetivo curto', 'the + adjective-est', 'It is the cheapest café.'],
                 ['Final em -y', 'the + adjective-iest', 'Friday is the busiest day.'],
                 ['Adjetivo longo', 'the most + adjective', 'It is the most comfortable chair.'],
                 ['Menor grau', 'the least + adjective', 'It is the least expensive plan.'],
@@ -2623,11 +2623,11 @@
             title: 'Articles and quantifiers: nome + quantidade',
             headers: ['Item', 'Use com', 'Exemplo'],
             rows: [
-                ['a / an', 'um item novo ou nao especifico', 'a chair / an apple'],
-                ['the', 'algo ja identificado', 'the chair near the door'],
-                ['many / a few', 'substantivos contaveis', 'many guests / a few cups'],
-                ['much / a little', 'substantivos incontaveis', 'much time / a little milk'],
-                ['some / any', 'quantidade nao exata', 'some water / any questions']
+                ['a / an', 'um item novo ou não específico', 'a chair / an apple'],
+                ['the', 'algo já identificado', 'the chair near the door'],
+                ['many / a few', 'substantivos contáveis', 'many guests / a few cups'],
+                ['much / a little', 'substantivos incontáveis', 'much time / a little milk'],
+                ['some / any', 'quantidade não exata', 'some water / any questions']
             ]
         },
         'Setting the Scene: Past Continuous': {
@@ -2637,42 +2637,42 @@
                 ['Afirmativa', 'subject + was/were + verb-ing', 'They were waiting.'],
                 ['Negativa', 'subject + was/were not + verb-ing', 'She was not listening.'],
                 ['Pergunta', 'Was/Were + subject + verb-ing?', 'What were you doing?'],
-                ['Duas acoes longas', 'while + Past Continuous', 'I was cooking while she was studying.']
+                ['Duas ações longas', 'while + Past Continuous', 'I was cooking while she was studying.']
             ]
         },
         'Interrupted Stories': {
-            title: 'Past Continuous + Past Simple: fundo e interrupcao',
+            title: 'Past Continuous + Past Simple: fundo e interrupção',
             headers: ['Parte', 'Forma', 'Exemplo'],
             rows: [
-                ['Acao em andamento', 'was/were + verb-ing', 'Marta was presenting...'],
-                ['Interrupcao curta', 'Past Simple', '...the projector stopped.'],
+                ['Ação em andamento', 'was/were + verb-ing', 'Marta was presenting...'],
+                ['Interrupção curta', 'Past Simple', '...the projector stopped.'],
                 ['Com when', 'long action + when + short event', 'I was driving when it rained.'],
                 ['Com while', 'while + long action, short event', 'While I was driving, it rained.']
             ]
         },
         'Going To: Evidence and Detailed Plans': {
-            title: 'Going to: plano detalhado ou previsao com evidencia',
-            headers: ['Funcao', 'Estrutura', 'Exemplo'],
+            title: 'Going to: plano detalhado ou previsão com evidência',
+            headers: ['Função', 'Estrutura', 'Exemplo'],
             rows: [
                 ['Plano com detalhe', 'be going to + verb + time/place/reason', 'We are going to prepare tonight.'],
-                ['Previsao com evidencia', 'present sign + be going to', 'The glass is falling. It is going to break.'],
+                ['Previsão com evidência', 'present sign + be going to', 'The glass is falling. It is going to break.'],
                 ['Pergunta de detalhe', 'Wh-word + be + subject + going to + verb?', 'What are you going to change?'],
-                ['Mudanca de plano', 'not going to X; going to Y', 'We are not going to cancel; we are going to move indoors.']
+                ['Mudança de plano', 'not going to X; going to Y', 'We are not going to cancel; we are going to move indoors.']
             ]
         },
         'Will for Predictions and Decisions': {
-            title: 'Will: decisao agora, oferta, promessa e opiniao',
+            title: 'Will: decisão agora, oferta, promessa e opinião',
             headers: ['Uso', 'Estrutura', 'Exemplo'],
             rows: [
-                ['Decisao agora', 'will + base verb', 'The phone is ringing. I will answer.'],
+                ['Decisão agora', 'will + base verb', 'The phone is ringing. I will answer.'],
                 ['Oferta', 'will + base verb', 'I will carry the boxes.'],
                 ['Promessa', 'will + base verb', 'I will call you tonight.'],
-                ['Previsao/opiniao', 'I think + will', 'I think prices will rise.'],
+                ['Previsão/opinião', 'I think + will', 'I think prices will rise.'],
                 ['Pergunta', 'Will + subject + base verb?', 'Will they approve it?']
             ]
         },
         'Present Continuous for Future Plans': {
-            title: 'Present Continuous: compromisso ja marcado',
+            title: 'Present Continuous: compromisso já marcado',
             headers: ['Tipo', 'Estrutura', 'Exemplo'],
             rows: [
                 ['Afirmativa', 'am/is/are + verb-ing + future time', 'I am meeting Ana at six.'],
@@ -2682,50 +2682,50 @@
             ]
         },
         'Future Review in Real Situations': {
-            title: 'Future forms: escolha pela intencao',
+            title: 'Future forms: escolha pela intenção',
             headers: ['Forma', 'Melhor uso', 'Exemplo'],
             rows: [
-                ['Going to', 'plano que ja existia', 'We are going to rehearse.'],
-                ['Will', 'decisao agora, oferta ou opiniao', 'I will send the file.'],
+                ['Going to', 'plano que já existia', 'We are going to rehearse.'],
+                ['Will', 'decisão agora, oferta ou opinião', 'I will send the file.'],
                 ['Present Continuous', 'compromisso confirmado', 'I am meeting Pedro at nine.'],
-                ['Contraste', 'plano x previsao', 'We are going to present it. I think they will like it.']
+                ['Contraste', 'plano x previsão', 'We are going to present it. I think they will like it.']
             ]
         },
         'Can, Could and Permission': {
             title: 'Permission and requests: direto ou mais educado',
-            headers: ['Funcao', 'Estrutura', 'Exemplo'],
+            headers: ['Função', 'Estrutura', 'Exemplo'],
             rows: [
-                ['Pedir permissao', 'Can I + base verb?', 'Can I use this chair?'],
+                ['Pedir permissão', 'Can I + base verb?', 'Can I use this chair?'],
                 ['Pedir com mais cuidado', 'Could I + base verb?', 'Could I leave early?'],
                 ['Fazer um pedido', 'Could you + base verb?', 'Could you repeat that?'],
-                ['Dar permissao', 'can / go ahead', 'Yes, you can. / Sure, go ahead.'],
-                ['Recusar com educacao', 'Sorry, you cannot...', 'Sorry, you cannot use this room now.']
+                ['Dar permissão', 'can / go ahead', 'Yes, you can. / Sure, go ahead.'],
+                ['Recusar com educação', 'Sorry, you cannot...', 'Sorry, you cannot use this room now.']
             ]
         },
         'Must, Have To and Need To': {
-            title: 'Obligation and necessity: niveis diferentes',
+            title: 'Obligation and necessity: níveis diferentes',
             headers: ['Forma', 'Ideia', 'Exemplo'],
             rows: [
                 ['must + verb', 'regra forte', 'Visitors must wear a badge.'],
-                ['have to + verb', 'obrigacao externa', 'We have to submit the form.'],
-                ['need to + verb', 'necessidade pratica', 'She needs to call the doctor.'],
-                ['do not have to', 'nao e necessario', 'You do not have to print it.'],
+                ['have to + verb', 'obrigação externa', 'We have to submit the form.'],
+                ['need to + verb', 'necessidade prática', 'She needs to call the doctor.'],
+                ['do not have to', 'não é necessário', 'You do not have to print it.'],
                 ['must not', 'e proibido', 'You must not enter this room.']
             ]
         },
         'Giving Specific and Tactful Advice': {
-            title: 'Conselhos: acao especifica, tom e motivo',
-            headers: ['Funcao', 'Estrutura', 'Exemplo'],
+            title: 'Conselhos: ação específica, tom e motivo',
+            headers: ['Função', 'Estrutura', 'Exemplo'],
             rows: [
-                ['Recomendacao', 'should + specific action + reason', 'You should choose one task because time is short.'],
-                ['Opcao possivel', 'could + base verb', 'You could divide it into three steps.'],
+                ['Recomendação', 'should + specific action + reason', 'You should choose one task because time is short.'],
+                ['Opção possível', 'could + base verb', 'You could divide it into three steps.'],
                 ['Tom mais gentil', 'maybe / I think + should', 'Maybe you should ask for help.'],
                 ['Conselho pessoal', 'If I were you, I would...', 'If I were you, I would turn off notifications.'],
                 ['Aviso cuidadoso', 'I do not think you should...', 'I do not think you should work all night.']
             ]
         },
         'Present Perfect: Experiences': {
-            title: 'Present Perfect: experiencias sem data terminada',
+            title: 'Present Perfect: experiências sem data terminada',
             headers: ['Tipo', 'Estrutura', 'Exemplo'],
             rows: [
                 ['Afirmativa', 'have/has + past participle', 'She has visited Chile.'],
@@ -2736,7 +2736,7 @@
         },
         'Ever, Never, Already and Yet': {
             title: 'Position of ever, never, already and yet',
-            headers: ['Palavra', 'Posicao', 'Exemplo'],
+            headers: ['Palavra', 'Posição', 'Exemplo'],
             rows: [
                 ['ever', 'antes do participio em perguntas', 'Have you ever worked abroad?'],
                 ['never', 'antes do participio; frase afirmativa', 'I have never missed a deadline.'],
@@ -2749,7 +2749,7 @@
             title: 'Present Perfect ou Past Simple?',
             headers: ['Foco', 'Forma', 'Exemplo'],
             rows: [
-                ['Experiencia; sem data', 'Present Perfect', 'I have visited Chile.'],
+                ['Experiência; sem data', 'Present Perfect', 'I have visited Chile.'],
                 ['Tempo terminado', 'Past Simple', 'I visited Chile in 2019.'],
                 ['Resultado agora', 'Present Perfect', 'She has finished the report.'],
                 ['Quando?', 'Past Simple', 'When did she finish it?'],
@@ -2760,28 +2760,28 @@
             title: 'Been to x gone to: a pessoa voltou?',
             headers: ['Forma', 'Significado', 'Exemplo'],
             rows: [
-                ['has/have been to', 'visitou e voltou', 'She has been to the cafe.'],
-                ['has/have gone to', 'foi e ainda esta fora', 'She has gone to the cafe.'],
-                ['Experiencia', 'ever + been to', 'Have you ever been to Argentina?'],
+                ['has/have been to', 'visitou e voltou', 'She has been to the café.'],
+                ['has/have gone to', 'foi e ainda está fora', 'She has gone to the café.'],
+                ['Experiência', 'ever + been to', 'Have you ever been to Argentina?'],
                 ['Local atual', 'gone to + contexto', 'He has gone to work. He is not home.']
             ]
         },
         'Health Changes and Recovery': {
-            title: 'Mudancas de saude: resultado, continuidade e proximo passo',
+            title: 'Mudanças de saúde: resultado, continuidade e próximo passo',
             headers: ['Ideia', 'Estrutura', 'Exemplo'],
             rows: [
-                ['Mudanca ate agora', 'have/has + past participle', 'The cough has improved.'],
+                ['Mudança até agora', 'have/has + past participle', 'The cough has improved.'],
                 ['Resultado antecipado', 'have/has already + participle', 'The fever has already gone down.'],
                 ['Continuidade', 'still + present form', 'I still feel weak.'],
                 ['Pergunta por resultado', 'Have/Has + subject + participle + yet?', 'Has the swelling gone down yet?'],
-                ['Mudanca + acao', 'change + so + next step', 'The rash has spread, so call the clinic.']
+                ['Mudança + ação', 'change + so + next step', 'The rash has spread, so call the clinic.']
             ]
         },
         'Medical Consultation & Conditions': {
-            title: 'Medical consultation: detalhe e duracao',
+            title: 'Medical consultation: detalhe e duração',
             headers: ['Pergunta', 'Resposta esperada', 'Exemplo'],
             rows: [
-                ['How long...?', 'for + periodo / since + inicio', 'For three days. / Since Monday.'],
+                ['How long...?', 'for + período / since + inicio', 'For three days. / Since Monday.'],
                 ['When did it start?', 'Past Simple + tempo', 'It started yesterday.'],
                 ['What does it feel like?', 'sharp / mild / constant', 'It is a mild pain.'],
                 ['Any allergies?', 'Yes/No + detalhe', 'I am allergic to aspirin.'],
@@ -2789,90 +2789,90 @@
             ]
         },
         'Precise Location: In, On and At': {
-            title: 'Localizacao precisa: area, superficie, andar e ponto',
-            headers: ['Uso', 'Preposicao', 'Exemplo'],
+            title: 'Localização precisa: área, superfície, andar e ponto',
+            headers: ['Uso', 'Preposição', 'Exemplo'],
             rows: [
-                ['Area ou espaco fechado', 'in', 'in the lobby / in the office'],
-                ['Superficie, rua ou andar', 'on', 'on the desk / on King Street / on the second floor'],
-                ['Ponto ou servico', 'at', 'at the entrance / at the front desk'],
+                ['Área ou espaco fechado', 'in', 'in the lobby / in the office'],
+                ['Superfície, rua ou andar', 'on', 'on the desk / on King Street / on the second floor'],
+                ['Ponto ou serviço', 'at', 'at the entrance / at the front desk'],
                 ['Canto interno', 'in the corner', 'a chair in the corner of the room'],
-                ['Esquina de ruas', 'at the corner', 'a cafe at the corner of King Street']
+                ['Esquina de ruas', 'at the corner', 'a café at the corner of King Street']
             ]
         },
         'Prepositions of Movement': {
             title: 'Movement: destino, entrada, caminho e passagem',
-            headers: ['Movimento', 'Preposicao', 'Exemplo'],
+            headers: ['Movimento', 'Preposição', 'Exemplo'],
             rows: [
                 ['Destino', 'to / toward', 'Walk to the station.'],
-                ['Entrada/saida', 'into / out of', 'Go into the building.'],
+                ['Entrada/saída', 'into / out of', 'Go into the building.'],
                 ['De um lado ao outro', 'across', 'Walk across the bridge.'],
                 ['Dentro de um espaco', 'through', 'Go through the park.'],
                 ['Ao lado/depois', 'along / past', 'Walk along the river and past the bank.']
             ]
         },
         'Time Expressions and Deadlines': {
-            title: 'Tempo: prazo, continuidade, duracao e janela',
+            title: 'Tempo: prazo, continuidade, duração e janela',
             headers: ['Ideia', 'Forma', 'Exemplo'],
             rows: [
                 ['Prazo final', 'by + time', 'Send it by Friday.'],
-                ['Continuidade ate um ponto', 'until + time', 'The office is open until noon.'],
-                ['Evento x duracao', 'during + event / for + period', 'during the meeting / for two hours'],
+                ['Continuidade até um ponto', 'until + time', 'The office is open until noon.'],
+                ['Evento x duração', 'during + event / for + period', 'during the meeting / for two hours'],
                 ['Janela completa', 'from + start + to + end', 'from nine to eleven'],
                 ['Limite de resposta', 'within + period', 'We will reply within two days.']
             ]
         },
         'Clarifying Multi-Step Directions': {
-            title: 'Rotas em etapas: referencia, ordem e confirmacao',
-            headers: ['Etapa', 'Linguagem util', 'Exemplo'],
+            title: 'Rotas em etapas: referência, ordem e confirmação',
+            headers: ['Etapa', 'Linguagem útil', 'Exemplo'],
             rows: [
                 ['Iniciar a rota', 'first + action + landmark', 'First, cross at the pedestrian crossing.'],
                 ['Avancar', 'then / after that', 'Then keep going to the roundabout.'],
                 ['Posicionar a curva', 'before / after + landmark', 'Turn left after the library.'],
-                ['Escolher uma saida', 'take the first/second exit', 'Take the second exit at the roundabout.'],
+                ['Escolher uma saída', 'take the first/second exit', 'Take the second exit at the roundabout.'],
                 ['Confirmar', 'So I..., right?', 'So I turn after the library, right?']
             ]
         },
         'At the Hotel': {
             title: 'Hotel English: reserva, pedido e problema',
-            headers: ['Situacao', 'Frase util', 'Resposta comum'],
+            headers: ['Situação', 'Frase útil', 'Resposta comum'],
             rows: [
                 ['Reserva', 'I have a reservation under my name.', 'May I see your ID?'],
-                ['Inclusao', 'Is breakfast included?', 'Yes, it is included.'],
+                ['Inclusão', 'Is breakfast included?', 'Yes, it is included.'],
                 ['Pedido', 'Could I have another towel?', 'I will bring one.'],
                 ['Problema', 'The air conditioner is not working.', 'I will send maintenance.'],
-                ['Saida', 'What time is check-out?', 'Check-out is at noon.']
+                ['Saída', 'What time is check-out?', 'Check-out is at noon.']
             ]
         },
         'Gerunds and Infinitives': {
-            title: 'Verb patterns: memorize o verbo junto com o padrao',
-            headers: ['Padrao', 'Depois de', 'Exemplo'],
+            title: 'Verb patterns: memorize o verbo junto com o padrão',
+            headers: ['Padrão', 'Depois de', 'Exemplo'],
             rows: [
                 ['verb + -ing', 'enjoy, avoid, mind, finish', 'I enjoy studying.'],
                 ['to + base verb', 'want, decide, hope, plan', 'She decided to study.'],
                 ['Pergunta com mind', 'Do you mind + -ing?', 'Do you mind waiting?'],
-                ['Expressao com to', 'look forward to + -ing', 'I look forward to seeing you.'],
-                ['Negativa', 'not antes do padrao', 'I decided not to go.']
+                ['Expressão com to', 'look forward to + -ing', 'I look forward to seeing you.'],
+                ['Negativa', 'not antes do padrão', 'I decided not to go.']
             ]
         },
         'Zero and First Conditional': {
             title: 'Zero x First Conditional: fato ou resultado futuro?',
             headers: ['Tipo', 'Estrutura', 'Exemplo'],
             rows: [
-                ['Zero: fato/habito', 'if + present, present', 'If I sleep badly, I feel tired.'],
+                ['Zero: fato/hábito', 'if + present, present', 'If I sleep badly, I feel tired.'],
                 ['First: futuro real', 'if + present, will + verb', 'If it rains, I will stay home.'],
                 ['Ordem invertida', 'result + if + condition', 'I will call if I am late.'],
-                ['Pontuacao', 'virgula quando if vem primeiro', 'If we hurry, we will arrive on time.'],
-                ['Cuidado', 'nao use will depois de if', 'If she calls, I will answer.']
+                ['Pontuação', 'vírgula quando if vem primeiro', 'If we hurry, we will arrive on time.'],
+                ['Cuidado', 'não use will depois de if', 'If she calls, I will answer.']
             ]
         },
         'Unless, Wishes and Real-Life Hopes': {
-            title: 'Unless, hope and wish: tres significados',
+            title: 'Unless, hope and wish: três significados',
             headers: ['Forma', 'Uso', 'Exemplo'],
             rows: [
                 ['unless', 'if not; sem dupla negativa', 'Unless we hurry, we will be late.'],
                 ['hope + present/future', 'possibilidade real', 'I hope I get the job.'],
-                ['wish + past', 'situacao imaginada agora', 'I wish I had more time.'],
-                ['Consequencia', 'unless + present, will + verb', 'Unless you apply, you will miss it.'],
+                ['wish + past', 'situação imaginada agora', 'I wish I had more time.'],
+                ['Consequência', 'unless + present, will + verb', 'Unless you apply, you will miss it.'],
                 ['Cuidado', 'unless + afirmativa', 'Unless we leave now...']
             ]
         }
@@ -2885,14 +2885,14 @@
 
         if (/past continuous|interrupted/.test(label)) {
             return {
-                title: 'Past Continuous: acao em progresso no passado',
+                title: 'Past Continuous: ação em progresso no passado',
                 headers: ['Tipo', 'Estrutura', 'Exemplo'],
                 rows: [
                     ['Afirmativa', 'Subject + was/were + verb-ing', 'I was cooking.'],
                     ['Negativa', 'Subject + was/were not + verb-ing', 'She was not sleeping.'],
                     ['Pergunta', 'Was/Were + subject + verb-ing?', 'Were you driving?'],
-                    ['Interrupcao', 'Past Continuous + when + Past Simple', 'I was cooking when the phone rang.'],
-                    ['Acoes simultaneas', 'Past Continuous + while + Past Continuous', 'I was cooking while she was studying.']
+                    ['Interrupção', 'Past Continuous + when + Past Simple', 'I was cooking when the phone rang.'],
+                    ['Ações simultaneas', 'Past Continuous + while + Past Continuous', 'I was cooking while she was studying.']
                 ]
             };
         }
@@ -2913,13 +2913,13 @@
 
         if (/present perfect|ever|never|already|yet|been and gone/.test(label)) {
             return {
-                title: 'Present Perfect: experiencia e resultado',
+                title: 'Present Perfect: experiência e resultado',
                 headers: ['Uso', 'Estrutura', 'Exemplo'],
                 rows: [
-                    ['Experiencia', 'Subject + have/has + participle', 'I have tried sushi.'],
+                    ['Experiência', 'Subject + have/has + participle', 'I have tried sushi.'],
                     ['Pergunta com ever', 'Have/Has + subject + ever + participle?', 'Have you ever traveled alone?'],
                     ['Negativa com never', 'Subject + have/has + never + participle', 'She has never been there.'],
-                    ['Already', 'Algo ja aconteceu', 'I have already sent it.'],
+                    ['Already', 'Algo já aconteceu', 'I have already sent it.'],
                     ['Yet', 'Perguntas e negativas', 'Have you eaten yet? / Not yet.']
                 ]
             };
@@ -2930,8 +2930,8 @@
                 title: 'Future forms: escolha pelo significado',
                 headers: ['Forma', 'Quando usar', 'Exemplo'],
                 rows: [
-                    ['Going to', 'plano ou intencao', 'I am going to call her.'],
-                    ['Will', 'decisao na hora, oferta ou previsao', 'I will help you.'],
+                    ['Going to', 'plano ou intenção', 'I am going to call her.'],
+                    ['Will', 'decisão na hora, oferta ou previsão', 'I will help you.'],
                     ['Present Continuous', 'compromisso marcado', 'I am meeting Ana at 7.'],
                     ['Pergunta', 'forma auxiliar antes do sujeito', 'Are you going to travel?'],
                     ['Negativa', 'not depois do auxiliar', 'She is not coming tonight.']
@@ -2944,10 +2944,10 @@
                 title: 'Modals: verbo base depois do modal',
                 headers: ['Modal', 'Ideia', 'Exemplo'],
                 rows: [
-                    ['Can / Could', 'permissao ou pedido educado', 'Could I use your charger?'],
+                    ['Can / Could', 'permissão ou pedido educado', 'Could I use your charger?'],
                     ['Must', 'regra forte', 'You must wear a badge.'],
-                    ['Have to', 'obrigacao externa', 'I have to leave now.'],
-                    ['Need to', 'necessidade pratica', 'We need to call the hotel.'],
+                    ['Have to', 'obrigação externa', 'I have to leave now.'],
+                    ['Need to', 'necessidade prática', 'We need to call the hotel.'],
                     ['Should', 'conselho', 'You should rest.']
                 ]
             };
@@ -2955,7 +2955,7 @@
 
         if (/comparative/.test(label)) {
             return {
-                title: 'Comparatives: comparando duas opcoes',
+                title: 'Comparatives: comparando duas opções',
                 headers: ['Adjetivo', 'Forma', 'Exemplo'],
                 rows: [
                     ['curto', 'adjective + -er + than', 'This room is cheaper than that one.'],
@@ -2968,7 +2968,7 @@
 
         if (/superlative/.test(label)) {
             return {
-                title: 'Superlatives: destacando uma opcao no grupo',
+                title: 'Superlatives: destacando uma opção no grupo',
                 headers: ['Adjetivo', 'Forma', 'Exemplo'],
                 rows: [
                     ['curto', 'the + adjective-est', 'This is the cheapest hotel.'],
@@ -2984,10 +2984,10 @@
                 title: 'Articles and quantifiers',
                 headers: ['Item', 'Use com', 'Exemplo'],
                 rows: [
-                    ['a/an', 'uma coisa nova ou nao especifica', 'I need a chair.'],
-                    ['the', 'algo ja conhecido', 'The chair near the window is free.'],
-                    ['many / a few', 'contaveis', 'many cups / a few chairs'],
-                    ['much / a little', 'incontaveis', 'much time / a little milk'],
+                    ['a/an', 'uma coisa nova ou não específica', 'I need a chair.'],
+                    ['the', 'algo já conhecido', 'The chair near the window is free.'],
+                    ['many / a few', 'contáveis', 'many cups / a few chairs'],
+                    ['much / a little', 'incontáveis', 'much time / a little milk'],
                     ['enough', 'quantidade suficiente', 'We have enough coffee.']
                 ]
             };
@@ -2996,13 +2996,13 @@
         if (/prepositions|movement|directions|from a to b|practical english review/.test(label)) {
             return {
                 title: 'Prepositions: lugar, movimento e tempo',
-                headers: ['Tipo', 'Preposicoes', 'Exemplo'],
+                headers: ['Tipo', 'Preposições', 'Exemplo'],
                 rows: [
                     ['Lugar', 'in / on / at', 'at the entrance / on Main Street'],
-                    ['Posicao', 'next to / between / across from', 'The cafe is next to the bank.'],
+                    ['Posição', 'next to / between / across from', 'The café is next to the bank.'],
                     ['Movimento', 'to / into / out of / through / past', 'Walk past the museum.'],
                     ['Tempo', 'at / on / in', 'at 8 / on Monday / in July'],
-                    ['Direcao', 'turn / go / walk / cross', 'Turn left at the corner.']
+                    ['Direção', 'turn / go / walk / cross', 'Turn left at the corner.']
                 ]
             };
         }
@@ -3010,12 +3010,12 @@
         if (/health|medical/.test(label)) {
             return {
                 title: 'Health and medical questions',
-                headers: ['Funcao', 'Estrutura', 'Exemplo'],
+                headers: ['Função', 'Estrutura', 'Exemplo'],
                 rows: [
                     ['Sintoma com have', 'have + symptom', 'I have a headache.'],
-                    ['Sensacao com feel', 'feel + adjective', 'I feel dizzy.'],
-                    ['Duracao', 'How long have you had...?', 'How long have you had this cough?'],
-                    ['For / since', 'for + periodo / since + inicio', 'for three days / since Monday'],
+                    ['Sensação com feel', 'feel + adjective', 'I feel dizzy.'],
+                    ['Duração', 'How long have you had...?', 'How long have you had this cough?'],
+                    ['For / since', 'for + período / since + inicio', 'for three days / since Monday'],
                     ['Conselho', 'should / need to + base verb', 'You should rest.']
                 ]
             };
@@ -3024,7 +3024,7 @@
         if (/hotel|at the hotel/.test(label)) {
             return {
                 title: 'Hotel requests: pedidos educados',
-                headers: ['Situacao', 'Frase util', 'Resposta comum'],
+                headers: ['Situação', 'Frase útil', 'Resposta comum'],
                 rows: [
                     ['Reserva', 'I have a reservation under Ana Lima.', 'May I see your ID?'],
                     ['Pedido', 'Could I have another towel?', 'Sure. I will bring one.'],
@@ -3037,7 +3037,7 @@
         if (/gerunds|infinitives/.test(label)) {
             return {
                 title: 'Gerund or infinitive',
-                headers: ['Padrao', 'Depois de', 'Exemplo'],
+                headers: ['Padrão', 'Depois de', 'Exemplo'],
                 rows: [
                     ['verb + -ing', 'enjoy, avoid, mind, finish', 'I enjoy cooking.'],
                     ['to + verb', 'want, decide, hope, plan', 'She decided to stay.'],
@@ -3050,13 +3050,13 @@
         if (/final review|final project/.test(label)) {
             return {
                 title: 'Final review: conectando ideias',
-                headers: ['Objetivo', 'Estrutura util', 'Exemplo'],
+                headers: ['Objetivo', 'Estrutura útil', 'Exemplo'],
                 rows: [
                     ['Passado', 'Past Simple / Past Continuous', 'I solved a problem yesterday.'],
-                    ['Experiencia', 'Present Perfect', 'I have improved my confidence.'],
+                    ['Experiência', 'Present Perfect', 'I have improved my confidence.'],
                     ['Futuro', 'going to / will', 'I am going to practice more.'],
-                    ['Condicao', 'if + present, will + verb', 'If I practice, I will improve.'],
-                    ['Organizacao', 'first, then, however, because', 'First, I made a plan.']
+                    ['Condição', 'if + present, will + verb', 'If I practice, I will improve.'],
+                    ['Organização', 'first, then, however, because', 'First, I made a plan.']
                 ]
             };
         }
@@ -3069,7 +3069,7 @@
                     ['Zero conditional', 'If + present, present', 'If I sleep badly, I feel tired.'],
                     ['First conditional', 'If + present, will + verb', 'If it rains, I will stay home.'],
                     ['Unless', 'unless = if not', 'Unless we leave now, we will be late.'],
-                    ['Wish', 'situacao imaginada ou dificil de mudar', 'I wish I had more time.']
+                    ['Wish', 'situação imaginada ou difícil de mudar', 'I wish I had more time.']
                 ]
             };
         }
@@ -3140,7 +3140,7 @@
                     ${bank.examples.slice(0, 4).map((example) => `<p><i class="fas fa-check text-emerald-600 mr-2"></i>${escapeHtml(example)}</p>`).join('')}
                 </div>
                 <div class="callout-note p-5 rounded-xl">
-                    <p class="font-bold">Pratica rapida</p>
+                    <p class="font-bold">Prática rápida</p>
                     <p>Transforme dois exemplos em afirmativa, negativa e pergunta antes de seguir para as atividades.</p>
                 </div>
             </div>
@@ -3340,8 +3340,8 @@
                 </div>
             </li>
             <li class="flex gap-3"><i class="fas fa-edit mt-1"></i> Escreva 8 frases usando ${escapeHtml(title)} com o tema escolhido acima.</li>
-            <li class="flex gap-3"><i class="fas fa-comment-dots mt-1"></i> Prepare um roteiro de 60 a 90 segundos com pelo menos 3 palavras do vocabulario e 1 expressao do slide 6 para apresentar ao vivo.</li>
-            <li class="flex gap-3"><i class="fas fa-comments mt-1"></i> Crie um mini dialogo novo com 6 a 8 falas sobre o mesmo tema.</li>
+            <li class="flex gap-3"><i class="fas fa-comment-dots mt-1"></i> Prepare um roteiro de 60 a 90 segundos com pelo menos 3 palavras do vocabulário e 1 expressão do slide 6 para apresentar ao vivo.</li>
+            <li class="flex gap-3"><i class="fas fa-comments mt-1"></i> Crie um mini diálogo novo com 6 a 8 falas sobre o mesmo tema.</li>
             <li class="flex gap-3"><i class="fas fa-book-open mt-1"></i> Releia o texto do slide 8 e responda novamente as perguntas com respostas mais completas.</li>
         `);
     }
@@ -3363,10 +3363,10 @@
                 ],
                 translations: [
                     ['Eu acordei tarde ontem.', 'I woke up late yesterday.'],
-                    ['Voce conseguiu resolver o problema?', 'Did you manage to solve the problem?'],
+                    ['Você conseguiu resolver o problema?', 'Did you manage to solve the problem?'],
                     ['Eu estava cozinhando quando o telefone tocou.', 'I was cooking when the phone rang.'],
                     ['Este bairro e mais seguro.', 'This neighborhood is safer.'],
-                    ['Nos temos cadeiras suficientes.', 'We have enough chairs.']
+                    ['Nós temos cadeiras suficientes.', 'We have enough chairs.']
                 ],
                 oralTest: [
                     ['Timeline', 'Tell the story using these facts: missed bus / called manager / arrived by taxi.', 'I missed the bus, so I called my manager. Then I arrived by taxi.'],
@@ -3406,10 +3406,10 @@
                 ],
                 translations: [
                     ['Eu vou ligar para ela agora.', 'I will call her now.'],
-                    ['Nos vamos visitar minha tia.', 'We are going to visit my aunt.'],
-                    ['Eu vou encontrar Ana as sete.', 'I am meeting Ana at seven.'],
-                    ['Voce poderia repetir isso?', 'Could you repeat that?'],
-                    ['Voce deveria descansar.', 'You should rest.']
+                    ['Nós vamos visitar minha tia.', 'We are going to visit my aunt.'],
+                    ['Eu vou encontrar Ana às sete.', 'I am meeting Ana at seven.'],
+                    ['Você poderia repetir isso?', 'Could you repeat that?'],
+                    ['Você deveria descansar.', 'You should rest.']
                 ],
                 oralTest: [
                     ['Weekend plan', 'Say one existing plan for Saturday and one activity that is already arranged.', 'I am going to clean the apartment, and I am meeting my sister at seven.'],
@@ -3448,17 +3448,17 @@
                     ['Find the error', 'The pharmacy is in the corner.', 'The pharmacy is on/at the corner.']
                 ],
                 translations: [
-                    ['Voce ja viajou sozinho?', 'Have you ever traveled alone?'],
-                    ['Ele foi para a farmacia e ainda nao voltou.', 'He has gone to the pharmacy.'],
-                    ['Eu tenho dor de cabeca.', 'I have a headache.'],
-                    ['A consulta e na sexta as nove.', 'The appointment is on Friday at nine.'],
-                    ['Siga em frente por dois quarteiroes.', 'Go straight for two blocks.']
+                    ['Você já viajou sozinho?', 'Have you ever traveled alone?'],
+                    ['Ele foi para a farmácia e ainda não voltou.', 'He has gone to the pharmacy.'],
+                    ['Eu tenho dor de cabeça.', 'I have a headache.'],
+                    ['A consulta e na sexta às nove.', 'The appointment is on Friday at nine.'],
+                    ['Siga em frente por dois quarteirões.', 'Go straight for two blocks.']
                 ],
                 oralTest: [
                     ['Experience + date', 'Say that you have visited a city, then say exactly when you went.', 'I have visited Curitiba. I went there in 2024.'],
                     ['Been or gone?', 'Clara is at the bank now. Say where she is, then mention a bank she visited before.', 'Clara has gone to the bank. She has been to the bank near the station before.'],
                     ['Clinic message', 'Describe a cough, its duration, and one other symptom.', 'I have had a cough for four days, and I feel dizzy in the morning.'],
-                    ['Find the place', 'Locate a clinic using between, across from, and on.', 'The clinic is on Green Street, between the cafe and the bank, across from the park.'],
+                    ['Find the place', 'Locate a clinic using between, across from, and on.', 'The clinic is on Green Street, between the café and the bank, across from the park.'],
                     ['Route + appointment', 'Give a route and finish with the appointment time.', 'Walk through the park and past the pharmacy. The appointment is at ten on Monday.']
                 ],
                 errorClinic: [
@@ -3466,14 +3466,14 @@
                     ['Yet', 'Have you yet finished?', 'Have you finished yet?'],
                     ['Been/Gone', 'She has been to the pharmacy, so she is not here now.', 'She has gone to the pharmacy, so she is not here now.'],
                     ['Health', 'I feel a headache.', 'I have a headache.'],
-                    ['Place', 'The cafe is in the corner.', 'The cafe is on/at the corner.'],
+                    ['Place', 'The café is in the corner.', 'The café is on/at the corner.'],
                     ['Movement', 'Walk to the park and across the gate.', 'Walk through the park and through/past the gate.']
                 ],
                 recap: [
                     ['Experience check', 'Ask and answer two Have you ever questions.', 'Have you ever traveled alone? Yes, I have. Have you ever tried sushi? No, I have not.'],
                     ['Where is Bruno?', 'Explain been to and gone to with pharmacy examples.', 'He has been to the pharmacy before, but now he has gone to the pharmacy.'],
                     ['Doctor desk', 'Describe symptoms, duration, and advice in 3 sentences.', 'I have had a cough for three days. I feel weak. I should rest.'],
-                    ['Map briefing', 'Give directions using past, across from, and at.', 'Walk past the bank. The pharmacy is across from the cafe. Meet me at the entrance.'],
+                    ['Map briefing', 'Give directions using past, across from, and at.', 'Walk past the bank. The pharmacy is across from the café. Meet me at the entrance.'],
                     ['Appointment message', 'Say a date, time, place, and symptom clearly.', 'My appointment is on Friday at nine at the clinic. I have a sore throat.']
                 ]
             },
@@ -3491,10 +3491,10 @@
                     ['Long answer', 'Give a 3-sentence progress answer.', 'I have improved my confidence. I still make mistakes, but I speak more often. My next goal is to practice listening.']
                 ],
                 translations: [
-                    ['Eu melhorei minha confianca.', 'I have improved my confidence.'],
+                    ['Eu melhorei minha confiança.', 'I have improved my confidence.'],
                     ['Eu praticava pouco, mas agora pratico mais.', 'I used to practice little, but now I practice more.'],
                     ['Se eu praticar todos os dias, vou melhorar.', 'If I practice every day, I will improve.'],
-                    ['Meu proximo passo e ouvir mais ingles.', 'My next step is to listen to more English.'],
+                    ['Meu próximo passo é ouvir mais inglês.', 'My next step is to listen to more English.'],
                     ['Eu quero continuar.', 'I want to keep going.']
                 ],
                 oralTest: [
@@ -3576,13 +3576,13 @@
 
     function fillReviewLesson(data, review) {
         setHtml('.slide[data-title="Intro & Dialogue"] .lesson-hero .max-w-3xl', `
-            <p class="lesson-panel-title">Aula de revisao</p>
+            <p class="lesson-panel-title">Aula de revisão</p>
             <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">${escapeHtml(review.title)}</h2>
-            <p class="text-lg text-slate-600">Esta aula funciona como um circuito de treino: voce revisa regras, corrige erros, traduz, fala e combina estruturas em situacoes novas.</p>
+            <p class="text-lg text-slate-600">Esta aula funciona como um circuito de treino: você revisa regras, corrige erros, traduz, fala e combina estruturas em situações novas.</p>
             <div class="grid md:grid-cols-3 gap-4 mt-6 text-left">
                 <div class="lesson-panel p-4"><p class="font-black text-slate-900">1. Relembrar</p><p class="text-sm text-slate-600">Leia as regras curtas e veja o contraste entre formas parecidas.</p></div>
                 <div class="lesson-panel p-4"><p class="font-black text-slate-900">2. Misturar</p><p class="text-sm text-slate-600">Resolva atividades que alternam estruturas sem avisar demais.</p></div>
-                <div class="lesson-panel p-4"><p class="font-black text-slate-900">3. Produzir</p><p class="text-sm text-slate-600">Use as estruturas em fala, mini situacoes e respostas longas.</p></div>
+                <div class="lesson-panel p-4"><p class="font-black text-slate-900">3. Produzir</p><p class="text-sm text-slate-600">Use as estruturas em fala, mini situações e respostas longas.</p></div>
             </div>
         `);
         setHtml('#intro-dialogue', renderIntroDialogue(data.title, data.bank));
@@ -3602,11 +3602,11 @@
         document.querySelector('.slide[data-title="Deep Grammar"] h2').textContent = 'Station 2: Grammar Control Panel';
         setHtml('.slide[data-title="Deep Grammar"] .max-w-4xl', `
             <div class="activity-card border-t-8 border-emerald-500 p-8 space-y-5">
-                <p class="text-slate-600">Use esta tabela como consulta rapida antes das atividades. A ideia nao e decorar nomes de regras, mas lembrar qual forma combina com cada intencao.</p>
+                <p class="text-slate-600">Use esta tabela como consulta rápida antes das atividades. A ideia não é decorar nomes de regras, mas lembrar qual forma combina com cada intenção.</p>
                 <div class="overflow-x-auto rounded-xl border border-slate-200">
                     <table class="w-full text-left text-sm md:text-base">
                         <thead class="bg-emerald-50 text-emerald-800">
-                            <tr><th class="p-3">Conteudo</th><th class="p-3">Quando usar</th><th class="p-3">Cuidado comum</th></tr>
+                            <tr><th class="p-3">Conteúdo</th><th class="p-3">Quando usar</th><th class="p-3">Cuidado comum</th></tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100">${reviewTableRows(review)}</tbody>
                     </table>
@@ -3672,9 +3672,9 @@
                     ${review.focus.slice(0, 3).map((focus, index) => `<div class="bg-white/20 rounded-xl p-3"><strong>Foco ${index + 1}:</strong> ${escapeHtml(expandReviewFocus(focus).name)}</div>`).join('')}
                 </div>
             </li>
-            <li class="flex gap-3"><i class="fas fa-edit mt-1"></i> Reescreva 8 frases corrigindo erros dos topicos revisados.</li>
-            <li class="flex gap-3"><i class="fas fa-comment-dots mt-1"></i> Prepare um roteiro oral de 90 segundos usando pelo menos 3 estruturas revisadas para apresentar na proxima aula.</li>
-            <li class="flex gap-3"><i class="fas fa-comments mt-1"></i> Crie um dialogo com 8 falas usando o foco escolhido e mais um conteudo da revisao.</li>
+            <li class="flex gap-3"><i class="fas fa-edit mt-1"></i> Reescreva 8 frases corrigindo erros dos tópicos revisados.</li>
+            <li class="flex gap-3"><i class="fas fa-comment-dots mt-1"></i> Prepare um roteiro oral de 90 segundos usando pelo menos 3 estruturas revisadas para apresentar na próxima aula.</li>
+            <li class="flex gap-3"><i class="fas fa-comments mt-1"></i> Crie um diálogo com 8 falas usando o foco escolhido e mais um conteúdo da revisão.</li>
         `);
     }
 
