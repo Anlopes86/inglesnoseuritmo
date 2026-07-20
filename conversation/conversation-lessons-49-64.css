@@ -1,0 +1,33 @@
+body { font-family: 'Inter', sans-serif; background-color: #111827; }
+.slide { display: none; }
+.slide.active { display: block; animation: conversationFadeIn 0.45s ease-in-out; }
+@keyframes conversationFadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+.flashcard { background: transparent; height: 210px; perspective: 1000px; cursor: pointer; }
+.flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.65s; transform-style: preserve-3d; }
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+.flashcard-front, .flashcard-back { position: absolute; inset: 0; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.4rem; border-radius: 1rem; border: 1px solid #4b5563; text-align: center; overflow-y: auto; }
+.flashcard-front { background: #1f2937; color: #f0abfc; }
+.flashcard-back { background: #701a75; color: white; transform: rotateY(180deg); }
+.listening-box { max-height: 390px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #d946ef #1f2937; }
+.answer-btn { color: #9ca3af; margin-left: 0.35rem; transition: color 0.2s; }
+.answer-btn:hover { color: #f0abfc; }
+.debate-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #334155; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s, border-color 0.2s; }
+.debate-card:hover { transform: translateY(-2px); border-color: #a855f7; }
+.debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
+.word-pill { cursor: pointer; background: #9333ea; color: white; padding: 0.55rem 1.1rem; border-radius: 9999px; font-weight: 700; transition: transform 0.2s; }
+.word-pill:hover { transform: translateY(-1px); }
+.drop-zone { display: inline-block; min-width: 150px; border-bottom: 2px dashed #d946ef; text-align: center; color: #f0abfc; font-weight: 700; padding: 0 0.5rem; margin: 0 0.2rem; cursor: pointer; }
+.drop-zone.filled { border-bottom-style: solid; }
+@media (max-width: 640px) {
+    html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+    #lesson-main, .slide, .slide > div, .slide [class*="max-w-"] { width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; }
+    .slide h2, .slide h3, .slide h4, .slide p { max-width: 100%; overflow-wrap: anywhere; }
+    .slide .text-2xl { font-size: 1.25rem; line-height: 1.65rem; }
+    .slide .p-8 { padding: 1.25rem; }
+    header .container { min-width: 0; }
+    #lesson-heading { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .flashcard-grid { grid-template-columns: 1fr; }
+    .flashcard { height: 230px; }
+    .drop-zone { min-width: 110px; }
+}

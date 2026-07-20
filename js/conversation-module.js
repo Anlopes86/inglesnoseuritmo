@@ -15,7 +15,15 @@ document.addEventListener('DOMContentLoaded', () => {
         'Childhood & Growing Up', 'Conspiracy Theories', 'Music, Emotions & Identity', 'Aging & Getting Older', 'Language & Communication',
         'Sports, Rivalries & The World Cup', 'Heroes & Role Models', 'Food Around the World', 'The Paradox of Choice', 'The Ethics of Biohacking',
         'The Art of Storytelling', 'Movies, Series & Pop Culture', 'The Most Interesting Places on Earth', 'Weird Inventions & Crazy Ideas', 'Humor & The Power of Laughter',
-        'Fun Predictions: Life in 2050'
+        'Fun Predictions: Life in 2050',
+        'Family, Expectations & Independence', 'Trust, Betrayal & Second Chances', 'Fear, Risk & Courage',
+        'Beauty, Body Image & Self-Esteem', 'Loneliness, Solitude & Human Connection',
+        'Superpowers, Magic & Impossible Abilities', 'What If…? Absurd Scenarios',
+        'Traditions: Keep, Change or Let Go?', 'Free Speech, Censorship & Public Consequences',
+        'Useless Talents & Hidden Skills', 'Advertising, Consumerism & Why We Buy',
+        'Stereotypes, Bias & First Impressions', 'Alternative Lifestyles: Tiny Homes, Nomads & Off-Grid Living',
+        'Social Rules, Manners & Pet Peeves', 'Would You Rather? Survival & Impossible Choices',
+        'Luck, Fate & Free Will'
     ];
 
     const unitLabels = [
@@ -24,7 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
         'Learning', 'Nature', 'Competition', 'Habits', 'Impact', 'Creativity', 'Money', 'Work Trends',
         'Media', 'Behavior', 'History', 'Ethics', 'Science', 'Style', 'Culture', 'Modern Love',
         'Childhood', 'Ideas', 'Music', 'Aging', 'Language', 'Sports', 'Inspiration', 'Food',
-        'Decisions', 'Bioethics', 'Narrative', 'Pop Culture', 'Places', 'Innovation', 'Humor', 'Futures'
+        'Decisions', 'Bioethics', 'Narrative', 'Pop Culture', 'Places', 'Innovation', 'Humor', 'Futures',
+        'Family', 'Trust', 'Courage', 'Self-Image', 'Connection', 'Imagination', 'Hypotheticals',
+        'Traditions', 'Expression', 'Skills', 'Consumer Culture', 'Perception', 'Lifestyles',
+        'Social Life', 'Choices', 'Philosophy'
     ];
 
     function buildLessonCard(title, lessonNumber, state, isManager) {
