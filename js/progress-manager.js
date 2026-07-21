@@ -16,7 +16,10 @@ async function updateStudentData(studentId, dataToUpdate) {
 
 function getModuleLandingPage(moduleId) {
     const landingPages = {
-        'a2-v2': 'a2.html'
+        'a1-v3': 'a1-v3.html',
+        'a2-v2': 'a2.html',
+        'a2-v3': 'a2-v3.html',
+        'b1-v3': 'b1-v3.html'
     };
 
     return landingPages[moduleId] || `${moduleId}.html`;

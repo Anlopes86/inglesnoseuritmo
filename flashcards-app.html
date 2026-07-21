@@ -2,632 +2,393 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Inglês no seu Ritmo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="Central inteligente de revisão de vocabulário do Inglês no seu Ritmo.">
+    <meta name="theme-color" content="#07101f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Flashcards">
+    <title>Flashcards | Inglês no seu Ritmo</title>
 
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="img/flash-icon.png">
     <link rel="icon" type="image/png" href="img/flash-icon.png">
-
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-    <meta name="theme-color" content="#0f172a">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-    
+    <link href="css/flashcards-app.css" rel="stylesheet">
+
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <script src="js/firebase-config.js"></script>
-
-    <style>
-        :root { --bg-deep: #0f172a; --bg-card: #1e293b; --accent: #facc15; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-deep); color: white; min-height: 100vh; overflow-x: hidden; }
-        
-        /* Ajuste de Header para evitar cortes e colagem no topo */
-        header { 
-            padding-top: env(safe-area-inset-top, 20px) !important; 
-            padding-bottom: 12px !important;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 6px;
-        }
-
-        .menu-card { background: var(--bg-card); transition: all 0.3s; cursor: pointer; border: 2px solid #334155; }
-        .menu-card:active { transform: scale(0.98); }
-        .menu-card.active-practice { border-color: #a855f7; background: rgba(168, 85, 247, 0.1); }
-        
-        .flashcard { height: 380px; perspective: 1000px; cursor: pointer; width: 100%; max-width: 400px; position: relative; }
-        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
-        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        
-        .flashcard-front, .flashcard-back { 
-            position: absolute; width: 100%; height: 100%; backface-visibility: hidden; 
-            display: flex; align-items: center; justify-content: center; flex-direction: column; 
-            padding: 2.5rem; border-radius: 3rem; border: 4px solid #334155; text-align: center; 
-        }
-        .flashcard-front { background: var(--bg-card); color: var(--accent); font-size: 2.2rem; font-weight: 900; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); }
-        .flashcard-back { background: var(--accent); color: var(--bg-deep); transform: rotateY(180deg); font-size: 1.6rem; font-weight: 700; }
-        
-        .diff-hard { border-color: #ef4444 !important; }
-        .diff-medium { border-color: #facc15 !important; }
-        .diff-easy { border-color: #22c55e !important; }
-
-        .btn-card-action {
-            position: absolute; top: 20px; z-index: 50;
-            background: rgba(15, 23, 42, 0.8); width: 50px; height: 50px;
-            border-radius: 18px; display: flex; align-items: center; justify-content: center;
-            transition: all 0.2s; border: 2px solid transparent;
-        }
-        .btn-fav { right: 20px; color: #facc15; border-color: #facc15; }
-        .btn-del-single { right: 20px; color: #ef4444; border-color: #ef4444; }
-        .btn-speak { left: 20px; color: #38bdf8; border-color: #38bdf8; }
-
-        /* Selects otimizados para não quebrar o layout */
-        .custom-select-ui {
-            appearance: none; background-color: #1e293b;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23facc15'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-            background-repeat: no-repeat; background-position: right 0.5rem center; background-size: 0.8rem;
-            border: 2px solid #334155; border-radius: 0.8rem; padding: 0.5rem 1.6rem 0.5rem 0.6rem !important;
-            color: white; font-weight: 800; font-size: 9px !important; text-transform: uppercase;
-            max-width: 95px; flex-shrink: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-        }
-
-        .header-btn-square {
-            width: 42px; height: 42px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 12px; transition: all 0.2s;
-        }
-
-        .status-panel {
-            width: 100%;
-            max-width: 420px;
-            border: 2px dashed #334155;
-            border-radius: 2rem;
-            padding: 1.5rem;
-            text-align: center;
-            color: #94a3b8;
-            background: rgba(15, 23, 42, 0.55);
-        }
-
-        .hidden { display: none; }
-    </style>
 </head>
-<body>
+<body class="flashcards-shell" data-screen="menu">
+    <a href="#main-content" class="skip-link">Ir para o conteúdo</a>
 
-    <div id="screen-menu" class="container mx-auto px-6 py-12">
-        <div class="max-w-4xl mx-auto flex justify-start mb-8">
-            <a id="menu-back-link" href="home-aluno.html" class="inline-flex items-center gap-2 text-slate-400 hover:text-yellow-400 font-bold uppercase text-[10px] tracking-[4px] transition-colors">
-                <i class="fas fa-arrow-left"></i> Voltar ao Portal
-            </a>
-        </div>
-        <div class="text-center mb-12">
-            <div class="inline-block p-4 bg-yellow-400/10 rounded-full mb-4"><i class="fas fa-bolt text-yellow-400 text-5xl"></i></div>
-            <h1 class="text-4xl font-black italic tracking-tighter uppercase">Flash-English</h1>
-            <p class="text-slate-500 mt-2 text-xs uppercase tracking-[4px] font-bold">Inglês no seu Ritmo</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-            <div onclick="startApp('AULAS_CONV')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 shadow-xl">
-                <div class="bg-yellow-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-yellow-500 text-2xl"><i class="fas fa-comments"></i></div>
-                <div><h3 class="font-bold text-lg leading-tight">Aulas de Conversação</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Expressões das aulas</p></div>
-            </div>
-            
-            <div onclick="startApp('A1')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 shadow-xl">
-                <div class="bg-green-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-green-500 text-2xl"><i class="fas fa-graduation-cap"></i></div>
-                <div><h3 class="font-bold text-lg leading-tight">Módulo A1 / A2</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Gramática Base</p></div>
-            </div>
-
-            <div onclick="startApp('TRAVEL')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 shadow-xl">
-                <div class="bg-blue-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-blue-500 text-2xl"><i class="fas fa-plane"></i></div>
-                <div><h3 class="font-bold text-lg leading-tight">Viagem</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Travel Vocabulary</p></div>
-            </div>
-
-            <div onclick="startApp('RESTAURANT')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 shadow-xl">
-                <div class="bg-orange-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-orange-500 text-2xl"><i class="fas fa-utensils"></i></div>
-                <div><h3 class="font-bold text-lg leading-tight">Restaurante</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Restaurant & Food</p></div>
-            </div>
-
-            <div onclick="startApp('VOC_CONV')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 shadow-xl">
-                <div class="bg-indigo-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-indigo-500 text-2xl"><i class="fas fa-book-open"></i></div>
-                <div><h3 class="font-bold text-lg leading-tight">Vocabulário</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Expressões diversas</p></div>
-            </div>
-
-            <div onclick="startApp('CUSTOM')" class="menu-card p-6 rounded-[2rem] flex items-center gap-5 border-dashed border-yellow-500/40 bg-yellow-500/5 shadow-xl">
-                <div class="bg-yellow-500/20 w-16 h-16 flex items-center justify-center rounded-2xl text-yellow-500 text-2xl"><i class="fas fa-layer-group"></i></div>
-                <div><h3 class="font-bold text-lg leading-tight">Meus Cards & Favoritos</h3><p class="text-[10px] text-slate-500 uppercase mt-1">Crie seus cards</p></div>
-            </div>
-            
-            <div id="card-practice-main" class="menu-card p-6 rounded-[2rem] flex items-center justify-between shadow-xl md:col-span-2">
-                <div onclick="togglePracticeMode()" class="flex items-center gap-5 flex-grow">
-                    <div id="practice-icon-bg" class="bg-slate-500/10 w-16 h-16 flex items-center justify-center rounded-2xl text-slate-500 text-2xl"><i class="fas fa-keyboard"></i></div>
-                    <div>
-                        <h3 id="practice-text" class="font-bold text-lg leading-tight text-slate-400">Praticar Escrita</h3>
-                        <p id="practice-subtext" class="text-[10px] text-slate-500 uppercase mt-1">Desativado</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="screen-app" class="hidden flex flex-col min-h-screen">
-        <header class="px-3 bg-slate-900/50 backdrop-blur-lg border-b border-slate-800 sticky top-0 z-40">
-            <div class="flex gap-1.5">
-                <a id="app-close-link" href="home-aluno.html" class="header-btn-square bg-red-500/10 text-red-500 border border-red-500/20 shadow-lg" title="Voltar para a área do aluno">
-                    <i class="fas fa-times"></i>
+    <div id="screen-menu">
+        <header class="flash-topbar">
+            <div class="flash-container flash-topbar-inner">
+                <a id="menu-back-link" href="home-aluno.html" class="flash-back-link" aria-label="Voltar ao portal">
+                    <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                    <span class="back-link-label">Voltar ao portal</span>
                 </a>
-                <button onclick="returnToDeckMenu()" class="header-btn-square bg-slate-800 text-slate-400 shadow-lg" title="Voltar ao menu de decks">
-                    <i class="fas fa-th-large"></i>
-                </button>
-            </div>
 
-            <div class="flex-1 min-w-0 px-2">
-                <p id="active-deck-label" class="text-[10px] uppercase tracking-[4px] text-slate-500 font-black truncate text-center">Selecione um deck</p>
-                <p id="active-deck-meta" class="text-[11px] text-slate-400 truncate text-center">Cards prontos para revisar</p>
-            </div>
+                <a href="flashcards-app.html" class="flash-brand" aria-label="Flashcards do Inglês no seu Ritmo">
+                    <span class="brand-mark"><i class="fas fa-bolt" aria-hidden="true"></i></span>
+                    <span class="brand-copy">
+                        <span class="brand-title">Flash-English</span>
+                        <span class="brand-subtitle">Inglês no seu Ritmo</span>
+                    </span>
+                </a>
 
-            <div class="flex items-center gap-1.5">
-                <button id="btnAddCard" onclick="openModalForNew()" class="hidden bg-yellow-500 h-[42px] px-3 rounded-xl text-[9px] font-black text-slate-900 uppercase shadow-lg shadow-yellow-500/20 flex-shrink-0">
-                    + NOVO
-                </button>
-                <select id="diffFilter" onchange="filterAndShow()" class="custom-select-ui">
-                    <option value="all">TODOS</option>
-                    <option value="hard">DIFÍCIL</option>
-                    <option value="medium">MÉDIO</option>
-                    <option value="easy">FÁCIL</option>
-                </select>
-                <select id="lessonFilter" onchange="filterAndShow()" class="custom-select-ui">
-                    <option value="all">LIÇÕES</option>
-                </select>
+                <span id="cloud-status" class="flash-back-link" role="status">
+                    <i class="fas fa-cloud-arrow-down" aria-hidden="true"></i>
+                    <span id="cloud-status-label" class="back-link-label">Conectando</span>
+                </span>
             </div>
         </header>
 
-        <main class="flex-grow flex flex-col items-center justify-center p-6">
-            <div id="card-display" class="w-full flex justify-center relative"></div>
-            <div id="app-status" class="status-panel hidden mt-4"></div>
-            
-            <div id="practice-area" class="hidden w-full max-w-[400px] mt-8 space-y-4">
-                <input type="text" id="answer-input" 
-                       class="w-full bg-slate-800 border-2 border-slate-700 p-5 rounded-2xl text-center text-xl font-bold outline-none focus:border-purple-500 transition-all text-white" 
-                       placeholder="Digite a resposta..." autocomplete="off">
-                <button id="btnCheckAnswer" onclick="checkAnswer()" 
-                        class="w-full bg-purple-600 text-white font-black py-4 rounded-2xl shadow-lg hover:bg-purple-500 transition-all uppercase tracking-widest">
-                    Verificar Resposta
-                </button>
-            </div>
+        <main id="main-content" class="flash-container menu-main">
+            <section class="menu-hero" aria-labelledby="flashcards-title">
+                <div>
+                    <span class="eyebrow"><i class="fas fa-sparkles" aria-hidden="true"></i> Revisão inteligente</span>
+                    <h1 id="flashcards-title" class="hero-title">Transforme vocabulário em <span>memória ativa.</span></h1>
+                    <p class="hero-copy">
+                        Revise sem repetições desnecessárias, escute a pronúncia e pratique a produção em inglês no seu ritmo.
+                    </p>
+                    <p id="library-owner-label" class="section-copy">Sua biblioteca pessoal</p>
+                    <div class="hero-actions">
+                        <button id="continue-session" type="button" class="flash-button flash-button-primary is-hidden" data-deck="A1">
+                            <i class="fas fa-play" aria-hidden="true"></i>
+                            <span data-continue-label>Continuar revisão</span>
+                        </button>
+                        <button type="button" class="flash-button flash-button-secondary" data-deck="CUSTOM">
+                            <i class="fas fa-bookmark" aria-hidden="true"></i>
+                            Abrir meus cards
+                        </button>
+                    </div>
+                </div>
 
-            <div id="rating-controls" class="hidden grid grid-cols-3 gap-3 w-full max-w-[400px] mt-8">
-                <button onclick="rateCard('hard')" class="bg-red-500/20 border border-red-500/50 text-red-500 py-4 rounded-2xl font-black text-xs uppercase">Difícil</button>
-                <button onclick="rateCard('medium')" class="bg-yellow-500/20 border border-yellow-500/50 text-yellow-500 py-4 rounded-2xl font-black text-xs uppercase">Médio</button>
-                <button onclick="rateCard('easy')" class="bg-green-500/20 border border-green-500/50 text-green-500 py-4 rounded-2xl font-black text-xs uppercase">Fácil</button>
-            </div>
+                <div class="hero-stats" aria-label="Resumo da sua biblioteca">
+                    <article class="hero-stat">
+                        <span class="hero-stat-label">Cards avaliados</span>
+                        <strong id="reviewed-count" class="hero-stat-value">0</strong>
+                    </article>
+                    <article class="hero-stat">
+                        <span class="hero-stat-label">Para reforçar</span>
+                        <strong id="due-count" class="hero-stat-value">0</strong>
+                    </article>
+                    <article class="hero-stat">
+                        <span class="hero-stat-label">Meus cards</span>
+                        <strong id="custom-count" class="hero-stat-value">0</strong>
+                    </article>
+                </div>
+            </section>
 
-            <div class="flex items-center gap-3 mt-8 w-full max-w-[400px] justify-center">
-                <button id="btnBack" onclick="goBack()" class="hidden bg-slate-800 text-slate-400 w-16 h-16 flex items-center justify-center rounded-full shadow-xl active:scale-90 transition-all border-2 border-slate-700">
-                    <i class="fas fa-undo-alt text-xl"></i>
-                </button>
-                <button id="btnNext" onclick="showRandomCard()" class="bg-yellow-500 text-slate-900 font-black flex-grow py-5 rounded-[2.5rem] text-xl shadow-2xl active:scale-95 transition-all">
-                    PRÓXIMO <i class="fas fa-chevron-right ml-2"></i>
-                </button>
-            </div>
+            <section aria-labelledby="decks-title">
+                <div class="study-preferences">
+                    <div>
+                        <h2 id="decks-title" class="section-heading">Escolha como revisar</h2>
+                        <p class="section-copy">Você pode mudar o modo a qualquer momento durante a sessão.</p>
+                    </div>
+                    <div class="mode-switch" role="group" aria-label="Modo de estudo">
+                        <button type="button" class="mode-option is-active" data-study-mode="recognition" aria-pressed="true">
+                            <i class="fas fa-eye" aria-hidden="true"></i> Reconhecer
+                        </button>
+                        <button type="button" class="mode-option" data-study-mode="production" aria-pressed="false">
+                            <i class="fas fa-pen" aria-hidden="true"></i> Produzir em inglês
+                        </button>
+                    </div>
+                </div>
+
+                <div id="deck-grid" class="deck-grid">
+                    <button type="button" class="deck-card" data-deck="AULAS_CONV" data-accent="yellow">
+                        <span class="deck-card-top">
+                            <span class="deck-icon"><i class="fas fa-comments" aria-hidden="true"></i></span>
+                            <i class="fas fa-arrow-right deck-arrow" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <span class="deck-name">Aulas de Conversação</span>
+                            <span class="deck-description">Expressões e linguagem das aulas temáticas.</span>
+                        </span>
+                        <span class="deck-card-footer"><span class="deck-meta">64 aulas</span><span class="deck-meta">Revisar</span></span>
+                    </button>
+
+                    <button type="button" class="deck-card" data-deck="A1" data-accent="green">
+                        <span class="deck-card-top">
+                            <span class="deck-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></span>
+                            <i class="fas fa-arrow-right deck-arrow" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <span class="deck-name">Módulo A1 / A2</span>
+                            <span class="deck-description">Vocabulário, expressões e verbos da base.</span>
+                        </span>
+                        <span class="deck-card-footer"><span class="deck-meta">32 lições</span><span class="deck-meta">Revisar</span></span>
+                    </button>
+
+                    <button type="button" class="deck-card" data-deck="TRAVEL" data-accent="blue">
+                        <span class="deck-card-top">
+                            <span class="deck-icon"><i class="fas fa-plane" aria-hidden="true"></i></span>
+                            <i class="fas fa-arrow-right deck-arrow" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <span class="deck-name">Viagem</span>
+                            <span class="deck-description">Comunicação prática para situações de viagem.</span>
+                        </span>
+                        <span class="deck-card-footer"><span class="deck-meta">3 níveis</span><span class="deck-meta">Revisar</span></span>
+                    </button>
+
+                    <button type="button" class="deck-card" data-deck="RESTAURANT" data-accent="orange">
+                        <span class="deck-card-top">
+                            <span class="deck-icon"><i class="fas fa-utensils" aria-hidden="true"></i></span>
+                            <i class="fas fa-arrow-right deck-arrow" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <span class="deck-name">Restaurante</span>
+                            <span class="deck-description">Peça, converse e resolva situações com segurança.</span>
+                        </span>
+                        <span class="deck-card-footer"><span class="deck-meta">3 níveis</span><span class="deck-meta">Revisar</span></span>
+                    </button>
+
+                    <button type="button" class="deck-card" data-deck="VOC_CONV" data-accent="violet">
+                        <span class="deck-card-top">
+                            <span class="deck-icon"><i class="fas fa-book-open" aria-hidden="true"></i></span>
+                            <i class="fas fa-arrow-right deck-arrow" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <span class="deck-name">Vocabulário de conversação</span>
+                            <span class="deck-description">Expressões variadas para ganhar naturalidade.</span>
+                        </span>
+                        <span class="deck-card-footer"><span class="deck-meta">18 temas</span><span class="deck-meta">Revisar</span></span>
+                    </button>
+
+                    <button type="button" class="deck-card" data-deck="CUSTOM" data-accent="yellow">
+                        <span class="deck-card-top">
+                            <span class="deck-icon"><i class="fas fa-layer-group" aria-hidden="true"></i></span>
+                            <i class="fas fa-arrow-right deck-arrow" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <span class="deck-name">Meus Cards & Favoritos</span>
+                            <span class="deck-description">Cards salvos nas aulas e criados por você.</span>
+                        </span>
+                        <span class="deck-card-footer"><span class="deck-meta" data-custom-count>0 cards salvos</span><span class="deck-meta">Gerenciar</span></span>
+                    </button>
+                </div>
+            </section>
         </main>
     </div>
 
-    <div id="modal-custom" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-950/90 backdrop-blur-sm">
-        <div class="bg-slate-900 border-2 border-slate-800 w-full max-w-md rounded-[3rem] p-8 shadow-2xl">
-            <h2 id="modalTitle" class="text-2xl font-black uppercase italic mb-6 text-yellow-500 text-center">Novo Card</h2>
-            <div class="space-y-4">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-500 uppercase ml-2">Frente (Inglês)</label>
-                    <input type="text" id="custFront" class="w-full bg-slate-800 border-2 border-slate-700 p-4 rounded-2xl text-white font-bold outline-none focus:border-yellow-500">
+    <section id="screen-study" class="study-screen is-hidden" aria-label="Sessão de flashcards">
+        <header class="study-topbar">
+            <div class="flash-container study-topbar-row">
+                <div class="study-topbar-actions">
+                    <button id="back-to-decks" type="button" class="flash-icon-button" aria-label="Voltar aos decks" title="Voltar aos decks">
+                        <i class="fas fa-table-cells-large" aria-hidden="true"></i>
+                    </button>
+                    <a id="study-close-link" href="home-aluno.html" class="flash-icon-button is-danger" aria-label="Sair dos flashcards" title="Sair dos flashcards">
+                        <i class="fas fa-xmark" aria-hidden="true"></i>
+                    </a>
                 </div>
-                <div>
-                    <label class="text-[10px] font-bold text-slate-500 uppercase ml-2">Verso (Tradução/Significado)</label>
-                    <input type="text" id="custBack" class="w-full bg-slate-800 border-2 border-slate-700 p-4 rounded-2xl text-white font-bold outline-none focus:border-yellow-500">
+
+                <div class="study-deck-heading">
+                    <span id="study-deck-name" class="study-deck-name">Flashcards</span>
+                    <span id="study-deck-meta" class="study-deck-meta">Preparando sessão</span>
                 </div>
-                <div>
-                    <label class="text-[10px] font-bold text-slate-500 uppercase ml-2">Categoria/Lição</label>
-                    <input type="text" id="custCat" placeholder="Ex: Favoritos" class="w-full bg-slate-800 border-2 border-slate-700 p-4 rounded-2xl text-white font-bold outline-none focus:border-yellow-500">
-                </div>
+
+                <span id="session-progress-label" class="progress-badge" aria-label="Progresso da sessão">0/0</span>
             </div>
-            <div class="grid grid-cols-2 gap-3 mt-8">
-                <button onclick="toggleModal(false)" class="bg-slate-800 text-slate-400 font-black py-4 rounded-2xl uppercase text-xs">Cancelar</button>
-                <button onclick="saveCustomCard()" class="bg-yellow-500 text-slate-900 font-black py-4 rounded-2xl uppercase text-xs">Salvar Card</button>
+            <div class="session-progress-track" aria-hidden="true">
+                <div id="session-progress-bar" class="session-progress-bar"></div>
             </div>
-        </div>
-    </div>
+        </header>
 
-    <div id="modal-confirm" class="hidden fixed inset-0 z-[110] flex items-center justify-center p-6 bg-slate-950/95 backdrop-blur-md">
-        <div class="bg-slate-900 border-2 border-red-500/30 w-full max-w-xs rounded-[2.5rem] p-8 shadow-2xl text-center">
-            <div class="w-16 h-16 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-trash-alt text-2xl"></i>
-            </div>
-            <h2 class="text-xl font-black uppercase italic mb-2 text-white">Tem certeza?</h2>
-            <p class="text-slate-500 text-xs leading-relaxed mb-8">Este card será removido permanentemente da sua nuvem.</p>
-            <div class="grid grid-cols-1 gap-3">
-                <button id="confirm-delete-btn" class="bg-red-500 text-white font-black py-4 rounded-2xl uppercase text-xs shadow-lg shadow-red-500/20">Sim, excluir</button>
-                <button onclick="closeConfirmModal()" class="bg-slate-800 text-slate-400 font-black py-4 rounded-2xl uppercase text-xs">Cancelar</button>
-            </div>
-        </div>
-    </div>
+        <main class="study-main">
+            <section class="study-stage" aria-label="Card atual">
+                <div id="study-status" class="status-card is-hidden" role="status" aria-live="polite"></div>
+                <button id="restart-session-button" type="button" class="flash-button flash-button-primary is-hidden" style="margin-top: 1rem;">
+                    <i class="fas fa-rotate-right" aria-hidden="true"></i> Reiniciar sessão
+                </button>
 
-    <script>
-        let currentDB = []; let filteredDB = []; let currentCard = null; let previousCard = null; let moduleActive = '';
-        let ratings = {}; let isPracticeMode = false; let isDeckLoading = false;
-        let cardToDeleteId = null;
-        const deckLabels = {
-            AULAS_CONV: 'Aulas de Conversação',
-            A1: 'Módulo A1 / A2',
-            TRAVEL: 'Viagem',
-            RESTAURANT: 'Restaurante',
-            VOC_CONV: 'Vocabulário',
-            CUSTOM: 'Meus Cards & Favoritos'
-        };
-
-        function getCardKey(card) {
-            if (!card) return '';
-            return card.id || btoa(unescape(encodeURIComponent(`${card.l}::${card.f}`))).replace(/=/g, '').substring(0, 40);
-        }
-
-        function setHeaderDeckState(title, meta) {
-            const titleEl = document.getElementById('active-deck-label');
-            const metaEl = document.getElementById('active-deck-meta');
-            if (titleEl) titleEl.textContent = title;
-            if (metaEl) metaEl.textContent = meta;
-        }
-
-        function setAppStatus(message, tone = 'default') {
-            const panel = document.getElementById('app-status');
-            if (!panel) return;
-            panel.classList.remove('hidden');
-            panel.className = 'status-panel mt-4';
-            if (tone === 'error') panel.classList.add('border-red-500', 'text-red-300', 'bg-red-500/10');
-            if (tone === 'loading') panel.classList.add('border-blue-500', 'text-blue-300', 'bg-blue-500/10');
-            if (tone === 'empty') panel.classList.add('border-yellow-500', 'text-yellow-300', 'bg-yellow-500/10');
-            panel.innerHTML = message;
-        }
-
-        function clearAppStatus() {
-            const panel = document.getElementById('app-status');
-            if (!panel) return;
-            panel.classList.add('hidden');
-            panel.textContent = '';
-        }
-
-        function returnToDeckMenu() {
-            if (isDeckLoading) return;
-            document.getElementById('screen-app').classList.add('hidden');
-            document.getElementById('screen-menu').classList.remove('hidden');
-            document.getElementById('btnAddCard').classList.add('hidden');
-            document.getElementById('diffFilter').value = 'all';
-            document.getElementById('lessonFilter').innerHTML = '<option value="all">LIÇÕES</option>';
-            clearAppStatus();
-            setHeaderDeckState('Selecione um deck', 'Cards prontos para revisar');
-        }
-
-        function speak(text) {
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-US';
-            utterance.rate = 0.9;
-            window.speechSynthesis.speak(utterance);
-        }
-
-        function togglePracticeMode() {
-            isPracticeMode = !isPracticeMode;
-            const card = document.getElementById('card-practice-main');
-            const iconBg = document.getElementById('practice-icon-bg');
-            const title = document.getElementById('practice-text');
-            const sub = document.getElementById('practice-subtext');
-
-            if (isPracticeMode) {
-                card.classList.add('active-practice', 'border-purple-500/50');
-                iconBg.classList.replace('bg-slate-500/10', 'bg-purple-500/20');
-                iconBg.classList.replace('text-slate-500', 'text-purple-500');
-                title.classList.replace('text-slate-400', 'text-purple-400');
-                title.innerText = "Modo Escrita ATIVADO";
-                sub.innerText = "Selecione um módulo acima";
-            } else {
-                card.classList.remove('active-practice', 'border-purple-500/50');
-                iconBg.classList.replace('bg-purple-500/20', 'bg-slate-500/10');
-                iconBg.classList.replace('text-purple-500', 'text-slate-500');
-                title.classList.replace('text-purple-400', 'text-slate-400');
-                title.innerText = "Praticar Escrita";
-                sub.innerText = "Desativado";
-            }
-        }
-
-        async function startApp(module) {
-            if(!firebase.auth().currentUser) { location.href='login.html'; return; }
-            if (isDeckLoading) return;
-            isDeckLoading = true;
-            moduleActive = module; currentDB = []; previousCard = null;
-            document.getElementById('btnBack').classList.add('hidden');
-            document.getElementById('screen-menu').classList.add('hidden');
-            document.getElementById('screen-app').classList.remove('hidden');
-            document.getElementById('diffFilter').disabled = true;
-            document.getElementById('lessonFilter').disabled = true;
-            setHeaderDeckState(deckLabels[module] || 'Flashcards', 'Carregando cards...');
-            setAppStatus('<i class="fas fa-spinner fa-spin mr-2"></i>Carregando cards...', 'loading');
-            await loadRatingsFromCloud();
-            if (module === 'CUSTOM') {
-                document.getElementById('btnAddCard').classList.remove('hidden');
-                await loadCustomCardsFromCloud();
-            } else {
-                document.getElementById('btnAddCard').classList.add('hidden');
-                if (module === 'AULAS_CONV') await loadHTMLModule();
-                else await loadJSModule(module);
-            }
-            currentDB = currentDB.map(card => ({ ...card, key: getCardKey(card) }));
-            if(isPracticeMode) document.getElementById('practice-area').classList.remove('hidden');
-            else document.getElementById('practice-area').classList.add('hidden');
-            populateLessons(); filterAndShow();
-            document.getElementById('diffFilter').disabled = false;
-            document.getElementById('lessonFilter').disabled = false;
-            isDeckLoading = false;
-        }
-
-        function cleanText(text) {
-            if (!text) return "";
-            return text.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?']/g, "").replace(/\s{2,}/g, " ").trim();
-        }
-
-        function checkAnswer() {
-            const input = document.getElementById('answer-input');
-            const flashcard = document.querySelector('.flashcard');
-            if (flashcard) flashcard.classList.add('flipped');
-            const userVal = cleanText(input.value);
-            const correctVal = cleanText(currentCard.b);
-            input.classList.remove('border-slate-700');
-            if (userVal === correctVal && userVal !== "") {
-                input.classList.add('border-green-500', 'bg-green-500/10');
-            } else {
-                input.classList.add('border-yellow-500', 'bg-yellow-500/10');
-            }
-            document.getElementById('rating-controls').classList.remove('hidden');
-            document.getElementById('btnNext').classList.remove('hidden');
-            document.getElementById('btnCheckAnswer').classList.add('hidden');
-        }
-
-        function goBack() {
-            if (previousCard) {
-                const temp = currentCard;
-                currentCard = previousCard;
-                previousCard = null; 
-                document.getElementById('btnBack').classList.add('hidden');
-                renderCurrentCard();
-            }
-        }
-
-        function showRandomCard() {
-            if (filteredDB.length === 0) return;
-            if (currentCard) previousCard = currentCard;
-            let nextCard;
-            do {
-                nextCard = filteredDB[Math.floor(Math.random() * filteredDB.length)];
-            } while (filteredDB.length > 1 && nextCard === currentCard);
-            currentCard = nextCard;
-            if (previousCard) document.getElementById('btnBack').classList.remove('hidden');
-            renderCurrentCard();
-        }
-
-        function renderCurrentCard() {
-            const display = document.getElementById('card-display');
-            if (filteredDB.length === 0) {
-                display.innerHTML = "";
-                setAppStatus('Nenhum card encontrado para esse filtro. Tente mudar a lição ou a dificuldade.', 'empty');
-                document.getElementById('rating-controls').classList.add('hidden');
-                document.getElementById('btnNext').classList.add('hidden');
-                document.getElementById('btnBack').classList.add('hidden');
-                return;
-            }
-            clearAppStatus();
-            const diffClass = ratings[currentCard.key] ? `diff-${ratings[currentCard.key]}` : '';
-            const input = document.getElementById('answer-input');
-            if(input) {
-                input.value = "";
-                input.classList.remove('border-green-500', 'border-yellow-500', 'bg-green-500/10', 'bg-yellow-500/10');
-                input.classList.add('border-slate-700');
-            }
-            if(isPracticeMode) {
-                document.getElementById('btnCheckAnswer').classList.remove('hidden');
-                document.getElementById('btnNext').classList.add('hidden');
-            } else {
-                document.getElementById('btnNext').classList.remove('hidden');
-            }
-            const favBtn = moduleActive !== 'CUSTOM' ? 
-                `<button onclick="openModalForFavorite(); event.stopPropagation();" class="btn-card-action btn-fav"><i class="fas fa-star text-xl"></i></button>` :
-                `<button onclick="deleteSingleCard('${currentCard.id}'); event.stopPropagation();" class="btn-card-action btn-del-single"><i class="fas fa-trash-alt text-lg"></i></button>`;
-            const speakBtn = `<button onclick="speak('${currentCard.f.replace(/'/g, "\\'")}'); event.stopPropagation();" class="btn-card-action btn-speak"><i class="fas fa-volume-up text-xl"></i></button>`;
-            display.innerHTML = `
-                <div class="flashcard ${diffClass}" onclick="${isPracticeMode ? '' : 'this.classList.toggle(\'flipped\'); document.getElementById(\'rating-controls\').classList.remove(\'hidden\')'}">
-                    ${speakBtn}
-                    ${favBtn}
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <span class="text-[10px] text-slate-500 absolute top-8 uppercase tracking-[4px] font-black">${currentCard.l}</span>
-                            ${currentCard.f}
+                <div id="card-area" class="study-card-wrap">
+                    <div id="study-card" class="study-card" role="button" tabindex="0">
+                        <div class="card-actions" aria-label="Ações do card">
+                            <div class="card-action-group">
+                                <button type="button" class="card-action" data-card-action="speak" data-action="speak" aria-label="Ouvir pronúncia" title="Ouvir pronúncia">
+                                    <i class="fas fa-volume-high" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div class="card-action-group">
+                                <button id="card-save-button" type="button" class="card-action" data-card-action="save" data-action="save" aria-label="Salvar nos meus cards" title="Salvar nos meus cards">
+                                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                                </button>
+                                <button id="card-edit-button" type="button" class="card-action is-hidden" data-card-action="edit" data-action="edit" aria-label="Editar card" title="Editar card">
+                                    <i class="fas fa-pen" aria-hidden="true"></i>
+                                </button>
+                                <button id="card-delete-button" type="button" class="card-action is-hidden" data-card-action="delete" data-action="delete" aria-label="Excluir card" title="Excluir card">
+                                    <i class="fas fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="flashcard-back">${currentCard.b}</div>
+                        <div id="difficulty-pill" class="difficulty-pill">Novo</div>
+
+                        <div class="study-card-inner">
+                            <div class="study-card-face study-card-front">
+                                <span id="card-context-front" class="card-context">Lição</span>
+                                <span id="card-front-language" class="card-language">Inglês</span>
+                                <h2 id="card-front-copy" class="card-copy">Ready?</h2>
+                                <span id="card-hint" class="card-hint">Clique para revelar</span>
+                            </div>
+                            <div class="study-card-face study-card-back">
+                                <span id="card-context-back" class="card-context">Lição</span>
+                                <span id="card-back-language" class="card-language">Português</span>
+                                <p id="card-back-copy" class="card-copy">Pronto?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="answer-panel" class="answer-panel is-hidden">
+                        <label for="answer-input" class="tool-label">Escreva a resposta em inglês</label>
+                        <div class="answer-row">
+                            <input id="answer-input" type="text" class="flash-input" placeholder="Digite em inglês…" autocomplete="off" autocapitalize="sentences">
+                            <button id="check-answer-button" type="button" class="answer-button">Conferir</button>
+                        </div>
+                        <p id="answer-feedback" class="answer-feedback" aria-live="polite"></p>
+                    </div>
+
+                    <div id="rating-panel" class="rating-panel is-hidden">
+                        <p class="rating-heading">Como este card está para você?</p>
+                        <div class="rating-grid">
+                            <button type="button" class="rating-button" data-rating="hard" data-level="hard"><i class="fas fa-rotate-left" aria-hidden="true"></i> Revisar</button>
+                            <button type="button" class="rating-button" data-rating="medium" data-level="medium"><i class="fas fa-chart-line" aria-hidden="true"></i> Em progresso</button>
+                            <button type="button" class="rating-button" data-rating="easy" data-level="easy"><i class="fas fa-check" aria-hidden="true"></i> Dominei</button>
+                        </div>
+                    </div>
+
+                    <div class="study-navigation">
+                        <button id="previous-card-button" type="button" class="flash-icon-button is-hidden" aria-label="Card anterior" title="Card anterior">
+                            <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                        </button>
+                        <button id="next-card-button" type="button" class="flash-button flash-button-primary">Próximo <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
                     </div>
                 </div>
-            `;
-            document.getElementById('rating-controls').classList.add('hidden');
-            if(isPracticeMode) input.focus();
-        }
+            </section>
 
-        function toggleModal(show) { document.getElementById('modal-custom').classList.toggle('hidden', !show); }
-        function openModalForNew() { document.getElementById('modalTitle').innerText = "Novo Card"; document.getElementById('custFront').value = ""; document.getElementById('custBack').value = ""; document.getElementById('custCat').value = ""; toggleModal(true); }
-        function openModalForFavorite() { document.getElementById('modalTitle').innerText = "Favoritar Card"; document.getElementById('custFront').value = currentCard.f; document.getElementById('custBack').value = currentCard.b; document.getElementById('custCat').value = "FAVORITOS"; toggleModal(true); }
-        async function saveCustomCard() {
-            const user = firebase.auth().currentUser;
-            const f = document.getElementById('custFront').value.trim();
-            const b = document.getElementById('custBack').value.trim();
-            const l = document.getElementById('custCat').value.trim() || "GERAL";
-            if(!f || !b) {
-                setAppStatus('Preencha frente e verso antes de salvar o card.', 'error');
-                return;
-            }
-            try {
-                await db.collection('users').doc(user.uid).collection('myCards').add({ f, b, l });
-                toggleModal(false);
-                clearAppStatus();
-                if(moduleActive === 'CUSTOM') {
-                    await loadCustomCardsFromCloud();
-                    currentDB = currentDB.map(card => ({ ...card, key: getCardKey(card) }));
-                    filterAndShow();
-                }
-            } catch (error) {
-                console.error(error);
-                setAppStatus('Não foi possível salvar este card agora.', 'error');
-            }
-        }
-        function deleteSingleCard(id) { cardToDeleteId = id; document.getElementById('modal-confirm').classList.remove('hidden'); }
-        function closeConfirmModal() { document.getElementById('modal-confirm').classList.add('hidden'); cardToDeleteId = null; }
-        document.getElementById('confirm-delete-btn').onclick = async function() {
-            if (cardToDeleteId) {
-                const user = firebase.auth().currentUser;
-                try {
-                    await db.collection('users').doc(user.uid).collection('myCards').doc(cardToDeleteId).delete();
-                    currentDB = currentDB.filter(c => c.id !== cardToDeleteId);
-                    closeConfirmModal();
-                    clearAppStatus();
-                    filterAndShow();
-                } catch (e) {
-                    console.error(e);
-                    closeConfirmModal();
-                    setAppStatus('Não foi possível excluir este card agora.', 'error');
-                }
-            }
-        };
+            <details id="study-tools" class="study-tools" open>
+                <summary><span><i class="fas fa-sliders" aria-hidden="true"></i> Modo e filtros</span></summary>
+                <div class="study-tools-inner">
+                    <div class="tool-section">
+                        <span class="tool-label">Modo de estudo</span>
+                        <div class="mode-switch" role="group" aria-label="Modo de estudo da sessão">
+                            <button type="button" class="mode-option is-active" data-study-mode="recognition" aria-pressed="true">Reconhecer</button>
+                            <button type="button" class="mode-option" data-study-mode="production" aria-pressed="false">Produzir</button>
+                        </div>
+                    </div>
 
-        async function loadRatingsFromCloud() {
-            const user = firebase.auth().currentUser;
-            const snap = await db.collection('users').doc(user.uid).collection('ratings').get();
-            ratings = {};
-            snap.forEach(doc => { ratings[doc.id] = doc.data().level; });
-        }
+                    <div class="tool-section tool-grid">
+                        <div>
+                            <label for="search-filter" class="tool-label">Buscar</label>
+                            <input id="search-filter" type="search" class="flash-input" placeholder="Palavra ou expressão">
+                        </div>
+                        <div>
+                            <label for="difficulty-filter" class="tool-label">Dificuldade</label>
+                            <select id="difficulty-filter" class="flash-select">
+                                <option value="all">Todas</option>
+                                <option value="new">Novos</option>
+                                <option value="hard">Revisar</option>
+                                <option value="medium">Em progresso</option>
+                                <option value="easy">Dominados</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lesson-filter" class="tool-label">Lição ou categoria</label>
+                            <select id="lesson-filter" class="flash-select">
+                                <option value="all">Todas as lições</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="session-size-filter" class="tool-label">Tamanho da sessão</label>
+                            <select id="session-size-filter" class="flash-select">
+                                <option value="5">5 cards · revisão expressa</option>
+                                <option value="10" selected>10 cards · recomendado</option>
+                                <option value="20">20 cards</option>
+                                <option value="30">30 cards</option>
+                                <option value="all">Todos os cards filtrados</option>
+                            </select>
+                        </div>
+                    </div>
 
-        async function loadCustomCardsFromCloud() {
-            const user = firebase.auth().currentUser;
-            const snap = await db.collection('users').doc(user.uid).collection('myCards').get();
-            currentDB = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        }
-        async function loadHTMLModule() {
-            let hasAnyCard = false;
-            for (let i = 1; i <= 32; i++) {
-                const num = i.toString().padStart(2, '0');
-                try {
-                    const r = await fetch(`conversation/licao-${num}.html`);
-                    if (r.ok) {
-                        const html = await r.text();
-                        const doc = new DOMParser().parseFromString(html, 'text/html');
-                        doc.querySelectorAll('.flashcard').forEach(card => {
-                            let f = card.querySelector('.flashcard-front h4')?.innerText || card.querySelector('.flashcard-front')?.innerText;
-                            let b = card.querySelector('.flashcard-back p')?.innerText || card.querySelector('.flashcard-back')?.innerText;
-                            if (f && b) {
-                                hasAnyCard = true;
-                                currentDB.push({ f: f.trim(), b: b.trim(), l: `Lição ${num}` });
-                            }
-                        });
-                    }
-                } catch (e) {
-                    console.error(`Erro ao carregar cards da lição ${num}:`, e);
-                }
-            }
-            if (!hasAnyCard) setAppStatus('Não foi possível carregar os cards de Conversação.', 'error');
-        }
-        async function loadJSModule(m) {
-            const files = { 'A1': 'js/vocabulary.js', 'VOC_CONV': 'js/conversation-vocabulary.js', 'TRAVEL': 'js/travel-vocabulary.js', 'RESTAURANT': 'js/restaurant-vocabulary.js' };
-            try {
-                const r = await fetch(files[m]);
-                const t = await r.text();
-                const j = new Function(`return ${t.substring(t.indexOf('{'), t.lastIndexOf('}') + 1)}`)();
-                for (let id in j) {
-                    j[id].words?.forEach(w => currentDB.push({ f: w.english, b: w.portuguese, l: id }));
-                }
-            } catch (e) {
-                console.error(e);
-                setAppStatus('Não foi possível carregar este deck agora.', 'error');
-            }
-        }
+                    <div class="tool-section">
+                        <span class="tool-label">Esta sessão</span>
+                        <div class="session-stats">
+                            <div class="session-stat"><strong id="session-seen">0</strong><span>vistos</span></div>
+                            <div class="session-stat"><strong id="session-review">0</strong><span>revisar</span></div>
+                            <div class="session-stat"><strong id="session-mastered">0</strong><span>dominados</span></div>
+                        </div>
+                    </div>
 
-        function filterAndShow() { 
-            const lesson = document.getElementById('lessonFilter').value; 
-            const diff = document.getElementById('diffFilter').value; 
-            filteredDB = currentDB.filter(d => (lesson === 'all' || d.l === lesson) && (diff === 'all' || ratings[d.key] === diff)); 
-            currentCard = null; previousCard = null;
-            document.getElementById('btnBack').classList.add('hidden');
-            setHeaderDeckState(deckLabels[moduleActive] || 'Flashcards', `${filteredDB.length} cards disponíveis`);
-            showRandomCard(); 
-        }
-        function populateLessons() {
-            const f = document.getElementById('lessonFilter');
-            f.innerHTML = '<option value="all">LIÇÕES</option>';
-            [...new Set(currentDB.map(d => d.l))].sort().forEach(l => {
-                const o = document.createElement('option');
-                o.value = l;
-                o.innerText = l;
-                f.appendChild(o);
-            });
-        }
+                    <div class="tool-section">
+                        <button id="new-card-button" type="button" class="flash-button flash-button-secondary is-hidden" style="width: 100%;">
+                            <i class="fas fa-plus" aria-hidden="true"></i> Criar novo card
+                        </button>
+                        <p class="shortcut-copy">Atalhos: espaço revela; setas navegam; 1, 2 e 3 avaliam a dificuldade.</p>
+                    </div>
+                </div>
+            </details>
+        </main>
+    </section>
 
-        async function rateCard(level) {
-            const user = firebase.auth().currentUser;
-            const cardId = currentCard.key || getCardKey(currentCard);
-            ratings[cardId] = level;
-            try {
-                await db.collection('users').doc(user.uid).collection('ratings').doc(cardId).set({ level });
-            } catch (error) {
-                console.error(error);
-                setAppStatus('Não foi possível salvar a dificuldade deste card.', 'error');
-            }
-            showRandomCard();
-        }
+    <dialog id="card-dialog" class="flash-dialog" aria-labelledby="card-dialog-title">
+        <div class="dialog-content">
+            <div class="dialog-header">
+                <div>
+                    <h2 id="card-dialog-title" class="dialog-title">Criar novo card</h2>
+                    <p class="dialog-copy">Personalize a frente, o significado e a categoria.</p>
+                </div>
+                <button type="button" class="flash-icon-button" data-dialog-close aria-label="Fechar">
+                    <i class="fas fa-xmark" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="dialog-fields">
+                <div>
+                    <label for="card-front-input" class="tool-label">Frente em inglês</label>
+                    <input id="card-front-input" type="text" class="flash-input" autocomplete="off">
+                </div>
+                <div>
+                    <label for="card-back-input" class="tool-label">Tradução ou significado</label>
+                    <input id="card-back-input" type="text" class="flash-input" autocomplete="off">
+                </div>
+                <div>
+                    <label for="card-category-input" class="tool-label">Categoria</label>
+                    <input id="card-category-input" type="text" class="flash-input" placeholder="Ex.: Favoritos · A1" autocomplete="off">
+                </div>
+            </div>
+            <p id="card-dialog-feedback" class="dialog-feedback is-hidden" role="alert"></p>
+            <div class="dialog-actions">
+                <button type="button" class="flash-button flash-button-secondary" data-dialog-close>Cancelar</button>
+                <button id="save-card-button" type="button" class="flash-button flash-button-primary">Salvar card</button>
+            </div>
+        </div>
+    </dialog>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const answerInput = document.getElementById('answer-input');
-            const menuBackLink = document.getElementById('menu-back-link');
-            const appCloseLink = document.getElementById('app-close-link');
+    <dialog id="delete-dialog" class="flash-dialog" aria-labelledby="delete-dialog-title">
+        <div class="dialog-content">
+            <div class="dialog-header">
+                <div>
+                    <h2 id="delete-dialog-title" class="dialog-title">Excluir este card?</h2>
+                    <p class="dialog-copy">Essa ação remove o card da biblioteca do aluno e não pode ser desfeita.</p>
+                </div>
+            </div>
+            <div class="dialog-actions">
+                <button type="button" class="flash-button flash-button-secondary" data-dialog-close>Cancelar</button>
+                <button id="delete-card-confirm" type="button" class="flash-button" style="background: #fb7185; color: #111827;">Excluir card</button>
+            </div>
+        </div>
+    </dialog>
 
-            if (answerInput) {
-                answerInput.addEventListener('keydown', (event) => {
-                    if (event.key === 'Enter' && !document.getElementById('btnCheckAnswer').classList.contains('hidden')) {
-                        event.preventDefault();
-                        checkAnswer();
-                    }
-                });
-            }
-
-            firebase.auth().onAuthStateChanged((user) => {
-                if (!user) {
-                    window.location.href = 'login.html';
-                    return;
-                }
-
-                const userRole = localStorage.getItem('loggedInUserRole') || 'aluno';
-                if (menuBackLink) {
-                    if (userRole === 'professor') {
-                        menuBackLink.href = 'index.html';
-                        menuBackLink.innerHTML = '<i class="fas fa-arrow-left"></i> Voltar ao Painel';
-                    } else {
-                        menuBackLink.href = 'home-aluno.html';
-                        menuBackLink.innerHTML = '<i class="fas fa-arrow-left"></i> Voltar ao Portal';
-                    }
-                }
-
-                if (appCloseLink) {
-                    if (userRole === 'professor') {
-                        appCloseLink.href = 'index.html';
-                        appCloseLink.title = 'Voltar ao painel';
-                    } else {
-                        appCloseLink.href = 'home-aluno.html';
-                        appCloseLink.title = 'Voltar ao portal do aluno';
-                    }
-                }
-            });
-        });
-    </script>
+    <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+    <script src="js/flashcards-app.js"></script>
 </body>
 </html>

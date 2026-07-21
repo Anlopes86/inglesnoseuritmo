@@ -17,6 +17,8 @@
 
     const classCountDisplay = document.getElementById('class-count-display');
     const classCountDisplaySecondary = document.getElementById('class-count-display-secondary');
+    const lastClassRegisteredDisplay = document.getElementById('last-class-registered-display');
+    const lastClassRegisteredSecondary = document.getElementById('last-class-registered-secondary');
     const addClassBtn = document.getElementById('add-class-btn');
     const removeClassBtn = document.getElementById('remove-class-btn');
     const packageProgressBar = document.getElementById('package-progress-bar');
@@ -128,6 +130,40 @@
         return lessonNumber ? `Li\u00e7\u00e3o ${String(lessonNumber).padStart(2, '0')}` : 'Nenhuma li\u00e7\u00e3o conclu\u00edda';
     }
 
+    function resolveFirestoreDate(value) {
+        if (!value) return null;
+        if (value instanceof Date) return value;
+        if (typeof value.toDate === 'function') return value.toDate();
+        const parsed = new Date(value);
+        return Number.isNaN(parsed.getTime()) ? null : parsed;
+    }
+
+    function formatClassRegistrationDate(value) {
+        const date = resolveFirestoreDate(value);
+        if (!date) return null;
+        const datePart = new Intl.DateTimeFormat('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        }).format(date);
+        const timePart = new Intl.DateTimeFormat('pt-BR', {
+            hour: '2-digit',
+            minute: '2-digit'
+        }).format(date);
+        return `${datePart} \u00e0s ${timePart}`;
+    }
+
+    function updateLastClassRegistration(value, classCount = 0) {
+        const formattedDate = formatClassRegistrationDate(value);
+        const message = formattedDate
+            ? `\u00daltima aula registrada: ${formattedDate}`
+            : classCount > 0
+                ? 'A data aparecer\u00e1 no pr\u00f3ximo registro.'
+                : 'Nenhuma aula registrada neste pacote.';
+        if (lastClassRegisteredDisplay) lastClassRegisteredDisplay.textContent = message;
+        if (lastClassRegisteredSecondary) lastClassRegisteredSecondary.textContent = message;
+    }
+
     function describeStudentType(moduleId) {
         const module = modulesData.find((item) => item.id === moduleId);
         return module ? module.title : 'M\u00f3dulo n\u00e3o definido';
@@ -185,6 +221,8 @@
         if (lastCompletedDisplay) lastCompletedDisplay.textContent = 'Selecione um aluno';
         if (teacherLastLesson) teacherLastLesson.textContent = 'Selecione um aluno';
         if (teacherNextLesson) teacherNextLesson.textContent = 'Selecione um aluno';
+        if (lastClassRegisteredDisplay) lastClassRegisteredDisplay.textContent = 'Selecione um aluno para ver o \u00faltimo registro.';
+        if (lastClassRegisteredSecondary) lastClassRegisteredSecondary.textContent = 'Selecione um aluno para ver o \u00faltimo registro.';
         if (teacherLessonNote) {
             teacherLessonNote.textContent = 'Os módulos do seu plano continuam visíveis. Selecione um aluno para liberar, acompanhar e abrir as lições.';
         }
@@ -641,6 +679,7 @@
 
             classCountDisplay.textContent = classCount;
             classCountDisplaySecondary.textContent = classCount;
+            updateLastClassRegistration(data.lastClassRegisteredAt, classCount);
 
             if (packageSize > 0) {
                 noPackageMessage.classList.add('hidden');
@@ -791,11 +830,32 @@
             await db.runTransaction(async (transaction) => {
                 const doc = await transaction.get(studentRef);
                 if (!doc.exists) throw new Error('Aluno n\u00e3o encontrado.');
-                const currentCount = doc.data().classCount || 0;
+                const studentData = doc.data();
+                const currentCount = studentData.classCount || 0;
                 const newCount = currentCount + amount;
-                if (newCount >= 0) {
-                    transaction.update(studentRef, { classCount: newCount });
+                if (newCount < 0) throw new Error('O contador j\u00e1 est\u00e1 zerado.');
+
+                const registrationHistory = Array.isArray(studentData.classRegistrationHistory)
+                    ? [...studentData.classRegistrationHistory]
+                    : [];
+                let lastClassRegisteredAt = studentData.lastClassRegisteredAt || null;
+
+                if (amount > 0) {
+                    const registeredAt = firebase.firestore.Timestamp.now();
+                    registrationHistory.push(registeredAt);
+                    lastClassRegisteredAt = registeredAt;
+                } else if (amount < 0) {
+                    registrationHistory.pop();
+                    lastClassRegisteredAt = registrationHistory.length
+                        ? registrationHistory[registrationHistory.length - 1]
+                        : null;
                 }
+
+                transaction.update(studentRef, {
+                    classCount: newCount,
+                    classRegistrationHistory: registrationHistory.slice(-100),
+                    lastClassRegisteredAt
+                });
             });
             await updatePackageInfo(studentId);
             if (typeof showToast === 'function') {
@@ -857,7 +917,9 @@
                     pacoteContratado: packageSize,
                     valorPacote: packageValue,
                     dataInicioPacote: formattedDate,
-                    classCount: 0
+                    classCount: 0,
+                    classRegistrationHistory: [],
+                    lastClassRegisteredAt: null
                 });
                 closeModal(newPackageModal);
                 newPackageForm.reset();

@@ -2,7 +2,33 @@
     const STYLE_ID = 'lesson-flashcard-save-style';
     const MODAL_ID = 'lesson-flashcard-save-modal';
     const BUTTON_CLASS = 'lesson-flashcard-save-btn';
-    const CARD_SELECTOR = '.flashcard, .flip-card';
+    const CARD_SELECTOR = '.flashcard, .flip-card, .b1-vocab-card, [data-save-card]';
+
+    function hashText(value) {
+        let hash = 2166136261;
+        const text = String(value || '');
+        for (let index = 0; index < text.length; index += 1) {
+            hash ^= text.charCodeAt(index);
+            hash = Math.imul(hash, 16777619);
+        }
+        return (hash >>> 0).toString(36);
+    }
+
+    function getCardOwnerId(user) {
+        let role = 'aluno';
+        let selectedStudentId = null;
+        try {
+            role = localStorage.getItem('loggedInUserRole') || 'aluno';
+            selectedStudentId = localStorage.getItem('selectedStudentId');
+        } catch (error) {
+            // The authenticated user remains the safe fallback.
+        }
+
+        if ((role === 'professor' || role === 'admin') && selectedStudentId) {
+            return selectedStudentId;
+        }
+        return user.uid;
+    }
 
     function getLessonContext() {
         const match = window.location.pathname.match(/\/([^\/]+)\/licao-(\d+)\.html$/i);
@@ -67,7 +93,13 @@
     }
 
     function extractFrontText(card) {
+        if (card.dataset.cardFront) return card.dataset.cardFront.trim();
         const front = card.querySelector('.flashcard-front, .flip-card-front');
+        const b1Front = card.querySelector('.b1-vocab-front');
+        if (b1Front) {
+            const term = b1Front.querySelector('strong');
+            return term?.textContent.trim() || '';
+        }
         if (!front) return '';
 
         const heading = front.querySelector('h1, h2, h3, h4, h5, h6');
@@ -81,7 +113,10 @@
     }
 
     function extractBackText(card) {
+        if (card.dataset.cardBack) return card.dataset.cardBack.trim();
         const back = card.querySelector('.flashcard-back, .flip-card-back');
+        const b1Back = card.querySelector('.b1-vocab-back');
+        if (b1Back) return b1Back.textContent.replace(/\s+/g, ' ').trim();
         if (!back) return '';
 
         const paragraph = back.querySelector('p');
@@ -203,14 +238,19 @@
             confirmBtn.textContent = 'Salvando...';
 
             try {
-                await db.collection('users').doc(user.uid).collection('myCards').add({
+                const ownerId = getCardOwnerId(user);
+                const fingerprint = hashText(`${f.toLowerCase()}|${b.toLowerCase()}`);
+                const documentId = `lesson_${hashText(`${context.moduleId}|${context.lessonNumber}|${f.toLowerCase()}`)}`;
+                await db.collection('users').doc(ownerId).collection('myCards').doc(documentId).set({
                     f,
                     b,
                     l,
+                    fingerprint,
                     module: context.moduleId,
                     lesson: context.lessonNumber,
-                    source: 'lesson-flashcard'
-                });
+                    source: 'lesson-flashcard',
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true });
 
                 if (activeCard) {
                     const button = activeCard.querySelector(`.${BUTTON_CLASS}`);
@@ -257,12 +297,32 @@
                 button.type = 'button';
                 button.className = BUTTON_CLASS;
                 button.title = 'Salvar este flashcard';
+                button.setAttribute('aria-label', `Salvar ${frontText} no perfil do aluno`);
                 button.innerHTML = '<i class="fas fa-bookmark"></i>';
                 button.addEventListener('click', (event) => {
                     event.stopPropagation();
                     openSaveModal(card);
                 });
-                card.appendChild(button);
+                if (card.matches('[data-pronounce-text]')) {
+                    let actions = card.querySelector(':scope > .v3-card-header > .v3-card-actions');
+                    if (!actions) {
+                        const heading = card.firstElementChild;
+                        const header = document.createElement('div');
+                        header.className = 'v3-card-header';
+                        actions = document.createElement('div');
+                        actions.className = 'v3-card-actions';
+                        actions.setAttribute('aria-label', 'Ações do card');
+                        card.insertBefore(header, heading || null);
+                        if (heading) {
+                            heading.classList.add('v3-card-heading');
+                            header.appendChild(heading);
+                        }
+                        header.appendChild(actions);
+                    }
+                    actions.prepend(button);
+                } else {
+                    card.appendChild(button);
+                }
             });
         }
 
