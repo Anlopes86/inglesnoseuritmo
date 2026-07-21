@@ -398,12 +398,46 @@
         });
     }
 
+    function scrambleWords(sentence) {
+        const words = String(sentence || '').replace(/[?.]/g, '').split(/\s+/).filter(Boolean);
+        if (words.length < 2) return words;
+
+        // Keep the activity stable on reload while producing a genuine shuffle.
+        let seed = 2166136261;
+        for (const character of String(sentence)) {
+            seed = Math.imul(seed ^ character.charCodeAt(0), 16777619) >>> 0;
+        }
+        const random = () => {
+            seed += 0x6D2B79F5;
+            let value = seed;
+            value = Math.imul(value ^ (value >>> 15), value | 1);
+            value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+            return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+        };
+        const shuffled = words.slice();
+        for (let index = shuffled.length - 1; index > 0; index -= 1) {
+            const target = Math.floor(random() * (index + 1));
+            [shuffled[index], shuffled[target]] = [shuffled[target], shuffled[index]];
+        }
+
+        const hasSameOrder = (left, right) => left.every((word, index) => word === right[index]);
+        const reversed = words.slice().reverse();
+        if (words.length > 2 && (hasSameOrder(shuffled, words) || hasSameOrder(shuffled, reversed))) {
+            for (let left = 0; left < words.length; left += 1) {
+                for (let right = left + 1; right < words.length; right += 1) {
+                    const candidate = words.slice();
+                    [candidate[left], candidate[right]] = [candidate[right], candidate[left]];
+                    if (!hasSameOrder(candidate, words) && !hasSameOrder(candidate, reversed)) {
+                        return candidate;
+                    }
+                }
+            }
+        }
+        return shuffled;
+    }
+
     function wordChips(sentence) {
-        return sentence
-            .replace(/[?.]/g, '')
-            .split(/\s+/)
-            .filter(Boolean)
-            .reverse()
+        return scrambleWords(sentence)
             .map((word) => `<button type="button" class="word-chip" data-word-chip="${word}">${word}</button>`)
             .join('');
     }

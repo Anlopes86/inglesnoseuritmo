@@ -1820,6 +1820,44 @@
         ]
     };
 
+    function scrambleWords(sentence) {
+        const words = String(sentence || '').trim().split(/\s+/).filter(Boolean);
+        if (words.length < 2) return words;
+
+        // Seeded Fisher-Yates: stable between reloads, but not predictably reversed.
+        let seed = 2166136261;
+        for (const character of String(sentence)) {
+            seed = Math.imul(seed ^ character.charCodeAt(0), 16777619) >>> 0;
+        }
+        const random = () => {
+            seed += 0x6D2B79F5;
+            let value = seed;
+            value = Math.imul(value ^ (value >>> 15), value | 1);
+            value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+            return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+        };
+        const shuffled = words.slice();
+        for (let index = shuffled.length - 1; index > 0; index -= 1) {
+            const target = Math.floor(random() * (index + 1));
+            [shuffled[index], shuffled[target]] = [shuffled[target], shuffled[index]];
+        }
+
+        const hasSameOrder = (left, right) => left.every((word, index) => word === right[index]);
+        const reversed = words.slice().reverse();
+        if (words.length > 2 && (hasSameOrder(shuffled, words) || hasSameOrder(shuffled, reversed))) {
+            for (let left = 0; left < words.length; left += 1) {
+                for (let right = left + 1; right < words.length; right += 1) {
+                    const candidate = words.slice();
+                    [candidate[left], candidate[right]] = [candidate[right], candidate[left]];
+                    if (!hasSameOrder(candidate, words) && !hasSameOrder(candidate, reversed)) {
+                        return candidate;
+                    }
+                }
+            }
+        }
+        return shuffled;
+    }
+
     function createPracticeItems(bank, lessonNumber) {
         const vocab = bank.vocab || [];
         const examples = bank.examples || [];
@@ -1831,7 +1869,7 @@
             : [0, 1, 2, 3].map((index) => createCompleteItem(term(index)));
         const unscrambleItems = [0, 1].map((index) => ({
             type: 'Unscramble',
-            prompt: `Put in order: ${example(index).split(' ').reverse().join(' / ')}`,
+            prompt: `Put in order: ${scrambleWords(example(index)).join(' / ')}`,
             hint: 'ordem da frase',
             answer: example(index)
         }));
@@ -3358,7 +3396,7 @@
                     ['Compare', 'Make a sentence comparing bus and subway.', 'The subway is faster than the bus.'],
                     ['Superlative', 'Use "the best" in a sentence about a restaurant.', 'This is the best restaurant near my house.'],
                     ['Quantifier', 'Complete: We do not have ____ time before the meeting.', 'much'],
-                    ['Unscramble', 'late / arrived / because / I / overslept', 'I arrived late because I overslept.'],
+                    ['Unscramble', 'because / I / late / overslept / arrived / I', 'I arrived late because I overslept.'],
                     ['Find the error', 'There are much people in the room.', 'There are many people in the room.']
                 ],
                 translations: [
