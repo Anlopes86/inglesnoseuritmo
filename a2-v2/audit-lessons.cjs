@@ -66,6 +66,23 @@ function remember(group, value, lessonNumber) {
     bank.get(key).add(lessonNumber);
 }
 
+function assertUnscramble(prompt, answer, location) {
+    const promptWords = normalize(String(prompt || '')
+        .replace(/^put in order:\s*/i, '')
+        .replace(/\s*\/\s*/g, ' ')).split(' ').filter(Boolean);
+    const answerWords = normalize(answer).split(' ').filter(Boolean);
+    const reversedAnswer = answerWords.slice().reverse();
+    const sameOrder = (left, right) => left.length === right.length
+        && left.every((word, index) => word === right[index]);
+    const sameWords = [...promptWords].sort().join(' ') === [...answerWords].sort().join(' ');
+
+    if (!sameWords) fail(`${location}: unscramble words do not match the answer.`);
+    if (sameOrder(promptWords, answerWords)) fail(`${location}: unscramble is still in answer order.`);
+    if (answerWords.length > 2 && sameOrder(promptWords, reversedAnswer)) {
+        fail(`${location}: unscramble is only the answer in reverse order.`);
+    }
+}
+
 function assertReview(number, review) {
     const requiredCounts = {
         drills: 8,
@@ -97,6 +114,12 @@ function assertReview(number, review) {
                 fail(`Lesson ${number}: repeated review prompt in ${stationPrompts.get(key)} and ${station}.`);
             }
             stationPrompts.set(key, station);
+        }
+    }
+
+    for (const [index, item] of (review.drills || []).entries()) {
+        if (item[0] === 'Unscramble') {
+            assertUnscramble(item[1], item[2], `Lesson ${number}, review drill ${index + 1}`);
         }
     }
 }
@@ -162,6 +185,9 @@ for (let number = 1; number <= 32; number += 1) {
             if (answer && prompt.includes(answer)) {
                 fail(`Lesson ${number}, practice ${index + 1}: answer is still visible in the prompt.`);
             }
+        }
+        if (item.type === 'Unscramble') {
+            assertUnscramble(item.prompt, item.answer, `Lesson ${number}, practice ${index + 1}`);
         }
         remember('practice', item.prompt, number);
     }
