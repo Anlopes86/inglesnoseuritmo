@@ -74,6 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
     async function updateLessonStatuses(studentId, moduleKey, role) {
         if (!studentId) return;
 
+        const isOpenLibrary = moduleKey === 'essentials';
+
         let progress = {};
         try {
             const studentDoc = await db.collection('students').doc(studentId).get();
@@ -104,8 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const lessonNumber = parseInt(lesson.dataset.lesson, 10);
             const isCompleted = progress[`lesson_${lessonNumber}`] === true;
 
+            lesson.classList.remove('completed', 'next', 'locked');
+
             if (isCompleted) {
                 lesson.classList.add('completed');
+            } else if (isOpenLibrary) {
+                lesson.classList.add('available');
             } else if (lessonNumber === firstUncompleted) {
                 lesson.classList.add('next');
             } else if (lessonNumber > firstUncompleted) {
@@ -115,13 +121,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const stateNode = lesson.querySelector('.lesson-state');
             if (stateNode) {
                 stateNode.innerHTML = isCompleted
-                    ? '<i class="fas fa-award text-emerald-600"></i>Concluida'
-                    : lessonNumber === firstUncompleted
+                    ? `<i class="fas fa-award text-emerald-600"></i>${isOpenLibrary ? 'Revisada' : 'Concluida'}`
+                    : isOpenLibrary
+                        ? '<i class="fas fa-book-open text-rose-600"></i>Disponivel para revisao'
+                        : lessonNumber === firstUncompleted
                         ? '<i class="fas fa-forward text-blue-600"></i>Disponivel agora'
                         : '<i class="fas fa-lock text-slate-400"></i>Bloqueada';
             }
 
-            if (!isProfessor && !isCompleted && lessonNumber !== firstUncompleted) {
+            if (!isOpenLibrary && !isProfessor && !isCompleted && lessonNumber !== firstUncompleted) {
                 lesson.setAttribute('href', '#');
             }
         });

@@ -61,6 +61,117 @@
         }).join('')}</div>`;
     }
 
+    function reviewGrammarTrap(focus) {
+        const label = normalize(focus);
+        if (/to be|where be|be na descricao/.test(label)) return 'Não acrescente do/does quando o verbo principal é be; faça a inversão com am, is ou are.';
+        if (/do e does|perguntas pessoais|rotina|terceira pessoa/.test(label)) return 'Depois de do/does, use o verbo base. O -s fica no auxiliar does, não no verbo principal.';
+        if (/possess|adjetivos possessivos/.test(label)) return 'Diferencie her (antes de substantivo) de hers (sozinho) e não use apóstrofo em my, your, his ou their.';
+        if (/some e any|contagem/.test(label)) return 'Antes de escolher o quantificador, decida se o substantivo é contável e se a frase é afirmativa, negativa ou pergunta.';
+        if (/there is|there are/.test(label)) return 'Faça o verbo concordar com o primeiro substantivo apresentado: There is a bank; There are two cafés.';
+        if (/localizacao|preposicoes|rota|datas e horarios|tempo/.test(label)) return 'Não traduza a preposição isoladamente. Use o bloco completo com lugar, dia ou horário.';
+        if (/gostos|frequencia/.test(label)) return 'Use verbo + -ing depois de enjoy e coloque o advérbio antes do verbo comum, mas depois de be.';
+        if (/clima/.test(label)) return 'Use it como sujeito: It is cold / It is raining. Não comece apenas com Is ou Raining.';
+        if (/should|conselho|can|have to|habilidades|pedidos/.test(label)) return 'Depois de should, can e could, use verbo base sem to. Have to mantém o to porque não é modal puro.';
+        if (/present continuous|acoes agora|ortografia do ing/.test(label)) return 'A forma -ing precisa do auxiliar be. Evite frases como She waiting ou They is working.';
+        if (/past|passado|was were|did/.test(label)) return 'Em perguntas com did, volte o verbo principal para a forma base: Did you go?, não Did you went?';
+        if (/compar/.test(label)) return 'Use than depois do comparativo e não combine more com adjetivos que já recebem -er.';
+        if (/plan|going to/.test(label)) return 'Going to precisa de am/is/are antes e de verbo base depois: She is going to travel.';
+        return 'Use a estrutura dentro de uma frase completa e confirme se o sujeito, o auxiliar e o verbo principal combinam.';
+    }
+
+    function renderReviewGrammarCards(items) {
+        return `<div class="v3-review-grammar-grid">${items.map(([focus, reminder, example]) => `<article class="v3-review-grammar-card">
+            <h3>${escapeHtml(focus)}</h3>
+            <dl>
+                <div><dt>Quando e como usar</dt><dd>${escapeHtml(reminder)}</dd></div>
+                <div><dt>Exemplo em contexto</dt><dd class="v3-review-example">${escapeHtml(example)}</dd></div>
+                <div><dt>Cuidado comum</dt><dd>${escapeHtml(reviewGrammarTrap(focus))}</dd></div>
+                <div><dt>Checagem oral</dt><dd>Crie uma frase verdadeira e depois transforme-a em pergunta ou negativa.</dd></div>
+            </dl>
+        </article>`).join('')}</div>`;
+    }
+
+    function renderReviewGrammarTable(items) {
+        return `<div class="lesson-table-scroll v3-review-grammar-table"><table class="grammar-table review-table"><thead><tr><th>Foco</th><th>Regra e uso</th><th>Exemplo</th></tr></thead><tbody>${items.map(([focus, reminder, example]) => `<tr><td><strong>${escapeHtml(focus)}</strong></td><td>${escapeHtml(reminder)}</td><td>${escapeHtml(example)}</td></tr>`).join('')}</tbody></table></div>`;
+    }
+
+    function reviewPairs(items) {
+        return items.map((item, index) => ({ id: String(index), cue: `${item[0]}: ${item[1]}`, answer: item[3] }));
+    }
+
+    function a1MemoryPairs(lessonNumber, items) {
+        const curated = {
+            4: [
+                ["What's your name?", 'My name is Maya.'],
+                ['Where are you from?', "I'm from Brazil."],
+                ['How do you spell your last name?', "It's S-I-L-V-A."],
+                ['Do you have any brothers or sisters?', 'Yes, I have one sister.']
+            ],
+            16: [
+                ["It's cloudy today.", 'Está nublado hoje.'],
+                ['I often listen to music.', 'Eu frequentemente ouço música.'],
+                ['Can I try it on?', 'Posso experimentar?'],
+                ['How much are these shoes?', 'Quanto custam estes sapatos?']
+            ],
+            24: [
+                ['Could I have...', '...a return ticket, please?'],
+                ['The train leaves...', '...at half past seven.'],
+                ['Would you like...', '...to come on Friday?'],
+                ['The passengers are...', '...waiting on platform two.']
+            ],
+            32: [
+                ["What's your name?", 'My name is...'],
+                ['Where do you live?', 'I live in...'],
+                ['What did you do yesterday?', 'I went...'],
+                ['What are you going to do next weekend?', "I'm going to..."]
+            ]
+        }[lessonNumber];
+        if (!curated) return reviewPairs(items);
+        return curated.map(([cue, answer], index) => ({ id: String(index), cue, answer }));
+    }
+
+    function renderMemoryGame(items, lessonNumber) {
+        const pairs = a1MemoryPairs(lessonNumber, items);
+        const cards = pairs.map(pair => ({ ...pair, copy: pair.cue })).concat([...pairs].reverse().map(pair => ({ ...pair, copy: pair.answer })));
+        return `<div class="v3-review-game" data-v3-memory-board><div class="v3-review-game-head"><div><strong>Jogo da memória</strong><span>Forme relações que fazem sentido: pergunta e resposta, frase e tradução ou começo e conclusão.</span></div><i class="fas fa-clone" aria-hidden="true"></i></div><div class="v3-memory-grid">${cards.map(card => `<button type="button" class="v3-memory-card" data-v3-memory-card data-pair-id="${escapeHtml(card.id)}"><span class="v3-memory-cover"><i class="fas fa-question" aria-hidden="true"></i></span><span class="v3-memory-copy">${escapeHtml(card.copy)}</span></button>`).join('')}</div><p class="v3-review-feedback" data-v3-game-feedback>Vire duas cartas por vez. Ao acertar, leia o par completo em voz alta.</p></div>`;
+    }
+
+    function renderMatchingGame(items) {
+        const pairs = reviewPairs(items);
+        return `<div class="v3-review-game" data-v3-match-board><div class="v3-review-game-head"><div><strong>Ligue os cards</strong><span>Selecione um desafio e depois a resposta correspondente.</span></div><i class="fas fa-link" aria-hidden="true"></i></div><div class="v3-match-grid"><div class="v3-match-column">${pairs.map(pair => `<button type="button" class="v3-match-option" data-v3-match-option data-side="left" data-pair-id="${escapeHtml(pair.id)}">${escapeHtml(pair.cue)}</button>`).join('')}</div><div class="v3-match-column">${[...pairs].reverse().map(pair => `<button type="button" class="v3-match-option" data-v3-match-option data-side="right" data-pair-id="${escapeHtml(pair.id)}">${escapeHtml(pair.answer)}</button>`).join('')}</div></div><p class="v3-review-feedback" data-v3-game-feedback>Comece por qualquer coluna.</p></div>`;
+    }
+
+    function maskedAnswer(answer) {
+        return [...String(answer)].map(character => /[a-z]/i.test(character) ? '_' : character).join(' ');
+    }
+
+    function renderHangmanGame(items) {
+        const pairs = reviewPairs(items);
+        return `<div class="v3-review-game"><div class="v3-review-game-head"><div><strong>Forca gramatical</strong><span>Use a pista para descobrir a resposta. Revele uma letra somente quando precisar.</span></div><i class="fas fa-spell-check" aria-hidden="true"></i></div><div class="v3-hangman-list">${pairs.map(pair => `<article class="v3-hangman-round" data-v3-hangman data-answer="${escapeHtml(pair.answer)}"><p class="v3-hangman-hint">${escapeHtml(pair.cue)}</p><div class="v3-hangman-mask" data-v3-hangman-mask>${escapeHtml(maskedAnswer(pair.answer))}</div><div class="v3-game-actions"><button type="button" class="v3-game-action" data-v3-hangman-action="letter">Revelar letra</button><button type="button" class="v3-game-action" data-v3-hangman-action="answer">Mostrar resposta</button></div></article>`).join('')}</div></div>`;
+    }
+
+    function renderBuilderGame(items) {
+        const pairs = reviewPairs(items);
+        return `<div class="v3-review-game"><div class="v3-review-game-head"><div><strong>Construtor de frases</strong><span>Toque nas palavras na ordem correta e depois leia a resposta com ritmo natural.</span></div><i class="fas fa-cubes" aria-hidden="true"></i></div><div class="v3-hangman-list">${pairs.map(pair => {
+            const words = String(pair.answer).replace(/[?.!,]/g, '').split(/\s+/).filter(Boolean).reverse();
+            return `<article class="v3-builder-round" data-v3-builder data-words=""><p class="v3-hangman-hint">${escapeHtml(pair.cue)}</p><div class="v3-builder-output" data-v3-builder-output>Monte a frase aqui.</div><div class="v3-builder-bank">${words.map(word => `<button type="button" class="v3-word-chip" data-v3-word-chip data-word="${escapeHtml(word)}">${escapeHtml(word)}</button>`).join('')}</div><div class="v3-game-actions"><button type="button" class="v3-game-action" data-v3-builder-reset>Recomeçar</button></div></article>`;
+        }).join('')}</div></div>`;
+    }
+
+    function reviewGameType(lessonNumber, stationIndex) {
+        const rotations = { 4: ['matching', 'memory'], 8: ['hangman', 'builder'], 12: ['matching', 'builder'], 16: ['memory', 'hangman'], 20: ['hangman', 'matching'], 24: ['builder', 'memory'], 28: ['matching', 'hangman'], 32: ['memory', 'matching', 'builder'] };
+        return rotations[lessonNumber]?.[stationIndex] || 'activities';
+    }
+
+    function renderReviewStation(station, lessonNumber, stationIndex) {
+        const type = reviewGameType(lessonNumber, stationIndex);
+        if (type === 'memory') return renderMemoryGame(station.items, lessonNumber);
+        if (type === 'matching') return renderMatchingGame(station.items);
+        if (type === 'hangman') return renderHangmanGame(station.items);
+        if (type === 'builder') return renderBuilderGame(station.items);
+        return renderActivityItems(station.items, `review-${lessonNumber}-station-${stationIndex}`);
+    }
+
     function renderTranslationItems(items, prefix) {
         return `<div class="translation-list">${items.map(([pt, en], index) => {
             const answerId = `${prefix}-answer-${index}`;
@@ -148,7 +259,7 @@
             <h3>${escapeHtml(reading.title)}</h3>
             <p class="reading-copy">${escapeHtml(reading.text)}</p>
         </article>
-        <div class="reading-questions">${reading.questions.slice(0, 3).map(([question, answer], index) => {
+        <div class="reading-questions">${reading.questions.map(([question, answer], index) => {
             const answerId = `${prefix}-reading-answer-${index}`;
             return `<article class="reading-question">
                 <div><span class="activity-number">${index + 1}.</span><strong>${escapeHtml(question)}</strong></div>
@@ -173,6 +284,33 @@
         return pattern.test(line) ? safeLine.replace(pattern, input) : `${safeLine} ${input}`;
     }
 
+    function renderLyricPlaceholder() {
+        return `<div class="v3-lyric-placeholder">
+            <div class="v3-lyric-placeholder-head"><strong>Letra com lacunas</strong><span>Texto musical fictício para preservar o layout até a inserção do conteúdo autorizado.</span></div>
+            <div class="v3-lyric-copy">
+                <p class="v3-lyric-stanza">
+                    <span class="v3-lyric-line">I wake to see the <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 1" autocomplete="off" spellcheck="false"> through the window,</span>
+                    <span class="v3-lyric-line">A quiet street is waiting down below.</span>
+                    <span class="v3-lyric-line">I take a breath and <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 2" autocomplete="off" spellcheck="false"> the open doorway,</span>
+                    <span class="v3-lyric-line">Not knowing where this winding road will go.</span>
+                </p>
+                <p class="v3-lyric-stanza">
+                    <span class="v3-lyric-line">I carry every <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 3" autocomplete="off" spellcheck="false"> that you gave me,</span>
+                    <span class="v3-lyric-line">It keeps me moving when the night is long.</span>
+                    <span class="v3-lyric-line">And if I lose my <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 4" autocomplete="off" spellcheck="false"> for just a moment,</span>
+                    <span class="v3-lyric-line">I close my eyes and listen for our song.</span>
+                </p>
+                <p class="v3-lyric-stanza">
+                    <span class="v3-lyric-line">We keep on <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 5" autocomplete="off" spellcheck="false"> toward tomorrow,</span>
+                    <span class="v3-lyric-line">With every step, a little more to learn.</span>
+                    <span class="v3-lyric-line">Through every change, through every joy and sorrow,</span>
+                    <span class="v3-lyric-line">The light we share will always <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 6" autocomplete="off" spellcheck="false">.</span>
+                </p>
+            </div>
+            <p class="v3-copyright-note"><i class="fas fa-shield-halved" aria-hidden="true"></i> Nenhuma letra protegida é distribuída nesta versão.</p>
+        </div>`;
+    }
+
     function renderMusic(music, prefix) {
         return `<div class="music-header">
             <p class="lesson-panel-title">Music Moment</p>
@@ -180,11 +318,7 @@
             <p>${escapeHtml(music.artist)}</p>
         </div>
         <div class="spotify-frame"><iframe src="https://open.spotify.com/embed/track/${escapeHtml(music.spotifyId)}?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify: ${escapeHtml(music.song)}"></iframe></div>
-        <div class="v3-lyric-placeholder" id="${prefix}-music-copy">
-            <div class="v3-lyric-placeholder-head"><strong>Letra com lacunas — modelo editorial</strong><span>Substitua somente os textos entre colchetes pelo trecho autorizado.</span></div>
-            ${Array.from({ length: 6 }, (_, index) => `<label class="v3-lyric-placeholder-line"><small>${index < 3 ? 'Verse 1' : 'Verse 2'} · linha ${(index % 3) + 1}</small><span>[Cole aqui a linha da música com uma <b>________</b>]</span><input type="text" aria-label="Resposta da lacuna musical ${index + 1}" placeholder="Resposta ouvida"></label>`).join('')}
-            <p class="v3-copyright-note"><i class="fas fa-shield-halved" aria-hidden="true"></i> Nenhum trecho protegido é distribuído nesta versão.</p>
-        </div>`;
+        <div id="${prefix}-music-copy">${renderLyricPlaceholder()}</div>`;
     }
 
     function renderHomework(homework) {
@@ -236,33 +370,21 @@
         return slides;
     }
 
-    function renderCanDoAssessment() {
-        const criteria = [
-            ['Realização da tarefa', 'Usa as funções revisadas para responder à situação proposta.'],
-            ['Interação', 'Pergunta e responde com apoio quando necessário.'],
-            ['Clareza', 'Produz fala curta que o interlocutor consegue compreender.'],
-            ['Controle prioritário', 'Usa as estruturas do checkpoint sem impedir a comunicação.']
-        ];
-        return `<div class="v3-can-do-assessment">
-            <p class="v3-assessment-scale">Escala: 1 = ainda não &nbsp;·&nbsp; 2 = com bastante apoio &nbsp;·&nbsp; 3 = com pouco apoio &nbsp;·&nbsp; 4 = com autonomia</p>
-            ${criteria.map(([title, descriptor]) => `<label class="v3-assessment-row"><span><strong>${title}</strong><span>${descriptor}</span></span><select aria-label="Avaliação: ${title}"><option value="">Selecionar</option><option>1 — Ainda não</option><option>2 — Com apoio</option><option>3 — Quase autônomo</option><option>4 — Autônomo</option></select></label>`).join('')}
-            <label class="v3-assessment-notes">Evidência observada e próximo passo<textarea rows="3" placeholder="Registre uma evidência concreta da fala e um foco para a próxima aula."></textarea></label>
-        </div>`;
-    }
-
     function reviewSlides(review, lessonNumber) {
+        const grammarMidpoint = Math.ceil(review.recap.length / 2);
+        const grammarParts = [review.recap.slice(0, grammarMidpoint), review.recap.slice(grammarMidpoint)];
         const slides = [
             slide('Review Mission', `<section class="intro-layout review-intro"><div class="lesson-hero"><p class="lesson-panel-title">Checkpoint</p><h2>${escapeHtml(review.title)}</h2><p class="review-lead">Circuito de consolidação para usar o conteúdo das três lições anteriores em situações concretas.</p>${renderObjectives(review.objectives)}</div><div class="review-route"><p class="lesson-panel-title">Rota da aula</p>${review.stations.map((station, index) => `<div><span>${index + 1}</span><strong>${escapeHtml(station.title.replace(/^Station \d+: |^Mission \d+: /, ''))}</strong></div>`).join('')}</div></section>`),
-            slide('Grammar Map', `<section><div class="slide-heading"><p class="lesson-panel-title">Grammar Map</p><h2>Relembre antes do circuito</h2></div><div class="lesson-table-scroll"><table class="grammar-table review-table"><thead><tr><th>Foco</th><th>Lembrete</th><th>Exemplo</th></tr></thead><tbody>${review.recap.map(([focus, reminder, example]) => `<tr><td><strong>${escapeHtml(focus)}</strong></td><td>${escapeHtml(reminder)}</td><td>${escapeHtml(example)}</td></tr>`).join('')}</tbody></table></div></section>`)
+            slide('Grammar Lab 1', `<section><div class="slide-heading"><p class="lesson-panel-title">Grammar Lab · Parte 1</p><h2>Entenda a escolha antes de praticar</h2><p>Comece pela tabela para comparar forma, uso e exemplo. Depois, leia os blocos completos e faça a checagem oral: a revisão não é uma corrida de regras.</p></div>${renderReviewGrammarTable(grammarParts[0])}${renderReviewGrammarCards(grammarParts[0])}</section>`),
+            slide('Grammar Lab 2', `<section><div class="slide-heading"><p class="lesson-panel-title">Grammar Lab · Parte 2</p><h2>Antecipe os erros mais comuns</h2><p>Use a tabela como mapa rápido e as explicações detalhadas para justificar cada resposta, perceber o erro previsível e criar uma frase própria.</p></div>${renderReviewGrammarTable(grammarParts[1])}${renderReviewGrammarCards(grammarParts[1])}</section>`)
         ];
 
         review.stations.forEach((station, index) => {
-            slides.push(slide(station.title, `<section><div class="slide-heading"><p class="lesson-panel-title">Review Circuit ${index + 1}/${review.stations.length}</p><h2>${escapeHtml(station.title)}</h2><p>${escapeHtml(station.instruction)}</p></div>${renderActivityItems(station.items.slice(0, 3), `review-${lessonNumber}-station-${index}`)}</section>`));
+            slides.push(slide(station.title, `<section><div class="slide-heading"><p class="lesson-panel-title">Review Circuit ${index + 1}/${review.stations.length}</p><h2>${escapeHtml(station.title)}</h2><p>${escapeHtml(station.instruction)}</p></div>${renderReviewStation(station, lessonNumber, index)}</section>`));
         });
 
         slides.push(
             slide('Reading Mission', `<section><div class="slide-heading"><p class="lesson-panel-title">Reading Mission</p><h2>${escapeHtml(review.reading.title)}</h2></div>${renderReading(review.reading, `review-${lessonNumber}`)}</section>`),
-            slide('Can-Do Check', `<section><div class="slide-heading"><p class="lesson-panel-title">CEFR Progress Check</p><h2>O que o aluno já consegue fazer?</h2><p>Avalie o desempenho observado durante o circuito, sem introduzir conteúdo novo.</p></div>${renderCanDoAssessment()}</section>`),
             slide('Homework Project', `<section>${renderHomework(review.homework)}</section>`)
         );
 

@@ -58,7 +58,7 @@
     add({
         number: 15,
         unit: "Block 2: Clear Communication",
-        title: "Passive Voice and News Summaries",
+        title: "Crime in the News: Passive Voice",
         objective: "Relatar processos e acontecimentos destacando o resultado, mesmo quando o agente é desconhecido ou secundário.",
         focus: "Present and Past Simple Passive",
         cefr: "B1: compreende e produz resumos factuais simples de notícias e procedimentos.",
@@ -80,6 +80,101 @@
         homework: { title: "Homework: A Factual Update", deliverable: "Escolha um tema e escreva uma notícia de 150–180 palavras com título, fato, impacto, resposta e próximo passo.", options: [homeworkOption("Transport disruption", "Report a closure, diversion or delay using confirmed details."), homeworkOption("Building incident", "Describe damage, safety response and repair status."), homeworkOption("Community announcement", "Report a service change, who is affected and what happens next.")], checklist: ["Usei passiva no presente e no passado.", "Usei by apenas quando o agente era relevante.", "Separei fato de expectativa.", "Incluí impacto e próximo passo."] }
     });
 
+    // Aula-assinatura: linguagem de crime em um contexto seguro de redação
+    // jornalística. O foco continua sendo voz passiva e resumo factual.
+    {
+        const lesson = window.B1_V3_LESSONS.find(item => item.number === 15);
+        const slide = type => lesson && lesson.slides.find(item => item.type === type);
+        const slides = type => lesson ? lesson.slides.filter(item => item.type === type) : [];
+
+        if (lesson) {
+            lesson.objective = "Distinguir tipos comuns de furto e roubo e produzir resumos factuais com voz passiva, sem transformar suspeita em culpa.";
+
+            Object.assign(slide("opening"), {
+                objectives: ["Distinguir theft, robbery, burglary, shoplifting, pickpocketing e fraud.", "Formar a voz passiva no presente, passado e em atualizações em andamento.", "Separar fato confirmado, suspeita e etapa legal.", "Produzir um boletim curto com fonte, impacto e próximo passo."],
+                dialogue: { title: "The missing charity box", lines: [["Editor", "What has been confirmed about the bookstore incident?"], ["Reporter", "A charity box was taken from the counter after closing time."], ["Editor", "Was the cashier threatened?"], ["Reporter", "No. This is being treated as theft, not robbery."], ["Editor", "Was anyone seen entering the shop?"], ["Reporter", "A person was recorded near the back door, but nobody has been identified."], ["Editor", "Good. Do not call that person the thief yet."], ["Reporter", "Understood. I will say that the incident is under investigation."]] }
+            });
+
+            Object.assign(slide("vocabulary"), {
+                title: "Vocabulary: Name the Crime Precisely",
+                intro: "A escolha da palavra depende do alvo, do local e de haver força, ameaça ou engano.",
+                items: [["theft", "noun", "furto / ato geral de roubar", "The phone theft was reported this morning."], ["robbery", "noun", "roubo com força ou ameaça", "The bank robbery took place before noon."], ["burglary", "noun", "invasão de imóvel para cometer crime", "The house was empty during the burglary."], ["shoplifting", "noun", "furto em loja", "Shoplifting is often recorded by store cameras."], ["pickpocketing", "noun", "furto de bolso ou bolsa", "Pickpocketing was reported near the station."], ["fraud", "noun", "fraude obtida por engano", "The online payment was part of a fraud investigation."], ["steal", "verb", "roubar algo", "Someone stole a laptop from the office."], ["rob", "verb", "roubar uma pessoa ou lugar", "The shop was robbed, but no customer was hurt."]]
+            });
+
+            Object.assign(slide("grammar"), {
+                title: "Report the Event, Not an Assumption",
+                intro: "A voz passiva mantém o foco no fato quando o agente é desconhecido. Em notícias de crime, ela também ajuda a separar o que foi confirmado do que ainda está sendo investigado.",
+                tables: [{ title: "Active and passive in a news report", headers: ["News purpose", "Active", "Passive"], rows: [["Ação concluída", "Someone stole two phones.", "Two phones were stolen."], ["Procedimento habitual", "Staff check every ticket.", "Every ticket is checked."], ["Ação em andamento", "Engineers are inspecting the bridge.", "The bridge is being inspected."], ["Próximo passo", "The council will publish an update.", "An update will be published."]] }, { title: "Words that must not be confused", headers: ["Word", "Meaning", "Example"], rows: [["steal + thing", "levar algo", "A bicycle was stolen."], ["rob + person/place", "roubar alguém ou um local", "The store was robbed."], ["arrested", "detido pela polícia", "A person was arrested."], ["charged / convicted", "acusado formalmente / considerado culpado", "The suspect was charged, but has not been convicted."]] }],
+                notes: ["Theft é o termo geral; robbery normalmente envolve força ou ameaça; burglary envolve entrada ilegal em um imóvel.", "Shoplifting acontece em loja; pickpocketing retira algo de bolso ou bolsa; fraud usa engano para obter dinheiro ou informação.", "Arrested não significa convicted. Procedimentos e termos legais variam por país, então um resumo responsável não apresenta suspeita como culpa."]
+            });
+
+            Object.assign(slide("practice"), {
+                title: "Newsroom Language Lab",
+                intro: "Aplique a voz passiva a diferentes tipos de notícia. Nos itens de crime, escolha também o termo mais preciso.",
+                items: [q("complete", "Two bicycles ____ from outside the station last night.", "foram furtadas", "were stolen"), q("choose", "A person used a threat to take money from a cashier. Choose the precise noun.", "força ou ameaça", "robbery", ["burglary", "robbery", "shoplifting"]), q("choose", "Someone entered an empty house illegally and took a computer.", "entrada em imóvel", "burglary", ["pickpocketing", "burglary", "fraud"]), q("complete", "The security footage ____ now.", "está sendo examinada", "is being examined"), q("error", "The store was stole on Tuesday.", "rob + place / participle", "The store was robbed on Tuesday."), q("choose", "Choose the best sentence when the agent is unknown.", "foco no resultado", "The window was broken during the night.", ["Someone broke the window during the night.", "The window was broken during the night."]), q("transform", "The city checks the water every week.", "use passive", "The water is checked every week."), q("reorder", "restored / was / before noon / the power", "passiva no passado", "The power was restored before noon."), q("complete", "Three bus services ____ because of the storm yesterday.", "foram cancelados", "were cancelled"), q("complete", "A final decision ____ next week.", "será anunciada", "will be announced")]
+            });
+
+            Object.assign(slide("translation"), {
+                title: "Oral Translation: Factual Reporting",
+                items: [tr("Dois celulares foram furtados no ônibus.", "Two phones were stolen on the bus."), tr("A loja foi roubada, mas ninguém ficou ferido.", "The store was robbed, but nobody was hurt."), tr("A casa estava vazia durante a invasão.", "The house was empty during the burglary."), tr("A fraude online está sendo investigada.", "The online fraud is being investigated."), tr("A ponte está sendo inspecionada.", "The bridge is being inspected."), tr("Três serviços foram cancelados ontem.", "Three services were cancelled yesterday."), tr("Os ingressos são verificados na entrada.", "Tickets are checked at the entrance."), tr("Uma atualização será publicada amanhã.", "An update will be published tomorrow.")]
+            });
+
+            Object.assign(slide("languageBank"), {
+                title: "Useful Language for Factual Reports",
+                intro: "Estas combinações servem para notícias de segurança, transporte, serviços e acontecimentos comunitários.",
+                items: [["according to", "de acordo com", "According to the council, repairs begin tomorrow."], ["take place", "acontecer", "The incident took place near the station."], ["be caught on camera", "ser registrado pela câmera", "The event was caught on camera."], ["be under investigation", "estar sob investigação", "The cause is still under investigation."], ["as a result", "como resultado", "The road closed; as a result, buses were diverted."], ["no further action", "nenhuma medida adicional", "No further action is required."]].map(([term, meaning, example]) => ({ term, meaning, example }))
+            });
+
+            Object.assign(slide("dialogues"), {
+                title: "Four Factual Mini Dialogues",
+                intro: "O professor lê os papéis e o aluno identifica o fato confirmado, o status e a informação que ainda falta.",
+                dialogues: [dialogue("A crowded platform", "A traveler reports a missing wallet.", [["Traveler", "My wallet was taken while I was boarding the train."], ["Officer", "Did anyone threaten or touch you?"], ["Traveler", "No. I only noticed it after the doors closed."], ["Officer", "It may be pickpocketing. Let us record the details."], ["Traveler", "Will the platform cameras be checked?"], ["Officer", "Yes, the footage will be reviewed."]]), dialogue("After closing time", "A café owner calls about an illegal entry.", [["Owner", "Someone broke into the café last night."], ["Officer", "How did the person enter?"], ["Owner", "A back window was forced open, and a laptop was stolen."], ["Officer", "Then the incident will be recorded as a burglary."]]), dialogue("A changed bus stop", "A commuter asks about a public notice.", [["Commuter", "Why has the stop been moved?"], ["Driver", "The road is being repaired this week."], ["Commuter", "Where are passengers being directed?"], ["Driver", "To the next corner, opposite the pharmacy."]]), dialogue("Water in the building", "Residents discuss a maintenance update.", [["Resident A", "Was the water turned off this morning?"], ["Resident B", "Yes. A leak was found on the second floor."], ["Resident A", "Has it been repaired?"], ["Resident B", "Yes, and water is being restored now."], ["Resident A", "Do we need to do anything?"], ["Resident B", "No further action is required."]])]
+            });
+
+            Object.assign(slide("reading"), {
+                title: "One Headline, Six Different Crimes",
+                genre: "Language and media explainer",
+                paragraphs: ["News reports sometimes use theft and robbery as if they mean exactly the same thing, but the distinction can change the reader's understanding. Theft is the general act of taking something without permission. Robbery normally involves force or a threat against a person. A phone can be stolen, while a person or a store can be robbed.", "The location and method create more precise terms. Burglary usually involves entering a building illegally in order to commit a crime. Shoplifting means taking goods from a store without paying. Pickpocketing happens when something is removed from a pocket or bag, often without the victim noticing. Fraud is different because money, access, or information is obtained through deception.", "Legal-process words also need care. A person who is arrested has been taken into police custody. A person who is charged has been formally accused. A person is convicted only after being found guilty. These stages are not interchangeable, and the exact procedure varies between legal systems.", "A responsible news summary therefore answers four questions: What was reported? Which details were confirmed? What is being investigated? What happens next? Precise vocabulary makes the report clearer, while cautious wording protects the difference between evidence and assumption."],
+                vocabulary: [["without permission", "sem permissão"], ["threat", "ameaça"], ["deception", "engano"], ["custody", "custódia"], ["formally accused", "formalmente acusado"]],
+                questions: [rq("What usually distinguishes robbery from general theft?", "Robbery normally involves force or a threat."), rq("How are burglary and shoplifting different?", "Burglary involves illegal entry into a building; shoplifting is taking goods from a store without paying."), rq("Does arrested mean convicted?", "No. Arrest, charge and conviction are different stages."), rq("Which four questions should a responsible summary answer?", "What was reported, what was confirmed, what is being investigated and what happens next.")]
+            });
+
+            Object.assign(slide("teacherListening"), {
+                title: "Teacher Listening: Museum Shop Brief",
+                setup: "O professor lê duas vezes. Na primeira, o aluno identifica o tipo de crime; na segunda, separa fato confirmado, evidência e próximo passo.",
+                script: "Three souvenir watches were taken from the museum shop shortly before five yesterday afternoon. No staff member was threatened, so the incident is being treated as shoplifting rather than robbery. A person was recorded placing the watches in a bag, but no identity has been confirmed. The footage has been given to the police, and two witnesses will be interviewed today. The shop has reopened, and its display layout is being reviewed.",
+                questions: [rq("Which type of crime is being reported?", "Shoplifting."), rq("Why is it not being described as robbery?", "Because no staff member was threatened."), rq("Has a person been identified?", "No identity has been confirmed."), rq("Which two actions are happening next?", "Witnesses will be interviewed, and the display layout is being reviewed.")]
+            });
+
+            const translationSlides = slides("translation");
+            Object.assign(translationSlides[1], {
+                title: "Oral Translation: Newsroom Expressions",
+                items: [tr("De acordo com a prefeitura, os reparos começam amanhã.", "According to the council, repairs begin tomorrow."), tr("O incidente aconteceu perto da estação.", "The incident took place near the station."), tr("O acontecimento foi registrado pela câmera.", "The event was caught on camera."), tr("A causa ainda está sob investigação.", "The cause is still under investigation."), tr("Como resultado, os ônibus foram desviados.", "As a result, the buses were diverted."), tr("Nenhuma medida adicional é necessária.", "No further action is required.")]
+            });
+
+            Object.assign(slide("speaking"), {
+                title: "The Responsible News Desk",
+                scenario: "O aluno recebe notas de três acontecimentos fictícios e apresenta boletins sem acrescentar causas, agentes ou conclusões que não tenham sido confirmados.",
+                languageBank: ["was/were reported", "is being...", "according to...", "as a result...", "is under investigation", "will be reviewed"],
+                rounds: ["Classifique três situações de crime usando o vocabulário preciso.", "Transforme notas sobre transporte ou manutenção em um boletim de 45–60 segundos com pelo menos quatro passivas.", "Responda a perguntas distinguindo informação confirmada, possível e desconhecida."],
+                teacherFocus: "Observe precisão lexical, construção da passiva e linguagem cautelosa; arrested, charged e convicted não devem ser tratados como sinônimos."
+            });
+
+            Object.assign(slide("music"), {
+                focus: "Relacione fato, atualização e relato responsável. O texto abaixo é apenas um placeholder autoral para a futura atividade musical.",
+                lines: [["The morning road was closed before the first bus ", "came", ","], ["an update was announced, but no one knew the ", "cause", "."], ["The work is being checked and every change is ", "shared", ","], ["so people know what happened and how the problem is being ", "repaired", "."]],
+                discussion: ["Which passive forms appear?", "Which line describes an action in progress?", "What information would a reporter still need?"]
+            });
+
+            Object.assign(slide("homework"), {
+                title: "Homework: A Precise Crime Brief",
+                deliverable: "Escreva um boletim fictício de 160–190 palavras com título, classificação do incidente, quatro fatos confirmados, status atual e próximo passo.",
+                options: [homeworkOption("Museum shop", "Report shoplifting recorded by a camera without identifying a person as guilty."), homeworkOption("Transport update", "Report a closure, affected services, alternative route and expected reopening."), homeworkOption("Building maintenance", "Report a leak, safety response, repair status and next update.")],
+                checklist: ["Usei o termo de crime adequado.", "Usei voz passiva em pelo menos quatro frases.", "Não tratei suspeita, detenção ou acusação como condenação.", "Separei fato confirmado, investigação e próximo passo."]
+            });
+        }
+    }
+
     window.B1_V3_LESSONS.push(createReviewLesson({
         number: 16,
         unit: "Block 2: Clear Communication",
@@ -96,7 +191,6 @@
         listening: { title: "Studio 3: Notice to Summary", setup: "O professor lê o aviso duas vezes. O aluno produz um resumo de três frases: mudança, regra e alternativa.", script: "From next Monday, the west entrance of Brook Hall will be closed while new doors are installed. Visitors who use wheelchairs or pushchairs should enter through the garden gate, where a temporary ramp has been built. Deliveries must be made before nine, and drivers are not allowed to wait in the garden. The work is expected to be completed by Friday afternoon.", questions: [rq("Why will the west entrance close?", "New doors are being installed."), rq("Who should use the garden gate?", "Visitors using wheelchairs or pushchairs."), rq("What two rules apply to deliveries?", "They must arrive before nine and drivers may not wait in the garden."), rq("When should the work finish?", "By Friday afternoon.")] },
         translation: { title: "Studio 4: Precision Relay", items: [tr("Na minha opinião, o benefício justifica o custo.", "In my opinion, the benefit justifies the cost."), tr("Entendo seu ponto, mas você poderia dar um exemplo?", "I see your point, but could you give an example?"), tr("Que tal reduzirmos a lista para duas opções?", "How about narrowing the list down to two options?"), tr("O plano anual é muito mais barato, mas não é tão flexível.", "The annual plan is much cheaper, but it isn't as flexible."), tr("Os visitantes não precisam reservar, mas não podem bloquear a entrada.", "Visitors don't have to book, but they mustn't block the entrance."), tr("A pessoa que administra o espaço mora aqui perto.", "The person who manages the space lives nearby."), tr("O café, que abre aos domingos, é conhecido pelo pão.", "The café, which opens on Sundays, is known for its bread."), tr("A ponte foi fechada e os ônibus estão sendo desviados.", "The bridge was closed, and buses are being diverted."), tr("De acordo com o aviso, o trabalho terminará na sexta-feira.", "According to the notice, the work will be completed on Friday."), tr("Considerando tudo, essa parece ser uma solução razoável.", "All things considered, this seems like a reasonable solution.")] },
         speaking: { title: "Community Decision Panel", scenario: "O aluno analisa uma proposta local, esclarece dados, negocia duas mudanças e apresenta o resumo final como anúncio.", languageBank: ["The main reason is...", "Do you mean...?", "How about...?", "Residents are allowed to...", "A final decision was made..."], rounds: ["Peça esclarecimentos sobre custo, regras e usuários.", "Compare propostas e negocie um ajuste.", "Apresente a decisão em um boletim factual de 45 segundos."], teacherFocus: "Avalie a coerência entre interação, decisão e resumo, além da precisão das estruturas-alvo." },
-        assessment: { title: "Block 2 Can-Do Check", intro: "Registre o desempenho em funções comunicativas, não apenas em frases isoladas.", criteria: [{ name: "Reasoned opinion", descriptor: "Apresenta posição, motivo, evidência e contraste." }, { name: "Interaction", descriptor: "Esclarece, discorda com respeito e negocia solução." }, { name: "Precision", descriptor: "Compara, explica regras e usa relative clauses com clareza." }, { name: "Factual reporting", descriptor: "Resume acontecimentos com voz passiva e informação verificável." }] },
         homework: { title: "Homework: Communication Portfolio", deliverable: "Escolha um produto de 180–210 palavras que combine pelo menos cinco conteúdos do bloco.", options: [homeworkOption("Proposal and public notice", "Argue for a change, negotiate one adjustment and write the final rules."), homeworkOption("Consumer decision", "Compare options, clarify priorities and present a justified recommendation."), homeworkOption("Local news package", "Write a factual report plus a short resident reaction and suggested solution.")], checklist: ["Integrei conteúdo sem copiar frases da aula.", "A progressão entre ideias está clara.", "Usei estruturas adequadas à função.", "Revisei tom, referência e fatos."] }
     }));
 

@@ -31,13 +31,13 @@ const DEFAULT_PLAN_BY_PRODUCT = {
     planId: 'pro',
     studentLimit: 40,
     billingCycle: 'monthly',
-    accessibleProducts: ['conversation', 'a1', 'a2', 'prepb1', 'b1', 'business', 'vestibular', 'essentials']
+    accessibleProducts: ['conversation', 'a1', 'a1-v2', 'a1-v3', 'a2', 'a2-v2', 'a2-v3', 'prepb1', 'b1', 'b1-v2', 'b1-v3', 'business', 'vestibular', 'essentials']
   },
   scale: {
     planId: 'scale',
     studentLimit: null,
     billingCycle: 'monthly',
-    accessibleProducts: ['conversation', 'a1', 'a2', 'prepb1', 'b1', 'business', 'vestibular', 'essentials', 'b2', 'c1', 'c2']
+    accessibleProducts: ['conversation', 'a1', 'a1-v2', 'a1-v3', 'a2', 'a2-v2', 'a2-v3', 'prepb1', 'b1', 'b1-v2', 'b1-v3', 'business', 'vestibular', 'essentials', 'b2', 'c1', 'c2']
   }
 };
 

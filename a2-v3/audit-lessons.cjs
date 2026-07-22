@@ -206,7 +206,11 @@ for (let number = 1; number <= 32; number += 1) {
         remember('dialogue', dialogue.flat().join(' '), number);
     }
 
-    const readingWords = String(bank.reading || '').trim().split(/\s+/).filter(Boolean).length;
+    const readingProfileText = Array.isArray(bank.readingProfiles)
+        ? bank.readingProfiles.flatMap(profile => Object.values(profile || {})).join(' ')
+        : '';
+    const readingContent = `${bank.reading || ''} ${readingProfileText}`.trim();
+    const readingWords = readingContent.split(/\s+/).filter(Boolean).length;
     if (readingWords < 100) fail(`Lesson ${number}: reading has only ${readingWords} words.`);
     if (!Array.isArray(bank.readingQuestions) || bank.readingQuestions.length !== 4) {
         fail(`Lesson ${number}: reading must have exactly 4 questions.`);
@@ -217,7 +221,7 @@ for (let number = 1; number <= 32; number += 1) {
             fail(`Lesson ${number}: reading contains a forbidden abstract/personal question.`);
         }
     }
-    remember('reading', bank.reading, number);
+    remember('reading', readingContent, number);
 
     const grammarTable = api.getGrammarTable(data.title, bank);
     if (!grammarTable || !Array.isArray(grammarTable.rows) || grammarTable.rows.length < 4) {

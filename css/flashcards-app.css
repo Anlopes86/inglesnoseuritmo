@@ -185,18 +185,16 @@ summary:focus-visible {
 }
 
 .menu-main {
-    padding: 3.5rem 0 calc(5rem + env(safe-area-inset-bottom, 0px));
+    padding: 1.35rem 0 calc(3rem + env(safe-area-inset-bottom, 0px));
 }
 
 .menu-hero {
     position: relative;
     overflow: hidden;
-    display: grid;
-    grid-template-columns: minmax(0, 1.3fr) minmax(340px, 0.7fr);
-    gap: 2rem;
+    display: block;
     border: 1px solid var(--flash-line);
-    border-radius: 32px;
-    padding: clamp(1.5rem, 4vw, 3.25rem);
+    border-radius: 24px;
+    padding: 1rem 1.35rem;
     background:
         linear-gradient(135deg, rgba(30, 64, 175, 0.32), transparent 55%),
         rgba(15, 25, 43, 0.88);
@@ -216,43 +214,34 @@ summary:focus-visible {
     pointer-events: none;
 }
 
-.eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #fde68a;
-    font-size: 0.72rem;
-    font-weight: 900;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
 }
 
 .hero-title {
-    max-width: 760px;
-    margin: 1rem 0 0;
+    max-width: none;
+    margin: 0;
     font-family: "Sora", sans-serif;
-    font-size: clamp(2.35rem, 5vw, 4.7rem);
-    line-height: 1.02;
-    letter-spacing: -0.055em;
+    font-size: clamp(1.75rem, 3vw, 2.85rem);
+    line-height: 1.05;
+    letter-spacing: -0.05em;
 }
 
 .hero-title span {
     color: var(--flash-yellow);
 }
 
-.hero-copy {
-    max-width: 700px;
-    margin: 1.25rem 0 0;
-    color: var(--flash-muted-strong);
-    font-size: clamp(1rem, 1.8vw, 1.16rem);
-    line-height: 1.7;
-}
-
 .hero-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 0.8rem;
-    margin-top: 1.7rem;
+    margin-top: 0.9rem;
 }
 
 .flash-button {
@@ -289,30 +278,29 @@ summary:focus-visible {
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.8rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.55rem;
 }
 
 .hero-stat {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+    display: block;
     border: 1px solid var(--flash-line);
-    border-radius: 20px;
-    padding: 1rem 1.1rem;
+    border-radius: 16px;
+    padding: 0.75rem 0.8rem;
     background: rgba(8, 17, 31, 0.56);
 }
 
 .hero-stat-label {
     color: var(--flash-muted);
-    font-size: 0.76rem;
+    font-size: 0.65rem;
     font-weight: 800;
 }
 
 .hero-stat-value {
+    display: block;
+    margin-top: 0.25rem;
     font-family: "Sora", sans-serif;
-    font-size: 1.7rem;
+    font-size: 1.35rem;
     font-weight: 800;
 }
 
@@ -321,13 +309,26 @@ summary:focus-visible {
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    margin: 2.6rem 0 1.25rem;
+    margin: 1.15rem 0 0.85rem;
+}
+
+.review-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.65rem;
+    flex: 1 1 auto;
+}
+
+.review-controls > .flash-button {
+    min-height: 52px;
+    flex: 0 0 auto;
 }
 
 .section-heading {
     margin: 0;
     font-family: "Sora", sans-serif;
-    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-size: clamp(1.15rem, 2.4vw, 1.55rem);
     letter-spacing: -0.035em;
 }
 
@@ -373,17 +374,17 @@ summary:focus-visible {
 
 .deck-card {
     --deck-accent: var(--flash-yellow);
-    min-height: 180px;
+    min-height: 148px;
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 1.2rem;
+    gap: 0.85rem;
     border: 1px solid var(--flash-line);
-    border-radius: 24px;
-    padding: 1.25rem;
+    border-radius: 20px;
+    padding: 1rem;
     background: linear-gradient(145deg, rgba(30, 43, 66, 0.96), rgba(19, 30, 49, 0.96));
     color: var(--flash-text);
     text-align: left;
@@ -426,14 +427,14 @@ summary:focus-visible {
 }
 
 .deck-icon {
-    width: 48px;
-    height: 48px;
+    width: 42px;
+    height: 42px;
     display: grid;
     place-items: center;
-    border-radius: 16px;
+    border-radius: 14px;
     background: color-mix(in srgb, var(--deck-accent) 13%, transparent);
     color: var(--deck-accent);
-    font-size: 1.2rem;
+    font-size: 1.05rem;
 }
 
 .deck-arrow {
@@ -1077,10 +1078,6 @@ summary:focus-visible {
 }
 
 @media (max-width: 960px) {
-    .menu-hero {
-        grid-template-columns: 1fr;
-    }
-
     .hero-stats {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -1169,26 +1166,30 @@ summary:focus-visible {
     }
 
     .menu-main {
-        padding: 1rem 0 3rem;
+        padding: 0.75rem 0 2rem;
     }
 
     .menu-hero {
-        gap: 1.4rem;
-        border-radius: 24px;
-        padding: 1.35rem;
+        gap: 0.85rem;
+        border-radius: 20px;
+        padding: 1rem;
     }
 
     .hero-title {
-        font-size: clamp(2.15rem, 12vw, 3.2rem);
-    }
-
-    .hero-copy {
-        font-size: 0.94rem;
+        font-size: clamp(1.72rem, 8.8vw, 2.35rem);
     }
 
     .hero-actions {
-        display: grid;
-        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+    }
+
+    .hero-actions .flash-button {
+        min-height: 44px;
+        flex: 1 1 145px;
+        padding: 0.65rem 0.75rem;
+        border-radius: 14px;
+        font-size: 0.76rem;
     }
 
     .hero-stats {
@@ -1197,7 +1198,7 @@ summary:focus-visible {
     }
 
     .hero-stat {
-        padding: 0.8rem 0.65rem;
+        padding: 0.58rem 0.5rem;
     }
 
     .hero-stat-label {
@@ -1205,13 +1206,25 @@ summary:focus-visible {
     }
 
     .hero-stat-value {
-        font-size: 1.3rem;
+        margin-top: 0.15rem;
+        font-size: 1.15rem;
     }
 
     .study-preferences {
         align-items: stretch;
         flex-direction: column;
-        margin-top: 2rem;
+        gap: 0.65rem;
+        margin: 0.85rem 0 0.7rem;
+    }
+
+    .review-controls {
+        width: 100%;
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .review-controls > .flash-button {
+        width: 100%;
     }
 
     .mode-switch {
@@ -1219,11 +1232,44 @@ summary:focus-visible {
     }
 
     .deck-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.65rem;
     }
 
     .deck-card {
-        min-height: 150px;
+        min-height: 132px;
+        gap: 0.65rem;
+        border-radius: 18px;
+        padding: 0.8rem;
+    }
+
+    .deck-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        font-size: 0.95rem;
+    }
+
+    .deck-name {
+        font-size: 0.88rem;
+        line-height: 1.18;
+    }
+
+    .deck-description {
+        display: none;
+    }
+
+    .deck-card-footer {
+        align-items: flex-end;
+        gap: 0.3rem;
+    }
+
+    .deck-meta {
+        font-size: 0.6rem;
+    }
+
+    .deck-card-footer .deck-meta:last-child {
+        display: none;
     }
 
     .study-topbar-row {

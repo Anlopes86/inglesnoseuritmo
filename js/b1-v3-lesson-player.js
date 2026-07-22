@@ -105,6 +105,7 @@ function renderSlide(slide, lesson, slideIndex) {
         opening: renderOpeningSlide,
         vocabulary: renderVocabularySlide,
         grammar: renderGrammarSlide,
+        reviewGame: renderReviewGameSlide,
         languageBank: renderLanguageBankSlide,
         practice: renderPracticeSlide,
         dialogues: renderDialoguesSlide,
@@ -251,7 +252,53 @@ function renderGrammarSlide(slide, lesson, slideIndex) {
                 </div>
             ` : ''}
         </div>
-    `);
+    `, [8, 16, 24, 32].includes(lesson.number) ? 'review-grammar-slide' : '');
+}
+
+function b1MemoryPairs(lessonNumber, fallbackPairs) {
+    const curated = {
+        8: [
+            ['Have you ever been to Hillford?', 'Yes, I went there last May.'],
+            ['What were you doing when the train was cancelled?', 'I was waiting on platform three.'],
+            ['Are you used to changing plans quickly?', "I'm getting better at it."],
+            ['What had happened before you arrived?', 'My friends had moved lunch to a later time.'],
+            ['What are you doing next month?', "We're going back to Hillford."],
+            ['What will you do if tickets are available?', "We'll book the early train."]
+        ],
+        32: [
+            ['The main issue is...', '...that the current process causes delays.'],
+            ['According to the survey...', '...most users prefer a simpler form.'],
+            ['You may be concerned that...', '...the trial will cost too much.'],
+            ['The result can be measured...', '...by comparing cancellation rates.'],
+            ['If the trial works...', '...we can expand it next month.'],
+            ['To sum up...', '...I recommend a four-week pilot.']
+        ]
+    }[lessonNumber];
+    if (!curated) return fallbackPairs;
+    return curated.map(([cue, answer], index) => ({ id: String(index), cue, answer }));
+}
+
+function renderReviewGameSlide(slide, lesson, slideIndex) {
+    const items = Array.isArray(slide.items) ? slide.items : [];
+    const pairs = items.map((item, index) => ({ id: String(index), cue: `${getPracticeKindMeta(item.kind).label}: ${item.prompt}`, answer: item.answer }));
+    let gameBody = '';
+
+    if (slide.game === 'memory') {
+        const memoryPairs = b1MemoryPairs(lesson.number, pairs);
+        const cards = memoryPairs.map(pair => ({ ...pair, copy: pair.cue })).concat([...memoryPairs].reverse().map(pair => ({ ...pair, copy: pair.answer })));
+        gameBody = `<div class="v3-review-game" data-v3-memory-board><div class="v3-review-game-head"><div><strong>Memory Challenge</strong><span>Forme a pergunta com sua resposta ou complete a linha de raciocínio.</span></div><i class="fas fa-clone"></i></div><div class="v3-memory-grid">${cards.map(card => `<button type="button" class="v3-memory-card" data-v3-memory-card data-pair-id="${escapeAttribute(card.id)}"><span class="v3-memory-cover"><i class="fas fa-question"></i></span><span class="v3-memory-copy">${escapeHtml(card.copy)}</span></button>`).join('')}</div><p class="v3-review-feedback" data-v3-game-feedback>Vire duas cartas por vez. Ao acertar, produza uma continuação própria.</p></div>`;
+    } else if (slide.game === 'matching') {
+        gameBody = `<div class="v3-review-game" data-v3-match-board><div class="v3-review-game-head"><div><strong>Match the Ideas</strong><span>Ligue cada desafio à solução e justifique a forma escolhida.</span></div><i class="fas fa-link"></i></div><div class="v3-match-grid"><div class="v3-match-column">${pairs.map(pair => `<button type="button" class="v3-match-option" data-v3-match-option data-side="left" data-pair-id="${escapeAttribute(pair.id)}">${escapeHtml(pair.cue)}</button>`).join('')}</div><div class="v3-match-column">${[...pairs].reverse().map(pair => `<button type="button" class="v3-match-option" data-v3-match-option data-side="right" data-pair-id="${escapeAttribute(pair.id)}">${escapeHtml(pair.answer)}</button>`).join('')}</div></div><p class="v3-review-feedback" data-v3-game-feedback>Comece por qualquer coluna.</p></div>`;
+    } else if (slide.game === 'hangman') {
+        gameBody = `<div class="v3-review-game"><div class="v3-review-game-head"><div><strong>Grammar Hangman</strong><span>Descubra a resposta a partir da pista e do contexto.</span></div><i class="fas fa-spell-check"></i></div><div class="v3-hangman-list">${pairs.map(pair => `<article class="v3-hangman-round" data-v3-hangman data-answer="${escapeAttribute(pair.answer)}"><p class="v3-hangman-hint">${escapeHtml(pair.cue)}</p><div class="v3-hangman-mask" data-v3-hangman-mask>${escapeHtml([...String(pair.answer)].map(character => /[a-z]/i.test(character) ? '_' : character).join(' '))}</div><div class="v3-game-actions"><button type="button" class="v3-game-action" data-v3-hangman-action="letter">Revelar letra</button><button type="button" class="v3-game-action" data-v3-hangman-action="answer">Mostrar resposta</button></div></article>`).join('')}</div></div>`;
+    } else {
+        gameBody = `<div class="v3-review-game"><div class="v3-review-game-head"><div><strong>Sentence Builder</strong><span>Reconstrua a resposta e depois crie uma versão mais pessoal.</span></div><i class="fas fa-cubes"></i></div><div class="v3-hangman-list">${pairs.map(pair => {
+            const words = String(pair.answer).replace(/[?.!,]/g, '').split(/\s+/).filter(Boolean).reverse();
+            return `<article class="v3-builder-round" data-v3-builder data-words=""><p class="v3-hangman-hint">${escapeHtml(pair.cue)}</p><div class="v3-builder-output" data-v3-builder-output>Monte a frase aqui.</div><div class="v3-builder-bank">${words.map(word => `<button type="button" class="v3-word-chip" data-v3-word-chip data-word="${escapeAttribute(word)}">${escapeHtml(word)}</button>`).join('')}</div><div class="v3-game-actions"><button type="button" class="v3-game-action" data-v3-builder-reset>Recomeçar</button></div></article>`;
+        }).join('')}</div></div>`;
+    }
+
+    return slideSection(slide, slideIndex, `<div class="lesson-stage">${renderSlideHeading('fa-gamepad', 'Interactive review', slide.title, slide.intro)}<div class="mt-7">${gameBody}</div><div class="prep-note-band mt-6"><div class="prep-note-item"><i class="fas fa-microphone"></i><span>Depois do jogo, escolha dois itens e produza respostas novas sem repetir o modelo.</span></div></div></div>`, 'review-game-slide');
 }
 
 function renderLanguageBankSlide(slide, lesson, slideIndex) {
@@ -541,6 +588,33 @@ function renderSpeakingSlide(slide, lesson, slideIndex) {
     `);
 }
 
+function renderLyricPlaceholder() {
+    return `<div class="v3-lyric-placeholder">
+        <div class="v3-lyric-placeholder-head"><strong>Letra com lacunas</strong><span>Texto musical fictício para preservar o layout até a inserção do conteúdo autorizado.</span></div>
+        <div class="v3-lyric-copy">
+            <p class="v3-lyric-stanza">
+                <span class="v3-lyric-line">I wake to see the <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 1" autocomplete="off" spellcheck="false"> through the window,</span>
+                <span class="v3-lyric-line">A quiet street is waiting down below.</span>
+                <span class="v3-lyric-line">I take a breath and <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 2" autocomplete="off" spellcheck="false"> the open doorway,</span>
+                <span class="v3-lyric-line">Not knowing where this winding road will go.</span>
+            </p>
+            <p class="v3-lyric-stanza">
+                <span class="v3-lyric-line">I carry every <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 3" autocomplete="off" spellcheck="false"> that you gave me,</span>
+                <span class="v3-lyric-line">It keeps me moving when the night is long.</span>
+                <span class="v3-lyric-line">And if I lose my <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 4" autocomplete="off" spellcheck="false"> for just a moment,</span>
+                <span class="v3-lyric-line">I close my eyes and listen for our song.</span>
+            </p>
+            <p class="v3-lyric-stanza">
+                <span class="v3-lyric-line">We keep on <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 5" autocomplete="off" spellcheck="false"> toward tomorrow,</span>
+                <span class="v3-lyric-line">With every step, a little more to learn.</span>
+                <span class="v3-lyric-line">Through every change, through every joy and sorrow,</span>
+                <span class="v3-lyric-line">The light we share will always <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 6" autocomplete="off" spellcheck="false">.</span>
+            </p>
+        </div>
+        <p class="v3-copyright-note"><i class="fas fa-shield-halved" aria-hidden="true"></i> Nenhuma letra protegida é distribuída nesta versão.</p>
+    </div>`;
+}
+
 function renderMusicSlide(slide, lesson, slideIndex) {
     const spotifySource = slide.spotifyId
         ? `https://open.spotify.com/embed/track/${encodeURIComponent(slide.spotifyId)}?utm_source=generator`
@@ -564,11 +638,7 @@ function renderMusicSlide(slide, lesson, slideIndex) {
                     ></iframe>
                 </div>
                 <div class="b1-lyric-panel">
-                    <div class="v3-lyric-placeholder">
-                        <div class="v3-lyric-placeholder-head"><strong>Letra com lacunas — modelo editorial</strong><span>Substitua somente os textos entre colchetes pelo trecho autorizado.</span></div>
-                        ${Array.from({ length: 6 }, (_, index) => `<label class="v3-lyric-placeholder-line"><small>${index < 3 ? 'Verse 1' : 'Verse 2'} · linha ${(index % 3) + 1}</small><span>[Cole aqui a linha da música com uma <b>________</b>]</span><input type="text" aria-label="Resposta da lacuna musical ${index + 1}" placeholder="Resposta ouvida"></label>`).join('')}
-                        <p class="v3-copyright-note"><i class="fas fa-shield-halved" aria-hidden="true"></i> Nenhum trecho protegido é distribuído nesta versão.</p>
-                    </div>
+                    ${renderLyricPlaceholder()}
                 </div>
             </div>
         </div>

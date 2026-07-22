@@ -45,24 +45,32 @@
     const releaseModuleHelper = document.getElementById('release-module-helper');
 
     const newPackageBtn = document.getElementById('new-package-btn');
+    const packageControlCard = document.getElementById('package-control-card');
     const newPackageModal = document.getElementById('new-package-modal');
     const newPackageForm = document.getElementById('new-package-form');
     const cancelPackageBtn = document.getElementById('cancel-package-btn');
     const closePackageModalBtn = document.getElementById('close-package-modal-btn');
     const confirmPackageBtn = document.getElementById('confirm-package-btn');
+    const managerPlanChip = document.getElementById('manager-plan-chip');
+    const managerCapacityChip = document.getElementById('manager-capacity-chip');
+    const adminPanelLink = document.getElementById('admin-panel-link');
 
     const modulesData = [
-        { id: 'nivelamento', href: 'nivelamento/licao-01.html', title: 'Teste de Nivelamento', lessons: 0, buttonText: 'Abrir diagnóstico', icon: 'fa-clipboard-check', accent: 'blue', description: 'Diagnóstico CEFR mais encorpado para definir a entrada ideal do aluno.' },
-        { id: 'vestibular', href: 'vestibular/vestibular.html', title: 'Jornada Vestibular', lessons: 16, buttonText: 'Ver trilha', icon: 'fa-school', accent: 'amber', description: 'Leitura, prova, estrat\u00e9gia e revis\u00e3o para vestibular.' },
-        { id: 'business', href: 'business/business.html', title: 'Ingl\u00eas para Neg\u00f3cios', lessons: 8, buttonText: 'Ver trilha', icon: 'fa-briefcase', accent: 'cyan', description: 'Entrevistas, networking, e-mails, reuni\u00f5es e comunica\u00e7\u00e3o profissional.' },
+        { id: 'nivelamento', href: 'nivelamento/licao-01.html', title: 'Teste de Nivelamento', lessons: 0, buttonText: 'Abrir diagnóstico', icon: 'fa-clipboard-check', accent: 'blue', description: 'Diagnóstico escrito de A1 a C1 com recomendação de entrada e confirmação do professor.' },
+        { id: 'vestibular', href: 'vestibular/vestibular.html', title: 'Jornada Vestibular', lessons: 16, buttonText: 'Ver trilha', icon: 'fa-school', accent: 'amber', description: 'Leitura, gram\u00e1tica, estrat\u00e9gia e simulados autorais em 16 aulas.' },
+        { id: 'business', href: 'business/business.html', title: 'Ingl\u00eas para Neg\u00f3cios', lessons: 8, buttonText: 'Ver trilha', icon: 'fa-briefcase', accent: 'cyan', description: 'Prepara\u00e7\u00e3o pr\u00e1tica para entrevistas de emprego em ingl\u00eas.' },
         { id: 'essentials', href: 'essentials/essentials.html', lessons: 16, title: 'English Essentials', buttonText: 'Ver trilha', icon: 'fa-key', accent: 'rose', description: 'Curso enxuto para refor\u00e7ar fundamentos centrais do idioma.' },
         { id: 'conversation', href: 'conversation/conversation.html', title: 'Conversation Club', lessons: 64, buttonText: 'Ver trilha', icon: 'fa-comments', accent: 'violet', description: 'Aulas tem\u00e1ticas para destravar fala, opini\u00e3o e repert\u00f3rio.' },
         { id: 'a1', href: 'a1/a1.html', title: 'M\u00f3dulo A1', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-seedling', accent: 'emerald', description: 'Base da comunica\u00e7\u00e3o, rotina e primeiras trocas sociais.' },
+        { id: 'a1-v2', href: 'a1-v2/a1-v2.html', title: 'M\u00f3dulo A1 V2', lessons: 32, buttonText: 'Testar trilha', icon: 'fa-flask', accent: 'emerald', description: 'Vers\u00e3o paralela do A1 para testes com alunos.', isTestVersion: true },
+        { id: 'a1-v3', href: 'a1-v3/a1-v3.html', title: 'M\u00f3dulo A1 V3', lessons: 32, buttonText: 'Testar trilha', icon: 'fa-flask-vial', accent: 'emerald', description: 'Aulas fechadas de 60 minutos com pr\u00e1tica guiada e revis\u00f5es focadas.', isTestVersion: true },
         { id: 'a2', href: 'a2/a2.html', title: 'M\u00f3dulo A2', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-compass', accent: 'violet', description: 'Mais repert\u00f3rio, compara\u00e7\u00f5es, passado e futuro com clareza.' },
-        { id: 'a2-v2', href: 'a2-v2/a2.html', title: 'M\u00f3dulo A2 V2', lessons: 32, buttonText: 'Testar trilha', icon: 'fa-flask', accent: 'violet', description: 'Vers\u00e3o paralela do A2 com tradu\u00e7\u00e3o PT-EN, fala, listening e gram\u00e1tica mais profunda.' },
+        { id: 'a2-v2', href: 'a2-v2/a2.html', title: 'M\u00f3dulo A2 V2', lessons: 32, buttonText: 'Testar trilha', icon: 'fa-flask', accent: 'violet', description: 'Vers\u00e3o paralela do A2 com tradu\u00e7\u00e3o PT-EN, fala, listening e gram\u00e1tica mais profunda.', isTestVersion: true },
+        { id: 'a2-v3', href: 'a2-v3/a2-v3.html', title: 'M\u00f3dulo A2 V3', lessons: 32, buttonText: 'Testar trilha', icon: 'fa-flask-vial', accent: 'violet', description: 'Sess\u00f5es de 60 minutos com miss\u00f5es comunicativas variadas.', isTestVersion: true },
         { id: 'prepb1', href: 'prepb1/prepb1.html', title: 'Ponte A2-B1', lessons: 8, buttonText: 'Ver trilha', icon: 'fa-arrow-right-arrow-left', accent: 'cyan', description: 'Revis\u00e3o de transi\u00e7\u00e3o com leitura, interpreta\u00e7\u00e3o e conversa\u00e7\u00e3o antes do B1.' },
         { id: 'b1', href: 'b1/b1.html', title: 'M\u00f3dulo B1', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-chart-line', accent: 'rose', description: 'Experi\u00eancias, opini\u00f5es e autonomia comunicativa.' },
-        { id: 'b1-v2', href: 'b1-v2/b1-v2.html', title: 'M\u00f3dulo B1 V2', lessons: 32, buttonText: 'Testar trilha', icon: 'fa-flask', accent: 'rose', description: 'Vers\u00e3o paralela do B1 para testar novas ideias sem alterar a trilha original.' },
+        { id: 'b1-v2', href: 'b1-v2/b1-v2.html', title: 'M\u00f3dulo B1 V2', lessons: 32, buttonText: 'Testar trilha', icon: 'fa-flask', accent: 'rose', description: 'Vers\u00e3o paralela do B1 para testar novas ideias sem alterar a trilha original.', isTestVersion: true },
+        { id: 'b1-v3', href: 'b1-v3/b1-v3.html', title: 'M\u00f3dulo B1 V3', lessons: 32, buttonText: 'Testar trilha', icon: 'fa-flask-vial', accent: 'rose', description: 'Sess\u00f5es B1 de 60 minutos com speaking, listening guiado e avalia\u00e7\u00e3o.', isTestVersion: true },
         { id: 'b2', href: 'b2/b2.html', title: 'M\u00f3dulo B2', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-arrow-trend-up', accent: 'amber', description: 'Argumenta\u00e7\u00e3o, nuance e compreens\u00e3o de temas mais densos.', isComingSoon: true },
         { id: 'c1', href: 'c1/c1.html', title: 'M\u00f3dulo C1', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-trophy', accent: 'cyan', description: 'Comunica\u00e7\u00e3o avan\u00e7ada para contextos sociais e profissionais.', isComingSoon: true },
         { id: 'c2', href: 'c2/c2.html', title: 'M\u00f3dulo C2', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-crown', accent: 'slate', description: 'Refinamento total da express\u00e3o e da compreens\u00e3o.', isComingSoon: true }
@@ -190,29 +198,33 @@
     function isModuleAvailableForContext(moduleId, studentData) {
         if (moduleId === 'nivelamento') return true;
         const source = getModuleAccessSource(studentData);
-        if (moduleId === 'a2-v2') {
-            return Boolean(platformAccess?.canAccessModule(source, 'a2-v2') || platformAccess?.canAccessModule(source, 'a2'));
-        }
-        if (moduleId === 'b1-v2') {
-            return Boolean(platformAccess?.canAccessModule(source, 'b1-v2') || platformAccess?.canAccessModule(source, 'b1'));
-        }
         return Boolean(platformAccess?.canAccessModule(source, moduleId));
     }
 
     function isModuleAssignableByManager(moduleId) {
         if (moduleId === 'nivelamento') return false;
         const source = getModuleAccessSource(null);
-        if (moduleId === 'a2-v2') {
-            return Boolean(platformAccess?.canAccessModule(source, 'a2-v2') || platformAccess?.canAccessModule(source, 'a2'));
-        }
-        if (moduleId === 'b1-v2') {
-            return Boolean(platformAccess?.canAccessModule(source, 'b1-v2') || platformAccess?.canAccessModule(source, 'b1'));
-        }
         return Boolean(platformAccess?.canAccessModule(source, moduleId));
     }
 
     function getModuleRequirementLabel(moduleId) {
         return platformAccess?.getModuleRequirementLabel(moduleId) || 'Pack indisponível';
+    }
+
+    function getConversationLessonLimit(studentData) {
+        const conversationModule = modulesData.find((module) => module.id === 'conversation');
+        const moduleMaximum = Number(conversationModule?.lessons) || 64;
+        const studentLimit = platformAccess?.getLessonLimit
+            ? platformAccess.getLessonLimit(studentData)
+            : Number(studentData?.lessonCount);
+        const managerLimit = platformAccess?.getLessonLimit
+            ? platformAccess.getLessonLimit(currentProfile?.plan || currentProfile?.data)
+            : Number(currentProfile?.plan?.lessonCount);
+        const resolvedLimit = [studentLimit, managerLimit, 16]
+            .map((value) => Number(value))
+            .find((value) => Number.isFinite(value) && value > 0);
+
+        return Math.min(Math.floor(resolvedLimit || 16), moduleMaximum);
     }
 
     function setStudentSummaryPlaceholders() {
@@ -240,101 +252,70 @@
         const primaryModule = hasStudent ? (studentData.studentType || assignedModules[0] || null) : null;
 
         modulesContainer.innerHTML = '';
+        if (!hasStudent) {
+            if (modulesStatus) modulesStatus.textContent = 'Selecione um aluno para ver as trilhas liberadas.';
+            return;
+        }
 
-        modulesData.forEach((module) => {
+        const placementModule = modulesData.find((module) => module.id === 'nivelamento');
+        const visibleModules = [
+            placementModule,
+            ...assignedModules.map((moduleId) => modulesData.find((module) => module.id === moduleId))
+        ]
+            .filter(Boolean)
+            .sort((a, b) => {
+                if (a.id === 'nivelamento') return -1;
+                if (b.id === 'nivelamento') return 1;
+                if (a.id === primaryModule) return -1;
+                if (b.id === primaryModule) return 1;
+                return a.title.localeCompare(b.title);
+            });
+
+        if (!visibleModules.length) {
+            modulesContainer.innerHTML = '<p class="section-copy">Nenhuma trilha foi liberada para este aluno. Use o seletor acima para liberar a primeira.</p>';
+            if (modulesStatus) modulesStatus.textContent = 'Sem módulos liberados.';
+            return;
+        }
+
+        visibleModules.forEach((module) => {
             const accent = accentClasses(module.accent);
-            const isComingSoon = module.isComingSoon === true;
-            const isAssignable = !isComingSoon && isModuleAssignableByManager(module.id);
-            const isAllowed = module.id === 'nivelamento' || (hasStudent ? assignedModules.includes(module.id) : isAssignable);
-            const isAssigned = hasStudent && assignedModules.includes(module.id);
-            const requirementLabel = getModuleRequirementLabel(module.id);
-            const statusLabel = isComingSoon
-                ? 'Em breve'
-                : !isAssignable && module.id !== 'nivelamento'
-                    ? requirementLabel
-                    : hasStudent
-                        ? (isAssigned ? 'Módulo liberado' : 'Disponível no plano')
-                        : 'Visível no seu plano';
-            const openAction = isComingSoon
-                ? `
-                    <button type="button" class="app-button w-full opacity-75 cursor-not-allowed" disabled aria-disabled="true">
-                        <i class="fas fa-hourglass-half"></i>
-                        Em breve
-                    </button>
-                `
-                : hasStudent && !isAssigned && isAssignable && module.id !== 'nivelamento'
-                    ? `
-                        <button type="button" class="app-button w-full opacity-75 cursor-not-allowed" disabled aria-disabled="true">
-                            <i class="fas fa-unlock"></i>
-                            Libere para abrir
-                        </button>
-                    `
-                : !isAllowed
-                    ? `
-                        <button type="button" class="app-button w-full opacity-75 cursor-not-allowed" disabled aria-disabled="true">
-                            <i class="fas fa-lock"></i>
-                            ${requirementLabel}
-                        </button>
-                    `
-                    : !hasStudent
-                        ? `
-                            <button type="button" class="app-button w-full opacity-75 cursor-not-allowed" disabled aria-disabled="true">
-                                <i class="fas fa-user-check"></i>
-                                Selecione um aluno
-                            </button>
-                        `
-                        : `
-                            <a href="${module.href}" class="app-button w-full">
-                                <i class="fas ${module.id === 'nivelamento' ? 'fa-clipboard-check' : 'fa-book-open'}"></i>
-                                Abrir módulo
-                            </a>
-                        `;
-            const managementActions = hasStudent && module.id !== 'nivelamento' && !isComingSoon && isAssignable
-                ? `
-                        <button type="button" class="app-button-secondary w-full ${isAssigned ? 'opacity-80' : ''}" data-assign-module="${module.id}" ${isAssigned ? 'disabled' : ''}>
-                            <i class="fas ${isAssigned ? 'fa-check' : 'fa-plus'}"></i>
-                            ${isAssigned ? 'Módulo liberado' : 'Liberar módulo'}
-                        </button>
-                        ${isAssigned && primaryModule !== module.id
-                            ? `<button type="button" class="app-button-ghost w-full" data-set-primary-module="${module.id}"><i class="fas fa-bullseye"></i> Tornar principal</button>`
-                            : ''}
-                    `
-                : '';
+            const isPrimary = primaryModule === module.id;
+            const isPlacement = module.id === 'nivelamento';
 
             const card = document.createElement('div');
             card.className = 'surface-card module-card p-5';
-            card.dataset.comingSoon = isComingSoon ? 'true' : 'false';
-            card.dataset.lockedByPlan = !isAllowed ? 'true' : 'false';
+            card.dataset.version = module.isTestVersion ? 'test' : 'main';
             card.innerHTML = `
                 <div class="flex items-center justify-between gap-3">
                     <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl ${accent.bg} ${accent.text}">
                         <i class="fas ${module.icon}"></i>
                     </div>
-                    <span class="info-chip ${isComingSoon ? 'bg-slate-100 text-slate-700' : isAllowed ? (isAssigned ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700') : 'bg-amber-100 text-amber-700'}">${statusLabel}</span>
+                    <span class="info-chip ${isPrimary ? 'bg-slate-900 text-white' : 'bg-emerald-100 text-emerald-700'}">${isPlacement ? 'Sempre disponível' : (isPrimary ? 'Trilha principal' : 'Liberado')}</span>
                 </div>
                 <div>
                     <h3 class="text-xl font-extrabold tracking-tight text-slate-950">${module.title}</h3>
                     <p class="section-copy mt-3">${module.description}</p>
-                    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 mt-4">${isAssignable || module.id === 'nivelamento' ? 'Incluído no seu plano' : requirementLabel}</p>
+                    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 mt-4">${isPlacement ? 'Diagnóstico de entrada' : (module.isTestVersion ? 'Progresso independente da versão principal' : 'Trilha ativa do curso')}</p>
                 </div>
                 ${module.id === 'conversation' && hasStudent ? `
-                    <div class="rounded-2xl border border-slate-200 bg-slate-50/80 p-4">
-                        <p class="text-sm font-semibold text-slate-700">Lições liberadas no pacote</p>
-                        <p class="text-2xl font-black tracking-tight text-slate-950 mt-1">${Number(platformAccess?.getLessonLimit ? platformAccess.getLessonLimit(studentData) : studentData.lessonCount || 16)}</p>
+                    <div class="conversation-access-summary" data-conversation-access-summary>
+                        <p class="conversation-access-label">Lições de conversação disponíveis</p>
+                        <p class="conversation-access-count" data-conversation-lesson-limit>${getConversationLessonLimit(studentData)}</p>
                     </div>
                 ` : ''}
                 <div class="mt-auto space-y-3">
-                    ${openAction}
-                    ${managementActions}
+                    <a href="${module.href}" class="app-button w-full">
+                        <i class="fas ${isPlacement ? 'fa-clipboard-check' : 'fa-book-open'}"></i>
+                        ${module.buttonText || 'Abrir módulo'}
+                    </a>
+                    ${!isPlacement && !isPrimary ? `<button type="button" class="app-button-ghost w-full" data-set-primary-module="${module.id}"><i class="fas fa-bullseye"></i> Tornar principal</button>` : ''}
                 </div>
             `;
             modulesContainer.appendChild(card);
         });
 
         if (modulesStatus) {
-            modulesStatus.textContent = hasStudent
-                ? 'Módulos do aluno carregados com as restrições do plano.'
-                : 'Os módulos do seu plano estão sempre visíveis. Selecione um aluno para liberar e acompanhar.';
+            modulesStatus.textContent = `Teste de nivelamento e ${assignedModules.length} ${assignedModules.length === 1 ? 'trilha liberada' : 'trilhas liberadas'}.`;
         }
     }
 
@@ -348,7 +329,7 @@
         releaseModuleBtn.disabled = true;
 
         if (!hasStudent) {
-            if (releaseModuleHelper) releaseModuleHelper.textContent = 'Selecione um aluno para liberar módulos sem iniciar um novo pacote.';
+            if (releaseModuleHelper) releaseModuleHelper.textContent = 'Selecione um aluno para gerenciar as trilhas liberadas.';
             return;
         }
 
@@ -369,7 +350,7 @@
 
         if (releaseModuleHelper) {
             releaseModuleHelper.textContent = availableModules.length
-                ? 'Essa ação libera acesso ao módulo sem iniciar um novo pacote.'
+                ? 'Liberar conteúdo não altera o pacote de horas do aluno.'
                 : 'Todos os módulos disponíveis no seu plano já foram liberados para este aluno.';
         }
     }
@@ -380,13 +361,6 @@
         const validIds = new Set(modulesData.map((module) => module.id).filter((id) => id !== 'nivelamento'));
 
         const assigned = [...new Set([...currentModules, ...fallbackModules])];
-        if (assigned.includes('a2') && !assigned.includes('a2-v2')) {
-            assigned.push('a2-v2');
-        }
-        if (assigned.includes('b1') && !assigned.includes('b1-v2')) {
-            assigned.push('b1-v2');
-        }
-
         return assigned
             .filter((moduleId) => validIds.has(moduleId))
             .filter((moduleId) => isModuleAvailableForContext(moduleId, studentData));
@@ -432,6 +406,15 @@
         const limitReached = platformAccess?.isStudentLimitReached(plan, studentCount);
         const planLabel = plan?.label || 'Starter';
         const limitLabel = platformAccess?.formatStudentLimit(plan?.studentLimit) || '0';
+
+        if (managerPlanChip) {
+            managerPlanChip.classList.remove('hidden');
+            managerPlanChip.querySelector('span').textContent = planLabel;
+        }
+        if (managerCapacityChip) {
+            managerCapacityChip.classList.remove('hidden');
+            managerCapacityChip.querySelector('span').textContent = `${studentCount}/${limitLabel} alunos`;
+        }
 
         if (studentOverviewCopy) {
             studentOverviewCopy.textContent = `Plano ${planLabel}: ${studentCount}/${limitLabel} alunos em uso.`;
@@ -579,6 +562,10 @@
             return;
         }
 
+        if (adminPanelLink) {
+            adminPanelLink.classList.toggle('hidden', !platformAccess.isAdmin(currentProfile));
+        }
+
         try {
             const migratedStudents = platformAccess.isProfessor(currentProfile)
                 ? await platformAccess.maybeMigrateLegacyStudents(db, currentProfile)
@@ -628,11 +615,11 @@
 
     function displayNoStudentSelected() {
         noStudentSelectedDiv.classList.remove('hidden');
-        noStudentSelectedDiv.classList.add('hidden');
-        studentDashboardDiv.classList.remove('hidden');
+        studentDashboardDiv.classList.add('hidden');
         studentActionButtons.classList.add('hidden');
+        if (packageControlCard) packageControlCard.classList.add('hidden');
         setStudentSummaryPlaceholders();
-        renderModuleCards(null, null);
+        if (modulesContainer) modulesContainer.innerHTML = '';
     }
 
     async function displayStudentDashboard(studentId, studentName) {
@@ -654,7 +641,9 @@
         }
 
         studentDashboardDiv.classList.remove('hidden');
+        noStudentSelectedDiv.classList.add('hidden');
         studentActionButtons.classList.remove('hidden');
+        if (packageControlCard) packageControlCard.classList.remove('hidden');
 
         document.getElementById('student-portal-btn').href = `home-aluno.html?studentId=${studentId}`;
         document.getElementById('selected-student-name-header').textContent = studentName;
@@ -859,7 +848,7 @@
             });
             await updatePackageInfo(studentId);
             if (typeof showToast === 'function') {
-                showToast('Carga hor\u00e1ria atualizada com sucesso.', 'success', 'Pacote atualizado');
+                showToast('Hora registrada no pacote do aluno.', 'success', 'Carga horária atualizada');
             }
         } catch (error) {
             console.error('Erro ao atualizar contador:', error);

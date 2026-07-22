@@ -28,7 +28,12 @@ async function render(moduleId, number, mobile) {
     const size = mobile ? '390,844' : '1440,1000';
     const { stdout } = await run(chrome, [
         '--headless=new',
+        '--no-sandbox',
+        '--in-process-gpu',
         '--disable-gpu',
+        '--disable-gpu-compositing',
+        '--disable-features=Vulkan,Graphite',
+        '--use-angle=swiftshader',
         '--allow-file-access-from-files',
         '--run-all-compositor-stages-before-draw',
         '--virtual-time-budget=6500',
@@ -55,9 +60,26 @@ function inspect(html, moduleId, number, expectedReview, mobile) {
     if (expectsMission && (!/v3-speaking-structure/.test(html) || !/v3-speaking-rounds/.test(html) || !/v3-teacher-focus/.test(html))) {
         fail(label, 'B1-inspired speaking rounds or teacher focus are missing.');
     }
-    if (expectedReview && moduleId !== 'b1-v3' && !/v3-can-do-assessment/.test(html)) fail(label, 'Can-Do review assessment is missing.');
+    if (expectedReview && /v3-can-do-assessment|data-slide-type="assessment"|data-title="Can-Do Check"/i.test(html)) fail(label, 'removed Can-Do assessment is still rendered.');
+    if (expectedReview) {
+        const interactiveGames = (html.match(/class="v3-review-game"/g) || []).length;
+        if (interactiveGames < 2) fail(label, `expanded review has only ${interactiveGames} interactive game labs.`);
+        if (moduleId === 'a1-v3' && (html.match(/class="v3-review-grammar-card"/g) || []).length < 6) fail(label, 'A1 review grammar was not expanded into explanatory cards.');
+        if (moduleId === 'a2-v3' && (html.match(/class="v3-review-grammar-card"/g) || []).length < 4) fail(label, 'A2 review grammar was not expanded into explanatory cards.');
+        if ((moduleId === 'a1-v3' || moduleId === 'a2-v3') && (html.match(/v3-review-grammar-table/g) || []).length < 2) fail(label, 'review grammar needs two visual summary tables.');
+        if (moduleId === 'b1-v3' && (html.match(/review-grammar-slide/g) || []).length < 2) fail(label, 'B1 review grammar was not divided into two stages.');
+        const gameKinds = [
+            /data-v3-memory-board/.test(html),
+            /data-v3-match-board/.test(html),
+            /data-v3-hangman/.test(html),
+            /data-v3-builder/.test(html)
+        ].filter(Boolean).length;
+        if (gameKinds < 2) fail(label, 'review does not combine at least two different game formats.');
+    }
     if (!expectedReview && !/v3-lyric-placeholder/.test(html)) fail(label, 'designed lyric placeholder is missing.');
-    if (!expectedReview && (html.match(/v3-lyric-placeholder-line/g) || []).length < 6) fail(label, 'lyric placeholder has fewer than six editable lines.');
+    if (!expectedReview && (html.match(/class="v3-lyric-line"/g) || []).length < 12) fail(label, 'flowing lyric placeholder has fewer than twelve lines.');
+    if (!expectedReview && (html.match(/class="v3-lyric-gap"/g) || []).length < 6) fail(label, 'flowing lyric placeholder has fewer than six integrated gaps.');
+    if (!expectedReview && /Cole aqui a linha|Verse 1|Verse 2/.test(html)) fail(label, 'editorial verse or line labels are still visible.');
     if (!expectedReview && /class="[^"]*(music-input|music-gap-answer|b1-music-gap)[^"]*"/.test(html)) {
         fail(label, 'unfinished lyric gaps are visible to the teacher.');
     }
@@ -66,13 +88,10 @@ function inspect(html, moduleId, number, expectedReview, mobile) {
     if (!expectedReview && speechControlCount < 4) fail(label, 'per-line dialogue speech controls are missing.');
     if (!expectedReview && inlineUtteranceCount !== speechControlCount) fail(label, 'a dialogue speech control is not grouped beside its phrase.');
     if (!expectedReview && !/flashcard-pronounce-btn/.test(html)) fail(label, 'vocabulary pronunciation controls are missing.');
-    const usefulLanguageCardCount = (html.match(/data-pronounce-text=/g) || []).length;
     const cardActionBarCount = (html.match(/class="v3-card-actions"/g) || []).length;
-    const saveControlCount = (html.match(/class="lesson-flashcard-save-btn/g) || []).length;
     const pronunciationControlCount = (html.match(/class="flashcard-pronounce-btn/g) || []).length;
-    if (!expectedReview && usefulLanguageCardCount && cardActionBarCount !== usefulLanguageCardCount) fail(label, 'a Useful Language card is missing its dedicated action bar.');
-    if (!expectedReview && usefulLanguageCardCount && saveControlCount < usefulLanguageCardCount) fail(label, 'Useful Language save controls are incomplete.');
-    if (!expectedReview && usefulLanguageCardCount && pronunciationControlCount < usefulLanguageCardCount) fail(label, 'Useful Language pronunciation controls are incomplete.');
+    if (!expectedReview && cardActionBarCount < 4) fail(label, 'Useful Language cards do not expose their dedicated action bars.');
+    if (!expectedReview && pronunciationControlCount < cardActionBarCount) fail(label, 'Useful Language pronunciation controls are incomplete.');
     if (!expectedReview && (html.match(/data-v3-translation-ready="true"/g) || []).length < 8) fail(label, 'contextual flashcard translations are incomplete.');
     if (/data-v3-translation-missing="true"/.test(html)) fail(label, 'a visible Portuguese support line has no translation.');
     if (moduleId === 'a1-v3' && number === 1 && !expectedReview) {

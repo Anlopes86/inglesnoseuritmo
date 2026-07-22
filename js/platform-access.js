@@ -23,7 +23,7 @@
             label: 'Pack 32',
             studentLimit: 40,
             lessonCount: 32,
-            products: ['conversation', 'a1', 'a2', 'prepb1', 'b1', 'business', 'vestibular', 'essentials'],
+            products: ['conversation', 'a1', 'a1-v2', 'a1-v3', 'a2', 'a2-v2', 'a2-v3', 'prepb1', 'b1', 'b1-v2', 'b1-v3', 'business', 'vestibular', 'essentials'],
             billingCycle: 'monthly'
         },
         scale: {
@@ -31,7 +31,7 @@
             label: 'Pack 48',
             studentLimit: null,
             lessonCount: 48,
-            products: ['conversation', 'a1', 'a2', 'prepb1', 'b1', 'business', 'vestibular', 'essentials', 'b2', 'c1', 'c2'],
+            products: ['conversation', 'a1', 'a1-v2', 'a1-v3', 'a2', 'a2-v2', 'a2-v3', 'prepb1', 'b1', 'b1-v2', 'b1-v3', 'business', 'vestibular', 'essentials', 'b2', 'c1', 'c2'],
             billingCycle: 'monthly'
         },
         admin: {
@@ -129,7 +129,18 @@
         if (!products.length) return false;
         if (products.includes('*')) return true;
 
-        return products.includes(moduleId);
+        if (products.includes(moduleId)) return true;
+
+        const versionBaseMap = {
+            'a1-v2': 'a1',
+            'a1-v3': 'a1',
+            'a2-v2': 'a2',
+            'a2-v3': 'a2',
+            'b1-v2': 'b1',
+            'b1-v3': 'b1'
+        };
+        const baseModule = versionBaseMap[moduleId];
+        return Boolean(baseModule && products.includes(baseModule));
     }
 
     function getModuleRequirementLabel(moduleId) {
@@ -137,10 +148,15 @@
             nivelamento: 'Disponível para todos',
             conversation: 'Pack 16',
             a1: 'Pack 32',
+            'a1-v2': 'Pack 32',
+            'a1-v3': 'Pack 32',
             a2: 'Pack 32',
+            'a2-v2': 'Pack 32',
+            'a2-v3': 'Pack 32',
             prepb1: 'Pack 32',
             b1: 'Pack 32',
             'b1-v2': 'Pack 32',
+            'b1-v3': 'Pack 32',
             business: 'Pack 32',
             essentials: 'Pack 32',
             vestibular: 'Pack 32',
@@ -153,24 +169,36 @@
     }
 
     function getLessonLimit(source) {
-        if (Number.isFinite(source)) {
-            return source;
+        const normalizeLessonCount = (value) => {
+            if (value === null || value === undefined || value === '') return null;
+            const parsedValue = typeof value === 'number' ? value : Number(value);
+            return Number.isFinite(parsedValue) && parsedValue > 0
+                ? Math.floor(parsedValue)
+                : null;
+        };
+
+        const directLimit = normalizeLessonCount(source);
+        if (directLimit !== null) {
+            return directLimit;
         }
 
         const planId = source?.platformPlan || source?.plan?.id;
         if (planId) {
             const plan = getPlanCatalogEntry(planId);
-            if (Number.isFinite(plan.lessonCount)) {
-                return plan.lessonCount;
+            const planLimit = normalizeLessonCount(plan.lessonCount);
+            if (planLimit !== null) {
+                return planLimit;
             }
         }
 
-        if (Number.isFinite(source?.lessonCount)) {
-            return source.lessonCount;
+        const sourceLimit = normalizeLessonCount(source?.lessonCount);
+        if (sourceLimit !== null) {
+            return sourceLimit;
         }
 
-        if (Number.isFinite(source?.plan?.lessonCount)) {
-            return source.plan.lessonCount;
+        const nestedPlanLimit = normalizeLessonCount(source?.plan?.lessonCount);
+        if (nestedPlanLimit !== null) {
+            return nestedPlanLimit;
         }
 
         return null;

@@ -155,6 +155,108 @@
         if (document.body.dataset.v3SpeechWired) return;
         document.body.dataset.v3SpeechWired = 'true';
         document.addEventListener('click', event => {
+            const memoryCard = event.target.closest('[data-v3-memory-card]');
+            if (memoryCard) {
+                const board = memoryCard.closest('[data-v3-memory-board]');
+                if (!board || board.dataset.busy === 'true' || memoryCard.classList.contains('is-matched')) return;
+                const selected = board.querySelector('[data-v3-memory-card].is-selected');
+                if (selected === memoryCard) return;
+                memoryCard.classList.add('is-flipped');
+                if (!selected) {
+                    memoryCard.classList.add('is-selected');
+                    return;
+                }
+                const feedback = board.querySelector('[data-v3-game-feedback]');
+                if (selected.dataset.pairId === memoryCard.dataset.pairId) {
+                    selected.classList.remove('is-selected');
+                    selected.classList.add('is-matched');
+                    memoryCard.classList.add('is-matched');
+                    if (feedback) feedback.textContent = 'Par encontrado. Explique por que as duas cartas combinam.';
+                    return;
+                }
+                board.dataset.busy = 'true';
+                if (feedback) feedback.textContent = 'Ainda não. Observe as duas cartas antes de tentar novamente.';
+                window.setTimeout(() => {
+                    selected.classList.remove('is-selected', 'is-flipped');
+                    memoryCard.classList.remove('is-flipped');
+                    board.dataset.busy = 'false';
+                }, 850);
+                return;
+            }
+
+            const matchOption = event.target.closest('[data-v3-match-option]');
+            if (matchOption) {
+                const board = matchOption.closest('[data-v3-match-board]');
+                if (!board || matchOption.classList.contains('is-matched')) return;
+                const side = matchOption.dataset.side;
+                board.querySelectorAll(`[data-v3-match-option][data-side="${side}"]`).forEach(option => option.classList.remove('is-selected'));
+                matchOption.classList.add('is-selected');
+                const opposite = board.querySelector(`[data-v3-match-option][data-side="${side === 'left' ? 'right' : 'left'}"].is-selected`);
+                if (!opposite) return;
+                const feedback = board.querySelector('[data-v3-game-feedback]');
+                if (opposite.dataset.pairId === matchOption.dataset.pairId) {
+                    opposite.classList.remove('is-selected');
+                    matchOption.classList.remove('is-selected');
+                    opposite.classList.add('is-matched');
+                    matchOption.classList.add('is-matched');
+                    opposite.disabled = true;
+                    matchOption.disabled = true;
+                    if (feedback) feedback.textContent = 'Ligação correta. Leia a combinação completa em voz alta.';
+                } else {
+                    opposite.classList.add('is-wrong');
+                    matchOption.classList.add('is-wrong');
+                    if (feedback) feedback.textContent = 'Essa ligação não funciona. Tente outro par.';
+                    window.setTimeout(() => {
+                        opposite.classList.remove('is-selected', 'is-wrong');
+                        matchOption.classList.remove('is-selected', 'is-wrong');
+                    }, 800);
+                }
+                return;
+            }
+
+            const hangmanAction = event.target.closest('[data-v3-hangman-action]');
+            if (hangmanAction) {
+                const round = hangmanAction.closest('[data-v3-hangman]');
+                const output = round?.querySelector('[data-v3-hangman-mask]');
+                if (!round || !output) return;
+                const answer = round.dataset.answer || '';
+                if (hangmanAction.dataset.v3HangmanAction === 'answer') {
+                    round.dataset.revealed = answer.split('').map((_, index) => index).join(',');
+                    output.textContent = answer;
+                    return;
+                }
+                const revealed = new Set((round.dataset.revealed || '').split(',').filter(Boolean).map(Number));
+                const nextIndex = [...answer].findIndex((character, index) => /[a-z]/i.test(character) && !revealed.has(index));
+                if (nextIndex >= 0) revealed.add(nextIndex);
+                round.dataset.revealed = [...revealed].join(',');
+                output.textContent = [...answer].map((character, index) => /[a-z]/i.test(character) && !revealed.has(index) ? '_' : character).join(' ');
+                return;
+            }
+
+            const wordChip = event.target.closest('[data-v3-word-chip]');
+            if (wordChip) {
+                const round = wordChip.closest('[data-v3-builder]');
+                const output = round?.querySelector('[data-v3-builder-output]');
+                if (!round || !output || wordChip.disabled) return;
+                const words = (round.dataset.words || '').split('\u001f').filter(Boolean);
+                words.push(wordChip.dataset.word || '');
+                round.dataset.words = words.join('\u001f');
+                output.textContent = words.join(' ');
+                wordChip.disabled = true;
+                return;
+            }
+
+            const builderReset = event.target.closest('[data-v3-builder-reset]');
+            if (builderReset) {
+                const round = builderReset.closest('[data-v3-builder]');
+                if (!round) return;
+                round.dataset.words = '';
+                const output = round.querySelector('[data-v3-builder-output]');
+                if (output) output.textContent = 'Monte a frase aqui.';
+                round.querySelectorAll('[data-v3-word-chip]').forEach(button => { button.disabled = false; });
+                return;
+            }
+
             const button = event.target.closest('[data-v3-speak]');
             if (!button) return;
             event.preventDefault();

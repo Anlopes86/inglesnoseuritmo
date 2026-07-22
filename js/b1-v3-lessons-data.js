@@ -132,6 +132,14 @@
     }
 
     function createReviewLesson(spec) {
+        const gamePlan = {
+            8: ['memory', 'builder'],
+            16: ['matching', 'hangman'],
+            24: ['hangman', 'builder'],
+            32: ['memory', 'matching']
+        }[spec.number] || ['memory', 'matching'];
+        const grammarTables = Array.isArray(spec.grammar.tables) ? spec.grammar.tables : [];
+        const grammarNotes = Array.isArray(spec.grammar.notes) ? spec.grammar.notes : [];
         return {
             number: spec.number,
             unit: spec.unit,
@@ -141,14 +149,16 @@
             cefr: spec.cefr,
             slides: [
                 { type: "opening", title: spec.title, objectives: spec.objectives, dialogue: spec.opening },
-                { type: "grammar", title: spec.grammar.title, intro: spec.grammar.intro, tables: spec.grammar.tables, notes: spec.grammar.notes },
+                { type: "grammar", title: `${spec.grammar.title} · Parte 1`, intro: `${spec.grammar.intro} Comece pelo primeiro grupo e peça ao aluno que justifique cada contraste com significado, não apenas com o nome do tempo verbal.`, tables: grammarTables.slice(0, 1), notes: grammarNotes.slice(0, 2) },
+                { type: "reviewGame", title: `Game Lab 1: ${gamePlan[0] === 'memory' ? 'Memory Challenge' : gamePlan[0] === 'matching' ? 'Match the Ideas' : gamePlan[0] === 'hangman' ? 'Grammar Hangman' : 'Sentence Builder'}`, game: gamePlan[0], intro: "Recupere a linguagem sem consultar a tabela. Explique a escolha depois de cada acerto.", items: spec.stationOne.items.slice(0, 6) },
+                { type: "grammar", title: `${spec.grammar.title} · Parte 2`, intro: "Agora compare as funções do segundo grupo, observe os erros previsíveis e produza um exemplo próprio para cada linha.", tables: grammarTables.slice(1), notes: grammarNotes.slice(2).concat(["Antes de avançar, transforme um exemplo em pergunta, negativa ou resposta mais cautelosa."]) },
                 { type: "practice", title: spec.stationOne.title, intro: spec.stationOne.intro, items: spec.stationOne.items },
+                { type: "reviewGame", title: `Game Lab 2: ${gamePlan[1] === 'memory' ? 'Memory Challenge' : gamePlan[1] === 'matching' ? 'Match the Ideas' : gamePlan[1] === 'hangman' ? 'Grammar Hangman' : 'Sentence Builder'}`, game: gamePlan[1], intro: "Resolva em ritmo de jogo e faça uma segunda rodada com exemplos diferentes.", items: spec.stationTwo.items.slice(0, 6) },
                 { type: "practice", title: spec.stationTwo.title, intro: spec.stationTwo.intro, items: spec.stationTwo.items },
                 { type: "reading", title: spec.reading.title, genre: spec.reading.genre, paragraphs: spec.reading.paragraphs, vocabulary: spec.reading.vocabulary, questions: spec.reading.questions },
                 { type: "teacherListening", title: spec.listening.title, setup: spec.listening.setup, script: spec.listening.script, questions: spec.listening.questions },
                 { type: "translation", title: spec.translation.title, items: spec.translation.items },
                 { type: "speaking", label: "Review challenge", title: spec.speaking.title, scenario: spec.speaking.scenario, languageBank: spec.speaking.languageBank, rounds: spec.speaking.rounds, teacherFocus: spec.speaking.teacherFocus },
-                { type: "assessment", title: spec.assessment.title, intro: spec.assessment.intro, criteria: spec.assessment.criteria },
                 { type: "homework", title: spec.homework.title, deliverable: spec.homework.deliverable, options: spec.homework.options, checklist: spec.homework.checklist }
             ]
         };
@@ -334,7 +344,7 @@
         speaking: {
             title: "Build a Defining-Moment Story",
             scenario: "O professor fornece os detalhes gradualmente. O aluno organiza a resposta em experiência, momento específico e resultado atual.",
-            languageBank: ["I have always...", "The change happened when...", "At first...", "Since then...", "Looking back..."],
+            languageBank: ["Have you ever...?", "I've never...", "I have always...", "The change happened when...", "At first...", "Since then...", "Looking back..."],
             rounds: [
                 { title: "The opportunity", prompt: "A new course appeared at the right moment. Explain why the person accepted it.", followUps: ["When did the course begin?", "What was difficult at first?"], model: "I had never studied design before, but I accepted the opportunity last spring because I wanted a new challenge. At first, the software was difficult to use." },
                 { title: "The result", prompt: "Explain two present results of that past decision.", followUps: ["What has improved?", "What has not happened yet?"], model: "Since the course, I have created several projects and become more confident. I haven't changed jobs yet, but I have started building a portfolio." },

@@ -9,6 +9,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
     <link href="../css/app-theme.css" rel="stylesheet">
     <link href="../css/module-hub.css" rel="stylesheet">
+    <style>
+        .review-toolbar { display: grid; gap: 1rem; }
+        .review-search { width: 100%; min-height: 52px; border: 1px solid var(--surface-border); border-radius: 18px; padding: 0.9rem 1rem; background: var(--surface-bg); color: var(--text-main); font: inherit; }
+        .review-search:focus { outline: 3px solid rgba(225, 29, 72, 0.14); border-color: rgba(225, 29, 72, 0.48); }
+        .review-filters { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+        .review-filter { border: 1px solid var(--surface-border); border-radius: 999px; padding: 0.62rem 0.9rem; background: var(--surface-bg); color: var(--text-main); font-weight: 800; font-size: 0.82rem; cursor: pointer; }
+        .review-filter[aria-pressed="true"] { border-color: transparent; background: #be123c; color: white; }
+        .lesson-summary { color: var(--text-soft); font-size: 0.9rem; line-height: 1.55; }
+        .lesson-level { display: inline-flex; align-items: center; border-radius: 999px; padding: 0.28rem 0.55rem; background: rgba(225, 29, 72, 0.1); color: #be123c; font-size: 0.7rem; font-weight: 900; letter-spacing: 0.08em; }
+        .lesson-card[hidden] { display: none !important; }
+        @media (min-width: 820px) { .review-toolbar { grid-template-columns: minmax(260px, 1fr) auto; align-items: center; } }
+    </style>
 </head>
 <body data-module="essentials" class="module-hub app-shell">
     <header class="glass-header">
@@ -25,9 +37,9 @@
         <section class="hero-band module-hero">
             <div>
                 <span class="eyebrow"><i class="fas fa-key"></i> English Essentials</span>
-                <h1 class="app-title mt-5" style="font-family: 'Sora', sans-serif;">Os pilares do inglês em uma trilha enxuta e clara.</h1>
+                <h1 class="app-title mt-5" style="font-family: 'Sora', sans-serif;">Os pilares do inglês em uma biblioteca aberta de revisão.</h1>
                 <p class="app-lead mt-5">
-                    Este módulo reúne fundamentos centrais de A1 e A2 em 16 lições objetivas para revisão estratégica, reforço gramatical e recuperação de base.
+                    Este módulo reúne fundamentos centrais de A1 e A2 em 16 lições objetivas. Todas ficam abertas para o aluno revisar exatamente o tópico de que precisa, sem seguir uma ordem obrigatória.
                 </p>
                 <div class="module-summary-grid mt-8">
                     <div class="surface-card module-summary-card">
@@ -71,9 +83,24 @@
                     <p class="kpi-label">Lições</p>
                     <h2 class="section-title mt-2">Trilha Essentials</h2>
                 </div>
-                <p class="section-copy">Os cards recebem status conforme o progresso salvo e destacam a revisão de base.</p>
+                <p class="section-copy">Pesquise por uma dúvida ou filtre por área. O status indica o que já foi revisado, mas nenhuma aula fica bloqueada.</p>
             </div>
-            <div id="lessons-grid" class="module-grid"></div>
+            <div class="review-toolbar mt-6" aria-label="Ferramentas de busca das revisões">
+                <label>
+                    <span class="sr-only">Buscar uma revisão</span>
+                    <input id="lesson-search" class="review-search" type="search" placeholder="Ex.: passado, perguntas, quantificadores..." autocomplete="off">
+                </label>
+                <div class="review-filters" role="group" aria-label="Filtrar por área">
+                    <button type="button" class="review-filter" data-review-filter="all" aria-pressed="true">Todos</button>
+                    <button type="button" class="review-filter" data-review-filter="foundation" aria-pressed="false">Fundamentos</button>
+                    <button type="button" class="review-filter" data-review-filter="tenses" aria-pressed="false">Tempos verbais</button>
+                    <button type="button" class="review-filter" data-review-filter="structure" aria-pressed="false">Estruturas</button>
+                    <button type="button" class="review-filter" data-review-filter="modals" aria-pressed="false">Modais</button>
+                    <button type="button" class="review-filter" data-review-filter="vocabulary" aria-pressed="false">Vocabulário</button>
+                </div>
+            </div>
+            <p id="review-result-count" class="section-copy mt-4" aria-live="polite"></p>
+            <div id="lessons-grid" class="module-grid mt-5"></div>
         </section>
     </main>
 
@@ -87,39 +114,83 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const essentialsLessons = [
-                { number: 1, title: 'The Foundation: Verb To Be' },
-                { number: 2, title: 'Daily Life: Simple Present' },
-                { number: 3, title: 'Right Now: Present Continuous' },
-                { number: 4, title: 'The Past: Simple Past' },
-                { number: 5, title: 'Actions in the Past: Past Continuous' },
-                { number: 6, title: 'Future Plans: Going To & Will' },
-                { number: 7, title: 'Asking Questions: Question Structure' },
-                { number: 8, title: 'Abilities & Advice: Can, Could, Should' },
-                { number: 9, title: 'Describing Places: There is/are & Prepositions' },
-                { number: 10, title: 'Counting & Quantifying: Quantifiers' },
-                { number: 11, title: 'Comparisons: Comparatives & Superlatives' },
-                { number: 12, title: "Possession: Possessives & 's" },
-                { number: 13, title: 'Life Experiences: Present Perfect' },
-                { number: 14, title: 'Verb Combos: Phrasal Verbs' },
-                { number: 15, title: 'Connecting Ideas: Conjunctions' },
-                { number: 16, title: 'Rules & Obligations: Must & Have to' }
+                { number: 1, title: 'The Foundation: Verb To Be', level: 'A1', category: 'foundation', categoryLabel: 'Fundamentos', summary: 'Ser, estar, identificação e descrições básicas.', keywords: 'verb to be am is are sujeito pronome apresentação' },
+                { number: 2, title: 'Daily Life: Simple Present', level: 'A1', category: 'tenses', categoryLabel: 'Tempos verbais', summary: 'Rotina, fatos, frequência, negativas e perguntas.', keywords: 'presente simples rotina do does frequência always usually' },
+                { number: 3, title: 'Right Now: Present Continuous', level: 'A1', category: 'tenses', categoryLabel: 'Tempos verbais', summary: 'Ações em progresso e contraste com rotina.', keywords: 'presente contínuo agora ing rotina versus agora' },
+                { number: 4, title: 'The Past: Simple Past', level: 'A2', category: 'tenses', categoryLabel: 'Tempos verbais', summary: 'Ações concluídas, verbos regulares e irregulares.', keywords: 'passado simples did ed irregular yesterday' },
+                { number: 5, title: 'Actions in the Past: Past Continuous', level: 'A2', category: 'tenses', categoryLabel: 'Tempos verbais', summary: 'Ações em andamento no passado, when e while.', keywords: 'passado contínuo was were ing when while' },
+                { number: 6, title: 'Future Plans: Going To & Will', level: 'A2', category: 'tenses', categoryLabel: 'Tempos verbais', summary: 'Planos, previsões, promessas e decisões.', keywords: 'futuro going to will planos decisão previsão' },
+                { number: 7, title: 'Asking Questions: Question Structure', level: 'A1–A2', category: 'structure', categoryLabel: 'Estruturas', summary: 'Question words, auxiliares e ordem das perguntas.', keywords: 'perguntas question words who what where do does did' },
+                { number: 8, title: 'Abilities & Advice: Can, Could, Should', level: 'A2', category: 'modals', categoryLabel: 'Modais', summary: 'Habilidade, possibilidade, pedidos e conselhos.', keywords: 'can could should habilidade conselho pedido modal' },
+                { number: 9, title: 'Describing Places: There Is/Are & Prepositions', level: 'A1', category: 'foundation', categoryLabel: 'Fundamentos', summary: 'Existência, localização e descrição de ambientes.', keywords: 'there is there are preposições lugar in on under next to' },
+                { number: 10, title: 'Counting & Quantifying: Quantifiers', level: 'A2', category: 'structure', categoryLabel: 'Estruturas', summary: 'Contáveis, incontáveis, much, many, few e little.', keywords: 'quantificadores contável incontável much many a lot few little' },
+                { number: 11, title: 'Comparisons: Comparatives & Superlatives', level: 'A2', category: 'structure', categoryLabel: 'Estruturas', summary: 'Comparar pessoas, objetos, lugares e extremos.', keywords: 'comparativo superlativo than more most er est' },
+                { number: 12, title: "Possession: Possessives & 's", level: 'A1–A2', category: 'foundation', categoryLabel: 'Fundamentos', summary: 'My/mine, her/hers e posse com apóstrofo.', keywords: 'posse possessivo my mine her hers apostrofo' },
+                { number: 13, title: 'Life Experiences: Present Perfect', level: 'A2', category: 'tenses', categoryLabel: 'Tempos verbais', summary: 'Experiências, ever, never, since e for.', keywords: 'present perfect experiências have has particípio ever never since for' },
+                { number: 14, title: 'Everyday Phrasal Verbs', level: 'A2', category: 'vocabulary', categoryLabel: 'Vocabulário', summary: 'Combinações verbais frequentes no inglês cotidiano.', keywords: 'phrasal verbs get up look for turn on pick up' },
+                { number: 15, title: 'Connecting Ideas: Conjunctions', level: 'A2', category: 'structure', categoryLabel: 'Estruturas', summary: 'Adicionar, contrastar, explicar causa e consequência.', keywords: 'conectores conjunctions and but because so although' },
+                { number: 16, title: 'Rules & Obligations: Must & Have To', level: 'A2', category: 'modals', categoryLabel: 'Modais', summary: 'Regras, obrigação, proibição e ausência de necessidade.', keywords: 'must have to must not dont have to obrigação regra' }
             ];
 
             const grid = document.getElementById('lessons-grid');
+            const searchInput = document.getElementById('lesson-search');
+            const filterButtons = Array.from(document.querySelectorAll('[data-review-filter]'));
+            const resultCount = document.getElementById('review-result-count');
+            let activeFilter = 'all';
+
+            function normalizeText(value) {
+                return String(value || '')
+                    .toLowerCase()
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '');
+            }
+
             grid.innerHTML = essentialsLessons.map((lesson) => {
                 const lessonNumberPadded = String(lesson.number).padStart(2, '0');
                 return `
-                    <a href="licao-${lessonNumberPadded}.html" data-lesson="${lesson.number}" class="lesson-card">
+                    <a href="licao-${lessonNumberPadded}.html" data-lesson="${lesson.number}" data-category="${lesson.category}" data-search="${normalizeText(`${lesson.title} ${lesson.summary} ${lesson.keywords}`)}" class="lesson-card">
                         <div class="lesson-card-top">
-                            <span class="lesson-unit text-rose-700">Essentials</span>
+                            <span class="lesson-unit text-rose-700">${lesson.categoryLabel}</span>
                             <i class="fas fa-circle text-slate-300"></i>
                         </div>
                         <h3 class="lesson-title">${lesson.title}</h3>
-                        <p class="lesson-meta">Lição ${lessonNumberPadded}</p>
-                        <div class="lesson-state"><i class="fas fa-forward text-rose-600"></i>Aguardando progresso</div>
+                        <p class="lesson-summary">${lesson.summary}</p>
+                        <div class="flex items-center justify-between gap-3">
+                            <p class="lesson-meta">Lição ${lessonNumberPadded}</p>
+                            <span class="lesson-level">${lesson.level}</span>
+                        </div>
+                        <div class="lesson-state"><i class="fas fa-book-open text-rose-600"></i>Disponível para revisão</div>
                     </a>
                 `;
             }).join('');
+
+            function applyFilters() {
+                const query = normalizeText(searchInput.value.trim());
+                let visibleCount = 0;
+
+                grid.querySelectorAll('.lesson-card').forEach((card) => {
+                    const matchesCategory = activeFilter === 'all' || card.dataset.category === activeFilter;
+                    const matchesSearch = !query || card.dataset.search.includes(query);
+                    const isVisible = matchesCategory && matchesSearch;
+                    card.hidden = !isVisible;
+                    if (isVisible) visibleCount += 1;
+                });
+
+                resultCount.textContent = visibleCount === essentialsLessons.length
+                    ? '16 revisões disponíveis — escolha qualquer uma.'
+                    : `${visibleCount} ${visibleCount === 1 ? 'revisão encontrada' : 'revisões encontradas'}.`;
+            }
+
+            searchInput.addEventListener('input', applyFilters);
+            filterButtons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    activeFilter = button.dataset.reviewFilter;
+                    filterButtons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+                    applyFilters();
+                });
+            });
+
+            applyFilters();
         });
     </script>
 </body>

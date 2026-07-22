@@ -86,10 +86,13 @@ lessons.forEach(lesson => {
     if (!opening || !Array.isArray(opening.objectives) || opening.objectives.length < 4) fail(lesson, 'opening needs at least four objectives.');
     if (!opening || !opening.dialogue || opening.dialogue.lines.length < 6) fail(lesson, 'introductory dialogue needs at least six lines.');
 
-    if (slidesOf(lesson, 'grammar').length !== 1) fail(lesson, 'must contain one grammar slide.');
-    const grammar = slidesOf(lesson, 'grammar')[0];
-    if (!grammar || !Array.isArray(grammar.tables) || grammar.tables.length < 2) fail(lesson, 'grammar needs at least two tables.');
-    if (!grammar || !Array.isArray(grammar.notes) || grammar.notes.length < 3) fail(lesson, 'grammar needs at least three concise notes.');
+    const grammarSlides = slidesOf(lesson, 'grammar');
+    const grammarTables = grammarSlides.flatMap(slide => slide.tables || []);
+    const grammarNotes = grammarSlides.flatMap(slide => slide.notes || []);
+    const expectedGrammarSlides = reviews.has(lesson.number) ? 2 : 1;
+    if (grammarSlides.length !== expectedGrammarSlides) fail(lesson, `must contain ${expectedGrammarSlides} grammar slide(s).`);
+    if (grammarTables.length < 2) fail(lesson, 'grammar sequence needs at least two tables.');
+    if (grammarNotes.length < 3) fail(lesson, 'grammar sequence needs at least three explanatory notes.');
 
     const practiceSlides = slidesOf(lesson, 'practice');
     const practiceItems = practiceSlides.flatMap(slide => slide.items || []);
@@ -156,9 +159,15 @@ lessons.forEach(lesson => {
     }
 
     if (reviews.has(lesson.number)) {
-        if (lesson.slides.length !== 10) fail(lesson, `review should have 10 distinct slides, found ${lesson.slides.length}.`);
+        if (lesson.slides.length < 12) fail(lesson, `expanded review should have at least 12 distinct slides, found ${lesson.slides.length}.`);
         if (practiceSlides.length !== 2) fail(lesson, 'review needs two different practice stations.');
-        if (slidesOf(lesson, 'assessment').length !== 1) fail(lesson, 'review needs one assessment slide.');
+        const gameSlides = slidesOf(lesson, 'reviewGame');
+        if (gameSlides.length !== 2) fail(lesson, 'review needs two interactive game labs.');
+        if (new Set(gameSlides.map(slide => slide.game)).size !== 2) fail(lesson, 'review game labs need different formats.');
+        gameSlides.forEach((slide, index) => {
+            if ((slide.items || []).length < 6) fail(lesson, `review game ${index + 1} needs at least six prompts.`);
+        });
+        if (slidesOf(lesson, 'assessment').length) fail(lesson, 'review should not contain a Can-Do assessment slide.');
         if (slidesOf(lesson, 'teacherListening').length !== 1) fail(lesson, 'review needs one teacher-read listening slide.');
         if (slidesOf(lesson, 'music').length) fail(lesson, 'review should not reuse the normal music structure.');
     } else {
