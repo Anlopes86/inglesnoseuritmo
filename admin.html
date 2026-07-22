@@ -9,6 +9,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
     <link href="css/app-theme.css" rel="stylesheet">
+    <link href="css/admin-dashboard.css" rel="stylesheet">
     <style>
         .admin-grid {
             display: grid;
@@ -60,36 +61,55 @@
                 <span>Ingl&ecirc;s no seu Ritmo</span>
             </div>
             <div class="flex flex-wrap items-center gap-3">
-                <a href="index.html" class="app-button-secondary inline-flex items-center gap-2">
+                <a href="index.html" class="app-button-secondary inline-flex items-center gap-2" aria-label="Abrir portal do professor">
                     <i class="fas fa-chalkboard-user"></i>
-                    Abrir portal do professor
+                    <span>Abrir portal do professor</span>
                 </a>
                 <button type="button" class="theme-toggle" data-theme-toggle aria-label="Alternar tema"></button>
                 <button id="logout-btn" class="app-button-ghost">
                     <i class="fas fa-right-from-bracket"></i>
-                    Sair
+                    <span>Sair</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <main class="app-container py-8 md:py-10">
-        <section class="hero-band p-6 md:p-8">
+    <main id="main-content" class="app-container py-8 md:py-10">
+        <section class="hero-band admin-hero p-6 md:p-8">
             <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                 <div class="max-w-3xl">
                     <span class="eyebrow"><i class="fas fa-shield-halved"></i> Admin</span>
-                    <h1 class="app-title mt-5" style="font-family: 'Sora', sans-serif;">Controle de tenancy, planos e limites</h1>
+                    <h1 class="app-title mt-5" style="font-family: 'Sora', sans-serif;">Gestão da plataforma</h1>
                     <p class="app-lead mt-5">
-                        Ajuste planos de professores, acompanhe capacidade ativa e vincule alunos antigos ao tenant certo antes de escalar a plataforma.
+                        Acompanhe as contas dos professores e atualize planos, limites e ciclos em um só lugar.
                     </p>
                     <p class="section-copy mt-4">
-                        Se a sua intenção for operar aula e alunos, use o botão <strong>“Abrir portal do professor”</strong>. Este painel é só para configuração administrativa.
+                        Para acompanhar alunos e aplicar aulas, abra o portal do professor. Este painel fica dedicado à operação comercial da plataforma.
                     </p>
                 </div>
                 <div class="surface-card px-5 py-4">
                     <p class="kpi-label">Status geral</p>
                     <p id="admin-summary" class="text-lg font-extrabold mt-2 strong-text">Carregando dados do admin...</p>
                 </div>
+            </div>
+        </section>
+
+        <section class="admin-stat-grid mt-5" aria-label="Resumo da plataforma">
+            <div class="admin-stat-card">
+                <span class="admin-stat-icon admin-stat-blue"><i class="fas fa-chalkboard-user" aria-hidden="true"></i></span>
+                <div><p>Professores</p><strong id="admin-teachers-total">0</strong></div>
+            </div>
+            <div class="admin-stat-card">
+                <span class="admin-stat-icon admin-stat-green"><i class="fas fa-circle-check" aria-hidden="true"></i></span>
+                <div><p>Planos ativos</p><strong id="admin-active-total">0</strong></div>
+            </div>
+            <div class="admin-stat-card">
+                <span class="admin-stat-icon admin-stat-amber"><i class="fas fa-bell" aria-hidden="true"></i></span>
+                <div><p>Pedem atenção</p><strong id="admin-attention-total">0</strong></div>
+            </div>
+            <div class="admin-stat-card">
+                <span class="admin-stat-icon admin-stat-violet"><i class="fas fa-user-graduate" aria-hidden="true"></i></span>
+                <div><p>Alunos vinculados</p><strong id="admin-students-total">0</strong></div>
             </div>
         </section>
 
@@ -101,6 +121,11 @@
                         <h2 class="section-title mt-2">Contas gerenciadas</h2>
                     </div>
                     <span id="teachers-count" class="info-chip bg-slate-100 text-slate-700">0 professores</span>
+                </div>
+                <div class="admin-search mt-5">
+                    <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+                    <label for="teacher-search" class="sr-only">Buscar professor</label>
+                    <input id="teacher-search" type="search" placeholder="Buscar por nome ou e-mail" autocomplete="off">
                 </div>
                 <div id="teacher-list" class="teacher-list mt-6">
                     <p class="section-copy">Carregando professores...</p>
@@ -122,9 +147,9 @@
                             <div>
                                 <label for="teacher-plan" class="block text-sm font-semibold muted-label mb-2">Plano</label>
                                 <select id="teacher-plan" class="app-select">
-                                    <option value="starter">Starter</option>
-                                    <option value="pro">Teacher Pro</option>
-                                    <option value="scale">Teacher Scale</option>
+                                    <option value="starter">Pack 16</option>
+                                    <option value="pro">Pack 32</option>
+                                    <option value="scale">Pack 48</option>
                                 </select>
                             </div>
                             <div>
@@ -186,15 +211,15 @@
                     <div class="flex items-center justify-between gap-3">
                         <div>
                             <p class="kpi-label">Migracao</p>
-                            <h2 class="section-title mt-2">Alunos sem tenant</h2>
+                            <h2 class="section-title mt-2">Alunos sem professor</h2>
                         </div>
                         <span id="orphan-count" class="info-chip bg-amber-100 text-amber-700">0 pendentes</span>
                     </div>
-                    <p class="section-copy mt-3">Vincule alunos legados ao professor correto para ativar a leitura multi-tenant no painel.</p>
+                    <p class="section-copy mt-3">Use esta área somente para organizar contas antigas que ainda não possuem um professor responsável.</p>
                     <div class="mt-4 flex flex-wrap gap-3">
                         <button type="button" id="assign-orphans-btn" class="app-button-secondary">
                             <i class="fas fa-link"></i>
-                            Vincular pendentes ao professor selecionado
+                            Vincular ao professor selecionado
                         </button>
                         <button type="button" id="refresh-admin-data" class="app-button-ghost">
                             <i class="fas fa-rotate"></i>

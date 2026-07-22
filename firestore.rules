@@ -35,6 +35,31 @@ service cloud.firestore {
         && request.resource.data.teacherId == request.auth.uid;
     }
 
+    function canManageStudyData(userId) {
+      return isOwnDocument(userId)
+        || isAdmin()
+        || (
+          isProfessor()
+          && get(/databases/$(database)/documents/students/$(userId)).data.role == 'aluno'
+          && get(/databases/$(database)/documents/students/$(userId)).data.teacherId == request.auth.uid
+        );
+    }
+
+    function validFlashcard() {
+      return request.resource.data.f is string
+        && request.resource.data.f.size() > 0
+        && request.resource.data.f.size() <= 500
+        && request.resource.data.b is string
+        && request.resource.data.b.size() > 0
+        && request.resource.data.b.size() <= 1500
+        && request.resource.data.l is string
+        && request.resource.data.l.size() <= 200;
+    }
+
+    function validRating() {
+      return request.resource.data.level in ['hard', 'medium', 'easy'];
+    }
+
     match /students/{userId} {
       allow read: if isAdmin()
         || isOwnDocument(userId)
@@ -58,6 +83,16 @@ service cloud.firestore {
 
       allow delete: if isAdmin()
         || (resource.data.role == 'aluno' && belongsToProfessor());
+    }
+
+    match /users/{userId}/myCards/{cardId} {
+      allow read, delete: if canManageStudyData(userId);
+      allow create, update: if canManageStudyData(userId) && validFlashcard();
+    }
+
+    match /users/{userId}/ratings/{ratingId} {
+      allow read, delete: if canManageStudyData(userId);
+      allow create, update: if canManageStudyData(userId) && validRating();
     }
   }
 }

@@ -23,11 +23,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const orphanList = document.getElementById('orphan-list');
     const assignOrphansBtn = document.getElementById('assign-orphans-btn');
     const refreshAdminDataBtn = document.getElementById('refresh-admin-data');
+    const teacherSearchInput = document.getElementById('teacher-search');
+    const adminTeachersTotal = document.getElementById('admin-teachers-total');
+    const adminActiveTotal = document.getElementById('admin-active-total');
+    const adminAttentionTotal = document.getElementById('admin-attention-total');
+    const adminStudentsTotal = document.getElementById('admin-students-total');
 
     let currentAdminProfile = null;
     let teachersCache = [];
     let orphanStudentsCache = [];
     let selectedTeacherId = '';
+    let teacherSearchTerm = '';
+
+    function escapeHtml(value) {
+        return String(value || '')
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;')
+            .replaceAll("'", '&#039;');
+    }
+
+    function statusTone(status) {
+        if (status === 'active') return 'bg-emerald-100 text-emerald-700';
+        if (status === 'trial') return 'bg-blue-100 text-blue-700';
+        if (status === 'past_due') return 'bg-amber-100 text-amber-700';
+        return 'bg-slate-100 text-slate-700';
+    }
+
+    function setFormEnabled(enabled) {
+        [teacherPlanInput, subscriptionStatusInput, studentLimitInput, billingCycleInput, planStartedAtInput, planEndsAtInput, cancelAtPeriodEndInput]
+            .forEach((input) => { if (input) input.disabled = !enabled; });
+        saveTeacherPlanBtn.disabled = !enabled;
+        clearTeacherSelectionBtn.disabled = !enabled;
+    }
 
     function formatDateInput(value) {
         if (!value) return '';
@@ -61,8 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
             planEndsAtInput.value = '';
             cancelAtPeriodEndInput.checked = false;
             teacherMetrics.innerHTML = '<p class="section-copy">Selecione um professor para ver ocupacao, limite e status.</p>';
+            setFormEnabled(false);
             return;
         }
+
+        setFormEnabled(true);
 
         const plan = platformAccess.getEffectivePlan(teacher.data);
         selectedTeacherChip.textContent = teacher.displayName;
@@ -101,9 +133,22 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        teacherList.innerHTML = teachersCache.map((teacher) => {
+        const visibleTeachers = teachersCache.filter((teacher) => {
+            if (!teacherSearchTerm) return true;
+            const haystack = `${teacher.displayName} ${teacher.data.email || ''}`.toLocaleLowerCase('pt-BR');
+            return haystack.includes(teacherSearchTerm);
+        });
+
+        if (!visibleTeachers.length) {
+            teacherList.innerHTML = '<p class="section-copy">Nenhum professor corresponde à busca.</p>';
+            return;
+        }
+
+        teacherList.innerHTML = visibleTeachers.map((teacher) => {
             const plan = platformAccess.getEffectivePlan(teacher.data);
             const isActive = teacher.id === selectedTeacherId;
+            const safeName = escapeHtml(teacher.displayName);
+            const safeEmail = escapeHtml(teacher.data.email || 'Sem e-mail');
             return `
                 <button
                     type="button"
@@ -112,14 +157,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 >
                     <div class="flex items-start justify-between gap-3">
                         <div>
-                            <p class="text-lg font-extrabold strong-text">${teacher.displayName}</p>
-                            <p class="section-copy mt-2">${teacher.data.email || 'Sem e-mail'}</p>
+                            <p class="text-lg font-extrabold strong-text">${safeName}</p>
+                            <p class="section-copy teacher-email mt-2">${safeEmail}</p>
                         </div>
                         <span class="info-chip ${isActive ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700'}">${plan.label}</span>
                     </div>
                     <div class="mt-4 flex flex-wrap gap-2">
                         <span class="info-chip bg-blue-100 text-blue-700">${teacher.studentCount} alunos</span>
-                        <span class="info-chip bg-emerald-100 text-emerald-700">${platformAccess.getSubscriptionBadge(plan.subscriptionStatus)}</span>
+                        <span class="info-chip ${statusTone(plan.subscriptionStatus)}">${platformAccess.getSubscriptionBadge(plan.subscriptionStatus)}</span>
                     </div>
                 </button>
             `;
@@ -193,7 +238,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadAdminData() {
         await Promise.all([loadTeachers(), loadOrphanStudents()]);
-        adminSummary.textContent = `${teachersCache.length} professores e ${orphanStudentsCache.length} aluno(s) legados aguardando vinculacao.`;
+        const activePlans = teachersCache.filter((teacher) => ['active', 'trial'].includes(platformAccess.getEffectivePlan(teacher.data).subscriptionStatus)).length;
+        const attentionPlans = teachersCache.length - activePlans;
+        const linkedStudents = teachersCache.reduce((total, teacher) => total + teacher.studentCount, 0);
+
+        if (adminTeachersTotal) adminTeachersTotal.textContent = teachersCache.length;
+        if (adminActiveTotal) adminActiveTotal.textContent = activePlans;
+        if (adminAttentionTotal) adminAttentionTotal.textContent = attentionPlans;
+        if (adminStudentsTotal) adminStudentsTotal.textContent = linkedStudents;
+        adminSummary.textContent = orphanStudentsCache.length
+            ? `${activePlans} planos ativos e ${orphanStudentsCache.length} aluno(s) sem professor.`
+            : `${activePlans} planos ativos. Todas as contas de alunos estão organizadas.`;
     }
 
     async function saveTeacherPlan(event) {
@@ -282,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } finally {
             assignOrphansBtn.disabled = false;
-            assignOrphansBtn.innerHTML = '<i class="fas fa-link"></i> Vincular pendentes ao professor selecionado';
+            assignOrphansBtn.innerHTML = '<i class="fas fa-link"></i> Vincular ao professor selecionado';
         }
     }
 
@@ -304,6 +359,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     assignOrphansBtn.addEventListener('click', assignOrphansToSelectedTeacher);
     refreshAdminDataBtn.addEventListener('click', loadAdminData);
+
+    if (teacherSearchInput) {
+        teacherSearchInput.addEventListener('input', () => {
+            teacherSearchTerm = teacherSearchInput.value.trim().toLocaleLowerCase('pt-BR');
+            renderTeacherList();
+        });
+    }
 
     if (logoutBtn) {
         logoutBtn.addEventListener('click', async () => {

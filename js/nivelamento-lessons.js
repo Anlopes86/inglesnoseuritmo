@@ -5,8 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('lessons-grid');
 
     const lessonTitles = [
-        'Beginner Test', 'Elementary Test', 'Pre-Intermediate Test', 'Intermediate Test',
-        'Upper-Intermediate Test', 'Advanced Test'
+        'Diagnóstico escrito de entrada — A1 a C1'
     ];
 
     async function resolveViewerContext() {

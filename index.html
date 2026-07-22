@@ -10,6 +10,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
     <link href="css/app-theme.css" rel="stylesheet">
+    <link href="css/teacher-dashboard.css" rel="stylesheet">
     <style>
         .dashboard-layout {
             display: grid;
@@ -322,10 +323,16 @@
                 <span class="eyebrow"><i class="fas fa-user-tie"></i> Painel do professor</span>
             </div>
             <div class="flex flex-wrap items-center gap-3">
+                <span id="manager-plan-chip" class="manager-context-chip hidden"><i class="fas fa-box" aria-hidden="true"></i> <span>Plano</span></span>
+                <span id="manager-capacity-chip" class="manager-context-chip hidden"><i class="fas fa-users" aria-hidden="true"></i> <span>0 alunos</span></span>
+                <a id="admin-panel-link" href="admin.html" class="app-button-secondary hidden">
+                    <i class="fas fa-shield-halved" aria-hidden="true"></i>
+                    Admin
+                </a>
                 <button type="button" class="theme-toggle self-start md:self-auto" data-theme-toggle aria-label="Alternar tema"></button>
                 <button id="logout-btn" class="app-button-ghost self-start md:self-auto" aria-label="Sair da plataforma">
                     <i class="fas fa-right-from-bracket"></i>
-                    Sair
+                    <span>Sair</span>
                 </button>
             </div>
         </div>
@@ -340,7 +347,7 @@
                             <p class="kpi-label">Alunos</p>
                             <h2 class="section-title mt-2">Gerenciar alunos</h2>
                         </div>
-                        <button id="open-add-student-modal-btn" class="app-button self-start">
+                        <button id="open-add-student-modal-btn" class="app-button self-start compact-add-button">
                             <i class="fas fa-user-plus"></i>
                             Adicionar aluno
                         </button>
@@ -366,14 +373,19 @@
                             <i class="fas fa-id-card"></i>
                             Abrir portal do aluno
                         </a>
-                        <button id="delete-student-btn" class="app-button danger-button w-full">
-                            <i class="fas fa-trash-can"></i>
-                            Excluir aluno
-                        </button>
+                        <details class="student-more-actions">
+                            <summary><i class="fas fa-ellipsis" aria-hidden="true"></i> Mais ações</summary>
+                            <div>
+                                <button id="delete-student-btn" class="student-delete-action w-full" type="button">
+                                    <i class="fas fa-trash-can" aria-hidden="true"></i>
+                                    Excluir acesso do aluno
+                                </button>
+                            </div>
+                        </details>
                     </div>
                 </section>
 
-                <section class="surface-card p-5 md:p-6">
+                <section id="package-control-card" class="surface-card p-5 md:p-6 hidden">
                     <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                         <div>
                             <p class="kpi-label">Controle do pacote</p>
@@ -399,14 +411,15 @@
                         <div class="mini-stat">
                             <p class="kpi-label">Ajuste r&aacute;pido</p>
                             <div class="flex items-center justify-center gap-4 mt-5">
-                                <button id="remove-class-btn" class="app-button danger-button !px-5 !py-3" aria-label="Remover uma aula">
+                                <button id="remove-class-btn" class="hour-step-button hour-step-remove" aria-label="Remover uma hora utilizada">
                                     <i class="fas fa-minus"></i>
                                 </button>
                                 <div class="text-center">
-                                    <p class="text-sm font-semibold muted-label">Aulas utilizadas</p>
-                                    <p class="text-4xl font-black tracking-tight strong-text mt-2" id="class-count-display-secondary">0</p>
+                                    <p class="text-sm font-semibold muted-label">Horas utilizadas</p>
+                                    <p class="text-4xl font-black tracking-tight strong-text mt-2"><span id="class-count-display-secondary">0</span><span class="hour-unit">h</span></p>
+                                    <p id="last-class-registered-secondary" class="text-xs font-semibold muted-label mt-2">Nenhuma aula registrada neste pacote.</p>
                                 </div>
-                                <button id="add-class-btn" class="app-button success-button !px-5 !py-3" aria-label="Adicionar uma aula">
+                                <button id="add-class-btn" class="hour-step-button hour-step-add" aria-label="Adicionar uma hora utilizada">
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </div>
@@ -431,7 +444,7 @@
                     <span class="neutral-pill mb-5"><i class="fas fa-compass"></i> Pronto para come&ccedil;ar</span>
                     <h2 class="section-title">Selecione um aluno para carregar o resumo da jornada.</h2>
                     <p class="section-copy mt-4 max-w-2xl mx-auto">
-                        Assim que voc&ecirc; escolher um aluno, o painel mostra pacote, progresso, &uacute;ltima atividade, pr&oacute;xima li&ccedil;&atilde;o sugerida e acesso r&aacute;pido aos m&oacute;dulos.
+                        Escolha um aluno para consultar horas, progresso pedag&oacute;gico e os m&oacute;dulos liberados sem misturar essas informa&ccedil;&otilde;es.
                     </p>
                     <div class="dashboard-empty-grid mt-8 text-left">
                         <div class="mini-stat">
@@ -447,6 +460,10 @@
                             <p class="kpi-helper mt-3">Abra o portal do aluno ou acesse o m&oacute;dulo direto pelo painel.</p>
                         </div>
                     </div>
+                    <button id="open-add-student-empty-btn" class="app-button mt-6 mx-auto" type="button">
+                        <i class="fas fa-user-plus" aria-hidden="true"></i>
+                        Adicionar novo aluno
+                    </button>
                 </div>
 
                 <div id="student-dashboard" class="hidden space-y-6">
@@ -465,8 +482,8 @@
                         <div class="summary-grid mt-4">
                             <div class="kpi-card">
                                 <p class="kpi-label">Horas usadas</p>
-                                <p id="class-count-display" class="kpi-value">0</p>
-                                <p class="kpi-helper">Controle r&aacute;pido do pacote em andamento.</p>
+                                <p class="kpi-value"><span id="class-count-display">0</span><span class="hour-unit">h</span></p>
+                                <p id="last-class-registered-display" class="kpi-helper">Nenhuma aula registrada neste pacote.</p>
                             </div>
                             <div class="kpi-card">
                                 <p class="kpi-label">Pr&oacute;xima aula</p>
@@ -490,7 +507,7 @@
                         <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                             <div>
                                 <p class="kpi-label">M&oacute;dulos do curso</p>
-                                <h3 class="section-title mt-2">Acesso r&aacute;pido aos m&oacute;dulos</h3>
+                                <h3 class="section-title mt-2">Trilhas liberadas para este aluno</h3>
                             </div>
                             <p id="modules-status" class="section-copy">Selecione um aluno para carregar os m&oacute;dulos.</p>
                         </div>
@@ -507,7 +524,7 @@
                                     Liberar m&oacute;dulo
                                 </button>
                             </div>
-                            <p id="release-module-helper" class="kpi-helper mt-3">Essa a&ccedil;&atilde;o libera acesso ao m&oacute;dulo sem iniciar um novo pacote.</p>
+                            <p id="release-module-helper" class="kpi-helper mt-3">O acesso ao conteúdo não altera o pacote de horas do aluno.</p>
                         </div>
                         <div class="module-grid mt-6"></div>
                     </section>
@@ -547,9 +564,15 @@
                         <label for="new-student-type" class="block text-sm font-semibold muted-label mb-2">Trilha principal</label>
                         <select id="new-student-type" class="app-select">
                             <option value="a1">M&oacute;dulo A1</option>
+                            <option value="a1-v2">M&oacute;dulo A1 V2 &middot; teste</option>
+                            <option value="a1-v3">M&oacute;dulo A1 V3 &middot; teste</option>
                             <option value="a2">M&oacute;dulo A2</option>
-                            <option value="a2-v2">M&oacute;dulo A2 V2</option>
+                            <option value="a2-v2">M&oacute;dulo A2 V2 &middot; teste</option>
+                            <option value="a2-v3">M&oacute;dulo A2 V3 &middot; teste</option>
                             <option value="b1">M&oacute;dulo B1</option>
+                            <option value="b1-v2">M&oacute;dulo B1 V2 &middot; teste</option>
+                            <option value="b1-v3">M&oacute;dulo B1 V3 &middot; teste</option>
+                            <option value="prepb1">Ponte A2-B1</option>
                             <option value="conversation">Conversation Club</option>
                             <option value="business">Ingl&ecirc;s para Neg&oacute;cios</option>
                             <option value="essentials">English Essentials</option>
@@ -580,8 +603,11 @@
                 <div>
                     <label for="package-type" class="block text-sm font-semibold muted-label mb-2">Tipo de pacote</label>
                     <select id="package-type" class="app-select">
+                        <option value="8">8 horas</option>
                         <option value="16">16 horas</option>
+                        <option value="24">24 horas</option>
                         <option value="32">32 horas</option>
+                        <option value="48">48 horas</option>
                     </select>
                 </div>
                 <div>
@@ -592,7 +618,7 @@
                     <label for="package-date-input" class="block text-sm font-semibold muted-label mb-2">Data de in&iacute;cio</label>
                     <input type="date" id="package-date-input" class="app-input" required>
                 </div>
-                <p class="section-copy">Ao iniciar um novo pacote, o contador de aulas utilizadas volta para zero.</p>
+                <p class="section-copy">Ao iniciar um novo pacote, apenas o contador de horas volta para zero. O progresso das lições é preservado.</p>
                 <div class="flex flex-col-reverse md:flex-row md:justify-end gap-3 pt-2">
                     <button type="button" id="cancel-package-btn" class="app-button-secondary">Cancelar</button>
                     <button type="submit" id="confirm-package-btn" class="app-button">Confirmar pacote</button>

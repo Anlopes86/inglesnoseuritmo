@@ -76,6 +76,21 @@ document.addEventListener('DOMContentLoaded', () => {
         return profile;
     }
 
+    async function resolveStudentOwnerProfile(managerProfile) {
+        if (!platformAccess.isAdmin(managerProfile)) return managerProfile;
+
+        const selectedTeacherId = platformAccess.getManagedTeacherId(managerProfile);
+        if (!selectedTeacherId) {
+            throw new Error('Selecione um professor no painel administrativo antes de cadastrar um aluno.');
+        }
+
+        const teacherProfile = await platformAccess.fetchProfileById(db, selectedTeacherId);
+        if (!teacherProfile || !platformAccess.isProfessor(teacherProfile)) {
+            throw new Error('O professor selecionado não está disponível.');
+        }
+        return teacherProfile;
+    }
+
     async function assertStudentCapacity(profile) {
         if (!db || !platformAccess?.countManagedStudents) {
             throw new Error('Conexao com Firebase indisponivel.');
@@ -138,23 +153,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 const profile = await assertManagerSession();
-                await assertStudentCapacity(profile);
+                const ownerProfile = await resolveStudentOwnerProfile(profile);
+                await assertStudentCapacity(ownerProfile);
                 const allowedModules = platformAccess?.getManagerModuleProducts
-                    ? platformAccess.getManagerModuleProducts(profile)
-                    : platformAccess?.getProductList(profile.plan) || [];
+                    ? platformAccess.getManagerModuleProducts(ownerProfile)
+                    : platformAccess?.getProductList(ownerProfile.plan) || [];
                 const canAssignModule = platformAccess?.canAccessModule(allowedModules, studentType) || false;
                 if (!canAssignModule && studentType !== 'nivelamento') {
                     throw new Error('Este modulo nao esta incluido no plano atual.');
                 }
-                const ownerTeacherId = platformAccess.isAdmin(profile)
-                    ? platformAccess.getManagedTeacherId(profile) || profile.uid
-                    : profile.uid;
-                let ownerTeacherName = profile.displayName;
-
-                if (platformAccess.isAdmin(profile) && ownerTeacherId !== profile.uid) {
-                    const teacherProfile = await platformAccess.fetchProfileById(db, ownerTeacherId);
-                    ownerTeacherName = teacherProfile?.displayName || ownerTeacherName;
-                }
+                const ownerTeacherId = ownerProfile.uid;
+                const ownerTeacherName = ownerProfile.displayName;
 
                 const secondaryName = `studentCreator-${Date.now()}`;
                 secondaryApp = firebase.initializeApp(firebase.app().options, secondaryName);
@@ -169,13 +178,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     teacherId: ownerTeacherId,
                     teacherName: ownerTeacherName,
                     tenantId: ownerTeacherId,
-                    platformPlan: profile.plan?.id || 'starter',
-                    accessPackId: profile.plan?.id || 'starter',
-                    accessPackLabel: profile.plan?.label || 'Starter',
-                    lessonCount: profile.plan?.lessonCount || 16,
+                    platformPlan: ownerProfile.plan?.id || 'starter',
+                    accessPackId: ownerProfile.plan?.id || 'starter',
+                    accessPackLabel: ownerProfile.plan?.label || 'Pack 16',
+                    lessonCount: ownerProfile.plan?.lessonCount || 16,
                     accessibleProducts: [studentType],
-                    subscriptionStatus: profile.plan?.subscriptionStatus || 'active',
-                    billingCycle: profile.plan?.billingCycle || 'monthly',
+                    subscriptionStatus: ownerProfile.plan?.subscriptionStatus || 'active',
+                    billingCycle: ownerProfile.plan?.billingCycle || 'monthly',
                     studentType,
                     modules: [studentType],
                     createdBy: profile.uid,

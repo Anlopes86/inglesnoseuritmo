@@ -7,8 +7,8 @@
         const style = document.createElement('style');
         style.id = STYLE_ID;
         style.textContent = `
-            .flashcard-front, .flip-card-front { overflow: hidden; }
-            .flashcard-front .${BUTTON_CLASS}, .flip-card-front .${BUTTON_CLASS} {
+            .flashcard-front, .flip-card-front, .b1-vocab-front { overflow: hidden; }
+            .flashcard-front .${BUTTON_CLASS}, .flip-card-front .${BUTTON_CLASS}, .b1-vocab-front .${BUTTON_CLASS}, [data-pronounce-text] .${BUTTON_CLASS} {
                 position: absolute;
                 top: 0.75rem;
                 right: 0.75rem;
@@ -26,7 +26,7 @@
                 z-index: 2;
                 opacity: 0.9;
             }
-            .flashcard-front .${BUTTON_CLASS}:hover, .flip-card-front .${BUTTON_CLASS}:hover {
+            .flashcard-front .${BUTTON_CLASS}:hover, .flip-card-front .${BUTTON_CLASS}:hover, .b1-vocab-front .${BUTTON_CLASS}:hover, [data-pronounce-text] .${BUTTON_CLASS}:hover {
                 transform: scale(1.05);
                 background: rgba(14, 116, 144, 0.2);
                 color: #7dd3fc;
@@ -37,8 +37,12 @@
     }
 
     function getFrontText(front) {
+        if (front.dataset.pronounceText) return front.dataset.pronounceText.trim();
         const heading = front.querySelector('h1, h2, h3, h4, h5, h6');
         if (heading && heading.textContent.trim()) return heading.textContent.trim();
+
+        const term = front.querySelector('.phrase-term, .flashcard-term, strong');
+        if (term && term.textContent.trim()) return term.textContent.trim();
 
         const clone = front.cloneNode(true);
         clone.querySelectorAll('button').forEach((btn) => btn.remove());
@@ -68,18 +72,49 @@
         const button = document.createElement('button');
         button.type = 'button';
         button.className = BUTTON_CLASS;
-        button.setAttribute('aria-label', 'Hear pronunciation');
+        button.setAttribute('aria-label', `Ouvir pronúncia de ${text}`);
+        button.title = 'Ouvir em inglês';
         button.innerHTML = '<i class="fas fa-volume-up"></i>';
         button.addEventListener('click', (event) => {
             event.stopPropagation();
             speak(text);
         });
-        front.appendChild(button);
+        if (front.matches('[data-pronounce-text]')) {
+            let actions = front.querySelector(':scope > .v3-card-header > .v3-card-actions');
+            if (!actions) {
+                const heading = front.firstElementChild;
+                const header = document.createElement('div');
+                header.className = 'v3-card-header';
+                actions = document.createElement('div');
+                actions.className = 'v3-card-actions';
+                actions.setAttribute('aria-label', 'Ações do card');
+                front.insertBefore(header, heading || null);
+                if (heading) {
+                    heading.classList.add('v3-card-heading');
+                    header.appendChild(heading);
+                }
+                header.appendChild(actions);
+            }
+            actions.appendChild(button);
+        } else {
+            front.appendChild(button);
+        }
     }
 
     function init() {
         ensureStyles();
-        document.querySelectorAll('.flashcard-front, .flip-card-front').forEach(addButton);
+        const selector = '.flashcard-front, .flip-card-front, .b1-vocab-front, [data-pronounce-text]';
+        const enhance = root => {
+            if (root instanceof Element && root.matches(selector)) addButton(root);
+            root.querySelectorAll?.(selector).forEach(addButton);
+        };
+        enhance(document);
+        const observer = new MutationObserver(mutations => {
+            mutations.forEach(mutation => mutation.addedNodes.forEach(node => {
+                if (node instanceof Element) enhance(node);
+            }));
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
     }
 
     if (document.readyState === 'loading') {
