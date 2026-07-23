@@ -329,7 +329,7 @@
             'What responsibility does a storyteller have to challenge the audience\'s assumptions?': 'What small clue makes a plot twist feel clever instead of random?',
             'Is there an actor or director whose work you follow religiously?': 'Which actor or director can convince you to watch almost anything, and why?',
             'Do you prefer the cinematic experience of a theater or the comfort of your own couch?': 'Compare your perfect cinema night with your perfect movie night at home.',
-            'Do romantic movies create unrealistic expectations for real-life relationships?': 'Name one romantic-movie habit that would be charming on screen but annoying in real life.',
+            'Do romantic movies create unrealistic expectations for real-life relationships?': 'Name one romantic-movie habit that is charming on screen but would be annoying in real life.',
             'Is the \'magic of cinema\' dying, or just evolving?': 'Invent one cinema feature that would make people leave the couch again.',
             'Are you more attracted to famous tourist landmarks or \'hidden\' places that nobody knows about?': 'Build a one-day itinerary with one famous landmark and one secret local place.',
             'Do famous destinations usually live up to the \'paradise\' we imagine in our heads?': 'Which famous destination might look better online than on a crowded afternoon?',
