@@ -635,14 +635,23 @@
         </div>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/progress-manager.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
+            const finishLessonBtn = document.getElementById('finish-lesson-btn-main');
             const progressBar = document.getElementById('progress-bar');
             const slideCounter = document.getElementById('slide-counter');
             const dotNavigation = document.getElementById('dot-navigation');
+            const moduleId = 'conversation';
+            const lessonNumber = 44;
             let currentSlide = 0;
 
             slides.forEach((_, i) => {
@@ -686,13 +695,25 @@
                 if (currentSlide > 0) goToSlide(currentSlide - 1);
             });
 
+            function finishLesson() {
+                if (typeof markLessonAsComplete === 'function') {
+                    markLessonAsComplete(moduleId, lessonNumber);
+                } else {
+                    window.location.href = 'conversation.html';
+                }
+            }
+
             nextBtn.addEventListener('click', () => {
                 if (currentSlide < slides.length - 1) {
                     goToSlide(currentSlide + 1);
                 } else {
-                    window.location.href = 'conversation.html';
+                    finishLesson();
                 }
             });
+
+            if (finishLessonBtn) {
+                finishLessonBtn.addEventListener('click', finishLesson);
+            }
 
             document.querySelectorAll('.flashcard').forEach(card => {
                 card.addEventListener('click', () => card.classList.toggle('flipped'));
