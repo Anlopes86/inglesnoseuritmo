@@ -44,9 +44,28 @@
         return safePrompt.replace('___', `<input id="${escapeHtml(inputId)}" class="practice-input" data-answer="${escapeHtml(answer)}" size="${size}" autocomplete="off" aria-label="Complete a lacuna">`);
     }
 
+    function activityGuidance(type) {
+        const normalizedType = normalize(type);
+        if (/unscramble|build|reorder/.test(normalizedType)) return 'Desembaralhe os elementos e forme uma frase completa.';
+        if (/correct|error|repair/.test(normalizedType)) return 'Encontre o erro e reescreva a frase corretamente.';
+        if (/complete|gap/.test(normalizedType)) return 'Complete a lacuna com a forma que deixa a frase correta.';
+        if (/choose|select/.test(normalizedType)) return 'Escolha a alternativa adequada ao contexto e leia a frase completa.';
+        if (/respond|response|reply/.test(normalizedType)) return 'Responda à pergunta ou fala com uma frase completa e natural.';
+        if (/transform|switch|change/.test(normalizedType)) return 'Reescreva a frase fazendo a transformação solicitada.';
+        if (/spell/.test(normalizedType)) return 'Soletre a palavra em voz alta e depois confira a sequência de letras.';
+        if (/number|write/.test(normalizedType)) return 'Escreva a informação por extenso em inglês.';
+        if (/order|sequence|schedule/.test(normalizedType)) return 'Coloque as informações na ordem correta e apresente o resultado em voz alta.';
+        if (/classify/.test(normalizedType)) return 'Classifique o item na categoria correta e explique a escolha.';
+        if (/form/.test(normalizedType)) return 'Forme a palavra ou estrutura pedida aplicando a regra da aula.';
+        if (/combine/.test(normalizedType)) return 'Una as ideias em uma única frase usando o conector indicado.';
+        if (/translate/.test(normalizedType)) return 'Traduza oralmente antes de revelar o modelo.';
+        if (/relationship|possession/.test(normalizedType)) return 'Identifique a relação ou a posse e escreva uma resposta completa.';
+        return 'Realize a tarefa indicada e produza uma resposta completa em inglês.';
+    }
+
     function renderActivityItems(items, prefix) {
         return `<div class="activity-grid">${items.map((item, index) => {
-            const [type, prompt, hint, answer] = item;
+            const [type, prompt, , answer] = item;
             const answerId = `${prefix}-answer-${index}`;
             const inputId = `${prefix}-input-${index}`;
             return `<article class="activity-card">
@@ -55,7 +74,7 @@
                     ${revealButton(answerId)}
                 </div>
                 <p class="activity-prompt"><span class="activity-number">${index + 1}.</span> ${renderPrompt(prompt, answer, inputId)}</p>
-                <p class="activity-hint"><i class="fas fa-lightbulb" aria-hidden="true"></i> Dica: ${escapeHtml(hint)}</p>
+                <p class="activity-hint"><i class="fas fa-list-check" aria-hidden="true"></i> <strong>Como fazer:</strong> ${escapeHtml(activityGuidance(type))}</p>
                 <p id="${answerId}" class="hidden-answer" hidden><strong>Modelo:</strong> ${escapeHtml(answer)}</p>
             </article>`;
         }).join('')}</div>`;
@@ -159,11 +178,52 @@
     }
 
     function reviewGameType(lessonNumber, stationIndex) {
-        const rotations = { 4: ['matching', 'memory'], 8: ['hangman', 'builder'], 12: ['matching', 'builder'], 16: ['memory', 'hangman'], 20: ['hangman', 'matching'], 24: ['builder', 'memory'], 28: ['matching', 'hangman'], 32: ['memory', 'matching', 'builder'] };
+        const rotations = {
+            5: ['matching', 'memory'],
+            10: ['hangman', 'builder'],
+            15: ['matching', 'builder'],
+            20: ['memory', 'hangman'],
+            25: ['hangman', 'matching'],
+            30: ['builder', 'memory'],
+            31: ['matching', 'hangman'],
+            32: ['memory', 'matching', 'builder']
+        };
         return rotations[lessonNumber]?.[stationIndex] || 'activities';
     }
 
+    function renderReviewCommunicationRound(station) {
+        const round = station.round || {};
+        const steps = round.steps || [];
+        const support = round.support || [];
+        return `<div class="v3-speaking-round v3-speaking-round-${escapeHtml(station.phase || 'attempt')}">
+            <div class="v3-speaking-round-banner">
+                <span>${escapeHtml(round.label || 'Communicative mission')}</span>
+                <strong>${escapeHtml(round.scenario || station.instruction)}</strong>
+            </div>
+            <div class="v3-speaking-role-grid">
+                <article><span>Role A</span><p>${escapeHtml(round.roleA || '')}</p></article>
+                <article><span>Role B</span><p>${escapeHtml(round.roleB || '')}</p></article>
+            </div>
+            <div class="v3-speaking-mission-grid">
+                <article>
+                    <h3><i class="fas fa-eye-slash" aria-hidden="true"></i> Information gap</h3>
+                    <p>${escapeHtml(round.informationGap || '')}</p>
+                </article>
+                <article>
+                    <h3><i class="fas fa-bullseye" aria-hidden="true"></i> Decisão da rodada</h3>
+                    <p>${escapeHtml(round.task || '')}</p>
+                </article>
+            </div>
+            <div class="v3-speaking-round-footer">
+                <div><h3>Como realizar</h3><ol>${steps.map(step => `<li>${escapeHtml(step)}</li>`).join('')}</ol></div>
+                <div><h3>Language support</h3><div class="v3-speaking-support">${support.map(chunk => `<span>${escapeHtml(chunk)}</span>`).join('')}</div></div>
+            </div>
+            <p class="v3-speaking-evidence"><i class="fas fa-clipboard-check" aria-hidden="true"></i> <strong>Evidência:</strong> ${escapeHtml(round.evidence || '')}</p>
+        </div>`;
+    }
+
     function renderReviewStation(station, lessonNumber, stationIndex) {
+        if (station.kind === 'communicative-round') return renderReviewCommunicationRound(station);
         const type = reviewGameType(lessonNumber, stationIndex);
         if (type === 'memory') return renderMemoryGame(station.items, lessonNumber);
         if (type === 'matching') return renderMatchingGame(station.items);
@@ -191,35 +251,8 @@
             if (!example || used.has(normalize(example))) continue;
             items.push([null, example]);
             used.add(normalize(example));
-            if (items.length >= 6) break;
         }
-        const supplements = {
-            3: [['Eu me dou bem com meus primos.', 'I get along with my cousins.'], ['Ela cuida da avó aos domingos.', 'She looks after her grandmother on Sundays.']],
-            6: [['Eu trabalho das nove às cinco.', 'I work from nine to five.'], ['Eu ligo para você logo depois da aula.', 'I call you right after class.']],
-            10: [['A padaria fica logo depois da esquina.', 'The bakery is around the corner.'], ['A estação fica em frente ao parque.', 'The station is across from the park.']],
-            11: [['Passe pelo banco e vire à esquerda.', 'Go past the bank and turn left.'], ['O hotel fica à sua direita.', 'The hotel is on your right.']],
-            13: [['O tempo abre depois das três.', 'It clears up after three.'], ['Esfria no começo da noite.', 'It cools down in the evening.']],
-            14: [['No meu tempo livre, eu ouço música.', 'In my free time, I listen to music.'], ['Nós passamos um tempo no parque aos domingos.', 'We hang out at the park on Sundays.']],
-            17: [['Tome o remédio depois do café da manhã.', 'Take the medicine after breakfast.'], ['Vá para casa e descanse um pouco.', 'Go home and get some rest.']],
-            18: [['Eu arrumo a cama todas as manhãs.', 'I make the bed every morning.'], ['Precisamos arrumar a sala de estar.', 'We need to tidy up the living room.']],
-            19: [['Por favor, entregue sua tarefa hoje.', 'Please hand in your homework today.'], ['Nina está de plantão esta manhã.', 'Nina is on duty this morning.']],
-            21: [['Desça no próximo ponto.', 'Get off at the next stop.'], ['O voo está atrasado em trinta minutos.', 'The flight is delayed by thirty minutes.']],
-            22: [['Você gostaria de vir aqui em casa no domingo?', 'Would you like to come over on Sunday?'], ['Nós damos uma festa todos os anos.', 'We have a party every year.']],
-            23: [['Nós estamos torcendo pelo time da casa.', 'We are cheering for the home team.'], ['Maya está participando da corrida.', 'Maya is taking part in the race.']],
-            25: [['Por favor, recolha seu lixo.', 'Please pick up your trash.'], ['Nós cuidamos do parque.', 'We take care of the park.']],
-            26: [['Conecte o carregador perto da mesa.', 'Plug in the charger near the desk.'], ['Faça backup das suas fotos todos os meses.', 'Back up your photos every month.']],
-            27: [['Nina mora no exterior por causa do trabalho.', 'Nina lives abroad for work.'], ['Nós queremos viajar para a Argentina.', 'We want to travel to Argentina.']],
-            29: [['Eu cresci em uma cidade pequena.', 'I grew up in a small town.'], ['Minha família se mudou para Salvador em 2015.', 'My family moved to Salvador in 2015.']],
-            30: [['Compare este preço com o preço online.', 'Compare this price with the online price.'], ['Eu vou ficar com a opção mais barata.', 'I’ll go with the cheaper option.']],
-            31: [['Ela está juntando dinheiro para um computador novo.', 'She is saving up for a new computer.'], ['Sábado às dez? Ótimo. Até lá.', 'Saturday at ten? Great. See you then.']]
-        }[lesson.number] || [];
-        for (const item of supplements) {
-            if (items.length >= 6) break;
-            if (used.has(normalize(item[1]))) continue;
-            items.push(item);
-            used.add(normalize(item[1]));
-        }
-        return items.slice(0, 6);
+        return items;
     }
 
     function renderObjectives(objectives) {
@@ -227,10 +260,10 @@
     }
 
     function renderDialogue(lines, intro = false, showTranslation = false) {
-        return `<div class="${intro ? 'intro-dialogue' : 'dialogue-lines'}">${lines.map(([speaker, text], index) => `<div class="dialogue-line">
+        return `<div class="${intro ? 'intro-dialogue' : 'dialogue-lines'}">${lines.map(([speaker, text, inlineTranslation], index) => `<div class="dialogue-line">
             <strong class="${index % 2 === 0 ? 'speaker-primary' : 'speaker-secondary'}">${escapeHtml(speaker)}:</strong>
             <div class="v3-dialogue-utterance">
-                <div class="dialogue-copy"><p>${escapeHtml(text)}</p>${showTranslation ? `<em data-v3-translate="${escapeHtml(text)}"></em>` : ''}</div>
+                <div class="dialogue-copy"><p>${escapeHtml(text)}</p>${showTranslation ? `<em data-v3-translate="${escapeHtml(text)}"${inlineTranslation ? ` data-v3-translation="${escapeHtml(inlineTranslation)}"` : ''}></em>` : ''}</div>
                 <button type="button" class="v3-speak-btn" data-v3-speak="${escapeHtml(text)}" aria-label="Ouvir: ${escapeHtml(text)}" title="Ouvir frase em inglês"><i class="fas fa-volume-up" aria-hidden="true"></i></button>
             </div>
         </div>`).join('')}</div>`;
@@ -286,7 +319,6 @@
 
     function renderLyricPlaceholder() {
         return `<div class="v3-lyric-placeholder">
-            <div class="v3-lyric-placeholder-head"><strong>Letra com lacunas</strong><span>Texto musical fictício para preservar o layout até a inserção do conteúdo autorizado.</span></div>
             <div class="v3-lyric-copy">
                 <p class="v3-lyric-stanza">
                     <span class="v3-lyric-line">I wake to see the <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 1" autocomplete="off" spellcheck="false"> through the window,</span>
@@ -307,13 +339,11 @@
                     <span class="v3-lyric-line">The light we share will always <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 6" autocomplete="off" spellcheck="false">.</span>
                 </p>
             </div>
-            <p class="v3-copyright-note"><i class="fas fa-shield-halved" aria-hidden="true"></i> Nenhuma letra protegida é distribuída nesta versão.</p>
         </div>`;
     }
 
     function renderMusic(music, prefix) {
         return `<div class="music-header">
-            <p class="lesson-panel-title">Music Moment</p>
             <h3>${escapeHtml(music.song)}</h3>
             <p>${escapeHtml(music.artist)}</p>
         </div>
@@ -333,19 +363,20 @@
     }
 
     function regularSlides(lesson, lessonNumber) {
-        const dialogueIndexes = lessonNumber % 2 === 0 ? [1, 3] : [0, 2];
         const scaffoldedDialogueStage = lessonNumber < 9;
-        const selectedDialogues = scaffoldedDialogueStage
-            ? lesson.dialogues.slice(0, 4)
-            : dialogueIndexes.map((index) => lesson.dialogues[index]).filter(Boolean);
+        const selectedDialogues = lesson.dialogues;
         const slides = [
             slide('Objetivos e diálogo', `<section class="intro-layout">
                 <div class="lesson-hero"><p class="lesson-panel-title">O que será aprendido nesta lição</p><h2>${escapeHtml(lesson.title)}</h2>${renderObjectives(lesson.objectives)}</div>
                 <div class="intro-dialogue-panel"><p class="lesson-panel-title">Introductory Dialogue</p>${renderDialogue(lesson.intro, true)}</div>
             </section>`),
-            slide('Vocabulário', `<section><div class="slide-heading"><p class="lesson-panel-title">Vocabulary</p><h2>Flashcards da lição</h2></div><div class="flashcard-grid">${lesson.vocab.map(([word, meaning, example], index) => `<article class="flashcard" data-flashcard data-save-card data-card-front="${escapeHtml(word)}" data-card-back="${escapeHtml(meaning)}" role="button" tabindex="0" aria-pressed="false"><span class="flashcard-inner"><span class="flashcard-front"><span class="flashcard-index">${String(index + 1).padStart(2, '0')}</span><strong>${escapeHtml(word)}</strong><small>${escapeHtml(example)}</small></span><span class="flashcard-back"><span class="flashcard-index flashcard-index-placeholder" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span><strong>${escapeHtml(meaning)}</strong><small class="v3-card-example-translation" data-v3-translate="${escapeHtml(example)}"></small></span></span></article>`).join('')}</div></section>`),
+            slide('Vocabulário', `<section><div class="slide-heading"><p class="lesson-panel-title">Vocabulary</p><h2>Palavras e expressões em contexto</h2><p>Observe como cada item funciona em frases reais. Vire o card para conferir o sentido.</p></div><div class="flashcard-grid">${lesson.vocab.map(([word, meaning, exampleValue, translationValue], index) => {
+                const examples = Array.isArray(exampleValue) ? exampleValue : [exampleValue];
+                const translations = Array.isArray(translationValue) ? translationValue : [translationValue];
+                return `<article class="flashcard" data-flashcard data-save-card data-card-front="${escapeHtml(word)}" data-card-back="${escapeHtml(meaning)}" role="button" tabindex="0" aria-pressed="false"><span class="flashcard-inner"><span class="flashcard-front"><span class="flashcard-index">${String(index + 1).padStart(2, '0')}</span><strong>${escapeHtml(word)}</strong><span class="flashcard-examples">${examples.map(example => `<small>${escapeHtml(example)}</small>`).join('')}</span></span><span class="flashcard-back"><span class="flashcard-index flashcard-index-placeholder" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span><strong>${escapeHtml(meaning)}</strong><span class="flashcard-examples">${examples.map((example, exampleIndex) => `<small class="v3-card-example-translation" data-v3-translate="${escapeHtml(example)}"${translations[exampleIndex] ? ` data-v3-translation="${escapeHtml(translations[exampleIndex])}"` : ''}></small>`).join('')}</span></span></span></article>`;
+            }).join('')}</div></section>`),
             slide('Gramática', `<section><div class="slide-heading"><p class="lesson-panel-title">Deep Grammar</p><h2>${escapeHtml(lesson.grammar.title)}</h2></div>${renderGrammar(lesson.grammar)}</section>`),
-            slide('Prática', `<section><div class="slide-heading"><p class="lesson-panel-title">Practice Time</p><h2>Prática variada: ${lesson.practice.length} atividades</h2></div>${renderActivityItems(lesson.practice, `lesson-${lessonNumber}-practice`)}</section>`)
+            slide('Prática', `<section><div class="slide-heading"><p class="lesson-panel-title">Practice Time</p><h2>Use a estrutura em diferentes tarefas</h2><p>Leia a orientação de cada item antes de responder e só depois confira o modelo.</p></div>${renderActivityItems(lesson.practice, `lesson-${lessonNumber}-practice`)}</section>`)
         ];
 
         const availableLabs = lesson.labs || [];
@@ -353,17 +384,17 @@
             ? [availableLabs[(lessonNumber - 1) % availableLabs.length]]
             : availableLabs;
         for (const [labIndex, lab] of selectedLabs.entries()) {
-            const labItems = lab.items.map(([prompt, hint, answer]) => ['Lab', prompt, hint, answer]);
+            const labItems = lab.items.map(item => item.length >= 4 ? item : ['Practice', ...item]);
             slides.push(slide(lab.title, `<section><div class="slide-heading"><p class="lesson-panel-title">Skill Lab</p><h2>${escapeHtml(lab.title)}</h2><p>${escapeHtml(lab.instruction)}</p></div>${renderActivityItems(labItems, `lesson-${lessonNumber}-lab-${labIndex}`)}</section>`));
         }
 
         slides.push(
-            slide('Tradução oral 1', `<section><div class="slide-heading"><p class="lesson-panel-title">Oral Translation</p><h2>Seis frases de recuperação</h2><p>Traduza oralmente cada frase antes de conferir o modelo.</p></div>${renderTranslationItems(lesson.translations, `lesson-${lessonNumber}-translation-one`)}</section>`),
-            slide('Expressões', `<section><div class="slide-heading"><p class="lesson-panel-title">Useful Language</p><h2>Expressões e phrasal verbs</h2></div><div class="expression-grid">${lesson.expressions.map(([phrase, meaning, note, example]) => `<article class="expression-card" data-save-card data-pronounce-text="${escapeHtml(phrase)}" data-card-front="${escapeHtml(phrase)}" data-card-back="${escapeHtml(meaning)} — ${escapeHtml(example)}"><div><strong>${escapeHtml(phrase)}</strong><span>${escapeHtml(meaning)}</span></div><p>${escapeHtml(note)}</p><small>${escapeHtml(example)}</small></article>`).join('')}</div></section>`),
-            slide('Mini diálogos', `<section><div class="slide-heading"><p class="lesson-panel-title">Speaking Practice</p><h2>${scaffoldedDialogueStage ? 'Quatro diálogos com apoio em português' : 'Duas situações + missão ao vivo'}</h2></div><div class="dialogue-grid">${selectedDialogues.map((dialogue, index) => `<article class="dialogue-card"><span class="dialogue-number">${index + 1}</span><h3>${escapeHtml(dialogue.title)}</h3>${renderDialogue(dialogue.lines, false, scaffoldedDialogueStage)}</article>`).join('')}</div></section>`),
+            slide('Tradução oral 1', `<section><div class="slide-heading"><p class="lesson-panel-title">Oral Retrieval</p><h2>Recupere a linguagem em contexto</h2><p>Traduza oralmente cada frase antes de conferir o modelo. Repita as estruturas que ainda não estiverem automáticas.</p></div>${renderTranslationItems(lesson.translations, `lesson-${lessonNumber}-translation-one`)}</section>`),
+            slide('Expressões', `<section><div class="slide-heading"><p class="lesson-panel-title">Useful Language</p><h2>Blocos úteis para esta situação</h2><p>Aprenda a expressão junto com o contexto em que ela é usada.</p></div><div class="expression-grid">${lesson.expressions.map(([phrase, meaning, note, example]) => `<article class="expression-card" data-save-card data-pronounce-text="${escapeHtml(phrase)}" data-card-front="${escapeHtml(phrase)}" data-card-back="${escapeHtml(meaning)} — ${escapeHtml(example)}"><div><strong>${escapeHtml(phrase)}</strong><span>${escapeHtml(meaning)}</span></div><p>${escapeHtml(note)}</p><small>${escapeHtml(example)}</small></article>`).join('')}</div></section>`),
+            slide('Mini diálogos', `<section><div class="slide-heading"><p class="lesson-panel-title">Speaking Practice</p><h2>Pratique as situações da aula</h2><p>Leia os papéis, troque as informações destacadas e refaça pelo menos uma situação sem consultar o modelo.</p></div><div class="dialogue-grid">${selectedDialogues.map((dialogue, index) => `<article class="dialogue-card"><span class="dialogue-number">${index + 1}</span><h3>${escapeHtml(dialogue.title)}</h3>${renderDialogue(dialogue.lines, false, scaffoldedDialogueStage)}</article>`).join('')}</div></section>`),
             slide('Leitura', `<section><div class="slide-heading"><p class="lesson-panel-title">Reading & Comprehension</p><h2>${escapeHtml(lesson.reading.title)}</h2></div>${renderReading(lesson.reading, `lesson-${lessonNumber}`)}</section>`),
-            slide('Tradução oral 2', `<section><div class="slide-heading"><p class="lesson-panel-title">Expressions Focus</p><h2>Seis frases com as expressões da aula</h2><p>Traduza oralmente e depois confira uma versão correta.</p></div>${renderTranslationItems(expressionTranslationItems(lesson), `lesson-${lessonNumber}-translation-two`)}</section>`),
-            slide('Música', `<section><div class="slide-heading"><p class="lesson-panel-title">Music Moment</p><h2>Área reservada para o trecho musical</h2><p>O trecho autorizado com lacunas será inserido na etapa editorial.</p></div><div class="music-card">${renderMusic(lesson.music, `lesson-${lessonNumber}`)}</div></section>`),
+            slide('Tradução oral 2', `<section><div class="slide-heading"><p class="lesson-panel-title">Expressions in Use</p><h2>Use as expressões em novas frases</h2><p>Traduza oralmente, confira uma versão possível e repita os blocos em que precisar de mais segurança.</p></div>${renderTranslationItems(expressionTranslationItems(lesson), `lesson-${lessonNumber}-translation-two`)}</section>`),
+            slide('Música', `<section><div class="slide-heading"><p class="lesson-panel-title">Music Time</p><h2>Preencha as lacunas com a palavra que você ouvir</h2></div><div class="music-card">${renderMusic(lesson.music, `lesson-${lessonNumber}`)}</div></section>`),
             slide('Homework', `<section>${renderHomework(lesson.homework)}</section>`)
         );
 
@@ -373,8 +404,16 @@
     function reviewSlides(review, lessonNumber) {
         const grammarMidpoint = Math.ceil(review.recap.length / 2);
         const grammarParts = [review.recap.slice(0, grammarMidpoint), review.recap.slice(grammarMidpoint)];
+        const contract = review.contract || {};
+        const contractPanel = contract.rounds ? `<div class="lesson-panel">
+            <p class="lesson-panel-title">Contrato comunicativo · ${escapeHtml(contract.oralInteractionMinutes)} min de interação oral</p>
+            <p>${escapeHtml(contract.scenario)}</p>
+            <ol class="objective-list">${contract.rounds.map(round => `<li>${escapeHtml(round)}</li>`).join('')}</ol>
+            <p><strong>Foco do professor:</strong> ${escapeHtml(contract.teacherFocus)}</p>
+            <p><strong>Evidência CEFR:</strong> ${escapeHtml(contract.cefrEvidence)}</p>
+        </div>` : '';
         const slides = [
-            slide('Review Mission', `<section class="intro-layout review-intro"><div class="lesson-hero"><p class="lesson-panel-title">Checkpoint</p><h2>${escapeHtml(review.title)}</h2><p class="review-lead">Circuito de consolidação para usar o conteúdo das três lições anteriores em situações concretas.</p>${renderObjectives(review.objectives)}</div><div class="review-route"><p class="lesson-panel-title">Rota da aula</p>${review.stations.map((station, index) => `<div><span>${index + 1}</span><strong>${escapeHtml(station.title.replace(/^Station \d+: |^Mission \d+: /, ''))}</strong></div>`).join('')}</div></section>`),
+            slide('Review Mission', `<section class="intro-layout review-intro"><div class="lesson-hero"><p class="lesson-panel-title">Action-oriented checkpoint</p><h2>${escapeHtml(review.title)}</h2><p class="review-lead">Missão cumulativa para compreender uma situação, fazer escolhas e melhorar o desempenho depois de feedback.</p>${renderObjectives(review.objectives)}${contractPanel}</div><div class="review-route"><p class="lesson-panel-title">Rota da aula</p>${review.stations.map((station, index) => `<div><span>${index + 1}</span><strong>${escapeHtml(station.title.replace(/^Station \d+: |^Mission \d+: /, ''))}</strong></div>`).join('')}</div></section>`),
             slide('Grammar Lab 1', `<section><div class="slide-heading"><p class="lesson-panel-title">Grammar Lab · Parte 1</p><h2>Entenda a escolha antes de praticar</h2><p>Comece pela tabela para comparar forma, uso e exemplo. Depois, leia os blocos completos e faça a checagem oral: a revisão não é uma corrida de regras.</p></div>${renderReviewGrammarTable(grammarParts[0])}${renderReviewGrammarCards(grammarParts[0])}</section>`),
             slide('Grammar Lab 2', `<section><div class="slide-heading"><p class="lesson-panel-title">Grammar Lab · Parte 2</p><h2>Antecipe os erros mais comuns</h2><p>Use a tabela como mapa rápido e as explicações detalhadas para justificar cada resposta, perceber o erro previsível e criar uma frase própria.</p></div>${renderReviewGrammarTable(grammarParts[1])}${renderReviewGrammarCards(grammarParts[1])}</section>`)
         ];

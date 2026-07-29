@@ -137,7 +137,9 @@
             'a2-v2': 'a2',
             'a2-v3': 'a2',
             'b1-v2': 'b1',
-            'b1-v3': 'b1'
+            'b1-v3': 'b1',
+            'b2-v3': 'b2',
+            'c1-v3': 'c1'
         };
         const baseModule = versionBaseMap[moduleId];
         return Boolean(baseModule && products.includes(baseModule));
@@ -161,7 +163,9 @@
             essentials: 'Pack 32',
             vestibular: 'Pack 32',
             b2: 'Pack 48',
+            'b2-v3': 'Pack 48',
             c1: 'Pack 48',
+            'c1-v3': 'Pack 48',
             c2: 'Pack 48'
         };
 

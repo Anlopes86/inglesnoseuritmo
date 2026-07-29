@@ -1,44 +1,48 @@
 (function () {
     const lessonTitles = [
-        'Past Simple: Details and Time Markers',
-        'Complete Past Stories',
-        'Comparing Options: More, Less and As...As',
-        'Superlatives and Irregular Adjectives',
-        'Articles and Quantifiers',
-        'Setting the Scene: Past Continuous',
+        'Past Stories',
+        'Sequence, Cause and Result',
         'Interrupted Stories',
-        'Integrated Review #1: Past and Comparison',
-        'Going To: Evidence and Detailed Plans',
-        'Will for Predictions and Decisions',
-        'Present Continuous for Future Plans',
-        'Future Review in Real Situations',
-        'Can, Could and Permission',
-        'Must, Have To and Need To',
-        'Giving Specific and Tactful Advice',
-        'Integrated Review #2: Plans, Modals and Advice',
-        'Present Perfect: Experiences',
-        'Ever, Never, Already and Yet',
-        'Present Perfect vs Past Simple',
-        'Been and Gone',
-        'Health Changes and Recovery',
-        'Medical Consultation & Conditions',
-        'Precise Location: In, On and At',
-        'Integrated Review #3: Experiences and Practical English',
-        'Prepositions of Movement',
-        'Time Expressions and Deadlines',
-        'Clarifying Multi-Step Directions',
-        'At the Hotel',
+        'Story Lab',
+        'Comparatives in Context',
+        'Superlatives and Ranking',
+        'Articles and Quantifiers',
+        'Compare and Choose',
+        'Going To',
+        'Will',
+        'Arrangements and Timetables',
+        'Planning Under Change',
+        'Requests and Permission',
+        'Obligation and Need',
+        'Specific Advice',
+        'Social Problem Solving',
+        'Life Experiences',
+        'Just, Already and Yet',
+        'Present Perfect or Past Simple',
+        'Experience Interview',
+        'Health and Consultation',
+        'Place and Movement',
+        'Multi-Step Routes',
+        'Health and Directions',
+        'Deadlines and Time',
+        'Hotel and Service Recovery',
         'Gerunds and Infinitives',
+        'Practical English',
         'Zero and First Conditional',
-        'Unless, Wishes and Real-Life Hopes',
-        'Final Review and Project'
+        'Unless, Hope and Intention',
+        'Used To',
+        'A2 Final Project'
     ];
 
     const topicMap = [
-        'past', 'past', 'compare', 'compare', 'quantity', 'pastContinuous', 'pastContinuous', 'reviewPast',
-        'future', 'future', 'future', 'future', 'modals', 'modals', 'advice', 'reviewModals',
-        'perfect', 'perfect', 'perfect', 'perfect', 'health', 'health', 'prepositions', 'reviewPractical',
-        'prepositions', 'prepositions', 'directions', 'hotel', 'verbPatterns', 'conditionals', 'conditionals', 'finalProject'
+        'past', 'past', 'pastContinuous', 'reviewPast',
+        'compare', 'compare', 'quantity', 'reviewPast',
+        'future', 'future', 'future', 'future',
+        'modals', 'modals', 'advice', 'reviewModals',
+        'perfect', 'perfect', 'perfect', 'perfect',
+        'health', 'prepositions', 'directions', 'reviewPractical',
+        'prepositions', 'hotel', 'verbPatterns', 'reviewPractical',
+        'conditionals', 'conditionals', 'usedTo', 'finalProject'
     ];
 
     const banks = {
@@ -485,6 +489,37 @@
         objectives: ['connect the main A2 V3 structures', 'prepare a short personal project', 'speak with clearer reasons and examples'],
         music: ['One step further', 'final reflection']
     });
+
+    banks.usedTo = {
+        label: 'past habits with used to',
+        themeOptions: ['a childhood routine', 'a habit that changed', 'life before a new job or city'],
+        objectives: ['describe past habits and states', 'contrast the past with the present', 'ask follow-up questions about change'],
+        vocab: [
+            ['childhood', 'infância', 'I used to live there during my childhood.'],
+            ['neighborhood', 'bairro', 'Our neighborhood used to be quieter.'],
+            ['habit', 'hábito', 'That habit changed when I started working.'],
+            ['commute', 'deslocamento', 'I did not use to have a long commute.'],
+            ['outdoors', 'ao ar livre', 'We used to play outdoors every day.'],
+            ['change', 'mudar', 'My routine changed after college.'],
+            ['remember', 'lembrar', 'Do you remember your first school?'],
+            ['nowadays', 'hoje em dia', 'Nowadays, I study online.']
+        ],
+        grammar: [
+            ['Past habit or state', 'Use used to + base verb for repeated actions or states that were true in the past but are different now.'],
+            ['Negative', 'Use did not use to + base verb. Did carries the past, so use has no final -d.'],
+            ['Question and contrast', 'Ask Did you use to...? and contrast with now, nowadays, but today, or no longer.']
+        ],
+        examples: ['I used to walk to school.', 'She did not use to like coffee.', 'Did you use to live here?', 'We used to be neighbors, but now we live in different cities.'],
+        expressions: [
+            ['grow up', 'crescer', 'I grew up near the coast.'],
+            ['take up', 'começar uma atividade', 'I took up running last year.'],
+            ['give up', 'abandonar um hábito', 'He gave up driving to work.'],
+            ['look back on', 'relembrar', 'I look back on those years with affection.']
+        ],
+        readingTitle: 'A Routine That Changed',
+        reading: 'When Júlia was a teenager, she used to wake up early and take two buses to school. She did not use to study online, and she often did homework at the public library because her family did not have a computer. After she started working, her routine changed completely. Nowadays, she works from home three days a week and studies English online in the evening. She still visits the library, but now she goes there to read and relax. Looking back helps her notice how technology and new responsibilities have changed everyday life.',
+        music: ['Life before and now', 'used to and change']
+    };
 
     const lessonProfiles = [
         {
@@ -1803,14 +1838,29 @@
         return Number((pathMatch && pathMatch[1]) || (titleMatch && titleMatch[1]) || 1);
     }
 
+    const legacySourceByLesson = {
+        1: 1, 2: 2, 3: 7, 4: 8,
+        5: 3, 6: 4, 7: 5, 8: 8,
+        9: 9, 10: 10, 11: 11, 12: 12,
+        13: 13, 14: 14, 15: 15, 16: 16,
+        17: 17, 18: 18, 19: 19, 20: 20,
+        21: 22, 22: 25, 23: 27, 24: 24,
+        25: 26, 26: 28, 27: 29, 28: 24,
+        29: 30, 30: 31, 32: 32
+    };
+
     function getLessonData() {
         const number = getLessonNumber();
+        const sourceNumber = legacySourceByLesson[number] || number;
         const title = lessonTitles[number - 1] || lessonTitles[0];
         const baseBank = banks[topicMap[number - 1]] || banks.past;
-        const profile = lessonProfiles[number - 1] || {};
-        const signature = signatureLessonUpgrades[number] || {};
-        const lessonSpecific = lessonDialogueContent[number] || {};
+        const profile = number === 31 ? {} : lessonProfiles[sourceNumber - 1] || {};
+        const signature = number === 31 ? {} : signatureLessonUpgrades[sourceNumber] || {};
+        const lessonSpecific = number === 31 ? {} : lessonDialogueContent[sourceNumber] || {};
         const bank = Object.assign({}, baseBank, profile, signature);
+        if (number === 31) {
+            Object.assign(bank, banks.usedTo);
+        }
 
         bank.label = signature.label || profile.label || baseBank.label || title.toLowerCase();
         bank.matchLabel = `${title.toLowerCase()} ${baseBank.label || ''}`;
@@ -1819,12 +1869,12 @@
         bank.translations = signature.translations || profile.translations || createTranslations(bank, title, number);
         bank.expressionTranslations = signature.expressionTranslations || profile.expressionTranslations || createExpressionTranslations(bank, number);
         bank.dialogues = signature.dialogues || profile.dialogues || lessonSpecific.dialogues || createDialogues(bank, title);
-        const followUp = dialogueFollowUps[number];
+        const followUp = dialogueFollowUps[sourceNumber];
         if (followUp && bank.dialogues.length && !signature.dialogues) {
             bank.dialogues = bank.dialogues.map((dialogue, index) => index === 0 ? [...dialogue, ...followUp] : dialogue);
         }
         bank.musicLines = profile.musicLines || createMusicLines(bank);
-        const readingUpgrade = signature.readingUpgrade || readingUpgrades[number];
+        const readingUpgrade = signature.readingUpgrade || readingUpgrades[sourceNumber];
         if (readingUpgrade) {
             bank.readingTitle = readingUpgrade.title;
             bank.reading = readingUpgrade.text;
@@ -3890,7 +3940,94 @@
                 ]
             }
         };
+        const curriculumEntry = window.V3Curriculum?.getLesson('a2-v3', number);
+        if (curriculumEntry && ['review', 'project'].includes(curriculumEntry.type)) {
+            return createCurriculumReview(curriculumEntry);
+        }
         return reviews[number] || null;
+    }
+
+    function createCurriculumReview(entry) {
+        const reviewedEntries = (entry.reviewOf || [])
+            .map(id => window.V3Curriculum?.getLesson('a2-v3', id))
+            .filter(Boolean);
+        const seeds = {
+            4: {
+                examples: ['I missed the bus, so I called a taxi.', 'I was waiting when the driver called.', 'While we were driving, it started to rain.'],
+                translations: [['Eu perdi o ônibus, então chamei um táxi.', 'I missed the bus, so I called a taxi.'], ['Eu estava esperando quando ele ligou.', 'I was waiting when he called.']]
+            },
+            8: {
+                examples: ['The train is faster than the bus.', 'This is the most convenient option.', 'We have enough time but not much money.'],
+                translations: [['O trem é mais rápido que o ônibus.', 'The train is faster than the bus.'], ['Esta é a opção mais conveniente.', 'This is the most convenient option.']]
+            },
+            12: {
+                examples: ['We are going to leave early.', 'I will call the hotel now.', 'We are meeting the guide at nine.'],
+                translations: [['Nós vamos sair cedo.', 'We are going to leave early.'], ['Vou ligar para o hotel agora.', 'I will call the hotel now.']]
+            },
+            16: {
+                examples: ['Could I change the booking?', 'Visitors have to show identification.', 'You should speak to the manager.'],
+                translations: [['Eu poderia mudar a reserva?', 'Could I change the booking?'], ['Você deveria falar com o gerente.', 'You should speak to the manager.']]
+            },
+            20: {
+                examples: ['I have already sent the form.', 'Have you finished yet?', 'I have been there, but Ana has gone there now.'],
+                translations: [['Eu já enviei o formulário.', 'I have already sent the form.'], ['Você já terminou?', 'Have you finished yet?']]
+            },
+            24: {
+                examples: ['I have had a headache since Monday.', 'Walk past the bank and turn left.', 'The clinic is across from the pharmacy.'],
+                translations: [['Estou com dor de cabeça desde segunda.', 'I have had a headache since Monday.'], ['Passe pelo banco e vire à esquerda.', 'Walk past the bank and turn left.']]
+            },
+            28: {
+                examples: ['The deadline is on Friday at noon.', 'I would like to change rooms.', 'I avoid checking messages after work.'],
+                translations: [['O prazo é sexta ao meio-dia.', 'The deadline is on Friday at noon.'], ['Eu gostaria de trocar de quarto.', 'I would like to change rooms.']]
+            },
+            32: {
+                examples: ['If I plan ahead, I will save time.', 'Unless we book now, the price will rise.', 'I used to study at night.'],
+                translations: [['Se eu me planejar, vou economizar tempo.', 'If I plan ahead, I will save time.'], ['Eu costumava estudar à noite.', 'I used to study at night.']]
+            }
+        };
+        const seed = seeds[entry.number] || seeds[32];
+        const focus = reviewedEntries.map(item => `${item.title}: ${item.linguisticFocus}`);
+        const examples = seed.examples;
+        const drills = Array.from({ length: 8 }, (_, index) => {
+            const example = examples[index % examples.length];
+            const labels = ['Complete', 'Choose by meaning', 'Transform', 'Correct and explain'];
+            return [labels[index % labels.length], `Use o foco do bloco para produzir uma versão de: ${example}`, example];
+        });
+        const translations = [...seed.translations];
+        while (translations.length < 6) {
+            const example = examples[translations.length % examples.length];
+            translations.push([`Traduza e adapte ao seu contexto: ${example}`, example]);
+        }
+        const rounds = [
+            ['Primeira tentativa', `Cumpra a missão “${entry.title}” com as informações iniciais.`, 'Faça perguntas, escolha uma solução e confirme o resultado.'],
+            ['Condição inesperada', 'O professor muda prazo, preferência, local ou recurso disponível.', 'Reaja sem abandonar a conversa e negocie um plano alternativo.'],
+            ['Segunda tentativa', 'Refaça a missão aplicando um foco de feedback.', 'Produza uma versão mais clara, precisa e autônoma.']
+        ];
+
+        return {
+            title: entry.title,
+            focus,
+            drills,
+            translations,
+            oralTest: rounds,
+            errorClinic: focus.slice(0, 6).map((item, index) => [
+                `Focus ${index + 1}`,
+                `Explique um erro provável ao usar ${item}.`,
+                examples[index % examples.length]
+            ]),
+            recap: [
+                ['Cumulative recycling', 'Recupere uma estrutura de um bloco anterior.', 'Conecte a forma antiga ao cenário atual.'],
+                ['Mediation', 'Repasse ao parceiro os três pontos principais da entrada.', 'Preserve fatos, prioridade e condição.'],
+                ['Online interaction', 'Escreva uma mensagem curta confirmando a solução.', 'Use abertura, decisão, detalhe e fechamento.']
+            ],
+            contract: {
+                scenario: `Missão comunicativa com escolha ou informação incompleta: ${entry.title}.`,
+                rounds,
+                teacherFocus: 'Registre um acerto e um único foco prioritário; dê feedback antes da segunda tentativa.',
+                cefrEvidence: 'Evidência A2 de compreensão, produção conectada, interação, mediação e troca online.',
+                oralInteractionMinutes: entry.oralInteractionMinutes
+            }
+        };
     }
 
     function renderReviewItems(items) {
@@ -4011,6 +4148,7 @@
     }
 
     function fillReviewLesson(data, review) {
+        const contract = review.contract || {};
         const gamePlan = {
             8: ['memory', 'builder'],
             16: ['matching', 'hangman'],
@@ -4026,6 +4164,13 @@
             <p class="lesson-panel-title">Aula de revisão</p>
             <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">${escapeHtml(review.title)}</h2>
             <p class="text-lg text-slate-600">Esta aula funciona como um circuito de treino: você revisa regras, corrige erros, traduz, fala e combina estruturas em situações novas.</p>
+            ${contract.rounds ? `<div class="lesson-panel p-5 mt-6 text-left">
+                <p class="font-black text-slate-900">Contrato comunicativo · ${escapeHtml(contract.oralInteractionMinutes)} min de interação oral</p>
+                <p class="text-sm text-slate-600 mt-2">${escapeHtml(contract.scenario)}</p>
+                <ol class="mt-3 space-y-2">${contract.rounds.map((round, index) => `<li><strong>${index + 1}.</strong> ${escapeHtml(round[0])}: ${escapeHtml(round[1])}</li>`).join('')}</ol>
+                <p class="text-sm mt-3"><strong>Foco do professor:</strong> ${escapeHtml(contract.teacherFocus)}</p>
+                <p class="text-sm mt-2"><strong>Evidência CEFR:</strong> ${escapeHtml(contract.cefrEvidence)}</p>
+            </div>` : ''}
             <div class="grid md:grid-cols-3 gap-4 mt-6 text-left">
                 <div class="lesson-panel p-4"><p class="font-black text-slate-900">1. Relembrar</p><p class="text-sm text-slate-600">Leia as regras curtas e veja o contraste entre formas parecidas.</p></div>
                 <div class="lesson-panel p-4"><p class="font-black text-slate-900">2. Misturar</p><p class="text-sm text-slate-600">Resolva atividades que alternam estruturas sem avisar demais.</p></div>

@@ -484,7 +484,7 @@
 
         64: lesson({
             title: 'Luck, Fate & Free Will', icon: 'fa-clover', accent: 'green',
-            warmupTitle: 'Warm-up: Lucky You?', warmupIntro: 'Perhaps everything happens for a reason. Perhaps you simply remembered your umbrella.',
+            warmupTitle: 'Warm-up: Lucky You?', warmupIntro: 'Perhaps everything happens for a reason. Perhaps you simply forgot your yellow umbrella.',
             warmups: ['What is the luckiest small thing that can happen on an ordinary day?', 'Which object is considered lucky in a culture you know?', 'Do skill and luck contribute equally to board games? Explain with an example.', 'Invent a ridiculous ritual for good luck before a meeting.'],
             expressions: [
                 E('A stroke of luck','A sudden fortunate event.','Finding the final ticket was a stroke of luck.','The empty parking space was {gap}.'),

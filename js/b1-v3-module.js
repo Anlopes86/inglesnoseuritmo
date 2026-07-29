@@ -21,6 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
         'Block 3', 'Block 3', 'Block 3', 'Block 3', 'Block 3', 'Block 3', 'Block 3', 'Review 3',
         'Block 4', 'Block 4', 'Block 4', 'Block 4', 'Block 4', 'Block 4', 'Block 4', 'Final Project'
     ];
+    const curriculumEntries = window.V3Curriculum?.getModule('b1-v3') || [];
+    if (curriculumEntries.length === 32) {
+        lessonTitles.splice(0, lessonTitles.length, ...curriculumEntries.map(entry => entry.title));
+        unitLabels.splice(0, unitLabels.length, ...curriculumEntries.map(entry => entry.type === 'content' ? 'Conteúdo integrado' : entry.type === 'review' ? 'Missão comunicativa' : 'Projeto'));
+    }
 
     function buildLessonCard(title, lessonNumber, state, isProfessor) {
         const padded = String(lessonNumber).padStart(2, '0');
@@ -122,13 +127,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            let firstUncompleted = lessonTitles.findIndex((_, index) => progress[`lesson_${index + 1}`] !== true) + 1;
+            let firstUncompleted = lessonTitles.findIndex((_, index) => !window.V3Curriculum?.isLessonComplete(allProgress, 'b1-v3', index + 1)) + 1;
             if (firstUncompleted === 0) firstUncompleted = lessonTitles.length + 1;
 
             grid.innerHTML = '';
             lessonTitles.forEach((title, index) => {
                 const lessonNumber = index + 1;
-                const isCompleted = progress[`lesson_${lessonNumber}`] === true;
+                const isCompleted = window.V3Curriculum?.isLessonComplete(allProgress, 'b1-v3', lessonNumber) || progress[`lesson_${lessonNumber}`] === true;
                 const state = isCompleted ? 'completed' : lessonNumber === firstUncompleted ? 'next' : 'locked';
                 grid.appendChild(buildLessonCard(title, lessonNumber, state, isProfessor));
             });
