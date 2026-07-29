@@ -53,8 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
   "Our World", "Our World", "Our World", "Checkpoint 7",
   "A2 Bridge", "A2 Bridge", "A2 Bridge", "Final Project"
 ];
+  const curriculumEntries = window.V3Curriculum?.getModule('a1-v3') || [];
+  if (curriculumEntries.length === 32) {
+    lessonTitles.splice(0, lessonTitles.length, ...curriculumEntries.map(entry => entry.title));
+    unitLabels.splice(0, unitLabels.length, ...curriculumEntries.map(entry => entry.type === 'content' ? 'Conteúdo integrado' : entry.type === 'review' ? 'Missão comunicativa' : 'Projeto'));
+  }
   function getLessonMaterials(lessonNumber) {
-    const isReview = lessonNumber % 4 === 0 || lessonNumber === 32;
+    const isReview = curriculumEntries[lessonNumber - 1]?.type !== 'content';
     return isReview
       ? ['dialogue', 'reading', 'writing', 'review']
       : ['dialogue', 'reading', 'writing'];
@@ -103,15 +108,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const isProfessor = role === 'professor' || role === 'admin';
       const doc = await db.collection('students').doc(studentId).get();
       const studentData = doc.exists ? doc.data() : {};
-      const progress = (studentData.progress || {})['a1-v3'] || {};
+      const allProgress = studentData.progress || {};
+      const progress = allProgress['a1-v3'] || {};
       const allowedProducts = platformAccess?.getStudentAccessibleProducts ? platformAccess.getStudentAccessibleProducts(studentData) : [...(Array.isArray(studentData.accessibleProducts) ? studentData.accessibleProducts : []), ...(Array.isArray(studentData.modules) ? studentData.modules : []), ...(studentData.studentType ? [studentData.studentType] : [])];
       if (platformAccess && !platformAccess.canAccessModule(allowedProducts, 'a1')) { loadingDiv.textContent = 'Este aluno não possui acesso ao módulo A1.'; return; }
-      let firstUncompleted = lessonTitles.findIndex((_, index) => progress[`lesson_${index + 1}`] !== true) + 1;
+      let firstUncompleted = lessonTitles.findIndex((_, index) => !window.V3Curriculum?.isLessonComplete(allProgress, 'a1-v3', index + 1)) + 1;
       if (firstUncompleted === 0) firstUncompleted = lessonTitles.length + 1;
       grid.innerHTML = '';
       lessonTitles.forEach((title, index) => {
         const lessonNumber = index + 1;
-        const isCompleted = progress[`lesson_${lessonNumber}`] === true;
+        const isCompleted = window.V3Curriculum?.isLessonComplete(allProgress, 'a1-v3', lessonNumber) || progress[`lesson_${lessonNumber}`] === true;
         const state = isCompleted ? 'completed' : lessonNumber === firstUncompleted ? 'next' : 'locked';
         grid.appendChild(buildLessonCard(title, lessonNumber, state, isProfessor));
       });

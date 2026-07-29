@@ -1,10 +1,13 @@
 (() => {
     const TOTAL_MINUTES = 60;
-    const reviewNumbers = {
-        'a1-v3': new Set([4, 8, 12, 16, 20, 24, 28, 32]),
-        'a2-v3': new Set([8, 16, 24, 32]),
-        'b1-v3': new Set([8, 16, 24, 32])
-    };
+    const reviewNumbers = Object.fromEntries(
+        ['a1-v3', 'a2-v3', 'b1-v3'].map(module => [
+            module,
+            new Set((window.V3Curriculum?.getModule(module) || [])
+                .filter(lesson => lesson.type !== 'content')
+                .map(lesson => lesson.number))
+        ])
+    );
 
     const missions = {
         'a1-v3': {

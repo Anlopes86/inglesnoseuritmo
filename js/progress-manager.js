@@ -19,7 +19,9 @@ function getModuleLandingPage(moduleId) {
         'a1-v3': 'a1-v3.html',
         'a2-v2': 'a2.html',
         'a2-v3': 'a2-v3.html',
-        'b1-v3': 'b1-v3.html'
+        'b1-v3': 'b1-v3.html',
+        'b2-v3': 'b2-v3.html',
+        'c1-v3': 'c1-v3.html'
     };
 
     return landingPages[moduleId] || `${moduleId}.html`;
@@ -91,7 +93,13 @@ async function markLessonAsComplete(moduleId, lessonId) {
     }
 
     const progressUpdate = {};
-    progressUpdate[`progress.${moduleId}.lesson_${lessonId}`] = true;
+    const curriculumLesson = window.V3Curriculum?.getLesson(moduleId, lessonId);
+    if (curriculumLesson) {
+        progressUpdate[`progress.${moduleId}.version`] = curriculumLesson.version || window.V3Curriculum.version;
+        progressUpdate[`progress.${moduleId}.byId.${curriculumLesson.id}`] = true;
+    } else {
+        progressUpdate[`progress.${moduleId}.lesson_${lessonId}`] = true;
+    }
 
     try {
         await updateStudentData(studentId, progressUpdate);
@@ -112,6 +120,34 @@ async function markLessonAsComplete(moduleId, lessonId) {
         return false;
     }
 }
+
+/**
+ * Resolve o progresso curricular V3 sem apagar o formato antigo.
+ * A leitura de lesson_N permanece durante a transição; novas conclusões são
+ * gravadas exclusivamente por ID estável e versão curricular.
+ */
+function resolveV3ModuleProgress(progress, moduleId) {
+    if (!window.V3Curriculum?.getModule(moduleId).length) {
+        return { version: null, byId: {}, completedNumbers: [] };
+    }
+
+    const migrated = window.V3Curriculum.migrateModuleProgress(progress || {}, moduleId);
+    const completedNumbers = window.V3Curriculum.getModule(moduleId)
+        .filter(lesson => migrated.byId[lesson.id] === true)
+        .map(lesson => lesson.number);
+
+    return {
+        ...migrated,
+        completedNumbers
+    };
+}
+
+function isV3LessonComplete(progress, moduleId, lessonId) {
+    return Boolean(window.V3Curriculum?.isLessonComplete(progress || {}, moduleId, lessonId));
+}
+
+window.resolveV3ModuleProgress = resolveV3ModuleProgress;
+window.isV3LessonComplete = isV3LessonComplete;
 
 function getLessonContextFromPath() {
     const path = window.location.pathname.replace(/\\/g, '/');

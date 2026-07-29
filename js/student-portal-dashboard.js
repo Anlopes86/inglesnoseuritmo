@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
         b1: { href: 'b1/b1.html', label: 'Módulo B1', family: 'Trilha principal', icon: 'fa-chart-line', total: 32, helper: 'Autonomia para relatar experiências, sustentar opiniões e explicar planos.' },
         'b1-v2': { href: 'b1-v2/b1-v2.html', label: 'Módulo B1 V2', version: 'V2 · teste', family: 'Versão de teste', icon: 'fa-flask', total: 32, helper: 'Versão paralela do B1 para testar novos formatos de prática.' },
         'b1-v3': { href: 'b1-v3/b1-v3.html', label: 'Módulo B1 V3', version: 'V3 · teste', family: 'Versão de teste', icon: 'fa-flask-vial', total: 32, helper: 'Sessões de 60 minutos com speaking, listening guiado e avaliação.' },
+        'b2-v3': { href: 'b2-v3/b2-v3.html', label: 'Módulo B2 V3', version: 'V3 · teste', family: 'Versão de teste', icon: 'fa-flask-vial', total: 32, helper: 'Ciclos de conteúdo e desempenho com argumentação, mediação e revisão comunicativa.' },
+        'c1-v3': { href: 'c1-v3/c1-v3.html', label: 'Módulo C1 V3', version: 'V3 · teste', family: 'Versão de teste', icon: 'fa-flask-vial', total: 32, helper: 'Precisão, registro, síntese crítica e defesa oral em tarefas orientadas à ação.' },
         conversation: { href: 'conversation/conversation.html', label: 'Conversation Club', family: 'Fluência', icon: 'fa-comments', total: 64, helper: 'Temas para ampliar repertório, opinião e confiança na conversa.' },
         business: { href: 'business/business.html', label: 'Inglês para Negócios', family: 'Inglês profissional', icon: 'fa-briefcase', total: 8, helper: 'Preparação prática para entrevistas de emprego em inglês.' },
         essentials: { href: 'essentials/essentials.html', label: 'English Essentials', family: 'Reforço', icon: 'fa-key', total: 16, helper: 'Revisão dos fundamentos essenciais para fortalecer a base.' },
@@ -50,7 +52,20 @@ document.addEventListener('DOMContentLoaded', () => {
         return date ? new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).format(date) : '';
     }
 
-    function progressState(progress, total) {
+    function progressState(progress, total, moduleId, allProgress) {
+        const curriculumLessons = window.V3Curriculum?.getModule(moduleId) || [];
+        if (curriculumLessons.length) {
+            const completedNumbers = curriculumLessons
+                .filter(lesson => window.V3Curriculum.isLessonComplete(allProgress || {}, moduleId, lesson.id))
+                .map(lesson => lesson.number);
+            const completedSet = new Set(completedNumbers);
+            const next = curriculumLessons.find(lesson => !completedSet.has(lesson.number))?.number || null;
+            return {
+                completed: completedNumbers.length,
+                next,
+                last: completedNumbers.length ? Math.max(...completedNumbers) : null
+            };
+        }
         const safe = progress || {};
         let next = null;
         let last = null;
@@ -101,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function selectModule(moduleId) {
         const module = MODULES[moduleId];
         if (!module || !studentData) return;
-        const state = progressState(studentData.progress?.[moduleId], module.total);
+        const state = progressState(studentData.progress?.[moduleId], module.total, moduleId, studentData.progress);
         const next = state.next ? `Lição ${String(state.next).padStart(2, '0')}` : 'Módulo concluído';
 
         activeModuleId = moduleId;
@@ -130,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         ui.moduleList.innerHTML = modules.map((id) => {
             const module = MODULES[id];
-            const state = progressState(studentData.progress?.[id], module.total);
+            const state = progressState(studentData.progress?.[id], module.total, id, studentData.progress);
             const active = id === activeModuleId;
             const status = state.next ? `Próxima: lição ${String(state.next).padStart(2, '0')}` : 'Trilha concluída';
             return `

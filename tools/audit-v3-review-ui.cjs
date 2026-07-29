@@ -119,11 +119,16 @@ async function render(spec) {
                 selectedMatchColor: selectedMatch ? getComputedStyle(selectedMatch).color : null,
                 selectedMatchBadge: selectedMatch ? getComputedStyle(selectedMatch, '::after').content : null,
                 unselectedMatchBackground: unselectedMatch ? getComputedStyle(unselectedMatch).backgroundColor : null
+                ,overflowers: [...document.querySelectorAll('*')].map(node => {
+                    const rect = node.getBoundingClientRect();
+                    return { tag: node.tagName, cls: node.className, left: Math.round(rect.left), right: Math.round(rect.right), width: Math.round(rect.width) };
+                }).filter(item => item.right > innerWidth + 1 || item.left < -1).slice(0, 8)
             });
         })()`,
         returnByValue: true
     });
     const metrics = JSON.parse(result.result.value);
+    console.log(`${spec.name}: ${JSON.stringify(metrics)}`);
     if (metrics.error) throw new Error(`${spec.name}: ${metrics.error}`);
     if (metrics.scrollWidth > metrics.viewportWidth + 1) throw new Error(`${spec.name}: horizontal overflow`);
     if (spec.expect === 'memory' && metrics.memoryMatched !== 2) throw new Error(`${spec.name}: memory interaction failed`);
@@ -147,14 +152,13 @@ async function render(spec) {
 
     await wait(500);
     const screenshot = await client.request('Page.captureScreenshot', { format: 'png', fromSurface: true });
-    fs.writeFileSync(path.join(root, `.audit-${spec.name}.png`), Buffer.from(screenshot.data, 'base64'));
+    fs.writeFileSync(path.join(profileDir, `${spec.name}.png`), Buffer.from(screenshot.data, 'base64'));
     client.close();
-    console.log(`${spec.name}: ${JSON.stringify(metrics)}`);
 }
 
 async function main() {
     const chrome = spawn(chromePath, [
-        '--headless=new', '--no-sandbox', '--in-process-gpu', '--disable-gpu', '--disable-gpu-compositing', '--disable-features=Vulkan,Graphite', '--use-angle=swiftshader', '--allow-file-access-from-files', '--no-first-run',
+        '--headless=new', '--no-sandbox', '--in-process-gpu', '--disable-gpu', '--disable-gpu-compositing', '--disable-features=Vulkan,Graphite', '--use-angle=swiftshader', '--allow-file-access-from-files', '--no-first-run', '--disable-component-update', '--disable-background-networking',
         `--remote-debugging-port=${port}`, `--user-data-dir=${profileDir}`, 'about:blank'
     ], { windowsHide: true, stdio: 'ignore' });
     try {
@@ -162,12 +166,12 @@ async function main() {
         await render({ name: 'a1-review-game', file: 'a1-v3/licao-32.html', selector: '.slide:has([data-v3-memory-board])', width: 1440, height: 1000, expect: 'memory', action: `const cards = target.querySelectorAll('[data-v3-memory-card]'); const first = cards[0]; const pair = [...cards].find(card => card !== first && card.dataset.pairId === first.dataset.pairId); first.click(); pair.click();` });
         await render({ name: 'a2-review-game-mobile', file: 'a2-v3/licao-16.html', selector: '.slide:has([data-v3-match-board])', width: 390, height: 844, expect: 'matching', action: `const left = target.querySelector('[data-v3-match-option][data-side="left"]'); const right = target.querySelector('[data-v3-match-option][data-side="right"][data-pair-id="' + left.dataset.pairId + '"]'); left.click(); right.click();` });
         await render({ name: 'a2-match-selected-dark', file: 'a2-v3/licao-16.html', selector: '.slide:has([data-v3-match-board])', width: 390, height: 844, expect: 'selection', action: `target.querySelector('[data-v3-match-option][data-side="left"]').click();` });
-        await render({ name: 'b1-review-game-dark', file: 'b1-v3/licao-16.html', selector: '.slide:has([data-v3-hangman])', width: 1440, height: 1000, expect: 'hangman', action: `target.querySelector('[data-v3-hangman-action="letter"]').click();` });
+        await render({ name: 'b1-review-game-dark', file: 'b1-v3/licao-15.html', selector: '.slide:has([data-v3-match-board])', width: 1440, height: 1000, expect: 'matching', action: `const left = target.querySelector('[data-v3-match-option][data-side="left"]'); const right = target.querySelector('[data-v3-match-option][data-side="right"][data-pair-id="' + left.dataset.pairId + '"]'); left.click(); right.click();` });
         await render({ name: 'b1-contrast-dark', file: 'b1-v3/licao-01.html', selector: '.slide[data-slide-type="vocabulary"]', width: 1440, height: 1000, expect: 'contrast', action: `target.querySelector('.b1-vocab-card')?.click();` });
-        await render({ name: 'a1-review-grammar', file: 'a1-v3/licao-08.html', selector: '.slide[data-title="Grammar Lab 1"]', width: 1440, height: 1000, expect: 'layout' });
+        await render({ name: 'a1-review-grammar', file: 'a1-v3/licao-05.html', selector: '.slide[data-title="Grammar Lab 1"]', width: 1440, height: 1000, expect: 'layout' });
         await render({ name: 'a2-review-grammar', file: 'a2-v3/licao-16.html', selector: '.slide[data-title="Grammar Lab II"]', width: 1440, height: 1000, expect: 'layout' });
         await render({ name: 'a2-horoscope-reading-mobile', file: 'a2-v3/licao-04.html', selector: '.slide:has(#reading-text)', width: 390, height: 844, expect: 'layout' });
-        await render({ name: 'b1-review-grammar-dark', file: 'b1-v3/licao-16.html', selector: '.slide.review-grammar-slide', width: 1440, height: 1000, expect: 'layout' });
+        await render({ name: 'b1-review-grammar-dark', file: 'b1-v3/licao-15.html', selector: '.slide[data-slide-type="grammar"]', width: 1440, height: 1000, expect: 'layout' });
         await render({ name: 'a1-music-flow', file: 'a1-v3/licao-01.html', selector: '.slide[data-title="Música"]', width: 1440, height: 1000, expect: 'layout' });
         await render({ name: 'a2-music-flow-mobile', file: 'a2-v3/licao-01.html', selector: '.slide[data-title="Music Moment"]', width: 390, height: 844, expect: 'layout' });
         await render({ name: 'b1-music-flow-dark', file: 'b1-v3/licao-01.html', selector: '.slide[data-slide-type="music"]', width: 1440, height: 1000, expect: 'layout' });

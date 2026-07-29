@@ -72,7 +72,9 @@
         { id: 'b1-v2', href: 'b1-v2/b1-v2.html', title: 'M\u00f3dulo B1 V2', lessons: 32, buttonText: 'Testar trilha', icon: 'fa-flask', accent: 'rose', description: 'Vers\u00e3o paralela do B1 para testar novas ideias sem alterar a trilha original.', isTestVersion: true },
         { id: 'b1-v3', href: 'b1-v3/b1-v3.html', title: 'M\u00f3dulo B1 V3', lessons: 32, buttonText: 'Testar trilha', icon: 'fa-flask-vial', accent: 'rose', description: 'Sess\u00f5es B1 de 60 minutos com speaking, listening guiado e avalia\u00e7\u00e3o.', isTestVersion: true },
         { id: 'b2', href: 'b2/b2.html', title: 'M\u00f3dulo B2', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-arrow-trend-up', accent: 'amber', description: 'Argumenta\u00e7\u00e3o, nuance e compreens\u00e3o de temas mais densos.', isComingSoon: true },
+        { id: 'b2-v3', href: 'b2-v3/b2-v3.html', title: 'M\u00f3dulo B2 V3', lessons: 32, buttonText: 'Testar trilha', icon: 'fa-flask-vial', accent: 'amber', description: 'Ciclos de conte\u00fado e desempenho com argumenta\u00e7\u00e3o, media\u00e7\u00e3o e 45 minutos de intera\u00e7\u00e3o nas revis\u00f5es.', isTestVersion: true },
         { id: 'c1', href: 'c1/c1.html', title: 'M\u00f3dulo C1', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-trophy', accent: 'cyan', description: 'Comunica\u00e7\u00e3o avan\u00e7ada para contextos sociais e profissionais.', isComingSoon: true },
+        { id: 'c1-v3', href: 'c1-v3/c1-v3.html', title: 'M\u00f3dulo C1 V3', lessons: 32, buttonText: 'Testar trilha', icon: 'fa-flask-vial', accent: 'cyan', description: 'Precis\u00e3o, registro, media\u00e7\u00e3o cr\u00edtica e defesa oral em ciclos orientados \u00e0 a\u00e7\u00e3o.', isTestVersion: true },
         { id: 'c2', href: 'c2/c2.html', title: 'M\u00f3dulo C2', lessons: 32, buttonText: 'Ver trilha', icon: 'fa-crown', accent: 'slate', description: 'Refinamento total da express\u00e3o e da compreens\u00e3o.', isComingSoon: true }
     ];
     function openModal(modal, focusTarget) {
@@ -108,7 +110,19 @@
         return map[accent] || map.blue;
     }
 
-    function resolveProgressState(progress, totalLessons) {
+    function resolveProgressState(progress, totalLessons, moduleId, allProgress) {
+        const curriculumLessons = window.V3Curriculum?.getModule(moduleId) || [];
+        if (curriculumLessons.length) {
+            const completedNumbers = curriculumLessons
+                .filter(lesson => window.V3Curriculum.isLessonComplete(allProgress || {}, moduleId, lesson.id))
+                .map(lesson => lesson.number);
+            const completedSet = new Set(completedNumbers);
+            return {
+                completedLessons: completedNumbers.length,
+                nextLesson: curriculumLessons.find(lesson => !completedSet.has(lesson.number))?.number || null,
+                lastCompleted: completedNumbers.length ? Math.max(...completedNumbers) : null
+            };
+        }
         const safeProgress = progress || {};
         let nextLesson = null;
         let lastCompleted = null;
@@ -214,6 +228,11 @@
     function getConversationLessonLimit(studentData) {
         const conversationModule = modulesData.find((module) => module.id === 'conversation');
         const moduleMaximum = Number(conversationModule?.lessons) || 64;
+
+        if (conversationModule) {
+            return moduleMaximum;
+        }
+
         const studentLimit = platformAccess?.getLessonLimit
             ? platformAccess.getLessonLimit(studentData)
             : Number(studentData?.lessonCount);
@@ -719,7 +738,7 @@
 
             const focusedModule = modulesData.find((module) => module.id === studentType);
             const focusedProgress = progressData[studentType] || {};
-            const focusedState = resolveProgressState(focusedProgress, (focusedModule && focusedModule.lessons) || 0);
+            const focusedState = resolveProgressState(focusedProgress, (focusedModule && focusedModule.lessons) || 0, studentType, progressData);
             const completedText = focusedState.lastCompleted ? formatLessonNumber(focusedState.lastCompleted) : 'Nenhuma li\u00e7\u00e3o conclu\u00edda';
             const nextText = focusedState.nextLesson ? formatLessonNumber(focusedState.nextLesson) : 'M\u00f3dulo conclu\u00eddo';
 
