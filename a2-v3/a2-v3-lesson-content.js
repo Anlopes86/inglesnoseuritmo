@@ -1,48 +1,51 @@
 (function () {
     const lessonTitles = [
-        'Past Stories',
-        'Sequence, Cause and Result',
-        'Interrupted Stories',
-        'Story Lab',
-        'Comparatives in Context',
-        'Superlatives and Ranking',
-        'Articles and Quantifiers',
-        'Compare and Choose',
+        'Welcome Back! A Trip Abroad',
+        'Vacation Weather and Activities',
+        'Conversation Activities 1: A Trip Abroad',
+        'Finding Your Way',
+        'How Long Does It Take?',
+        'Conversation Activities 2: In the Middle of Nowhere',
         'Going To',
-        'Will',
-        'Arrangements and Timetables',
-        'Planning Under Change',
+        'Arrangements and Predictions',
+        'Conversation Activities 3: Plans in Motion',
         'Requests and Permission',
         'Obligation and Need',
-        'Specific Advice',
-        'Social Problem Solving',
+        'Conversation Activities 4: Requests and Rules',
         'Life Experiences',
-        'Just, Already and Yet',
         'Present Perfect or Past Simple',
-        'Experience Interview',
+        'Conversation Activities 5: Experiences and Details',
         'Health and Consultation',
-        'Place and Movement',
-        'Multi-Step Routes',
-        'Health and Directions',
-        'Deadlines and Time',
+        'Place, Movement and Directions',
+        'Conversation Activities 6: Health and Directions',
         'Hotel and Service Recovery',
         'Gerunds and Infinitives',
-        'Practical English',
-        'Zero and First Conditional',
-        'Unless, Hope and Intention',
+        'Conversation Activities 7: Practical English',
         'Used To',
-        'A2 Final Project'
+        'Zero and First Conditional',
+        'Conversation Activities 8: Then, Now and Next',
+        'Superlatives and Ranking',
+        'Unless, Hope and Intention',
+        'Conversation Activities 9: Best Choices and Hopes',
+        'Deadlines and Time',
+        'Specific Advice',
+        'Conversation Activities 10: Time, Advice and Decisions',
+        'A2 Consolidation: Part 1',
+        'A2 Consolidation: Part 2'
     ];
 
     const topicMap = [
-        'past', 'past', 'pastContinuous', 'reviewPast',
-        'compare', 'compare', 'quantity', 'reviewPast',
-        'future', 'future', 'future', 'future',
-        'modals', 'modals', 'advice', 'reviewModals',
-        'perfect', 'perfect', 'perfect', 'perfect',
-        'health', 'prepositions', 'directions', 'reviewPractical',
-        'prepositions', 'hotel', 'verbPatterns', 'reviewPractical',
-        'conditionals', 'conditionals', 'usedTo', 'finalProject'
+        'past', 'pastContinuous', 'reviewPast',
+        'compare', 'quantity', 'reviewPast',
+        'future', 'future', 'reviewModals',
+        'modals', 'modals', 'reviewModals',
+        'perfect', 'perfect', 'reviewPast',
+        'health', 'directions', 'reviewPractical',
+        'hotel', 'verbPatterns', 'reviewPractical',
+        'usedTo', 'conditionals', 'reviewPractical',
+        'compare', 'conditionals', 'reviewModals',
+        'prepositions', 'advice', 'reviewPractical',
+        'finalProject', 'finalProject'
     ];
 
     const banks = {
@@ -1839,28 +1842,30 @@
     }
 
     const legacySourceByLesson = {
-        1: 1, 2: 2, 3: 7, 4: 8,
-        5: 3, 6: 4, 7: 5, 8: 8,
-        9: 9, 10: 10, 11: 11, 12: 12,
-        13: 13, 14: 14, 15: 15, 16: 16,
-        17: 17, 18: 18, 19: 19, 20: 20,
-        21: 22, 22: 25, 23: 27, 24: 24,
-        25: 26, 26: 28, 27: 29, 28: 24,
-        29: 30, 30: 31, 32: 32
+        1: 1, 2: 7, 3: 8,
+        4: 3, 5: 5, 6: 8,
+        7: 9, 8: 11, 9: 12,
+        10: 13, 11: 14, 12: 16,
+        13: 17, 14: 19, 15: 20,
+        16: 21, 17: 27, 18: 24,
+        19: 28, 20: 29, 21: 24,
+        22: 31, 23: 30, 24: 24,
+        25: 4, 26: 31, 27: 24,
+        28: 26, 29: 15, 30: 16,
+        31: 32, 32: 32
     };
 
     function getLessonData() {
         const number = getLessonNumber();
         const sourceNumber = legacySourceByLesson[number] || number;
         const title = lessonTitles[number - 1] || lessonTitles[0];
-        const baseBank = banks[topicMap[number - 1]] || banks.past;
-        const profile = number === 31 ? {} : lessonProfiles[sourceNumber - 1] || {};
-        const signature = number === 31 ? {} : signatureLessonUpgrades[sourceNumber] || {};
-        const lessonSpecific = number === 31 ? {} : lessonDialogueContent[sourceNumber] || {};
+        const topicKey = topicMap[number - 1];
+        const baseBank = banks[topicKey] || banks.past;
+        const standaloneBank = topicKey === 'usedTo';
+        const profile = standaloneBank ? {} : lessonProfiles[sourceNumber - 1] || {};
+        const signature = standaloneBank ? {} : signatureLessonUpgrades[sourceNumber] || {};
+        const lessonSpecific = standaloneBank ? {} : lessonDialogueContent[sourceNumber] || {};
         const bank = Object.assign({}, baseBank, profile, signature);
-        if (number === 31) {
-            Object.assign(bank, banks.usedTo);
-        }
 
         bank.label = signature.label || profile.label || baseBank.label || title.toLowerCase();
         bank.matchLabel = `${title.toLowerCase()} ${baseBank.label || ''}`;
@@ -1874,7 +1879,7 @@
             bank.dialogues = bank.dialogues.map((dialogue, index) => index === 0 ? [...dialogue, ...followUp] : dialogue);
         }
         bank.musicLines = profile.musicLines || createMusicLines(bank);
-        const readingUpgrade = signature.readingUpgrade || readingUpgrades[sourceNumber];
+        const readingUpgrade = signature.readingUpgrade || (standaloneBank ? null : readingUpgrades[sourceNumber]);
         if (readingUpgrade) {
             bank.readingTitle = readingUpgrade.title;
             bank.reading = readingUpgrade.text;
@@ -2897,7 +2902,7 @@
     function fillIntro(data) {
         const { title, bank } = data;
         setHtml('.slide[data-title="Intro & Dialogue"] .lesson-hero .max-w-3xl', `
-            <p class="lesson-panel-title">O que será aprendido nesta lição</p>
+            <p class="lesson-panel-title">Topic & Scene</p>
             <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">${escapeHtml(title)} em contexto real.</h2>
             <div class="grid md:grid-cols-3 gap-4 mt-6">
                 ${bank.objectives.map((item) => `<div class="lesson-panel p-4"><p class="font-bold text-slate-900">${escapeHtml(translateObjective(item))}</p></div>`).join('')}
@@ -3217,6 +3222,7 @@
     };
 
     function getGrammarTable(title, bank) {
+        if (bank.grammarTable) return bank.grammarTable;
         if (grammarTablesByTitle[title]) return grammarTablesByTitle[title];
 
         const label = (bank.matchLabel || bank.label || title || '').toLowerCase();
@@ -3438,7 +3444,7 @@
             <div class="flashcard bg-white rounded-2xl shadow p-5 min-h-48 cursor-pointer border border-slate-200" data-save-card data-card-front="${escapeHtml(word)}" data-card-back="${escapeHtml(pt)}">
                 <div class="flashcard-inner">
                     <div class="flashcard-front text-center space-y-3">
-                        <p class="text-sm uppercase tracking-wide text-emerald-600 font-bold">Vocabulary</p>
+                        <p class="text-sm uppercase tracking-wide text-emerald-600 font-bold">Vocabulary Expansion</p>
                         <h3 class="text-2xl font-black text-slate-900">${escapeHtml(word)}</h3>
                         <p class="text-sm text-slate-500">Clique para ver significado e exemplo</p>
                     </div>
@@ -3456,7 +3462,7 @@
         const slide = document.querySelector('.slide[data-title="Deep Grammar"]');
         if (!slide) return;
         const table = getGrammarTable(title, bank);
-        slide.querySelector('h2').textContent = `Grammar Focus: ${title}`;
+        slide.querySelector('h2').textContent = `Grammar in Context: ${title}`;
         setHtml('.slide[data-title="Deep Grammar"] .max-w-4xl', `
             <div class="activity-card border-t-8 border-emerald-500 p-8 space-y-5">
                 ${table ? `
@@ -3475,7 +3481,7 @@
                 </div>
                 <div class="bg-slate-100 p-5 rounded-xl space-y-2">
                     <p class="font-black text-slate-900">Exemplos para observar:</p>
-                    ${bank.examples.slice(0, 4).map((example) => `<p><i class="fas fa-check text-emerald-600 mr-2"></i>${escapeHtml(example)}</p>`).join('')}
+                    ${bank.examples.map((example) => `<p><i class="fas fa-check text-emerald-600 mr-2"></i>${escapeHtml(example)}</p>`).join('')}
                 </div>
                 <div class="callout-note p-5 rounded-xl">
                     <p class="font-bold">Prática rápida</p>
@@ -3494,73 +3500,47 @@
     }
 
     function fillPractice(bank) {
-        setHtml('#practice-questions', buildPractice(bank).map((item, index) => `
-            <div class="activity-card p-5">
-                <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
-                    <span class="generated-tag">${index + 1}. ${escapeHtml(item.type)}</span>
-                    ${revealButton(item.answer)}
-                </div>
-                <p class="text-lg font-semibold text-slate-900">${renderPracticePrompt(item)}</p>
-                <p class="text-sm text-slate-500 mt-2"><strong>Dica:</strong> ${escapeHtml(item.hint)}</p>
-                <p class="a2-answer hidden mt-3 p-3 rounded-lg bg-emerald-50 text-emerald-800 font-semibold"></p>
-            </div>
+        const sections = Array.isArray(bank.activitySections) && bank.activitySections.length
+            ? bank.activitySections
+            : [{ items: buildPractice(bank) }];
+        let itemNumber = 0;
+        setHtml('#practice-questions', sections.map((section) => `
+            <section class="space-y-4">
+                ${section.title ? `<div class="callout-note p-4 rounded-xl"><h3 class="font-black text-lg">${escapeHtml(section.title)}</h3>${section.instruction ? `<p>${escapeHtml(section.instruction)}</p>` : ''}</div>` : ''}
+                ${(section.items || []).map((item) => {
+                    itemNumber += 1;
+                    return `<div class="activity-card p-5">
+                        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+                            <span class="generated-tag">${itemNumber}. ${escapeHtml(item.type)}</span>
+                            ${revealButton(item.answer)}
+                        </div>
+                        <p class="text-lg font-semibold text-slate-900">${renderPracticePrompt(item)}</p>
+                        ${item.instruction ? `<p class="text-sm text-slate-600 mt-2"><strong>Como fazer:</strong> ${escapeHtml(item.instruction)}</p>` : ''}
+                        <p class="a2-answer hidden mt-3 p-3 rounded-lg bg-emerald-50 text-emerald-800 font-semibold"></p>
+                    </div>`;
+                }).join('')}
+            </section>
         `).join(''));
     }
 
     function expressionTranslationItems(bank) {
         const items = [...(bank.expressionTranslations || [])];
+        if (items.length) return items;
         const used = new Set(items.map(item => String(item.en || '').trim().toLowerCase()));
-        const label = String(bank.matchLabel || bank.label || '').toLowerCase();
-        let supplements = [
-            { pt: 'Eu quero continuar.', en: 'I want to keep going.' },
-            { pt: 'Eu desenvolvi confiança aos poucos.', en: 'I built up confidence.' }
-        ];
-        if (/past simple|complete past|past continuous|interrupted/.test(label)) supplements = [
-            { pt: 'Todo mundo se acalmou depois de alguns minutos.', en: 'Everyone calmed down after a few minutes.' },
-            { pt: 'Nós descobrimos o que aconteceu mais tarde.', en: 'We found out what happened later.' }
-        ];
-        else if (/comparative|superlative|articles|quantifiers/.test(label)) supplements = [
-            { pt: 'Nós compramos bastante lanche.', en: 'We stocked up on snacks.' },
-            { pt: 'Podemos nos virar com duas mesas.', en: 'We can make do with two tables.' }
-        ];
-        else if (/going to|will|present continuous for future|future review/.test(label)) supplements = [
-            { pt: 'Eu vou dar seguimento amanhã.', en: 'I will follow up tomorrow.' },
-            { pt: 'Eles adiaram a reunião.', en: 'They pushed back the meeting.' }
-        ];
-        else if (/permission|must|have to|need to|should|advice/.test(label)) supplements = [
-            { pt: 'Você deveria ir mais devagar esta semana.', en: 'You should slow down this week.' },
-            { pt: 'Ela está lidando com estresse.', en: 'She is dealing with stress.' }
-        ];
-        else if (/present perfect|ever|never|already|yet|been and gone/.test(label)) supplements = [
-            { pt: 'Ela vai voltar em breve.', en: 'She will get back soon.' },
-            { pt: 'Eles voltaram ontem.', en: 'They came back yesterday.' }
-        ];
-        else if (/health|medical/.test(label)) supplements = [
-            { pt: 'Você deveria deitar por um tempo.', en: 'You should lie down for a while.' },
-            { pt: 'A médica vai acompanhar na próxima semana.', en: 'The doctor will follow up next week.' }
-        ];
-        else if (/prepositions|movement|directions|hotel|time|from a to b/.test(label)) supplements = [
-            { pt: 'A recepção resolveu o problema.', en: 'Reception sorted out the problem.' },
-            { pt: 'Nós fizemos check-in tarde.', en: 'We checked in late.' }
-        ];
-        else if (/gerunds|infinitives|conditional|unless|wishes/.test(label)) supplements = [
-            { pt: 'Nós vamos encontrar uma solução.', en: 'We will figure out a solution.' },
-            { pt: 'Não perca essa oportunidade.', en: 'Do not miss out on this chance.' }
-        ];
-        for (const item of supplements) {
-            const key = item.en.trim().toLowerCase();
+        for (const [expression, meaning, example] of bank.expressions || []) {
+            if (!example) continue;
+            const key = String(example).trim().toLowerCase();
             if (used.has(key)) continue;
-            items.push(item);
+            items.push({ pt: meaning, en: example, expression });
             used.add(key);
-            if (items.length >= 6) break;
         }
-        return items.slice(0, 6);
+        return items;
     }
 
     function fillTranslations(bank, selector, focusExpressions) {
         const items = focusExpressions
             ? expressionTranslationItems(bank)
-            : (bank.translations || []).slice(0, 6);
+            : (bank.translations || []);
 
         setHtml(selector, items.map((item, index) => `
             <div class="activity-card p-5">
@@ -3583,10 +3563,49 @@
         `).join(''));
     }
 
+    function a2GuidedQuestions(bank) {
+        const authored = bank.guidedConversation?.questions;
+        if (Array.isArray(authored) && authored.length) return authored;
+        const dialogueQuestions = (bank.dialogues || [])
+            .flatMap(dialogue => dialogue.map(([, text]) => text))
+            .filter(text => /\?$/.test(String(text || '').trim()));
+        const unique = [...new Set(dialogueQuestions)];
+        const themes = bank.themes || [];
+        const fallbacks = [
+            themes[0] ? `Fale em inglês sobre ${themes[0]}.` : 'Resuma o tema da aula com suas próprias palavras.',
+            themes[1] ? `Dê um exemplo pessoal relacionado a ${themes[1]}.` : 'Dê um exemplo pessoal relacionado ao tema.',
+            themes[2] ? `Compare duas possibilidades em ${themes[2]}.` : 'Compare duas possibilidades e justifique sua preferência.',
+            `Use “${bank.expressions?.[0]?.[0] || bank.examples?.[0] || 'uma expressão da aula'}” em uma resposta nova.`,
+            'Explique uma escolha e acrescente uma consequência ou resultado.'
+        ];
+        if (unique.length >= 3) return unique;
+        return [...new Set([...unique, ...fallbacks])];
+    }
+
+    function renderA2GuidedConversation(data) {
+        const questions = a2GuidedQuestions(data.bank);
+        const support = data.bank.guidedConversation?.support || (data.bank.expressions || []).map(item => item[0]);
+        return `<div class="grid gap-4">${questions.map((question, index) => `<article class="activity-card p-5"><p class="lesson-panel-title">Question ${index + 1}</p><h3 class="text-xl font-black text-slate-900 mt-2">${escapeHtml(question)}</h3><p class="text-slate-600 mt-3">Responda em inglês, dê uma razão ou exemplo e aceite uma pergunta complementar do professor.</p></article>`).join('')}</div>
+            <div class="flex flex-wrap gap-2 mt-6">${support.map(item => `<span class="generated-tag">${escapeHtml(item)}</span>`).join('')}</div>`;
+    }
+
+    function applyA2ContentLabels() {
+        const labels = {
+            'Vocabulary Flashcards': 'Vocabulary Expansion: palavras em contexto',
+            'Practice Activities': 'Activation: use a linguagem',
+            'Expressions & Phrasal Verbs': 'Helping You: key phrases and expressions',
+            'Mini Dialogues': 'Dialog Samples: expressões em conversa',
+            'Reading & Comprehension': 'Context Reading'
+        };
+        Object.entries(labels).forEach(([title, label]) => {
+            const heading = document.querySelector(`.slide[data-title="${title}"] h2`);
+            if (heading) heading.textContent = label;
+        });
+    }
+
     function fillDialogues(bank) {
         const dialogues = bank.dialogues || [];
-        const indexes = getLessonNumber() % 2 === 0 ? [1, 3] : [0, 2];
-        const selectedDialogues = indexes.map((index) => dialogues[index]).filter(Boolean);
+        const selectedDialogues = dialogues;
 
         setHtml('#mini-dialogues-container', selectedDialogues.map((dialogue, index) => `
             <div class="activity-card p-6 space-y-3">
@@ -3650,7 +3669,7 @@
             <p>${escapeHtml(bank.reading)}</p>
             ${profileMarkup}
         `);
-        const questions = createReadingQuestions(bank).slice(0, 3);
+        const questions = createReadingQuestions(bank);
         setHtml('#reading-questions', `
             <p class="font-bold text-xl mb-4">Interpretation Questions:</p>
             ${questions.map((item, index) => `
@@ -3663,9 +3682,50 @@
         `);
     }
 
+    function normalizedListeningQuestions(questions) {
+        return (questions || []).map((item) => Array.isArray(item)
+            ? { question: item[0], answer: item[1] }
+            : { question: item.question, answer: item.answer });
+    }
+
+    function renderTeacherListening(listening, lessonNumber) {
+        const scriptId = `a2-listening-script-${lessonNumber}`;
+        const questions = normalizedListeningQuestions(listening.questions);
+        setHtml('#reading-text', `
+            <div class="callout-note p-5 rounded-xl mb-5">
+                <p class="font-black text-lg">Listening sem acompanhar o texto</p>
+                <p class="mt-2">Leia as perguntas abaixo. Quando a leitura começar, não olhe para a tela: escute, anote palavras-chave e responda somente depois.</p>
+            </div>
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                <div>
+                    <p class="lesson-panel-title">Roteiro de leitura</p>
+                    <h3 class="text-2xl font-black text-slate-900">${escapeHtml(listening.title || 'Listen and understand')}</h3>
+                </div>
+                <button type="button" class="primary-action-btn" data-a2-listening-toggle aria-controls="${scriptId}" aria-expanded="false"><i class="fas fa-eye" aria-hidden="true"></i> Mostrar roteiro</button>
+            </div>
+            <article id="${scriptId}" class="activity-card p-6 hidden" hidden data-a2-listening-script>
+                <p class="lesson-panel-title">Texto para leitura em voz alta</p>
+                <p class="text-lg leading-relaxed text-slate-800 mt-3">${escapeHtml(listening.script)}</p>
+            </article>
+        `);
+        setHtml('#reading-questions', `
+            <p class="font-bold text-xl mb-2">Perguntas para ouvir e responder</p>
+            <p class="text-slate-600 mb-4">Primeira leitura: identifique a situação geral. Segunda leitura: procure os detalhes necessários para responder.</p>
+            ${questions.map((item, index) => `
+                <div class="activity-card p-4">
+                    <div class="flex flex-wrap items-start justify-between gap-3">
+                        <p class="font-semibold text-lg"><span class="text-emerald-700 font-black">${index + 1}.</span> ${escapeHtml(item.question)}</p>
+                        ${revealButton(item.answer)}
+                    </div>
+                    <p class="a2-answer hidden mt-3 p-3 rounded-lg bg-emerald-50 text-emerald-800 font-semibold"></p>
+                </div>
+            `).join('')}
+        `);
+    }
+
     function renderLyricPlaceholder() {
         return `<div class="v3-lyric-placeholder">
-            <div class="v3-lyric-placeholder-head"><strong>Letra com lacunas</strong><span>Texto musical fictício para preservar o layout até a inserção do conteúdo autorizado.</span></div>
+            <div class="v3-lyric-placeholder-head"><strong>Music Time</strong><span>Preencha as lacunas com a palavra que você ouvir.</span></div>
             <div class="v3-lyric-copy">
                 <p class="v3-lyric-stanza">
                     <span class="v3-lyric-line">I wake to see the <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 1" autocomplete="off" spellcheck="false"> through the window,</span>
@@ -3686,7 +3746,6 @@
                     <span class="v3-lyric-line">The light we share will always <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 6" autocomplete="off" spellcheck="false">.</span>
                 </p>
             </div>
-            <p class="v3-copyright-note"><i class="fas fa-shield-halved" aria-hidden="true"></i> Nenhuma letra protegida é distribuída nesta versão.</p>
         </div>`;
     }
 
@@ -3750,7 +3809,20 @@
 
     function fillHomework(data) {
         const { title, bank } = data;
-        const themes = (bank.themes || bank.themeOptions || []).slice(0, 3);
+        if (Array.isArray(bank.homework) && bank.homework.length) {
+            setHtml('#homework-list', bank.homework.map((item) => {
+                if (typeof item === 'string') {
+                    return `<li class="flex gap-3"><i class="fas fa-check-circle mt-1"></i><span>${escapeHtml(item)}</span></li>`;
+                }
+                return `<li class="block">
+                    <div class="font-black mb-2"><i class="${escapeHtml(item.icon || 'fas fa-pen')} mr-2"></i>${escapeHtml(item.title)}</div>
+                    <p>${escapeHtml(item.instruction)}</p>
+                    ${item.model ? `<p class="mt-2 text-sm opacity-90"><strong>Modelo:</strong> ${escapeHtml(item.model)}</p>` : ''}
+                </li>`;
+            }).join(''));
+            return;
+        }
+        const themes = bank.themes || bank.themeOptions || [];
         setHtml('#homework-list', `
             <li class="block">
                 <div class="font-black mb-2"><i class="fas fa-map-pin mr-2"></i>Escolha um tema para o homework:</div>
@@ -3758,10 +3830,10 @@
                     ${themes.map((theme, index) => `<div class="bg-white/20 rounded-xl p-3"><strong>Tema ${index + 1}:</strong> ${escapeHtml(theme)}</div>`).join('')}
                 </div>
             </li>
-            <li class="flex gap-3"><i class="fas fa-edit mt-1"></i> Escreva 8 frases usando ${escapeHtml(title)} com o tema escolhido acima.</li>
-            <li class="flex gap-3"><i class="fas fa-comment-dots mt-1"></i> Prepare um roteiro de 60 a 90 segundos com pelo menos 3 palavras do vocabulário e 1 expressão do slide 6 para apresentar ao vivo.</li>
-            <li class="flex gap-3"><i class="fas fa-comments mt-1"></i> Crie um mini diálogo novo com 6 a 8 falas sobre o mesmo tema.</li>
-            <li class="flex gap-3"><i class="fas fa-book-open mt-1"></i> Releia o texto do slide 8 e responda novamente as perguntas com respostas mais completas.</li>
+            <li class="flex gap-3"><i class="fas fa-edit mt-1"></i> Escreva uma produção curta sobre o tema usando as estruturas que forem necessárias para comunicar a ideia com clareza.</li>
+            <li class="flex gap-3"><i class="fas fa-comment-dots mt-1"></i> Reaproveite palavras e expressões da aula quando elas combinarem naturalmente com o que você quer dizer.</li>
+            <li class="flex gap-3"><i class="fas fa-microphone mt-1"></i> Leia ou grave sua produção e refaça os trechos em que a mensagem ainda não estiver clara.</li>
+            <li class="flex gap-3"><i class="fas fa-book-open mt-1"></i> Releia o texto da aula e desenvolva novamente as respostas que ficaram curtas ou imprecisas.</li>
         `);
     }
 
@@ -3832,7 +3904,7 @@
                 ],
                 oralTest: [
                     ['Weekend plan', 'Say one existing plan for Saturday and one activity that is already arranged.', 'I am going to clean the apartment, and I am meeting my sister at seven.'],
-                    ['Quick response', 'Your coworker cannot carry two boxes. Respond with an immediate offer.', 'I will help you with the boxes.'],
+                    ['Quick response', 'Your coworker cannot carry two boxes. Answer with an immediate offer.', 'I will help you with the boxes.'],
                     ['Visitor rules', 'Tell a visitor one obligation and one thing that is optional.', 'You must wear a badge, but you do not have to print the form.'],
                     ['Polite solution', 'Ask permission to open a window, then ask someone to lower the volume.', 'Could I open the window? Could you turn down the volume, please?'],
                     ['Practical advice', 'A friend studies until 2 a.m. and feels exhausted. Give two pieces of advice.', 'You should stop earlier, and you should not skip sleep.']
@@ -3850,7 +3922,7 @@
                     ['Polite request chain', 'Ask for permission, then make the request softer with could.', 'Can I open the window? Could I open the window, please?'],
                     ['Rule or advice?', 'Create one rule with must and one advice sentence with should.', 'You must wear a badge. You should arrive early.'],
                     ['Future contrast', 'Explain the difference between a plan and a promise using examples.', 'I am going to study tonight. I will help you with the file.'],
-                    ['Office situation', 'Respond to a manager using have to, need to, and will.', 'I have to finish this first. I need to call the client. I will send it soon.']
+                    ['Office situation', 'Answer a manager using have to, need to, and will.', 'I have to finish this first. I need to call the client. I will send it soon.']
                 ]
             },
             24: {
@@ -3941,10 +4013,39 @@
             }
         };
         const curriculumEntry = window.V3Curriculum?.getLesson('a2-v3', number);
-        if (curriculumEntry && ['review', 'project'].includes(curriculumEntry.type)) {
-            return createCurriculumReview(curriculumEntry);
+        if (curriculumEntry) {
+            return ['review', 'project'].includes(curriculumEntry.type)
+                ? createCurriculumReview(curriculumEntry)
+                : null;
         }
         return reviews[number] || null;
+    }
+
+    function reviewFocusModel(focusItem) {
+        const focus = String(focusItem || '').toLowerCase();
+        if (/asking for help|travel time|how long does it take|distância/.test(focus)) return { example: 'Could you help me? How long does it take to get there?', translation: ['Você poderia me ajudar? Quanto tempo leva para chegar lá?', 'Could you help me? How long does it take to get there?'], error: 'How long does it takes by bus?', correction: 'How long does it take by bus?' };
+        if (/different from|comparative.*than|viagem/.test(focus)) return { example: 'Lisbon was different from my hometown and warmer than I expected.', translation: ['Lisboa era diferente da minha cidade e mais quente do que eu esperava.', 'Lisbon was different from my hometown and warmer than I expected.'], error: 'The city was different than my hometown and more quiet.', correction: 'The city was different from my hometown and quieter.' };
+        if (/enjoy.*ing|weather|clima|férias/.test(focus)) return { example: 'I enjoy walking by the beach when the weather is mild.', translation: ['Eu gosto de caminhar na praia quando o clima está ameno.', 'I enjoy walking by the beach when the weather is mild.'], error: 'I enjoy to swim when it is sunny.', correction: 'I enjoy swimming when it is sunny.' };
+        if (/past continuous|when e while|interrup/.test(focus)) return { example: 'I was waiting when the driver called.', translation: ['Eu estava esperando quando o motorista ligou.', 'I was waiting when the driver called.'], error: 'I was wait when he called.', correction: 'I was waiting when he called.' };
+        if (/past simple|sequência|causa/.test(focus)) return { example: 'I missed the bus, so I called a taxi.', translation: ['Eu perdi o ônibus, então chamei um táxi.', 'I missed the bus, so I called a taxi.'], error: 'Did you went home?', correction: 'Did you go home?' };
+        if (/comparativ|as\.\.\.as/.test(focus)) return { example: 'The train is much faster than the bus.', translation: ['O trem é muito mais rápido que o ônibus.', 'The train is much faster than the bus.'], error: 'The train is more fast than the bus.', correction: 'The train is faster than the bus.' };
+        if (/article|quant|contáve/.test(focus)) return { example: 'We have enough water, but only a few cups.', translation: ['Temos água suficiente, mas apenas alguns copos.', 'We have enough water, but only a few cups.'], error: 'We do not have many information.', correction: 'We do not have much information.' };
+        if (/going to|plano|intenç/.test(focus)) return { example: 'We are going to leave early tomorrow.', translation: ['Nós vamos sair cedo amanhã.', 'We are going to leave early tomorrow.'], error: 'We going to leave early.', correction: 'We are going to leave early.' };
+        if (/arrangement|present continuous|horário|will|previs/.test(focus)) return { example: 'We are meeting at nine, and I will call if the time changes.', translation: ['Vamos nos encontrar às nove e eu ligarei se o horário mudar.', 'We are meeting at nine, and I will call if the time changes.'], error: 'We are meet at nine.', correction: 'We are meeting at nine.' };
+        if (/request|permission|can\/could|pedido/.test(focus)) return { example: 'Could I borrow your charger, please?', translation: ['Eu poderia pegar seu carregador emprestado?', 'Could I borrow your charger, please?'], error: 'Could I to borrow your charger?', correction: 'Could I borrow your charger?' };
+        if (/obligation|must|have to|need to|regra/.test(focus)) return { example: 'Visitors have to show identification.', translation: ['Os visitantes precisam mostrar um documento.', 'Visitors have to show identification.'], error: 'Visitors must to show identification.', correction: 'Visitors must show identification.' };
+        if (/present perfect|life experience|ever|never|been\/gone/.test(focus)) return { example: 'I have visited Recife, but I went there many years ago.', translation: ['Eu já visitei Recife, mas fui para lá há muitos anos.', 'I have visited Recife, but I went there many years ago.'], error: 'I have visited Recife last year.', correction: 'I visited Recife last year.' };
+        if (/health|symptom|consult/.test(focus)) return { example: 'I have had a sore throat since Monday.', translation: ['Estou com dor de garganta desde segunda-feira.', 'I have had a sore throat since Monday.'], error: 'I feel a headache.', correction: 'I have a headache.' };
+        if (/place|movement|direction|preposition|route/.test(focus)) return { example: 'Walk past the bank and turn left at the corner.', translation: ['Passe pelo banco e vire à esquerda na esquina.', 'Walk past the bank and turn left at the corner.'], error: 'Walk across the park entrance.', correction: 'Walk through the park entrance.' };
+        if (/hotel|service|recovery|reclama/.test(focus)) return { example: 'The shower is not working. Could I change rooms?', translation: ['O chuveiro não está funcionando. Eu poderia trocar de quarto?', 'The shower is not working. Could I change rooms?'], error: 'I want change rooms.', correction: 'I want to change rooms.' };
+        if (/gerund|infinitive|padrões verbais|prefer/.test(focus)) return { example: 'I enjoy traveling, but I avoid arriving late.', translation: ['Eu gosto de viajar, mas evito chegar atrasado.', 'I enjoy traveling, but I avoid arriving late.'], error: 'I enjoy to travel.', correction: 'I enjoy traveling.' };
+        if (/used to|hábito|estado.*passado/.test(focus)) return { example: 'I used to study at night, but now I study in the morning.', translation: ['Eu costumava estudar à noite, mas agora estudo de manhã.', 'I used to study at night, but now I study in the morning.'], error: 'I did not used to exercise.', correction: 'I did not use to exercise.' };
+        if (/zero|first conditional|condiç|consequ/.test(focus)) return { example: 'If I finish early, I will call you.', translation: ['Se eu terminar cedo, vou ligar para você.', 'If I finish early, I will call you.'], error: 'If I will finish early, I will call.', correction: 'If I finish early, I will call.' };
+        if (/superlative|best\/worst|ranking/.test(focus)) return { example: 'This is the most convenient option for our group.', translation: ['Esta é a opção mais conveniente para o nosso grupo.', 'This is the most convenient option for our group.'], error: 'This is most convenient option.', correction: 'This is the most convenient option.' };
+        if (/unless|hope|intention/.test(focus)) return { example: 'Unless we book now, the price will rise.', translation: ['A menos que reservemos agora, o preço vai subir.', 'Unless we book now, the price will rise.'], error: 'Unless we do not book, the price will rise.', correction: 'Unless we book, the price will rise.' };
+        if (/deadline|prazo|data|expressões de tempo/.test(focus)) return { example: 'Please send the form by Friday at noon.', translation: ['Envie o formulário até sexta-feira ao meio-dia.', 'Please send the form by Friday at noon.'], error: 'The deadline is in Friday.', correction: 'The deadline is on Friday.' };
+        if (/advice|should|ought|conselho/.test(focus)) return { example: 'You should ask for help instead of working all night.', translation: ['Você deveria pedir ajuda em vez de trabalhar a noite toda.', 'You should ask for help instead of working all night.'], error: 'You should to ask for help.', correction: 'You should ask for help.' };
+        return { example: 'I can explain the situation and give a clear reason.', translation: ['Eu consigo explicar a situação e dar uma razão clara.', 'I can explain the situation and give a clear reason.'], error: 'I can to explain the situation.', correction: 'I can explain the situation.' };
     }
 
     function createCurriculumReview(entry) {
@@ -3985,23 +4086,21 @@
                 translations: [['Se eu me planejar, vou economizar tempo.', 'If I plan ahead, I will save time.'], ['Eu costumava estudar à noite.', 'I used to study at night.']]
             }
         };
-        const seed = seeds[entry.number] || seeds[32];
-        const focus = reviewedEntries.map(item => `${item.title}: ${item.linguisticFocus}`);
-        const examples = seed.examples;
-        const drills = Array.from({ length: 8 }, (_, index) => {
-            const example = examples[index % examples.length];
-            const labels = ['Complete', 'Choose by meaning', 'Transform', 'Correct and explain'];
-            return [labels[index % labels.length], `Use o foco do bloco para produzir uma versão de: ${example}`, example];
-        });
-        const translations = [...seed.translations];
-        while (translations.length < 6) {
-            const example = examples[translations.length % examples.length];
-            translations.push([`Traduza e adapte ao seu contexto: ${example}`, example]);
-        }
+        const focus = reviewedEntries.map(item => item.linguisticFocus);
+        const models = focus.map(reviewFocusModel);
+        const examples = models.map(model => model.example);
+        const drills = focus.length > 4
+            ? focus.map((focusItem, index) => ['Use in context', `Crie uma frase relacionada à sua vida usando ${focusItem}.`, models[index].example])
+            : focus.flatMap((focusItem, index) => [
+                ['Answer', `Responda com uma frase completa usando ${focusItem}.`, models[index].example],
+                ['Correct', models[index].error, models[index].correction],
+                ['Personalize', `Mude pessoas, lugar ou tempo neste modelo: ${models[index].example}`, models[index].example]
+            ]);
+        const translations = models.map(model => model.translation);
         const rounds = [
-            ['Primeira tentativa', `Cumpra a missão “${entry.title}” com as informações iniciais.`, 'Faça perguntas, escolha uma solução e confirme o resultado.'],
-            ['Condição inesperada', 'O professor muda prazo, preferência, local ou recurso disponível.', 'Reaja sem abandonar a conversa e negocie um plano alternativo.'],
-            ['Segunda tentativa', 'Refaça a missão aplicando um foco de feedback.', 'Produza uma versão mais clara, precisa e autônoma.']
+            ['Resposta guiada', `Fale sobre “${entry.title}” usando palavras-chave e exemplos do bloco.`, 'Organize fatos, sequência e uma conclusão curta.'],
+            ['Perguntas do professor', 'Responda a perguntas sobre detalhes, razões, preferências ou alternativas.', 'Dê uma resposta completa e acrescente um exemplo quando conseguir.'],
+            ['Resposta final', 'Reúna as ideias principais e aplique um foco de feedback.', 'Produza uma versão mais clara, precisa e autônoma.']
         ];
 
         return {
@@ -4010,20 +4109,20 @@
             drills,
             translations,
             oralTest: rounds,
-            errorClinic: focus.slice(0, 6).map((item, index) => [
+            errorClinic: focus.map((item, index) => [
                 `Focus ${index + 1}`,
-                `Explique um erro provável ao usar ${item}.`,
-                examples[index % examples.length]
+                models[index].error,
+                models[index].correction
             ]),
             recap: [
                 ['Cumulative recycling', 'Recupere uma estrutura de um bloco anterior.', 'Conecte a forma antiga ao cenário atual.'],
-                ['Mediation', 'Repasse ao parceiro os três pontos principais da entrada.', 'Preserve fatos, prioridade e condição.'],
+                ['Mediation', 'Repasse ao professor os três pontos principais da entrada.', 'Preserve fatos, prioridade e condição.'],
                 ['Online interaction', 'Escreva uma mensagem curta confirmando a solução.', 'Use abertura, decisão, detalhe e fechamento.']
             ],
             contract: {
-                scenario: `Missão comunicativa com escolha ou informação incompleta: ${entry.title}.`,
+                scenario: `Conversa guiada sobre ${entry.title}, com perguntas progressivas e uma resposta final conectada.`,
                 rounds,
-                teacherFocus: 'Registre um acerto e um único foco prioritário; dê feedback antes da segunda tentativa.',
+                teacherFocus: 'Registre um acerto e um único foco prioritário; dê feedback antes da resposta final.',
                 cefrEvidence: 'Evidência A2 de compreensão, produção conectada, interação, mediação e troca online.',
                 oralInteractionMinutes: entry.oralInteractionMinutes
             }
@@ -4046,6 +4145,10 @@
     function expandReviewFocus(item) {
         const [name, detail = ''] = String(item).split(':');
         const extra = {
+            'Different from and comparative + than': 'Use different from to show contrast. Use adjective + -er than or more + adjective + than to compare two places, experiences, or conditions.',
+            'Weather and enjoy + -ing': 'Use enjoy, like, love, and hate followed by verb-ing. Connect the activity to the weather so the sentence communicates a real preference.',
+            'Location prepositions and route instructions': 'Use place prepositions to locate the destination and movement prepositions with an imperative to describe the path: go past, walk along, turn at.',
+            'Asking for help and travel time': 'Use Can/Could you help me? for assistance. Ask How long does it take...? and answer with It takes + length of time.',
             'Past Simple': 'Use when the action is finished. In questions and negatives, did carries the past, so the main verb stays in base form: Did you go? I did not go.',
             'Past Continuous': 'Use for the background action, the scene, or an action in progress before something interrupted it. It often works with when and while.',
             'Comparatives/Superlatives': 'Comparatives compare two options; superlatives choose one option inside a group. Always add the context: cheaper than what? the best in which group?',
@@ -4085,7 +4188,35 @@
     }
 
     function reviewGamePairs(items) {
-        return items.map((item, index) => ({ id: String(index), cue: `${item[0]}: ${item[1]}`, answer: item[2] }));
+        return items.map((item, index) => ({ id: String(index), cue: item[1], answer: item[2] }));
+    }
+
+    function cleanMatchingCue(value) {
+        return String(value || '')
+            .replace(/\s*\([^)]*\)/g, '')
+            .replace(/\s{2,}/g, ' ')
+            .trim();
+    }
+
+    function shuffledGameItems(items) {
+        const shuffled = [...items];
+        for (let index = shuffled.length - 1; index > 0; index -= 1) {
+            const target = Math.floor(Math.random() * (index + 1));
+            [shuffled[index], shuffled[target]] = [shuffled[target], shuffled[index]];
+        }
+        return shuffled;
+    }
+
+    function shuffledAnswerPairs(pairs) {
+        if (pairs.length < 2) return [...pairs];
+        const reversed = [...pairs].reverse();
+        for (let attempt = 0; attempt < 16; attempt += 1) {
+            const candidate = shuffledGameItems(pairs);
+            const hasSameRow = candidate.some((pair, index) => pair.id === pairs[index].id);
+            const isReverseOrder = candidate.every((pair, index) => pair.id === reversed[index].id);
+            if (!hasSameRow && !isReverseOrder) return candidate;
+        }
+        return pairs.map((_, index) => pairs[(index + 1) % pairs.length]);
     }
 
     function a2MemoryPairs(lessonNumber, items) {
@@ -4107,18 +4238,23 @@
                 ['I have had this cough since Monday.', 'Estou com esta tosse desde segunda-feira.']
             ]
         }[lessonNumber];
-        if (!curated) return reviewGamePairs(items);
-        return curated.map(([cue, answer], index) => ({ id: String(index), cue, answer }));
+        if (!curated) return reviewGamePairs(items).slice(0, 5);
+        return curated.slice(0, 5).map(([cue, answer], index) => ({ id: String(index), cue, answer }));
     }
 
     function renderA2ReviewGame(items, type, lessonNumber) {
-        const pairs = type === 'memory' ? a2MemoryPairs(lessonNumber, items) : reviewGamePairs(items);
+        const pairs = type === 'memory'
+            ? a2MemoryPairs(lessonNumber, items)
+            : type === 'matching'
+                ? reviewGamePairs(items).slice(0, 5)
+                : reviewGamePairs(items);
         if (type === 'memory') {
-            const cards = pairs.map(pair => ({ ...pair, copy: pair.cue })).concat([...pairs].reverse().map(pair => ({ ...pair, copy: pair.answer })));
-            return `<div class="v3-review-game" data-v3-memory-board><div class="v3-review-game-head"><div><strong>Memory Challenge</strong><span>Encontre a relação de sentido: começo e fim da frase ou inglês e tradução.</span></div><i class="fas fa-clone"></i></div><div class="v3-memory-grid">${cards.map(card => `<button type="button" class="v3-memory-card" data-v3-memory-card data-pair-id="${card.id}"><span class="v3-memory-cover"><i class="fas fa-question"></i></span><span class="v3-memory-copy">${escapeHtml(card.copy)}</span></button>`).join('')}</div><p class="v3-review-feedback" data-v3-game-feedback>Vire duas cartas por vez. Ao acertar, leia e amplie o par oralmente.</p></div>`;
+            const cards = shuffledGameItems(pairs.map(pair => ({ ...pair, copy: pair.cue })).concat(pairs.map(pair => ({ ...pair, copy: pair.answer }))));
+            return `<div class="v3-review-game" data-v3-memory-board><div class="v3-review-game-head"><div><strong>Memory Challenge</strong></div><i class="fas fa-clone"></i></div><div class="v3-memory-grid">${cards.map(card => `<button type="button" class="v3-memory-card" data-v3-memory-card data-pair-id="${card.id}"><span class="v3-memory-cover"><i class="fas fa-question"></i></span><span class="v3-memory-copy">${escapeHtml(card.copy)}</span></button>`).join('')}</div><p class="v3-review-feedback" data-v3-game-feedback>0/${pairs.length} pares</p></div>`;
         }
         if (type === 'matching') {
-            return `<div class="v3-review-game" data-v3-match-board><div class="v3-review-game-head"><div><strong>Match the Cards</strong><span>Ligue cada situação à solução linguística adequada.</span></div><i class="fas fa-link"></i></div><div class="v3-match-grid"><div class="v3-match-column">${pairs.map(pair => `<button type="button" class="v3-match-option" data-v3-match-option data-side="left" data-pair-id="${pair.id}">${escapeHtml(pair.cue)}</button>`).join('')}</div><div class="v3-match-column">${[...pairs].reverse().map(pair => `<button type="button" class="v3-match-option" data-v3-match-option data-side="right" data-pair-id="${pair.id}">${escapeHtml(pair.answer)}</button>`).join('')}</div></div><p class="v3-review-feedback" data-v3-game-feedback>Comece por qualquer coluna.</p></div>`;
+            const answerPairs = shuffledAnswerPairs(pairs);
+            return `<div class="v3-review-game" data-v3-match-board><div class="v3-review-game-head"><div><strong>Match the Cards</strong><span>Ligue cada frase incompleta à opção que a completa corretamente.</span></div><i class="fas fa-link"></i></div><div class="v3-match-grid"><div class="v3-match-column">${pairs.map(pair => `<button type="button" class="v3-match-option" data-v3-match-option data-side="left" data-pair-id="${pair.id}">${escapeHtml(cleanMatchingCue(pair.cue))}</button>`).join('')}</div><div class="v3-match-column">${answerPairs.map(pair => `<button type="button" class="v3-match-option" data-v3-match-option data-side="right" data-pair-id="${pair.id}">${escapeHtml(pair.answer)}</button>`).join('')}</div></div><p class="v3-review-feedback" data-v3-game-feedback>Comece por qualquer coluna.</p></div>`;
         }
         if (type === 'hangman') {
             return `<div class="v3-review-game"><div class="v3-review-game-head"><div><strong>Grammar Hangman</strong><span>Descubra a forma-alvo usando a situação como pista.</span></div><i class="fas fa-spell-check"></i></div><div class="v3-hangman-list">${pairs.map(pair => `<article class="v3-hangman-round" data-v3-hangman data-answer="${escapeHtml(pair.answer)}"><p class="v3-hangman-hint">${escapeHtml(pair.cue)}</p><div class="v3-hangman-mask" data-v3-hangman-mask>${escapeHtml([...String(pair.answer)].map(character => /[a-z]/i.test(character) ? '_' : character).join(' '))}</div><div class="v3-game-actions"><button type="button" class="v3-game-action" data-v3-hangman-action="letter">Revelar letra</button><button type="button" class="v3-game-action" data-v3-hangman-action="answer">Mostrar resposta</button></div></article>`).join('')}</div></div>`;
@@ -4148,61 +4284,64 @@
     }
 
     function fillReviewLesson(data, review) {
+        review = Object.assign({}, review, data.bank.reviewPlan || {});
         const contract = review.contract || {};
         const gamePlan = {
-            8: ['memory', 'builder'],
-            16: ['matching', 'hangman'],
+            3: ['matching', 'memory'],
+            6: ['memory', 'builder'],
+            9: ['hangman', 'matching'],
+            12: ['matching', 'hangman'],
+            15: ['memory', 'builder'],
+            18: ['builder', 'matching'],
+            21: ['memory', 'matching'],
             24: ['hangman', 'memory'],
+            27: ['matching', 'builder'],
+            30: ['memory', 'hangman'],
+            31: ['matching', 'hangman'],
             32: ['builder', 'matching']
         }[data.number] || ['memory', 'matching'];
         const focusPairs = review.focus.map((item, index) => {
             const expanded = expandReviewFocus(item);
             return [expanded.name, expanded.detail, expanded.extra];
         });
-        const grammarMidpoint = Math.ceil(review.focus.length / 2);
         setHtml('.slide[data-title="Intro & Dialogue"] .lesson-hero .max-w-3xl', `
-            <p class="lesson-panel-title">Aula de revisão</p>
+            <p class="lesson-panel-title">Conversation Review</p>
             <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">${escapeHtml(review.title)}</h2>
-            <p class="text-lg text-slate-600">Esta aula funciona como um circuito de treino: você revisa regras, corrige erros, traduz, fala e combina estruturas em situações novas.</p>
-            ${contract.rounds ? `<div class="lesson-panel p-5 mt-6 text-left">
-                <p class="font-black text-slate-900">Contrato comunicativo · ${escapeHtml(contract.oralInteractionMinutes)} min de interação oral</p>
-                <p class="text-sm text-slate-600 mt-2">${escapeHtml(contract.scenario)}</p>
-                <ol class="mt-3 space-y-2">${contract.rounds.map((round, index) => `<li><strong>${index + 1}.</strong> ${escapeHtml(round[0])}: ${escapeHtml(round[1])}</li>`).join('')}</ol>
-                <p class="text-sm mt-3"><strong>Foco do professor:</strong> ${escapeHtml(contract.teacherFocus)}</p>
-                <p class="text-sm mt-2"><strong>Evidência CEFR:</strong> ${escapeHtml(contract.cefrEvidence)}</p>
-            </div>` : ''}
-            <div class="grid md:grid-cols-3 gap-4 mt-6 text-left">
-                <div class="lesson-panel p-4"><p class="font-black text-slate-900">1. Relembrar</p><p class="text-sm text-slate-600">Leia as regras curtas e veja o contraste entre formas parecidas.</p></div>
-                <div class="lesson-panel p-4"><p class="font-black text-slate-900">2. Misturar</p><p class="text-sm text-slate-600">Resolva atividades que alternam estruturas sem avisar demais.</p></div>
-                <div class="lesson-panel p-4"><p class="font-black text-slate-900">3. Produzir</p><p class="text-sm text-slate-600">Use as estruturas em fala, mini situações e respostas longas.</p></div>
-            </div>
+            <p class="text-lg text-slate-600">Revisão do bloco com linguagem em contexto e conversa guiada.</p>
         `);
         setHtml('#intro-dialogue', renderIntroDialogue(data.title, data.bank));
 
-        document.querySelector('.slide[data-title="Vocabulary Flashcards"] h2').textContent = `Station 1: ${gamePlan[0] === 'memory' ? 'Grammar Memory' : gamePlan[0] === 'matching' ? 'Connect the Ideas' : gamePlan[0] === 'hangman' ? 'Grammar Hangman' : 'Sentence Builder'}`;
+        document.querySelector('.slide[data-title="Vocabulary Flashcards"] h2').textContent = `Language Retrieval: ${gamePlan[0] === 'memory' ? 'Memory Challenge' : gamePlan[0] === 'matching' ? 'Connect the Ideas' : gamePlan[0] === 'hangman' ? 'Grammar Hangman' : 'Sentence Builder'}`;
         const reviewFlashcardsContainer = document.getElementById('flashcards-container');
         if (reviewFlashcardsContainer) reviewFlashcardsContainer.className = 'max-w-4xl mx-auto';
-        setHtml('#flashcards-container', renderA2ReviewGame(focusPairs, gamePlan[0], data.number));
+        const drillPairs = (review.drills || []).map(([kind, prompt, answer]) => [kind, prompt, answer]);
+        const retrievalPairs = drillPairs.length ? drillPairs : focusPairs;
+        setHtml('#flashcards-container', renderA2ReviewGame(retrievalPairs, gamePlan[0], data.number));
 
-        document.querySelector('.slide[data-title="Deep Grammar"] h2').textContent = 'Station 2: Grammar Control Panel';
-        const grammarSlide = document.querySelector('.slide[data-title="Deep Grammar"]');
-        const grammarPartOneItems = review.focus.slice(0, grammarMidpoint);
-        const grammarPartTwoItems = review.focus.slice(grammarMidpoint);
-        setHtml('.slide[data-title="Deep Grammar"] .max-w-4xl', `${renderA2GrammarTable(grammarPartOneItems)}${renderA2GrammarCards(review, grammarPartOneItems, 0)}`);
-        const grammarPartTwo = insertA2ReviewSlide(grammarSlide, 'Grammar Lab II', 'Grammar Lab · Parte 2', 'Contrastes, escolhas e erros previsíveis', 'Comece pela tabela comparativa. Em seguida, use cada explicação para justificar a escolha, antecipar um erro e criar um exemplo novo.', `${renderA2GrammarTable(grammarPartTwoItems)}${renderA2GrammarCards(review, grammarPartTwoItems, grammarMidpoint)}`);
-        insertA2ReviewSlide(grammarPartTwo, 'Interactive Review Game', 'Game Lab', gamePlan[1] === 'memory' ? 'Jogo da memória em contexto' : gamePlan[1] === 'matching' ? 'Ligue as situações às respostas' : gamePlan[1] === 'hangman' ? 'Forca gramatical' : 'Construtor de frases', 'Resolva o jogo, justifique cada resposta e crie uma variação oral.', renderA2ReviewGame(review.drills.slice(0, 6), gamePlan[1], data.number));
+        const focusSections = Array.isArray(review.focusSections) ? review.focusSections : [];
+        if (focusSections.length) {
+            const renderFocusSection = (section) => `
+                ${renderA2GrammarTable([section.focus])}
+                <div class="callout-note p-4 rounded-xl mt-5"><p class="font-bold">${escapeHtml(section.title)}</p><p>${escapeHtml(section.instruction)}</p></div>
+                <div class="space-y-4 mt-5">${renderReviewItems(section.items || [])}</div>
+            `;
+            document.querySelector('.slide[data-title="Deep Grammar"] h2').textContent = focusSections[0].title;
+            setHtml('.slide[data-title="Deep Grammar"] .max-w-4xl', renderFocusSection(focusSections[0]));
+            document.querySelector('.slide[data-title="Practice Activities"] h2').textContent = focusSections[1]?.title || 'Activation: use the language';
+            setHtml('#practice-questions', focusSections.slice(1).map(renderFocusSection).join(''));
+        } else {
+            document.querySelector('.slide[data-title="Deep Grammar"] h2').textContent = 'Grammar in Context';
+            setHtml('.slide[data-title="Deep Grammar"] .max-w-4xl', `${renderA2GrammarTable(review.focus)}${renderA2GrammarCards(review, review.focus, 0)}`);
 
-        document.querySelector('.slide[data-title="Practice Activities"] h2').textContent = 'Station 3: Mixed Drill Board';
-        setHtml('#practice-questions', `
-            <div class="callout-note p-4 rounded-xl"><p class="font-bold">Modo review</p><p>As atividades misturam regras. Leia a frase inteira antes de escolher a estrutura.</p></div>
-            ${renderReviewItems(review.drills)}
-        `);
+            document.querySelector('.slide[data-title="Practice Activities"] h2').textContent = 'Activation: use the language';
+            setHtml('#practice-questions', `
+                <div class="callout-note p-4 rounded-xl"><p class="font-bold">Modo review</p><p>As atividades misturam regras. Leia a frase inteira antes de escolher a estrutura.</p></div>
+                ${renderReviewItems(review.drills)}
+            `);
+        }
 
-        document.querySelector('.slide[data-title="Oral Translation I"] h2').textContent = 'Station 4: Translation Relay';
+        document.querySelector('.slide[data-title="Oral Translation I"] h2').textContent = 'Oral Retrieval in Context';
         const reviewTranslations = [...review.translations];
-        (data.bank.translations || []).forEach((item) => {
-            if (reviewTranslations.length < 8 && item.pt && item.en) reviewTranslations.push([item.pt, item.en]);
-        });
         setHtml('#oral-translation-1', reviewTranslations.map(([pt, en], index) => `
             <div class="activity-card p-5">
                 <div class="flex flex-wrap items-center justify-between gap-3">
@@ -4213,7 +4352,7 @@
             </div>
         `).join(''));
 
-        document.querySelector('.slide[data-title="Expressions & Phrasal Verbs"] h2').textContent = 'Station 5: Error Clinic';
+        document.querySelector('.slide[data-title="Expressions & Phrasal Verbs"] h2').textContent = 'Helping You: common corrections';
         setHtml('#expressions-container', (review.errorClinic || []).map((item) => `
             <div class="activity-card p-6">
                 <h3 class="text-xl font-black text-emerald-700">${escapeHtml(item[0])}</h3>
@@ -4223,31 +4362,54 @@
             </div>
         `).join(''));
 
-        document.querySelector('.slide[data-title="Mini Dialogues"] h2').textContent = 'Station 6: Role-play Missions';
+        document.querySelector('.slide[data-title="Mini Dialogues"] h2').textContent = 'Dialog Samples';
         fillDialogues(data.bank);
-        document.querySelector('.slide[data-title="Reading & Comprehension"] h2').textContent = 'Station 7: Case File Reading';
-        fillReading(data.bank);
-        document.querySelector('.slide[data-title="Oral Translation II"] h2').textContent = 'Station 8: One-Minute Oral Test';
+        const reviewListening = data.bank.reviewListening || {
+            title: data.bank.readingTitle || review.title,
+            script: data.bank.reading,
+            questions: createReadingQuestions(data.bank)
+        };
+        document.querySelector('.slide[data-title="Reading & Comprehension"] h2').textContent = 'Listening: listen without reading';
+        renderTeacherListening(reviewListening, data.number);
+        document.querySelector('.slide[data-title="Oral Translation II"] h2').textContent = 'Speaking: answer, develop and try again';
+        const speakingItems = (review.oralTest || [])
+            .concat(data.bank.reviewSpeaking || [])
+            .concat(review.recap || []);
         setHtml('#oral-translation-2', `
-            <div class="callout-note p-4 rounded-xl"><p class="font-bold">Responda sem ler um roteiro.</p><p>Depois, revele apenas para comparar estrutura e clareza.</p></div>
-            ${renderReviewItems((review.oralTest || []).concat((review.recap || []).slice(0, 3)))}
+            <div class="callout-note p-4 rounded-xl"><p class="font-bold">Responda sem ler um roteiro.</p><p>Desenvolva cada resposta com um detalhe, uma razão ou um exemplo. Depois do feedback, escolha duas respostas e faça uma segunda tentativa.</p></div>
+            ${renderReviewItems(speakingItems)}
+            <div class="callout-note p-4 rounded-xl"><p class="font-bold">Evidência de desempenho</p><p>${escapeHtml(contract.cefrEvidence || 'Resposta compreensível, conectada e adequada às perguntas do professor.')}</p></div>
         `);
         document.querySelector('.slide[data-title="Music Moment"]')?.remove();
         setHtml('#homework-list', `
             <li class="block">
                 <div class="font-black mb-2"><i class="fas fa-map-pin mr-2"></i>Escolha um foco para o homework:</div>
                 <div class="grid gap-2">
-                    ${review.focus.slice(0, 3).map((focus, index) => `<div class="bg-white/20 rounded-xl p-3"><strong>Foco ${index + 1}:</strong> ${escapeHtml(expandReviewFocus(focus).name)}</div>`).join('')}
+                    ${review.focus.map((focus, index) => `<div class="bg-white/20 rounded-xl p-3"><strong>Foco ${index + 1}:</strong> ${escapeHtml(expandReviewFocus(focus).name)}</div>`).join('')}
                 </div>
             </li>
-            <li class="flex gap-3"><i class="fas fa-edit mt-1"></i> Reescreva 8 frases corrigindo erros dos tópicos revisados.</li>
-            <li class="flex gap-3"><i class="fas fa-comment-dots mt-1"></i> Prepare um roteiro oral de 90 segundos usando pelo menos 3 estruturas revisadas para apresentar na próxima aula.</li>
-            <li class="flex gap-3"><i class="fas fa-comments mt-1"></i> Crie um diálogo com 8 falas usando o foco escolhido e mais um conteúdo da revisão.</li>
+            <li class="flex gap-3"><i class="fas fa-edit mt-1"></i> Reescreva as frases em que você ainda teve dificuldade, corrigindo e explicando o ajuste.</li>
+            <li class="flex gap-3"><i class="fas fa-comment-dots mt-1"></i> Prepare uma resposta oral curta usando estruturas revisadas e exemplos pessoais.</li>
+            <li class="flex gap-3"><i class="fas fa-comments mt-1"></i> Escreva uma conversa breve entre você e o professor sobre o foco escolhido.</li>
         `);
     }
 
     function wireActions() {
         document.addEventListener('click', (event) => {
+            const listeningToggle = event.target.closest('[data-a2-listening-toggle]');
+            if (listeningToggle) {
+                const script = document.getElementById(listeningToggle.getAttribute('aria-controls'));
+                if (!script) return;
+                const willReveal = script.hidden || script.classList.contains('hidden');
+                script.hidden = !willReveal;
+                script.classList.toggle('hidden', !willReveal);
+                listeningToggle.setAttribute('aria-expanded', willReveal ? 'true' : 'false');
+                listeningToggle.innerHTML = willReveal
+                    ? '<i class="fas fa-eye-slash" aria-hidden="true"></i> Ocultar roteiro'
+                    : '<i class="fas fa-eye" aria-hidden="true"></i> Mostrar roteiro';
+                return;
+            }
+
             const musicReveal = event.target.closest('[data-music-reveal]');
             if (musicReveal) {
                 const answer = document.getElementById(musicReveal.getAttribute('aria-controls'));
@@ -4301,7 +4463,13 @@
     }
 
     function hydrateLesson() {
-        const data = getLessonData();
+        let data = getLessonData();
+        const editorial = window.V3LessonEditorial;
+        if (editorial?.has('a2-v3', data.number)) data = editorial.apply('a2-v3', data.number, data);
+        const paddedLesson = String(data.number).padStart(2, '0');
+        document.title = `A2 V3 | Lição ${paddedLesson}: ${data.title}`;
+        const headerTitle = document.querySelector('header h1');
+        if (headerTitle) headerTitle.textContent = `A2 - Lição ${paddedLesson}: ${data.title}`;
         const review = getReviewLesson(data.number);
         if (review) {
             fillReviewLesson(data, review);
@@ -4316,6 +4484,18 @@
         fillExpressions(data.bank);
         fillDialogues(data.bank);
         fillReading(data.bank);
+        applyA2ContentLabels();
+        const readingSlide = document.querySelector('.slide[data-title="Reading & Comprehension"]');
+        if (readingSlide && !document.querySelector('.slide[data-title="Guided Conversation"]')) {
+            insertA2ReviewSlide(
+                readingSlide,
+                'Guided Conversation',
+                'Let’s Talk',
+                'Responda e desenvolva suas ideias',
+                'O professor faz uma pergunta por vez. Responda, acrescente uma razão ou exemplo e use as expressões de apoio quando necessário.',
+                renderA2GuidedConversation(data)
+            );
+        }
         fillTranslations(data.bank, '#oral-translation-2', true);
         fillMusic(data.bank);
         fillHomework(data);

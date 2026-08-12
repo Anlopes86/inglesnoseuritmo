@@ -67,7 +67,7 @@
             },
             {
                 type: "dialogues",
-                title: spec.dialogueTitle || "Four Everyday Mini Dialogues",
+                title: spec.dialogueTitle || "Dialogues in Context",
                 intro: spec.dialogueIntro,
                 dialogues: spec.dialogues
             },
@@ -149,11 +149,9 @@
             cefr: spec.cefr,
             slides: [
                 { type: "opening", title: spec.title, objectives: spec.objectives, dialogue: spec.opening },
-                { type: "grammar", title: `${spec.grammar.title} · Parte 1`, intro: `${spec.grammar.intro} Comece pelo primeiro grupo e peça ao aluno que justifique cada contraste com significado, não apenas com o nome do tempo verbal.`, tables: grammarTables.slice(0, 1), notes: grammarNotes.slice(0, 2) },
-                { type: "reviewGame", title: `Game Lab 1: ${gamePlan[0] === 'memory' ? 'Memory Challenge' : gamePlan[0] === 'matching' ? 'Match the Ideas' : gamePlan[0] === 'hangman' ? 'Grammar Hangman' : 'Sentence Builder'}`, game: gamePlan[0], intro: "Recupere a linguagem sem consultar a tabela. Explique a escolha depois de cada acerto.", items: spec.stationOne.items.slice(0, 6) },
-                { type: "grammar", title: `${spec.grammar.title} · Parte 2`, intro: "Agora compare as funções do segundo grupo, observe os erros previsíveis e produza um exemplo próprio para cada linha.", tables: grammarTables.slice(1), notes: grammarNotes.slice(2).concat(["Antes de avançar, transforme um exemplo em pergunta, negativa ou resposta mais cautelosa."]) },
+                { type: "grammar", title: spec.grammar.title, intro: spec.grammar.intro, tables: grammarTables, notes: grammarNotes },
+                { type: "reviewGame", title: gamePlan[0] === 'memory' ? 'Memory Challenge' : gamePlan[0] === 'matching' ? 'Match the Ideas' : gamePlan[0] === 'hangman' ? 'Grammar Hangman' : 'Sentence Builder', game: gamePlan[0], intro: "Recupere a linguagem sem consultar a tabela. Explique a escolha depois de cada acerto.", items: spec.stationOne.items },
                 { type: "practice", title: spec.stationOne.title, intro: spec.stationOne.intro, items: spec.stationOne.items },
-                { type: "reviewGame", title: `Game Lab 2: ${gamePlan[1] === 'memory' ? 'Memory Challenge' : gamePlan[1] === 'matching' ? 'Match the Ideas' : gamePlan[1] === 'hangman' ? 'Grammar Hangman' : 'Sentence Builder'}`, game: gamePlan[1], intro: "Resolva em ritmo de jogo e faça uma segunda rodada com exemplos diferentes.", items: spec.stationTwo.items.slice(0, 6) },
                 { type: "practice", title: spec.stationTwo.title, intro: spec.stationTwo.intro, items: spec.stationTwo.items },
                 { type: "reading", title: spec.reading.title, genre: spec.reading.genre, paragraphs: spec.reading.paragraphs, vocabulary: spec.reading.vocabulary, questions: spec.reading.questions },
                 { type: "teacherListening", title: spec.listening.title, setup: spec.listening.setup, script: spec.listening.script, questions: spec.listening.questions },

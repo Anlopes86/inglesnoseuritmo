@@ -1,9 +1,29 @@
 (function attachV3Curriculum(globalScope) {
     'use strict';
 
+    if (!globalScope.V3LessonEditorial) {
+        const editorialTransforms = new Map();
+        const editorialKey = (moduleId, lessonNumber) => `${String(moduleId).toLowerCase()}:${Number(lessonNumber)}`;
+        globalScope.V3LessonEditorial = Object.freeze({
+            register(moduleId, lessonNumber, transform) {
+                if (typeof transform !== 'function') throw new TypeError('A transformação editorial da lição precisa ser uma função.');
+                const key = editorialKey(moduleId, lessonNumber);
+                editorialTransforms.set(key, [...(editorialTransforms.get(key) || []), transform]);
+            },
+            apply(moduleId, lessonNumber, lesson) {
+                return (editorialTransforms.get(editorialKey(moduleId, lessonNumber)) || [])
+                    .reduce((current, transform) => transform(current) || current, lesson);
+            },
+            has(moduleId, lessonNumber) {
+                return editorialTransforms.has(editorialKey(moduleId, lessonNumber));
+            }
+        });
+    }
+
     const VERSION = '2026.07-action-oriented-32';
     const MODULE_VERSIONS = {
-        'a1-v3': '2026.07.29-gradual-a1-32'
+        'a1-v3': '2026.08.05-expanded-a1-32',
+        'a2-v3': '2026.08.11-vacation-weather-cycle'
     };
     const SKILLS = ['reception', 'production', 'interaction', 'mediation', 'linguistic', 'online'];
 
@@ -52,72 +72,72 @@
 
     const raw = {
         'a1-v3': [
-            ['Hello! I Am, You Are', 'cumprimentos, identidade e I am/you are', [1]],
-            ['He Is, She Is: Countries', 'he/she + is e origem com Where ... from', [27]],
-            ['My World: Family and Possessives', 'família e my/your/his/her', [3]],
-            ['Alphabet and Numbers: Your Name', 'alfabeto, números 0–20 e soletração', [2]],
-            ['Hello and Profiles', 'missão de apresentação, origem, família e nome'],
-            ['Contact Details', 'telefone, e-mail, endereço e números 20–100', [2]],
-            ['Everyday Objects: A and An', 'objetos singulares, a/an e it is'],
-            ['This and That', 'demonstrativos singulares e distância'],
-            ['These and Those', 'demonstrativos plurais e plural regular'],
-            ['People and Things', 'missão de contato, identificação e objetos'],
-            ['My Routine: I and You', 'Present Simple afirmativo com I/you', [5]],
-            ['Likes and Don’t Like', 'gostos e negativa com I/you', [14]],
-            ['His and Her Routine', 'terceira pessoa afirmativa e verbos frequentes', [5]],
-            ['Do You...? Does He...?', 'perguntas e respostas curtas com do/does', [5]],
-            ['Routine Interview', 'missão de rotina, gostos e perguntas'],
-            ['How Often?', 'advérbios básicos de frequência', [14]],
-            ['What Time Is It?', 'horários, at + hora e on + dia', [6]],
-            ['Family Possession: Have and Has', 'have/has, our/their e possessive ’s', [3]],
-            ['Jobs and Basic Abilities', 'ocupações e can/can’t', [19]],
-            ['People and Weekly Life', 'missão de frequência, horários, família e habilidades'],
-            ['My Home: There Is', 'there is singular e in/on/under', [18]],
-            ['My Neighborhood: There Are', 'there are plural e localização básica', [10]],
-            ['Market Day: Food and Some', 'contáveis, não contáveis e some afirmativo', [7]],
-            ['At the Café: Some and Any', 'some/any e pedidos curtos', [7]],
-            ['Home and Everyday Needs', 'missão de casa, bairro, mercado e cafeteria'],
-            ['Talent Show: Can You...?', 'reciclagem de can com and/but', [19]],
-            ['What Is Happening Now?', 'Present Continuous afirmativo', [23]],
-            ['Are You Doing It Now?', 'perguntas e negativas no Present Continuous', [23]],
-            ['Where Were You?', 'was/were para localização e estado passado', [29]],
-            ['Now and Before', 'missão de habilidades, ações atuais e was/were'],
-            ['My A1 Profile Workshop', 'preparação de projeto com linguagem consolidada'],
-            ['A1 Oral Performance', 'apresentação, perguntas e avaliação oral A1']
+            ['First Day of Class', 'apresentações, nomes, agradecimentos e blocos com be', [1]],
+            ['A Few Days Later', 'cumprimentos, profissões, a/an e I am/you are', [1, 18]],
+            ['At Break', 'alimentos, bebidas e frases afirmativas com I/we/they + want/have', [7]],
+            ['Names Around the Class', 'he/she, his/her, alfabeto, soletração e números 0–20', [2, 26]],
+            ['Conversation Activities 1', 'revisão comunicativa das lições 1–4'],
+            ['What’s Your Address?', 'endereço, contato, números 21–100, 1.000, 10.000, at e dot', [2]],
+            ['Let’s Go Out!', 'convites, sugestões, aceitação e recusa'],
+            ['My Everyday Life', 'Present Simple com I/you, rotina e preferências', [4]],
+            ['Sarah’s Routine', 'terceira pessoa, do/does e informações pessoais', [4]],
+            ['Conversation Activities 2', 'revisão comunicativa das lições 6–9'],
+            ['Family Photos', 'família, possessive ’s, have/has e idades', [3]],
+            ['At Home', 'móveis, roupas, preposições e there is/there are', [17]],
+            ['Let’s Go Shopping', 'contáveis, não contáveis, some/any, much/many e a lot of', [7, 14]],
+            ['At the Store', 'preços, quantidades, a few/a little e números acima de 100', [14]],
+            ['Conversation Activities 3', 'revisão comunicativa das lições 11–14'],
+            ['Which One?', 'cores, roupas, one/ones e object pronouns'],
+            ['Is It Yours or Mine?', 'whose e possessive pronouns'],
+            ['What Are They Doing?', 'Present Continuous em ações atuais', [22]],
+            ['What’s Your Friend Like?', 'aparência, descrição pessoal e horários', [8, 6]],
+            ['Conversation Activities 4', 'revisão comunicativa das lições 16–19'],
+            ['Vacation Calendar', 'meses, datas, férias e was/were', [21, 27]],
+            ['What Happened?', 'Past Simple regular e verbos irregulares essenciais', [27]],
+            ['At the Airport', 'transporte, viagem, can e know how to', [18, 19]],
+            ['What Was Happening?', 'Past Continuous básico em cenas de viagem'],
+            ['Conversation Activities 5', 'revisão comunicativa das lições 21–24'],
+            ['Sabrina’s Invitation', 'estações, clima e going to', [12, 29]],
+            ['Health Problems', 'sintomas, conselhos e will em decisões simples'],
+            ['On the Phone', 'linguagem telefônica, convites e pedidos com can/could'],
+            ['Take It Easy', 'start/finish, before/after/until e contraste temporal essencial'],
+            ['Conversation Activities 6', 'revisão comunicativa das lições 26–29'],
+            ['A1 Consolidation · Part 1', 'grande revisão das lições 1–15'],
+            ['A1 Consolidation · Part 2', 'grande revisão das lições 16–30']
         ],
         'a2-v3': [
-            ['Past Stories', 'Past Simple em relatos completos', [1]],
-            ['Sequence, Cause and Result', 'conectores de sequência, causa e resultado', [2]],
-            ['Interrupted Stories', 'Past Continuous, Past Simple e interrupções', [6, 7]],
-            ['Story Lab', 'reconstrução e narração de uma história'],
-            ['Comparatives in Context', 'comparativos e as...as', [3]],
-            ['Superlatives and Ranking', 'superlativos e formas irregulares', [4]],
-            ['Articles and Quantifiers', 'artigos, contáveis e quantificadores', [5]],
-            ['Compare and Choose', 'comparar alternativas e justificar uma escolha'],
-            ['Going To', 'planos e evidências', [9]],
-            ['Will', 'previsões, decisões e promessas', [10]],
-            ['Arrangements and Timetables', 'Present Continuous e horários futuros', [11]],
-            ['Planning Under Change', 'planejamento, imprevisto e plano alternativo'],
+            ['Welcome Back! A Trip Abroad', 'Different from and comparative + than em conversas sobre viagem', [1]],
+            ['Vacation Weather and Activities', 'Weather and enjoy + -ing para preferências e decisões de férias', [1]],
+            ['Conversation Activities 1 · A Trip Abroad', 'interação, listening e speaking sobre viagem, clima e preferências'],
+            ['Finding Your Way', 'Location prepositions and route instructions para localizar lugares e explicar caminhos', [3]],
+            ['How Long Does It Take?', 'Asking for help and travel time com distância, duração e transporte', [3]],
+            ['Conversation Activities 2 · In the Middle of Nowhere', 'listening, interação e resolução de problemas de localização'],
+            ['Going To', 'planos, intenções e evidências', [9]],
+            ['Arrangements and Predictions', 'Present Continuous, horários, will e mudanças', [10, 11]],
+            ['Conversation Activities 3 · Plans in Motion', 'planos, arranjos, imprevistos e decisões'],
             ['Requests and Permission', 'can/could e pedidos polidos', [13]],
-            ['Obligation and Need', 'must, have to e need to', [14]],
-            ['Specific Advice', 'should, ought to e conselho contextual', [15]],
-            ['Social Problem Solving', 'pedido, regra, conselho e solução social'],
-            ['Life Experiences', 'Present Perfect e experiências', [17]],
-            ['Just, Already and Yet', 'marcadores de resultado e progresso', [18]],
+            ['Obligation and Need', 'must, have to, need to e regras', [14]],
+            ['Conversation Activities 4 · Requests and Rules', 'pedidos, permissão, regras e solução social'],
+            ['Life Experiences', 'Present Perfect, ever e never', [17, 18]],
             ['Present Perfect or Past Simple', 'experiência, detalhe passado e been/gone', [19, 20]],
-            ['Experience Interview', 'entrevista de experiências e acompanhamento'],
-            ['Health and Consultation', 'sintomas, duração e consulta', [21, 22]],
-            ['Place and Movement', 'preposições de lugar e movimento', [23, 25]],
-            ['Multi-Step Routes', 'rotas, esclarecimento e sequência', [27]],
-            ['Health and Directions', 'missão de consulta e deslocamento'],
-            ['Deadlines and Time', 'prazos, datas e expressões de tempo', [26]],
+            ['Conversation Activities 5 · Experiences and Details', 'entrevista, acompanhamento e relato de experiências'],
+            ['Health and Consultation', 'sintomas, duração, consulta e conselho', [21, 22]],
+            ['Place, Movement and Directions', 'preposições, rotas e esclarecimento', [23, 25, 27]],
+            ['Conversation Activities 6 · Health and Directions', 'consulta, localização e instruções em etapas'],
             ['Hotel and Service Recovery', 'hotel, reclamação e recuperação de serviço', [28]],
-            ['Gerunds and Infinitives', 'padrões verbais frequentes', [29]],
-            ['Practical English', 'missão de prazo, hotel e solução prática'],
-            ['Zero and First Conditional', 'condições reais e resultados', [30]],
-            ['Unless, Hope and Intention', 'unless, hope e intenção', [31]],
-            ['Used To', 'hábitos e estados passados'],
-            ['A2 Final Project', 'projeto, revisão cumulativa e desempenho']
+            ['Gerunds and Infinitives', 'preferências e padrões verbais frequentes', [29]],
+            ['Conversation Activities 7 · Practical English', 'problema de serviço, escolhas e solução prática'],
+            ['Used To', 'hábitos, estados e mudanças do passado'],
+            ['Zero and First Conditional', 'condições reais, consequências e alternativas', [30]],
+            ['Conversation Activities 8 · Then, Now and Next', 'mudança de hábitos, condições e planos alternativos'],
+            ['Superlatives and Ranking', 'superlativos, best/worst e evidências', [4]],
+            ['Unless, Hope and Intention', 'unless, hope, intenção e previsão', [31]],
+            ['Conversation Activities 9 · Best Choices and Hopes', 'ranking, expectativa e decisão justificada'],
+            ['Deadlines and Time', 'prazos, datas e expressões de tempo', [26]],
+            ['Specific Advice', 'should, ought to, instead of e conselho contextual', [15]],
+            ['Conversation Activities 10 · Time, Advice and Decisions', 'prazos, conselho, consequência e decisão'],
+            ['A2 Consolidation · Part 1', 'revisão extensa das lições 1–15'],
+            ['A2 Consolidation · Part 2', 'revisão extensa das lições 16–30']
         ],
         'b1-v3': [
             ['Past Experience and Finished Time', 'Present Perfect versus passado concluído', [1]],
@@ -224,16 +244,16 @@
     };
 
     const reviewPositions = {
-        'a1-v3': [5, 10, 15, 20, 25, 30],
-        'a2-v3': [4, 8, 12, 16, 20, 24, 28, 32],
+        'a1-v3': [5, 10, 15, 20, 25, 30, 31, 32],
+        'a2-v3': [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 31, 32],
         'b1-v3': [3, 6, 9, 12, 15, 18, 21, 24, 27, 30],
         'b2-v3': Array.from({ length: 16 }, (_, index) => (index + 1) * 2),
         'c1-v3': Array.from({ length: 16 }, (_, index) => (index + 1) * 2)
     };
 
     const projectPositions = {
-        'a1-v3': [31, 32],
-        'a2-v3': [32],
+        'a1-v3': [],
+        'a2-v3': [],
         'b1-v3': [31, 32],
         'b2-v3': [31, 32],
         'c1-v3': [31, 32]
@@ -244,30 +264,30 @@
     const stableId = (moduleId, number, title) => `${moduleId}-${String(number).padStart(2, '0')}-${String(title).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
     const a1PreviousEquivalents = {
         1: [[1, 'Greetings and Introductions']],
-        2: [[26, 'Countries and Languages']],
-        3: [[3, 'Family and Possessives']],
-        4: [[2, 'Personal Information']],
+        2: [[1, 'Greetings and Introductions'], [18, 'School, Work and Abilities']],
+        3: [[7, 'Food and Quantities']],
+        4: [[2, 'Personal Information'], [26, 'Countries and Languages']],
         6: [[2, 'Personal Information']],
-        8: [[14, 'Shopping and Prices']],
-        9: [[14, 'Shopping and Prices']],
-        11: [[4, 'Routines and Present Simple']],
-        12: [[13, 'Hobbies and Frequency']],
-        13: [[4, 'Routines and Present Simple']],
-        14: [[4, 'Routines and Present Simple']],
-        16: [[13, 'Hobbies and Frequency']],
-        17: [[6, 'Time and Schedules']],
-        18: [[3, 'Family and Possessives']],
-        19: [[18, 'School, Work and Abilities']],
-        21: [[17, 'Home and Location']],
-        22: [[9, 'Places in Town']],
-        23: [[7, 'Food and Quantities']],
-        24: [[7, 'Food and Quantities']],
-        26: [[18, 'School, Work and Abilities']],
-        27: [[22, 'Actions Now']],
-        28: [[22, 'Actions Now']],
-        29: [[27, 'Past Simple Essentials']],
-        31: [[31, 'My English Profile Workshop']],
-        32: [[32, 'A1 Oral Performance']]
+        8: [[4, 'Routines and Present Simple']],
+        9: [[4, 'Routines and Present Simple']],
+        11: [[3, 'Family and Possessives']],
+        12: [[17, 'Home and Location']],
+        13: [[7, 'Food and Quantities'], [14, 'Shopping and Prices']],
+        14: [[14, 'Shopping and Prices']],
+        18: [[22, 'Actions Now']],
+        19: [[8, 'Describing People'], [6, 'Time and Schedules']],
+        21: [[21, 'Dates and Celebrations'], [27, 'Past Simple Essentials']],
+        22: [[27, 'Past Simple Essentials']],
+        23: [[18, 'School, Work and Abilities'], [19, 'Transportation']],
+        26: [[12, 'Weather'], [29, 'Going To']]
+    };
+    const a2PreviousEquivalents = {
+        1: [[1, 'Past Stories']],
+        2: [[2, 'Interrupted Stories']],
+        3: [[3, 'Conversation Activities 1: Stories in Context'], [3, 'Conversation Activities 1 · Stories in Context']],
+        4: [[4, 'Comparatives in Context']],
+        5: [[5, 'Articles, Quantity and Choice']],
+        6: [[6, 'Conversation Activities 2: Compare and Choose'], [6, 'Conversation Activities 2 · Compare and Choose']]
     };
 
     const modules = {};
@@ -281,10 +301,18 @@
             const number = index + 1;
             const type = projectSet.has(number) ? 'project' : reviewSet.has(number) ? 'review' : 'content';
             const previousBoundary = [...reviewPositions[moduleId]].filter(position => position < number).pop() || 0;
-            const reviewedNumbers = type === 'review' || (type === 'project' && number === 32)
-                ? Array.from({ length: number - previousBoundary - 1 }, (_, offset) => previousBoundary + offset + 1)
-                    .filter(candidate => candidate < number)
-                : [];
+            const reviewedNumbers = moduleId === 'a1-v3' && number === 31
+                ? definitions.map((_, candidate) => candidate + 1).filter(candidate => candidate <= 15 && !reviewSet.has(candidate))
+                : moduleId === 'a1-v3' && number === 32
+                    ? definitions.map((_, candidate) => candidate + 1).filter(candidate => candidate >= 16 && candidate <= 30 && !reviewSet.has(candidate))
+                    : moduleId === 'a2-v3' && number === 31
+                        ? definitions.map((_, candidate) => candidate + 1).filter(candidate => candidate <= 15 && !reviewSet.has(candidate))
+                        : moduleId === 'a2-v3' && number === 32
+                            ? definitions.map((_, candidate) => candidate + 1).filter(candidate => candidate >= 16 && candidate <= 30 && !reviewSet.has(candidate))
+                    : type === 'review' || (type === 'project' && number === 32)
+                        ? Array.from({ length: number - previousBoundary - 1 }, (_, offset) => previousBoundary + offset + 1)
+                            .filter(candidate => candidate < number)
+                        : [];
 
             return {
                 id: stableId(moduleId, number, title),
@@ -301,7 +329,9 @@
                 legacyLessons: [...legacyLessons],
                 legacyIds: moduleId === 'a1-v3'
                     ? (a1PreviousEquivalents[number] || []).map(([legacyNumber, legacyTitle]) => stableId(moduleId, legacyNumber, legacyTitle))
-                    : [],
+                    : moduleId === 'a2-v3'
+                        ? (a2PreviousEquivalents[number] || []).map(([legacyNumber, legacyTitle]) => stableId(moduleId, legacyNumber, legacyTitle))
+                        : [],
                 actionOriented: type !== 'content'
             };
         });

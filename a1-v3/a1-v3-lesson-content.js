@@ -38,7 +38,8 @@
     }
 
     function renderPrompt(prompt, answer, inputId) {
-        const safePrompt = escapeHtml(prompt);
+        const studentPrompt = String(prompt || '').replace(/^\s*Teacher\s*:\s*/i, '');
+        const safePrompt = escapeHtml(studentPrompt);
         if (!safePrompt.includes('___')) return safePrompt;
         const size = Math.max(5, Math.min(20, String(answer || '').length + 2));
         return safePrompt.replace('___', `<input id="${escapeHtml(inputId)}" class="practice-input" data-answer="${escapeHtml(answer)}" size="${size}" autocomplete="off" aria-label="Complete a lacuna">`);
@@ -50,17 +51,25 @@
         if (/correct|error|repair/.test(normalizedType)) return 'Encontre o erro e reescreva a frase corretamente.';
         if (/complete|gap/.test(normalizedType)) return 'Complete a lacuna com a forma que deixa a frase correta.';
         if (/choose|select/.test(normalizedType)) return 'Escolha a alternativa adequada ao contexto e leia a frase completa.';
-        if (/respond|response|reply/.test(normalizedType)) return 'Responda à pergunta ou fala com uma frase completa e natural.';
+        if (/answer|response|reply/.test(normalizedType)) return 'Responda à pergunta ou fala com uma frase completa e natural.';
         if (/transform|switch|change/.test(normalizedType)) return 'Reescreva a frase fazendo a transformação solicitada.';
         if (/spell/.test(normalizedType)) return 'Soletre a palavra em voz alta e depois confira a sequência de letras.';
         if (/number|write/.test(normalizedType)) return 'Escreva a informação por extenso em inglês.';
         if (/order|sequence|schedule/.test(normalizedType)) return 'Coloque as informações na ordem correta e apresente o resultado em voz alta.';
-        if (/classify/.test(normalizedType)) return 'Classifique o item na categoria correta e explique a escolha.';
+        if (/classify|sort|group/.test(normalizedType)) return 'Classifique os itens nas categorias indicadas e explique pelo menos uma escolha.';
+        if (/match|connect/.test(normalizedType)) return 'Relacione cada item à opção correspondente e leia os pares completos em voz alta.';
+        if (/describe|identify/.test(normalizedType)) return 'Observe as informações apresentadas e descreva o item com uma frase completa.';
+        if (/ask|make a question/.test(normalizedType)) return 'Forme uma pergunta completa adequada à informação apresentada.';
+        if (/read aloud|say/.test(normalizedType)) return 'Leia em voz alta, mantendo as palavras juntas em blocos naturais.';
         if (/form/.test(normalizedType)) return 'Forme a palavra ou estrutura pedida aplicando a regra da aula.';
         if (/combine/.test(normalizedType)) return 'Una as ideias em uma única frase usando o conector indicado.';
         if (/translate/.test(normalizedType)) return 'Traduza oralmente antes de revelar o modelo.';
         if (/relationship|possession/.test(normalizedType)) return 'Identifique a relação ou a posse e escreva uma resposta completa.';
         return 'Realize a tarefa indicada e produza uma resposta completa em inglês.';
+    }
+
+    function activityDisplayType(type) {
+        return /^(response|reply)$/i.test(String(type || '').trim()) ? 'Answer' : type;
     }
 
     function renderActivityItems(items, prefix) {
@@ -70,7 +79,7 @@
             const inputId = `${prefix}-input-${index}`;
             return `<article class="activity-card">
                 <div class="activity-card-head">
-                    <span class="activity-type">${escapeHtml(type)}</span>
+                    <span class="activity-type">${escapeHtml(activityDisplayType(type))}</span>
                     ${revealButton(answerId)}
                 </div>
                 <p class="activity-prompt"><span class="activity-number">${index + 1}.</span> ${renderPrompt(prompt, answer, inputId)}</p>
@@ -115,49 +124,44 @@
     }
 
     function reviewPairs(items) {
-        return items.map((item, index) => ({ id: String(index), cue: `${item[0]}: ${item[1]}`, answer: item[3] }));
+        return items.map((item, index) => ({ id: String(index), cue: `${activityDisplayType(item[0])}: ${String(item[1] || '').replace(/^\s*Teacher\s*:\s*/i, '')}`, answer: item[3] }));
     }
 
-    function a1MemoryPairs(lessonNumber, items) {
-        const curated = {
-            4: [
-                ["What's your name?", 'My name is Maya.'],
-                ['Where are you from?', "I'm from Brazil."],
-                ['How do you spell your last name?', "It's S-I-L-V-A."],
-                ['Do you have any brothers or sisters?', 'Yes, I have one sister.']
-            ],
-            16: [
-                ["It's cloudy today.", 'Está nublado hoje.'],
-                ['I often listen to music.', 'Eu frequentemente ouço música.'],
-                ['Can I try it on?', 'Posso experimentar?'],
-                ['How much are these shoes?', 'Quanto custam estes sapatos?']
-            ],
-            24: [
-                ['Could I have...', '...a return ticket, please?'],
-                ['The train leaves...', '...at half past seven.'],
-                ['Would you like...', '...to come on Friday?'],
-                ['The passengers are...', '...waiting on platform two.']
-            ],
-            32: [
-                ["What's your name?", 'My name is...'],
-                ['Where do you live?', 'I live in...'],
-                ['What did you do yesterday?', 'I went...'],
-                ['What are you going to do next weekend?', "I'm going to..."]
-            ]
-        }[lessonNumber];
-        if (!curated) return reviewPairs(items);
-        return curated.map(([cue, answer], index) => ({ id: String(index), cue, answer }));
+    function shuffledCopy(items) {
+        const shuffled = [...items];
+        for (let index = shuffled.length - 1; index > 0; index -= 1) {
+            const target = Math.floor(Math.random() * (index + 1));
+            [shuffled[index], shuffled[target]] = [shuffled[target], shuffled[index]];
+        }
+        return shuffled;
     }
 
-    function renderMemoryGame(items, lessonNumber) {
-        const pairs = a1MemoryPairs(lessonNumber, items);
-        const cards = pairs.map(pair => ({ ...pair, copy: pair.cue })).concat([...pairs].reverse().map(pair => ({ ...pair, copy: pair.answer })));
-        return `<div class="v3-review-game" data-v3-memory-board><div class="v3-review-game-head"><div><strong>Jogo da memória</strong><span>Forme relações que fazem sentido: pergunta e resposta, frase e tradução ou começo e conclusão.</span></div><i class="fas fa-clone" aria-hidden="true"></i></div><div class="v3-memory-grid">${cards.map(card => `<button type="button" class="v3-memory-card" data-v3-memory-card data-pair-id="${escapeHtml(card.id)}"><span class="v3-memory-cover"><i class="fas fa-question" aria-hidden="true"></i></span><span class="v3-memory-copy">${escapeHtml(card.copy)}</span></button>`).join('')}</div><p class="v3-review-feedback" data-v3-game-feedback>Vire duas cartas por vez. Ao acertar, leia o par completo em voz alta.</p></div>`;
+    function shuffledMatchingPairs(pairs) {
+        if (pairs.length < 2) return [...pairs];
+        const reversed = [...pairs].reverse();
+        for (let attempt = 0; attempt < 16; attempt += 1) {
+            const candidate = shuffledCopy(pairs);
+            const hasSameRow = candidate.some((pair, index) => pair.id === pairs[index].id);
+            const isReverseOrder = candidate.every((pair, index) => pair.id === reversed[index].id);
+            if (!hasSameRow && !isReverseOrder) return candidate;
+        }
+        return pairs.map((_, index) => pairs[(index + 1) % pairs.length]);
+    }
+
+    function a1MemoryPairs(items) {
+        return reviewPairs(items).slice(0, 5);
+    }
+
+    function renderMemoryGame(items) {
+        const pairs = a1MemoryPairs(items);
+        const cards = shuffledCopy(pairs.map(pair => ({ ...pair, copy: pair.cue })).concat(pairs.map(pair => ({ ...pair, copy: pair.answer }))));
+        return `<div class="v3-review-game" data-v3-memory-board><div class="v3-review-game-head"><div><strong>Jogo da memória</strong></div><i class="fas fa-clone" aria-hidden="true"></i></div><div class="v3-memory-grid">${cards.map(card => `<button type="button" class="v3-memory-card" data-v3-memory-card data-pair-id="${escapeHtml(card.id)}"><span class="v3-memory-cover"><i class="fas fa-question" aria-hidden="true"></i></span><span class="v3-memory-copy">${escapeHtml(card.copy)}</span></button>`).join('')}</div><p class="v3-review-feedback" data-v3-game-feedback>0/${pairs.length} pares</p></div>`;
     }
 
     function renderMatchingGame(items) {
         const pairs = reviewPairs(items);
-        return `<div class="v3-review-game" data-v3-match-board><div class="v3-review-game-head"><div><strong>Ligue os cards</strong><span>Selecione um desafio e depois a resposta correspondente.</span></div><i class="fas fa-link" aria-hidden="true"></i></div><div class="v3-match-grid"><div class="v3-match-column">${pairs.map(pair => `<button type="button" class="v3-match-option" data-v3-match-option data-side="left" data-pair-id="${escapeHtml(pair.id)}">${escapeHtml(pair.cue)}</button>`).join('')}</div><div class="v3-match-column">${[...pairs].reverse().map(pair => `<button type="button" class="v3-match-option" data-v3-match-option data-side="right" data-pair-id="${escapeHtml(pair.id)}">${escapeHtml(pair.answer)}</button>`).join('')}</div></div><p class="v3-review-feedback" data-v3-game-feedback>Comece por qualquer coluna.</p></div>`;
+        const answerPairs = shuffledMatchingPairs(pairs);
+        return `<div class="v3-review-game" data-v3-match-board><div class="v3-review-game-head"><div><strong>Ligue os cards</strong><span>Selecione um desafio e depois a resposta correspondente.</span></div><i class="fas fa-link" aria-hidden="true"></i></div><div class="v3-match-grid"><div class="v3-match-column">${pairs.map(pair => `<button type="button" class="v3-match-option" data-v3-match-option data-side="left" data-pair-id="${escapeHtml(pair.id)}">${escapeHtml(pair.cue)}</button>`).join('')}</div><div class="v3-match-column">${answerPairs.map(pair => `<button type="button" class="v3-match-option" data-v3-match-option data-side="right" data-pair-id="${escapeHtml(pair.id)}">${escapeHtml(pair.answer)}</button>`).join('')}</div></div><p class="v3-review-feedback" data-v3-game-feedback>Comece por qualquer coluna.</p></div>`;
     }
 
     function maskedAnswer(answer) {
@@ -191,7 +195,7 @@
         return rotations[lessonNumber]?.[stationIndex] || 'activities';
     }
 
-    function renderReviewCommunicationRound(station) {
+    function renderReviewIndividualRound(station) {
         const round = station.round || {};
         const steps = round.steps || [];
         const support = round.support || [];
@@ -200,18 +204,14 @@
                 <span>${escapeHtml(round.label || 'Communicative mission')}</span>
                 <strong>${escapeHtml(round.scenario || station.instruction)}</strong>
             </div>
-            <div class="v3-speaking-role-grid">
-                <article><span>Role A</span><p>${escapeHtml(round.roleA || '')}</p></article>
-                <article><span>Role B</span><p>${escapeHtml(round.roleB || '')}</p></article>
-            </div>
             <div class="v3-speaking-mission-grid">
                 <article>
-                    <h3><i class="fas fa-eye-slash" aria-hidden="true"></i> Information gap</h3>
-                    <p>${escapeHtml(round.informationGap || '')}</p>
+                    <h3><i class="fas fa-microphone" aria-hidden="true"></i> Sua tarefa</h3>
+                    <p>${escapeHtml(round.task || '')}</p>
                 </article>
                 <article>
-                    <h3><i class="fas fa-bullseye" aria-hidden="true"></i> Decisão da rodada</h3>
-                    <p>${escapeHtml(round.task || '')}</p>
+                    <h3><i class="fas fa-sliders-h" aria-hidden="true"></i> Condição desta rodada</h3>
+                    <p>${escapeHtml(round.condition || '')}</p>
                 </article>
             </div>
             <div class="v3-speaking-round-footer">
@@ -223,13 +223,74 @@
     }
 
     function renderReviewStation(station, lessonNumber, stationIndex) {
-        if (station.kind === 'communicative-round') return renderReviewCommunicationRound(station);
+        if (station.kind === 'individual-round') return renderReviewIndividualRound(station);
         const type = reviewGameType(lessonNumber, stationIndex);
-        if (type === 'memory') return renderMemoryGame(station.items, lessonNumber);
+        if (type === 'memory') return renderMemoryGame(station.items);
         if (type === 'matching') return renderMatchingGame(station.items);
         if (type === 'hangman') return renderHangmanGame(station.items);
         if (type === 'builder') return renderBuilderGame(station.items);
         return renderActivityItems(station.items, `review-${lessonNumber}-station-${stationIndex}`);
+    }
+
+    function renderCommunicativeQuestions(questions, prefix) {
+        return `<div class="reading-questions">${(questions || []).map(([prompt, answer], index) => {
+            const answerId = `${prefix}-question-${index}`;
+            return `<article class="reading-question">
+                <div><span class="activity-number">${index + 1}.</span><strong>${escapeHtml(prompt)}</strong></div>
+                ${revealButton(answerId)}
+                <p id="${answerId}" class="hidden-answer" hidden>${escapeHtml(answer)}</p>
+            </article>`;
+        }).join('')}</div>`;
+    }
+
+    function renderCommunicativeActivity(activity, lessonNumber, activityIndex) {
+        const prefix = `review-${lessonNumber}-communication-${activityIndex}`;
+        const type = activity.type || 'practice';
+
+        if (type === 'listening') {
+            const dialogueValue = activity.dialogue || { title: activity.title, lines: [] };
+            const lines = dialogueValue.lines || [];
+            const completeAudio = lines.map(line => `${line[0]}: ${line[1]}`).join(' ');
+            const scriptId = `${prefix}-script`;
+            return `<div class="v3-speaking-round v3-communicative-listening">
+                ${activity.scenario ? `<div class="v3-speaking-round-banner"><span>Listen & Understand</span><strong>${escapeHtml(activity.scenario)}</strong></div>` : ''}
+                <div class="v3-speaking-round-footer">
+                    <div><h3>Primeira escuta</h3><p>${escapeHtml(activity.firstListen || 'Ouça sem ler e identifique quem fala, onde estão e qual é a situação.')}</p></div>
+                    <div><h3>Ouvir o diálogo</h3><button type="button" class="primary-action-btn v3-speak-btn" data-v3-speak="${escapeHtml(completeAudio)}"><i class="fas fa-headphones" aria-hidden="true"></i> Reproduzir diálogo</button></div>
+                </div>
+                ${renderCommunicativeQuestions(activity.questions, `${prefix}-listen`)}
+                <div class="v3-speaking-round-footer"><div><h3>Segunda escuta</h3><p>${escapeHtml(activity.secondListen || 'Ouça novamente, confira as respostas e só então abra o roteiro.')}</p></div><div>${revealButton(scriptId, 'Roteiro')}</div></div>
+                <article id="${scriptId}" class="dialogue-card hidden-answer" hidden><h3>${escapeHtml(dialogueValue.title || 'Dialog script')}</h3>${renderDialogue(lines, false, true)}</article>
+            </div>`;
+        }
+
+        if (type === 'qa-board') {
+            const pairs = activity.pairs || [];
+            return `<div class="v3-speaking-round">
+                <div class="v3-speaking-round-banner"><span>Q & A Challenge</span><strong>${escapeHtml(activity.scenario || 'Monte cada pergunta e encontre a resposta correspondente.')}</strong></div>
+                <div class="expression-grid">${pairs.map((pair, index) => `<article class="expression-card"><div><strong>${String.fromCharCode(65 + index)}</strong></div><p>${escapeHtml(pair.answer)}</p></article>`).join('')}</div>
+                <div class="activity-grid">${pairs.map((pair, index) => {
+                    const answerId = `${prefix}-pair-${index}`;
+                    return `<article class="activity-card"><div class="activity-card-head"><span class="activity-number">${index + 1}</span><strong>Desembaralhe e relacione</strong></div><p class="activity-prompt">${escapeHtml(pair.scrambled)}</p><p class="activity-hint">Como fazer: organize a pergunta em voz alta e escolha uma resposta do quadro.</p>${revealButton(answerId)}<p id="${answerId}" class="hidden-answer" hidden><strong>${escapeHtml(pair.question)}</strong><br>${escapeHtml(pair.answer)}</p></article>`;
+                }).join('')}</div>
+            </div>`;
+        }
+
+        if (type === 'interview') {
+            const profile = activity.profile || [];
+            return `<div class="v3-speaking-round">
+                <div class="v3-speaking-round-banner"><span>Interview & Report</span><strong>${escapeHtml(activity.scenario || activity.instruction)}</strong></div>
+                ${profile.length ? `<div class="expression-grid">${profile.map(([label, value]) => `<article class="expression-card"><div><strong>${escapeHtml(label)}</strong></div><p>${escapeHtml(value)}</p></article>`).join('')}</div>` : ''}
+                <div class="dialogue-grid">${(activity.questions || []).map((prompt, index) => `<article class="dialogue-card"><span class="dialogue-number">${index + 1}</span><h3>${escapeHtml(prompt)}</h3><p>${escapeHtml(activity.questionInstruction || 'Faça a pergunta, ouça a resposta e anote apenas palavras-chave.')}</p></article>`).join('')}</div>
+                <div class="v3-speaking-round-footer"><div><h3>Depois da entrevista</h3><p>${escapeHtml(activity.reportTask || 'Apresente as informações coletadas em frases completas.')}</p></div><div><h3>Language support</h3><div class="v3-speaking-support">${(activity.support || []).map(chunk => `<span>${escapeHtml(chunk)}</span>`).join('')}</div></div></div>
+            </div>`;
+        }
+
+        return renderActivityItems(activity.items || [], prefix);
+    }
+
+    function communicativeSlides(activities, lessonNumber, startIndex = 0) {
+        return (activities || []).map((activity, index) => slide(activity.title, `<section><div class="slide-heading"><p class="lesson-panel-title">${escapeHtml(activity.eyebrow || 'Conversation Activities')}</p><h2>${escapeHtml(activity.title)}</h2>${activity.instruction ? `<p>${escapeHtml(activity.instruction)}</p>` : ''}</div>${renderCommunicativeActivity(activity, lessonNumber, startIndex + index)}</section>`, activity.className || ''));
     }
 
     function renderTranslationItems(items, prefix) {
@@ -249,7 +310,7 @@
         for (const expression of lesson.expressions) {
             const example = expression[3];
             if (!example || used.has(normalize(example))) continue;
-            items.push([null, example]);
+            items.push([expression[4] || null, example]);
             used.add(normalize(example));
         }
         return items;
@@ -353,8 +414,8 @@
 
     function renderHomework(homework) {
         return `<div class="homework-band">
-            <p class="lesson-panel-title">Homework</p>
-            <h3>Escolha um tema</h3>
+            <p class="lesson-panel-title">${escapeHtml(homework.label || 'Homework')}</p>
+            <h3>${escapeHtml(homework.heading || 'Escolha um tema')}</h3>
             <p class="homework-instruction">${escapeHtml(homework.instruction)}</p>
             <div class="theme-options">${homework.themes.map((theme, index) => `<article><span>${index + 1}</span><strong>${escapeHtml(theme)}</strong></article>`).join('')}</div>
             <div class="homework-checklist"><h4>Checklist</h4>${homework.checklist.map((item) => `<p><i class="fas fa-square-check" aria-hidden="true"></i>${escapeHtml(item)}</p>`).join('')}</div>
@@ -362,37 +423,104 @@
         </div>`;
     }
 
+    function guidedConversationQuestions(lesson) {
+        const authoredQuestions = lesson.conversation?.questions;
+        if (Array.isArray(authoredQuestions) && authoredQuestions.length) return authoredQuestions;
+        const sources = [
+            ...(lesson.intro || []).map(line => line[1]),
+            ...(lesson.dialogues || []).flatMap(dialogue => (dialogue.lines || []).map(line => line[1])),
+            ...(lesson.translations || []).map(item => item[1])
+        ];
+        const questions = [...new Set(sources.filter(text => /\?$/.test(String(text || '').trim())))];
+        const topicFallbacks = {
+            11: ['Diga em inglês três coisas que você faz pela manhã.', 'Descreva sua rotina depois do trabalho ou da escola.', 'Diga o que você faz antes da aula de inglês.', 'Descreva sua rotina à noite.'],
+            12: ['Diga em inglês duas coisas de que você gosta.', 'Diga uma coisa de que você não gosta.', 'Fale sobre uma atividade de que você gosta depois do trabalho.', 'Compare uma preferência sua com a de outra pessoa.'],
+            13: ['Descreva em inglês a rotina de uma pessoa que você conhece.', 'Diga o que essa pessoa faz pela manhã.', 'Diga o que ela faz depois do trabalho ou da escola.', 'Acrescente uma atividade de fim de semana.'],
+            27: ['Descreva em inglês o que você está fazendo agora.', 'Diga o que uma pessoa próxima está fazendo.', 'Imagine uma cena e descreva duas ações em andamento.', 'Diga uma ação que não está acontecendo agora.']
+        };
+        const genericFallbacks = [
+            `Diga algo verdadeiro usando ${lesson.grammar.title}.`,
+            `Use “${lesson.expressions[0]?.[0] || lesson.title}” em uma resposta sobre você.`,
+            `Use “${lesson.expressions[1]?.[0] || lesson.grammar.title}” para falar sobre uma pessoa ou situação.`,
+            'Crie um exemplo diferente dos modelos da aula.'
+        ];
+        if (questions.length >= 3) return questions;
+        return [...new Set([...questions, ...(topicFallbacks[lesson.number] || genericFallbacks)])];
+    }
+
+    function renderGuidedConversation(lesson) {
+        const questions = guidedConversationQuestions(lesson);
+        const support = lesson.conversation?.support || lesson.expressions.map(item => item[0]);
+        return `<div class="dialogue-grid">${questions.map((question, index) => `<article class="dialogue-card"><span class="dialogue-number">${index + 1}</span><h3>${escapeHtml(question)}</h3><p>Responda em inglês e acrescente um detalhe verdadeiro ou uma informação inventada.</p></article>`).join('')}</div>
+            <div class="v3-speaking-support">${support.map(chunk => `<span>${escapeHtml(chunk)}</span>`).join('')}</div>`;
+    }
+
+    function authoredSlides(items) {
+        if (!Array.isArray(items)) return [];
+        return items.flatMap((item) => {
+            if (!item) return [];
+            const body = typeof item.body === 'function' ? item.body() : item.body;
+            if (!body) return [];
+            return [slide(item.title || 'Conteúdo da aula', body, item.className || '')];
+        });
+    }
+
     function regularSlides(lesson, lessonNumber) {
         const scaffoldedDialogueStage = lessonNumber < 9;
         const selectedDialogues = lesson.dialogues;
+        const selectedDialogueGroups = Array.isArray(lesson.dialogueGroups) && lesson.dialogueGroups.length
+            ? lesson.dialogueGroups
+                .map(group => (Array.isArray(group) ? group : [])
+                    .map(index => selectedDialogues[Number(index)])
+                    .filter(Boolean))
+                .filter(group => group.length)
+            : [selectedDialogues];
         const slides = [
             slide('Objetivos e diálogo', `<section class="intro-layout">
-                <div class="lesson-hero"><p class="lesson-panel-title">O que será aprendido nesta lição</p><h2>${escapeHtml(lesson.title)}</h2>${renderObjectives(lesson.objectives)}</div>
-                <div class="intro-dialogue-panel"><p class="lesson-panel-title">Introductory Dialogue</p>${renderDialogue(lesson.intro, true)}</div>
+                <div class="lesson-hero"><p class="lesson-panel-title">Topic & Scene</p><h2>${escapeHtml(lesson.title)}</h2>${renderObjectives(lesson.objectives)}</div>
+                <div class="intro-dialogue-panel"><p class="lesson-panel-title">Dialog Sample</p>${renderDialogue(lesson.intro, true)}</div>
             </section>`),
-            slide('Vocabulário', `<section><div class="slide-heading"><p class="lesson-panel-title">Vocabulary</p><h2>Palavras e expressões em contexto</h2><p>Observe como cada item funciona em frases reais. Vire o card para conferir o sentido.</p></div><div class="flashcard-grid">${lesson.vocab.map(([word, meaning, exampleValue, translationValue], index) => {
+            slide('Vocabulário', `<section><div class="slide-heading"><p class="lesson-panel-title">Vocabulary Expansion</p><h2>Palavras e expressões em contexto</h2><p>Observe significado, combinação e exemplo. Vire o card para conferir o sentido em português.</p></div><div class="flashcard-grid">${lesson.vocab.map(([word, meaning, exampleValue, translationValue], index) => {
                 const examples = Array.isArray(exampleValue) ? exampleValue : [exampleValue];
                 const translations = Array.isArray(translationValue) ? translationValue : [translationValue];
                 return `<article class="flashcard" data-flashcard data-save-card data-card-front="${escapeHtml(word)}" data-card-back="${escapeHtml(meaning)}" role="button" tabindex="0" aria-pressed="false"><span class="flashcard-inner"><span class="flashcard-front"><span class="flashcard-index">${String(index + 1).padStart(2, '0')}</span><strong>${escapeHtml(word)}</strong><span class="flashcard-examples">${examples.map(example => `<small>${escapeHtml(example)}</small>`).join('')}</span></span><span class="flashcard-back"><span class="flashcard-index flashcard-index-placeholder" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span><strong>${escapeHtml(meaning)}</strong><span class="flashcard-examples">${examples.map((example, exampleIndex) => `<small class="v3-card-example-translation" data-v3-translate="${escapeHtml(example)}"${translations[exampleIndex] ? ` data-v3-translation="${escapeHtml(translations[exampleIndex])}"` : ''}></small>`).join('')}</span></span></span></article>`;
-            }).join('')}</div></section>`),
-            slide('Gramática', `<section><div class="slide-heading"><p class="lesson-panel-title">Deep Grammar</p><h2>${escapeHtml(lesson.grammar.title)}</h2></div>${renderGrammar(lesson.grammar)}</section>`),
-            slide('Prática', `<section><div class="slide-heading"><p class="lesson-panel-title">Practice Time</p><h2>Use a estrutura em diferentes tarefas</h2><p>Leia a orientação de cada item antes de responder e só depois confira o modelo.</p></div>${renderActivityItems(lesson.practice, `lesson-${lessonNumber}-practice`)}</section>`)
+            }).join('')}</div></section>`)
         ];
 
-        const availableLabs = lesson.labs || [];
-        const selectedLabs = availableLabs.length > 1
-            ? [availableLabs[(lessonNumber - 1) % availableLabs.length]]
-            : availableLabs;
-        for (const [labIndex, lab] of selectedLabs.entries()) {
-            const labItems = lab.items.map(item => item.length >= 4 ? item : ['Practice', ...item]);
-            slides.push(slide(lab.title, `<section><div class="slide-heading"><p class="lesson-panel-title">Skill Lab</p><h2>${escapeHtml(lab.title)}</h2><p>${escapeHtml(lab.instruction)}</p></div>${renderActivityItems(labItems, `lesson-${lessonNumber}-lab-${labIndex}`)}</section>`));
+        slides.push(...authoredSlides(lesson.afterVocabularySlides));
+        slides.push(slide('Gramática', `<section><div class="slide-heading"><p class="lesson-panel-title">Grammar in Context</p><h2>${escapeHtml(lesson.grammar.title)}</h2></div>${renderGrammar(lesson.grammar)}</section>`));
+
+        const activitySections = Array.isArray(lesson.activitySections) && lesson.activitySections.length
+            ? lesson.activitySections
+            : [{
+                title: 'Use a estrutura em diferentes tarefas',
+                eyebrow: 'Practice Time',
+                instruction: 'Leia a orientação de cada item antes de responder e só depois confira o modelo.',
+                items: lesson.practice
+            }];
+        for (const [sectionIndex, section] of activitySections.entries()) {
+            const items = Array.isArray(section.items) ? section.items : [];
+            if (!items.length) continue;
+            slides.push(slide(section.slideTitle || section.title, `<section><div class="slide-heading"><p class="lesson-panel-title">${escapeHtml(section.eyebrow || 'Practice Time')}</p><h2>${escapeHtml(section.title)}</h2>${section.instruction ? `<p>${escapeHtml(section.instruction)}</p>` : ''}</div>${renderActivityItems(items, `lesson-${lessonNumber}-activity-${sectionIndex}`)}</section>`));
         }
 
         slides.push(
             slide('Tradução oral 1', `<section><div class="slide-heading"><p class="lesson-panel-title">Oral Retrieval</p><h2>Recupere a linguagem em contexto</h2><p>Traduza oralmente cada frase antes de conferir o modelo. Repita as estruturas que ainda não estiverem automáticas.</p></div>${renderTranslationItems(lesson.translations, `lesson-${lessonNumber}-translation-one`)}</section>`),
-            slide('Expressões', `<section><div class="slide-heading"><p class="lesson-panel-title">Useful Language</p><h2>Blocos úteis para esta situação</h2><p>Aprenda a expressão junto com o contexto em que ela é usada.</p></div><div class="expression-grid">${lesson.expressions.map(([phrase, meaning, note, example]) => `<article class="expression-card" data-save-card data-pronounce-text="${escapeHtml(phrase)}" data-card-front="${escapeHtml(phrase)}" data-card-back="${escapeHtml(meaning)} — ${escapeHtml(example)}"><div><strong>${escapeHtml(phrase)}</strong><span>${escapeHtml(meaning)}</span></div><p>${escapeHtml(note)}</p><small>${escapeHtml(example)}</small></article>`).join('')}</div></section>`),
-            slide('Mini diálogos', `<section><div class="slide-heading"><p class="lesson-panel-title">Speaking Practice</p><h2>Pratique as situações da aula</h2><p>Leia os papéis, troque as informações destacadas e refaça pelo menos uma situação sem consultar o modelo.</p></div><div class="dialogue-grid">${selectedDialogues.map((dialogue, index) => `<article class="dialogue-card"><span class="dialogue-number">${index + 1}</span><h3>${escapeHtml(dialogue.title)}</h3>${renderDialogue(dialogue.lines, false, scaffoldedDialogueStage)}</article>`).join('')}</div></section>`),
-            slide('Leitura', `<section><div class="slide-heading"><p class="lesson-panel-title">Reading & Comprehension</p><h2>${escapeHtml(lesson.reading.title)}</h2></div>${renderReading(lesson.reading, `lesson-${lessonNumber}`)}</section>`),
+            slide('Expressões', `<section><div class="slide-heading"><p class="lesson-panel-title">Helping You · Key Phrases</p><h2>Como usar os blocos desta situação</h2><p>Observe sentido, contexto, combinação e exemplo antes de produzir uma frase nova.</p></div><div class="expression-grid">${lesson.expressions.map(([phrase, meaning, note, example]) => `<article class="expression-card" data-save-card data-pronounce-text="${escapeHtml(phrase)}" data-card-front="${escapeHtml(phrase)}" data-card-back="${escapeHtml(meaning)} — ${escapeHtml(example)}"><div><strong>${escapeHtml(phrase)}</strong><span>${escapeHtml(meaning)}</span></div><p>${escapeHtml(note)}</p><small>${escapeHtml(example)}</small></article>`).join('')}</div></section>`)
+        );
+
+        selectedDialogueGroups.forEach((dialogueGroup, groupIndex) => {
+            const multipleGroups = selectedDialogueGroups.length > 1;
+            const groupLabel = multipleGroups ? ` · ${groupIndex + 1}/${selectedDialogueGroups.length}` : '';
+            slides.push(slide(`Mini diálogos${multipleGroups ? ` ${groupIndex + 1}` : ''}`, `<section><div class="slide-heading"><p class="lesson-panel-title">Dialog Samples${groupLabel}</p><h2>Observe as expressões em conversa</h2><p>Leia com o professor e depois substitua nomes, lugares ou informações para criar uma variação.</p></div><div class="dialogue-grid">${dialogueGroup.map(dialogue => {
+                const dialogueIndex = selectedDialogues.indexOf(dialogue);
+                return `<article class="dialogue-card"><span class="dialogue-number">${dialogueIndex + 1}</span><h3>${escapeHtml(dialogue.title)}</h3>${renderDialogue(dialogue.lines, false, scaffoldedDialogueStage)}</article>`;
+            }).join('')}</div></section>`));
+        });
+
+        slides.push(
+            slide('Leitura', `<section><div class="slide-heading"><p class="lesson-panel-title">Context Reading</p><h2>${escapeHtml(lesson.reading.title)}</h2></div>${renderReading(lesson.reading, `lesson-${lessonNumber}`)}</section>`),
+            slide('Conversa guiada', `<section><div class="slide-heading"><p class="lesson-panel-title">Let’s Talk</p><h2>Responda e desenvolva suas ideias</h2><p>O professor faz uma pergunta por vez. Responda em inglês e acrescente uma informação além da resposta mínima.</p></div>${renderGuidedConversation(lesson)}</section>`),
             slide('Tradução oral 2', `<section><div class="slide-heading"><p class="lesson-panel-title">Expressions in Use</p><h2>Use as expressões em novas frases</h2><p>Traduza oralmente, confira uma versão possível e repita os blocos em que precisar de mais segurança.</p></div>${renderTranslationItems(expressionTranslationItems(lesson), `lesson-${lessonNumber}-translation-two`)}</section>`),
             slide('Música', `<section><div class="slide-heading"><p class="lesson-panel-title">Music Time</p><h2>Preencha as lacunas com a palavra que você ouvir</h2></div><div class="music-card">${renderMusic(lesson.music, `lesson-${lessonNumber}`)}</div></section>`),
             slide('Homework', `<section>${renderHomework(lesson.homework)}</section>`)
@@ -402,30 +530,39 @@
     }
 
     function reviewSlides(review, lessonNumber) {
-        const grammarMidpoint = Math.ceil(review.recap.length / 2);
-        const grammarParts = [review.recap.slice(0, grammarMidpoint), review.recap.slice(grammarMidpoint)];
-        const contract = review.contract || {};
-        const contractPanel = contract.rounds ? `<div class="lesson-panel">
-            <p class="lesson-panel-title">Contrato comunicativo · ${escapeHtml(contract.oralInteractionMinutes)} min de interação oral</p>
-            <p>${escapeHtml(contract.scenario)}</p>
-            <ol class="objective-list">${contract.rounds.map(round => `<li>${escapeHtml(round)}</li>`).join('')}</ol>
-            <p><strong>Foco do professor:</strong> ${escapeHtml(contract.teacherFocus)}</p>
-            <p><strong>Evidência CEFR:</strong> ${escapeHtml(contract.cefrEvidence)}</p>
-        </div>` : '';
+        const isProject = review.type === 'project';
+        const focusStations = review.stations.filter(station => station.kind === 'focus-practice');
+        const individualRounds = review.stations.filter(station => station.kind === 'individual-round');
+        const communicativeActivities = Array.isArray(review.communicativeActivities) ? review.communicativeActivities : [];
+        const beforeReadingActivities = communicativeActivities.filter(activity => activity.placement === 'before-reading');
+        const afterReadingActivities = communicativeActivities.filter(activity => activity.placement !== 'before-reading');
         const slides = [
-            slide('Review Mission', `<section class="intro-layout review-intro"><div class="lesson-hero"><p class="lesson-panel-title">Action-oriented checkpoint</p><h2>${escapeHtml(review.title)}</h2><p class="review-lead">Missão cumulativa para compreender uma situação, fazer escolhas e melhorar o desempenho depois de feedback.</p>${renderObjectives(review.objectives)}${contractPanel}</div><div class="review-route"><p class="lesson-panel-title">Rota da aula</p>${review.stations.map((station, index) => `<div><span>${index + 1}</span><strong>${escapeHtml(station.title.replace(/^Station \d+: |^Mission \d+: /, ''))}</strong></div>`).join('')}</div></section>`),
-            slide('Grammar Lab 1', `<section><div class="slide-heading"><p class="lesson-panel-title">Grammar Lab · Parte 1</p><h2>Entenda a escolha antes de praticar</h2><p>Comece pela tabela para comparar forma, uso e exemplo. Depois, leia os blocos completos e faça a checagem oral: a revisão não é uma corrida de regras.</p></div>${renderReviewGrammarTable(grammarParts[0])}${renderReviewGrammarCards(grammarParts[0])}</section>`),
-            slide('Grammar Lab 2', `<section><div class="slide-heading"><p class="lesson-panel-title">Grammar Lab · Parte 2</p><h2>Antecipe os erros mais comuns</h2><p>Use a tabela como mapa rápido e as explicações detalhadas para justificar cada resposta, perceber o erro previsível e criar uma frase própria.</p></div>${renderReviewGrammarTable(grammarParts[1])}${renderReviewGrammarCards(grammarParts[1])}</section>`)
+            slide(isProject ? 'Project' : 'Review', `<section class="intro-layout review-intro review-intro-compact"><div class="lesson-hero"><p class="lesson-panel-title">${isProject ? 'Project' : 'Review'}</p><h2>${escapeHtml(review.title)}</h2><p class="review-lead">${isProject ? 'Preparação e demonstração do que você já consegue fazer em inglês.' : 'Revisão do bloco anterior.'}</p></div></section>`)
         ];
 
-        review.stations.forEach((station, index) => {
-            slides.push(slide(station.title, `<section><div class="slide-heading"><p class="lesson-panel-title">Review Circuit ${index + 1}/${review.stations.length}</p><h2>${escapeHtml(station.title)}</h2><p>${escapeHtml(station.instruction)}</p></div>${renderReviewStation(station, lessonNumber, index)}</section>`));
+        focusStations.forEach((station, index) => {
+            const grammar = station.grammar || {};
+            const grammarRows = grammar.rows || [];
+            const grammarNotes = grammar.notes || [];
+            slides.push(
+                slide(`Revisão gramatical ${index + 1}`, `<section><div class="slide-heading"><p class="lesson-panel-title">Revisão gramatical ${index + 1}</p><h2>${escapeHtml(grammar.title || station.title)}</h2>${grammar.summary ? `<p>${escapeHtml(grammar.summary)}</p>` : ''}</div>${renderReviewGrammarTable(grammarRows)}${grammarNotes.length ? `<div class="grammar-notes">${grammarNotes.map(note => `<p>${escapeHtml(note)}</p>`).join('')}</div>` : ''}</section>`),
+                slide(station.title, `<section><div class="slide-heading"><p class="lesson-panel-title">Prática ${index + 1}</p><h2>${escapeHtml(station.title)}</h2><p>${escapeHtml(station.instruction)}</p></div>${renderReviewStation(station, lessonNumber, index)}</section>`)
+            );
         });
 
-        slides.push(
-            slide('Reading Mission', `<section><div class="slide-heading"><p class="lesson-panel-title">Reading Mission</p><h2>${escapeHtml(review.reading.title)}</h2></div>${renderReading(review.reading, `review-${lessonNumber}`)}</section>`),
-            slide('Homework Project', `<section>${renderHomework(review.homework)}</section>`)
-        );
+        if (isProject) slides.push(...authoredSlides(review.projectSlides));
+        slides.push(...communicativeSlides(beforeReadingActivities, lessonNumber));
+
+        const reviewSupport = [...new Set(individualRounds.flatMap(station => station.round?.support || []))];
+        slides.push(slide(isProject ? 'Project Brief' : 'Reading Mission', `<section><div class="slide-heading"><p class="lesson-panel-title">${isProject ? 'Project Brief' : 'Context Reading'}</p><h2>${escapeHtml(review.reading.title)}</h2><p>${isProject ? 'Leia as orientações e confirme o que precisa aparecer na sua produção.' : 'Leia, identifique as informações principais e observe quais estruturas do bloco reaparecem no texto.'}</p></div>${renderReading(review.reading, `review-${lessonNumber}`)}</section>`));
+        slides.push(...communicativeSlides(afterReadingActivities, lessonNumber, beforeReadingActivities.length));
+        slides.push(slide('Useful Language', `<section><div class="slide-heading"><p class="lesson-panel-title">Helping You · Key Phrases</p><h2>Blocos para a conversa</h2><p>Use estas expressões como apoio. Complete cada uma com informações adequadas à pergunta do professor.</p></div><div class="expression-grid">${reviewSupport.map(chunk => `<article class="expression-card"><div><strong>${escapeHtml(chunk)}</strong></div><p>Crie uma frase ligada ao tema da revisão.</p></article>`).join('')}</div></section>`));
+
+        individualRounds.forEach((station, index) => {
+            slides.push(slide(station.title, `<section><div class="slide-heading"><p class="lesson-panel-title">Let’s Talk</p><h2>${escapeHtml(station.title)}</h2><p>${escapeHtml(station.instruction)}</p></div>${renderReviewStation(station, lessonNumber, focusStations.length + index)}</section>`));
+        });
+
+        slides.push(slide('Homework Project', `<section>${renderHomework(review.homework)}</section>`));
 
         return slides;
     }
@@ -528,8 +665,11 @@
 
     function hydrate() {
         const lessonNumber = getLessonNumber();
-        const regular = dataSource.lessons[lessonNumber];
-        const review = dataSource.reviews[lessonNumber];
+        let regular = dataSource.lessons[lessonNumber];
+        let review = dataSource.reviews[lessonNumber];
+        const editorial = window.V3LessonEditorial;
+        if (regular && editorial?.has('a1-v3', lessonNumber)) regular = editorial.apply('a1-v3', lessonNumber, regular);
+        if (review && editorial?.has('a1-v3', lessonNumber)) review = editorial.apply('a1-v3', lessonNumber, review);
         const content = regular || review;
         if (!content) {
             document.getElementById('lesson-root').innerHTML = '<p class="load-error">Conteúdo da lição não encontrado.</p>';

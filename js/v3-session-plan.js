@@ -87,7 +87,7 @@
         if (/practice|station|drill|clinic/.test(label)) return 13;
         if (/speaking|dialog|role|oral test/.test(label)) return 10;
         if (/translation/.test(label)) return 9;
-        if (/listening|skill lab/.test(label)) return 8;
+        if (/listening/.test(label)) return 8;
         if (/grammar/.test(label)) return 8;
         if (/reading|case file/.test(label)) return 6;
         if (/vocab|flashcard|language bank|express/.test(label)) return 5;
@@ -118,8 +118,10 @@
     }
 
     function injectMission(module, number) {
-        const mission = missions[module]?.[number];
-        if (module === 'a1-v3' && number < 9) return;
+        const authoredMission = module === 'a1-v3' ? window.A1V3LessonRegistry?.get(number)?.mission : null;
+        const mission = authoredMission
+            ? [authoredMission.title, authoredMission.task, authoredMission.focus]
+            : missions[module]?.[number];
         if (!mission || document.querySelector('.v3-speaking-structure')) return;
         const target = module === 'a1-v3'
             ? [...document.querySelectorAll('.slide')].find(slide => /mini diálogos/i.test(slide.dataset.title || ''))
@@ -129,7 +131,7 @@
         const panel = document.createElement('div');
         const isA1 = module === 'a1-v3';
         const focus = isA1
-            ? ['Cumpriu a tarefa', 'Usou o bloco-alvo', 'Fala compreensível']
+            ? (Array.isArray(mission[2]) && mission[2].length ? mission[2] : ['Cumpriu a tarefa', 'Usou o bloco-alvo', 'Fala compreensível'])
             : ['Desenvolveu a resposta', 'Fez follow-up', 'Usou a forma-alvo', 'Fala compreensível'];
         panel.className = 'v3-live-mission v3-speaking-structure';
         panel.innerHTML = `
@@ -161,7 +163,14 @@
             const memoryCard = event.target.closest('[data-v3-memory-card]');
             if (memoryCard) {
                 const board = memoryCard.closest('[data-v3-memory-board]');
-                if (!board || board.dataset.busy === 'true' || memoryCard.classList.contains('is-matched')) return;
+                if (!board || memoryCard.classList.contains('is-matched')) return;
+                if (board.dataset.pendingReset === 'true') {
+                    if (memoryCard.classList.contains('is-pending')) return;
+                    board.querySelectorAll('[data-v3-memory-card].is-pending').forEach(card => {
+                        card.classList.remove('is-flipped', 'is-selected', 'is-pending');
+                    });
+                    board.dataset.pendingReset = 'false';
+                }
                 const selected = board.querySelector('[data-v3-memory-card].is-selected');
                 if (selected === memoryCard) return;
                 memoryCard.classList.add('is-flipped');
@@ -174,16 +183,15 @@
                     selected.classList.remove('is-selected');
                     selected.classList.add('is-matched');
                     memoryCard.classList.add('is-matched');
-                    if (feedback) feedback.textContent = 'Par encontrado. Explique por que as duas cartas combinam.';
+                    const matchedPairs = board.querySelectorAll('[data-v3-memory-card].is-matched').length / 2;
+                    const totalPairs = board.querySelectorAll('[data-v3-memory-card]').length / 2;
+                    if (feedback) feedback.textContent = matchedPairs === totalPairs ? 'Todos os pares encontrados.' : `${matchedPairs}/${totalPairs} pares`;
                     return;
                 }
-                board.dataset.busy = 'true';
-                if (feedback) feedback.textContent = 'Ainda não. Observe as duas cartas antes de tentar novamente.';
-                window.setTimeout(() => {
-                    selected.classList.remove('is-selected', 'is-flipped');
-                    memoryCard.classList.remove('is-flipped');
-                    board.dataset.busy = 'false';
-                }, 850);
+                selected.classList.add('is-pending');
+                memoryCard.classList.add('is-pending');
+                board.dataset.pendingReset = 'true';
+                if (feedback) feedback.textContent = 'Tente outra combinação.';
                 return;
             }
 

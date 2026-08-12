@@ -23,101 +23,77 @@
 
     function reviewContract(entry, levelLabel) {
         return {
-            scenario: `Use o conteúdo do bloco para cumprir a missão “${entry.title}” com uma decisão real e informação incompleta.`,
-            input: 'Leitura, diálogo ou listening curto antes da produção.',
-            controlledPractice: 'Recuperação breve de formas e blocos lexicais retirados do contexto.',
+            scenario: `Use o conteúdo do bloco para conversar sobre “${entry.title}”, responder às perguntas do professor e construir uma conclusão clara.`,
+            input: 'Leitura, diálogo ou listening curto que apresenta o tema e a linguagem em contexto.',
+            controlledPractice: 'Recuperação breve de formas, colocações e expressões retiradas do contexto.',
             rounds: [
-                'Primeira tentativa: conclua a missão com a informação disponível.',
-                'Condição inesperada: o professor altera uma restrição, prioridade ou dado.',
-                'Segunda tentativa: refaça a missão com mais clareza, precisão e autonomia.'
+                'Apresentação guiada: organize uma primeira resposta com palavras-chave.',
+                'Perguntas do professor: desenvolva fatos, razões, comparações ou exemplos.',
+                'Resposta completa: reúna as ideias e aplique uma correção prioritária.'
             ],
-            teacherFocus: 'Registre um acerto comunicativo e apenas um foco prioritário de correção; dê feedback e preserve tempo para a segunda tentativa.',
+            teacherFocus: 'Registre um acerto comunicativo e apenas um foco prioritário de correção; dê feedback antes da resposta completa.',
             cefrEvidence: `Evidência ${levelLabel}: recepção, produção, interação e mediação observáveis na realização da tarefa.`,
-            cumulativeRecycling: 'Recupere pelo menos uma estrutura e duas colocações de blocos anteriores.',
+            cumulativeRecycling: 'Recupere pelo menos uma estrutura e duas colocações de blocos anteriores na conversa.',
             oralInteractionMinutes: entry.oralInteractionMinutes
         };
     }
 
-    function buildA1CommunicationRounds(entry, contract) {
+    function buildA1IndividualRounds(entry, contract) {
         const blueprints = {
             5: {
-                scenario: 'Dois alunos se encontram antes da primeira aula e precisam completar cartões de identificação.',
-                roleA: 'Aluno A: você tem os nomes e países, mas não sabe quem são os familiares nem como os nomes são escritos.',
-                roleB: 'Aluno B: você conhece as relações familiares e a grafia, mas não sabe de onde cada pessoa é.',
-                informationGap: 'Não mostrem as fichas. Façam perguntas para completar nome, país, relação familiar e grafia.',
-                choice: 'Escolham a melhor dupla e apresentem as duas pessoas ao professor.',
-                twist: 'Uma identificação está com uma letra errada e um novo aluno chega sem cartão. Confirmem a grafia e reorganizem as duplas.',
-                retryGoal: 'Refaçam a apresentação sem ler, incluindo uma pergunta de acompanhamento e uma correção educada.',
-                support: ['What’s your name?', 'Where is he/she from?', 'Who is he/she?', 'How do you spell...?']
+                scenario: 'Faça uma apresentação curta sobre você e uma pessoa da sua família.',
+                task: 'Diga seu nome e sua origem. Depois, apresente um familiar usando he ou she, um possessivo e a nacionalidade dessa pessoa.',
+                questions: 'Responda às perguntas do professor sobre nome, origem, família e grafia.',
+                finalTask: 'Faça uma apresentação final de quatro ou cinco frases conectando as informações principais.',
+                support: ['My name is...', 'He/She is from...', 'He/She is...', 'How do you spell...?']
             },
             10: {
-                scenario: 'A turma organiza uma mesa de achados e perdidos e precisa devolver cada objeto à pessoa certa.',
-                roleA: 'Aluno A: você sabe quais objetos estão perto e os nomes dos donos, mas não conhece telefone nem grafia.',
-                roleB: 'Aluno B: você possui os dados de contato, mas precisa descobrir quais objetos são singulares, plurais, próximos ou distantes.',
-                informationGap: 'Descrevam os objetos com this/that/these/those e confirmem os dados sem mostrar as fichas.',
-                choice: 'Entreguem cada objeto ao dono correto e confirmem um dado de contato.',
-                twist: 'Dois objetos são muito parecidos e um telefone foi registrado com um número incorreto.',
-                retryGoal: 'Refaçam a devolução distinguindo singular, plural, perto e longe com clareza.',
-                support: ['What is this/that?', 'What are these/those?', 'Is this yours?', 'Could you repeat the number?']
+                scenario: 'Imagine uma mesa com um livro e uma chave perto, além de dois cadernos e três canetas longe.',
+                task: 'Descreva os objetos com a/an e this, that, these ou those. Depois, informe um telefone ou e-mail fictício.',
+                questions: 'Responda às perguntas do professor sobre quantidade, distância e dados de contato.',
+                finalTask: 'Faça uma descrição final da mesa usando singular, plural, perto e longe com clareza.',
+                support: ['This is...', 'That is...', 'These are...', 'Those are...']
             },
             15: {
-                scenario: 'Dois colegas precisam descobrir se suas rotinas e preferências permitem formar uma dupla de estudos.',
-                roleA: 'Aluno A: você conhece sua rotina e seus gostos, mas não conhece os horários nem as preferências do colega.',
-                roleB: 'Aluno B: você possui uma agenda diferente e informações sobre a rotina de uma terceira pessoa.',
-                informationGap: 'Façam perguntas com do/does para completar rotina, gostos e disponibilidade.',
-                choice: 'Decidam se a dupla funciona e indiquem o melhor período para estudar.',
-                twist: 'Uma das respostas do perfil estava errada e a terceira pessoa precisa entrar na dupla.',
-                retryGoal: 'Refaçam a entrevista usando a forma correta depois de do/does e respostas completas.',
+                scenario: 'Fale sobre sua rotina e sobre a rotina de alguém que você conhece.',
+                task: 'Diga duas atividades que você faz ou gosta de fazer e duas atividades que a outra pessoa faz.',
+                questions: 'Responda às perguntas do professor usando do, does e respostas completas.',
+                finalTask: 'Compare as duas rotinas em uma fala curta usando corretamente o verbo base e a terceira pessoa.',
                 support: ['Do you...?', 'Does he/she...?', 'Yes, I do.', 'No, he/she doesn’t.']
             },
             20: {
-                scenario: 'Uma família precisa organizar a semana conciliando horários, trabalho e habilidades de cada pessoa.',
-                roleA: 'Aluno A: você conhece os horários e a frequência das atividades, mas não sabe quem tem cada habilidade.',
-                roleB: 'Aluno B: você conhece profissões, habilidades e relações familiares, mas faltam dias e horários.',
-                informationGap: 'Perguntem sobre frequência, hora, posse familiar e habilidades para completar a agenda.',
-                choice: 'Distribuam três tarefas entre as pessoas e justifiquem a escolha.',
-                twist: 'Uma pessoa muda de horário e outra não pode realizar a habilidade prevista.',
-                retryGoal: 'Apresentem a nova agenda com horários corretos, can/can’t e pelo menos um advérbio de frequência.',
-                support: ['How often...?', 'What time...?', 'He/She has...', 'Can he/she...?']
+                scenario: 'Escolha duas pessoas da sua família ou dois personagens conhecidos.',
+                task: 'Fale sobre horários, frequência, profissão, posse e habilidades dessas pessoas.',
+                questions: 'Responda às perguntas do professor sobre quando, com que frequência e o que cada pessoa sabe fazer.',
+                finalTask: 'Apresente um pequeno perfil comparando as duas pessoas com have/has, can/can’t e uma expressão de frequência.',
+                support: ['How often...?', 'At what time...?', 'He/She has...', 'He/She can...']
             },
             25: {
-                scenario: 'Dois colegas vão receber uma visita e precisam preparar a casa, indicar lugares próximos e organizar um lanche.',
-                roleA: 'Aluno A: você conhece a casa e o bairro, mas não sabe quais alimentos estão disponíveis.',
-                roleB: 'Aluno B: você tem a lista do mercado e o cardápio, mas não sabe onde ficam os lugares e objetos.',
-                informationGap: 'Troquem informações usando there is/are, localização e some/any.',
-                choice: 'Escolham onde receber a visita e o que servir.',
-                twist: 'O café não tem um item do pedido e o cômodo escolhido passa a ficar indisponível.',
-                retryGoal: 'Apresentem a solução final localizando o novo espaço e fazendo um pedido alternativo.',
-                support: ['There is/are...', 'It’s next to...', 'Do you have any...?', 'I’d like some...']
+                scenario: 'Descreva sua casa, seu bairro e um pedido simples de comida.',
+                task: 'Diga o que existe em um cômodo, cite dois lugares do bairro e escolha alimentos para um lanche.',
+                questions: 'Responda às perguntas do professor usando Is there...?, Are there...? e any.',
+                finalTask: 'Faça uma descrição final usando there is/are, localização e some/any.',
+                support: ['There is/are...', 'It’s next to...', 'Is there any...?', 'I’d like some...']
             },
             30: {
-                scenario: 'A turma reconstrói o que aconteceu antes e durante um show usando talentos, ações atuais e localizações passadas.',
-                roleA: 'Aluno A: você sabe onde as pessoas estavam antes do show, mas não sabe o que estão fazendo agora.',
-                roleB: 'Aluno B: você vê as ações atuais e conhece os talentos, mas não sabe as localizações anteriores.',
-                informationGap: 'Perguntem sobre can, ações em andamento e was/were para completar a linha do tempo.',
-                choice: 'Organizem as pessoas na cena correta e apresentem o antes e o agora.',
-                twist: 'Uma foto recebeu horário errado e duas pessoas trocaram de lugar.',
-                retryGoal: 'Reconstruam a cena usando was/were para antes e Present Continuous para agora.',
-                support: ['Can he/she...?', 'What is he/she doing?', 'Where was/were...?', 'Now, he/she is...']
+                scenario: 'Pense em duas pessoas conhecidas e compare o que acontecia antes com o que acontece agora.',
+                task: 'Diga o que elas sabem fazer, onde estavam antes e o que estão fazendo agora.',
+                questions: 'Responda às perguntas do professor com can, was/were e Present Continuous.',
+                finalTask: 'Conte a cena completa em uma sequência clara: habilidades, antes e agora.',
+                support: ['He/She can...', 'He/She is ...ing.', 'He/She was...', 'They were...']
             },
             31: {
-                scenario: 'O aluno prepara um projeto pessoal A1 e precisa selecionar informações que formem uma apresentação clara.',
-                roleA: 'Aluno: traga fatos sobre identidade, família, rotina, habilidades e uma situação atual.',
-                roleB: 'Professor/colega: faça perguntas para encontrar lacunas e informações pouco claras.',
-                informationGap: 'O ouvinte recebe apenas o título do projeto e precisa descobrir os detalhes por perguntas.',
-                choice: 'Escolham os fatos e o apoio visual que realmente ajudam o público.',
-                twist: 'O tempo da apresentação é reduzido e uma imagem deixa de poder ser usada.',
-                retryGoal: 'Reorganize o projeto, ensaie novamente e responda a duas perguntas sem roteiro completo.',
+                scenario: 'Prepare individualmente um projeto pessoal A1 com apoio dos tópicos exibidos na tela.',
+                task: 'Selecione fatos sobre identidade, família, rotina, habilidades e uma situação atual.',
+                questions: 'Responda às perguntas do professor para completar informações que ainda não estão claras.',
+                finalTask: 'Organize o projeto em começo, meio e fim e ensaie sem ler frases completas.',
                 support: ['My project is about...', 'I usually...', 'I can...', 'Right now...']
             },
             32: {
-                scenario: 'Apresentação final A1 com perguntas autênticas e uma segunda versão após feedback.',
-                roleA: 'Aluno: apresente seu projeto e sustente a conversa com respostas completas.',
-                roleB: 'Professor: escute, peça esclarecimento e faça perguntas sobre identidade, rotina, habilidades, ações atuais e localização passada.',
-                informationGap: 'O aluno não conhece previamente as perguntas; o professor não conhece todos os detalhes do projeto.',
-                choice: 'Selecione exemplos que tornem a mensagem compreensível para o público.',
-                twist: 'O professor pede um detalhe adicional e a reformulação de uma frase que ficou ambígua.',
-                retryGoal: 'Apresente novamente o trecho principal, aplicando o feedback e encerrando com autonomia.',
+                scenario: 'Faça sua apresentação final A1 e responda às perguntas do professor.',
+                task: 'Apresente o projeto com exemplos claros sobre identidade, rotina, habilidades e experiências do nível.',
+                questions: 'Responda a perguntas curtas do professor sobre os pontos apresentados.',
+                finalTask: 'Faça o fechamento da apresentação e reformule somente o trecho indicado no feedback.',
                 support: ['Let me explain...', 'Usually...', 'Right now...', 'Yesterday, I was...']
             }
         };
@@ -125,54 +101,48 @@
 
         return [
             {
-                kind: 'communicative-round',
+                kind: 'individual-round',
                 phase: 'attempt',
-                title: 'Round 1: First Attempt',
-                instruction: 'Trabalhem em papéis diferentes. Não mostrem suas informações e cheguem a uma decisão conjunta.',
+                title: 'Speaking: apresentação guiada',
+                instruction: 'Use o apoio da tela para organizar sua fala.',
                 round: {
-                    label: 'Tentativa inicial',
+                    label: 'Apresentação guiada',
                     scenario: blueprint.scenario,
-                    roleA: blueprint.roleA,
-                    roleB: blueprint.roleB,
-                    informationGap: blueprint.informationGap,
-                    task: blueprint.choice,
-                    steps: ['Leia somente o seu papel.', 'Faça perguntas para completar as lacunas.', 'Negocie uma escolha e anuncie a decisão.'],
+                    task: blueprint.task,
+                    condition: 'Use palavras-chave como apoio, sem ler frases completas.',
+                    steps: ['Escolha as informações principais.', 'Organize a ordem das ideias.', 'Apresente em voz alta.'],
                     support: blueprint.support,
-                    evidence: `${contract.cefrEvidence} Nesta rodada, observe se a mensagem foi compreendida.`
+                    evidence: `${contract.cefrEvidence} Observe se a mensagem ficou compreensível.`
                 }
             },
             {
-                kind: 'communicative-round',
-                phase: 'twist',
-                title: 'Round 2: Unexpected Condition',
-                instruction: 'O professor revela a mudança somente depois da primeira decisão. Reajam sem reiniciar a conversa.',
+                kind: 'individual-round',
+                phase: 'questions',
+                title: 'Speaking: perguntas do professor',
+                instruction: 'Ouça e responda individualmente às perguntas do professor.',
                 round: {
-                    label: 'Condição inesperada',
-                    scenario: blueprint.twist,
-                    roleA: 'Aluno A: explique qual parte do plano ainda pode ser mantida.',
-                    roleB: 'Aluno B: proponha uma alternativa e peça confirmação.',
-                    informationGap: 'Cada aluno recebe uma consequência diferente da mudança; descubram ambas conversando.',
-                    task: 'Abandonem, adaptem ou defendam a primeira escolha e expliquem o motivo.',
-                    steps: ['Ouça a nova condição.', 'Confirme o problema com uma pergunta.', 'Negocie uma solução diferente.'],
-                    support: ['Wait, there is a problem.', 'Can we... instead?', 'What about...?', 'Okay, let’s change...'],
-                    evidence: 'Observe reação, pedido de esclarecimento e capacidade de manter a interação.'
+                    label: 'Perguntas e respostas',
+                    scenario: blueprint.questions,
+                    task: 'Responda com frases completas e peça repetição quando necessário.',
+                    condition: 'O professor fará uma pergunta por vez e poderá pedir um detalhe adicional.',
+                    steps: ['Ouça a pergunta.', 'Responda com uma frase completa.', 'Acrescente um detalhe quando conseguir.'],
+                    support: ['Could you repeat, please?', 'Yes, I am.', 'Yes, I do.', 'Let me think.'],
+                    evidence: 'Observe compreensão das perguntas e clareza das respostas.'
                 }
             },
             {
-                kind: 'communicative-round',
-                phase: 'retry',
-                title: 'Round 3: Second Attempt',
-                instruction: 'Aplique o foco de correção do professor e refaça a parte principal com menos apoio.',
+                kind: 'individual-round',
+                phase: 'final',
+                title: 'Speaking: resposta completa',
+                instruction: 'Organize as ideias principais em uma produção oral curta.',
                 round: {
-                    label: 'Segunda tentativa',
-                    scenario: blueprint.retryGoal,
-                    roleA: 'Falante: reconstrua a mensagem sem ler frases completas.',
-                    roleB: 'Ouvinte: faça uma pergunta de acompanhamento e confirme a decisão final.',
-                    informationGap: 'O professor informa somente um foco de correção; o aluno decide onde e como aplicá-lo.',
-                    task: 'Entregue uma versão mais clara, correta e autônoma da missão.',
-                    steps: ['Registre um acerto e um ajuste.', 'Refaça a fala principal.', 'Responda à pergunta e faça o fechamento.'],
-                    support: blueprint.support.slice(0, 2),
-                    evidence: `${contract.teacherFocus} Evidência final: compare a primeira e a segunda tentativa.`
+                    label: 'Produção final',
+                    scenario: blueprint.finalTask,
+                    task: 'Apresente a resposta completa sem depender de um roteiro escrito.',
+                    condition: 'Use o apoio linguístico somente quando precisar e aplique uma correção indicada pelo professor.',
+                    steps: ['Organize a ordem das ideias.', 'Faça sua apresentação.', 'Aplique uma correção curta, se necessário.'],
+                    support: blueprint.support,
+                    evidence: `${contract.teacherFocus} Registre o ponto que já ficou independente.`
                 }
             }
         ];
@@ -185,6 +155,66 @@
         return Array.from({ length: maximum }, (_, index) => items[Math.round((index * last) / (maximum - 1))]);
     }
 
+    const a1ReviewFocusGroups = {
+        5: [
+            { title: 'Verb to be', lessonNumbers: [1, 2], practiceCount: 7 },
+            { title: 'Possessive adjectives', lessonNumbers: [3], practiceCount: 6 },
+            { title: 'Names, spelling and age', lessonNumbers: [4], practiceCount: 6 }
+        ],
+        10: [
+            { title: 'Personal information', lessonNumbers: [6], practiceCount: 5 },
+            { title: 'Articles: a and an', lessonNumbers: [7], practiceCount: 6 },
+            { title: 'Demonstratives: this, that, these and those', lessonNumbers: [8, 9], practiceCount: 7 }
+        ],
+        15: [
+            { title: 'Present Simple: statements and preferences', lessonNumbers: [11, 12, 13], practiceCount: 8 },
+            { title: 'Present Simple: questions with do and does', lessonNumbers: [14], practiceCount: 6 }
+        ],
+        20: [
+            { title: 'Frequency', lessonNumbers: [16], practiceCount: 5 },
+            { title: 'Time and days', lessonNumbers: [17], practiceCount: 6 },
+            { title: 'Have and has', lessonNumbers: [18], practiceCount: 5 },
+            { title: 'Can and can’t', lessonNumbers: [19], practiceCount: 6 }
+        ],
+        25: [
+            { title: 'There is and there are', lessonNumbers: [21, 22], practiceCount: 7 },
+            { title: 'Some and any', lessonNumbers: [23, 24], practiceCount: 7 }
+        ],
+        30: [
+            { title: 'Can: abilities and questions', lessonNumbers: [26], practiceCount: 5 },
+            { title: 'Present Continuous', lessonNumbers: [27, 28], practiceCount: 7 },
+            { title: 'Past of be: was and were', lessonNumbers: [29], practiceCount: 6 }
+        ]
+    };
+
+    function buildA1ReviewFocusStations(entry, lessons) {
+        const requestedGroups = a1ReviewFocusGroups[entry.number];
+        const groups = requestedGroups || sampleEvenly(lessons, 4).map(lesson => ({
+            title: lesson.grammar?.title || lesson.title,
+            lessonNumbers: [lesson.number]
+        }));
+
+        return groups.map(group => {
+            const sources = group.lessonNumbers.map(number => lessons.find(lesson => lesson.number === number)).filter(Boolean);
+            const rows = sources.flatMap(lesson => (lesson.grammar?.rows || []).map(row => row.slice(0, 3)));
+            const notes = [...new Set(sources.flatMap(lesson => lesson.grammar?.notes || []))];
+            const practice = sources.flatMap(lesson => lesson.practice || []);
+            const practiceCount = group.practiceCount || Math.min(practice.length, Math.max(5, rows.length + 1));
+            return {
+                kind: 'focus-practice',
+                title: `Atividades: ${group.title}`,
+                instruction: `Resolva individualmente as atividades sobre ${group.title}.`,
+                grammar: {
+                    title: group.title,
+                    summary: sources.map(lesson => lesson.grammar?.summary).filter(Boolean).join(' '),
+                    rows,
+                    notes
+                },
+                items: sampleEvenly(practice, practiceCount)
+            };
+        }).filter(station => station.grammar.rows.length && station.items.length);
+    }
+
     function buildA1Review(entry, reviewedLessons) {
         const contract = reviewContract(entry, 'CEFR A1');
         const lessons = reviewedLessons.filter(Boolean);
@@ -195,6 +225,7 @@
         ]));
         const recap = sampleEvenly(grammarPoints, 8);
         const stationLessons = sampleEvenly(lessons, 4);
+        const focusStations = buildA1ReviewFocusStations(entry, lessons);
         const readingSource = lessons.at(-1)?.reading || lessons[0]?.reading || {
             title: entry.title,
             text: contract.scenario,
@@ -204,34 +235,45 @@
             title: entry.title,
             objectives: [
                 `Recuperar a linguagem das aulas ${stationLessons.map(lesson => lesson.number).join(', ')} sem introduzir uma nova estrutura.`,
-                'Trocar informação, tomar uma decisão e reagir a uma condição inesperada.',
-                'Aplicar um foco de feedback em uma segunda tentativa mais clara.'
+                'Praticar cada foco individualmente antes de avançar para o próximo conteúdo.',
+                'Aplicar o feedback do professor em uma resposta final mais clara.'
             ],
             recap: recap.length ? recap : [[entry.title, entry.linguisticFocus, contract.cefrEvidence]],
             stations: [
-                ...stationLessons.map((lesson, index) => ({
-                    title: `Station ${index + 1}: ${lesson.title}`,
-                    instruction: `Recupere somente o foco de “${lesson.title}” antes de iniciar a missão comunicativa.`,
-                    items: (lesson.practice || []).slice(index % 2 === 0 ? 0 : 4, index % 2 === 0 ? 4 : 8)
-                })),
-                ...buildA1CommunicationRounds(entry, contract)
+                ...focusStations,
+                ...buildA1IndividualRounds(entry, contract)
             ],
             reading: clone(readingSource),
             homework: {
-                instruction: `Registre a solução da missão “${entry.title}” e prepare uma versão oral curta para a próxima aula.`,
+                instruction: `Prepare uma resposta oral curta sobre “${entry.title}” para a próxima aula.`,
                 themes: [
-                    'A primeira tentativa e o que funcionou',
-                    'A condição inesperada e a nova decisão',
-                    'A segunda tentativa depois do feedback'
+                    'As informações principais sobre o tema',
+                    'Uma pergunta do professor respondida com detalhes',
+                    'A resposta final depois do feedback'
                 ],
                 checklist: [
                     'Reciclei linguagem de todas as aulas do bloco.',
-                    'Registrei uma escolha ou informação que faltava.',
-                    'Corrigi um ponto específico na segunda tentativa.'
+                    'Incluí uma razão, um exemplo ou uma comparação.',
+                    'Corrigi um ponto específico na resposta final.'
                 ]
             },
             contract
         };
+        if (entry.number === 5) {
+            review.homework = {
+                instruction: 'Prepare uma apresentação pessoal curta para a próxima aula.',
+                themes: [
+                    'Seu nome, sua origem e sua nacionalidade',
+                    'Uma pessoa da sua família: nome, relação e nacionalidade',
+                    'A grafia de um nome e uma idade entre zero e vinte'
+                ],
+                checklist: [
+                    'Usei am, is e are com os sujeitos corretos.',
+                    'Usei my, his ou her antes do substantivo.',
+                    'Consigo falar sem ler todas as frases.'
+                ]
+            };
+        }
         return attachMetadata(review, entry);
     }
 
@@ -283,10 +325,10 @@
         if (sourceLessons.length > 1) {
             const extras = sourceLessons.slice(1);
             const extraSlides = [
-                ...all(extras, 'languageBank').slice(0, 1),
-                ...all(extras, 'reading').slice(0, 2),
-                ...all(extras, 'teacherListening').slice(0, 2),
-                ...all(extras, 'speaking').slice(0, 2)
+                ...all(extras, 'languageBank'),
+                ...all(extras, 'reading'),
+                ...all(extras, 'teacherListening'),
+                ...all(extras, 'speaking')
             ].map(clone);
             const homeworkIndex = base.slides.findIndex(slide => slide.type === 'homework');
             base.slides.splice(homeworkIndex < 0 ? base.slides.length : homeworkIndex, 0, ...extraSlides);
@@ -304,9 +346,12 @@
         const translations = all(reviewedLessons, 'translation').flatMap(slide => slide.items || []);
         const contract = reviewContract(entry, 'CEFR B1');
         const fallbackItems = practiceItems.length ? practiceItems : [{ kind: 'complete', prompt: 'Complete a missão com uma resposta conectada.', hint: 'use o foco do bloco', answer: 'Resposta pessoal.' }];
-        const grammarTables = grammarSlides.flatMap(slide => slide.tables || []).slice(0, 2);
-        const grammarNotes = grammarSlides.flatMap(slide => slide.notes || []).slice(0, 4);
+        const grammarTables = grammarSlides.flatMap(slide => slide.tables || []);
+        const grammarNotes = grammarSlides.flatMap(slide => slide.notes || []);
         const sourceSpeaking = first(reviewedLessons.at(-1), 'speaking') || {};
+        const controlledKinds = new Set(['complete', 'choose', 'correct', 'repair', 'form']);
+        const controlledItems = fallbackItems.filter(item => controlledKinds.has(String(item.kind || '').toLowerCase()));
+        const communicativeItems = fallbackItems.filter(item => !controlledKinds.has(String(item.kind || '').toLowerCase()));
 
         const review = builder.createReviewLesson({
             number: entry.number,
@@ -317,8 +362,8 @@
             cefr: contract.cefrEvidence,
             objectives: [
                 'Recuperar linguagem do bloco a partir de um contexto curto.',
-                'Negociar uma escolha ou completar informação em três rodadas.',
-                'Aplicar feedback específico na segunda tentativa.'
+                'Responder a perguntas progressivas com fatos, razões e exemplos.',
+                'Aplicar feedback específico em uma resposta final mais completa.'
             ],
             opening: opening.dialogue || opening,
             grammar: {
@@ -330,18 +375,18 @@
             stationOne: {
                 title: 'Controlled Retrieval',
                 intro: contract.controlledPractice,
-                items: fallbackItems.slice(0, 10)
+                items: controlledItems.length ? controlledItems : fallbackItems
             },
             stationTwo: {
-                title: 'Choice and Information Gap',
-                intro: 'O professor mantém parte da informação. Faça perguntas, compare opções e confirme uma decisão.',
-                items: fallbackItems.slice(5, 15).length ? fallbackItems.slice(5, 15) : fallbackItems.slice(0, 8)
+                title: 'Guided Questions and Choice',
+                intro: 'O professor apresenta uma pergunta por vez. Responda, acrescente uma razão e compare opções quando necessário.',
+                items: communicativeItems.length ? communicativeItems : fallbackItems
             },
             reading: reading || { title: 'Mission Input', genre: 'Short scenario', paragraphs: [contract.scenario], vocabulary: [], questions: [] },
             listening: listening || { title: 'Teacher Listening', setup: 'Ouça duas vezes e anote condição, problema e prioridade.', script: contract.scenario, questions: [] },
-            translation: { title: 'Contextual Mediation', items: translations.slice(0, 10) },
+            translation: { title: 'Contextual Mediation', items: translations },
             speaking: {
-                title: 'Three-Round Performance',
+                title: 'Guided Conversation',
                 scenario: contract.scenario,
                 languageBank: sourceSpeaking.languageBank || [entry.linguisticFocus, 'What if...?', 'In that case...', 'Let me clarify...', 'Our final choice is...'],
                 rounds: contract.rounds,
@@ -351,7 +396,7 @@
                 title: 'Performance Evidence',
                 deliverable: 'Registre a solução final e uma breve reflexão sobre o feedback aplicado.',
                 options: [{ title: 'Audio rehearsal', prompt: 'Grave ou ensaie uma versão de 90 segundos.' }, { title: 'Dialogue redesign', prompt: 'Escreva uma nova variação do cenário.' }],
-                checklist: ['Usei linguagem do bloco.', 'Reagi à condição inesperada.', 'Apliquei o foco de correção.', 'Reciclei conteúdo anterior.']
+                checklist: ['Usei linguagem do bloco.', 'Respondi com fatos, razões ou exemplos.', 'Apliquei o foco de correção.', 'Reciclei conteúdo anterior.']
             }
         });
         review.reviewContract = contract;
