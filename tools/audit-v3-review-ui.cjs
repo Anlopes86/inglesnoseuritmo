@@ -163,13 +163,13 @@ async function main() {
     ], { windowsHide: true, stdio: 'ignore' });
     try {
         await waitForChrome();
-        await render({ name: 'a1-review-game', file: 'a1-v3/licao-32.html', selector: '.slide:has([data-v3-memory-board])', width: 1440, height: 1000, expect: 'memory', action: `const cards = target.querySelectorAll('[data-v3-memory-card]'); const first = cards[0]; const pair = [...cards].find(card => card !== first && card.dataset.pairId === first.dataset.pairId); first.click(); pair.click();` });
-        await render({ name: 'a2-review-game-mobile', file: 'a2-v3/licao-16.html', selector: '.slide:has([data-v3-match-board])', width: 390, height: 844, expect: 'matching', action: `const left = target.querySelector('[data-v3-match-option][data-side="left"]'); const right = target.querySelector('[data-v3-match-option][data-side="right"][data-pair-id="' + left.dataset.pairId + '"]'); left.click(); right.click();` });
-        await render({ name: 'a2-match-selected-dark', file: 'a2-v3/licao-16.html', selector: '.slide:has([data-v3-match-board])', width: 390, height: 844, expect: 'selection', action: `target.querySelector('[data-v3-match-option][data-side="left"]').click();` });
-        await render({ name: 'b1-review-game-dark', file: 'b1-v3/licao-15.html', selector: '.slide:has([data-v3-match-board])', width: 1440, height: 1000, expect: 'matching', action: `const left = target.querySelector('[data-v3-match-option][data-side="left"]'); const right = target.querySelector('[data-v3-match-option][data-side="right"][data-pair-id="' + left.dataset.pairId + '"]'); left.click(); right.click();` });
+        await render({ name: 'a1-review-game', file: 'a1-v3/licao-30.html', selector: '.slide:has([data-v3-memory-board])', width: 1440, height: 1000, expect: 'memory', action: `const cards = target.querySelectorAll('[data-v3-memory-card]'); const first = cards[0]; const pair = [...cards].find(card => card !== first && card.dataset.pairId === first.dataset.pairId); first.click(); pair.click();` });
+        await render({ name: 'a2-review-game-mobile', file: 'a2-v3/licao-03.html', selector: '.slide:has([data-v3-match-board])', width: 390, height: 844, expect: 'matching', action: `const left = target.querySelector('[data-v3-match-option][data-side="left"]'); const right = target.querySelector('[data-v3-match-option][data-side="right"][data-pair-id="' + left.dataset.pairId + '"]'); left.click(); right.click();` });
+        await render({ name: 'a2-match-selected-dark', file: 'a2-v3/licao-03.html', selector: '.slide:has([data-v3-match-board])', width: 390, height: 844, expect: 'selection', action: `target.querySelector('[data-v3-match-option][data-side="left"]').click();` });
+        await render({ name: 'b1-review-game-dark', file: 'b1-v3/licao-15.html', selector: '.slide:has([data-v3-memory-board])', width: 1440, height: 1000, expect: 'memory', action: `const cards = target.querySelectorAll('[data-v3-memory-card]'); const first = cards[0]; const pair = [...cards].find(card => card !== first && card.dataset.pairId === first.dataset.pairId); first.click(); pair.click();` });
         await render({ name: 'b1-contrast-dark', file: 'b1-v3/licao-01.html', selector: '.slide[data-slide-type="vocabulary"]', width: 1440, height: 1000, expect: 'contrast', action: `target.querySelector('.b1-vocab-card')?.click();` });
-        await render({ name: 'a1-review-grammar', file: 'a1-v3/licao-05.html', selector: '.slide[data-title="Grammar Lab 1"]', width: 1440, height: 1000, expect: 'layout' });
-        await render({ name: 'a2-review-grammar', file: 'a2-v3/licao-16.html', selector: '.slide[data-title="Grammar Lab II"]', width: 1440, height: 1000, expect: 'layout' });
+        await render({ name: 'a1-review-grammar', file: 'a1-v3/licao-05.html', selector: '.slide[data-title="Revisão gramatical 1"]', width: 1440, height: 1000, expect: 'layout' });
+        await render({ name: 'a2-review-grammar', file: 'a2-v3/licao-03.html', selector: '.slide[data-title="Deep Grammar"]', width: 1440, height: 1000, expect: 'layout' });
         await render({ name: 'a2-horoscope-reading-mobile', file: 'a2-v3/licao-04.html', selector: '.slide:has(#reading-text)', width: 390, height: 844, expect: 'layout' });
         await render({ name: 'b1-review-grammar-dark', file: 'b1-v3/licao-15.html', selector: '.slide[data-slide-type="grammar"]', width: 1440, height: 1000, expect: 'layout' });
         await render({ name: 'a1-music-flow', file: 'a1-v3/licao-01.html', selector: '.slide[data-title="Música"]', width: 1440, height: 1000, expect: 'layout' });
@@ -181,7 +181,8 @@ async function main() {
             chrome.kill();
             setTimeout(resolve, 1500);
         });
-        fs.rmSync(profileDir, { recursive: true, force: true, maxRetries: 4, retryDelay: 200 });
+        await wait(600);
+        fs.rmSync(profileDir, { recursive: true, force: true, maxRetries: 12, retryDelay: 300 });
     }
 }
 

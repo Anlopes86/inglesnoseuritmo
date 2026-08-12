@@ -91,14 +91,17 @@
     }
 
     const LESSON_TOPICS = [
-        'past stories', 'complete past stories', 'comparisons', 'superlatives',
-        'articles and quantifiers', 'past continuous', 'interrupted stories', 'past review',
-        'future plans', 'future predictions', 'future arrangements', 'future review',
-        'permission and ability', 'obligation', 'advice', 'modals review',
-        'experiences', 'ever and never', 'present perfect versus past simple', 'been and gone',
-        'health problems', 'medical consultations', 'prepositions of place', 'review and directions',
-        'movement', 'time expressions', 'directions', 'hotel English',
-        'gerunds and infinitives', 'zero and first conditional', 'wishes and hopes', 'final review'
+        'welcome back and a trip abroad', 'vacation weather and activities', 'conversation activities: a trip abroad',
+        'finding your way', 'asking for help and travel time', 'conversation activities: in the middle of nowhere',
+        'future plans', 'future arrangements and predictions', 'conversation activities: plans',
+        'permission and ability', 'obligation and need', 'conversation activities: requests and rules',
+        'experiences', 'present perfect versus past simple', 'conversation activities: experiences',
+        'health problems', 'place movement and directions', 'conversation activities: health and directions',
+        'hotel English', 'gerunds and infinitives', 'conversation activities: practical English',
+        'used to and past habits', 'zero and first conditional', 'conversation activities: then now and next',
+        'superlatives and ranking', 'wishes hopes and intentions', 'conversation activities: choices and hopes',
+        'time expressions and deadlines', 'advice and recommendations', 'conversation activities: time and advice',
+        'A2 consolidation part 1', 'A2 consolidation part 2'
     ];
 
     const TOPIC_BANKS = {
@@ -615,9 +618,6 @@
         const lessonNumber = getLessonNumber();
         const bank = getBank(lessonNumber);
 
-        if (!document.querySelector('[data-title="Challenge Lab"]')) {
-            // insertBeforeClosingSlides(buildChallengeSlide(lessonNumber, bank));
-        }
         if (!document.querySelector('[data-title="Dialog Samples"]')) {
             // insertBeforeClosingSlides(buildDialogSlide(bank));
         }

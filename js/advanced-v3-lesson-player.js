@@ -12,7 +12,11 @@
     const pathMatch = path.match(/\/(b2-v3|c1-v3)\/licao-(\d+)\.html$/i);
     const moduleId = (document.body.dataset.module || pathMatch?.[1] || '').toLowerCase();
     const lessonNumber = Number(document.body.dataset.lessonNumber || pathMatch?.[2] || 1);
-    const lesson = globalScope.AdvancedV3Lessons?.[moduleId]?.find(item => item.number === lessonNumber);
+    const baseLesson = globalScope.AdvancedV3Lessons?.[moduleId]?.find(item => item.number === lessonNumber);
+    const editorial = globalScope.V3LessonEditorial;
+    const lesson = baseLesson && editorial?.has(moduleId, lessonNumber)
+        ? editorial.apply(moduleId, lessonNumber, baseLesson)
+        : baseLesson;
 
     function reveal(id, answer) {
         return `<button type="button" class="advanced-reveal" data-reveal="${escapeHtml(id)}" aria-controls="${escapeHtml(id)}" aria-expanded="false"><i class="fas fa-eye" aria-hidden="true"></i> Conferir modelo</button>
@@ -41,21 +45,21 @@
     function contentSlides(data) {
         return [
             slide('Mission & Dialogue', 6, `<section class="advanced-stage">
-                ${heading(`${data.level} · Integrated content`, data.title, data.scenario)}
+                ${heading(`${data.level} · Topic & Scene`, data.title, data.scenario)}
                 <div class="advanced-badges"><span class="advanced-badge">60 minutes</span><span class="advanced-badge">${escapeHtml(data.linguisticFocus)}</span><span class="advanced-badge">Action-oriented</span></div>
-                <div class="advanced-grid"><div class="advanced-card"><h3>Can-do outcomes</h3><ul class="advanced-list">${data.objectives.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul></div><div class="advanced-card"><h3>Opening dialogue</h3>${renderDialogue(data.dialogue)}</div></div>
+                <div class="advanced-grid"><div class="advanced-card"><h3>Can-do outcomes</h3><ul class="advanced-list">${data.objectives.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul></div><div class="advanced-card"><h3>Dialog Sample</h3>${renderDialogue(data.dialogue)}</div></div>
             </section>`, 4),
             slide('Reading & Reception', 7, `<section class="advanced-stage">
-                ${heading('Reception', data.input.title, 'Leia uma vez para a ideia central e outra vez para perspectiva, relações e escolhas linguísticas.')}
+                ${heading('Context Reading', data.input.title, 'Leia uma vez para a ideia central e outra vez para perspectiva, relações e escolhas linguísticas.')}
                 <div class="advanced-card">${data.input.paragraphs.map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join('')}</div>
                 <div style="height:18px"></div>${renderQuestions(data.input.questions, `input-${data.number}`)}
             </section>`, 1),
             slide('Language Control', 8, `<section class="advanced-stage">
-                ${heading('Linguistic competence', data.language.focus, 'A forma serve ao significado, à organização da informação e ao registro.')}
+                ${heading('Grammar in Context', data.language.focus, 'A forma serve ao significado, à organização da informação e ao registro.')}
                 <div class="advanced-table-wrap"><table class="advanced-table"><thead><tr><th>Decision</th><th>How to control it</th><th>Model in context</th></tr></thead><tbody>${data.language.explanation.map((note, index) => `<tr><td>${index + 1}</td><td>${escapeHtml(note)}</td><td>${escapeHtml(data.language.examples[index % data.language.examples.length])}</td></tr>`).join('')}</tbody></table></div>
             </section>`, 2),
             slide('Lexical Chunks', 5, `<section class="advanced-stage">
-                ${heading('Natural language', 'Expressions and collocations', 'Recupere os blocos como unidades de sentido e adapte-os ao caso.')}
+                ${heading('Vocabulary Expansion · Helping You', 'Expressions, collocations and stance', 'Observe significado, combinação, função discursiva e exemplo antes de adaptar o bloco ao caso.')}
                 <div class="advanced-grid">${data.chunks.map(item => `<article class="advanced-card"><h3>${escapeHtml(item.term)}</h3><p>${escapeHtml(item.meaning)}</p><p><strong>${escapeHtml(item.example)}</strong></p></article>`).join('')}</div>
             </section>`, 3),
             slide('Controlled Practice', 6, `<section class="advanced-stage">
@@ -73,7 +77,7 @@
                 <article class="advanced-card" style="margin-top:18px"><h3>Output checklist</h3><ul class="advanced-list"><li>Marque a origem de cada afirmação.</li><li>Explique convergência ou contraste.</li><li>Adapte a densidade ao público sem inventar certeza.</li></ul></article>
             </section>`, 6),
             slide('Speaking Performance', 8, `<section class="advanced-stage">
-                ${heading('Production & interaction', 'Defend, respond and reformulate', data.speaking.scenario)}
+                ${heading('Let’s Talk · Guided Conversation', 'Defend, answer and reformulate', data.speaking.scenario)}
                 <div class="advanced-grid">${data.speaking.rounds.map((round, index) => `<article class="advanced-card advanced-round"><span class="advanced-round-number">${index + 1}</span><h3>${escapeHtml(round)}</h3><p>${index === 0 ? 'Organize posição, evidência e ressalva.' : index === 1 ? 'Responda diretamente e verifique entendimento.' : 'Adapte precisão, registro e extensão.'}</p></article>`).join('')}</div>
                 <article class="advanced-card advanced-evidence" style="margin-top:18px"><h3>Teacher focus</h3><p>${escapeHtml(data.speaking.teacherFocus)}</p></article>
             </section>`, 8),
@@ -92,38 +96,37 @@
         const chunkCards = data.chunks.map(item => `<article class="advanced-card"><h3>${escapeHtml(item.term)}</h3><p>${escapeHtml(item.example)}</p></article>`).join('');
         return [
             slide('Mission Brief', 3, `<section class="advanced-stage">
-                ${heading(`${data.level} · Action review`, data.title, data.scenario)}
-                <div class="advanced-badges"><span class="advanced-badge">60 minutes</span><span class="advanced-badge">${data.oralInteractionMinutes} minutes oral interaction</span><span class="advanced-badge">Attempt · Twist · Retry</span></div>
-                <article class="advanced-card advanced-evidence"><h3>Performance evidence</h3><p>Uma decisão ou produto claro, interação responsiva, mediação fiel e melhora observável na segunda tentativa.</p></article>
+                ${heading(`${data.level} · Conversation Review`, data.title, data.scenario)}
+                <div class="advanced-badges"><span class="advanced-badge">${data.oralInteractionMinutes} minutes oral interaction</span></div>
             </section>`),
             slide('Context Input', 5, `<section class="advanced-stage">
-                ${heading('Reception & scenario', data.input.title, 'Identifique fatos, lacunas de informação, prioridade e restrição.')}
+                ${heading('Context Reading', data.input.title, 'Identifique fatos, perspectivas, linguagem recorrente e perguntas ainda abertas.')}
                 <div class="advanced-card">${data.input.paragraphs.map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join('')}</div>
                 <div style="height:18px"></div>${renderQuestions(data.input.questions, `review-input-${data.number}`)}
             </section>`, 3),
             slide('Recovered Language', 5, `<section class="advanced-stage">
-                ${heading('Contextual retrieval', 'Expressions and collocations', 'Explique a função de cada bloco e produza uma variação ligada à missão.')}
+                ${heading('Helping You · Key Phrases', 'Expressions and collocations', 'Explique a função de cada bloco e produza uma variação ligada ao tema.')}
                 <div class="advanced-grid">${chunkCards}</div>
             </section>`, 4),
             slide('Controlled Practice', 5, `<section class="advanced-stage">
                 ${heading('Brief control', 'Prepare accuracy for the mission', 'Resolva rapidamente; a maior parte da aula pertence à interação.')}
                 <div class="advanced-grid">${data.controlledPractice.map((item, index) => `<article class="advanced-card"><p class="advanced-eyebrow">${escapeHtml(item.label)}</p><h3>${escapeHtml(item.prompt)}</h3>${reveal(`review-practice-${data.number}-${index}`, item.answer)}</article>`).join('')}</div>
             </section>`, 4),
-            slide('Listening & Information Gap', 5, `<section class="advanced-stage">
-                ${heading('Listening input', 'Recover missing information', data.listening.setup)}
-                <article class="advanced-card"><p>Ouça, faça perguntas de confirmação e só então revele o roteiro.</p>${reveal(`review-listening-${data.number}`, data.listening.script)}</article>
+            slide('Listening & Guided Questions', 5, `<section class="advanced-stage">
+                ${heading('Listening input', 'Listen, confirm and answer', data.listening.setup)}
+                <article class="advanced-card"><p>Ouça, confirme o que entendeu e responda às perguntas do professor antes de revelar o roteiro.</p>${reveal(`review-listening-${data.number}`, data.listening.script)}</article>
             </section>`, 4),
             ...data.rounds.map((round, index) => slide(round.title, 9, `<section class="advanced-stage">
-                ${heading('Communicative performance', round.title, round.condition)}
-                <article class="advanced-card advanced-round"><span class="advanced-round-number">${index + 1}</span><h3>Observable target</h3><p>${escapeHtml(round.target)}</p><ul class="advanced-list"><li>Use evidence from the input.</li><li>Invite and respond to the other speaker’s contribution.</li><li>Confirm the decision, unresolved point or next action.</li></ul></article>
+                ${heading('Let’s Talk · Guided Conversation', round.title, round.condition)}
+                <article class="advanced-card advanced-round"><span class="advanced-round-number">${index + 1}</span><h3>Observable target</h3><p>${escapeHtml(round.target)}</p><ul class="advanced-list"><li>Use evidence from the input.</li><li>Answer the follow-up question directly.</li><li>Confirm the conclusion, unresolved point or next action.</li></ul></article>
             </section>`, 9)),
             slide('Feedback & CEFR Evidence', 5, `<section class="advanced-stage">
-                ${heading('Teacher focus', 'One priority, observable improvement', data.teacherFocus)}
+                ${heading('Teacher focus', 'One priority, clearer final synthesis', data.teacherFocus)}
                 <div class="advanced-grid"><article class="advanced-card advanced-evidence"><h3>CEFR evidence</h3><ul class="advanced-list">${data.cefrEvidence.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul></article><article class="advanced-card"><h3>Cumulative recycling</h3><ul class="advanced-list">${data.cumulativeRecycling.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul></article></div>
             </section>`, 3),
             slide('Online Follow-up & Homework', 5, `<section class="advanced-stage">
-                ${heading('Online interaction & reflection', 'Confirm the outcome', data.online.prompt)}
-                <div class="advanced-grid"><article class="advanced-card"><h3>Online post</h3><p>${escapeHtml(data.online.prompt)}</p></article><article class="advanced-card"><h3>Homework</h3><p>${escapeHtml(data.homework)}</p><ul class="advanced-list"><li>Nomeie o feedback aplicado.</li><li>Compare a primeira e a segunda tentativa.</li><li>Registre o próximo passo.</li></ul></article></div>
+                ${heading('Online interaction & reflection', 'Record the final synthesis', data.online.prompt)}
+                <div class="advanced-grid"><article class="advanced-card"><h3>Online post</h3><p>${escapeHtml(data.online.prompt)}</p></article><article class="advanced-card"><h3>Homework</h3><p>${escapeHtml(data.homework)}</p><ul class="advanced-list"><li>Nomeie o feedback aplicado.</li><li>Registre como a resposta ficou mais clara.</li><li>Defina o próximo passo.</li></ul></article></div>
             </section>`)
         ];
     }

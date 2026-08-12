@@ -15,38 +15,6 @@
     const reading = (title, text, ...questions) => ({ title, text, questions });
     const question = (prompt, answer) => [prompt, answer];
 
-    /*
-     * The workload is deliberately different from lesson to lesson. A short
-     * foundation lesson needs fewer prompts; denser language needs more
-     * retrieval, examples and opportunities to speak.
-     */
-    const LESSON_LOAD = {
-        1: { vocab: 6, practice: 6, translations: 5, expressions: 3, dialogues: 3, lab: 3 },
-        2: { vocab: 11, practice: 7, translations: 5, expressions: 3, dialogues: 3, lab: 3 },
-        3: { vocab: 8, practice: 8, translations: 6, expressions: 4, dialogues: 4, lab: 4 },
-        4: { vocab: 10, practice: 10, translations: 8, expressions: 5, dialogues: 5, lab: 5 },
-        6: { vocab: 10, practice: 9, translations: 7, expressions: 5, dialogues: 4, lab: 4 },
-        7: { vocab: 7, practice: 7, translations: 5, expressions: 3, dialogues: 3, lab: 3 },
-        8: { vocab: 7, practice: 8, translations: 6, expressions: 4, dialogues: 4, lab: 4 },
-        9: { vocab: 8, practice: 9, translations: 7, expressions: 4, dialogues: 4, lab: 4 },
-        11: { vocab: 8, practice: 8, translations: 6, expressions: 4, dialogues: 4, lab: 4 },
-        12: { vocab: 8, practice: 9, translations: 7, expressions: 5, dialogues: 4, lab: 4 },
-        13: { vocab: 9, practice: 10, translations: 8, expressions: 5, dialogues: 5, lab: 5 },
-        14: { vocab: 10, practice: 12, translations: 8, expressions: 6, dialogues: 5, lab: 5 },
-        16: { vocab: 10, practice: 10, translations: 8, expressions: 5, dialogues: 5, lab: 5 },
-        17: { vocab: 10, practice: 11, translations: 8, expressions: 5, dialogues: 5, lab: 5 },
-        18: { vocab: 9, practice: 10, translations: 7, expressions: 5, dialogues: 4, lab: 4 },
-        19: { vocab: 10, practice: 11, translations: 8, expressions: 5, dialogues: 5, lab: 5 },
-        21: { vocab: 8, practice: 8, translations: 6, expressions: 4, dialogues: 4, lab: 4 },
-        22: { vocab: 10, practice: 10, translations: 8, expressions: 5, dialogues: 5, lab: 5 },
-        23: { vocab: 10, practice: 11, translations: 8, expressions: 5, dialogues: 5, lab: 5 },
-        24: { vocab: 10, practice: 12, translations: 9, expressions: 6, dialogues: 5, lab: 5 },
-        26: { vocab: 9, practice: 9, translations: 7, expressions: 5, dialogues: 4, lab: 4 },
-        27: { vocab: 10, practice: 11, translations: 8, expressions: 5, dialogues: 5, lab: 5 },
-        28: { vocab: 10, practice: 12, translations: 8, expressions: 6, dialogues: 5, lab: 5 },
-        29: { vocab: 10, practice: 12, translations: 9, expressions: 6, dialogues: 5, lab: 5 }
-    };
-
     const EXTRA_VOCAB = {
         4: [
             v('age', 'idade', 'I am twenty years old.', 'Eu tenho vinte anos.'),
@@ -194,8 +162,8 @@
         ].filter(([portuguese, english]) => portuguese && english));
     }
 
-    function buildVocabulary(spec, target) {
-        const vocabulary = [...spec.vocab, ...(EXTRA_VOCAB[spec.number] || [])].slice(0, target);
+    function buildVocabulary(spec) {
+        const vocabulary = [...spec.vocab, ...(EXTRA_VOCAB[spec.number] || [])];
         const additions = EXTRA_VOCAB_EXAMPLES[spec.number] || {};
         return vocabulary.map(item => {
             const [word, meaning, example, translation] = item;
@@ -210,85 +178,32 @@
         });
     }
 
-    function buildExpressions(spec, target) {
-        const expressions = [...spec.expressions];
-        const used = new Set(expressions.map(item => String(item[0]).trim().toLowerCase()));
-        for (const item of contextualPairs(spec)) {
-            if (expressions.length >= target) break;
-            const [portuguese, english] = item;
-            const key = String(english).trim().toLowerCase();
-            if (used.has(key)) continue;
-            expressions.push(x(english, portuguese, 'Use esta frase como um bloco completo nesta situação.', english, portuguese));
-            used.add(key);
-        }
-        return expressions.slice(0, target);
+    function buildExpressions(spec) {
+        return [...spec.expressions];
     }
 
-    function buildTranslations(spec, expressions, target) {
-        return uniqueByEnglish([
-            ...spec.translations,
-            ...expressions.map(item => [item[4], item[3]]),
-            ...contextualPairs(spec)
-        ]).slice(0, target);
+    function buildTranslations(spec) {
+        return uniqueByEnglish(spec.translations);
     }
 
-    function buildPractice(spec, expressions, target) {
-        const practice = spec.practice.slice(0, target);
-        const usedAnswers = new Set(practice.map(item => String(item[3]).trim().toLowerCase()));
-        const candidates = uniqueByEnglish([
-            ...expressions.map(item => [item[4], item[3]]),
-            ...spec.translations,
-            ...contextualPairs(spec)
-        ]);
-        for (const [portuguese, english] of candidates) {
-            if (practice.length >= target) break;
-            const key = String(english).trim().toLowerCase();
-            if (usedAnswers.has(key)) continue;
-            practice.push(p('Translate', portuguese, 'diga a frase completa em inglês', english));
-            usedAnswers.add(key);
-        }
-        return practice;
+    function buildPractice(spec) {
+        return [...spec.practice];
     }
 
-    function buildDialogues(spec, target) {
-        const dialogues = spec.dialogues.slice(0, target);
+    function buildDialogues(spec) {
+        const dialogues = [...spec.dialogues];
         const extra = EXTRA_DIALOGUES[spec.number];
-        if (dialogues.length < target && extra) dialogues.push(extra);
-        return dialogues.slice(0, target);
-    }
-
-    function buildLabItems(spec, practice, target) {
-        const usedAnswers = new Set(practice.map(item => String(item[3]).trim().toLowerCase()));
-        const items = [];
-        for (const [portuguese, english] of contextualPairs(spec)) {
-            if (items.length >= target) break;
-            const answerKey = String(english).trim().toLowerCase();
-            if (usedAnswers.has(answerKey)) continue;
-            if (items.length % 2 === 0 && String(english).trim().split(/\s+/).length >= 3) {
-                const shuffled = String(english)
-                    .replace(/[?.!,]/g, '')
-                    .split(/\s+/)
-                    .filter(Boolean)
-                    .reverse()
-                    .join(' / ');
-                items.push(p('Build', shuffled, '', english));
-            } else {
-                items.push(p('Translate', portuguese, '', english));
-            }
-            usedAnswers.add(answerKey);
-        }
-        return items;
+        if (extra && !dialogues.some(item => item.title === extra.title)) dialogues.push(extra);
+        return dialogues;
     }
 
     function buildLesson(spec) {
         const inherited = clone(inheritedLessons[spec.source] || inheritedLessons[1]);
-        const load = LESSON_LOAD[spec.number];
-        const vocab = buildVocabulary(spec, load.vocab);
-        const expressionsWithContext = buildExpressions(spec, load.expressions);
-        const translations = buildTranslations(spec, expressionsWithContext, load.translations);
-        const practice = buildPractice(spec, expressionsWithContext, load.practice);
-        const dialogues = buildDialogues(spec, load.dialogues);
-        const labItems = buildLabItems(spec, practice, load.lab);
+        const vocab = buildVocabulary(spec);
+        const expressionsWithContext = buildExpressions(spec);
+        const translations = buildTranslations(spec);
+        const practice = buildPractice(spec);
+        const dialogues = buildDialogues(spec);
         const expressionTranslations = expressionsWithContext
             .map(item => [item[4], item[3]])
             .filter(([portuguese, english]) => portuguese && english);
@@ -302,11 +217,8 @@
             vocab,
             grammar: spec.grammar,
             practice,
-            labs: [{
-                title: `${spec.title}: Guided Lab`,
-                instruction: 'Siga a orientação escrita em cada atividade. Depois, leia cada resposta completa em voz alta.',
-                items: labItems
-            }],
+            labs: undefined,
+            activitySections: spec.activitySections || null,
             translations,
             expressions: expressionsWithContext.map(item => item.slice(0, 4)),
             dialogues,
@@ -379,10 +291,10 @@
                 p('Complete', 'You ___ my teacher.', 'you + are', 'are'),
                 p('Build', 'am / I / Ben', 'comece com I', 'I am Ben.'),
                 p('Choose', '___ you a new student? (Am / Are)', 'pergunta com you', 'Are you a new student?'),
-                p('Respond', 'Are you Ana?', 'resposta positiva', 'Yes, I am.'),
+                p('Answer', 'Are you Ana?', 'resposta positiva', 'Yes, I am.'),
                 p('Correct', 'I are ready.', 'I usa am', 'I am ready.'),
                 p('Build', 'name / My / is / Leo', 'comece com My', 'My name is Leo.'),
-                p('Respond', 'Nice to meet you.', 'resposta social', 'Nice to meet you too.')
+                p('Answer', 'Nice to meet you.', 'resposta social', 'Nice to meet you too.')
             ],
             translations: [
                 t('Olá! Eu sou a Mia.', 'Hello! I am Mia.'),
@@ -466,7 +378,7 @@
                 p('Choose', 'He ___ from Mexico. (am / is)', 'he + is', 'is'),
                 p('Choose', 'She ___ from Canada. (is / are)', 'she + is', 'is'),
                 p('Build', 'from / is / Where / he / ?', 'bloco de origem', 'Where is he from?'),
-                p('Respond', 'Where is Ana from? Brazil.', 'she', 'She is from Brazil.'),
+                p('Answer', 'Where is Ana from? Brazil.', 'she', 'She is from Brazil.'),
                 p('Correct', 'He are from Italy.', 'he usa is', 'He is from Italy.'),
                 p('Transform', 'I am from Japan. → Ken', 'I muda para he', 'He is from Japan.')
             ],
@@ -548,7 +460,7 @@
                 p('Complete', 'You are Ben. Ana is ___ sister.', 'sua', 'your'),
                 p('Complete', 'He is Leo. ___ mother is Eva.', 'dele', 'His'),
                 p('Complete', 'She is Ana. ___ father is Tom.', 'dela', 'Her'),
-                p('Respond', 'Who is he?', 'meu pai', 'He is my father.'),
+                p('Answer', 'Who is he?', 'meu pai', 'He is my father.'),
                 p('Build', 'is / sister / my / She', 'ela é...', 'She is my sister.'),
                 p('Choose', 'Sofia is here. (His / Her) brother is here too.', 'dela', 'Her'),
                 p('Correct', 'He is her brother. His name is Nina.', 'Nina é mulher', 'Her name is Nina.')
@@ -633,7 +545,7 @@
                 p('Build', 'name / My / is / Ana', 'resposta', 'My name is Ana.'),
                 p('Number', '12', 'escreva em inglês', 'twelve'),
                 p('Number', '19', 'escreva em inglês', 'nineteen'),
-                p('Respond', 'How do you spell Leo?', 'letras', 'L-E-O.')
+                p('Answer', 'How do you spell Leo?', 'letras', 'L-E-O.')
             ],
             translations: [
                 t('Qual é seu nome?', 'What is your name?'),
@@ -709,8 +621,8 @@
             },
             practice: [
                 p('Complete', 'What is your phone ___?', 'número', 'number'),
-                p('Respond', 'What is your email?', 'mia@email.com', 'It is mia@email.com.'),
-                p('Respond', 'What is your address?', '20 King Street', 'It is 20 King Street.'),
+                p('Answer', 'What is your email?', 'mia@email.com', 'It is mia@email.com.'),
+                p('Answer', 'What is your address?', '20 King Street', 'It is 20 King Street.'),
                 p('Number', '35', 'escreva em inglês', 'thirty-five'),
                 p('Number', '82', 'escreva em inglês', 'eighty-two'),
                 p('Build', 'repeat / Please / the / number', 'pedido', 'Please repeat the number.'),
@@ -794,7 +706,7 @@
                 p('Choose', '___ eraser (a / an)', 'som vocálico', 'an eraser'),
                 p('Complete', 'It is ___ umbrella.', 'som vocálico', 'an'),
                 p('Complete', 'It ___ a key.', 'it + is', 'is'),
-                p('Respond', 'What is it? (notebook)', 'frase completa', 'It is a notebook.'),
+                p('Answer', 'What is it? (notebook)', 'frase completa', 'It is a notebook.'),
                 p('Build', 'is / It / pen / a', 'identificação', 'It is a pen.'),
                 p('Correct', 'It is an book.', 'som consonantal', 'It is a book.'),
                 p('Correct', 'It are a bag.', 'it usa is', 'It is a bag.')
@@ -877,7 +789,7 @@
                 p('Complete', '___ is my pen here.', 'perto', 'This'),
                 p('Complete', '___ is the door over there.', 'distante', 'That'),
                 p('Build', 'this / Is / notebook / your / ?', 'pergunta', 'Is this your notebook?'),
-                p('Respond', 'Is that your bag?', 'negativa curta', 'No, it is not.'),
+                p('Answer', 'Is that your bag?', 'negativa curta', 'No, it is not.'),
                 p('Correct', 'This are a table.', 'singular', 'This is a table.'),
                 p('Correct', 'That is an chair.', 'som consonantal', 'That is a chair.')
             ],
@@ -1124,7 +1036,7 @@
                 p('Choose', 'You (like / likes) movies.', 'you + base verb', 'like'),
                 p('Build', 'like / I / books', 'positivo', 'I like books.'),
                 p('Build', 'do not / I / soccer / like', 'negativo', 'I do not like soccer.'),
-                p('Respond', 'I like coffee.', 'eu também', 'I like coffee too.'),
+                p('Answer', 'I like coffee.', 'eu também', 'I like coffee too.'),
                 p('Correct', 'I don’t likes tea.', 'depois de don’t', 'I don’t like tea.'),
                 p('Correct', 'You likes movies.', 'you + base verb', 'You like movies.')
             ],
@@ -1286,8 +1198,8 @@
                 p('Complete', '___ you work at home?', 'you', 'Do'),
                 p('Complete', '___ she study at night?', 'she', 'Does'),
                 p('Choose', 'Does he (work / works) here?', 'verbo base', 'work'),
-                p('Respond', 'Do you study English?', 'positiva', 'Yes, I do.'),
-                p('Respond', 'Does Mia work here?', 'negativa', 'No, she doesn’t.'),
+                p('Answer', 'Do you study English?', 'positiva', 'Yes, I do.'),
+                p('Answer', 'Does Mia work here?', 'negativa', 'No, she doesn’t.'),
                 p('Build', 'you / Do / early / wake up / ?', 'pergunta', 'Do you wake up early?'),
                 p('Correct', 'Does he goes home at five?', 'does + base', 'Does he go home at five?'),
                 p('Correct', 'Do she work late?', 'she usa does', 'Does she work late?')
@@ -1370,7 +1282,7 @@
                 p('Complete', 'He ___ drinks coffee. (0%)', 'nunca', 'never'),
                 p('Choose', 'I (sometimes watch / watch sometimes) movies.', 'posição', 'sometimes watch'),
                 p('Build', 'often / How / you / do / read / ?', 'bloco de frequência', 'How often do you read?'),
-                p('Respond', 'How often do you play soccer?', 'às vezes', 'I sometimes play soccer.'),
+                p('Answer', 'How often do you play soccer?', 'às vezes', 'I sometimes play soccer.'),
                 p('Correct', 'I don’t never drink tea.', 'never sem don’t', 'I never drink tea.'),
                 p('Correct', 'She listens always to music.', 'posição', 'She always listens to music.')
             ],
@@ -1615,8 +1527,8 @@
                 p('Complete', 'She ___ drive.', 'não sabe', 'can’t'),
                 p('Choose', 'He can (cooks / cook).', 'verbo base', 'cook'),
                 p('Build', 'you / Can / Spanish / speak / ?', 'pergunta', 'Can you speak Spanish?'),
-                p('Respond', 'Can you help visitors?', 'positiva', 'Yes, I can.'),
-                p('Respond', 'Can Leo drive?', 'negativa', 'No, he can’t.'),
+                p('Answer', 'Can you help visitors?', 'positiva', 'Yes, I can.'),
+                p('Answer', 'Can Leo drive?', 'negativa', 'No, he can’t.'),
                 p('Correct', 'She cans use a computer.', 'can não muda', 'She can use a computer.'),
                 p('Correct', 'He can to drive.', 'sem to', 'He can drive.')
             ],
@@ -1945,7 +1857,7 @@
                 p('Complete', 'We don’t have ___ sandwiches.', 'negativa', 'any'),
                 p('Build', 'like / I’d / coffee / some', 'pedido', 'I’d like some coffee.'),
                 p('Build', 'have / you / cake / any / Do / ?', 'pergunta', 'Do you have any cake?'),
-                p('Respond', 'Anything else?', 'negativa educada', 'No, thank you.'),
+                p('Answer', 'Anything else?', 'negativa educada', 'No, thank you.'),
                 p('Correct', 'I’d like any tea.', 'pedido usa some', 'I’d like some tea.'),
                 p('Correct', 'We don’t have some cake.', 'negativa usa any', 'We don’t have any cake.')
             ],
@@ -2027,7 +1939,7 @@
                 p('Complete', 'She can sing ___ play the guitar.', 'adição', 'and'),
                 p('Complete', 'He can act, ___ he can’t sing.', 'contraste', 'but'),
                 p('Build', 'you / photos / take / Can / ?', 'pergunta', 'Can you take photos?'),
-                p('Respond', 'Can you dance?', 'sim + outra habilidade', 'Yes, I can, and I can sing too.'),
+                p('Answer', 'Can you dance?', 'sim + outra habilidade', 'Yes, I can, and I can sing too.'),
                 p('Correct', 'I can to act and dance.', 'sem to', 'I can act and dance.'),
                 p('Correct', 'She cans draw.', 'can não muda', 'She can draw.')
             ],
@@ -2188,8 +2100,8 @@
             practice: [
                 p('Build', 'you / Are / working / ?', 'pergunta', 'Are you working?'),
                 p('Build', 'she / Is / coming / now / ?', 'pergunta', 'Is she coming now?'),
-                p('Respond', 'Are you studying?', 'negativa', 'No, I’m not.'),
-                p('Respond', 'Is Leo cooking?', 'positiva', 'Yes, he is.'),
+                p('Answer', 'Are you studying?', 'negativa', 'No, I’m not.'),
+                p('Answer', 'Is Leo cooking?', 'positiva', 'Yes, he is.'),
                 p('Complete', 'She is ___ working today.', 'negativa', 'not'),
                 p('Transform', 'He is sleeping. → question', 'inverta is', 'Is he sleeping?'),
                 p('Correct', 'Are she coming?', 'she + is', 'Is she coming?'),
@@ -2273,7 +2185,7 @@
                 p('Choose', 'She (was / were) busy.', 'she', 'was'),
                 p('Choose', 'We (was / were) happy.', 'we', 'were'),
                 p('Build', 'you / Where / were / ?', 'pergunta', 'Where were you?'),
-                p('Respond', 'Was Ana at home?', 'negativa', 'No, she wasn’t.'),
+                p('Answer', 'Was Ana at home?', 'negativa', 'No, she wasn’t.'),
                 p('Correct', 'I were at work.', 'I + was', 'I was at work.'),
                 p('Correct', 'Were he tired?', 'he + was', 'Was he tired?')
             ],

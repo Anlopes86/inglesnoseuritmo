@@ -22,7 +22,7 @@
                 chunks: ['may have been', 'cannot have', 'must have', 'there is little doubt', 'the evidence suggests', 'a plausible explanation']
             },
             {
-                domain: 'A city deciding how to respond to extreme heat',
+                domain: 'A city deciding how to address extreme heat',
                 reading: ['If the city opens cooling centers earlier, vulnerable residents will have safer options. If officials had invested in shade ten years ago, some neighborhoods would now be better prepared.', 'The committee compares immediate, hypothetical and mixed-time consequences. Members must decide which action remains useful even if the forecast changes.'],
                 chunks: ['were the city to', 'if it had not been for', 'would now be', 'otherwise', 'long-term consequence', 'low-risk option']
             },
@@ -83,7 +83,7 @@
             },
             {
                 domain: 'A capstone presentation followed by online and live questions',
-                reading: ['The presenter must explain a proposal, integrate two sources and respond to a skeptical question. An online participant then adds information that changes one assumption.', 'Success depends on signposting, flexible reformulation and transparent use of evidence. The second attempt should be shorter, clearer and more responsive than the rehearsal.'],
+                reading: ['The presenter must explain a proposal, integrate two sources and answer a skeptical question. An online participant then adds information that changes one assumption.', 'Success depends on signposting, flexible reformulation and transparent use of evidence. The second attempt should be shorter, clearer and more responsive than the rehearsal.'],
                 chunks: ['I will begin by', 'as the data shows', 'to address that concern', 'let me reframe', 'the updated assumption', 'my recommendation remains']
             }
         ],
@@ -150,7 +150,7 @@
             },
             {
                 domain: 'A complex discussion evaluating policy impact',
-                reading: ['The proposal is effective by one measure and inequitable by another. Participants evaluate criteria before arguing for a conclusion, then respond to the strongest counterposition rather than an easy version of it.', 'The discussion ends with a qualified recommendation and a statement of what new evidence could change it.'],
+                reading: ['The proposal is effective by one measure and inequitable by another. Participants evaluate criteria before arguing for a conclusion, then address the strongest counterposition rather than an easy version of it.', 'The discussion ends with a qualified recommendation and a statement of what new evidence could change it.'],
                 chunks: ['judged against', 'a compelling counterargument', 'this presupposes that', 'even so', 'a qualified endorsement', 'would alter my position']
             },
             {
@@ -183,7 +183,7 @@
             ];
             return models[chunkIndex % models.length];
         });
-        const practice = blueprint.chunks.slice(0, 6).map((chunk, itemIndex) => ({
+        const practice = blueprint.chunks.map((chunk, itemIndex) => ({
             label: ['Complete', 'Reformulate', 'Choose by meaning'][itemIndex % 3],
             prompt: itemIndex % 3 === 0
                 ? `Complete a defensible sentence using “${chunk}”.`
@@ -213,7 +213,7 @@
             input: {
                 title: blueprint.domain,
                 paragraphs: blueprint.reading,
-                questions: [
+                questions: blueprint.questions || [
                     ['What is the communicative problem?', 'Separate the main facts, perspectives and purpose in the case.'],
                     ['Which language choice changes interpretation?', `The use of ${blueprint.chunks[0]} and related framing language.`],
                     ['What should the speaker do next?', 'Give a justified response and acknowledge a limitation.']
@@ -250,8 +250,8 @@
                 task: 'Prepare a 75-second briefing that combines the sources, marks one contrast and preserves uncertainty.'
             },
             speaking: {
-                scenario: `Respond to ${blueprint.domain.toLowerCase()} and defend a practical recommendation.`,
-                rounds: ['State the issue and your initial position.', 'Respond to a skeptical question with evidence.', 'Reformulate the recommendation for a non-specialist audience.'],
+                scenario: `Answer the ${blueprint.domain.toLowerCase()} prompt and defend a practical recommendation.`,
+                rounds: ['State the issue and your initial position.', 'Answer a skeptical question with evidence.', 'Reformulate the recommendation for a non-specialist audience.'],
                 teacherFocus: `Observe controle de ${entry.linguisticFocus}, precisão lexical, coesão e capacidade de responder à contribuição do interlocutor.`
             },
             online: {
@@ -263,45 +263,45 @@
     }
 
     function reviewLesson(entry, content, cumulative) {
-        const chunks = [...content.chunks.slice(0, 4), ...cumulative.flatMap(item => item.chunks.slice(0, 1)).slice(-2)];
+        const chunks = content.reviewChunks || content.chunks;
         return {
             ...entry,
-            scenario: `A stakeholder needs a usable response to ${content.domain.toLowerCase()}, but you receive incomplete information and must negotiate the final outcome.`,
+            scenario: `Discuss ${content.domain.toLowerCase()} with the teacher, develop your position through follow-up questions and finish with a clear synthesis.`,
             input: {
                 title: `Mission file: ${entry.title}`,
                 paragraphs: [
                     content.input.paragraphs[0],
-                    `New constraint: one source is incomplete, the deadline has moved forward, and the audience challenges the original framing. Decide what can still be stated and what must be qualified.`
+                    `One source remains incomplete and the audience challenges the original framing. Separate what can be supported, what must be qualified and which question still needs an answer.`
                 ],
                 questions: content.input.questions
             },
             chunks,
-            controlledPractice: content.practice.slice(0, 4),
+            controlledPractice: content.reviewPractice || content.practice,
             listening: content.listening,
             rounds: [
                 {
-                    title: 'Round 1 · Attempt',
-                    condition: 'Use the initial brief. Ask for missing information, choose a position and present a workable response.',
-                    target: '2-minute interaction with a clear outcome.'
+                    title: 'Guided response',
+                    condition: 'Use the initial brief to state the issue, your position and the strongest supporting evidence.',
+                    target: 'A focused two-minute response with an explicit limitation.'
                 },
                 {
-                    title: 'Round 2 · Unexpected condition',
-                    condition: 'The teacher changes one source, stakeholder priority or deadline. Negotiate the consequences.',
-                    target: 'Acknowledge the change, test an alternative and confirm what remains valid.'
+                    title: 'Teacher follow-up questions',
+                    condition: 'Answer questions about assumptions, counterevidence, audience and practical consequences.',
+                    target: 'Direct answers that add evidence, qualification or a relevant example.'
                 },
                 {
-                    title: 'Round 3 · Second attempt',
-                    condition: 'After one focused correction, repeat the performance for a different audience or register.',
-                    target: 'More concise, accurate and responsive delivery.'
+                    title: 'Final synthesis',
+                    condition: 'Bring the discussion together and reformulate one point after focused feedback.',
+                    target: 'A concise conclusion that preserves nuance and states the next action.'
                 }
             ],
-            teacherFocus: `Record one successful strategy and one priority connected to ${content.linguisticFocus}. Correct after the first attempt, then compare the second attempt.`,
+            teacherFocus: `Record one successful strategy and one priority connected to ${content.linguisticFocus}. Give focused feedback before the final synthesis.`,
             cefrEvidence: entry.cefrObjectives.map(item => `${item.skill}: ${item.descriptor}`),
             cumulativeRecycling: cumulative.slice(-3).map(item => item.title),
             online: {
-                prompt: 'Post the negotiated outcome, respond to one objection and state which point still requires verification.'
+                prompt: 'Post the negotiated outcome, answer one objection and state which point still requires verification.'
             },
-            homework: 'Submit the final response plus a short reflection naming the feedback applied between attempts.'
+            homework: 'Submit the final synthesis plus a short reflection naming the feedback applied during the conversation.'
         };
     }
 

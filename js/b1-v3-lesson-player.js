@@ -1,8 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     const lessonNumber = getLessonNumberFromPath();
-    const lesson = Array.isArray(window.B1_V3_LESSONS)
+    const baseLesson = Array.isArray(window.B1_V3_LESSONS)
         ? window.B1_V3_LESSONS.find(item => item.number === lessonNumber)
         : null;
+    const editorial = window.V3LessonEditorial;
+    const lesson = baseLesson && editorial?.has('b1-v3', lessonNumber)
+        ? editorial.apply('b1-v3', lessonNumber, baseLesson)
+        : baseLesson;
     const root = document.getElementById('slides-root');
 
     if (!lesson || !root) {
@@ -141,6 +145,16 @@ function renderOpeningSlide(slide, lesson, slideIndex) {
     const dialogue = slide.dialogue || {};
     const lines = Array.isArray(dialogue.lines) ? dialogue.lines : [];
 
+    if (lesson.type === 'review') {
+        return slideSection(slide, slideIndex, `
+            <div class="hero-card lesson-stage p-7 md:p-9 text-center">
+                <p class="prep-eyebrow"><i class="fas fa-comments"></i> Conversation Review</p>
+                <h2 class="prep-display-title mt-3">${escapeHtml(slide.title || lesson.title)}</h2>
+                <p class="text-lg text-slate-600 mt-4">Revisão do bloco com linguagem em contexto e conversa guiada.</p>
+            </div>
+        `, 'opening-slide review-opening-slide');
+    }
+
     return slideSection(slide, slideIndex, `
         <div class="hero-card lesson-stage p-7 md:p-9">
             <div class="opening-heading">
@@ -155,7 +169,7 @@ function renderOpeningSlide(slide, lesson, slideIndex) {
 
             <div class="opening-grid mt-8">
                 <div class="opening-objectives">
-                    <p class="prep-section-label">O que será trabalhado</p>
+                    <p class="prep-section-label">Topic & Scene</p>
                     <div class="grid gap-3 mt-4">
                         ${objectives.map(objective => `
                             <div class="prep-objective-row">
@@ -167,7 +181,7 @@ function renderOpeningSlide(slide, lesson, slideIndex) {
                 </div>
 
                 <div class="opening-dialogue">
-                    <p class="prep-section-label">Introductory dialogue</p>
+                    <p class="prep-section-label">Dialog Sample</p>
                     <h3 class="text-xl font-black text-slate-900 mt-2">${escapeHtml(dialogue.title || 'Everyday conversation')}</h3>
                     <div class="dialogue-lines mt-5">
                         ${lines.map(([speaker, text]) => `
@@ -191,7 +205,7 @@ function renderVocabularySlide(slide, lesson, slideIndex) {
 
     return slideSection(slide, slideIndex, `
         <div class="lesson-stage">
-            ${renderSlideHeading('fa-layer-group', 'Vocabulary', slide.title, slide.intro || 'Clique em cada cartão para ver o significado e um exemplo em contexto.')}
+            ${renderSlideHeading('fa-layer-group', 'Vocabulary Expansion', slide.title, slide.intro || 'Observe significado, combinação natural e exemplo em contexto antes de usar o item.')}
             <div class="b1-vocab-grid mt-7">
                 ${items.map(item => {
                     const [term, type, meaning, example] = Array.isArray(item)
@@ -224,7 +238,7 @@ function renderGrammarSlide(slide, lesson, slideIndex) {
 
     return slideSection(slide, slideIndex, `
         <div class="lesson-stage">
-            ${renderSlideHeading('fa-table-list', 'Grammar review', slide.title, slide.intro)}
+            ${renderSlideHeading('fa-table-list', 'Grammar in Context', slide.title, slide.intro)}
             <div class="grammar-grid mt-7">
                 ${tables.map(table => `
                     <div class="grammar-panel">
@@ -274,8 +288,29 @@ function b1MemoryPairs(lessonNumber, fallbackPairs) {
             ['To sum up...', '...I recommend a four-week pilot.']
         ]
     }[lessonNumber];
-    if (!curated) return fallbackPairs;
-    return curated.map(([cue, answer], index) => ({ id: String(index), cue, answer }));
+    if (!curated) return fallbackPairs.slice(0, 5);
+    return curated.slice(0, 5).map(([cue, answer], index) => ({ id: String(index), cue, answer }));
+}
+
+function shuffledReviewItems(items) {
+    const shuffled = [...items];
+    for (let index = shuffled.length - 1; index > 0; index -= 1) {
+        const target = Math.floor(Math.random() * (index + 1));
+        [shuffled[index], shuffled[target]] = [shuffled[target], shuffled[index]];
+    }
+    return shuffled;
+}
+
+function shuffledReviewAnswers(pairs) {
+    if (pairs.length < 2) return [...pairs];
+    const reversed = [...pairs].reverse();
+    for (let attempt = 0; attempt < 16; attempt += 1) {
+        const candidate = shuffledReviewItems(pairs);
+        const hasSameRow = candidate.some((pair, index) => pair.id === pairs[index].id);
+        const isReverseOrder = candidate.every((pair, index) => pair.id === reversed[index].id);
+        if (!hasSameRow && !isReverseOrder) return candidate;
+    }
+    return pairs.map((_, index) => pairs[(index + 1) % pairs.length]);
 }
 
 function renderReviewGameSlide(slide, lesson, slideIndex) {
@@ -285,10 +320,11 @@ function renderReviewGameSlide(slide, lesson, slideIndex) {
 
     if (slide.game === 'memory') {
         const memoryPairs = b1MemoryPairs(lesson.number, pairs);
-        const cards = memoryPairs.map(pair => ({ ...pair, copy: pair.cue })).concat([...memoryPairs].reverse().map(pair => ({ ...pair, copy: pair.answer })));
-        gameBody = `<div class="v3-review-game" data-v3-memory-board><div class="v3-review-game-head"><div><strong>Memory Challenge</strong><span>Forme a pergunta com sua resposta ou complete a linha de raciocínio.</span></div><i class="fas fa-clone"></i></div><div class="v3-memory-grid">${cards.map(card => `<button type="button" class="v3-memory-card" data-v3-memory-card data-pair-id="${escapeAttribute(card.id)}"><span class="v3-memory-cover"><i class="fas fa-question"></i></span><span class="v3-memory-copy">${escapeHtml(card.copy)}</span></button>`).join('')}</div><p class="v3-review-feedback" data-v3-game-feedback>Vire duas cartas por vez. Ao acertar, produza uma continuação própria.</p></div>`;
+        const cards = shuffledReviewItems(memoryPairs.map(pair => ({ ...pair, copy: pair.cue })).concat(memoryPairs.map(pair => ({ ...pair, copy: pair.answer }))));
+        gameBody = `<div class="v3-review-game" data-v3-memory-board><div class="v3-review-game-head"><div><strong>Memory Challenge</strong></div><i class="fas fa-clone"></i></div><div class="v3-memory-grid">${cards.map(card => `<button type="button" class="v3-memory-card" data-v3-memory-card data-pair-id="${escapeAttribute(card.id)}"><span class="v3-memory-cover"><i class="fas fa-question"></i></span><span class="v3-memory-copy">${escapeHtml(card.copy)}</span></button>`).join('')}</div><p class="v3-review-feedback" data-v3-game-feedback>0/${memoryPairs.length} pares</p></div>`;
     } else if (slide.game === 'matching') {
-        gameBody = `<div class="v3-review-game" data-v3-match-board><div class="v3-review-game-head"><div><strong>Match the Ideas</strong><span>Ligue cada desafio à solução e justifique a forma escolhida.</span></div><i class="fas fa-link"></i></div><div class="v3-match-grid"><div class="v3-match-column">${pairs.map(pair => `<button type="button" class="v3-match-option" data-v3-match-option data-side="left" data-pair-id="${escapeAttribute(pair.id)}">${escapeHtml(pair.cue)}</button>`).join('')}</div><div class="v3-match-column">${[...pairs].reverse().map(pair => `<button type="button" class="v3-match-option" data-v3-match-option data-side="right" data-pair-id="${escapeAttribute(pair.id)}">${escapeHtml(pair.answer)}</button>`).join('')}</div></div><p class="v3-review-feedback" data-v3-game-feedback>Comece por qualquer coluna.</p></div>`;
+        const answerPairs = shuffledReviewAnswers(pairs);
+        gameBody = `<div class="v3-review-game" data-v3-match-board><div class="v3-review-game-head"><div><strong>Match the Ideas</strong><span>Ligue cada desafio à solução e justifique a forma escolhida.</span></div><i class="fas fa-link"></i></div><div class="v3-match-grid"><div class="v3-match-column">${pairs.map(pair => `<button type="button" class="v3-match-option" data-v3-match-option data-side="left" data-pair-id="${escapeAttribute(pair.id)}">${escapeHtml(pair.cue)}</button>`).join('')}</div><div class="v3-match-column">${answerPairs.map(pair => `<button type="button" class="v3-match-option" data-v3-match-option data-side="right" data-pair-id="${escapeAttribute(pair.id)}">${escapeHtml(pair.answer)}</button>`).join('')}</div></div><p class="v3-review-feedback" data-v3-game-feedback>Comece por qualquer coluna.</p></div>`;
     } else if (slide.game === 'hangman') {
         gameBody = `<div class="v3-review-game"><div class="v3-review-game-head"><div><strong>Grammar Hangman</strong><span>Descubra a resposta a partir da pista e do contexto.</span></div><i class="fas fa-spell-check"></i></div><div class="v3-hangman-list">${pairs.map(pair => `<article class="v3-hangman-round" data-v3-hangman data-answer="${escapeAttribute(pair.answer)}"><p class="v3-hangman-hint">${escapeHtml(pair.cue)}</p><div class="v3-hangman-mask" data-v3-hangman-mask>${escapeHtml([...String(pair.answer)].map(character => /[a-z]/i.test(character) ? '_' : character).join(' '))}</div><div class="v3-game-actions"><button type="button" class="v3-game-action" data-v3-hangman-action="letter">Revelar letra</button><button type="button" class="v3-game-action" data-v3-hangman-action="answer">Mostrar resposta</button></div></article>`).join('')}</div></div>`;
     } else {
@@ -306,7 +342,7 @@ function renderLanguageBankSlide(slide, lesson, slideIndex) {
 
     return slideSection(slide, slideIndex, `
         <div class="lesson-stage">
-            ${renderSlideHeading('fa-comments', 'Language bank', slide.title, slide.intro)}
+            ${renderSlideHeading('fa-comments', 'Helping You · Key Phrases', slide.title, slide.intro)}
             <div class="phrase-grid mt-7">
                 ${items.map(item => `
                     <article class="phrase-card" data-save-card data-pronounce-text="${escapeAttribute(item.term)}" data-card-front="${escapeAttribute(item.term)}" data-card-back="${escapeAttribute(item.meaning)} — ${escapeAttribute(item.example)}">
@@ -325,7 +361,7 @@ function renderPracticeSlide(slide, lesson, slideIndex) {
 
     return slideSection(slide, slideIndex, `
         <div class="lesson-stage">
-            ${renderSlideHeading('fa-pen-to-square', 'Practice circuit', slide.title, slide.intro)}
+            ${renderSlideHeading('fa-pen-to-square', 'Activation', slide.title, slide.intro)}
             <div class="practice-grid mt-7">
                 ${items.map((item, itemIndex) => renderPracticeItem(item, lesson.number, slideIndex, itemIndex)).join('')}
             </div>
@@ -374,12 +410,11 @@ function renderPracticeItem(item, lessonNumber, slideIndex, itemIndex) {
 
 function renderDialoguesSlide(slide, lesson, slideIndex) {
     const dialogues = Array.isArray(slide.dialogues) ? slide.dialogues : [];
-    const indexes = lesson.number % 2 === 0 ? [1, 3] : [0, 2];
-    const selectedDialogues = indexes.map((index) => dialogues[index]).filter(Boolean);
+    const selectedDialogues = dialogues;
 
     return slideSection(slide, slideIndex, `
         <div class="lesson-stage">
-            ${renderSlideHeading('fa-people-arrows', 'Everyday role-play', slide.title, slide.intro || 'Pratique as situações com o professor, trocando os papéis na segunda tentativa.')}
+            ${renderSlideHeading('fa-people-arrows', 'Dialog Samples', slide.title, slide.intro || 'Leia com o professor, observe os blocos reutilizados e crie uma variação com novas informações.')}
             <div class="b1-dialogue-grid mt-7">
                 ${selectedDialogues.map((dialogue, dialogueIndex) => `
                     <article class="b1-dialogue-card">
@@ -411,11 +446,11 @@ function renderDialoguesSlide(slide, lesson, slideIndex) {
 function renderReadingSlide(slide, lesson, slideIndex) {
     const paragraphs = Array.isArray(slide.paragraphs) ? slide.paragraphs : [];
     const vocabulary = Array.isArray(slide.vocabulary) ? slide.vocabulary : [];
-    const questions = (Array.isArray(slide.questions) ? slide.questions : []).slice(0, 3);
+    const questions = Array.isArray(slide.questions) ? slide.questions : [];
 
     return slideSection(slide, slideIndex, `
         <div class="lesson-stage">
-            ${renderSlideHeading('fa-book-open', slide.genre || 'Reading', slide.title, 'Leia o texto e localize nele as evidências para responder às perguntas ao lado.')}
+            ${renderSlideHeading('fa-book-open', 'Context Reading', slide.title, 'Leia o texto e localize nele as expressões-alvo e as evidências para responder às perguntas ao lado.')}
             <div class="reading-layout mt-7">
                 <article class="reading-block prep-reading-text reading-reference-column">
                     ${paragraphs.map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join('')}
@@ -447,7 +482,7 @@ function renderReadingSlide(slide, lesson, slideIndex) {
 
 function renderMicroReadingSlide(slide, lesson, slideIndex) {
     const texts = Array.isArray(slide.texts) ? slide.texts : [];
-    const questions = (Array.isArray(slide.questions) ? slide.questions : []).slice(0, 3);
+    const questions = Array.isArray(slide.questions) ? slide.questions : [];
 
     return slideSection(slide, slideIndex, `
         <div class="lesson-stage">
@@ -468,7 +503,7 @@ function renderMicroReadingSlide(slide, lesson, slideIndex) {
 }
 
 function renderTeacherListeningSlide(slide, lesson, slideIndex) {
-    const questions = (Array.isArray(slide.questions) ? slide.questions : []).slice(0, 3);
+    const questions = Array.isArray(slide.questions) ? slide.questions : [];
     const scriptId = `listening-script-${lesson.number}-${slideIndex}`;
 
     return slideSection(slide, slideIndex, `
@@ -537,8 +572,9 @@ function renderSpeakingSlide(slide, lesson, slideIndex) {
 
     return slideSection(slide, slideIndex, `
         <div class="lesson-stage">
-            ${renderSlideHeading('fa-comments', slide.label || 'Live speaking', slide.title, slide.scenario)}
+            ${renderSlideHeading('fa-comments', 'Let’s Talk · Guided Conversation', slide.title, slide.scenario)}
             ${languageBank.length ? `
+                <p class="prep-section-label mt-6">Helping You · Key Phrases</p>
                 <div class="speaking-bank mt-6">
                     ${languageBank.map(item => `<span>${escapeHtml(item)}</span>`).join('')}
                 </div>
@@ -581,7 +617,7 @@ function renderSpeakingSlide(slide, lesson, slideIndex) {
                 </div>
                 <label class="teacher-notes-field">
                     <span>Notas da tentativa ao vivo</span>
-                    <textarea class="response-input" rows="3" placeholder="Acertos, correção prioritária e meta para a segunda tentativa"></textarea>
+                    <textarea class="response-input" rows="3" placeholder="Acertos, correção prioritária e ponto a aplicar na resposta final"></textarea>
                 </label>
             </div>
         </div>
@@ -590,7 +626,7 @@ function renderSpeakingSlide(slide, lesson, slideIndex) {
 
 function renderLyricPlaceholder() {
     return `<div class="v3-lyric-placeholder">
-        <div class="v3-lyric-placeholder-head"><strong>Letra com lacunas</strong><span>Texto musical fictício para preservar o layout até a inserção do conteúdo autorizado.</span></div>
+        <div class="v3-lyric-placeholder-head"><strong>Music Time</strong><span>Preencha as lacunas com a palavra que você ouvir.</span></div>
         <div class="v3-lyric-copy">
             <p class="v3-lyric-stanza">
                 <span class="v3-lyric-line">I wake to see the <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 1" autocomplete="off" spellcheck="false"> through the window,</span>
@@ -611,7 +647,6 @@ function renderLyricPlaceholder() {
                 <span class="v3-lyric-line">The light we share will always <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 6" autocomplete="off" spellcheck="false">.</span>
             </p>
         </div>
-        <p class="v3-copyright-note"><i class="fas fa-shield-halved" aria-hidden="true"></i> Nenhuma letra protegida é distribuída nesta versão.</p>
     </div>`;
 }
 

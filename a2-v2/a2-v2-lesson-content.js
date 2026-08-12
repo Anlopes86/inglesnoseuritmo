@@ -2339,6 +2339,39 @@
                 'Just to be the man who walked a thousand miles',
                 ['To fall down at your ________', 'door']
             ]
+        ],
+        15: [
+            [
+                "Darling, you've got to let me know",
+                'Should I stay or should I go?',
+                'If you say that you are mine',
+                ["I'll be ________ till the end of time", 'here'],
+                'So you got to let me know',
+                'Should I stay or should I go?'
+            ],
+            [
+                "It's always tease, tease, tease",
+                ["You're happy when I'm on my ________", 'knees'],
+                'One day is fine, the next is black',
+                'So if you want me off your back',
+                'Well, come on and let me know',
+                'Should I stay or should I go?'
+            ],
+            [
+                'Should I stay or should I go now?',
+                'Should I stay or should I go now?',
+                ['If I go there will be ________', 'trouble'],
+                ['And if I stay it will be ________', 'double'],
+                'So come on and let me know'
+            ],
+            [
+                "This indecision's bugging me",
+                "If you don't want me, set me free",
+                "Exactly who I'm supposed to be?",
+                "Don't you know which clothes even fit me?",
+                "Come on and let me know",
+                "Should I cool it or should I blow?"
+            ]
         ]
     };
 
