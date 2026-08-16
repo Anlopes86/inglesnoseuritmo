@@ -2903,7 +2903,7 @@
         const { title, bank } = data;
         setHtml('.slide[data-title="Intro & Dialogue"] .lesson-hero .max-w-3xl', `
             <p class="lesson-panel-title">Topic & Scene</p>
-            <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">${escapeHtml(title)} em contexto real.</h2>
+            <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">${escapeHtml(title)}</h2>
             <div class="grid md:grid-cols-3 gap-4 mt-6">
                 ${bank.objectives.map((item) => `<div class="lesson-panel p-4"><p class="font-bold text-slate-900">${escapeHtml(translateObjective(item))}</p></div>`).join('')}
             </div>
@@ -3421,6 +3421,19 @@
         return null;
     }
 
+    function renderGrammarExample(example, translation = '') {
+        if (!example) return '';
+        return `<span class="v3-grammar-example"><span class="v3-grammar-example-en">${escapeHtml(example)}</span><em class="v3-grammar-example-translation" data-v3-translate="${escapeHtml(example)}"${translation ? ` data-v3-translation="${escapeHtml(translation)}"` : ''}></em></span>`;
+    }
+
+    function isGrammarExampleCell(header, cell) {
+        const label = String(header || '').trim();
+        const text = String(cell || '').trim();
+        if (/^(exemplo|example|model)/i.test(label)) return true;
+        if (!/^(frase útil|resposta comum)$/i.test(label)) return false;
+        return /[.!?…]|\.\.\.|→/.test(text);
+    }
+
     function renderGrammarTable(table) {
         if (!table) return '';
         return `
@@ -3431,7 +3444,7 @@
                     </thead>
                     <tbody class="divide-y divide-slate-100">
                         ${table.rows.map((row) => `
-                            <tr>${row.map((cell) => `<td class="p-3 align-top text-slate-700">${escapeHtml(cell)}</td>`).join('')}</tr>
+                            <tr>${row.map((cell, cellIndex) => `<td class="p-3 align-top text-slate-700">${isGrammarExampleCell(table.headers[cellIndex], cell) ? renderGrammarExample(cell, row.translation || '') : escapeHtml(cell)}</td>`).join('')}</tr>
                         `).join('')}
                     </tbody>
                 </table>
@@ -3481,7 +3494,7 @@
                 </div>
                 <div class="bg-slate-100 p-5 rounded-xl space-y-2">
                     <p class="font-black text-slate-900">Exemplos para observar:</p>
-                    ${bank.examples.map((example) => `<p><i class="fas fa-check text-emerald-600 mr-2"></i>${escapeHtml(example)}</p>`).join('')}
+                    ${bank.examples.map((example) => `<div class="v3-grammar-example-list-item"><i class="fas fa-check text-emerald-600 mr-2"></i>${renderGrammarExample(example)}</div>`).join('')}
                 </div>
                 <div class="callout-note p-5 rounded-xl">
                     <p class="font-bold">Prática rápida</p>
@@ -4269,7 +4282,7 @@
         return `<div class="v3-review-grammar-grid">${items.map((item, index) => {
             const expanded = expandReviewFocus(item);
             const example = review.drills[(offset + index) % review.drills.length]?.[2] || 'Crie um exemplo ligado à sua rotina.';
-            return `<article class="v3-review-grammar-card"><h3>${escapeHtml(expanded.name)}</h3><dl><div><dt>Ideia central</dt><dd>${escapeHtml(expanded.detail)}</dd></div><div><dt>Como decidir</dt><dd>${escapeHtml(expanded.extra)}</dd></div><div><dt>Exemplo recuperado</dt><dd class="v3-review-example">${escapeHtml(example)}</dd></div><div><dt>Teste oral</dt><dd>Explique por que essa forma funciona e contraste com uma alternativa possível.</dd></div></dl></article>`;
+            return `<article class="v3-review-grammar-card"><h3>${escapeHtml(expanded.name)}</h3><dl><div><dt>Ideia central</dt><dd>${escapeHtml(expanded.detail)}</dd></div><div><dt>Como decidir</dt><dd>${escapeHtml(expanded.extra)}</dd></div><div><dt>Exemplo recuperado</dt><dd class="v3-review-example">${renderGrammarExample(example)}</dd></div><div><dt>Teste oral</dt><dd>Explique por que essa forma funciona e contraste com uma alternativa possível.</dd></div></dl></article>`;
         }).join('')}</div>`;
     }
 

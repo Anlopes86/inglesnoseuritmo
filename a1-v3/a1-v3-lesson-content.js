@@ -112,7 +112,7 @@
             <h3>${escapeHtml(focus)}</h3>
             <dl>
                 <div><dt>Quando e como usar</dt><dd>${escapeHtml(reminder)}</dd></div>
-                <div><dt>Exemplo em contexto</dt><dd class="v3-review-example">${escapeHtml(example)}</dd></div>
+                <div><dt>Exemplo em contexto</dt><dd class="v3-review-example">${renderGrammarExample(example)}</dd></div>
                 <div><dt>Cuidado comum</dt><dd>${escapeHtml(reviewGrammarTrap(focus))}</dd></div>
                 <div><dt>Checagem oral</dt><dd>Crie uma frase verdadeira e depois transforme-a em pergunta ou negativa.</dd></div>
             </dl>
@@ -120,7 +120,7 @@
     }
 
     function renderReviewGrammarTable(items) {
-        return `<div class="lesson-table-scroll v3-review-grammar-table"><table class="grammar-table review-table"><thead><tr><th>Foco</th><th>Regra e uso</th><th>Exemplo</th></tr></thead><tbody>${items.map(([focus, reminder, example]) => `<tr><td><strong>${escapeHtml(focus)}</strong></td><td>${escapeHtml(reminder)}</td><td>${escapeHtml(example)}</td></tr>`).join('')}</tbody></table></div>`;
+        return `<div class="lesson-table-scroll v3-review-grammar-table"><table class="grammar-table review-table"><thead><tr><th>Foco</th><th>Regra e uso</th><th>Exemplo</th></tr></thead><tbody>${items.map(([focus, reminder, example, translation]) => `<tr><td><strong>${escapeHtml(focus)}</strong></td><td>${escapeHtml(reminder)}</td><td>${renderGrammarExample(example, translation)}</td></tr>`).join('')}</tbody></table></div>`;
     }
 
     function reviewPairs(items) {
@@ -330,6 +330,11 @@
         </div>`).join('')}</div>`;
     }
 
+    function renderGrammarExample(example, translation = '') {
+        if (!example) return '';
+        return `<span class="v3-grammar-example"><span class="v3-grammar-example-en">${escapeHtml(example)}</span><em class="v3-grammar-example-translation" data-v3-translate="${escapeHtml(example)}"${translation ? ` data-v3-translation="${escapeHtml(translation)}"` : ''}></em></span>`;
+    }
+
     function renderGrammar(grammar) {
         return `<div class="grammar-layout">
             <div class="grammar-summary">
@@ -339,12 +344,29 @@
             </div>
             <div class="lesson-table-scroll">
                 <table class="grammar-table">
-                    <thead><tr><th>Uso</th><th>Estrutura</th><th>Exemplo</th><th>Sentido</th></tr></thead>
-                    <tbody>${grammar.rows.map(([use, structure, example, meaning]) => `<tr><td><strong>${escapeHtml(use)}</strong></td><td><code>${escapeHtml(structure)}</code></td><td>${escapeHtml(example)}</td><td>${escapeHtml(meaning)}</td></tr>`).join('')}</tbody>
+                    <thead><tr><th>Uso</th><th>Estrutura</th><th>Exemplo</th></tr></thead>
+                    <tbody>${grammar.rows.map(([use, structure, example, meaning]) => `<tr><td><strong>${escapeHtml(use)}</strong></td><td><code>${escapeHtml(structure)}</code></td><td>${renderGrammarExample(example, meaning)}</td></tr>`).join('')}</tbody>
                 </table>
             </div>
             <div class="grammar-notes">${grammar.notes.map((note) => `<p><i class="fas fa-circle-info" aria-hidden="true"></i><span>${escapeHtml(note)}</span></p>`).join('')}</div>
         </div>`;
+    }
+
+    function enhanceAuthoredGrammarTables(root) {
+        const alwaysTranslate = /^(pergunta útil|possíveis inícios|pergunta possível|resposta direta|detalhe|detalhe que pode entrar)$/i;
+        root.querySelectorAll('table.grammar-table').forEach(table => {
+            const headers = Array.from(table.querySelectorAll('thead th')).map(header => header.textContent.trim());
+            table.querySelectorAll('tbody tr').forEach(row => {
+                Array.from(row.children).forEach((cell, index) => {
+                    if (cell.querySelector('.v3-grammar-example')) return;
+                    const header = headers[index] || '';
+                    const text = cell.textContent.trim();
+                    const isExampleSentence = /^exemplo$/i.test(header) && /[.!?…]/.test(text);
+                    if (!text || (!alwaysTranslate.test(header) && !isExampleSentence)) return;
+                    cell.innerHTML = renderGrammarExample(text);
+                });
+            });
+        });
     }
 
     function renderReading(reading, prefix) {
@@ -570,6 +592,7 @@
     function mountSlides(slides) {
         const root = document.getElementById('lesson-root');
         root.innerHTML = slides.map((item, index) => `<div class="slide ${index === 0 ? 'active' : ''} ${escapeHtml(item.className)}" data-title="${escapeHtml(item.title)}">${item.body}</div>`).join('');
+        enhanceAuthoredGrammarTables(root);
         return Array.from(root.querySelectorAll('.slide'));
     }
 

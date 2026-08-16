@@ -181,6 +181,7 @@ async function main() {
                         };
                         const contrastTargets = [...document.querySelectorAll([
                             '.v3-speaking-support span', '.v3-speaking-evidence',
+                            '.v3-grammar-example-en', '.v3-grammar-example-translation',
                             '.alphabet-tile strong', '.alphabet-tile span', '.alphabet-tile small',
                             '.number-tile strong', '.number-tile span',
                             '.number-chip strong', '.number-chip span',
