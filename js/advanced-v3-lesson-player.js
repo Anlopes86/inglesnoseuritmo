@@ -42,6 +42,23 @@
         return `<div class="advanced-dialogue">${(lines || []).map(([speaker, text]) => `<div class="advanced-line"><strong>${escapeHtml(speaker)}</strong><span>${escapeHtml(text)}</span></div>`).join('')}</div>`;
     }
 
+    function renderGrammarExample(example, translation = '') {
+        if (!example) return '';
+        return `<span class="v3-grammar-example"><span class="v3-grammar-example-en">${escapeHtml(example)}</span><em class="v3-grammar-example-translation" data-v3-translate="${escapeHtml(example)}"${translation ? ` data-v3-translation="${escapeHtml(translation)}"` : ''}></em></span>`;
+    }
+
+    function ensureTranslations(root) {
+        if (globalScope.V3Translations) {
+            globalScope.V3Translations.enhance(root);
+            return;
+        }
+        if ([...document.scripts].some(script => (script.getAttribute('src') || '').endsWith('/js/v3-pt-translations.js'))) return;
+        const script = document.createElement('script');
+        script.src = '../js/v3-pt-translations.js';
+        script.defer = true;
+        document.body.appendChild(script);
+    }
+
     function contentSlides(data) {
         return [
             slide('Mission & Dialogue', 6, `<section class="advanced-stage">
@@ -56,7 +73,7 @@
             </section>`, 1),
             slide('Language Control', 8, `<section class="advanced-stage">
                 ${heading('Grammar in Context', data.language.focus, 'A forma serve ao significado, à organização da informação e ao registro.')}
-                <div class="advanced-table-wrap"><table class="advanced-table"><thead><tr><th>Decision</th><th>How to control it</th><th>Model in context</th></tr></thead><tbody>${data.language.explanation.map((note, index) => `<tr><td>${index + 1}</td><td>${escapeHtml(note)}</td><td>${escapeHtml(data.language.examples[index % data.language.examples.length])}</td></tr>`).join('')}</tbody></table></div>
+                <div class="advanced-table-wrap"><table class="advanced-table"><thead><tr><th>Decision</th><th>How to control it</th><th>Model in context</th></tr></thead><tbody>${data.language.explanation.map((note, index) => `<tr><td>${index + 1}</td><td>${escapeHtml(note)}</td><td>${renderGrammarExample(data.language.examples[index % data.language.examples.length], data.language.translations?.[index % data.language.examples.length] || '')}</td></tr>`).join('')}</tbody></table></div>
             </section>`, 2),
             slide('Lexical Chunks', 5, `<section class="advanced-stage">
                 ${heading('Vocabulary Expansion · Helping You', 'Expressions, collocations and stance', 'Observe significado, combinação, função discursiva e exemplo antes de adaptar o bloco ao caso.')}
@@ -144,6 +161,7 @@
         const totalMinutes = slides.reduce((sum, item) => sum + item.minutes, 0);
         const oralMinutes = slides.reduce((sum, item) => sum + item.oralMinutes, 0);
         root.innerHTML = slides.map((item, index) => `<div class="advanced-slide ${index === 0 ? 'active' : ''}" data-title="${escapeHtml(item.title)}" data-minutes="${item.minutes}" data-oral-minutes="${item.oralMinutes}" aria-hidden="${index === 0 ? 'false' : 'true'}">${item.html}</div>`).join('');
+        ensureTranslations(root);
 
         const label = moduleId.toUpperCase();
         document.title = `${label} · Lição ${String(lesson.number).padStart(2, '0')}: ${lesson.title}`;

@@ -240,7 +240,8 @@ function renderGrammarSlide(slide, lesson, slideIndex) {
         <div class="lesson-stage">
             ${renderSlideHeading('fa-table-list', 'Grammar in Context', slide.title, slide.intro)}
             <div class="grammar-grid mt-7">
-                ${tables.map(table => `
+                ${tables.map(table => {
+                    return `
                     <div class="grammar-panel">
                         <h3 class="text-xl font-black text-slate-900">${escapeHtml(table.title)}</h3>
                         <div class="lesson-table-scroll mt-4">
@@ -250,13 +251,13 @@ function renderGrammarSlide(slide, lesson, slideIndex) {
                                 </thead>
                                 <tbody>
                                     ${(table.rows || []).map(row => `
-                                        <tr>${row.map((cell, index) => `<${index === 0 ? 'th' : 'td'}>${escapeHtml(cell)}</${index === 0 ? 'th' : 'td'}>`).join('')}</tr>
+                                        <tr>${row.map((cell, index) => `<${index === 0 ? 'th' : 'td'}>${isGrammarExampleCell((table.headers || [])[index], cell) ? renderGrammarExample(cell, row.translation || '') : escapeHtml(cell)}</${index === 0 ? 'th' : 'td'}>`).join('')}</tr>
                                     `).join('')}
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                `).join('')}
+                `; }).join('')}
             </div>
             ${notes.length ? `
                 <div class="prep-note-band mt-6">
@@ -267,6 +268,19 @@ function renderGrammarSlide(slide, lesson, slideIndex) {
             ` : ''}
         </div>
     `, [8, 16, 24, 32].includes(lesson.number) ? 'review-grammar-slide' : '');
+}
+
+function isGrammarExampleCell(header, cell) {
+    const label = String(header || '').trim();
+    const text = String(cell || '').trim();
+    if (/^(example|exemplo|model)/i.test(label)) return true;
+    if (!/^(active|passive|direct|reported|indirect opening|embedded order|question|example response|repair|clause|noun phrase)$/i.test(label)) return false;
+    return /[.!?…]|\.\.\.|→/.test(text);
+}
+
+function renderGrammarExample(example, translation = '') {
+    if (!example) return '';
+    return `<span class="v3-grammar-example"><span class="v3-grammar-example-en">${escapeHtml(example)}</span><em class="v3-grammar-example-translation" data-v3-translate="${escapeAttribute(example)}"${translation ? ` data-v3-translation="${escapeAttribute(translation)}"` : ''}></em></span>`;
 }
 
 function b1MemoryPairs(lessonNumber, fallbackPairs) {
