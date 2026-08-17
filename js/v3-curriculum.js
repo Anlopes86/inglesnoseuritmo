@@ -23,7 +23,7 @@
     const VERSION = '2026.07-action-oriented-32';
     const MODULE_VERSIONS = {
         'a1-v3': '2026.08.05-expanded-a1-32',
-        'a2-v3': '2026.08.11-vacation-weather-cycle'
+        'a2-v3': '2026.08.16-premium-book-2-cycle'
     };
     const SKILLS = ['reception', 'production', 'interaction', 'mediation', 'linguistic', 'online'];
 
@@ -106,38 +106,38 @@
             ['A1 Consolidation · Part 2', 'grande revisão das lições 16–30']
         ],
         'a2-v3': [
-            ['Welcome Back! A Trip Abroad', 'Different from and comparative + than em conversas sobre viagem', [1]],
-            ['Vacation Weather and Activities', 'Weather and enjoy + -ing para preferências e decisões de férias', [1]],
-            ['Conversation Activities 1 · A Trip Abroad', 'interação, listening e speaking sobre viagem, clima e preferências'],
-            ['Finding Your Way', 'Location prepositions and route instructions para localizar lugares e explicar caminhos', [3]],
-            ['How Long Does It Take?', 'Asking for help and travel time com distância, duração e transporte', [3]],
-            ['Conversation Activities 2 · In the Middle of Nowhere', 'listening, interação e resolução de problemas de localização'],
-            ['Going To', 'planos, intenções e evidências', [9]],
-            ['Arrangements and Predictions', 'Present Continuous, horários, will e mudanças', [10, 11]],
-            ['Conversation Activities 3 · Plans in Motion', 'planos, arranjos, imprevistos e decisões'],
-            ['Requests and Permission', 'can/could e pedidos polidos', [13]],
-            ['Obligation and Need', 'must, have to, need to e regras', [14]],
-            ['Conversation Activities 4 · Requests and Rules', 'pedidos, permissão, regras e solução social'],
-            ['Life Experiences', 'Present Perfect, ever e never', [17, 18]],
-            ['Present Perfect or Past Simple', 'experiência, detalhe passado e been/gone', [19, 20]],
-            ['Conversation Activities 5 · Experiences and Details', 'entrevista, acompanhamento e relato de experiências'],
-            ['Health and Consultation', 'sintomas, duração, consulta e conselho', [21, 22]],
-            ['Place, Movement and Directions', 'preposições, rotas e esclarecimento', [23, 25, 27]],
-            ['Conversation Activities 6 · Health and Directions', 'consulta, localização e instruções em etapas'],
-            ['Hotel and Service Recovery', 'hotel, reclamação e recuperação de serviço', [28]],
-            ['Gerunds and Infinitives', 'preferências e padrões verbais frequentes', [29]],
-            ['Conversation Activities 7 · Practical English', 'problema de serviço, escolhas e solução prática'],
-            ['Used To', 'hábitos, estados e mudanças do passado'],
-            ['Zero and First Conditional', 'condições reais, consequências e alternativas', [30]],
-            ['Conversation Activities 8 · Then, Now and Next', 'mudança de hábitos, condições e planos alternativos'],
-            ['Superlatives and Ranking', 'superlativos, best/worst e evidências', [4]],
-            ['Unless, Hope and Intention', 'unless, hope, intenção e previsão', [31]],
-            ['Conversation Activities 9 · Best Choices and Hopes', 'ranking, expectativa e decisão justificada'],
-            ['Deadlines and Time', 'prazos, datas e expressões de tempo', [26]],
-            ['Specific Advice', 'should, ought to, instead of e conselho contextual', [15]],
-            ['Conversation Activities 10 · Time, Advice and Decisions', 'prazos, conselho, consequência e decisão'],
-            ['A2 Consolidation · Part 1', 'revisão extensa das lições 1–15'],
-            ['A2 Consolidation · Part 2', 'revisão extensa das lições 16–30']
+            ['Welcome Back! Vacation and Weather', 'greetings, clima, viagem, different from/than e enjoy + -ing', [1]],
+            ['Conversation Activities 1 · A Trip Abroad', 'revisão comunicativa da lição 1: viagem, clima e atividades de férias'],
+            ['Location and Directions', 'preposições, pedir ajuda e How long does it take...?', [3]],
+            ['Conversation Activities 2 · In the Middle of Nowhere', 'revisão comunicativa da lição 3: localização, direções e duração'],
+            ['Sports and Workout', 'go, do e play com esportes; How good are you at...?', [5]],
+            ['Conversation Activities 3 · Couch Potato or Soccer Fanatic?', 'revisão comunicativa da lição 5: esportes, treino e habilidade'],
+            ['Interests and Preferences', 'adjetivos, news, kind of e interesses pessoais', [7]],
+            ['Conversation Activities 4 · Free-Time Activities', 'revisão comunicativa da lição 7: interesses e tempo livre'],
+            ['Food and Drink 1 · Preferences', 'adjetivos, like/love/hate, so/neither, feel like e rather than', [9]],
+            ['Conversation Activities 5 · Fish ’n’ Chips', 'revisão comunicativa da lição 9: preferências de comida e bebida'],
+            ['Food and Drink 2 · At a Restaurant', 'Would you like...? e concordância com so/neither', [11]],
+            ['Conversation Activities 6 · In a Restaurant', 'revisão comunicativa da lição 11: pedidos e atendimento'],
+            ['Personalities and Moods', 'adjetivos, even, smile at e in the mood', [13]],
+            ['Conversation Activities 7 · True Friends or False Friends?', 'revisão comunicativa da lição 13: personalidade e humor'],
+            ['Accidents and the Human Body', 'reflexivos, to happen, Have you ever...? e be careful', [15]],
+            ['Conversation Activities 8 · A Car Crash', 'revisão comunicativa da lição 15: acidentes, corpo e segurança'],
+            ['Money and Shopping 1 · Compare and Pay', 'comparativos, pay for e both of us', [17]],
+            ['Conversation Activities 9 · Shopping in a Mall Store', 'revisão comunicativa da lição 17: comparação, preço e pagamento'],
+            ['Money and Shopping 2 · Borrow or Lend?', 'neither of them, none, borrow, lend e mind + -ing', [19]],
+            ['Conversation Activities 10 · A Clever Boy', 'revisão comunicativa da lição 19: empréstimos e escolhas'],
+            ['Family and Friendship', 'become, get, used to e adaptação', [21]],
+            ['Conversation Activities 11 · Childhood Memories', 'revisão comunicativa da lição 21: família, amizade e passado'],
+            ['Fashionable and Unfashionable', 'stop + -ing/to, die/dye e in/out of fashion', [23]],
+            ['Conversation Activities 12 · Fads and Crazes', 'revisão comunicativa da lição 23: moda e tendências'],
+            ['Giving and Asking for Advice', 'should, care about, lie, say/tell e instead of + -ing', [25]],
+            ['Conversation Activities 13 · To Lie or Not to Lie', 'revisão comunicativa da lição 25: conselho, honestidade e alternativas'],
+            ['The Best and the Worst', 'superlativos, rankings e justificativas', [27]],
+            ['Conversation Activities 14 · Honeymoon in New York', 'revisão comunicativa da lição 27: melhores, piores e extremos'],
+            ['Hopes and Predictions', 'depend on, will/going to, right away e right after', [29]],
+            ['Conversation Activities 15 · Rick and His Dreams for the New Year', 'revisão comunicativa da lição 29: esperanças, planos e previsões'],
+            ['A2 Consolidation · Part 1', 'grande revisão das lições 1–15'],
+            ['A2 Consolidation · Part 2', 'grande revisão das lições 16–30']
         ],
         'b1-v3': [
             ['Past Experience and Finished Time', 'Present Perfect versus passado concluído', [1]],
@@ -245,7 +245,7 @@
 
     const reviewPositions = {
         'a1-v3': [5, 10, 15, 20, 25, 30, 31, 32],
-        'a2-v3': [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 31, 32],
+        'a2-v3': [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 31, 32],
         'b1-v3': [3, 6, 9, 12, 15, 18, 21, 24, 27, 30],
         'b2-v3': Array.from({ length: 16 }, (_, index) => (index + 1) * 2),
         'c1-v3': Array.from({ length: 16 }, (_, index) => (index + 1) * 2)

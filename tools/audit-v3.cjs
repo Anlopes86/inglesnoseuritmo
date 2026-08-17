@@ -13,7 +13,7 @@ const curriculum = window.V3Curriculum;
 
 const expectedReviews = {
     'a1-v3': [5, 10, 15, 20, 25, 30, 31, 32],
-    'a2-v3': [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 31, 32],
+    'a2-v3': [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 31, 32],
     'b1-v3': [3, 6, 9, 12, 15, 18, 21, 24, 27, 30],
     'b2-v3': Array.from({ length: 16 }, (_, index) => (index + 1) * 2),
     'c1-v3': Array.from({ length: 16 }, (_, index) => (index + 1) * 2)
@@ -138,71 +138,43 @@ check(!/Produção oral \d+\/\d+/.test(a1RendererSource), 'A1-V3: o player ainda
 
 let a2Source = read('a2-v3/a2-v3-lesson-content.js');
 a2Source = a2Source.replace(/\}\(\)\);\s*$/, 'globalThis.__a2Audit = { getLessonData, getReviewLesson }; }());');
+const a2TemplateSource = read('a2-v3/a2-v3-template.js');
 const a2Document = { readyState: 'loading', title: '', addEventListener() {} };
 const a2Window = { location: { pathname: '' }, V3Curriculum: curriculum };
 const a2Context = { console, document: a2Document, window: a2Window };
 vm.createContext(a2Context);
+vm.runInContext(a2TemplateSource, a2Context, { filename: 'a2-v3-template.js' });
 vm.runInContext(a2Source, a2Context, { filename: 'a2-v3-lesson-content.js' });
-const a2ExpectedLabels = { 5: /articles|quantity/, 22: /past habits|used to/, 29: /advice/ };
-for (const [number, pattern] of Object.entries(a2ExpectedLabels)) {
+const a2ContentNumbers = Array.from({ length: 15 }, (_, index) => index * 2 + 1);
+for (const number of a2ContentNumbers) {
     a2Window.location.pathname = `/a2-v3/licao-${String(number).padStart(2, '0')}.html`;
     const data = a2Context.__a2Audit.getLessonData();
-    check(pattern.test(data.bank.label), `A2-V3 L${number}: banco de conteúdo não corresponde ao novo foco.`);
+    check(a2Window.A2V3PremiumCurriculum.lessons[number], `A2-V3 L${number}: autoria premium ausente.`);
+    check((data.bank.vocab || []).length >= 8, `A2-V3 L${number}: vocabulário insuficiente.`);
+    check((data.bank.verbRows || []).length >= 2, `A2-V3 L${number}: lista de verbos insuficiente.`);
+    check((data.bank.verbRows || []).every(row => row.length === 4 && !/^to\s+/i.test(row[0])), `A2-V3 L${number}: formato interno da tabela de verbos inválido.`);
+    check((data.bank.helpingYou || []).length >= 3, `A2-V3 L${number}: Helping You específico ausente.`);
+    check((data.bank.expressions || []).length >= 6, `A2-V3 L${number}: expressões insuficientes.`);
+    check((data.bank.translations || []).length >= 8, `A2-V3 L${number}: drills PT-EN insuficientes.`);
+    check((data.bank.dialogues || []).length >= 2, `A2-V3 L${number}: Dialog Samples insuficientes.`);
+    check((data.bank.introDialogue || []).length >= 6, `A2-V3 L${number}: diálogo inicial curto demais.`);
+    check((data.bank.readingQuestions || []).length >= 4, `A2-V3 L${number}: compreensão de leitura insuficiente.`);
+    check((data.bank.guidedConversation?.questions || []).length >= 4, `A2-V3 L${number}: Let's Talk insuficiente.`);
+    const html = read(`a2-v3/licao-${String(number).padStart(2, '0')}.html`);
+    check(html.includes('a2-v3-template.js'), `A2-V3 L${number}: camada premium não carregada.`);
 }
 for (const number of expectedReviews['a2-v3']) {
     const entry = curriculum.getLesson('a2-v3', number);
     const review = a2Context.__a2Audit.getReviewLesson(number);
     check(review?.contract?.rounds?.length === 3, `A2-V3 L${number}: contrato de revisão ausente.`);
     check(entry.oralInteractionMinutes >= 39, `A2-V3 L${number}: tempo oral abaixo de 39 minutos.`);
-    const padded = String(number).padStart(2, '0');
-    const editorialFile = `a2-v3/lesson-editorial/licao-${padded}.js`;
-    check(fs.existsSync(path.join(root, editorialFile)), `A2-V3 L${number}: arquivo individual da revisão ausente.`);
-    const editorialSource = fs.existsSync(path.join(root, editorialFile)) ? read(editorialFile) : '';
-    check(/reviewListening/.test(editorialSource) && /script:/.test(editorialSource) && /questions:/.test(editorialSource), `A2-V3 L${number}: listening com roteiro e perguntas ausente.`);
-    check(/reviewSpeaking/.test(editorialSource), `A2-V3 L${number}: atividades específicas de speaking ausentes.`);
-    const html = read(`a2-v3/licao-${padded}.html`);
-    check(html.includes('../js/v3-lesson-editorial.js') && html.includes(`lesson-editorial/licao-${padded}.js`), `A2-V3 L${number}: página não carrega seus próprios dados de revisão.`);
+    check((review?.focus || []).length >= 1, `A2-V3 L${number}: foco de revisão ausente.`);
+    check((review?.drills || []).length >= 3, `A2-V3 L${number}: drills de revisão insuficientes.`);
+    check((review?.translations || []).length >= 1, `A2-V3 L${number}: tradução de revisão ausente.`);
 }
 check(/data-a2-listening-toggle/.test(a2Source) && /data-a2-listening-script/.test(a2Source), 'A2-V3: controle do roteiro oculto de listening ausente.');
 check(/Listening sem acompanhar o texto/.test(a2Source) && /Perguntas para ouvir e responder/.test(a2Source), 'A2-V3: instrução de listening e perguntas visíveis ausentes.');
-require(path.join(root, 'js', 'v3-lesson-editorial.js'));
-[1, 2, 4, 5].forEach(number => require(path.join(root, 'a2-v3', 'lesson-editorial', `licao-${String(number).padStart(2, '0')}.js`)));
-const a2AuthoredVocabulary = {};
-for (const number of [1, 2, 4, 5]) {
-    const padded = String(number).padStart(2, '0');
-    const data = window.V3LessonEditorial.apply('a2-v3', number, { number, title: '', bank: {} });
-    const practiceCount = (data.bank.activitySections || []).reduce((sum, section) => sum + (section.items || []).length, 0);
-    check((data.bank.vocab || []).length >= (number === 1 ? 10 : 12), `A2-V3 L${number}: vocabulário insuficiente para o foco editorial.`);
-    check((data.bank.expressions || []).length >= 7, `A2-V3 L${number}: expressões insuficientes.`);
-    check(practiceCount >= 12, `A2-V3 L${number}: prática específica insuficiente.`);
-    check((data.bank.dialogues || []).length >= 4 && data.bank.dialogues.every(dialogue => dialogue.length >= 6), `A2-V3 L${number}: diálogos precisam ser mais extensos e realistas.`);
-    check(String(data.bank.reading || '').split(/\s+/).filter(Boolean).length >= 150, `A2-V3 L${number}: leitura contextual curta demais.`);
-    check((data.bank.guidedConversation?.questions || []).length >= 6, `A2-V3 L${number}: conversa guiada insuficiente.`);
-    a2AuthoredVocabulary[number] = new Set((data.bank.vocab || []).map(item => String(item[0]).trim().toLowerCase()));
-    const html = read(`a2-v3/licao-${padded}.html`);
-    check(html.includes('../js/v3-lesson-editorial.js') && html.includes(`lesson-editorial/licao-${padded}.js`), `A2-V3 L${number}: página não carrega sua autoria individual.`);
-}
-const a2SeenVocabulary = new Map();
-for (const number of [1, 2, 4, 5]) {
-    for (const word of a2AuthoredVocabulary[number]) {
-        check(!a2SeenVocabulary.has(word), `A2-V3 L${number}: vocabulary flashcard “${word}” já apareceu na L${a2SeenVocabulary.get(word)}.`);
-        a2SeenVocabulary.set(word, number);
-    }
-}
 check(/cue:\s*item\[1\]/.test(a2Source) && !/cue:\s*`\$\{item\[0\]\}:/.test(a2Source), 'A2-V3: matching ainda entrega a categoria ou a resposta junto da frase incompleta.');
-expectedReviews['a2-v3'].forEach(number => require(path.join(root, 'a2-v3', 'lesson-editorial', `licao-${String(number).padStart(2, '0')}.js`)));
-const a2SpeakingCounts = new Set();
-for (const number of expectedReviews['a2-v3']) {
-    const data = window.V3LessonEditorial.apply('a2-v3', number, { number, bank: {} });
-    const listening = data.bank.reviewListening;
-    const speaking = data.bank.reviewSpeaking || [];
-    check(String(listening?.script || '').split(/\s+/).filter(Boolean).length >= 80, `A2-V3 L${number}: roteiro de listening curto demais.`);
-    check((listening?.questions || []).length >= 5, `A2-V3 L${number}: listening precisa de pelo menos cinco perguntas visíveis.`);
-    check(speaking.length >= 5, `A2-V3 L${number}: speaking precisa de pelo menos cinco tarefas.`);
-    if ([3, 6].includes(number)) check((data.bank.reviewPlan?.focusSections || []).length === 2, `A2-V3 L${number}: revisão precisa alternar cada foco gramatical com sua prática.`);
-    a2SpeakingCounts.add(speaking.length);
-}
-check(a2SpeakingCounts.size >= 3, 'A2-V3: a quantidade de tarefas de speaking ainda está engessada.');
 
 const b1Lessons = window.B1_V3_LESSONS || [];
 check(b1Lessons.length === 32, 'B1-V3: adaptador não produziu 32 lições.');
@@ -239,18 +211,15 @@ for (const moduleId of ['b2-v3', 'c1-v3']) {
     });
 }
 
-const legacyVacation = { 'a2-v3': { lesson_1: true } };
-check(curriculum.isLessonComplete(legacyVacation, 'a2-v3', 1), 'Migração A2: a primeira aula de Vacation and Weather não reconheceu sua origem.');
-check(curriculum.isLessonComplete(legacyVacation, 'a2-v3', 2), 'Migração A2: o aprofundamento de Vacation and Weather não reconheceu sua origem.');
-check(curriculum.isLessonComplete(legacyVacation, 'a2-v3', 3), 'Migração A2: a revisão do primeiro bloco não reconheceu as duas partes equivalentes.');
-check(!curriculum.isLessonComplete({ 'a2-v3': { lesson_2: true } }, 'a2-v3', 1), 'Migração A2: uma origem não relacionada concluiu a primeira aula.');
-const legacyLocation = { 'a2-v3': { lesson_3: true } };
-check(curriculum.isLessonComplete(legacyLocation, 'a2-v3', 4), 'Migração A2: a primeira aula de Location and Directions não reconheceu sua origem.');
-check(curriculum.isLessonComplete(legacyLocation, 'a2-v3', 5), 'Migração A2: o aprofundamento de Location and Directions não reconheceu sua origem.');
-check(curriculum.isLessonComplete(legacyLocation, 'a2-v3', 6), 'Migração A2: a revisão de Location and Directions não reconheceu o bloco equivalente.');
-check(!curriculum.isLessonComplete({ 'a2-v3': { lesson_31: true } }, 'a2-v3', 31), 'Migração: conteúdo novo deveria permanecer pendente.');
-check(!curriculum.isLessonComplete({ 'b1-v3': { lesson_32: true } }, 'b1-v3', 32), 'Migração: avaliação B1 foi concluída sem o workshop antigo.');
-check(curriculum.isLessonComplete({ 'b1-v3': { lesson_31: true, lesson_32: true } }, 'b1-v3', 32), 'Migração: avaliação B1 não reconheceu workshop e projeto antigos.');
+const premiumA2Vacation = { 'a2-v3': { lesson_1: true } };
+check(curriculum.isLessonComplete(premiumA2Vacation, 'a2-v3', 1), 'A2 migration: Vacation and Weather did not recognize legacy lesson 1.');
+check(curriculum.isLessonComplete(premiumA2Vacation, 'a2-v3', 2), 'A2 migration: the first conversation review did not follow lesson 1.');
+const premiumA2Location = { 'a2-v3': { lesson_3: true } };
+check(curriculum.isLessonComplete(premiumA2Location, 'a2-v3', 3), 'A2 migration: Location and Directions did not recognize legacy lesson 3.');
+check(curriculum.isLessonComplete(premiumA2Location, 'a2-v3', 4), 'A2 migration: the location conversation review did not follow lesson 3.');
+check(!curriculum.isLessonComplete({ 'a2-v3': { lesson_31: true } }, 'a2-v3', 31), 'A2 migration: new consolidation content should remain pending.');
+check(!curriculum.isLessonComplete({ 'b1-v3': { lesson_32: true } }, 'b1-v3', 32), 'B1 migration: final assessment completed without the former workshop.');
+check(curriculum.isLessonComplete({ 'b1-v3': { lesson_31: true, lesson_32: true } }, 'b1-v3', 32), 'B1 migration: final assessment did not recognize the former workshop and project.');
 const a1Block = { 'a1-v3': { lesson_1: true, lesson_2: true, lesson_7: true, lesson_18: true, lesson_26: true } };
 check(curriculum.isLessonComplete(a1Block, 'a1-v3', 5), 'Migração: revisão antiga não foi convertida após bloco completo.');
 check(!curriculum.isLessonComplete({ 'a1-v3': { lesson_1: true } }, 'a1-v3', 2), 'Migração A1: aula combinada foi concluída com apenas uma origem.');

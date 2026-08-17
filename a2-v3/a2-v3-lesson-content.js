@@ -1,50 +1,55 @@
 (function () {
     const lessonTitles = [
-        'Welcome Back! A Trip Abroad',
-        'Vacation Weather and Activities',
+        'Welcome Back! Vacation and Weather',
         'Conversation Activities 1: A Trip Abroad',
-        'Finding Your Way',
-        'How Long Does It Take?',
+        'Location and Directions',
         'Conversation Activities 2: In the Middle of Nowhere',
-        'Going To',
-        'Arrangements and Predictions',
-        'Conversation Activities 3: Plans in Motion',
-        'Requests and Permission',
-        'Obligation and Need',
-        'Conversation Activities 4: Requests and Rules',
-        'Life Experiences',
-        'Present Perfect or Past Simple',
-        'Conversation Activities 5: Experiences and Details',
-        'Health and Consultation',
-        'Place, Movement and Directions',
-        'Conversation Activities 6: Health and Directions',
-        'Hotel and Service Recovery',
-        'Gerunds and Infinitives',
-        'Conversation Activities 7: Practical English',
-        'Used To',
-        'Zero and First Conditional',
-        'Conversation Activities 8: Then, Now and Next',
-        'Superlatives and Ranking',
-        'Unless, Hope and Intention',
-        'Conversation Activities 9: Best Choices and Hopes',
-        'Deadlines and Time',
-        'Specific Advice',
-        'Conversation Activities 10: Time, Advice and Decisions',
+        'Sports and Workout',
+        'Conversation Activities 3: Couch Potato or Soccer Fanatic?',
+        'Interests and Preferences',
+        'Conversation Activities 4: Free-Time Activities',
+        'Food and Drink 1: Preferences',
+        'Conversation Activities 5: Fish ’n’ Chips',
+        'Food and Drink 2: At a Restaurant',
+        'Conversation Activities 6: In a Restaurant',
+        'Personalities and Moods',
+        'Conversation Activities 7: True Friends or False Friends?',
+        'Accidents and the Human Body',
+        'Conversation Activities 8: A Car Crash',
+        'Money and Shopping 1: Compare and Pay',
+        'Conversation Activities 9: Shopping in a Mall Store',
+        'Money and Shopping 2: Borrow or Lend?',
+        'Conversation Activities 10: A Clever Boy',
+        'Family and Friendship',
+        'Conversation Activities 11: Childhood Memories',
+        'Fashionable and Unfashionable',
+        'Conversation Activities 12: Fads and Crazes',
+        'Giving and Asking for Advice',
+        'Conversation Activities 13: To Lie or Not to Lie',
+        'The Best and the Worst',
+        'Conversation Activities 14: Honeymoon in New York',
+        'Hopes and Predictions',
+        'Conversation Activities 15: Rick and His Dreams for the New Year',
         'A2 Consolidation: Part 1',
         'A2 Consolidation: Part 2'
     ];
 
     const topicMap = [
-        'past', 'pastContinuous', 'reviewPast',
-        'compare', 'quantity', 'reviewPast',
-        'future', 'future', 'reviewModals',
-        'modals', 'modals', 'reviewModals',
-        'perfect', 'perfect', 'reviewPast',
-        'health', 'directions', 'reviewPractical',
-        'hotel', 'verbPatterns', 'reviewPractical',
-        'usedTo', 'conditionals', 'reviewPractical',
-        'compare', 'conditionals', 'reviewModals',
-        'prepositions', 'advice', 'reviewPractical',
+        'past', 'reviewPast',
+        'directions', 'reviewPractical',
+        'verbPatterns', 'reviewPractical',
+        'verbPatterns', 'reviewPractical',
+        'verbPatterns', 'reviewPractical',
+        'quantity', 'reviewPractical',
+        'advice', 'reviewPractical',
+        'health', 'reviewPast',
+        'compare', 'reviewPractical',
+        'modals', 'reviewModals',
+        'usedTo', 'reviewPast',
+        'verbPatterns', 'reviewPractical',
+        'advice', 'reviewModals',
+        'compare', 'reviewPractical',
+        'future', 'reviewModals',
         'finalProject', 'finalProject'
     ];
 
@@ -1858,28 +1863,31 @@
     function getLessonData() {
         const number = getLessonNumber();
         const sourceNumber = legacySourceByLesson[number] || number;
-        const title = lessonTitles[number - 1] || lessonTitles[0];
+        const premiumLesson = window.A2V3PremiumCurriculum?.lessons?.[number] || null;
+        const title = premiumLesson?.title || lessonTitles[number - 1] || lessonTitles[0];
         const topicKey = topicMap[number - 1];
         const baseBank = banks[topicKey] || banks.past;
         const standaloneBank = topicKey === 'usedTo';
         const profile = standaloneBank ? {} : lessonProfiles[sourceNumber - 1] || {};
         const signature = standaloneBank ? {} : signatureLessonUpgrades[sourceNumber] || {};
         const lessonSpecific = standaloneBank ? {} : lessonDialogueContent[sourceNumber] || {};
-        const bank = Object.assign({}, baseBank, profile, signature);
+        const bank = Object.assign({}, baseBank, profile, signature, premiumLesson || {});
 
-        bank.label = signature.label || profile.label || baseBank.label || title.toLowerCase();
+        bank.label = premiumLesson?.label || signature.label || profile.label || baseBank.label || title.toLowerCase();
         bank.matchLabel = `${title.toLowerCase()} ${baseBank.label || ''}`;
-        bank.introDialogue = signature.introDialogue || profile.introDialogue || lessonSpecific.intro || null;
-        bank.practice = signature.practice || profile.practice || createPracticeItems(bank, number);
-        bank.translations = signature.translations || profile.translations || createTranslations(bank, title, number);
-        bank.expressionTranslations = signature.expressionTranslations || profile.expressionTranslations || createExpressionTranslations(bank, number);
-        bank.dialogues = signature.dialogues || profile.dialogues || lessonSpecific.dialogues || createDialogues(bank, title);
+        bank.introDialogue = premiumLesson?.introDialogue || signature.introDialogue || profile.introDialogue || lessonSpecific.intro || null;
+        bank.practice = premiumLesson
+            ? premiumLesson.practice || createPremiumPracticeItems(bank)
+            : signature.practice || profile.practice || createPracticeItems(bank, number);
+        bank.translations = premiumLesson?.translations || signature.translations || profile.translations || createTranslations(bank, title, number);
+        bank.expressionTranslations = premiumLesson?.expressionTranslations || signature.expressionTranslations || profile.expressionTranslations || createExpressionTranslations(bank, number);
+        bank.dialogues = premiumLesson?.dialogues || signature.dialogues || profile.dialogues || lessonSpecific.dialogues || createDialogues(bank, title);
         const followUp = dialogueFollowUps[sourceNumber];
         if (followUp && bank.dialogues.length && !signature.dialogues) {
             bank.dialogues = bank.dialogues.map((dialogue, index) => index === 0 ? [...dialogue, ...followUp] : dialogue);
         }
         bank.musicLines = profile.musicLines || createMusicLines(bank);
-        const readingUpgrade = signature.readingUpgrade || (standaloneBank ? null : readingUpgrades[sourceNumber]);
+        const readingUpgrade = premiumLesson ? null : signature.readingUpgrade || (standaloneBank ? null : readingUpgrades[sourceNumber]);
         if (readingUpgrade) {
             bank.readingTitle = readingUpgrade.title;
             bank.reading = readingUpgrade.text;
@@ -2207,6 +2215,53 @@
         ]).map(([type, prompt, hint, answer]) => ({ type, prompt, hint, answer }));
 
         return [...completeItems, ...unscrambleItems, ...checks];
+    }
+
+    function premiumPracticeCloze(sentence, bank, itemIndex) {
+        const candidates = [
+            ...(bank.verbRows || []).flatMap(([base, past, participle]) => [base, past, participle]),
+            ...(bank.vocab || []).map(([word]) => word),
+            ...(bank.expressions || []).map(([expression]) => expression.replace(/\.{2,}\??$/, '').trim())
+        ]
+            .filter(candidate => String(candidate || '').length >= 3)
+            .sort((left, right) => String(right).length - String(left).length);
+        const matches = candidates.filter(candidate => {
+            const escaped = String(candidate).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            return new RegExp(`(^|[^A-Za-z])${escaped}(?![A-Za-z])`, 'i').test(sentence);
+        });
+        const selected = matches[itemIndex % Math.max(matches.length, 1)];
+        if (selected) return blankTerm(sentence, selected);
+        const words = String(sentence).split(/\s+/);
+        const targetIndex = Math.max(0, words.length - 2);
+        words[targetIndex] = '____';
+        return words.join(' ');
+    }
+
+    function createPremiumPracticeItems(bank) {
+        return (bank.translations || []).slice(0, 8).map((item, index) => {
+            if (index < 4) {
+                return {
+                    type: 'Complete',
+                    prompt: premiumPracticeCloze(item.en, bank, index),
+                    pt: item.pt,
+                    answer: item.en
+                };
+            }
+            if (index < 6) {
+                return {
+                    type: 'Unscramble',
+                    prompt: `Put in order: ${String(item.en).replace(/[.!?]$/, '').split(/\s+/).reverse().join(' / ')}`,
+                    pt: item.pt,
+                    answer: item.en
+                };
+            }
+            return {
+                type: 'Build',
+                prompt: 'Produza esta frase em inglês.',
+                pt: item.pt,
+                answer: item.en
+            };
+        });
     }
 
     const translationPortuguese = {
@@ -3453,13 +3508,19 @@
     }
 
     function fillVocabulary(bank) {
+        const vocabularySlide = document.querySelector('.slide[data-title="Vocabulary Flashcards"]');
+        const vocabularyHeading = vocabularySlide?.querySelector('h2');
+        if (vocabularyHeading) vocabularyHeading.textContent = bank.verbRows?.length
+            ? 'Substantivos e palavras-chave'
+            : 'Vocabulary Expansion: palavras em contexto';
         setHtml('#flashcards-container', bank.vocab.map(([word, pt, example]) => `
             <div class="flashcard bg-white rounded-2xl shadow p-5 min-h-48 cursor-pointer border border-slate-200" data-save-card data-card-front="${escapeHtml(word)}" data-card-back="${escapeHtml(pt)}">
                 <div class="flashcard-inner">
                     <div class="flashcard-front text-center space-y-3">
-                        <p class="text-sm uppercase tracking-wide text-emerald-600 font-bold">Vocabulary Expansion</p>
+                        <p class="text-sm uppercase tracking-wide text-emerald-600 font-bold">Nouns & Key Words</p>
                         <h3 class="text-2xl font-black text-slate-900">${escapeHtml(word)}</h3>
-                        <p class="text-sm text-slate-500">Clique para ver significado e exemplo</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">${escapeHtml(example)}</p>
+                        <p class="text-xs text-slate-500">Clique para conferir o significado</p>
                     </div>
                     <div class="flashcard-back text-center space-y-3">
                         <h3 class="text-xl font-black text-emerald-700">${escapeHtml(pt)}</h3>
@@ -3468,6 +3529,52 @@
                 </div>
             </div>
         `).join(''));
+
+        document.querySelector('.slide[data-title="Verb List"]')?.remove();
+        if (vocabularySlide && Array.isArray(bank.verbRows) && bank.verbRows.length) {
+            const rows = bank.verbRows.map(([base, past, participle, meaning]) => {
+                const cleanBase = String(base).replace(/^to\s+/i, '');
+                return `<tr>
+                    <td><strong>${escapeHtml(`to ${cleanBase}`)}</strong></td>
+                    <td class="verb-past">${escapeHtml(past)}</td>
+                    <td class="verb-participle">${escapeHtml(participle)}</td>
+                    <td class="verb-meaning">${escapeHtml(meaning)}</td>
+                    <td><button type="button" class="v3-speak-btn verb-audio-btn" data-v3-speak="${escapeHtml(`to ${cleanBase}, ${past}, ${participle}`)}" aria-label="Ouvir as formas de to ${escapeHtml(cleanBase)}" title="Ouvir as três formas"><i class="fas fa-volume-up" aria-hidden="true"></i></button></td>
+                </tr>`;
+            }).join('');
+            insertA2ReviewSlide(
+                vocabularySlide,
+                'Verb List',
+                'Vocabulary Expansion · Verbs',
+                'Verbos da lição',
+                'Leia cada verbo como uma sequência: forma base com to, Simple Past e Past Participle.',
+                `<div class="lesson-table-scroll"><table class="grammar-table verb-table"><thead><tr><th>Forma base com to</th><th>Simple Past</th><th>Past Participle</th><th>Em português</th><th>Ouvir</th></tr></thead><tbody>${rows}</tbody></table></div>`
+            );
+        }
+    }
+
+    function automaticHelpingYou(bank) {
+        if (Array.isArray(bank.helpingYou) && bank.helpingYou.length) return bank.helpingYou;
+        return (bank.grammar || []).slice(0, 4).map(([title, body], index) => [
+            title,
+            shortGrammarText(body),
+            bank.examples?.[index] || bank.examples?.[0] || ''
+        ]);
+    }
+
+    function fillHelpingYou(bank) {
+        const grammarSlide = document.querySelector('.slide[data-title="Deep Grammar"]');
+        if (!grammarSlide) return;
+        document.querySelector('.slide[data-title="Helping You"]')?.remove();
+        const tips = automaticHelpingYou(bank);
+        insertA2ReviewSlide(
+            grammarSlide,
+            'Helping You',
+            'Helping You',
+            'Dicas úteis para usar a gramática',
+            'Cada dica resolve uma dúvida específica da lição e mostra a estrutura em uma frase completa.',
+            `<div class="helping-you-grid">${tips.map(([title, body, example]) => `<article class="helping-you-card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p>${example ? `<div class="helping-example-list">${String(example).split(/\s*\/\s*/).map(item => `<p>${renderGrammarExample(item)}</p>`).join('')}</div>` : ''}</article>`).join('')}</div>`
+        );
     }
 
     function fillGrammar(data) {
@@ -3476,32 +3583,34 @@
         if (!slide) return;
         const table = getGrammarTable(title, bank);
         slide.querySelector('h2').textContent = `Grammar in Context: ${title}`;
+        const importantEntry = bank.importantRule
+            ? ['Regra importante', bank.importantRule]
+            : bank.grammar?.[0] || ['', ''];
+        const supportingGrammar = bank.importantRule ? bank.grammar : bank.grammar.slice(1);
         setHtml('.slide[data-title="Deep Grammar"] .max-w-4xl', `
-            <div class="activity-card border-t-8 border-emerald-500 p-8 space-y-5">
+            <div class="grammar-premium-layout space-y-5">
                 ${table ? `
-                    <section class="space-y-3">
+                    <section class="grammar-rule-panel space-y-3">
                         <h3 class="text-2xl font-bold text-emerald-700">${escapeHtml(table.title)}</h3>
                         ${renderGrammarTable(table)}
                     </section>
                 ` : ''}
-                <div class="grid md:grid-cols-3 gap-4">
-                ${bank.grammar.map(([heading, body]) => `
-                    <section class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                ${importantEntry[1] ? `<aside class="grammar-important"><span><i class="fas fa-exclamation"></i> ${escapeHtml(importantEntry[0])}</span><p>${escapeHtml(shortGrammarText(importantEntry[1]))}</p></aside>` : ''}
+                <div class="grammar-explanation-grid">
+                ${supportingGrammar.map(([heading, body]) => `
+                    <section class="grammar-explanation-card">
                         <h3 class="text-lg font-black mb-2 text-emerald-700">${escapeHtml(heading)}</h3>
                         <p class="text-sm text-slate-600 leading-relaxed">${escapeHtml(shortGrammarText(body))}</p>
                     </section>
                 `).join('')}
                 </div>
-                <div class="bg-slate-100 p-5 rounded-xl space-y-2">
-                    <p class="font-black text-slate-900">Exemplos para observar:</p>
+                <div class="grammar-example-panel">
+                    <p class="font-black text-slate-900">Observe a estrutura em contexto</p>
                     ${bank.examples.map((example) => `<div class="v3-grammar-example-list-item"><i class="fas fa-check text-emerald-600 mr-2"></i>${renderGrammarExample(example)}</div>`).join('')}
-                </div>
-                <div class="callout-note p-5 rounded-xl">
-                    <p class="font-bold">Prática rápida</p>
-                    <p>Transforme dois exemplos em afirmativa, negativa e pergunta antes de seguir para as atividades.</p>
                 </div>
             </div>
         `);
+        fillHelpingYou(bank);
     }
 
     function buildPractice(bank) {
@@ -3527,7 +3636,16 @@
                             <span class="generated-tag">${itemNumber}. ${escapeHtml(item.type)}</span>
                             ${revealButton(item.answer)}
                         </div>
-                        <p class="text-lg font-semibold text-slate-900">${renderPracticePrompt(item)}</p>
+                        <div class="activation-prompt-grid">
+                            <div class="activation-task">
+                                <span class="activation-prompt-label">Atividade</span>
+                                <p class="text-lg font-semibold text-slate-900">${renderPracticePrompt(item)}</p>
+                            </div>
+                            ${item.pt ? `<aside class="activation-portuguese">
+                                <span class="activation-prompt-label">O que você quer dizer</span>
+                                <p>${escapeHtml(item.pt)}</p>
+                            </aside>` : ''}
+                        </div>
                         ${item.instruction ? `<p class="text-sm text-slate-600 mt-2"><strong>Como fazer:</strong> ${escapeHtml(item.instruction)}</p>` : ''}
                         <p class="a2-answer hidden mt-3 p-3 rounded-lg bg-emerald-50 text-emerald-800 font-semibold"></p>
                     </div>`;
@@ -3567,13 +3685,18 @@
     }
 
     function fillExpressions(bank) {
-        setHtml('#expressions-container', bank.expressions.map(([expr, meaning, example]) => `
-            <div class="activity-card p-6" data-save-card data-pronounce-text="${escapeHtml(expr)}" data-card-front="${escapeHtml(expr)}" data-card-back="${escapeHtml(meaning)} — ${escapeHtml(example)}">
+        setHtml('#expressions-container', bank.expressions.map((entry) => {
+            const [expr, meaning, third = '', fourth = ''] = entry;
+            const note = fourth ? third : '';
+            const example = fourth || third;
+            return `
+            <div class="activity-card expression-premium-card p-6" data-save-card data-pronounce-text="${escapeHtml(expr)}" data-card-front="${escapeHtml(expr)}" data-card-back="${escapeHtml(meaning)} — ${escapeHtml(example)}">
                 <h3 class="text-2xl font-black text-emerald-700">${escapeHtml(expr)}</h3>
                 <p class="text-slate-500 font-semibold mt-2">${escapeHtml(meaning)}</p>
-                <p class="text-slate-700 mt-4">${escapeHtml(example)}</p>
+                ${note ? `<p class="expression-grammar-note"><i class="fas fa-lightbulb" aria-hidden="true"></i><span>${escapeHtml(note)}</span></p>` : ''}
+                <p class="expression-example">${escapeHtml(example)}</p>
             </div>
-        `).join(''));
+        `; }).join(''));
     }
 
     function a2GuidedQuestions(bank) {
@@ -3598,17 +3721,19 @@
     function renderA2GuidedConversation(data) {
         const questions = a2GuidedQuestions(data.bank);
         const support = data.bank.guidedConversation?.support || (data.bank.expressions || []).map(item => item[0]);
-        return `<div class="grid gap-4">${questions.map((question, index) => `<article class="activity-card p-5"><p class="lesson-panel-title">Question ${index + 1}</p><h3 class="text-xl font-black text-slate-900 mt-2">${escapeHtml(question)}</h3><p class="text-slate-600 mt-3">Responda em inglês, dê uma razão ou exemplo e aceite uma pergunta complementar do professor.</p></article>`).join('')}</div>
+        return `<div class="grid gap-4">${questions.map((question, index) => `<article class="activity-card guided-question-card p-5"><p class="lesson-panel-title">Question ${index + 1}</p><h3 class="text-xl font-black text-slate-900 mt-2">${escapeHtml(question)}</h3></article>`).join('')}</div>
             <div class="flex flex-wrap gap-2 mt-6">${support.map(item => `<span class="generated-tag">${escapeHtml(item)}</span>`).join('')}</div>`;
     }
 
     function applyA2ContentLabels() {
         const labels = {
-            'Vocabulary Flashcards': 'Vocabulary Expansion: palavras em contexto',
+            'Vocabulary Flashcards': 'Substantivos e palavras-chave',
             'Practice Activities': 'Activation: use a linguagem',
-            'Expressions & Phrasal Verbs': 'Helping You: key phrases and expressions',
+            'Oral Translation I': 'Drill #1 · Traduza para o inglês',
+            'Expressions & Phrasal Verbs': 'Key Phrases & Expressions',
             'Mini Dialogues': 'Dialog Samples: expressões em conversa',
-            'Reading & Comprehension': 'Context Reading'
+            'Reading & Comprehension': 'Context Reading',
+            'Oral Translation II': 'Drill #2 · Expressões em contexto'
         };
         Object.entries(labels).forEach(([title, label]) => {
             const heading = document.querySelector(`.slide[data-title="${title}"] h2`);
@@ -4478,7 +4603,8 @@
     function hydrateLesson() {
         let data = getLessonData();
         const editorial = window.V3LessonEditorial;
-        if (editorial?.has('a2-v3', data.number)) data = editorial.apply('a2-v3', data.number, data);
+        const legacyEditorialDisabled = window.A2V3PremiumCurriculum?.disableLegacyEditorial === true;
+        if (!legacyEditorialDisabled && editorial?.has('a2-v3', data.number)) data = editorial.apply('a2-v3', data.number, data);
         const paddedLesson = String(data.number).padStart(2, '0');
         document.title = `A2 V3 | Lição ${paddedLesson}: ${data.title}`;
         const headerTitle = document.querySelector('header h1');
