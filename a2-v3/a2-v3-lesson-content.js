@@ -4421,7 +4421,288 @@
         return slide;
     }
 
+    function normalizedConversationQuestions(items) {
+        return (items || []).map(item => Array.isArray(item)
+            ? { question: item[0], answer: item[1] }
+            : item);
+    }
+
+    function renderConversationAnswerCards(items) {
+        return normalizedConversationQuestions(items).map((item, index) => `
+            <article class="activity-card p-4">
+                <div class="flex flex-wrap items-start justify-between gap-3">
+                    <p class="font-semibold text-lg"><span class="text-emerald-700 font-black">${index + 1}.</span> ${escapeHtml(item.question)}</p>
+                    ${revealButton(item.answer)}
+                </div>
+                <p class="a2-answer hidden mt-3 p-3 rounded-lg bg-emerald-50 text-emerald-800 font-semibold"></p>
+            </article>
+        `).join('');
+    }
+
+    function renderConversationListening(model, lessonNumber) {
+        const scriptId = `a2-conversation-script-${lessonNumber}`;
+        return `
+            <div class="conversation-stage-note">
+                <span class="conversation-stage-number">1</span>
+                <div><strong>Primeira escuta:</strong> identifique quem está falando, onde a conversa acontece e qual é o objetivo.</div>
+            </div>
+            <div class="conversation-stage-note">
+                <span class="conversation-stage-number">2</span>
+                <div><strong>Segunda escuta:</strong> responda às perguntas de detalhe sem acompanhar o roteiro.</div>
+            </div>
+            <div class="conversation-stage-note">
+                <span class="conversation-stage-number">3</span>
+                <div><strong>Prática:</strong> revele o diálogo, escolha um papel e repita a conversa com ritmo natural.</div>
+            </div>
+            <div class="conversation-listening-head">
+                <div>
+                    <p class="lesson-panel-title">${escapeHtml(model.setting)}</p>
+                    <h3>${escapeHtml(model.title)}</h3>
+                </div>
+                <button type="button" class="primary-action-btn" data-a2-listening-toggle aria-controls="${scriptId}" aria-expanded="false"><i class="fas fa-eye" aria-hidden="true"></i> Mostrar diálogo</button>
+            </div>
+            <article id="${scriptId}" class="conversation-script hidden" hidden data-a2-listening-script>
+                ${model.lines.map(([speaker, line]) => `
+                    <div class="conversation-script-line">
+                        <strong>${escapeHtml(speaker)}:</strong>
+                        <p>${escapeHtml(line)}</p>
+                        <button type="button" class="v3-speak-btn" data-v3-speak="${escapeHtml(line)}" aria-label="Ouvir frase em inglês"><i class="fas fa-volume-up" aria-hidden="true"></i></button>
+                    </div>
+                `).join('')}
+            </article>
+            <div class="conversation-question-block">
+                <h3>Check your understanding</h3>
+                <div class="space-y-3">${renderConversationAnswerCards(model.questions)}</div>
+            </div>
+        `;
+    }
+
+    function renderConversationDocuments(realWorld) {
+        return `
+            <div class="conversation-input-intro">
+                <span>${escapeHtml(realWorld.genre)}</span>
+                <h3>${escapeHtml(realWorld.title)}</h3>
+                <p>${escapeHtml(realWorld.instruction)}</p>
+            </div>
+            <div class="conversation-document-grid">
+                ${(realWorld.documents || []).map((document, index) => `
+                    <article class="conversation-document" data-document-number="${index + 1}">
+                        <p class="conversation-document-label">${escapeHtml(document.label)}</p>
+                        <h4>${escapeHtml(document.heading)}</h4>
+                        <p>${escapeHtml(document.body)}</p>
+                    </article>
+                `).join('')}
+            </div>
+            <div class="conversation-question-block">
+                <h3>Read, locate and answer</h3>
+                <div class="space-y-3">${renderConversationAnswerCards(realWorld.questions)}</div>
+            </div>
+        `;
+    }
+
+    function lexicalRecycleEntry(sourceLesson, term) {
+        const vocabulary = (sourceLesson?.vocab || []).find(item => item[0] === term);
+        if (vocabulary) return { term, meaning: vocabulary[1], note: 'Palavra-chave', example: vocabulary[2] };
+        const expression = (sourceLesson?.expressions || []).find(item => item[0] === term);
+        if (expression) return {
+            term,
+            meaning: expression[1],
+            note: expression.length > 3 ? expression[2] : 'Expressão da lição lexical',
+            example: expression.length > 3 ? expression[3] : expression[2]
+        };
+        return { term, meaning: 'Recupere o significado da lição anterior.', note: 'Linguagem reciclada', example: '' };
+    }
+
+    function renderConversationToolbox(lesson) {
+        return `
+            <div class="conversation-toolbox-grid">
+                ${(lesson.frames || []).map(([purpose, english, portuguese]) => `
+                    <article class="conversation-tool-card">
+                        <span>${escapeHtml(purpose)}</span>
+                        <h3>${escapeHtml(english)}</h3>
+                        <p>${escapeHtml(portuguese)}</p>
+                        <button type="button" class="v3-speak-btn" data-v3-speak="${escapeHtml(english)}" aria-label="Ouvir frase em inglês"><i class="fas fa-volume-up" aria-hidden="true"></i></button>
+                    </article>
+                `).join('')}
+            </div>
+            <div class="callout-note p-4 rounded-xl mt-5"><p><strong>Como usar:</strong> escolha um bloco para iniciar a resposta e depois acrescente um detalhe, uma razão ou um exemplo verdadeiro.</p></div>
+        `;
+    }
+
+    function renderConversationRecycle(lesson, sourceLesson) {
+        const entries = (lesson.recycle || []).map(term => lexicalRecycleEntry(sourceLesson, term));
+        return entries.map((entry, index) => `
+            <article class="conversation-recycle-card">
+                <div class="conversation-recycle-index">${index + 1}</div>
+                <div>
+                    <p class="lesson-panel-title">${escapeHtml(entry.note)}</p>
+                    <h3>${escapeHtml(entry.term)}</h3>
+                    <p class="conversation-recycle-meaning">${escapeHtml(entry.meaning)}</p>
+                    ${entry.example ? `<p class="conversation-recycle-example">${escapeHtml(entry.example)}</p>` : ''}
+                </div>
+            </article>
+        `).join('');
+    }
+
+    function renderConversationRolePlay(rolePlay) {
+        return `
+            <div class="conversation-input-intro">
+                <span>Interação com objetivo</span>
+                <h3>${escapeHtml(rolePlay.title)}</h3>
+                <p>${escapeHtml(rolePlay.instruction)}</p>
+            </div>
+            <div class="conversation-role-grid">
+                ${(rolePlay.roles || []).map((role, index) => `
+                    <article class="conversation-role-card role-${index + 1}">
+                        <p class="lesson-panel-title">Role ${index + 1}</p>
+                        <h3>${escapeHtml(role.name)}</h3>
+                        <p class="conversation-role-goal">${escapeHtml(role.goal)}</p>
+                        <ul>${(role.details || []).map(detail => `<li><i class="fas fa-check" aria-hidden="true"></i>${escapeHtml(detail)}</li>`).join('')}</ul>
+                    </article>
+                `).join('')}
+            </div>
+            <div class="conversation-outcome"><i class="fas fa-flag-checkered" aria-hidden="true"></i><div><strong>Resultado da rodada</strong><p>${escapeHtml(rolePlay.outcome)}</p></div></div>
+        `;
+    }
+
+    function renderGuidedConversationRound(guided) {
+        return `
+            <div class="conversation-guided-intro">
+                <div><strong>Uma pergunta por vez.</strong> Responda, desenvolva e espere o follow-up do professor.</div>
+                <div class="conversation-support-row">${(guided.support || []).map(item => `<span>${escapeHtml(item)}</span>`).join('')}</div>
+            </div>
+            <div class="conversation-guided-grid">
+                ${(guided.questions || []).map((question, index) => `
+                    <article class="guided-question-card activity-card p-5">
+                        <p class="lesson-panel-title">Question ${index + 1}</p>
+                        <h3>${escapeHtml(question)}</h3>
+                    </article>
+                `).join('')}
+            </div>
+            <aside class="conversation-followups">
+                <h3>Follow-ups que o professor pode usar</h3>
+                <div>${(guided.followUps || []).map(item => `<span>${escapeHtml(item)}</span>`).join('')}</div>
+            </aside>
+        `;
+    }
+
+    function renderConversationChallenge(challenge) {
+        return `
+            <div class="conversation-final-card">
+                <p class="lesson-panel-title">Performance final</p>
+                <h3>${escapeHtml(challenge.title)}</h3>
+                <p class="conversation-final-prompt">${escapeHtml(challenge.prompt)}</p>
+                <div class="conversation-final-columns">
+                    <section><h4>Passos</h4><ol>${(challenge.steps || []).map(step => `<li>${escapeHtml(step)}</li>`).join('')}</ol></section>
+                    <section><h4>Inclua</h4><ul>${(challenge.mustUse || []).map(item => `<li><i class="fas fa-check" aria-hidden="true"></i>${escapeHtml(item)}</li>`).join('')}</ul></section>
+                </div>
+                <div class="conversation-model-answer">
+                    ${revealButton(challenge.model)}
+                    <p class="a2-answer hidden mt-3 p-3 rounded-lg bg-emerald-50 text-emerald-800 font-semibold"></p>
+                </div>
+            </div>
+        `;
+    }
+
+    function fillConversationLesson(data, lesson) {
+        const sourceLesson = window.A2V3PremiumCurriculum?.lessons?.[lesson.sourceLesson] || {};
+        const paddedLesson = String(data.number).padStart(2, '0');
+        document.title = `A2 V3 | Lição ${paddedLesson}: Conversation Activities · ${lesson.title}`;
+        const headerTitle = document.querySelector('header h1');
+        if (headerTitle) headerTitle.textContent = `A2 - Lição ${paddedLesson}: Conversation Activities · ${lesson.title}`;
+
+        const slides = {
+            intro: document.querySelector('.slide[data-title="Intro & Dialogue"]'),
+            warmup: document.querySelector('.slide[data-title="Vocabulary Flashcards"]'),
+            listening: document.querySelector('.slide[data-title="Deep Grammar"]'),
+            input: document.querySelector('.slide[data-title="Practice Activities"]'),
+            toolbox: document.querySelector('.slide[data-title="Oral Translation I"]'),
+            recycle: document.querySelector('.slide[data-title="Expressions & Phrasal Verbs"]'),
+            rolePlay: document.querySelector('.slide[data-title="Mini Dialogues"]'),
+            guided: document.querySelector('.slide[data-title="Reading & Comprehension"]'),
+            challenge: document.querySelector('.slide[data-title="Oral Translation II"]'),
+            homework: document.querySelector('.slide[data-title="Homework"]')
+        };
+
+        // Reative primeiro o repertório da lição lexical; só depois comece as atividades.
+        slides.warmup.insertAdjacentElement('beforebegin', slides.recycle);
+
+        setHtml('.slide[data-title="Intro & Dialogue"] .lesson-hero .max-w-3xl', `
+            <p class="lesson-panel-title">Conversation Activities · reciclagem da Lição ${lesson.sourceLesson}</p>
+            <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">${escapeHtml(lesson.title)}</h2>
+            <p class="text-lg text-slate-600">${escapeHtml(lesson.mission)}</p>
+            <div class="conversation-mission-outcome"><i class="fas fa-bullseye" aria-hidden="true"></i><div><strong>Objetivo comunicativo</strong><p>${escapeHtml(lesson.outcome)}</p></div></div>
+        `);
+        setHtml('#intro-dialogue', `
+            <div class="conversation-path-grid">
+                <article><span>1</span><strong>Observe</strong><p>Escute um modelo realista e identifique como a conversa avança.</p></article>
+                <article><span>2</span><strong>Interaja</strong><p>Use os blocos da lição lexical anterior em perguntas e respostas novas.</p></article>
+                <article><span>3</span><strong>Resolva</strong><p>Cumpra uma tarefa com decisão, informação ou resultado claro.</p></article>
+            </div>
+        `);
+        const introSectionLabel = slides.intro.querySelector('.section-card > .lesson-panel-title');
+        if (introSectionLabel) introSectionLabel.textContent = 'How this lesson works';
+
+        slides.warmup.dataset.title = 'Quick Start';
+        slides.warmup.querySelector('h2').textContent = 'Quick Start · remember and react';
+        const flashcardsContainer = document.getElementById('flashcards-container');
+        if (flashcardsContainer) flashcardsContainer.className = 'conversation-quick-grid max-w-4xl mx-auto';
+        setHtml('#flashcards-container', (lesson.quickStart || []).map(([label, prompt], index) => `
+            <article class="conversation-quick-card"><span>${index + 1}</span><div><strong>${escapeHtml(label)}</strong><p>${escapeHtml(prompt)}</p></div></article>
+        `).join(''));
+
+        slides.listening.dataset.title = 'Activity 1 · Listen & Practice';
+        slides.listening.querySelector('h2').textContent = 'Activity 1 · Listen, check and practice';
+        setHtml('.slide[data-title="Activity 1 · Listen & Practice"] .max-w-4xl', renderConversationListening(lesson.model, data.number));
+
+        slides.input.dataset.title = 'Activity 2 · Real-World Input';
+        slides.input.querySelector('h2').textContent = 'Activity 2 · Read a real-world text';
+        setHtml('#practice-questions', renderConversationDocuments(lesson.realWorld));
+
+        slides.toolbox.dataset.title = 'Language Toolbox';
+        slides.toolbox.querySelector('h2').textContent = 'Language Toolbox · what to say';
+        setHtml('#oral-translation-1', renderConversationToolbox(lesson));
+
+        slides.recycle.dataset.title = 'Lexical Recycling';
+        slides.recycle.querySelector('h2').textContent = `Recycle the Language · Lesson ${lesson.sourceLesson}`;
+        const expressionsContainer = document.getElementById('expressions-container');
+        if (expressionsContainer) expressionsContainer.className = 'conversation-recycle-grid';
+        setHtml('#expressions-container', renderConversationRecycle(lesson, sourceLesson));
+
+        slides.rolePlay.dataset.title = 'Activity 3 · Role Play';
+        slides.rolePlay.querySelector('h2').textContent = 'Activity 3 · Role play and information gap';
+        const miniDialogues = document.getElementById('mini-dialogues-container');
+        if (miniDialogues) miniDialogues.className = 'max-w-4xl mx-auto';
+        setHtml('#mini-dialogues-container', renderConversationRolePlay(lesson.rolePlay));
+
+        slides.guided.dataset.title = 'Activity 4 · Guided Conversation';
+        slides.guided.querySelector('h2').textContent = 'Activity 4 · Ask, answer and follow up';
+        setHtml('#reading-text', renderGuidedConversationRound(lesson.guided));
+        setHtml('#reading-questions', '');
+
+        slides.challenge.dataset.title = 'Final Communicative Challenge';
+        slides.challenge.querySelector('h2').textContent = 'Final Communicative Challenge';
+        setHtml('#oral-translation-2', renderConversationChallenge(lesson.challenge));
+
+        document.querySelector('.slide[data-title="Music Moment"]')?.remove();
+        if (slides.homework) {
+            slides.homework.dataset.title = 'Homework · Keep Communicating';
+            const heading = slides.homework.querySelector('h2');
+            if (heading) heading.textContent = 'Keep the Conversation Going';
+            const intro = slides.homework.querySelector('.lesson-hero > p');
+            if (intro) intro.textContent = 'Prepare a próxima conversa sem transformar a tarefa em memorização de roteiro.';
+        }
+        setHtml('#homework-list', (lesson.homework || []).map((item, index) => `
+            <li class="flex gap-3"><span class="conversation-homework-number">${index + 1}</span><span>${escapeHtml(item)}</span></li>
+        `).join(''));
+    }
+
     function fillReviewLesson(data, review) {
+        const conversationLesson = window.A2V3ConversationCurriculum?.lessons?.[data.number];
+        if (conversationLesson) {
+            fillConversationLesson(data, conversationLesson);
+            return;
+        }
         review = Object.assign({}, review, data.bank.reviewPlan || {});
         const contract = review.contract || {};
         const gamePlan = {
