@@ -5,108 +5,164 @@
 
     R.register(7, R.lesson({
         title: 'Let’s Go Out!',
-        objectives: ['Convidar alguém para uma atividade simples.', 'Fazer sugestões com Let’s e How about...?', 'Aceitar, recusar e oferecer uma alternativa com educação.', 'Combinar lugar, dia e horário usando blocos frequentes.'],
+        objectives: [
+            'Compreender a estrutura do Present Simple com I, you, we e they.',
+            'Formar afirmativas com verbo base e negativas com don’t.',
+            'Formar perguntas com do e produzir respostas curtas.',
+            'Falar de trabalho, estudo, gostos e hábitos de lazer.',
+            'Usar convites como Let’s... depois da base gramatical.'
+        ],
         intro: [
-            line('Sarah', 'Would you like to go out tonight?', 'Você gostaria de sair hoje à noite?'),
-            line('Emma', 'Sure. How about a movie?', 'Claro. Que tal um filme?'),
-            line('Sarah', 'That sounds great. Let’s meet at seven.', 'Parece ótimo. Vamos nos encontrar às sete.'),
-            line('Emma', 'Sorry, I’m busy at seven. Is eight okay?', 'Desculpe, estou ocupada às sete. Oito está bom?'),
-            line('Sarah', 'Yes, perfect. See you at eight.', 'Sim, perfeito. Vejo você às oito.'),
-            line('Emma', 'See you!', 'Até!')
+            line('Sarah', 'Do you work on Saturdays?', 'Você trabalha aos sábados?'),
+            line('Emma', 'No, I don’t. I study in the morning.', 'Não. Eu estudo de manhã.'),
+            line('Sarah', 'Do you like movies?', 'Você gosta de filmes?'),
+            line('Emma', 'Yes, I do. We usually go out on Saturday nights.', 'Sim. Nós geralmente saímos nas noites de sábado.'),
+            line('Sarah', 'Great. We have time tonight.', 'Ótimo. Nós temos tempo hoje à noite.'),
+            line('Emma', 'Let’s meet at the movie theater at eight.', 'Vamos nos encontrar no cinema às oito.'),
+            line('Sarah', 'Perfect. See you at eight.', 'Perfeito. Vejo você às oito.')
         ],
         vocab: [
-            v('go out', 'sair', 'Would you like to go out?', 'Você gostaria de sair?'),
-            v('movie theater', 'cinema', 'Let’s go to the movie theater.', 'Vamos ao cinema.'),
-            v('restaurant', 'restaurante', 'The restaurant is open.', 'O restaurante está aberto.'),
-            v('café', 'cafeteria', 'How about the new café?', 'Que tal a nova cafeteria?'),
-            v('park', 'parque', 'Let’s meet at the park.', 'Vamos nos encontrar no parque.'),
-            v('mall', 'shopping center', 'They are at the mall.', 'Eles estão no shopping.'),
-            v('movie', 'filme', 'How about a movie?', 'Que tal um filme?'),
-            v('dinner', 'jantar', 'Would you like to have dinner?', 'Você gostaria de jantar?'),
-            v('tonight', 'hoje à noite', 'Are you free tonight?', 'Você está livre hoje à noite?'),
-            v('tomorrow', 'amanhã', 'How about tomorrow?', 'Que tal amanhã?'),
-            v('free', 'livre; disponível', 'I’m free after class.', 'Estou livre depois da aula.'),
-            v('busy', 'ocupado(a)', 'I’m busy at seven.', 'Estou ocupada às sete.'),
-            v('meet', 'encontrar-se', 'Let’s meet at eight.', 'Vamos nos encontrar às oito.'),
-            v('plan', 'plano', 'That is a good plan.', 'Esse é um bom plano.')
+            v('work', 'trabalhar', 'Do you work on Saturdays?', 'Você trabalha aos sábados?'),
+            v('study', 'estudar', 'I study in the morning.', 'Eu estudo de manhã.'),
+            v('like', 'gostar', 'We like movies.', 'Nós gostamos de filmes.'),
+            v('have', 'ter', 'We have time tonight.', 'Nós temos tempo hoje à noite.'),
+            v('want', 'querer', 'Do you want coffee?', 'Você quer café?'),
+            v('go out', 'sair', 'We go out on Saturdays.', 'Nós saímos aos sábados.'),
+            v('meet', 'encontrar-se', 'We meet at eight.', 'Nós nos encontramos às oito.'),
+            v('movie theater', 'cinema', 'We meet at the movie theater.', 'Nós nos encontramos no cinema.'),
+            v('restaurant', 'restaurante', 'They go to a restaurant.', 'Eles vão a um restaurante.'),
+            v('café', 'cafeteria', 'We meet at the café.', 'Nós nos encontramos na cafeteria.'),
+            v('park', 'parque', 'They like the park.', 'Eles gostam do parque.'),
+            v('mall', 'shopping center', 'We go to the mall.', 'Nós vamos ao shopping.'),
+            v('movie', 'filme', 'Do you like movies?', 'Você gosta de filmes?'),
+            v('tonight', 'hoje à noite', 'We have time tonight.', 'Nós temos tempo hoje à noite.'),
+            v('weekday', 'dia de semana', 'I work on weekdays.', 'Eu trabalho nos dias de semana.'),
+            v('weekend', 'fim de semana', 'We go out on weekends.', 'Nós saímos nos fins de semana.'),
+            v('free', 'livre; disponível', 'I’m free tonight.', 'Estou livre hoje à noite.'),
+            v('busy', 'ocupado(a)', 'You’re busy today.', 'Você está ocupado hoje.')
         ],
         grammar: {
-            title: 'Convites e sugestões como blocos',
-            summary: 'Use estas expressões prontas para propor uma atividade. O verbo permanece na forma básica depois de to ou Let’s.',
+            title: 'Present Simple com I, you, we e they',
+            summary: 'Use o verbo na forma base na afirmativa. Use don’t antes do verbo para negar e do antes do sujeito para perguntar.',
+            spotlight: {
+                formula: [
+                    { text: 'SUBJECT', tone: 'blue' },
+                    { text: 'DO / DON’T', tone: 'red' },
+                    { text: 'BASE VERB', tone: 'green' }
+                ],
+                panels: [
+                    { label: 'Forma afirmativa', tone: 'green', pattern: 'I / YOU / WE / THEY + VERB', examples: ['I work on weekdays.', 'We like movies.'] },
+                    { label: 'Forma negativa', tone: 'red', pattern: 'I / YOU / WE / THEY + DON’T + VERB', examples: ['I don’t work on Saturdays.', 'They don’t like coffee.'] },
+                    { label: 'Forma interrogativa', tone: 'yellow', pattern: 'DO + I / YOU / WE / THEY + VERB?', examples: ['Do you study at night?', 'Do they go out?'] }
+                ],
+                important: {
+                    title: 'Importante',
+                    text: 'Depois de do ou don’t, use sempre o verbo na forma base: Do you work?; I don’t work.'
+                },
+                contrast: {
+                    title: 'Atenção',
+                    correct: 'Do you work here?',
+                    incorrect: 'Do you works here?'
+                }
+            },
             rows: [
-                ['convite', 'Would you like to + verb?', 'Would you like to go out?', 'Você gostaria de sair?'],
-                ['convite direto', 'Do you want to + verb?', 'Do you want to see a movie?', 'Você quer ver um filme?'],
-                ['sugestão', 'Let’s + verb', 'Let’s meet at eight.', 'Vamos nos encontrar às oito.'],
-                ['alternativa', 'How about + noun/time?', 'How about tomorrow?', 'Que tal amanhã?'],
-                ['confirmação', 'Is + time/place + okay?', 'Is eight okay?', 'Oito está bom?']
+                ['afirmativa', 'I/You/We/They + base verb', 'We like movies.', 'Nós gostamos de filmes.'],
+                ['negativa', 'I/You/We/They + don’t + base verb', 'I don’t work on Saturdays.', 'Eu não trabalho aos sábados.'],
+                ['pergunta', 'Do + I/you/we/they + base verb?', 'Do you study at night?', 'Você estuda à noite?'],
+                ['resposta positiva', 'Yes, + subject + do.', 'Yes, I do.', 'Sim.'],
+                ['resposta negativa', 'No, + subject + don’t.', 'No, we don’t.', 'Não.'],
+                ['frequência', 'usually + base verb', 'We usually go out on Saturdays.', 'Nós geralmente saímos aos sábados.']
             ],
-            notes: ['Não use to depois de Let’s: Let’s go, não Let’s to go.', 'Aceite com Sure, Great ou That sounds good.', 'Ao recusar, use Sorry e ofereça outra opção quando possível.']
+            notes: [
+                'I, you, we e they usam a mesma forma base: work, study, like, have, want, go e meet.',
+                'Do inicia a pergunta; don’t forma a negativa. Não use am/is/are com esses verbos.',
+                'O -s da terceira pessoa ainda não entra nesta aula; ele será apresentado com he e she mais adiante.'
+            ]
         },
         activitySections: [
-            activity('Lugares, atividades e horários', 'Relacione cada sugestão a uma continuação natural.', [
-                p('Match', 'movie · dinner · park · café → have · go to the · see a · meet at the', 'see a movie; have dinner; meet at the park; go to the café'),
-                p('Complete', 'Would you like to see a ___?', 'movie'),
-                p('Complete', 'Let’s have ___ at seven.', 'dinner'),
-                p('Complete', 'How about the new ___?', 'café'),
-                p('Choose', 'I’m (free / busy) = I can go.', 'free'),
-                p('Choose', 'I’m (free / busy) = I cannot go at that time.', 'busy'),
-                p('Answer', 'Choose one place for tonight.', 'A possible answer: the movie theater.'),
-                p('Describe', 'Plan: park · tomorrow · 4:00', 'Let’s meet at the park tomorrow at four.')
-            ], 'Vocabulary Practice'),
-            activity('Forme convites e sugestões', 'Use a estrutura indicada e mantenha o verbo na forma básica.', [
-                p('Build', 'like / Would / go out / to / you / ?', 'Would you like to go out?'),
-                p('Build', 'movie / Let’s / a / see', 'Let’s see a movie.'),
-                p('Build', 'tomorrow / about / How / ?', 'How about tomorrow?'),
-                p('Build', 'eight / Is / okay / ?', 'Is eight okay?'),
-                p('Complete', 'Do you want ___ have dinner?', 'to'),
+            activity('Afirmativa ou negativa?', 'Complete com o verbo base ou com don’t + verbo.', [
+                p('Complete', 'I ___ on weekdays. (work)', 'work'),
+                p('Complete', 'We ___ movies. (like)', 'like'),
+                p('Complete', 'They ___ time tonight. (have)', 'have'),
+                p('Complete', 'I ___ work on Saturdays.', 'don’t'),
+                p('Complete', 'We ___ like that restaurant.', 'don’t'),
+                p('Build', 'study / I / at night', 'I study at night.'),
+                p('Build', 'don’t / They / go out / on weekdays', 'They don’t go out on weekdays.'),
+                p('Correct', 'We likes movies.', 'We like movies.')
+            ], 'Present Simple · Statements'),
+            activity('Perguntas e respostas com do', 'Coloque do no início e mantenha o verbo principal na forma base.', [
+                p('Complete', '___ you work on Saturdays?', 'Do'),
+                p('Complete', 'Do they ___ movies?', 'like'),
+                p('Build', 'you / Do / at night / study / ?', 'Do you study at night?'),
+                p('Build', 'they / Do / go out / ?', 'Do they go out?'),
+                p('Answer', 'Do you like movies? Positive short answer.', 'Yes, I do.'),
+                p('Answer', 'Do you work on Sundays? Negative short answer.', 'No, I don’t.'),
+                p('Correct', 'Do you works here?', 'Do you work here?'),
+                p('Correct', 'You don’t works on Saturdays.', 'You don’t work on Saturdays.')
+            ], 'Present Simple · Questions'),
+            activity('Hábitos e lazer', 'Use as estruturas já montadas para reconhecer tempo e frequência.', [
+                p('Complete', 'I work ___ weekdays.', 'on'),
+                p('Complete', 'We go out ___ weekends.', 'on'),
+                p('Complete', 'I study ___ the morning.', 'in'),
+                p('Complete', 'We meet ___ eight.', 'at'),
+                p('Choose', 'We (usually / are) go out on Saturdays.', 'usually'),
+                p('Build', 'usually / We / go out / on Saturdays', 'We usually go out on Saturdays.'),
                 p('Complete', 'Let’s ___ at the café.', 'meet'),
-                p('Correct', 'Let’s to see a movie.', 'Let’s see a movie.'),
-                p('Correct', 'Would you like go out?', 'Would you like to go out?'),
-                p('Transform', 'Let’s have dinner. → invitation', 'Would you like to have dinner?'),
-                p('Transform', 'Would you like to go tonight? → direct invitation', 'Do you want to go tonight?')
-            ]),
-            activity('Aceite, recuse ou mude o plano', 'Responda de acordo com a condição e acrescente lugar ou horário quando necessário.', [
-                p('Answer', 'Would you like to see a movie? Accept.', 'Sure. That sounds great.'),
-                p('Answer', 'Would you like to have dinner? Accept and choose 8:00.', 'Yes, great. Let’s meet at eight.'),
-                p('Answer', 'Are you free tonight? You are busy.', 'Sorry, I’m busy tonight.'),
-                p('Answer', 'You cannot meet at seven. Offer eight.', 'Sorry, I’m busy at seven. How about eight?'),
-                p('Answer', 'How about the mall? You prefer the park.', 'How about the park?'),
-                p('Complete', 'That ___ great.', 'sounds'),
-                p('Complete', 'Yes, ___. See you at eight.', 'perfect'),
-                p('Correct', 'Sorry, I free tonight.', 'Sorry, I’m not free tonight. / Sorry, I’m busy tonight.'),
-                p('Create', 'Invite someone to a café tomorrow.', 'Would you like to go to a café tomorrow?'),
-                p('Create', 'Accept and confirm a time.', 'Sure. Let’s meet at ...')
-            ], 'Conversation Choices')
+                p('Complete', 'See you ___ eight.', 'at')
+            ], 'Time Expressions')
         ],
         translations: [
-            t('Você gostaria de sair hoje à noite?', 'Would you like to go out tonight?'), t('Você quer ver um filme?', 'Do you want to see a movie?'),
-            t('Vamos jantar.', 'Let’s have dinner.'), t('Que tal amanhã?', 'How about tomorrow?'),
-            t('Parece ótimo.', 'That sounds great.'), t('Estou livre às oito.', 'I’m free at eight.'),
-            t('Desculpe, estou ocupada hoje à noite.', 'Sorry, I’m busy tonight.'), t('Oito está bom?', 'Is eight okay?'),
-            t('Vamos nos encontrar no parque.', 'Let’s meet at the park.'), t('Vejo você amanhã.', 'See you tomorrow.')
+            t('Eu trabalho nos dias de semana.', 'I work on weekdays.'),
+            t('Você estuda de manhã.', 'You study in the morning.'),
+            t('Nós gostamos de filmes.', 'We like movies.'),
+            t('Eles têm tempo hoje à noite.', 'They have time tonight.'),
+            t('Eu não trabalho aos sábados.', 'I don’t work on Saturdays.'),
+            t('Nós não saímos nos dias de semana.', 'We don’t go out on weekdays.'),
+            t('Você trabalha aos domingos?', 'Do you work on Sundays?'),
+            t('Eles gostam de filmes?', 'Do they like movies?'),
+            t('Sim, gosto.', 'Yes, I do.'),
+            t('Não, nós não gostamos.', 'No, we don’t.'),
+            t('Nós geralmente saímos aos sábados.', 'We usually go out on Saturdays.'),
+            t('Vamos nos encontrar às oito.', 'Let’s meet at eight.')
         ],
         expressions: [
-            x('Would you like to...?', 'Você gostaria de...?', 'Convite educado.', 'Would you like to have dinner?', 'Você gostaria de jantar?'),
-            x('Do you want to...?', 'Você quer...?', 'Convite direto e comum entre pessoas conhecidas.', 'Do you want to see a movie?', 'Você quer ver um filme?'),
-            x('Let’s...', 'Vamos...', 'Sugestão que inclui quem fala.', 'Let’s meet at the café.', 'Vamos nos encontrar na cafeteria.'),
-            x('How about...?', 'Que tal...?', 'Use para oferecer alternativa de lugar ou horário.', 'How about tomorrow?', 'Que tal amanhã?'),
-            x('That sounds great/good.', 'Parece ótimo/bom.', 'Aceitação positiva.', 'A movie? That sounds great.', 'Um filme? Parece ótimo.'),
-            x('Sorry, I’m busy.', 'Desculpe, estou ocupado(a).', 'Recusa curta e educada.', 'Sorry, I’m busy tonight.', 'Desculpe, estou ocupada hoje à noite.'),
-            x('Is ... okay?', '... está bom?', 'Confirma uma opção.', 'Is seven okay?', 'Sete está bom?'),
-            x('See you at...', 'Vejo você às...', 'Confirma o encontro.', 'See you at eight.', 'Vejo você às oito.'),
-            x('Maybe another day.', 'Talvez outro dia.', 'Recusa sem definir uma nova data.', 'Sorry. Maybe another day.', 'Desculpe. Talvez outro dia.')
+            x('Do you work...?', 'Você trabalha...?', 'Primeiro modelo de pergunta no Present Simple.', 'Do you work on Saturdays?', 'Você trabalha aos sábados?'),
+            x('Do you study...?', 'Você estuda...?', 'Use do + you + verbo base.', 'Do you study at night?', 'Você estuda à noite?'),
+            x('Do you like...?', 'Você gosta de...?', 'Use com substantivo depois de like.', 'Do you like movies?', 'Você gosta de filmes?'),
+            x('Yes, I do. / No, I don’t.', 'Sim. / Não.', 'Respostas curtas para perguntas iniciadas por do.', 'Do you work here? — Yes, I do.', 'Você trabalha aqui? — Sim.'),
+            x('I don’t...', 'Eu não...', 'Use don’t antes do verbo base.', 'I don’t work on Sundays.', 'Eu não trabalho aos domingos.'),
+            x('We usually...', 'Nós geralmente...', 'Usually aparece antes do verbo principal.', 'We usually go out on Saturdays.', 'Nós geralmente saímos aos sábados.'),
+            x('on weekdays/weekends', 'nos dias de semana/fins de semana', 'Use on como parte do bloco de tempo.', 'I work on weekdays.', 'Eu trabalho nos dias de semana.'),
+            x('in the morning/afternoon/evening', 'de manhã/tarde/noite', 'Use in antes dessas partes do dia.', 'I study in the evening.', 'Eu estudo à noite.'),
+            x('at night / at eight', 'à noite / às oito', 'Use at com night e com horários exatos.', 'We meet at eight.', 'Nós nos encontramos às oito.'),
+            x('Let’s...', 'Vamos...', 'Depois de Let’s, use o verbo na forma base sem to.', 'Let’s meet at the café.', 'Vamos nos encontrar na cafeteria.'),
+            x('See you at...', 'Vejo você às...', 'Use at antes do horário.', 'See you at eight.', 'Vejo você às oito.')
         ],
         dialogues: [
-            dialogue('A movie', line('A', 'Would you like to see a movie?', 'Você gostaria de ver um filme?'), line('B', 'Sure. That sounds great.', 'Claro. Parece ótimo.'), line('A', 'Let’s meet at seven.', 'Vamos nos encontrar às sete.')),
-            dialogue('A different time', line('A', 'Is seven okay?', 'Sete está bom?'), line('B', 'Sorry, I’m busy at seven. How about eight?', 'Desculpe, estou ocupado às sete. Que tal oito?'), line('A', 'Perfect.', 'Perfeito.')),
-            dialogue('Dinner', line('A', 'Do you want to have dinner tonight?', 'Você quer jantar hoje?'), line('B', 'Yes. How about the new restaurant?', 'Sim. Que tal o restaurante novo?'), line('A', 'Good idea.', 'Boa ideia.')),
-            dialogue('Not tonight', line('A', 'Would you like to go out tonight?', 'Você gostaria de sair hoje?'), line('B', 'Sorry, I’m busy. Maybe tomorrow?', 'Desculpe, estou ocupado. Talvez amanhã?'), line('A', 'Yes, tomorrow is good.', 'Sim, amanhã está bom.')),
-            dialogue('At the park', line('A', 'Let’s meet at the park.', 'Vamos nos encontrar no parque.'), line('B', 'Sure. Is four okay?', 'Claro. Quatro está bom?'), line('A', 'Yes. See you at four.', 'Sim. Vejo você às quatro.'))
+            dialogue('Work', line('A', 'Do you work on Saturdays?', 'Você trabalha aos sábados?'), line('B', 'No, I don’t.', 'Não.')),
+            dialogue('Study', line('A', 'Do you study at night?', 'Você estuda à noite?'), line('B', 'Yes, I do.', 'Sim.')),
+            dialogue('Movies', line('A', 'Do you like movies?', 'Você gosta de filmes?'), line('B', 'Yes, I do. I like comedies.', 'Sim. Eu gosto de comédias.')),
+            dialogue('Weekend habit', line('A', 'What do you do on weekends?', 'O que você faz nos fins de semana?'), line('B', 'We usually go out.', 'Nós geralmente saímos.')),
+            dialogue('A simple plan', line('A', 'Let’s meet at the movie theater.', 'Vamos nos encontrar no cinema.'), line('B', 'Great. See you at eight.', 'Ótimo. Vejo você às oito.'))
         ],
-        reading: reading('Three invitations', 'Sarah wants to see a movie tonight. Emma is busy at seven, but she is free at eight. Daniel wants to have dinner tomorrow. Mateo is not free tomorrow, so they plan dinner on Friday. Olivia wants to meet at the park on Saturday afternoon.',
-            question('What does Sarah want to do?', 'She wants to see a movie.'), question('When is Emma free?', 'She is free at eight.'), question('What does Daniel want to do?', 'He wants to have dinner.'), question('Is Mateo free tomorrow?', 'No, he is not.'), question('Where does Olivia want to meet?', 'She wants to meet at the park.')),
-        conversation: { questions: ['Are you free tonight?', 'Would you like to see a movie?', 'Invite the teacher to a café.', 'Suggest a place with Let’s.', 'Offer a different day with How about...?', 'Accept one invitation.', 'Refuse one invitation and give an alternative.', 'Create a complete plan with activity, place and time.'], support: ['Would you like to...?', 'Let’s...', 'How about...?', 'That sounds great.', 'Sorry, I’m busy.', 'Is ... okay?'] },
-        homework: homework('Prepare três convites com respostas diferentes.', ['Um filme hoje à noite', 'Um encontro em uma cafeteria', 'Um plano que precisa mudar de horário'], ['Usei Would you like to, Let’s e How about.', 'Incluí aceitação e recusa educada.', 'Cada plano tem atividade, lugar ou horário.']),
-        mission: { title: 'Make a plan', task: 'Convide alguém, negocie uma mudança de horário e finalize com um plano claro.', focus: ['convite completo', 'aceitação ou recusa', 'plano confirmado'] }
+        reading: reading(
+            'Our Saturday routine',
+            'I work on weekdays, but I don’t work on Saturdays. My friends and I like movies. We usually go out on Saturday nights. We meet at the movie theater at eight. Do we have time for coffee? Yes, we do. We have coffee before the movie.',
+            question('Do I work on Saturdays?', 'No, I don’t.'),
+            question('What do we like?', 'We like movies.'),
+            question('When do we usually go out?', 'We usually go out on Saturday nights.'),
+            question('Where do we meet?', 'We meet at the movie theater.'),
+            question('What time do we meet?', 'We meet at eight.'),
+            question('Do we have coffee?', 'Yes, we do.')
+        ),
+        conversation: {
+            questions: ['Do you work on Saturdays?', 'Do you study at night?', 'Do you like movies?', 'What do you do on weekends?', 'Do you usually go out?'],
+            support: ['I work...', 'I don’t work...', 'Do you...?', 'Yes, I do. / No, I don’t.', 'We usually...', 'Let’s...']
+        },
+        homework: homework(
+            'Complete uma rotina-modelo usando as estruturas da aula.',
+            ['Dias de trabalho e estudo', 'Gostos', 'Um hábito de fim de semana'],
+            ['Usei duas afirmativas.', 'Usei uma negativa com don’t.', 'Usei uma pergunta com do e uma resposta curta.']
+        )
     }));
 }());

@@ -3,154 +3,155 @@
     const R = window.A1V3LessonRegistry;
     const { v, x, p, t, line, dialogue, question, reading, activity, homework } = R.helpers;
 
-    function menuSlide() {
-        return `<section><div class="slide-heading"><p class="lesson-panel-title">Break-Time Menu</p><h2>Escolha algo para comer e beber</h2><p>Leia os alimentos e as bebidas em voz alta. Depois, monte combinações usando <strong>want</strong> e <strong>have</strong>.</p></div><div class="dialogue-grid">
-            <article class="dialogue-card"><h3>Drinks</h3><p>coffee · tea · water · orange juice</p></article>
-            <article class="dialogue-card"><h3>Food</h3><p>ham · chicken · sandwich · cheese bread · cake · fruit</p></article>
-            <article class="dialogue-card"><h3>Useful combinations</h3><p>a coffee · a ham sandwich · a chicken sandwich · a piece of cake</p></article>
-        </div><div class="grammar-notes"><p><strong>Want</strong> indica o que você deseja. <strong>Have</strong> indica o que você já tem.</p><p><strong>I want a chicken sandwich.</strong> · <strong>I have a ham sandwich.</strong></p></div></section>`;
-    }
-
     R.register(3, R.lesson({
         title: 'At Break',
         objectives: [
-            'Nomear alimentos e bebidas comuns em um intervalo.',
-            'Usar want para dizer o que você ou outras pessoas desejam.',
-            'Usar have para dizer o que você ou outras pessoas têm.',
-            'Fazer uma escolha simples com please e agradecer ao receber algo.'
+            'Usar we are/we’re para falar de um grupo que inclui quem fala.',
+            'Usar they are/they’re para falar de outras pessoas.',
+            'Formar negativas com aren’t e perguntas com Are we/they...?',
+            'Descrever pessoas no intervalo com hungry, thirsty, early, late e ready.'
         ],
         intro: [
-            line('Café', 'Hi. Coffee or tea?', 'Olá. Café ou chá?'),
-            line('Emma', 'Coffee, please. I want a ham sandwich too.', 'Café, por favor. Eu quero um sanduíche de presunto também.'),
-            line('Daniel', 'Orange juice, please. I want a chicken sandwich.', 'Suco de laranja, por favor. Eu quero um sanduíche de frango.'),
-            line('Café', 'Here you are.', 'Aqui está.'),
-            line('Emma', 'Thank you.', 'Obrigada.'),
-            line('Daniel', 'We have our food and drinks now.', 'Nós temos nossa comida e nossas bebidas agora.')
+            line('Maya', 'We are early for break today.', 'Hoje nós estamos adiantados para o intervalo.'),
+            line('Peter', 'Yes, we are. Are you hungry?', 'Sim. Você está com fome?'),
+            line('Maya', 'Yes, I am. What about Julia and Leo?', 'Sim. E Julia e Leo?'),
+            line('Peter', 'They are at the snack bar.', 'Eles estão na lanchonete.'),
+            line('Maya', 'Are they hungry too?', 'Eles também estão com fome?'),
+            line('Peter', 'Yes, they are. They are ready for lunch.', 'Sim. Eles estão prontos para o almoço.'),
+            line('Maya', 'Great. We are ready too.', 'Ótimo. Nós também estamos prontos.')
         ],
+        vocabularyMeta: {
+            slideTitle: 'Palavras do intervalo',
+            eyebrow: 'Vocabulary Expansion · Break Time',
+            title: 'Pessoas, lugares e estados no intervalo',
+            instruction: 'Vire os cards para conferir o sentido. O único verbo trabalhado nesta aula é be, agora com we e they.'
+        },
         vocab: [
-            v('break', 'intervalo', 'The break is at ten.', 'O intervalo é às dez.'),
-            v('menu', 'cardápio', 'The menu is on the table.', 'O cardápio está sobre a mesa.'),
-            v('coffee', 'café', 'I want a coffee.', 'Eu quero um café.'),
-            v('tea', 'chá', 'They want tea.', 'Eles querem chá.'),
-            v('water', 'água', 'We have water.', 'Nós temos água.'),
-            v('orange juice', 'suco de laranja', 'I want orange juice.', 'Eu quero suco de laranja.'),
-            v('sandwich', 'sanduíche', 'I have a sandwich.', 'Eu tenho um sanduíche.'),
-            v('ham', 'presunto', 'I want a ham sandwich.', 'Eu quero um sanduíche de presunto.'),
-            v('chicken', 'frango', 'They have chicken sandwiches.', 'Eles têm sanduíches de frango.'),
-            v('cheese bread', 'pão de queijo', 'We want cheese bread.', 'Nós queremos pão de queijo.'),
-            v('cake', 'bolo', 'They have a piece of cake.', 'Eles têm um pedaço de bolo.'),
-            v('fruit', 'fruta', 'We have fruit.', 'Nós temos fruta.'),
+            v('break', 'intervalo', 'We are at break.', 'Nós estamos no intervalo.'),
+            v('snack bar', 'lanchonete', 'They are at the snack bar.', 'Eles estão na lanchonete.'),
+            v('cafeteria', 'refeitório; cafeteria', 'We are in the cafeteria.', 'Nós estamos no refeitório.'),
+            v('classmates', 'colegas de turma', 'They are our classmates.', 'Eles são nossos colegas de turma.'),
+            v('group', 'grupo', 'We are a group.', 'Nós somos um grupo.'),
+            v('lunch', 'almoço', 'We are ready for lunch.', 'Nós estamos prontos para o almoço.'),
+            v('sandwiches', 'sanduíches', 'Sandwiches for us, please.', 'Sanduíches para nós, por favor.'),
+            v('drinks', 'bebidas', 'Drinks for them, please.', 'Bebidas para eles, por favor.'),
+            v('coffee', 'café', 'Coffee for us, please.', 'Café para nós, por favor.'),
+            v('juice', 'suco', 'Juice for them, please.', 'Suco para eles, por favor.'),
             v('hungry', 'com fome', 'We are hungry.', 'Nós estamos com fome.'),
-            v('thirsty', 'com sede', 'They are thirsty.', 'Eles estão com sede.')
+            v('thirsty', 'com sede', 'They are thirsty.', 'Eles estão com sede.'),
+            v('early', 'adiantados; cedo', 'We are early.', 'Nós estamos adiantados.'),
+            v('late', 'atrasados', 'They are late.', 'Eles estão atrasados.'),
+            v('ready', 'prontos', 'We are ready.', 'Nós estamos prontos.'),
+            v('together', 'juntos', 'We are together.', 'Nós estamos juntos.')
         ],
-        afterVocabularySlides: [{ title: 'Cardápio do intervalo', body: menuSlide }],
         grammar: {
-            title: 'Want e have',
-            summary: 'Use want para falar do que alguém deseja e have para falar do que alguém tem. Nesta aula, pratique apenas frases afirmativas com I, we e they.',
+            title: 'We are e they are',
+            summary: 'Use are com we e they. We inclui quem fala; they indica outras pessoas. Na negativa, use aren’t. Na pergunta, coloque are antes do sujeito.',
+            spotlight: {
+                formula: [
+                    { text: 'WE / THEY', tone: 'blue' },
+                    { text: 'ARE', tone: 'green' },
+                    { text: 'INFORMATION', tone: 'blue' }
+                ],
+                panels: [
+                    { label: 'Forma afirmativa', tone: 'green', pattern: 'WE / THEY + ARE', examples: ['We are hungry.', 'They are at the snack bar.'] },
+                    { label: 'Forma negativa', tone: 'red', pattern: 'WE / THEY + AREN’T', examples: ['We aren’t late.', 'They aren’t thirsty.'] },
+                    { label: 'Forma interrogativa', tone: 'yellow', pattern: 'ARE + WE / THEY ...?', examples: ['Are we early?', 'Are they ready?'] }
+                ],
+                important: {
+                    title: 'Importante',
+                    text: 'We e they usam are. Não use am ou is com esses dois sujeitos.'
+                },
+                contrast: {
+                    title: 'Atenção',
+                    correct: 'They are hungry.',
+                    incorrect: 'They is hungry.'
+                }
+            },
             rows: [
-                ['I + want', 'I want + item', 'I want a coffee.', 'Eu quero um café.'],
-                ['we + want', 'We want + item', 'We want two sandwiches.', 'Nós queremos dois sanduíches.'],
-                ['they + want', 'They want + item', 'They want orange juice.', 'Eles querem suco de laranja.'],
-                ['I + have', 'I have + item', 'I have a ham sandwich.', 'Eu tenho um sanduíche de presunto.'],
-                ['we + have', 'We have + item', 'We have water.', 'Nós temos água.'],
-                ['they + have', 'They have + item', 'They have chicken sandwiches.', 'Eles têm sanduíches de frango.']
+                ['nós', 'We are / We’re + information', 'We’re at break.', 'Nós estamos no intervalo.'],
+                ['eles/elas', 'They are / They’re + information', 'They’re classmates.', 'Eles são colegas de turma.'],
+                ['negativa com we', 'We are not / We aren’t', 'We aren’t late.', 'Nós não estamos atrasados.'],
+                ['negativa com they', 'They are not / They aren’t', 'They aren’t thirsty.', 'Eles não estão com sede.'],
+                ['pergunta com we', 'Are we + information?', 'Are we early?', 'Nós estamos adiantados?'],
+                ['pergunta com they', 'Are they + information?', 'Are they ready?', 'Eles estão prontos?'],
+                ['respostas curtas', 'Yes, we/they are. · No, we/they aren’t.', 'Yes, they are.', 'Sim, eles estão.']
             ],
             notes: [
-                'Want = querer. Have = ter.',
-                'Com I, we e they, use sempre want e have sem acrescentar -s.',
-                'Em uma escolha simples, você também pode dizer apenas Coffee, please.'
+                'We are contrai para we’re; they are contrai para they’re.',
+                'Are not contrai para aren’t com we e they.',
+                'Na pergunta, coloque are antes de we ou they: Are we...? / Are they...?'
             ]
         },
         activitySections: [
-            activity('Alimentos, bebidas e combinações', 'Reconheça os itens do cardápio e forme combinações naturais.', [
-                p('Match', 'ham · chicken · orange · cheese → juice · bread · sandwich · sandwich', 'ham sandwich; chicken sandwich; orange juice; cheese bread'),
-                p('Complete', 'a ham ___', 'sandwich'),
-                p('Complete', 'a ___ sandwich', 'chicken'),
-                p('Complete', 'orange ___', 'juice'),
-                p('Complete', 'cheese ___', 'bread'),
-                p('Choose', 'I am thirsty: (water / ham)', 'water'),
-                p('Choose', 'I am hungry: (tea / sandwich)', 'sandwich'),
-                p('Classify', 'coffee · chicken · tea · cake · water · ham', 'drinks: coffee, tea, water; food: chicken, cake, ham'),
-                p('Answer', 'Choose one drink and one food item.', 'A possible answer: coffee and a ham sandwich.')
-            ], 'Vocabulary Practice'),
-            activity('Diga o que você quer', 'Complete e organize frases afirmativas com want.', [
-                p('Complete', 'I ___ a coffee.', 'want'),
-                p('Complete', 'We ___ two sandwiches.', 'want'),
-                p('Complete', 'They ___ orange juice.', 'want'),
-                p('Build', 'want / I / tea', 'I want tea.'),
-                p('Build', 'a ham sandwich / We / want', 'We want a ham sandwich.'),
-                p('Build', 'want / They / chicken sandwiches', 'They want chicken sandwiches.'),
-                p('Correct', 'I wants coffee.', 'I want coffee.'),
-                p('Correct', 'We want a orange juice.', 'We want orange juice.'),
-                p('Transform', 'Emma and Daniel want cake. → pronoun', 'They want cake.'),
-                p('Transform', 'Daniel and I want water. → pronoun', 'We want water.'),
-                p('Create', 'Say one drink you want.', 'I want...'),
-                p('Create', 'Say two foods you and another person want.', 'We want...')
-            ]),
-            activity('Diga o que você tem', 'Use have e depois complete uma troca curta no café.', [
-                p('Complete', 'I ___ a sandwich.', 'have'),
-                p('Complete', 'We ___ coffee.', 'have'),
-                p('Complete', 'They ___ two pieces of cake.', 'have'),
-                p('Build', 'have / I / a chicken sandwich', 'I have a chicken sandwich.'),
-                p('Build', 'water / We / have', 'We have water.'),
-                p('Build', 'have / They / fruit', 'They have fruit.'),
-                p('Correct', 'I has a ham sandwich.', 'I have a ham sandwich.'),
-                p('Correct', 'They has coffee.', 'They have coffee.'),
-                p('Choose', 'Desejo agora: I (want / have) tea.', 'want'),
-                p('Choose', 'Item comigo agora: I (want / have) tea.', 'have'),
-                p('Answer', 'Coffee or tea? Choose coffee politely.', 'Coffee, please.'),
-                p('Answer', 'Someone gives you your food.', 'Thank you. / Thanks.'),
-                p('Complete', 'Here you ___.', 'are'),
-                p('Describe', 'Emma: ham sandwich in her hand · Daniel: chicken sandwich in his hand', 'They have a ham sandwich and a chicken sandwich.')
-            ], 'Want and Have Practice')
+            activity('We ou they?', 'Escolha we quando o falante faz parte do grupo e they para outras pessoas.', [
+                p('Choose', 'Maya + Peter, speaking about themselves → (We / They)', 'We'),
+                p('Choose', 'Maya speaking about Julia + Leo → (We / They)', 'They'),
+                p('Complete', '___ are classmates. (nós)', 'We'),
+                p('Complete', '___ are at the snack bar. (eles)', 'They'),
+                p('Choose', 'We (am / are) hungry.', 'are'),
+                p('Choose', 'They (is / are) ready.', 'are'),
+                p('Correct', 'We is early.', 'We are early.'),
+                p('Correct', 'They am thirsty.', 'They are thirsty.')
+            ], 'Subject Recognition'),
+            activity('Afirme, negue e pergunte com are', 'Complete e organize somente as estruturas de be apresentadas.', [
+                p('Complete', 'We ___ hungry.', 'are'),
+                p('Complete', 'They ___ late.', 'aren’t'),
+                p('Complete', '___ they ready?', 'Are'),
+                p('Complete', '___ we early?', 'Are'),
+                p('Build', 'are / We / together', 'We are together.'),
+                p('Build', 'aren’t / They / thirsty', 'They aren’t thirsty.'),
+                p('Build', 'they / Are / classmates / ?', 'Are they classmates?'),
+                p('Answer', 'Are they ready? Positive short answer.', 'Yes, they are.'),
+                p('Answer', 'Are we late? Negative short answer.', 'No, we aren’t.'),
+                p('Correct', 'Are they are hungry?', 'Are they hungry?')
+            ], 'Be Practice')
         ],
         translations: [
-            t('Eu quero um café.', 'I want a coffee.'),
-            t('Nós queremos dois sanduíches.', 'We want two sandwiches.'),
-            t('Eles querem suco de laranja.', 'They want orange juice.'),
-            t('Eu tenho um sanduíche de presunto.', 'I have a ham sandwich.'),
-            t('Nós temos água.', 'We have water.'),
-            t('Eles têm sanduíches de frango.', 'They have chicken sandwiches.'),
-            t('Café, por favor.', 'Coffee, please.'),
-            t('Aqui está.', 'Here you are.'),
-            t('Obrigado.', 'Thank you.'),
-            t('Nós estamos com fome.', 'We are hungry.')
+            t('Nós somos colegas de turma.', 'We are classmates.'),
+            t('Nós estamos no intervalo.', 'We are at break.'),
+            t('Nós estamos com fome.', 'We are hungry.'),
+            t('Nós não estamos atrasados.', 'We aren’t late.'),
+            t('Nós estamos adiantados?', 'Are we early?'),
+            t('Sim, estamos.', 'Yes, we are.'),
+            t('Eles estão na lanchonete.', 'They are at the snack bar.'),
+            t('Eles estão com sede.', 'They are thirsty.'),
+            t('Eles não estão prontos.', 'They aren’t ready.'),
+            t('Eles estão com fome?', 'Are they hungry?'),
+            t('Sim, estão.', 'Yes, they are.'),
+            t('Não, não estão.', 'No, they aren’t.')
         ],
         expressions: [
-            x('I want...', 'Eu quero...', 'Use para dizer o alimento ou a bebida que você deseja.', 'I want a ham sandwich.', 'Eu quero um sanduíche de presunto.'),
-            x('We want...', 'Nós queremos...', 'Use quando você fala por você e outra pessoa.', 'We want two coffees.', 'Nós queremos dois cafés.'),
-            x('They want...', 'Eles querem...', 'Use para falar do desejo de outras pessoas.', 'They want chicken sandwiches.', 'Eles querem sanduíches de frango.'),
-            x('I have...', 'Eu tenho...', 'Use para dizer o que está com você.', 'I have orange juice.', 'Eu tenho suco de laranja.'),
-            x('We have...', 'Nós temos...', 'Use para falar do que seu grupo tem.', 'We have our food.', 'Nós temos nossa comida.'),
-            x('Coffee, please.', 'Café, por favor.', 'Uma escolha curta e adequada nesta situação.', 'Coffee, please.', 'Café, por favor.'),
-            x('Here you are.', 'Aqui está.', 'Use ao entregar algo diretamente.', 'Here you are. One coffee.', 'Aqui está. Um café.'),
-            x('Thank you.', 'Obrigado.', 'Agradeça quando receber algo.', 'Thank you. — You’re welcome.', 'Obrigado. — De nada.')
+            x('We’re...', 'Nós somos/estamos...', 'We’re é a contração de we are.', 'We’re at break.', 'Nós estamos no intervalo.'),
+            x('They’re...', 'Eles/Elas são/estão...', 'They’re é a contração de they are.', 'They’re our classmates.', 'Eles são nossos colegas de turma.'),
+            x('We aren’t...', 'Nós não somos/estamos...', 'Aren’t é a contração de are not.', 'We aren’t late.', 'Nós não estamos atrasados.'),
+            x('They aren’t...', 'Eles/Elas não são/estão...', 'Use a mesma forma aren’t com they.', 'They aren’t thirsty.', 'Eles não estão com sede.'),
+            x('Are we...?', 'Nós somos/estamos...?', 'Coloque are antes de we para perguntar.', 'Are we early?', 'Nós estamos adiantados?'),
+            x('Are they...?', 'Eles/Elas são/estão...?', 'Coloque are antes de they para perguntar.', 'Are they ready?', 'Eles estão prontos?'),
+            x('Yes, we/they are.', 'Sim, nós/eles estamos.', 'Resposta positiva curta; não use contração no final.', 'Are they ready? — Yes, they are.', 'Eles estão prontos? — Sim.'),
+            x('No, we/they aren’t.', 'Não, nós/eles não estamos.', 'Resposta negativa curta.', 'Are we late? — No, we aren’t.', 'Estamos atrasados? — Não.'),
+            x('at break', 'no intervalo', 'Aprenda at como parte do bloco at break.', 'We’re at break.', 'Nós estamos no intervalo.'),
+            x('ready for...', 'pronto(s) para...', 'Use for antes do evento ou da refeição.', 'They’re ready for lunch.', 'Eles estão prontos para o almoço.'),
+            x('What about them?', 'E eles/elas?', 'Use para devolver o foco a outras pessoas.', 'We’re ready. What about them?', 'Nós estamos prontos. E eles?')
         ],
         dialogues: [
-            dialogue('Coffee or tea', line('A', 'Coffee or tea?', 'Café ou chá?'), line('B', 'Coffee, please.', 'Café, por favor.'), line('A', 'Here you are.', 'Aqui está.'), line('B', 'Thank you.', 'Obrigado.')),
-            dialogue('What we want', line('A', 'I want a ham sandwich.', 'Eu quero um sanduíche de presunto.'), line('B', 'I want a chicken sandwich.', 'Eu quero um sanduíche de frango.'), line('A', 'We want two sandwiches.', 'Nós queremos dois sanduíches.')),
-            dialogue('Food on the table', line('A', 'We have coffee and tea.', 'Nós temos café e chá.'), line('B', 'We have cake too.', 'Nós temos bolo também.')),
-            dialogue('Two friends', line('A', 'Emma and Daniel are hungry.', 'Emma e Daniel estão com fome.'), line('B', 'They want sandwiches.', 'Eles querem sanduíches.'), line('A', 'They have orange juice.', 'Eles têm suco de laranja.')),
-            dialogue('A different choice', line('A', 'Chicken or ham?', 'Frango ou presunto?'), line('B', 'Ham, please.', 'Presunto, por favor.'), line('A', 'Here you are.', 'Aqui está.'), line('B', 'Thanks.', 'Obrigado.'))
+            dialogue('At break', line('A', 'Are we early?', 'Nós estamos adiantados?'), line('B', 'Yes, we are.', 'Sim.')),
+            dialogue('Two classmates', line('A', 'Are they classmates?', 'Eles são colegas de turma?'), line('B', 'Yes, they are.', 'Sim.')),
+            dialogue('At the snack bar', line('A', 'Where are Julia and Leo?', 'Onde estão Julia e Leo?'), line('B', 'They’re at the snack bar.', 'Eles estão na lanchonete.')),
+            dialogue('Hungry or thirsty', line('A', 'Are they hungry?', 'Eles estão com fome?'), line('B', 'No, they aren’t. They’re thirsty.', 'Não. Eles estão com sede.')),
+            dialogue('Ready for lunch', line('A', 'We’re ready for lunch.', 'Nós estamos prontos para o almoço.'), line('B', 'Great. They’re ready too.', 'Ótimo. Eles também estão prontos.'))
         ],
         reading: reading(
-            'Break at ten',
-            'Emma and Daniel have a break at ten. They are hungry and thirsty. They want two sandwiches. Emma says, “I want a ham sandwich.” Daniel says, “I want a chicken sandwich.” They want coffee and orange juice too. Now they have their food and drinks. They say, “Thank you.”',
-            question('What time is the break?', 'It is at ten.'),
-            question('Are Emma and Daniel hungry?', 'Yes, they are.'),
-            question('Complete Emma’s sentence: “I want a ___ sandwich.”', 'ham'),
-            question('Complete Daniel’s sentence: “I want a ___ sandwich.”', 'chicken'),
-            question('Complete: “They ___ their food and drinks at the end.”', 'have')
+            'We are at break',
+            'We are students, and we are at break. Julia and Leo are our classmates. They are at the snack bar. They are hungry, but they aren’t late. We are thirsty. Are they ready for lunch? Yes, they are. We are ready too.',
+            question('Complete: ___ are students.', 'We'),
+            question('Where are Julia and Leo?', 'They are at the snack bar.'),
+            question('Are they hungry?', 'Yes, they are.'),
+            question('Are they late?', 'No, they aren’t.'),
+            question('Complete: We ___ thirsty.', 'are'),
+            question('Are we ready too?', 'Yes, we are.')
         ),
-        conversation: {
-            questions: ['Are you hungry or thirsty now?', 'Choose one food item.', 'Choose one drink.', 'Say what you want.', 'Say what you and another person want.', 'Look at the menu and say what you have.', 'Choose between chicken and ham.', 'Complete a short exchange with please, Here you are and Thank you.'],
-            support: ['I want...', 'We want...', 'They want...', 'I have...', 'We have...', 'Coffee, please.', 'Here you are.', 'Thank you.']
-        },
-        homework: homework(
-            'Crie um pequeno cardápio e escreva frases sobre escolhas e itens disponíveis.',
-            ['Quatro frases com want', 'Quatro frases com have', 'Uma troca curta com please, Here you are e Thank you'],
-            ['Incluí alimentos e bebidas.', 'Usei I, we e they.', 'Diferenciei o que as pessoas querem do que elas já têm.']
-        ),
-        mission: { title: 'Break-time choices', task: 'Escolha comida e bebida para você e outra pessoa. Diga o que vocês querem, o que já têm e finalize a troca com educação.', focus: ['want', 'have', 'please e thank you'] }
+        conversation: { questions: [], support: ['We’re...', 'They’re...', 'We aren’t...', 'They aren’t...', 'Are we...?', 'Are they...?'] },
+        homework: homework('Revise we are e they are com os modelos da aula.', ['We’re/They’re', 'We/They aren’t', 'Are we/they...?'], ['Repito as frases prontas.', 'Diferencio we de they.', 'Uso somente o verbo be.'])
     }));
 }());

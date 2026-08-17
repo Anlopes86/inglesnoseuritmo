@@ -25,7 +25,7 @@
         return `<section class="foundation-reference">
             <div class="slide-heading"><p class="lesson-panel-title">Alphabet & Pronunciation</p><h2>O alfabeto em inglês</h2><p>Ouça uma letra por vez e repita. A escrita entre barras mostra a pronúncia; a última linha é apenas uma aproximação em português.</p></div>
             <div class="alphabet-board">${alphabet.map(([letter, ipa, hint]) => `<article class="alphabet-tile"><strong>${letter}</strong><span>${ipa}</span><small>${hint}</small>${audioButton(letter, `a letra ${letter}`)}</article>`).join('')}</div>
-            <p class="foundation-note"><strong>Pratique em blocos:</strong> A–F, G–L, M–R e S–Z. Depois, soletre seu nome sem consultar o quadro.</p>
+            <p class="foundation-note"><strong>Pratique em blocos:</strong> A–F, G–L, M–R e S–Z. Depois, leia os nomes indicados pelo professor com o quadro visível.</p>
         </section>`;
     }
 
@@ -44,6 +44,7 @@
             { title: 'Números de 0 a 20', body: numbersSlide }
         ],
         activitySections: [
+            ...lesson.activitySections,
             {
                 eyebrow: 'Spelling',
                 title: 'Ouça o nome e registre as letras',
@@ -57,7 +58,7 @@
             },
             {
                 eyebrow: 'Numbers 0–20',
-                title: 'Reconheça e produza os números',
+                title: 'Reconheça e leia os números',
                 instruction: 'Escreva o número por extenso. Depois, o professor diz outro número e você registra somente os algarismos.',
                 items: [
                     ['Number', '0', '', 'zero'],
@@ -71,13 +72,13 @@
             },
             {
                 eyebrow: 'Registration Form',
-                title: 'Confirme nome, sobrenome e idade',
-                instruction: 'Responda como em uma matrícula online. Use informações verdadeiras ou inventadas e peça repetição quando necessário.',
+                title: 'Leia um cadastro pronto',
+                instruction: 'Use as informações fornecidas em cada item. Leia o modelo completo sem precisar inventar respostas.',
                 items: [
-                    ['Answer', 'What is your first name?', '', 'My first name is...'],
-                    ['Answer', 'What is your last name?', '', 'My last name is...'],
-                    ['Answer', 'How do you spell your last name?', '', 'It is...'],
-                    ['Answer', 'How old are you?', '', 'I am... years old.'],
+                    ['Answer', 'First name: Mia → What is your first name?', '', 'My first name is Mia.'],
+                    ['Answer', 'Last name: Reed → What is your last name?', '', 'My last name is Reed.'],
+                    ['Answer', 'Last name: Reed → How do you spell your last name?', '', 'R-E-E-D.'],
+                    ['Answer', 'Age: 18 → How old are you?', '', 'I am eighteen years old.'],
                     ['Answer', 'You did not understand one letter. What do you say?', '', 'Please repeat.']
                 ]
             }

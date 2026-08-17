@@ -93,7 +93,7 @@
         [
             'screen-menu', 'screen-study', 'menu-back-link', 'study-close-link', 'continue-session',
             'reviewed-count', 'due-count', 'custom-count', 'library-owner-label', 'deck-grid',
-            'study-deck-name', 'study-deck-meta', 'session-progress-label', 'session-progress-bar',
+            'study-deck-name', 'study-deck-meta', 'session-progress-label', 'session-progress-bar', 'custom-card-cta',
             'card-area', 'study-card', 'card-front-copy', 'card-back-copy', 'card-front-language',
             'card-back-language', 'card-context-front', 'card-context-back', 'card-hint',
             'difficulty-pill', 'card-save-button', 'card-edit-button', 'card-delete-button',
@@ -519,7 +519,7 @@
         showStudyScreen();
         elements['study-deck-name'].textContent = deckCatalog[deckId].label;
         elements['study-deck-meta'].textContent = 'Preparando sua sessão inteligente…';
-        elements['new-card-button'].classList.toggle('is-hidden', deckId !== 'CUSTOM');
+        elements['custom-card-cta'].classList.toggle('is-hidden', deckId !== 'CUSTOM');
         setStudyStatus('Preparando seus cards', 'Organizando uma fila sem repetições e priorizando o que merece revisão.', 'fa-spinner fa-spin');
 
         try {

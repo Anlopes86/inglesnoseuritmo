@@ -69,7 +69,7 @@
             activity('Confirme dados que não ficaram claros', 'Escolha um pedido de repetição ou confirmação e depois repita o dado corretamente.', [
                 p('Answer', 'You did not understand the phone number.', 'Please repeat the phone number.'),
                 p('Answer', 'You did not understand the last name.', 'How do you spell your last name?'),
-                p('Answer', 'You want to verify the email.', 'Please confirm your email address.'),
+                p('Answer', 'Verify the email.', 'Please confirm your email address.'),
                 p('Answer', 'The receptionist says “Please repeat.”', 'Sure. It’s ...'),
                 p('Build', 'repeat / Please / number / the', 'Please repeat the number.'),
                 p('Build', 'confirm / address / your / Please', 'Please confirm your address.'),
@@ -102,7 +102,7 @@
             dialogue('Spelling the street', line('A', 'How do you spell Green?', 'Como se soletra Green?'), line('B', 'G-R-E-E-N.', 'G-R-E-E-N.'), line('A', 'Thank you.', 'Obrigado.')),
             dialogue('Zip code', line('A', 'What’s your zip code?', 'Qual é seu CEP?'), line('B', 'It’s 30540.', 'É 30540.'), line('A', 'Please confirm: three-zero-five-four-zero.', 'Confirme: três-zero-cinco-quatro-zero.'), line('B', 'That’s correct.', 'Está correto.'))
         ],
-        reading: reading('Two contact cards', 'Emma Torres lives at 42 Green Street, apartment 8. Her phone number is 555-2874 and her email is emma.torres@mail.com. Daniel Costa lives at 91 King Avenue, apartment 20. His phone number is 555-4630 and his email is daniel.costa@school.org.',
+        reading: reading('Two contact cards', 'Contact card 1 — Emma Torres. Address: 42 Green Street, apartment 8. Phone: 555-2874. Email: emma.torres@mail.com. Contact card 2 — Daniel Costa. Address: 91 King Avenue, apartment 20. Phone: 555-4630. Email: daniel.costa@school.org.',
             question('What is Emma’s house number?', 'It is forty-two.'), question('What is Emma’s apartment number?', 'It is eight.'), question('What is Daniel’s address?', 'It is 91 King Avenue, apartment 20.'), question('What is Daniel’s phone number?', 'It is 555-4630.'), question('Spell Emma’s email.', 'emma dot torres at mail dot com.')),
         conversation: { questions: ['Say a fictitious address.', 'Say a fictitious phone number.', 'Say an email using at and dot.', 'Spell the street name.', 'Ask the teacher for an address.', 'Ask the teacher to repeat a number.', 'Confirm three contact details.', 'Complete a full online contact form orally.'], support: ['What’s your...?', 'My... is...', 'Please repeat.', 'How do you spell...?', 'Let me check.', 'Is that correct?'] },
         homework: homework('Crie dois cartões de contato fictícios e prepare-se para ditar todos os dados.', ['Duas pessoas no mesmo prédio', 'Um cadastro em uma escola', 'Contatos de uma pequena empresa'], ['Incluí endereço, telefone, e-mail e CEP.', 'Escrevi números por extenso para praticar.', 'Consigo dizer at, dot e pedir repetição.']),

@@ -6,134 +6,138 @@
     R.register(2, R.lesson({
         title: 'A Few Days Later',
         objectives: [
-            'Cumprimentar alguém em diferentes momentos do dia.',
-            'Perguntar e responder como uma pessoa está.',
-            'Dizer uma profissão com I am/you are e a/an.',
-            'Usar contrações básicas sem perder a forma completa.'
+            'Usar I am/I’m e you are/you’re em apresentações simples.',
+            'Aprender os verbos be e work como os primeiros verbos do curso.',
+            'Relacionar profissões aos locais de trabalho mais comuns.',
+            'Usar What do you do? e Where do you work? como perguntas prontas.',
+            'Dizer I’m early e I’m late em situações reais.'
         ],
         intro: [
-            line('Daniel', 'Good morning, Emma. How are you?', 'Bom dia, Emma. Como você está?'),
-            line('Emma', 'I’m great, thanks. And you?', 'Estou ótima, obrigada. E você?'),
-            line('Daniel', 'I’m fine. Are you a teacher?', 'Estou bem. Você é professora?'),
-            line('Emma', 'No, I’m not. I’m an engineer.', 'Não. Eu sou engenheira.'),
-            line('Daniel', 'Really? I’m a designer.', 'Sério? Eu sou designer.'),
-            line('Emma', 'That’s interesting.', 'Que interessante.')
+            line('Emma', 'Good morning. Are you a new student?', 'Bom dia. Você é um aluno novo?'),
+            line('Daniel', 'Yes, I am. I’m Daniel.', 'Sim. Eu sou Daniel.'),
+            line('Emma', 'Nice to meet you. What do you do?', 'Prazer em conhecer você. Qual é a sua profissão?'),
+            line('Daniel', 'I’m a nurse.', 'Eu sou enfermeiro.'),
+            line('Emma', 'Where do you work?', 'Onde você trabalha?'),
+            line('Daniel', 'I work in a hospital. What about you?', 'Eu trabalho em um hospital. E você?'),
+            line('Emma', 'I’m a teacher. I work at a school.', 'Eu sou professora. Eu trabalho em uma escola.'),
+            line('Daniel', 'Are you late for class?', 'Você está atrasada para a aula?'),
+            line('Emma', 'No, I’m early today.', 'Não, hoje eu estou adiantada.')
         ],
         vocab: [
-            v('morning', 'manhã', 'Good morning!', 'Bom dia!'),
-            v('afternoon', 'tarde', 'Good afternoon, Ms. Clark.', 'Boa tarde, Sra. Clark.'),
-            v('evening', 'noite, ao encontrar', 'Good evening, everyone.', 'Boa noite a todos.'),
-            v('fine', 'bem', 'I’m fine, thanks.', 'Estou bem, obrigado.'),
-            v('great', 'ótimo(a)', 'I’m great today.', 'Estou ótimo hoje.'),
-            v('tired', 'cansado(a)', 'I’m tired today.', 'Estou cansado hoje.'),
-            v('job', 'profissão; trabalho', 'What is your job?', 'Qual é sua profissão?'),
-            v('teacher', 'professor(a)', 'I’m a teacher.', 'Eu sou professor.'),
-            v('doctor', 'médico(a)', 'She is a doctor.', 'Ela é médica.'),
-            v('engineer', 'engenheiro(a)', 'I’m an engineer.', 'Eu sou engenheira.'),
-            v('designer', 'designer', 'He is a designer.', 'Ele é designer.'),
-            v('nurse', 'enfermeiro(a)', 'You are a nurse.', 'Você é enfermeiro.'),
-            v('office worker', 'funcionário(a) de escritório', 'I’m an office worker.', 'Eu trabalho em escritório.'),
-            v('student', 'estudante', 'You are a student.', 'Você é estudante.')
+            v('work', 'trabalhar', 'I work in a hospital.', 'Eu trabalho em um hospital.'),
+            v('school', 'escola', 'I work at a school.', 'Eu trabalho em uma escola.'),
+            v('teacher', 'professor(a)', 'I’m a teacher.', 'Eu sou professora.'),
+            v('restaurant', 'restaurante', 'You work at a restaurant.', 'Você trabalha em um restaurante.'),
+            v('waiter', 'garçom', 'I’m a waiter.', 'Eu sou garçom.'),
+            v('waitress', 'garçonete', 'I’m a waitress.', 'Eu sou garçonete.'),
+            v('office', 'escritório', 'You work in an office.', 'Você trabalha em um escritório.'),
+            v('secretary', 'secretário(a)', 'You work as a secretary.', 'Você trabalha como secretário.'),
+            v('hospital', 'hospital', 'I work in a hospital.', 'Eu trabalho em um hospital.'),
+            v('doctor', 'médico(a)', 'I’m a doctor.', 'Eu sou médica.'),
+            v('nurse', 'enfermeiro(a)', 'You’re a nurse.', 'Você é enfermeiro.'),
+            v('hotel', 'hotel', 'I work at a hotel.', 'Eu trabalho em um hotel.'),
+            v('receptionist', 'recepcionista', 'I work as a receptionist.', 'Eu trabalho como recepcionista.'),
+            v('store', 'loja', 'You work at a store.', 'Você trabalha em uma loja.'),
+            v('salesperson', 'vendedor(a)', 'You’re a salesperson.', 'Você é vendedor.'),
+            v('company', 'empresa', 'I work for a company.', 'Eu trabalho para uma empresa.'),
+            v('early', 'adiantado(a); cedo', 'I’m early today.', 'Hoje eu estou adiantado.'),
+            v('late', 'atrasado(a)', 'You’re late for class.', 'Você está atrasado para a aula.')
         ],
         grammar: {
-            title: 'I am, you are e a/an',
-            summary: 'Use am com I e are com you. Antes de uma profissão singular, use a ou an de acordo com o som inicial.',
+            title: 'I am, you are e work',
+            summary: 'Use am com I e are com you. Para falar de trabalho, aprenda I/You work com in, at ou as dentro de blocos prontos.',
             rows: [
-                ['I', 'I am / I’m', 'I’m a teacher.', 'Eu sou professor.'],
-                ['you', 'You are / You’re', 'You’re a student.', 'Você é estudante.'],
-                ['pergunta', 'Are you + profession?', 'Are you a doctor?', 'Você é médico?'],
-                ['resposta positiva', 'Yes, I am.', 'Yes, I am.', 'Sim.'],
-                ['resposta negativa', 'No, I’m not.', 'No, I’m not.', 'Não.'],
-                ['artigo a', 'a + consonant sound', 'a teacher; a designer', 'um professor; um designer'],
-                ['artigo an', 'an + vowel sound', 'an engineer; an office worker', 'um engenheiro; um funcionário de escritório']
+                ['I', 'I am / I’m + information', 'I’m a teacher.', 'Eu sou professor.'],
+                ['you', 'You are / You’re + information', 'You’re a nurse.', 'Você é enfermeiro.'],
+                ['pergunta com be', 'Are you + information?', 'Are you a doctor?', 'Você é médico?'],
+                ['local', 'I/You work in + place', 'I work in a hospital.', 'Eu trabalho em um hospital.'],
+                ['local específico', 'I/You work at + workplace', 'You work at a school.', 'Você trabalha em uma escola.'],
+                ['função profissional', 'I/You work as + a/an + job', 'You work as a nurse.', 'Você trabalha como enfermeiro.'],
+                ['situação', 'I’m early. / I’m late.', 'I’m late for work.', 'Estou atrasado para o trabalho.']
             ],
             notes: [
                 'I am contrai para I’m; you are contrai para you’re.',
-                'A escolha entre a e an depende do som, não apenas da letra.',
-                'Não use a/an antes de fine, great ou tired: I’m tired.'
+                'Use a/an antes de profissão singular: a teacher, a nurse, an engineer.',
+                'Aprenda What do you do? e Where do you work? como perguntas completas; o Present Simple será explicado na Lição 7.'
             ]
         },
         activitySections: [
-            activity('Cumprimentos e respostas sociais', 'Escolha a expressão adequada ao horário e complete cada troca.', [
-                p('Choose', '8:00 a.m. → (Good morning / Good evening)', 'Good morning'),
-                p('Choose', '3:00 p.m. → (Good afternoon / Good night)', 'Good afternoon'),
-                p('Choose', '7:30 p.m., meeting someone → (Good evening / Good afternoon)', 'Good evening'),
-                p('Answer', 'How are you? Give a positive answer.', 'I’m fine, thanks. / I’m great, thanks.'),
-                p('Answer', 'How are you? Say you are tired.', 'I’m tired today.'),
-                p('Complete', 'I’m fine, thanks. ___ you?', 'And'),
-                p('Correct', 'Good night! How are you? (You are meeting the person.)', 'Good evening! How are you?'),
-                p('Build', 'are / How / you / ?', 'How are you?')
-            ], 'Social English'),
-            activity('I am ou you are?', 'Identifique o sujeito e complete com a forma correta de be.', [
-                p('Complete', 'I ___ a student.', 'am'),
-                p('Complete', 'You ___ a teacher.', 'are'),
-                p('Complete', 'I___ an engineer.', '’m'),
-                p('Complete', 'You___ a designer.', '’re'),
-                p('Build', 'a nurse / I / am', 'I am a nurse.'),
-                p('Build', 'an office worker / You / are', 'You are an office worker.'),
-                p('Correct', 'I are a doctor.', 'I am a doctor.'),
-                p('Correct', 'You am a student.', 'You are a student.')
-            ]),
-            activity('A, an e perguntas sobre profissão', 'Complete o artigo e produza a pergunta ou resposta indicada.', [
-                p('Choose', '___ teacher (a / an)', 'a teacher'),
-                p('Choose', '___ engineer (a / an)', 'an engineer'),
-                p('Choose', '___ designer (a / an)', 'a designer'),
-                p('Choose', '___ office worker (a / an)', 'an office worker'),
-                p('Build', 'you / Are / doctor / a / ?', 'Are you a doctor?'),
-                p('Answer', 'Are you a student? Positive answer.', 'Yes, I am.'),
-                p('Answer', 'Are you an engineer? Negative answer + real job.', 'No, I’m not. I’m a ...'),
-                p('Correct', 'I’m a engineer.', 'I’m an engineer.'),
-                p('Correct', 'Are you teacher?', 'Are you a teacher?')
-            ], 'More Practice')
+            activity('Profissão e local de trabalho', 'Relacione cada profissão ao local mais provável e leia o par completo.', [
+                p('Match', 'teacher → school / hospital', 'teacher → school'),
+                p('Match', 'waiter or waitress → restaurant / office', 'waiter or waitress → restaurant'),
+                p('Match', 'secretary → office / school', 'secretary → office'),
+                p('Match', 'doctor or nurse → hospital / store', 'doctor or nurse → hospital'),
+                p('Match', 'receptionist → hotel / restaurant', 'receptionist → hotel'),
+                p('Match', 'salesperson → store / hospital', 'salesperson → store'),
+                p('Classify', 'school · teacher · restaurant · waiter · office · secretary', 'places: school, restaurant, office; jobs: teacher, waiter, secretary'),
+                p('Choose', 'You are ahead of time: (early / late)', 'early')
+            ], 'Vocabulary Practice'),
+            activity('I’m ou you’re?', 'Complete com a forma apresentada na aula.', [
+                p('Complete', 'I ___ a teacher.', 'am'),
+                p('Complete', 'You ___ a nurse.', 'are'),
+                p('Complete', 'I___ early today.', '’m'),
+                p('Complete', 'You___ late for class.', '’re'),
+                p('Build', 'a receptionist / I / am', 'I am a receptionist.'),
+                p('Build', 'a salesperson / You / are', 'You are a salesperson.'),
+                p('Choose', '___ you a doctor? (Am / Are)', 'Are'),
+                p('Correct', 'I are a teacher.', 'I am a teacher.')
+            ], 'Be Practice'),
+            activity('Blocos com work', 'Complete ou organize os modelos sem analisar do/does nesta etapa.', [
+                p('Complete', 'I work ___ a hospital.', 'in'),
+                p('Complete', 'You work ___ a school.', 'at'),
+                p('Complete', 'I work ___ a receptionist.', 'as'),
+                p('Build', 'work / I / an office / in', 'I work in an office.'),
+                p('Build', 'as / You / a nurse / work', 'You work as a nurse.'),
+                p('Answer', 'What do you do? Use: teacher', 'I’m a teacher.'),
+                p('Answer', 'Where do you work? Use: hospital', 'I work in a hospital.'),
+                p('Correct', 'I work as teacher.', 'I work as a teacher.')
+            ], 'Work Chunks')
         ],
         translations: [
-            t('Bom dia. Como você está?', 'Good morning. How are you?'),
-            t('Estou ótimo, obrigado. E você?', 'I’m great, thanks. And you?'),
             t('Eu sou professor.', 'I’m a teacher.'),
-            t('Eu sou engenheira.', 'I’m an engineer.'),
-            t('Você é estudante.', 'You’re a student.'),
+            t('Você é enfermeira.', 'You’re a nurse.'),
             t('Você é médico?', 'Are you a doctor?'),
             t('Sim, sou.', 'Yes, I am.'),
-            t('Não, não sou.', 'No, I’m not.'),
-            t('Estou cansado hoje.', 'I’m tired today.'),
-            t('Que interessante!', 'That’s interesting!')
+            t('Qual é a sua profissão?', 'What do you do?'),
+            t('Onde você trabalha?', 'Where do you work?'),
+            t('Eu trabalho em um hospital.', 'I work in a hospital.'),
+            t('Você trabalha em uma escola.', 'You work at a school.'),
+            t('Eu trabalho como recepcionista.', 'I work as a receptionist.'),
+            t('Você trabalha como enfermeiro.', 'You work as a nurse.'),
+            t('Estou atrasado para o trabalho.', 'I’m late for work.'),
+            t('Hoje estou adiantado.', 'I’m early today.')
         ],
         expressions: [
-            x('Good morning/afternoon/evening.', 'Bom dia/boa tarde/boa noite.', 'Escolha de acordo com o momento em que encontra alguém.', 'Good afternoon, Daniel.', 'Boa tarde, Daniel.'),
-            x('How are you?', 'Como você está?', 'Cumprimento social frequente.', 'Hi, Emma. How are you?', 'Oi, Emma. Como você está?'),
-            x('I’m fine/great, thanks.', 'Estou bem/ótimo, obrigado.', 'Resposta curta e natural.', 'I’m fine, thanks. And you?', 'Estou bem, obrigado. E você?'),
-            x('And you?', 'E você?', 'Devolve a pergunta sem repeti-la.', 'I’m great. And you?', 'Estou ótimo. E você?'),
-            x('What do you do?', 'Qual é a sua profissão?', 'Aprenda como bloco para perguntar profissão.', 'What do you do? I’m a nurse.', 'Qual é sua profissão? Sou enfermeira.'),
-            x('I’m a/an...', 'Eu sou...', 'Use com uma profissão singular.', 'I’m an engineer.', 'Eu sou engenheiro.'),
-            x('Are you a/an...?', 'Você é...?', 'Use para confirmar uma profissão.', 'Are you a teacher?', 'Você é professor?'),
-            x('Really?', 'Sério?', 'Mostra surpresa ou interesse.', 'I’m a designer. — Really?', 'Sou designer. — Sério?'),
-            x('That’s interesting.', 'Que interessante.', 'Reação positiva que mantém a conversa.', 'You’re an engineer? That’s interesting.', 'Você é engenheiro? Que interessante.')
+            x('What do you do?', 'Qual é a sua profissão?', 'Aprenda esta pergunta como um bloco pronto nesta etapa.', 'What do you do? — I’m a nurse.', 'Qual é a sua profissão? — Sou enfermeira.'),
+            x('Where do you work?', 'Onde você trabalha?', 'Aprenda a pergunta inteira; do será explicado com o Present Simple na Lição 7.', 'Where do you work? — I work in a hospital.', 'Onde você trabalha? — Trabalho em um hospital.'),
+            x('I’m a/an...', 'Eu sou...', 'Use a antes de som consonantal e an antes de som vocálico.', 'I’m an engineer.', 'Eu sou engenheiro.'),
+            x('I work in...', 'Eu trabalho em...', 'Use in para falar do interior ou do tipo de lugar.', 'I work in an office.', 'Eu trabalho em um escritório.'),
+            x('I work at...', 'Eu trabalho em...', 'Use at para apresentar o local de trabalho como um ponto específico.', 'I work at a school.', 'Eu trabalho em uma escola.'),
+            x('I work as...', 'Eu trabalho como...', 'Use as antes da função; mantenha a/an: work as a nurse.', 'I work as a receptionist.', 'Eu trabalho como recepcionista.'),
+            x('You work in/at...', 'Você trabalha em...', 'Use o mesmo verbo work com you.', 'You work at a restaurant.', 'Você trabalha em um restaurante.'),
+            x('You work as...', 'Você trabalha como...', 'Use para falar diretamente da função da outra pessoa.', 'You work as a secretary.', 'Você trabalha como secretário.'),
+            x('I’m early.', 'Estou adiantado(a).', 'Use quando chega antes do horário.', 'I’m early for class.', 'Estou adiantado para a aula.'),
+            x('I’m late.', 'Estou atrasado(a).', 'Use late for + compromisso.', 'I’m late for work.', 'Estou atrasado para o trabalho.'),
+            x('What about you?', 'E você?', 'Devolve a pergunta sem repeti-la.', 'I’m a teacher. What about you?', 'Sou professora. E você?')
         ],
         dialogues: [
-            dialogue('Morning greeting', line('A', 'Good morning. How are you?', 'Bom dia. Como você está?'), line('B', 'I’m fine, thanks. And you?', 'Estou bem, obrigado. E você?'), line('A', 'I’m great.', 'Estou ótimo.')),
-            dialogue('A teacher', line('A', 'What do you do?', 'Qual é sua profissão?'), line('B', 'I’m a teacher.', 'Sou professor.'), line('A', 'That’s interesting.', 'Que interessante.')),
-            dialogue('Confirming a job', line('A', 'Are you an engineer?', 'Você é engenheira?'), line('B', 'Yes, I am.', 'Sim.'), line('A', 'Really? Me too.', 'Sério? Eu também.')),
-            dialogue('A correction', line('A', 'Are you a doctor?', 'Você é médico?'), line('B', 'No, I’m not. I’m a nurse.', 'Não. Sou enfermeiro.'), line('A', 'Oh, I see.', 'Ah, entendi.')),
-            dialogue('After class', line('A', 'Good evening, Julia.', 'Boa noite, Julia.'), line('B', 'Good evening. Are you tired?', 'Boa noite. Você está cansado?'), line('A', 'Yes, I am.', 'Sim.'))
+            dialogue('At school', line('A', 'What do you do?', 'Qual é a sua profissão?'), line('B', 'I’m a teacher.', 'Sou professor.'), line('A', 'Where do you work?', 'Onde você trabalha?'), line('B', 'I work at a school.', 'Trabalho em uma escola.')),
+            dialogue('At a restaurant', line('A', 'Are you a waiter?', 'Você é garçom?'), line('B', 'Yes, I am. I work at a restaurant.', 'Sim. Trabalho em um restaurante.')),
+            dialogue('At a hospital', line('A', 'What do you do?', 'Qual é a sua profissão?'), line('B', 'I’m a nurse. I work in a hospital.', 'Sou enfermeira. Trabalho em um hospital.')),
+            dialogue('At an office', line('A', 'Where do you work?', 'Onde você trabalha?'), line('B', 'I work in an office.', 'Trabalho em um escritório.'), line('A', 'You work as a secretary, right?', 'Você trabalha como secretário, certo?'), line('B', 'Yes.', 'Sim.')),
+            dialogue('Early or late', line('A', 'Are you late for class?', 'Você está atrasado para a aula?'), line('B', 'No, I’m early today.', 'Não, estou adiantado hoje.'))
         ],
         reading: reading(
-            'People in the evening class',
-            'The evening class has four new students. Clara is a doctor. Hugo is an engineer. Beatriz is a teacher, and Paulo is an office worker. Hugo is tired, but Clara is great. They say, “Good evening,” before class.',
-            question('Is Clara a doctor?', 'Yes, she is.'),
-            question('What is Hugo’s job?', 'He is an engineer.'),
-            question('Who is a teacher?', 'Beatriz is a teacher.'),
-            question('Is Paulo an engineer?', 'No. He is an office worker.'),
-            question('How is Hugo?', 'He is tired.')
+            'Two jobs, two places',
+            '“I’m Laura. I’m a teacher. I work at a school.” “I’m Ben. I’m a nurse. I work in a hospital.” Laura asks, “Are you late for work?” Ben says, “No, I’m early today.”',
+            question('Complete Laura’s model: I’m a ___.', 'teacher'),
+            question('Complete Laura’s model: I work ___ a school.', 'at'),
+            question('Complete Ben’s model: I’m a ___.', 'nurse'),
+            question('Complete Ben’s model: I work ___ a hospital.', 'in'),
+            question('Complete Ben’s model: I’m ___ today.', 'early'),
+            question('Laura asks: Are you ___ for work?', 'late')
         ),
-        conversation: {
-            questions: ['How are you today?', 'Are you tired or great?', 'What do you do?', 'Are you a student?', 'Name three professions.', 'Introduce yourself with your name and profession.', 'Imagine a new profession for yourself. What are you?', 'Ask your teacher about his or her profession.'],
-            support: ['Good morning/afternoon/evening.', 'I’m fine/great/tired.', 'I’m a/an...', 'Are you a/an...?', 'Yes, I am. / No, I’m not.']
-        },
-        homework: homework(
-            'Crie três perfis profissionais curtos e prepare uma apresentação oral.',
-            ['Você em uma nova profissão', 'Três pessoas em uma turma', 'Uma conversa no primeiro dia de trabalho'],
-            ['Usei a/an corretamente.', 'Incluí I’m e you’re.', 'Incluí um cumprimento, How are you? e uma reação social.']
-        ),
-        mission: { title: 'Meet a professional', task: 'Cumprimente uma pessoa, descubra como ela está e confirme a profissão dela.', focus: ['Cumprimento adequado', 'I am/you are', 'a/an com profissões'] }
+        conversation: { questions: [], support: ['I’m a/an...', 'You’re a/an...', 'What do you do?', 'Where do you work?', 'I work in/at...', 'I’m early/late.'] },
+        homework: homework('Revise os modelos de profissão e trabalho.', ['I’m/You’re', 'work in/at', 'work as'], ['Repito as frases prontas.', 'Reconheço profissão e lugar.', 'Ainda não preciso formar perguntas novas.'])
     }));
 }());
