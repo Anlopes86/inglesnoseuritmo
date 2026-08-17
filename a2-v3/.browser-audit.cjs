@@ -98,7 +98,9 @@ async function main() {
 
         const inspect = () => evaluate(`(() => {
             const slides = [...document.querySelectorAll('.slide')];
-            const isContent = Number(location.pathname.match(/licao-(\\d+)/)?.[1] || 0) % 2 === 1 && !/licao-(31|32)\\.html/.test(location.pathname);
+            const lessonNumber = Number(location.pathname.match(/licao-(\\d+)/)?.[1] || 0);
+            const isContent = lessonNumber % 2 === 1 && lessonNumber < 31;
+            const isConversation = lessonNumber % 2 === 0 && lessonNumber <= 30;
             const slideMetrics = slides.map((slide, index) => {
                 slides.forEach(item => item.classList.remove('active'));
                 slide.classList.add('active');
@@ -117,6 +119,7 @@ async function main() {
                 title: document.title,
                 slideCount: slides.length,
                 content: isContent,
+                conversation: isConversation,
                 verbSlides: document.querySelectorAll('.slide[data-title="Verb List"]').length,
                 helpingSlides: document.querySelectorAll('.slide[data-title="Helping You"]').length,
                 guidedSlides: document.querySelectorAll('.slide[data-title="Guided Conversation"]').length,
@@ -127,6 +130,18 @@ async function main() {
                 portugueseCues: [...document.querySelectorAll('#practice-questions .activation-portuguese p')].filter(cue => cue.textContent.trim().length > 0).length,
                 visibleActivationAnswers: [...document.querySelectorAll('#practice-questions .a2-answer')].filter(answer => !answer.classList.contains('hidden')).length,
                 visibleDrillAnswers: [...document.querySelectorAll('#oral-translation-1 .a2-answer, #oral-translation-2 .a2-answer')].filter(answer => !answer.classList.contains('hidden')).length,
+                conversationPath: document.querySelectorAll('.conversation-path-grid').length,
+                conversationStages: document.querySelectorAll('.conversation-stage-note').length,
+                conversationScripts: document.querySelectorAll('[data-a2-listening-script]').length,
+                hiddenConversationScripts: [...document.querySelectorAll('[data-a2-listening-script]')].filter(script => script.hidden && script.classList.contains('hidden')).length,
+                conversationDocuments: document.querySelectorAll('.conversation-document').length,
+                conversationTools: document.querySelectorAll('.conversation-tool-card').length,
+                conversationRecycle: document.querySelectorAll('.conversation-recycle-card').length,
+                conversationRoles: document.querySelectorAll('.conversation-role-card').length,
+                conversationQuestions: document.querySelectorAll('.conversation-guided-grid .guided-question-card').length,
+                conversationFollowUps: document.querySelectorAll('.conversation-followups span').length,
+                conversationFinals: document.querySelectorAll('.conversation-final-card').length,
+                genericReviewHeadings: [...document.querySelectorAll('.slide > h2')].filter(heading => /Grammar in Context|Activation: use the language|Oral Retrieval in Context|common corrections/i.test(heading.textContent)).length,
                 overflow: slideMetrics.filter(item => item.bad.length)
             };
         })()`);
@@ -142,6 +157,11 @@ async function main() {
                 if (result.content && !result.baseWithTo) failures.push(`${label}: a base verb is missing to.`);
                 if (result.content && (result.activationPromptGrids !== 8 || result.portugueseCues !== result.activationPromptGrids)) failures.push(`${label}: Activation is missing Portuguese targets ${JSON.stringify(result)}.`);
                 if (result.content && result.visibleActivationAnswers) failures.push(`${label}: ${result.visibleActivationAnswers} Activation answers start visible.`);
+                if (result.conversation && result.slideCount !== 10) failures.push(`${label}: expected 10 conversation slides, received ${result.slideCount}.`);
+                if (result.conversation && (result.conversationPath !== 1 || result.conversationStages !== 3 || result.conversationScripts !== 1 || result.hiddenConversationScripts !== 1)) failures.push(`${label}: listening sequence is incomplete ${JSON.stringify(result)}.`);
+                if (result.conversation && (result.conversationDocuments < 2 || result.conversationTools < 4 || result.conversationRecycle < 6)) failures.push(`${label}: input or lexical recycling is incomplete ${JSON.stringify(result)}.`);
+                if (result.conversation && (result.conversationRoles !== 2 || result.conversationQuestions < 6 || result.conversationFollowUps < 4 || result.conversationFinals !== 1)) failures.push(`${label}: interaction sequence is incomplete ${JSON.stringify(result)}.`);
+                if (result.conversation && result.genericReviewHeadings) failures.push(`${label}: generic review headings remain visible.`);
                 if (result.repeatedGuidance) failures.push(`${label}: Let's Talk repeats instructions inside cards.`);
                 if (result.visibleDrillAnswers) failures.push(`${label}: ${result.visibleDrillAnswers} drill answers start visible.`);
                 if (result.overflow.length) failures.push(`${label}: horizontal overflow ${JSON.stringify(result.overflow.slice(0, 2))}.`);
@@ -165,6 +185,45 @@ async function main() {
             };
         })()`);
         if (!interactions.flipped || !interactions.revealed || !interactions.activationRevealed) failures.push(`L01 interactions failed: ${JSON.stringify(interactions)}.`);
+
+        await open(2, 1440, 1000);
+        const conversationInteractions = await evaluate(`(() => {
+            const listeningToggle = document.querySelector('[data-a2-listening-toggle]');
+            listeningToggle?.click();
+            const script = document.querySelector('[data-a2-listening-script]');
+            const readingReveal = document.querySelector('#practice-questions [data-a2-reveal]');
+            readingReveal?.click();
+            const readingAnswer = readingReveal?.closest('.activity-card')?.querySelector('.a2-answer');
+            const finalReveal = document.querySelector('#oral-translation-2 [data-a2-reveal]');
+            finalReveal?.click();
+            const finalAnswer = finalReveal?.closest('.conversation-model-answer')?.querySelector('.a2-answer');
+            return {
+                scriptRevealed: script && !script.hidden && !script.classList.contains('hidden'),
+                listeningExpanded: listeningToggle?.getAttribute('aria-expanded') === 'true',
+                readingAnswerRevealed: readingAnswer && !readingAnswer.classList.contains('hidden') && readingAnswer.textContent.trim().length > 0,
+                finalModelRevealed: finalAnswer && !finalAnswer.classList.contains('hidden') && finalAnswer.textContent.trim().length > 0
+            };
+        })()`);
+        if (!conversationInteractions.scriptRevealed || !conversationInteractions.listeningExpanded || !conversationInteractions.readingAnswerRevealed || !conversationInteractions.finalModelRevealed) failures.push(`L02 conversation interactions failed: ${JSON.stringify(conversationInteractions)}.`);
+
+        await open(2, 1440, 1000);
+        const conversationNavigation = await evaluate(`(() => {
+            const states = [];
+            const next = document.getElementById('next-btn');
+            for (let index = 0; index < 12; index += 1) {
+                states.push({
+                    title: document.querySelector('.slide.active')?.dataset.title || '',
+                    counter: document.getElementById('slide-counter')?.textContent.trim() || '',
+                    nextVisible: getComputedStyle(next).display !== 'none'
+                });
+                if (getComputedStyle(next).display === 'none') break;
+                next.click();
+            }
+            return states;
+        })()`);
+        const navigationTitles = conversationNavigation.map(item => item.title);
+        const conversationOpeningOrder = ['Intro & Dialogue', 'Lexical Recycling', 'Quick Start', 'Activity 1 · Listen & Practice'];
+        if (conversationNavigation.length !== 10 || conversationNavigation[0]?.counter !== '1 / 10' || conversationNavigation.at(-1)?.counter !== '10 / 10' || navigationTitles.includes('Music Moment') || navigationTitles.at(-1) !== 'Homework · Keep Communicating' || !conversationOpeningOrder.every((title, index) => navigationTitles[index] === title)) failures.push(`L02 navigation failed: ${JSON.stringify(conversationNavigation)}.`);
     } finally {
         client?.socket.close();
         chrome.kill();
@@ -181,7 +240,7 @@ async function main() {
         failures.forEach(item => console.error(`- ${item}`));
         process.exitCode = 1;
     } else {
-        console.log('A2-V3 browser audit passed: 32 lessons, desktop/mobile layout, Portuguese Activation targets, hidden answers and interactions.');
+        console.log('A2-V3 browser audit passed: 32 lessons, 15 communicative sequences, desktop/mobile layout, hidden answers and interactions.');
     }
 }
 
