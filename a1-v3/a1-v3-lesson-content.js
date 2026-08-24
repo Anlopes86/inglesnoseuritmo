@@ -491,53 +491,9 @@
         }).join('')}</div>`;
     }
 
-    function musicLineWithBlank(line, answer, index) {
-        const safeLine = escapeHtml(line);
-        const safeAnswer = escapeHtml(answer);
-        const escapedAnswer = String(answer).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const pattern = new RegExp(`\\b${escapedAnswer}\\b`, 'i');
-        const size = Math.max(5, Math.min(16, String(answer).length + 2));
-        const input = `<input class="music-input" data-answer="${safeAnswer}" size="${size}" autocomplete="off" aria-label="Lacuna musical ${index + 1}">`;
-
-        if (safeLine.includes('___')) {
-            return safeLine.replace('___', input);
-        }
-
-        return pattern.test(line) ? safeLine.replace(pattern, input) : `${safeLine} ${input}`;
-    }
-
-    function renderLyricPlaceholder() {
-        return `<div class="v3-lyric-placeholder">
-            <div class="v3-lyric-copy">
-                <p class="v3-lyric-stanza">
-                    <span class="v3-lyric-line">I wake to see the <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 1" autocomplete="off" spellcheck="false"> through the window,</span>
-                    <span class="v3-lyric-line">A quiet street is waiting down below.</span>
-                    <span class="v3-lyric-line">I take a breath and <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 2" autocomplete="off" spellcheck="false"> the open doorway,</span>
-                    <span class="v3-lyric-line">Not knowing where this winding road will go.</span>
-                </p>
-                <p class="v3-lyric-stanza">
-                    <span class="v3-lyric-line">I carry every <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 3" autocomplete="off" spellcheck="false"> that you gave me,</span>
-                    <span class="v3-lyric-line">It keeps me moving when the night is long.</span>
-                    <span class="v3-lyric-line">And if I lose my <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 4" autocomplete="off" spellcheck="false"> for just a moment,</span>
-                    <span class="v3-lyric-line">I close my eyes and listen for our song.</span>
-                </p>
-                <p class="v3-lyric-stanza">
-                    <span class="v3-lyric-line">We keep on <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 5" autocomplete="off" spellcheck="false"> toward tomorrow,</span>
-                    <span class="v3-lyric-line">With every step, a little more to learn.</span>
-                    <span class="v3-lyric-line">Through every change, through every joy and sorrow,</span>
-                    <span class="v3-lyric-line">The light we share will always <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 6" autocomplete="off" spellcheck="false">.</span>
-                </p>
-            </div>
-        </div>`;
-    }
-
-    function renderMusic(music, prefix) {
-        return `<div class="music-header">
-            <h3>${escapeHtml(music.song)}</h3>
-            <p>${escapeHtml(music.artist)}</p>
-        </div>
-        <div class="spotify-frame"><iframe src="https://open.spotify.com/embed/track/${escapeHtml(music.spotifyId)}?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify: ${escapeHtml(music.song)}"></iframe></div>
-        <div id="${prefix}-music-copy">${renderLyricPlaceholder()}</div>`;
+    function renderMusicCloze(lesson) {
+        const entry = window.MusicClozeV3?.getPublicEntry(lesson);
+        return entry ? window.MusicClozeV3.renderShell(entry, lesson) : '';
     }
 
     function renderHomework(homework) {
@@ -872,17 +828,18 @@
             slides.push(...dialogueSlides, ...drillSlides, expressionSlide);
         }
 
+        const musicMarkup = renderMusicCloze(lesson);
         slides.push(
             slide('Leitura', `<section><div class="slide-heading"><p class="lesson-panel-title">Context Reading</p><h2>${escapeHtml(lesson.reading.title)}</h2></div>${renderReading(lesson.reading, `lesson-${lessonNumber}`)}</section>`),
             lessonNumber <= 4
                 ? slide('Prática oral controlada', `<section><div class="slide-heading"><p class="lesson-panel-title">Let’s Talk · Controlled Practice</p><h2>Ouça, repita e leia os modelos</h2><p>O professor conduz uma fala por vez. Nesta etapa, o aluno repete e lê estruturas prontas, sem precisar criar respostas.</p></div>${renderFoundationSpeaking(lesson)}</section>`)
                 : slide('Conversa guiada', `<section><div class="slide-heading"><p class="lesson-panel-title">Let’s Talk</p><h2>Responda e desenvolva suas ideias</h2><p>O professor faz uma pergunta por vez. Responda em inglês e acrescente uma informação além da resposta mínima.</p></div>${renderGuidedConversation(lesson)}</section>`),
             slide('Tradução oral 2', `<section><div class="slide-heading"><p class="lesson-panel-title">Expressions in Use</p><h2>Use as expressões em novas frases</h2><p>Traduza oralmente, confira uma versão possível e repita os blocos em que precisar de mais segurança.</p></div>${renderTranslationItems(expressionTranslationItems(lesson), `lesson-${lessonNumber}-translation-two`)}</section>`),
-            slide('Música', `<section><div class="slide-heading"><p class="lesson-panel-title">Music Time</p><h2>Preencha as lacunas com a palavra que você ouvir</h2></div><div class="music-card">${renderMusic(lesson.music, `lesson-${lessonNumber}`)}</div></section>`),
+            musicMarkup ? slide('Música', `<section><div class="slide-heading"><p class="lesson-panel-title">Music Time</p><h2>Ouça e complete 5 palavras da aula</h2></div><div class="music-card">${musicMarkup}</div></section>`) : null,
             slide('Homework', `<section>${lessonNumber <= 4 ? renderFoundationHomework(lesson) : renderHomework(lesson.homework)}</section>`)
         );
 
-        return slides;
+        return slides.filter(Boolean);
     }
 
     function reviewSlides(review, lessonNumber) {
@@ -1037,6 +994,7 @@
         document.title = `A1 V3 | Lição ${padded}: ${content.title}`;
         document.getElementById('lesson-title').textContent = `A1 V3 · Lição ${padded}: ${content.title}`;
         const slides = mountSlides(regular ? regularSlides(regular, lessonNumber) : reviewSlides(review, lessonNumber));
+        window.MusicClozeV3?.mountAll();
         wireInteractiveElements();
         wireNavigation(slides, lessonNumber);
         document.body.classList.remove('lesson-loading');

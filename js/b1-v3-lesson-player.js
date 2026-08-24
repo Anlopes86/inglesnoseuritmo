@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     root.innerHTML = lesson.slides
         .map((slide, index) => renderSlide(slide, lesson, index))
         .join('');
+    window.MusicClozeV3?.mountAll();
 
     document.getElementById('lesson-title').textContent = `B1-V3 - Lição ${lesson.number}: ${lesson.title}`;
     document.title = `B1-V3 - Lição ${lesson.number}: ${lesson.title} | Inglês no seu Ritmo`;
@@ -118,7 +119,7 @@ function renderSlide(slide, lesson, slideIndex) {
         teacherListening: renderTeacherListeningSlide,
         translation: renderTranslationSlide,
         speaking: renderSpeakingSlide,
-        music: renderMusicSlide,
+        musicCloze: renderMusicClozeSlide,
         assessment: renderAssessmentSlide,
         homework: renderHomeworkSlide
     };
@@ -638,58 +639,12 @@ function renderSpeakingSlide(slide, lesson, slideIndex) {
     `);
 }
 
-function renderLyricPlaceholder() {
-    return `<div class="v3-lyric-placeholder">
-        <div class="v3-lyric-placeholder-head"><strong>Music Time</strong><span>Preencha as lacunas com a palavra que você ouvir.</span></div>
-        <div class="v3-lyric-copy">
-            <p class="v3-lyric-stanza">
-                <span class="v3-lyric-line">I wake to see the <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 1" autocomplete="off" spellcheck="false"> through the window,</span>
-                <span class="v3-lyric-line">A quiet street is waiting down below.</span>
-                <span class="v3-lyric-line">I take a breath and <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 2" autocomplete="off" spellcheck="false"> the open doorway,</span>
-                <span class="v3-lyric-line">Not knowing where this winding road will go.</span>
-            </p>
-            <p class="v3-lyric-stanza">
-                <span class="v3-lyric-line">I carry every <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 3" autocomplete="off" spellcheck="false"> that you gave me,</span>
-                <span class="v3-lyric-line">It keeps me moving when the night is long.</span>
-                <span class="v3-lyric-line">And if I lose my <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 4" autocomplete="off" spellcheck="false"> for just a moment,</span>
-                <span class="v3-lyric-line">I close my eyes and listen for our song.</span>
-            </p>
-            <p class="v3-lyric-stanza">
-                <span class="v3-lyric-line">We keep on <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 5" autocomplete="off" spellcheck="false"> toward tomorrow,</span>
-                <span class="v3-lyric-line">With every step, a little more to learn.</span>
-                <span class="v3-lyric-line">Through every change, through every joy and sorrow,</span>
-                <span class="v3-lyric-line">The light we share will always <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 6" autocomplete="off" spellcheck="false">.</span>
-            </p>
-        </div>
-    </div>`;
-}
-
-function renderMusicSlide(slide, lesson, slideIndex) {
-    const spotifySource = slide.spotifyId
-        ? `https://open.spotify.com/embed/track/${encodeURIComponent(slide.spotifyId)}?utm_source=generator`
-        : `https://open.spotify.com/embed/search/${encodeURIComponent(`${slide.song || ''} ${slide.artist || ''}`)}`;
-
+function renderMusicClozeSlide(slide, lesson, slideIndex) {
+    const markup = globalThis.MusicClozeV3?.renderShell(slide.entry, lesson) || '';
     return slideSection(slide, slideIndex, `
         <div class="lesson-stage">
-            ${renderSlideHeading('fa-music', 'Music moment', slide.title || `${slide.song} - ${slide.artist}`, slide.focus)}
-            <div class="b1-music-layout mt-7">
-                <div class="b1-music-player">
-                    <p class="prep-section-label">${escapeHtml(slide.song)}</p>
-                    <h3>${escapeHtml(slide.artist)}</h3>
-                    <iframe
-                        src="${escapeAttribute(spotifySource)}"
-                        width="100%"
-                        height="152"
-                        frameborder="0"
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                        loading="lazy"
-                        title="Spotify: ${escapeAttribute(slide.song)} - ${escapeAttribute(slide.artist)}"
-                    ></iframe>
-                </div>
-                <div class="b1-lyric-panel">
-                    ${renderLyricPlaceholder()}
-                </div>
-            </div>
+            ${renderSlideHeading('fa-music', 'Music moment', slide.title, 'Listen and complete five words from the lesson.')}
+            <div class="mt-7">${markup}</div>
         </div>
     `);
 }

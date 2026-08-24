@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MusicCloze V3 · QA dos pilotos</title>
+    <link rel="stylesheet" href="../css/v3-session.css">
+    <style>
+        body { margin: 0; padding: 1rem; background: #f1f5f9; font-family: Inter, Arial, sans-serif; }
+        .qa-toolbar { max-width: 58rem; margin: 0 auto 1rem; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 1rem; background: #fff; }
+        .qa-toolbar h1 { margin: 0 0 .4rem; font-size: 1.15rem; color: #0f172a; }
+        .qa-toolbar p { margin: .3rem 0; color: #475569; font-size: .86rem; }
+        .qa-toolbar label { display: block; margin-top: .8rem; color: #0f172a; font-size: .8rem; font-weight: 700; }
+        .qa-toolbar select { width: 100%; margin-top: .35rem; padding: .65rem .75rem; border: 1px solid #94a3b8; border-radius: .65rem; background: #fff; color: #0f172a; }
+        .qa-evidence { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .7rem; }
+        .qa-evidence span { padding: .28rem .5rem; border-radius: 999px; background: #e2e8f0; color: #334155; font-size: .72rem; }
+        .qa-warning { color: #9a3412 !important; font-weight: 700; }
+        #preview, #teacher-panel { max-width: 58rem; margin: 0 auto 1rem; }
+    </style>
+</head>
+<body>
+    <header class="qa-toolbar">
+        <h1>QA privada · 54 atividades musicais V3</h1>
+        <p class="qa-warning">Pilotos publicados no curso privado. A letra é carregada somente em runtime e não é salva no repositório.</p>
+        <label for="pilot-select">Atividade-piloto</label>
+        <select id="pilot-select"></select>
+        <div class="qa-evidence" id="qa-evidence" aria-live="polite"></div>
+    </header>
+    <main id="preview"></main>
+    <section id="teacher-panel"></section>
+    <button id="next-btn" type="button" hidden>Próximo</button>
+
+    <script src="../js/v3-curriculum.js"></script>
+    <script src="../js/music-catalog-v3.js"></script>
+    <script src="../js/lyrics-service-v3.js"></script>
+    <script src="../js/spotify-embed-v3.js"></script>
+    <script src="../js/music-cloze-v3.js"></script>
+    <script>
+        const entries = MusicCatalogV3.auditSnapshot().filter(entry => entry.status === 'provider-verified');
+        const select = document.getElementById('pilot-select');
+        const preview = document.getElementById('preview');
+        const evidence = document.getElementById('qa-evidence');
+        const teacherPanel = document.getElementById('teacher-panel');
+        let activity = null;
+
+        entries.forEach(entry => {
+            const option = document.createElement('option');
+            option.value = entry.id;
+            option.textContent = `${entry.moduleId.toUpperCase()} · Lição ${entry.lessonNumber} · ${entry.song.title}`;
+            select.appendChild(option);
+        });
+
+        function selectInitialEntry() {
+            const requested = new URLSearchParams(location.search).get('id');
+            return entries.find(entry => entry.id === requested) || entries[0];
+        }
+
+        function render(entry) {
+            activity?.abortController?.abort();
+            const qaEntry = JSON.parse(JSON.stringify(entry));
+            preview.innerHTML = MusicClozeV3.renderShell(qaEntry, { title: `${entry.moduleId.toUpperCase()} · Lição ${entry.lessonNumber}` });
+            teacherPanel.innerHTML = MusicClozeV3.TeacherMusicPanel.render(entry, { authorized: true });
+            evidence.innerHTML = [
+                `Catálogo: ${entry.status}`,
+                `Spotify BR: ${entry.song.regionChecked || 'pendente'}`,
+                `Spotify ID: ${entry.song.spotifyTrackId || 'pendente'}`,
+                `LRCLIB: ${entry.lyrics.lrclibId || 'pendente'}`,
+                `Gaps: ${entry.lyrics.gapAudit || 'pendente'}`
+            ].map(value => `<span>${value}</span>`).join('');
+            activity = new MusicClozeV3.MusicClozeActivity(preview.querySelector('[data-music-cloze-v3]'), qaEntry);
+            activity.start();
+        }
+
+        select.addEventListener('change', () => {
+            const entry = entries.find(item => item.id === select.value);
+            if (!entry) return;
+            history.replaceState(null, '', `?id=${encodeURIComponent(entry.id)}`);
+            render(entry);
+        });
+
+        const initialEntry = selectInitialEntry();
+        select.value = initialEntry.id;
+        render(initialEntry);
+    </script>
+</body>
+</html>

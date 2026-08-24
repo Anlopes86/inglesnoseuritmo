@@ -5,12 +5,6 @@
 
     const entries = new Map();
     const dataSource = { lessons: {}, reviews: {}, lessonTitles: [], unitLabels: [] };
-    const defaultMusic = {
-        song: 'Everyday English Practice',
-        artist: 'Music Time',
-        spotifyId: '0vZ97gHhemKm6c64hTfJNA'
-    };
-
     const v = (word, meaning, example, translation) => [word, meaning, example, translation];
     const x = (phrase, meaning, note, example, translation) => [phrase, meaning, note, example, translation];
     const p = (type, prompt, answer) => [type, prompt, '', answer];
@@ -41,14 +35,12 @@
             dialogues: [],
             reading: { title: config.title || 'Reading', text: '', questions: [] },
             conversation: { questions: [], support: [] },
-            music: { ...defaultMusic, ...(config.music || {}) },
             homework: homework('Revise a linguagem da aula.', ['Use a linguagem em uma situação pessoal.'], ['Consigo produzir frases completas sem ler.']),
             ...config,
             expressions,
             expressionTranslations: config.expressionTranslations || expressions
                 .map(item => [item[4], item[3]])
-                .filter(([portuguese, english]) => portuguese && english),
-            music: { ...defaultMusic, ...(config.music || {}) }
+                .filter(([portuguese, english]) => portuguese && english)
         };
     }
 
@@ -91,6 +83,7 @@
             number: lessonNumber,
             title: value.title || manifest?.title || `Lesson ${lessonNumber}`,
             type: value.type || manifest?.type || 'content',
+            lessonKind: manifest?.lessonKind || (value.type === 'content' ? 'lexical' : 'communicative'),
             curriculumId: manifest?.id,
             curriculumVersion: manifest?.version,
             linguisticFocus: manifest?.linguisticFocus,

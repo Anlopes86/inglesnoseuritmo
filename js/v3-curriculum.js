@@ -23,9 +23,83 @@
     const VERSION = '2026.07-action-oriented-32';
     const MODULE_VERSIONS = {
         'a1-v3': '2026.08.05-expanded-a1-32',
-        'a2-v3': '2026.08.16-premium-book-2-cycle'
+        'a2-v3': '2026.08.16-premium-book-2-cycle',
+        'b1-v3': '2026.08.22-lexical-communicative-cycle'
     };
     const SKILLS = ['reception', 'production', 'interaction', 'mediation', 'linguistic', 'online'];
+
+    // Controlled semantic vocabulary used by missions, music and automated audits.
+    // Keep these tags independent from lesson numbers so a curriculum reorder does
+    // not silently attach an activity from an older sequence.
+    const SEMANTIC_RULES = [
+        ['introductions', /\b(greeting|greetings|introduc\w*|apresenta\w*|cumpriment\w*|first day|welcome)\b/],
+        ['identity-personal-data', /\b(name|names|nome|profiss\w*|address|endere\w*|contact|contato|alphabet|alfabeto|spell|soletra\w*|nationalit\w*|nacionalidade|email)\b/],
+        ['numbers-quantities', /\b(number|numbers|numero|numeros|quantit|much|many|some|any|countable|contave|preco|price)\b/],
+        ['food-drink', /\b(food|drink|alimento|bebida|snack|lunch|hungry|thirsty|restaurant|meal|dish|flavor|comida|cafe|pedido)\b/],
+        ['be-we-they', /\b(verb to be|we|they|we are|they are|aren't|hungry|thirsty)\b/],
+        ['invitations-plans', /\b(invitation|invite|convite|convid|suggest|sugest|accept|aceita|recusa|go out|let's|plan|plano)\b/],
+        ['routines-habits', /\b(routine|rotina|habit|habito|everyday|present simple|work|study|schedule|agenda|before|after|until)\b/],
+        ['family-friendship', /\b(family|familia|friend|amizade|childhood|infancia|relationship|relacionamento)\b/],
+        ['home-location', /\b(home|casa|room|comodo|furniture|moveis|object|objeto|there is|there are|preposition|preposic)\b/],
+        ['directions-location', /\b(direction|directions|direcao|direcoes|route|rota|location|localiza|map|mapa|corner|bridge|across|movement|movimento|how long does it take)\b/],
+        ['shopping-money', /\b(shop|shopping|store|loja|money|dinheiro|pay|pagamento|price|preco|cash|card|compr)\b/],
+        ['comparison-shopping', /\b(comparative|comparativo|compare|comparar|comparacao|both of us|quality|qualidade)\b/],
+        ['possessives', /\b(possess|posse|whose|mine|yours|his|her)\b/],
+        ['actions-now', /\b(present continuous|action|acoes atuais|agora|doing|live scene)\b/],
+        ['describing-people', /\b(appearance|aparencia|description|descricao|personalit|personalidade|mood|humor|look like|be like)\b/],
+        ['travel-weather', /\b(travel|trip|viagem|vacation|ferias|airport|aeroporto|hotel|weather|clima|season|estacao|flight|voo)\b/],
+        ['past-experience', /\b(past|passado|yesterday|ontem|happened|aconteceu|was|were|did|experience|experiencia|memories|memorias)\b/],
+        ['sports-workout', /\b(sport|sports|esporte|workout|treino|exercise|exercicio|soccer|gym|shape|ability|habilidade)\b/],
+        ['interests-preferences', /\b(interest|interesse|preference|preferencia|like|love|hate|free-time|tempo livre|news|podcast|opinion|opiniao|rather than)\b/],
+        ['restaurant-service', /\b(restaurant|server|customer|menu|order|pedido|atendimento|service|would you like|i would like|bill)\b/],
+        ['health-accidents', /\b(health|saude|accident|acidente|body|corpo|injur|ferimento|symptom|sintoma|doctor|medical|crash|careful)\b/],
+        ['borrowing-help', /\b(borrow|lend|emprest\w*|charger|pay back|help|ajuda)\b/],
+        ['past-habits', /\b(used to|past habit|habito passado|adapt|mudanca de habito)\b/],
+        ['fashion-trends', /\b(fashion|moda|trend|tendencia|fad|craze|dye|unfashionable)\b/],
+        ['advice-honesty', /\b(advice|conselho|should|honest|honestidade|truth|verdade|lie|mentir|decision|decisao)\b/],
+        ['superlatives-ranking', /\b(superlative|superlativo|best|worst|ranking|melhor|pior|extreme|extremo)\b/],
+        ['future-hopes', /\b(future|futuro|hope|esperan\w*|prediction|previs\w*|will|going to|dream\w*|sonho|wish)\b/],
+        ['phone-requests', /\b(phone|telefone|call|ligacao|request|pedido|can|could|permission|permissao)\b/],
+        ['conditions-backup', /\b(condition|conditional|condi[cç]\w*|if|unless|in case|backup|contingenc\w*|plano alternativo)\b/],
+        ['deduction-evidence', /\b(deduction|dedu[cç]\w*|evidence|evid[eê]ncia|certainty|certeza|must|might|can['’]?t)\b/],
+        ['rules-expectations', /\b(rule|rules|regra|expectation|expectativa|obligation|obriga[cç]\w*|restriction|restri[cç]\w*)\b/],
+        ['factual-reporting', /\b(factual|factual reporting|relato factual|relative clause|ora[cç][aã]o relativa|passive voice|voz passiva|reporting|report)\b/],
+        ['reported-speech', /\b(reported speech|discurso relatado|indirect question|pergunta indireta|message relay|retransmiss[aã]o)\b/],
+        ['complaints-repair', /\b(complaint|complaints|reclama[cç]\w*|service recovery|recupera[cç][aã]o de servi[cç]o|social repair|repara[cç][aã]o social)\b/],
+        ['hypotheses-wishes', /\b(hypothesis|hypotheses|hip[oó]tese|hip[oó]teses|second conditional|if i were|wishes|desejos?)\b/],
+        ['consolidation-progress', /\b(consolidation|consolidacao|review|revisao|project|projeto|progress|progresso|assessment|avaliacao)\b/]
+    ];
+
+    function normalizeSemanticText(value) {
+        return String(value || '')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[’']/g, "'")
+            .toLowerCase();
+    }
+
+    function flattenSemanticValues(values) {
+        return values.flat(Infinity).flatMap(value => {
+            if (!value) return [];
+            if (typeof value === 'object') return Object.values(value);
+            return [value];
+        });
+    }
+
+    function languageTagsFor(...values) {
+        const text = normalizeSemanticText(flattenSemanticValues(values).join(' '));
+        return SEMANTIC_RULES
+            .filter(([, pattern]) => pattern.test(text))
+            .map(([tag]) => tag);
+    }
+
+    function hasSemanticIntersection(lessonOrTags, assetOrTags) {
+        const lessonTags = Array.isArray(lessonOrTags) ? lessonOrTags : lessonOrTags?.languageTags || [];
+        const assetTags = Array.isArray(assetOrTags)
+            ? assetOrTags
+            : assetOrTags?.semanticTags || languageTagsFor(assetOrTags);
+        return assetTags.some(tag => lessonTags.includes(tag));
+    }
 
     const LEVEL_PROFILES = {
         a1: {
@@ -74,11 +148,11 @@
         'a1-v3': [
             ['First Day of Class', 'apresentações, nomes, agradecimentos e blocos com be', [1]],
             ['A Few Days Later', 'cumprimentos, profissões, a/an e I am/you are', [1, 18]],
-            ['At Break', 'alimentos, bebidas e frases afirmativas com I/we/they + want/have', [7]],
+            ['At Break', 'intervalo, alimentos e bebidas; we/they com be; hungry, thirsty, early, late e ready', [7]],
             ['Names Around the Class', 'he/she, his/her, alfabeto, soletração e números 0–20', [2, 26]],
             ['Conversation Activities 1', 'revisão comunicativa das lições 1–4'],
             ['What’s Your Address?', 'endereço, contato, números 21–100, 1.000, 10.000, at e dot', [2]],
-            ['Let’s Go Out!', 'convites, sugestões, aceitação e recusa'],
+            ['Let’s Go Out!', 'Present Simple com I/you/we/they; do/don’t; preferências, convites, aceitação e recusa'],
             ['My Everyday Life', 'Present Simple com I/you, rotina e preferências', [4]],
             ['Sarah’s Routine', 'terceira pessoa, do/does e informações pessoais', [4]],
             ['Conversation Activities 2', 'revisão comunicativa das lições 6–9'],
@@ -140,36 +214,36 @@
             ['A2 Consolidation · Part 2', 'grande revisão das lições 16–30']
         ],
         'b1-v3': [
-            ['Past Experience and Finished Time', 'Present Perfect versus passado concluído', [1]],
-            ['Progress and Duration', 'Present Perfect Simple/Continuous e duração', [2]],
-            ['Then, Now and Progress', 'missão de mudança e atualização'],
-            ['Habits and Adaptation', 'used to, would, be/get used to', [3]],
-            ['Layered Narratives', 'Past Simple, Continuous e Perfect em narrativa', [7]],
-            ['Life Changes', 'relato de adaptação e mudança de vida'],
-            ['Future Choices', 'will, going to, arranjos e horários', [4]],
-            ['Conditions and Backup Plans', 'if, unless, in case e alternativas', [6]],
-            ['Plan A, Change and Plan B', 'missão de planejamento sob mudança'],
-            ['Deduction and Certainty', 'must, might, could e can’t', [5]],
-            ['Rules, Permission and Expectations', 'modais e expectativas sociais', [13]],
-            ['Evidence and Rules', 'investigação, evidência e aplicação de regras'],
-            ['Opinions with Reasons', 'opinião, razão, exemplo e consequência', [9]],
-            ['Disagreement and Clarification', 'discordância, esclarecimento e reformulação', [10]],
-            ['Clear Communication', 'missão de discussão e reparo comunicativo'],
-            ['Suggestions and Negotiation', 'sugestões, resposta e negociação', [11]],
-            ['Comparing Trade-Offs', 'comparação precisa de alternativas', [12]],
-            ['Reach an Agreement', 'missão de consenso justificado'],
-            ['Relative Clauses for Detail', 'relative clauses e detalhamento', [14]],
-            ['Passive Voice in Reports', 'voz passiva em notícias e processos', [15]],
-            ['Explain and Report', 'missão de explicação e relato'],
-            ['Reported Speech', 'relato de falas e mudança de referência', [17]],
-            ['Indirect Questions and Requests', 'perguntas indiretas e pedidos polidos', [18]],
-            ['Message Relay', 'mediação e retransmissão de mensagens'],
-            ['Service Problems and Recovery', 'problemas, reclamações e solução de serviço', [19, 20]],
-            ['Unexpected Events', 'imprevistos em viagem, saúde e trabalho', [21, 22, 23]],
-            ['Real-World Problem Solving', 'missão integrada de solução prática'],
-            ['Hypotheses, Wishes and Social Repair', 'Second Conditional, wishes e reparação social', [28, 29]],
-            ['Presenting and Persuading', 'tese, evidência e resposta a perguntas', [30]],
-            ['Persuade and Respond', 'missão de persuasão e resposta'],
+            ['Defining Moments', 'Present Perfect versus passado concluído; decisões, oportunidades e consequências', [1]],
+            ['Communicative Lab · Defining Moments', 'decisões, consequências e relato pessoal'],
+            ['Progress and Duration', 'Present Perfect Simple/Continuous, progresso, duração e lately', [2]],
+            ['Communicative Lab · Progress Update', 'atualização de progresso com resultados, duração e próximos passos'],
+            ['Habits and Adaptation', 'used to, would, be/get used to e adaptação', [3]],
+            ['Communicative Lab · Then and Now', 'comparação de hábitos e adaptação a mudanças'],
+            ['Stories with Layers', 'Past Simple, Continuous e Perfect em narrativa', [7]],
+            ['Communicative Lab · Reconstruct the Story', 'reconstrução de narrativa, sequência e causa'],
+            ['Plans in Motion', 'will, going to, arranjos, horários e mudança de plano', [4]],
+            ['Communicative Lab · Plan A and Plan B', 'planejamento, imprevisto e alternativa negociada'],
+            ['Conditions and Backup Plans', 'if, unless, in case, count on e alternativas', [6]],
+            ['Communicative Lab · What If?', 'condições reais, prevenção e plano de contingência'],
+            ['Deduction and Evidence', 'must, might, could, can’t e evidência', [5]],
+            ['Communicative Lab · Evidence Check', 'investigação e graus de certeza'],
+            ['Rules, Permission and Expectations', 'modais, regras, permissão e expectativas sociais', [13]],
+            ['Communicative Lab · Rules in Context', 'explicação, negociação e aplicação de regras'],
+            ['Opinions, Disagreement and Clarification', 'opinião, discordância, esclarecimento e reformulação', [9, 10]],
+            ['Communicative Lab · Clear Communication', 'discordância polida e reparo comunicativo'],
+            ['Suggestions, Trade-Offs and Negotiation', 'sugestões, comparação de alternativas e negociação', [11, 12]],
+            ['Communicative Lab · Reach an Agreement', 'trade-offs, concessões e consenso justificado'],
+            ['Detail and Factual Reporting', 'relative clauses, voz passiva e relato factual', [14, 15]],
+            ['Communicative Lab · Explain and Report', 'detalhamento, processo e relato de fatos'],
+            ['Reported Speech and Indirect Questions', 'discurso relatado, perguntas indiretas e pedidos polidos', [17, 18]],
+            ['Communicative Lab · Message Relay', 'mediação e retransmissão de mensagens'],
+            ['Problems, Complaints and Social Repair', 'problemas, reclamações e recuperação de serviço', [19, 20]],
+            ['Communicative Lab · Service Recovery', 'reclamação, resposta e solução negociada'],
+            ['Real-World Progress and Challenges', 'imprevistos em viagem, saúde, estudo e trabalho', [21, 22, 23]],
+            ['Communicative Lab · Solve the Challenge', 'solução integrada de problema real'],
+            ['Hypotheses and Wishes', 'Second Conditional, wishes e reparação social', [28, 29]],
+            ['Communicative Lab · If Things Were Different', 'hipóteses, desejos e resposta social'],
             ['B1 Project Workshop', 'planejamento e ensaio do projeto', [31]],
             ['B1 Performance Assessment', 'apresentação, perguntas e avaliação', [31, 32]]
         ],
@@ -246,7 +320,7 @@
     const reviewPositions = {
         'a1-v3': [5, 10, 15, 20, 25, 30, 31, 32],
         'a2-v3': [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 31, 32],
-        'b1-v3': [3, 6, 9, 12, 15, 18, 21, 24, 27, 30],
+        'b1-v3': Array.from({ length: 15 }, (_, index) => (index + 1) * 2),
         'b2-v3': Array.from({ length: 16 }, (_, index) => (index + 1) * 2),
         'c1-v3': Array.from({ length: 16 }, (_, index) => (index + 1) * 2)
     };
@@ -314,6 +388,16 @@
                             .filter(candidate => candidate < number)
                         : [];
 
+            const sourceLesson = ['a2-v3', 'b1-v3'].includes(moduleId) && type === 'review' && number <= 30 ? number - 1 : null;
+            const sourceDefinition = sourceLesson ? definitions[sourceLesson - 1] : null;
+            const languageTags = languageTagsFor(title, linguisticFocus, sourceDefinition?.[0], sourceDefinition?.[1]);
+            const lessonKind = type === 'project'
+                ? 'project'
+                : ['a1-v3', 'a2-v3'].includes(moduleId) && number >= 31
+                    ? 'consolidation'
+                    : type === 'review'
+                        ? 'communicative'
+                        : 'lexical';
             return {
                 id: stableId(moduleId, number, title),
                 moduleId,
@@ -321,8 +405,11 @@
                 version: MODULE_VERSIONS[moduleId] || VERSION,
                 number,
                 type,
+                lessonKind,
                 title,
                 linguisticFocus,
+                languageTags,
+                sourceLesson,
                 cefrObjectives: SKILLS.map(skill => ({ skill, descriptor: profile[skill] })),
                 reviewOf: reviewedNumbers.map(reviewed => stableId(moduleId, reviewed, definitions[reviewed - 1][0])),
                 oralInteractionMinutes: type === 'review' || type === 'project' ? oralMinutes[moduleId] : 24,
@@ -347,6 +434,42 @@
             return lessons.find(lesson => lesson.id === numberOrId) || null;
         }
         return lessons.find(lesson => lesson.number === Number(numberOrId)) || null;
+    }
+
+    function resolveMission(moduleId, number, source = {}) {
+        const lesson = getLesson(moduleId, number);
+        if (!lesson) return null;
+
+        const authored = source?.mission;
+        const authoredMission = authored && typeof authored === 'object'
+            ? { title: authored.title, task: authored.task, focus: authored.focus }
+            : typeof authored === 'string'
+                ? { title: source.title || lesson.title, task: authored, focus: source.outcome ? [source.outcome] : [] }
+                : null;
+        if (authoredMission) {
+            const semanticTags = languageTagsFor(authoredMission.title, authoredMission.task, authoredMission.focus);
+            if (hasSemanticIntersection(lesson, semanticTags)) {
+                return { ...authoredMission, semanticTags, source: 'current-authored-content' };
+            }
+        }
+
+        const objectives = Array.isArray(source?.objectives) ? source.objectives : [];
+        const themes = Array.isArray(source?.themes) ? source.themes : [];
+        const primaryObjective = objectives[0] || source?.outcome || `usar ${lesson.linguisticFocus} em uma troca curta`;
+        const context = themes.length ? ` Use como contexto: ${themes.slice(0, 2).join(' e ')}.` : '';
+        return {
+            title: `Missão · ${lesson.title}`,
+            task: `${primaryObjective.charAt(0).toUpperCase()}${primaryObjective.slice(1)}.${context}`,
+            focus: objectives.slice(1, 4).length ? objectives.slice(1, 4) : [lesson.linguisticFocus],
+            semanticTags: [...lesson.languageTags],
+            source: authoredMission ? 'manifest-fallback-after-incompatible-authored-content' : 'current-manifest'
+        };
+    }
+
+    function resolveMusic(moduleId, number, options = {}) {
+        const lesson = getLesson(moduleId, number);
+        if (!lesson || lesson.lessonKind !== 'lexical') return null;
+        return globalScope.MusicCatalogV3?.getForCurriculumId(lesson.id, options) || null;
     }
 
     function legacyLessonComplete(moduleProgress, number) {
@@ -405,8 +528,13 @@
         reviewPositions,
         projectPositions,
         oralMinutes,
+        semanticRules: SEMANTIC_RULES.map(([tag]) => tag),
+        languageTagsFor,
+        hasSemanticIntersection,
         getModule,
         getLesson,
+        resolveMission,
+        resolveMusic,
         isLessonComplete,
         migrateModuleProgress,
         audit

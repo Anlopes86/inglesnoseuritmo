@@ -14,7 +14,7 @@ const curriculum = window.V3Curriculum;
 const expectedReviews = {
     'a1-v3': [5, 10, 15, 20, 25, 30, 31, 32],
     'a2-v3': [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 31, 32],
-    'b1-v3': [3, 6, 9, 12, 15, 18, 21, 24, 27, 30],
+    'b1-v3': Array.from({ length: 15 }, (_, index) => (index + 1) * 2),
     'b2-v3': Array.from({ length: 16 }, (_, index) => (index + 1) * 2),
     'c1-v3': Array.from({ length: 16 }, (_, index) => (index + 1) * 2)
 };
@@ -104,7 +104,8 @@ check(Array.from({ length: 32 }, (_, index) => index + 1).every(number => !/a1-v
 const a1RendererSource = read('a1-v3/a1-v3-lesson-content.js');
 check(!/Prática variada:|Seis frases|Quatro diálogos|Área reservada|etapa editorial|Texto musical fictício|Nenhuma letra protegida|Dica:|Observe:|Apoio:/i.test(a1RendererSource), 'A1-V3: o player ainda exibe contagens rígidas, dicas que entregam respostas ou recados editoriais ao aluno.');
 check(/Desembaralhe os elementos/.test(a1RendererSource) && /Encontre o erro/.test(a1RendererSource), 'A1-V3: instruções operacionais de desembaralhar e corrigir não estão explícitas.');
-check(/Music Time/.test(a1RendererSource) && /Preencha as lacunas com a palavra que você ouvir/.test(a1RendererSource), 'A1-V3: instrução limpa do Music Time está ausente.');
+check(/Music Time/.test(a1RendererSource) && /MusicClozeV3/.test(a1RendererSource), 'A1-V3: integração segura com MusicClozeV3 está ausente.');
+check(!/I wake to see|Preencha as lacunas com a palavra que você ouvir/.test(a1RendererSource), 'A1-V3: o cloze musical genérico antigo ainda é renderizável.');
 const a1ExpectedFocusGroups = { 5: 4, 10: 4, 15: 4, 20: 4, 25: 4, 30: 4, 31: 12, 32: 12 };
 Object.values(window.A1V3_DATA.reviews).forEach(review => {
     check(review.oralInteractionMinutes >= 36, `A1-V3 ${review.number}: tempo oral abaixo de 36 minutos.`);

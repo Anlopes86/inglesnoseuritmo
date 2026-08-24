@@ -12,6 +12,7 @@
         target.number = entry.number;
         target.title = entry.title;
         target.type = entry.type;
+        target.lessonKind = entry.lessonKind;
         target.curriculumId = entry.id;
         target.curriculumVersion = entry.version;
         target.linguisticFocus = entry.linguisticFocus;
@@ -333,6 +334,8 @@
             const homeworkIndex = base.slides.findIndex(slide => slide.type === 'homework');
             base.slides.splice(homeworkIndex < 0 ? base.slides.length : homeworkIndex, 0, ...extraSlides);
         }
+        base.slides = globalScope.MusicClozeV3?.prepareSlides(base.slides, base)
+            || base.slides.filter(slide => slide.type !== 'music');
         return base;
     }
 
@@ -426,6 +429,8 @@
                 project.title = entry.title;
                 project.objective = `Produzir e defender o projeto B1 com evidências das competências previstas no manifesto.`;
                 project.reviewContract = reviewContract(entry, 'CEFR B1');
+                project.slides = globalScope.MusicClozeV3?.prepareSlides(project.slides, project)
+                    || project.slides.filter(slide => slide.type !== 'music');
                 rebuilt.push(project);
                 builtById.set(entry.id, project);
                 return;

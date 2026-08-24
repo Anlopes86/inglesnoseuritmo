@@ -107,11 +107,6 @@
                 teacherFocus: spec.speaking.teacherFocus
             },
             {
-                type: "music",
-                title: `Music Moment: ${spec.music.song}`,
-                ...spec.music
-            },
-            {
                 type: "homework",
                 title: spec.homework.title,
                 deliverable: spec.homework.deliverable,
@@ -350,19 +345,6 @@
             ],
             teacherFocus: ["time-frame choice", "past participles", "sequence connectors", "follow-up answers"]
         },
-        music: {
-            song: "The Story",
-            artist: "Brandi Carlile",
-            spotifyId: "0EKBV6GybPtALXUgWqWrym",
-            focus: "Ouça procurando referências a experiência, mudança e história pessoal.",
-            lines: [
-                ["I have ", "carried", " every lesson from the road behind me."],
-                ["One choice ", "changed", " the direction of my day."],
-                ["I looked back and ", "noticed", " how far I had come."],
-                ["Now I can tell the ", "story", " in a clearer way."]
-            ],
-            discussion: ["Which words in the song suggest personal experience?", "Does the singer seem to focus on one event or a longer journey?", "Which tense would be useful to summarize that journey?"]
-        },
         homework: {
             title: "Homework: One Decision, Two Time Frames",
             deliverable: "Escolha um tema e escreva 100–130 palavras. Use Present Perfect para a conexão atual e Past Simple para os detalhes concluídos.",
@@ -563,18 +545,6 @@
                 { title: "Work update", prompt: "Give a 60-second update with two measurable results, one ongoing activity and one obstacle.", followUps: ["What has the team learned?", "What still needs attention?"], model: "The team has interviewed twelve customers and completed the first report. We have been analyzing the comments since Monday. We haven't solved the delivery problem yet, so that is our next priority." }
             ],
             teacherFocus: ["simple vs continuous", "for/since", "measurable results", "clear next step"]
-        },
-        music: {
-            song: "The Climb",
-            artist: "Miley Cyrus",
-            focus: "Ouça procurando palavras relacionadas a esforço, progresso e continuidade.",
-            lines: [
-                ["We have been ", "climbing", " even when the path feels slow."],
-                ["Every small ", "step", " has brought us closer."],
-                ["We have not ", "finished", " the journey yet."],
-                ["But steady ", "effort", " has changed what we can do."]
-            ],
-            discussion: ["Which line emphasizes an ongoing process?", "Which line emphasizes a result achieved so far?", "How could the song's message describe a long project?"]
         },
         homework: {
             title: "Homework: Progress Report",

@@ -152,6 +152,11 @@
             question('Are we ready too?', 'Yes, we are.')
         ),
         conversation: { questions: [], support: ['We’re...', 'They’re...', 'We aren’t...', 'They aren’t...', 'Are we...?', 'Are they...?'] },
+        mission: {
+            title: 'Break-time check',
+            task: 'Descubra quem está com fome ou sede no intervalo e organize um pedido simples para o grupo usando we e they.',
+            focus: ['we/they com be', 'hungry e thirsty', 'perguntas e respostas curtas']
+        },
         homework: homework('Revise we are e they are com os modelos da aula.', ['We’re/They’re', 'We/They aren’t', 'Are we/they...?'], ['Repito as frases prontas.', 'Diferencio we de they.', 'Uso somente o verbo be.'])
     }));
 }());

@@ -82,7 +82,6 @@
             ],
             readingTitle: 'A day that changed the plan',
             reading: 'Last Friday, Marina planned a simple day: work, lunch, and an early night. However, nothing went exactly as expected. First, her bus arrived late, so she missed the morning meeting. Then her manager asked her to explain a report she had not finished. Instead of panicking, Marina told the truth, organized the information quickly, and asked a colleague for help. By the afternoon, the situation had turned around. The team found a better solution, and Marina learned that a bad start does not always mean a bad day. When she looked back on the experience, she realized that clear communication helped more than a perfect plan.',
-            music: ['A story about yesterday', 'past actions and consequences']
         },
         pastContinuous: {
             label: 'background and interruptions',
@@ -112,7 +111,6 @@
             ],
             readingTitle: 'The moment the lights went out',
             reading: 'Daniel was giving a presentation when the lights suddenly went out. At first, everybody stopped talking. Some people were checking their phones, and others were looking toward the window. Daniel was nervous, but he decided to continue. He used his laptop screen, asked the group to move closer, and turned the problem into a more informal discussion. While he was explaining the final point, the electricity came back. Surprisingly, the audience remembered that presentation more than any other because Daniel reacted calmly under pressure.',
-            music: ['When everything stopped', 'interrupted actions']
         },
         compare: {
             label: 'comparisons and choices',
@@ -142,7 +140,6 @@
             ],
             readingTitle: 'The best option is not always obvious',
             reading: 'When Rafael compared two job offers, the first one looked better at first. It paid more and had a more impressive title. The second offer was less glamorous, but it was closer to home, more flexible, and connected to the area he wanted to grow in. After weighing up both choices, Rafael realized that the best option was not simply the one with the highest salary. For him, time, energy, and long-term learning were more important than a bigger number on paper.',
-            music: ['Better than before', 'comparisons and decisions']
         },
         quantity: {
             label: 'articles and quantity',
@@ -172,7 +169,6 @@
             ],
             readingTitle: 'Preparing without overbuying',
             reading: 'Before the workshop, Julia had to buy snacks and materials for twenty people. She did not want to run out of anything, but she also did not want to waste money. She made a list with countable items, such as notebooks, pens, and sandwiches, and uncountable items, such as coffee, juice, and information for the handout. In the end, she bought enough for everyone and kept a little extra for unexpected guests. The event showed her that good planning is not about buying a lot; it is about buying the right amount.',
-            music: ['Enough for today', 'quantity and needs']
         },
         future: {
             label: 'future plans and predictions',
@@ -202,7 +198,6 @@
             ],
             readingTitle: 'Planning with flexibility',
             reading: 'Bianca is going to start a new course next month, so she is organizing her schedule carefully. She is meeting her manager on Friday to discuss working hours, and she will probably study three evenings a week. However, she knows that plans can change. If the workload becomes too heavy, she will adjust the routine instead of giving up. Her goal is not to control every detail of the future, but to create a plan that is strong enough to guide her and flexible enough to survive real life.',
-            music: ['Tomorrow is open', 'future plans and promises']
         },
         modals: {
             label: 'rules, permission, and obligation',
@@ -232,7 +227,6 @@
             ],
             readingTitle: 'A rule that makes sense',
             reading: 'At first, Leo thought the new office policy was unnecessary. Everyone had to book meeting rooms in advance, and visitors had to check in before entering the workspace. After a few weeks, however, he understood the reason. Meetings became easier to organize, guests received help faster, and confidential conversations were better protected. Leo still believed that rules should be simple, but he also learned that a clear rule can reduce confusion when people understand why it exists.',
-            music: ['Can I ask you something?', 'permission and rules']
         },
         advice: {
             label: 'advice and recommendations',
@@ -262,7 +256,6 @@
             ],
             readingTitle: 'Advice that actually helps',
             reading: 'When Paula felt overwhelmed, many people gave her quick advice: sleep more, work less, be positive. The problem was that none of it felt practical. Her friend Lucas listened first. Then he suggested one small change: choose the three most important tasks each morning and postpone the rest. Paula tried it for a week. She still had responsibilities, but she felt more in control. She learned that good advice is not always dramatic; sometimes it is a small action that a person can really do.',
-            music: ['Take a breath', 'advice and self-care']
         },
         perfect: {
             label: 'life experiences and recent results',
@@ -292,7 +285,6 @@
             ],
             readingTitle: 'More than a list of experiences',
             reading: 'When people talk about experiences, they often mention impressive things: countries they have visited, courses they have completed, or projects they have led. But experience is more than a list. It includes mistakes, small improvements, and moments that changed how a person thinks. Marcos has never lived abroad, but he has worked with international clients, studied with foreign teachers, and learned how to communicate across cultures. He has discovered that experience is not only where you have been; it is also what you have learned from what you have done.',
-            music: ['I have been there', 'experiences and growth']
         },
         health: {
             label: 'health and medical conversations',
@@ -322,7 +314,6 @@
             ],
             readingTitle: 'Explaining the problem clearly',
             reading: 'During a medical appointment, clear language matters. A patient who says "I feel bad" gives very little information. A patient who says "I have had a sore throat for four days, and I feel dizzy in the morning" gives the doctor a much better picture. Clara learned this after a confusing appointment. The next time, she wrote down her symptoms, when they started, and what made them better or worse. The conversation was faster, calmer, and more useful for both her and the doctor.',
-            music: ['Feeling better slowly', 'symptoms and recovery']
         },
         prepositions: {
             label: 'place, movement, and time',
@@ -352,7 +343,6 @@
             ],
             readingTitle: 'Finding your way without panic',
             reading: 'Getting lost in a new city can be stressful, especially when you are trying to understand directions in another language. Nina discovered that the key was not memorizing every street name. Instead, she listened for landmarks and prepositions: next to the museum, across from the bank, through the park, toward the station. Once she started focusing on relationships between places, the city became easier to understand. Directions became a map of connections, not a list of random words.',
-            music: ['On the road again', 'movement and direction']
         },
         directions: {
             label: 'directions and practical instructions',
@@ -382,7 +372,6 @@
             ],
             readingTitle: 'Directions that people can actually follow',
             reading: 'Good directions are not just accurate; they are easy to follow. When Andre gave directions to his cousin, he first gave too many details: street names, store names, traffic lights, and distances. His cousin got confused. Then Andre simplified the route: "Go straight for two blocks, turn right after the supermarket, and the building is across from the pharmacy." This version worked because it used clear steps and visible landmarks. In real life, simple directions often beat perfect directions.',
-            music: ['Find the way', 'directions and landmarks']
         },
         hotel: {
             label: 'hotel and travel problems',
@@ -412,7 +401,6 @@
             ],
             readingTitle: 'A calm complaint',
             reading: 'When Sofia arrived at the hotel, her room was not ready. She was tired and frustrated, but she decided to explain the problem calmly. She said, "I have a reservation under Sofia Almeida, and check-in was confirmed for 2 p.m. Could you check if another room is available?" The receptionist apologized, sorted out the issue, and offered a free breakfast. Sofia learned that a calm complaint is often more effective than an angry one because it focuses on the solution.',
-            music: ['Room for one more night', 'travel and requests']
         },
         verbPatterns: {
             label: 'gerunds and infinitives',
@@ -442,7 +430,6 @@
             ],
             readingTitle: 'Learning how to keep going',
             reading: 'Many students start studying with energy, but they stop when progress becomes slower. A better strategy is to enjoy the process, not only the result. Felipe decided to practice for twenty minutes every morning. He avoided studying late at night because he was too tired. He looked forward to small wins: understanding a song, writing a better message, or speaking with less hesitation. After a few months, he realized that consistency was more powerful than motivation.',
-            music: ['Keep on learning', 'habits and persistence']
         },
         conditionals: {
             label: 'conditions and real-life hopes',
@@ -472,7 +459,6 @@
             ],
             readingTitle: 'A realistic plan for change',
             reading: 'Change often fails when the plan is too dramatic. Laura wanted to improve her English, but she knew that studying two hours every day was not realistic. She made a conditional plan instead: if she had a busy day, she would review vocabulary for ten minutes; if she had more time, she would write a paragraph and prepare two spoken answers for her next class. Unless she was sick, she would do at least one small task. This flexible plan helped her continue even when life was unpredictable.',
-            music: ['If tomorrow comes', 'conditions and hopes']
         },
         reviewPast: null,
         reviewModals: null,
@@ -482,20 +468,16 @@
 
     banks.reviewPast = Object.assign({}, banks.past, {
         label: 'past review checkpoint',
-        music: ['Yesterday in rhythm', 'past review']
     });
     banks.reviewModals = Object.assign({}, banks.modals, {
         label: 'modals review checkpoint',
-        music: ['Rules and choices', 'modals review']
     });
     banks.reviewPractical = Object.assign({}, banks.prepositions, {
         label: 'practical English review',
-        music: ['Around the city', 'practical review']
     });
     banks.finalProject = Object.assign({}, banks.conditionals, {
         label: 'final review and project',
         objectives: ['connect the main A2 V3 structures', 'prepare a short personal project', 'speak with clearer reasons and examples'],
-        music: ['One step further', 'final reflection']
     });
 
     banks.usedTo = {
@@ -526,7 +508,6 @@
         ],
         readingTitle: 'A Routine That Changed',
         reading: 'When Júlia was a teenager, she used to wake up early and take two buses to school. She did not use to study online, and she often did homework at the public library because her family did not have a computer. After she started working, her routine changed completely. Nowadays, she works from home three days a week and studies English online in the evening. She still visits the library, but now she goes there to read and relax. Looking back helps her notice how technology and new responsibilities have changed everyday life.',
-        music: ['Life before and now', 'used to and change']
     };
 
     const lessonProfiles = [
@@ -539,7 +520,6 @@
             expressions: [['turn out', 'acabar sendo', 'The problem turned out to be simple.'], ['run into', 'encontrar por acaso', 'I ran into my old teacher.'], ['end up', 'acabar fazendo', 'We ended up taking a taxi.'], ['look back on', 'relembrar', 'I look back on that day and laugh.']],
             readingTitle: 'The morning everything went wrong',
             reading: 'Rafa planned a normal Monday, but the morning quickly became complicated. He overslept, missed the bus, and realized that he had left an important folder at home. Instead of inventing an excuse, he called his manager and explained what happened. Later, he managed to send the file from his phone and arrived before the client meeting. The day was not perfect, but he learned that honesty and quick decisions can save a difficult situation.',
-            music: ['Yesterday did not win', 'past mistakes and recovery']
         },
         {
             themes: ['telling a travel story in order', 'describing a memorable celebration', 'reporting a problem that was solved'],
@@ -550,7 +530,6 @@
             expressions: [['set off', 'sair / partir', 'We set off early in the morning.'], ['come across', 'encontrar por acaso', 'We came across a quiet square.'], ['sort out', 'resolver', 'The receptionist sorted out the problem.'], ['head back', 'voltar', 'We headed back after dinner.']],
             readingTitle: 'A trip that became a story',
             reading: 'The trip started with a delay, but it became one of Camila\'s favorite memories. First, the train arrived forty minutes late. Then she and her friend got lost because the map on the phone stopped working. While they were looking for the hotel, they came across a small local market. They tried new food, talked to a vendor, and finally found the right street. The problem did not ruin the trip; it gave them a better story to tell.',
-            music: ['First then finally', 'complete past stories']
         },
         {
             themes: ['comparing two cities', 'choosing between two courses', 'comparing online and in-person work'],
@@ -561,7 +540,6 @@
             expressions: [['weigh up', 'avaliar opções', 'We need to weigh up both plans.'], ['have an advantage over', 'ter uma vantagem sobre', 'The train has an advantage over the bus.'], ['be worth it', 'valer a pena', 'The extra cost is worth it.'], ['come down to', 'se resumir a', 'It comes down to time and money.']],
             readingTitle: 'Choosing the more practical option',
             reading: 'When Rafael compared two English courses, the cheaper option was not automatically the best. The first course was cheaper and closer to home, but the second was more flexible and offered more speaking practice. Rafael made a table with price, schedule, teacher support, and travel time. After comparing everything, he chose the second course because it was more useful for his routine. The decision came down to value, not only cost.',
-            music: ['More than one choice', 'comparatives']
         },
         {
             themes: ['describing the best place in town', 'choosing the most useful app', 'talking about the worst travel problem'],
@@ -572,7 +550,6 @@
             expressions: [['rank as', 'classificar como', 'It ranks as the best choice.'], ['stand above', 'ficar acima', 'This option stands above the rest.'], ['beat the others', 'superar os outros', 'The location beats the others.'], ['at its best', 'no seu melhor', 'The city is at its best in spring.']],
             readingTitle: 'The best is not always the biggest',
             reading: 'A group of students had to choose the best place for a class meeting. The largest café had more tables, but it was also the noisiest. The cheapest place was too far from the subway. The smallest café was the quietest and had the most comfortable chairs. In the end, the group chose it because the best place was the one that helped them talk, listen, and study, not the one that looked most impressive.',
-            music: ['The best part', 'superlatives']
         },
         {
             themes: ['planning food for a meeting', 'shopping for a trip', 'organizing supplies at home'],
@@ -583,7 +560,6 @@
             expressions: [['run out of', 'ficar sem', 'We ran out of coffee.'], ['stock up on', 'comprar bastante', 'We stocked up on snacks.'], ['cut down on', 'reduzir', 'I want to cut down on sugar.'], ['make do with', 'se virar com', 'We can make do with two tables.']],
             readingTitle: 'Buying the right amount',
             reading: 'Before a small workshop, Nina had to buy food and supplies. She counted the chairs, checked how much coffee was left, and asked if anyone had food restrictions. She bought a few extra notebooks, some fruit, and enough water for the group. She did not buy too much because the budget was limited. The event went well because she understood the difference between buying a lot and buying the right amount.',
-            music: ['Enough for everyone', 'articles and quantifiers']
         },
         {
             themes: ['describing a scene before an event', 'explaining what people were doing in a photo', 'telling what was happening during a problem'],
@@ -594,7 +570,6 @@
             expressions: [['hang around', 'ficar por perto', 'We were hanging around the lobby.'], ['look around', 'olhar ao redor', 'She was looking around the store.'], ['sit around', 'ficar sentado sem fazer muito', 'They were sitting around before class.'], ['walk by', 'passar andando', 'A man was walking by the window.']],
             readingTitle: 'Before the announcement',
             reading: 'Before the announcement, everyone in the office was doing something different. Paula was answering emails, Bruno was checking a spreadsheet, and two interns were carrying boxes to the meeting room. It was raining outside, so people were arriving slowly. When the manager walked in, the room became quiet. The background helped everyone understand why the announcement felt sudden and important.',
-            music: ['While the world was moving', 'setting the scene']
         },
         {
             themes: ['a phone call that interrupted dinner', 'a problem during a presentation', 'an accident on the way to class'],
@@ -605,7 +580,6 @@
             expressions: [['go off', 'disparar/tocar', 'The alarm went off during the meeting.'], ['break down', 'parar de funcionar', 'The elevator broke down.'], ['calm down', 'se acalmar', 'Everyone calmed down after a minute.'], ['find out', 'descobrir', 'We found out what caused the problem.']],
             readingTitle: 'The interruption that changed the meeting',
             reading: 'Marta was presenting the final numbers when the projector stopped working. At first, she froze. People were waiting, and her manager was looking at the screen. Then Marta took a breath, opened the report on her laptop, and continued without the slides. While she was explaining the last chart, the projector came back. The interruption made the meeting less perfect, but it also showed that Marta could stay calm under pressure.',
-            music: ['When the lights went out', 'interrupted stories']
         },
         {
             themes: ['reviewing a weekend story', 'comparing two memories', 'telling a story with a song theme'],
@@ -616,7 +590,6 @@
             expressions: [['bring back', 'trazer de volta', 'That song brings back memories.'], ['sum up', 'resumir', 'Can you sum up the story?'], ['go wrong', 'dar errado', 'Everything went wrong at first.'], ['work out', 'dar certo', 'In the end, it worked out.']],
             readingTitle: 'A song and a memory',
             reading: 'Some songs bring back complete stories. When Leo hears one specific song, he remembers a rainy bus trip with his friends. They were going to a concert, but the bus broke down. While they were waiting for another bus, everyone started singing. Unfortunately, they missed the first part of the concert. Fortunately, the night still became unforgettable because the problem created a memory they still talk about.',
-            music: ['A memory in the chorus', 'past review']
         },
         {
             themes: ['making personal plans', 'planning a study routine', 'organizing the next weekend'],
@@ -627,7 +600,6 @@
             expressions: [['map out', 'planejar em detalhes', 'I mapped out the whole week.'], ['follow through', 'levar o plano até o fim', 'We are going to follow through with the plan.'], ['sign up for', 'se inscrever', 'He is going to sign up for the course.'], ['stick to', 'seguir firme', 'I want to stick to my plan.']],
             readingTitle: 'A plan that fits real life',
             reading: 'Renata is going to improve her English this month, but she is not going to make an impossible plan. She is going to study for twenty minutes on weekdays and watch one short video on Sundays. She is also going to practice a short answer aloud twice a week. The plan is simple, but it fits her routine. Because of that, she believes she is going to continue even when work gets busy.',
-            music: ['I am going to begin', 'future plans']
         },
         {
             themes: ['making predictions about work', 'offering help quickly', 'deciding during a conversation'],
@@ -638,7 +610,6 @@
             expressions: [['count on', 'contar com', 'You can count on me.'], ['turn out', 'acabar sendo', 'It will turn out fine.'], ['come up', 'surgir', 'Something will come up.'], ['take care of', 'cuidar de', 'I will take care of the tickets.']],
             readingTitle: 'A quick decision',
             reading: 'During the meeting, the team discovered that one document was missing. Nobody had planned for the problem. Clara immediately said, "I will call the client and ask for another copy." Her manager predicted that the client would answer quickly because they had worked together before. Clara called, explained the situation, and received the file in ten minutes. Sometimes will is the grammar of quick help and quick decisions.',
-            music: ['I will be there', 'predictions and promises']
         },
         {
             themes: ['fixed plans with friends', 'appointments this week', 'professional arrangements'],
@@ -649,7 +620,6 @@
             expressions: [['set up', 'marcar/organizar', 'We set up a call for Tuesday.'], ['move up', 'adiantar', 'They moved up the meeting.'], ['push back', 'adiar', 'Can we push back the appointment?'], ['show up', 'aparecer/comparecer', 'Please show up on time.']],
             readingTitle: 'A calendar full of arrangements',
             reading: 'This week, Andre is not just thinking about plans; he has several arrangements. He is meeting a student on Tuesday, having lunch with a colleague on Wednesday, and visiting his parents on Saturday. Because these times are confirmed, he uses the present continuous when he talks about them. The grammar shows that the plans are already in his calendar, not just ideas in his head.',
-            music: ['Meeting you at seven', 'future arrangements']
         },
         {
             themes: ['choosing the best future form', 'planning and predicting a project', 'talking about real future situations'],
@@ -660,7 +630,6 @@
             expressions: [['follow up', 'dar seguimento', 'I will follow up tomorrow.'], ['work out', 'dar certo', 'The plan will work out.'], ['back up', 'apoiar/fazer backup', 'Back up the file before the meeting.'], ['line up', 'organizar/alinhar', 'We lined up three options.']],
             readingTitle: 'Three ways to talk about next week',
             reading: 'Julia is preparing for a presentation next week. She is meeting her partner on Monday because the appointment is confirmed. They are going to rehearse twice because that is their plan. Julia thinks the presentation will go well because the research is strong. In one short conversation, she uses three future forms, each with a different meaning. That is why future grammar is about intention, not just time.',
-            music: ['Next week has a plan', 'future review']
         },
         {
             themes: ['asking permission in class', 'making polite requests at work', 'talking about what is allowed'],
@@ -671,7 +640,6 @@
             expressions: [['go ahead', 'va em frente', 'Sure, go ahead.'], ['hold on', 'esperar', 'Could you hold on a second?'], ['speak up', 'falar mais alto', 'Could you speak up, please?'], ['turn down', 'abaixar', 'Can you turn down the volume?']],
             readingTitle: 'Polite does not mean complicated',
             reading: 'In a language class, permission requests happen all the time. A student may need to leave early, borrow a pen, or ask the teacher to repeat an instruction. Simple grammar can sound polite when the tone is respectful. "Could you repeat that, please?" is short, clear, and natural. The goal is not to use difficult words; it is to make the request easy to understand and easy to answer.',
-            music: ['Could I ask you', 'permission']
         },
         {
             themes: ['rules at work', 'course requirements', 'things you need to do before a trip'],
@@ -682,7 +650,6 @@
             expressions: [['fill out', 'preencher', 'You need to fill out this form.'], ['hand in', 'entregar', 'We have to hand in the report.'], ['check in', 'registrar entrada', 'Visitors must check in first.'], ['keep up with', 'acompanhar', 'I have to keep up with the course.']],
             readingTitle: 'The rule behind the rule',
             reading: 'At the language school, new students have to complete a short placement form before the first class. They must also bring an ID if they are taking an official test. At first, Pedro thought the rules were annoying, but he understood them later. The form helped the teacher prepare the class, and the ID protected the test process. Obligations feel easier to accept when people understand the reason behind them.',
-            music: ['Rules of the room', 'obligation']
         },
         {
             themes: ['giving advice to a tired friend', 'study advice for consistency', 'healthier daily habits'],
@@ -693,7 +660,6 @@
             expressions: [['slow down', 'ir mais devagar', 'You should slow down this week.'], ['open up', 'se abrir', 'You should open up to someone.'], ['deal with', 'lidar com', 'She is dealing with stress.'], ['burn out', 'ficar esgotado', 'Do not burn out before the test.']],
             readingTitle: 'Advice that a person can actually follow',
             reading: 'When Tiago felt overwhelmed, people gave him advice that sounded good but was too general. "Study more" did not help. His teacher gave him a smaller suggestion: review five sentences every morning and prepare one short answer twice a week. Tiago followed the advice because it was realistic. He learned that useful advice is specific, kind, and possible to do.',
-            music: ['You should breathe', 'advice']
         },
         {
             themes: ['reviewing polite requests', 'discussing rules and advice', 'solving a classroom problem'],
@@ -704,7 +670,6 @@
             expressions: [['speak up', 'falar mais alto', 'Could you speak up?'], ['hand in', 'entregar', 'You must hand in the form.'], ['keep up', 'acompanhar', 'You should keep up with the lessons.'], ['go ahead', 'va em frente', 'Can I start? Yes, go ahead.']],
             readingTitle: 'One problem, different modals',
             reading: 'A student arrived late and did not understand the activity. First, she asked, "Could you explain the instructions again?" The teacher answered, "Of course, but you have to finish the first part before the break." Another student said, "You should start with the easier questions." In one short moment, the class used permission, obligation, and advice. Each modal had a different job.',
-            music: ['Could should must', 'modals review']
         },
         {
             themes: ['travel experiences', 'professional achievements', 'new things you have tried'],
@@ -715,7 +680,6 @@
             expressions: [['try out', 'testar', 'I have tried out a new app.'], ['come across', 'encontrar por acaso', 'I came across a useful article.'], ['go through', 'passar por', 'She has gone through many changes.'], ['build up', 'desenvolver aos poucos', 'He has built up confidence.']],
             readingTitle: 'Experience is more than travel',
             reading: 'When people hear the word experience, they often think about travel. But experience can also come from work, study, mistakes, and conversations. Marina has never lived abroad, but she has worked with international customers and has spoken English in several real situations. Those moments have helped her become more confident. Present Perfect is useful because it connects past experiences to who we are now.',
-            music: ['Have you ever', 'life experiences']
         },
         {
             themes: ['things already done this week', 'tasks not finished yet', 'experiences you have never had'],
@@ -726,7 +690,6 @@
             expressions: [['catch up on', 'colocar em dia', 'I need to catch up on emails.'], ['send out', 'enviar para várias pessoas', 'We have sent out the invitations.'], ['check off', 'marcar como feito', 'I checked off three tasks.'], ['fall behind', 'ficar atrasado', 'She has fallen behind this week.']],
             readingTitle: 'The list that keeps changing',
             reading: 'By Thursday afternoon, Lucas had already completed three important tasks, but he had not replied to all his messages yet. He had sent out the invitations, updated the spreadsheet, and checked off the budget review. However, two clients still had not answered. The list showed his progress and his unfinished work at the same time. Already and yet helped him explain both sides clearly.',
-            music: ['Not yet already', 'task progress']
         },
         {
             themes: ['a trip with and without dates', 'work experience and finished events', 'talking about recent results'],
@@ -737,7 +700,6 @@
             expressions: [['look back on', 'relembrar', 'I look back on that trip often.'], ['bring up', 'mencionar', 'He brought up an old project.'], ['move on from', 'seguir em frente', 'She moved on from that job.'], ['come a long way', 'evoluir muito', 'You have come a long way.']],
             readingTitle: 'Two ways to tell the same history',
             reading: 'Ana can say, "I visited Chile in 2019" when the date matters. She can also say, "I have visited Chile" when she wants to talk about experience. Both sentences are correct, but they answer different questions. Past Simple places the event on a timeline. Present Perfect connects the event to the present. Choosing the right tense helps the listener understand what is important.',
-            music: ['Then and now', 'past simple versus present perfect']
         },
         {
             themes: ['where someone has been', 'where someone has gone', 'travel and return', 'people not here right now'],
@@ -748,7 +710,6 @@
             expressions: [['get back', 'voltar', 'She will get back soon.'], ['go away', 'viajar/sair', 'He has gone away for the weekend.'], ['come back', 'voltar', 'They came back yesterday.'], ['stop by', 'passar rapidamente', 'I stopped by the office.']],
             readingTitle: 'Where is Clara?',
             reading: 'At lunch, two coworkers talked about Clara. One said, "She has been to the new café," meaning Clara visited it before and returned. The other said, "No, she has gone to the café," meaning Clara was there at that moment. The small difference mattered because they were trying to find her. Been and gone are short words, but they can explain whether someone is back or still away.',
-            music: ['Been there gone now', 'been and gone']
         },
         {
             themes: ['describing symptoms', 'giving simple health advice', 'explaining how long a problem has lasted'],
@@ -759,7 +720,6 @@
             expressions: [['come down with', 'ficar doente', 'I came down with a cold.'], ['get over', 'se recuperar', 'She is getting over the flu.'], ['flare up', 'voltar a piorar', 'The rash flared up last night.'], ['wear off', 'perder o efeito', 'The medicine has worn off.']],
             readingTitle: 'Explaining symptoms clearly',
             reading: 'When Daniel called the clinic, he did not simply say, "I feel bad." He explained that he had had a sore throat since Monday, felt dizzy in the morning, and had a light fever at night. The receptionist asked a few questions and booked an appointment. Clear symptom language helped Daniel get the right kind of help faster.',
-            music: ['Feeling better slowly', 'health problems']
         },
         {
             themes: ['talking to a doctor', 'describing pain and duration', 'asking about treatment'],
@@ -770,7 +730,6 @@
             expressions: [['take in', 'ingerir/absorver', 'Take in more fluids.'], ['lie down', 'deitar', 'You should lie down for a while.'], ['clear up', 'melhorar/desaparecer', 'The rash cleared up.'], ['follow up', 'acompanhar', 'The doctor will follow up next week.']],
             readingTitle: 'A better doctor visit',
             reading: 'Before her appointment, Beatriz wrote down her symptoms, when they started, and what made them worse. During the consultation, she said, "I have had stomach pain for three days, and it gets worse after lunch." The doctor asked about allergies and gave her a simple treatment plan. Because Beatriz was specific, the conversation was calmer and more useful.',
-            music: ['Tell me where it hurts', 'medical consultation']
         },
         {
             themes: ['describing a room', 'explaining where objects are', 'giving location clues'],
@@ -781,7 +740,6 @@
             expressions: [['look for', 'procurar', 'I am looking for my keys.'], ['put away', 'guardar', 'Put away the documents.'], ['show around', 'mostrar o lugar', 'She showed me around the apartment.'], ['move around', 'mudar de lugar', 'We moved the chairs around.']],
             readingTitle: 'The missing keys',
             reading: 'Before leaving home, Sofia could not find her keys. She looked on the table, under the notebook, and behind the sofa. Then she remembered that she had put them in the small bowl next to the door. The search was annoying, but it was a perfect exercise in prepositions of place. Location language becomes useful when something is missing.',
-            music: ['Right where you are', 'place prepositions']
         },
         {
             themes: ['reviewing city directions', 'describing places and times', 'solving a practical problem in town'],
@@ -792,7 +750,6 @@
             expressions: [['get around', 'se locomover', 'It is easy to get around here.'], ['drop by', 'passar rapidamente', 'Drop by the office later.'], ['show up', 'aparecer/chegar', 'He showed up at ten.'], ['head to', 'ir para', 'We are heading to the station.']],
             readingTitle: 'A practical message',
             reading: 'Carla sent her friend a voice message with directions and time information. She said, "Meet me at the entrance of the museum at noon. Walk past the bank, turn left at the corner, and you will see a small café across from the parking lot." The message was short but complete because it combined place, movement, and time clearly.',
-            music: ['Around the block', 'preposition review']
         },
         {
             themes: ['describing movement through a city', 'explaining how someone got somewhere', 'telling a route with action verbs'],
@@ -803,7 +760,6 @@
             expressions: [['come across', 'encontrar por acaso', 'We came across a small bookstore.'], ['go past', 'passar por', 'Go past the church.'], ['pull into', 'entrar com veículo', 'The bus pulled into the station.'], ['head toward', 'ir em direção a', 'Head toward the main square.']],
             readingTitle: 'The route by the river',
             reading: 'Instead of taking the fastest route, Leo walked along the river, through a quiet park, and across a small bridge. He went past a bookstore and came across a weekend market. The route took longer, but it helped him understand the neighborhood. Movement prepositions turned the walk into a clear mental map.',
-            music: ['Through the streets', 'movement prepositions']
         },
         {
             themes: ['talking about schedules', 'planning dates and times', 'explaining routines in a calendar'],
@@ -814,7 +770,6 @@
             expressions: [['put off', 'adiar', 'Do not put off the task.'], ['move up', 'adiantar', 'They moved up the deadline.'], ['fit in', 'encaixar', 'Can we fit in a short call?'], ['run late', 'estar atrasado', 'I am running late.']],
             readingTitle: 'A schedule that finally made sense',
             reading: 'Marcos used to confuse at, on, and in when talking about his schedule. Then he started thinking in categories: exact time, day/date, and larger period. His class was at 7 p.m. on Tuesday in March. This simple pattern helped him write messages more clearly and avoid misunderstandings about appointments and deadlines.',
-            music: ['At seven on Friday', 'time prepositions']
         },
         {
             themes: ['helping a tourist downtown', 'giving directions by phone', 'finding a room in a large building'],
@@ -825,7 +780,6 @@
             expressions: [['keep going', 'continuar em frente', 'Keep going until the roundabout.'], ['take the second left', 'pegar a segunda a esquerda', 'Take the second left after the bridge.'], ['cross over', 'atravessar', 'Cross over at the traffic lights.'], ['pull over', 'encostar o carro', 'Pull over after the corner.']],
             readingTitle: 'Simple directions work better',
             reading: 'When a tourist asked for directions, Bruno first gave too much information. The tourist looked confused. Bruno tried again: "Go straight for two blocks, turn left after the bank, and the museum is opposite the park." This time, the tourist understood. Good directions are not the longest directions; they are the clearest ones.',
-            music: ['Find the way', 'directions']
         },
         {
             themes: ['checking in at a hotel', 'reporting a room problem', 'asking politely for travel help'],
@@ -836,7 +790,6 @@
             expressions: [['check in', 'fazer entrada', 'We checked in late.'], ['check out', 'fazer saída', 'They checked out before breakfast.'], ['sort out', 'resolver', 'Reception sorted out the problem.'], ['make up for', 'compensar', 'They offered coffee to make up for the delay.']],
             readingTitle: 'A calm hotel complaint',
             reading: 'When Laura entered her hotel room, the air conditioner was not working and there were no towels. She was tired, but she called reception calmly. She said, "I have just checked in, and the air conditioner is not working. Could you send someone to check it and bring two towels, please?" The receptionist understood immediately and sorted out the problem.',
-            music: ['Room for tonight', 'hotel English']
         },
         {
             themes: ['study habits', 'personal goals', 'likes, decisions, and plans'],
@@ -847,7 +800,6 @@
             expressions: [['keep on', 'continuar', 'Keep on practicing.'], ['give up', 'desistir', 'Do not give up learning.'], ['look forward to', 'esperar ansiosamente', 'I look forward to seeing you.'], ['get used to', 'se acostumar', 'I am getting used to speaking.']],
             readingTitle: 'Small habits that continue',
             reading: 'Felipe wanted to improve his English, but he often gave up after a few days. Then he changed his plan. He decided to study for fifteen minutes every morning and avoided studying when he was exhausted. He enjoyed tracking small improvements and looked forward to using new phrases in class. The change worked because the habit was realistic.',
-            music: ['Keep on practicing', 'gerunds and infinitives']
         },
         {
             themes: ['facts and habits', 'real future possibilities', 'plans with consequences'],
@@ -858,7 +810,6 @@
             expressions: [['depend on', 'depender de', 'It depends on the schedule.'], ['work out', 'dar certo', 'If we prepare well, the plan will work out.'], ['stick to', 'manter-se fiel a', 'Stick to your routine.'], ['figure out', 'descobrir/resolver', 'We will figure out a solution.']],
             readingTitle: 'A plan with conditions',
             reading: 'Laura made a study plan with conditions because her routine changes a lot. If she has a quiet morning, she studies grammar. If work is busy, she reviews vocabulary for ten minutes at night. If she misses a day, she does not give up; she starts again the next day. The plan works because it is flexible and realistic.',
-            music: ['If I keep going', 'zero and first conditional']
         },
         {
             themes: ['using unless in plans', 'talking about hopes', 'expressing wishes carefully'],
@@ -869,7 +820,6 @@
             expressions: [['miss out on', 'perder oportunidade', 'Do not miss out on this chance.'], ['count on', 'contar com', 'You can count on my help.'], ['prepare for', 'preparar-se para', 'Prepare for the interview.'], ['look ahead', 'olhar para frente', 'Let us look ahead and plan.']],
             readingTitle: 'Hope, wish, and action',
             reading: 'Bruno hopes to get a better job, but he knows that hope is not a plan by itself. Unless he updates his resume and practices interviews, nothing will change. He also says, "I wish I had more confidence," but his teacher reminds him that confidence grows through action. Hope looks forward, wish shows a desire, and unless warns about the consequence of doing nothing.',
-            music: ['Unless I try', 'unless and wishes']
         },
         {
             themes: ['presenting a personal learning project', 'telling your progress story', 'planning the next level'],
@@ -880,7 +830,6 @@
             expressions: [['look back on', 'relembrar', 'I look back on my first lesson.'], ['build up', 'desenvolver aos poucos', 'I built up confidence.'], ['keep going', 'continuar', 'I want to keep going.'], ['set a goal', 'definir meta', 'Set a clear goal for next month.']],
             readingTitle: 'The final reflection',
             reading: 'For the final project, Nina prepared a short reflection about her English journey. She explained what she had learned, which habits helped her, and what she was going to do next. She did not claim to be perfect. Instead, she gave evidence of progress: she could tell stories, compare options, ask for help, talk about experiences, and explain plans. Her final project was not an ending; it was a map for the next stage.',
-            music: ['One step further', 'final project']
         }
     ];
 
@@ -1886,7 +1835,6 @@
         if (followUp && bank.dialogues.length && !signature.dialogues) {
             bank.dialogues = bank.dialogues.map((dialogue, index) => index === 0 ? [...dialogue, ...followUp] : dialogue);
         }
-        bank.musicLines = profile.musicLines || createMusicLines(bank);
         const readingUpgrade = premiumLesson ? null : signature.readingUpgrade || (standaloneBank ? null : readingUpgrades[sourceNumber]);
         if (readingUpgrade) {
             bank.readingTitle = readingUpgrade.title;
@@ -2655,99 +2603,9 @@
         ];
     }
 
-    function createMusicLines(bank) {
-        const vocab = bank.vocab || [];
-        const expressions = bank.expressions || [];
-        const sources = [vocab[0], vocab[2], expressions[0], vocab[4], expressions[2]].filter(Boolean);
-        return sources.map((item) => {
-            const complete = createCompleteItem(item);
-            return [complete.prompt.replace('____', complete.answer), complete.answer];
-        });
-    }
-
-    const musicSelectionsByLesson = {
-        1: { song: 'Yesterday', artist: 'The Beatles', spotifyId: '3BQHpFgAp4l80e1XslIjNI', focus: 'yesterday e ações terminadas no passado' },
-        2: { song: 'The Story', artist: 'Brandi Carlile', spotifyId: '0EKBV6GybPtALXUgWqWrym', focus: 'story, acontecimentos e sequência' },
-        3: { song: 'Stronger', artist: 'Kelly Clarkson', spotifyId: '1nInOsHbtotAmEOQhtvnzP', focus: 'stronger e comparações' },
-        4: { song: 'The Best', artist: 'Tina Turner', spotifyId: '6pPWRBubXOBAHnjl5ZIujB', focus: 'best e superlativos' },
-        5: { song: 'Count on Me', artist: 'Bruno Mars', spotifyId: '3B5UbSndRz907IZhhmUfLi', focus: 'count, one, two e quantidade' },
-        6: { song: 'While My Guitar Gently Weeps', artist: 'The Beatles', spotifyId: '389QX9Q1eUOEZ19vtzzI9O', focus: 'while e ações em andamento' },
-        7: { song: 'When the Party\'s Over', artist: 'Billie Eilish', spotifyId: '43zdsphuZLzwA9k4DJhU0I', focus: 'when e mudança de acontecimento' },
-        9: { song: 'I\'m Gonna Be (500 Miles)', artist: 'The Proclaimers', spotifyId: '67iAlVNDDdddxqSD2EZhFs', focus: 'gonna e intenção futura' },
-        10: { song: 'I\'ll Be There', artist: 'Jackson 5', spotifyId: '6Dt6QsLEEYyZ0fMjEEpIjP', focus: 'will e promessa' },
-        11: { song: 'Leaving on a Jet Plane', artist: 'John Denver', spotifyId: '3D8dwH690MXQRhtIZTSS9c', focus: 'leaving e compromisso de viagem' },
-        12: { song: 'Que Será, Será', artist: 'Doris Day', spotifyId: '1Rf1RkpFDKat8IDa8OvZKE', focus: 'will e previsões sobre o futuro' },
-        13: { song: 'Can I Kick It?', artist: 'A Tribe Called Quest', spotifyId: '5q6pg1kvXfT7z5MqG0KKSs', focus: 'Can I...? e permissão' },
-        14: { song: 'I\'ll Have to Say I Love You in a Song', artist: 'Jim Croce', spotifyId: '0QnabBTpfVdrjhE4XznAuE', focus: 'have to e necessidade' },
-        15: { song: 'Should I Stay or Should I Go', artist: 'The Clash', spotifyId: '39shmbIHICJ2Wxnk1fPSdz', focus: 'should e decisão' },
-        17: { song: 'Have You Ever', artist: 'Brandy', spotifyId: '6tBD4yjOf9P8rWwUlXdJFm', focus: 'Have you ever...? e experiências' },
-        18: { song: 'Never Ever', artist: 'All Saints', spotifyId: '596XLiW6tohIgkcTMf4M6a', focus: 'never e ever' },
-        19: { song: 'Since U Been Gone', artist: 'Kelly Clarkson', spotifyId: '6JY1IdkZGeIcPegKxjSKeb', focus: 'since, been e referência ao passado' },
-        20: { song: 'Gone, Gone, Gone', artist: 'Phillip Phillips', spotifyId: '20S0KRq4z2v2Utym0C246s', focus: 'gone e ausência' },
-        21: { song: 'Fix You', artist: 'Coldplay', spotifyId: '7LVHVU3tWfcxj5aiPFEW4Q', focus: 'tired, fix e cuidado' },
-        22: { song: 'Doctor My Eyes', artist: 'Jackson Browne', spotifyId: '5OuaAMBmGjjJMK7yXpaFAK', focus: 'doctor e descrição de um problema' },
-        23: { song: 'Next to Me', artist: 'Emeli Sande', spotifyId: '5VHuGRvkB61pvdQjAgUazm', focus: 'next to e localização' },
-        25: { song: 'Across the Universe', artist: 'The Beatles', spotifyId: '4dkoqJrP0L8FXftrMZongF', focus: 'across e movimento' },
-        26: { song: 'Time After Time', artist: 'Cyndi Lauper', spotifyId: '7o9uu2GDtVDr9nsR7ZRN73', focus: 'time e marcadores temporais' },
-        27: { song: 'Follow Me', artist: 'Uncle Kracker', spotifyId: '4KoecuyOpZaNFZ0UqVsllc', focus: 'follow e orientação' },
-        28: { song: 'Hotel California', artist: 'Eagles', spotifyId: '1rh232CwAy3EDEWFJkwH88', focus: 'hotel e situações de viagem' },
-        29: { song: 'Don\'t Stop Believin\'', artist: 'Journey', spotifyId: '4bHsxqR3GMrXTxEPLuK5ue', focus: 'stop + -ing e continuidade' },
-        30: { song: 'If I Ain\'t Got You', artist: 'Alicia Keys', spotifyId: '3XVBdLihbNbxUwZosxcGuJ', focus: 'if e condição' },
-        31: { song: 'Wish You Were Here', artist: 'Pink Floyd', spotifyId: '6mFkJmJqdDVQ1REhVfGgd1', focus: 'wish e situação imaginada' }
-    };
-
-    function getMusicSelection(title, bank) {
-        const specificSelection = musicSelectionsByLesson[getLessonNumber()];
-        if (specificSelection) return specificSelection;
-
-        const label = (bank.matchLabel || bank.label || title || '').toLowerCase();
-
-        if (/present perfect|ever|never|already|yet|been and gone/.test(label)) {
-            return { song: 'Have You Ever Seen The Rain', artist: 'Creedence Clearwater Revival', focus: 'have you ever, seen, rain, experience' };
-        }
-        if (/past continuous|interrupted/.test(label)) {
-            return { song: 'When The Party Is Over', artist: 'Billie Eilish', focus: 'when, was/were, past scene, interruption' };
-        }
-        if (/past simple|complete past|past review/.test(label)) {
-            return { song: 'Yesterday', artist: 'The Beatles', focus: 'yesterday, past memories, changed, said' };
-        }
-        if (/superlative/.test(label)) {
-            return { song: 'The Best', artist: 'Tina Turner', focus: 'best, better, superlative emphasis' };
-        }
-        if (/comparative/.test(label)) {
-            return { song: 'Stronger', artist: 'Kelly Clarkson', focus: 'stronger, better, comparison' };
-        }
-        if (/articles|quantifiers/.test(label)) {
-            return { song: 'Count on Me', artist: 'Bruno Mars', focus: 'count, one, two, enough, support' };
-        }
-        if (/going to/.test(label)) {
-            return { song: 'I\'m Gonna Be (500 Miles)', artist: 'The Proclaimers', focus: 'gonna, future intention, distance' };
-        }
-        if (/will|future|present continuous for future/.test(label)) {
-            return { song: 'I\'ll Be There', artist: 'Jackson 5', focus: 'will, promise, future support' };
-        }
-        if (/health|medical/.test(label)) {
-            return { song: 'Fix You', artist: 'Coldplay', focus: 'feel, tired, fix, comfort' };
-        }
-        if (/permission|can and could/.test(label)) {
-            return { song: 'Can I Kick It?', artist: 'A Tribe Called Quest', focus: 'can I, permission question' };
-        }
-        if (/must|have to|need to|should|advice|modals/.test(label)) {
-            return { song: 'Should I Stay or Should I Go', artist: 'The Clash', focus: 'should, decision, advice' };
-        }
-        if (/hotel|at the hotel/.test(label)) {
-            return { song: 'Hotel California', artist: 'Eagles', focus: 'hotel, reservation/travel setting' };
-        }
-        if (/prepositions|movement|directions|from a to b|practical english review/.test(label)) {
-            return { song: 'On The Road Again', artist: 'Willie Nelson', focus: 'road, movement, direction' };
-        }
-        if (/gerunds|infinitives/.test(label)) {
-            return { song: 'Don\'t Stop Believin\'', artist: 'Journey', focus: 'stop + -ing, believing, keeping going' };
-        }
-        if (/conditional|unless|wishes/.test(label)) {
-            return { song: 'If I Ain\'t Got You', artist: 'Alicia Keys', focus: 'if, condition, wish/value' };
-        }
-        return { song: 'I Won\'t Give Up', artist: 'Jason Mraz', focus: 'will, persistence, personal progress' };
+    function getMusicSelection() {
+        const lesson = window.V3Curriculum?.getLesson('a2-v3', getLessonNumber());
+        return window.MusicClozeV3?.getPublicEntry(lesson) || null;
     }
 
     function setHtml(selector, html) {
@@ -3861,88 +3719,21 @@
         `);
     }
 
-    function renderLyricPlaceholder() {
-        return `<div class="v3-lyric-placeholder">
-            <div class="v3-lyric-placeholder-head"><strong>Music Time</strong><span>Preencha as lacunas com a palavra que você ouvir.</span></div>
-            <div class="v3-lyric-copy">
-                <p class="v3-lyric-stanza">
-                    <span class="v3-lyric-line">I wake to see the <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 1" autocomplete="off" spellcheck="false"> through the window,</span>
-                    <span class="v3-lyric-line">A quiet street is waiting down below.</span>
-                    <span class="v3-lyric-line">I take a breath and <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 2" autocomplete="off" spellcheck="false"> the open doorway,</span>
-                    <span class="v3-lyric-line">Not knowing where this winding road will go.</span>
-                </p>
-                <p class="v3-lyric-stanza">
-                    <span class="v3-lyric-line">I carry every <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 3" autocomplete="off" spellcheck="false"> that you gave me,</span>
-                    <span class="v3-lyric-line">It keeps me moving when the night is long.</span>
-                    <span class="v3-lyric-line">And if I lose my <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 4" autocomplete="off" spellcheck="false"> for just a moment,</span>
-                    <span class="v3-lyric-line">I close my eyes and listen for our song.</span>
-                </p>
-                <p class="v3-lyric-stanza">
-                    <span class="v3-lyric-line">We keep on <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 5" autocomplete="off" spellcheck="false"> toward tomorrow,</span>
-                    <span class="v3-lyric-line">With every step, a little more to learn.</span>
-                    <span class="v3-lyric-line">Through every change, through every joy and sorrow,</span>
-                    <span class="v3-lyric-line">The light we share will always <input class="v3-lyric-gap" type="text" aria-label="Lacuna musical 6" autocomplete="off" spellcheck="false">.</span>
-                </p>
-            </div>
-        </div>`;
-    }
-
     function fillMusic(bank) {
-        const selection = getMusicSelection(document.title, bank);
-        const lyricMarkup = renderLyricPlaceholder();
-
-        setHtml('#music-lyrics', `
-            <div class="text-left text-lg space-y-5">
-                <div class="activity-card p-5 space-y-4">
-                    <div>
-                        <p class="lesson-panel-title">Spotify</p>
-                        <h3 class="text-2xl font-black text-slate-900">${escapeHtml(selection.song)} <span class="text-lg text-slate-500">- ${escapeHtml(selection.artist)}</span></h3>
-                        <p class="text-sm text-slate-500 mt-2">Foco de escuta: ${escapeHtml(selection.focus)}.</p>
-                    </div>
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/${escapeHtml(selection.spotifyId)}?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </div>
-                <div class="activity-card p-6 space-y-5">
-                    ${lyricMarkup}
-                </div>
-            </div>
-        `);
-    }
-
-    function renderMusicLyricLine(entry, stanzaIndex, lineIndex) {
-        if (!Array.isArray(entry)) {
-            return `<span class="music-lyric-line">${escapeHtml(entry)}</span>`;
+        const selection = getMusicSelection();
+        document.querySelector('.slide[data-title="Music Moment"]')?.remove();
+        if (!selection) {
+            return;
         }
 
-        const [line, answer] = entry;
-        const marker = '________';
-        const markerIndex = line.indexOf(marker);
-        if (markerIndex < 0) {
-            return `<span class="music-lyric-line">${escapeHtml(line)}</span>`;
-        }
-
-        const answerId = `music-gap-answer-${stanzaIndex}-${lineIndex}`;
-        const placeholderId = `music-gap-placeholder-${stanzaIndex}-${lineIndex}`;
-        const before = line.slice(0, markerIndex);
-        const after = line.slice(markerIndex + marker.length);
-
-        return `
-            <span class="music-lyric-line">
-                ${escapeHtml(before)}<span class="music-gap-control">
-                    <span id="${placeholderId}" class="music-gap-placeholder">${marker}</span>
-                    <strong id="${answerId}" class="music-gap-answer hidden" aria-live="polite">${escapeHtml(answer)}</strong>
-                    <button
-                        type="button"
-                        class="music-answer-toggle"
-                        data-music-reveal
-                        data-placeholder-id="${placeholderId}"
-                        aria-controls="${answerId}"
-                        aria-expanded="false"
-                        aria-label="Revelar resposta desta lacuna"
-                        title="Revelar resposta"
-                    ><i class="fas fa-eye" aria-hidden="true"></i></button>
-                </span>${escapeHtml(after)}
-            </span>
-        `;
+        const lesson = window.V3Curriculum?.getLesson('a2-v3', getLessonNumber());
+        const homeworkSlide = document.querySelector('.slide[data-title="Homework"]');
+        if (!homeworkSlide) return;
+        const musicSlide = document.createElement('div');
+        musicSlide.className = 'slide';
+        musicSlide.dataset.title = 'Music Moment';
+        musicSlide.innerHTML = `<h2 class="text-4xl font-bold mb-6 text-center text-emerald-700">Ouça e complete 5 palavras da aula</h2><div class="max-w-3xl mx-auto section-card p-8">${window.MusicClozeV3.renderShell(selection, lesson)}</div>`;
+        homeworkSlide.insertAdjacentElement('beforebegin', musicSlide);
     }
 
     function fillHomework(data) {
@@ -4829,27 +4620,6 @@
                 return;
             }
 
-            const musicReveal = event.target.closest('[data-music-reveal]');
-            if (musicReveal) {
-                const answer = document.getElementById(musicReveal.getAttribute('aria-controls'));
-                const placeholder = document.getElementById(musicReveal.dataset.placeholderId);
-                if (!answer || !placeholder) return;
-
-                const willReveal = answer.classList.contains('hidden');
-                answer.classList.toggle('hidden', !willReveal);
-                placeholder.classList.toggle('hidden', willReveal);
-                musicReveal.setAttribute('aria-expanded', willReveal ? 'true' : 'false');
-                musicReveal.setAttribute('aria-label', willReveal ? 'Ocultar resposta desta lacuna' : 'Revelar resposta desta lacuna');
-                musicReveal.setAttribute('title', willReveal ? 'Ocultar resposta' : 'Revelar resposta');
-
-                const icon = musicReveal.querySelector('i');
-                if (icon) {
-                    icon.classList.toggle('fa-eye', !willReveal);
-                    icon.classList.toggle('fa-eye-slash', willReveal);
-                }
-                return;
-            }
-
             const reveal = event.target.closest('[data-a2-reveal]');
             if (reveal) {
                 const card = reveal.closest('.activity-card') || reveal.parentElement;
@@ -4894,6 +4664,7 @@
         if (review) {
             fillReviewLesson(data, review);
             wireActions();
+            finishHydration();
             return;
         }
         fillIntro(data);
@@ -4920,6 +4691,13 @@
         fillMusic(data.bank);
         fillHomework(data);
         wireActions();
+        window.MusicClozeV3?.mountAll();
+        finishHydration();
+    }
+
+    function finishHydration() {
+        document.body.classList.remove('lesson-loading');
+        document.body.classList.add('a2-content-ready');
     }
 
     if (document.readyState === 'loading') {

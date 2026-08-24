@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MusicCloze V3 · QA Preview</title>
+    <link rel="stylesheet" href="../css/v3-session.css">
+    <style>
+        body { margin: 0; padding: 1rem; background: #f1f5f9; font-family: Inter, Arial, sans-serif; }
+        .qa-note { max-width: 58rem; margin: 0 auto 1rem; color: #475569; font-size: .82rem; }
+    </style>
+</head>
+<body>
+    <p class="qa-note"><strong>QA Preview:</strong> texto sintético, sem letra comercial.</p>
+    <main id="preview"></main>
+    <button id="next-btn" type="button" hidden>Próximo</button>
+    <script src="../js/lyrics-service-v3.js"></script>
+    <script src="../js/spotify-embed-v3.js"></script>
+    <script src="../js/music-cloze-v3.js"></script>
+    <script>
+        const entry = {
+            id: 'qa-preview-song',
+            curriculumId: 'qa-preview-lexical',
+            status: 'provider-verified',
+            song: { title: 'QA Preview Track', artist: 'Synthetic Test Content', spotifyTrackId: null },
+            gaps: [
+                { id: 'g1', answer: 'work', occurrence: 1, acceptedAnswers: ['work'] },
+                { id: 'g2', answer: 'name', occurrence: 1, acceptedAnswers: ['name'] },
+                { id: 'g3', answer: 'work', occurrence: 2, acceptedAnswers: ['work'] },
+                { id: 'g4', answer: "can't", occurrence: 1, acceptedAnswers: ["can't"] },
+                { id: 'g5', answer: 'today', occurrence: 2, acceptedAnswers: ['today'] }
+            ],
+            pedagogy: { maxAttempts: 3, application: 'Use work e today em uma resposta curta sobre sua rotina.' }
+        };
+        const providerText = "Today I work and learn.\nMy name is Alex.\nWe work together because we can't stop today.";
+        const model = LyricsServiceV3.buildFiveGapModel(providerText, entry.gaps);
+        const adapter = {
+            load: async () => ({
+                state: 'ready',
+                payload: {
+                    lines: model.lines,
+                    gaps: model.gaps.map((gap, index) => ({ id: gap.id, absoluteTokenIndex: gap.absoluteTokenIndex, gapPosition: `gap-${index + 1}` })),
+                    source: 'qa-synthetic',
+                    transferPrompt: entry.pedagogy.application
+                }
+            }),
+            submit: async (_entry, attempt, responses) => ({
+                state: 'submitted',
+                payload: {
+                    items: LyricsServiceV3.gradeResponses(model.gaps, responses, { reveal: attempt >= 3 }),
+                    completed: false
+                }
+            }),
+            reveal: (_entry, gapId) => model.gaps.find(gap => gap.id === gapId)?.answer || null
+        };
+        const preview = document.getElementById('preview');
+        preview.innerHTML = MusicClozeV3.renderShell(entry, { title: 'QA lexical lesson' });
+        new MusicClozeV3.MusicClozeActivity(preview.querySelector('[data-music-cloze-v3]'), entry, { adapter }).start();
+    </script>
+</body>
+</html>

@@ -256,7 +256,7 @@ async function auditContentLesson(number, width, height, expectedTitle) {
                 activityCards: document.querySelectorAll('.activity-grid .activity-card').length,
                 activityInstructions: [...document.querySelectorAll('.activity-card .activity-hint')].filter(node => /Como fazer:/.test(node.textContent)).length,
                 rigidLabels: /Prática variada:|Seis frases|Quatro diálogos|Área reservada|etapa editorial|Music Moment|Dica:|Observe:|Apoio:/i.test(document.body.textContent),
-                musicInstructions: [...document.querySelectorAll('.slide[data-title="Música"]')].filter(node => /Music Time/.test(node.textContent) && /Preencha as lacunas com a palavra que você ouvir/.test(node.textContent)).length,
+                musicDraftLeaks: document.querySelectorAll('.slide[data-title="Música"], [data-music-cloze-v3]').length,
                 clippedCardFaces: [...document.querySelectorAll('.flashcard-front, .flashcard-back')].filter(node => node.scrollHeight > node.clientHeight + 1).length,
                 missingTranslations: document.querySelectorAll('[data-v3-translation-missing="true"]').length,
                 minutes,
@@ -278,7 +278,7 @@ async function auditContentLesson(number, width, height, expectedTitle) {
     if (result.dialogueCards < 1) throw new Error(`${label}: dialogue practice is missing.`);
     if (result.activityInstructions !== result.activityCards) throw new Error(`${label}: ${result.activityCards - result.activityInstructions} activities do not explain what to do.`);
     if (result.rigidLabels) throw new Error(`${label}: a rigid-count or editorial label is visible.`);
-    if (result.musicInstructions !== 1) throw new Error(`${label}: Music Time instruction is missing or duplicated.`);
+    if (result.musicDraftLeaks !== 0) throw new Error(`${label}: a draft musical vazou para a Student View.`);
     if (result.clippedCardFaces) throw new Error(`${label}: ${result.clippedCardFaces} vocabulary card faces clip their contextual examples.`);
     if (result.missingTranslations) throw new Error(`${label}: ${result.missingTranslations} contextual translations are missing.`);
     if (result.minutes !== 60) throw new Error(`${label}: session totals ${result.minutes}, not 60 minutes.`);

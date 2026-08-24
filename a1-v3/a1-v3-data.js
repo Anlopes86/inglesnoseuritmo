@@ -134,16 +134,6 @@
                 ['Até mais.', 'See you later.'],
                 ['Tchau, se cuida.', 'Goodbye, take care.']
             ],
-            music: {
-                song: 'Hello, Goodbye', artist: 'The Beatles', spotifyId: '0vZ97gHhemKm6c64hTfJNA',
-                lines: [
-                    ['Hello, can you hear my ___ today?', 'name'],
-                    ['Good morning, I am ___ to begin.', 'ready'],
-                    ['You say hello and I say hello ___ .', 'too'],
-                    ['I am ___, and the day feels bright.', 'fine'],
-                    ['Before we go, we smile and say ___ .', 'goodbye']
-                ]
-            },
             homework: {
                 instruction: 'Escolha um tema e escreva 4 a 6 frases. Use o texto como apoio para uma apresentação oral na próxima aula.',
                 themes: ['Apresentar-se a um colega novo', 'Cumprimentar alguém em uma cafeteria', 'Apresentar duas pessoas'],
@@ -239,16 +229,6 @@
                 ['Um momento, por favor.', 'One moment, please.'],
                 ['Aqui está o meu documento.', 'Here you are. This is my ID.']
             ],
-            music: {
-                song: 'Englishman in New York', artist: 'Sting', spotifyId: '1fSl5KhbaDKrYK7acnj7I0',
-                lines: [
-                    ['Tell me your first ___ and say it slowly.', 'name'],
-                    ['I write your ___ on this little card.', 'address'],
-                    ['Please ___ the word so I can understand.', 'spell'],
-                    ['Your phone ___ has eight clear digits.', 'number'],
-                    ['Now I know the city where you ___ .', 'live']
-                ]
-            },
             homework: {
                 instruction: 'Escolha um tema e prepare uma ficha com 5 informações. Traga também as perguntas completas para praticar com o professor.',
                 themes: ['Ficha de matrícula em um curso', 'Cadastro em uma biblioteca', 'Check-in em uma recepção'],
@@ -344,16 +324,6 @@
                 ['Eu me dou bem com a minha irmã.', 'I get along with my sister.'],
                 ['Minha tia cuida das crianças.', 'My aunt looks after the children.']
             ],
-            music: {
-                song: 'My Life', artist: 'Billy Joel', spotifyId: '0v1XpBHnsbkCn7iJ9Ucr1l',
-                lines: [
-                    ['We are a ___, together every day.', 'family'],
-                    ['My ___ tells a story and makes us laugh.', 'brother'],
-                    ['Her ___ is open when we come inside.', 'house'],
-                    ['We ___ along, even when we disagree.', 'get'],
-                    ['At the end of dinner, my ___ tells a funny story.', 'cousin']
-                ]
-            },
             homework: {
                 instruction: 'Escolha um tema e escreva 5 a 7 frases. Use o texto para apresentar as pessoas ao professor na próxima aula.',
                 themes: ['Uma fotografia da família', 'Pessoas que moram com você', 'Dois parentes e suas rotinas'],
@@ -449,16 +419,6 @@
                 ['Nós vamos para o trabalho às oito.', 'We head to work at eight.'],
                 ['Eles voltam para casa depois das seis.', 'They come back home after six.']
             ],
-            music: {
-                song: '867-5309 / Jenny', artist: 'Tommy Tutone', spotifyId: '6iX1f3r7oUJnMbGgQ2gx1j',
-                lines: [
-                    ['I ___ up slowly when the morning starts.', 'wake'],
-                    ['Then I get ___ and open the door.', 'dressed'],
-                    ['I have ___ before I leave my home.', 'breakfast'],
-                    ['After work, I come ___ before dinner.', 'back'],
-                    ['At the end of the day, I go to ___ .', 'bed']
-                ]
-            },
             homework: {
                 instruction: 'Escolha uma rotina e escreva 6 frases em ordem. Prepare-se para contar essa rotina ao professor.',
                 themes: ['Sua manhã durante a semana', 'A rotina de alguém da família', 'Seu dia em um sábado'],
@@ -554,16 +514,6 @@
                 ['Eu trabalho das nove às cinco.', 'I work from nine to five.'],
                 ['Eu ligo para você logo depois da aula.', 'I call you right after class.']
             ],
-            music: {
-                song: 'Paperback Writer', artist: 'The Beatles', spotifyId: '0Ui8KPWZbJJQ2Y0CIQuVqX',
-                lines: [
-                    ['I work from nine ___ five on every weekday.', 'to'],
-                    ['The clock says half ___ seven this morning.', 'past'],
-                    ['My bus is ___ time, so I do not run.', 'on'],
-                    ['Class starts ___ eight and finishes at nine.', 'at'],
-                    ['I rest right ___ my busy day is done.', 'after']
-                ]
-            },
             homework: {
                 instruction: 'Escolha uma agenda e escreva 6 compromissos com dias e horários. Use-a na próxima aula para responder às perguntas do professor.',
                 themes: ['Sua agenda de um dia útil', 'Horários de um curso', 'Compromissos de uma pessoa da família'],
@@ -659,16 +609,6 @@
                 ['É para comer aqui ou levar?', 'Is that for here or to go?'],
                 ['Aqui está a conta.', 'Here is the bill.']
             ],
-            music: {
-                song: 'This Is Me', artist: 'Keala Settle & The Greatest Showman Ensemble', spotifyId: '3lCHADWP8ohxnfBiUqAN3o',
-                lines: [
-                    ['I would like some ___ on my plate.', 'fruit'],
-                    ['There is warm ___ and coffee on the table.', 'bread'],
-                    ['Do we have any ___ for the morning?', 'juice'],
-                    ['The lunch ___ has soup and rice today.', 'menu'],
-                    ['After the meal, the server brings the ___ .', 'bill']
-                ]
-            },
             homework: {
                 instruction: 'Escolha uma situação e crie um pedido com 6 falas. Na próxima aula, pratique o diálogo com o professor.',
                 themes: ['Pedido em uma cafeteria', 'Lista de compras para um almoço', 'Pedido de comida para levar'],
@@ -764,16 +704,6 @@
                 ['Sua avó parece jovem.', 'Your grandmother looks young.'],
                 ['Ele é fácil de reconhecer.', 'He is easy to recognize.']
             ],
-            music: {
-                song: 'Another Day', artist: 'Paul McCartney', spotifyId: '6qYmf2NjhDfsF7x5U5DUOf',
-                lines: [
-                    ['She has bright brown ___ and a friendly smile.', 'eyes'],
-                    ['Her ___ is short and moves in the wind.', 'hair'],
-                    ['He wears ___ when he reads at night.', 'glasses'],
-                    ['They look ___, but they are very kind.', 'quiet'],
-                    ['You are easy to ___ in the busy room.', 'recognize']
-                ]
-            },
             homework: {
                 instruction: 'Escolha uma pessoa e escreva 6 frases sobre sua aparência sem informar o nome. O professor tentará adivinhar na próxima aula.',
                 themes: ['Uma pessoa da família', 'Um personagem de filme ou série', 'Uma pessoa em uma fotografia'],
@@ -869,16 +799,6 @@
                 ['A padaria fica logo depois da esquina.', 'The bakery is around the corner.'],
                 ['A estação fica em frente ao parque.', 'The station is across from the park.']
             ],
-            music: {
-                song: 'She Works Hard for the Money', artist: 'Donna Summer', spotifyId: '3FlOciKDqFlTMPeC7t92Qy',
-                lines: [
-                    ['There is a small ___ at the end of the street.', 'park'],
-                    ['The ___ is open when the morning begins.', 'bakery'],
-                    ['A busy ___ stands across from the hotel.', 'station'],
-                    ['The post office is next ___ the bank.', 'to'],
-                    ['Everything we need is ___ here.', 'near']
-                ]
-            },
             homework: {
                 instruction: 'Escolha um lugar e escreva 6 a 8 frases descrevendo o que existe e onde fica.',
                 themes: ['Seu bairro', 'Uma rua comercial imaginária', 'A região ao redor de um hotel'],
@@ -974,16 +894,6 @@
                 ['Passe pelo banco e vire à esquerda.', 'Go past the bank and turn left.'],
                 ['O hotel fica à sua direita.', 'The hotel is on your right.']
             ],
-            music: {
-                song: 'Do You Really Want to Hurt Me', artist: 'Culture Club', spotifyId: '4PvD06Pmbm2rHG2JjSlElF',
-                lines: [
-                    ['Go ___ until you see the morning light.', 'straight'],
-                    ['Turn ___ beside the old green park.', 'left'],
-                    ['Walk ___ the station and cross the road.', 'past'],
-                    ['The way back home is on your ___ .', 'right'],
-                    ['I follow every sign upon the ___ .', 'map']
-                ]
-            },
             homework: {
                 instruction: 'Escolha uma rota e escreva 6 instruções. Na próxima aula, guie o professor oralmente do início ao destino.',
                 themes: ['Da sua casa até um mercado', 'Da estação até um hotel', 'Da entrada de um shopping até uma loja'],
@@ -1090,16 +1000,6 @@
                 ['O tempo melhora depois das três.', 'It clears up after three.'],
                 ['Esfria à noite.', 'It cools down in the evening.']
             ],
-            music: {
-                song: 'Just the Way You Are', artist: 'Bruno Mars', spotifyId: '47Slg6LuqLaX0VodpSCvPt',
-                lines: [
-                    ['Here comes the ___ after a cloudy morning.', 'sun'],
-                    ['The cloudy sky starts to clear ___ at noon.', 'up'],
-                    ['No dark ___ can stay forever above us.', 'cloud'],
-                    ['The wind grows quiet and the sky looks ___ .', 'bright'],
-                    ['In ___, every garden wakes again.', 'spring']
-                ]
-            },
             homework: {
                 instruction: 'Escolha uma previsão e escreva 6 frases. Inclua uma decisão prática para cada mudança no clima.',
                 themes: ['Previsão para o próximo fim de semana', 'Clima de duas cidades diferentes', 'Um dia com mudanças de tempo'],
@@ -1206,16 +1106,6 @@
                 ['No meu tempo livre, eu ouço música.', 'In my free time, I listen to music.'],
                 ['Nós passamos tempo juntos no parque aos domingos.', 'We hang out at the park on Sundays.']
             ],
-            music: {
-                song: 'Friday I\'m in Love', artist: 'The Cure', spotifyId: '4QlzkaRHtU8gAdwqjWmO8n',
-                lines: [
-                    ['In my free ___, I choose what I enjoy.', 'time'],
-                    ['I often listen to ___ when the day is slow.', 'music'],
-                    ['My friends hang ___ beside the park café.', 'out'],
-                    ['She is good at ___ pictures of the town.', 'drawing'],
-                    ['We love ___ when our favorite song begins.', 'dancing']
-                ]
-            },
             homework: {
                 instruction: 'Escolha um perfil e escreva 6 a 8 frases sobre gostos, habilidades e frequência.',
                 themes: ['Seus hobbies durante a semana', 'Os hobbies de uma pessoa da família', 'Um clube de atividades ideal'],
@@ -1322,16 +1212,6 @@
                 ['A camisa azul está esgotada.', 'The blue shirt is sold out.'],
                 ['Gostei. Vou levar.', 'I like it. I’ll take it.']
             ],
-            music: {
-                song: 'Rock Around the Clock', artist: 'Bill Haley & His Comets', spotifyId: '34AmZ4PMz9iNZVp9AMIGZj',
-                lines: [
-                    ['These blue ___ are beside the door.', 'shoes'],
-                    ['That black ___ is on the wall.', 'jacket'],
-                    ['I try it ___ and check the size again.', 'on'],
-                    ['It ___ well, and the color looks bright.', 'fits'],
-                    ['The price is right; I smile and ___ the blue one home.', 'take']
-                ]
-            },
             homework: {
                 instruction: 'Escolha uma situação e crie um diálogo de compra com 6 a 8 falas. Na próxima aula, faça o papel de cliente com o professor.',
                 themes: ['Comprar uma roupa para uma viagem', 'Trocar uma peça pelo tamanho correto', 'Escolher entre dois pares de sapatos'],
@@ -1438,16 +1318,6 @@
                 ['Tome o remédio depois do café da manhã.', 'Take the medicine after breakfast.'],
                 ['Vá para casa e descanse um pouco.', 'Go home and get some rest.']
             ],
-            music: {
-                song: 'Knockin\' on Heaven\'s Door', artist: 'Bob Dylan', spotifyId: '6HSXNV0b4M4cLJ7ljgVVeh',
-                lines: [
-                    ['My head feels heavy; I have a ___ today.', 'headache'],
-                    ['I drink warm water for my sore ___ .', 'throat'],
-                    ['The doctor says I should get some ___ .', 'rest'],
-                    ['I take my ___ after a light meal.', 'medicine'],
-                    ['By the evening, I begin to feel ___ .', 'better']
-                ]
-            },
             homework: {
                 instruction: 'Escolha uma situação e escreva um diálogo de 6 a 8 falas com sintomas e conselhos.',
                 themes: ['Uma conversa na farmácia', 'Avisar que você não vai trabalhar', 'Ajudar um amigo que não está bem'],
@@ -1554,16 +1424,6 @@
                 ['Eu arrumo a cama todas as manhãs.', 'I make the bed every morning.'],
                 ['Nós precisamos organizar a sala.', 'We need to tidy up the living room.']
             ],
-            music: {
-                song: 'A Hard Day\'s Night', artist: 'The Beatles', spotifyId: '5J2CHimS7dWYMImCHkEFaJ',
-                lines: [
-                    ['The books are on the wooden ___ .', 'shelf'],
-                    ['A quiet lamp stands next to the ___ .', 'sofa'],
-                    ['My favorite room is ___, above the hall.', 'upstairs'],
-                    ['I make the ___ when the morning begins.', 'bed'],
-                    ['At night, I tidy ___ and turn off the light.', 'up']
-                ]
-            },
             homework: {
                 instruction: 'Escolha um espaço e escreva 7 frases descrevendo a posição dos objetos. Faça também um desenho simples para seguir o texto.',
                 themes: ['Seu quarto', 'Uma sala ideal', 'Um apartamento pequeno e organizado'],
@@ -1659,16 +1519,6 @@
                 ['Por favor, entregue sua tarefa hoje.', 'Please hand in your homework today.'],
                 ['Nina está de plantão esta manhã.', 'Nina is on duty this morning.']
             ],
-            music: {
-                song: 'Manic Monday', artist: 'The Bangles', spotifyId: '084PXFhuurZHjsjgdwQci6',
-                lines: [
-                    ['The busy ___ opens early every Monday.', 'office'],
-                    ['We have a team ___ before lunch today.', 'meeting'],
-                    ['I can prepare the room and send the ___ .', 'report'],
-                    ['At noon, everybody takes a short ___ .', 'break'],
-                    ['Before we leave, we hand ___ our work.', 'in']
-                ]
-            },
             homework: {
                 instruction: 'Escolha uma rotina e escreva 6 a 8 frases sobre habilidades, tarefas e horários.',
                 themes: ['Sua rotina de estudo', 'Um dia em um escritório', 'As tarefas de uma profissão'],
@@ -1775,16 +1625,6 @@
                 ['Desça no próximo ponto.', 'Get off at the next stop.'],
                 ['O voo está atrasado em trinta minutos.', 'The flight is delayed by thirty minutes.']
             ],
-            music: {
-                song: 'Blowin\' in the Wind', artist: 'Bob Dylan', spotifyId: '18GiV1BaXzPVYpp9rmOg0E',
-                lines: [
-                    ['My ___ is ready beside the door.', 'suitcase'],
-                    ['The early ___ waits at platform four.', 'train'],
-                    ['I keep my passport and my ___ in my hand.', 'ticket'],
-                    ['The ___ time changes because of rain.', 'departure'],
-                    ['I get ___ and find my window seat.', 'on']
-                ]
-            },
             homework: {
                 instruction: 'Escolha uma situação e prepare um diálogo de 6 a 8 falas para praticar com o professor.',
                 themes: ['Comprar uma passagem de trem', 'Pedir ajuda dentro de um ônibus', 'Perguntar sobre um voo atrasado'],
@@ -1891,16 +1731,6 @@
                 ['Você gostaria de vir aqui em casa no domingo?', 'Would you like to come over on Sunday?'],
                 ['Nós damos uma festa todos os anos.', 'We have a party every year.']
             ],
-            music: {
-                song: 'A Little Respect', artist: 'Erasure', spotifyId: '5mip0MqcMGWmHE7tsrc97m',
-                lines: [
-                    ['We ___ together when the special day arrives.', 'celebrate'],
-                    ['The birthday ___ begins at seven tonight.', 'party'],
-                    ['Every ___ brings a smile and a surprise.', 'gift'],
-                    ['Would you like to come ___ and join us?', 'over'],
-                    ['The ___ is Saturday, the twenty-first.', 'date']
-                ]
-            },
             homework: {
                 instruction: 'Escolha um evento e escreva um convite completo. Prepare também uma resposta positiva e uma negativa gentil.',
                 themes: ['Uma festa de aniversário', 'Um jantar em casa', 'Uma celebração de fim de curso'],
@@ -2007,16 +1837,6 @@
                 ['Nós estamos torcendo pelo time da casa.', 'We are cheering for the home team.'],
                 ['Maya está participando da corrida.', 'Maya is taking part in the race.']
             ],
-            music: {
-                song: 'I Can See Clearly Now', artist: 'Johnny Nash', spotifyId: '7aJZxI6TVdIvQSuWxQ4rqp',
-                lines: [
-                    ['The players are warming ___ beside the field.', 'up'],
-                    ['Our team is ___ fast and moving the ball.', 'running'],
-                    ['Everyone is cheering ___ the players in blue.', 'for'],
-                    ['Maya is taking ___ in the final race.', 'part'],
-                    ['Right ___, the crowd is singing loudly.', 'now']
-                ]
-            },
             homework: {
                 instruction: 'Escolha uma cena e escreva 7 frases sobre o que as pessoas estão fazendo naquele momento.',
                 themes: ['Uma partida esportiva', 'Um parque movimentado', 'Uma academia no fim da tarde'],
@@ -2123,16 +1943,6 @@
                 ['Por favor, recolha o seu lixo.', 'Please pick up your trash.'],
                 ['Nós cuidamos do parque.', 'We take care of the park.']
             ],
-            music: {
-                song: 'Tom\'s Diner', artist: 'Suzanne Vega', spotifyId: '7f9sC9fvtjYSZYOLSmKJlq',
-                lines: [
-                    ['Tall green ___ move beside the river.', 'trees'],
-                    ['A small ___ sings above the path.', 'bird'],
-                    ['The quiet ___ reflects the morning sky.', 'river'],
-                    ['We take ___ of every place we share.', 'care'],
-                    ['Pick ___ the paper and leave the beach clean.', 'up']
-                ]
-            },
             homework: {
                 instruction: 'Escolha um ambiente e escreva 7 frases com animais, fatos e cuidados necessários.',
                 themes: ['Um parque perto de um rio', 'Uma praia limpa e segura', 'Animais que vivem em uma floresta'],
@@ -2239,16 +2049,6 @@
                 ['Conecte o carregador perto da mesa.', 'Plug in the charger near the desk.'],
                 ['Faça uma cópia das suas fotos todo mês.', 'Back up your photos every month.']
             ],
-            music: {
-                song: 'Call Me Maybe', artist: 'Carly Rae Jepsen', spotifyId: '6HkNDcyWdnFXCBkDV5WXNO',
-                lines: [
-                    ['Send me a ___ when your class is done.', 'message'],
-                    ['My phone needs a ___ before I leave.', 'charger'],
-                    ['I log ___ and check the calendar app.', 'in'],
-                    ['Turn the bright ___ off before you sleep.', 'screen'],
-                    ['Back ___ your photos so they stay safe.', 'up']
-                ]
-            },
             homework: {
                 instruction: 'Escolha um problema e escreva um guia de 6 etapas para resolvê-lo. O professor seguirá suas instruções na próxima aula.',
                 themes: ['Celular que não carrega', 'Senha esquecida em um aplicativo', 'Computador lento antes de uma aula'],
@@ -2355,16 +2155,6 @@
                 ['Nina mora no exterior por causa do trabalho.', 'Nina lives abroad for work.'],
                 ['Nós queremos viajar para a Argentina.', 'We want to travel to Argentina.']
             ],
-            music: {
-                song: 'I Will Survive', artist: 'Cake', spotifyId: '0qgiFuYhYuwtFXEwYakddE',
-                lines: [
-                    ['I come ___ a country across the sea.', 'from'],
-                    ['I live ___, but I remember my first home.', 'abroad'],
-                    ['Every new ___ has a sound and a story.', 'language'],
-                    ['We ___ to another city and meet new friends.', 'travel'],
-                    ['At one table, everyone can ___ together.', 'speak']
-                ]
-            },
             homework: {
                 instruction: 'Escolha um perfil e escreva 7 frases com origem, cidade, nacionalidade, idiomas e um destino de viagem.',
                 themes: ['Seu próprio perfil internacional', 'Uma pessoa que mora no exterior', 'Um visitante em um evento internacional'],
@@ -2471,16 +2261,6 @@
                 ['Eu cresci em uma cidade pequena.', 'I grew up in a small town.'],
                 ['Minha família se mudou para Salvador em 2015.', 'My family moved to Salvador in 2015.']
             ],
-            music: {
-                song: 'You Didn\'t', artist: 'Brett Young', spotifyId: '5Jwcv2Le3Klwgrgyqa12ZA',
-                lines: [
-                    ['___, the streets were quiet after rain.', 'Yesterday'],
-                    ['I ___ to an old house near the sea.', 'went'],
-                    ['My family ___ there many years ago.', 'lived'],
-                    ['We looked at photos from ___ night.', 'last'],
-                    ['Then we ___ home before the sky was dark.', 'came']
-                ]
-            },
             homework: {
                 instruction: 'Escolha um tema e escreva uma sequência de 7 a 9 frases sobre fatos concluídos. O professor fará perguntas sobre o texto.',
                 themes: ['O que aconteceu no último fim de semana', 'Uma pequena história de vida', 'Um dia especial no passado'],
@@ -2596,16 +2376,6 @@
                 ['Compare este preço com o preço online.', 'Compare this price with the online price.'],
                 ['Vou ficar com a opção mais barata.', 'I’ll go with the cheaper option.']
             ],
-            music: {
-                song: 'I\'m Gonna Be (500 Miles)', artist: 'The Proclaimers', spotifyId: '66S14BkJDxgkYxLl5DCqOz',
-                lines: [
-                    ['Today I feel ___ than I felt before.', 'stronger'],
-                    ['This road is ___, but the other one is safe.', 'faster'],
-                    ['The new plan is ___ than the plan we had.', 'better'],
-                    ['A smaller room can be ___ and warm.', 'cheaper'],
-                    ['We compare the choices and go ___ one.', 'with']
-                ]
-            },
             homework: {
                 instruction: 'Escolha duas opções reais e escreva 7 comparações antes de indicar sua escolha.',
                 themes: ['Dois meios de transporte', 'Dois celulares ou computadores', 'Dois lugares para morar ou visitar'],
@@ -2712,16 +2482,6 @@
                 ['Ela está juntando dinheiro para um computador novo.', 'She is saving up for a new computer.'],
                 ['Sábado às dez? Ótimo. Até lá.', 'Saturday at ten? Great. See you then.']
             ],
-            music: {
-                song: 'Beautiful Day', artist: 'U2', spotifyId: '0gzqZ9d1jIKo9psEIthwXe',
-                lines: [
-                    ['Tomorrow I am going to ___ a new journey.', 'start'],
-                    ['We are making ___ for every day away.', 'plans'],
-                    ['I am saving ___ for a ticket on the train.', 'up'],
-                    ['She is going to ___ a room beside the sea.', 'book'],
-                    ['When the time is set, I say, “See you ___.”', 'then']
-                ]
-            },
             homework: {
                 instruction: 'Escolha um plano e escreva 8 frases com atividade, dia, horário, lugar e preparação.',
                 themes: ['Seu próximo fim de semana', 'Uma pequena viagem', 'Um plano de estudo para a próxima semana'],
@@ -2802,13 +2562,6 @@
                     ['Which information do the students exchange?', 'They exchange names, phone numbers, and emails.']
                 ]
             },
-            music: { song: 'Count on Me', artist: 'Bruno Mars', spotifyId: '3B5UbSndRz907IZhhmUfLi', lines: [
-                ['My ___ is clear when I meet you today.', 'name'],
-                ['Your ___ is here, and mine is here too.', 'family'],
-                ['We ___ ready for the first class together.', 'are'],
-                ['Her brother ___ a friendly smile.', 'has'],
-                ['Before class begins, we say, “Nice to ___ you.”', 'meet']
-            ]},
             homework: {
                 instruction: 'Escolha um perfil e prepare uma apresentação de 8 frases para usar na próxima aula.',
                 themes: ['Seu perfil e sua família', 'Um personagem fictício e seus parentes', 'Dois novos alunos de uma turma'],
@@ -2881,13 +2634,6 @@
                     ['When does he arrive at the station?', 'He arrives at seven oh five.']
                 ]
             },
-            music: { song: 'Beautiful Day', artist: 'U2', spotifyId: '1VuBmEauSZywQVtqbxNqka', lines: [
-                ['I wake ___ before the city starts to move.', 'up'],
-                ['Breakfast is ready at half ___ six.', 'past'],
-                ['There is ___ fruit beside my cup of tea.', 'some'],
-                ['My bus arrives ___ time outside the door.', 'on'],
-                ['She starts work early, but she ___ late.', 'finishes']
-            ]},
             homework: {
                 instruction: 'Escolha uma situação e monte uma página com rotina, agenda e alimentação.',
                 themes: ['Manhã antes de uma viagem', 'Rotina de um dia de aula', 'Agenda de uma pessoa que trabalha à noite'],
@@ -2955,13 +2701,6 @@
                     ['Where is the museum?', 'It is across from a park.']
                 ]
             },
-            music: { song: 'Downtown', artist: 'Petula Clark', spotifyId: '2PaRgKXIroJJ351nwLmIe0', lines: [
-                ['Go ___ until the old bank is behind you.', 'straight'],
-                ['Turn at the ___ where the green trees grow.', 'corner'],
-                ['The guide has curly hair and wears a blue ___ .', 'jacket'],
-                ['There is a quiet park across ___ the museum.', 'from'],
-                ['At the final sign, the door is on your ___ .', 'left']
-            ]},
             homework: {
                 instruction: 'Escolha uma missão e produza uma descrição e uma rota para o professor solucionar.',
                 themes: ['Encontrar uma pessoa em um lugar público', 'Chegar a um serviço no centro', 'Guiar uma entrega até uma sala'],
@@ -3035,13 +2774,6 @@
                     ['Why doesn’t she buy it?', 'Because she is saving money for a dance course.']
                 ]
             },
-            music: { song: 'Walking on Sunshine', artist: 'Katrina & The Waves', spotifyId: '05wIrZSwuaVWhcv5FfqeH0', lines: [
-                ['The rain stops and the day warms ___ again.', 'up'],
-                ['In my free time, I love ___ outside.', 'dancing'],
-                ['This blue jacket ___ well in the afternoon.', 'fits'],
-                ['Those black shoes are not my ___ today.', 'size'],
-                ['The bright ___ returns above the market.', 'sun']
-            ]},
             homework: {
                 instruction: 'Escolha uma situação e escreva uma cena de 8 frases conectando clima, atividade e escolha de roupa.',
                 themes: ['Preparação para um passeio', 'Compras em um dia de chuva', 'Roupa para praticar um hobby'],
@@ -3109,13 +2841,6 @@
                     ['What does Nina have to send?', 'She has to send a report.']
                 ]
             },
-            music: { song: 'With a Little Help from My Friends', artist: 'The Beatles', spotifyId: '2RnPATK99oGOZygnD2GTO6', lines: [
-                ['I feel ___, so I stay at home today.', 'tired'],
-                ['My laptop waits on the bedroom ___ .', 'desk'],
-                ['I can join the morning ___ from here.', 'meeting'],
-                ['Before lunch, I have to send the ___ .', 'report'],
-                ['Then I take my medicine and get some ___ .', 'rest']
-            ]},
             homework: {
                 instruction: 'Escolha uma situação e escreva um plano de solução com 8 frases.',
                 themes: ['Trabalhar em casa porque não está bem', 'Organizar um espaço de estudo', 'Preparar uma sala para uma reunião'],
@@ -3189,13 +2914,6 @@
                     ['What does Maya send her cousin?', 'She sends the new arrival time.']
                 ]
             },
-            music: { song: 'The Final Countdown', artist: 'Europe', spotifyId: '3MrRksHupTVEQ7YbA0FsZK', lines: [
-                ['The train is ___, but we still have time.', 'delayed'],
-                ['The passengers are ___ beside platform three.', 'waiting'],
-                ['Our birthday ___ starts at two today.', 'party'],
-                ['Would you like to come and ___ with us?', 'celebrate'],
-                ['Get ___ the train when the doors are open.', 'on']
-            ]},
             homework: {
                 instruction: 'Escolha uma missão e escreva 8 frases conectando transporte, horário e ação em progresso.',
                 themes: ['Viagem para uma festa', 'Espera em uma estação', 'Chegada a um evento esportivo'],
@@ -3269,13 +2987,6 @@
                     ['What do the signs ask visitors to do?', 'They ask visitors to stay away from nests and pick up trash.']
                 ]
             },
-            music: { song: 'Across the Universe', artist: 'The Beatles', spotifyId: '4dkoqJrP0L8FXftrMZongF', lines: [
-                ['Every ___ has rivers, parks, and trees.', 'country'],
-                ['We take ___ of the places where we live.', 'care'],
-                ['I save the photos and back them ___ today.', 'up'],
-                ['My new friends ___ three languages together.', 'speak'],
-                ['Please pick ___ the paper beside the path.', 'up']
-            ]},
             homework: {
                 instruction: 'Escolha um projeto e escreva 9 frases com fatos, instruções e participantes de países diferentes.',
                 themes: ['Campanha internacional por um parque', 'Guia digital sobre animais', 'Apresentação online de três cidades'],
@@ -3356,13 +3067,6 @@
                     ['What is Maya going to do next month?', 'She is going to return for her cousin’s birthday.']
                 ]
             },
-            music: { song: 'On Top of the World', artist: 'Imagine Dragons', spotifyId: '6KuHjfXHkfnIjdmcIvt9r0', lines: [
-                ['I know my ___ and I can introduce myself.', 'name'],
-                ['I talk about yesterday and what I ___ then.', 'did'],
-                ['Today I am ___ every useful word.', 'using'],
-                ['Tomorrow I am going to follow my new ___ .', 'plan'],
-                ['Step by step, my English becomes ___ .', 'stronger']
-            ]},
             homework: {
                 instruction: 'Escolha um projeto final e prepare 10 a 12 frases organizadas. Use o texto como apoio para uma apresentação ao vivo com perguntas do professor.',
                 themes: ['Minha rotina, meu último fim de semana e meu próximo plano', 'Um visitante passa um fim de semana na minha cidade', 'Perfil e planos de uma pessoa que começa um curso novo'],

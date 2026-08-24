@@ -159,6 +159,11 @@
             questions: ['Do you work on Saturdays?', 'Do you study at night?', 'Do you like movies?', 'What do you do on weekends?', 'Do you usually go out?'],
             support: ['I work...', 'I don’t work...', 'Do you...?', 'Yes, I do. / No, I don’t.', 'We usually...', 'Let’s...']
         },
+        mission: {
+            title: 'Saturday plan',
+            task: 'Compare rotinas e preferências, faça um convite para sair e combine lugar e horário depois de aceitar ou recusar uma opção.',
+            focus: ['Present Simple com do/don’t', 'preferências', 'convite, resposta e combinação final']
+        },
         homework: homework(
             'Complete uma rotina-modelo usando as estruturas da aula.',
             ['Dias de trabalho e estudo', 'Gostos', 'Um hábito de fim de semana'],

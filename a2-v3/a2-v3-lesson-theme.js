@@ -1029,6 +1029,5 @@
         render();
     });
 
-    document.body.classList.remove('lesson-loading');
     document.body.classList.add('a2-theme-ready');
 })();
