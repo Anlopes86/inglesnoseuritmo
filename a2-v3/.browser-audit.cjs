@@ -186,6 +186,31 @@ async function main() {
             const publishedMusic = manifest ? window.MusicCatalogV3?.getForCurriculumId(manifest.id) : null;
             const slideTitles = slides.map(slide => slide.dataset.title || '');
             const footerButtons = ['prev-btn', 'next-btn'].map(id => document.getElementById(id)).filter(Boolean);
+            const routeStrip = document.querySelector('[data-a2-lesson-route]');
+            const routeTiers = [...document.querySelectorAll('[data-a2-lesson-route] [data-route-tier]')];
+            const routeTierMetrics = routeTiers.map(tier => {
+                const label = tier.querySelector('strong');
+                const description = tier.querySelector('span');
+                const tierRect = tier.getBoundingClientRect();
+                const children = [label, description].filter(Boolean);
+                return {
+                    tier: tier.dataset.routeTier || '',
+                    labelFont: label ? parseFloat(getComputedStyle(label).fontSize) || 0 : 0,
+                    descriptionFont: description ? parseFloat(getComputedStyle(description).fontSize) || 0 : 0,
+                    overflow: tier.scrollWidth > tier.clientWidth + 1 || children.some(element => {
+                        const rect = element.getBoundingClientRect();
+                        return rect.left < tierRect.left - 1 || rect.right > tierRect.right + 1;
+                    })
+                };
+            });
+            const routeOverlap = routeTiers.some((tier, index) => {
+                const first = tier.getBoundingClientRect();
+                return routeTiers.slice(index + 1).some(otherTier => {
+                    const second = otherTier.getBoundingClientRect();
+                    return first.left < second.right - 1 && first.right > second.left + 1
+                        && first.top < second.bottom - 1 && first.bottom > second.top + 1;
+                });
+            });
             return {
                 title: document.title,
                 titleMatchesManifest: Boolean(manifest?.title && document.title.includes(manifest.title) && document.querySelector('header h1')?.textContent.includes(manifest.title)),
@@ -197,6 +222,12 @@ async function main() {
                 helpingSlides: document.querySelectorAll('.slide[data-title="Helping You"]').length,
                 guidedSlides: document.querySelectorAll('.slide[data-title="Guided Conversation"]').length,
                 routeIndicators: document.querySelectorAll('[data-a2-lesson-route] [data-route-tier]').length,
+                routeTierMetrics,
+                routeColumns: routeStrip ? getComputedStyle(routeStrip).gridTemplateColumns.split(/\\s+/).filter(Boolean).length : 0,
+                routeOverflow: Boolean(routeStrip && (routeStrip.scrollWidth > routeStrip.clientWidth + 1
+                    || routeTierMetrics.some(metric => metric.overflow)
+                    || document.documentElement.scrollWidth > innerWidth + 1)),
+                routeOverlap,
                 homeworkOptions: document.querySelectorAll('[data-a2-homework-option]').length,
                 homeworkPrompt: document.querySelector('[data-a2-homework-prompt]')?.textContent.trim() || '',
                 homeworkSlides: slideTitles.filter(title => /^Homework/.test(title)).length,
@@ -254,6 +285,11 @@ async function main() {
                 if (!result.footerNavigationAccessible) failures.push(`${label}: previous/next navigation is outside the viewport or below the minimum target size.`);
                 if (result.content && (result.verbSlides !== 1 || result.helpingSlides !== 1 || result.guidedSlides !== 1)) failures.push(`${label}: premium sequence ${JSON.stringify(result)}.`);
                 if (result.content && result.routeIndicators !== 3) failures.push(`${label}: Core/Extended/Extra route indicator is incomplete.`);
+                if (result.content && result.routeTierMetrics.some(metric => metric.labelFont < 13)) failures.push(`${label}: Core/Extended/Extra label font is below 13px ${JSON.stringify(result.routeTierMetrics)}.`);
+                if (result.content && result.routeTierMetrics.some(metric => metric.descriptionFont < 14)) failures.push(`${label}: Core/Extended/Extra description font is below 14px ${JSON.stringify(result.routeTierMetrics)}.`);
+                if (result.content && result.routeColumns !== (viewport.label === 'desktop' ? 3 : 1)) failures.push(`${label}: Core/Extended/Extra must use three desktop columns and one mobile column; found ${result.routeColumns}.`);
+                if (result.content && result.routeOverflow) failures.push(`${label}: Core/Extended/Extra route overflows the viewport ${JSON.stringify(result.routeTierMetrics)}.`);
+                if (result.content && result.routeOverlap) failures.push(`${label}: Core/Extended/Extra route tiers overlap.`);
                 if (result.content && (result.homeworkOptions !== 3 || result.homeworkPrompt !== 'Choose one option.')) failures.push(`${label}: lexical homework must show exactly three choices and “Choose one option.”`);
                 if (result.content && (result.musicShells !== 1 || result.musicPrompts !== 3 || !result.musicBeforeHomework)) failures.push(`${label}: music cloze, three post-song prompts, or placement before homework is incorrect.`);
                 if (!result.content && result.musicShells !== 0) failures.push(`${label}: non-lexical lesson contains a music cloze.`);
@@ -418,7 +454,7 @@ async function main() {
         if (fs.existsSync(artifactPath)) console.error(`Failure screenshots: ${artifactPath}`);
         process.exitCode = 1;
     } else {
-        console.log(`A2-V3 browser audit passed with ${browserExecutable.source}: 32 lessons, manifest titles, lexical routes/homeworks/music, 15 communicative sequences, two current consolidations, desktop/mobile layout, hidden answers and interactions.`);
+        console.log(`A2-V3 browser audit passed with ${browserExecutable.source}: 32 lessons, manifest titles, lexical route typography/overflow, homeworks/music, 15 communicative sequences, two current consolidations, desktop/mobile layout, hidden answers and interactions.`);
     }
 }
 
