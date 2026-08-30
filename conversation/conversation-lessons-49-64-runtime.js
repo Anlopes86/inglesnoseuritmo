@@ -14,9 +14,13 @@
     const accentBg = `bg-${accent}-600`;
     const accentHover = `hover:bg-${accent}-500`;
     const accentBorder = `border-${accent}-500`;
-    const spotifySrc = (song) => song.spotifyId
-        ? `https://open.spotify.com/embed/track/${song.spotifyId}`
-        : `https://open.spotify.com/embed/search/${encodeURIComponent(`${song.title} ${song.artist}`)}`;
+    const spotifySrc = (song, songIndex) => {
+        const catalogEntry = window.ConversationMusicCatalog?.get(lessonNumber, songIndex);
+        const spotifyId = catalogEntry?.song?.spotifyId || song.spotifyId;
+        return /^[A-Za-z0-9]{22}$/.test(spotifyId || '')
+            ? `https://open.spotify.com/embed/track/${spotifyId}`
+            : null;
+    };
 
     const iconFor = (index) => ['fa-user', 'fa-face-laugh', 'fa-lightbulb', 'fa-scale-balanced'][index % 4];
     const labelFor = (index) => ['Personal', 'Light & Fun', 'Ideas', 'Discuss'][index % 4];
@@ -39,16 +43,10 @@
             </div>`).join('');
     }
 
-    function listeningLines(song, color) {
-        return song.listening.map((item) => {
-            const field = `<input type="text" class="w-32 border-b-2 text-center bg-transparent border-gray-500 focus:border-${color}-400 outline-none" placeholder="..."> <button class="answer-btn" data-answer="${item.answer}"><i class="fas fa-eye"></i></button>`;
-            return `<p>${item.text.replace('{gap}', field)}</p>`;
-        }).join('');
-    }
-
     function songSlide(song, index) {
         const colors = ['amber', 'blue', 'cyan'];
         const color = colors[index];
+        const playerSrc = spotifySrc(song, index);
         return `
             <div class="slide">
                 <h2 class="text-4xl font-bold mb-4 text-center ${accentText}">
@@ -58,14 +56,16 @@
                 </h2>
                 <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
                     <div class="mb-4 rounded-xl overflow-hidden">
-                        <iframe style="border-radius:12px" src="${spotifySrc(song)}" width="100%" height="152" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                        ${playerSrc
+                            ? `<iframe title="Play ${song.title} by ${song.artist} on Spotify" style="border-radius:12px" src="${playerSrc}" width="100%" height="152" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`
+                            : '<p class="conversation-player-unavailable">Spotify player unavailable for this recording.</p>'}
                     </div>
                     <div class="mb-4 bg-${color}-900/30 p-4 rounded-lg border border-${color}-500/30">
                         <p class="text-sm italic"><i class="fas fa-headphones mr-2 text-${color}-300"></i>${song.angle}</p>
                     </div>
-                    <div class="listening-box text-left text-lg space-y-4 bg-gray-700 p-6 rounded-xl border-l-4 border-${color}-500">
-                        <p class="text-gray-400 text-sm uppercase tracking-wider">Listening lens: complete the ideas</p>
-                        ${listeningLines(song, color)}
+                    <div class="conversation-music-cloze" data-conversation-music-cloze data-lesson-number="${lessonNumber}" data-song-index="${index}" data-music-state="idle">
+                        <div class="conversation-cloze-skeleton" aria-hidden="true"></div>
+                        <p class="conversation-cloze-status">The real-lyrics activity will load when this slide opens.</p>
                     </div>
                 </div>
             </div>`;
@@ -206,21 +206,14 @@
         counter.textContent = `${currentSlide + 1} / ${slides.length}`;
         progressBar.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
         document.getElementById('lesson-main').scrollTo({ top: 0, behavior: 'smooth' });
+        const musicRoot = slides[currentSlide]?.querySelector('[data-conversation-music-cloze]');
+        if (musicRoot) window.ConversationMusicCloze?.mount(musicRoot);
     }
 
     prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
     nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
 
     document.querySelectorAll('.flashcard').forEach((card) => card.addEventListener('click', () => card.classList.toggle('flipped')));
-    document.querySelectorAll('.answer-btn').forEach((button) => button.addEventListener('click', (event) => {
-        event.stopPropagation();
-        const input = button.previousElementSibling;
-        if (input) {
-            input.value = button.dataset.answer;
-            input.classList.add('text-green-300', 'font-bold');
-        }
-    }));
-
     const vocabulary = lesson.expressions.map((item, index) => ({ id: `w${index}`, text: item.term }));
     const wordBank = document.getElementById('word-bank');
     const activity = document.getElementById('matching-activity');

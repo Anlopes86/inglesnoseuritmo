@@ -16,14 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
         'Sports, Rivalries & The World Cup', 'Heroes & Role Models', 'Food Around the World', 'The Paradox of Choice', 'The Ethics of Biohacking',
         'The Art of Storytelling', 'Movies, Series & Pop Culture', 'The Most Interesting Places on Earth', 'Weird Inventions & Crazy Ideas', 'Humor & The Power of Laughter',
         'Fun Predictions: Life in 2050',
-        'Family, Expectations & Independence', 'Trust, Betrayal & Second Chances', 'Fear, Risk & Courage',
-        'Beauty, Body Image & Self-Esteem', 'Loneliness, Solitude & Human Connection',
-        'Superpowers, Magic & Impossible Abilities', 'What If…? Absurd Scenarios',
-        'Traditions: Keep, Change or Let Go?', 'Free Speech, Censorship & Public Consequences',
-        'Useless Talents & Hidden Skills', 'Advertising, Consumerism & Why We Buy',
-        'Stereotypes, Bias & First Impressions', 'Alternative Lifestyles: Tiny Homes, Nomads & Off-Grid Living',
-        'Social Rules, Manners & Pet Peeves', 'Would You Rather? Survival & Impossible Choices',
-        'Luck, Fate & Free Will'
+        'Names, Nicknames & Secret Identities', 'Games, Puzzles & Escape Rooms', 'Weather, Seasons & Mood',
+        'Noise, Silence & Everyday Soundscapes', 'Birthdays, Gifts & Celebration Personalities',
+        'Amusement Parks & Imaginary Attractions', 'What If…? Absurd Scenarios',
+        'Books, Bookshops & Reading Personalities', 'Unpopular Opinions & Friendly Disagreement',
+        'Useless Talents & Hidden Skills', 'Sleep, Dreams & Nighttime Mysteries',
+        'Lists, Rankings & Top-Five Debates', 'Gardens, Houseplants & Green Thumbs',
+        'Social Rules, Manners & Pet Peeves', 'Lost, Found & Unexpected Objects',
+        'Customer Service, Complaints & Five-Star Reviews'
     ];
 
     const unitLabels = [
@@ -33,9 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'Media', 'Behavior', 'History', 'Ethics', 'Science', 'Style', 'Culture', 'Modern Love',
         'Childhood', 'Ideas', 'Music', 'Aging', 'Language', 'Sports', 'Inspiration', 'Food',
         'Decisions', 'Bioethics', 'Narrative', 'Pop Culture', 'Places', 'Innovation', 'Humor', 'Futures',
-        'Family', 'Trust', 'Courage', 'Self-Image', 'Connection', 'Imagination', 'Hypotheticals',
-        'Traditions', 'Expression', 'Skills', 'Consumer Culture', 'Perception', 'Lifestyles',
-        'Social Life', 'Choices', 'Philosophy'
+        'Names', 'Games', 'Weather', 'Sound', 'Celebrations', 'Attractions', 'Hypotheticals',
+        'Reading', 'Discussion', 'Skills', 'Sleep', 'Rankings', 'Gardening',
+        'Social Life', 'Objects', 'Service'
     ];
 
     function buildLessonCard(title, lessonNumber, state, isManager) {

@@ -15,6 +15,28 @@ const newQuestions = keys.flatMap((key) => [
     ...data[key].contexts.map((context) => context.prompt),
     ...data[key].speaking.prompts
 ]).map(normalize);
+const primaryConversationPrompts = keys.flatMap((key) => {
+    const lesson = data[key];
+    return [
+        ...lesson.warmups,
+        ...lesson.songs.flatMap((song) => song.questions),
+        ...lesson.speaking.prompts
+    ].map((prompt) => ({ lesson: key, prompt }));
+});
+const imperativeStart = /^(invent|create|design|write|give|choose|pitch|debate|rank|tell|describe|role-play|help|defend|argue|explain|lead|change|present|plan|pick|sell|continue|teach|interview|diagnose|rescue|build)\b/i;
+const nonQuestionConversationPrompts = primaryConversationPrompts
+    .filter(({ prompt }) => !prompt.trim().endsWith('?'))
+    .map(({ lesson, prompt }) => `${lesson}: ${prompt}`);
+const imperativeConversationPrompts = primaryConversationPrompts
+    .filter(({ prompt }) => imperativeStart.test(prompt.trim()))
+    .map(({ lesson, prompt }) => `${lesson}: ${prompt}`);
+const contexts = keys.flatMap((key) => data[key].contexts.map((context) => ({ lesson: key, ...context })));
+const overlongContextInstructions = contexts
+    .filter((context) => context.intro.trim().split(/\s+/).length > 32)
+    .map((context) => `${context.lesson}: ${context.title}`);
+const malformedConversationActivities = contexts
+    .filter((context) => !context.prompt.trim().endsWith('?') || context.cards.length !== 4)
+    .map((context) => `${context.lesson}: ${context.title}`);
 
 const existingSongs = [];
 for (let lesson = 1; lesson <= 48; lesson += 1) {
@@ -32,6 +54,7 @@ const invalid = keys.filter((key) => {
         || lesson.songs.length !== 3
         || lesson.songs.some((song) => song.questions.length !== 4 || song.listening.length !== 3)
         || lesson.contexts.length !== 2
+        || lesson.contexts.some((context) => context.cards.length !== 4 || !context.prompt.trim().endsWith('?'))
         || lesson.practice.length !== 6
         || lesson.speaking.prompts.length !== 4
         || lesson.homework.length !== 3;
@@ -48,5 +71,13 @@ console.log(JSON.stringify({
     missingPages,
     duplicateNewSongs: duplicates(newSongs),
     duplicateNewQuestions: duplicates(newQuestions),
-    repeatedFromEarlierLessons
+    repeatedFromEarlierLessons,
+    overlongContextInstructions,
+    malformedConversationActivities,
+    nonQuestionConversationPrompts,
+    imperativeConversationPrompts
 }, null, 2));
+
+if (invalid.length || missingPages.length || duplicates(newSongs).length || duplicates(newQuestions).length || repeatedFromEarlierLessons.length || overlongContextInstructions.length || malformedConversationActivities.length || nonQuestionConversationPrompts.length || imperativeConversationPrompts.length) {
+    process.exitCode = 1;
+}
