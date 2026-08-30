@@ -1,0 +1,79 @@
+name: A2 V3 Quality
+
+on:
+  pull_request:
+    paths:
+      - "a2-v3/**"
+      - "css/v3-session.css"
+      - "js/a2-v3-module.js"
+      - "js/music-catalog-v3.js"
+      - "js/music-catalog-v3.test.js"
+      - "js/music-cloze-v3.js"
+      - "js/music-cloze-v3.test.js"
+      - "js/v3-curriculum.js"
+      - "tools/audit-a2-v3-*.cjs"
+      - "tools/audit-v3*.cjs"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/a2-v3-quality.yml"
+  push:
+    branches: [main]
+    paths:
+      - "a2-v3/**"
+      - "css/v3-session.css"
+      - "js/a2-v3-module.js"
+      - "js/music-catalog-v3.js"
+      - "js/music-catalog-v3.test.js"
+      - "js/music-cloze-v3.js"
+      - "js/music-cloze-v3.test.js"
+      - "js/v3-curriculum.js"
+      - "tools/audit-a2-v3-*.cjs"
+      - "tools/audit-v3*.cjs"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/a2-v3-quality.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run the four V3 audits
+        run: npm run audit:v3
+
+      - name: Run A2 final-polish audits
+        run: npm run audit:a2
+
+      - name: Run music unit tests
+        run: npm run test:music
+
+      - name: Run the portable A2 browser audit
+        run: npm run test:a2-browser
+
+      - name: Upload browser evidence on failure
+        if: failure() && hashFiles('a2-v3/browser-audit-artifacts/**') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: a2-v3-browser-audit-failure
+          path: a2-v3/browser-audit-artifacts/
+          if-no-files-found: ignore
+          retention-days: 7

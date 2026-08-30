@@ -36,6 +36,9 @@
                 });
                 const model = this.service.buildFiveGapModel(providerResult.plainLyrics, entry.gaps);
                 this.models.set(entry.id, model);
+                const transferPrompts = Array.isArray(entry.pedagogy?.transferPrompts)
+                    ? entry.pedagogy.transferPrompts.filter(prompt => String(prompt || '').trim())
+                    : [];
                 return {
                     state: 'ready',
                     payload: {
@@ -46,7 +49,8 @@
                             gapPosition: `gap-${index + 1}`
                         })),
                         source: providerResult.source,
-                        transferPrompt: entry.pedagogy?.application || null
+                        transferPrompts,
+                        transferPrompt: entry.pedagogy?.transferPrompt || entry.pedagogy?.application || null
                     }
                 };
             } catch (error) {
@@ -134,8 +138,11 @@
                 }).join('');
                 return `<p class="music-cloze-line">${content}</p>`;
             }).join('');
+            const transferPrompts = payload.transferPrompts?.length
+                ? payload.transferPrompts
+                : [payload.transferPrompt || 'Use duas palavras reconhecidas para comentar o tema da lição.'];
 
-            body.innerHTML = `<div class="music-cloze-instructions"><span>1. Preveja</span><span>2. Ouça</span><span>3. Complete</span><span>4. Confira</span><span>5. Converse</span></div><div class="music-cloze-lines" aria-label="Letra da música com cinco lacunas">${lines}</div><div class="music-cloze-actions"><button type="button" class="music-cloze-primary" data-music-submit>Verificar respostas</button><button type="button" class="music-cloze-secondary" data-music-replay>Ouvir novamente</button></div><div class="music-cloze-transfer hidden" data-music-transfer><strong>Transferência oral</strong><p>${escapeHtml(payload.transferPrompt || 'Use duas palavras reconhecidas para comentar o tema da lição.')}</p><button type="button" class="music-cloze-primary" data-music-finish>Ir para o homework</button></div>`;
+            body.innerHTML = `<div class="music-cloze-instructions"><span>1. Preveja</span><span>2. Ouça</span><span>3. Complete</span><span>4. Confira</span><span>5. Converse</span></div><div class="music-cloze-lines" aria-label="Letra da música com cinco lacunas">${lines}</div><div class="music-cloze-actions"><button type="button" class="music-cloze-primary" data-music-submit>Verificar respostas</button><button type="button" class="music-cloze-secondary" data-music-replay>Ouvir novamente</button></div><div class="music-cloze-transfer hidden" data-music-transfer><strong>Conversation after the song</strong><ol class="music-cloze-transfer-list">${transferPrompts.map((prompt, index) => `<li><span>${index + 1}</span><p>${escapeHtml(prompt)}</p></li>`).join('')}</ol><button type="button" class="music-cloze-primary" data-music-finish>Ir para o homework</button></div>`;
             this.setState('ready', 'Ouça e complete as 5 palavras. Progresso: 0 de 5.');
             this.wire();
             body.querySelector('[data-music-gap="0"]')?.focus({ preventScroll: true });

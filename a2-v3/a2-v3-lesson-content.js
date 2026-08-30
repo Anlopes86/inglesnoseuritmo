@@ -1805,15 +1805,102 @@
         19: 28, 20: 29, 21: 24,
         22: 31, 23: 30, 24: 24,
         25: 4, 26: 31, 27: 24,
-        28: 26, 29: 15, 30: 16,
-        31: 32, 32: 32
+        28: 26, 29: 15, 30: 16
     };
+
+    // Active V3 source for the two consolidation lessons. These records are
+    // deliberately independent from lessonProfiles and follow reviewOf in the
+    // curriculum manifest.
+    const consolidationLessons = {
+        31: {
+            source: 'current-v3-consolidation',
+            label: 'travel weather directions sports interests food requests personality experiences',
+            introDialogue: [
+                ['Teacher', 'Today we are connecting the first half of A2. What do you remember best?'],
+                ['Student', 'I remember travel, directions, sports, food, and talking about experiences.'],
+                ['Teacher', 'Listen for those topics, then use them to retell and personalize the story.']
+            ],
+            dialogues: [
+                [['A', 'Excuse me, could you help us?'], ['B', 'Of course. Go straight and turn left at the sports center.']],
+                [['A', 'What would you like to eat?'], ['B', 'I would like a sandwich, please.']]
+            ],
+            reviewListening: {
+                title: 'A Busy Day in Town',
+                semanticTags: ['travel-weather', 'directions-location', 'sports-workout', 'interests-preferences', 'food-drink', 'restaurant-service', 'describing-people', 'past-experience'],
+                script: 'Last Saturday, Emma traveled by bus to a nearby town with her friend Leo. The weather was sunny, so they walked from the bus station to the sports center. Leo asked a woman for directions because they took the wrong street. At the center, Emma played tennis while Leo watched the game. Later, they went to a small restaurant. Emma ordered soup, but Leo chose a sandwich. Leo was shy at first, but he soon started talking to two local students. At the end of the day, they were tired but happy.',
+                questions: [
+                    ['How did Emma and Leo travel to the town?', 'They traveled to the town by bus.'],
+                    ['Why did Leo ask for directions?', 'Because they took the wrong street.'],
+                    ['What did Emma do at the sports center?', 'She played tennis.'],
+                    ['How did Leo feel and behave at the restaurant?', 'He was shy at first, but then he talked to two local students.']
+                ]
+            },
+            reviewSpeaking: [
+                ['Retell', 'Retell the day in four steps: travel, directions, sports, and food.', 'First, they traveled by bus. Then they asked for directions. Emma played tennis, and later they ate at a restaurant.'],
+                ['Change the trip', 'Change one part of the day and explain the new result.', 'They took the correct street, so they arrived earlier and both played tennis.'],
+                ['Personal connection', 'Describe a similar day you had and add one feeling or preference.', 'I visited a nearby town with a friend. We walked a lot, ate at a small restaurant, and felt tired but happy.']
+            ]
+        },
+        32: {
+            source: 'current-v3-consolidation',
+            label: 'shopping comparisons borrowing past habits advice rankings future hopes',
+            introDialogue: [
+                ['Teacher', 'This final reflection is about choices, progress, and a realistic next step.'],
+                ['Student', 'I can compare options, talk about old habits, give advice, and explain future plans.'],
+                ['Teacher', 'Use those tools to build one connected answer.']
+            ],
+            dialogues: [
+                [['Friend', 'Which study plan is better for you?'], ['Student', 'The shorter plan is cheaper and more practical.']],
+                [['Teacher', 'What are you going to do next month?'], ['Student', 'I am going to join a conversation group.']]
+            ],
+            reviewListening: {
+                title: 'A Practical Plan for Progress',
+                semanticTags: ['shopping-money', 'comparison-shopping', 'borrowing-help', 'past-habits', 'advice-honesty', 'superlatives-ranking', 'future-hopes'],
+                script: 'Marina used to buy language apps, but she rarely used them. This year, she borrowed a headset from a friend and compared two study plans. The cheaper plan had short daily lessons, while the more expensive one included weekly conversations. Her teacher said she should choose the plan she could follow consistently. Marina chose the cheaper plan because it was the most practical option for her routine. She is going to practice four times a week and join a conversation group next month. She would like to talk with international customers at work, and she thinks the new routine will help her feel more confident.',
+                questions: [
+                    ['What did Marina use to buy?', 'She used to buy language apps.'],
+                    ['What did she borrow from a friend?', 'She borrowed a headset.'],
+                    ['Why did she choose the cheaper plan?', 'Because it was the most practical option for her routine.'],
+                    ['What is she going to do next month?', 'She is going to join a conversation group.']
+                ]
+            },
+            reviewSpeaking: [
+                ['Then and now', 'Describe one study habit you used to have and what you do now.', 'I used to review only before class, but now I practice four times a week.'],
+                ['Compare and choose', 'Compare two learning options and choose the most practical one.', 'Short daily practice is cheaper and more realistic, so it is the best option for me.'],
+                ['Advice and next step', 'Give yourself one piece of advice and explain a future plan.', 'I should practice consistently. Next month, I am going to join a conversation group.'],
+                ['Final reflection', 'Speak for two minutes about progress, a remaining difficulty, and your next step.', 'Connect past habits, present choices, and a realistic future plan.']
+            ]
+        }
+    };
+
+    window.A2V3Consolidations = Object.freeze({
+        get(number) {
+            const record = consolidationLessons[Number(number)];
+            return record ? JSON.parse(JSON.stringify(record)) : null;
+        },
+        auditSnapshot() {
+            return Object.entries(consolidationLessons).map(([number, record]) => ({
+                number: Number(number),
+                ...JSON.parse(JSON.stringify(record))
+            }));
+        }
+    });
 
     function getLessonData() {
         const number = getLessonNumber();
+        const curriculumEntry = window.V3Curriculum?.getLesson('a2-v3', number) || null;
+        if (curriculumEntry?.lessonKind === 'consolidation') {
+            const consolidation = window.A2V3Consolidations.get(number);
+            if (!consolidation) throw new Error(`Missing current consolidation data for A2 lesson ${number}.`);
+            return {
+                number,
+                title: curriculumEntry.title,
+                bank: Object.assign({}, consolidation, { reviewOf: [...curriculumEntry.reviewOf] })
+            };
+        }
         const sourceNumber = legacySourceByLesson[number] || number;
         const premiumLesson = window.A2V3PremiumCurriculum?.lessons?.[number] || null;
-        const title = premiumLesson?.title || lessonTitles[number - 1] || lessonTitles[0];
+        const title = curriculumEntry?.title || premiumLesson?.title || lessonTitles[number - 1] || lessonTitles[0];
         const topicKey = topicMap[number - 1];
         const baseBank = banks[topicKey] || banks.past;
         const standaloneBank = topicKey === 'usedTo';
@@ -2812,14 +2899,29 @@
         `).join('');
     }
 
+    function renderLessonRoute(route) {
+        if (!route?.core || !route?.extended || !route?.extra) return '';
+        return `
+            <aside class="lesson-route-strip" data-a2-lesson-route aria-label="60-minute lesson route">
+                ${['core', 'extended', 'extra'].map(tier => `
+                    <div class="lesson-route-tier lesson-route-tier-${tier}" data-route-tier="${tier}">
+                        <strong>${escapeHtml(route.tiers?.[tier]?.label || tier.toUpperCase())}</strong>
+                        <span>${escapeHtml(route.indicator?.[tier] || route.tiers?.[tier]?.description || '')}</span>
+                    </div>
+                `).join('')}
+            </aside>
+        `;
+    }
+
     function fillIntro(data) {
         const { title, bank } = data;
         setHtml('.slide[data-title="Intro & Dialogue"] .lesson-hero .max-w-3xl', `
             <p class="lesson-panel-title">Topic & Scene</p>
             <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">${escapeHtml(title)}</h2>
             <div class="grid md:grid-cols-3 gap-4 mt-6">
-                ${bank.objectives.map((item) => `<div class="lesson-panel p-4"><p class="font-bold text-slate-900">${escapeHtml(translateObjective(item))}</p></div>`).join('')}
+                    ${bank.objectives.map((item) => `<div class="lesson-panel p-4"><p class="font-bold text-slate-900">${escapeHtml(translateObjective(item))}</p></div>`).join('')}
             </div>
+            ${renderLessonRoute(bank.lessonRoute)}
         `);
         setHtml('#intro-dialogue', renderIntroDialogue(title, bank));
     }
@@ -3739,11 +3841,22 @@
     function fillHomework(data) {
         const { title, bank } = data;
         if (Array.isArray(bank.homework) && bank.homework.length) {
+            const homeworkList = document.getElementById('homework-list');
+            if (homeworkList) {
+                let prompt = homeworkList.previousElementSibling;
+                if (!prompt?.matches('[data-a2-homework-prompt]')) {
+                    prompt = document.createElement('p');
+                    prompt.dataset.a2HomeworkPrompt = 'true';
+                    prompt.className = 'homework-choice-prompt';
+                    homeworkList.insertAdjacentElement('beforebegin', prompt);
+                }
+                prompt.textContent = bank.homeworkPrompt || 'Choose one option.';
+            }
             setHtml('#homework-list', bank.homework.map((item) => {
                 if (typeof item === 'string') {
                     return `<li class="flex gap-3"><i class="fas fa-check-circle mt-1"></i><span>${escapeHtml(item)}</span></li>`;
                 }
-                return `<li class="block">
+                return `<li class="block" data-a2-homework-option data-homework-kind="${escapeHtml(item.kind || '')}">
                     <div class="font-black mb-2"><i class="${escapeHtml(item.icon || 'fas fa-pen')} mr-2"></i>${escapeHtml(item.title)}</div>
                     <p>${escapeHtml(item.instruction)}</p>
                     ${item.model ? `<p class="mt-2 text-sm opacity-90"><strong>Modelo:</strong> ${escapeHtml(item.model)}</p>` : ''}
@@ -4398,9 +4511,10 @@
     function fillConversationLesson(data, lesson) {
         const sourceLesson = window.A2V3PremiumCurriculum?.lessons?.[lesson.sourceLesson] || {};
         const paddedLesson = String(data.number).padStart(2, '0');
-        document.title = `A2 V3 | Lição ${paddedLesson}: Conversation Activities · ${lesson.title}`;
+        const manifestTitle = data.title || lesson.title;
+        document.title = `A2 V3 | Lição ${paddedLesson}: ${manifestTitle}`;
         const headerTitle = document.querySelector('header h1');
-        if (headerTitle) headerTitle.textContent = `A2 - Lição ${paddedLesson}: Conversation Activities · ${lesson.title}`;
+        if (headerTitle) headerTitle.textContent = `A2 - Lição ${paddedLesson}: ${manifestTitle}`;
 
         const slides = {
             intro: document.querySelector('.slide[data-title="Intro & Dialogue"]'),
@@ -4420,7 +4534,7 @@
 
         setHtml('.slide[data-title="Intro & Dialogue"] .lesson-hero .max-w-3xl', `
             <p class="lesson-panel-title">Conversation Activities · reciclagem da Lição ${lesson.sourceLesson}</p>
-            <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">${escapeHtml(lesson.title)}</h2>
+            <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">${escapeHtml(manifestTitle)}</h2>
             <p class="text-lg text-slate-600">${escapeHtml(lesson.mission)}</p>
             <div class="conversation-mission-outcome"><i class="fas fa-bullseye" aria-hidden="true"></i><div><strong>Objetivo comunicativo</strong><p>${escapeHtml(lesson.outcome)}</p></div></div>
         `);
@@ -4582,9 +4696,10 @@
         document.querySelector('.slide[data-title="Reading & Comprehension"] h2').textContent = 'Listening: listen without reading';
         renderTeacherListening(reviewListening, data.number);
         document.querySelector('.slide[data-title="Oral Translation II"] h2').textContent = 'Speaking: answer, develop and try again';
-        const speakingItems = (review.oralTest || [])
-            .concat(data.bank.reviewSpeaking || [])
-            .concat(review.recap || []);
+        const authoredSpeakingItems = data.bank.reviewSpeaking || [];
+        const speakingItems = authoredSpeakingItems.length
+            ? authoredSpeakingItems
+            : (review.oralTest || []).concat(review.recap || []);
         setHtml('#oral-translation-2', `
             <div class="callout-note p-4 rounded-xl"><p class="font-bold">Responda sem ler um roteiro.</p><p>Desenvolva cada resposta com um detalhe, uma razão ou um exemplo. Depois do feedback, escolha duas respostas e faça uma segunda tentativa.</p></div>
             ${renderReviewItems(speakingItems)}

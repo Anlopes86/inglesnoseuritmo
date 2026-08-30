@@ -1,0 +1,17 @@
+{
+  "name": "ingles-no-seu-ritmo-quality",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "audit:v3": "node tools/audit-v3.cjs && node tools/audit-v3-semantics.cjs && node tools/audit-v3-music.cjs && node a2-v3/audit-conversation-lessons.cjs",
+    "audit:a2": "node tools/audit-a2-v3-module-cards.cjs && node tools/audit-a2-v3-final-polish.cjs",
+    "test:music": "node js/music-catalog-v3.test.js && node js/music-cloze-v3.test.js",
+    "test:a2-browser": "node a2-v3/.browser-audit.cjs",
+    "quality:a2": "npm run audit:v3 && npm run audit:a2 && npm run test:music && npm run test:a2-browser"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

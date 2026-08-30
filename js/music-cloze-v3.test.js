@@ -29,6 +29,9 @@ assert(/aria-label="Revelar resposta da lacuna \$\{field\.index \+ 1\}" aria-pre
 assert(!/data-music-reveal="\$\{field\.index\}"[^>]*\shidden>/.test(musicClozeSource), 'o botão Revelar não pode começar oculto');
 assert(/icon\?\.classList\.toggle\('fa-eye-slash', showingAnswer\)/.test(musicClozeSource), 'o controle deve trocar para olho riscado enquanto exibe a resposta');
 assert(!/feedback\.textContent = `Resposta: \$\{answer\}`/.test(musicClozeSource), 'a resposta revelada deve aparecer somente dentro do campo');
+assert(/payload\.transferPrompts\?\.length/.test(musicClozeSource), 'o componente deve preferir transferPrompts quando o array existe');
+assert(/payload\.transferPrompt \|\|/.test(musicClozeSource), 'o componente deve preservar fallback retrocompatível para transferPrompt');
+assert(/music-cloze-transfer-list/.test(musicClozeSource), 'as perguntas pós-música devem ser renderizadas em lista numerada');
 const gapSpecs = [
     { id: 'g1', answer: 'work', occurrence: 1, acceptedAnswers: ['work'] },
     { id: 'g2', answer: 'name', occurrence: 1, acceptedAnswers: ['name'] },
@@ -93,7 +96,7 @@ const fetchImpl = async url => {
     assert.deepEqual(Array.from(ordered, slide => slide.type), ['content', 'musicCloze', 'homework'], 'blockOrder');
     const nonLexical = cloze.prepareSlides([{ type: 'content' }, { type: 'homework' }], { curriculumId: 'test', lessonKind: 'communicative' });
     assert.deepEqual(Array.from(nonLexical, slide => slide.type), ['content', 'homework'], 'lexicalOnly');
-    console.log('music-cloze-v3.test.js passed: providers, tokenization, exact five gaps, immediate reveal controls, normalization and block order.');
+    console.log('music-cloze-v3.test.js passed: providers, tokenization, exact five gaps, post-song prompt compatibility, reveal controls, normalization and block order.');
 })().catch(error => {
     console.error(error);
     process.exit(1);
