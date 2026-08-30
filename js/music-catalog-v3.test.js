@@ -26,15 +26,17 @@ assert(records.every(entry => new Set(entry.gaps.map(gap => `${gap.answer.toLowe
 const pilots = records.filter(entry => entry.rollout.pilot);
 const nonPilots = records.filter(entry => !entry.rollout.pilot);
 const published = records.filter(entry => entry.status === 'provider-verified');
+const a2Records = records.filter(entry => entry.moduleId === 'a2-v3');
 assert.equal(pilots.length, 12, 'piloto deve ter 12 aulas');
 assert.equal(nonPilots.length, 42, 'o rollout completo deve preservar a identificação dos 42 registros posteriores ao piloto');
 assert.equal(published.length, 54, 'as 54 atividades auditadas devem estar publicadas');
 assert(records.every(entry => entry.publicationBlockers.length === 0), 'nenhuma atividade publicada pode manter bloqueios');
 assert(records.every(entry => /^[A-Za-z0-9]{22}$/.test(entry.song.spotifyTrackId)), 'toda atividade deve ter Spotify ID exato');
 assert(records.every(entry => entry.song.regionChecked === 'BR' && entry.song.spotifyCheckedAt === '2026-08-23'), 'toda atividade deve registrar a checagem BR');
-assert(records.every(entry => Number.isInteger(entry.lyrics.lrclibId) && entry.lyrics.candidateCheckedAt === '2026-08-23'), 'toda atividade deve ter candidato LRCLIB auditado');
+assert(records.every(entry => Number.isInteger(entry.lyrics.lrclibId) && entry.lyrics.candidateCheckedAt >= '2026-08-23'), 'toda atividade deve ter candidato LRCLIB auditado');
 assert(records.every(entry => entry.lyrics.gapAudit === '5-of-5-distinct'), 'toda atividade deve registrar cinco posições distintas');
 assert(records.every(entry => catalog.isPublishable(entry) && catalog.getForCurriculumId(entry.curriculumId)?.id === entry.id), 'toda atividade validada deve chegar à Student View');
+assert(a2Records.every(entry => entry.pedagogy.transferPrompts.length === 3 && entry.pedagogy.transferPrompts.every(Boolean)), 'cada música A2 deve ter três perguntas pós-música');
 
 const letItSnow = records.find(entry => entry.id === 'a2-v3-l01-song-01');
 assert.deepEqual(Array.from(letItSnow.gaps, gap => gap.occurrence), [1, 1, 3, 1, 5]);
@@ -51,5 +53,10 @@ const workingWeekend = records.find(entry => entry.id === 'a1-v3-l02-song-01');
 assert.equal(workingWeekend.song.title, 'Working for the Weekend', 'A1 L2 deve usar a faixa-reserva validada');
 const shyGuy = records.find(entry => entry.id === 'a2-v3-l13-song-01');
 assert.equal(shyGuy.song.spotifyTrackTitle, 'Shy Guy - Darpe Mix', 'A2 L13 deve usar a mesma versão validada no LRCLIB e Spotify');
+assert(new Set(shyGuy.gaps.map(gap => gap.answer.toLowerCase())).size >= 3, 'Shy Guy deve usar ao menos três respostas reais diferentes');
+assert.equal(shyGuy.lyrics.candidateCheckedAt, '2026-08-30', 'Shy Guy deve registrar a nova auditoria de ocorrências no LRCLIB');
+const fashion = records.find(entry => entry.id === 'a2-v3-l23-song-01');
+assert(new Set(fashion.gaps.map(gap => gap.answer.toLowerCase())).size >= 3, 'Fashion deve usar ao menos três respostas reais diferentes');
+assert.equal(fashion.lyrics.candidateCheckedAt, '2026-08-30', 'Fashion deve registrar a nova auditoria de ocorrências no LRCLIB');
 
-console.log('music-catalog-v3.test.js passed: 54 published lexical activities, exact providers and five distinct gaps.');
+console.log('music-catalog-v3.test.js passed: 54 published lexical activities, exact providers, five distinct gaps and three post-song prompts in every A2 song.');

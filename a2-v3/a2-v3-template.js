@@ -1,11 +1,210 @@
 (function installA2V3PremiumCurriculum(globalScope) {
     'use strict';
 
-    const lesson = (config) => Object.freeze(config);
+    const ROUTE_TIERS = Object.freeze({
+        core: Object.freeze({ label: 'CORE', description: 'Priority for a 60-minute lesson.' }),
+        extended: Object.freeze({ label: 'EXTENDED', description: 'Use if there is time.' }),
+        extra: Object.freeze({ label: 'EXTRA', description: 'Review or additional practice.' })
+    });
+
+    const numberedItems = (start, end) => Object.freeze(
+        start > end ? [] : Array.from({ length: end - start + 1 }, (_, index) => start + index)
+    );
+
+    function splitRouteItems(total, coreCount, extraCount = 0) {
+        const safeTotal = Math.max(0, Number(total) || 0);
+        const safeCore = Math.min(safeTotal, Math.max(0, Number(coreCount) || 0));
+        const safeExtra = Math.min(safeTotal - safeCore, Math.max(0, Number(extraCount) || 0));
+        const extendedEnd = safeTotal - safeExtra;
+        return Object.freeze({
+            core: numberedItems(1, safeCore),
+            extended: numberedItems(safeCore + 1, extendedEnd),
+            extra: numberedItems(extendedEnd + 1, safeTotal)
+        });
+    }
+
+    function createLexicalRoute(config, options = {}) {
+        const vocabulary = splitRouteItems(
+            config.vocab?.length,
+            options.coreVocabularyCount ?? Math.min(8, config.vocab?.length || 0),
+            options.extraVocabularyCount || 0
+        );
+        const expressions = splitRouteItems(
+            config.expressions?.length,
+            options.coreExpressionCount ?? Math.min(6, config.expressions?.length || 0),
+            options.extraExpressionCount || 0
+        );
+        const translations = splitRouteItems(
+            config.translations?.length,
+            Math.ceil((config.translations?.length || 0) / 2)
+        );
+        const miniDialogues = splitRouteItems(config.dialogues?.length, Math.min(1, config.dialogues?.length || 0));
+
+        return Object.freeze({
+            durationMinutes: 60,
+            tiers: ROUTE_TIERS,
+            core: Object.freeze({
+                introDialogue: 'all',
+                vocabulary: vocabulary.core,
+                verbs: 'all',
+                languageExplanation: Object.freeze(['grammarTable', 'grammar', 'examples', 'helpingYou']),
+                practice: 'first-half',
+                translations: translations.core,
+                expressions: expressions.core,
+                miniDialogues: miniDialogues.core,
+                guidedConversation: 'all',
+                music: 'all',
+                homework: 'all'
+            }),
+            extended: Object.freeze({
+                vocabulary: vocabulary.extended,
+                practice: 'remaining-half',
+                translations: translations.extended,
+                expressions: expressions.extended,
+                expressionTranslations: 'all',
+                reading: 'all',
+                miniDialogues: miniDialogues.extended
+            }),
+            extra: Object.freeze({
+                vocabulary: vocabulary.extra,
+                expressions: expressions.extra,
+                review: 'as-needed',
+                optionalChallenges: 'as-needed'
+            }),
+            indicator: Object.freeze({
+                core: `60 min · Words 1–${vocabulary.core.length} · Expressions 1–${expressions.core.length} · Dialogue 1`,
+                extended: `Remaining items & practice · reading · ${miniDialogues.extended.length === 1 ? 'Dialogue 2' : `Dialogues ${miniDialogues.extended.join('–')}`}`,
+                extra: vocabulary.extra.length
+                    ? `${vocabulary.extra.length} extra words · review or optional task`
+                    : 'Review or optional task'
+            })
+        });
+    }
+
+    function createLexicalHomework(lessonNumber, tasks) {
+        const curriculumAvailable = typeof globalScope.V3Curriculum?.getLesson === 'function';
+        const manifestLesson = curriculumAvailable
+            ? globalScope.V3Curriculum.getLesson('a2-v3', lessonNumber)
+            : null;
+        if (curriculumAvailable && (!manifestLesson || manifestLesson.lessonKind !== 'lexical')) {
+            throw new Error(`A2-V3 L${lessonNumber}: homework must be linked to a current lexical curriculum entry.`);
+        }
+        const semanticTags = Object.freeze([...(manifestLesson?.languageTags || [])]);
+        const definitions = [
+            ['writing', 'A', 'Writing', 'fas fa-edit', tasks.writing],
+            ['speaking', 'B', 'Speaking', 'fas fa-microphone', tasks.speaking],
+            ['real-life', 'C', 'Real-life', 'fas fa-comments', tasks.realLife]
+        ];
+        return Object.freeze(definitions.map(([kind, option, label, icon, instruction]) => {
+            if (!instruction) throw new Error(`A2-V3 L${lessonNumber}: missing authored ${kind} homework.`);
+            return Object.freeze({
+                option,
+                kind,
+                title: `Option ${option} — ${label}`,
+                icon,
+                instruction,
+                source: 'authored',
+                usesFallback: false,
+                curriculumId: manifestLesson?.id || `a2-v3-l${String(lessonNumber).padStart(2, '0')}`,
+                semanticTags
+            });
+        }));
+    }
+
+    const HOMEWORK_TASKS = Object.freeze({
+        1: Object.freeze({
+            writing: 'Write 6–8 sentences about a real or imagined trip. Include two weather words, one Past Simple detail, enjoy + -ing, and different from/than.',
+            speaking: 'Prepare a 45–60 second vacation update without reading a full text. Say where you went, describe the weather, and explain one activity you enjoyed doing.',
+            realLife: 'Create a 6-line welcome-back conversation. Ask about a trip and weather, then compare the destination with your city.'
+        }),
+        3: Object.freeze({
+            writing: 'Write 6–8 direction steps from a familiar starting point to a destination. Use at least four place or movement expressions and say how long it takes.',
+            speaking: 'Give 45–60 seconds of directions without reading. Include a polite request for help, two landmarks, and an estimated travel time.',
+            realLife: 'Create a tourist-and-local mini-dialogue in which the tourist is lost, asks for help, confirms one turn, and asks “How long does it take?”'
+        }),
+        5: Object.freeze({
+            writing: 'Write 6–8 sentences about your sports or workout routine. Use go, do, and play correctly and answer “How good are you at...?”',
+            speaking: 'Give a 45–60 second sports profile. Mention what you do, how often, your current ability, and one goal for improvement.',
+            realLife: 'Create a short conversation between a coach and a new student choosing an activity and agreeing on a realistic first workout.'
+        }),
+        7: Object.freeze({
+            writing: 'Write 6–8 sentences about three interests. Use at least three adjectives, kind of, and one clear preference with a reason.',
+            speaking: 'Prepare a 45–60 second free-time profile. Explain what you follow, watch, or listen to and why it interests you.',
+            realLife: 'Create a mini-dialogue between two people choosing a free-time activity. They must discover one shared interest and one different preference.'
+        }),
+        9: Object.freeze({
+            writing: 'Write 6–8 sentences comparing food and drink preferences. Use like/love/hate, so or neither, feel like, and rather than.',
+            speaking: 'Speak for 45–60 seconds about what you feel like eating today and what you would choose rather than a common alternative.',
+            realLife: 'Create a mini-dialogue in which two friends choose a meal, agree with so/neither, and make one final preference clear.'
+        }),
+        11: Object.freeze({
+            writing: 'Write 6–8 lines of a restaurant exchange. Include a polite greeting, “Would you like...?”, “I would like...”, one follow-up, and the bill.',
+            speaking: 'Prepare a 45–60 second restaurant role-play as the customer. Order a dish and drink, answer a server’s question, and make one polite request.',
+            realLife: 'Create an 8-line server-and-customer mini-dialogue with an unavailable item, a new choice, and a polite solution.'
+        }),
+        13: Object.freeze({
+            writing: 'Write 6–8 sentences describing two people and one change of mood. Use four personality or mood adjectives and one expression with mood or smile at.',
+            speaking: 'Speak for 45–60 seconds about your personality and what usually puts you in a good or bad mood. Add one example.',
+            realLife: 'Create a supportive mini-dialogue in which one person seems upset and the other asks what happened, gives space, or tries to cheer them up.'
+        }),
+        15: Object.freeze({
+            writing: 'Write 6–8 sentences about a minor accident. Use a body part, a reflexive pronoun, What happened?, Have you ever...?, and one safety warning.',
+            speaking: 'Tell a 45–60 second accident story without reading. Explain the background action, what happened, who helped, and the advice you received.',
+            realLife: 'Create a clinic mini-dialogue in which a patient explains an injury and a nurse asks questions and gives one Be careful warning.'
+        }),
+        17: Object.freeze({
+            writing: 'Write 6–8 sentences comparing two products or stores. Use two comparatives, pay for, both of us, and a final purchase decision.',
+            speaking: 'Speak for 45–60 seconds about two shopping options. Compare price and quality, explain who will pay, and choose the better option.',
+            realLife: 'Create a buyer-and-friend mini-dialogue with a fixed budget, two alternatives, a comparison, and a shared decision.'
+        }),
+        19: Object.freeze({
+            writing: 'Write 6–8 sentences about borrowing and lending in one practical situation. Use borrow, lend, mind + -ing, and neither or none.',
+            speaking: 'Prepare a 45–60 second explanation of something you need to borrow, why you need it, when you will return it, and how you will ask politely.',
+            realLife: 'Create a mini-dialogue in which someone borrows an item, negotiates a return time, and promises to pay back or replace it if necessary.'
+        }),
+        21: Object.freeze({
+            writing: 'Write 6–8 sentences about a family or friendship habit that changed. Use used to, did not use to, become or get, and one present contrast.',
+            speaking: 'Speak for 45–60 seconds about a relationship or habit in the past and how it is different now. Include a reason for the change.',
+            realLife: 'Create a reunion mini-dialogue in which two people remember an old habit, notice a change, and make a new plan together.'
+        }),
+        23: Object.freeze({
+            writing: 'Write 6–8 sentences about a fashion trend. Use in/out of fashion, stop + -ing or stop + to, and correctly distinguish die and dye.',
+            speaking: 'Give a 45–60 second opinion on one current or past trend. Say who followed it, why it became popular, and whether you would try it.',
+            realLife: 'Create a shop-or-closet mini-dialogue in which two people evaluate a trend and decide to keep, dye, stop wearing, or replace an item.'
+        }),
+        25: Object.freeze({
+            writing: 'Write 6–8 sentences giving advice about an honest decision. Use should/should not, care about, say or tell, lie, and instead of + -ing.',
+            speaking: 'Speak for 45–60 seconds about a difficult choice. Explain the problem, give two pieces of advice, and justify the most honest option.',
+            realLife: 'Create an advice mini-dialogue in which one person considers telling a lie and the other suggests a practical alternative.'
+        }),
+        27: Object.freeze({
+            writing: 'Write 6–8 sentences ranking three places, products, or experiences. Use at least three superlatives and give evidence for first and last place.',
+            speaking: 'Give a 45–60 second best-and-worst ranking. Compare three options, name the winner, and justify it with two details.',
+            realLife: 'Create a mini-dialogue in which two people use rankings to choose the best option for a trip, meal, or activity.'
+        }),
+        29: Object.freeze({
+            writing: 'Write 6–8 sentences about next year. Include one hope, one going to plan, one will prediction, depend on, and right away/right after.',
+            speaking: 'Speak for 45–60 seconds about a realistic hope and plan. Explain what you are going to do first and what result you think will happen.',
+            realLife: 'Create a planning mini-dialogue in which two people discuss a prediction, identify what it depends on, and agree on one immediate action.'
+        })
+    });
+
+    const lesson = (lessonNumber, config) => {
+        const { routeOptions, ...authored } = config;
+        const homeworkTasks = HOMEWORK_TASKS[lessonNumber];
+        if (!homeworkTasks) throw new Error(`A2-V3 L${lessonNumber}: missing authored homework tasks.`);
+        return Object.freeze({
+            ...authored,
+            homeworkPrompt: 'Choose one option.',
+            homework: createLexicalHomework(lessonNumber, homeworkTasks),
+            lessonRoute: createLexicalRoute(authored, routeOptions)
+        });
+    };
 
     const lessons = {
-        1: lesson({
+        1: lesson(1, {
             title: 'Welcome Back! Vacation and Weather',
+            routeOptions: { coreVocabularyCount: 10, extraVocabularyCount: 3, coreExpressionCount: 6 },
             label: 'vacation weather greetings past trip enjoy ing different from',
             themes: ['a vacation abroad', 'weather during a trip', 'activities people enjoy on vacation'],
             objectives: ['receber alguém de volta e perguntar sobre uma viagem', 'descrever o clima e uma viagem concluída', 'usar enjoy seguido de verbo com -ing', 'usar different from ou different than naturalmente'],
@@ -115,7 +314,7 @@
             }
         }),
 
-        3: lesson({
+        3: lesson(3, {
             title: 'Location and Directions',
             label: 'location directions prepositions help how long take',
             themes: ['asking for directions', 'explaining a route', 'estimating travel time'],
@@ -136,7 +335,7 @@
             guidedConversation: { questions: ['How do I get from your home to a nearby supermarket?', 'What place is across from your school or workplace?', 'How long does your usual commute take?', 'When do you normally ask someone for directions?'], support: ['Could you help me?', 'go straight', 'turn at', 'across from', 'It takes...'] }
         }),
 
-        5: lesson({
+        5: lesson(5, {
             title: 'Sports and Workout',
             label: 'sports workout go do play how good at',
             themes: ['sports you play', 'exercise routines', 'abilities and practice'],
@@ -157,7 +356,7 @@
             guidedConversation: { questions: ['What do you do to stay active?', 'Which sports do you play or watch?', 'How good are you at one physical activity?', 'What exercise would you like to try?'], support: ['I play...', 'I go + -ing', 'I do...', 'good at + -ing', 'twice a week'] }
         }),
 
-        7: lesson({
+        7: lesson(7, {
             title: 'Interests and Preferences',
             label: 'interests preferences adjectives news kind of free time',
             themes: ['free-time activities', 'types of news and entertainment', 'strong and mild opinions'],
@@ -178,8 +377,8 @@
             guidedConversation: { questions: ['What are you interested in?', 'What kind of news do you follow?', 'Which activity do you find fascinating?', 'What are you kind of tired of?'], support: ['What kind of...?', 'interested in + -ing', 'kind of', 'I find...'] }
         }),
 
-        9: lesson({
-            title: 'Food and Drink: Preferences',
+        9: lesson(9, {
+            title: 'Food and Drink 1 · Preferences',
             label: 'food drink adjectives like love hate ing so neither feel like rather than',
             themes: ['food preferences', 'agreeing and disagreeing', 'choosing what to eat'],
             objectives: ['descrever alimentos com adjetivos úteis', 'usar like, love e hate com to ou -ing', 'concordar com so do I e neither do I', 'usar feel like seguido de substantivo ou -ing'],
@@ -199,8 +398,8 @@
             guidedConversation: { questions: ['What food do you love eating?', 'What do you never feel like having?', 'Which flavors do you prefer?', 'Would you rather cook or eat out tonight?'], support: ['I love + -ing', 'feel like + -ing', 'So do I.', 'Neither do I.', 'rather than'] }
         }),
 
-        11: lesson({
-            title: 'Food and Drink: At a Restaurant',
+        11: lesson(11, {
+            title: 'Food and Drink 2 · At a Restaurant',
             label: 'restaurant would like so neither ordering food drink',
             themes: ['ordering at a restaurant', 'offering food and drinks', 'responding politely'],
             objectives: ['oferecer comida e bebida com would you like', 'pedir com educação usando I would like', 'aceitar ou recusar uma oferta', 'concordar com so e neither usando o auxiliar correto'],
@@ -220,7 +419,7 @@
             guidedConversation: { questions: ['What would you like to drink right now?', 'How do you usually order a main course?', 'Which polite expressions do you use with a server?', 'Do you normally leave a tip?'], support: ['I would like...', 'Would you like...?', 'without...', 'anything else', 'the bill, please'] }
         }),
 
-        13: lesson({
+        13: lesson(13, {
             title: 'Personalities and Moods',
             label: 'personalities moods adjectives even smile at in the mood',
             themes: ['personality traits', 'temporary moods', 'how behavior affects relationships'],
@@ -236,12 +435,12 @@
             translations: [{ pt: 'Ela é uma pessoa muito paciente.', en: 'She is a very patient person.' }, { pt: 'Ele está de mau humor hoje.', en: 'He is in a bad mood today.' }, { pt: 'Ela nem sorriu para mim.', en: 'She did not even smile at me.' }, { pt: 'Não estou a fim de sair.', en: 'I am not in the mood to go out.' }, { pt: 'Ele parece chateado.', en: 'He seems upset.' }, { pt: 'Dê um pouco de espaço a ela.', en: 'Give her some space.' }, { pt: 'Essa música sempre me anima.', en: 'This song always cheers me up.' }, { pt: 'Ela geralmente é alegre e falante.', en: 'She is usually cheerful and talkative.' }],
             dialogues: [[['A', 'Why is Clara so quiet?'], ['B', 'She is just not in the mood to talk.']], [['A', 'What is your new coworker like?'], ['B', 'He is honest, patient, and very friendly.']]],
             readingTitle: 'Not Her Usual Self',
-            reading: 'Lia is usually cheerful and talkative, but on Monday she seemed quiet and upset. Her coworkers first thought she was angry. Then they learned that she had received difficult news. They gave her some space, and one friend invited her for coffee. By the afternoon, Lia felt better and even smiled at a joke.',
+            reading: 'Lia is usually cheerful and talkative, but on Monday she seemed quiet and upset. Her coworkers first thought she was angry. Then they learned that she received some difficult news that morning. They gave her some space, and one friend invited her for coffee. By the afternoon, Lia felt better and even smiled at a joke.',
             readingQuestions: [{ question: 'How is Lia usually?', answer: 'She is usually cheerful and talkative.' }, { question: 'How did she seem on Monday?', answer: 'She seemed quiet and upset.' }, { question: 'What did her coworkers do?', answer: 'They gave her some space.' }, { question: 'What happened in the afternoon?', answer: 'She felt better and smiled at a joke.' }],
             guidedConversation: { questions: ['Which adjectives describe your personality?', 'What puts you in a good mood?', 'What do you do when a friend seems upset?', 'Are you usually in the mood to talk in the morning?'], support: ['I am usually...', 'I feel...', 'in a good mood', 'smile at', 'give someone space'] }
         }),
 
-        15: lesson({
+        15: lesson(15, {
             title: 'Accidents and the Human Body',
             label: 'accidents human body reflexive pronouns happen have you ever careful',
             themes: ['minor accidents', 'parts of the body', 'life experiences and safety'],
@@ -257,13 +456,13 @@
             translations: [{ pt: 'O que aconteceu com sua mão?', en: 'What happened to your hand?' }, { pt: 'Eu me cortei enquanto cozinhava.', en: 'I cut myself while I was cooking.' }, { pt: 'Você já quebrou um osso?', en: 'Have you ever broken a bone?' }, { pt: 'Eu nunca machuquei meu joelho.', en: 'I have never hurt my knee.' }, { pt: 'Cuidado com esse piso molhado.', en: 'Be careful on that wet floor.' }, { pt: 'Ela torceu o tornozelo ontem.', en: 'She twisted her ankle yesterday.' }, { pt: 'Eles se machucaram no acidente.', en: 'They hurt themselves in the accident.' }, { pt: 'Nós pedimos ajuda imediatamente.', en: 'We called for help immediately.' }],
             dialogues: [[['A', 'What happened to your ankle?'], ['B', 'I fell and hurt myself during a run.']], [['A', 'Have you ever broken a bone?'], ['B', 'No, I have not, but I have had a bad cut.']]],
             readingTitle: 'A Small Accident in the Kitchen',
-            reading: 'Renato was preparing dinner when he cut himself with a sharp knife. He washed the cut, but it continued to bleed, so he called his sister for help. She took him to a clinic. The nurse cleaned his hand and told him to be careful with the bandage. Renato had never needed stitches before, but the procedure was quick.',
-            readingQuestions: [{ question: 'What was Renato doing?', answer: 'He was preparing dinner.' }, { question: 'How did he hurt himself?', answer: 'He cut himself with a knife.' }, { question: 'Who helped him?', answer: 'His sister helped him.' }, { question: 'Had he needed stitches before?', answer: 'No, he had not.' }],
+            reading: 'Renato was preparing dinner when he cut himself with a sharp knife. He washed the cut, but it continued to bleed, so he called his sister for help. She took him to a clinic. The nurse cleaned his hand and told him to be careful with the bandage. It was Renato’s first time getting stitches, but the procedure was quick.',
+            readingQuestions: [{ question: 'What was Renato doing?', answer: 'He was preparing dinner.' }, { question: 'How did he hurt himself?', answer: 'He cut himself with a knife.' }, { question: 'Who helped him?', answer: 'His sister helped him.' }, { question: 'Was it his first time getting stitches?', answer: 'Yes, it was.' }],
             guidedConversation: { questions: ['Have you ever had a minor accident?', 'What happened?', 'Which part of the body did you hurt?', 'What safety advice would you give?'], support: ['I hurt myself...', 'What happened to...?', 'Have you ever...?', 'Be careful with...'] }
         }),
 
-        17: lesson({
-            title: 'Money and Shopping: Compare and Pay',
+        17: lesson(17, {
+            title: 'Money and Shopping 1 · Compare and Pay',
             label: 'money shopping comparatives pay for both of us',
             themes: ['comparing products', 'prices and value', 'paying for another person'],
             objectives: ['comparar preços e produtos', 'usar adjetivos comparativos com precisão', 'usar pay for com compras', 'usar both of us para duas pessoas'],
@@ -283,8 +482,8 @@
             guidedConversation: { questions: ['What do you compare before buying something?', 'Do you prefer the cheaper option or the more durable one?', 'When do you pay in cash?', 'What purchase would be useful for both you and a friend?'], support: ['cheaper than', 'more...than', 'pay for', 'both of us', 'on sale'] }
         }),
 
-        19: lesson({
-            title: 'Money and Shopping: Borrow or Lend?',
+        19: lesson(19, {
+            title: 'Money and Shopping 2 · Borrow or Lend?',
             label: 'money shopping neither none borrow lend mind ing',
             themes: ['borrowing and lending', 'sharing shopping decisions', 'polite responses'],
             objectives: ['diferenciar borrow de lend', 'usar neither of them e none', 'usar mind seguido de verbo com -ing', 'responder com educação a pedidos envolvendo dinheiro ou objetos'],
@@ -304,7 +503,7 @@
             guidedConversation: { questions: ['What things do people often borrow?', 'Do you mind lending books to friends?', 'When did you last borrow something?', 'What should someone do before borrowing money?'], support: ['borrow from', 'lend someone', 'Neither of them', 'I do not mind + -ing', 'pay back'] }
         }),
 
-        21: lesson({
+        21: lesson(21, {
             title: 'Family and Friendship',
             label: 'family friendship become get used to',
             themes: ['changes in relationships', 'childhood friends', 'getting used to new situations'],
@@ -325,7 +524,7 @@
             guidedConversation: { questions: ['Who did you use to spend time with as a child?', 'What family routine changed as you grew up?', 'What new situation are you getting used to?', 'How do you keep in touch with distant friends?'], support: ['used to + base', 'be used to + -ing', 'get used to + -ing', 'keep in touch'] }
         }),
 
-        23: lesson({
+        23: lesson(23, {
             title: 'Fashionable and Unfashionable',
             label: 'fashion fads stop ing to die dye in fashion out of fashion',
             themes: ['fashion trends', 'changing personal style', 'fads and responsible choices'],
@@ -346,7 +545,7 @@
             guidedConversation: { questions: ['Which styles are in fashion now?', 'Have you stopped wearing any trend?', 'Do you stop to compare prices before buying clothes?', 'Would you dye or repair an old item?'], support: ['in fashion', 'out of fashion', 'stop + -ing', 'stop to + base', 'instead of + -ing'] }
         }),
 
-        25: lesson({
+        25: lesson(25, {
             title: 'Giving and Asking for Advice',
             label: 'advice should care about lie say tell instead of ing',
             themes: ['asking for advice', 'honesty and difficult decisions', 'giving practical alternatives'],
@@ -367,7 +566,7 @@
             guidedConversation: { questions: ['Who do you ask for advice?', 'What should someone do after making a mistake?', 'When is it difficult to tell the truth?', 'What can people do instead of arguing?'], support: ['What should I do?', 'You should...', 'care about + -ing', 'tell the truth', 'instead of + -ing'] }
         }),
 
-        27: lesson({
+        27: lesson(27, {
             title: 'The Best and the Worst',
             label: 'best worst superlatives ranking',
             themes: ['ranking places and experiences', 'best and worst choices', 'supporting strong opinions'],
@@ -388,7 +587,7 @@
             guidedConversation: { questions: ['What is the best place in your city?', 'What was your most memorable trip?', 'Which day of the week is the busiest for you?', 'What is one of the worst services you have experienced?'], support: ['the best in', 'the most...', 'the worst...', 'one of the best', 'by far'] }
         }),
 
-        29: lesson({
+        29: lesson(29, {
             title: 'Hopes and Predictions',
             label: 'hopes predictions depend on will going to right away right after',
             themes: ['hopes for the near future', 'predictions based on evidence', 'what happens immediately before or after an event'],

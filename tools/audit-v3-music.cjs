@@ -4,6 +4,7 @@ const vm = require('vm');
 
 const root = path.resolve(__dirname, '..');
 const failures = [];
+const warnings = [];
 const check = (condition, message) => {
     if (!condition) failures.push(message);
 };
@@ -53,6 +54,12 @@ snapshot.forEach(entry => {
     check(entry.gaps.length === 5, `${entry.id}: catálogo deve conter exatamente cinco descritores de lacuna.`);
     check(new Set(entry.gaps.map(gap => `${gap.answer.toLowerCase()}:${gap.occurrence}`)).size === 5, `${entry.id}: descritores de ocorrência duplicados.`);
     check(entry.pedagogy.proposedGapAnswers.length === 5, `${entry.id}: a curadoria deve trazer cinco respostas propostas.`);
+    if (entry.moduleId === 'a2-v3') {
+        check(entry.pedagogy.transferPrompts?.length === 3, `${entry.id}: música A2 deve ter exatamente três perguntas pós-música.`);
+        check(entry.pedagogy.transferPrompts?.every(prompt => String(prompt || '').trim()), `${entry.id}: pergunta pós-música vazia.`);
+    }
+    const distinctAnswers = new Set(entry.gaps.map(gap => String(gap.answer || '').toLowerCase())).size;
+    if (distinctAnswers < 3) warnings.push(`${entry.id}: somente ${distinctAnswers} resposta(s) diferente(s) nas cinco lacunas; repetição mantida para preservar a letra e a curadoria auditada.`);
     check(entry.validation.valid, `${entry.id}: contrato editorial básico inválido: ${entry.validation.errors.join('; ')}`);
     check(entry.status === 'provider-verified', `${entry.id}: atividade auditada não foi publicada.`);
     check(entry.publicationBlockers.length === 0, `${entry.id}: atividade publicada ainda tem bloqueios.`);
@@ -155,6 +162,8 @@ check(/aria-live="polite"/.test(componentSource), 'MusicClozeV3: feedback aria-l
 check(/aria-label="Lacuna \$\{field\.index \+ 1\} de 5"/.test(componentSource), 'MusicClozeV3: labels acessíveis das lacunas ausentes.');
 check(/data-music-reveal/.test(componentSource), 'MusicClozeV3: revelação individual ausente.');
 check(/Ir para o homework/.test(componentSource), 'MusicClozeV3: CTA para o homework ausente.');
+check(/transferPrompts/.test(componentSource) && /transferPrompt/.test(componentSource), 'MusicClozeV3: compatibilidade entre transferPrompts e transferPrompt ausente.');
+check(/music-cloze-transfer-list/.test(componentSource), 'MusicClozeV3: bloco numerado de perguntas pós-música ausente.');
 check(!/payload\.answerKey/.test(componentSource), 'MusicClozeV3: gabarito foi solicitado no payload inicial da Student View.');
 check(/gradeResponses/.test(componentSource) && /data-gap-feedback/.test(componentSource), 'MusicClozeV3: correção ou feedback textual por lacuna ausente.');
 check(!/scrap|genius|azlyrics|letras\.mus/i.test(componentSource), 'MusicClozeV3: indício de scraping de letras encontrado.');
@@ -181,3 +190,7 @@ if (failures.length) {
 console.log('V3 music audit passed.');
 console.log(`Coverage: A1 ${actualCounts['a1-v3']}/24 · A2 ${actualCounts['a2-v3']}/15 · B1 ${actualCounts['b1-v3']}/15 · total ${snapshot.length}/54.`);
 console.log(`Publication: ${snapshot.filter(entry => entry.status === 'provider-verified').length} provider-verified · ${snapshot.filter(entry => entry.status === 'draft-until-provider-match').length} justified drafts · 12 historical pilot flags · 0 music blocks in non-lexical lessons.`);
+if (warnings.length) {
+    console.warn(`V3 music audit warnings (${warnings.length}):`);
+    warnings.forEach(message => console.warn(`- ${message}`));
+}

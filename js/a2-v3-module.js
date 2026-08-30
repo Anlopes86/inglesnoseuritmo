@@ -1,3 +1,76 @@
+(function initializeA2V3ModuleCards(globalScope) {
+    'use strict';
+
+    const materials = Object.freeze({
+        vocabulary: Object.freeze({ icon: 'fa-spell-check', label: 'Vocabulary' }),
+        grammar: Object.freeze({ icon: 'fa-book-open', label: 'Grammar' }),
+        reading: Object.freeze({ icon: 'fa-book-reader', label: 'Reading' }),
+        music: Object.freeze({ icon: 'fa-music', label: 'Music' }),
+        listening: Object.freeze({ icon: 'fa-headphones', label: 'Listening' }),
+        realWorldInput: Object.freeze({ icon: 'fa-earth-americas', label: 'Real-world Input' }),
+        rolePlay: Object.freeze({ icon: 'fa-masks-theater', label: 'Role-play' }),
+        speaking: Object.freeze({ icon: 'fa-microphone-lines', label: 'Speaking' }),
+        review: Object.freeze({ icon: 'fa-arrows-rotate', label: 'Review' }),
+        speakingChallenge: Object.freeze({ icon: 'fa-trophy', label: 'Speaking Challenge' }),
+        learningActivities: Object.freeze({ icon: 'fa-layer-group', label: 'Learning Activities' })
+    });
+    const presentationByLessonKind = Object.freeze({
+        lexical: Object.freeze({
+            label: 'Language Building',
+            materials: Object.freeze([materials.vocabulary, materials.grammar, materials.reading, materials.music])
+        }),
+        communicative: Object.freeze({
+            label: 'Conversation Practice',
+            materials: Object.freeze([materials.listening, materials.realWorldInput, materials.rolePlay, materials.speaking])
+        }),
+        consolidation: Object.freeze({
+            label: 'Review Mission',
+            materials: Object.freeze([materials.review, materials.listening, materials.speakingChallenge])
+        })
+    });
+    const unknownPresentation = Object.freeze({
+        label: 'Lesson Overview',
+        materials: Object.freeze([materials.learningActivities])
+    });
+
+    function warnAboutUnknownMetadata(entry, field) {
+        const logger = globalScope.console || console;
+        logger.warn('[A2-V3 module] Metadado curricular desconhecido; usando fallback explícito.', {
+            field,
+            curriculumId: entry?.id || null,
+            lessonNumber: entry?.number || null,
+            lessonKind: entry?.lessonKind || null
+        });
+    }
+
+    function getCardModel(entry) {
+        if (!entry || typeof entry !== 'object') {
+            warnAboutUnknownMetadata(entry, 'entry');
+            return {
+                curriculumId: null,
+                number: null,
+                title: 'Lesson unavailable',
+                ...unknownPresentation
+            };
+        }
+
+        const presentation = presentationByLessonKind[entry.lessonKind];
+        if (!presentation) warnAboutUnknownMetadata(entry, 'lessonKind');
+
+        const canonicalTitle = typeof entry.title === 'string' ? entry.title.trim() : '';
+        if (!canonicalTitle) warnAboutUnknownMetadata(entry, 'title');
+
+        return {
+            curriculumId: entry.id || null,
+            number: Number(entry.number) || null,
+            title: canonicalTitle || (entry.number ? `Lesson ${entry.number}` : 'Lesson unavailable'),
+            ...(presentation || unknownPresentation)
+        };
+    }
+
+    globalScope.A2V3ModuleCards = Object.freeze({ getCardModel });
+}(window));
+
 document.addEventListener('DOMContentLoaded', () => {
     const db = typeof window.db !== 'undefined' ? window.db : firebase.firestore();
     const platformAccess = window.PlatformAccess;
@@ -6,56 +79,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const moduleId = 'a2-v3';
     const accessModuleId = 'a2';
-
-    const lessonTitles = [
-        'Past Simple: Details and Time Markers', 'Complete Past Stories', 'Comparing Options: More, Less and As...As', 'Superlatives and Irregular Adjectives',
-        'Articles and Quantifiers', 'Setting the Scene: Past Continuous', 'Interrupted Stories', 'Integrated Review #1: Past and Comparison',
-        'Going To: Evidence and Detailed Plans', 'Will for Predictions and Decisions', 'Present Continuous for Future Plans', 'Future Review in Real Situations',
-        'Can, Could and Permission', 'Must, Have To and Need To', 'Giving Specific and Tactful Advice', 'Integrated Review #2: Plans, Modals and Advice',
-        'Present Perfect: Experiences', 'Ever, Never, Already and Yet', 'Present Perfect vs Past Simple', 'Been and Gone',
-        'Health Changes and Recovery', 'Medical Consultation & Conditions', 'Precise Location: In, On and At', 'Integrated Review #3: Experiences and Practical English',
-        'Prepositions of Movement', 'Time Expressions and Deadlines', 'Clarifying Multi-Step Directions', 'At the Hotel',
-        'Gerunds and Infinitives', 'Zero and First Conditional', 'Unless, Wishes and Real-Life Hopes', 'Final Review and Project'
-    ];
-
-    const unitLabels = [
-        'Past Stories', 'Past Stories', 'Comparisons', 'Comparisons',
-        'Nouns & Quantity', 'Storytelling', 'Storytelling', 'Checkpoint 1',
-        'Future', 'Future', 'Future', 'Future Review',
-        'Modals', 'Modals', 'Advice', 'Checkpoint 2',
-        'Experiences', 'Experiences', 'Experiences', 'Experiences',
-        'Health', 'Health', 'Prepositions', 'Checkpoint 3',
-        'Prepositions', 'Prepositions', 'Directions', 'Real-Life English',
-        'A2+ Bridge', 'A2+ Bridge', 'A2+ Bridge', 'Final Project'
-    ];
     const curriculumEntries = window.V3Curriculum?.getModule(moduleId) || [];
-    if (curriculumEntries.length === 32) {
-        lessonTitles.splice(0, lessonTitles.length, ...curriculumEntries.map(entry => entry.title));
-        unitLabels.splice(0, unitLabels.length, ...curriculumEntries.map(entry => entry.type === 'content' ? 'Conteúdo integrado' : entry.type === 'review' ? 'Missão comunicativa' : 'Projeto'));
+    const expectedLessonCount = 32;
+    if (curriculumEntries.length !== expectedLessonCount) {
+        console.warn(`[A2-V3 module] Manifesto curricular incompleto: esperadas ${expectedLessonCount} aulas, recebidas ${curriculumEntries.length}.`);
     }
+    const lessonCards = curriculumEntries.map(entry => window.A2V3ModuleCards.getCardModel(entry));
 
-    const materialMeta = {
-        grammar: { icon: 'fa-book-open', label: 'Gramática+' },
-        translation: { icon: 'fa-language', label: 'PT-EN' },
-        speaking: { icon: 'fa-microphone-lines', label: 'Fala' },
-        quiz: { icon: 'fa-circle-question', label: 'Quiz' },
-        writing: { icon: 'fa-pen', label: 'Escrita' },
-        listening: { icon: 'fa-headphones', label: 'Listening' }
-    };
-
-    function getLessonMaterials(lessonNumber) {
-        if (curriculumEntries[lessonNumber - 1]?.type !== 'content') {
-            return ['grammar', 'translation', 'quiz', 'writing'];
-        }
-
-        if ([6, 10, 17, 23, 29, 30, 31].includes(lessonNumber)) {
-            return ['grammar', 'translation', 'speaking', 'writing'];
-        }
-
-        return ['grammar', 'translation', 'speaking', 'quiz'];
-    }
-
-    function buildLessonCard(title, lessonNumber, state, isProfessor) {
+    function buildLessonCard(cardModel, state, isProfessor) {
+        const { curriculumId, number: lessonNumber, title, label, materials } = cardModel;
         const padded = String(lessonNumber).padStart(2, '0');
         const canOpen = isProfessor || state !== 'locked';
         const iconClass = state === 'completed'
@@ -68,28 +100,26 @@ document.addEventListener('DOMContentLoaded', () => {
             : state === 'next'
                 ? 'Disponível agora'
                 : 'Bloqueada';
-        const materialBadges = getLessonMaterials(lessonNumber)
-            .map((key) => {
-                const meta = materialMeta[key];
-                return `<span class="lesson-material-pill"><i class="fas ${meta.icon}"></i>${meta.label}</span>`;
-            })
+        const materialBadges = materials
+            .map(meta => `<span class="lesson-material-pill" title="${meta.label}"><i class="fas ${meta.icon}"></i>${meta.label}</span>`)
             .join('');
 
         const card = document.createElement('a');
         card.href = canOpen ? `licao-${padded}.html` : '#';
         card.className = `lesson-card ${state}`;
         card.dataset.lesson = String(lessonNumber);
+        if (curriculumId) card.dataset.curriculumId = curriculumId;
         card.setAttribute('aria-disabled', canOpen ? 'false' : 'true');
 
         card.innerHTML = `
             <div class="lesson-card-top">
-                <span class="lesson-unit text-violet-700">${unitLabels[lessonNumber - 1]}</span>
+                <span class="lesson-unit text-violet-700">${label}</span>
                 <i class="fas ${iconClass} text-2xl"></i>
             </div>
             <div>
                 <h3 class="lesson-title">${title}</h3>
                 <p class="lesson-meta mt-2">Lição ${lessonNumber}</p>
-                <div class="lesson-materials">${materialBadges}</div>
+                <div class="lesson-materials" aria-label="Materiais da aula">${materialBadges}</div>
             </div>
             <div class="lesson-state">
                 <i class="fas ${state === 'locked' ? 'fa-lock' : state === 'completed' ? 'fa-award' : 'fa-forward'} text-violet-600"></i>
@@ -141,6 +171,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadLessons() {
         try {
+            if (lessonCards.length !== expectedLessonCount) {
+                throw new Error('Manifesto curricular A2 V3 indisponível ou incompleto.');
+            }
+
             const { role, studentId } = await resolveViewerContext();
             if (!studentId) throw new Error('Usuário não identificado.');
 
@@ -162,15 +196,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            let firstUncompleted = lessonTitles.findIndex((_, index) => !window.V3Curriculum?.isLessonComplete(allProgress, moduleId, index + 1)) + 1;
-            if (firstUncompleted === 0) firstUncompleted = lessonTitles.length + 1;
+            const firstUncompletedIndex = lessonCards.findIndex(card => !window.V3Curriculum?.isLessonComplete(allProgress, moduleId, card.curriculumId));
 
             grid.innerHTML = '';
-            lessonTitles.forEach((title, index) => {
-                const lessonNumber = index + 1;
-                const isCompleted = window.V3Curriculum?.isLessonComplete(allProgress, moduleId, lessonNumber) || progress[`lesson_${lessonNumber}`] === true;
-                const state = isCompleted ? 'completed' : lessonNumber === firstUncompleted ? 'next' : 'locked';
-                grid.appendChild(buildLessonCard(title, lessonNumber, state, isProfessor));
+            lessonCards.forEach((cardModel, index) => {
+                const isCompleted = window.V3Curriculum?.isLessonComplete(allProgress, moduleId, cardModel.curriculumId) || progress[`lesson_${cardModel.number}`] === true;
+                const state = isCompleted ? 'completed' : index === firstUncompletedIndex ? 'next' : 'locked';
+                grid.appendChild(buildLessonCard(cardModel, state, isProfessor));
             });
 
             loadingDiv.classList.add('hidden');

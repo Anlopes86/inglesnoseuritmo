@@ -1,5 +1,42 @@
 # Registro de migração V3
 
+## 2026-08-30 · A2-V3 — acabamento editorial e contratos curriculares
+
+Escopo concluído:
+
+- alinhadas a promessa de nível, as correções de Past Perfect e as cópias de títulos ao manifesto curricular;
+- substituídos os mapas editoriais antigos dos cards por metadados derivados de `lessonKind`, com fallback explícito;
+- mantidas as 32 aulas, os 15 pares lexical → comunicativa e a identidade visual existente;
+- adicionadas auditorias específicas para coerência de títulos, tipos, materiais e links do módulo.
+
+## 2026-08-30 · A2-V3 — consolidações, rota de 60 minutos e homework
+
+Escopo concluído:
+
+- desvinculadas as aulas 31 e 32 de `lessonProfiles`, com dados atuais e explícitos na camada canônica do player;
+- criada a escuta `A Busy Day in Town` na consolidação 31 e uma escuta final atual na consolidação 32, ambas ligadas a compreensão e produção oral;
+- adicionada rota reutilizável Core/Extended/Extra às 15 aulas lexicais, sem alterar a ordem principal dos slides;
+- criadas exatamente três tarefas autorais e contextualizadas de homework por aula lexical, com a instrução `Choose one option.`.
+
+## 2026-08-30 · A2-V3 — transferência musical e variedade de lacunas
+
+Escopo concluído:
+
+- ampliado o contrato compartilhado para `transferPrompts`, mantendo compatibilidade com `transferPrompt` nos outros módulos;
+- adicionadas três perguntas pós-música específicas a cada uma das 15 atividades A2;
+- preservados catálogo, Spotify, provedores, cinco ocorrências e posição imediatamente anterior ao homework;
+- aumentada para três a variedade de respostas em `Shy Guy` e `Fashion`, usando ocorrências já verificadas no provedor e sem armazenar letras;
+- mantidos como warning os oito registros A2 cuja letra auditada oferece apenas duas respostas diferentes no recorte atual.
+
+## 2026-08-30 · A2-V3 — QA portátil e integração contínua
+
+Escopo concluído:
+
+- tornado o browser audit portátil via `CHROME_PATH`, Chromium do Playwright e fallbacks de sistema documentados;
+- cobertas as 32 aulas em 1440 × 1000 e 390 × 844, incluindo layout, navegação, revelações, música, homework e consolidações;
+- criados scripts de qualidade e workflow de GitHub Actions sem etapa de deploy, com artifacts visuais apenas em falha;
+- preservado o escopo privado do curso; publicação pública ou comercial continua dependendo da revisão de licenciamento já registrada.
+
 ## 2026-08-23 · Rollout musical completo nas 54 aulas lexicais
 
 Escopo concluído:

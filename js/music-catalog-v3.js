@@ -91,12 +91,12 @@
         ['a2-v3', 7, 'A Day in the Life', 'The Beatles', ['read', 'news'], ['read', 'news', 'news', 'read', 'news'], 'B', 'Usar somente ocorrências confirmadas pelo provedor.', { album: "Sgt. Pepper's Lonely Hearts Club Band (Remastered)", durationSeconds: 337, spotifyTrackId: '0hKRSZhUGEhKU6aNSPBACZ', spotifyTrackTitle: 'A Day In The Life - Remastered 2009', regionChecked: 'BR', spotifyCheckedAt: '2026-08-23' }],
         ['a2-v3', 9, 'Sour Candy', 'Lady Gaga & BLACKPINK', ['sour', 'sweet'], ['sour', 'sweet', 'sour', 'sweet', 'sour'], 'A', 'Trecho em inglês e versão clean.', { album: 'Sour Candy (with BLACKPINK)', durationSeconds: 157, spotifyTrackId: '6R6ZoHTypt5lt68MWbzZXv', spotifyTrackTitle: 'Sour Candy (with BLACKPINK)', regionChecked: 'BR', spotifyCheckedAt: '2026-08-23', cleanVersion: true }],
         ['a2-v3', 11, 'The New Restaurant', 'Malvina Reynolds', ['restaurant', 'food', 'waitress', 'menu'], ['restaurant', 'food', 'waitresses', 'menu', 'food'], 'B', 'Recicla serviço e introduz menu.', { album: 'Sings the Truth', durationSeconds: 119, spotifyTrackId: '6dGFzEgFlhprVJScGMWjjN', spotifyTrackTitle: 'The New Restaurant', regionChecked: 'BR', spotifyCheckedAt: '2026-08-23', acceptedInflections: ['waitress', 'waitresses'] }],
-        ['a2-v3', 13, 'Shy Guy', 'Diana King', ['shy'], ['shy', 'shy', 'shy', 'shy', 'shy'], 'A', 'Personalidade repetida com clareza.', { album: 'Shy Guy', durationSeconds: 223, spotifyTrackId: '6qQlDqQIovUHSXabz13k0K', spotifyTrackTitle: 'Shy Guy - Darpe Mix', regionChecked: 'BR', spotifyCheckedAt: '2026-08-23' }],
+        ['a2-v3', 13, 'Shy Guy', 'Diana King', ['shy', 'guy', 'love'], ['shy', 'guy', 'love', 'shy', 'guy'], 'A', 'Personalidade, descrição e resposta afetiva com ocorrências confirmadas na versão Darpe Mix.', { album: 'Shy Guy', durationSeconds: 223, spotifyTrackId: '6qQlDqQIovUHSXabz13k0K', spotifyTrackTitle: 'Shy Guy - Darpe Mix', regionChecked: 'BR', spotifyCheckedAt: '2026-08-23', lrclibCheckedAt: '2026-08-30' }],
         ['a2-v3', 15, 'Head, Shoulders, Knees & Toes', 'Ofenbach & Quarterhead feat. Norma Jean Martine', ['head', 'shoulders', 'knees'], ['head', 'shoulders', 'knees', 'head', 'knees'], 'A', 'Selecionar a versão contemporânea com partes do corpo explícitas.', { album: '50 Hits Winter 2021', durationSeconds: 155, spotifyTrackId: '73AARpRWVuTvXETaYUjAX9', spotifyTrackTitle: 'Head Shoulders Knees & Toes (feat. Norma Jean Martine)', regionChecked: 'BR', spotifyCheckedAt: '2026-08-23', lrclibId: 26606532, lrclibCheckedAt: '2026-08-23', gapAudit: '5-of-5-distinct' }],
         ['a2-v3', 17, 'Cheap Thrills', 'Sia', ['cheap', 'money'], ['cheap', 'money', 'cheap', 'money', 'cheap'], 'A', 'Versão solo/clean; ligar cheap a value.', { album: 'This Is Acting', durationSeconds: 211, spotifyTrackId: '27SdWb2rFzO6GWiYDBTD9j', spotifyTrackTitle: 'Cheap Thrills', regionChecked: 'BR', spotifyCheckedAt: '2026-08-23', cleanVersion: true }],
         ['a2-v3', 19, 'Lend Me Your Comb', 'The Beatles', ['lend', 'comb'], ['lend', 'lend', 'lend', 'comb', 'comb'], 'A', 'Contraste posterior entre lend me e borrow from.', { album: 'Anthology Collection', durationSeconds: 109, spotifyTrackId: '4wTjjuI7mF3eEtYlzxoPCG', spotifyTrackTitle: 'Lend Me Your Comb - BBC Live Recording - Remastered', regionChecked: 'BR', spotifyCheckedAt: '2026-08-23' }],
         ['a2-v3', 21, 'We Used to Be Friends', 'The Dandy Warhols', ['used to', 'friends'], ['used', 'friends', 'used', 'friends', 'used'], 'A', 'Hábito/estado passado e amizade no refrão.', { album: 'Welcome To The Monkey House', durationSeconds: 199, spotifyTrackId: '7hpFYWL3cw5m4y70cce7Zb', spotifyTrackTitle: 'We Used To Be Friends', regionChecked: 'BR', spotifyCheckedAt: '2026-08-23', lrclibId: 10275104, lrclibCheckedAt: '2026-08-23', gapAudit: '5-of-5-distinct' }],
-        ['a2-v3', 23, 'Fashion', 'David Bowie', ['fashion'], ['fashion', 'fashion', 'fashion', 'fashion', 'fashion'], 'A', 'Discussão posterior cobre trend, style e outfit.', { album: 'ChangesTwoBowie', durationSeconds: 205, spotifyTrackId: '0C4FhShwMJmIp4w12lHHdV', spotifyTrackTitle: 'Fashion - Single Version; 2017 Remaster', regionChecked: 'BR', spotifyCheckedAt: '2026-08-23' }],
+        ['a2-v3', 23, 'Fashion', 'David Bowie', ['fashion', 'new', 'people'], ['fashion', 'new', 'people', 'fashion', 'new'], 'A', 'Fashion permanece central; new e people ampliam a escuta para comentar tendências e grupos.', { album: 'ChangesTwoBowie', durationSeconds: 205, spotifyTrackId: '0C4FhShwMJmIp4w12lHHdV', spotifyTrackTitle: 'Fashion - Single Version; 2017 Remaster', regionChecked: 'BR', spotifyCheckedAt: '2026-08-23', lrclibCheckedAt: '2026-08-30' }],
         ['a2-v3', 25, 'Should I Stay or Should I Go', 'The Clash', ['should', 'stay', 'go'], ['should', 'stay', 'should', 'go', 'should'], 'A', 'Modal diretamente ligado a decisão e conselho.', { album: 'Combat Rock (Remastered)', durationSeconds: 188, spotifyTrackId: '39shmbIHICJ2Wxnk1fPSdz', spotifyTrackTitle: 'Should I Stay or Should I Go - Remastered', regionChecked: 'BR', spotifyCheckedAt: '2026-08-23', lrclibId: 1964013, lrclibCheckedAt: '2026-08-23', gapAudit: '5-of-5-distinct' }],
         ['a2-v3', 27, 'The Best', 'Tina Turner', ['best', 'better'], ['best', 'better', 'best', 'better', 'best'], 'A', 'Comparativo e superlativo no refrão.', { album: 'Foreign Affair', durationSeconds: 329, spotifyTrackId: '6pPWRBubXOBAHnjl5ZIujB', spotifyTrackTitle: 'The Best', regionChecked: 'BR', spotifyCheckedAt: '2026-08-23' }],
         ['a2-v3', 29, 'The Future’s So Bright, I Gotta Wear Shades', 'Timbuk 3', ['future', 'bright'], ['future', 'future', 'future', 'future', 'bright'], 'A', 'Discussão separa hope, plan e prediction.', { album: 'Greetings From Timbuk 3', durationSeconds: 204, spotifyTrackId: '4EfZ2eaFjn1MQbKZD8urIz', spotifyTrackTitle: "The Future's So Bright, I Gotta Wear Shades", regionChecked: 'BR', spotifyCheckedAt: '2026-08-23', providerGapAnswers: ["future's", "future's", "future's", "future's", 'bright'], acceptedAnswersByGap: [['future', "future's"], ['future', "future's"], ['future', "future's"], ['future', "future's"], ['bright']] }],
@@ -147,6 +147,84 @@
             };
         });
     }
+
+    const A2_TRANSFER_PROMPTS = new Map([
+        [1, [
+            'Which weather image in the song connects most clearly to a vacation or trip?',
+            'Use two lesson expressions, such as foggy, warm, enjoy + -ing, or different from, to comment on the song.',
+            'Describe your ideal vacation weather and one activity you enjoy doing for 30–45 seconds.'
+        ]],
+        [3, [
+            'How do corner and street connect the song to today’s directions lesson?',
+            'Give a short route using corner, street, one movement expression, and “How long does it take?”',
+            'Describe a time you were lost or needed directions and explain what you did.'
+        ]],
+        [5, [
+            'What sports or game atmosphere do you notice in the song?',
+            'Use play, coach, game, and “How good are you at...?” in a short comment or exchange.',
+            'Talk for 30–45 seconds about a sport you play, watch, or would like to try.'
+        ]],
+        [7, [
+            'How does the idea of reading the news connect the song to interests and free-time input?',
+            'Use read, news, kind of, and one descriptive adjective to explain your reaction.',
+            'Give a personal answer about the news, podcasts, or topics you enjoy following.'
+        ]],
+        [9, [
+            'How do sour and sweet turn taste into a preference in the song?',
+            'Use two lesson expressions—feel like, rather than, so, or neither—to comment on the song’s contrast.',
+            'Talk for 30–45 seconds about a strong food preference and give a reason.'
+        ]],
+        [11, [
+            'Which restaurant details in the song connect to ordering and service?',
+            'Use restaurant, menu, food, and one “would like” request in a short response.',
+            'Describe a restaurant experience and say what good service means to you.'
+        ]],
+        [13, [
+            'What picture of a shy person does the song create?',
+            'Use shy plus two personality or mood expressions from the lesson to describe the person in the song.',
+            'Talk for 30–45 seconds about when you feel shy, cheerful, quiet, or talkative.'
+        ]],
+        [15, [
+            'Which body words in the song connect directly to today’s lesson?',
+            'Use head, shoulders, or knees with “What happened?”, a reflexive pronoun, or “Be careful!”',
+            'Describe one minor accident or safety habit for 30–45 seconds.'
+        ]],
+        [17, [
+            'How does the song connect cheap experiences with money and value?',
+            'Use cheap, money, pay for, and one comparative to comment on the song.',
+            'Describe something inexpensive that gives you a lot of enjoyment and explain why.'
+        ]],
+        [19, [
+            'What does the request “lend me” show about the relationship in the song?',
+            'Contrast lend and borrow in two new sentences and add one polite “Do you mind...?” request.',
+            'Talk about something you often borrow or lend and explain your rules for returning it.'
+        ]],
+        [21, [
+            'How does “used to be friends” express a change between past and present?',
+            'Use used to, become or get, and one friendship expression to comment on the song.',
+            'Describe a friendship or family habit that changed over time.'
+        ]],
+        [23, [
+            'What attitude toward fashion or trends do you hear in the song?',
+            'Use fashion, in/out of fashion, trend or fad, and stop + -ing/to in a short comment.',
+            'Talk for 30–45 seconds about a trend you followed, avoided, or would like to bring back.'
+        ]],
+        [25, [
+            'What decision is repeated in the song, and why might it be difficult?',
+            'Use should, stay, go, and instead of + -ing to give the singer practical advice.',
+            'Describe a real choice and say what advice you would give yourself.'
+        ]],
+        [27, [
+            'Which words in the song create the idea of someone being the best?',
+            'Use best, better, and two superlatives from the lesson to rank qualities or options.',
+            'Give a 30–45 second personal ranking and justify your number-one choice.'
+        ]],
+        [29, [
+            'How does the bright future in the song connect to hopes and predictions?',
+            'Use future, bright, will, going to, and depend on in a short comment.',
+            'Talk for 30–45 seconds about one realistic hope, one plan, and one prediction.'
+        ]]
+    ]);
 
     function createRecord(definition) {
         const [moduleId, lessonNumber, title, artist, targets, proposedGapAnswers, grade, application, options = {}] = definition;
@@ -218,6 +296,8 @@
                 grade,
                 difficulty: `${moduleId.slice(0, 2).toUpperCase()}-${grade === 'A' ? 'core' : 'pilot'}`,
                 application,
+                transferPrompt: application,
+                transferPrompts: moduleId === 'a2-v3' ? [...(A2_TRANSFER_PROMPTS.get(lessonNumber) || [])] : [],
                 maxAttempts: 3,
                 feedbackMode: 'after-attempt'
             },
@@ -243,6 +323,10 @@
         if (!entry?.song?.title || !entry?.song?.artist) errors.push('faixa ou artista ausente');
         const gapSpecs = entry?.gaps || [];
         if ((entry?.pedagogy?.proposedGapAnswers || []).length !== 5) errors.push('a recomendação deve ter cinco respostas propostas');
+        if (entry?.moduleId === 'a2-v3') {
+            const prompts = entry?.pedagogy?.transferPrompts || [];
+            if (prompts.length !== 3 || prompts.some(prompt => !String(prompt || '').trim())) errors.push('a música A2 deve ter exatamente três perguntas pós-música');
+        }
         if (gapSpecs.length !== 5) errors.push('o catálogo deve conter exatamente cinco descritores de lacuna');
         const descriptorPositions = new Set(gapSpecs.map(gap => `${normalize(gap?.answer)}:${gap?.occurrence}`));
         if (descriptorPositions.size !== gapSpecs.length) errors.push('os cinco descritores devem apontar para ocorrências distintas');
@@ -295,6 +379,8 @@
             pedagogy: {
                 targetVocabulary: clone(entry.pedagogy.targetVocabulary),
                 application: entry.pedagogy.application,
+                transferPrompt: entry.pedagogy.transferPrompt,
+                transferPrompts: clone(entry.pedagogy.transferPrompts),
                 difficulty: entry.pedagogy.difficulty,
                 maxAttempts: entry.pedagogy.maxAttempts,
                 feedbackMode: entry.pedagogy.feedbackMode

@@ -169,7 +169,7 @@
 
         20: lesson({
             sourceLesson: 19,
-            title: 'A Clever Choice',
+            title: 'A Clever Boy',
             mission: 'Pedir algo emprestado, responder com limites claros e combinar a devolução.',
             outcome: 'Ao final, o aluno negocia um empréstimo simples e explica a opção mais responsável.',
             quickStart: [['Borrow or lend?', 'Use both verbs in two connected sentences.'], ['Small money', 'Name a coin and ask for change.'], ['Polite limit', 'Say you do not mind lending something with one condition.'], ['Repayment', 'Promise when you will pay someone back.']],
@@ -249,7 +249,7 @@
 
         30: lesson({
             sourceLesson: 29,
-            title: 'Dreams for the New Year',
+            title: 'Rick and His Dreams for the New Year',
             mission: 'Transformar esperanças em planos realistas e distinguir intenção, previsão e ação imediata.',
             outcome: 'Ao final, o aluno apresenta um plano de meta com etapas, condições e previsão.',
             quickStart: [['Hope', 'Say one thing you hope will happen.'], ['Plan', 'Say one action you are going to take.'], ['Prediction', 'Predict one result with will.'], ['Immediate step', 'Say what you will do right away.']],

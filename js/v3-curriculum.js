@@ -48,7 +48,7 @@
         ['actions-now', /\b(present continuous|action|acoes atuais|agora|doing|live scene)\b/],
         ['describing-people', /\b(appearance|aparencia|description|descricao|personalit|personalidade|mood|humor|look like|be like)\b/],
         ['travel-weather', /\b(travel|trip|viagem|vacation|ferias|airport|aeroporto|hotel|weather|clima|season|estacao|flight|voo)\b/],
-        ['past-experience', /\b(past|passado|yesterday|ontem|happened|aconteceu|was|were|did|experience|experiencia|memories|memorias)\b/],
+        ['past-experience', /\b(past|passado|yesterday|ontem|happened|aconteceu|was|were|did|experience|experiencia|memories|memorias|have you ever)\b/],
         ['sports-workout', /\b(sport|sports|esporte|workout|treino|exercise|exercicio|soccer|gym|shape|ability|habilidade)\b/],
         ['interests-preferences', /\b(interest|interesse|preference|preferencia|like|love|hate|free-time|tempo livre|news|podcast|opinion|opiniao|rather than)\b/],
         ['restaurant-service', /\b(restaurant|server|customer|menu|order|pedido|atendimento|service|would you like|i would like|bill)\b/],
