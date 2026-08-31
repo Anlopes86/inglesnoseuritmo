@@ -24,16 +24,49 @@
         .lyrics-box { max-height: 300px; overflow-y: auto; }
         .answer-btn { background-color: transparent; border: none; color: #a0aec0; cursor: pointer; }
         .answer-btn:hover { color: #fff; }
+        .word-pill { padding: 0.75rem 1.5rem; background-color: #fbbf24; color: #1a202c; border-radius: 9999px; font-weight: 600; cursor: move; user-select: none; box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3); transition: transform 0.2s; }
+        .word-pill:hover { transform: scale(1.05); }
+        .drop-zone { padding: 0.25rem 0.5rem; border-bottom: 2px dashed #fbbf24; color: #fbbf24; cursor: pointer; min-width: 100px; text-align: center; display: inline-block; }
+        .drop-zone.hover { background-color: rgba(251, 191, 36, 0.15); border-radius: 4px; }
+        .drop-zone.filled { border-bottom: 2px solid #fbbf24; color: #fbbf24; font-weight: 600; }
+        .debate-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid #334155;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+        .debate-card:hover { transform: translateY(-2px); }
+        .debate-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            margin-bottom: 0.75rem;
+        }
+        .info-box {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            font-style: italic;
+            color: #e5e7eb;
+        }
+        .info-box i { color: #fbbf24; margin-right: 0.5rem; }
     </style>
     <link rel="stylesheet" href="conversation-lesson-theme.css">
 </head>
 <body class="bg-gray-900 text-white">
 
-    <header class="bg-gray-800 shadow-lg sticky top-0 z-10">
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="conversation.html" class="text-lg font-bold text-yellow-400 hover:text-yellow-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Voltar para os Tópicos</a>
             <h1 class="text-xl font-semibold text-center">Lição 19: Sports & Competition</h1>
-            <div class="w-32"></div>
+            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 12</div>
         </div>
         <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-yellow-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
     </header>
@@ -44,10 +77,11 @@
             <div class="text-center">
                 <h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-running text-blue-500"></i> Warm-up: Sports & Competition</h2>
                 <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6 text-2xl">
-                    <p class="font-semibold text-gray-300">Let's start our conversation:</p>
-                    <p><i class="fas fa-arrow-right mr-2 text-yellow-400"></i> What's your favorite sport to play or watch?</p>
-                    <p><i class="fas fa-arrow-right mr-2 text-yellow-400"></i> Do you think competition is good or bad?</p>
-                    <p><i class="fas fa-arrow-right mr-2 text-yellow-400"></i> What's the most exciting sporting event you've ever watched?</p>
+                    <p class="font-semibold text-gray-300">Let's explore the world of competition, athleticism, and the pursuit of victory.</p>
+                    <p><i class="fas fa-star mr-2 text-yellow-400"></i> What's your favorite sport to play or watch?</p>
+                    <p><i class="fas fa-balance-scale mr-2 text-yellow-400"></i> Do you think competition is good or bad for society?</p>
+                    <p><i class="fas fa-medal mr-2 text-yellow-400"></i> What's the most exciting sporting event you've ever watched?</p>
+                    <p><i class="fas fa-lightbulb mr-2 text-yellow-400"></i> Can someone be competitive without being aggressive or mean?</p>
                 </div>
             </div>
         </div>
@@ -68,9 +102,14 @@
         </div>
 
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music: We Are the Champions - Queen</h2>
+            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Song 1: We Are the Champions - Queen</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1lCRw5FEZ1gPDNPzy1K4zW?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-2">
+                <div class="info-box">
+                    <i class="fas fa-info-circle"></i>
+                    "We Are the Champions" celebrates victory and the perseverance it takes to achieve it—a perfect anthem about triumph and determination.
+                </div>
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1lCRw5FEZ1gPDNPzy1K4zW?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="mt-4 lyrics-box pr-2">
                     <p class="text-2xl mb-4 text-gray-300">Listen and complete the lyrics.</p>
                     <div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
                         <p>I've paid my dues, time after time</p>
@@ -88,18 +127,45 @@
 
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Let's Discuss</h2>
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                    <p>What is the main message of "We Are the Champions"? Does it focus more on the victory itself or on the struggle to achieve it?</p>
-                    <p>Do you think the song's message applies to things outside of sports, like work or personal goals?</p>
+                <h2 class="text-4xl font-bold mb-2 text-yellow-300"><i class="fas fa-comments"></i> Song 1 Debate</h2>
+                <p class="text-lg text-gray-400 mb-6 italic">"We Are the Champions" - Victory and Perseverance</p>
+
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card">
+                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Personal</span>
+                        <p class="text-xl"><i class="fas fa-hand-holding-heart mr-2 text-yellow-400"></i>
+                            What moment in your life felt like a personal victory?</p>
+                    </div>
+
+                    <div class="debate-card">
+                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
+                        <p class="text-xl"><i class="fas fa-cog mr-2 text-blue-400"></i>
+                            Is the struggle as important as the final victory itself?</p>
+                    </div>
+
+                    <div class="debate-card">
+                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
+                        <p class="text-xl"><i class="fas fa-users mr-2 text-purple-400"></i>
+                            Should we celebrate only the winners or also the effort of those who tried?</p>
+                    </div>
+
+                    <div class="debate-card">
+                        <span class="debate-label bg-pink-500/20 text-pink-400">Discussion</span>
+                        <p class="text-xl"><i class="fas fa-comments mr-2 text-pink-400"></i>
+                            How would you react if someone said "you're either a champion or a loser"?</p>
+                    </div>
                 </div>
             </div>
         </div>
         
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music: Lose Yourself - Eminem</h2>
+            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Song 2: Lose Yourself - Eminem</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5Z01UMMf7V1o0MzF86s6WJ?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-2">
+                <div class="info-box">
+                    <i class="fas fa-info-circle"></i>
+                    "Lose Yourself" captures the intensity of seizing your one chance—the pressure, the focus, and the determination to not let opportunity slip away.
+                </div>
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5Z01UMMf7V1o0MzF86s6WJ?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-2">
                     <p class="text-2xl mb-4 text-gray-300">Listen and complete the lyrics.</p>
                     <div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
                         <p>Look, if you had one shot or one opportunity</p>
@@ -133,18 +199,45 @@
 
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Let's Discuss</h2>
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                    <p>What does it mean to "lose yourself in the moment"? Have you ever felt this way during an important event?</p>
-                    <p>The song talks about "one shot" and not missing your chance. How do you deal with pressure in your life?</p>
+                <h2 class="text-4xl font-bold mb-2 text-yellow-300"><i class="fas fa-comments"></i> Song 2 Debate</h2>
+                <p class="text-lg text-gray-400 mb-6 italic">"Lose Yourself" - Opportunity, Pressure, and Determination</p>
+
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card">
+                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Personal</span>
+                        <p class="text-xl"><i class="fas fa-hand-holding-heart mr-2 text-yellow-400"></i>
+                            When have you felt like you had "one shot" at something important?</p>
+                    </div>
+
+                    <div class="debate-card">
+                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
+                        <p class="text-xl"><i class="fas fa-cog mr-2 text-blue-400"></i>
+                            How does pressure help or hurt your performance in important moments?</p>
+                    </div>
+
+                    <div class="debate-card">
+                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
+                        <p class="text-xl"><i class="fas fa-users mr-2 text-purple-400"></i>
+                            Is failure in a high-pressure moment worse than not trying at all?</p>
+                    </div>
+
+                    <div class="debate-card">
+                        <span class="debate-label bg-pink-500/20 text-pink-400">Discussion</span>
+                        <p class="text-xl"><i class="fas fa-comments mr-2 text-pink-400"></i>
+                            Do you believe you only get one real chance, or can you recover from missing opportunities?</p>
+                    </div>
                 </div>
             </div>
         </div>
         
         <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Music: Unstoppable - Sia</h2>
+            <h2 class="text-4xl font-bold mb-4 text-center text-yellow-300"><i class="fas fa-music text-red-500"></i> Song 3: Unstoppable - Sia</h2>
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1yvMUkIOTeUNtNWlWRgANS?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-2">
+                <div class="info-box">
+                    <i class="fas fa-info-circle"></i>
+                    "Unstoppable" is an empowering anthem about unbreakable confidence and resilience—maintaining a positive mindset no matter the obstacles.
+                </div>
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1yvMUkIOTeUNtNWlWRgANS?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-2">
                     <p class="text-2xl mb-4 text-gray-300">Listen and complete the lyrics.</p>
                     <div class="text-lg space-y-1 bg-gray-700 p-4 rounded-lg border-l-4 border-yellow-500">
                         <p>All smiles, I know what it takes</p>
@@ -162,21 +255,68 @@
         
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-question-circle text-orange-400"></i> Let's Discuss</h2>
-                <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                    <p>The song is about being "unbroken" and "unshakable."" What does it mean to be "unshakable" when facing a difficult opponent or challenge?</p>
-                    <p>How important is appearing confident (wearing a smile) in a competitive environment, even if you don't feel it?</p>
+                <h2 class="text-4xl font-bold mb-2 text-yellow-300"><i class="fas fa-comments"></i> Song 3 Debate</h2>
+                <p class="text-lg text-gray-400 mb-6 italic">"Unstoppable" - Confidence, Resilience, and Mindset</p>
+
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="debate-card">
+                        <span class="debate-label bg-yellow-500/20 text-yellow-400">Personal</span>
+                        <p class="text-xl"><i class="fas fa-hand-holding-heart mr-2 text-yellow-400"></i>
+                            When have you felt truly confident and unstoppable in something?</p>
+                    </div>
+
+                    <div class="debate-card">
+                        <span class="debate-label bg-blue-500/20 text-blue-400">Reflection</span>
+                        <p class="text-xl"><i class="fas fa-cog mr-2 text-blue-400"></i>
+                            Can you be unshakable even when facing a much stronger opponent?</p>
+                    </div>
+
+                    <div class="debate-card">
+                        <span class="debate-label bg-purple-500/20 text-purple-400">Opinion</span>
+                        <p class="text-xl"><i class="fas fa-users mr-2 text-purple-400"></i>
+                            Is confidence more about internal belief or external appearance and attitude?</p>
+                    </div>
+
+                    <div class="debate-card">
+                        <span class="debate-label bg-pink-500/20 text-pink-400">Discussion</span>
+                        <p class="text-xl"><i class="fas fa-comments mr-2 text-pink-400"></i>
+                            How important is body language and positive self-talk in sports and life?</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="slide">
             <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-puzzle-piece text-purple-500"></i> Practice Activity</h2>
+                <h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-puzzle-piece"></i> Practice: Match the Expressions</h2>
+
                 <div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                    <p class="text-2xl mb-8 text-gray-300">Complete the sentences with the correct expressions from this lesson.</p>
-                    <div id="matching-activity" class="space-y-4"></div>
-                    <button id="check-answers-btn" class="mt-8 bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-yellow-700">Check Answers</button>
+                    <p class="text-2xl mb-8 text-gray-300">Drag the expression to the correct sentence:</p>
+                    <div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div>
+                    <div id="matching-activity" class="space-y-8 text-left"></div>
+                    <button id="check-answers-btn" class="mt-12 bg-yellow-600 text-white font-bold py-3 px-10 rounded-lg transition hover:bg-yellow-700 shadow-lg">Check Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-6 text-yellow-300"><i class="fas fa-compass"></i> Your Own Example</h2>
+
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-xl max-w-4xl mx-auto">
+                    <div class="flex flex-col md:flex-row gap-8 items-center">
+                        <div class="flex-1 space-y-4 text-left text-xl">
+                            <p><b class="text-yellow-400">Think about it:</b> competing doesn't always mean being ruthless—sometimes the greatest athletes show strength through sportsmanship and grace.</p>
+                            <p>1. Who is an athlete or competitor you admire for more than just winning?</p>
+                            <p>2. When have you shown competitive spirit while still being fair and kind?</p>
+                            <p>3. How can you bring the energy of "never giving up" to areas outside of sports?</p>
+                        </div>
+
+                        <div class="w-full md:w-1/3 bg-gray-700 p-4 rounded-xl border border-yellow-500/50 text-center">
+                            <i class="fas fa-star text-yellow-400 text-4xl mb-2"></i>
+                            <p class="italic">"Winning isn't everything, but wanting to win is." - Vince Lombardi</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -240,12 +380,14 @@
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
             const progressBar = document.getElementById('progress-bar');
+            const slideCounter = document.getElementById('slide-counter');
             let currentSlide = 0;
 
             function showSlide(index) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 slides.forEach((s, i) => s.classList.toggle('active', i === index));
                 if (progressBar) progressBar.style.width = slides.length > 1 ? `${((index + 1) / slides.length) * 100}%` : '100%';
+                if (slideCounter) slideCounter.innerText = `${index + 1} / ${slides.length}`;
                 if (prevBtn) prevBtn.disabled = index === 0;
                 const isLastSlide = index === slides.length - 1;
                 if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
@@ -286,56 +428,66 @@
                 });
             });
 
-            // Lógica da Atividade de Prática (Matching)
-            const activityContainer = document.getElementById('matching-activity'), checkAnswersBtn = document.getElementById('check-answers-btn');
-            if(activityContainer && checkAnswersBtn) {
-                const expressions = [
-                    { id: 'couch_potato', text: 'To be a couch potato' },
-                    { id: 'get_ball_rolling', text: 'To get the ball rolling' },
-                    { id: 'neck_and_neck', text: 'To be neck and neck' },
-                    { id: 'go_extra_mile', text: 'To go the extra mile' },
-                    { id: 'good_sport', text: 'To be a good sport' },
-                    { id: 'throw_in_towel', text: 'To throw in the towel' }
-                ];
-                const situations = [
-                    { text: "My friend is so lazy, he's a real...", answer: 'couch_potato' },
-                    { text: "The two runners were almost tied until the end. They were...", answer: 'neck_and_neck' },
-                    { text: "It's a tough project, but we need to...", answer: 'get_ball_rolling' },
-                    { text: "Don't give up! You can't just...", answer: 'throw_in_towel' },
-                    { text: "After losing the game, she shook hands with the winner. She was a...", answer: 'good_sport' },
-                    { text: "She worked late every night to finish the report. She decided to...", answer: 'go_extra_mile' }
-                ];
+            // Lógica da Atividade de Prática (Matching com Drag-and-Drop)
+            const wordBank = document.getElementById('word-bank');
+            const activityContainer = document.getElementById('matching-activity');
+            const checkBtn = document.getElementById('check-answers-btn');
 
-                function shuffle(array) { 
-                    for (let i = array.length - 1; i > 0; i--) { 
-                        const j = Math.floor(Math.random() * (i + 1)); 
-                        [array[i], array[j]] = [array[j], array[i]]; 
-                    } 
-                    return array; 
-                }
+            const vocabulary = [
+                { id: 'couch_potato', text: 'To be a couch potato' },
+                { id: 'get_ball_rolling', text: 'To get the ball rolling' },
+                { id: 'neck_and_neck', text: 'To be neck and neck' },
+                { id: 'go_extra_mile', text: 'To go the extra mile' },
+                { id: 'good_sport', text: 'To be a good sport' },
+                { id: 'throw_in_towel', text: 'To throw in the towel' }
+            ];
 
-                function createActivity() {
-                    const shuffledSituations = shuffle(situations);
-                    let html = shuffledSituations.map((sit, index) => {
-                        return `<div id="q-${index}" class="p-4 rounded-lg bg-gray-800 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300"><p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p><select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg shadow-sm text-lg focus:border-yellow-400 focus:ring focus:ring-yellow-300 focus:ring-opacity-50"><option value="">Select an expression...</option>${shuffle([...expressions]).map(exp => `<option value="${exp.id}">${exp.text}</option>`).join('')}</select></div>`;
-                    }).join('');
-                    activityContainer.innerHTML = html;
-                }
-                
-                createActivity();
-                
-                checkAnswersBtn.addEventListener('click', () => {
-                    activityContainer.querySelectorAll('select').forEach((select, index) => {
-                        const questionDiv = document.getElementById(`q-${index}`);
-                        questionDiv.classList.remove('bg-green-900/50', 'border-green-500', 'bg-red-900/50', 'border-red-500');
-                        if (select.value === select.dataset.answer) {
-                            questionDiv.classList.add('bg-green-900/50', 'border-green-500');
-                        } else {
-                            questionDiv.classList.add('bg-red-900/50', 'border-red-500');
-                        }
-                    });
+            const situations = [
+                { text: "My friend is so lazy, he's a real <span class='drop-zone' data-answer='To be a couch potato'>________</span>.", answer: 'To be a couch potato' },
+                { text: "The two runners were almost tied until the end. They were <span class='drop-zone' data-answer='To be neck and neck'>________</span>.", answer: 'To be neck and neck' },
+                { text: "It's a tough project, but we need to <span class='drop-zone' data-answer='To get the ball rolling'>________</span>.", answer: 'To get the ball rolling' },
+                { text: "Don't give up! You can't just <span class='drop-zone' data-answer='To throw in the towel'>________</span>.", answer: 'To throw in the towel' },
+                { text: "After losing the game, she shook hands with the winner. She was a <span class='drop-zone' data-answer='To be a good sport'>________</span>.", answer: 'To be a good sport' },
+                { text: "She worked late every night to finish the report. She decided to <span class='drop-zone' data-answer='To go the extra mile'>________</span>.", answer: 'To go the extra mile' }
+            ];
+
+            vocabulary.sort(() => Math.random() - 0.5).forEach(word => {
+                const pill = document.createElement('div');
+                pill.className = 'word-pill';
+                pill.draggable = true;
+                pill.innerText = word.text;
+                pill.id = `word-${word.id}`;
+                pill.addEventListener('dragstart', (e) => e.dataTransfer.setData('text/plain', word.text));
+                wordBank.appendChild(pill);
+            });
+
+            activityContainer.innerHTML = situations.map(s => `<p class="text-xl text-gray-200">${s.text}</p>`).join('');
+
+            const dropZones = document.querySelectorAll('.drop-zone');
+
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    zone.classList.add('hover');
                 });
-            }
+
+                zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
+
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('hover');
+                    zone.innerText = e.dataTransfer.getData('text/plain');
+                    zone.classList.add('filled');
+                });
+
+                zone.addEventListener('click', () => {
+                    zone.innerText = '________';
+                    zone.classList.remove('filled');
+                    zone.style.color = '#fbbf24'; zone.style.backgroundColor = 'transparent'; zone.style.borderRadius = '0';
+                });
+            });
+
+            if (checkBtn) checkBtn.onclick = () => { let correctCount = 0; let answeredCount = 0; dropZones.forEach(zone => { const current = zone.innerText.trim(); const expected = (zone.dataset.answer || '').trim(); if (current !== '________') answeredCount++; if (current.toLowerCase() === expected.toLowerCase()) { zone.style.color = '#10b981'; zone.style.fontWeight = '700'; zone.style.backgroundColor = 'rgba(16, 185, 129, 0.18)'; zone.style.borderRadius = '8px'; correctCount++; } else if (current !== '________') { zone.style.color = '#ef4444'; zone.style.fontWeight = '700'; zone.style.backgroundColor = 'rgba(239, 68, 68, 0.18)'; zone.style.borderRadius = '8px'; } else { zone.style.color = '#fbbf24'; zone.style.backgroundColor = 'transparent'; zone.style.borderRadius = '0'; zone.style.fontWeight = '700'; zone.style.backgroundColor = 'transparent'; zone.style.borderRadius = '0'; } }); const total = dropZones.length; const old = document.getElementById('practice-feedback'); if (old) old.remove(); const feedback = document.createElement('p'); feedback.id = 'practice-feedback'; feedback.className = 'mt-4 text-lg font-semibold'; feedback.style.color = correctCount === total ? '#10b981' : '#fbbf24'; feedback.innerText = 'Score: ' + correctCount + '/' + total + ' correct (' + answeredCount + ' answered).'; checkBtn.insertAdjacentElement('afterend', feedback); };
 
             showSlide(0);
         });
