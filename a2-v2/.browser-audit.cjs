@@ -276,6 +276,34 @@ async function main() {
             failures.push(`Lesson 09 lyric reveals failed: ${JSON.stringify(lessonNineMusic)}.`);
         }
 
+        await openLesson(17, desktop);
+        await goToSlide(9);
+        for (let attempt = 0; attempt < 100; attempt += 1) {
+            const musicReady = await evaluate(`document.querySelector('#music-lyrics [data-music-cloze-v3]')?.dataset.musicState === 'ready'`);
+            if (musicReady) break;
+            await delay(100);
+        }
+        const lessonSeventeenMusic = await evaluate(`(() => {
+            const root = document.querySelector('#music-lyrics [data-music-cloze-v3]');
+            const inputs = [...(root?.querySelectorAll('[data-music-gap]') || [])];
+            return {
+                state: root?.dataset.musicState || '',
+                title: root?.querySelector('.music-cloze-head h3')?.textContent.trim() || '',
+                artist: root?.querySelector('.music-cloze-head > div > p:last-child')?.textContent.trim() || '',
+                inputs: inputs.length,
+                uniqueGapIds: new Set(inputs.map(input => input.dataset.gapId)).size,
+                spotifySrc: root?.querySelector('iframe[src*="open.spotify.com"]')?.src || ''
+            };
+        })()`);
+        if (lessonSeventeenMusic.state !== 'ready'
+            || lessonSeventeenMusic.title !== 'Have You Ever Seen The Rain'
+            || lessonSeventeenMusic.artist !== 'Creedence Clearwater Revival'
+            || lessonSeventeenMusic.inputs !== 5
+            || lessonSeventeenMusic.uniqueGapIds !== 5
+            || !/\/embed\/track\/2LawezPeJhN4AWuSB0GtAU\?/.test(lessonSeventeenMusic.spotifySrc)) {
+            failures.push(`Lesson 17 provider music failed: ${JSON.stringify(lessonSeventeenMusic)}.`);
+        }
+
         await goToSlide(10);
         const configuredLandingPage = await evaluate(`typeof getModuleLandingPage === 'function' ? getModuleLandingPage('a2-v2') : ''`);
         if (configuredLandingPage !== 'a2.html') {

@@ -2299,7 +2299,7 @@
         13: { song: 'Can I Kick It?', artist: 'A Tribe Called Quest', spotifyId: '5q6pg1kvXfT7z5MqG0KKSs', focus: 'Can I...? e permissão' },
         14: { song: 'I\'ll Have to Say I Love You in a Song', artist: 'Jim Croce', spotifyId: '0QnabBTpfVdrjhE4XznAuE', focus: 'have to e necessidade' },
         15: { song: 'Should I Stay or Should I Go', artist: 'The Clash', spotifyId: '39shmbIHICJ2Wxnk1fPSdz', focus: 'should e decisão' },
-        17: { song: 'Have You Ever', artist: 'Brandy', spotifyId: '6tBD4yjOf9P8rWwUlXdJFm', focus: 'Have you ever...? e experiências' },
+        17: { song: 'Have You Ever Seen The Rain', artist: 'Creedence Clearwater Revival', spotifyId: '2LawezPeJhN4AWuSB0GtAU', focus: 'have you ever, seen, been e experiências' },
         18: { song: 'Never Ever', artist: 'All Saints', spotifyId: '596XLiW6tohIgkcTMf4M6a', focus: 'never e ever' },
         19: { song: 'Since U Been Gone', artist: 'Kelly Clarkson', spotifyId: '6JY1IdkZGeIcPegKxjSKeb', focus: 'since, been e referência ao passado' },
         20: { song: 'Gone, Gone, Gone', artist: 'Phillip Phillips', spotifyId: '20S0KRq4z2v2Utym0C246s', focus: 'gone e ausência' },
@@ -2373,6 +2373,42 @@
                 "Should I cool it or should I blow?"
             ]
         ]
+    };
+
+    const providerMusicByLesson = {
+        17: {
+            id: 'a2-v2-l17-have-you-ever-seen-the-rain',
+            curriculumId: 'a2-v2-l17',
+            status: 'provider-verified',
+            song: {
+                title: 'Have You Ever Seen The Rain',
+                artist: 'Creedence Clearwater Revival',
+                album: 'Chronicle, Vol. 1: The 20 Greatest Hits',
+                durationSeconds: 160,
+                spotifyTrackId: '2LawezPeJhN4AWuSB0GtAU'
+            },
+            lyrics: {
+                provider: 'lrclib',
+                lrclibId: 37007711,
+                fallback: 'lyricsovh',
+                cache: 'sessionStorage'
+            },
+            gaps: [
+                { id: 'gap-1', answer: 'been', occurrence: 1 },
+                { id: 'gap-2', answer: 'have', occurrence: 1 },
+                { id: 'gap-3', answer: 'ever', occurrence: 2 },
+                { id: 'gap-4', answer: 'seen', occurrence: 3 },
+                { id: 'gap-5', answer: 'rain', occurrence: 8 }
+            ],
+            pedagogy: {
+                maxAttempts: 3,
+                transferPrompts: [
+                    'Have you ever experienced a sudden change in your plans? Explain.',
+                    'What is something surprising you have seen recently?',
+                    'Name an experience you have had that taught you something important.'
+                ]
+            }
+        }
     };
 
     function getMusicSelection(title, bank) {
@@ -3327,6 +3363,11 @@
 
     function fillMusic(bank) {
         const selection = getMusicSelection(document.title, bank);
+        const providerEntry = providerMusicByLesson[getLessonNumber()];
+        if (providerEntry) {
+            fillProviderMusic(providerEntry);
+            return;
+        }
         const lessonLyrics = musicLyricsByLesson[getLessonNumber()];
         const lines = bank.musicLines || [
             ['I looked at the road and chose to keep moving ____.', 'forward'],
@@ -3361,6 +3402,35 @@
                 </div>
             </div>
         `);
+    }
+
+    function fillProviderMusic(entry) {
+        const cloze = window.MusicClozeV3;
+        const player = window.SpotifyEmbedV3;
+        if (!cloze || !player) {
+            setHtml('#music-lyrics', '<div class="music-cloze-notice" role="status">A atividade musical não carregou agora. Você pode seguir para o homework.</div>');
+            return;
+        }
+
+        setHtml('#music-lyrics', `
+            <div class="music-cloze-v3" data-music-cloze-v3 data-entry-id="${escapeHtml(entry.id)}" data-curriculum-id="${escapeHtml(entry.curriculumId)}" data-music-state="loading">
+                <div class="music-cloze-head">
+                    <div>
+                        <p class="lesson-panel-title">Listening Challenge</p>
+                        <h3>${escapeHtml(entry.song.title)}</h3>
+                        <p>${escapeHtml(entry.song.artist)}</p>
+                    </div>
+                    <span class="music-cloze-score" aria-label="0 de 5 respostas corretas">0/5</span>
+                </div>
+                ${player.render(entry.song)}
+                <div class="music-cloze-objective">Ouça e complete exatamente 5 palavras ligadas ao Present Perfect.</div>
+                <div class="music-cloze-body" data-music-body><div class="music-cloze-skeleton" aria-hidden="true"></div></div>
+                <p class="music-cloze-status" data-music-status role="status" aria-live="polite">Carregando música e letra…</p>
+            </div>
+        `);
+
+        const root = document.querySelector('#music-lyrics [data-music-cloze-v3]');
+        if (root) new cloze.MusicClozeActivity(root, entry).start();
     }
 
     function renderMusicLyricLine(entry, stanzaIndex, lineIndex) {
