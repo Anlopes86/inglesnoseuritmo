@@ -66,6 +66,8 @@ if (almost[0].status !== 'almost') throw new Error('Near-answer feedback failed.
 const uiSource = fs.readFileSync(path.join(__dirname, 'conversation-music-cloze.js'), 'utf8');
 if (!uiSource.includes('data-conversation-music-reveal')) throw new Error('Individual reveal controls are missing.');
 if (!uiSource.includes("this.revealed.has(index)")) throw new Error('Reveal toggling is missing.');
+if (!uiSource.includes("new Set(['provider-verified', 'draft-until-provider-match'])") || !uiSource.includes('runtimeMusicStatuses.has(this.entry.status)')) throw new Error('Authorized draft entries are not accepted by the runtime cloze.');
+if (uiSource.includes('Loading the verified lyrics')) throw new Error('Draft runtime must not be presented as provider-verified.');
 if (uiSource.includes('data-answer=')) throw new Error('Answers must not be exposed as data attributes.');
 
-console.log('conversation-music-cloze.test.cjs passed: five gaps, layout masking, accepted answers, near matches and individual reveal controls.');
+console.log('conversation-music-cloze.test.cjs passed: five gaps, layout masking, accepted answers, near matches, draft runtime and individual reveal controls.');

@@ -148,6 +148,129 @@
         });
     }
 
+    const A1_TRANSFER_PROMPTS = new Map([
+        [1, [
+            'Which greeting or name word do you hear in the song?',
+            'Introduce yourself: "Hello, my name is ___. Nice to meet you."',
+            'What is your name, and how are you today? Use "I am ___."'
+        ]],
+        [2, [
+            'Which work or weekend word do you hear in the song?',
+            'Complete the model: "I am a/an ___. I work at ___."',
+            'Do you prefer weekdays or weekends? Answer: "I prefer ___."'
+        ]],
+        [3, [
+            'Which food or drink word do you hear in the song?',
+            'Use two lesson words: "I am ___. I want ___."',
+            'What do you eat or drink at break? Answer: "I have ___."'
+        ]],
+        [4, [
+            'Which letters or numbers do you hear in the song?',
+            'Spell your first name slowly: "My name is ___. That is ___."',
+            'Say your age and country: "I am ___ years old. I am from ___."'
+        ]],
+        [6, [
+            'Which five numbers do you hear in the phone number?',
+            'Say a phone number slowly, one number at a time.',
+            'Ask and answer: "What is your phone number?" "It is ___."'
+        ]],
+        [7, [
+            'Which invitation words do you hear: go, out, or tonight?',
+            'Make an invitation: "Let\'s go to ___ tonight."',
+            'Accept or refuse: "Yes, let\'s!" or "Sorry, I can\'t."'
+        ]],
+        [8, [
+            'Which routine verbs do you hear in the song?',
+            'Use a time: "I wake up at ___. Then I ___."',
+            'What do you do first in the morning? Answer: "I ___."'
+        ]],
+        [9, [
+            'Which words show that she has a work routine?',
+            'Make one sentence: "She works ___." or "She starts at ___."',
+            'Describe one person you know: "He/She works at ___."'
+        ]],
+        [11, [
+            'Which family word do you hear in the song?',
+            'Use a family word: "She is my ___. Her name is ___."',
+            'Who is in your family? Answer with one or two short sentences.'
+        ]],
+        [12, [
+            'Which house, home, or room word do you hear?',
+            'Use there is: "There is a ___ in my ___."',
+            'What is your favorite room? Answer: "My favorite room is ___."'
+        ]],
+        [13, [
+            'Which food words do you hear in the song?',
+            'Make a shopping sentence: "I want some ___ and ___."',
+            'What do you usually buy at the market? Answer: "I buy ___."'
+        ]],
+        [14, [
+            'Which price or payment word do you hear in the song?',
+            'Ask about a price: "How much is this ___?"',
+            'Name one small thing you want to buy and say its price.'
+        ]],
+        [16, [
+            'Which color or clothing word do you hear in the song?',
+            'Choose one: "I like the blue one." or "I like the ___ ones."',
+            'What color are your shoes or clothes today? Answer: "They are ___."'
+        ]],
+        [17, [
+            'Which possession word do you hear in the song?',
+            'Point to an item and say: "This is my ___. It is mine."',
+            'Ask and answer: "Whose ___ is this?" "It is ___."'
+        ]],
+        [18, [
+            'Which -ing actions do you hear: sitting, waiting, or looking?',
+            'Describe the song scene: "He/She is ___ing now."',
+            'What are you doing now? Answer: "I am ___ing."'
+        ]],
+        [19, [
+            'Which numbers or time words do you hear in the song?',
+            'Say a time: "It is ___ o\'clock."',
+            'What time do you meet a friend? Answer: "We meet at ___."'
+        ]],
+        [21, [
+            'Which month names do you hear in the song?',
+            'Use a month: "My vacation is in ___."',
+            'What is your favorite month? Answer: "I like ___ because ___."'
+        ]],
+        [22, [
+            'Which past word do you hear: yesterday, had, said, or stayed?',
+            'Make a past sentence: "Yesterday, I ___."',
+            'What did you do yesterday? Give one short answer.'
+        ]],
+        [23, [
+            'Which travel words do you hear in the song?',
+            'Make an airport sentence with plane, leave, can, or ticket.',
+            'Where do you want to travel? Answer: "I want to go to ___."'
+        ]],
+        [24, [
+            'Which walking or -ing word do you hear in the song?',
+            'Complete the model: "I was ___ing when ___."',
+            'What were you doing at 8 p.m. yesterday? Answer: "I was ___."'
+        ]],
+        [26, [
+            'Which opposite weather words do you hear in the song?',
+            'Make a plan: "It is ___, so I am going to ___."',
+            'What are you going to do this weekend? Give one short answer.'
+        ]],
+        [27, [
+            'Which health word do you hear in the song?',
+            'Give simple advice: "You have a fever. You should ___."',
+            'What do you do when you feel sick? Answer: "I ___."'
+        ]],
+        [28, [
+            'Which phone words do you hear: call or line?',
+            'Start a call: "Hello. Can I speak to ___, please?"',
+            'Leave a short message: "Please tell ___ to call me back."'
+        ]],
+        [29, [
+            'Which words make the song sound calm or relaxed?',
+            'Use before or after: "Before I ___, I ___."',
+            'When do you start and finish your day? Give two short times.'
+        ]]
+    ]);
+
     const A2_TRANSFER_PROMPTS = new Map([
         [1, [
             'Which weather image in the song connects most clearly to a vacation or trip?',
@@ -226,6 +349,11 @@
         ]]
     ]);
 
+    const TRANSFER_PROMPTS_BY_MODULE = new Map([
+        ['a1-v3', A1_TRANSFER_PROMPTS],
+        ['a2-v3', A2_TRANSFER_PROMPTS]
+    ]);
+
     function createRecord(definition) {
         const [moduleId, lessonNumber, title, artist, targets, proposedGapAnswers, grade, application, options = {}] = definition;
         const lesson = curriculum?.getLesson(moduleId, lessonNumber);
@@ -297,7 +425,7 @@
                 difficulty: `${moduleId.slice(0, 2).toUpperCase()}-${grade === 'A' ? 'core' : 'pilot'}`,
                 application,
                 transferPrompt: application,
-                transferPrompts: moduleId === 'a2-v3' ? [...(A2_TRANSFER_PROMPTS.get(lessonNumber) || [])] : [],
+                transferPrompts: [...(TRANSFER_PROMPTS_BY_MODULE.get(moduleId)?.get(lessonNumber) || [])],
                 maxAttempts: 3,
                 feedbackMode: 'after-attempt'
             },
@@ -323,9 +451,9 @@
         if (!entry?.song?.title || !entry?.song?.artist) errors.push('faixa ou artista ausente');
         const gapSpecs = entry?.gaps || [];
         if ((entry?.pedagogy?.proposedGapAnswers || []).length !== 5) errors.push('a recomendação deve ter cinco respostas propostas');
-        if (entry?.moduleId === 'a2-v3') {
+        if (TRANSFER_PROMPTS_BY_MODULE.has(entry?.moduleId)) {
             const prompts = entry?.pedagogy?.transferPrompts || [];
-            if (prompts.length !== 3 || prompts.some(prompt => !String(prompt || '').trim())) errors.push('a música A2 deve ter exatamente três perguntas pós-música');
+            if (prompts.length !== 3 || prompts.some(prompt => !String(prompt || '').trim())) errors.push(`a música ${entry.moduleId.slice(0, 2).toUpperCase()} deve ter exatamente três perguntas pós-música`);
         }
         if (gapSpecs.length !== 5) errors.push('o catálogo deve conter exatamente cinco descritores de lacuna');
         const descriptorPositions = new Set(gapSpecs.map(gap => `${normalize(gap?.answer)}:${gap?.occurrence}`));

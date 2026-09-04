@@ -25,29 +25,29 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "boy",
-                "providerAnswer": "boy",
-                "occurrence": 1,
+                "answer": "life",
+                "providerAnswer": "life",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "boy"
+                    "life"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "named",
-                "providerAnswer": "named",
-                "occurrence": 2,
+                "answer": "grew",
+                "providerAnswer": "grew",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "named"
+                    "grew"
                 ]
             },
             {
                 "id": "gap-3",
-                "answer": "Sue",
-                "providerAnswer": "Sue",
-                "occurrence": 4,
+                "answer": "name",
+                "providerAnswer": "name",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "Sue"
+                    "name"
                 ]
             },
             {
@@ -110,11 +110,11 @@
             },
             {
                 "id": "gap-2",
-                "answer": "call",
-                "providerAnswer": "call",
-                "occurrence": 3,
+                "answer": "attention",
+                "providerAnswer": "attention",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "call"
+                    "attention"
                 ]
             },
             {
@@ -186,11 +186,11 @@
             },
             {
                 "id": "gap-2",
-                "answer": "name",
-                "providerAnswer": "name",
-                "occurrence": 1,
+                "answer": "never",
+                "providerAnswer": "never",
+                "occurrence": 4,
                 "acceptedAnswers": [
-                    "name"
+                    "never"
                 ]
             },
             {
@@ -253,20 +253,20 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "pinball",
-                "providerAnswer": "pinball",
+                "answer": "mean",
+                "providerAnswer": "mean",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "pinball"
+                    "mean"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "wizard",
-                "providerAnswer": "wizard",
-                "occurrence": 1,
+                "answer": "plays",
+                "providerAnswer": "plays",
+                "occurrence": 3,
                 "acceptedAnswers": [
-                    "wizard"
+                    "plays"
                 ]
             },
             {
@@ -405,11 +405,11 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "Logical",
-                "providerAnswer": "Logical",
+                "answer": "responsible",
+                "providerAnswer": "responsible",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "Logical"
+                    "responsible"
                 ]
             },
             {
@@ -481,11 +481,11 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "sun",
-                "providerAnswer": "sun",
-                "occurrence": 2,
+                "answer": "Little",
+                "providerAnswer": "Little",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "sun"
+                    "Little"
                 ]
             },
             {
@@ -557,11 +557,11 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "rain",
-                "providerAnswer": "rain",
-                "occurrence": 1,
+                "answer": "coming",
+                "providerAnswer": "coming",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "rain"
+                    "coming"
                 ]
             },
             {
@@ -633,20 +633,20 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "weather",
-                "providerAnswer": "weather",
+                "answer": "tomorrow",
+                "providerAnswer": "tomorrow",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "weather"
+                    "tomorrow"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "colder",
-                "providerAnswer": "colder",
+                "answer": "stuck",
+                "providerAnswer": "stuck",
                 "occurrence": 2,
                 "acceptedAnswers": [
-                    "colder"
+                    "stuck"
                 ]
             },
             {
@@ -709,20 +709,20 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "silence",
-                "providerAnswer": "silence",
-                "occurrence": 1,
+                "answer": "vision",
+                "providerAnswer": "vision",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "silence"
+                    "vision"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "sound",
-                "providerAnswer": "sound",
+                "answer": "light",
+                "providerAnswer": "light",
                 "occurrence": 2,
                 "acceptedAnswers": [
-                    "sound"
+                    "light"
                 ]
             },
             {
@@ -785,11 +785,11 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "Noise",
-                "providerAnswer": "Noise",
+                "answer": "shout",
+                "providerAnswer": "shout",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "Noise"
+                    "shout"
                 ]
             },
             {
@@ -861,20 +861,20 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "Listen",
-                "providerAnswer": "Listen",
+                "answer": "know",
+                "providerAnswer": "know",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "Listen"
+                    "know"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "music",
-                "providerAnswer": "music",
-                "occurrence": 5,
+                "answer": "play",
+                "providerAnswer": "play",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "music"
+                    "play"
                 ]
             },
             {
@@ -937,11 +937,11 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "birthday",
-                "providerAnswer": "birthday",
-                "occurrence": 3,
+                "answer": "good",
+                "providerAnswer": "good",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "birthday"
+                    "good"
                 ]
             },
             {
@@ -1013,11 +1013,11 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "party",
-                "providerAnswer": "party",
-                "occurrence": 1,
+                "answer": "Herbert",
+                "providerAnswer": "Herbert",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "party"
+                    "Herbert"
                 ]
             },
             {
@@ -1089,11 +1089,11 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "wish",
-                "providerAnswer": "wish",
-                "occurrence": 1,
+                "answer": "anything",
+                "providerAnswer": "anything",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "wish"
+                    "anything"
                 ]
             },
             {
@@ -1174,11 +1174,11 @@
             },
             {
                 "id": "gap-2",
-                "answer": "rollercoaster",
-                "providerAnswer": "rollercoaster",
-                "occurrence": 1,
+                "answer": "killer",
+                "providerAnswer": "killer",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "rollercoaster"
+                    "killer"
                 ]
             },
             {
@@ -1241,11 +1241,11 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "fun",
-                "providerAnswer": "fun",
-                "occurrence": 3,
+                "answer": "takes",
+                "providerAnswer": "takes",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "fun"
+                    "takes"
                 ]
             },
             {
@@ -1317,20 +1317,20 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "world",
-                "providerAnswer": "world",
+                "answer": "look",
+                "providerAnswer": "look",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "world"
+                    "look"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "top",
-                "providerAnswer": "top",
-                "occurrence": 3,
+                "answer": "dreaming",
+                "providerAnswer": "dreaming",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "top"
+                    "dreaming"
                 ]
             },
             {
@@ -1393,20 +1393,20 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "Particle",
-                "providerAnswer": "Particle",
-                "occurrence": 4,
+                "answer": "important",
+                "providerAnswer": "important",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "Particle"
+                    "important"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "man",
-                "providerAnswer": "man",
-                "occurrence": 7,
+                "answer": "hates",
+                "providerAnswer": "hates",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "man"
+                    "hates"
                 ]
             },
             {
@@ -1478,20 +1478,20 @@
             },
             {
                 "id": "gap-2",
-                "answer": "say",
-                "providerAnswer": "say",
-                "occurrence": 5,
+                "answer": "Wa-pa-pa-pa-pa-pa-pow",
+                "providerAnswer": "Wa-pa-pa-pa-pa-pa-pow",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "say"
+                    "Wa-pa-pa-pa-pa-pa-pow"
                 ]
             },
             {
                 "id": "gap-3",
-                "answer": "fox",
-                "providerAnswer": "fox",
-                "occurrence": 6,
+                "answer": "Ho-o-o-o-orse",
+                "providerAnswer": "Ho-o-o-o-orse",
+                "occurrence": 3,
                 "acceptedAnswers": [
-                    "fox"
+                    "Ho-o-o-o-orse"
                 ]
             },
             {
@@ -1545,20 +1545,20 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "lobster",
-                "providerAnswer": "lobster",
-                "occurrence": 3,
+                "answer": "matching",
+                "providerAnswer": "matching",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "lobster"
+                    "matching"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "Rock",
-                "providerAnswer": "Rock",
-                "occurrence": 10,
+                "answer": "lots",
+                "providerAnswer": "lots",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "Rock"
+                    "lots"
                 ]
             },
             {
@@ -1621,20 +1621,20 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "paperback",
-                "providerAnswer": "paperback",
-                "occurrence": 3,
+                "answer": "job",
+                "providerAnswer": "job",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "paperback"
+                    "job"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "writer",
-                "providerAnswer": "writer",
-                "occurrence": 5,
+                "answer": "dirty",
+                "providerAnswer": "dirty",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "writer"
+                    "dirty"
                 ]
             },
             {
@@ -1667,7 +1667,7 @@
         ],
         "pedagogy": {
             "maxAttempts": 3,
-            "application": "How books find their readers"
+            "application": "Writing a book and finding readers"
         },
         "rights": {
             "usageScope": "private-course-runtime",
@@ -1680,70 +1680,70 @@
         "songIndex": 1,
         "status": "provider-verified",
         "song": {
-            "title": "Everyday I Write the Book",
-            "artist": "Elvis Costello & The Attractions",
-            "displayTitle": "Everyday I Write the Book",
-            "displayArtist": "Elvis Costello & The Attractions",
-            "durationSeconds": 235,
-            "spotifyId": "1P9523tBg56NRc78lX2i4l"
+            "title": "The Book I Read - 2005 Remastered Version",
+            "artist": "Talking Heads",
+            "displayTitle": "The Book I Read",
+            "displayArtist": "Talking Heads",
+            "durationSeconds": 250,
+            "spotifyId": "1E8z7qBXF8k1N7oYJ7llVn"
         },
         "lyrics": {
             "provider": "lrclib",
-            "lrclibId": 34665550,
+            "lrclibId": 35012356,
             "fallback": "lyricsovh",
             "cache": "sessionStorage",
-            "checkedAt": "2026-08-29"
+            "checkedAt": "2026-09-03"
         },
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "everyday",
-                "providerAnswer": "everyday",
+                "answer": "touch",
+                "providerAnswer": "touch",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "everyday"
+                    "touch"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "write",
-                "providerAnswer": "write",
+                "answer": "alright",
+                "providerAnswer": "alright",
                 "occurrence": 2,
                 "acceptedAnswers": [
-                    "write"
+                    "alright"
                 ]
             },
             {
                 "id": "gap-3",
-                "answer": "book",
-                "providerAnswer": "book",
-                "occurrence": 3,
+                "answer": "wonderful",
+                "providerAnswer": "wonderful",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "book"
+                    "wonderful"
                 ]
             },
             {
                 "id": "gap-4",
-                "answer": "working",
-                "providerAnswer": "working",
-                "occurrence": 1,
+                "answer": "spinning",
+                "providerAnswer": "spinning",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "working"
+                    "spinning"
                 ]
             },
             {
                 "id": "gap-5",
-                "answer": "longing",
-                "providerAnswer": "longing",
-                "occurrence": 8,
+                "answer": "eyes",
+                "providerAnswer": "eyes",
+                "occurrence": 3,
                 "acceptedAnswers": [
-                    "longing"
+                    "eyes"
                 ]
             }
         ],
         "pedagogy": {
             "maxAttempts": 3,
-            "application": "Reading habits and bookshop choices"
+            "application": "When a book feels personal"
         },
         "rights": {
             "usageScope": "private-course-runtime",
@@ -1756,70 +1756,70 @@
         "songIndex": 2,
         "status": "provider-verified",
         "song": {
-            "title": "The Book Of Love",
-            "artist": "Peter Gabriel",
-            "displayTitle": "The Book of Love",
-            "displayArtist": "Peter Gabriel",
-            "durationSeconds": 216,
-            "spotifyId": "1HAf3ewt3alvwqXrK7gXsv"
+            "title": "Ramble On",
+            "artist": "Led Zeppelin",
+            "displayTitle": "Ramble On",
+            "displayArtist": "Led Zeppelin",
+            "durationSeconds": 263,
+            "spotifyId": "4joYvfuYl38ce44TmKi74q"
         },
         "lyrics": {
             "provider": "lrclib",
-            "lrclibId": 34353252,
+            "lrclibId": 36888631,
             "fallback": "lyricsovh",
             "cache": "sessionStorage",
-            "checkedAt": "2026-08-29"
+            "checkedAt": "2026-09-03"
         },
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "love",
-                "providerAnswer": "love",
-                "occurrence": 2,
+                "answer": "way",
+                "providerAnswer": "way",
+                "occurrence": 3,
                 "acceptedAnswers": [
-                    "love"
+                    "way"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "book",
-                "providerAnswer": "book",
-                "occurrence": 2,
+                "answer": "dreams",
+                "providerAnswer": "dreams",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "book"
+                    "dreams"
                 ]
             },
             {
                 "id": "gap-3",
-                "answer": "sing",
-                "providerAnswer": "sing",
-                "occurrence": 1,
+                "answer": "queen",
+                "providerAnswer": "queen",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "sing"
+                    "queen"
                 ]
             },
             {
                 "id": "gap-4",
-                "answer": "things",
-                "providerAnswer": "things",
-                "occurrence": 1,
+                "answer": "find",
+                "providerAnswer": "find",
+                "occurrence": 5,
                 "acceptedAnswers": [
-                    "things"
+                    "find"
                 ]
             },
             {
                 "id": "gap-5",
-                "answer": "wedding",
-                "providerAnswer": "wedding",
+                "answer": "bluebird",
+                "providerAnswer": "bluebird",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "wedding"
+                    "bluebird"
                 ]
             }
         ],
         "pedagogy": {
             "maxAttempts": 3,
-            "application": "Why every reader sees a different book"
+            "application": "Tolkien's world inside a rock song"
         },
         "rights": {
             "usageScope": "private-course-runtime",
@@ -1849,11 +1849,11 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "own",
-                "providerAnswer": "own",
-                "occurrence": 2,
+                "answer": "say",
+                "providerAnswer": "say",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "own"
+                    "say"
                 ]
             },
             {
@@ -1925,20 +1925,20 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "work",
-                "providerAnswer": "work",
+                "answer": "saying",
+                "providerAnswer": "saying",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "work"
+                    "saying"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "out",
-                "providerAnswer": "out",
-                "occurrence": 3,
+                "answer": "right",
+                "providerAnswer": "right",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "out"
+                    "right"
                 ]
             },
             {
@@ -2001,11 +2001,11 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "life",
-                "providerAnswer": "life",
+                "answer": "ahead",
+                "providerAnswer": "ahead",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "life"
+                    "ahead"
                 ]
             },
             {
@@ -2086,11 +2086,11 @@
             },
             {
                 "id": "gap-2",
-                "answer": "rockstar",
-                "providerAnswer": "rockstar",
+                "answer": "digger's",
+                "providerAnswer": "digger's",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "rockstar"
+                    "digger's"
                 ]
             },
             {
@@ -2153,20 +2153,20 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "one",
-                "providerAnswer": "one",
-                "occurrence": 2,
+                "answer": "history",
+                "providerAnswer": "history",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "one"
+                    "history"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "week",
-                "providerAnswer": "week",
+                "answer": "looked",
+                "providerAnswer": "looked",
                 "occurrence": 2,
                 "acceptedAnswers": [
-                    "week"
+                    "looked"
                 ]
             },
             {
@@ -2229,11 +2229,11 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "Tribute",
-                "providerAnswer": "Tribute",
-                "occurrence": 1,
+                "answer": "long",
+                "providerAnswer": "long",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "Tribute"
+                    "long"
                 ]
             },
             {
@@ -2314,11 +2314,11 @@
             },
             {
                 "id": "gap-2",
-                "answer": "Sandman",
-                "providerAnswer": "Sandman",
-                "occurrence": 3,
+                "answer": "magic",
+                "providerAnswer": "magic",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "Sandman"
+                    "magic"
                 ]
             },
             {
@@ -2381,20 +2381,20 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "only",
-                "providerAnswer": "only",
+                "answer": "shake",
+                "providerAnswer": "shake",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "only"
+                    "shake"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "sleeping",
-                "providerAnswer": "sleeping",
+                "answer": "think",
+                "providerAnswer": "think",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "sleeping"
+                    "think"
                 ]
             },
             {
@@ -2457,20 +2457,20 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "Daydream",
-                "providerAnswer": "Daydream",
+                "answer": "Jean",
+                "providerAnswer": "Jean",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "Daydream"
+                    "Jean"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "believer",
-                "providerAnswer": "believer",
+                "answer": "queen",
+                "providerAnswer": "queen",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "believer"
+                    "queen"
                 ]
             },
             {
@@ -2533,11 +2533,11 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "One",
-                "providerAnswer": "One",
-                "occurrence": 4,
+                "answer": "love",
+                "providerAnswer": "love",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "One"
+                    "love"
                 ]
             },
             {
@@ -2609,11 +2609,11 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "princes",
-                "providerAnswer": "princes",
-                "occurrence": 3,
+                "answer": "diamonds",
+                "providerAnswer": "diamonds",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "princes"
+                    "diamonds"
                 ]
             },
             {
@@ -2685,29 +2685,29 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "lover",
-                "providerAnswer": "lover",
+                "answer": "fifty",
+                "providerAnswer": "fifty",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "lover"
+                    "fifty"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "leave",
-                "providerAnswer": "leave",
-                "occurrence": 3,
+                "answer": "slip",
+                "providerAnswer": "slip",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "leave"
+                    "slip"
                 ]
             },
             {
                 "id": "gap-3",
-                "answer": "ways",
-                "providerAnswer": "ways",
-                "occurrence": 4,
+                "answer": "said",
+                "providerAnswer": "said",
+                "occurrence": 5,
                 "acceptedAnswers": [
-                    "ways"
+                    "said"
                 ]
             },
             {
@@ -2761,20 +2761,20 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "garden",
-                "providerAnswer": "garden",
-                "occurrence": 2,
+                "answer": "play",
+                "providerAnswer": "play",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "garden"
+                    "play"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "party",
-                "providerAnswer": "party",
-                "occurrence": 2,
+                "answer": "look",
+                "providerAnswer": "look",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "party"
+                    "look"
                 ]
             },
             {
@@ -2837,11 +2837,11 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "flowers",
-                "providerAnswer": "flowers",
+                "answer": "name",
+                "providerAnswer": "name",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "flowers"
+                    "name"
                 ]
             },
             {
@@ -2913,29 +2913,29 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "green",
-                "providerAnswer": "green",
+                "answer": "live",
+                "providerAnswer": "live",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "green"
+                    "live"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "grass",
-                "providerAnswer": "grass",
-                "occurrence": 2,
+                "answer": "flows",
+                "providerAnswer": "flows",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "grass"
+                    "flows"
                 ]
             },
             {
                 "id": "gap-3",
-                "answer": "grows",
-                "providerAnswer": "grows",
-                "occurrence": 2,
+                "answer": "map",
+                "providerAnswer": "map",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "grows"
+                    "map"
                 ]
             },
             {
@@ -2989,11 +2989,11 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "friends",
-                "providerAnswer": "friends",
-                "occurrence": 6,
+                "answer": "seen",
+                "providerAnswer": "seen",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "friends"
+                    "seen"
                 ]
             },
             {
@@ -3065,11 +3065,11 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "vain",
-                "providerAnswer": "vain",
-                "occurrence": 1,
+                "answer": "partner",
+                "providerAnswer": "partner",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "vain"
+                    "partner"
                 ]
             },
             {
@@ -3141,11 +3141,11 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "Yakety",
-                "providerAnswer": "Yakety",
+                "answer": "back",
+                "providerAnswer": "back",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "Yakety"
+                    "back"
                 ]
             },
             {
@@ -3217,20 +3217,20 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "lost",
-                "providerAnswer": "lost",
-                "occurrence": 2,
+                "answer": "around",
+                "providerAnswer": "around",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "lost"
+                    "around"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "supermarket",
-                "providerAnswer": "supermarket",
+                "answer": "see",
+                "providerAnswer": "see",
                 "occurrence": 2,
                 "acceptedAnswers": [
-                    "supermarket"
+                    "see"
                 ]
             },
             {
@@ -3293,20 +3293,20 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "Return",
-                "providerAnswer": "Return",
-                "occurrence": 3,
+                "answer": "wrote",
+                "providerAnswer": "wrote",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "Return"
+                    "wrote"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "sender",
-                "providerAnswer": "sender",
-                "occurrence": 3,
+                "answer": "number",
+                "providerAnswer": "number",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "sender"
+                    "number"
                 ]
             },
             {
@@ -3369,29 +3369,29 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "looking",
-                "providerAnswer": "looking",
-                "occurrence": 1,
+                "answer": "walls",
+                "providerAnswer": "walls",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "looking"
+                    "walls"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "found",
-                "providerAnswer": "found",
-                "occurrence": 2,
+                "answer": "kissed",
+                "providerAnswer": "kissed",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "found"
+                    "kissed"
                 ]
             },
             {
                 "id": "gap-3",
-                "answer": "still",
-                "providerAnswer": "still",
-                "occurrence": 3,
+                "answer": "stone",
+                "providerAnswer": "stone",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "still"
+                    "stone"
                 ]
             },
             {
@@ -3445,20 +3445,20 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "Hold",
-                "providerAnswer": "Hold",
-                "occurrence": 2,
+                "answer": "look",
+                "providerAnswer": "look",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "Hold"
+                    "look"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "line",
-                "providerAnswer": "line",
-                "occurrence": 2,
+                "answer": "words",
+                "providerAnswer": "words",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "line"
+                    "words"
                 ]
             },
             {
@@ -3521,11 +3521,11 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "Call",
-                "providerAnswer": "Call",
-                "occurrence": 1,
+                "answer": "know",
+                "providerAnswer": "know",
+                "occurrence": 2,
                 "acceptedAnswers": [
-                    "Call"
+                    "know"
                 ]
             },
             {
@@ -3597,20 +3597,20 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "want",
-                "providerAnswer": "want",
-                "occurrence": 2,
+                "answer": "desire",
+                "providerAnswer": "desire",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "want"
+                    "desire"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "way",
-                "providerAnswer": "way",
-                "occurrence": 4,
+                "answer": "know",
+                "providerAnswer": "know",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "way"
+                    "know"
                 ]
             },
             {

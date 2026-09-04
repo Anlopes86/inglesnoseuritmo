@@ -26,6 +26,7 @@ assert(records.every(entry => new Set(entry.gaps.map(gap => `${gap.answer.toLowe
 const pilots = records.filter(entry => entry.rollout.pilot);
 const nonPilots = records.filter(entry => !entry.rollout.pilot);
 const published = records.filter(entry => entry.status === 'provider-verified');
+const a1Records = records.filter(entry => entry.moduleId === 'a1-v3');
 const a2Records = records.filter(entry => entry.moduleId === 'a2-v3');
 assert.equal(pilots.length, 12, 'piloto deve ter 12 aulas');
 assert.equal(nonPilots.length, 42, 'o rollout completo deve preservar a identificação dos 42 registros posteriores ao piloto');
@@ -36,7 +37,11 @@ assert(records.every(entry => entry.song.regionChecked === 'BR' && entry.song.sp
 assert(records.every(entry => Number.isInteger(entry.lyrics.lrclibId) && entry.lyrics.candidateCheckedAt >= '2026-08-23'), 'toda atividade deve ter candidato LRCLIB auditado');
 assert(records.every(entry => entry.lyrics.gapAudit === '5-of-5-distinct'), 'toda atividade deve registrar cinco posições distintas');
 assert(records.every(entry => catalog.isPublishable(entry) && catalog.getForCurriculumId(entry.curriculumId)?.id === entry.id), 'toda atividade validada deve chegar à Student View');
-assert(a2Records.every(entry => entry.pedagogy.transferPrompts.length === 3 && entry.pedagogy.transferPrompts.every(Boolean)), 'cada música A2 deve ter três perguntas pós-música');
+assert.deepEqual(a1Records.map(entry => entry.lessonNumber), [1, 2, 3, 4, 6, 7, 8, 9, 11, 12, 13, 14, 16, 17, 18, 19, 21, 22, 23, 24, 26, 27, 28, 29], 'as 24 músicas A1 devem corresponder às aulas lexicais publicadas');
+for (const [label, moduleRecords] of [['A1', a1Records], ['A2', a2Records]]) {
+    assert(moduleRecords.every(entry => entry.pedagogy.transferPrompts.length === 3 && entry.pedagogy.transferPrompts.every(prompt => String(prompt || '').trim())), `cada música ${label} deve ter três perguntas pós-música`);
+}
+assert.equal(new Set(a1Records.flatMap(entry => entry.pedagogy.transferPrompts)).size, 72, 'as perguntas pós-música A1 devem ser personalizadas, sem cópias exatas');
 
 const letItSnow = records.find(entry => entry.id === 'a2-v3-l01-song-01');
 assert.deepEqual(Array.from(letItSnow.gaps, gap => gap.occurrence), [1, 1, 3, 1, 5]);
@@ -59,4 +64,4 @@ const fashion = records.find(entry => entry.id === 'a2-v3-l23-song-01');
 assert(new Set(fashion.gaps.map(gap => gap.answer.toLowerCase())).size >= 3, 'Fashion deve usar ao menos três respostas reais diferentes');
 assert.equal(fashion.lyrics.candidateCheckedAt, '2026-08-30', 'Fashion deve registrar a nova auditoria de ocorrências no LRCLIB');
 
-console.log('music-catalog-v3.test.js passed: 54 published lexical activities, exact providers, five distinct gaps and three post-song prompts in every A2 song.');
+console.log('music-catalog-v3.test.js passed: 54 published lexical activities, exact providers, five distinct gaps and three post-song prompts in every A1 and A2 song.');

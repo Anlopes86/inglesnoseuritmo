@@ -94,6 +94,8 @@
 
     function extractFrontText(card) {
         if (card.dataset.cardFront) return card.dataset.cardFront.trim();
+        const semanticTerm = card.querySelector('[data-flashcard-term]');
+        if (semanticTerm && semanticTerm.textContent.trim()) return semanticTerm.textContent.trim();
         const front = card.querySelector('.flashcard-front, .flip-card-front');
         const b1Front = card.querySelector('.b1-vocab-front');
         if (b1Front) {
@@ -114,6 +116,11 @@
 
     function extractBackText(card) {
         if (card.dataset.cardBack) return card.dataset.cardBack.trim();
+        const semanticMeaning = card.querySelector('[data-flashcard-meaning]');
+        const semanticExample = card.querySelector('[data-flashcard-example]');
+        if (semanticMeaning || semanticExample) {
+            return [semanticMeaning?.textContent.trim(), semanticExample?.textContent.trim()].filter(Boolean).join(' Example: ');
+        }
         const back = card.querySelector('.flashcard-back, .flip-card-back');
         const b1Back = card.querySelector('.b1-vocab-back');
         if (b1Back) return b1Back.textContent.replace(/\s+/g, ' ').trim();

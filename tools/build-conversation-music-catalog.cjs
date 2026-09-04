@@ -35,8 +35,8 @@ const spotifyTrackIds = Object.freeze({
     'conversation-l55-song-2': '0amPV8GYRh530Z3Oau0JwY',
     'conversation-l55-song-3': '2Q5wSOwq6BDSu7sSVMNrtT',
     'conversation-l56-song-1': '4401c08DdNwwGEg8WGCkQf',
-    'conversation-l56-song-2': '1P9523tBg56NRc78lX2i4l',
-    'conversation-l56-song-3': '1HAf3ewt3alvwqXrK7gXsv',
+    'conversation-l56-song-2': '1E8z7qBXF8k1N7oYJ7llVn',
+    'conversation-l56-song-3': '4joYvfuYl38ce44TmKi74q',
     'conversation-l57-song-1': '7ngRS53kqxLcEt9Pythc5d',
     'conversation-l57-song-2': '1V1E46FalG2rEIsGEQae98',
     'conversation-l57-song-3': '5JGh8pdA0z7DBG6gtqc2uN',
@@ -61,6 +61,11 @@ const spotifyTrackIds = Object.freeze({
     'conversation-l64-song-1': '3wpUbtLdckaDqaaGQIu6a6',
     'conversation-l64-song-2': '3Xb3Dkg22CazcSc9eTrJfw',
     'conversation-l64-song-3': '5whWSsKs8TvXHAB8RUbxFY'
+});
+
+const exactLrclibIds = Object.freeze({
+    'conversation-l56-song-2': 35012356,
+    'conversation-l56-song-3': 36888631
 });
 
 const stopwords = new Set(`
@@ -126,47 +131,66 @@ function sameWordFamily(left, right) {
     return shorter.length >= 3 && longer.startsWith(shorter);
 }
 
+function singularKey(value) {
+    const word = normalize(value).replace(/\s/g, '');
+    if (word.length > 4 && word.endsWith('ies')) return `${word.slice(0, -3)}y`;
+    if (word.length > 4 && /(ches|shes|sses|xes|zes)$/.test(word)) return word.slice(0, -2);
+    if (word.length > 3 && word.endsWith('s') && !word.endsWith('ss')) return word.slice(0, -1);
+    return word;
+}
+
+function titleIncludesWord(title, value) {
+    const wanted = singularKey(value);
+    return tokenizeWords(title).some((token) => singularKey(token.text) === wanted);
+}
+
 function chooseGapSpecs(lyrics, song) {
     const words = tokenizeWords(lyrics);
     const frequencies = new Map();
     words.forEach((token) => frequencies.set(token.normalized, (frequencies.get(token.normalized) || 0) + 1));
-    const thematicStopwordOverrides = new Set(['one', 'only', 'out', 'own']);
-    const titleWords = new Set(normalize(song.title).split(' ').filter((word) => word && (!stopwords.has(word) || thematicStopwordOverrides.has(word))));
     const lensWords = new Set((song.listening || []).flatMap((item) => normalize(item.answer).split(' ')).filter((word) => word && !stopwords.has(word)));
-    const eligible = words.filter((token) => {
+    const baseCandidates = words.filter((token) => {
         const word = token.normalized;
-        const thematic = titleWords.has(word) || lensWords.has(word);
+        const thematic = lensWords.has(word);
         return word.length >= 3
             && word.length <= 16
             && /^[a-z]+(?:'[a-z]+)?$/.test(word)
-            && (thematic || !stopwords.has(word))
             && !blockedAnswers.has(word)
-            && token.index > 3
-            && token.index < words.length - 3;
+            && !titleIncludesWord(song.title, token.text);
     });
-    if (eligible.length < 5) throw new Error('not enough eligible words');
+    const strictCandidates = baseCandidates.filter((token) => token.index > 3
+        && token.index < words.length - 3
+        && (lensWords.has(token.normalized) || !stopwords.has(token.normalized)));
+    const relaxedCandidates = baseCandidates.filter((token) => token.normalized.length >= 4);
 
     const targets = [0.14, 0.31, 0.48, 0.65, 0.82];
-    const selected = [];
-    for (const target of targets) {
-        const targetIndex = target * words.length;
-        const ranked = eligible
-            .filter((token) => !selected.some((item) => item.index === token.index))
-            .filter((token) => !selected.some((item) => sameWordFamily(item.normalized, token.normalized)))
-            .map((token) => {
-                const frequency = frequencies.get(token.normalized) || 1;
-                const distance = Math.abs(token.index - targetIndex) / Math.max(words.length, 1);
-                const lexical = Math.min(token.normalized.length, 9) / 9;
-                const repetition = frequency >= 2 && frequency <= 7 ? 1.2 : frequency === 1 ? 0.45 : 0;
-                const thematic = titleWords.has(token.normalized) ? 2.4 : lensWords.has(token.normalized) ? 1.8 : 0;
-                const unexpectedCapital = /^[A-Z]/.test(token.text) && !titleWords.has(token.normalized) ? 0.8 : 0;
-                return { token, score: thematic + repetition + lexical - unexpectedCapital - distance * 8 };
-            })
-            .sort((left, right) => right.score - left.score);
-        const winner = ranked[0]?.token;
-        if (!winner) throw new Error('could not distribute five different words');
-        selected.push(winner);
+    function attemptSelection(eligible) {
+        const attempt = [];
+        for (const target of targets) {
+            const targetIndex = target * words.length;
+            const ranked = eligible
+                .filter((token) => !attempt.some((item) => item.index === token.index))
+                .filter((token) => !attempt.some((item) => sameWordFamily(item.normalized, token.normalized)))
+                .map((token) => {
+                    const frequency = frequencies.get(token.normalized) || 1;
+                    const distance = Math.abs(token.index - targetIndex) / Math.max(words.length, 1);
+                    const lexical = Math.min(token.normalized.length, 9) / 9;
+                    const repetition = frequency >= 2 && frequency <= 7 ? 1.2 : frequency === 1 ? 0.45 : 0;
+                    const thematic = lensWords.has(token.normalized) ? 1.8 : 0;
+                    const unexpectedCapital = /^[A-Z]/.test(token.text) ? 0.8 : 0;
+                    const stopwordPenalty = stopwords.has(token.normalized) ? 1.1 : 0;
+                    return { token, score: thematic + repetition + lexical - unexpectedCapital - stopwordPenalty - distance * 8 };
+                })
+                .sort((left, right) => right.score - left.score);
+            const winner = ranked[0]?.token;
+            if (!winner) return null;
+            attempt.push(winner);
+        }
+        return attempt;
     }
+    const selected = attemptSelection(strictCandidates)
+        || attemptSelection(relaxedCandidates);
+    if (!selected) throw new Error('could not distribute five safe gaps');
 
     selected.sort((left, right) => left.index - right.index);
     const occurrences = new Map();
@@ -199,6 +223,12 @@ async function fetchCandidates(song) {
     throw new Error('LRCLIB request failed');
 }
 
+async function fetchExactCandidate(id) {
+    const response = await fetch(`https://lrclib.net/api/get/${id}`, { headers: { Accept: 'application/json' } });
+    if (!response.ok) throw new Error(`LRCLIB ${response.status}`);
+    return await response.json();
+}
+
 function serialize(value) {
     return JSON.stringify(value, null, 4).replace(/</g, '\\u003c');
 }
@@ -212,13 +242,19 @@ async function main() {
             try {
                 const spotifyId = spotifyTrackIds[id];
                 if (!/^[A-Za-z0-9]{22}$/.test(spotifyId || '')) throw new Error('missing audited Spotify track id');
-                const candidates = (await fetchCandidates(sourceSong))
+                const providerCandidates = exactLrclibIds[id]
+                    ? [await fetchExactCandidate(exactLrclibIds[id])]
+                    : await fetchCandidates(sourceSong);
+                const candidates = providerCandidates
                     .filter((candidate) => typeof candidate.plainLyrics === 'string' && candidate.plainLyrics.trim().length >= 20 && candidate.instrumental !== true)
                     .map((candidate, index) => ({ candidate, score: metadataScore(candidate, sourceSong, index) }))
                     .sort((left, right) => right.score - left.score);
                 const best = candidates[0];
                 if (!best || best.score < 45) throw new Error('no confident provider match');
-                const gaps = chooseGapSpecs(best.candidate.plainLyrics, sourceSong);
+                const gaps = chooseGapSpecs(best.candidate.plainLyrics, {
+                    ...sourceSong,
+                    title: `${sourceSong.title} ${best.candidate.trackName || ''}`
+                });
                 records.push({
                     id,
                     lessonNumber: Number(lessonNumber),

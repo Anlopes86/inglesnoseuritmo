@@ -14,8 +14,140 @@
     const question = (prompt, answer) => [prompt, answer];
     const reading = (title, text, ...questions) => ({ title, text, questions });
     const activity = (title, instruction, items, eyebrow = 'Practice Time') => ({ title, instruction, items, eyebrow });
-    const homework = (instruction, themes, checklist, options = {}) => ({ instruction, themes, checklist, ...options });
+    const ROUTE_TIERS = Object.freeze(['core', 'extended', 'extra']);
+    const ROUTE_BANDS = Object.freeze([
+        Object.freeze({ tier: 'core', label: 'CORE', description: 'aula de 60 minutos' }),
+        Object.freeze({ tier: 'extended', label: 'EXTENDED', description: 'usar se houver tempo' }),
+        Object.freeze({ tier: 'extra', label: 'EXTRA', description: 'revisão ou referência' })
+    ]);
+
+    function homework(optionsOrInstruction, legacyThemes = [], legacyChecklist = [], legacyMeta = {}) {
+        if (Array.isArray(optionsOrInstruction)) {
+            return {
+                label: 'Homework',
+                heading: 'Choose one option.',
+                instruction: 'Choose one option.',
+                options: optionsOrInstruction.map(option => ({ ...option })),
+                source: 'current-authored-content',
+                usesFallback: false,
+                ...legacyThemes
+            };
+        }
+
+        // Kept temporarily readable so an incomplete migration fails audits instead
+        // of making a published lesson disappear. Final A1 data must use options.
+        return {
+            instruction: optionsOrInstruction,
+            themes: legacyThemes,
+            checklist: legacyChecklist,
+            source: 'legacy-theme-contract',
+            usesFallback: true,
+            ...legacyMeta
+        };
+    }
+
+    const route = (config = {}) => ({ ...config, source: 'current-authored-content' });
     const comm = (type, title, instruction, config = {}) => ({ type, title, instruction, ...config });
+
+    function defaultRouteFor(lessonKind) {
+        const shared = {
+            defaultMode: 'core',
+            bands: ROUTE_BANDS.map(item => ({ ...item })),
+            limits: {
+                vocabulary: 8,
+                activities: 6,
+                translations: 6,
+                expressions: 6,
+                dialogues: 3,
+                conversationQuestions: 4,
+                verbRows: 8
+            }
+        };
+
+        if (lessonKind === 'lexical') {
+            return {
+                ...shared,
+                vocabularyCoreCount: 8,
+                verbCoreCount: 8,
+                activityCoreCount: 6,
+                translationCoreCount: 4,
+                expressionCoreCount: 6,
+                dialogueCoreCount: 2,
+                readingQuestionCoreCount: 3,
+                conversationCoreCount: 4,
+                introDialogueCoreLines: 6,
+                grammarTier: 'core',
+                readingTier: 'core',
+                expressionTranslationTier: 'extended',
+                authoredSlideTiers: {}
+            };
+        }
+
+        if (lessonKind === 'consolidation') {
+            return {
+                ...shared,
+                retrievalFocusCount: 4,
+                reviewBankTier: 'extended',
+                readingTier: 'extended',
+                communicativeCoreCount: 3,
+                oralCoreCount: 3,
+                diagnosticMenu: true
+            };
+        }
+
+        return {
+            ...shared,
+            retrievalFocusCount: 4,
+            reviewBankTier: 'extended',
+            readingTier: 'extended',
+            communicativeCoreCount: 3,
+            oralCoreCount: 3,
+            diagnosticMenu: false
+        };
+    }
+
+    function normalizeRoute(authoredRoute, lessonKind) {
+        const defaults = defaultRouteFor(lessonKind);
+        const authored = authoredRoute && typeof authoredRoute === 'object' ? authoredRoute : {};
+        const routeContract = {
+            ...defaults,
+            ...authored,
+            limits: { ...defaults.limits, ...(authored.limits || {}) },
+            bands: ROUTE_BANDS.map(item => ({ ...item })),
+            source: authored.source || 'registry-auditable-default'
+        };
+        routeContract.authoredSlideTiers = { ...(defaults.authoredSlideTiers || {}), ...(authored.authoredSlideTiers || {}) };
+        return routeContract;
+    }
+
+    function normalizeHomework(authoredHomework, manifest) {
+        const options = Array.isArray(authoredHomework?.options) ? authoredHomework.options : [];
+        const usesFallback = authoredHomework?.usesFallback !== false || options.length !== 3;
+        const normalizedOptions = options.map((task, index) => ({
+            option: task.option || String.fromCharCode(65 + index),
+            kind: task.kind || '',
+            title: task.title || '',
+            instruction: task.instruction || '',
+            source: task.source || authoredHomework.source || 'current-authored-content',
+            usesFallback: task.usesFallback ?? usesFallback,
+            curriculumId: manifest?.id || null,
+            semanticTags: Array.isArray(task.semanticTags) && task.semanticTags.length
+                ? [...task.semanticTags]
+                : [...(manifest?.languageTags || [])]
+        }));
+        return {
+            label: authoredHomework?.label || 'Homework',
+            heading: 'Choose one option.',
+            instruction: 'Choose one option.',
+            options: normalizedOptions,
+            source: authoredHomework?.source || 'missing-authored-homework',
+            usesFallback,
+            curriculumId: manifest?.id || null,
+            semanticTags: [...(manifest?.languageTags || [])],
+            extendedChallenge: authoredHomework?.extendedChallenge || null,
+            extraChallenge: authoredHomework?.extraChallenge || null
+        };
+    }
 
     function lesson(config) {
         const expressions = Array.isArray(config.expressions) ? config.expressions : [];
@@ -78,18 +210,21 @@
         if (!value || typeof value !== 'object') throw new TypeError(`Conteúdo inválido para a lição ${lessonNumber}.`);
 
         const manifest = globalScope.V3Curriculum?.getLesson('a1-v3', lessonNumber);
+        const lessonKind = manifest?.lessonKind || (value.type === 'content' ? 'lexical' : 'communicative');
         const entry = {
             ...value,
             number: lessonNumber,
             title: value.title || manifest?.title || `Lesson ${lessonNumber}`,
             type: value.type || manifest?.type || 'content',
-            lessonKind: manifest?.lessonKind || (value.type === 'content' ? 'lexical' : 'communicative'),
+            lessonKind,
             curriculumId: manifest?.id,
             curriculumVersion: manifest?.version,
             linguisticFocus: manifest?.linguisticFocus,
             reviewOf: manifest?.reviewOf ? [...manifest.reviewOf] : [],
             cefrObjectives: manifest?.cefrObjectives ? [...manifest.cefrObjectives] : [],
-            oralInteractionMinutes: manifest?.oralInteractionMinutes
+            oralInteractionMinutes: manifest?.oralInteractionMinutes,
+            route: normalizeRoute(value.route, lessonKind),
+            homework: normalizeHomework(value.homework, manifest)
         };
 
         entries.set(lessonNumber, entry);
@@ -111,6 +246,8 @@
         has: number => entries.has(Number(number)),
         lesson,
         review,
-        helpers: Object.freeze({ v, x, p, t, line, dialogue, question, reading, activity, homework, focus, speaking, comm })
+        routeTiers: [...ROUTE_TIERS],
+        routeBands: ROUTE_BANDS.map(item => ({ ...item })),
+        helpers: Object.freeze({ v, x, p, t, line, dialogue, question, reading, activity, homework, route, focus, speaking, comm })
     });
 }(window));

@@ -74,9 +74,15 @@ assert(!spotify.isValidTrackId('search:wrong-version'));
 assert(spotify.render({ title: 'Test', artist: 'Artist', spotifyTrackId: '2uFaJJtFpPDc5Pa95XzTvg' }).includes('/embed/track/2uFaJJtFpPDc5Pa95XzTvg'));
 assert(!spotify.render({ title: 'Test', artist: 'Artist', spotifyTrackId: '2uFaJJtFpPDc5Pa95XzTvg' }).includes('/embed/search'));
 
+const syntheticTransferPrompts = [
+    'Which lesson word do you hear?',
+    'Use two lesson words in one sentence.',
+    'Give one short personal answer.'
+];
 const syntheticEntry = {
     id: 'test-song', status: 'provider-verified', song: { title: 'Test Track', artist: 'Test Artist' },
-    lyrics: { fallback: 'lyricsovh' }, gaps: gapSpecs, pedagogy: { maxAttempts: 3 }
+    lyrics: { fallback: 'lyricsovh' }, gaps: gapSpecs,
+    pedagogy: { maxAttempts: 3, transferPrompts: syntheticTransferPrompts, transferPrompt: 'Legacy prompt.' }
 };
 let call = 0;
 const fetchImpl = async url => {
@@ -91,6 +97,11 @@ const fetchImpl = async url => {
     assert(call >= 2, 'LRCLIB deve ser consultado antes da contingência');
 
     const cloze = context.window.MusicClozeV3;
+    const adapter = new cloze.ProviderLyricsAdapter({ service, fetchImpl, storage: context.window.sessionStorage });
+    const adapterLoaded = await adapter.load(syntheticEntry);
+    assert.equal(adapterLoaded.state, 'ready', 'o adapter deve preparar a atividade com prompts pós-música');
+    assert.deepEqual(Array.from(adapterLoaded.payload.transferPrompts), syntheticTransferPrompts, 'o adapter deve preservar as três perguntas autorais');
+    assert.equal(adapterLoaded.payload.transferPrompt, 'Legacy prompt.', 'o adapter deve preservar o prompt singular retrocompatível');
     context.window.MusicCatalogV3.getForCurriculumId = () => syntheticEntry;
     const ordered = cloze.prepareSlides([{ type: 'content' }, { type: 'homework' }], { curriculumId: 'test', lessonKind: 'lexical' });
     assert.deepEqual(Array.from(ordered, slide => slide.type), ['content', 'musicCloze', 'homework'], 'blockOrder');

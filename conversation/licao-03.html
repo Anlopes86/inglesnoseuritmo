@@ -3,369 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversation Class - Lesson 3: Rebellion & Freedom</title>
+    <title>Conversation Class — Lesson 3</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
-        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
-        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #e5e7eb; }
-        .flashcard-front { background-color: white; color: #7c3aed; text-align: center; }
-        .flashcard-back { background-color: #7c3aed; color: white; transform: rotateY(180deg); text-align: center; }
-        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
-        .answer-btn:hover { color: #c084fc; }
-        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #a78bfa; text-align: center; color: #c4b5fd; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
-        .drop-zone.hover { border-color: #ddd6fe; background-color: rgba(167, 139, 250, 0.12); }
-        .drop-zone.filled { border-bottom-style: solid; }
-        .drop-zone.correct { color: #34d399 !important; border-color: #34d399; background-color: rgba(16, 185, 129, 0.12); }
-        .drop-zone.incorrect { color: #f87171 !important; border-color: #f87171; background-color: rgba(239, 68, 68, 0.12); }
-        .debate-card { background: linear-gradient(135deg, #2e1065 0%, #111827 100%); border: 1px solid #4c1d95; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }
-        .debate-card:hover { transform: translateY(-2px); }
-        .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
-    </style>
+    <link rel="stylesheet" href="conversation-lessons-49-64.css">
     <link rel="stylesheet" href="conversation-lesson-theme.css">
 </head>
-<body class="bg-gray-900 text-white">
-
-    <header class="bg-gray-800 shadow-lg sticky top-0 z-10">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="conversation.html" class="text-lg font-bold text-purple-400 hover:text-purple-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
-            <h1 class="text-xl font-semibold text-center">Lesson 3: Rebellion & Freedom</h1>
-            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 13</div>
+<body class="bg-gray-900 text-white" data-lesson="3">
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
+        <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center gap-3">
+            <a href="conversation.html" class="text-lg font-bold text-green-500 hover:text-green-400 flex items-center gap-2"><i class="fas fa-comments" aria-hidden="true"></i> Conversation</a>
+            <h1 id="lesson-heading" class="text-lg md:text-2xl font-bold text-center truncate">Lesson 3</h1>
+            <div class="w-20 md:w-32 text-right text-sm text-gray-400" id="slide-counter" aria-live="polite">1 / 14</div>
         </div>
-        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-purple-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" role="progressbar" aria-label="Lesson progress" aria-valuemin="1" aria-valuemax="14" aria-valuenow="1" class="bg-green-500 h-1.5 transition-all duration-300" style="width:7.14%"></div></div>
     </header>
-
-    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
-
-        <div class="slide active">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-purple-300"><i class="fas fa-question text-yellow-400"></i> Warm-up: Let's Talk</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6 text-2xl">
-                <p class="font-semibold text-gray-300">Think about these questions:</p>
-                <p><i class="fas fa-arrow-right mr-2 text-purple-400"></i> Have you ever rebelled against something?</p>
-                <p><i class="fas fa-arrow-right mr-2 text-purple-400"></i> What does “freedom” mean to you?</p>
-                <p><i class="fas fa-arrow-right mr-2 text-purple-400"></i> Do you think young people today are more or less rebellious?</p>
-            </div></div>
+    <main id="lesson-main" class="container mx-auto px-4 md:px-6 py-7"></main>
+    <footer class="fixed bottom-0 left-0 right-0 bg-gray-800/95 backdrop-blur border-t border-gray-700 z-20">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between gap-2">
+            <a href="licao-02.html" class="text-gray-400 hover:text-white p-2" aria-label="Previous lesson"><i class="fas fa-angles-left" aria-hidden="true"></i></a>
+            <button type="button" id="prev-btn" class="bg-gray-700 hover:bg-gray-600 disabled:opacity-40 text-white font-bold py-2 px-4 md:px-5 rounded-lg transition inline-flex items-center"><i class="fas fa-arrow-left mr-2" aria-hidden="true"></i> Previous</button>
+            <button type="button" id="next-btn" class="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 md:px-5 rounded-lg transition inline-flex items-center">Next <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i></button>
+            <a href="licao-04.html" class="text-gray-400 hover:text-white p-2" aria-label="Next lesson"><i class="fas fa-angles-right" aria-hidden="true"></i></a>
         </div>
-
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-purple-300"><i class="fas fa-comments text-teal-400"></i> Key Vocabulary & Expressions</h2><p class="text-2xl mb-8 text-gray-300 max-w-3xl mx-auto">Click the cards to explore the ideas of this lesson.</p><div class="flashcard-grid max-w-6xl mx-auto">
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To rebel against something</h4></div><div class="flashcard-back"><p class="text-xl">To fight against authority or rules.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To stand up for your beliefs</h4></div><div class="flashcard-back"><p class="text-xl">To defend what you think is right.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">A sense of freedom</h4></div><div class="flashcard-back"><p class="text-xl">The feeling of being free to do what you want.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To break the rules</h4></div><div class="flashcard-back"><p class="text-xl">To do something that is not allowed.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To question authority</h4></div><div class="flashcard-back"><p class="text-xl">To challenge the people or systems in power.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To go against the grain</h4></div><div class="flashcard-back"><p class="text-xl">To do things differently from what is usual or expected.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To fight for a cause</h4></div><div class="flashcard-back"><p class="text-xl">To work hard to achieve or defend a principle.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To have a voice</h4></div><div class="flashcard-back"><p class="text-xl">To have the power to express your opinion and be heard.</p></div></div></div>
-            </div></div>
-        </div>
-
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-purple-300"><i class="fas fa-guitar text-red-500"></i> Music Time: We’re Not Gonna Take It</h2>
-            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2Ew8S_roBfVd3QWfe2nAlG?utm_source=generator5" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <div class="mt-4 bg-purple-900/30 p-4 rounded-lg border border-purple-500/30">
-                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-purple-300"></i> A loud protest anthem about refusing control, defending your choices, and pushing back when people try to define your life.</p>
-                </div>
-                <div class="mt-4"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-purple-500">
-                    <p>Oh, we're not gonna <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="take"><i class="fas fa-eye"></i></button> it</p>
-                    <p>No, we ain't gonna take it</p>
-                    <p>Oh, we're not gonna take it <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="anymore"><i class="fas fa-eye"></i></button></p>
-                    <p>We've got the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="right"><i class="fas fa-eye"></i></button> to choose and</p>
-                    <p>There ain't no way we'll <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="lose"><i class="fas fa-eye"></i></button> it</p>
-                    <p>This is our <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="life"><i class="fas fa-eye"></i></button>, this is our song</p>
-                    <p>We'll fight the powers that be, just</p>
-                    <p>Don't pick our destiny, 'cause</p>
-                    <p>You don't know us, you don't <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="belong"><i class="fas fa-eye"></i></button></p>
-                </div></div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-purple-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion: We’re Not Gonna Take It</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-                    <div class="debate-card">
-                        <span class="debate-label bg-purple-500/20 text-purple-300">Personal</span>
-                        <p class="text-xl"><i class="fas fa-bolt mr-2 text-purple-300"></i> What situations make people feel they have had enough and need to speak up?</p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-yellow-500/20 text-yellow-300">Reflection</span>
-                        <p class="text-xl"><i class="fas fa-fire mr-2 text-yellow-300"></i> Is rebellion usually a sign of courage, immaturity, or frustration?</p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-green-500/20 text-green-300">Opinion</span>
-                        <p class="text-xl"><i class="fas fa-hand-fist mr-2 text-green-300"></i> What are some things people protest against in schools, families, or society?</p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-red-500/20 text-red-300">Debate</span>
-                        <p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-red-300"></i> When is it healthy to say "I'm not gonna take it anymore," and when can it become destructive?</p>
-                    </div>
-                </div>
-            </div></div>
-        </div>
-
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-purple-300"><i class="fas fa-microphone-alt text-red-500"></i> Music Time: Fight for Your Right</h2>
-            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2Ew8S_roBfVd3QWfe2nAlG?utm_source=generator7" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <div class="mt-4 bg-red-900/30 p-4 rounded-lg border border-red-500/30">
-                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-red-300"></i> This song uses humor and exaggeration to talk about teenage rebellion, conflict at home, and the desire to have fun without constant control.</p>
-                </div>
-                <div class="mt-4"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-purple-500">
-                    <p>You wake up late for <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="school"><i class="fas fa-eye"></i></button>, man, you don't wanna go</p>
-                    <p>You ask your mom, "Please?" but she still says, "<input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="No"><i class="fas fa-eye"></i></button>"</p>
-                    <p>You missed two classes and no <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="homework"><i class="fas fa-eye"></i></button></p>
-                    <p>But your teacher preaches class like you're some kind of jerk</p>
-                    <p>You gotta <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="fight"><i class="fas fa-eye"></i></button> for your right to <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="party"><i class="fas fa-eye"></i></button>!</p>
-                </div></div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-purple-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion: Fight for Your Right</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-                    <div class="debate-card">
-                        <span class="debate-label bg-red-500/20 text-red-300">Personal</span>
-                        <p class="text-xl"><i class="fas fa-house-user mr-2 text-red-300"></i> What "rights" do teenagers and young adults often have to negotiate at home?</p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-orange-500/20 text-orange-300">Reflection</span>
-                        <p class="text-xl"><i class="fas fa-face-laugh mr-2 text-orange-300"></i> Is humor a good way to criticize rules and authority, or can it make the message weaker?</p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-blue-500/20 text-blue-300">Opinion</span>
-                        <p class="text-xl"><i class="fas fa-school mr-2 text-blue-300"></i> Which school or family rules do you think are fair, and which ones feel unnecessary?</p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-emerald-500/20 text-emerald-300">Debate</span>
-                        <p class="text-xl"><i class="fas fa-people-arrows mr-2 text-emerald-300"></i> Do young people need more freedom first, or more responsibility first?</p>
-                    </div>
-                </div>
-            </div></div>
-        </div>
-
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-purple-300"><i class="fas fa-motorcycle text-red-500"></i> Music Time: Born to Be Wild</h2>
-            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/63OFKbk_t3I4c4wI6A8c16?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <div class="mt-4 bg-indigo-900/30 p-4 rounded-lg border border-indigo-500/30">
-                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-indigo-300"></i> A classic freedom anthem associated with the open road, adventure, and the idea that independence feels exciting, risky, and irresistible.</p>
-                </div>
-                <div class="mt-4"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-purple-500">
-                    <p>Get your motor <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="runnin'"><i class="fas fa-eye"></i></button></p>
-                    <p>Head out on the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="highway"><i class="fas fa-eye"></i></button></p>
-                    <p>Lookin' for <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="adventure"><i class="fas fa-eye"></i></button></p>
-                    <p>And whatever comes our <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="way"><i class="fas fa-eye"></i></button></p>
-                    <p>Yeah, darlin', go make it happen</p>
-                    <p>Take the world in a love embrace</p>
-                    <p>Fire all of your guns at once and explode into space</p>
-                    <p>Like a true nature's child, we were <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="born"><i class="fas fa-eye"></i></button>, born to be wild</p>
-                </div></div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-purple-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion: Born to Be Wild</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-                    <div class="debate-card">
-                        <span class="debate-label bg-indigo-500/20 text-indigo-300">Feeling</span>
-                        <p class="text-xl"><i class="fas fa-road mr-2 text-indigo-300"></i> What kind of freedom does this song suggest: emotional freedom, physical freedom, or freedom from rules?</p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-cyan-500/20 text-cyan-300">Reflection</span>
-                        <p class="text-xl"><i class="fas fa-compass mr-2 text-cyan-300"></i> Why do so many people connect adventure with freedom and identity?</p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-amber-500/20 text-amber-300">Opinion</span>
-                        <p class="text-xl"><i class="fas fa-mountain-sun mr-2 text-amber-300"></i> Is adventure an essential part of life, or can a calm routine also feel deeply free?</p>
-                    </div>
-                    <div class="debate-card">
-                        <span class="debate-label bg-pink-500/20 text-pink-300">Debate</span>
-                        <p class="text-xl"><i class="fas fa-flag-checkered mr-2 text-pink-300"></i> Are some people truly "born to be wild," or is that identity something culture teaches us?</p>
-                    </div>
-                </div>
-            </div></div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-6 text-purple-300"><i class="fas fa-puzzle-piece text-yellow-400"></i> Match the Expressions</h2>
-                <div class="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto">
-                    <div class="lg:w-2/3 bg-gray-800 p-6 rounded-2xl shadow-lg space-y-6 text-left">
-                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">1. Students often <span class="drop-zone" data-answer="to question authority">________</span> when rules feel unfair.</div>
-                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">2. Activists <span class="drop-zone" data-answer="to fight for a cause">________</span> they believe in.</div>
-                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">3. She chose <span class="drop-zone" data-answer="to go against the grain">________</span> and follow her own path.</div>
-                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">4. Many young people <span class="drop-zone" data-answer="to rebel against something">________</span> at some point in life.</div>
-                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">5. It's important <span class="drop-zone" data-answer="to stand up for your beliefs">________</span> even under pressure.</div>
-                        <div class="p-3 bg-gray-900 rounded-lg border border-gray-700">6. Social media can help people <span class="drop-zone" data-answer="to have a voice">________</span> in public debates.</div>
-                        <button id="check-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg transition">Check Answers</button>
-                        <p id="practice-feedback" class="mt-4 text-lg font-semibold text-gray-300"></p>
-                    </div>
-                    <div class="lg:w-1/3">
-                        <div id="word-bank" class="bg-gray-800 p-6 rounded-2xl border border-dashed border-gray-600 flex flex-col gap-3"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="slide">
-             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-purple-300"><i class="fas fa-home text-blue-400"></i>Homework</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto"><p class="text-2xl mb-6 text-gray-300">Describe a character from a movie or book who you consider a rebel. What did they rebel against?</p><div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg"><p><strong>Example:</strong> "In the movie..., the character [Name] is a rebel. He/She rebelled against... by..."</p></div></div></div>
-        </div>
-
-        <div class="slide">
-             <div class="text-center flex flex-col items-center justify-center h-full"><i class="fas fa-flag-checkered text-yellow-300 text-7xl mb-6"></i><h2 class="text-5xl font-bold mb-4 text-gray-100">Lesson Complete!</h2><p class="text-2xl italic text-gray-400 max-w-2xl mx-auto">"Well-behaved women seldom make history." - Laurel Thatcher Ulrich</p></div>
-        </div>
-        <div id="custom-alert-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center transition-opacity duration-300"></div>
-    </main>
-
-    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20"><div class="container mx-auto px-8 h-20 flex justify-between items-center"><button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button><button id="next-btn" class="bg-purple-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-purple-700">Próximo</button><button id="finish-lesson-btn" class="hidden bg-yellow-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-yellow-600">Finalizar Aula</button></div></footer>
-    
-    <script src="js/lesson-handler.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    
+    </footer>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
     <script src="../js/firebase-config.js"></script>
     <script src="../js/progress-manager.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- CONFIGURAÇÃO DA LIÇÃO (ÚNICA PARTE QUE VOCÊ MUDA) ---
-            const moduleId = 'conversation';
-            const lessonNumber = 3;
-            // ---------------------------------------------------------
-
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            if (finishLessonBtn) {
-                finishLessonBtn.addEventListener('click', () => {
-                    finishLessonBtn.disabled = true;
-                    finishLessonBtn.textContent = "Salvando...";
-                    if (typeof markLessonAsComplete === 'function') {
-                        markLessonAsComplete(moduleId, lessonNumber); 
-                    } else {
-                        console.error("A função markLessonAsComplete não foi encontrada.");
-                        alert("Erro ao salvar progresso.");
-                    }
-                });
-            }
-
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const progressBar = document.getElementById('progress-bar');
-            const slideCounter = document.getElementById('slide-counter');
-            const wordBank = document.getElementById('word-bank');
-            const dropZones = document.querySelectorAll('.drop-zone');
-            const checkBtn = document.getElementById('check-btn');
-            let currentSlide = 0;
-            function shuffleArray(items) {
-                const copy = [...items];
-                for (let i = copy.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [copy[i], copy[j]] = [copy[j], copy[i]];
-                }
-                return copy;
-            }
-            const expressions = [
-                'to rebel against something',
-                'to stand up for your beliefs',
-                'to question authority',
-                'to go against the grain',
-                'to fight for a cause',
-                'to have a voice'
-            ];
-document.querySelectorAll('.flashcard').forEach(card => {
-    card.addEventListener('click', () => {
-        card.classList.toggle('flipped');
-    });
-});
-            if (wordBank) {
-                shuffleArray(expressions).forEach(expression => {
-                        const item = document.createElement('div');
-                        item.className = 'drag-item bg-purple-600 px-4 py-3 rounded-lg font-bold cursor-grab';
-                        item.draggable = true;
-                        item.innerText = expression;
-                        item.addEventListener('dragstart', (e) => {
-                            e.dataTransfer.setData('text/plain', expression);
-                        });
-                        wordBank.appendChild(item);
-                    });
-            }
-
-            dropZones.forEach(zone => {
-                zone.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    zone.classList.add('hover');
-                });
-                zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
-                zone.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    zone.classList.remove('hover');
-                    zone.innerText = e.dataTransfer.getData('text/plain');
-                    zone.classList.add('filled');
-                    zone.classList.remove('correct', 'incorrect');
-                    zone.style.color = '';
-                });
-                zone.addEventListener('click', () => {
-                    zone.innerText = '________';
-                    zone.classList.remove('filled');
-                    zone.classList.remove('correct', 'incorrect');
-                    zone.style.color = '';
-                });
-            });
-
-            if (checkBtn) {
-                checkBtn.addEventListener('click', () => {
-                    const feedback = document.getElementById('practice-feedback');
-                    let correctCount = 0;
-                    dropZones.forEach(zone => {
-                        const currentValue = zone.innerText.trim().toLowerCase();
-                        const answerValue = zone.dataset.answer.toLowerCase();
-                        zone.classList.remove('correct', 'incorrect');
-                        if (currentValue === answerValue) {
-                            zone.classList.add('correct');
-                            correctCount++;
-                        } else if (zone.innerText.trim() !== '________') {
-                            zone.classList.add('incorrect');
-                        }
-                    });
-                    if (feedback) {
-                        feedback.textContent = `You got ${correctCount} of ${dropZones.length} correct.`;
-                        feedback.className = 'mt-4 text-lg font-semibold ' + (correctCount === dropZones.length ? 'text-emerald-400' : 'text-purple-300');
-                    }
-                });
-            }
-
-            function showSlide(index) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                if (progressBar) {
-                    const progressPercentage = slides.length > 1 ? ((index + 1) / slides.length) * 100 : 100;
-                    progressBar.style.width = `${progressPercentage}%`;
-                }
-                if (slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
-                if (prevBtn) prevBtn.disabled = index === 0;
-                const isLastSlide = index === slides.length - 1;
-                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
-                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
-            }
-
-            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            
-            showSlide(0);
-        });
-    </script>
+    <script src="../js/lyrics-service-v3.js"></script>
+    <script src="conversation-lessons-01-48-data.js"></script>
+    <script src="conversation-music-catalog-01-48.js"></script>
+    <script src="conversation-music-cloze.js"></script>
+    <script src="conversation-lessons-runtime.js"></script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
     <script src="conversation-lesson-theme.js"></script>

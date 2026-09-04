@@ -19,6 +19,23 @@ function normalizeAnswer(value) {
     return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
 }
 
+function singularKey(value) {
+    const word = normalizeAnswer(value);
+    if (word.length > 4 && word.endsWith('ies')) return `${word.slice(0, -3)}y`;
+    if (word.length > 4 && /(ches|shes|sses|xes|zes)$/.test(word)) return word.slice(0, -2);
+    if (word.length > 3 && word.endsWith('s') && !word.endsWith('ss')) return word.slice(0, -1);
+    return word;
+}
+
+function titleWords(value) {
+    return String(value || '').match(/[\p{L}\p{M}]+(?:['’\-][\p{L}\p{M}]+)*|\p{N}/gu) || [];
+}
+
+function titleIncludesAnswer(title, answer) {
+    const wanted = singularKey(answer);
+    return titleWords(title).some((word) => singularKey(word) === wanted);
+}
+
 function sameWordFamily(left, right) {
     const first = normalizeAnswer(left);
     const second = normalizeAnswer(right);
@@ -44,6 +61,12 @@ records.forEach((entry) => {
     const validation = catalog.validate(entry);
     if (!validation.valid) errors.push(`${entry.id}: ${validation.errors.join(', ')}.`);
     const answers = entry.gaps?.map((gap) => gap.answer) || [];
+    answers.forEach((answer) => {
+        const completeTitle = [entry.song.title, entry.song.displayTitle, entry.song.version].filter(Boolean).join(' ');
+        if (titleIncludesAnswer(completeTitle, answer)) {
+            errors.push(`${entry.id}: gap answer repeats a title word (${answer}).`);
+        }
+    });
     for (let left = 0; left < answers.length; left += 1) {
         for (let right = left + 1; right < answers.length; right += 1) {
             if (sameWordFamily(answers[left], answers[right])) {
@@ -66,7 +89,7 @@ for (let lessonNumber = 49; lessonNumber <= 64; lessonNumber += 1) {
         'conversation-lessons-49-64-data.js',
         'conversation-music-catalog-49-64.js',
         'conversation-music-cloze.js',
-        'conversation-lessons-49-64-runtime.js'
+        'conversation-lessons-runtime.js'
     ];
     let previousIndex = -1;
     requiredScripts.forEach((script) => {
@@ -83,7 +106,7 @@ forbiddenPersistedFields.forEach((field) => {
     if (catalogSource.includes(`"${field}"`)) errors.push(`Catalog must not persist ${field}.`);
 });
 
-const runtimeSource = fs.readFileSync(path.join(directory, 'conversation-lessons-49-64-runtime.js'), 'utf8');
+const runtimeSource = fs.readFileSync(path.join(directory, 'conversation-lessons-runtime.js'), 'utf8');
 if (runtimeSource.includes('Listening lens: complete the ideas')) warnings.push('Legacy synthetic listening lens is still present.');
 if (!runtimeSource.includes('ConversationMusicCloze?.mount')) errors.push('Runtime does not lazy-mount the real lyrics activity.');
 if (runtimeSource.includes('open.spotify.com/embed/search')) errors.push('Runtime still uses the unsupported Spotify search embed.');

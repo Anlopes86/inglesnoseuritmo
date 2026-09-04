@@ -62,6 +62,11 @@ const invalid = keys.filter((key) => {
 
 const repeatedFromEarlierLessons = [...new Set(newSongs.filter((song) => existingSongs.includes(song)))];
 const missingPages = keys.filter((key) => !fs.existsSync(path.join(__dirname, `licao-${key}.html`)));
+const runtimeSource = fs.readFileSync(path.join(__dirname, 'conversation-lessons-runtime.js'), 'utf8');
+const runtimeErrors = [];
+if (/lesson\.homework\s*\[\s*0\s*\]/.test(runtimeSource)) runtimeErrors.push('Unified runtime collapses homework arrays to lesson.homework[0].');
+if (!/Array\.isArray\(lesson\.homework\)/.test(runtimeSource) || !/lesson\.homework\.map\(/.test(runtimeSource) || !/data-homework-option/.test(runtimeSource)) runtimeErrors.push('Unified runtime does not render every homework option.');
+if (!/data-flashcard-term/.test(runtimeSource) || !/data-flashcard-meaning/.test(runtimeSource) || !/data-flashcard-example/.test(runtimeSource)) runtimeErrors.push('Unified runtime lacks exclusive flashcard semantics.');
 
 console.log(JSON.stringify({
     lessons: keys.length,
@@ -75,9 +80,10 @@ console.log(JSON.stringify({
     overlongContextInstructions,
     malformedConversationActivities,
     nonQuestionConversationPrompts,
-    imperativeConversationPrompts
+    imperativeConversationPrompts,
+    runtimeErrors
 }, null, 2));
 
-if (invalid.length || missingPages.length || duplicates(newSongs).length || duplicates(newQuestions).length || repeatedFromEarlierLessons.length || overlongContextInstructions.length || malformedConversationActivities.length || nonQuestionConversationPrompts.length || imperativeConversationPrompts.length) {
+if (invalid.length || missingPages.length || duplicates(newSongs).length || duplicates(newQuestions).length || repeatedFromEarlierLessons.length || overlongContextInstructions.length || malformedConversationActivities.length || nonQuestionConversationPrompts.length || imperativeConversationPrompts.length || runtimeErrors.length) {
     process.exitCode = 1;
 }

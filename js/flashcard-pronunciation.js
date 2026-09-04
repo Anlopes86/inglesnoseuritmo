@@ -38,6 +38,8 @@
 
     function getFrontText(front) {
         if (front.dataset.pronounceText) return front.dataset.pronounceText.trim();
+        const semanticTerm = front.querySelector('[data-flashcard-term]');
+        if (semanticTerm && semanticTerm.textContent.trim()) return semanticTerm.textContent.trim();
         const heading = front.querySelector('h1, h2, h3, h4, h5, h6');
         if (heading && heading.textContent.trim()) return heading.textContent.trim();
 

@@ -4,6 +4,7 @@
     if (globalScope.ConversationMusicCloze) return;
 
     const instances = new WeakMap();
+    const runtimeMusicStatuses = new Set(['provider-verified', 'draft-until-provider-match']);
 
     function escapeHtml(value) {
         return String(value ?? '')
@@ -42,7 +43,7 @@
                     <span class="conversation-cloze-score" data-conversation-music-score aria-label="0 of 5 correct answers">0/5</span>
                 </div>
                 <div data-conversation-music-body><div class="conversation-cloze-skeleton" aria-hidden="true"></div></div>
-                <p class="conversation-cloze-status" data-conversation-music-status role="status" aria-live="polite">Loading the verified lyrics…</p>`;
+                <p class="conversation-cloze-status" data-conversation-music-status role="status" aria-live="polite">Loading the lyrics…</p>`;
         }
 
         continueToDiscussion() {
@@ -224,8 +225,8 @@
 
         async start() {
             this.renderShell();
-            this.setState('loading', 'Loading the verified lyrics…');
-            if (!this.entry || this.entry.status !== 'provider-verified') {
+            this.setState('loading', 'Loading the lyrics…');
+            if (!this.entry || !runtimeMusicStatuses.has(this.entry.status)) {
                 this.renderFailure('draft');
                 return;
             }
@@ -250,7 +251,10 @@
         if (!root || instances.has(root)) return instances.get(root) || null;
         const lessonNumber = Number(root.dataset.lessonNumber);
         const songIndex = Number(root.dataset.songIndex);
-        const entry = globalScope.ConversationMusicCatalog?.get(lessonNumber, songIndex);
+        const catalog = lessonNumber <= 48
+            ? globalScope.ConversationMusicCatalog0148
+            : globalScope.ConversationMusicCatalog;
+        const entry = catalog?.get(lessonNumber, songIndex);
         const activity = new ConversationMusicActivity(root, entry);
         instances.set(root, activity);
         activity.start();

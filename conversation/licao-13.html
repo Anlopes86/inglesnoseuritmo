@@ -3,361 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversation Class - Lesson 13: Crime & Justice</title>
+    <title>Conversation Class — Lesson 13</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
-        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
-        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #4a5568; }
-        .flashcard-front { background-color: #2d3748; color: #a0aec0; text-align: center; }
-        .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
-        .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
-        .lyrics-box { max-height: 300px; overflow-y: auto; }
-    </style>
+    <link rel="stylesheet" href="conversation-lessons-49-64.css">
     <link rel="stylesheet" href="conversation-lesson-theme.css">
 </head>
-<body class="bg-gray-900 text-white">
-
-    <header class="bg-gray-800 shadow-lg sticky top-0 z-10">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="conversation.html" class="text-lg font-bold text-gray-400 hover:text-gray-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
-            <h1 class="text-xl font-semibold text-center">Lesson 13: Crime & Justice</h1>
-            <div class="w-32"></div>
+<body class="bg-gray-900 text-white" data-lesson="13">
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
+        <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center gap-3">
+            <a href="conversation.html" class="text-lg font-bold text-green-500 hover:text-green-400 flex items-center gap-2"><i class="fas fa-comments" aria-hidden="true"></i> Conversation</a>
+            <h1 id="lesson-heading" class="text-lg md:text-2xl font-bold text-center truncate">Lesson 13</h1>
+            <div class="w-20 md:w-32 text-right text-sm text-gray-400" id="slide-counter" aria-live="polite">1 / 14</div>
         </div>
-        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-gray-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" role="progressbar" aria-label="Lesson progress" aria-valuemin="1" aria-valuemax="14" aria-valuenow="1" class="bg-green-500 h-1.5 transition-all duration-300" style="width:7.14%"></div></div>
     </header>
-
-    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
-
-        <div class="slide active">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-gray-300"><i class="fas fa-balance-scale text-yellow-400"></i> Warm-up: About Justice</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6 text-2xl">
-                <p class="font-semibold text-gray-300">Let's start our conversation:</p>
-                <p><i class="fas fa-arrow-right mr-2 text-gray-400"></i> Why do you think people commit crimes?</p>
-                <p><i class="fas fa-arrow-right mr-2 text-gray-400"></i> If you could create one new law, what would it be?</p>
-                <p><i class="fas fa-arrow-right mr-2 text-gray-400"></i> Is our justice system truly fair and unbiased?</p>
-                <p><i class="fas fa-arrow-right mr-2 text-gray-400"></i> Should the main goal of prison be punishment or rehabilitation?</p>
-            </div></div>
+    <main id="lesson-main" class="container mx-auto px-4 md:px-6 py-7"></main>
+    <footer class="fixed bottom-0 left-0 right-0 bg-gray-800/95 backdrop-blur border-t border-gray-700 z-20">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between gap-2">
+            <a href="licao-12.html" class="text-gray-400 hover:text-white p-2" aria-label="Previous lesson"><i class="fas fa-angles-left" aria-hidden="true"></i></a>
+            <button type="button" id="prev-btn" class="bg-gray-700 hover:bg-gray-600 disabled:opacity-40 text-white font-bold py-2 px-4 md:px-5 rounded-lg transition inline-flex items-center"><i class="fas fa-arrow-left mr-2" aria-hidden="true"></i> Previous</button>
+            <button type="button" id="next-btn" class="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 md:px-5 rounded-lg transition inline-flex items-center">Next <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i></button>
+            <a href="licao-14.html" class="text-gray-400 hover:text-white p-2" aria-label="Next lesson"><i class="fas fa-angles-right" aria-hidden="true"></i></a>
         </div>
-
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-gray-300"><i class="fas fa-comments text-teal-400"></i> Key Vocabulary & Expressions</h2><p class="text-2xl mb-8 text-gray-300 max-w-3xl mx-auto">Click the cards to explore ideas about crime and justice.</p><div class="flashcard-grid max-w-6xl mx-auto">
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To get away with murder</h4></div><div class="flashcard-back"><p class="text-xl">To not be caught or punished for a serious crime.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To do time</h4></div><div class="flashcard-back"><p class="text-xl">To serve a prison sentence.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To be caught red-handed</h4></div><div class="flashcard-back"><p class="text-xl">To be caught in the act of doing something wrong.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">An inside job</h4></div><div class="flashcard-back"><p class="text-xl">A crime committed with help from someone inside the organization.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To turn a blind eye</h4></div><div class="flashcard-back"><p class="text-xl">To ignore something that you know is wrong.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">The long arm of the law</h4></div><div class="flashcard-back"><p class="text-xl">The idea that the police will eventually catch criminals.</p></div></div></div>
-            </div></div>
-        </div>
-        
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-gray-300"><i class="fas fa-music text-red-500"></i> Music Time: I Fought the Law (The Clash)</h2>
-            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7lSDCrF11sdTVfjbAQVZE8?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-gray-500">
-                    <p>Breakin' <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="rocks"><i class="fas fa-eye"></i></button> in the hot sun</p>
-                    <p>I fought the law and the law won</p>
-                    <p>I fought the law and the law won</p>
-                    <p>I needed <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="money"><i class="fas fa-eye"></i></button> 'cause I had none</p>
-                    <p>I fought the law and the law won</p>
-                    <p>I fought the law and the law won</p>
-                    <p>I left my <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="baby"><i class="fas fa-eye"></i></button> and it feels so bad</p>
-                    <p>I guess my race is run</p>
-                    <p>She's the best <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="girl"><i class="fas fa-eye"></i></button> that I ever had</p>
-                    <p>I fought the law and the law won</p>
-                    <p>I fought the law and the</p>
-                    <p>Robbin' people with a six-gun</p>
-                    <p>I fought the law and the law won</p>
-                    <p>I fought the law and the law won</p>
-                    <p>I lost my girl and I lost my fun</p>
-                    <p>I fought the law and the law won</p>
-                    <p>I fought the law and the law won</p>
-                    <p>I left my baby and it feels so bad</p>
-                    <p>I guess my race is run</p>
-                    <p>She's the best girl that I ever had</p>
-                    <p>I fought the law and the law won</p>
-                    <p>I fought the law and the</p>
-                    <p>I fought the law and the law won</p>
-                    <p>I fought the law and the law won</p>
-                    <p>I fought the law and the law won</p>
-                    <p>I fought the law and the law won</p>
-                </div></div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-gray-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>The singer admits to a crime because they "needed money." Does poverty justify criminal actions? Why or why not?</p>
-                <p>The song is about loss of freedom and love. What is the biggest personal price a criminal pays for their actions?</p>
-            </div></div>
-        </div>
-
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-gray-300"><i class="fas fa-music text-red-500"></i> Music Time: The Boxer (Simon & Garfunkel)</h2>
-            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/76TZCvJ8GitQ2FA1q5dKu0?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-gray-500">
-                    <p>I am just a <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="poor"><i class="fas fa-eye"></i></button> boy, though my story's seldom told,</p>
-                    <p>I have squandered my resistance for a pocketful of mumbles</p>
-                    <p>Such are promises, all lies and jest</p>
-                    <p>Still, a man hears what he wants to hear and disregards the rest</p>
-                    <p>When I left my home and my family, I was no more than a boy</p>
-                    <p>In the company of strangers, in the quiet of the railway station</p>
-                    <p>Running <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="scared"><i class="fas fa-eye"></i></button>, laying low, seeking out the poorer quarters</p>
-                    <p>Where the ragged people go, looking for the places only they would know</p>
-                    <p>Lie-la-lie</p>
-                    <p>Asking only workman's wages, I come looking for a <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="job"><i class="fas fa-eye"></i></button></p>
-                    <p>But I get no offers, just a come-on from the whores on Seventh Avenue</p>
-                    <p>I do declare, there were times when I was so lonesome, I took some comfort there</p>
-                    <p>Lie-la-lie</p>
-                    <p>And the years are rolling by me, they are rocking evenly</p>
-                    <p>I am older than I once was, and younger than I'll be</p>
-                    <p>That's not unusual, no, it isn't strange</p>
-                    <p>After changes upon changes, we are more or less the same</p>
-                    <p>After changes we are more or less the same</p>
-                    <p>Lie-la-lie</p>
-                    <p>Then I'm laying out my winter clothes and wishing I was gone</p>
-                    <p>Going home, where the New York City winters aren't bleeding me</p>
-                    <p>Leading me, going home</p>
-                    <p>In the clearing stands a boxer and a fighter by his trade</p>
-                    <p>And he carries the reminders of every glove that laid him down</p>
-                    <p>Or cut him till he cried out in his anger and his shame</p>
-                    <p>"I am leaving, I am leaving"</p>
-                    <p>But the fighter still <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="remains"><i class="fas fa-eye"></i></button></p>
-                    <p>Lie-la-lie</p>
-                </div></div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-gray-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>The song suggests that loneliness and economic struggle can lead people to desperate measures. How do social factors influence crime rates?</p>
-                <p>The boxer "remains" despite being cut down. What role does "resilience" play when someone is trying to reform their life after a conviction?</p>
-            </div></div>
-        </div>
-        
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-gray-300"><i class="fas fa-music text-red-500"></i> Music Time: Hurricane (Bob Dylan)</h2>
-            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1lqMLr9Wj7SM2F9AikGcxN?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-gray-500">
-                    <p>Pistol shots ring out in the barroom night</p>
-                    <p>Enter Patty Valentine from the upper hall</p>
-                    <p>She sees the bartender in a pool of blood</p>
-                    <p>Cries out, "My God, they killed them all!"</p>
-                    <p>Here comes the story of the Hurricane</p>
-                    <p>The man the authorities came to <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="blame"><i class="fas fa-eye"></i></button></p>
-                    <p>For somethin' that he never done</p>
-                    <p>Put in a prison cell, but one time he could-a been the champion of the world</p>
-                    <p>Three bodies lyin' there does Patty see</p>
-                    <p>And another man named Bello, movin' around mysteriously</p>
-                    <p>"I didn't do it," he says, and he throws up his hands</p>
-                    <p>"I was only robbin' the register, I hope you understand</p>
-                    <p>I saw them leavin'," he says, and he stops</p>
-                    <p>"One of us had better call up the cops"</p>
-                    <p>And so Patty calls the cops</p>
-                    <p>And they arrive on the scene with their red lights flashin'</p>
-                    <p>In the hot New Jersey night</p>
-                    <p>Meanwhile, far away in another part of town</p>
-                    <p>Rubin Carter and a couple of friends are drivin' around</p>
-                    <p>Number one contender for the middleweight crown</p>
-                    <p>Had no idea what kinda shit was about to go down</p>
-                    <p>When a cop pulled him over to the side of the road</p>
-                    <p>Just like the time before and the time before that</p>
-                    <p>In Paterson that's just the way things go</p>
-                    <p>If you're <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="black"><i class="fas fa-eye"></i></button> you might as well not show up on the street</p>
-                    <p>'Less you wanna draw the heat</p>
-                    <p>Alfred Bello had a partner and he had a rap for the cops</p>
-                    <p>Him and Arthur Dexter Bradley were just out prowlin' around</p>
-                    <p>He said, "I saw two men runnin' out, they looked like middleweights</p>
-                    <p>They jumped into a white car with out-of-state plates"</p>
-                    <p>And Miss Patty Valentine just nodded her head</p>
-                    <p>Cop said, "Wait a minute, boys, this one's not dead"</p>
-                    <p>So they took him to the infirmary</p>
-                    <p>And though this man could hardly see</p>
-                    <p>They told him he could identify the guilty men</p>
-                    <p>Four in the mornin' and they haul Rubin in</p>
-                    <p>They take him to the hospital and they brought him upstairs</p>
-                    <p>The wounded man looks up through his one dyin' eye</p>
-                    <p>Say, "Wha'd you bring him in here for? He ain't the guy!"</p>
-                    <p>Yes, here's the story of the Hurricane</p>
-                    <p>The man the authorities came to blame</p>
-                    <p>For somethin' that he never done</p>
-                    <p>Put in a prison cell, but one time he could-a been the champion of the world</p>
-                    <p>Four months later, the ghettos are in flame</p>
-                    <p>Rubin's in South America, fightin' for his name</p>
-                    <p>While Arthur Dexter Bradley's still in the robbery game</p>
-                    <p>And the cops are puttin' the screws to him, lookin' for somebody to blame</p>
-                    <p>"Remember that murder that happened in a bar?"</p>
-                    <p>"Remember you said you saw the getaway car?"</p>
-                    <p>"You think you'd like to play ball with the law?"</p>
-                    <p>"Think it might-a been that fighter that you saw runnin' that night?"</p>
-                    <p>"Don't forget that you are white"</p>
-                    <p>Arthur Dexter Bradley said, "I'm really not sure"</p>
-                    <p>Cops said, "A poor boy like you could use a break.</p>
-                    <p>We got you for the motel job and we're talkin' to your friend Bello.</p>
-                    <p>Now you don't wanta have to go back to jail, be a nice fellow.</p>
-                    <p>You'll be doin' society a favor. That sonofabitch is brave and gettin' braver.</p>
-                    <p>We want to put his ass in stir. We want to pin this triple murder on him.</p>
-                    <p>He ain't no Gentleman Jim"</p>
-                    <p>Rubin could take a man out with just one punch</p>
-                    <p>But he never did like to talk about it all that much</p>
-                    <p>It's my work, he'd say, and I do it for pay</p>
-                    <p>And when it's over I'd just as soon go on my way</p>
-                    <p>Up to some paradise</p>
-                    <p>Where the trout streams flow and the air is nice</p>
-                    <p>And ride a horse along a trail</p>
-                    <p>But then they took him to the jailhouse</p>
-                    <p>Where they try to turn a man into a mouse</p>
-                    <p>All of Rubin's cards were marked in advance</p>
-                    <p>The <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="trial"><i class="fas fa-eye"></i></button> was a pig-circus, he never had a chance</p>
-                    <p>The judge made Rubin's witnesses drunkards from the slums</p>
-                    <p>To the white folks who watched he was a revolutionary bum</p>
-                    <p>And to the black folks he was just a crazy nigger</p>
-                    <p>No one doubted that he pulled the trigger</p>
-                    <p>And though they could not produce the gun</p>
-                    <p>The D.A. said he was the one who did the deed</p>
-                    <p>And the all-white jury agreed</p>
-                    <p>Rubin Carter was falsely tried</p>
-                    <p>The crime was murder "one," guess who testified?</p>
-                    <p>Bello and Bradley and they both baldly lied</p>
-                    <p>And the newspapers, they all went along for the ride</p>
-                    <p>How can the life of such a man</p>
-                    <p>Be in the palm of some fool's hand?</p>
-                    <p>To see him obviously framed</p>
-                    <p>Couldn't help but make me feel ashamed to live in a land</p>
-                    <p>Where justice is a <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="game"><i class="fas fa-eye"></i></button></p>
-                    <p>Now all the criminals in their coats and their ties</p>
-                    <p>Are free to drink martinis and watch the sun rise</p>
-                    <p>While Rubin sits like Buddha in a ten-foot cell</p>
-                    <p>An innocent man in a living hell</p>
-                    <p>That's the story of the Hurricane, but it won't be over till they clear his name</p>
-                    <p>And give him back the time he's done</p>
-                    <p>Put in a prison cell, but one time he could-a been the champion of the world</p>
-                </div></div>
-            </div>
-        </div>
-        
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-gray-300"><i class="fas fa-question-circle text-orange-400"></i> Discussion</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-8 text-2xl">
-                <p>The song is a protest against a potential wrongful conviction, suggesting racial bias. What are the signs of a flawed justice system?</p>
-                <p>Do you agree that "justice is a game" in some places? What actions could be taken to ensure justice is truly blind?</p>
-            </div></div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-gray-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="matching-activity" class="space-y-4"></div><button id="check-answers-btn" class="mt-8 bg-gray-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-gray-700">Check Answers</button></div></div>
-        </div>
-
-        <div class="slide">
-             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-gray-300"><i class="fas fa-home text-blue-400"></i>Homework</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto"><p class="text-2xl mb-6 text-gray-300">Choose a major **social factor** (e.g., poverty, lack of education, or systemic racism) and write a paragraph explaining how it influences crime rates in your city or country.</p><div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg"><p><strong>Example:</strong> "Poverty significantly increases crime rates because... This problem often leads individuals to... Improving economic opportunities would help to..."</p></div></div></div>
-        </div>
-
-        <div class="slide">
-             <div class="text-center flex flex-col items-center justify-center h-full"><i class="fas fa-gavel text-yellow-300 text-7xl mb-6"></i><h2 class="text-5xl font-bold mb-4 text-gray-100">Lesson Complete!</h2><p class="text-2xl italic text-gray-400 max-w-2xl mx-auto">"The law will not protect you from the lazy, the greedy, or the foolish." - A Man for All Seasons</p></div>
-        </div>
-        <div id="custom-alert-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center transition-opacity duration-300"></div>
-    </main>
-
-    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20"><div class="container mx-auto px-8 h-20 flex justify-between items-center"><button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button><button id="next-btn" class="bg-gray-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-gray-700">Próximo</button><button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finalizar Aula</button></div></footer>
-    
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    
+    </footer>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
     <script src="../js/firebase-config.js"></script>
     <script src="../js/progress-manager.js"></script>
-
-    <script>
-        // Função de Alerta Customizado
-        function showCustomAlert(message, type = 'success', callback) {
-            const modal = document.getElementById('custom-alert-modal');
-            if (!modal) return;
-            modal.innerHTML = `<div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 text-center" id="custom-alert-box"><i id="custom-alert-icon"></i><h3 id="custom-alert-title"></h3><p id="custom-alert-message" class="text-lg text-gray-300 mb-8"></p><button id="custom-alert-close-btn"></button></div>`;
-            const icon = document.getElementById('custom-alert-icon'), title = document.getElementById('custom-alert-title'), messageEl = document.getElementById('custom-alert-message'), closeBtn = document.getElementById('custom-alert-close-btn');
-            icon.className = 'fas text-6xl mb-5'; title.className = 'text-3xl font-bold mb-3'; closeBtn.className = 'text-white font-bold py-3 px-10 rounded-lg text-lg transition';
-            if (type === 'success') {
-                icon.classList.add('fa-check-circle', 'text-green-400'); title.textContent = 'Success!'; closeBtn.textContent = 'OK'; closeBtn.classList.add('bg-green-600', 'hover:bg-green-700');
-            } else {
-                icon.classList.add('fa-times-circle', 'text-red-400'); title.textContent = 'Error!'; closeBtn.textContent = 'Try Again'; closeBtn.classList.add('bg-red-600', 'hover:bg-red-700');
-            }
-            messageEl.textContent = message; modal.style.display = 'flex'; closeBtn.onclick = () => { modal.style.display = 'none'; if (callback) callback(); }
-        }
-
-        // Lógica principal da página
-        document.addEventListener('DOMContentLoaded', () => {
-            const moduleId = 'conversation';
-            const lessonNumber = 13;
-
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'), finishLessonBtn = document.getElementById('finish-lesson-btn');
-            const progressBar = document.getElementById('progress-bar');
-            let currentSlide = 0;
-
-            function showSlide(index) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                if (progressBar) progressBar.style.width = slides.length > 1 ? `${((index + 1) / slides.length) * 100}%` : '100%';
-                if (prevBtn) prevBtn.disabled = index === 0;
-                const isLastSlide = index === slides.length - 1;
-                if (nextBtn) nextBtn.classList.toggle('hidden', isLastSlide);
-                if (finishLessonBtn) finishLessonBtn.classList.toggle('hidden', !isLastSlide);
-            }
-
-            if (prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            if (nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            if (finishLessonBtn) finishLessonBtn.addEventListener('click', () => {
-                finishLessonBtn.disabled = true; finishLessonBtn.textContent = "Salvando...";
-                if (typeof markLessonAsComplete === 'function') markLessonAsComplete(moduleId, lessonNumber);
-                else { console.error("A função markLessonAsComplete não foi encontrada."); alert("Erro ao salvar progresso."); }
-            });
-
-            document.querySelectorAll('.flashcard').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
-            
-            document.querySelectorAll('.answer-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const inputField = button.previousElementSibling;
-                    if (inputField) {
-                        inputField.value = button.dataset.answer;
-                        inputField.classList.add('text-yellow-400', 'font-bold');
-                    }
-                });
-            });
-
-            const activityContainer = document.getElementById('matching-activity'), checkAnswersBtn = document.getElementById('check-answers-btn');
-            if(activityContainer && checkAnswersBtn) {
-                const expressions=[{id:'get_away',text:'To get away with murder'},{id:'do_time',text:'To do time'},{id:'red_handed',text:'To be caught red-handed'},{id:'inside_job',text:'An inside job'},{id:'blind_eye',text:'To turn a blind eye'},{id:'long_arm',text:"The long arm of the law"}];
-                const situations=[{text:"The police think the bank robbery was an...",answer:'inside_job'},{text:"He thought he could cheat, but the teacher caught him...",answer:'red_handed'},{text:"After the trial, the judge said he would... for 10 years.",answer:'do_time'},{text:"The boss knows the employees are stealing office supplies, but he decides to...",answer:'blind_eye'},{text:"He's rich and powerful, but he can't...",answer:'get_away'},{text:"You can run, but you can't hide from...",answer:'long_arm'}];
-                function shuffle(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
-                function createActivity() {
-                    const shuffledSituations = shuffle(situations);
-                    let html = shuffledSituations.map((sit, index) => {
-                        return `<div id="q-${index}" class="p-4 rounded-lg bg-gray-800 border border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300"><p class="text-xl text-gray-200 text-left flex-1">${sit.text}</p><select data-answer="${sit.answer}" class="custom-select w-full md:w-64 p-3 border-2 bg-gray-900 text-white border-gray-600 rounded-lg shadow-sm text-lg focus:border-yellow-400 focus:ring focus:ring-yellow-300 focus:ring-opacity-50"><option value="">Select an expression...</option>${shuffle([...expressions]).map(exp => `<option value="${exp.id}">${exp.text}</option>`).join('')}</select></div>`;
-                    }).join('');
-                    activityContainer.innerHTML = html;
-                }
-                createActivity();
-                checkAnswersBtn.addEventListener('click', () => {
-                    activityContainer.querySelectorAll('select').forEach((select, index) => {
-                        const questionDiv = document.getElementById(`q-${index}`);
-                        questionDiv.classList.remove('bg-green-900/50', 'border-green-500', 'bg-red-900/50', 'border-red-500');
-                        if (select.value === select.dataset.answer) {
-                            questionDiv.classList.add('bg-green-900/50', 'border-green-500');
-                        } else {
-                            questionDiv.classList.add('bg-red-900/50', 'border-red-500');
-                        }
-                    });
-                });
-            }
-
-            showSlide(0);
-        });
-    </script>
+    <script src="../js/lyrics-service-v3.js"></script>
+    <script src="conversation-lessons-01-48-data.js"></script>
+    <script src="conversation-music-catalog-01-48.js"></script>
+    <script src="conversation-music-cloze.js"></script>
+    <script src="conversation-lessons-runtime.js"></script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
     <script src="conversation-lesson-theme.js"></script>

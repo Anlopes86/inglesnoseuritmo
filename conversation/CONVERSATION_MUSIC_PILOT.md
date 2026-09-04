@@ -13,11 +13,13 @@
 - `conversation-music-catalog-49-64.js`: IDs LRCLIB, metadados mínimos e cinco descritores `answer + occurrence`; nunca contém letras.
 - `../js/lyrics-service-v3.js`: busca a letra real em runtime, mantém cache apenas em `sessionStorage`, resolve as ocorrências e corrige respostas.
 - `conversation-music-cloze.js`: interface em inglês, revelação individual, feedback e passagem para a discussão.
-- `conversation-lessons-49-64-runtime.js`: monta a atividade de forma preguiçosa no slide musical.
+- `conversation-lessons-runtime.js`: runtime unificado 1–64; monta a atividade de forma preguiçosa no slide musical e preserva o contrato verificado de 49–64.
 
 ## Regra de segurança editorial
 
 Uma entrada só pode ficar `provider-verified` quando tiver um ID LRCLIB confirmado e cinco posições distintas. Divergência de metadados ou de ocorrência produz `syncMismatch`; indisponibilidade de rede produz `lyricsUnavailable`. Nos dois casos, o aluno pode continuar sem penalidade.
+
+Por autorização explícita do responsável pelo produto em 2026-09-02, entradas `draft-until-provider-match` também podem exibir o embed Spotify e buscar letras em runtime. Essa visibilidade não altera o status editorial, não conta como verificação humana e não permite persistir letras comerciais no repositório.
 
 ## Expansão para as lições 1–48
 

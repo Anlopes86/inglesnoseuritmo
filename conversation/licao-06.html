@@ -3,296 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversation Class - Lesson 6: Overcoming Challenges</title>
+    <title>Conversation Class — Lesson 6</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .slide { display: none; }
-        .slide.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .flashcard { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
-        .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
-        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #4a5568; }
-        .flashcard-front { background-color: #2d3748; color: #a0aec0; text-align: center; }
-        .flashcard-back { background-color: #1a202c; color: white; transform: rotateY(180deg); text-align: center; }
-        .custom-select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a0aec0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
-        .lyrics-box { max-height: 300px; overflow-y: auto; }
-        .answer-btn { color: #9ca3af; margin-left: 8px; transition: color 0.2s; }
-        .answer-btn:hover { color: #fca5a5; }
-        .drop-zone { display: inline-block; min-width: 140px; border-bottom: 2px dashed #f87171; text-align: center; color: #fca5a5; font-weight: 700; padding: 0 10px; margin: 0 5px; transition: all 0.3s; }
-        .drop-zone.hover { border-color: #fecaca; background-color: rgba(248, 113, 113, 0.12); }
-        .drop-zone.filled { border-bottom-style: solid; }
-        .drop-zone.correct { color: #34d399 !important; border-color: #34d399; background-color: rgba(16, 185, 129, 0.12); }
-        .drop-zone.incorrect { color: #f87171 !important; border-color: #f87171; background-color: rgba(239, 68, 68, 0.12); }
-        .word-pill { cursor: grab; background-color: #dc2626; padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 600; transition: all 0.2s; user-select: none; }
-        .word-pill:active { cursor: grabbing; transform: scale(0.95); }
-        .debate-card { background: linear-gradient(135deg, #7f1d1d 0%, #111827 100%); border: 1px solid #b91c1c; border-radius: 1rem; padding: 1.5rem; transition: transform 0.2s; }
-        .debate-card:hover { transform: translateY(-2px); }
-        .debate-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 9999px; margin-bottom: 0.75rem; }
-    </style>
+    <link rel="stylesheet" href="conversation-lessons-49-64.css">
     <link rel="stylesheet" href="conversation-lesson-theme.css">
 </head>
-<body class="bg-gray-900 text-white">
-
-    <header class="bg-gray-800 shadow-lg sticky top-0 z-10">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="conversation.html" class="text-lg font-bold text-red-400 hover:text-red-300 flex items-center gap-2"><i class="fas fa-chevron-left"></i> Back to Topics</a>
-            <h1 class="text-xl font-semibold text-center">Lesson 6: Overcoming Challenges</h1>
-            <div class="w-32 text-right text-sm text-gray-500" id="slide-counter">1 / 11</div>
+<body class="bg-gray-900 text-white" data-lesson="6">
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-10 border-b border-gray-700">
+        <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center gap-3">
+            <a href="conversation.html" class="text-lg font-bold text-green-500 hover:text-green-400 flex items-center gap-2"><i class="fas fa-comments" aria-hidden="true"></i> Conversation</a>
+            <h1 id="lesson-heading" class="text-lg md:text-2xl font-bold text-center truncate">Lesson 6</h1>
+            <div class="w-20 md:w-32 text-right text-sm text-gray-400" id="slide-counter" aria-live="polite">1 / 14</div>
         </div>
-        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" class="bg-red-500 h-1.5 transition-all duration-300 ease-in-out"></div></div>
+        <div class="w-full bg-gray-700 h-1.5"><div id="progress-bar" role="progressbar" aria-label="Lesson progress" aria-valuemin="1" aria-valuemax="14" aria-valuenow="1" class="bg-green-500 h-1.5 transition-all duration-300" style="width:7.14%"></div></div>
     </header>
-
-    <main class="container mx-auto p-8 relative overflow-y-auto" style="height: calc(100vh - 140px);">
-
-        <div class="slide active">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-red-300"><i class="fas fa-mountain text-yellow-400"></i> Warm-up: Facing Challenges</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6 text-2xl">
-                <p class="font-semibold text-gray-300">Let's start our conversation:</p>
-                <p><i class="fas fa-arrow-right mr-2 text-red-400"></i> Tell me about a challenge you overcame.</p>
-                <p><i class="fas fa-arrow-right mr-2 text-red-400"></i> Do you think challenges make us stronger?</p>
-                <p><i class="fas fa-arrow-right mr-2 text-red-400"></i> What’s the best way to deal with failure?</p>
-            </div></div>
+    <main id="lesson-main" class="container mx-auto px-4 md:px-6 py-7"></main>
+    <footer class="fixed bottom-0 left-0 right-0 bg-gray-800/95 backdrop-blur border-t border-gray-700 z-20">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between gap-2">
+            <a href="licao-05.html" class="text-gray-400 hover:text-white p-2" aria-label="Previous lesson"><i class="fas fa-angles-left" aria-hidden="true"></i></a>
+            <button type="button" id="prev-btn" class="bg-gray-700 hover:bg-gray-600 disabled:opacity-40 text-white font-bold py-2 px-4 md:px-5 rounded-lg transition inline-flex items-center"><i class="fas fa-arrow-left mr-2" aria-hidden="true"></i> Previous</button>
+            <button type="button" id="next-btn" class="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 md:px-5 rounded-lg transition inline-flex items-center">Next <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i></button>
+            <a href="licao-07.html" class="text-gray-400 hover:text-white p-2" aria-label="Next lesson"><i class="fas fa-angles-right" aria-hidden="true"></i></a>
         </div>
-
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-red-300"><i class="fas fa-comments text-teal-400"></i> Key Vocabulary & Expressions</h2><p class="text-2xl mb-8 text-gray-300 max-w-3xl mx-auto">Click the cards to explore ideas about challenges.</p><div class="flashcard-grid max-w-6xl mx-auto">
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To face a challenge</h4></div><div class="flashcard-back"><p class="text-xl">To confront a difficult situation.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To rise to the occasion</h4></div><div class="flashcard-back"><p class="text-xl">To perform well in a difficult situation.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">Never give up</h4></div><div class="flashcard-back"><p class="text-xl">To continue trying and never stop.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">A blessing in disguise</h4></div><div class="flashcard-back"><p class="text-xl">Something that seems bad at first but results in something good.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To learn from your mistakes</h4></div><div class="flashcard-back"><p class="text-xl">To gain wisdom from your errors.</p></div></div></div>
-                <div class="flashcard"><div class="flashcard-inner"><div class="flashcard-front"><h4 class="text-2xl font-bold">To bounce back</h4></div><div class="flashcard-back"><p class="text-xl">To recover quickly from a setback.</p></div></div></div>
-            </div></div>
-        </div>
-        
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-red-300"><i class="fas fa-dumbbell text-yellow-500"></i> Music Time: Stronger</h2>
-            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1nInOsHbtotAmEOQhtvnzP?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <div class="mt-4 bg-red-900/30 p-4 rounded-lg border border-red-500/30">
-                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-red-300"></i> A comeback anthem about rebuilding confidence, surviving setbacks, and becoming more independent after disappointment.</p>
-                </div>
-                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-red-500">
-                    <p>You think you got the best of me</p>
-                    <p>Think you've had the last <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="laugh"><i class="fas fa-eye"></i></button></p>
-                    <p>Bet you think that everything good is gone</p>
-                    <p>Think you left me broken down</p>
-                    <p>Think that I'd come <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="crawling"><i class="fas fa-eye"></i></button> back</p>
-                    <p>Baby, you don't know me, 'cause you're dead wrong</p>
-                    <p>What doesn't kill you makes you <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="stronger"><i class="fas fa-eye"></i></button></p>
-                    <p>Stand a little <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="taller"><i class="fas fa-eye"></i></button></p>
-                    <p>Doesn't mean I'm lonely when I'm <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="alone"><i class="fas fa-eye"></i></button></p>
-                </div></div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-2 text-red-300"><i class="fas fa-comments text-orange-400"></i> Song 1 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Stronger" - Recovery and resilience</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-                    <div class="debate-card"><span class="debate-label bg-red-500/20 text-red-300">Meaning</span><p class="text-xl"><i class="fas fa-dumbbell mr-2 text-red-300"></i> Do painful experiences always make people stronger, or can they sometimes leave damage instead?</p></div>
-                    <div class="debate-card"><span class="debate-label bg-yellow-500/20 text-yellow-300">Reflection</span><p class="text-xl"><i class="fas fa-user mr-2 text-yellow-300"></i> What is the difference between being alone and feeling lonely?</p></div>
-                    <div class="debate-card"><span class="debate-label bg-blue-500/20 text-blue-300">Opinion</span><p class="text-xl"><i class="fas fa-seedling mr-2 text-blue-300"></i> What helps a person recover best after failure: time, discipline, support, or self-respect?</p></div>
-                    <div class="debate-card"><span class="debate-label bg-rose-500/20 text-rose-300">Debate</span><p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-rose-300"></i> Is resilience mostly emotional, or is it a practical skill people can train?</p></div>
-                </div>
-            </div></div>
-        </div>
-
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-red-300"><i class="fas fa-eye text-yellow-500"></i> Music Time: Eye of the Tiger</h2>
-            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2KH16WveTQWT6KOG9Rg6e2?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <div class="mt-4 bg-orange-900/30 p-4 rounded-lg border border-orange-500/30">
-                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-orange-300"></i> A high-energy song about focus, determination, and the mental intensity of facing an important challenge head-on.</p>
-                </div>
-                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-red-500">
-                    <p>Risin' up, back on the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="street"><i class="fas fa-eye"></i></button></p>
-                    <p>Did my time, took my chances</p>
-                    <p>Went the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="distance"><i class="fas fa-eye"></i></button>, now I'm back on my feet</p>
-                    <p>Just a man and his will to <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="survive"><i class="fas fa-eye"></i></button></p>
-                    <p>It's the eye of the tiger, it's the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="thrill"><i class="fas fa-eye"></i></button> of the fight</p>
-                    <p>Risin' up to the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="challenge"><i class="fas fa-eye"></i></button> of our rival</p>
-                </div></div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-2 text-red-300"><i class="fas fa-comments text-orange-400"></i> Song 2 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Eye of the Tiger" - Focus and fighting spirit</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-                    <div class="debate-card"><span class="debate-label bg-orange-500/20 text-orange-300">Symbol</span><p class="text-xl"><i class="fas fa-eye mr-2 text-orange-300"></i> What does the "eye of the tiger" suggest about mindset in difficult moments?</p></div>
-                    <div class="debate-card"><span class="debate-label bg-amber-500/20 text-amber-300">Reflection</span><p class="text-xl"><i class="fas fa-fire mr-2 text-amber-300"></i> Why do people use music to prepare themselves mentally for challenges?</p></div>
-                    <div class="debate-card"><span class="debate-label bg-cyan-500/20 text-cyan-300">Opinion</span><p class="text-xl"><i class="fas fa-bolt mr-2 text-cyan-300"></i> Is confidence more important than talent when someone is under pressure?</p></div>
-                    <div class="debate-card"><span class="debate-label bg-pink-500/20 text-pink-300">Debate</span><p class="text-xl"><i class="fas fa-person-running mr-2 text-pink-300"></i> Does competitive pressure bring out the best in people, or the worst?</p></div>
-                </div>
-            </div></div>
-        </div>
-
-        <div class="slide">
-            <h2 class="text-4xl font-bold mb-4 text-center text-red-300"><i class="fas fa-glass-cheers text-yellow-500"></i> Music Time: Tubthumping</h2>
-            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/22HYEJveCvykVDHDiEEmjZ?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                <div class="mt-4 bg-rose-900/30 p-4 rounded-lg border border-rose-500/30">
-                    <p class="text-sm italic"><i class="fas fa-info-circle mr-2 text-rose-300"></i> A playful but powerful song about resilience, recovery, and the refusal to stay down after repeated setbacks.</p>
-                </div>
-                <div class="mt-4 lyrics-box pr-2"><p class="text-2xl mb-4 text-gray-300">Listen to the song and complete the lyrics.</p><div class="text-lg space-y-2 bg-gray-700 p-4 rounded-lg border-l-4 border-red-500">
-                    <p>I get <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="knocked"><i class="fas fa-eye"></i></button> down, but I get up again</p>
-                    <p>You are never gonna keep me <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="down"><i class="fas fa-eye"></i></button></p>
-                    <p>I get knocked down, but I get up <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="again"><i class="fas fa-eye"></i></button></p>
-                    <p>You are never gonna keep me down</p>
-                    <p>Pissing the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="night"><i class="fas fa-eye"></i></button> away</p>
-                    <p>He sings the songs that remind him of the <input type="text" class="w-24 border-b-2 text-center bg-transparent border-gray-500"> <button class="answer-btn" data-answer="good"><i class="fas fa-eye"></i></button> times</p>
-                </div></div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-2 text-red-300"><i class="fas fa-comments text-orange-400"></i> Song 3 Debate</h2><p class="text-lg text-gray-400 mb-6 italic">"Tubthumping" - Recovery and persistence</p><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-                    <div class="debate-card"><span class="debate-label bg-rose-500/20 text-rose-300">Personal</span><p class="text-xl"><i class="fas fa-arrows-rotate mr-2 text-rose-300"></i> What helps people get up again after disappointment: routine, hope, community, or pure stubbornness?</p></div>
-                    <div class="debate-card"><span class="debate-label bg-green-500/20 text-green-300">Reflection</span><p class="text-xl"><i class="fas fa-memory mr-2 text-green-300"></i> Why can remembering good times make a hard moment easier to survive?</p></div>
-                    <div class="debate-card"><span class="debate-label bg-sky-500/20 text-sky-300">Opinion</span><p class="text-xl"><i class="fas fa-face-smile mr-2 text-sky-300"></i> Can humor and lightness make resilience stronger, or do they hide real pain?</p></div>
-                    <div class="debate-card"><span class="debate-label bg-purple-500/20 text-purple-300">Debate</span><p class="text-xl"><i class="fas fa-scale-balanced mr-2 text-purple-300"></i> Is persistence always admirable, or should people sometimes stop and change direction?</p></div>
-                </div>
-            </div></div>
-        </div>
-        
-        <div class="slide">
-            <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-red-300"><i class="fas fa-puzzle-piece text-purple-500"></i>Practice Activity</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto"><p class="text-2xl mb-8 text-gray-300">Match the situations with the correct expression.</p><div id="word-bank" class="flex flex-wrap justify-center gap-4 mb-10 p-6 bg-gray-900 rounded-xl border-2 border-dashed border-gray-700"></div><div id="matching-activity" class="space-y-4 text-left"></div><button id="check-answers-btn" class="mt-8 bg-red-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-red-700">Check Answers</button><p id="practice-feedback" class="mt-4 text-lg font-semibold text-gray-300"></p></div></div>
-        </div>
-
-        <div class="slide">
-             <div class="text-center"><h2 class="text-4xl font-bold mb-6 text-red-300"><i class="fas fa-home text-blue-400"></i>Homework</h2><div class="bg-gray-800 p-8 rounded-2xl shadow-lg max-w-2xl mx-auto"><p class="text-2xl mb-6 text-gray-300">Think of a personal challenge you want to achieve. Write 2-3 sentences about your plan to overcome it.</p><div class="text-left text-xl space-y-2 mt-4 bg-gray-700 p-4 rounded-lg"><p><strong>Example:</strong> "My challenge is to learn how to cook. First, I will... Then, I will... I will not give up!"</p></div></div></div>
-        </div>
-
-        <div class="slide">
-             <div class="text-center flex flex-col items-center justify-center h-full"><i class="fas fa-trophy text-yellow-300 text-7xl mb-6"></i><h2 class="text-5xl font-bold mb-4 text-gray-100">Lesson Complete!</h2><p class="text-2xl italic text-gray-400 max-w-2xl mx-auto">"A smooth sea never made a skilled sailor."</p></div>
-        </div>
-        <div id="custom-alert-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center transition-opacity duration-300"></div>
-    </main>
-
-    <footer class="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 z-20"><div class="container mx-auto px-8 h-20 flex justify-between items-center"><button id="prev-btn" class="bg-gray-700 text-gray-300 font-bold py-3 px-8 rounded-lg transition hover:bg-gray-600 disabled:opacity-50">Anterior</button><button id="next-btn" class="bg-red-600 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-red-700">Próximo</button><button id="finish-lesson-btn" class="hidden bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition hover:bg-green-600">Finalizar Aula</button></div></footer>
-    
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    
+    </footer>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
     <script src="../js/firebase-config.js"></script>
     <script src="../js/progress-manager.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- CONFIGURAÇÃO DA LIÇÃO ---
-            const moduleId = 'conversation';
-            const lessonNumber = 6;
-
-            // --- LÓGICA DO BOTÃO "FINALIZAR AULA" ---
-            const finishLessonBtn = document.getElementById('finish-lesson-btn');
-            if (finishLessonBtn) {
-                finishLessonBtn.addEventListener('click', () => {
-                    if (typeof markLessonAsComplete === 'function') {
-                        markLessonAsComplete(moduleId, lessonNumber); 
-                    }
-                });
-            }
-
-            // --- LÓGICA DOS SLIDES E ATIVIDADES (SEU CÓDIGO ORIGINAL RESTAURADO) ---
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const slideCounter = document.getElementById('slide-counter');
-            let currentSlide = 0;
-
-            function showSlide(index) {
-                slides.forEach((s, i) => s.classList.toggle('active', i === index));
-                const progressBar = document.getElementById('progress-bar');
-                if(progressBar) progressBar.style.width = slides.length > 1 ? `${((index + 1) / slides.length) * 100}%` : '100%';
-                if(slideCounter) slideCounter.textContent = `${index + 1} / ${slides.length}`;
-                if(prevBtn) prevBtn.disabled = index === 0;
-                if(nextBtn) nextBtn.classList.toggle('hidden', index === slides.length - 1);
-                if(finishLessonBtn) finishLessonBtn.classList.toggle('hidden', index !== slides.length - 1);
-            }
-
-            if(prevBtn) prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(--currentSlide); });
-            if(nextBtn) nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(++currentSlide); });
-            
-            // LÓGICA DOS BOTÕES DE RESPOSTA (RESTAURADA)
-            document.querySelectorAll('.answer-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const inputField = button.previousElementSibling;
-                    const correctAnswer = button.dataset.answer;
-                    if(inputField) {
-                        inputField.value = correctAnswer;
-                        inputField.classList.add('text-yellow-400', 'font-bold');
-                    }
-                });
-            });
-            
-            // LÓGICA DA ATIVIDADE DE COMBINAR (RESTAURADA)
-            const wordBank = document.getElementById('word-bank');
-            const activityContainer = document.getElementById('matching-activity');
-            const checkAnswersBtn = document.getElementById('check-answers-btn');
-            const expressions = [ {id:'face_challenge',text:'To face a challenge'}, {id:'rise_occasion',text:'To rise to the occasion'}, {id:'never_give_up',text:'Never give up'}, {id:'blessing_disguise',text:'A blessing in disguise'}, {id:'learn_mistakes',text:'To learn from your mistakes'}, {id:'bounce_back',text:'To bounce back'} ];
-            const situations = [ {text:"After failing the first interview, she quickly recovered and tried again.",answer:'bounce_back'}, {text:"He stayed calm and performed well when the pressure became intense.",answer:'rise_occasion'}, {text:"Even after three setbacks, they kept trying until they succeeded.",answer:'never_give_up'}, {text:"Losing that job seemed terrible, but it led her to a much better career.",answer:'blessing_disguise'}, {text:"You only improve if you reflect carefully after doing something wrong.",answer:'learn_mistakes'}, {text:"Sooner or later everyone has to confront a difficult moment directly.",answer:'face_challenge'} ];
-            function shuffle(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
-            function createActivity() {
-                if (!activityContainer || !wordBank) return;
-                wordBank.innerHTML = '';
-                shuffle([...expressions]).forEach(exp => {
-                    const pill = document.createElement('div');
-                    pill.className = 'word-pill';
-                    pill.draggable = true;
-                    pill.innerText = exp.text;
-                    pill.addEventListener('dragstart', (e) => e.dataTransfer.setData('text/plain', exp.text));
-                    wordBank.appendChild(pill);
-                });
-                const shuffledSituations = shuffle([...situations]);
-                activityContainer.innerHTML = shuffledSituations.map((sit, index) => `<div class="p-4 rounded-lg bg-gray-900 border border-gray-700"><p class="text-xl text-gray-200">${index + 1}. ${sit.text} <span class="drop-zone" data-answer="${expressions.find(exp => exp.id === sit.answer)?.text || ''}">________</span></p></div>`).join('');
-                activityContainer.querySelectorAll('.drop-zone').forEach(zone => {
-                    zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('hover'); });
-                    zone.addEventListener('dragleave', () => zone.classList.remove('hover'));
-                    zone.addEventListener('drop', (e) => {
-                        e.preventDefault();
-                        zone.classList.remove('hover');
-                        zone.innerText = e.dataTransfer.getData('text/plain');
-                        zone.classList.add('filled');
-                        zone.classList.remove('correct', 'incorrect');
-                    });
-                    zone.addEventListener('click', () => {
-                        zone.innerText = '________';
-                        zone.classList.remove('filled', 'correct', 'incorrect');
-                    });
-                });
-            }
-            if (activityContainer && checkAnswersBtn) {
-                createActivity();
-                checkAnswersBtn.addEventListener('click', () => {
-                    const feedback = document.getElementById('practice-feedback');
-                    const zones = activityContainer.querySelectorAll('.drop-zone');
-                    let correctCount = 0;
-                    zones.forEach(zone => {
-                        const currentValue = zone.innerText.trim().toLowerCase();
-                        const answerValue = zone.dataset.answer.trim().toLowerCase();
-                        zone.classList.remove('correct', 'incorrect');
-                        if (currentValue === answerValue) {
-                            zone.classList.add('correct');
-                            correctCount++;
-                        } else if (zone.innerText.trim() !== '________') {
-                            zone.classList.add('incorrect');
-                        }
-                    });
-                    if (feedback) {
-                        feedback.textContent = `You got ${correctCount} of ${zones.length} correct.`;
-                        feedback.className = 'mt-4 text-lg font-semibold ' + (correctCount === zones.length ? 'text-emerald-400' : 'text-red-300');
-                    }
-                });
-            }
-            
-            showSlide(0);
-        });
-    </script>
+    <script src="../js/lyrics-service-v3.js"></script>
+    <script src="conversation-lessons-01-48-data.js"></script>
+    <script src="conversation-music-catalog-01-48.js"></script>
+    <script src="conversation-music-cloze.js"></script>
+    <script src="conversation-lessons-runtime.js"></script>
     <script src="../js/flashcard-pronunciation.js"></script>
     <script src="../js/lesson-flashcard-save.js"></script>
     <script src="conversation-lesson-theme.js"></script>
