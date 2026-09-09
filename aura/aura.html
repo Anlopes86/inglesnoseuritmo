@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aura Arena do 7º Ano — painel de evolução e participação do Inglês no seu Ritmo.">
+  <meta name="theme-color" content="#070b24">
+  <title>Aura — Inglês no seu Ritmo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="aura.css">
+</head>
+<body>
+  <div class="cosmos" aria-hidden="true">
+    <span class="orb orb-one"></span>
+    <span class="orb orb-two"></span>
+    <span class="grid"></span>
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Inglês no seu Ritmo — Aura Arena">
+      <span class="brand-mark"><span>I</span><i>⚡</i><span>R</span></span>
+      <span class="brand-copy">
+        <small>INGLÊS NO SEU RITMO</small>
+        <strong>AURA</strong>
+      </span>
+    </a>
+
+    <nav class="view-switcher" aria-label="Alternar visualização">
+      <button class="view-button active" data-view="admin" aria-pressed="true">
+        <span class="nav-icon">✦</span> Professor
+      </button>
+      <button class="view-button" data-view="arena" aria-pressed="false">
+        <span class="nav-icon">◉</span> Modo turma
+      </button>
+    </nav>
+
+    <div class="header-actions">
+      <a class="back-link" href="../index.html">← Painel principal</a>
+      <span class="demo-pill" id="sync-pill"><i></i> conectando</span>
+      <button class="icon-button" aria-label="Abrir notificações">⌁</button>
+      <div class="teacher-avatar" title="Professor">PR</div>
+    </div>
+  </header>
+
+  <main>
+    <section id="admin-view" class="view active" aria-labelledby="admin-title">
+      <div class="page-heading">
+        <div>
+          <span class="eyebrow">PAINEL DE COMANDO <b>•</b> 7º ANO</span>
+          <h1 id="admin-title">Distribuir <span>Aura</span></h1>
+          <p>Selecione um aluno, escolha o valor e confirme a missão.</p>
+        </div>
+        <div class="heading-stats">
+          <div><small>Turma</small><strong>23 heróis</strong></div>
+          <div><small>Período</small><strong>Setembro</strong></div>
+          <button class="compact-button" id="open-arena">Abrir Arena <span>↗</span></button>
+        </div>
+      </div>
+
+      <div class="admin-grid">
+        <aside class="panel roster-panel">
+          <div class="panel-title">
+            <div><span class="step">01</span><h2>Escolha o herói</h2></div>
+            <span class="count" id="student-count">12</span>
+          </div>
+          <label class="search-box">
+            <span>⌕</span>
+            <input id="student-search" type="search" placeholder="Buscar aluno..." autocomplete="off">
+          </label>
+          <div class="selection-toolbar">
+            <strong><span id="selection-count">1</span> selecionado</strong>
+            <div>
+              <button id="select-visible">Selecionar todos</button>
+              <button id="clear-selection">Limpar</button>
+            </div>
+          </div>
+          <div id="student-list" class="student-list" role="listbox" aria-label="Alunos"></div>
+        </aside>
+
+        <section class="panel award-panel">
+          <div class="panel-title">
+            <div><span class="step">02</span><h2>Defina a energia</h2></div>
+            <span class="sync-status"><i></i> sincronizado</span>
+          </div>
+
+          <div class="selected-hero">
+            <div class="aura-ring small" id="selected-ring">
+              <div class="ring-core"><span id="selected-initials">AM</span></div>
+            </div>
+            <div class="selected-copy">
+              <small id="selected-kicker">HERÓI SELECIONADO</small>
+              <h3 id="selected-name">Ana Maria Scheer</h3>
+              <span id="selected-level" class="level-chip suit">Supertraje</span>
+            </div>
+            <div class="current-score">
+              <small id="score-label">AURA ATUAL</small>
+              <strong id="selected-score">420</strong>
+            </div>
+          </div>
+
+          <div class="energy-composer">
+            <div class="energy-label"><span>Valor livre</span><small>positivo ou negativo</small></div>
+            <div class="energy-input-row">
+              <button class="sign-button negative" id="toggle-sign" aria-label="Trocar entre ganho e perda">−</button>
+              <label class="energy-input">
+                <span id="input-sign">+</span>
+                <input id="aura-value" type="number" inputmode="numeric" value="20" min="0" aria-label="Quantidade de Aura">
+                <small>AURA</small>
+              </label>
+              <div class="energy-preview positive" id="energy-preview">
+                <small>NOVO TOTAL</small>
+                <strong id="preview-score">440</strong>
+              </div>
+            </div>
+
+            <div class="quick-section">
+              <div class="quick-label"><span>Sugestões rápidas</span><small>você pode alterar depois</small></div>
+              <div class="quick-actions" id="quick-actions">
+                <button data-value="20" data-reason="Participou bem da aula"><b>+20</b><span>Participação</span></button>
+                <button data-value="15" data-reason="Fez atividade ou tarefa"><b>+15</b><span>Atividade</span></button>
+                <button data-value="5" data-reason="Ajudou um colega"><b>+5</b><span>Boa atitude</span></button>
+                <button class="loss" data-value="-15" data-reason="Conversa excessiva"><b>−15</b><span>Conversa</span></button>
+                <button class="loss" data-value="-25" data-reason="Não fez a atividade"><b>−25</b><span>Sem atividade</span></button>
+                <button class="loss" data-value="-35" data-reason="Advertência"><b>−35</b><span>Advertência</span></button>
+              </div>
+            </div>
+
+            <label class="reason-field">
+              <span>Motivo ou observação <small>opcional</small></span>
+              <input id="aura-reason" type="text" value="Participou bem da aula" placeholder="O que aconteceu nesta missão?">
+            </label>
+
+            <div class="confirmation-row">
+              <div class="change-summary">
+                <span id="summary-before">420</span>
+                <i>→</i>
+                <strong id="summary-after">440</strong>
+                <small id="level-message">continua no Supertraje</small>
+              </div>
+              <button id="apply-aura" class="primary-button"><span>⚡</span> <b id="apply-label">Confirmar Aura</b></button>
+            </div>
+          </div>
+        </section>
+
+        <aside class="panel activity-panel">
+          <div class="panel-title">
+            <div><span class="step">03</span><h2>Atividade recente</h2></div>
+            <button class="text-button">Ver tudo</button>
+          </div>
+          <div class="mission-total">
+            <div>
+              <span>MOVIMENTAÇÃO EXIBIDA</span>
+              <strong id="today-total">+110</strong>
+            </div>
+            <span class="energy-bolt">ϟ</span>
+          </div>
+          <div id="activity-list" class="activity-list"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="arena-view" class="view" aria-labelledby="arena-title">
+      <div class="arena-heading">
+        <div>
+          <span class="eyebrow">TRANSMISSÃO AO VIVO <b>•</b> 7º ANO</span>
+          <h1 id="arena-title">Temporada da <span>Aura</span></h1>
+        </div>
+        <div class="live-clock">
+          <i></i><span>ARENA ONLINE</span><strong id="clock">14:32</strong>
+        </div>
+      </div>
+
+      <div class="arena-layout">
+        <section class="full-ranking-panel">
+          <div class="section-heading ranking-heading">
+            <div><span class="section-number">01</span><div><small>CLASSIFICAÇÃO COMPLETA</small><h2>Posição de cada herói</h2></div></div>
+            <div class="ranking-summary"><strong>23</strong><span>heróis em missão</span></div>
+          </div>
+          <div class="ranking-columns-label" aria-hidden="true"><span>POSIÇÃO E HERÓI</span><span>NÍVEL</span><span>SEMANA</span><span>AURA</span></div>
+          <div id="leaderboard" class="full-leaderboard"></div>
+        </section>
+
+        <section class="hero-stage">
+          <div class="stage-copy">
+            <span class="season-tag">MISSÃO DE SETEMBRO</span>
+            <h2>A turma está<br><span>carregando</span> seus poderes.</h2>
+            <p>Juntos, cada participação aproxima a equipe da Aura Suprema.</p>
+            <div class="team-progress">
+              <div class="progress-copy"><span>Progresso coletivo</span><strong><b id="team-average">216</b> / 1000</strong></div>
+              <div class="progress-track"><i id="team-progress-bar" style="width:21.6%"></i></div>
+            </div>
+          </div>
+          <div class="hero-core-wrap">
+            <div class="energy-rays"></div>
+            <div class="aura-ring giant">
+              <div class="ring-core"><small>AURA MÉDIA</small><strong id="giant-average">216</strong><span>7º ANO</span></div>
+            </div>
+            <span class="orbit orbit-one">✦</span>
+            <span class="orbit orbit-two">⚡</span>
+            <span class="orbit orbit-three">✧</span>
+          </div>
+          <div class="stage-stats">
+            <div><span>↗</span><small>EM SETEMBRO</small><strong id="week-total">+2300</strong></div>
+            <div><span>◆</span><small>LEVEL UPS</small><strong id="level-up-count">00</strong></div>
+            <div><span>◈</span><small>HERÓIS NA TURMA</small><strong>23</strong></div>
+          </div>
+        </section>
+
+        <section class="level-panel">
+          <div class="section-heading">
+            <div><span class="section-number">02</span><div><small>MAPA DA JORNADA</small><h2>Níveis da turma</h2></div></div>
+            <span class="updated">atualizado agora</span>
+          </div>
+          <div class="level-map" id="level-map"></div>
+        </section>
+
+        <section class="spotlight-panel">
+          <div class="section-heading">
+            <div><span class="section-number">03</span><div><small>DESTAQUES DA SEMANA</small><h2>Heróis em ação</h2></div></div>
+          </div>
+          <div class="spotlight-grid">
+            <article class="spot-card cyan">
+              <span class="spot-icon">↗</span><small>MAIOR EVOLUÇÃO EM SETEMBRO</small><h3 id="growth-name">—</h3><strong><span id="growth-value">+0</span> <i>AURA</i></strong><p id="growth-note">Lançamentos importados da planilha</p>
+            </article>
+            <article class="spot-card gold">
+              <span class="spot-icon">◇</span><small>PRÓXIMA CONQUISTA</small><h3 id="unlock-name">—</h3><strong id="next-unlock">—</strong><p id="unlock-note">Mais perto do próximo nível</p>
+            </article>
+            <article class="spot-card violet">
+              <span class="spot-icon">✦</span><small>ENERGIA DE EQUIPE</small><h3>23 alunos</h3><strong><span id="month-growth">+0%</span> <i>NO MÊS</i></strong><p>Média da turma comparada a agosto</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="mission-note-panel">
+          <span>✦</span>
+          <div><small>A JORNADA CONTINUA</small><strong>Cada aula pode mudar a classificação.</strong></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <div id="live-event" class="live-event" role="status" aria-live="polite">
+    <div class="event-flare"></div>
+    <span class="event-kicker">AURA RECEBIDA</span>
+    <strong id="event-delta">+20</strong>
+    <h2 id="event-name">Ana Maria Scheer</h2>
+    <p id="event-reason">Participou bem da aula</p>
+    <button id="close-event" aria-label="Fechar">×</button>
+  </div>
+
+  <div id="toast" class="toast" role="status"><span>✓</span><div><strong>Aura registrada!</strong><small>O painel da turma foi atualizado.</small></div><button id="undo-action">Desfazer</button></div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="../js/firebase-config.js"></script>
+  <script src="aura.js"></script>
+</body>
+</html>

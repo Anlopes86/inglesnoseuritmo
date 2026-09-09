@@ -1,93 +1,451 @@
-(function(){
-    'use strict';
-    const R=window.A1V3LessonRegistry; const {p,question,reading,homework,focus,speaking,comm,line,dialogue}=R.helpers;
-    const stations=[
-        focus('Clothes, one/ones and object pronouns','Escolha e peça itens sem repetir palavras.',[['choice','the ... one/ones','the blue one'],['object','it/them','Try it on. Show them to me.'],['person object','me/him/her/us','Show it to her.']],['One é singular; ones é plural.', 'O pronome objeto recebe a ação.'],[p('Transform','the black jacket','the black one'),p('Transform','the white shirts','the white ones'),p('Complete','I like the shoes. I want to try ___ on.','them'),p('Complete','Sarah wants the dress. Show it to ___.','her'),p('Build','prefer / Which / you / do / one / ?', 'Which one do you prefer?'),p('Correct','I like the blue one shirt.','I like the blue shirt. / I like the blue one.'),p('Create','Compare three jackets and choose one.','I prefer... Show it to me...')]),
-        focus('Possessive pronouns and whose','Identifique donos e corrija hipóteses.',[['adjective','my/your/her/their + noun','her bag'],['pronoun','mine/yours/hers/theirs','The bag is hers.'],['question','Whose...?', 'Whose bag is this?']],['Whose pergunta posse; who’s = who is.', 'Não use substantivo depois do possessive pronoun.'],[p('Choose','This is (my / mine) phone.','my'),p('Choose','This phone is (my / mine).','mine'),p('Choose','Those are (their / theirs) keys.','their'),p('Choose','Those keys are (their / theirs).','theirs'),p('Build','wallet / Whose / this / is / ?', 'Whose wallet is this?'),p('Answer','Owner: Sarah','It is Sarah’s. / It is hers.'),p('Correct','The charger is her.','The charger is hers.'),p('Create','Identify five lost objects with three owners.','It belongs to... It’s his/hers/theirs.')]),
-        focus('Present Continuous','Relate ações em andamento e contraste com hábitos.',[['now','am/is/are + -ing','She is working.'],['question','be + subject + -ing?', 'Is she working?'],['habit','Present Simple','She works every day.']],['Inclua be na forma contínua.', 'Observe now/at the moment versus every day/usually.'],[p('Complete','They ___ (wait) now.','are waiting'),p('Complete','She ___ (sit) near the door.','is sitting'),p('Make negative','Leo is paying.','Leo isn’t paying.'),p('Make a question','Emma is shopping.','Is Emma shopping?'),p('Choose','She (works / is working) every day.','works'),p('Choose','She (works / is working) now.','is working'),p('Correct','What she is doing?','What is she doing?'),p('Describe','Three people in a store.','... is ...ing. ... are ...ing.')]),
-        focus('Appearance and time','Identifique pessoas e horários.',[['appearance','be + adjective; have + feature','He is tall and has a beard.'],['visible','be wearing','She is wearing glasses.'],['time','past/to','a quarter past six']],['Look like pergunta aparência; be like pede descrição geral.', 'Use with para característica e in para roupa/cor.'],[p('Complete','She ___ tall and ___ long hair.','is; has'),p('Choose','Aparência: (What is she like? / What does she look like?)','What does she look like?'),p('Identify','tall man · beard · blue shirt','the tall man with a beard in the blue shirt'),p('Write','6:15','a quarter past six'),p('Write','8:45','a quarter to nine'),p('Write','10:30','half past ten'),p('Correct','She has friendly.','She is friendly.'),p('Create','Describe a person and meeting time.','I’m meeting the ... person at ...')]),
-        focus('Dates and was/were','Dê datas e localizações passadas.',[['date','on + date; in + month','on July third; in July'],['singular','was/wasn’t','It was warm.'],['plural','were/weren’t','We were away.']],['Fale datas com ordinais.', 'Perguntas começam com Was/Were.'],[p('Write','07/03','July third'),p('Write','12/21','December twenty-first'),p('Complete','The trip was ___ August.','in'),p('Complete','We ___ at the airport.','were'),p('Make negative','It was cold.','It wasn’t cold.'),p('Make a question','They were in Bahia.','Were they in Bahia?'),p('Correct','We was on vacation.','We were on vacation.'),p('Create','Vacation dates and two locations.','from...to... I was/We were...')]),
-        focus('Past Simple','Conte ações concluídas e faça perguntas com did.',[['regular','verb-ed','worked; visited'],['irregular','special form','went; saw; bought'],['question/negative','did + base','Did you go? I didn’t go.']],['Depois de did, use verbo base.', 'Use was/were sem did.'],[p('Past','arrive','arrived'),p('Past','go','went'),p('Past','take','took'),p('Past','buy','bought'),p('Make negative','I saw Daniel.','I didn’t see Daniel.'),p('Make a question','She bought a ticket.','Did she buy a ticket?'),p('Correct','Did you went?','Did you go?'),p('Sequence','miss bus · call taxi · arrive late','I missed the bus, called a taxi and arrived late.'),p('Create','A six-event story.','First... Then... After that... Finally...')]),
-        focus('Airport and can','Resolva check-in, bagagem, portão e atraso.',[['permission','Can I + base?', 'Can I take this bag?'],['ability','can/can’t','I can check in.'],['knowledge','know how to','I know how to use it.']],['Can recebe verbo base sem to.', 'Luggage é não contável.'],[p('Match','counter · gate · boarding pass · delayed','service desk · boarding place · document · late'),p('Complete','Where can I check ___?','in'),p('Build','bag / Can / take / I / this / ?', 'Can I take this bag?'),p('Correct','I can to use it.','I can use it.'),p('Correct','two luggages','two bags / some luggage'),p('Answer','Do you know how to check in online?','Yes, I do. / No, I don’t.'),p('Ask','Confirme portão e atraso.','Which gate is it? Is the flight on time?'),p('Create','Explain the airport route.','First... Then... Finally...')]),
-        focus('Past Continuous','Reconstrua ações de fundo e interrupções.',[['background','was/were + -ing','They were waiting.'],['event','Past Simple','The lights went out.'],['links','when/while','while we were waiting']],['Use Continuous para contexto e Simple para evento concluído.', 'Pergunta: What were you doing?'],[p('Complete','I ___ (wait).','was waiting'),p('Complete','They ___ (sleep).','were sleeping'),p('Make a question','Sarah was reading.','Was Sarah reading?'),p('Complete','We ___ when they ___ us. (board/call)','were boarding; called'),p('Complete','The lights ___ while I ___. (go out/read)','went out; was reading'),p('Correct','They was waiting.','They were waiting.'),p('Correct','What did you doing?','What were you doing?'),p('Create','Background, interruption and result.','I was... when... Then...')]),
-        focus('Weather and going to','Planeje conforme a previsão.',[['weather','It is sunny/windy...','It is cloudy.'],['plan','be going to + base','We’re going to travel.'],['question','be + subject + going to?', 'Are you going to come?']],['Concorde be e mantenha o verbo base.', 'Crie sempre uma alternativa quando a condição muda.'],[p('Match','summer · winter · spring · fall','hot · cold · warm · cool'),p('Complete','It ___ going to rain.','is'),p('Complete','We ___ going to eat outside.','are'),p('Make negative','She is going to drive.','She isn’t going to drive.'),p('Make a question','They are going to come.','Are they going to come?'),p('Correct','I going to bring food.','I’m going to bring food.'),p('Plan','Sun → picnic; rain → indoor lunch','We’re going to... If it rains, we’re going to...'),p('Create','Forecast, invitation and Plan B.','Would you like...? It’s going to...')]),
-        focus('Health, should and will','Descreva sintomas, aconselhe e ofereça ajuda.',[['symptom','have/feel/hurt','I feel dizzy.'],['advice','should/shouldn’t','You should rest.'],['offer','will + base','I’ll call a doctor.']],['Não use to após should/will.', 'Going to é plano anterior; will pode ser decisão agora.'],[p('Complete','I ___ a headache.','have'),p('Complete','My throat ___.','hurts'),p('Complete','She ___ dizzy.','feels'),p('Advice','fever','You should stay home.'),p('Negative advice','dizzy/drive','You shouldn’t drive.'),p('Offer','I need medicine.','I’ll go to the pharmacy.'),p('Correct','You should to rest.','You should rest.'),p('Correct','I will to help.','I will help.'),p('Create','Symptoms, advice, appointment and offer.','I have... You should... I’ll...')]),
-        focus('Phone calls','Abra, conduza, confirme e encerre uma ligação.',[['ask','Can I speak to...?', 'Can I speak to Emma?'],['identify','This is...','This is Daniel.'],['message','leave/take a message','Can I take a message?'],['confirm','Let me confirm...','Let me confirm the number.']],['Could deixa o pedido mais educado.', 'Repita nomes, números e horários.'],[p('Complete','Who’s ___?','calling'),p('Complete','Please ___.','hold'),p('Complete','Call me ___.','back'),p('Make polite','Repeat that.','Could you repeat that?'),p('Correct','I am Daniel. (phone)','This is Daniel.'),p('Correct','Could you to spell it?','Could you spell it?'),p('Take a message','Emma · doctor · Monday 10:15 · 555-0182','Emma called. The appointment is Monday at ten fifteen. Call 555-0182.'),p('Create','Bad line, repetition and confirmation.','I can’t hear... Could you repeat...? Let me confirm...')]),
-        focus('Schedule and tense control','Organize tempo e escolha a forma verbal pelo marcador.',[['habit','Present Simple','I finish at six.'],['past','Past Simple','I finished at eight.'],['now','Present Continuous','I’m finishing now.'],['plan/decision','going to / will','I’m going to rest. I’ll help.']],['Use before/after/until para sequência.', 'Observe every day, yesterday, now e tomorrow.'],[p('Complete','I work ___ nine ___ five.','from; to'),p('Complete','I rest ___ work.','after'),p('Complete','I waited ___ midnight.','until'),p('Complete','Yesterday I ___ late. (finish)','finished'),p('Complete','Now I ___. (work)','am working'),p('Complete','Tomorrow I ___ early.','am going to finish'),p('Answer','The phone is ringing.','I’ll answer it.'),p('Correct','Yesterday I am working.','Yesterday I worked.'),p('Create','Habit, past, now, plan and decision.','I usually... Yesterday... Now... Tomorrow... I’ll...')])
-    ];
-    stations.push(
-        speaking('attempt','Integrated conversation: lost bag at the airport','Identifique bagagem e seu dono antes do embarque.',{label:'Whose suitcase?',scenario:'Três malas parecidas estão perto do balcão.',task:'Descreva, compare, pergunte posse e encontre a mala correta.',condition:'Uma etiqueta pertence a outra pessoa.',steps:['Descreva as malas.','Pergunte de quem são.','Corrija a etiqueta.'],support:['Which one?', 'Whose...?', 'It’s mine/hers.', 'the ... one'],evidence:'Mala e dono ficam claros.'}),
-        speaking('questions','Integrated conversation: interrupted trip','Reconstrua uma viagem e o momento do problema.',{label:'What happened?',scenario:'Um voo foi cancelado durante uma tempestade.',task:'Dê data, horários, ações em andamento e eventos concluídos.',condition:'Um depoimento muda a hora do anúncio.',steps:['Monte o calendário.','Descreva o contexto.','Corrija a sequência.'],support:['on...', 'was/were ...ing', 'when/while', 'Then...'],evidence:'Datas, contexto e eventos estão coerentes.'}),
-        speaking('condition','Integrated conversation: call and reorganize','Faça uma ligação para alterar planos por clima e saúde.',{label:'Change everything',scenario:'Um evento ao ar livre coincide com chuva e uma consulta.',task:'Deixe recados, aconselhe e proponha nova agenda.',condition:'A linha cai antes da confirmação; repita todos os dados.',steps:['Explique os problemas.','Ofereça soluções.','Confirme data, hora e local.'],support:['I’m going to...', 'You should...', 'I’ll...', 'Could you repeat...?'],evidence:'A nova agenda pode ser executada sem nova ligação.'}),
-        speaking('final','Integrated conversation: A1 real-life challenge','Conecte descrição, passado, viagem, planos, saúde, telefone e agenda.',{label:'From problem to solution',scenario:'Você relata uma viagem passada e organiza uma nova tentativa.',task:'Conte o que aconteceu, descreva pessoas, resolva saúde e transporte e marque a nova viagem.',condition:'Clima, horário e disponibilidade mudam em três momentos.',steps:['Reconstrua o passado.','Resolva os problemas atuais.','Apresente e confirme o plano final.'],support:['First/Then/Finally', 'was/were ...ing', 'Can I...?', 'should/will', 'going to', 'before/after/until'],evidence:'Produção sustentada usa conteúdos 16–30 e se adapta às mudanças.'})
-    );
-    R.register(32,R.review({title:'A1 Consolidation · Part 2',objectives:['Consolidar profundamente as lições de conteúdo 16–29.','Alternar recuperação, exercício e produção comunicativa extensa.','Fechar o A1 com tarefas individuais de vida real, sem introduzir nova gramática.'],stations,
-        reading:reading('The trip they finally took','Emma and Daniel planned a trip for December twenty-first. On the morning of the trip, Emma was wearing a red jacket and carrying two bags. Daniel’s suitcase was the black one; the blue one was hers. They arrived at the airport at six thirty. While they were checking in, Daniel started to feel dizzy and his back hurt. Emma told him to sit down and said, “I’ll get some water.” Their flight was delayed because it was raining. Emma called the hotel, but the line was bad, so she repeated their names, booking number and new arrival time. They finally boarded at nine. For their next trip, they are going to travel in spring, pack less and arrive after a good night’s sleep.',question('When was the trip?','On December twenty-first.'),question('How can you identify Emma?','She was wearing a red jacket and carrying two bags.'),question('Whose suitcase was blue?','It was Emma’s. It was hers.'),question('What were they doing when Daniel felt dizzy?','They were checking in.'),question('What advice did Emma give?','She told him to sit down.'),question('Why was the flight delayed?','Because it was raining.'),question('What did Emma confirm on the phone?','Their names, booking number and new arrival time.'),question('What are they going to change next time?','Travel in spring, pack less and arrive after a good night’s sleep.')),
-        communicativeActivities:[
-            comm('listening','Listen: problems before boarding','Ouça a conversa e registre pessoa, mala, sintoma, conselho, atraso, novo portão e telefonema.',{
-                placement:'before-reading',
-                scenario:'Emma e Daniel enfrentam vários problemas durante o check-in.',
-                dialogue:dialogue('A difficult departure',
-                    line('Agent','Good morning. Whose is this black suitcase?','Bom dia. De quem é esta mala preta?'),
-                    line('Daniel','It’s mine. The blue one is Emma’s.','É minha. A azul é da Emma.'),
-                    line('Agent','Please put the black one on the scale.','Por favor, coloque a preta na balança.'),
-                    line('Emma','Daniel, are you okay?','Daniel, você está bem?'),
-                    line('Daniel','I feel dizzy and my back hurts.','Estou tonto e minhas costas doem.'),
-                    line('Emma','You should sit down. I’ll get some water.','Você deveria se sentar. Vou buscar água.'),
-                    line('Agent','Your flight is delayed because it’s raining.','Seu voo está atrasado porque está chovendo.'),
-                    line('Emma','What time can we board?','A que horas podemos embarcar?'),
-                    line('Agent','At nine, from gate thirty-one.','Às nove, no portão trinta e um.'),
-                    line('Daniel','Can you call the hotel?','Você pode ligar para o hotel?'),
-                    line('Emma','Yes. I’ll tell them our new arrival time.','Sim. Vou informar nosso novo horário de chegada.'),
-                    line('Daniel','Please confirm the booking number too.','Por favor, confirme também o número da reserva.')
-                ),
-                questions:[
-                    question('Whose is the black suitcase?','It is Daniel’s. It is his.'),
-                    question('Which suitcase is Emma’s?','The blue one.'),
-                    question('How does Daniel feel?','He feels dizzy and his back hurts.'),
-                    question('What should he do?','He should sit down.'),
-                    question('What will Emma get?','Some water.'),
-                    question('Why is the flight delayed?','Because it is raining.'),
-                    question('When and where can they board?','At nine, from gate thirty-one.'),
-                    question('What will Emma confirm with the hotel?','Their new arrival time and booking number.')
-                ]
-            }),
-            comm('qa-board','A1 Question Board · Part 2','Desembaralhe e relacione. Na segunda rodada, responda sem usar o quadro e acrescente um detalhe.',{
-                scenario:'Roupas, posse, viagem, saúde, telefone e planos aparecem no mesmo jogo.',
-                pairs:[
-                    {scrambled:'prefer / one / Which / you / do / ?',question:'Which one do you prefer?',answer:'I prefer the black one.'},
-                    {scrambled:'suitcase / Whose / this / is / ?',question:'Whose suitcase is this?',answer:'It’s mine.'},
-                    {scrambled:'doing / What / they / are / ?',question:'What are they doing?',answer:'They’re checking in.'},
-                    {scrambled:'look / Emma / does / What / like / ?',question:'What does Emma look like?',answer:'She has long dark hair and glasses.'},
-                    {scrambled:'trip / When / the / was / ?',question:'When was the trip?',answer:'It was on December twenty-first.'},
-                    {scrambled:'airport / get / did / How / they / the / to / ?',question:'How did they get to the airport?',answer:'They went by taxi.'},
-                    {scrambled:'waiting / were / they / Where / ?',question:'Where were they waiting?',answer:'They were waiting at the gate.'},
-                    {scrambled:'wrong / What’s / ?',question:'What’s wrong?',answer:'I feel dizzy.'},
-                    {scrambled:'message / take / Can / a / you / ?',question:'Can you take a message?',answer:'Of course.'},
-                    {scrambled:'next / going / What / do / time / are / you / to / ?',question:'What are you going to do next time?',answer:'We’re going to arrive earlier.'}
-                ]
-            }),
-            comm('practice','Witness statements','Use cada conjunto de fatos para reconstruir o que estava acontecendo e o que ocorreu em seguida.',{
-                eyebrow:'Travel Investigation',
-                items:[
-                    p('Identify','Emma · red jacket · two bags','Emma was the woman in the red jacket. She was carrying two bags.'),
-                    p('Identify possession','black suitcase: Daniel · blue suitcase: Emma','The black suitcase was his. The blue one was hers.'),
-                    p('Connect','they checked in · Daniel felt dizzy','They were checking in when Daniel started to feel dizzy.'),
-                    p('Connect','Emma called hotel · line became bad','Emma was calling the hotel when the line became bad.'),
-                    p('Sequence','arrive 6:30 · check in · delay · board 9:00','First, they arrived at six thirty. Then they checked in. The flight was delayed, and they finally boarded at nine.'),
-                    p('Give advice','dizzy · backache','You should sit down and rest. You shouldn’t carry the bags.'),
-                    p('Offer help','water · bags · hotel','I’ll get water, carry the bags and call the hotel.'),
-                    p('Change plan','rain · flight tomorrow · hotel call','It’s going to rain, so we’re going to fly tomorrow. I’ll call the hotel.'),
-                    p('Phone repair','bad line · repeat names and booking number','The line is bad. Let me repeat our names and booking number.'),
-                    p('Final plan','spring · pack less · arrive early','Next time, they’re going to travel in spring, pack less and arrive early.')
-                ]
-            }),
-            comm('interview','From a past problem to a new plan','Responda sobre uma viagem real ou inventada e transforme as respostas em um relato seguido de um novo plano.',{
-                scenario:'Você relata uma viagem problemática e organiza uma segunda tentativa.',
-                questions:['When and where was the trip?','Who was with you?','What were you wearing?','Whose bags were they?','How did you get to the airport?','What were you doing when the problem started?','What happened next?','Did anyone feel sick?','What advice did you give?','Who did you call?','What are you going to change next time?','What will you do if another problem happens?'],
-                reportTask:'Produza duas partes: relato passado com sequência e interrupção; depois, plano futuro com previsão, horários e soluções.',
-                support:['First/Then/Finally...','I was ...ing when...','The ... one was mine/his/hers.','You should...','I’ll...','Next time, I’m going to...']
-            })
+(function(){'use strict';window.A1V3LessonRegistry.register(32,{
+  "title": "I Need Some Help",
+  "type": "content",
+  "summary": "Comunicar um sintoma e pedir ajuda prática, sem tarefa de diagnosticar ou prescrever.",
+  "mission": {
+    "title": "I Need Some Help",
+    "task": "Comunicar um sintoma e pedir ajuda prática, sem tarefa de diagnosticar ou prescrever.",
+    "focus": [
+      "Partes do corpo e sintomas comuns; I have… / I feel… / I need…; help/rest/call; I'll… em ofertas prontas."
+    ],
+    "semanticTags": [
+      "numbers-quantities",
+      "health-accidents",
+      "borrowing-help",
+      "phone-requests"
+    ]
+  },
+  "slides": [
+    {
+      "id": "opening",
+      "type": "dialogue",
+      "title": "I Need Some Help",
+      "kicker": "I Need Some Help",
+      "instruction": "Acompanhe a leitura do professor. Depois leiam juntos e identifiquem a situação.",
+      "lines": [
+        [
+          "A",
+          "Are you OK?",
+          "Você está bem?"
         ],
-        homework:homework('Monte seu portfólio final A1 com uma primeira versão, correções e segunda versão.', ['Descrição e posse','Relato de viagem passada','Plano futuro e previsão','Saúde, telefone e agenda'],['Usei afirmações, negativas e perguntas.','Integrei vocabulário em frases, não em listas soltas.','Corrigi os pontos indicados e gravei uma segunda tentativa.'],{minimumWords:220})}));
-}());
+        [
+          "B",
+          "I feel tired and I have a headache.",
+          "Estou cansado e com dor de cabeça."
+        ],
+        [
+          "A",
+          "Do you need help?",
+          "Precisa de ajuda?"
+        ],
+        [
+          "B",
+          "Yes. I need to call home.",
+          "Sim. Preciso ligar para casa."
+        ],
+        [
+          "A",
+          "I’ll get your phone.",
+          "Vou pegar seu telefone."
+        ],
+        [
+          "B",
+          "Thank you. I need to rest.",
+          "Obrigado. Preciso descansar."
+        ]
+      ]
+    },
+    {
+      "id": "vocabulary",
+      "type": "cards",
+      "title": "Vocabulary Expansion",
+      "kicker": "Vocabulary Expansion",
+      "instruction": "Leia os significados e exemplos. Escolha palavras para usar durante a conversa.",
+      "cards": [
+        [
+          "headache",
+          "dor de cabeça",
+          "I have a headache."
+        ],
+        [
+          "stomachache",
+          "dor de estômago",
+          "She has a stomachache."
+        ],
+        [
+          "toothache",
+          "dor de dente",
+          "He has a toothache."
+        ],
+        [
+          "sore throat",
+          "dor de garganta",
+          "I have a sore throat."
+        ],
+        [
+          "cough",
+          "tosse; tossir",
+          "She has a cough."
+        ],
+        [
+          "fever",
+          "febre",
+          "He has a fever."
+        ],
+        [
+          "cold",
+          "resfriado",
+          "I have a cold."
+        ],
+        [
+          "dizzy",
+          "tonto(a)",
+          "I feel dizzy."
+        ],
+        [
+          "tired",
+          "cansado(a)",
+          "She feels tired."
+        ],
+        [
+          "sick",
+          "doente; enjoado",
+          "I feel sick."
+        ],
+        [
+          "hurt",
+          "doer",
+          "My back hurts."
+        ],
+        [
+          "head",
+          "cabeça",
+          "My head hurts."
+        ],
+        [
+          "throat",
+          "garganta",
+          "My throat hurts."
+        ],
+        [
+          "back",
+          "costas",
+          "His back hurts."
+        ],
+        [
+          "medicine",
+          "remédio",
+          "Take this medicine."
+        ],
+        [
+          "rest",
+          "descansar",
+          "You should rest."
+        ],
+        [
+          "appointment",
+          "consulta; horário marcado",
+          "Make an appointment."
+        ],
+        [
+          "doctor",
+          "médico(a)",
+          "Call a doctor."
+        ],
+        [
+          "pharmacy",
+          "farmácia",
+          "The pharmacy is open."
+        ],
+        [
+          "get better",
+          "melhorar",
+          "I hope you get better soon."
+        ]
+      ]
+    },
+    {
+      "id": "verbs",
+      "type": "verbs",
+      "title": "Verb bank",
+      "kicker": "Verb bank",
+      "instruction": "Consulte o infinitivo, o passado e o particípio. Observe nos exemplos a forma usada na frase.",
+      "cards": [
+        [
+          "have",
+          "ter",
+          "She has two brothers.",
+          "had · had"
+        ],
+        [
+          "feel",
+          "sentir-se",
+          "I feel tired.",
+          "felt · felt"
+        ],
+        [
+          "rest",
+          "descansar",
+          "I need to rest.",
+          "rested · rested"
+        ],
+        [
+          "help",
+          "ajudar",
+          "Can you help me?",
+          "helped · helped"
+        ],
+        [
+          "call",
+          "ligar; chamar",
+          "I will call you.",
+          "called · called"
+        ]
+      ]
+    },
+    {
+      "id": "helping",
+      "type": "patterns",
+      "title": "Helping You",
+      "kicker": "Helping You",
+      "instruction": "Diga como se sente e peça ajuda prática.",
+      "cards": [
+        [
+          "I have…",
+          "Use have com um sintoma.",
+          "I have a headache."
+        ],
+        [
+          "I feel…",
+          "Use feel com tired, sick ou dizzy.",
+          "I feel tired."
+        ],
+        [
+          "I need… / I need to…",
+          "Diga de que precisa ou o que precisa fazer.",
+          "I need water. I need to rest."
+        ],
+        [
+          "I’ll…",
+          "Ofereça uma ação simples.",
+          "I’ll call your family."
+        ]
+      ]
+    },
+    {
+      "id": "drill",
+      "type": "drill",
+      "title": "Say what you need.",
+      "kicker": "Say what you need.",
+      "instruction": "Diga a frase em inglês.",
+      "items": [
+        [
+          "Estou cansado.",
+          "I feel tired."
+        ],
+        [
+          "Estou com dor de cabeça.",
+          "I have a headache."
+        ],
+        [
+          "Preciso de água.",
+          "I need water."
+        ],
+        [
+          "Preciso descansar.",
+          "I need to rest."
+        ],
+        [
+          "Pode me ajudar?",
+          "Can you help me?"
+        ],
+        [
+          "Vou ligar para sua família.",
+          "I’ll call your family."
+        ]
+      ]
+    },
+    {
+      "id": "expressions",
+      "type": "cards",
+      "title": "Key phrases & expressions",
+      "kicker": "Key phrases & expressions",
+      "instruction": "Use estes blocos para pedir e oferecer ajuda.",
+      "cards": [
+        [
+          "Are you OK?",
+          "Você está bem?",
+          "Are you OK today?"
+        ],
+        [
+          "What’s wrong?",
+          "O que houve?",
+          "What’s wrong? I feel sick."
+        ],
+        [
+          "I feel tired.",
+          "Estou cansado.",
+          "I feel tired today."
+        ],
+        [
+          "I need some water.",
+          "Preciso de água.",
+          "I need some water, please."
+        ],
+        [
+          "Can you help me?",
+          "Pode me ajudar?",
+          "Can you help me call home?"
+        ],
+        [
+          "I need to rest.",
+          "Preciso descansar.",
+          "I need to rest now."
+        ],
+        [
+          "I’ll call home.",
+          "Vou ligar para casa.",
+          "I’ll call home for you."
+        ],
+        [
+          "Thank you for your help.",
+          "Obrigado pela ajuda.",
+          "Thank you for your help today."
+        ]
+      ]
+    },
+    {
+      "id": "reading",
+      "type": "reading",
+      "title": "A message home",
+      "kicker": "A message home",
+      "instruction": "Leia e encontre o pedido de ajuda.",
+      "paragraphs": [
+        "Hi Sam. I feel tired and I have a headache. I need to rest. Can you call me? My phone is in my bag. Thank you."
+      ],
+      "items": [
+        [
+          "How does the person feel?",
+          "Tired."
+        ],
+        [
+          "What does the person need?",
+          "To rest."
+        ],
+        [
+          "Where is the phone?",
+          "In the bag."
+        ]
+      ],
+      "translations": []
+    },
+    {
+      "id": "talk",
+      "type": "conversation",
+      "title": "Ask for help.",
+      "kicker": "Conversation Activities",
+      "instruction": "Um pede ajuda prática; o outro oferece uma ação.",
+      "tasks": [
+        [
+          "Situação",
+          "Você precisa descansar e ligar para casa."
+        ],
+        [
+          "Apoio",
+          "I feel… / I need… / Can you…? / I’ll…"
+        ]
+      ],
+      "goal": "Confirm the help you need.",
+      "challenge": "Troquem os papéis e mudem o pedido."
+    },
+    {
+      "id": "practice-2",
+      "type": "drill",
+      "title": "Decide and offer help",
+      "kicker": "Decide and offer help",
+      "instruction": "Use will quando a decisão ou oferta nasce na conversa.",
+      "items": [
+        [
+          "I’m thirsty.",
+          "I’ll get some water."
+        ],
+        [
+          "I can’t call the doctor.",
+          "I’ll call the doctor for you."
+        ],
+        [
+          "I have a fever.",
+          "I’ll make an appointment for you."
+        ],
+        [
+          "Don’t worry. I ___ help you.",
+          "will"
+        ],
+        [
+          "go to work today",
+          "I won’t go to work today."
+        ],
+        [
+          "pharmacy / I’ll / the / go to",
+          "I’ll go to the pharmacy."
+        ],
+        [
+          "Preplanned tomorrow: (I’ll see / I’m going to see) the doctor tomorrow.",
+          "I’m going to see"
+        ],
+        [
+          "Decision now: The phone is ringing. (I’ll answer / I’m going to answer) it.",
+          "I’ll answer"
+        ],
+        [
+          "I will to call your manager.",
+          "I will call your manager."
+        ],
+        [
+          "Offer help in four health situations.",
+          "I’ll ... for you."
+        ]
+      ]
+    },
+    {
+      "id": "exit",
+      "type": "exit",
+      "title": "Look at your progress.",
+      "kicker": "Look at your progress.",
+      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
+      "checks": [
+        "Comunicar um sintoma e pedir ajuda prática, sem tarefa de diagnosticar ou prescrever.",
+        "Consegui pedir repetição ou esclarecimento.",
+        "Consigo tentar novamente com menos apoio."
+      ]
+    },
+    {
+      "id": "homework",
+      "type": "homework",
+      "title": "Take it with you.",
+      "kicker": "Take it with you.",
+      "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
+      "options": [
+        [
+          "A",
+          "Speak",
+          "Explique como se sente e peça uma ajuda prática, como água ou uma ligação."
+        ],
+        [
+          "B",
+          "Write",
+          "Escreva uma mensagem cancelando um compromisso porque não se sente bem."
+        ],
+        [
+          "C",
+          "Make a Card",
+          "Prepare três situações de ajuda cotidiana e uma resposta com I will para cada uma."
+        ]
+      ]
+    }
+  ],
+  "migration": {
+    "sourceLesson": "a1-v3-27-health-problems",
+    "editorialVersion": "2026.09-a1-38"
+  }
+});}());

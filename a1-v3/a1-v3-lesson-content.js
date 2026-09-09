@@ -497,12 +497,17 @@
     }
 
     function renderHomework(homework) {
+        const options = Array.isArray(homework.options) ? homework.options : [];
+        const themes = Array.isArray(homework.themes) ? homework.themes : [];
+        const checklist = Array.isArray(homework.checklist) ? homework.checklist : [];
         return `<div class="homework-band">
             <p class="lesson-panel-title">${escapeHtml(homework.label || 'Homework')}</p>
-            <h3>${escapeHtml(homework.heading || 'Escolha um tema')}</h3>
+            <h3>${escapeHtml(homework.heading || 'Para a próxima aula')}</h3>
             <p class="homework-instruction">${escapeHtml(homework.instruction)}</p>
-            <div class="theme-options">${homework.themes.map((theme, index) => `<article><span>${index + 1}</span><strong>${escapeHtml(theme)}</strong></article>`).join('')}</div>
-            <div class="homework-checklist"><h4>Checklist</h4>${homework.checklist.map((item) => `<p><i class="fas fa-square-check" aria-hidden="true"></i>${escapeHtml(item)}</p>`).join('')}</div>
+            <div class="theme-options">${options.length
+                ? options.map((option) => `<article><span>${escapeHtml(option.option)}</span><strong>${escapeHtml(option.title)}</strong><p>${escapeHtml(option.instruction)}</p></article>`).join('')
+                : themes.map((theme, index) => `<article><span>${index + 1}</span><strong>${escapeHtml(theme)}</strong></article>`).join('')}</div>
+            ${checklist.length ? `<div class="homework-checklist"><h4>Checklist</h4>${checklist.map((item) => `<p><i class="fas fa-square-check" aria-hidden="true"></i>${escapeHtml(item)}</p>`).join('')}</div>` : ''}
             <button type="button" id="finish-btn" class="primary-action-btn"><i class="fas fa-check" aria-hidden="true"></i> Finalizar aula</button>
         </div>`;
     }

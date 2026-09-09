@@ -1,30 +1,800 @@
-(function(){
-    'use strict';
-    const R=window.A1V3LessonRegistry; const {v,x,p,t,line,dialogue,question,reading,activity,homework}=R.helpers;
-    R.register(28,R.lesson({
-        title:'On the Phone',
-        objectives:['Iniciar, manter e encerrar uma ligação simples.','Pedir para falar com alguém e deixar recado.','Usar can e could em pedidos telefônicos frequentes.','Confirmar nomes, números, horários e convites por telefone.'],
-        intro:[line('Emma','Hello. Can I speak to Sabrina, please?','Alô. Posso falar com a Sabrina, por favor?'),line('Leo','I’m sorry, she isn’t available right now. Who’s calling?','Desculpe, ela não está disponível agora. Quem está falando?'),line('Emma','This is Emma. Could you ask her to call me back?','Aqui é a Emma. Poderia pedir para ela me retornar?'),line('Leo','Of course. Can I have your number?','Claro. Pode me dar seu número?'),line('Emma','It’s 555-0184.','É 555-0184.'),line('Leo','Let me repeat that: 555-0184.','Deixe-me repetir: 555-0184.')],
-        vocab:[v('call','ligar; ligação','I’ll call you tonight.','Vou ligar para você hoje à noite.'),v('answer','atender; responder','Can you answer the phone?','Pode atender o telefone?'),v('available','disponível','She isn’t available.','Ela não está disponível.'),v('busy','ocupado; linha ocupada','The line is busy.','A linha está ocupada.'),v('hold','aguardar na linha','Please hold.','Aguarde, por favor.'),v('message','recado; mensagem','Can I leave a message?','Posso deixar um recado?'),v('call back','retornar ligação','Please call me back.','Por favor, retorne minha ligação.'),v('wrong number','número errado','Sorry, wrong number.','Desculpe, número errado.'),v('voicemail','correio de voz','Leave a voicemail.','Deixe uma mensagem de voz.'),v('line','linha telefônica','The line is bad.','A linha está ruim.'),v('hear','ouvir','I can’t hear you.','Não consigo ouvir você.'),v('repeat','repetir','Could you repeat that?','Poderia repetir?'),v('spell','soletrar','Could you spell your name?','Poderia soletrar seu nome?'),v('speak','falar','Can I speak to Emma?','Posso falar com a Emma?'),v('leave','deixar','I’d like to leave a message.','Gostaria de deixar um recado.'),v('reach','conseguir contato','You can reach me after six.','Você consegue falar comigo depois das seis.'),v('hang up','desligar','Don’t hang up.','Não desligue.'),v('phone number','número de telefone','What’s your phone number?','Qual é seu número de telefone?')],
-        grammar:{title:'Phone requests with can and could',summary:'Can e could formam pedidos com o verbo base. Could soa mais educado; não é necessário ensinar um novo tempo verbal aqui.',rows:[['ask to speak','Can/Could I speak to...?', 'Could I speak to Sabrina?', 'Poderia falar com Sabrina?'],['request','Can/Could you + base verb?', 'Could you repeat that?', 'Poderia repetir?'],['offer message','Can I take a message?', 'Can I take a message?', 'Posso anotar um recado?'],['identify caller','This is + name.', 'This is Emma.', 'Aqui é a Emma.'],['confirm','Let me repeat...', 'Let me repeat the number.', 'Deixe-me repetir o número.'],['future contact','will + base verb','I’ll call you back.', 'Vou retornar sua ligação.']],notes:['Ao telefone, diga This is Emma, não I am Emma.', 'Can/Could you repeat...? usa verbo base.', 'Soletre nomes e leia números em blocos curtos.']},
-        activitySections:[activity('Build the phone call','Coloque cada frase na etapa adequada da ligação.',[p('Order','goodbye · identify caller · greet · ask to speak · leave message','greet · ask to speak · identify caller · leave message · goodbye'),p('Complete','Can I ___ to Sabrina?','speak'),p('Complete','Who’s ___?','calling'),p('Complete','This ___ Emma.','is'),p('Complete','Please ___. I’ll check.','hold'),p('Complete','Can I leave a ___?','message'),p('Complete','Could you ask her to call me ___?','back'),p('Complete','Sorry, ___ number.','wrong'),p('Choose','Telefone: (I am Emma / This is Emma).','This is Emma'),p('Create','Open a call and ask for Daniel.','Hello. Can I speak to Daniel, please?')],'Call Structure'),activity('Polite requests and confirmation','Transforme pedidos e confirme informações críticas.',[p('Make polite','Repeat that.','Could you repeat that, please?'),p('Make polite','Spell your name.','Could you spell your name, please?'),p('Make polite','Call me after six.','Could you call me after six, please?'),p('Build','message / take / Can / I / a / ?', 'Can I take a message?'),p('Build','number / have / Can / your / I / ?', 'Can I have your number?'),p('Answer','The line is bad.','I’m sorry. I can’t hear you. Could you repeat that?'),p('Confirm','Name: Sean = S-E-A-N','Let me spell that: S-E-A-N.'),p('Confirm','Number: 555-0179','Let me repeat that: 555-0179.'),p('Confirm','Meeting: Friday at 6:45','So that’s Friday at six forty-five.'),p('Correct','Could you to repeat?','Could you repeat?'),p('Correct','I’m Emma. (on the phone)','This is Emma.')]),activity('Messages and invitations','Registre recados completos e responda a convites.',[p('Take a message','Caller Ana · call back · after 7 · 555-0192','Ana called. Please call her back after seven at 555-0192.'),p('Take a message','Meeting moved · Saturday · 2:30','The meeting moved to Saturday at two thirty.'),p('Answer','Would you like to come on Sunday? accept','I’d love to. What time?'),p('Answer','Would you like to come tonight? decline','I’m sorry, I can’t. I have plans.'),p('Ask','invite Sabrina to lunch on Friday','Would you like to have lunch on Friday?'),p('Change','Friday 7:00 → Saturday 6:30','Can we change it to Saturday at six thirty?'),p('Correct','Tell her call me back.','Tell her to call me back. / Ask her to call me back.'),p('Create','Leave a full voicemail: identity, reason, number, callback time.','Hi, this is... I’m calling about... Please call me back at...'),p('Create','Complete a call with one misunderstanding and confirmation.','Could you repeat...? Let me confirm...')],'Messages')],
-        translations:[t('Posso falar com a Sabrina?','Can I speak to Sabrina?'),t('Quem está falando?','Who’s calling?'),t('Aqui é a Emma.','This is Emma.'),t('Ela não está disponível agora.','She isn’t available right now.'),t('Aguarde, por favor.','Please hold.'),t('Posso deixar um recado?','Can I leave a message?'),t('Poderia repetir?','Could you repeat that?'),t('Poderia soletrar seu nome?','Could you spell your name?'),t('Peça para ela me retornar.','Ask her to call me back.'),t('Deixe-me confirmar o número.','Let me confirm the number.')],
-        expressions:[x('Can I speak to...?', 'Posso falar com...?', 'Pedido principal ao telefone.','Can I speak to Daniel?','Posso falar com Daniel?'),x('Who’s calling?', 'Quem está falando?', 'Pede identificação.','May I ask who’s calling?','Posso perguntar quem está falando?'),x('This is...', 'Aqui é...', 'Identificação ao telefone.','This is Emma.','Aqui é a Emma.'),x('Please hold.', 'Aguarde, por favor.','Pede espera na linha.','Please hold for a moment.','Aguarde um momento.'),x('Can I leave/take a message?', 'Posso deixar/anotar um recado?', 'Gerencia recado.','Can I take a message?','Posso anotar um recado?'),x('call me back', 'me retornar','Pedido de retorno.','Could you call me back?','Poderia me retornar?'),x('The line is bad.', 'A linha está ruim.','Explica problema de áudio.','The line is bad. I can’t hear you.','A linha está ruim. Não consigo ouvir.'),x('Let me confirm...', 'Deixe-me confirmar...','Evita erro.','Let me confirm the time.','Deixe-me confirmar o horário.'),x('Sorry, wrong number.', 'Desculpe, número errado.','Encerra ligação errada.','I’m sorry, wrong number.','Desculpe, número errado.')],
-        dialogues:[
-            dialogue('Calling Sabrina',line('A','Good afternoon. Can I speak to Sabrina, please?','Boa tarde. Posso falar com Sabrina, por favor?'),line('B','Of course. Who’s calling?','Claro. Quem está falando?'),line('A','This is Daniel from her English class.','Aqui é Daniel, da turma de inglês dela.'),line('B','One moment, please.','Um momento, por favor.'),line('A','Sure.','Claro.'),line('B','I’m connecting you now.','Vou transferir agora.')),
-            dialogue('Leaving a message',line('A','I’m sorry, Sabrina isn’t available right now.','Desculpe, Sabrina não está disponível agora.'),line('B','Can I leave a message?','Posso deixar um recado?'),line('A','Of course.','Claro.'),line('B','Please tell her the class starts at seven tonight.','Por favor, diga a ela que a aula começa às sete hoje à noite.'),line('A','Does she have your number?','Ela tem seu número?'),line('B','Yes, she does. Thank you.','Sim. Obrigado.')),
-            dialogue('A bad connection',line('A','Hello? The line is bad. I can’t hear you.','Alô? A linha está ruim. Não consigo ouvir você.'),line('B','Can you hear me now?','Consegue me ouvir agora?'),line('A','Only a little. Where are you?','Só um pouco. Onde você está?'),line('B','I’m on the bus.','Estou no ônibus.'),line('A','Okay. I’ll call you back in ten minutes.','Certo. Vou retornar em dez minutos.'),line('B','Great. Talk to you soon.','Ótimo. Falamos em breve.')),
-            dialogue('Confirming a number',line('A','My number is 555-0194.','Meu número é 555-0194.'),line('B','Let me repeat that: 555-0194.','Deixe-me repetir: 555-0194.'),line('A','That’s correct.','Está correto.'),line('B','Great. I’ll call after six.','Ótimo. Vou ligar depois das seis.')),
-            dialogue('A Saturday invitation',line('A','Would you like to come to my house on Saturday?','Gostaria de vir à minha casa no sábado?'),line('B','I’d love to. What time?','Eu adoraria. Que horas?'),line('A','How about seven?','Que tal às sete?'),line('B','Seven is perfect. Should I bring anything?','Sete está perfeito. Devo levar alguma coisa?'),line('A','You can bring some juice.','Você pode levar um pouco de suco.'),line('B','Okay. See you on Saturday.','Certo. Vejo você no sábado.'))
+(function(){'use strict';window.A1V3LessonRegistry.register(28,{
+  "title": "At the Airport",
+  "type": "content",
+  "summary": "Localizar portão e horário e pedir ajuda com uma informação ausente.",
+  "mission": {
+    "title": "At the Airport",
+    "task": "Localizar portão e horário e pedir ajuda com uma informação ausente.",
+    "focus": [
+      "Bilhete, voo, portão e bagagem; can/could em pedidos prontos; need; Where…?; revisão de números e horários."
+    ],
+    "semanticTags": [
+      "numbers-quantities",
+      "travel-weather",
+      "phone-requests",
+      "consolidation-progress"
+    ]
+  },
+  "slides": [
+    {
+      "id": "opening",
+      "type": "dialogue",
+      "title": "At the Airport",
+      "kicker": "At the Airport",
+      "instruction": "Acompanhe a leitura do professor. Depois leiam juntos e identifiquem a situação.",
+      "lines": [
+        [
+          "Agent",
+          "Good morning. Can I see your passport and ticket?",
+          "Bom dia. Posso ver seu passaporte e sua passagem?"
         ],
-        dialogueGroups: [[0, 1], [2, 3, 4]],
-        reading:reading('Three phone messages','Sabrina was away from her phone for one hour. Leo took three messages. First, Emma called about Saturday’s barbecue. The time changed from one to two thirty. Then Daniel called because he is going to bring drinks, but he needs the address. Finally, the doctor’s office called. Sabrina’s appointment is now on Monday at a quarter past ten. Leo repeated every number and time before he ended each call.',question('Who took the messages?','Leo did.'),question('What changed about the barbecue?','The time changed to two thirty.'),question('Why did Daniel call?','He needs the address.'),question('When is the appointment?','On Monday at a quarter past ten.'),question('What did Leo confirm?','Every number and time.')),
-        conversation:{questions:['Open and close a phone call.','Ask to speak to three people.','Identify yourself correctly.','Say someone is unavailable and offer to take a message.','Spell a name and dictate a number.','Ask for repetition because the line is bad.','Leave a complete message.','Handle an invitation whose time changes.'],support:['Can I speak to...?', 'This is...', 'Please hold.', 'Can I take a message?', 'Could you repeat...?', 'Let me confirm...', 'I’ll call back.']},
-        homework:homework('Prepare três roteiros telefônicos completos.', ['Pessoa indisponível','Linha ruim','Convite com mudança de horário'],['Cada ligação tem abertura, propósito, confirmação e encerramento.','Usei can/could em pedidos.','Registrei nomes, números e horários sem ambiguidade.']),
-        mission:{title:'Handle the call',task:'Atenda uma ligação, registre um recado completo e resolva uma mudança de horário.',focus:['phone language','polite requests','confirmation']}
-    }));
-    R.get(28).dialogues.push(
-        dialogue('Wrong number',line('A','Hello. Can I speak to Emma?','Alô. Posso falar com Emma?'),line('B','I’m sorry, wrong number.','Desculpe, número errado.')),
-        dialogue('Voicemail',line('A','Hi, this is Daniel. Please call me back after six.','Oi, aqui é Daniel. Por favor, retorne depois das seis.'),line('B','Message saved.','Mensagem salva.'))
-    );
-}());
+        [
+          "Daniel",
+          "Of course. Can I take this bag on the plane?",
+          "Claro. Posso levar esta bolsa no avião?"
+        ],
+        [
+          "Agent",
+          "Yes, you can, but you can’t take that large suitcase.",
+          "Sim, mas você não pode levar aquela mala grande."
+        ],
+        [
+          "Daniel",
+          "Where can I check it in?",
+          "Onde posso despachá-la?"
+        ],
+        [
+          "Agent",
+          "At counter twelve. Then go to gate twenty-four.",
+          "No balcão doze. Depois vá ao portão vinte e quatro."
+        ],
+        [
+          "Daniel",
+          "Thank you. I don’t know how to use the check-in machine.",
+          "Obrigado. Não sei usar a máquina de check-in."
+        ]
+      ]
+    },
+    {
+      "id": "vocabulary",
+      "type": "cards",
+      "title": "Vocabulary Expansion",
+      "kicker": "Vocabulary Expansion",
+      "instruction": "Leia os significados e exemplos. Escolha palavras para usar durante a conversa.",
+      "cards": [
+        [
+          "airport",
+          "aeroporto",
+          "We arrived at the airport."
+        ],
+        [
+          "flight",
+          "voo",
+          "My flight is at nine."
+        ],
+        [
+          "ticket",
+          "passagem; bilhete",
+          "Here is my ticket."
+        ],
+        [
+          "passport",
+          "passaporte",
+          "Can I see your passport?"
+        ],
+        [
+          "suitcase",
+          "mala",
+          "My suitcase is large."
+        ],
+        [
+          "luggage",
+          "bagagem",
+          "Where is my luggage?"
+        ],
+        [
+          "check in",
+          "fazer check-in",
+          "I need to check in."
+        ],
+        [
+          "counter",
+          "balcão",
+          "Go to counter twelve."
+        ],
+        [
+          "gate",
+          "portão de embarque",
+          "Gate twenty-four is open."
+        ],
+        [
+          "boarding pass",
+          "cartão de embarque",
+          "Here is your boarding pass."
+        ],
+        [
+          "departure",
+          "partida",
+          "Check the departures screen."
+        ],
+        [
+          "arrival",
+          "chegada",
+          "Arrivals are downstairs."
+        ],
+        [
+          "delayed",
+          "atrasado",
+          "The flight is delayed."
+        ],
+        [
+          "on time",
+          "no horário",
+          "The flight is on time."
+        ],
+        [
+          "board",
+          "embarcar",
+          "We can board now."
+        ],
+        [
+          "land",
+          "pousar",
+          "The plane landed at ten."
+        ],
+        [
+          "by plane",
+          "de avião",
+          "We traveled by plane."
+        ],
+        [
+          "by bus/train/car",
+          "de ônibus/trem/carro",
+          "I went by bus."
+        ]
+      ]
+    },
+    {
+      "id": "verbs",
+      "type": "verbs",
+      "title": "Verb bank",
+      "kicker": "Verb bank",
+      "instruction": "Consulte o infinitivo, o passado e o particípio. Observe nos exemplos a forma usada na frase.",
+      "cards": [
+        [
+          "travel",
+          "viajar",
+          "I travel by bus.",
+          "traveled · traveled"
+        ],
+        [
+          "take",
+          "pegar; levar",
+          "I took the bus.",
+          "took · taken"
+        ],
+        [
+          "leave",
+          "sair; deixar",
+          "The plane leaves at ten.",
+          "left · left"
+        ],
+        [
+          "board",
+          "embarcar",
+          "We board at gate four.",
+          "boarded · boarded"
+        ]
+      ]
+    },
+    {
+      "id": "helping",
+      "type": "patterns",
+      "title": "Helping You",
+      "kicker": "Helping You",
+      "instruction": "Use can + verbo base para habilidade, permissão informal ou possibilidade. Use know how to + verbo para saber como fazer algo.",
+      "groups": [
+        {
+          "title": "Can and know how to",
+          "cards": [
+            [
+              "can + base verb",
+              "Eu sei/posso dirigir.",
+              "I can drive."
+            ],
+            [
+              "can’t + base verb",
+              "Eu não sei/posso nadar.",
+              "I can’t swim."
+            ],
+            [
+              "Can + subject + base verb?",
+              "Você pode me ajudar?",
+              "Can you help me?"
+            ],
+            [
+              "Can I + base verb?",
+              "Posso levar esta bolsa?",
+              "Can I take this bag?"
+            ],
+            [
+              "know how to + base verb",
+              "Sei fazer check-in online.",
+              "I know how to check in online."
+            ],
+            [
+              "by + vehicle",
+              "de avião; de ônibus",
+              "by plane; by bus"
+            ]
+          ]
+        },
+        {
+          "title": "Como usar",
+          "cards": [
+            [
+              "Observe 1",
+              "Não use to depois de can: can go, não can to go.",
+              ""
+            ],
+            [
+              "Observe 2",
+              "Luggage é não contável: some luggage, two bags.",
+              ""
+            ],
+            [
+              "Observe 3",
+              "On foot é a pé; não by foot.",
+              ""
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice-0",
+      "type": "drill",
+      "title": "Airport route",
+      "kicker": "Airport route",
+      "instruction": "Associe cada necessidade ao lugar e dê instruções curtas.",
+      "items": [
+        [
+          "passport · boarding pass · gate · counter → travel document · document to board · boarding place · service desk",
+          "passport—travel document; boarding pass—document to board; gate—boarding place; counter—service desk"
+        ],
+        [
+          "Check ___ at counter twelve.",
+          "in"
+        ],
+        [
+          "Go to ___ twenty-four.",
+          "gate"
+        ],
+        [
+          "The flight is two hours late. It is ___.",
+          "delayed"
+        ],
+        [
+          "The flight leaves as planned. It is ___.",
+          "on time"
+        ],
+        [
+          "Where do I check in? Counter 12",
+          "At counter twelve."
+        ],
+        [
+          "Where do I board? Gate 24",
+          "At gate twenty-four."
+        ],
+        [
+          "I have two luggages.",
+          "I have two bags / some luggage."
+        ],
+        [
+          "check in · go through security · go to gate · board",
+          "First check in. Then go through security. Go to the gate and board."
+        ]
+      ]
+    },
+    {
+      "id": "practice-1",
+      "type": "drill",
+      "title": "Can or can’t?",
+      "kicker": "Can or can’t?",
+      "instruction": "Forme pedidos, habilidades e possibilidades sem usar to.",
+      "items": [
+        [
+          "I ___ take this small bag.",
+          "can"
+        ],
+        [
+          "You ___ take the large suitcase on the plane.",
+          "can’t"
+        ],
+        [
+          "I / Can / here / check in / ?",
+          "Can I check in here?"
+        ],
+        [
+          "help / Can / me / you / ?",
+          "Can you help me?"
+        ],
+        [
+          "I can drive.",
+          "I can’t drive."
+        ],
+        [
+          "Sarah can speak Spanish.",
+          "Can Sarah speak Spanish?"
+        ],
+        [
+          "Can you drive?",
+          "Yes, I can. / No, I can’t."
+        ],
+        [
+          "Can I take this bag? positive",
+          "Yes, you can."
+        ],
+        [
+          "Can you to help me?",
+          "Can you help me?"
+        ],
+        [
+          "I no can find my gate.",
+          "I can’t find my gate."
+        ]
+      ]
+    },
+    {
+      "id": "practice-2",
+      "type": "drill",
+      "title": "Know how and transport",
+      "kicker": "Know how and transport",
+      "instruction": "Diga o que sabe fazer e como as pessoas viajaram.",
+      "items": [
+        [
+          "I know how ___ use the machine.",
+          "to"
+        ],
+        [
+          "She doesn’t know how ___ check in online.",
+          "to"
+        ],
+        [
+          "I can use the machine.",
+          "I know how to use the machine."
+        ],
+        [
+          "Do you know how to check in online?",
+          "Yes, I do. / No, I don’t."
+        ],
+        [
+          "We traveled ___ plane.",
+          "by"
+        ],
+        [
+          "They went ___ foot.",
+          "on"
+        ],
+        [
+          "I went (by / on) bus.",
+          "by"
+        ],
+        [
+          "I went (by / on) foot.",
+          "on"
+        ],
+        [
+          "We traveled with plane.",
+          "We traveled by plane."
+        ],
+        [
+          "Say three things you know how to do and one you don’t.",
+          "I know how to... I don’t know how to..."
+        ],
+        [
+          "Describe how four people arrived at the airport.",
+          "... arrived by ..."
+        ]
+      ]
+    },
+    {
+      "id": "drill",
+      "type": "drill",
+      "title": "Say it in English.",
+      "kicker": "Say it in English.",
+      "instruction": "Diga a frase em inglês. Confira o modelo e depois personalize uma informação.",
+      "items": [
+        [
+          "Posso ver seu passaporte?",
+          "Can I see your passport?"
+        ],
+        [
+          "Posso levar esta bolsa?",
+          "Can I take this bag?"
+        ],
+        [
+          "Você não pode levar a mala grande.",
+          "You can’t take the large suitcase."
+        ],
+        [
+          "Onde posso fazer check-in?",
+          "Where can I check in?"
+        ],
+        [
+          "Vá ao portão vinte e quatro.",
+          "Go to gate twenty-four."
+        ],
+        [
+          "Meu voo está atrasado.",
+          "My flight is delayed."
+        ],
+        [
+          "O voo está no horário.",
+          "The flight is on time."
+        ],
+        [
+          "Não sei usar a máquina.",
+          "I don’t know how to use the machine."
+        ],
+        [
+          "Viajamos de avião.",
+          "We traveled by plane."
+        ],
+        [
+          "Ele foi ao aeroporto de ônibus.",
+          "He went to the airport by bus."
+        ]
+      ]
+    },
+    {
+      "id": "expressions",
+      "type": "cards",
+      "title": "Key phrases & expressions",
+      "kicker": "Key phrases & expressions",
+      "instruction": "Use cada expressão como um bloco. Leia o exemplo e crie uma troca curta.",
+      "cards": [
+        [
+          "Can I see...?",
+          "Posso ver...? · Pedido frequente no atendimento.",
+          "Can I see your boarding pass?"
+        ],
+        [
+          "Can I take...?",
+          "Posso levar...? · Pergunta por permissão.",
+          "Can I take this bag?"
+        ],
+        [
+          "Where can I...?",
+          "Onde posso...? · Pede local para uma ação.",
+          "Where can I check in?"
+        ],
+        [
+          "Which gate?",
+          "Qual portão? · Confirma local de embarque.",
+          "Which gate is it?"
+        ],
+        [
+          "Is the flight on time?",
+          "O voo está no horário? · Confirma situação do voo.",
+          "Is flight 205 on time?"
+        ],
+        [
+          "The flight is delayed.",
+          "O voo está atrasado. · Atualização de viagem.",
+          "The flight is delayed by one hour."
+        ],
+        [
+          "I don’t know how to...",
+          "Não sei como... · Explica dificuldade prática.",
+          "I don’t know how to check in."
+        ],
+        [
+          "Could you help me?",
+          "Poderia me ajudar? · Pedido educado como bloco útil.",
+          "Could you help me with this machine?"
+        ]
+      ]
+    },
+    {
+      "id": "dialogues",
+      "type": "dialogue",
+      "title": "Dialog Samples",
+      "kicker": "Dialog Samples",
+      "instruction": "Leiam as situações e troquem os papéis. Depois alterem uma informação.",
+      "lines": [
+        [
+          "A",
+          "Good morning. Can I see your passport?",
+          "Bom dia. Posso ver seu passaporte?"
+        ],
+        [
+          "B",
+          "Of course. Here it is.",
+          "Claro. Aqui está."
+        ],
+        [
+          "A",
+          "Where are you flying today?",
+          "Para onde você vai viajar hoje?"
+        ],
+        [
+          "B",
+          "I’m flying to Madrid.",
+          "Vou viajar para Madri."
+        ],
+        [
+          "A",
+          "Do you have a suitcase to check in?",
+          "Você tem uma mala para despachar?"
+        ],
+        [
+          "B",
+          "Yes. This blue suitcase is mine.",
+          "Sim. Esta mala azul é minha."
+        ],
+        [
+          "A",
+          "Can I take this suitcase on the plane?",
+          "Posso levar esta mala no avião?"
+        ],
+        [
+          "B",
+          "No, it’s too large. You can check it in.",
+          "Não, ela é grande demais. Você pode despachá-la."
+        ],
+        [
+          "A",
+          "Where can I do that?",
+          "Onde posso fazer isso?"
+        ],
+        [
+          "B",
+          "At the desk next to gate twelve.",
+          "No balcão ao lado do portão doze."
+        ],
+        [
+          "A",
+          "Thank you for your help.",
+          "Obrigado pela ajuda."
+        ],
+        [
+          "B",
+          "You’re welcome.",
+          "De nada."
+        ],
+        [
+          "A",
+          "Excuse me. Where can I find gate twenty-four?",
+          "Com licença. Onde encontro o portão vinte e quatro?"
+        ],
+        [
+          "B",
+          "Go straight and turn right after the café.",
+          "Siga reto e vire à direita depois do café."
+        ],
+        [
+          "A",
+          "Is it far from here?",
+          "Fica longe daqui?"
+        ],
+        [
+          "B",
+          "No. It’s about five minutes from here.",
+          "Não. Fica a cerca de cinco minutos daqui."
+        ],
+        [
+          "A",
+          "Great. Thank you.",
+          "Ótimo. Obrigado."
+        ],
+        [
+          "B",
+          "Have a good flight.",
+          "Tenha um bom voo."
+        ],
+        [
+          "A",
+          "Is flight 308 on time?",
+          "O voo 308 está no horário?"
+        ],
+        [
+          "B",
+          "No. It is delayed by forty minutes.",
+          "Não. Está atrasado em quarenta minutos."
+        ],
+        [
+          "A",
+          "What time can we board?",
+          "A que horas podemos embarcar?"
+        ],
+        [
+          "B",
+          "Boarding starts at nine fifteen.",
+          "O embarque começa às nove e quinze."
+        ],
+        [
+          "A",
+          "Is the gate still twenty-four?",
+          "O portão ainda é o vinte e quatro?"
+        ],
+        [
+          "B",
+          "Yes. The gate is the same.",
+          "Sim. O portão é o mesmo."
+        ],
+        [
+          "A",
+          "Do you know how to use this machine?",
+          "Você sabe usar esta máquina?"
+        ],
+        [
+          "B",
+          "No. Could you help me?",
+          "Não. Poderia me ajudar?"
+        ],
+        [
+          "A",
+          "Sure. First, put your passport here.",
+          "Claro. Primeiro, coloque seu passaporte aqui."
+        ],
+        [
+          "B",
+          "Okay. What do I do next?",
+          "Certo. O que faço depois?"
+        ],
+        [
+          "A",
+          "Choose your flight on the screen.",
+          "Escolha seu voo na tela."
+        ],
+        [
+          "B",
+          "Got it. Thank you.",
+          "Entendi. Obrigado."
+        ],
+        [
+          "A",
+          "What time can we board?",
+          "A que horas podemos embarcar?"
+        ],
+        [
+          "B",
+          "Boarding starts at eight fifteen.",
+          "O embarque começa às oito e quinze."
+        ],
+        [
+          "A",
+          "How did you get to the airport?",
+          "Como você chegou ao aeroporto?"
+        ],
+        [
+          "B",
+          "I came by train.",
+          "Vim de trem."
+        ]
+      ],
+      "lineTitles": {
+        "0": "At the check-in desk",
+        "6": "A suitcase on the plane",
+        "12": "Finding the gate",
+        "18": "A delayed flight",
+        "24": "Using the check-in machine",
+        "30": "Boarding time",
+        "32": "Transport to the airport"
+      }
+    },
+    {
+      "id": "reading",
+      "type": "reading",
+      "title": "Daniel’s delayed flight",
+      "kicker": "Daniel’s delayed flight",
+      "instruction": "O professor lê primeiro. Depois leia e responda às perguntas consultando o texto.",
+      "paragraphs": [
+        "Daniel arrived at the airport at six thirty. He checked in at counter twelve and put his large suitcase on the belt. He kept a small bag with him. His boarding pass said gate twenty-four, but he couldn’t find it. A worker showed him the way. At the gate, Daniel learned that his flight was delayed by one hour. He called Emma and bought some water. Finally, they boarded at eight fifteen."
+      ],
+      "items": [
+        [
+          "What time did Daniel arrive?",
+          "At six thirty."
+        ],
+        [
+          "Where did he check in?",
+          "At counter twelve."
+        ],
+        [
+          "Which bag did he keep?",
+          "A small bag."
+        ],
+        [
+          "Could he find the gate?",
+          "No, he couldn’t."
+        ],
+        [
+          "What happened to the flight?",
+          "It was delayed by one hour."
+        ],
+        [
+          "What time did they board?",
+          "At eight fifteen."
+        ]
+      ],
+      "translations": []
+    },
+    {
+      "id": "talk",
+      "type": "conversation",
+      "title": "Let's Talk",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor usando suas informações ou um perfil inventado.",
+      "tasks": [
+        [
+          "Pergunta 1",
+          "Name ten airport words."
+        ],
+        [
+          "Pergunta 2",
+          "Explain the route from the entrance to the plane."
+        ],
+        [
+          "Pergunta 3",
+          "Ask permission to take two items."
+        ],
+        [
+          "Pergunta 4",
+          "Say three things you can do when traveling."
+        ],
+        [
+          "Pergunta 5",
+          "Say one thing you don’t know how to do."
+        ],
+        [
+          "Pergunta 6",
+          "Ask for help at a check-in machine."
+        ]
+      ],
+      "goal": "Localizar portão e horário e pedir ajuda com uma informação ausente.",
+      "challenge": "Depois de responder, faça uma pergunta ao professor."
+    },
+    {
+      "id": "exit",
+      "type": "exit",
+      "title": "Look at your progress.",
+      "kicker": "Look at your progress.",
+      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
+      "checks": [
+        "Localizar portão e horário e pedir ajuda com uma informação ausente.",
+        "Consegui pedir repetição ou esclarecimento.",
+        "Consigo tentar novamente com menos apoio."
+      ]
+    },
+    {
+      "id": "homework",
+      "type": "homework",
+      "title": "Take it with you.",
+      "kicker": "Take it with you.",
+      "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
+      "options": [
+        [
+          "A",
+          "Speak",
+          "Simule uma ligação informando sua localização, seu transporte e seu horário de chegada."
+        ],
+        [
+          "B",
+          "Write",
+          "Escreva duas mensagens sobre uma viagem: uma informando um atraso e outra confirmando a chegada."
+        ],
+        [
+          "C",
+          "Make a Card",
+          "Prepare um bilhete de viagem com destino e horário e três perguntas para pedir informações."
+        ]
+      ]
+    }
+  ],
+  "migration": {
+    "sourceLesson": "a1-v3-23-at-the-airport",
+    "editorialVersion": "2026.09-a1-38"
+  }
+});}());

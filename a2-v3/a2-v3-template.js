@@ -189,8 +189,685 @@
         })
     });
 
+    const PRESENTATION_EXPANSION = {
+  "3": {
+    "vocab": [
+      [
+        "landmark",
+        "ponto de referência",
+        "The clock tower is a useful landmark."
+      ],
+      [
+        "station",
+        "estação",
+        "Meet me outside the station."
+      ],
+      [
+        "square",
+        "praça",
+        "Walk across the square."
+      ],
+      [
+        "opposite",
+        "em frente a; do lado oposto",
+        "The hotel is opposite the bank."
+      ],
+      [
+        "straight ahead",
+        "logo à frente",
+        "The entrance is straight ahead."
+      ],
+      [
+        "distance",
+        "distância",
+        "What is the distance to the station?"
+      ]
+    ],
+    "expressions": [
+      [
+        "Am I going the right way?",
+        "Estou indo pelo caminho certo?",
+        "Use para confirmar a rota.",
+        "Am I going the right way to the museum?"
+      ],
+      [
+        "How long does it take?",
+        "Quanto tempo leva?",
+        "Use does + take.",
+        "How long does it take on foot?"
+      ]
+    ]
+  },
+  "5": {
+    "vocab": [
+      [
+        "fitness",
+        "condicionamento físico",
+        "Walking can improve your fitness."
+      ],
+      [
+        "stretch",
+        "alongamento",
+        "We do a short stretch before practice."
+      ],
+      [
+        "coach",
+        "treinador",
+        "The coach helps beginners."
+      ],
+      [
+        "teammate",
+        "colega de equipe",
+        "My teammate practices with me."
+      ],
+      [
+        "rest day",
+        "dia de descanso",
+        "Sunday is my rest day."
+      ],
+      [
+        "training session",
+        "sessão de treino",
+        "The training session lasts an hour."
+      ]
+    ],
+    "expressions": [
+      [
+        "at my own pace",
+        "no meu próprio ritmo",
+        "Use para ajustar a intensidade.",
+        "I prefer to exercise at my own pace."
+      ],
+      [
+        "take a break",
+        "fazer uma pausa",
+        "Use para interromper a atividade por um momento.",
+        "Let us take a break after this match."
+      ]
+    ]
+  },
+  "7": {
+    "vocab": [
+      [
+        "headline",
+        "manchete",
+        "This headline caught my attention."
+      ],
+      [
+        "episode",
+        "episódio",
+        "The latest episode is about travel."
+      ],
+      [
+        "review",
+        "resenha; avaliação",
+        "I read a review before choosing a film."
+      ],
+      [
+        "subscription",
+        "assinatura",
+        "My subscription includes podcasts."
+      ],
+      [
+        "recommendation",
+        "recomendação",
+        "Thanks for the recommendation."
+      ],
+      [
+        "current events",
+        "acontecimentos atuais",
+        "We discuss current events at lunch."
+      ]
+    ],
+    "expressions": [
+      [
+        "give it a try",
+        "experimentar",
+        "Use ao sugerir uma novidade.",
+        "You should give this podcast a try."
+      ],
+      [
+        "What is it about?",
+        "Sobre o que é?",
+        "Pergunte pelo assunto.",
+        "That documentary sounds interesting. What is it about?"
+      ]
+    ]
+  },
+  "9": {
+    "vocab": [
+      [
+        "crispy",
+        "crocante",
+        "The potatoes are crispy."
+      ],
+      [
+        "creamy",
+        "cremoso",
+        "This sauce is very creamy."
+      ],
+      [
+        "mild",
+        "suave; pouco picante",
+        "Could I have a mild curry?"
+      ],
+      [
+        "portion",
+        "porção",
+        "This portion is enough for two."
+      ],
+      [
+        "ingredient",
+        "ingrediente",
+        "What ingredients are in this dish?"
+      ],
+      [
+        "vegetarian",
+        "vegetariano",
+        "Do you have a vegetarian option?"
+      ]
+    ],
+    "expressions": [
+      [
+        "That sounds good.",
+        "Isso parece bom.",
+        "Reaja a uma sugestão.",
+        "A mild curry? That sounds good."
+      ],
+      [
+        "share a dish",
+        "dividir um prato",
+        "Use quando duas pessoas comem o mesmo pedido.",
+        "We can share a dish rather than order two."
+      ]
+    ]
+  },
+  "11": {
+    "vocab": [
+      [
+        "server",
+        "garçom; atendente",
+        "The server brought our menus."
+      ],
+      [
+        "table for two",
+        "mesa para dois",
+        "We would like a table for two."
+      ],
+      [
+        "booking",
+        "reserva",
+        "The booking is under my name."
+      ],
+      [
+        "tap water",
+        "água da torneira",
+        "Could we have some tap water?"
+      ],
+      [
+        "allergy",
+        "alergia",
+        "I have a peanut allergy."
+      ],
+      [
+        "separate bills",
+        "contas separadas",
+        "Could we have separate bills?"
+      ]
+    ],
+    "expressions": [
+      [
+        "There is a mistake with my order.",
+        "Há um erro no meu pedido.",
+        "Explique o problema com educação.",
+        "Excuse me, there is a mistake with my order."
+      ],
+      [
+        "Could you leave out...?",
+        "Você poderia tirar...?",
+        "Peça para não incluir um ingrediente.",
+        "Could you leave out the onions?"
+      ]
+    ]
+  },
+  "13": {
+    "vocab": [
+      [
+        "reliable",
+        "confiável",
+        "She is reliable and always calls back."
+      ],
+      [
+        "thoughtful",
+        "atencioso",
+        "That was a thoughtful message."
+      ],
+      [
+        "calm",
+        "calmo",
+        "He stays calm when plans change."
+      ],
+      [
+        "sensitive",
+        "sensível",
+        "She is sensitive to other people's feelings."
+      ],
+      [
+        "rude",
+        "grosseiro",
+        "That reply sounded rude."
+      ],
+      [
+        "stressed",
+        "estressado",
+        "I feel stressed before a busy day."
+      ]
+    ],
+    "expressions": [
+      [
+        "Is everything okay?",
+        "Está tudo bem?",
+        "Inicie uma conversa de apoio.",
+        "You seem upset. Is everything okay?"
+      ],
+      [
+        "Do you want to talk about it?",
+        "Você quer conversar sobre isso?",
+        "Convide sem pressionar.",
+        "Do you want to talk about it, or do you need some space?"
+      ]
+    ]
+  },
+  "15": {
+    "vocab": [
+      [
+        "injury",
+        "lesão; ferimento",
+        "He has an injury to his arm."
+      ],
+      [
+        "witness",
+        "testemunha",
+        "A witness called for help."
+      ],
+      [
+        "ambulance",
+        "ambulância",
+        "An ambulance arrived quickly."
+      ],
+      [
+        "bandage",
+        "curativo; bandagem",
+        "There is a bandage on her wrist."
+      ],
+      [
+        "slippery",
+        "escorregadio",
+        "The floor is slippery."
+      ],
+      [
+        "emergency contact",
+        "contato de emergência",
+        "Who is your emergency contact?"
+      ]
+    ],
+    "expressions": [
+      [
+        "Are you all right?",
+        "Você está bem?",
+        "Verifique como alguém está.",
+        "You fell over. Are you all right?"
+      ],
+      [
+        "Stay where you are.",
+        "Fique onde está.",
+        "Use ao combinar ajuda ou localização.",
+        "I can see the entrance. Stay where you are."
+      ]
+    ]
+  },
+  "17": {
+    "vocab": [
+      [
+        "affordable",
+        "acessível; que cabe no orçamento",
+        "This model is more affordable."
+      ],
+      [
+        "expensive",
+        "caro",
+        "The leather bag is too expensive."
+      ],
+      [
+        "warranty",
+        "garantia",
+        "Does it come with a warranty?"
+      ],
+      [
+        "refund",
+        "reembolso",
+        "Can I ask for a refund?"
+      ],
+      [
+        "budget",
+        "orçamento",
+        "My budget is eighty dollars."
+      ],
+      [
+        "delivery fee",
+        "taxa de entrega",
+        "Is there a delivery fee?"
+      ]
+    ],
+    "expressions": [
+      [
+        "Does that include delivery?",
+        "Isso inclui a entrega?",
+        "Confirme o custo total.",
+        "The price is sixty dollars. Does that include delivery?"
+      ],
+      [
+        "I will take it.",
+        "Vou levar.",
+        "Confirme a compra.",
+        "It is within my budget. I will take it."
+      ]
+    ]
+  },
+  "19": {
+    "vocab": [
+      [
+        "deadline",
+        "prazo final",
+        "We need to agree on a deadline."
+      ],
+      [
+        "permission",
+        "permissão",
+        "Ask for permission before using it."
+      ],
+      [
+        "favor",
+        "favor",
+        "Could you do me a favor?"
+      ],
+      [
+        "amount",
+        "quantia",
+        "It is a small amount of money."
+      ],
+      [
+        "agreement",
+        "acordo",
+        "Our agreement is to return it on Friday."
+      ],
+      [
+        "replacement",
+        "substituto; reposição",
+        "I can bring a replacement tomorrow."
+      ]
+    ],
+    "expressions": [
+      [
+        "Could you do me a favor?",
+        "Você poderia me fazer um favor?",
+        "Introduza um pedido.",
+        "Could you do me a favor and lend me your charger?"
+      ],
+      [
+        "by the end of the day",
+        "até o fim do dia",
+        "Defina um prazo claro.",
+        "I will return it by the end of the day."
+      ]
+    ]
+  },
+  "21": {
+    "vocab": [
+      [
+        "reunion",
+        "reencontro",
+        "We met at a family reunion."
+      ],
+      [
+        "schoolmate",
+        "colega de escola",
+        "My old schoolmate lives nearby."
+      ],
+      [
+        "bond",
+        "vínculo",
+        "We have a strong bond."
+      ],
+      [
+        "tradition",
+        "tradição",
+        "Sunday lunch is a family tradition."
+      ],
+      [
+        "hometown",
+        "cidade natal",
+        "I visit my hometown every year."
+      ],
+      [
+        "shared interest",
+        "interesse em comum",
+        "Music is one of our shared interests."
+      ]
+    ],
+    "expressions": [
+      [
+        "We have a lot in common.",
+        "Temos muito em comum.",
+        "Fale de interesses compartilhados.",
+        "We both enjoy hiking. We have a lot in common."
+      ],
+      [
+        "We lost touch.",
+        "Perdemos contato.",
+        "Explique uma pausa na relação.",
+        "We lost touch after school, but we met again last year."
+      ]
+    ]
+  },
+  "23": {
+    "vocab": [
+      [
+        "striped",
+        "listrado",
+        "The striped shirt goes with these trousers."
+      ],
+      [
+        "plain",
+        "liso; sem estampa",
+        "I prefer a plain T-shirt."
+      ],
+      [
+        "loose",
+        "folgado",
+        "These trousers are too loose."
+      ],
+      [
+        "tight",
+        "apertado",
+        "The jacket feels tight."
+      ],
+      [
+        "occasion",
+        "ocasião",
+        "What is the occasion?"
+      ],
+      [
+        "second-hand",
+        "de segunda mão",
+        "I bought a second-hand coat."
+      ]
+    ],
+    "expressions": [
+      [
+        "Does this suit me?",
+        "Isso combina comigo?",
+        "Peça opinião sobre aparência.",
+        "Does this color suit me?"
+      ],
+      [
+        "dress up",
+        "vestir-se de forma mais elegante",
+        "Use para uma ocasião especial.",
+        "We are going to dress up for the dinner."
+      ]
+    ]
+  },
+  "25": {
+    "vocab": [
+      [
+        "option",
+        "opção",
+        "Let's consider another option."
+      ],
+      [
+        "trust",
+        "confiança",
+        "It takes time to build trust."
+      ],
+      [
+        "apology",
+        "pedido de desculpas",
+        "She accepted his apology."
+      ],
+      [
+        "privacy",
+        "privacidade",
+        "We should respect his privacy."
+      ],
+      [
+        "risk",
+        "risco",
+        "What is the risk of waiting?"
+      ],
+      [
+        "point of view",
+        "ponto de vista",
+        "Try to understand her point of view."
+      ]
+    ],
+    "expressions": [
+      [
+        "If I were you,...",
+        "Se eu fosse você,...",
+        "Use como bloco para dar uma sugestão.",
+        "If I were you, I would talk to her first."
+      ],
+      [
+        "It is up to you.",
+        "Você decide.",
+        "Respeite a escolha da outra pessoa.",
+        "I can explain the options, but it is up to you."
+      ]
+    ]
+  },
+  "27": {
+    "vocab": [
+      [
+        "attraction",
+        "atração",
+        "Which attraction is worth visiting?"
+      ],
+      [
+        "queue",
+        "fila",
+        "The queue was longer than expected."
+      ],
+      [
+        "highlight",
+        "ponto alto",
+        "The boat trip was the highlight."
+      ],
+      [
+        "accommodation",
+        "hospedagem",
+        "Our accommodation was close to the beach."
+      ],
+      [
+        "crowded",
+        "lotado",
+        "The square is very crowded."
+      ],
+      [
+        "peaceful",
+        "tranquilo",
+        "The garden is the most peaceful place here."
+      ]
+    ],
+    "expressions": [
+      [
+        "What would you recommend?",
+        "O que você recomendaria?",
+        "Peça uma indicação.",
+        "We have one afternoon. What would you recommend?"
+      ],
+      [
+        "avoid the crowds",
+        "evitar as multidões",
+        "Use ao planejar horário ou local.",
+        "Go early to avoid the crowds."
+      ]
+    ]
+  },
+  "29": {
+    "vocab": [
+      [
+        "progress",
+        "progresso",
+        "I can see my progress."
+      ],
+      [
+        "habit",
+        "hábito",
+        "I want to build a new habit."
+      ],
+      [
+        "schedule",
+        "agenda; programação",
+        "It depends on my schedule."
+      ],
+      [
+        "obstacle",
+        "obstáculo",
+        "Time is my biggest obstacle."
+      ],
+      [
+        "first step",
+        "primeiro passo",
+        "My first step is to make a plan."
+      ],
+      [
+        "backup plan",
+        "plano alternativo",
+        "We need a backup plan if it rains."
+      ]
+    ],
+    "expressions": [
+      [
+        "one step at a time",
+        "um passo de cada vez",
+        "Use para tornar um plano viável.",
+        "I am going to change my routine one step at a time."
+      ],
+      [
+        "stick to the plan",
+        "seguir o plano",
+        "Use para falar de consistência.",
+        "It is easier to stick to the plan with a friend."
+      ]
+    ]
+  }
+};
+
     const lesson = (lessonNumber, config) => {
         const { routeOptions, ...authored } = config;
+        const expansion = PRESENTATION_EXPANSION[lessonNumber];
+        if (expansion) { authored.vocab = [...authored.vocab, ...expansion.vocab]; authored.expressions = [...authored.expressions, ...expansion.expressions]; }
         const homeworkTasks = HOMEWORK_TASKS[lessonNumber];
         if (!homeworkTasks) throw new Error(`A2-V3 L${lessonNumber}: missing authored homework tasks.`);
         return Object.freeze({

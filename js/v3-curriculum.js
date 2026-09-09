@@ -22,7 +22,7 @@
 
     const VERSION = '2026.07-action-oriented-32';
     const MODULE_VERSIONS = {
-        'a1-v3': '2026.08.05-expanded-a1-32',
+        'a1-v3': '2026.09-a1-38',
         'a2-v3': '2026.08.16-premium-book-2-cycle',
         'b1-v3': '2026.08.22-lexical-communicative-cycle'
     };
@@ -146,39 +146,159 @@
 
     const raw = {
         'a1-v3': [
-            ['First Day of Class', 'apresentações, nomes, agradecimentos e blocos com be', [1]],
-            ['A Few Days Later', 'cumprimentos, profissões, a/an e I am/you are', [1, 18]],
-            ['At Break', 'intervalo, alimentos e bebidas; we/they com be; hungry, thirsty, early, late e ready', [7]],
-            ['Names Around the Class', 'he/she, his/her, alfabeto, soletração e números 0–20', [2, 26]],
-            ['Conversation Activities 1', 'revisão comunicativa das lições 1–4'],
-            ['What’s Your Address?', 'endereço, contato, números 21–100, 1.000, 10.000, at e dot', [2]],
-            ['Let’s Go Out!', 'Present Simple com I/you/we/they; do/don’t; preferências, convites, aceitação e recusa'],
-            ['My Everyday Life', 'Present Simple com I/you, rotina e preferências', [4]],
-            ['Sarah’s Routine', 'terceira pessoa, do/does e informações pessoais', [4]],
-            ['Conversation Activities 2', 'revisão comunicativa das lições 6–9'],
-            ['Family Photos', 'família, possessive ’s, have/has e idades', [3]],
-            ['At Home', 'móveis, roupas, preposições e there is/there are', [17]],
-            ['Let’s Go Shopping', 'contáveis, não contáveis, some/any, much/many e a lot of', [7, 14]],
-            ['At the Store', 'preços, quantidades, a few/a little e números acima de 100', [14]],
-            ['Conversation Activities 3', 'revisão comunicativa das lições 11–14'],
-            ['Which One?', 'cores, roupas, one/ones e object pronouns'],
-            ['Is It Yours or Mine?', 'whose e possessive pronouns'],
-            ['What Are They Doing?', 'Present Continuous em ações atuais', [22]],
-            ['What’s Your Friend Like?', 'aparência, descrição pessoal e horários', [8, 6]],
-            ['Conversation Activities 4', 'revisão comunicativa das lições 16–19'],
-            ['Vacation Calendar', 'meses, datas, férias e was/were', [21, 27]],
-            ['What Happened?', 'Past Simple regular e verbos irregulares essenciais', [27]],
-            ['At the Airport', 'transporte, viagem, can e know how to', [18, 19]],
-            ['What Was Happening?', 'Past Continuous básico em cenas de viagem'],
-            ['Conversation Activities 5', 'revisão comunicativa das lições 21–24'],
-            ['Sabrina’s Invitation', 'estações, clima e going to', [12, 29]],
-            ['Health Problems', 'sintomas, conselhos e will em decisões simples'],
-            ['On the Phone', 'linguagem telefônica, convites e pedidos com can/could'],
-            ['Take It Easy', 'start/finish, before/after/until e contraste temporal essencial'],
-            ['Conversation Activities 6', 'revisão comunicativa das lições 26–29'],
-            ['A1 Consolidation · Part 1', 'grande revisão das lições 1–15'],
-            ['A1 Consolidation · Part 2', 'grande revisão das lições 16–30']
+        [
+                "Hello, I'm…",
+                "Cumprimentos, nome, despedidas e cortesia; I/you, am/are em blocos; What's your name?; Please repeat."
         ],
+        [
+                "Names and People",
+                "Alfabeto, soletração, números 0–20; he/she, is, my/your/his/her; this is…; How do you spell…?"
+        ],
+        [
+                "Meet Someone New",
+                "Aplicação de 1–2: escuta de apresentações, cartões de identidade e troca de papéis."
+        ],
+        [
+                "People at Work",
+                "Profissões e locais; a/an; be afirmativo, negativo e pergunta; work in/at/as como combinações; What do you do? como pergunta pronta."
+        ],
+        [
+                "Stay in Touch",
+                "Endereço, telefone, e-mail; números 21–100; at/dot; What's your…?; It's…; confirmação de dígitos."
+        ],
+        [
+                "A New Registration",
+                "Aplicação de 4–5; retoma nomes e soletração de 1–2."
+        ],
+        [
+                "At the Café",
+                "Alimentos e bebidas; like/want/have/eat/drink com I/you; do/don't; What do you want?; Here you are."
+        ],
+        [
+                "My Everyday Life",
+                "Ações de rotina, dias da semana e horas; I/you/we/they; always/usually/sometimes/never; at/on/in em combinações selecionadas."
+        ],
+        [
+                "A Day in My Life",
+                "Aplicação de 7–8; retoma profissão e números."
+        ],
+        [
+                "Someone Else's Routine",
+                "work/study/live/go e outros verbos já conhecidos; he/she + -s; does/doesn't; perguntas curtas sobre rotina."
+        ],
+        [
+                "My Family",
+                "Pessoas da família e idade; have/has; possessive 's; our/their; Who is…?; How old…?"
+        ],
+        [
+                "People in My Life",
+                "Aplicação de 10–11; retoma horários, profissão e local."
+        ],
+        [
+                "At Home",
+                "Cômodos, móveis e objetos; there is/are; in/on/under/next to/between; Where is/are…?"
+        ],
+        [
+                "What's in the Kitchen?",
+                "Comida e embalagens; contável/não contável em contexto; some/any; how much/how many; need."
+        ],
+        [
+                "Let's Get Ready",
+                "Aplicação de 13–14; retoma preferências e números."
+        ],
+        [
+                "At the Store",
+                "Produtos, preços, quantidades e pagamento; números acima de 100 em preços; How much is/are…?; I'd like… como bloco."
+        ],
+        [
+                "Which One?",
+                "Roupas, cores e tamanhos; this/that/these/those; one/ones; it/them em pedidos; a few/a little como extensão."
+        ],
+        [
+                "Find the Right Item",
+                "Aplicação de 16–17; retoma some/any, preferências e localização."
+        ],
+        [
+                "Is It Yours?",
+                "Objetos pessoais; whose; mine/yours/his/hers/ours/theirs; retomada de possessivos; belong to como extensão."
+        ],
+        [
+                "What Are They Doing?",
+                "Ações visíveis; Present Continuous afirmativo, negativo e pergunta; now; wear/carry/wait."
+        ],
+        [
+                "Lost and Found",
+                "Aplicação de 19–20; retoma cores, objetos e localização."
+        ],
+        [
+                "What Is Your Friend Like?",
+                "Aparência e traços comuns de personalidade; be/have/be wearing; What…like? e look like em modelos; him/her como apoio."
+        ],
+        [
+                "Around Town",
+                "Lugares e transportes; can/can't para capacidade e ajuda; imperativos curtos; turn/go/stop; by bus/on foot."
+        ],
+        [
+                "Meet Me There",
+                "Aplicação de 22–23; retoma horas, roupas e ações atuais."
+        ],
+        [
+                "My Vacation Calendar",
+                "Meses, datas e lugares; yesterday/last…; was/were; perguntas de lugar e condição; ordinais mais usados em datas."
+        ],
+        [
+                "What Happened?",
+                "Past Simple com poucos verbos frequentes: went, had, saw, visited, stayed; did/didn't; first/then."
+        ],
+        [
+                "A Short Trip",
+                "Aplicação de 25–26; retoma datas, transportes e preferências."
+        ],
+        [
+                "At the Airport",
+                "Bilhete, voo, portão e bagagem; can/could em pedidos prontos; need; Where…?; revisão de números e horários."
+        ],
+        [
+                "Travel Updates",
+                "waiting/boarding/leaving, late/early/ready; ações e condições atuais; anúncio curto. Extensão: was/were + -ing para uma ação em andamento no passado."
+        ],
+        [
+                "A Change of Plans",
+                "Aplicação de 28–29; retoma viagem passada de 25–26."
+        ],
+        [
+                "Let's Make Plans",
+                "Clima e estações; going to para planos; Let's…; Would you like…? como convite pronto; before/after em horários conhecidos."
+        ],
+        [
+                "I Need Some Help",
+                "Partes do corpo e sintomas comuns; I have… / I feel… / I need…; help/rest/call; I'll… em ofertas prontas."
+        ],
+        [
+                "Can We Reschedule?",
+                "Aplicação de 31–32; retoma dias, horários e cortesia."
+        ],
+        [
+                "On the Phone",
+                "Iniciar/encerrar ligação; Can I speak to…?; Can you repeat…?; leave a message; retomada de can/could e contato."
+        ],
+        [
+                "Take It Easy",
+                "Agenda e organização; start/finish/before/after/until em combinações; revisão de rotina, passado e planos; will em decisões/ofertas curtas."
+        ],
+        [
+                "My Week, My Plans",
+                "Aplicação de 34–35; retoma 31–33 e contato."
+        ],
+        [
+                "Everyday English",
+                "Cadastro e apresentação; entrevista de rotina/família; localizar itens e comprar. Repertório principal: 1–18."
+        ],
+        [
+                "English in Action",
+                "Encontrar alguém; resolver informação de viagem; confirmar um compromisso por fala e mensagem. Repertório principal: 19–36, com retomada de 1–18."
+        ]
+],
         'a2-v3': [
             ['Welcome Back! Vacation and Weather', 'greetings, clima, viagem, different from/than e enjoy + -ing', [1]],
             ['Conversation Activities 1 · A Trip Abroad', 'revisão comunicativa da lição 1: viagem, clima e atividades de férias'],
@@ -318,7 +438,7 @@
     };
 
     const reviewPositions = {
-        'a1-v3': [5, 10, 15, 20, 25, 30, 31, 32],
+        'a1-v3': [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 37, 38],
         'a2-v3': [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 31, 32],
         'b1-v3': Array.from({ length: 15 }, (_, index) => (index + 1) * 2),
         'b2-v3': Array.from({ length: 16 }, (_, index) => (index + 1) * 2),
@@ -364,6 +484,8 @@
         6: [[6, 'Conversation Activities 2: Compare and Choose'], [6, 'Conversation Activities 2 · Compare and Choose']]
     };
 
+    const a1HistoricalManifest = [{"id":"a1-v3-01-first-day-of-class","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":1,"type":"content","lessonKind":"lexical","title":"First Day of Class","linguisticFocus":"apresentações, nomes, agradecimentos e blocos com be","languageTags":["introductions"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[1],"legacyIds":["a1-v3-01-greetings-and-introductions"],"actionOriented":false},{"id":"a1-v3-02-a-few-days-later","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":2,"type":"content","lessonKind":"lexical","title":"A Few Days Later","linguisticFocus":"cumprimentos, profissões, a/an e I am/you are","languageTags":["introductions","identity-personal-data"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[1,18],"legacyIds":["a1-v3-01-greetings-and-introductions","a1-v3-18-school-work-and-abilities"],"actionOriented":false},{"id":"a1-v3-03-at-break","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":3,"type":"content","lessonKind":"lexical","title":"At Break","linguisticFocus":"intervalo, alimentos e bebidas; we/they com be; hungry, thirsty, early, late e ready","languageTags":["food-drink","be-we-they"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[7],"legacyIds":["a1-v3-07-food-and-quantities"],"actionOriented":false},{"id":"a1-v3-04-names-around-the-class","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":4,"type":"content","lessonKind":"lexical","title":"Names Around the Class","linguisticFocus":"he/she, his/her, alfabeto, soletração e números 0–20","languageTags":["identity-personal-data","numbers-quantities","possessives"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[2,26],"legacyIds":["a1-v3-02-personal-information","a1-v3-26-countries-and-languages"],"actionOriented":false},{"id":"a1-v3-05-conversation-activities-1","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":5,"type":"review","lessonKind":"communicative","title":"Conversation Activities 1","linguisticFocus":"revisão comunicativa das lições 1–4","languageTags":["consolidation-progress"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":["a1-v3-01-first-day-of-class","a1-v3-02-a-few-days-later","a1-v3-03-at-break","a1-v3-04-names-around-the-class"],"oralInteractionMinutes":36,"legacyLessons":[],"legacyIds":[],"actionOriented":true},{"id":"a1-v3-06-what-s-your-address","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":6,"type":"content","lessonKind":"lexical","title":"What’s Your Address?","linguisticFocus":"endereço, contato, números 21–100, 1.000, 10.000, at e dot","languageTags":["identity-personal-data","numbers-quantities"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[2],"legacyIds":["a1-v3-02-personal-information"],"actionOriented":false},{"id":"a1-v3-07-let-s-go-out","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":7,"type":"content","lessonKind":"lexical","title":"Let’s Go Out!","linguisticFocus":"Present Simple com I/you/we/they; do/don’t; preferências, convites, aceitação e recusa","languageTags":["be-we-they","invitations-plans","routines-habits"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[],"legacyIds":[],"actionOriented":false},{"id":"a1-v3-08-my-everyday-life","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":8,"type":"content","lessonKind":"lexical","title":"My Everyday Life","linguisticFocus":"Present Simple com I/you, rotina e preferências","languageTags":["routines-habits"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[4],"legacyIds":["a1-v3-04-routines-and-present-simple"],"actionOriented":false},{"id":"a1-v3-09-sarah-s-routine","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":9,"type":"content","lessonKind":"lexical","title":"Sarah’s Routine","linguisticFocus":"terceira pessoa, do/does e informações pessoais","languageTags":["routines-habits"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[4],"legacyIds":["a1-v3-04-routines-and-present-simple"],"actionOriented":false},{"id":"a1-v3-10-conversation-activities-2","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":10,"type":"review","lessonKind":"communicative","title":"Conversation Activities 2","linguisticFocus":"revisão comunicativa das lições 6–9","languageTags":["consolidation-progress"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":["a1-v3-06-what-s-your-address","a1-v3-07-let-s-go-out","a1-v3-08-my-everyday-life","a1-v3-09-sarah-s-routine"],"oralInteractionMinutes":36,"legacyLessons":[],"legacyIds":[],"actionOriented":true},{"id":"a1-v3-11-family-photos","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":11,"type":"content","lessonKind":"lexical","title":"Family Photos","linguisticFocus":"família, possessive ’s, have/has e idades","languageTags":["family-friendship"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[3],"legacyIds":["a1-v3-03-family-and-possessives"],"actionOriented":false},{"id":"a1-v3-12-at-home","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":12,"type":"content","lessonKind":"lexical","title":"At Home","linguisticFocus":"móveis, roupas, preposições e there is/there are","languageTags":["home-location"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[17],"legacyIds":["a1-v3-17-home-and-location"],"actionOriented":false},{"id":"a1-v3-13-let-s-go-shopping","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":13,"type":"content","lessonKind":"lexical","title":"Let’s Go Shopping","linguisticFocus":"contáveis, não contáveis, some/any, much/many e a lot of","languageTags":["numbers-quantities","invitations-plans","shopping-money"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[7,14],"legacyIds":["a1-v3-07-food-and-quantities","a1-v3-14-shopping-and-prices"],"actionOriented":false},{"id":"a1-v3-14-at-the-store","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":14,"type":"content","lessonKind":"lexical","title":"At the Store","linguisticFocus":"preços, quantidades, a few/a little e números acima de 100","languageTags":["numbers-quantities","shopping-money"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[14],"legacyIds":["a1-v3-14-shopping-and-prices"],"actionOriented":false},{"id":"a1-v3-15-conversation-activities-3","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":15,"type":"review","lessonKind":"communicative","title":"Conversation Activities 3","linguisticFocus":"revisão comunicativa das lições 11–14","languageTags":["consolidation-progress"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":["a1-v3-11-family-photos","a1-v3-12-at-home","a1-v3-13-let-s-go-shopping","a1-v3-14-at-the-store"],"oralInteractionMinutes":36,"legacyLessons":[],"legacyIds":[],"actionOriented":true},{"id":"a1-v3-16-which-one","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":16,"type":"content","lessonKind":"lexical","title":"Which One?","linguisticFocus":"cores, roupas, one/ones e object pronouns","languageTags":["home-location"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[],"legacyIds":[],"actionOriented":false},{"id":"a1-v3-17-is-it-yours-or-mine","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":17,"type":"content","lessonKind":"lexical","title":"Is It Yours or Mine?","linguisticFocus":"whose e possessive pronouns","languageTags":["possessives"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[],"legacyIds":[],"actionOriented":false},{"id":"a1-v3-18-what-are-they-doing","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":18,"type":"content","lessonKind":"lexical","title":"What Are They Doing?","linguisticFocus":"Present Continuous em ações atuais","languageTags":["be-we-they","actions-now"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[22],"legacyIds":["a1-v3-22-actions-now"],"actionOriented":false},{"id":"a1-v3-19-what-s-your-friend-like","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":19,"type":"content","lessonKind":"lexical","title":"What’s Your Friend Like?","linguisticFocus":"aparência, descrição pessoal e horários","languageTags":["family-friendship","describing-people","interests-preferences"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[8,6],"legacyIds":["a1-v3-08-describing-people","a1-v3-06-time-and-schedules"],"actionOriented":false},{"id":"a1-v3-20-conversation-activities-4","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":20,"type":"review","lessonKind":"communicative","title":"Conversation Activities 4","linguisticFocus":"revisão comunicativa das lições 16–19","languageTags":["consolidation-progress"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":["a1-v3-16-which-one","a1-v3-17-is-it-yours-or-mine","a1-v3-18-what-are-they-doing","a1-v3-19-what-s-your-friend-like"],"oralInteractionMinutes":36,"legacyLessons":[],"legacyIds":[],"actionOriented":true},{"id":"a1-v3-21-vacation-calendar","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":21,"type":"content","lessonKind":"lexical","title":"Vacation Calendar","linguisticFocus":"meses, datas, férias e was/were","languageTags":["travel-weather","past-experience"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[21,27],"legacyIds":["a1-v3-21-dates-and-celebrations","a1-v3-27-past-simple-essentials"],"actionOriented":false},{"id":"a1-v3-22-what-happened","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":22,"type":"content","lessonKind":"lexical","title":"What Happened?","linguisticFocus":"Past Simple regular e verbos irregulares essenciais","languageTags":["past-experience"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[27],"legacyIds":["a1-v3-27-past-simple-essentials"],"actionOriented":false},{"id":"a1-v3-23-at-the-airport","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":23,"type":"content","lessonKind":"lexical","title":"At the Airport","linguisticFocus":"transporte, viagem, can e know how to","languageTags":["travel-weather","phone-requests"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[18,19],"legacyIds":["a1-v3-18-school-work-and-abilities","a1-v3-19-transportation"],"actionOriented":false},{"id":"a1-v3-24-what-was-happening","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":24,"type":"content","lessonKind":"lexical","title":"What Was Happening?","linguisticFocus":"Past Continuous básico em cenas de viagem","languageTags":["travel-weather","past-experience"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[],"legacyIds":[],"actionOriented":false},{"id":"a1-v3-25-conversation-activities-5","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":25,"type":"review","lessonKind":"communicative","title":"Conversation Activities 5","linguisticFocus":"revisão comunicativa das lições 21–24","languageTags":["consolidation-progress"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":["a1-v3-21-vacation-calendar","a1-v3-22-what-happened","a1-v3-23-at-the-airport","a1-v3-24-what-was-happening"],"oralInteractionMinutes":36,"legacyLessons":[],"legacyIds":[],"actionOriented":true},{"id":"a1-v3-26-sabrina-s-invitation","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":26,"type":"content","lessonKind":"lexical","title":"Sabrina’s Invitation","linguisticFocus":"estações, clima e going to","languageTags":["invitations-plans","travel-weather","future-hopes"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[12,29],"legacyIds":["a1-v3-12-weather","a1-v3-29-going-to"],"actionOriented":false},{"id":"a1-v3-27-health-problems","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":27,"type":"content","lessonKind":"lexical","title":"Health Problems","linguisticFocus":"sintomas, conselhos e will em decisões simples","languageTags":["health-accidents","future-hopes"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[],"legacyIds":[],"actionOriented":false},{"id":"a1-v3-28-on-the-phone","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":28,"type":"content","lessonKind":"lexical","title":"On the Phone","linguisticFocus":"linguagem telefônica, convites e pedidos com can/could","languageTags":["phone-requests"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[],"legacyIds":[],"actionOriented":false},{"id":"a1-v3-29-take-it-easy","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":29,"type":"content","lessonKind":"lexical","title":"Take It Easy","linguisticFocus":"start/finish, before/after/until e contraste temporal essencial","languageTags":["routines-habits"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":[],"oralInteractionMinutes":24,"legacyLessons":[],"legacyIds":[],"actionOriented":false},{"id":"a1-v3-30-conversation-activities-6","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":30,"type":"review","lessonKind":"communicative","title":"Conversation Activities 6","linguisticFocus":"revisão comunicativa das lições 26–29","languageTags":["consolidation-progress"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":["a1-v3-26-sabrina-s-invitation","a1-v3-27-health-problems","a1-v3-28-on-the-phone","a1-v3-29-take-it-easy"],"oralInteractionMinutes":36,"legacyLessons":[],"legacyIds":[],"actionOriented":true},{"id":"a1-v3-31-a1-consolidation-part-1","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":31,"type":"review","lessonKind":"consolidation","title":"A1 Consolidation · Part 1","linguisticFocus":"grande revisão das lições 1–15","languageTags":["consolidation-progress"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":["a1-v3-01-first-day-of-class","a1-v3-02-a-few-days-later","a1-v3-03-at-break","a1-v3-04-names-around-the-class","a1-v3-06-what-s-your-address","a1-v3-07-let-s-go-out","a1-v3-08-my-everyday-life","a1-v3-09-sarah-s-routine","a1-v3-11-family-photos","a1-v3-12-at-home","a1-v3-13-let-s-go-shopping","a1-v3-14-at-the-store"],"oralInteractionMinutes":36,"legacyLessons":[],"legacyIds":[],"actionOriented":true},{"id":"a1-v3-32-a1-consolidation-part-2","moduleId":"a1-v3","level":"A1","version":"2026.08.05-expanded-a1-32","number":32,"type":"review","lessonKind":"consolidation","title":"A1 Consolidation · Part 2","linguisticFocus":"grande revisão das lições 16–30","languageTags":["consolidation-progress"],"sourceLesson":null,"cefrObjectives":[{"skill":"reception","descriptor":"Compreender palavras, frases e instruções curtas em situações familiares."},{"skill":"production","descriptor":"Produzir frases simples sobre si, pessoas, lugares e necessidades imediatas."},{"skill":"interaction","descriptor":"Participar de trocas breves com apoio, repetição e perguntas previsíveis."},{"skill":"mediation","descriptor":"Transmitir informação simples de placas, agendas, perfis e mensagens curtas."},{"skill":"linguistic","descriptor":"Usar repertório básico memorizado com controle suficiente para ser compreendido."},{"skill":"online","descriptor":"Participar de trocas online simples, com saudações e informações pessoais básicas."}],"reviewOf":["a1-v3-16-which-one","a1-v3-17-is-it-yours-or-mine","a1-v3-18-what-are-they-doing","a1-v3-19-what-s-your-friend-like","a1-v3-21-vacation-calendar","a1-v3-22-what-happened","a1-v3-23-at-the-airport","a1-v3-24-what-was-happening","a1-v3-26-sabrina-s-invitation","a1-v3-27-health-problems","a1-v3-28-on-the-phone","a1-v3-29-take-it-easy"],"oralInteractionMinutes":36,"legacyLessons":[],"legacyIds":[],"actionOriented":true}];
+    const a1EquivalentSources = {"1":1,"2":4,"4":2,"5":6,"8":8,"10":9,"11":11,"13":12,"14":13,"16":14,"17":16,"19":17,"20":18,"22":19,"25":21,"26":22,"28":23,"31":26,"32":27,"34":28,"35":29};
     const modules = {};
     Object.entries(raw).forEach(([moduleId, definitions]) => {
         const reviewSet = new Set(reviewPositions[moduleId]);
@@ -375,9 +497,9 @@
             const number = index + 1;
             const type = projectSet.has(number) ? 'project' : reviewSet.has(number) ? 'review' : 'content';
             const previousBoundary = [...reviewPositions[moduleId]].filter(position => position < number).pop() || 0;
-            const reviewedNumbers = moduleId === 'a1-v3' && number === 31
+            const reviewedNumbers = moduleId === 'a1-v3' && number === 37
                 ? definitions.map((_, candidate) => candidate + 1).filter(candidate => candidate <= 15 && !reviewSet.has(candidate))
-                : moduleId === 'a1-v3' && number === 32
+                : moduleId === 'a1-v3' && number === 38
                     ? definitions.map((_, candidate) => candidate + 1).filter(candidate => candidate >= 16 && candidate <= 30 && !reviewSet.has(candidate))
                     : moduleId === 'a2-v3' && number === 31
                         ? definitions.map((_, candidate) => candidate + 1).filter(candidate => candidate <= 15 && !reviewSet.has(candidate))
@@ -393,7 +515,7 @@
             const languageTags = languageTagsFor(title, linguisticFocus, sourceDefinition?.[0], sourceDefinition?.[1]);
             const lessonKind = type === 'project'
                 ? 'project'
-                : ['a1-v3', 'a2-v3'].includes(moduleId) && number >= 31
+                : ((moduleId === 'a1-v3' && number >= 37) || (moduleId === 'a2-v3' && number >= 31))
                     ? 'consolidation'
                     : type === 'review'
                         ? 'communicative'
@@ -424,6 +546,20 @@
         });
     });
 
+    const a1LanguageTags = {"1":["introductions","identity-personal-data"],"2":["identity-personal-data","numbers-quantities","possessives"],"4":["routines-habits","identity-personal-data"],"5":["identity-personal-data","numbers-quantities"],"7":["food-drink","restaurant-service","interests-preferences"],"8":["routines-habits"],"10":["routines-habits"],"11":["family-friendship","possessives"],"13":["home-location"],"14":["food-drink","numbers-quantities"],"16":["shopping-money","numbers-quantities"],"17":["shopping-money","fashion-trends"],"19":["possessives"],"20":["actions-now"],"22":["describing-people"],"23":["directions-location","invitations-plans","phone-requests"],"25":["travel-weather","past-experience"],"26":["travel-weather","past-experience"],"28":["travel-weather","phone-requests"],"29":["travel-weather","actions-now"],"31":["invitations-plans","travel-weather","future-hopes"],"32":["health-accidents","borrowing-help"],"34":["phone-requests"],"35":["routines-habits","future-hopes"]};
+    modules['a1-v3'].forEach((lesson,index)=>{
+        lesson.languageTags = [...new Set([...lesson.languageTags,...(a1LanguageTags[lesson.number]||[])])];
+        lesson.id = ["a1-v3-38-01-hello-i-m","a1-v3-38-02-names-and-people","a1-v3-38-03-meet-someone-new","a1-v3-38-04-people-at-work","a1-v3-38-05-stay-in-touch","a1-v3-38-06-a-new-registration","a1-v3-38-07-at-the-cafe","a1-v3-38-08-my-everyday-life","a1-v3-38-09-a-day-in-my-life","a1-v3-38-10-someone-else-s-routine","a1-v3-38-11-my-family","a1-v3-38-12-people-in-my-life","a1-v3-38-13-at-home","a1-v3-38-14-what-s-in-the-kitchen","a1-v3-38-15-let-s-get-ready","a1-v3-38-16-at-the-store","a1-v3-38-17-which-one","a1-v3-38-18-find-the-right-item","a1-v3-38-19-is-it-yours","a1-v3-38-20-what-are-they-doing","a1-v3-38-21-lost-and-found","a1-v3-38-22-what-is-your-friend-like","a1-v3-38-23-around-town","a1-v3-38-24-meet-me-there","a1-v3-38-25-my-vacation-calendar","a1-v3-38-26-what-happened","a1-v3-38-27-a-short-trip","a1-v3-38-28-at-the-airport","a1-v3-38-29-travel-updates","a1-v3-38-30-a-change-of-plans","a1-v3-38-31-let-s-make-plans","a1-v3-38-32-i-need-some-help","a1-v3-38-33-can-we-reschedule","a1-v3-38-34-on-the-phone","a1-v3-38-35-take-it-easy","a1-v3-38-36-my-week-my-plans","a1-v3-38-37-everyday-english","a1-v3-38-38-english-in-action"][index];
+        const source = a1HistoricalManifest.find(item=>item.number===a1EquivalentSources[lesson.number]);
+        lesson.legacyIds = source ? [source.id, ...source.legacyIds] : [];
+        lesson.legacyLessons = source ? [...source.legacyLessons] : [];
+        lesson.requireExplicitCompletion = lesson.lessonKind !== 'lexical';
+        lesson.disableLegacyEditorial = true;
+        if(lesson.lessonKind==='communicative')lesson.languageTags=[...new Set([...modules['a1-v3'][index-2].languageTags,...modules['a1-v3'][index-1].languageTags])];
+        lesson.dependencies = lesson.lessonKind === 'communicative' ? [modules['a1-v3'][index-2].id,modules['a1-v3'][index-1].id] : [];
+        lesson.reviewOf = lesson.lessonKind === 'communicative' ? [...lesson.dependencies] : lesson.lessonKind === 'consolidation' ? modules['a1-v3'].filter(item=>item.number<lesson.number && (lesson.number===37 ? item.number<=18 : item.number>=19&&item.number<=36)).map(item=>item.id) : [];
+    });
+    modules['a1-v3'].forEach(lesson=>{if(lesson.lessonKind==='consolidation')lesson.reviewOf=modules['a1-v3'].filter(item=>lesson.number===37?item.number<=18:item.number>=19&&item.number<=36).map(item=>item.id);});
     function getModule(moduleId) {
         return modules[String(moduleId || '').toLowerCase()] || [];
     }
@@ -488,7 +624,7 @@
             return lesson.legacyLessons.every(number => legacyLessonComplete(moduleProgress, number));
         }
 
-        if (lesson.type === 'review' && lesson.reviewOf.length) {
+        if (!lesson.requireExplicitCompletion && lesson.type === 'review' && lesson.reviewOf.length) {
             return lesson.reviewOf.every(id => isLessonComplete(progress, moduleId, id));
         }
 
@@ -520,7 +656,16 @@
         }));
     }
 
+    // Isolated proposal: these IDs never participate in published progress migration.
+    const a1PreviewLessons = Object.freeze([
+        { id: 'a1-preview-cafe', slug: 'at-the-cafe', number: 7, title: 'At the Café', lessonKind: 'lexical', languageTags: ['food-drink', 'interests-preferences', 'restaurant-service'], dependencies: [], prerequisite: 'Apresentações, números e perguntas simples com apoio.' },
+        { id: 'a1-preview-routine', slug: 'my-everyday-life', number: 8, title: 'My Everyday Life', lessonKind: 'lexical', languageTags: ['routines-habits', 'food-drink'], dependencies: ['a1-preview-cafe'], prerequisite: 'I/you, do/don’t e preferências praticados em At the Café.' },
+        { id: 'a1-preview-day', slug: 'a-day-in-my-life', number: 9, title: 'A Day in My Life', lessonKind: 'communicative', languageTags: ['routines-habits', 'food-drink', 'interests-preferences'], dependencies: ['a1-preview-cafe', 'a1-preview-routine'], prerequisite: 'Repertório das duas aulas deste ciclo.' }
+    ].map(item => Object.freeze({ ...item, languageTags: Object.freeze(item.languageTags), dependencies: Object.freeze(item.dependencies), version: '2026.09-a1-preview-38', disableLegacyEditorial: true })));
+
     globalScope.V3Curriculum = Object.freeze({
+        a1HistoricalManifest,
+        a1PreviewLessons,
         version: VERSION,
         moduleVersions: { ...MODULE_VERSIONS },
         skills: [...SKILLS],

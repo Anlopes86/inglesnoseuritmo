@@ -1,0 +1,1 @@
+if(window.firebase){const script=document.createElement('script');script.src='../js/firebase-config.js';script.onload=()=>document.dispatchEvent(new Event('a1:portal-ready'));document.head.appendChild(script);}

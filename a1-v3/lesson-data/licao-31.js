@@ -1,97 +1,771 @@
-(function(){
-    'use strict';
-    const R=window.A1V3LessonRegistry; const {p,question,reading,homework,focus,speaking,comm,line,dialogue}=R.helpers;
-    const stations=[
-        focus('Names, introductions and social language','Apresente-se, descubra nomes e use respostas sociais naturais.',[['identity','I am... / My name is...','I’m Emma.'],['ask','What is your/his/her name?','What’s her name?'],['social','please/thanks/excuse me','Excuse me. What’s your name?']],['Use This is... para apresentar outra pessoa.', 'Use contrações na fala.'],[p('Complete','My ___ name is Daniel and my last name is Costa.','first'),p('Ask','Descubra o apelido da pessoa.','What’s your nickname?'),p('Ask','Descubra o nome dela.','What’s her name?'),p('Answer','Thank you for your help.','You’re welcome.'),p('Correct','What your name?','What’s your name?'),p('Correct','Nice meet you.','Nice to meet you.'),p('Build','is / This / friend / my / Ana','This is my friend Ana.'),p('Create','Apresente-se com nome completo, apelido e uma saudação.','Hi, I’m... My full name is... You can call me...')]),
-        focus('Verb to be and personal information','Use am/is/are com identidades, profissões e nacionalidades.',[['I','am/am not','I’m Brazilian.'],['he/she/it','is/isn’t','She’s a doctor.'],['you/we/they','are/aren’t','They’re students.'],['question','be + subject?','Are you Spanish?']],['A pergunta inverte be e sujeito.', 'Use respostas curtas com o mesmo be.'],[p('Complete','I ___ a student.','am'),p('Complete','She ___ from Spain.','is'),p('Complete','We ___ not American.','are'),p('Make negative','Daniel is a teacher.','Daniel isn’t a teacher.'),p('Make a question','Emma is British.','Is Emma British?'),p('Answer','Are you Brazilian?','Yes, I am. / No, I’m not.'),p('Correct','He are a doctor.','He is a doctor.'),p('Correct','You is from Brazil?','Are you from Brazil?'),p('Create','Give name, country, nationality and profession for three people.','... is from... He/She is...')]),
-        focus('Articles, professions and basic descriptions','Escolha a/an e construa perfis profissionais simples.',[['consonant sound','a + noun','a teacher'],['vowel sound','an + noun','an engineer'],['work','work as / work at','I work as a nurse.']],['A/an depende do som inicial.', 'Use an engineer, an artist; a university student.'],[p('Choose','(a / an) engineer','an'),p('Choose','(a / an) teacher','a'),p('Choose','(a / an) artist','an'),p('Complete','I work ___ a nurse.','as'),p('Complete','She works ___ a hospital.','at'),p('Correct','He is engineer.','He is an engineer.'),p('Correct','She is an university student.','She is a university student.'),p('Describe','Ana · doctor · hospital · Brazilian','Ana is a Brazilian doctor. She works at a hospital.'),p('Create','Invent four professional profiles with different articles.','This is... He/She is a/an...')]),
-        focus('We are, they are and break-time language','Diferencie o grupo de quem fala de outros grupos e use be para descrever a situação no intervalo.',[['our group','We are / We’re','We’re classmates.'],['another group','They are / They’re','They’re at the snack bar.'],['negative','We/They aren’t','They aren’t late.'],['question','Are we/they...?', 'Are they ready?']],['We inclui quem fala; they indica outras pessoas.', 'Com we e they, use are nas afirmações, negativas e perguntas.'],[p('Choose','Meu grupo: (We / They) are classmates.','We'),p('Choose','Outro grupo: (We / They) are at the snack bar.','They'),p('Complete','We ___ hungry.','are'),p('Complete','They ___ thirsty.','are'),p('Make negative','They are late.','They aren’t late.'),p('Build','ready / Are / they / ?','Are they ready?'),p('Answer','Are we early? positive','Yes, we are.'),p('Correct','We is at break.','We are at break.'),p('Correct','They am hungry.','They are hungry.')]),
-        focus('Countries, nationalities, alphabet and contact details','Soletrar e registrar dados sem ambiguidade.',[['country/nationality','Brazil/Brazilian','I’m from Brazil. I’m Brazilian.'],['spelling','How do you spell...?', 'D-A-N-I-E-L'],['contact','at/dot','name at mail dot com']],['Leia telefone em dígitos.', 'Confirme letras, números, ponto e arroba.'],[p('Match','Brazil · United States · United Kingdom · Spain','Brazilian · American · British · Spanish'),p('Ask','Soletração do sobrenome.','How do you spell your last name?'),p('Spell','Costa','C-O-S-T-A'),p('Read','555-2084','five five five, two zero eight four'),p('Read','emma.silva@mail.com','emma dot silva at mail dot com'),p('Write','one thousand','1,000'),p('Write','ten thousand','10,000'),p('Correct','I am from Brazilian.','I am from Brazil. / I am Brazilian.'),p('Create','Dê e confirme nome, telefone, e-mail e país.','Let me confirm...')]),
-        focus('Address and location details','Pergunte e confirme endereço, cidade e CEP.',[['ask','What’s your address?','What’s your address?'],['components','street/number/city/zip code','25 King Street'],['confirm','Let me repeat...','Let me repeat the address.']],['Use at para localização exata em um endereço completo.', 'Leia números de endereço de modo inteligível.'],[p('Complete','I live ___ 25 King Street.','at'),p('Complete','I live ___ São Paulo.','in'),p('Ask','Descubra o CEP.','What’s your zip code?'),p('Ask','Descubra a cidade.','What city do you live in?'),p('Order','city · street number · street · zip code','street number · street · city · zip code'),p('Correct','I live in 40 Oak Street.','I live at 40 Oak Street.'),p('Confirm','42 River Road, Bristol, BS1 4AA','Let me repeat: 42 River Road, Bristol, BS1 4AA.'),p('Create','Complete a registration form orally.','My address is... My zip code is...')]),
-        focus('Invitations and social plans','Convide, aceite, recuse e proponha outra opção.',[['invite','Would you like to...?', 'Would you like to go out?'],['accept','I’d love to.','I’d love to.'],['decline','I’m sorry, I can’t.','I have plans.'],['alternative','How about...?', 'How about Saturday?']],['Recusar com motivo curto soa mais natural.', 'Confirme dia, hora e local.'],[p('Invite','coffee · Friday','Would you like to have coffee on Friday?'),p('Accept','Convite para jantar.','I’d love to. What time?'),p('Decline','busy Friday','I’m sorry, I can’t. I’m busy on Friday.'),p('Suggest','Saturday instead','How about Saturday?'),p('Confirm','Saturday · 7:30 · Bella Café','So that’s Saturday at seven thirty at Bella Café.'),p('Correct','Do you like go out?','Would you like to go out?'),p('Create','Plan A, refusal and Plan B.','Would you like...? I’m sorry... How about...?'),p('Change','The restaurant is closed.','Let’s go to... instead.')]),
-        focus('Present Simple routines','Descreva hábitos com I/you/we/they, negativas e perguntas.',[['affirmative','base verb','I work at home.'],['negative','don’t + base','We don’t work on Sunday.'],['question','Do + subject + base?', 'Do you study at night?'],['frequency','always/usually/sometimes/never','I usually walk.']],['Never já é negativo.', 'O verbo continua na base depois de do/don’t.'],[p('Complete','I ___ at seven. (start)','start'),p('Make negative','We work on Sunday.','We don’t work on Sunday.'),p('Make a question','You study at night.','Do you study at night?'),p('Answer','Do you cook every day?','Yes, I do. / No, I don’t.'),p('Order','always / coffee / drink / I','I always drink coffee.'),p('Choose','I (don’t never / never) drive.','never'),p('Correct','Do you works here?','Do you work here?'),p('Correct','We doesn’t study at night.','We don’t study at night.'),p('Create','Describe a weekday with six actions and three frequency words.','I usually... I sometimes... I never...')]),
-        focus('Third person routines','Use he/she com -s e does/doesn’t.',[['affirmative','verb-s/-es/-ies','She works. He watches.'],['have','has','She has lunch.'],['negative','doesn’t + base','He doesn’t drive.'],['question','Does + subject + base?', 'Does she work?']],['Depois de does/doesn’t, retire o -s do verbo.', 'Study → studies; go → goes; have → has.'],[p('Complete','Sarah ___ at eight. (work)','works'),p('Complete','Leo ___ TV at night. (watch)','watches'),p('Complete','Emma ___ English. (study)','studies'),p('Complete','Daniel ___ lunch at noon. (have)','has'),p('Make negative','She drives to work.','She doesn’t drive to work.'),p('Make a question','He goes home at six.','Does he go home at six?'),p('Answer','Does Sarah study at night? negative','No, she doesn’t.'),p('Correct','He don’t works.','He doesn’t work.'),p('Correct','Does she has a car?','Does she have a car?'),p('Create','Compare your routine with another person’s.','I... but he/she...')]),
-        focus('Family and possession','Apresente relações, idade, have/has e posse.',[['relationship','family word','aunt; cousin; grandparents'],['have','have/has','They have two children.'],['name possession','person + ’s','Marina’s daughter'],['adjective','my/his/her/our/their','Their family']],['Use ’s com pessoas, não the + nome + ’s.', 'Pergunte How many...? para quantidade.'],[p('Match','aunt · uncle · cousin · niece','parent’s sister · parent’s brother · aunt/uncle’s child · sibling’s daughter'),p('Complete','They ___ three children.','have'),p('Complete','She ___ one brother.','has'),p('Transform','the husband of Marina','Marina’s husband'),p('Choose','Lucas: (His / Her) daughter','His'),p('Choose','Lucas and Marina: (Our / Their) daughter','Their'),p('Ask','Número de irmãos.','How many brothers and sisters do you have?'),p('Correct','He have two sisters.','He has two sisters.'),p('Correct','The Ana’s son','Ana’s son'),p('Create','Describe a family of seven people.','This is... ... is ...’s... They have...')]),
-        focus('Home and location','Descreva cômodos, móveis e onde os objetos estão.',[['singular','There is...','There is a sofa.'],['plural','There are...','There are two chairs.'],['question','Is/Are there...?', 'Is there a desk?'],['location','in/on/under/next to/behind','under the bed']],['Concorde is/are com a coisa apresentada.', 'Responda localização com it/they.'],[p('Complete','There ___ a desk.','is'),p('Complete','There ___ two windows.','are'),p('Make a question','There is a closet.','Is there a closet?'),p('Make a question','There are chairs.','Are there chairs?'),p('Complete','The bag is ___ the door. (atrás)','behind'),p('Complete','The shoes are ___ the bed. (embaixo)','under'),p('Answer','Where are the clothes? closet','They are in the closet.'),p('Correct','There are a sofa.','There is a sofa.'),p('Correct','There is three chairs.','There are three chairs.'),p('Create','Describe a room with ten items and five locations.','There is/are... It is/They are...')]),
-        focus('Shopping, quantities and prices','Monte uma lista, pergunte quantidade e finalize a compra.',[['countable','how many/a few','a few apples'],['uncountable','how much/a little','a little rice'],['availability','some/any','Do we have any milk?'],['price','How much is/are...?', 'How much are the shoes?']],['Some em afirmação; any em pergunta/negativa.', 'How much pergunta quantidade não contável ou preço.'],[p('Classify','eggs · rice · milk · tomatoes · bread','countable: eggs, tomatoes; uncountable: rice, milk, bread'),p('Choose','We need (some / any) milk.','some'),p('Choose','Do we have (some / any) eggs?','any'),p('Choose','(How many / How much) apples?','How many'),p('Choose','(How many / How much) rice?','How much'),p('Choose','a (few / little) shirts','few'),p('Choose','a (few / little) time','little'),p('Build','much / jacket / is / How / the / ?', 'How much is the jacket?'),p('Answer','Shoes: $125','They’re one hundred twenty-five dollars.'),p('Correct','How much eggs?','How many eggs?'),p('Correct','I have a few money.','I have a little money.'),p('Create','Buy food and clothes within a $300 budget.','We need... How much...? I’d like...')])
-    ];
-    stations.push(
-        speaking('attempt','Integrated conversation: new class','Complete uma primeira conversa e um cadastro.',{label:'Meet and register',scenario:'Você conhece uma pessoa no primeiro dia de um curso.',task:'Troque nomes, país, profissão, contato e rotina de estudo.',condition:'O sobrenome e o e-mail precisam ser repetidos.',steps:['Apresente-se.','Faça perguntas pessoais básicas.','Confirme os dados.'],support:['What’s your...?', 'How do you spell...?', 'Do you...?', 'Let me confirm...'],evidence:'O perfil fica completo e correto.'}),
-        speaking('questions','Integrated conversation: home invitation','Aceite um convite e descubra informações sobre casa e família.',{label:'Visit a friend',scenario:'Uma nova colega convida você para conhecer a família.',task:'Combine o encontro, pergunte quem mora na casa e localize itens.',condition:'Você não pode no primeiro horário sugerido.',steps:['Responda ao convite.','Proponha alternativa.','Pergunte sobre família e casa.'],support:['I’d love to, but...', 'How about...?', 'Who is...?', 'Is/Are there...?'],evidence:'Plano, relações e espaço ficam compreensíveis.'}),
-        speaking('condition','Integrated conversation: prepare dinner','Descubra o que existe em casa e faça compras.',{label:'Dinner list',scenario:'Você vai cozinhar para uma família.',task:'Verifique alimentos, quantidades e itens que faltam.',condition:'O orçamento cai de $100 para $70.',steps:['Confira cozinha e lista.','Pergunte preços.','Adapte quantidades.'],support:['Do we have any...?', 'How many/much...?', 'There is/are...', 'How much is/are...?'],evidence:'A lista final respeita pessoas e orçamento.'}),
-        speaking('final','Integrated conversation: A1 first-half challenge','Conecte apresentação, rotina, família, casa e compra em um relato.',{label:'My everyday world',scenario:'Você prepara um áudio de apresentação para um anfitrião.',task:'Fale de si, sua rotina, duas pessoas, sua casa e o que precisa comprar.',condition:'O anfitrião faz seis perguntas de acompanhamento.',steps:['Organize cinco partes.','Fale sem ler frases completas.','Responda e corrija dados.'],support:['I am/I work/I usually...', 'He/She has...', 'There is/are...', 'We need some...'],evidence:'Produção sustentada usa conteúdos 1–15 sem introduzir novos tópicos.'})
-    );
-    R.register(31,R.review({title:'A1 Consolidation · Part 1',objectives:['Consolidar profundamente as lições de conteúdo 1–14.','Recuperar linguagem em blocos antes de integrá-la.','Produzir respostas extensas em tarefas individuais online.'],stations,
-        reading:reading('Emma’s new neighbor','Emma has a new neighbor, Ana. Ana’s full name is Ana Torres, and she is a Spanish engineer. She lives at 48 King Street with her husband Leo and their two children. Ana works from nine to five and usually studies English after dinner. Her house has three bedrooms and a large kitchen. Emma invites the family for Sunday lunch. There isn’t much food at home, so Emma makes a list: some rice, a lot of vegetables, six eggs and a few bottles of water. At the store, she also wants two blue shirts for the children. They are twenty dollars each.',question('What is Ana’s full name?','Ana Torres.'),question('Where is she from and what does she do?','She is from Spain and is an engineer.'),question('Who lives with Ana?','Her husband and two children.'),question('What is her routine after dinner?','She usually studies English.'),question('How many bedrooms are there?','There are three.'),question('Why does Emma go shopping?','There isn’t much food at home.'),question('What does she want for the children?','Two blue shirts.'),question('How much are the shirts?','Twenty dollars each.')),
-        communicativeActivities:[
-            comm('listening','Listen: lunch with the new neighbors','Ouça a conversa completa. Anote nomes, relação familiar, rotina, convite, alimentos e horário combinado.',{
-                placement:'before-reading',
-                scenario:'Emma conhece Ana, sua nova vizinha, e organiza um almoço para as duas famílias.',
-                dialogue:dialogue('Meeting the neighbors',
-                    line('Emma','Hi. I’m Emma. Are you our new neighbor?','Oi. Sou Emma. Você é nossa nova vizinha?'),
-                    line('Ana','Yes, I am. My name is Ana Torres.','Sim. Meu nome é Ana Torres.'),
-                    line('Emma','Nice to meet you, Ana. Where are you from?','Prazer em conhecê-la, Ana. De onde você é?'),
-                    line('Ana','I’m from Spain, but I live here with my husband and our two children.','Sou da Espanha, mas moro aqui com meu marido e nossos dois filhos.'),
-                    line('Emma','What do you do?','Qual é sua profissão?'),
-                    line('Ana','I’m an engineer. I work from nine to five.','Sou engenheira. Trabalho das nove às cinco.'),
-                    line('Emma','Would you and your family like to have lunch with us on Sunday?','Você e sua família gostariam de almoçar conosco no domingo?'),
-                    line('Ana','We’d love to. What time?','Adoraríamos. Que horas?'),
-                    line('Emma','How about twelve thirty?','Que tal meio-dia e meia?'),
-                    line('Ana','Perfect. Do you need anything?','Perfeito. Você precisa de alguma coisa?'),
-                    line('Emma','We need some rice, six eggs and a lot of vegetables.','Precisamos de arroz, seis ovos e muitos legumes.'),
-                    line('Ana','How about a few bottles of water?','Que tal algumas garrafas de água?'),
-                    line('Emma','Great. See you on Sunday at twelve thirty.','Ótimo. Vejo você no domingo ao meio-dia e meia.')
-                ),
-                questions:[
-                    question('What is Ana’s full name?','Ana Torres.'),
-                    question('Where is she from?','Spain.'),
-                    question('Who does she live with?','Her husband and two children.'),
-                    question('What does she do?','She is an engineer.'),
-                    question('What are her work hours?','From nine to five.'),
-                    question('What is Emma’s invitation?','Lunch on Sunday.'),
-                    question('What time are they meeting?','At twelve thirty.'),
-                    question('What food does Emma need?','Rice, eggs and vegetables.'),
-                    question('What does Ana say about water?','How about a few bottles of water?')
-                ]
-            }),
-            comm('interview','Build a complete profile','Entreviste o professor ou trabalhe com informações inventadas. Anote somente palavras-chave e depois produza um perfil contínuo.',{
-                scenario:'Você prepara a apresentação de uma nova pessoa para uma comunidade online.',
-                questions:['What’s your full name and nickname?','How do you spell your last name?','Where are you from?','What do you do?','What’s your phone number and email address?','What do you usually do in the morning?','What don’t you do on weekends?','Who do you live with?','How many brothers or sisters do you have?','What is your home like?','Is there a large kitchen?','What food do you need this week?'],
-                reportTask:'Apresente identidade, contato, rotina, família, casa e necessidades em pelo menos dez frases conectadas.',
-                support:['His/Her full name is...','He/She is from...','He/She works...','He/She usually...','He/She has...','There is/are...','He/She needs...']
-            }),
-            comm('qa-board','A1 Question Board · Part 1','Organize e relacione as perguntas. Depois, faça todas novamente sem olhar para as palavras embaralhadas.',{
-                scenario:'As perguntas essenciais das lições 1–14 estão em um único desafio.',
-                pairs:[
-                    {scrambled:'full / your / What’s / name / ?',question:'What’s your full name?',answer:'My full name is Ana Torres.'},
-                    {scrambled:'do / What / you / do / ?',question:'What do you do?',answer:'I’m an engineer.'},
-                    {scrambled:'email / your / What’s / address / ?',question:'What’s your email address?',answer:'It’s ana at mail dot com.'},
-                    {scrambled:'movie / Would / see / you / a / like / to / ?',question:'Would you like to see a movie?',answer:'I’d love to.'},
-                    {scrambled:'morning / do / What / you / the / in / do / ?',question:'What do you do in the morning?',answer:'I work and study English.'},
-                    {scrambled:'live / Sarah / Where / does / ?',question:'Where does Sarah live?',answer:'She lives near the school.'},
-                    {scrambled:'children / have / they / Do / ?',question:'Do they have children?',answer:'Yes. They have one daughter.'},
-                    {scrambled:'bedrooms / there / many / How / are / ?',question:'How many bedrooms are there?',answer:'There are three.'},
-                    {scrambled:'eggs / need / many / How / we / do / ?',question:'How many eggs do we need?',answer:'We need six.'},
-                    {scrambled:'shirts / those / are / much / How / ?',question:'How much are those shirts?',answer:'They’re twenty dollars each.'}
-                ]
-            }),
-            comm('practice','Create, connect and personalize','Produza cada resposta oralmente. Depois, conecte três cartões para formar uma conversa ou um pequeno relato.',{
-                eyebrow:'Cumulative Speaking Cards',
-                items:[
-                    p('Introduce','full name · nickname · country','Hi, I’m... My full name is... You can call me... I’m from...'),
-                    p('Confirm contact','email · spell · repeat','My email is... Let me spell it... Please repeat.'),
-                    p('Invite and change','movie Friday · busy · Saturday','Would you like to see a movie on Friday? I’m sorry, I’m busy. How about Saturday?'),
-                    p('Describe routine','morning · afternoon · night · one negative','In the morning, I... I don’t...'),
-                    p('Report another routine','Sarah · work · study · weekend','Sarah works... She studies... She doesn’t...'),
-                    p('Describe family','parents · two siblings · ages','I live with... I have... My ... is ... years old.'),
-                    p('Describe home','living room · sofa · table · bedrooms','There is... There are... The sofa is...'),
-                    p('Check supplies','milk · eggs · rice · negative answer','Do we have any...? No, we don’t. We need some...'),
-                    p('Ask quantities','six eggs · little rice · few bottles','How many...? How much...? We need...'),
-                    p('Shop','blue jacket · $90 · card','How much is...? I’d like... Can I pay by card?'),
-                    p('Correct information','wrong street number and wrong price','No, it isn’t... / No, they aren’t... The correct... is...'),
-                    p('Create a conversation','profile + invitation + shopping need','A possible answer combines an introduction, an invitation and a short shopping decision.')
-                ]
-            })
+(function(){'use strict';window.A1V3LessonRegistry.register(31,{
+  "title": "Let's Make Plans",
+  "type": "content",
+  "summary": "Propor um plano, aceitar/recusar e oferecer uma alternativa.",
+  "mission": {
+    "title": "Let's Make Plans",
+    "task": "Propor um plano, aceitar/recusar e oferecer uma alternativa.",
+    "focus": [
+      "Clima e estações; going to para planos; Let's…; Would you like…? como convite pronto; before/after em horários conhecidos."
+    ],
+    "semanticTags": [
+      "invitations-plans",
+      "routines-habits",
+      "travel-weather",
+      "interests-preferences",
+      "restaurant-service",
+      "future-hopes"
+    ]
+  },
+  "slides": [
+    {
+      "id": "opening",
+      "type": "dialogue",
+      "title": "Let's Make Plans",
+      "kicker": "Let's Make Plans",
+      "instruction": "Acompanhe a leitura do professor. Depois leiam juntos e identifiquem a situação.",
+      "lines": [
+        [
+          "Sabrina",
+          "I’m going to have a barbecue on Saturday. Would you like to come?",
+          "Vou fazer um churrasco no sábado. Você gostaria de vir?"
         ],
-        homework:homework('Crie um portfólio oral e escrito das lições 1–15.', ['Perfil pessoal e contato','Rotina e perfil de outra pessoa','Família e casa','Lista e compra com orçamento'],['Usei apenas linguagem já estudada.','Incluí perguntas e negativas, não só afirmações.','Revisei respostas erradas e gravei uma segunda versão.'],{minimumWords:180})}));
-}());
+        [
+          "Emma",
+          "I’d love to. Is it going to be sunny?",
+          "Eu adoraria. Vai fazer sol?"
+        ],
+        [
+          "Sabrina",
+          "I think so, but it’s going to be windy in the afternoon.",
+          "Acho que sim, mas vai ventar à tarde."
+        ],
+        [
+          "Emma",
+          "What are you going to do if it rains?",
+          "O que você vai fazer se chover?"
+        ],
+        [
+          "Sabrina",
+          "We’re going to eat inside.",
+          "Vamos comer dentro de casa."
+        ],
+        [
+          "Emma",
+          "Great. I’m going to bring a dessert.",
+          "Ótimo. Vou levar uma sobremesa."
+        ]
+      ]
+    },
+    {
+      "id": "vocabulary",
+      "type": "cards",
+      "title": "Vocabulary Expansion",
+      "kicker": "Vocabulary Expansion",
+      "instruction": "Leia os significados e exemplos. Escolha palavras para usar durante a conversa.",
+      "cards": [
+        [
+          "spring",
+          "primavera",
+          "Spring is warm."
+        ],
+        [
+          "summer",
+          "verão",
+          "Summer is hot."
+        ],
+        [
+          "fall",
+          "outono",
+          "Fall is cool."
+        ],
+        [
+          "winter",
+          "inverno",
+          "Winter is cold."
+        ],
+        [
+          "sunny",
+          "ensolarado",
+          "It is sunny today."
+        ],
+        [
+          "cloudy",
+          "nublado",
+          "Tomorrow is going to be cloudy."
+        ],
+        [
+          "rainy",
+          "chuvoso",
+          "It is a rainy morning."
+        ],
+        [
+          "windy",
+          "ventando",
+          "It is windy outside."
+        ],
+        [
+          "hot",
+          "quente",
+          "It is very hot."
+        ],
+        [
+          "warm",
+          "morno; ameno",
+          "The afternoon is warm."
+        ],
+        [
+          "cool",
+          "fresco",
+          "The evening is cool."
+        ],
+        [
+          "cold",
+          "frio",
+          "It is cold in winter."
+        ],
+        [
+          "forecast",
+          "previsão do tempo",
+          "Check the forecast."
+        ],
+        [
+          "temperature",
+          "temperatura",
+          "The temperature is twenty degrees."
+        ],
+        [
+          "barbecue",
+          "churrasco",
+          "We are going to have a barbecue."
+        ],
+        [
+          "invite",
+          "convidar",
+          "Sabrina invited us."
+        ],
+        [
+          "bring",
+          "levar; trazer",
+          "I’m going to bring dessert."
+        ],
+        [
+          "inside",
+          "dentro",
+          "We can eat inside."
+        ],
+        [
+          "outside",
+          "fora",
+          "The tables are outside."
+        ]
+      ]
+    },
+    {
+      "id": "verbs",
+      "type": "verbs",
+      "title": "Verb bank",
+      "kicker": "Verb bank",
+      "instruction": "Consulte o infinitivo, o passado e o particípio. Observe nos exemplos a forma usada na frase.",
+      "cards": [
+        [
+          "invite",
+          "convidar",
+          "I am going to invite Sam.",
+          "invited · invited"
+        ],
+        [
+          "bring",
+          "trazer",
+          "Bring a jacket.",
+          "brought · brought"
+        ],
+        [
+          "go",
+          "ir",
+          "We go home at six.",
+          "went · gone"
+        ],
+        [
+          "stay",
+          "ficar; hospedar-se",
+          "We stayed at a hotel.",
+          "stayed · stayed"
+        ]
+      ]
+    },
+    {
+      "id": "helping",
+      "type": "patterns",
+      "title": "Helping You",
+      "kicker": "Helping You",
+      "instruction": "Use am/is/are going to + verbo base para planos, intenções e previsões apoiadas no que vemos ou sabemos.",
+      "groups": [
+        {
+          "title": "Be going to",
+          "cards": [
+            [
+              "am going to + verb",
+              "Vou levar sobremesa.",
+              "I’m going to bring dessert."
+            ],
+            [
+              "is going to + verb",
+              "Vai chover.",
+              "It’s going to rain."
+            ],
+            [
+              "are going to + verb",
+              "Vamos comer dentro.",
+              "We’re going to eat inside."
+            ],
+            [
+              "am not/isn’t/aren’t going to",
+              "Ela não vai dirigir.",
+              "She isn’t going to drive."
+            ],
+            [
+              "Am/Is/Are + subject + going to?",
+              "Você vai vir?",
+              "Are you going to come?"
+            ],
+            [
+              "What/Where/When + be + subject + going to?",
+              "O que você vai levar?",
+              "What are you going to bring?"
+            ]
+          ]
+        },
+        {
+          "title": "Como usar",
+          "cards": [
+            [
+              "Observe 1",
+              "O verbo depois de going to fica na forma base.",
+              ""
+            ],
+            [
+              "Observe 2",
+              "O presente de be concorda com o sujeito.",
+              ""
+            ],
+            [
+              "Observe 3",
+              "Para clima: It is sunny now; It is going to rain later.",
+              ""
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice-0",
+      "type": "drill",
+      "title": "Weather and seasons",
+      "kicker": "Weather and seasons",
+      "instruction": "Associe clima, estação e escolhas práticas.",
+      "items": [
+        [
+          "summer · winter · spring · fall → hot · cold · warm · cool",
+          "summer—hot; winter—cold; spring—warm; fall—cool"
+        ],
+        [
+          "The sky has many clouds. It is (sunny / cloudy).",
+          "cloudy"
+        ],
+        [
+          "The trees are moving a lot. It is (windy / warm).",
+          "windy"
+        ],
+        [
+          "The ___ is twenty-eight degrees.",
+          "temperature"
+        ],
+        [
+          "What’s the weather like today?",
+          "It is ..."
+        ],
+        [
+          "What is your favorite season? Why?",
+          "My favorite season is ... because ..."
+        ],
+        [
+          "Sunny and hot → clothes/activity",
+          "I’m going to wear ... and ..."
+        ],
+        [
+          "Cold and rainy → clothes/activity",
+          "I’m going to ..."
+        ],
+        [
+          "It is sun today.",
+          "It is sunny today."
+        ],
+        [
+          "Give a three-day forecast.",
+          "On..., it is going to be..."
+        ]
+      ]
+    },
+    {
+      "id": "practice-1",
+      "type": "drill",
+      "title": "Future plans",
+      "kicker": "Future plans",
+      "instruction": "Complete e transforme planos com a forma correta de be.",
+      "items": [
+        [
+          "I ___ going to bring dessert.",
+          "am"
+        ],
+        [
+          "Sabrina ___ going to have a barbecue.",
+          "is"
+        ],
+        [
+          "We ___ going to eat inside.",
+          "are"
+        ],
+        [
+          "It ___ going to rain.",
+          "is"
+        ],
+        [
+          "Emma is going to drive.",
+          "Emma isn’t going to drive."
+        ],
+        [
+          "They are going to come.",
+          "Are they going to come?"
+        ],
+        [
+          "you / What / bring / going to / are / ?",
+          "What are you going to bring?"
+        ],
+        [
+          "party / Where / going to / be / is / the / ?",
+          "Where is the party going to be?"
+        ],
+        [
+          "Are you going to study tonight?",
+          "Yes, I am. / No, I’m not."
+        ],
+        [
+          "I going to make a cake.",
+          "I’m going to make a cake."
+        ],
+        [
+          "She is going to brings drinks.",
+          "She is going to bring drinks."
+        ]
+      ]
+    },
+    {
+      "id": "practice-2",
+      "type": "drill",
+      "title": "Plan around the forecast",
+      "kicker": "Plan around the forecast",
+      "instruction": "Adapte o evento quando o tempo muda.",
+      "items": [
+        [
+          "Sunny → barbecue location",
+          "We’re going to have the barbecue outside."
+        ],
+        [
+          "Rainy → barbecue location",
+          "We’re going to eat inside."
+        ],
+        [
+          "Cold → clothes",
+          "I’m going to wear a jacket."
+        ],
+        [
+          "Hot → drinks",
+          "I’m going to bring cold drinks."
+        ],
+        [
+          "What are you going to do this weekend?",
+          "I’m going to ..."
+        ],
+        [
+          "Who are you going to invite?",
+          "I’m going to invite ..."
+        ],
+        [
+          "What are you going to bring?",
+          "I’m going to bring ..."
+        ],
+        [
+          "Outdoor picnic → heavy rain",
+          "We aren’t going to have a picnic outside. We’re going to ..."
+        ],
+        [
+          "Plan a small event with date, time, place, food and weather alternative.",
+          "The event is on... We’re going to... If it rains, we’re going to..."
+        ]
+      ]
+    },
+    {
+      "id": "drill",
+      "type": "drill",
+      "title": "Say it in English.",
+      "kicker": "Say it in English.",
+      "instruction": "Diga a frase em inglês. Confira o modelo e depois personalize uma informação.",
+      "items": [
+        [
+          "Como está o tempo?",
+          "What’s the weather like?"
+        ],
+        [
+          "Está ensolarado e quente.",
+          "It is sunny and hot."
+        ],
+        [
+          "Vai chover.",
+          "It is going to rain."
+        ],
+        [
+          "Vou fazer um churrasco.",
+          "I’m going to have a barbecue."
+        ],
+        [
+          "Você vai vir?",
+          "Are you going to come?"
+        ],
+        [
+          "O que você vai levar?",
+          "What are you going to bring?"
+        ],
+        [
+          "Ela não vai dirigir.",
+          "She isn’t going to drive."
+        ],
+        [
+          "Vamos comer dentro de casa.",
+          "We’re going to eat inside."
+        ],
+        [
+          "A previsão diz que vai ventar.",
+          "The forecast says it is going to be windy."
+        ],
+        [
+          "Vou levar uma sobremesa.",
+          "I’m going to bring a dessert."
+        ]
+      ]
+    },
+    {
+      "id": "expressions",
+      "type": "cards",
+      "title": "Key phrases & expressions",
+      "kicker": "Key phrases & expressions",
+      "instruction": "Use cada expressão como um bloco. Leia o exemplo e crie uma troca curta.",
+      "cards": [
+        [
+          "Would you like to come?",
+          "Você gostaria de vir? · Convite educado.",
+          "Would you like to come on Saturday?"
+        ],
+        [
+          "I’d love to.",
+          "Eu adoraria. · Aceitação calorosa.",
+          "I’d love to. What time?"
+        ],
+        [
+          "What’s the weather like?",
+          "Como está o tempo? · Pergunta pelo clima.",
+          "What’s the weather like there?"
+        ],
+        [
+          "It’s going to...",
+          "Vai... · Plano ou previsão.",
+          "It’s going to rain."
+        ],
+        [
+          "What are you going to...?",
+          "O que você vai...? · Pergunta por intenção.",
+          "What are you going to bring?"
+        ],
+        [
+          "I think so.",
+          "Acho que sim. · Resposta cautelosa positiva.",
+          "Is it going to be sunny? I think so."
+        ],
+        [
+          "If it rains,...",
+          "Se chover,... · Bloco prático para plano alternativo.",
+          "If it rains, we’re going inside."
+        ],
+        [
+          "change of plans",
+          "mudança de planos · Nomeia uma alteração.",
+          "There is a change of plans."
+        ]
+      ]
+    },
+    {
+      "id": "dialogues",
+      "type": "dialogue",
+      "title": "Dialog Samples",
+      "kicker": "Dialog Samples",
+      "instruction": "Leiam as situações e troquem os papéis. Depois alterem uma informação.",
+      "lines": [
+        [
+          "A",
+          "Would you like to come to my barbecue on Saturday?",
+          "Gostaria de vir ao meu churrasco no sábado?"
+        ],
+        [
+          "B",
+          "I’d love to. What time is it?",
+          "Eu adoraria. Que horas vai ser?"
+        ],
+        [
+          "A",
+          "It’s going to start at one.",
+          "Vai começar à uma."
+        ],
+        [
+          "B",
+          "Great. Who is going to be there?",
+          "Ótimo. Quem vai estar lá?"
+        ],
+        [
+          "A",
+          "My family and a few friends.",
+          "Minha família e alguns amigos."
+        ],
+        [
+          "B",
+          "Perfect. See you on Saturday.",
+          "Perfeito. Vejo você no sábado."
+        ],
+        [
+          "A",
+          "Is it going to rain on Saturday?",
+          "Vai chover no sábado?"
+        ],
+        [
+          "B",
+          "No, but it’s going to be windy.",
+          "Não, mas vai ventar."
+        ],
+        [
+          "A",
+          "Is it going to be cold?",
+          "Vai fazer frio?"
+        ],
+        [
+          "B",
+          "A little. The temperature is going to be sixteen degrees.",
+          "Um pouco. A temperatura vai ser de dezesseis graus."
+        ],
+        [
+          "A",
+          "Then I’m going to take a sweater.",
+          "Então vou levar um suéter."
+        ],
+        [
+          "B",
+          "Good idea.",
+          "Boa ideia."
+        ],
+        [
+          "A",
+          "What are you going to bring?",
+          "O que você vai levar?"
+        ],
+        [
+          "B",
+          "I’m going to bring dessert.",
+          "Vou levar sobremesa."
+        ],
+        [
+          "A",
+          "What kind of dessert?",
+          "Que tipo de sobremesa?"
+        ],
+        [
+          "B",
+          "A chocolate cake.",
+          "Um bolo de chocolate."
+        ],
+        [
+          "A",
+          "What are we going to do if it rains?",
+          "O que vamos fazer se chover?"
+        ],
+        [
+          "B",
+          "We’re going to eat inside.",
+          "Vamos comer dentro."
+        ],
+        [
+          "A",
+          "Is there enough space for everyone?",
+          "Há espaço suficiente para todos?"
+        ],
+        [
+          "B",
+          "Yes. There are two large tables in the living room.",
+          "Sim. Há duas mesas grandes na sala."
+        ],
+        [
+          "A",
+          "And where are we going to cook?",
+          "E onde vamos cozinhar?"
+        ],
+        [
+          "B",
+          "We’re going to use the kitchen and the covered patio.",
+          "Vamos usar a cozinha e o pátio coberto."
+        ],
+        [
+          "A",
+          "It’s going to be cold tonight.",
+          "Vai fazer frio hoje à noite."
+        ],
+        [
+          "B",
+          "Really? I’m wearing a T-shirt.",
+          "Sério? Estou usando uma camiseta."
+        ],
+        [
+          "A",
+          "The temperature is going to fall after six.",
+          "A temperatura vai cair depois das seis."
+        ],
+        [
+          "B",
+          "Then I’m going to take a jacket.",
+          "Então vou levar uma jaqueta."
+        ],
+        [
+          "A",
+          "Take an umbrella too.",
+          "Leve um guarda-chuva também."
+        ],
+        [
+          "B",
+          "Okay. I have one in the car.",
+          "Certo. Tenho um no carro."
+        ]
+      ],
+      "lineTitles": {
+        "0": "A barbecue invitation",
+        "6": "Checking the forecast",
+        "12": "What to bring",
+        "16": "A plan for rain",
+        "22": "Clothes for the evening"
+      }
+    },
+    {
+      "id": "reading",
+      "type": "reading",
+      "title": "Saturday’s plan",
+      "kicker": "Saturday’s plan",
+      "instruction": "O professor lê primeiro. Depois leia e responda às perguntas consultando o texto.",
+      "paragraphs": [
+        "Sabrina is going to have a barbecue on Saturday at one o’clock. Twelve people are going to come. Emma is going to bring dessert, Daniel is going to buy drinks and Leo is going to bring music. The morning is going to be sunny and warm, but the forecast says it is going to rain after four. Sabrina has a plan: they are going to eat outside first and move inside if it rains."
+      ],
+      "items": [
+        [
+          "What is Sabrina going to do?",
+          "She is going to have a barbecue."
+        ],
+        [
+          "How many people are going to come?",
+          "Twelve."
+        ],
+        [
+          "What is Emma going to bring?",
+          "Dessert."
+        ],
+        [
+          "What is the afternoon forecast?",
+          "It is going to rain after four."
+        ],
+        [
+          "What is the alternative plan?",
+          "They are going to move inside."
+        ]
+      ],
+      "translations": []
+    },
+    {
+      "id": "talk",
+      "type": "conversation",
+      "title": "Let's Talk",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor usando suas informações ou um perfil inventado.",
+      "tasks": [
+        [
+          "Pergunta 1",
+          "Name the four seasons."
+        ],
+        [
+          "Pergunta 2",
+          "Describe today’s weather."
+        ],
+        [
+          "Pergunta 3",
+          "Give a weekend forecast."
+        ],
+        [
+          "Pergunta 4",
+          "Say five plans for this week."
+        ],
+        [
+          "Pergunta 5",
+          "Ask four questions about another person’s plans."
+        ],
+        [
+          "Pergunta 6",
+          "Plan food and clothes for two types of weather."
+        ]
+      ],
+      "goal": "Propor um plano, aceitar/recusar e oferecer uma alternativa.",
+      "challenge": "Depois de responder, faça uma pergunta ao professor."
+    },
+    {
+      "id": "exit",
+      "type": "exit",
+      "title": "Look at your progress.",
+      "kicker": "Look at your progress.",
+      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
+      "checks": [
+        "Propor um plano, aceitar/recusar e oferecer uma alternativa.",
+        "Consegui pedir repetição ou esclarecimento.",
+        "Consigo tentar novamente com menos apoio."
+      ]
+    },
+    {
+      "id": "homework",
+      "type": "homework",
+      "title": "Take it with you.",
+      "kicker": "Take it with you.",
+      "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
+      "options": [
+        [
+          "A",
+          "Speak",
+          "Conte dois planos para o fim de semana usando going to e faça um convite."
+        ],
+        [
+          "B",
+          "Write",
+          "Escreva um convite com atividade, dia, horário e uma alternativa se chover."
+        ],
+        [
+          "C",
+          "Make a Card",
+          "Monte dois planos para o mesmo dia: um com sol e outro com chuva."
+        ]
+      ]
+    }
+  ],
+  "migration": {
+    "sourceLesson": "a1-v3-26-sabrina-s-invitation",
+    "editorialVersion": "2026.09-a1-38"
+  }
+});}());

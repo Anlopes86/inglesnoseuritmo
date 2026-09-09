@@ -1,7 +1,204 @@
 (function installA2V3ConversationCurriculum(globalScope) {
     'use strict';
 
-    const lesson = config => Object.freeze(config);
+    const FOLLOW_UPS = {
+  "2": [
+    "A different last day",
+    "Our hotel is far from the castle, and heavy rain is forecast. We can take a short bus trip to the museum or stay nearby and visit a café. I enjoy taking pictures, but I do not want to be outside the whole time.",
+    [
+      "Why does the traveler need a new plan?",
+      "Which two alternatives are available?"
+    ],
+    [
+      "Heavy rain is forecast.",
+      "A bus trip to the museum or a nearby café."
+    ],
+    "The museum closes early. Agree on a different plan and explain why."
+  ],
+  "4": [
+    "The bridge is closed",
+    "The bridge near the station is closed today. To reach the square, walk past the clock tower, a useful landmark, and turn right at the next intersection. The entrance to the museum is opposite the square. Allow an extra ten minutes for the distance.",
+    [
+      "Which route is unavailable?",
+      "Where is the museum entrance?"
+    ],
+    [
+      "The route across the bridge.",
+      "Opposite the square."
+    ],
+    "Your visitor has only fifteen minutes. Confirm a nearby meeting point instead."
+  ],
+  "6": [
+    "A new member",
+    "I am a beginner and want to improve my fitness at my own pace. My coach suggests two training sessions a week and a rest day after each one. I can train on Monday and Thursday, but my teammate is only free on Tuesday.",
+    [
+      "How often does the coach suggest training?",
+      "What scheduling problem do the friends have?"
+    ],
+    [
+      "Twice a week.",
+      "They are free on different days."
+    ],
+    "The Monday session is full. Agree on another session and a realistic weekly plan."
+  ],
+  "8": [
+    "A recommendation request",
+    "My subscription ends this week. I want a podcast about current events with short episodes. I read a review of City Voices, but it sounds too technical. Can you give me a recommendation and explain what the first episode is about?",
+    [
+      "What kind of podcast does the listener want?",
+      "What is the problem with City Voices?"
+    ],
+    [
+      "Short episodes about current events.",
+      "It sounds too technical."
+    ],
+    "The recommended podcast needs a paid subscription. Suggest an alternative and explain your choice."
+  ],
+  "10": [
+    "One meal, two preferences",
+    "I feel like something crispy rather than creamy tonight. My friend wants a mild vegetarian dish. We can share a portion, but we need to check the ingredients first. The app says the restaurant has fresh vegetables and a sweet sauce on the side.",
+    [
+      "What does the friend prefer?",
+      "What should the diners check before ordering?"
+    ],
+    [
+      "A mild vegetarian dish.",
+      "The ingredients."
+    ],
+    "Only one vegetarian main course is available. Decide whether to share it or choose another restaurant."
+  ],
+  "12": [
+    "Please check the order",
+    "Our booking is for a table for two at seven. One guest has a peanut allergy. We asked the server for tap water and separate bills. The order ticket says peanut sauce and one shared bill. Please confirm the ingredients and correct the order before the meal arrives.",
+    [
+      "Which ingredient needs confirmation?",
+      "What billing change is needed?"
+    ],
+    [
+      "Peanut sauce, because one guest has a peanut allergy.",
+      "Separate bills instead of one shared bill."
+    ],
+    "The server cannot confirm an ingredient. Ask for a clearly identified alternative before ordering."
+  ],
+  "14": [
+    "A thoughtful reply",
+    "I felt stressed after work, and my short reply sounded rude. My friend is usually calm and reliable, but she has not answered. I want to send a thoughtful apology and give her space. I do not want to pressure her to talk tonight.",
+    [
+      "Why does the writer want to apologize?",
+      "What does the writer want to avoid?"
+    ],
+    [
+      "The short reply sounded rude.",
+      "Pressuring the friend to talk."
+    ],
+    "Your friend says she needs time. Reply in a supportive way without demanding an immediate answer."
+  ],
+  "16": [
+    "Confirm the report",
+    "A witness saw a cyclist fall on a slippery road near the park entrance. The cyclist has an arm injury, and an ambulance is on the way. The witness knows the location but does not know the cyclist’s emergency contact. The report needs the time and the exact meeting point.",
+    [
+      "Which details still need confirmation?",
+      "What help is already on the way?"
+    ],
+    [
+      "The time and exact meeting point.",
+      "An ambulance."
+    ],
+    "The operator asks you to repeat the location. Confirm landmarks and report only what you observed."
+  ],
+  "18": [
+    "The final price",
+    "The bag is affordable at sixty dollars, but the delivery fee is twelve dollars. My budget is seventy. The other bag is more expensive, but it includes delivery and a longer warranty. Before deciding, I need to ask about the refund policy and the final price.",
+    [
+      "Why is the first bag over budget?",
+      "What information should the buyer confirm?"
+    ],
+    [
+      "Delivery makes the total seventy-two dollars.",
+      "The refund policy and final price."
+    ],
+    "The shop offers free pickup for the first bag. Compare the options again and make your decision."
+  ],
+  "20": [
+    "A clear agreement",
+    "Could you do me a favor and lend me your camera? I have permission to take pictures at the event. I can return it by the end of the day on Sunday. If that deadline is too late, I can ask someone else for a replacement. Let us confirm our agreement first.",
+    [
+      "When will the borrower return the camera?",
+      "What alternative is available?"
+    ],
+    [
+      "By the end of the day on Sunday.",
+      "Ask someone else for a replacement."
+    ],
+    "The owner needs the camera on Sunday morning. Negotiate an earlier return or a different solution."
+  ],
+  "22": [
+    "Back in our hometown",
+    "At the reunion, I met an old schoolmate. We lost touch when we left our hometown, but we still have a shared interest in music. Our families used to have lunch together every Sunday. We want to bring back that tradition and keep in touch more often.",
+    [
+      "What shared interest do the friends have?",
+      "Which old tradition do they want to restart?"
+    ],
+    [
+      "Music.",
+      "Sunday lunch with their families."
+    ],
+    "One friend now lives far away. Agree on a realistic way to maintain the friendship."
+  ],
+  "24": [
+    "Dress for the occasion",
+    "The invitation says smart casual. I have a plain shirt, a striped jacket and some loose trousers. My favorite second-hand coat goes with the shirt, but it is too warm for this occasion. I want to dress up without buying a completely new outfit.",
+    [
+      "What does the invitation say?",
+      "Why might the coat be unsuitable?"
+    ],
+    [
+      "Smart casual.",
+      "It is too warm for the occasion."
+    ],
+    "The event moves outdoors and the evening will be cool. Adapt the outfit and explain your choice."
+  ],
+  "26": [
+    "A difficult choice",
+    "I shared a private message without permission. Now my friend says I damaged her trust. I can make an apology, but I cannot undo what happened. From her point of view, privacy matters more than my intention. What is a responsible first step, and what risk should I avoid?",
+    [
+      "Why is the friend upset?",
+      "What does the writer need help deciding?"
+    ],
+    [
+      "A private message was shared without permission.",
+      "A responsible first step and a risk to avoid."
+    ],
+    "Your friend does not want to meet yet. Suggest a respectful next step with no pressure to reply."
+  ],
+  "28": [
+    "Avoid the crowds",
+    "The most famous attraction has a long queue at midday. Our accommodation is near a peaceful garden with a great view. We want the boat trip to be the highlight of the day, but the station is crowded in the afternoon. What would you recommend for a relaxing itinerary?",
+    [
+      "Which place has a long midday queue?",
+      "What do the travelers want as the highlight?"
+    ],
+    [
+      "The most famous attraction.",
+      "The boat trip."
+    ],
+    "The boat trip is cancelled. Choose a new highlight and adapt the itinerary."
+  ],
+  "30": [
+    "A realistic first step",
+    "My goal is to build a study habit one step at a time. My schedule changes every week, so that is my main obstacle. My first step is ten minutes after breakfast. If I miss that time, my backup plan is to study on the bus. I will review my progress on Sunday.",
+    [
+      "What is the main obstacle?",
+      "What is the backup plan?"
+    ],
+    [
+      "A changing weekly schedule.",
+      "Study on the bus."
+    ],
+    "Breakfast is now too rushed. Choose a new first step and a way to check progress."
+  ]
+};
+    const lesson = config => Object.freeze({...config, followUp: FOLLOW_UPS[config.sourceLesson + 1]});
 
     const lessons = {
         2: lesson({

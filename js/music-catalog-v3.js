@@ -354,9 +354,42 @@
         ['a2-v3', A2_TRANSFER_PROMPTS]
     ]);
 
+    // Explicit editorial bindings retain the audited audio and provider occurrences.
+    const A1_38_MUSIC_BINDINGS = {
+    "a1-v3-l01-song-01": "a1-v3-38-01-hello-i-m",
+    "a1-v3-l02-song-01": "a1-v3-38-04-people-at-work",
+    "a1-v3-l03-song-01": "a1-v3-38-07-at-the-cafe",
+    "a1-v3-l04-song-01": "a1-v3-38-02-names-and-people",
+    "a1-v3-l06-song-01": "a1-v3-38-05-stay-in-touch",
+    "a1-v3-l07-song-01": "a1-v3-38-23-around-town",
+    "a1-v3-l08-song-01": "a1-v3-38-08-my-everyday-life",
+    "a1-v3-l09-song-01": "a1-v3-38-10-someone-else-s-routine",
+    "a1-v3-l11-song-01": "a1-v3-38-11-my-family",
+    "a1-v3-l12-song-01": "a1-v3-38-13-at-home",
+    "a1-v3-l13-song-01": "a1-v3-38-14-what-s-in-the-kitchen",
+    "a1-v3-l14-song-01": "a1-v3-38-16-at-the-store",
+    "a1-v3-l16-song-01": "a1-v3-38-17-which-one",
+    "a1-v3-l17-song-01": "a1-v3-38-19-is-it-yours",
+    "a1-v3-l18-song-01": "a1-v3-38-20-what-are-they-doing",
+    "a1-v3-l19-song-01": "a1-v3-38-22-what-is-your-friend-like",
+    "a1-v3-l21-song-01": "a1-v3-38-25-my-vacation-calendar",
+    "a1-v3-l22-song-01": "a1-v3-38-26-what-happened",
+    "a1-v3-l23-song-01": "a1-v3-38-28-at-the-airport",
+    "a1-v3-l24-song-01": "a1-v3-38-29-travel-updates",
+    "a1-v3-l26-song-01": "a1-v3-38-31-let-s-make-plans",
+    "a1-v3-l27-song-01": "a1-v3-38-32-i-need-some-help",
+    "a1-v3-l28-song-01": "a1-v3-38-34-on-the-phone",
+    "a1-v3-l29-song-01": "a1-v3-38-35-take-it-easy"
+};
     function createRecord(definition) {
         const [moduleId, lessonNumber, title, artist, targets, proposedGapAnswers, grade, application, options = {}] = definition;
-        const lesson = curriculum?.getLesson(moduleId, lessonNumber);
+        const sourceRecordId = `${moduleId}-l${String(lessonNumber).padStart(2, '0')}-song-01`;
+        const lesson = curriculum?.getLesson(moduleId, moduleId === 'a1-v3' ? A1_38_MUSIC_BINDINGS[sourceRecordId] : lessonNumber);
+        const migratedPedagogy = {
+            'a1-v3-38-29-travel-updates': {application: 'Reconhecer walking e descrever uma ação durante a viagem; was walking como extensão opcional.', prompts: ['Which action word do you hear in the song?', 'Describe your trip now: "I am walking to ___."', 'Where are you now, and what are you doing?']},
+            'a1-v3-38-32-i-need-some-help': {application: 'Reconhecer fever, explicar como se sente e pedir ajuda prática.', prompts: ['Which health word do you hear in the song?', 'Ask for practical help: "I feel sick. Can you ___?"', 'Offer help: "I will bring you some water." What else can you offer?']}
+        }[lesson?.id];
+
         const spotifyTrackId = options.spotifyTrackId || null;
         const isPilot = PILOT_LESSONS.has(`${moduleId}:${lessonNumber}`);
         const verifiedLrclibId = options.lrclibId || VERIFIED_LRCLIB_IDS.get(`${moduleId}:${lessonNumber}`) || null;
@@ -373,7 +406,7 @@
             id: `${moduleId}-l${String(lessonNumber).padStart(2, '0')}-song-01`,
             curriculumId: lesson?.id || null,
             moduleId,
-            lessonNumber,
+            lessonNumber: lesson?.number || lessonNumber,
             lessonKind: 'lexical',
             semanticTags: [...(lesson?.languageTags || [])],
             placement: PLACEMENT,
@@ -423,9 +456,9 @@
                 proposedGapAnswers: [...proposedGapAnswers],
                 grade,
                 difficulty: `${moduleId.slice(0, 2).toUpperCase()}-${grade === 'A' ? 'core' : 'pilot'}`,
-                application,
-                transferPrompt: application,
-                transferPrompts: [...(TRANSFER_PROMPTS_BY_MODULE.get(moduleId)?.get(lessonNumber) || [])],
+                application: migratedPedagogy?.application || application,
+                transferPrompt: migratedPedagogy?.application || application,
+                transferPrompts: [...(migratedPedagogy?.prompts || TRANSFER_PROMPTS_BY_MODULE.get(moduleId)?.get(lessonNumber) || [])],
                 maxAttempts: 3,
                 feedbackMode: 'after-attempt'
             },
@@ -517,6 +550,18 @@
     }
 
     function getForCurriculumId(curriculumId, { includeDraft = false } = {}) {
+        const previewBindings = {
+            'a1-preview-cafe': { songId: 'a1-v3-l03-song-01', tags: ['food-drink'], prompts: ['Do you like coffee?', 'What do you usually drink for breakfast?', 'Order a drink for your next break.'] },
+            'a1-preview-routine': { songId: 'a1-v3-l08-song-01', tags: ['routines-habits'], prompts: ['What time do you wake up?', 'What do you do before work?', 'Ask your teacher about a morning habit.'] }
+        };
+        const binding = previewBindings[curriculumId];
+        if (binding) {
+            const lesson = curriculum?.a1PreviewLessons?.find(item => item.id === curriculumId);
+            const source = records.find(item => item.id === binding.songId);
+            if (!lesson || lesson.lessonKind !== 'lexical' || !binding.tags.some(tag => lesson.languageTags.includes(tag)) || !isPublishable(source) || !isRolloutEnabled(source)) return null;
+            const entry = includeDraft ? clone(source) : publicView(source);
+            return { ...entry, id: curriculumId + '-song-01', curriculumId, semanticTags: binding.tags, sourceRecordId: source.id, pedagogy: { ...entry.pedagogy, transferPrompts: binding.prompts } };
+        }
         const entry = byCurriculumId.get(String(curriculumId || ''));
         if (!entry) return null;
         if (includeDraft) return clone(entry);

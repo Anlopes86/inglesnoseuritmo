@@ -4550,6 +4550,8 @@
 
         slides.warmup.dataset.title = 'Quick Start';
         slides.warmup.querySelector('h2').textContent = 'Quick Start · remember and react';
+        const warmupInstruction = slides.warmup.querySelector(':scope > p');
+        if (warmupInstruction) warmupInstruction.textContent = 'Observe as situações e responda em voz alta. Depois faça uma pergunta ao professor.';
         const flashcardsContainer = document.getElementById('flashcards-container');
         if (flashcardsContainer) flashcardsContainer.className = 'conversation-quick-grid max-w-4xl mx-auto';
         setHtml('#flashcards-container', (lesson.quickStart || []).map(([label, prompt], index) => `
@@ -4756,12 +4758,23 @@
                 finishButton.disabled = true;
                 finishButton.innerHTML = 'Finalizando... <i class="fas fa-spinner fa-spin ml-2"></i>';
 
-                if (typeof window.markLessonAsComplete === 'function') {
+                try {
+                    if (typeof window.markLessonAsComplete !== 'function') throw new Error('Entre na sua conta para salvar a conclusão.');
                     const saved = await window.markLessonAsComplete('a2-v3', lessonNumber);
-                    if (saved) return;
+                    if (!saved) throw new Error('Não foi possível salvar. Confira o aluno selecionado e sua conexão.');
+                } catch (error) {
+                    let feedback = document.getElementById('a2-completion-feedback');
+                    if (!feedback) {
+                        feedback = document.createElement('p');
+                        feedback.id = 'a2-completion-feedback';
+                        feedback.setAttribute('role', 'alert');
+                        finishButton.insertAdjacentElement('beforebegin', feedback);
+                    }
+                    feedback.textContent = error.message || 'Não foi possível salvar. Tente novamente.';
+                } finally {
+                    finishButton.disabled = false;
+                    finishButton.textContent = 'Finalizar aula';
                 }
-
-                window.location.href = 'a2-v3.html';
             });
         }
     }

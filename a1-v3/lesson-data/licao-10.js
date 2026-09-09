@@ -1,102 +1,687 @@
-(function () {
-    'use strict';
-    const R = window.A1V3LessonRegistry;
-    const { p, question, reading, homework, focus, speaking, comm, line, dialogue } = R.helpers;
-    const stations = [
-        focus('Contact details and numbers', 'Pergunte, dite e confirme endereço, telefone, e-mail e CEP.', [
-            ['pergunta', 'What’s your + contact detail?', 'What’s your email address?'], ['resposta', 'It’s... / My... is...', 'My address is 84 King Street.'], ['confirmação', 'Please repeat/confirm...', 'Please repeat the phone number.']
-        ], ['Use at para @ e dot para ponto.', 'Ao ditar telefone, use grupos curtos de algarismos.'], [
-            p('Number', '28', 'twenty-eight'), p('Number', '40', 'forty'), p('Number', '55', 'fifty-five'), p('Number', '82', 'eighty-two'), p('Number', '100', 'one hundred'),
-            p('Complete', 'ana ___ school ___ org', 'ana at school dot org'), p('Build', 'address / your / What’s / ?', 'What’s your address?'),
-            p('Answer', 'You did not understand the email.', 'Please repeat the email address.'), p('Correct', 'My phone number are 555-2098.', 'My phone number is 555-2098.'),
-            p('Describe', '84 King Street · apartment 20 · email: leo@mail.com', 'The address is 84 King Street, apartment twenty. The email is leo at mail dot com.')
-        ]),
-        focus('Invitations and suggestions', 'Faça um convite, aceite ou recuse e confirme um plano.', [
-            ['convite', 'Would you like to...?', 'Would you like to see a movie?'], ['sugestão', 'Let’s... / How about...?', 'Let’s meet at eight.'], ['resposta', 'That sounds great. / Sorry, I’m busy.', 'Sorry, I’m busy tonight.']
-        ], ['Depois de Let’s, use verbo sem to.', 'Uma recusa pode incluir uma alternativa.'], [
-            p('Build', 'like / Would / dinner / have / to / you / ?', 'Would you like to have dinner?'), p('Build', 'at seven / meet / Let’s', 'Let’s meet at seven.'),
-            p('Build', 'tomorrow / about / How / ?', 'How about tomorrow?'), p('Complete', 'That ___ great.', 'sounds'),
-            p('Answer', 'Would you like to see a movie? Accept.', 'Sure. That sounds great.'), p('Answer', 'You are busy at seven. Offer eight.', 'Sorry, I’m busy at seven. How about eight?'),
-            p('Correct', 'Let’s to go to the café.', 'Let’s go to the café.'), p('Correct', 'Would you like go out?', 'Would you like to go out?'),
-            p('Create', 'Invite someone to the park tomorrow.', 'Would you like to go to the park tomorrow?'), p('Create', 'Accept and confirm a time.', 'Sure. Let’s meet at ...')
-        ]),
-        focus('Present Simple with I and you', 'Descreva rotinas, negativas e perguntas com Do you...?', [
-            ['afirmativa', 'I/You + base verb', 'I work in the morning.'], ['negativa', 'I/You don’t + base verb', 'I don’t study at night.'], ['pergunta', 'Do you + base verb?', 'Do you have breakfast?']
-        ], ['Não acrescente -s com I ou you.', 'Depois de do e don’t, use verbo básico.'], [
-            p('Complete', 'I ___ up at seven.', 'wake'), p('Complete', 'You ___ breakfast at home.', 'have'), p('Complete', 'I ___ work at night.', 'don’t'),
-            p('Build', 'you / Do / at home / work / ?', 'Do you work at home?'), p('Answer', 'Do you study English? Positive.', 'Yes, I do.'),
-            p('Answer', 'Do you work at night? Negative + detail.', 'No, I don’t. I work in the morning.'), p('Transform', 'I go to bed at eleven. → negative', 'I don’t go to bed at eleven.'),
-            p('Correct', 'I works in the morning.', 'I work in the morning.'), p('Correct', 'Do you studies at night?', 'Do you study at night?'),
-            p('Order', 'go home · wake up · have lunch · go to bed', 'wake up → have lunch → go home → go to bed')
-        ]),
-        focus('Third-person routines', 'Use he/she nas afirmativas e does/doesn’t nas perguntas e negativas.', [
-            ['afirmativa', 'He/She + verb-s', 'She works at a hospital.'], ['negativa', 'He/She doesn’t + base verb', 'She doesn’t work at home.'], ['pergunta', 'Does + he/she + base verb?', 'Where does she live?']
-        ], ['O verbo perde o -s depois de does e doesn’t.', 'Lembre-se de goes, studies, finishes e has.'], [
-            p('Form', 'work → she', 'works'), p('Form', 'go → he', 'goes'), p('Form', 'study → she', 'studies'), p('Form', 'have → he', 'has'),
-            p('Complete', 'Sarah ___ at a hospital.', 'works'), p('Transform', 'She studies at night. → negative', 'She doesn’t study at night.'),
-            p('Build', 'live / Where / she / does / ?', 'Where does she live?'), p('Answer', 'Does Sarah work at home? Negative.', 'No, she doesn’t.'),
-            p('Correct', 'Does he works here?', 'Does he work here?'), p('Correct', 'She don’t live near school.', 'She doesn’t live near school.'),
-            p('Describe', 'Leo: live near work · start at eight · not work weekends', 'Leo lives near work. He starts at eight. He doesn’t work on weekends.')
-        ])
-    ];
-    stations.push(
-        speaking('attempt', 'Conversation: complete a contact form', 'Use dados verdadeiros ou inventados.', { label: 'Cadastro oral', scenario: 'Uma recepção precisa confirmar seus dados.', task: 'Informe nome, endereço, telefone e e-mail. Soletre uma palavra e peça repetição de um número.', condition: 'O professor repetirá um dado incorretamente; corrija-o.', steps: ['Responda um campo por vez.', 'Ouça a confirmação.', 'Corrija o dado quando necessário.'], support: ['My address is...', 'My phone number is...', 'at', 'dot', 'Please repeat.', 'That’s correct.'], evidence: 'Dados compreensíveis e confirmação adequada.' }),
-        speaking('questions', 'Conversation: make a plan', 'Negocie um encontro sem usar informações de blocos anteriores.', { label: 'Convite e mudança', scenario: 'Você quer encontrar a pessoa do cadastro fora da aula.', task: 'Faça um convite, escolha lugar e horário e responda a uma mudança.', condition: 'A primeira opção de horário não está disponível.', steps: ['Faça o convite.', 'Sugira horário e lugar.', 'Ofereça uma alternativa e confirme.'], support: ['Would you like to...?', 'Let’s...', 'How about...?', 'Sorry, I’m busy.', 'See you at...'], evidence: 'Convite, negociação e fechamento claros.' }),
-        speaking('final', 'Conversation: compare routines', 'Use I/you e he/she em uma conversa curta.', { label: 'Rotinas conectadas', scenario: 'Fale da sua rotina e da rotina de Sarah.', task: 'Diga três ações suas, faça duas perguntas sobre a rotina apresentada e apresente três ações de Sarah.', condition: 'Inclua uma negativa com don’t e outra com doesn’t.', steps: ['Fale sobre você.', 'Faça as perguntas.', 'Apresente Sarah e as negativas.'], support: ['I...', 'I don’t...', 'Do you...?', 'She...', 'She doesn’t...', 'Does she...?'], evidence: 'Controle adequado entre I/you e he/she.' })
-    );
-
-    R.register(10, R.review({
-        title: 'Conversation Activities 2',
-        objectives: ['Revisar exclusivamente as lições 6–9.', 'Praticar contato, convites e rotinas em tarefas individuais online.', 'Distinguir I/you de he/she no Present Simple.'],
-        stations,
-        reading: reading('Sarah’s new contact card', 'Sarah lives at 55 Park Avenue, apartment 30. Her phone number is 555-4082 and her email is sarah.green@mail.com. She works at a hospital on weekdays and studies English at night. She doesn’t work on weekends. On Saturday, she is free at eight and wants to see a movie.',
-            question('What is Sarah’s address?', 'It is 55 Park Avenue, apartment 30.'), question('What is her phone number?', 'It is 555-4082.'), question('Where does she work?', 'She works at a hospital.'), question('Does she work on weekends?', 'No, she doesn’t.'), question('When is she free?', 'She is free on Saturday at eight.'), question('What does she want to do?', 'She wants to see a movie.')),
-        communicativeActivities: [
-            comm('listening', 'Listen: complete the registration', 'Ouça a conversa e complete mentalmente os campos de contato e rotina antes de abrir o roteiro.', {
-                placement: 'before-reading',
-                scenario: 'Uma recepcionista confirma o cadastro e o melhor horário de aula de Leo.',
-                dialogue: dialogue('A registration call',
-                    line('Reception', 'Hello. Is this Leo Martins?', 'Olá. É Leo Martins?'),
-                    line('Leo', 'Yes, it is.', 'Sim.'),
-                    line('Reception', 'What’s your address, Leo?', 'Qual é seu endereço, Leo?'),
-                    line('Leo', 'It’s 84 King Street, apartment twenty.', 'É Rua King, 84, apartamento vinte.'),
-                    line('Reception', 'And what’s your email address?', 'E qual é seu endereço de e-mail?'),
-                    line('Leo', 'It’s leo dot martins at mail dot com.', 'É leo ponto martins arroba mail ponto com.'),
-                    line('Reception', 'Do you work in the morning?', 'Você trabalha de manhã?'),
-                    line('Leo', 'Yes, I do. I finish work at two.', 'Sim. Termino o trabalho às duas.'),
-                    line('Reception', 'How about English class at four?', 'Que tal aula de inglês às quatro?'),
-                    line('Leo', 'That sounds great.', 'Parece ótimo.')
-                ),
-                questions: [
-                    question('What is Leo’s last name?', 'Martins.'),
-                    question('What is his street number?', 'Eighty-four.'),
-                    question('What is his apartment number?', 'Twenty.'),
-                    question('What is his email address?', 'leo.martins@mail.com'),
-                    question('Does Leo work in the morning?', 'Yes, he does.'),
-                    question('What time does he finish work?', 'At two.'),
-                    question('What time is the English class?', 'At four.')
-                ]
-            }),
-            comm('qa-board', 'Build the questions', 'Organize as perguntas e encontre as respostas. Na segunda rodada, substitua os dados destacados.', {
-                scenario: 'O cadastro, o convite e a rotina de Sarah estão misturados.',
-                pairs: [
-                    { scrambled: 'address / your / What’s / ?', question: 'What’s your address?', answer: 'It’s 55 Park Avenue.' },
-                    { scrambled: 'phone / your / number / What’s / ?', question: 'What’s your phone number?', answer: 'It’s 555-4082.' },
-                    { scrambled: 'repeat / Could / that / you / ?', question: 'Could you repeat that?', answer: 'Sure. Five-five-five, four-zero-eight-two.' },
-                    { scrambled: 'movie / see / to / Would / a / you / like / ?', question: 'Would you like to see a movie?', answer: 'I’d love to.' },
-                    { scrambled: 'eight / Is / okay / ?', question: 'Is eight okay?', answer: 'Sorry, I’m busy at eight.' },
-                    { scrambled: 'work / you / Do / weekends / on / ?', question: 'Do you work on weekends?', answer: 'No, I don’t.' },
-                    { scrambled: 'she / Where / work / does / ?', question: 'Where does she work?', answer: 'She works at a hospital.' },
-                    { scrambled: 'English / study / Does / she / ?', question: 'Does she study English?', answer: 'Yes, she does.' }
-                ]
-            }),
-            comm('interview', 'Contact, schedule and report', 'Entreviste o professor ou use um perfil inventado. Depois, mude de you para he ou she ao apresentar as informações.', {
-                scenario: 'Você prepara o cartão de contato e a disponibilidade semanal de uma nova pessoa.',
-                questions: ['What’s your address?', 'What’s your phone number?', 'What’s your email address?', 'Do you work in the morning?', 'What time do you finish work?', 'Do you study at night?', 'What do you do on Saturday?', 'Would you like to see a movie this weekend?'],
-                reportTask: 'Apresente endereço e contato, duas ações da rotina, uma negativa e o plano combinado.',
-                support: ['His/Her address is...', 'He/She works...', 'He/She doesn’t...', 'On Saturday, he/she...', 'We’re meeting at...']
-            })
+(function(){'use strict';window.A1V3LessonRegistry.register(10,{
+  "title": "Someone Else's Routine",
+  "type": "content",
+  "summary": "Descobrir três hábitos de outra pessoa e relatar as respostas.",
+  "mission": {
+    "title": "Someone Else's Routine",
+    "task": "Descobrir três hábitos de outra pessoa e relatar as respostas.",
+    "focus": [
+      "work/study/live/go e outros verbos já conhecidos; he/she + -s; does/doesn't; perguntas curtas sobre rotina."
+    ],
+    "semanticTags": [
+      "routines-habits"
+    ]
+  },
+  "slides": [
+    {
+      "id": "opening",
+      "type": "dialogue",
+      "title": "Someone Else's Routine",
+      "kicker": "Someone Else's Routine",
+      "instruction": "Acompanhe a leitura do professor. Depois leiam juntos e identifiquem a situação.",
+      "lines": [
+        [
+          "Emma",
+          "Where does Sarah live?",
+          "Onde Sarah mora?"
         ],
-        homework: homework('Prepare três tarefas curtas usando somente as lições 6–9.', ['Um cartão de contato completo', 'Um convite que precisa mudar', 'Sua rotina e a rotina de outra pessoa'], ['Usei números, at e dot.', 'Incluí aceitação ou recusa com alternativa.', 'Usei do/don’t e does/doesn’t corretamente.'])
-    }));
-}());
+        [
+          "Daniel",
+          "She lives near the school.",
+          "Ela mora perto da escola."
+        ],
+        [
+          "Emma",
+          "Does she work at home?",
+          "Ela trabalha em casa?"
+        ],
+        [
+          "Daniel",
+          "No, she doesn’t. She works at a hospital.",
+          "Não. Ela trabalha em um hospital."
+        ],
+        [
+          "Emma",
+          "What does she do after work?",
+          "O que ela faz depois do trabalho?"
+        ],
+        [
+          "Daniel",
+          "She goes home and studies English.",
+          "Ela vai para casa e estuda inglês."
+        ]
+      ]
+    },
+    {
+      "id": "vocabulary",
+      "type": "cards",
+      "title": "Vocabulary Expansion",
+      "kicker": "Vocabulary Expansion",
+      "instruction": "Leia os significados e exemplos. Escolha palavras para usar durante a conversa.",
+      "cards": [
+        [
+          "live",
+          "morar",
+          "Sarah lives near the school."
+        ],
+        [
+          "work",
+          "trabalhar",
+          "She works at a hospital."
+        ],
+        [
+          "study",
+          "estudar",
+          "She studies English."
+        ],
+        [
+          "start",
+          "começar",
+          "She starts work at eight."
+        ],
+        [
+          "finish",
+          "terminar",
+          "She finishes work at four."
+        ],
+        [
+          "go",
+          "ir",
+          "She goes home after work."
+        ],
+        [
+          "have",
+          "ter; fazer refeição",
+          "She has lunch at noon."
+        ],
+        [
+          "hospital",
+          "hospital",
+          "Sarah works at a hospital."
+        ],
+        [
+          "school",
+          "escola",
+          "The school is near her house."
+        ],
+        [
+          "near",
+          "perto",
+          "She lives near the school."
+        ],
+        [
+          "far from",
+          "longe de",
+          "He lives far from work."
+        ],
+        [
+          "weekday",
+          "dia útil",
+          "She works on weekdays."
+        ],
+        [
+          "weekend",
+          "fim de semana",
+          "She relaxes on weekends."
+        ],
+        [
+          "personal information",
+          "informações pessoais",
+          "This is her personal information."
+        ]
+      ]
+    },
+    {
+      "id": "reference-0",
+      "type": "reference",
+      "title": "Formas da terceira pessoa",
+      "kicker": "Formas da terceira pessoa",
+      "instruction": "Consulte estes exemplos durante a prática.",
+      "body": "<section><div class=\"slide-heading\"><p class=\"lesson-panel-title\">Third Person Forms</p><h2>O verbo muda com he e she</h2><p>Observe os padrões antes de descrever a rotina de outra pessoa.</p></div><div class=\"lesson-table-scroll\"><table class=\"grammar-table\"><thead><tr><th>Forma básica</th><th>Com he/she</th><th>Exemplo</th></tr></thead><tbody><tr><td>work / start</td><td>works / starts</td><td>She works at home.</td></tr><tr><td>go / finish</td><td>goes / finishes</td><td>He goes home at six.</td></tr><tr><td>study</td><td>studies</td><td>She studies at night.</td></tr><tr><td>have</td><td>has</td><td>He has lunch at noon.</td></tr></tbody></table></div></section>"
+    },
+    {
+      "id": "verbs",
+      "type": "verbs",
+      "title": "Verb bank",
+      "kicker": "Verb bank",
+      "instruction": "Consulte o infinitivo, o passado e o particípio. Observe nos exemplos a forma usada na frase.",
+      "cards": [
+        [
+          "live",
+          "morar; viver",
+          "She lives near the school.",
+          "lived · lived"
+        ],
+        [
+          "work",
+          "trabalhar",
+          "I work at a school.",
+          "worked · worked"
+        ],
+        [
+          "study",
+          "estudar",
+          "He studies English.",
+          "studied · studied"
+        ],
+        [
+          "go",
+          "ir",
+          "We go home at six.",
+          "went · gone"
+        ],
+        [
+          "have",
+          "ter",
+          "She has two brothers.",
+          "had · had"
+        ]
+      ]
+    },
+    {
+      "id": "helping",
+      "type": "patterns",
+      "title": "Helping You",
+      "kicker": "Helping You",
+      "instruction": "Na afirmativa, o verbo muda. Com does e doesn’t, o verbo volta à forma básica.",
+      "groups": [
+        {
+          "title": "Present Simple com he e she",
+          "cards": [
+            [
+              "He/She + verb-s",
+              "Ela trabalha em um hospital.",
+              "She works at a hospital."
+            ],
+            [
+              "He/She + doesn’t + base verb",
+              "Ela não trabalha em casa.",
+              "She doesn’t work at home."
+            ],
+            [
+              "Does + he/she + base verb?",
+              "Ela trabalha em casa?",
+              "Does she work at home?"
+            ],
+            [
+              "Yes, he/she does. / No, he/she doesn’t.",
+              "Não.",
+              "No, she doesn’t."
+            ],
+            [
+              "Where/What + does + subject + base verb?",
+              "Onde ela mora?",
+              "Where does she live?"
+            ]
+          ]
+        },
+        {
+          "title": "Como usar",
+          "cards": [
+            [
+              "Observe 1",
+              "O -s aparece somente na afirmativa.",
+              ""
+            ],
+            [
+              "Observe 2",
+              "Depois de does e doesn’t: work, live, study, go e have.",
+              ""
+            ],
+            [
+              "Observe 3",
+              "Does she works? está incorreto; diga Does she work?",
+              ""
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice-0",
+      "type": "drill",
+      "title": "Forme a terceira pessoa",
+      "kicker": "Forme a terceira pessoa",
+      "instruction": "Aplique o padrão adequado a cada verbo.",
+      "items": [
+        [
+          "work → she",
+          "works"
+        ],
+        [
+          "start → he",
+          "starts"
+        ],
+        [
+          "finish → she",
+          "finishes"
+        ],
+        [
+          "go → he",
+          "goes"
+        ],
+        [
+          "study → she",
+          "studies"
+        ],
+        [
+          "have → he",
+          "has"
+        ],
+        [
+          "Sarah ___ near the school. (live)",
+          "lives"
+        ],
+        [
+          "She ___ English at night. (study)",
+          "studies"
+        ],
+        [
+          "She ___ lunch at noon. (have)",
+          "has"
+        ],
+        [
+          "He go home at six.",
+          "He goes home at six."
+        ],
+        [
+          "She studys English.",
+          "She studies English."
+        ],
+        [
+          "He haves lunch at work.",
+          "He has lunch at work."
+        ]
+      ]
+    },
+    {
+      "id": "practice-1",
+      "type": "drill",
+      "title": "Negativas com doesn’t",
+      "kicker": "Negativas com doesn’t",
+      "instruction": "Retire a marca da terceira pessoa do verbo depois de doesn’t.",
+      "items": [
+        [
+          "She works at home. → negative",
+          "She doesn’t work at home."
+        ],
+        [
+          "He studies at night. → negative",
+          "He doesn’t study at night."
+        ],
+        [
+          "Sarah goes to school. → negative",
+          "Sarah doesn’t go to school."
+        ],
+        [
+          "She ___ live far from work.",
+          "doesn’t"
+        ],
+        [
+          "He doesn’t ___ lunch at home.",
+          "have"
+        ],
+        [
+          "Sarah doesn’t ___ on weekends.",
+          "work"
+        ],
+        [
+          "She doesn’t works here.",
+          "She doesn’t work here."
+        ],
+        [
+          "He don’t study English.",
+          "He doesn’t study English."
+        ],
+        [
+          "Sarah: work weekdays ✓ · work weekends ✗",
+          "Sarah works on weekdays. She doesn’t work on weekends."
+        ],
+        [
+          "Leo: live near school ✗ · live near work ✓",
+          "Leo doesn’t live near school. He lives near work."
+        ]
+      ]
+    },
+    {
+      "id": "practice-2",
+      "type": "drill",
+      "title": "Perguntas com does",
+      "kicker": "Perguntas com does",
+      "instruction": "Comece com does e mantenha o verbo principal na forma básica.",
+      "items": [
+        [
+          "she / Does / at home / work / ?",
+          "Does she work at home?"
+        ],
+        [
+          "live / Where / Sarah / does / ?",
+          "Where does Sarah live?"
+        ],
+        [
+          "after work / What / he / does / do / ?",
+          "What does he do after work?"
+        ],
+        [
+          "Does Sarah work at a hospital? Positive.",
+          "Yes, she does."
+        ],
+        [
+          "Does she work on weekends? Negative.",
+          "No, she doesn’t."
+        ],
+        [
+          "Where does Sarah live?",
+          "She lives near the school."
+        ],
+        [
+          "Does she works at home?",
+          "Does she work at home?"
+        ],
+        [
+          "Where she does live?",
+          "Where does she live?"
+        ],
+        [
+          "Answer: She starts work at eight.",
+          "What time does she start work?"
+        ],
+        [
+          "Answer: No, he doesn’t study at night.",
+          "Does he study at night?"
+        ]
+      ]
+    },
+    {
+      "id": "drill",
+      "type": "drill",
+      "title": "Say it in English.",
+      "kicker": "Say it in English.",
+      "instruction": "Diga a frase em inglês. Confira o modelo e depois personalize uma informação.",
+      "items": [
+        [
+          "Sarah mora perto da escola.",
+          "Sarah lives near the school."
+        ],
+        [
+          "Ela trabalha em um hospital.",
+          "She works at a hospital."
+        ],
+        [
+          "Ela não trabalha em casa.",
+          "She doesn’t work at home."
+        ],
+        [
+          "Onde ela mora?",
+          "Where does she live?"
+        ],
+        [
+          "Ela trabalha nos fins de semana?",
+          "Does she work on weekends?"
+        ],
+        [
+          "Não, ela não trabalha.",
+          "No, she doesn’t."
+        ],
+        [
+          "Que horas ela começa a trabalhar?",
+          "What time does she start work?"
+        ],
+        [
+          "Ela começa às oito.",
+          "She starts at eight."
+        ],
+        [
+          "O que ele faz depois do trabalho?",
+          "What does he do after work?"
+        ],
+        [
+          "Ele vai para casa e estuda.",
+          "He goes home and studies."
+        ]
+      ]
+    },
+    {
+      "id": "expressions",
+      "type": "cards",
+      "title": "Key phrases & expressions",
+      "kicker": "Key phrases & expressions",
+      "instruction": "Use cada expressão como um bloco. Leia o exemplo e crie uma troca curta.",
+      "cards": [
+        [
+          "Where does he/she live?",
+          "Onde ele/ela mora? · Pergunta sobre residência.",
+          "Where does Sarah live?"
+        ],
+        [
+          "He/She lives...",
+          "Ele/Ela mora... · Resposta com terceira pessoa.",
+          "She lives near the school."
+        ],
+        [
+          "Where does he/she work?",
+          "Onde ele/ela trabalha? · Pergunta sobre trabalho.",
+          "Where does she work?"
+        ],
+        [
+          "What does he/she do?",
+          "Qual é a profissão dele/dela?; O que ele/ela faz? · O contexto define o sentido.",
+          "What does she do? She is a nurse."
+        ],
+        [
+          "What time does...?",
+          "Que horas...? · Pergunta por horário da rotina.",
+          "What time does she start work?"
+        ],
+        [
+          "Does he/she...?",
+          "Ele/Ela...? · Pergunta de rotina com terceira pessoa.",
+          "Does she study English?"
+        ],
+        [
+          "Yes, he/she does.",
+          "Sim. · Resposta curta positiva.",
+          "Does she work here? Yes, she does."
+        ],
+        [
+          "No, he/she doesn’t.",
+          "Não. · Resposta curta negativa.",
+          "Does he live here? No, he doesn’t."
+        ],
+        [
+          "on weekdays / on weekends",
+          "nos dias úteis / nos fins de semana · Blocos frequentes de tempo.",
+          "She works on weekdays."
+        ]
+      ]
+    },
+    {
+      "id": "dialogues",
+      "type": "dialogue",
+      "title": "Dialog Samples",
+      "kicker": "Dialog Samples",
+      "instruction": "Leiam as situações e troquem os papéis. Depois alterem uma informação.",
+      "lines": [
+        [
+          "A",
+          "Where does Sarah live?",
+          "Onde Sarah mora?"
+        ],
+        [
+          "B",
+          "She lives near the school.",
+          "Ela mora perto da escola."
+        ],
+        [
+          "A",
+          "What does she do?",
+          "Qual é a profissão dela?"
+        ],
+        [
+          "B",
+          "She is a nurse.",
+          "Ela é enfermeira."
+        ],
+        [
+          "A",
+          "Where does she work?",
+          "Onde ela trabalha?"
+        ],
+        [
+          "B",
+          "She works at a hospital.",
+          "Ela trabalha em um hospital."
+        ],
+        [
+          "A",
+          "Does she work on weekends?",
+          "Ela trabalha nos fins de semana?"
+        ],
+        [
+          "B",
+          "No, she doesn’t. She relaxes at home.",
+          "Não. Ela relaxa em casa."
+        ],
+        [
+          "A",
+          "Does she study English?",
+          "Ela estuda inglês?"
+        ],
+        [
+          "B",
+          "Yes, she does. She studies at night.",
+          "Sim. Ela estuda à noite."
+        ],
+        [
+          "A",
+          "What time does she start work?",
+          "Que horas ela começa a trabalhar?"
+        ],
+        [
+          "B",
+          "She starts at eight and finishes at four.",
+          "Ela começa às oito e termina às quatro."
+        ]
+      ],
+      "lineTitles": {
+        "0": "Where Sarah lives",
+        "2": "Her job",
+        "6": "Weekends",
+        "8": "Study",
+        "10": "Work time"
+      }
+    },
+    {
+      "id": "reading",
+      "type": "reading",
+      "title": "Sarah’s profile",
+      "kicker": "Sarah’s profile",
+      "instruction": "O professor lê primeiro. Depois leia e responda às perguntas consultando o texto.",
+      "paragraphs": [
+        "Sarah is twenty-eight years old. She lives near Central School, but she doesn’t work there. She is a nurse and works at City Hospital. She starts work at eight and finishes at four. After work, she goes home and studies English. She doesn’t study on Fridays. On weekends, she relaxes and meets her friends."
+      ],
+      "items": [
+        [
+          "How old is Sarah?",
+          "She is twenty-eight years old."
+        ],
+        [
+          "Where does she live?",
+          "She lives near Central School."
+        ],
+        [
+          "Where does she work?",
+          "She works at City Hospital."
+        ],
+        [
+          "What does she do after work?",
+          "She goes home and studies English."
+        ],
+        [
+          "Does she study on Fridays?",
+          "No, she doesn’t."
+        ],
+        [
+          "What does she do on weekends?",
+          "She relaxes and meets her friends."
+        ]
+      ],
+      "translations": []
+    },
+    {
+      "id": "talk",
+      "type": "conversation",
+      "title": "Let's Talk",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor usando suas informações ou um perfil inventado.",
+      "tasks": [
+        [
+          "Pergunta 1",
+          "Choose a real or imaginary person."
+        ],
+        [
+          "Pergunta 2",
+          "Where does this person live?"
+        ],
+        [
+          "Pergunta 3",
+          "What does this person do?"
+        ],
+        [
+          "Pergunta 4",
+          "Where does this person work or study?"
+        ],
+        [
+          "Pergunta 5",
+          "What time does this person start?"
+        ],
+        [
+          "Pergunta 6",
+          "What doesn’t this person do on weekends?"
+        ]
+      ],
+      "goal": "Descobrir três hábitos de outra pessoa e relatar as respostas.",
+      "challenge": "Depois de responder, faça uma pergunta ao professor."
+    },
+    {
+      "id": "exit",
+      "type": "exit",
+      "title": "Look at your progress.",
+      "kicker": "Look at your progress.",
+      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
+      "checks": [
+        "Descobrir três hábitos de outra pessoa e relatar as respostas.",
+        "Consegui pedir repetição ou esclarecimento.",
+        "Consigo tentar novamente com menos apoio."
+      ]
+    },
+    {
+      "id": "homework",
+      "type": "homework",
+      "title": "Take it with you.",
+      "kicker": "Take it with you.",
+      "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
+      "options": [
+        [
+          "A",
+          "Speak",
+          "Conte sua rotina de manhã, à tarde e à noite, incluindo horários."
+        ],
+        [
+          "B",
+          "Write",
+          "Escreva cinco frases sobre sua semana usando always, usually, sometimes e never."
+        ],
+        [
+          "C",
+          "Make a Card",
+          "Monte uma agenda de um dia e prepare três perguntas sobre os horários."
+        ]
+      ]
+    }
+  ],
+  "migration": {
+    "sourceLesson": "a1-v3-09-sarah-s-routine",
+    "editorialVersion": "2026.09-a1-38"
+  }
+});}());

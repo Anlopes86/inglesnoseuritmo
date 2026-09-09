@@ -1,29 +1,214 @@
-(function(){
-    'use strict';
-    const R=window.A1V3LessonRegistry; const {v,x,p,t,line,dialogue,question,reading,activity,homework}=R.helpers;
-    R.register(27,R.lesson({
-        title:'Health Problems',
-        objectives:['Nomear sintomas e partes do corpo em situações comuns.','Descrever como se sente com have, feel e hurt.','Dar conselho básico com should/shouldn’t.','Usar will para uma decisão tomada no momento e ajuda oferecida.'],
-        intro:[line('Emma','You don’t look well. What’s wrong?','Você não parece bem. O que houve?'),line('Daniel','I have a bad headache and my throat hurts.','Estou com muita dor de cabeça e minha garganta dói.'),line('Emma','You should rest and drink some water.','Você deveria descansar e beber água.'),line('Daniel','I have a meeting in an hour.','Tenho uma reunião em uma hora.'),line('Emma','You shouldn’t go. I’ll call your manager.','Você não deveria ir. Vou ligar para seu gerente.'),line('Daniel','Thanks. I’ll make an appointment with a doctor.','Obrigado. Vou marcar uma consulta com um médico.')],
-        vocab:[v('headache','dor de cabeça','I have a headache.','Estou com dor de cabeça.'),v('stomachache','dor de estômago','She has a stomachache.','Ela está com dor de estômago.'),v('toothache','dor de dente','He has a toothache.','Ele está com dor de dente.'),v('sore throat','dor de garganta','I have a sore throat.','Estou com dor de garganta.'),v('cough','tosse; tossir','She has a cough.','Ela está com tosse.'),v('fever','febre','He has a fever.','Ele está com febre.'),v('cold','resfriado','I have a cold.','Estou resfriado.'),v('dizzy','tonto(a)','I feel dizzy.','Estou me sentindo tonto.'),v('tired','cansado(a)','She feels tired.','Ela se sente cansada.'),v('sick','doente; enjoado','I feel sick.','Estou me sentindo mal.'),v('hurt','doer','My back hurts.','Minhas costas doem.'),v('head','cabeça','My head hurts.','Minha cabeça dói.'),v('throat','garganta','My throat hurts.','Minha garganta dói.'),v('back','costas','His back hurts.','As costas dele doem.'),v('medicine','remédio','Take this medicine.','Tome este remédio.'),v('rest','descansar','You should rest.','Você deveria descansar.'),v('appointment','consulta; horário marcado','Make an appointment.','Marque uma consulta.'),v('doctor','médico(a)','Call a doctor.','Ligue para um médico.'),v('pharmacy','farmácia','The pharmacy is open.','A farmácia está aberta.'),v('get better','melhorar','I hope you get better soon.','Espero que você melhore logo.')],
-        grammar:{title:'Should and will for immediate decisions',summary:'Use should/shouldn’t para conselho. Use will quando decide ou oferece algo no momento da conversa.',rows:[['advice','should + base verb','You should rest.','Você deveria descansar.'],['negative advice','shouldn’t + base verb','You shouldn’t drive.','Você não deveria dirigir.'],['question','Should + subject + base verb?','Should I call a doctor?','Devo ligar para um médico?'],['decision now','will + base verb','I’ll call the doctor.','Vou ligar para o médico.'],['offer','I’ll + base verb','I’ll get some water.','Vou pegar água.'],['negative future','won’t + base verb','I won’t go to work.','Não vou trabalhar.']],notes:['Depois de should e will, use o verbo base sem to.', 'Plano anterior: I’m going to see a doctor tomorrow. Decisão agora: I’ll call now.', 'Para sintomas: I have a headache; I feel dizzy; my back hurts.']},
-        activitySections:[activity('Describe the symptom','Escolha have, feel ou hurt e produza frases naturais.',[p('Complete','I ___ a headache.','have'),p('Complete','She ___ dizzy.','feels'),p('Complete','My throat ___.','hurts'),p('Complete','He ___ a fever.','has'),p('Complete','They ___ tired.','feel'),p('Complete','Her back ___.','hurts'),p('Match','headache · cough · fever · toothache → head · chest/throat · high temperature · tooth','headache—head; cough—chest/throat; fever—high temperature; toothache—tooth'),p('Answer','What’s wrong? headache','I have a headache.'),p('Answer','What’s wrong? dizzy','I feel dizzy.'),p('Correct','I am a headache.','I have a headache.'),p('Correct','My back is hurt.','My back hurts.'),p('Create','Describe three different symptoms.','I have... I feel... My ... hurts.')],'Symptoms'),activity('Give useful advice','Associe cada situação a um conselho e evite o conselho inadequado.',[p('Advice','headache','You should rest and drink water.'),p('Advice','toothache','You should see a dentist.'),p('Advice','fever','You should stay home and call a doctor.'),p('Advice','sore throat','You should drink something warm.'),p('Make negative','drive when dizzy','You shouldn’t drive when you feel dizzy.'),p('Make negative','go to work with a fever','You shouldn’t go to work with a fever.'),p('Build','I / Should / doctor / call / a / ?', 'Should I call a doctor?'),p('Answer','Should I rest? positive','Yes, you should.'),p('Correct','You should to take medicine.','You should take medicine.'),p('Correct','You don’t should drive.','You shouldn’t drive.'),p('Create','Give two pieces of advice for a cold.','You should... You shouldn’t...')]),activity('Decide and offer help','Use will quando a decisão ou oferta nasce na conversa.',[p('Answer','I’m thirsty.','I’ll get some water.'),p('Answer','I can’t call the doctor.','I’ll call the doctor for you.'),p('Answer','I have a fever.','I’ll make an appointment for you.'),p('Complete','Don’t worry. I ___ help you.','will'),p('Make negative','go to work today','I won’t go to work today.'),p('Build','pharmacy / I’ll / the / go to','I’ll go to the pharmacy.'),p('Choose','Preplanned tomorrow: (I’ll see / I’m going to see) the doctor tomorrow.','I’m going to see'),p('Choose','Decision now: The phone is ringing. (I’ll answer / I’m going to answer) it.','I’ll answer'),p('Correct','I will to call your manager.','I will call your manager.'),p('Create','Offer help in four health situations.','I’ll ... for you.')],'Decisions Now')],
-        translations:[t('O que houve?','What’s wrong?'),t('Estou com dor de cabeça.','I have a headache.'),t('Estou me sentindo tonto.','I feel dizzy.'),t('Minha garganta dói.','My throat hurts.'),t('Você deveria descansar.','You should rest.'),t('Você não deveria dirigir.','You shouldn’t drive.'),t('Devo ligar para um médico?','Should I call a doctor?'),t('Vou pegar um pouco de água.','I’ll get some water.'),t('Não vou trabalhar hoje.','I won’t go to work today.'),t('Espero que melhore logo.','I hope you get better soon.')],
-        expressions:[x('What’s wrong?', 'O que houve?', 'Pergunta pelo problema.','You look tired. What’s wrong?','Você parece cansado. O que houve?'),x('I don’t feel well.', 'Não estou me sentindo bem.','Descrição geral.','I don’t feel well today.','Não estou me sentindo bem hoje.'),x('I have a...', 'Estou com...', 'Usado com vários sintomas.','I have a sore throat.','Estou com dor de garganta.'),x('My ... hurts.', 'Meu/Minha ... dói.','Localiza dor.','My back hurts.','Minhas costas doem.'),x('You should...', 'Você deveria...', 'Conselho.','You should see a doctor.','Você deveria consultar um médico.'),x('I’ll ... for you.', 'Vou ... para você.','Oferta imediata.','I’ll call the pharmacy for you.','Vou ligar para a farmácia para você.'),x('Get well soon.', 'Melhoras.','Desejo curto.','Get well soon, Daniel.','Melhoras, Daniel.'),x('make an appointment', 'marcar uma consulta','Bloco comum de saúde.','I’ll make an appointment.','Vou marcar uma consulta.')],
-        dialogues:[
-            dialogue('A bad headache',line('A','You don’t look well. What’s wrong?','Você não parece bem. O que houve?'),line('B','I have a bad headache.','Estou com muita dor de cabeça.'),line('A','Do you have a fever too?','Você também está com febre?'),line('B','No, but I feel very tired.','Não, mas estou me sentindo muito cansado.'),line('A','You should drink some water and rest.','Você deveria beber água e descansar.'),line('B','Okay. I’ll go home early.','Certo. Vou para casa mais cedo.')),
-            dialogue('Advice for a cold',line('A','I have a cough and a sore throat. What should I do?','Estou com tosse e dor de garganta. O que devo fazer?'),line('B','You should rest and drink warm tea.','Você deveria descansar e beber chá quente.'),line('A','Should I go to work?','Devo ir trabalhar?'),line('B','No. You should stay home today.','Não. Você deveria ficar em casa hoje.')),
-            dialogue('Calling a doctor',line('A','My fever is very high. Should I call a doctor?','Minha febre está muito alta. Devo ligar para um médico?'),line('B','Yes, you should.','Sim.'),line('A','The clinic closes at six.','A clínica fecha às seis.'),line('B','I’ll call the clinic now.','Vou ligar para a clínica agora.'),line('A','Thank you. I don’t have the number.','Obrigado. Não tenho o número.'),line('B','Don’t worry. I have it on my phone.','Não se preocupe. Tenho no meu telefone.')),
-            dialogue('Medicine from the pharmacy',line('A','I need some medicine for my headache.','Preciso de remédio para minha dor de cabeça.'),line('B','I’ll go to the pharmacy.','Vou à farmácia.'),line('A','Thank you, but it’s raining.','Obrigado, mas está chovendo.'),line('B','That’s okay. I’ll go by car.','Tudo bem. Vou de carro.'),line('A','The pharmacy is next to the supermarket.','A farmácia fica ao lado do supermercado.'),line('B','I know where it is.','Sei onde fica.')),
-            dialogue('Staying home',line('A','Are you going to work today?','Você vai trabalhar hoje?'),line('B','No. I won’t go today.','Não. Não vou hoje.'),line('A','Are you going to call your manager?','Você vai ligar para seu gerente?'),line('B','Yes. I’ll call after breakfast.','Sim. Vou ligar depois do café da manhã.'),line('A','Good. Then go back to bed and rest.','Ótimo. Então volte para a cama e descanse.'),line('B','I will. Thanks.','Vou fazer isso. Obrigado.'))
+(function(){'use strict';window.A1V3LessonRegistry.register(27,{
+  "title": "A Short Trip",
+  "type": "review",
+  "summary": "Entrevistar o professor sobre uma viagem e organizar três informações em sequência.",
+  "mission": {
+    "title": "A Short Trip",
+    "task": "Entrevistar o professor sobre uma viagem e organizar três informações em sequência.",
+    "focus": [
+      "Aplicação de 25–26; retoma datas, transportes e preferências."
+    ],
+    "semanticTags": [
+      "travel-weather"
+    ]
+  },
+  "slides": [
+    {
+      "id": "opening",
+      "type": "conversation",
+      "title": "Three moments from a trip",
+      "kicker": "Conversation Activities",
+      "instruction": "Observe as pistas. Diga o que entende e escolha por onde começar.",
+      "tasks": [
+        [
+          "Friday",
+          "Arrived in Salvador · stayed at a hotel"
         ],
-        dialogueGroups: [[0, 1], [2, 3, 4]],
-        reading:reading('Daniel doesn’t feel well','Daniel woke up with a headache and a sore throat. He also felt tired, but he went to work. At ten, his back started to hurt and he felt dizzy. Emma told him, “You should go home. You shouldn’t drive.” She offered to help: “I’ll call a taxi and I’ll tell your manager.” Daniel agreed. He is going to see a doctor at three thirty.',question('Which symptoms did Daniel have in the morning?','A headache, a sore throat and tiredness.'),question('What happened at ten?','His back started to hurt and he felt dizzy.'),question('What advice did Emma give?','He should go home and shouldn’t drive.'),question('What did Emma offer to do?','Call a taxi and tell his manager.'),question('What is Daniel going to do at three thirty?','See a doctor.')),
-        conversation:{questions:['Name eight health problems.','Describe four symptoms with different structures.','Ask what is wrong.','Give two pieces of advice for each of three situations.','Ask whether you should call a doctor.','Offer immediate help in four ways.','Distinguish one prior plan from one decision now.','Complete a short health consultation.'],support:['What’s wrong?', 'I have...', 'I feel...', 'My ... hurts.', 'You should/shouldn’t...', 'I’ll ... for you.', 'Get well soon.']},
-        homework:homework('Prepare três health cards com sintomas, conselhos e ajuda prática.', ['Resfriado','Dor nas costas','Dor de dente'],['Usei have, feel e hurt corretamente.','Incluí should/shouldn’t.','Incluí decisões e ofertas com will.']),
-        mission:{title:'Help a sick friend',task:'Identifique sintomas, dê conselhos seguros e organize ajuda imediata.',focus:['health vocabulary','should','will offers']}
-    }));
-    R.get(27).dialogues.push(
-        dialogue('At the pharmacy',line('A','I have a bad cough.','Estou com muita tosse.'),line('B','You should talk to the pharmacist.','Você deveria falar com o farmacêutico.'))
-    );
-}());
+        [
+          "Saturday",
+          "Visited a museum · had lunch by the beach"
+        ],
+        [
+          "Sunday",
+          "Saw a friend · went home by bus"
+        ]
+      ],
+      "goal": "Your mission",
+      "challenge": "Conte três acontecimentos em ordem e entreviste o professor sobre uma viagem."
+    },
+    {
+      "id": "detective",
+      "type": "conversation",
+      "title": "Rebuild the trip",
+      "kicker": "Conversation Activities",
+      "instruction": "Reconstruam os acontecimentos da viagem. Faça perguntas para confirmar a ordem, os lugares e como cada momento foi.",
+      "tasks": [
+        [
+          "Friday",
+          "Arrived in Salvador · stayed at a hotel"
+        ],
+        [
+          "Saturday",
+          "Visited a museum · had lunch by the beach"
+        ],
+        [
+          "Sunday",
+          "Saw a friend · went home by bus"
+        ]
+      ],
+      "goal": "Find and confirm.",
+      "challenge": "Where were you on Friday? / What did you do on Saturday? / Did you see a friend?"
+    },
+    {
+      "id": "reading",
+      "type": "reading",
+      "title": "A message to work with",
+      "kicker": "A message to work with",
+      "instruction": "O professor lê a mensagem; depois leia e responda. Use as informações na próxima tarefa.",
+      "paragraphs": [
+        "Last weekend I was in Salvador. I arrived on Friday and stayed at a hotel. On Saturday I visited a museum. On Sunday I saw a friend and went home by bus."
+      ],
+      "items": [
+        [
+          "Where did the person stay?",
+          "At a hotel."
+        ],
+        [
+          "When did the person see a friend?",
+          "On Sunday."
+        ]
+      ],
+      "translations": []
+    },
+    {
+      "id": "interview",
+      "type": "conversation",
+      "title": "Now it is about you.",
+      "kicker": "Conversation Activities",
+      "instruction": "Responda com dados reais ou inventados. Depois faça as perguntas ao professor.",
+      "tasks": [
+        [
+          "Pergunta 1",
+          "Where were you on Friday?"
+        ],
+        [
+          "Pergunta 2",
+          "What did you do on Saturday?"
+        ],
+        [
+          "Pergunta 3",
+          "Did you see a friend?"
+        ]
+      ],
+      "goal": "Find one new detail.",
+      "challenge": "Faça uma pergunta de acompanhamento e conte o que descobriu."
+    },
+    {
+      "id": "solve",
+      "type": "mission",
+      "title": "Make it happen.",
+      "kicker": "Make it happen.",
+      "instruction": "Conte três acontecimentos em ordem e entreviste o professor sobre uma viagem.",
+      "board": [
+        [
+          "Friday",
+          "Arrived in Salvador · stayed at a hotel"
+        ],
+        [
+          "Saturday",
+          "Visited a museum · had lunch by the beach"
+        ],
+        [
+          "Sunday",
+          "Saw a friend · went home by bus"
+        ]
+      ],
+      "steps": [
+        "Inicie a conversa.",
+        "Descubra e confirme as informações.",
+        "Cheguem a uma solução."
+      ],
+      "support": [
+        "Where were you on Friday?",
+        "What did you do on Saturday?",
+        "Did you see a friend?"
+      ],
+      "model": "Last weekend I was in Salvador. I arrived on Friday and stayed at a hotel. On Saturday I visited a museum. On Sunday I saw a friend and went home by bus.",
+      "surprise": "A viagem terminou na segunda-feira. Acrescente um acontecimento de domingo à noite."
+    },
+    {
+      "id": "repair",
+      "type": "conversation",
+      "title": "Something changes.",
+      "kicker": "Conversation Activities",
+      "instruction": "Retomem a conversa e resolvam esta mudança.",
+      "tasks": [
+        [
+          "Nova situação",
+          "A viagem terminou na segunda-feira. Acrescente um acontecimento de domingo à noite."
+        ]
+      ],
+      "goal": "Confirm the new result.",
+      "challenge": "Troquem quem pergunta e quem responde. Não é preciso repetir todas as falas anteriores."
+    },
+    {
+      "id": "final",
+      "type": "conversation",
+      "title": "Your turn, without a script.",
+      "kicker": "Conversation Activities",
+      "instruction": "Inventem novos nomes e detalhes para a mesma situação.",
+      "tasks": [
+        [
+          "Objetivo",
+          "Conte três acontecimentos em ordem e entreviste o professor sobre uma viagem."
+        ],
+        [
+          "Apoio opcional",
+          "Where were you on Friday? / What did you do on Saturday? / Did you see a friend?"
+        ]
+      ],
+      "goal": "Complete the conversation.",
+      "challenge": "Na segunda tentativa, use menos apoio e acrescente uma pergunta."
+    },
+    {
+      "id": "exit",
+      "type": "exit",
+      "title": "Look at your progress.",
+      "kicker": "Look at your progress.",
+      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
+      "checks": [
+        "Entrevistar o professor sobre uma viagem e organizar três informações em sequência.",
+        "Consegui pedir repetição ou esclarecimento.",
+        "Consigo tentar novamente com menos apoio."
+      ]
+    },
+    {
+      "id": "homework",
+      "type": "homework",
+      "title": "Take it with you.",
+      "kicker": "Take it with you.",
+      "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
+      "options": [
+        [
+          "A",
+          "Speak",
+          "Conte uma viagem seguindo uma linha do tempo e responda duas perguntas que você mesmo preparou."
+        ],
+        [
+          "B",
+          "Write",
+          "Escreva uma mensagem sobre o melhor momento de uma viagem real ou inventada."
+        ],
+        [
+          "C",
+          "Make a Card",
+          "Crie quatro cartões de acontecimentos fora de ordem para reconstruir uma história com o professor."
+        ]
+      ]
+    }
+  ],
+  "migration": {
+    "sourceLesson": null,
+    "editorialVersion": "2026.09-a1-38"
+  }
+});}());

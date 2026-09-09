@@ -137,8 +137,10 @@
         }));
         return {
             label: authoredHomework?.label || 'Homework',
-            heading: 'Choose one option.',
-            instruction: 'Choose one option.',
+            heading: options.length ? 'Choose one option.' : (authoredHomework?.heading || 'Para a próxima aula'),
+            instruction: authoredHomework?.instruction || '',
+            themes: Array.isArray(authoredHomework?.themes) ? [...authoredHomework.themes] : [],
+            checklist: Array.isArray(authoredHomework?.checklist) ? [...authoredHomework.checklist] : [],
             options: normalizedOptions,
             source: authoredHomework?.source || 'missing-authored-homework',
             usesFallback,
@@ -204,7 +206,7 @@
 
     function register(number, value) {
         const lessonNumber = Number(number);
-        if (!Number.isInteger(lessonNumber) || lessonNumber < 1 || lessonNumber > 32) {
+        if (!Number.isInteger(lessonNumber) || lessonNumber < 1 || lessonNumber > (globalScope.V3Curriculum?.getModule('a1-v3').length || 38)) {
             throw new RangeError(`Número de lição A1-V3 inválido: ${number}`);
         }
         if (!value || typeof value !== 'object') throw new TypeError(`Conteúdo inválido para a lição ${lessonNumber}.`);
@@ -239,9 +241,22 @@
         return entries.get(Number(number));
     }
 
+    const previewEntries = new Map();
+    function registerPreview(id, content) {
+        const manifest = globalScope.V3Curriculum?.a1PreviewLessons.find(item => item.id === id);
+        if (!manifest) throw new Error(`Manifesto de prévia ausente: ${id}`);
+        if (!content.slides?.length || new Set(content.slides.map(item => item.id)).size !== content.slides.length) throw new Error(`Slides inválidos: ${id}`);
+        if (!content.mission?.semanticTags?.some(tag => manifest.languageTags.includes(tag))) throw new Error(`Missão incompatível: ${id}`);
+        const entry = Object.freeze({ ...content, ...manifest, curriculumId: id });
+        previewEntries.set(id, entry);
+        return entry;
+    }
+
     globalScope.A1V3_DATA = dataSource;
     globalScope.A1V3LessonRegistry = Object.freeze({
         register,
+        registerPreview,
+        getPreview: id => previewEntries.get(id),
         get,
         has: number => entries.has(Number(number)),
         lesson,

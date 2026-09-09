@@ -1,26 +1,517 @@
-(function(){
-    'use strict';
-    const R=window.A1V3LessonRegistry; const {v,x,p,t,line,dialogue,question,reading,activity,homework}=R.helpers;
-    R.register(29,R.lesson({
-        title:'Take It Easy',
-        objectives:['Organizar rotina e eventos com before, after, when e until.','Usar start e finish seguidos de substantivo ou verbo-ing em blocos frequentes.','Escolher entre presente, passado e futuro conforme a referência de tempo.','Descrever uma agenda realista, incluindo descanso e limites.'],
-        intro:[line('Emma','You look tired. What time did you finish work yesterday?','Você parece cansado. Que horas terminou o trabalho ontem?'),line('Daniel','I finished at eleven and worked until midnight at home.','Terminei às onze e trabalhei até meia-noite em casa.'),line('Emma','You should take it easy.','Você deveria ir com calma.'),line('Daniel','I know. I’m going to finish early today.','Eu sei. Vou terminar cedo hoje.'),line('Emma','What are you going to do after work?','O que vai fazer depois do trabalho?'),line('Daniel','I’ll turn off my phone and rest before dinner.','Vou desligar o telefone e descansar antes do jantar.')],
-        vocab:[v('start','começar','I start work at eight.','Começo o trabalho às oito.'),v('finish','terminar','I finish at five.','Termino às cinco.'),v('before','antes de','I eat before class.','Como antes da aula.'),v('after','depois de','I rest after work.','Descanso depois do trabalho.'),v('until','até','I worked until midnight.','Trabalhei até meia-noite.'),v('from','de; a partir de','I work from nine to five.','Trabalho das nove às cinco.'),v('break','intervalo','Take a short break.','Faça uma pausa curta.'),v('rest','descansar','You need to rest.','Você precisa descansar.'),v('relax','relaxar','I relax after dinner.','Relaxo depois do jantar.'),v('turn off','desligar','Turn off your phone.','Desligue seu telefone.'),v('turn on','ligar','Turn on the computer.','Ligue o computador.'),v('early','cedo','I’m going to leave early.','Vou sair cedo.'),v('late','tarde; atrasado','I finished late.','Terminei tarde.'),v('midnight','meia-noite','I slept at midnight.','Dormi à meia-noite.'),v('noon','meio-dia','Lunch is at noon.','O almoço é ao meio-dia.'),v('schedule','agenda; horário','My schedule is busy.','Minha agenda está cheia.'),v('free time','tempo livre','I need more free time.','Preciso de mais tempo livre.'),v('take it easy','ir com calma','You should take it easy.','Você deveria ir com calma.')],
-        grammar:{title:'Time links and tense choices',summary:'As expressões de tempo organizam a ação; o marcador temporal ajuda a escolher presente, passado ou futuro.',rows:[['habit','Present Simple + every day','I finish at five every day.','Termino às cinco todos os dias.'],['completed past','Past Simple + yesterday','I finished at seven yesterday.','Terminei às sete ontem.'],['current action','Present Continuous + now','I’m finishing a report now.','Estou terminando um relatório agora.'],['future plan','going to + future time','I’m going to finish early tomorrow.','Vou terminar cedo amanhã.'],['decision now','will + base verb','I’ll turn off my phone.','Vou desligar o telefone.'],['sequence','before/after/until','I rest after work.','Descanso depois do trabalho.']],notes:['Before/after + substantivo: after work. Antes/depois de ação: before eating, after working.', 'Until marca o ponto final: I waited until six.', 'Start/finish + -ing é comum: start working, finish studying.']},
-        activitySections:[activity('Build the schedule','Use from, to, before, after e until para organizar horários.',[p('Complete','I work ___ nine ___ five.','from; to'),p('Complete','I have breakfast ___ work.','before'),p('Complete','I relax ___ dinner.','after'),p('Complete','I waited ___ six.','until'),p('Choose','I slept (until / after) ten.','until'),p('Choose','I called Emma (before / until) the meeting.','before'),p('Build','work / after / rest / I','I rest after work.'),p('Build','midnight / studied / until / She','She studied until midnight.'),p('Correct','I work of nine at five.','I work from nine to five.'),p('Correct','I waited after six. (até)','I waited until six.'),p('Create','Give a weekday schedule with six times.','I ... at... Before... After... Until...')],'Schedule'),activity('Start and finish','Complete blocos naturais e use -ing quando uma ação vem depois.',[p('Complete','I start ___ at eight. (work)','working'),p('Complete','She finished ___ at ten. (study)','studying'),p('Complete','We started the ___ at nine.','meeting'),p('Complete','He finished his ___.','homework'),p('Transform','start + cook','start cooking'),p('Transform','finish + clean','finish cleaning'),p('Answer','What time do you start working?','I start working at ...'),p('Answer','What did you finish yesterday?','I finished ...'),p('Correct','I finished to work at six.','I finished working at six. / I finished work at six.'),p('Correct','She start working at eight.','She starts working at eight.'),p('Create','Say two things you start and two things you finish each day.','I start... I finish...')]),activity('Choose the time line','Leia o marcador e escolha a forma verbal correspondente.',[p('Complete','I usually ___ at five. (finish)','finish'),p('Complete','Yesterday I ___ at seven. (finish)','finished'),p('Complete','I ___ a report right now. (finish)','am finishing'),p('Complete','Tomorrow I ___ early. (going to/finish)','am going to finish'),p('Complete','The phone is ringing. I ___ it. (answer)','will answer'),p('Complete','Last night we ___ until midnight. (work)','worked'),p('Complete','Look! Daniel ___ the computer. (turn on)','is turning on'),p('Choose','Plan made before now: (I’ll rest / I’m going to rest) after work.','I’m going to rest'),p('Choose','Offer now: (I’ll help / I’m going to help) you.','I’ll help'),p('Correct','Yesterday I am working until ten.','Yesterday I worked until ten.'),p('Correct','Every day she is starting at nine.','Every day she starts at nine.'),p('Create','Describe yesterday, now, a plan and one immediate decision.','Yesterday I... Now I’m... Tomorrow I’m going to... I’ll...')],'Timeline'),activity('Take it easy','Reorganize uma agenda sobrecarregada e explique as mudanças.',[p('Problem','Work 8–8 · no lunch · study until 1 a.m.','You should take a break, eat lunch and finish studying earlier.'),p('Change','meeting at 7 p.m. → cancel/rest','I’m not going to attend the meeting. I’m going to rest.'),p('Advice','phone on all night','You should turn off your phone before bed.'),p('Advice','no free time','You should plan some free time.'),p('Answer','What do you do to relax?','I ...'),p('Answer','What should you stop doing late at night?','I should stop ...'),p('Create','Make a balanced evening from 6 to 10.','At six... After... Before... Until...')],'Balance')],
-        translations:[t('A que horas você termina o trabalho?','What time do you finish work?'),t('Terminei às onze ontem.','I finished at eleven yesterday.'),t('Trabalhei até meia-noite.','I worked until midnight.'),t('Descanso depois do trabalho.','I rest after work.'),t('Tomo café antes da aula.','I have coffee before class.'),t('Estou terminando um relatório agora.','I’m finishing a report now.'),t('Vou terminar cedo amanhã.','I’m going to finish early tomorrow.'),t('Vou desligar meu telefone.','I’ll turn off my phone.'),t('Você deveria ir com calma.','You should take it easy.'),t('Preciso de mais tempo livre.','I need more free time.')],
-        expressions:[x('What time do you start/finish?', 'A que horas você começa/termina?', 'Pergunta por rotina.','What time do you finish work?','A que horas termina o trabalho?'),x('from ... to...', 'das ... às...', 'Intervalo completo.','from nine to five','das nove às cinco'),x('before/after...', 'antes/depois de...', 'Organiza sequência.','after work','depois do trabalho'),x('until...', 'até...', 'Marca ponto final.','until midnight','até meia-noite'),x('take a break', 'fazer uma pausa','Interromper para descansar.','Let’s take a break.','Vamos fazer uma pausa.'),x('take it easy', 'ir com calma','Conselho para reduzir esforço.','You should take it easy today.','Você deveria ir com calma hoje.'),x('turn off', 'desligar','Ação com dispositivo.','Turn off your phone.','Desligue seu telefone.'),x('I need some time off.', 'Preciso de um tempo de folga.','Expressa necessidade de pausa.','I’m tired. I need some time off.','Estou cansado. Preciso de folga.')],
-        dialogues:[
-            dialogue('Work hours',line('A','What time do you usually finish work?','A que horas você geralmente termina o trabalho?'),line('B','I usually finish at six.','Geralmente termino às seis.'),line('A','What do you do after work?','O que você faz depois do trabalho?'),line('B','I go home and have dinner.','Vou para casa e janto.'),line('A','Do you check your email at home?','Você verifica seu e-mail em casa?'),line('B','No. I turn off my work phone at six.','Não. Desligo meu telefone de trabalho às seis.')),
-            dialogue('A late day yesterday',line('A','Did you finish late yesterday?','Você terminou tarde ontem?'),line('B','Yes. I worked until ten.','Sim. Trabalhei até as dez.'),line('A','Why did you stay so late?','Por que você ficou até tão tarde?'),line('B','I started an important report after lunch.','Comecei um relatório importante depois do almoço.'),line('A','Did you finish it?','Você terminou?'),line('B','Yes, but I was exhausted.','Sim, mas fiquei exausto.')),
-            dialogue('Finishing a report',line('A','What are you doing right now?','O que você está fazendo agora?'),line('B','I’m finishing a report.','Estou terminando um relatório.'),line('A','When did you start it?','Quando você começou?'),line('B','I started it yesterday.','Comecei ontem.')),
-            dialogue('Plans after work',line('A','What are you going to do after work?','O que você vai fazer depois do trabalho?'),line('B','I’m going to rest.','Vou descansar.'),line('A','Are you going to cook dinner?','Você vai preparar o jantar?'),line('B','No. I’m going to get some food on the way home.','Não. Vou pegar comida no caminho para casa.'),line('A','Then you can relax all evening.','Então você pode relaxar a noite toda.'),line('B','That’s the plan.','Esse é o plano.')),
-            dialogue('Take it easy',line('A','I’m exhausted. I worked until midnight.','Estou exausto. Trabalhei até meia-noite.'),line('B','You need to take it easy tonight.','Você precisa ir com calma hoje à noite.'),line('A','But I still have messages to answer.','Mas ainda tenho mensagens para responder.'),line('B','Answer them tomorrow. Turn off your phone and rest.','Responda amanhã. Desligue seu telefone e descanse.'),line('A','You’re right. I’ll finish work now.','Você tem razão. Vou terminar o trabalho agora.'),line('B','Good. Your messages can wait until morning.','Ótimo. Suas mensagens podem esperar até amanhã de manhã.'))
+(function(){'use strict';window.A1V3LessonRegistry.register(29,{
+  "title": "Travel Updates",
+  "type": "content",
+  "summary": "Compreender uma mudança de portão/horário e avisar outra pessoa; na extensão, dizer o que estava fazendo.",
+  "mission": {
+    "title": "Travel Updates",
+    "task": "Compreender uma mudança de portão/horário e avisar outra pessoa; na extensão, dizer o que estava fazendo.",
+    "focus": [
+      "waiting/boarding/leaving, late/early/ready; ações e condições atuais; anúncio curto. Extensão: was/were + -ing para uma ação em andamento no passado."
+    ],
+    "semanticTags": [
+      "travel-weather",
+      "past-experience",
+      "conditions-backup"
+    ]
+  },
+  "slides": [
+    {
+      "id": "opening",
+      "type": "dialogue",
+      "title": "Travel Updates",
+      "kicker": "Travel Updates",
+      "instruction": "Acompanhe a primeira leitura e depois leia com o professor.",
+      "lines": [
+        [
+          "A",
+          "Are you boarding now?",
+          "Você está embarcando agora?"
         ],
-        dialogueGroups: [[0, 1], [2, 3, 4]],
-        reading:reading('A better schedule','Daniel usually starts work at eight and finishes at six. Last week, he worked until ten every night and studied after work. On Friday, he felt sick and went home early. Now he is changing his schedule. He is going to take a lunch break every day and finish work by six. After work, he is going to walk for thirty minutes. He will turn off his phone before bed and won’t study after ten.',question('What are Daniel’s usual work hours?','From eight to six.'),question('What did he do last week?','He worked until ten and studied after work.'),question('What happened on Friday?','He felt sick and went home early.'),question('What is he going to do at lunch?','Take a break.'),question('What will he do before bed?','Turn off his phone.'),question('When won’t he study?','After ten.')),
-        conversation:{questions:['Describe your usual schedule.','Say what time you start and finish important activities.','Describe yesterday with before, after and until.','Say what you are doing now.','Give three plans for tomorrow.','Make two immediate decisions with will.','Identify an unhealthy schedule and give advice.','Redesign it with specific times and rest.'],support:['from...to...', 'before...', 'after...', 'until...', 'I usually...', 'Yesterday I...', 'I’m ...ing now.', 'I’m going to...', 'I’ll...']},
-        homework:homework('Crie duas agendas: uma sobrecarregada e uma equilibrada.', ['Dia de trabalho','Dia de estudo','Fim de semana'],['Usei start/finish, before/after/until.','Contrastei presente, passado, agora e futuro.','Expliquei pelo menos seis mudanças.']),
-        mission:{title:'Repair the schedule',task:'Analise uma agenda exaustiva, explique o que aconteceu e negocie uma rotina mais equilibrada.',focus:['time links','tense choice','practical advice']}
-    }));
-}());
+        [
+          "B",
+          "No. We are waiting at gate two.",
+          "Não. Estamos esperando no portão dois."
+        ],
+        [
+          "A",
+          "Look at the screen. The gate is different.",
+          "Olhe a tela. O portão é diferente."
+        ],
+        [
+          "B",
+          "What is the new gate?",
+          "Qual é o novo portão?"
+        ],
+        [
+          "A",
+          "Gate seven. Departure is at ten thirty.",
+          "Portão sete. A partida é às dez e meia."
+        ],
+        [
+          "B",
+          "Is the flight late?",
+          "O voo está atrasado?"
+        ],
+        [
+          "A",
+          "Yes. I am calling Ben now.",
+          "Sim. Estou ligando para Ben agora."
+        ],
+        [
+          "B",
+          "Tell him: gate seven, ten thirty.",
+          "Diga a ele: portão sete, dez e meia."
+        ]
+      ]
+    },
+    {
+      "id": "vocabulary",
+      "type": "cards",
+      "title": "Vocabulary Expansion",
+      "kicker": "Vocabulary Expansion",
+      "instruction": "Leia cada palavra com seu exemplo e use-a para explicar a situação.",
+      "cards": [
+        [
+          "gate",
+          "portão",
+          "Go to gate seven."
+        ],
+        [
+          "flight",
+          "voo",
+          "Our flight is late."
+        ],
+        [
+          "screen",
+          "tela",
+          "Look at the screen."
+        ],
+        [
+          "announcement",
+          "anúncio",
+          "Listen to the announcement."
+        ],
+        [
+          "delay",
+          "atraso",
+          "There is a delay."
+        ],
+        [
+          "delayed",
+          "atrasado",
+          "The flight is delayed."
+        ],
+        [
+          "ready",
+          "pronto",
+          "We are ready."
+        ],
+        [
+          "early",
+          "cedo",
+          "We are early."
+        ],
+        [
+          "late",
+          "atrasado",
+          "He is late."
+        ],
+        [
+          "on time",
+          "no horário",
+          "The bus is on time."
+        ],
+        [
+          "waiting",
+          "esperando",
+          "We are waiting."
+        ],
+        [
+          "boarding",
+          "embarcando",
+          "They are boarding."
+        ],
+        [
+          "leaving",
+          "saindo",
+          "The plane is leaving."
+        ],
+        [
+          "calling",
+          "ligando; chamando",
+          "She is calling Ben."
+        ],
+        [
+          "new",
+          "novo",
+          "Check the new gate."
+        ],
+        [
+          "change",
+          "mudança",
+          "There is a gate change."
+        ],
+        [
+          "departure",
+          "partida",
+          "Departure is at ten."
+        ],
+        [
+          "arrival",
+          "chegada",
+          "Arrival is at twelve."
+        ],
+        [
+          "now",
+          "agora",
+          "We are boarding now."
+        ],
+        [
+          "message",
+          "mensagem",
+          "Send a message."
+        ]
+      ]
+    },
+    {
+      "id": "verbs",
+      "type": "verbs",
+      "title": "Verb bank",
+      "kicker": "Verb bank",
+      "instruction": "Consulte as três formas; pratique os exemplos em contexto.",
+      "cards": [
+        [
+          "wait",
+          "esperar",
+          "We are waiting here.",
+          "waited · waited"
+        ],
+        [
+          "board",
+          "embarcar",
+          "We board at gate four.",
+          "boarded · boarded"
+        ],
+        [
+          "leave",
+          "sair; deixar",
+          "The plane leaves at ten.",
+          "left · left"
+        ],
+        [
+          "call",
+          "ligar; chamar",
+          "I will call you.",
+          "called · called"
+        ]
+      ]
+    },
+    {
+      "id": "helping",
+      "type": "patterns",
+      "title": "Helping You",
+      "kicker": "Helping You",
+      "instruction": "Compare os modelos e observe como perguntar e responder.",
+      "cards": [
+        [
+          "am/is/are + -ing",
+          "Descreva uma ação acontecendo agora.",
+          "We are waiting at the airport."
+        ],
+        [
+          "Are you…? / Is she…?",
+          "Coloque are ou is antes da pessoa na pergunta.",
+          "Are you boarding? No, I’m not."
+        ],
+        [
+          "is late / is delayed",
+          "Para a condição do voo, use be + adjetivo.",
+          "The flight is delayed."
+        ],
+        [
+          "new gate / new time",
+          "Confirme os dois detalhes antes de avisar outra pessoa.",
+          "Gate seven. At ten thirty."
+        ]
+      ]
+    },
+    {
+      "id": "drill",
+      "type": "drill",
+      "title": "Say it in English.",
+      "kicker": "Say it in English.",
+      "instruction": "Responda oralmente, confira e tente novamente.",
+      "items": [
+        [
+          "Estamos esperando.",
+          "We are waiting."
+        ],
+        [
+          "Ela está ligando para Ben.",
+          "She is calling Ben."
+        ],
+        [
+          "Eles estão embarcando?",
+          "Are they boarding?"
+        ],
+        [
+          "Não estou embarcando.",
+          "I am not boarding."
+        ],
+        [
+          "O voo está atrasado.",
+          "The flight is delayed."
+        ],
+        [
+          "Qual é o novo portão?",
+          "What is the new gate?"
+        ],
+        [
+          "Olhe a tela.",
+          "Look at the screen."
+        ],
+        [
+          "A partida é às dez e meia.",
+          "Departure is at ten thirty."
+        ],
+        [
+          "Você está pronto?",
+          "Are you ready?"
+        ],
+        [
+          "Estamos no portão sete.",
+          "We are at gate seven."
+        ]
+      ]
+    },
+    {
+      "id": "expressions",
+      "type": "cards",
+      "title": "Key phrases & expressions",
+      "kicker": "Key phrases & expressions",
+      "instruction": "Leia o bloco inteiro e faça uma troca com o professor.",
+      "cards": [
+        [
+          "Look at the screen.",
+          "Olhe a tela.",
+          "Look at the screen for the gate."
+        ],
+        [
+          "What is the new gate?",
+          "Qual é o novo portão?",
+          "What is the new gate for our flight?"
+        ],
+        [
+          "The flight is delayed.",
+          "O voo está atrasado.",
+          "The flight is delayed today."
+        ],
+        [
+          "We are waiting.",
+          "Estamos esperando.",
+          "We are waiting near the café."
+        ],
+        [
+          "Are you ready?",
+          "Você está pronto?",
+          "Are you ready to go?"
+        ],
+        [
+          "Not yet.",
+          "Ainda não.",
+          "Are you boarding? Not yet."
+        ],
+        [
+          "Right now.",
+          "Agora mesmo.",
+          "I am calling her right now."
+        ],
+        [
+          "On time.",
+          "No horário.",
+          "The flight is on time."
+        ],
+        [
+          "Let me check.",
+          "Deixe-me conferir.",
+          "Let me check the new time."
+        ],
+        [
+          "See you there.",
+          "Vejo você lá.",
+          "Gate seven. See you there."
+        ]
+      ]
+    },
+    {
+      "id": "dialogues",
+      "type": "dialogue",
+      "title": "Dialog Samples",
+      "kicker": "Dialog Samples",
+      "instruction": "Troquem os papéis e adaptem o destino ou horário.",
+      "lines": [
+        [
+          "A",
+          "Are you boarding now?",
+          "Você está embarcando agora?"
+        ],
+        [
+          "B",
+          "No. We are waiting at gate two.",
+          "Não. Estamos esperando no portão dois."
+        ],
+        [
+          "A",
+          "Look at the screen. The gate is different.",
+          "Olhe a tela. O portão é diferente."
+        ],
+        [
+          "B",
+          "What is the new gate?",
+          "Qual é o novo portão?"
+        ],
+        [
+          "A",
+          "Gate seven. Departure is at ten thirty.",
+          "Portão sete. A partida é às dez e meia."
+        ],
+        [
+          "B",
+          "Is the flight late?",
+          "O voo está atrasado?"
+        ],
+        [
+          "A",
+          "Yes. I am calling Ben now.",
+          "Sim. Estou ligando para Ben agora."
+        ],
+        [
+          "B",
+          "Tell him: gate seven, ten thirty.",
+          "Diga a ele: portão sete, dez e meia."
+        ]
+      ]
+    },
+    {
+      "id": "reading",
+      "type": "reading",
+      "title": "A useful message",
+      "kicker": "A useful message",
+      "instruction": "Leia a mensagem e encontre as informações necessárias.",
+      "paragraphs": [
+        "Hi Ben. We are waiting at the airport. Our flight is delayed. The old gate is two, but the new gate is seven. Departure is at ten thirty, not ten. Mia is getting water and I am checking the screen. See you at gate seven."
+      ],
+      "items": [
+        [
+          "Are they boarding?",
+          "No. They are waiting."
+        ],
+        [
+          "What is the new gate?",
+          "Gate seven."
+        ],
+        [
+          "What time is departure?",
+          "At ten thirty."
+        ],
+        [
+          "What is Mia doing?",
+          "She is getting water."
+        ]
+      ],
+      "translations": []
+    },
+    {
+      "id": "talk",
+      "type": "mission",
+      "title": "Let's Talk",
+      "kicker": "Let's Talk",
+      "instruction": "Compreender uma mudança de portão/horário e avisar outra pessoa; na extensão, dizer o que estava fazendo.",
+      "board": [
+        [
+          "Original",
+          "Gate 2 · departure 10:00"
+        ],
+        [
+          "Update",
+          "Gate 7 · departure 10:30"
+        ],
+        [
+          "People",
+          "Ben: at the café · Mia: getting water"
+        ]
+      ],
+      "steps": [
+        "Avise Ben sobre a mudança.",
+        "Pergunte onde Mia está e o que faz.",
+        "Confirme portão e horário."
+      ],
+      "support": [
+        "We are…",
+        "The new gate is…",
+        "At…",
+        "Where is…?"
+      ],
+      "model": "Ben, the flight is delayed. We are waiting at gate seven. Departure is at ten thirty."
+    },
+    {
+      "id": "extension",
+      "type": "patterns",
+      "title": "Extra · a moment yesterday",
+      "kicker": "Helping You",
+      "instruction": "Extensão opcional. Compare agora com um momento do passado.",
+      "cards": [
+        [
+          "was / were + -ing",
+          "Para uma ação em andamento em um momento passado, troque am/is/are por was/were.",
+          "Now: I am waiting. Yesterday at ten: I was waiting."
+        ],
+        [
+          "Were you waiting?",
+          "Responda usando was ou were.",
+          "Yes, I was. / No, I wasn’t."
+        ]
+      ]
+    },
+    {
+      "id": "exit",
+      "type": "exit",
+      "title": "Look at your progress.",
+      "kicker": "Look at your progress.",
+      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
+      "checks": [
+        "Compreender uma mudança de portão/horário e avisar outra pessoa; na extensão, dizer o que estava fazendo.",
+        "Consegui pedir repetição ou esclarecimento.",
+        "Consigo tentar novamente com menos apoio."
+      ]
+    },
+    {
+      "id": "homework",
+      "type": "homework",
+      "title": "Take it with you.",
+      "kicker": "Take it with you.",
+      "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
+      "options": [
+        [
+          "A",
+          "Speak",
+          "Dê uma atualização de viagem: onde está, o que está acontecendo e o que está fazendo."
+        ],
+        [
+          "B",
+          "Write",
+          "Escreva uma mensagem avisando uma mudança de portão ou um atraso."
+        ],
+        [
+          "C",
+          "Make a Card",
+          "Crie dois cartões: situação prevista e situação atual. Explique as mudanças com frases simples."
+        ]
+      ]
+    }
+  ],
+  "migration": {
+    "sourceLesson": null,
+    "editorialVersion": "2026.09-a1-38"
+  }
+});}());

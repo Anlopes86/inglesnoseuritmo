@@ -12,7 +12,7 @@ require(path.join(root, 'js', 'v3-curriculum.js'));
 const curriculum = window.V3Curriculum;
 
 const expectedReviews = {
-    'a1-v3': [5, 10, 15, 20, 25, 30, 31, 32],
+    'a1-v3': [3,6,9,12,15,18,21,24,27,30,33,36,37,38],
     'a2-v3': [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 31, 32],
     'b1-v3': Array.from({ length: 15 }, (_, index) => (index + 1) * 2),
     'b2-v3': Array.from({ length: 16 }, (_, index) => (index + 1) * 2),
@@ -30,8 +30,9 @@ const cefrSkills = ['reception', 'production', 'interaction', 'mediation', 'ling
 
 for (const moduleId of modules) {
     const lessons = curriculum.getModule(moduleId);
-    check(lessons.length === 32, `${moduleId}: o manifesto deve ter exatamente 32 lições.`);
-    check(new Set(lessons.map(lesson => lesson.id)).size === 32, `${moduleId}: IDs curriculares duplicados.`);
+    const expectedCount=moduleId==='a1-v3'?38:32;
+    check(lessons.length === expectedCount, `${moduleId}: o manifesto deve ter exatamente 32 lições.`);
+    check(new Set(lessons.map(lesson => lesson.id)).size === expectedCount, `${moduleId}: IDs curriculares duplicados.`);
     check(lessons.every((lesson, index) => lesson.number === index + 1), `${moduleId}: numeração instável.`);
     const expectedVersion = curriculum.moduleVersions?.[moduleId] || curriculum.version;
     check(lessons.every(lesson => lesson.version === expectedVersion), `${moduleId}: versão curricular inconsistente.`);
@@ -46,7 +47,7 @@ for (const moduleId of modules) {
     check(JSON.stringify(lessons.filter(lesson => lesson.type === 'project').map(lesson => lesson.number)) === JSON.stringify(expectedProjects[moduleId]), `${moduleId}: posições de projeto incorretas.`);
 
     const files = fs.readdirSync(path.join(root, moduleId)).filter(name => /^licao-\d{2}\.html$/.test(name)).sort();
-    check(files.length === 32, `${moduleId}: esperadas 32 páginas, encontradas ${files.length}.`);
+    check(files.length === expectedCount, `${moduleId}: esperadas 32 páginas, encontradas ${files.length}.`);
     check(fs.existsSync(path.join(root, moduleId, `${moduleId}.html`)), `${moduleId}: hub ausente.`);
     for (const [index, file] of files.entries()) {
         check(file === `licao-${String(index + 1).padStart(2, '0')}.html`, `${moduleId}: URL ausente na sequência.`);
@@ -57,14 +58,14 @@ for (const moduleId of modules) {
             check(html.includes('../js/advanced-v3-lessons-data.js'), `${moduleId}/${file}: dados avançados ausentes.`);
             check(html.includes('../js/advanced-v3-lesson-player.js'), `${moduleId}/${file}: player avançado ausente.`);
             check(html.includes('../css/advanced-v3.css'), `${moduleId}/${file}: tema avançado ausente.`);
-        } else {
+        } else if(!['a1-v3','a2-v3'].includes(moduleId)) {
             check(html.includes('../js/v3-session-plan.js'), `${moduleId}/${file}: plano de 60 minutos ausente.`);
         }
     }
 }
 
 require(path.join(root, 'a1-v3', 'a1-v3-lesson-registry.js'));
-for (let number = 1; number <= 32; number += 1) {
+for (let number = 1; number <= 38; number += 1) {
     require(path.join(root, 'a1-v3', 'lesson-data', `licao-${String(number).padStart(2, '0')}.js`));
 }
 const registeredA1Data = window.A1V3_DATA;
@@ -79,103 +80,39 @@ window.A1V3_DATA = null;
 require(path.join(root, 'js', 'v3-curriculum-adapters.js'));
 window.A1V3_DATA = registeredA1Data;
 
-const a1Numbers = [...Object.keys(window.A1V3_DATA.lessons), ...Object.keys(window.A1V3_DATA.reviews)].map(Number).sort((a, b) => a - b);
-check(a1Numbers.length === 32 && a1Numbers.every((number, index) => number === index + 1), 'A1-V3: adaptador não produziu 32 lições.');
-check(JSON.stringify(Object.keys(window.A1V3_DATA.reviews).map(Number)) === JSON.stringify([5, 10, 15, 20, 25, 30, 31, 32]), 'A1-V3: missões/projetos não foram remapeados.');
-check(curriculum.getLesson('a1-v3', 1).version === '2026.08.05-expanded-a1-32', 'A1-V3: versão curricular expandida não foi registrada.');
-const a1ContentNumbers = Object.keys(window.A1V3_DATA.lessons).map(Number);
-check(a1ContentNumbers.length === 24, `A1-V3: esperadas 24 aulas de conteúdo gradual, encontradas ${a1ContentNumbers.length}.`);
-const a1ContentLessons = Object.values(window.A1V3_DATA.lessons);
-a1ContentLessons.forEach(lesson => {
-    check(lesson.vocab?.length > 0, `A1-V3 L${lesson.number}: vocabulário ausente.`);
-    check(lesson.activitySections?.length > 0, `A1-V3 L${lesson.number}: seções de prática específicas ausentes.`);
-    check(lesson.activitySections.every(section => section.items?.length > 0), `A1-V3 L${lesson.number}: seção de prática vazia.`);
-    check(lesson.translations?.length > 0, `A1-V3 L${lesson.number}: recuperação oral ausente.`);
-    check(lesson.expressions?.length > 0, `A1-V3 L${lesson.number}: blocos de linguagem ausentes.`);
-    check(lesson.dialogues?.length > 0, `A1-V3 L${lesson.number}: prática dialogada ausente.`);
-    check(!lesson.labs, `A1-V3 L${lesson.number}: o antigo Skill Lab ainda está presente.`);
-    check(lesson.grammar?.rows?.length > 0, `A1-V3 L${lesson.number}: explicação gramatical ausente.`);
-});
-const a1VocabularyCounts = new Set(a1ContentLessons.map(lesson => lesson.vocab.length));
-check(a1VocabularyCounts.size >= 4, `A1-V3: a carga lexical ainda está engessada; foram encontradas apenas ${a1VocabularyCounts.size} cargas diferentes.`);
-check(a1ContentLessons.every(lesson => fs.existsSync(path.join(root, 'a1-v3', 'lesson-data', `licao-${String(lesson.number).padStart(2, '0')}.js`))), 'A1-V3: arquivo individual de uma aula de conteúdo ausente.');
-check(Array.from({ length: 32 }, (_, index) => index + 1).every(number => read(`a1-v3/licao-${String(number).padStart(2, '0')}.html`).includes(`lesson-data/licao-${String(number).padStart(2, '0')}.js`)), 'A1-V3: uma página não carrega seu próprio arquivo de conteúdo.');
-check(Array.from({ length: 32 }, (_, index) => index + 1).every(number => !/a1-v3-data|a1-v3-cadence-data|lesson-editorial|v3-curriculum-adapters/.test(read(`a1-v3/licao-${String(number).padStart(2, '0')}.html`))), 'A1-V3: uma página ainda depende do gerador editorial antigo.');
-const a1RendererSource = read('a1-v3/a1-v3-lesson-content.js');
-check(!/Prática variada:|Seis frases|Quatro diálogos|Área reservada|etapa editorial|Texto musical fictício|Nenhuma letra protegida|Dica:|Observe:|Apoio:/i.test(a1RendererSource), 'A1-V3: o player ainda exibe contagens rígidas, dicas que entregam respostas ou recados editoriais ao aluno.');
-check(/Desembaralhe os elementos/.test(a1RendererSource) && /Encontre o erro/.test(a1RendererSource), 'A1-V3: instruções operacionais de desembaralhar e corrigir não estão explícitas.');
-check(/Music Time/.test(a1RendererSource) && /MusicClozeV3/.test(a1RendererSource), 'A1-V3: integração segura com MusicClozeV3 está ausente.');
-check(!/I wake to see|Preencha as lacunas com a palavra que você ouvir/.test(a1RendererSource), 'A1-V3: o cloze musical genérico antigo ainda é renderizável.');
-const a1ExpectedFocusGroups = { 5: 4, 10: 4, 15: 4, 20: 4, 25: 4, 30: 4, 31: 12, 32: 12 };
-Object.values(window.A1V3_DATA.reviews).forEach(review => {
-    check(review.oralInteractionMinutes >= 36, `A1-V3 ${review.number}: tempo oral abaixo de 36 minutos.`);
-    const communicationRounds = review.stations.filter(station => station.kind === 'individual-round');
-    const expectedRoundCount = review.number >= 31 ? 4 : 3;
-    check(communicationRounds.length === expectedRoundCount, `A1-V3 ${review.number}: número de rodadas individuais incorreto.`);
-    check(
-        JSON.stringify(communicationRounds.map(station => station.phase)) === JSON.stringify(review.number >= 31 ? ['attempt', 'questions', 'condition', 'final'] : ['attempt', 'questions', 'final']),
-        `A1-V3 ${review.number}: sequência de apresentação, perguntas e resposta final inválida.`
-    );
-    const roundSignatures = communicationRounds.map(station => JSON.stringify(station.round));
-    check(new Set(roundSignatures).size === expectedRoundCount, `A1-V3 ${review.number}: rodadas comunicativas duplicadas.`);
-    check(communicationRounds.every(station => !station.items), `A1-V3 ${review.number}: rodada comunicativa reutiliza exercício controlado.`);
-    const controlledStations = review.stations.filter(station => station.kind === 'focus-practice');
-    check(controlledStations.length === a1ExpectedFocusGroups[review.number], `A1-V3 ${review.number}: agrupamento de conteúdos gramaticais incorreto.`);
-    check(new Set(controlledStations.map(station => station.title)).size === controlledStations.length, `A1-V3 ${review.number}: estações controladas duplicadas.`);
-    check(controlledStations.every(station => station.grammar?.rows?.length && station.items?.length), `A1-V3 ${review.number}: cada foco precisa de revisão gramatical seguida de atividades.`);
-    check(controlledStations.every(station => station.grammar.rows.every(row => !/ · /.test(row[0]))), `A1-V3 ${review.number}: a coluna de foco ainda inclui o título da aula de origem.`);
-    check(communicationRounds.every(station => !station.round?.roleA && !station.round?.roleB && !station.round?.informationGap), `A1-V3 ${review.number}: uma rodada ainda depende de papéis para dois alunos.`);
-    check(!/\b(?:Dois alunos|dois colegas|Aluno A|Aluno B|Role A|Role B|não mostrem|fichas|papéis diferentes|em dupla|a turma)\b/i.test(JSON.stringify(review)), `A1-V3 ${review.number}: há instrução incompatível com aula particular online.`);
-});
-check(window.A1V3_DATA.reviews[5].stations.some(station => station.grammar?.title === 'Verb to be' && station.grammar.rows.length >= 6), 'A1-V3 L5: as formas do verb to be não foram reunidas na mesma revisão gramatical.');
-check(/apresenta|perfil/i.test(window.A1V3_DATA.reviews[5].homework?.instruction || ''), 'A1-V3 L5: homework pessoal e adequado ao bloco ausente.');
-
-const memoryWiringSource = read('js/v3-session-plan.js');
-const memoryWiringBlock = memoryWiringSource.slice(memoryWiringSource.indexOf("const memoryCard = event.target.closest('[data-v3-memory-card]')"), memoryWiringSource.indexOf("const matchOption = event.target.closest('[data-v3-match-option]')"));
-check(/pendingReset/.test(memoryWiringBlock), 'A1-V3: o jogo da memória não mantém o par incorreto aberto até o próximo clique.');
-check(!/setTimeout|dataset\.busy/.test(memoryWiringBlock), 'A1-V3: o jogo da memória ainda fecha cartas por tempo.');
-check(!/Role A|Role B|Information gap|Rota da aula|Contrato comunicativo/.test(a1RendererSource), 'A1-V3: o player de revisão ainda mostra orientação coletiva ou o texto longo da abertura.');
-check(!/Produção oral \d+\/\d+/.test(a1RendererSource), 'A1-V3: o player ainda mostra a sequência artificial Produção oral 2/3 ou 3/3.');
-
-let a2Source = read('a2-v3/a2-v3-lesson-content.js');
-a2Source = a2Source.replace(/\}\(\)\);\s*$/, 'globalThis.__a2Audit = { getLessonData, getReviewLesson }; }());');
-const a2TemplateSource = read('a2-v3/a2-v3-template.js');
-const a2Document = { readyState: 'loading', title: '', addEventListener() {} };
-const a2Window = { location: { pathname: '' }, V3Curriculum: curriculum };
-const a2Context = { console, document: a2Document, window: a2Window };
-vm.createContext(a2Context);
-vm.runInContext(a2TemplateSource, a2Context, { filename: 'a2-v3-template.js' });
-vm.runInContext(a2Source, a2Context, { filename: 'a2-v3-lesson-content.js' });
-const a2ContentNumbers = Array.from({ length: 15 }, (_, index) => index * 2 + 1);
-for (const number of a2ContentNumbers) {
-    a2Window.location.pathname = `/a2-v3/licao-${String(number).padStart(2, '0')}.html`;
-    const data = a2Context.__a2Audit.getLessonData();
-    check(a2Window.A2V3PremiumCurriculum.lessons[number], `A2-V3 L${number}: autoria premium ausente.`);
-    check((data.bank.vocab || []).length >= 8, `A2-V3 L${number}: vocabulário insuficiente.`);
-    check((data.bank.verbRows || []).length >= 2, `A2-V3 L${number}: lista de verbos insuficiente.`);
-    check((data.bank.verbRows || []).every(row => row.length === 4 && !/^to\s+/i.test(row[0])), `A2-V3 L${number}: formato interno da tabela de verbos inválido.`);
-    check((data.bank.helpingYou || []).length >= 3, `A2-V3 L${number}: Helping You específico ausente.`);
-    check((data.bank.expressions || []).length >= 6, `A2-V3 L${number}: expressões insuficientes.`);
-    check((data.bank.translations || []).length >= 8, `A2-V3 L${number}: drills PT-EN insuficientes.`);
-    check((data.bank.dialogues || []).length >= 2, `A2-V3 L${number}: Dialog Samples insuficientes.`);
-    check((data.bank.introDialogue || []).length >= 6, `A2-V3 L${number}: diálogo inicial curto demais.`);
-    check((data.bank.readingQuestions || []).length >= 4, `A2-V3 L${number}: compreensão de leitura insuficiente.`);
-    check((data.bank.guidedConversation?.questions || []).length >= 4, `A2-V3 L${number}: Let's Talk insuficiente.`);
-    const html = read(`a2-v3/licao-${String(number).padStart(2, '0')}.html`);
-    check(html.includes('a2-v3-template.js'), `A2-V3 L${number}: camada premium não carregada.`);
+const a1Lessons=curriculum.getModule('a1-v3').map(m=>window.A1V3LessonRegistry.get(m.number));
+const a1RendererSource=read('js/v3-presentation.js');
+check(a1Lessons.length===38,'A1: esperadas 38 aulas.');
+check(a1Lessons.filter(l=>l.lessonKind==='lexical').length===24,'A1: esperadas 24 lexicais.');
+check(a1Lessons.filter(l=>l.lessonKind==='communicative').length===12,'A1: esperadas 12 conversações.');
+check(a1Lessons.filter(l=>l.lessonKind==='consolidation').length===2,'A1: esperadas duas consolidações.');
+for(const lesson of a1Lessons){
+ const slides=lesson.slides||[], m=curriculum.getLesson('a1-v3',lesson.number);
+ check(slides.length>=8,'A1 L'+lesson.number+': seções insuficientes.');
+ check(new Set(slides.map(s=>s.id)).size===slides.length,'A1: IDs de seção duplicados.');
+ check(slides.every(s=>s.title&&s.instruction),'A1: seção sem orientação.');
+ check(slides.at(-1)?.type==='homework'&&slides.at(-1).options?.length===3,'A1: homework deve encerrar com três opções.');
+ check(lesson.curriculumId===m.id&&m.disableLegacyEditorial,'A1: fonte ou ID incoerente.');
+ if(m.lessonKind==='lexical'){
+  check(slides[0]?.type==='dialogue'&&slides[0].lines.length>=6,'A1: diálogo inicial ausente.');
+  const words=slides.filter(s=>s.type==='cards'&&s.id!=='expressions').flatMap(s=>s.cards||s.groups.flatMap(g=>g.cards));
+  check(words.length>=14,'A1: vocabulário insuficiente.');
+  check(slides.some(s=>s.type==='verbs'&&s.cards.length),'A1: verbos ausentes.');
+  check(slides.some(s=>s.type==='patterns'),'A1: explicações ausentes.');
+  check(slides.some(s=>s.type==='drill'&&s.items.length>=6),'A1: prática oral insuficiente.');
+  check(slides.some(s=>s.id==='expressions'&&s.cards.length>=6),'A1: expressões ausentes.');
+  check(slides.some(s=>s.type==='reading'&&s.items.length>=3),'A1: leitura com perguntas ausente.');
+ }else{
+  check(!slides.some(s=>['verbs','cards','drill','patterns'].includes(s.type)),'A1: CA não deve repetir lista lexical ou drills.');
+  check(slides.filter(s=>['conversation','mission'].includes(s.type)).length>=5,'A1: tarefas comunicativas insuficientes.');
+  check(m.requireExplicitCompletion,'A1: nova CA não pode ser concluída por inferência.');
+ }
 }
-for (const number of expectedReviews['a2-v3']) {
-    const entry = curriculum.getLesson('a2-v3', number);
-    const review = a2Context.__a2Audit.getReviewLesson(number);
-    check(review?.contract?.rounds?.length === 3, `A2-V3 L${number}: contrato de revisão ausente.`);
-    check(entry.oralInteractionMinutes >= 39, `A2-V3 L${number}: tempo oral abaixo de 39 minutos.`);
-    check((review?.focus || []).length >= 1, `A2-V3 L${number}: foco de revisão ausente.`);
-    check((review?.drills || []).length >= 3, `A2-V3 L${number}: drills de revisão insuficientes.`);
-    check((review?.translations || []).length >= 1, `A2-V3 L${number}: tradução de revisão ausente.`);
-}
-check(/data-a2-listening-toggle/.test(a2Source) && /data-a2-listening-script/.test(a2Source), 'A2-V3: controle do roteiro oculto de listening ausente.');
-check(/Listening sem acompanhar o texto/.test(a2Source) && /Perguntas para ouvir e responder/.test(a2Source), 'A2-V3: instrução de listening e perguntas visíveis ausentes.');
-check(/cue:\s*item\[1\]/.test(a2Source) && !/cue:\s*`\$\{item\[0\]\}:/.test(a2Source), 'A2-V3: matching ainda entrega a categoria ou a resposta junto da frase incompleta.');
+check(/markLessonAsComplete/.test(a1RendererSource),'A1: conclusão não integrada.');
+check(/MusicClozeV3/.test(a1RendererSource),'A1: música não integrada.');
+check(/saveAttrs/.test(a1RendererSource)&&/data-pronounce-text/.test(a1RendererSource),'A1: salvar e ouvir ausentes.');
+
+try { console.log(require('child_process').execFileSync(process.execPath, [path.join(root, 'tools/audit-a2-v3-presentation.cjs')], {encoding:'utf8'}).trim()); } catch(error) { check(false, 'A2 presentation audit: '+error.message); }
 
 const b1Lessons = window.B1_V3_LESSONS || [];
 check(b1Lessons.length === 32, 'B1-V3: adaptador não produziu 32 lições.');
@@ -221,14 +158,10 @@ check(curriculum.isLessonComplete(premiumA2Location, 'a2-v3', 4), 'A2 migration:
 check(!curriculum.isLessonComplete({ 'a2-v3': { lesson_31: true } }, 'a2-v3', 31), 'A2 migration: new consolidation content should remain pending.');
 check(!curriculum.isLessonComplete({ 'b1-v3': { lesson_32: true } }, 'b1-v3', 32), 'B1 migration: final assessment completed without the former workshop.');
 check(curriculum.isLessonComplete({ 'b1-v3': { lesson_31: true, lesson_32: true } }, 'b1-v3', 32), 'B1 migration: final assessment did not recognize the former workshop and project.');
-const a1Block = { 'a1-v3': { lesson_1: true, lesson_2: true, lesson_7: true, lesson_18: true, lesson_26: true } };
-check(curriculum.isLessonComplete(a1Block, 'a1-v3', 5), 'Migração: revisão antiga não foi convertida após bloco completo.');
-check(!curriculum.isLessonComplete({ 'a1-v3': { lesson_1: true } }, 'a1-v3', 2), 'Migração A1: aula combinada foi concluída com apenas uma origem.');
-check(curriculum.isLessonComplete({ 'a1-v3': { lesson_1: true, lesson_18: true } }, 'a1-v3', 2), 'Migração A1: aula combinada não reconheceu todas as origens.');
-check(!curriculum.isLessonComplete({ 'a1-v3': { lesson_13: true } }, 'a1-v3', 7), 'Migração A1: conteúdo novo recebeu equivalência incorreta.');
-check(!curriculum.isLessonComplete({ 'a1-v3': { byId: { 'a1-v3-31-my-english-profile-workshop': true } } }, 'a1-v3', 31), 'Migração A1: antiga oficina concluiu indevidamente a nova consolidação extensa.');
-const a1PreviousId = curriculum.getLesson('a1-v3', 1).legacyIds[0];
-check(curriculum.isLessonComplete({ 'a1-v3': { byId: { [a1PreviousId]: true } } }, 'a1-v3', 1), 'Migração A1: ID da versão anterior não foi preservado.');
+const oldOne=curriculum.a1HistoricalManifest[0];
+check(curriculum.isLessonComplete({'a1-v3':{byId:{[oldOne.id]:true}}},'a1-v3',1),'A1: equivalência explícita não preservada.');
+check(!curriculum.isLessonComplete({'a1-v3':{lesson_3:true}},'a1-v3',3),'A1: número antigo concluiu nova CA.');
+check(!curriculum.isLessonComplete({'a1-v3':{byId:Object.fromEntries(curriculum.getModule('a1-v3').filter(l=>l.lessonKind==='lexical').map(l=>[l.id,true]))}},'a1-v3',3),'A1: CA concluída só pelas lexicais.');
 const directEntry = curriculum.getLesson('b2-v3', 1);
 check(curriculum.isLessonComplete({ 'b2-v3': { byId: { [directEntry.id]: true } } }, 'b2-v3', directEntry.id), 'Progresso por ID não foi reconhecido.');
 
@@ -253,11 +186,12 @@ check(/Guided response/.test(read('js/advanced-v3-lessons-data.js')) && /Teacher
 
 const pedagogySources = {
     A1: a1RendererSource,
-    A2: read('a2-v3/a2-v3-lesson-content.js'),
+    A2: read('a2-v3/a2-v3-presentation-data.js'),
     B1: read('js/b1-v3-lesson-player.js'),
     Advanced: advancedPlayer
 };
 for (const [label, source] of Object.entries(pedagogySources)) {
+    if(['A1','A2'].includes(label))continue; // The section contract is audited above.
     check(/Vocabulary Expansion/.test(source), `${label}: etapa Vocabulary Expansion ausente.`);
     check(/Helping You/.test(source), `${label}: etapa Helping You ausente.`);
     check(/Dialog Sample/.test(source), `${label}: etapa Dialog Samples ausente.`);
@@ -277,5 +211,5 @@ if (errors.length) {
     errors.forEach(error => console.error(`- ${error}`));
     process.exitCode = 1;
 } else {
-    console.log('V3 curriculum audit passed: 160 pages, five 32-lesson manifests, review cadence, CEFR coverage, communicative contracts, progress migration and permissions checked.');
+    console.log('V3 curriculum audit passed: 166 pages, A1 with 38 lessons and four 32-lesson manifests, review cadence, CEFR coverage, communicative contracts, progress migration and permissions checked.');
 }

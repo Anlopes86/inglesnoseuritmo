@@ -47,7 +47,7 @@ for (const number of expectedLessons) {
     }
 
     const html = fs.readFileSync(path.join(__dirname, `licao-${String(number).padStart(2, '0')}.html`), 'utf8');
-    if (!html.includes("<script src='a2-v3-conversation-template.js'></script>")) failures.push(`${label}: conversation template is not loaded by the HTML page.`);
+    if (!/src=["']a2-v3-conversation-template\.js["']/.test(html)) failures.push(`${label}: conversation template is not loaded by the HTML page.`);
 }
 
 const configuredNumbers = Object.keys(conversations).map(Number).sort((a, b) => a - b);

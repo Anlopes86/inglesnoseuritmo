@@ -1,76 +1,773 @@
-(function(){
-    'use strict';
-    const R=window.A1V3LessonRegistry; const {p,question,reading,homework,focus,speaking,comm,line,dialogue}=R.helpers;
-    const stations=[
-        focus('Dates and was/were','Organize datas e localize pessoas no passado.',[['date','on + month + ordinal','on July third'],['singular','was/wasn’t','It was sunny.'],['plural','were/weren’t','We were in Bahia.']],['Use in para mês/ano e on para data.', 'Perguntas começam com Was/Were.'],[p('Write','12/25','December twenty-fifth'),p('Write','05/21','May twenty-first'),p('Complete','My vacation was ___ July.','in'),p('Complete','The trip was ___ July 3rd.','on'),p('Complete','We ___ at the hotel.','were'),p('Make negative','It was cold.','It wasn’t cold.'),p('Make a question','They were in Salvador.','Were they in Salvador?'),p('Correct','We was on vacation.','We were on vacation.'),p('Answer','Where were you last weekend?','I was ...'),p('Create','Give a start date, end date and two locations.','from ... to ...; I was/we were ...')]),
-        focus('Past Simple story','Relate ações concluídas e organize a sequência.',[['regular','verb + ed','walked; visited'],['irregular','special form','went; saw; bought'],['question/negative','did + base verb','Did you go? I didn’t go.']],['Depois de did/didn’t, use o verbo base.', 'Use was/were sem did.'],[p('Past','miss','missed'),p('Past','go','went'),p('Past','buy','bought'),p('Past','see','saw'),p('Complete','We ___ a taxi. (take)','took'),p('Make negative','I bought a ticket.','I didn’t buy a ticket.'),p('Make a question','She arrived late.','Did she arrive late?'),p('Correct','Did you went?','Did you go?'),p('Order','arrived · missed bus · took taxi','I missed the bus, took a taxi and arrived.'),p('Create','Tell a five-event story with First, Then and Finally.','First... Then... Finally...')]),
-        focus('Airport English and can','Passe por check-in, bagagem e portão usando pedidos claros.',[['permission','Can I + base verb?','Can I take this bag?'],['ability','can/can’t','I can use the machine.'],['knowledge','know how to','I know how to check in.']],['Can nunca recebe to.', 'Luggage não recebe plural.'],[p('Match','counter · gate · boarding pass · luggage','service desk · boarding place · document to board · bags'),p('Complete','Where can I check ___?','in'),p('Complete','The flight is late. It is ___.','delayed'),p('Build','take / Can / bag / this / I / ?', 'Can I take this bag?'),p('Build','can / Where / board / I / ?', 'Where can I board?'),p('Correct','I can to help.','I can help.'),p('Correct','two luggages','two bags / some luggage'),p('Complete','I know how ___ use the machine.','to'),p('Answer','Can you check in online?','Yes, I can. / No, I can’t.'),p('Create','Ask about documents, bag and gate.','Can I see...? Can I take...? Which gate?')]),
-        focus('Past Continuous','Reconstrua o contexto e o evento que o interrompeu.',[['background','was/were + verb-ing','They were waiting.'],['event','Past Simple','The lights went out.'],['link','when/while','I was reading when they called.']],['Was/were + -ing descreve ação em andamento.', 'Não use did com o Past Continuous.'],[p('Complete','I ___ (wait) at the gate.','was waiting'),p('Complete','They ___ (sleep).','were sleeping'),p('Make negative','We were boarding.','We weren’t boarding.'),p('Make a question','Sarah was reading.','Was Sarah reading?'),p('Complete','I ___ when the agent ___. (wait/call)','was waiting; called'),p('Complete','The lights ___ while we ___. (go out/talk)','went out; were talking'),p('Correct','They was sleeping.','They were sleeping.'),p('Correct','What did you doing?','What were you doing?'),p('Describe','8:00—Daniel wait; Emma read; Sarah buy coffee','Daniel was waiting, Emma was reading and Sarah was buying coffee.'),p('Create','Add one interruption and the next event.','Suddenly... Then...')])
-    ];
-    stations.push(
-        speaking('attempt','Conversation: vacation interview','Dê datas, lugares e uma sequência de eventos.',{label:'Past trip',scenario:'Você voltou de uma viagem e precisa reconstruir o calendário.',task:'Responda quando, onde, com quem e o que aconteceu.',condition:'Uma data fornecida está errada; corrija-a.',steps:['Dê as datas.','Localize as pessoas.','Conte quatro eventos.'],support:['from ... to...','I was/We were...','First... Then...'],evidence:'Datas e sequência ficam claras.'}),
-        speaking('questions','Conversation: airport problem','Resolva uma passagem pelo aeroporto com uma dificuldade inesperada.',{label:'Get to the gate',scenario:'Seu voo sai de um portão distante e sua mala é grande.',task:'Faça check-in, resolva a bagagem e encontre o portão.',condition:'O voo sofre atraso de cinquenta minutos.',steps:['Mostre documentos.','Pergunte sobre a mala.','Confirme portão e novo horário.'],support:['Can I...?', 'Where can I...?', 'Is the flight on time?'],evidence:'O trajeto e a solução são compreensíveis.'}),
-        speaking('final','Conversation: what happened at the gate?','Reconstrua uma cena antes e depois de um anúncio.',{label:'Gate investigation',scenario:'Há relatos parciais de cinco passageiros.',task:'Diga o que cada um estava fazendo e o que aconteceu.',condition:'Uma segunda informação contradiz seu primeiro relato.',steps:['Monte o contexto.','Inclua a interrupção.','Corrija a versão final.'],support:['was/were ...ing','when','while','Suddenly','Finally'],evidence:'Contexto e eventos concluídos não se confundem.'})
-    );
-    R.register(25,R.review({title:'Conversation Activities 5',objectives:['Revisar exclusivamente as lições 21–24.','Praticar cada conteúdo imediatamente após sua retomada.','Integrar calendário, passado e viagem em tarefas individuais.'],stations,
-        reading:reading('A difficult return trip','Daniel’s return flight was on July seventeenth. He arrived at the airport at six and checked in at counter twelve. While he was walking to gate twenty-four, he heard an announcement: the flight was delayed. At seven, Daniel was reading and other passengers were sleeping when the lights suddenly went out. An agent explained that the airport had a technical problem. The lights came back after ten minutes, but the flight didn’t leave until nine thirty.',question('When was Daniel’s flight?','On July seventeenth.'),question('What did he do at counter twelve?','He checked in.'),question('What was he doing when he heard the announcement?','He was walking to the gate.'),question('What were other passengers doing at seven?','They were sleeping.'),question('What happened to the lights?','They went out.'),question('What time did the flight leave?','At nine thirty.')),
-        communicativeActivities:[
-            comm('listening','Listen: a gate change','Ouça o diálogo e anote data, voo, portão original, novo portão e horário de embarque.',{
-                placement:'before-reading',
-                scenario:'Um passageiro pede ajuda depois de ouvir apenas parte de um anúncio.',
-                dialogue:dialogue('At the information desk',
-                    line('Passenger','Excuse me. Is flight 308 on time?','Com licença. O voo 308 está no horário?'),
-                    line('Agent','No. It was delayed by fifty minutes.','Não. Ele foi atrasado em cinquenta minutos.'),
-                    line('Passenger','What time can we board?','A que horas podemos embarcar?'),
-                    line('Agent','Boarding starts at nine fifteen.','O embarque começa às nove e quinze.'),
-                    line('Passenger','Is the gate still twenty-four?','O portão ainda é o vinte e quatro?'),
-                    line('Agent','No. The new gate is thirty-one.','Não. O novo portão é o trinta e um.'),
-                    line('Passenger','Where can I find gate thirty-one?','Onde encontro o portão trinta e um?'),
-                    line('Agent','Go straight and turn left after the café.','Siga reto e vire à esquerda depois do café.'),
-                    line('Passenger','Can I take this suitcase with me?','Posso levar esta mala comigo?'),
-                    line('Agent','No. You need to check it in first.','Não. Você precisa despachá-la primeiro.')
-                ),
-                questions:[
-                    question('Which flight is the passenger taking?','Flight 308.'),
-                    question('How long is the delay?','Fifty minutes.'),
-                    question('What time does boarding start?','At nine fifteen.'),
-                    question('What was the original gate?','Gate twenty-four.'),
-                    question('What is the new gate?','Gate thirty-one.'),
-                    question('How can the passenger get there?','Go straight and turn left after the café.'),
-                    question('What must happen to the suitcase?','The passenger needs to check it in.')
-                ]
-            }),
-            comm('practice','Rebuild the travel timeline','Organize as informações e conte a história inteira usando First, Then, While, Suddenly e Finally.',{
-                eyebrow:'Timeline Challenge',
-                items:[
-                    p('Date','flight · 07/17','The flight was on July seventeenth.'),
-                    p('Order','heard announcement · arrived · checked in','First, Daniel arrived. Then he checked in and heard an announcement.'),
-                    p('Connect','Daniel walked to gate 24 · announcement started','Daniel was walking to gate twenty-four when the announcement started.'),
-                    p('Connect','Daniel read · passengers slept','Daniel was reading while other passengers were sleeping.'),
-                    p('Interrupt','people waited · lights went out','People were waiting when the lights suddenly went out.'),
-                    p('Ask','passport','Can I see your passport?'),
-                    p('Ask for directions','gate 31','Where can I find gate thirty-one?'),
-                    p('Finish','lights returned · flight left at 9:30','Finally, the lights came back and the flight left at nine thirty.')
-                ]
-            }),
-            comm('qa-board','Past trip Q & A','Desembaralhe as perguntas, encontre as respostas e conte o que aconteceu sem ler o quadro.',{
-                pairs:[
-                    {scrambled:'vacation / your / When / was / ?',question:'When was your vacation?',answer:'It was in July.'},
-                    {scrambled:'you / were / Where / ?',question:'Where were you?',answer:'I was in Salvador.'},
-                    {scrambled:'yesterday / do / What / you / did / ?',question:'What did you do yesterday?',answer:'I visited the old town.'},
-                    {scrambled:'ticket / buy / you / Did / the / ?',question:'Did you buy the ticket?',answer:'Yes, I bought it online.'},
-                    {scrambled:'passport / see / I / Can / your / ?',question:'Can I see your passport?',answer:'Of course. Here it is.'},
-                    {scrambled:'gate / find / Where / I / can / the / ?',question:'Where can I find the gate?',answer:'Go straight and turn right.'},
-                    {scrambled:'eight / doing / What / you / were / at / ?',question:'What were you doing at eight?',answer:'I was waiting at the gate.'},
-                    {scrambled:'next / happened / What / ?',question:'What happened next?',answer:'The flight was canceled.'}
-                ]
-            }),
-            comm('interview','Travel interview','Responda sobre uma viagem real ou inventada. Depois, reconte a viagem em ordem cronológica.',{
-                scenario:'O professor entrevista você sobre uma viagem com um pequeno imprevisto.',
-                questions:['When was the trip?','Where were you?','Who was with you?','How did you get there?','What did you do first?','What happened next?','Where were you when the problem started?','What were you doing?','What did you do finally?'],
-                reportTask:'Conte a viagem novamente sem as perguntas. Inclua data, lugar, quatro eventos e uma ação em andamento interrompida.',
-                support:['The trip was on...','I was/We were...','First... Then...','I was ...ing when...','Finally...']
-            })
+(function(){'use strict';window.A1V3LessonRegistry.register(25,{
+  "title": "My Vacation Calendar",
+  "type": "content",
+  "summary": "Informar quando e onde esteve e responder duas perguntas simples.",
+  "mission": {
+    "title": "My Vacation Calendar",
+    "task": "Informar quando e onde esteve e responder duas perguntas simples.",
+    "focus": [
+      "Meses, datas e lugares; yesterday/last…; was/were; perguntas de lugar e condição; ordinais mais usados em datas."
+    ],
+    "semanticTags": [
+      "travel-weather",
+      "past-experience",
+      "conditions-backup"
+    ]
+  },
+  "slides": [
+    {
+      "id": "opening",
+      "type": "dialogue",
+      "title": "My Vacation Calendar",
+      "kicker": "My Vacation Calendar",
+      "instruction": "Acompanhe a leitura do professor. Depois leiam juntos e identifiquem a situação.",
+      "lines": [
+        [
+          "Emma",
+          "When was your vacation?",
+          "Quando foram suas férias?"
         ],
-        homework:homework('Prepare três produções usando somente as lições 21–24.',['Um calendário de viagem passada','Um percurso completo no aeroporto','Uma interrupção durante a espera'],['Usei datas e was/were.','Usei Past Simple em sequência.','Usei can e linguagem de aeroporto.','Usei Past Continuous com when/while.'])}));
-}());
+        [
+          "Daniel",
+          "It was in July, from the third to the seventeenth.",
+          "Foram em julho, do dia três ao dia dezessete."
+        ],
+        [
+          "Emma",
+          "Where were you?",
+          "Onde você estava?"
+        ],
+        [
+          "Daniel",
+          "I was in Bahia with my family.",
+          "Eu estava na Bahia com minha família."
+        ],
+        [
+          "Emma",
+          "Was the weather good?",
+          "O tempo estava bom?"
+        ],
+        [
+          "Daniel",
+          "Yes, it was. The beaches were beautiful.",
+          "Sim. As praias eram lindas."
+        ]
+      ]
+    },
+    {
+      "id": "vocabulary",
+      "type": "cards",
+      "title": "Vocabulary Expansion",
+      "kicker": "Vocabulary Expansion",
+      "instruction": "Leia os significados e exemplos. Escolha palavras para usar durante a conversa.",
+      "cards": [
+        [
+          "January",
+          "janeiro",
+          "My vacation is in January."
+        ],
+        [
+          "February",
+          "fevereiro",
+          "My vacation is in February."
+        ],
+        [
+          "March",
+          "março",
+          "My vacation is in March."
+        ],
+        [
+          "April",
+          "abril",
+          "My vacation is in April."
+        ],
+        [
+          "May",
+          "maio",
+          "My vacation is in May."
+        ],
+        [
+          "June",
+          "junho",
+          "My vacation is in June."
+        ],
+        [
+          "July",
+          "julho",
+          "My vacation is in July."
+        ],
+        [
+          "August",
+          "agosto",
+          "My vacation is in August."
+        ],
+        [
+          "September",
+          "setembro",
+          "My vacation is in September."
+        ],
+        [
+          "October",
+          "outubro",
+          "My vacation is in October."
+        ],
+        [
+          "November",
+          "novembro",
+          "My vacation is in November."
+        ],
+        [
+          "December",
+          "dezembro",
+          "My vacation is in December."
+        ],
+        [
+          "first",
+          "primeiro(a)",
+          "January first."
+        ],
+        [
+          "second",
+          "segundo(a)",
+          "May second."
+        ],
+        [
+          "third",
+          "terceiro(a)",
+          "July third."
+        ],
+        [
+          "fourth",
+          "quarto(a)",
+          "April fourth."
+        ],
+        [
+          "fifth",
+          "quinto(a)",
+          "August fifth."
+        ],
+        [
+          "vacation",
+          "férias",
+          "My vacation was in July."
+        ],
+        [
+          "holiday",
+          "feriado",
+          "The holiday was on Monday."
+        ],
+        [
+          "calendar",
+          "calendário",
+          "Check the calendar."
+        ],
+        [
+          "last",
+          "passado(a); último(a)",
+          "I was there last month."
+        ]
+      ]
+    },
+    {
+      "id": "reference-0",
+      "type": "reference",
+      "title": "Months and dates",
+      "kicker": "Months and dates",
+      "instruction": "Consulte estes exemplos durante a prática.",
+      "body": "<div class=\"calendar-reference\"><p><strong>Months:</strong> January · February · March · April · May · June · July · August · September · October · November · December</p><p><strong>Dates:</strong> 1st first · 2nd second · 3rd third · 4th fourth · 5th fifth · 8th eighth · 9th ninth · 12th twelfth · 20th twentieth · 21st twenty-first · 30th thirtieth · 31st thirty-first</p><p><strong>Examples:</strong> July 3rd = July third · December 25th = December twenty-fifth</p></div>"
+    },
+    {
+      "id": "verbs",
+      "type": "verbs",
+      "title": "Verb bank",
+      "kicker": "Verb bank",
+      "instruction": "Consulte o infinitivo, o passado e o particípio. Observe nos exemplos a forma usada na frase.",
+      "cards": [
+        [
+          "be",
+          "ser; estar",
+          "I am here.",
+          "was / were · been"
+        ],
+        [
+          "travel",
+          "viajar",
+          "I travel by bus.",
+          "traveled · traveled"
+        ],
+        [
+          "stay",
+          "ficar; hospedar-se",
+          "We stayed at a hotel.",
+          "stayed · stayed"
+        ]
+      ]
+    },
+    {
+      "id": "helping",
+      "type": "patterns",
+      "title": "Helping You",
+      "kicker": "Helping You",
+      "instruction": "Use was com I/he/she/it e were com you/we/they para estados e lugares no passado.",
+      "groups": [
+        {
+          "title": "Dates and past of be",
+          "cards": [
+            [
+              "was / wasn’t",
+              "Eu estava na Bahia.",
+              "I was in Bahia."
+            ],
+            [
+              "were / weren’t",
+              "Nós estávamos de férias.",
+              "We were on vacation."
+            ],
+            [
+              "Was + subject...?",
+              "Estava quente?",
+              "Was it hot?"
+            ],
+            [
+              "Were + subject...?",
+              "Eles estavam no hotel?",
+              "Were they at the hotel?"
+            ],
+            [
+              "month + ordinal",
+              "três de julho",
+              "July third"
+            ],
+            [
+              "in + year",
+              "em 2025",
+              "in 2025"
+            ]
+          ]
+        },
+        {
+          "title": "Como usar",
+          "cards": [
+            [
+              "Observe 1",
+              "Em inglês americano: July 3rd. Ao falar: July third.",
+              ""
+            ],
+            [
+              "Observe 2",
+              "Use on com data e in com mês ou ano.",
+              ""
+            ],
+            [
+              "Observe 3",
+              "Respostas curtas: Yes, I was. No, they weren’t.",
+              ""
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice-0",
+      "type": "drill",
+      "title": "Calendar language",
+      "kicker": "Calendar language",
+      "instruction": "Leia meses, datas e anos em voz alta e complete o calendário.",
+      "items": [
+        [
+          "March · January · February",
+          "January · February · March"
+        ],
+        [
+          "October · December · November",
+          "October · November · December"
+        ],
+        [
+          "1st",
+          "first"
+        ],
+        [
+          "2nd",
+          "second"
+        ],
+        [
+          "3rd",
+          "third"
+        ],
+        [
+          "12th",
+          "twelfth"
+        ],
+        [
+          "21st",
+          "twenty-first"
+        ],
+        [
+          "07/03 (US format)",
+          "July third"
+        ],
+        [
+          "12/25 (US format)",
+          "December twenty-fifth"
+        ],
+        [
+          "My birthday is ___ May.",
+          "in"
+        ],
+        [
+          "The trip is ___ August 14th.",
+          "on"
+        ],
+        [
+          "When is your birthday?",
+          "My birthday is on ..."
+        ]
+      ]
+    },
+    {
+      "id": "practice-1",
+      "type": "drill",
+      "title": "Was or were?",
+      "kicker": "Was or were?",
+      "instruction": "Complete e transforme frases sobre férias passadas.",
+      "items": [
+        [
+          "I ___ on vacation in July.",
+          "was"
+        ],
+        [
+          "We ___ in Bahia.",
+          "were"
+        ],
+        [
+          "The hotel ___ small.",
+          "was"
+        ],
+        [
+          "The rooms ___ comfortable.",
+          "were"
+        ],
+        [
+          "It was cold.",
+          "It wasn’t cold."
+        ],
+        [
+          "They were at the beach.",
+          "They weren’t at the beach."
+        ],
+        [
+          "Daniel was in Bahia.",
+          "Was Daniel in Bahia?"
+        ],
+        [
+          "The beaches were busy.",
+          "Were the beaches busy?"
+        ],
+        [
+          "Were you at home yesterday?",
+          "Yes, I was. / No, I wasn’t."
+        ],
+        [
+          "We was on vacation.",
+          "We were on vacation."
+        ],
+        [
+          "Was they at the hotel?",
+          "Were they at the hotel?"
+        ]
+      ]
+    },
+    {
+      "id": "practice-2",
+      "type": "drill",
+      "title": "A past calendar",
+      "kicker": "A past calendar",
+      "instruction": "Combine data, pessoa, lugar e descrição em frases completas.",
+      "items": [
+        [
+          "Daniel · July 3–17 · Bahia",
+          "Daniel was in Bahia from July third to July seventeenth."
+        ],
+        [
+          "Emma and Sarah · December 20–27 · São Paulo",
+          "Emma and Sarah were in São Paulo from December twentieth to December twenty-seventh."
+        ],
+        [
+          "When was the holiday? May 1",
+          "It was on May first."
+        ],
+        [
+          "Where were you last weekend?",
+          "I was in/at ..."
+        ],
+        [
+          "Was the weather good? positive",
+          "Yes, it was."
+        ],
+        [
+          "My vacation was on July.",
+          "My vacation was in July."
+        ],
+        [
+          "The trip was in August fifth.",
+          "The trip was on August fifth."
+        ],
+        [
+          "Give three dates that are important to you.",
+          "... is on ..."
+        ],
+        [
+          "Say where two people were last month.",
+          "... was/were ... last month."
+        ]
+      ]
+    },
+    {
+      "id": "drill",
+      "type": "drill",
+      "title": "Say it in English.",
+      "kicker": "Say it in English.",
+      "instruction": "Diga a frase em inglês. Confira o modelo e depois personalize uma informação.",
+      "items": [
+        [
+          "Quando foram suas férias?",
+          "When was your vacation?"
+        ],
+        [
+          "Foram em julho.",
+          "It was in July."
+        ],
+        [
+          "Onde você estava?",
+          "Where were you?"
+        ],
+        [
+          "Eu estava na Bahia.",
+          "I was in Bahia."
+        ],
+        [
+          "Nós estávamos de férias.",
+          "We were on vacation."
+        ],
+        [
+          "Eles não estavam no hotel.",
+          "They weren’t at the hotel."
+        ],
+        [
+          "Estava quente?",
+          "Was it hot?"
+        ],
+        [
+          "As praias eram bonitas?",
+          "Were the beaches beautiful?"
+        ],
+        [
+          "A viagem foi no dia três de julho.",
+          "The trip was on July third."
+        ],
+        [
+          "Meu aniversário é no dia vinte e um de maio.",
+          "My birthday is on May twenty-first."
+        ]
+      ]
+    },
+    {
+      "id": "expressions",
+      "type": "cards",
+      "title": "Key phrases & expressions",
+      "kicker": "Key phrases & expressions",
+      "instruction": "Use cada expressão como um bloco. Leia o exemplo e crie uma troca curta.",
+      "cards": [
+        [
+          "When was...?",
+          "Quando foi...? · Pergunta por uma data passada.",
+          "When was your trip?"
+        ],
+        [
+          "Where were you?",
+          "Onde você estava? · Pergunta por lugar no passado.",
+          "Where were you last weekend?"
+        ],
+        [
+          "from ... to...",
+          "de ... até... · Marca início e fim.",
+          "from July third to July seventeenth"
+        ],
+        [
+          "last month/year",
+          "mês/ano passado · Referência de passado.",
+          "I was there last year."
+        ],
+        [
+          "on vacation",
+          "de férias · Estado de férias.",
+          "We were on vacation."
+        ],
+        [
+          "What was it like?",
+          "Como foi? · Pede uma descrição.",
+          "What was the hotel like?"
+        ],
+        [
+          "It was great.",
+          "Foi ótimo. · Avaliação simples.",
+          "The trip was great."
+        ]
+      ]
+    },
+    {
+      "id": "dialogues",
+      "type": "dialogue",
+      "title": "Dialog Samples",
+      "kicker": "Dialog Samples",
+      "instruction": "Leiam as situações e troquem os papéis. Depois alterem uma informação.",
+      "lines": [
+        [
+          "A",
+          "When was your vacation?",
+          "Quando foram suas férias?"
+        ],
+        [
+          "B",
+          "It was in July.",
+          "Foram em julho."
+        ],
+        [
+          "A",
+          "What were the exact dates?",
+          "Quais eram as datas exatas?"
+        ],
+        [
+          "B",
+          "From July tenth to July twentieth.",
+          "De dez de julho a vinte de julho."
+        ],
+        [
+          "A",
+          "Was it a long vacation?",
+          "Foram férias longas?"
+        ],
+        [
+          "B",
+          "No, but it was great.",
+          "Não, mas foram ótimas."
+        ],
+        [
+          "A",
+          "Where were you in July?",
+          "Onde você estava em julho?"
+        ],
+        [
+          "B",
+          "I was in Salvador.",
+          "Eu estava em Salvador."
+        ],
+        [
+          "A",
+          "Were you near the beach?",
+          "Você estava perto da praia?"
+        ],
+        [
+          "B",
+          "Yes. My hotel was across from the beach.",
+          "Sim. Meu hotel ficava em frente à praia."
+        ],
+        [
+          "A",
+          "What was the hotel like?",
+          "Como era o hotel?"
+        ],
+        [
+          "B",
+          "It was small but comfortable.",
+          "Era pequeno, mas confortável."
+        ],
+        [
+          "A",
+          "Was your room quiet?",
+          "Seu quarto era silencioso?"
+        ],
+        [
+          "B",
+          "Yes, it was. The room was very nice.",
+          "Sim. O quarto era muito bom."
+        ],
+        [
+          "A",
+          "Were the people friendly?",
+          "As pessoas eram simpáticas?"
+        ],
+        [
+          "B",
+          "Yes, they were very friendly.",
+          "Sim, elas eram muito simpáticas."
+        ],
+        [
+          "A",
+          "Was it sunny every day?",
+          "Estava ensolarado todos os dias?"
+        ],
+        [
+          "B",
+          "No. Monday was rainy.",
+          "Não. Segunda-feira foi chuvosa."
+        ],
+        [
+          "A",
+          "And Tuesday?",
+          "E terça-feira?"
+        ],
+        [
+          "B",
+          "Tuesday was warm and sunny.",
+          "Terça-feira foi quente e ensolarada."
+        ],
+        [
+          "A",
+          "Were your friends with you?",
+          "Seus amigos estavam com você?"
+        ],
+        [
+          "B",
+          "No, they weren’t.",
+          "Não."
+        ],
+        [
+          "A",
+          "Who was with you?",
+          "Quem estava com você?"
+        ],
+        [
+          "B",
+          "My sister and my parents were with me.",
+          "Minha irmã e meus pais estavam comigo."
+        ],
+        [
+          "A",
+          "Were they happy with the hotel?",
+          "Eles estavam satisfeitos com o hotel?"
+        ],
+        [
+          "B",
+          "Yes, they were.",
+          "Sim."
+        ]
+      ],
+      "lineTitles": {
+        "0": "Vacation dates",
+        "6": "In Salvador",
+        "10": "The hotel",
+        "16": "Sunny days",
+        "20": "Friends on vacation"
+      }
+    },
+    {
+      "id": "reading",
+      "type": "reading",
+      "title": "Daniel’s vacation calendar",
+      "kicker": "Daniel’s vacation calendar",
+      "instruction": "O professor lê primeiro. Depois leia e responda às perguntas consultando o texto.",
+      "paragraphs": [
+        "Daniel was on vacation from July third to July seventeenth. From the third to the ninth, he was in Salvador with his parents. The weather was sunny and the beaches were busy. From the tenth to the seventeenth, they were in a small town. The hotel wasn’t modern, but the rooms were clean and comfortable. His birthday was on July twelfth, so the trip was special."
+      ],
+      "items": [
+        [
+          "When was Daniel on vacation?",
+          "From July third to July seventeenth."
+        ],
+        [
+          "Where was he first?",
+          "He was in Salvador."
+        ],
+        [
+          "What were the beaches like?",
+          "They were busy."
+        ],
+        [
+          "Was the hotel modern?",
+          "No, it wasn’t."
+        ],
+        [
+          "When was his birthday?",
+          "On July twelfth."
+        ]
+      ],
+      "translations": []
+    },
+    {
+      "id": "talk",
+      "type": "conversation",
+      "title": "Let's Talk",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor usando suas informações ou um perfil inventado.",
+      "tasks": [
+        [
+          "Pergunta 1",
+          "Name all twelve months."
+        ],
+        [
+          "Pergunta 2",
+          "Say today’s date."
+        ],
+        [
+          "Pergunta 3",
+          "Say your birthday."
+        ],
+        [
+          "Pergunta 4",
+          "Give three holiday dates."
+        ],
+        [
+          "Pergunta 5",
+          "Say where you were last weekend."
+        ],
+        [
+          "Pergunta 6",
+          "Describe where two family members were last month."
+        ]
+      ],
+      "goal": "Informar quando e onde esteve e responder duas perguntas simples.",
+      "challenge": "Depois de responder, faça uma pergunta ao professor."
+    },
+    {
+      "id": "exit",
+      "type": "exit",
+      "title": "Look at your progress.",
+      "kicker": "Look at your progress.",
+      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
+      "checks": [
+        "Informar quando e onde esteve e responder duas perguntas simples.",
+        "Consegui pedir repetição ou esclarecimento.",
+        "Consigo tentar novamente com menos apoio."
+      ]
+    },
+    {
+      "id": "homework",
+      "type": "homework",
+      "title": "Take it with you.",
+      "kicker": "Take it with you.",
+      "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
+      "options": [
+        [
+          "A",
+          "Speak",
+          "Conte quando e onde foram suas últimas férias e como estava o tempo."
+        ],
+        [
+          "B",
+          "Write",
+          "Escreva quatro frases com was ou were sobre um dia passado."
+        ],
+        [
+          "C",
+          "Make a Card",
+          "Marque três datas em um calendário e prepare perguntas sobre onde você estava em cada uma."
+        ]
+      ]
+    }
+  ],
+  "migration": {
+    "sourceLesson": "a1-v3-21-vacation-calendar",
+    "editorialVersion": "2026.09-a1-38"
+  }
+});}());

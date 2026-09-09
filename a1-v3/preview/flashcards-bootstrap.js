@@ -1,0 +1,1 @@
+if(window.firebase){const script=document.createElement('script');script.src='../../js/firebase-config.js';document.head.appendChild(script);}

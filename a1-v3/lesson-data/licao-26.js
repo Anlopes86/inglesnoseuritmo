@@ -1,26 +1,769 @@
-(function(){
-    'use strict';
-    const R=window.A1V3LessonRegistry; const {v,x,p,t,line,dialogue,question,reading,activity,homework}=R.helpers;
-    R.register(26,R.lesson({
-        title:'Sabrina’s Invitation',
-        objectives:['Falar sobre estações e condições do tempo.','Expressar planos e intenções com be going to.','Perguntar sobre planos futuros e responder com detalhes.','Tomar decisões práticas para um evento de acordo com a previsão.'],
-        intro:[line('Sabrina','I’m going to have a barbecue on Saturday. Would you like to come?','Vou fazer um churrasco no sábado. Você gostaria de vir?'),line('Emma','I’d love to. Is it going to be sunny?','Eu adoraria. Vai fazer sol?'),line('Sabrina','I think so, but it’s going to be windy in the afternoon.','Acho que sim, mas vai ventar à tarde.'),line('Emma','What are you going to do if it rains?','O que você vai fazer se chover?'),line('Sabrina','We’re going to eat inside.','Vamos comer dentro de casa.'),line('Emma','Great. I’m going to bring a dessert.','Ótimo. Vou levar uma sobremesa.')],
-        vocab:[v('spring','primavera','Spring is warm.','A primavera é amena.'),v('summer','verão','Summer is hot.','O verão é quente.'),v('fall','outono','Fall is cool.','O outono é fresco.'),v('winter','inverno','Winter is cold.','O inverno é frio.'),v('sunny','ensolarado','It is sunny today.','Está ensolarado hoje.'),v('cloudy','nublado','Tomorrow is going to be cloudy.','Amanhã vai ficar nublado.'),v('rainy','chuvoso','It is a rainy morning.','É uma manhã chuvosa.'),v('windy','ventando','It is windy outside.','Está ventando lá fora.'),v('hot','quente','It is very hot.','Está muito quente.'),v('warm','morno; ameno','The afternoon is warm.','A tarde está amena.'),v('cool','fresco','The evening is cool.','A noite está fresca.'),v('cold','frio','It is cold in winter.','Faz frio no inverno.'),v('forecast','previsão do tempo','Check the forecast.','Confira a previsão.'),v('temperature','temperatura','The temperature is twenty degrees.','A temperatura é vinte graus.'),v('barbecue','churrasco','We are going to have a barbecue.','Vamos fazer um churrasco.'),v('invite','convidar','Sabrina invited us.','Sabrina nos convidou.'),v('bring','levar; trazer','I’m going to bring dessert.','Vou levar sobremesa.'),v('inside','dentro','We can eat inside.','Podemos comer dentro.'),v('outside','fora','The tables are outside.','As mesas estão do lado de fora.')],
-        grammar:{title:'Be going to',summary:'Use am/is/are going to + verbo base para planos, intenções e previsões apoiadas no que vemos ou sabemos.',rows:[['I','am going to + verb','I’m going to bring dessert.','Vou levar sobremesa.'],['he/she/it','is going to + verb','It’s going to rain.','Vai chover.'],['you/we/they','are going to + verb','We’re going to eat inside.','Vamos comer dentro.'],['negative','am not/isn’t/aren’t going to','She isn’t going to drive.','Ela não vai dirigir.'],['question','Am/Is/Are + subject + going to?','Are you going to come?','Você vai vir?'],['Wh-question','What/Where/When + be + subject + going to?','What are you going to bring?','O que você vai levar?']],notes:['O verbo depois de going to fica na forma base.', 'O presente de be concorda com o sujeito.', 'Para clima: It is sunny now; It is going to rain later.']},
-        activitySections:[activity('Weather and seasons','Associe clima, estação e escolhas práticas.',[p('Match','summer · winter · spring · fall → hot · cold · warm · cool','summer—hot; winter—cold; spring—warm; fall—cool'),p('Choose','The sky has many clouds. It is (sunny / cloudy).','cloudy'),p('Choose','The trees are moving a lot. It is (windy / warm).','windy'),p('Complete','The ___ is twenty-eight degrees.','temperature'),p('Answer','What’s the weather like today?','It is ...'),p('Answer','What is your favorite season? Why?','My favorite season is ... because ...'),p('Plan','Sunny and hot → clothes/activity','I’m going to wear ... and ...'),p('Plan','Cold and rainy → clothes/activity','I’m going to ...'),p('Correct','It is sun today.','It is sunny today.'),p('Create','Give a three-day forecast.','On..., it is going to be...')],'Weather'),activity('Future plans','Complete e transforme planos com a forma correta de be.',[p('Complete','I ___ going to bring dessert.','am'),p('Complete','Sabrina ___ going to have a barbecue.','is'),p('Complete','We ___ going to eat inside.','are'),p('Complete','It ___ going to rain.','is'),p('Make negative','Emma is going to drive.','Emma isn’t going to drive.'),p('Make a question','They are going to come.','Are they going to come?'),p('Build','you / What / bring / going to / are / ?', 'What are you going to bring?'),p('Build','party / Where / going to / be / is / the / ?', 'Where is the party going to be?'),p('Answer','Are you going to study tonight?','Yes, I am. / No, I’m not.'),p('Correct','I going to make a cake.','I’m going to make a cake.'),p('Correct','She is going to brings drinks.','She is going to bring drinks.')]),activity('Plan around the forecast','Adapte o evento quando o tempo muda.',[p('Decide','Sunny → barbecue location','We’re going to have the barbecue outside.'),p('Decide','Rainy → barbecue location','We’re going to eat inside.'),p('Decide','Cold → clothes','I’m going to wear a jacket.'),p('Decide','Hot → drinks','I’m going to bring cold drinks.'),p('Answer','What are you going to do this weekend?','I’m going to ...'),p('Answer','Who are you going to invite?','I’m going to invite ...'),p('Answer','What are you going to bring?','I’m going to bring ...'),p('Change the plan','Outdoor picnic → heavy rain','We aren’t going to have a picnic outside. We’re going to ...'),p('Create','Plan a small event with date, time, place, food and weather alternative.','The event is on... We’re going to... If it rains, we’re going to...')],'Plan B')],
-        translations:[t('Como está o tempo?','What’s the weather like?'),t('Está ensolarado e quente.','It is sunny and hot.'),t('Vai chover.','It is going to rain.'),t('Vou fazer um churrasco.','I’m going to have a barbecue.'),t('Você vai vir?','Are you going to come?'),t('O que você vai levar?','What are you going to bring?'),t('Ela não vai dirigir.','She isn’t going to drive.'),t('Vamos comer dentro de casa.','We’re going to eat inside.'),t('A previsão diz que vai ventar.','The forecast says it is going to be windy.'),t('Vou levar uma sobremesa.','I’m going to bring a dessert.')],
-        expressions:[x('Would you like to come?', 'Você gostaria de vir?', 'Convite educado.','Would you like to come on Saturday?','Você gostaria de vir no sábado?'),x('I’d love to.', 'Eu adoraria.','Aceitação calorosa.','I’d love to. What time?','Eu adoraria. Que horas?'),x('What’s the weather like?', 'Como está o tempo?', 'Pergunta pelo clima.','What’s the weather like there?','Como está o tempo aí?'),x('It’s going to...', 'Vai...', 'Plano ou previsão.','It’s going to rain.','Vai chover.'),x('What are you going to...?', 'O que você vai...?', 'Pergunta por intenção.','What are you going to bring?','O que você vai levar?'),x('I think so.', 'Acho que sim.','Resposta cautelosa positiva.','Is it going to be sunny? I think so.','Vai fazer sol? Acho que sim.'),x('If it rains,...', 'Se chover,...','Bloco prático para plano alternativo.','If it rains, we’re going inside.','Se chover, vamos entrar.'),x('change of plans', 'mudança de planos','Nomeia uma alteração.','There is a change of plans.','Houve uma mudança de planos.')],
-        dialogues:[
-            dialogue('A barbecue invitation',line('A','Would you like to come to my barbecue on Saturday?','Gostaria de vir ao meu churrasco no sábado?'),line('B','I’d love to. What time is it?','Eu adoraria. Que horas vai ser?'),line('A','It’s going to start at one.','Vai começar à uma.'),line('B','Great. Who is going to be there?','Ótimo. Quem vai estar lá?'),line('A','My family and a few friends.','Minha família e alguns amigos.'),line('B','Perfect. See you on Saturday.','Perfeito. Vejo você no sábado.')),
-            dialogue('Checking the forecast',line('A','Is it going to rain on Saturday?','Vai chover no sábado?'),line('B','No, but it’s going to be windy.','Não, mas vai ventar.'),line('A','Is it going to be cold?','Vai fazer frio?'),line('B','A little. The temperature is going to be sixteen degrees.','Um pouco. A temperatura vai ser de dezesseis graus.'),line('A','Then I’m going to take a sweater.','Então vou levar um suéter.'),line('B','Good idea.','Boa ideia.')),
-            dialogue('What to bring',line('A','What are you going to bring?','O que você vai levar?'),line('B','I’m going to bring dessert.','Vou levar sobremesa.'),line('A','What kind of dessert?','Que tipo de sobremesa?'),line('B','A chocolate cake.','Um bolo de chocolate.')),
-            dialogue('A plan for rain',line('A','What are we going to do if it rains?','O que vamos fazer se chover?'),line('B','We’re going to eat inside.','Vamos comer dentro.'),line('A','Is there enough space for everyone?','Há espaço suficiente para todos?'),line('B','Yes. There are two large tables in the living room.','Sim. Há duas mesas grandes na sala.'),line('A','And where are we going to cook?','E onde vamos cozinhar?'),line('B','We’re going to use the kitchen and the covered patio.','Vamos usar a cozinha e o pátio coberto.')),
-            dialogue('Clothes for the evening',line('A','It’s going to be cold tonight.','Vai fazer frio hoje à noite.'),line('B','Really? I’m wearing a T-shirt.','Sério? Estou usando uma camiseta.'),line('A','The temperature is going to fall after six.','A temperatura vai cair depois das seis.'),line('B','Then I’m going to take a jacket.','Então vou levar uma jaqueta.'),line('A','Take an umbrella too.','Leve um guarda-chuva também.'),line('B','Okay. I have one in the car.','Certo. Tenho um no carro.'))
+(function(){'use strict';window.A1V3LessonRegistry.register(26,{
+  "title": "What Happened?",
+  "type": "content",
+  "summary": "Contar três acontecimentos concluídos e fazer uma pergunta sobre eles.",
+  "mission": {
+    "title": "What Happened?",
+    "task": "Contar três acontecimentos concluídos e fazer uma pergunta sobre eles.",
+    "focus": [
+      "Past Simple com poucos verbos frequentes: went, had, saw, visited, stayed; did/didn't; first/then."
+    ],
+    "semanticTags": [
+      "past-experience"
+    ]
+  },
+  "slides": [
+    {
+      "id": "opening",
+      "type": "dialogue",
+      "title": "What Happened?",
+      "kicker": "What Happened?",
+      "instruction": "Acompanhe a leitura do professor. Depois leiam juntos e identifiquem a situação.",
+      "lines": [
+        [
+          "Emma",
+          "What happened yesterday?",
+          "O que aconteceu ontem?"
         ],
-        dialogueGroups: [[0, 1], [2, 3, 4]],
-        reading:reading('Saturday’s plan','Sabrina is going to have a barbecue on Saturday at one o’clock. Twelve people are going to come. Emma is going to bring dessert, Daniel is going to buy drinks and Leo is going to bring music. The morning is going to be sunny and warm, but the forecast says it is going to rain after four. Sabrina has a plan: they are going to eat outside first and move inside if it rains.',question('What is Sabrina going to do?','She is going to have a barbecue.'),question('How many people are going to come?','Twelve.'),question('What is Emma going to bring?','Dessert.'),question('What is the afternoon forecast?','It is going to rain after four.'),question('What is the alternative plan?','They are going to move inside.')),
-        conversation:{questions:['Name the four seasons.','Describe today’s weather.','Give a weekend forecast.','Say five plans for this week.','Ask four questions about another person’s plans.','Plan food and clothes for two types of weather.','Invite someone and answer.','Change the event plan after the forecast changes.'],support:['It is...', 'It’s going to...', 'I’m going to...', 'Are you going to...?', 'Would you like to...?', 'If it rains...']},
-        homework:homework('Planeje um evento com previsão e duas alternativas.', ['Churrasco','Aniversário','Passeio ao ar livre'],['Incluí data, hora, local e convidados.','Usei going to em afirmações, negativas e perguntas.','Criei alternativas para duas mudanças de clima.']),
-        mission:{title:'Weather-proof invitation',task:'Convide, organize contribuições e adapte o evento a uma mudança inesperada no tempo.',focus:['weather','going to','plan change']}
-    }));
-}());
+        [
+          "Daniel",
+          "I missed the bus, so I walked to work.",
+          "Perdi o ônibus, então fui a pé ao trabalho."
+        ],
+        [
+          "Emma",
+          "Did you arrive late?",
+          "Você chegou atrasado?"
+        ],
+        [
+          "Daniel",
+          "Yes, I did. I had a meeting at nine, but I arrived at nine fifteen.",
+          "Sim. Eu tinha uma reunião às nove, mas cheguei às nove e quinze."
+        ],
+        [
+          "Emma",
+          "What did your manager say?",
+          "O que seu gerente disse?"
+        ],
+        [
+          "Daniel",
+          "She smiled and said, “Good morning.”",
+          "Ela sorriu e disse: “Bom dia”."
+        ]
+      ]
+    },
+    {
+      "id": "vocabulary",
+      "type": "cards",
+      "title": "Vocabulary Expansion",
+      "kicker": "Vocabulary Expansion",
+      "instruction": "Leia os significados e exemplos. Escolha palavras para usar durante a conversa.",
+      "cards": [
+        [
+          "happen",
+          "acontecer",
+          "What happened?"
+        ],
+        [
+          "miss",
+          "perder; não pegar",
+          "I missed the bus."
+        ],
+        [
+          "walk",
+          "caminhar",
+          "I walked to work."
+        ],
+        [
+          "arrive",
+          "chegar",
+          "We arrived at nine."
+        ],
+        [
+          "call",
+          "ligar",
+          "She called me."
+        ],
+        [
+          "visit",
+          "visitar",
+          "They visited a museum."
+        ],
+        [
+          "stay",
+          "ficar",
+          "I stayed at home."
+        ],
+        [
+          "go → went",
+          "ir → foi",
+          "We went to the beach."
+        ],
+        [
+          "have → had",
+          "ter → teve",
+          "I had a meeting."
+        ],
+        [
+          "get → got",
+          "pegar; chegar; obter → pegou",
+          "He got home late."
+        ],
+        [
+          "see → saw",
+          "ver → viu",
+          "I saw Julia."
+        ],
+        [
+          "eat → ate",
+          "comer → comeu",
+          "They ate lunch."
+        ],
+        [
+          "buy → bought",
+          "comprar → comprou",
+          "She bought a ticket."
+        ],
+        [
+          "say → said",
+          "dizer → disse",
+          "He said hello."
+        ],
+        [
+          "take → took",
+          "pegar; levar → pegou",
+          "We took a taxi."
+        ],
+        [
+          "yesterday",
+          "ontem",
+          "I worked yesterday."
+        ],
+        [
+          "then",
+          "então; depois",
+          "Then I called Sarah."
+        ],
+        [
+          "finally",
+          "finalmente",
+          "Finally, we went home."
+        ]
+      ]
+    },
+    {
+      "id": "verbs",
+      "type": "verbs",
+      "title": "Verb bank",
+      "kicker": "Verb bank",
+      "instruction": "Consulte o infinitivo, o passado e o particípio. Observe nos exemplos a forma usada na frase.",
+      "cards": [
+        [
+          "go",
+          "ir",
+          "We go home at six.",
+          "went · gone"
+        ],
+        [
+          "have",
+          "ter",
+          "She has two brothers.",
+          "had · had"
+        ],
+        [
+          "see",
+          "ver",
+          "I saw my friend.",
+          "saw · seen"
+        ],
+        [
+          "visit",
+          "visitar",
+          "We visit our grandparents.",
+          "visited · visited"
+        ],
+        [
+          "stay",
+          "ficar; hospedar-se",
+          "We stayed at a hotel.",
+          "stayed · stayed"
+        ]
+      ]
+    },
+    {
+      "id": "helping",
+      "type": "patterns",
+      "title": "Helping You",
+      "kicker": "Helping You",
+      "instruction": "Use o passado para uma ação concluída. Na negativa e pergunta, did carrega a marca de passado e o verbo volta à forma base.",
+      "groups": [
+        {
+          "title": "Past Simple",
+          "cards": [
+            [
+              "verb + ed",
+              "Eu caminhei. Ela visitou.",
+              "I walked. She visited."
+            ],
+            [
+              "special past form",
+              "ir → foi; ter → teve",
+              "go → went; have → had"
+            ],
+            [
+              "didn’t + base verb",
+              "Eu não caminhei.",
+              "I didn’t walk."
+            ],
+            [
+              "Did + subject + base verb?",
+              "Você chegou atrasado?",
+              "Did you arrive late?"
+            ],
+            [
+              "Yes, ... did. / No, ... didn’t.",
+              "Sim.",
+              "Yes, I did."
+            ],
+            [
+              "was/were; no did",
+              "Você estava cansado?",
+              "Were you tired?"
+            ]
+          ]
+        },
+        {
+          "title": "Como usar",
+          "cards": [
+            [
+              "Observe 1",
+              "Regular: work → worked; live → lived; study → studied; stop → stopped.",
+              ""
+            ],
+            [
+              "Observe 2",
+              "Nunca use did + verbo no passado: Did you go? Não Did you went?",
+              ""
+            ],
+            [
+              "Observe 3",
+              "Use was/were diretamente: Was she home? Não Did she be home?",
+              ""
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice-0",
+      "type": "drill",
+      "title": "Past forms",
+      "kicker": "Past forms",
+      "instruction": "Produza as formas passadas antes de usá-las na história.",
+      "items": [
+        [
+          "work",
+          "worked"
+        ],
+        [
+          "live",
+          "lived"
+        ],
+        [
+          "study",
+          "studied"
+        ],
+        [
+          "stop",
+          "stopped"
+        ],
+        [
+          "go",
+          "went"
+        ],
+        [
+          "have",
+          "had"
+        ],
+        [
+          "see",
+          "saw"
+        ],
+        [
+          "buy",
+          "bought"
+        ],
+        [
+          "take",
+          "took"
+        ],
+        [
+          "Yesterday I ___ the bus. (miss)",
+          "missed"
+        ],
+        [
+          "We ___ a taxi. (take)",
+          "took"
+        ],
+        [
+          "Sarah ___ a ticket. (buy)",
+          "bought"
+        ]
+      ]
+    },
+    {
+      "id": "practice-1",
+      "type": "drill",
+      "title": "Questions and negatives",
+      "kicker": "Questions and negatives",
+      "instruction": "Use did/didn’t sem manter o verbo no passado.",
+      "items": [
+        [
+          "I walked to work.",
+          "I didn’t walk to work."
+        ],
+        [
+          "She bought a ticket.",
+          "She didn’t buy a ticket."
+        ],
+        [
+          "Daniel arrived late.",
+          "Did Daniel arrive late?"
+        ],
+        [
+          "They went home.",
+          "Did they go home?"
+        ],
+        [
+          "Did you work yesterday? positive",
+          "Yes, I did."
+        ],
+        [
+          "Did Emma take a taxi? negative",
+          "No, she didn’t."
+        ],
+        [
+          "happen / What / did / ?",
+          "What happened?"
+        ],
+        [
+          "you / What / buy / did / ?",
+          "What did you buy?"
+        ],
+        [
+          "Did you went to work?",
+          "Did you go to work?"
+        ],
+        [
+          "I didn’t saw Julia.",
+          "I didn’t see Julia."
+        ],
+        [
+          "(Was / Did) the hotel clean?",
+          "Was"
+        ],
+        [
+          "(Was / Did) you visit the museum?",
+          "Did"
+        ]
+      ]
+    },
+    {
+      "id": "practice-2",
+      "type": "drill",
+      "title": "Tell the story",
+      "kicker": "Tell the story",
+      "instruction": "Organize eventos e acrescente conectores para formar uma narrativa curta.",
+      "items": [
+        [
+          "finally went home · first missed bus · then took taxi",
+          "First, I missed the bus. Then, I took a taxi. Finally, I went home."
+        ],
+        [
+          "First, we arrived at the hotel. ___, we ate lunch. ___, we visited the beach.",
+          "Then; Finally"
+        ],
+        [
+          "7:00 got up · 8:00 missed bus · 8:15 took taxi · 9:15 arrived",
+          "I got up at seven. Then I missed the bus. I took a taxi and arrived at nine fifteen."
+        ],
+        [
+          "What did you do yesterday morning?",
+          "I ..."
+        ],
+        [
+          "Where did you go last weekend?",
+          "I went to ..."
+        ],
+        [
+          "Who did you see?",
+          "I saw ..."
+        ],
+        [
+          "Yesterday I go to the store and buy food.",
+          "Yesterday I went to the store and bought food."
+        ],
+        [
+          "Tell a four-event story with one problem.",
+          "First... Then... After that... Finally..."
+        ]
+      ]
+    },
+    {
+      "id": "drill",
+      "type": "drill",
+      "title": "Say it in English.",
+      "kicker": "Say it in English.",
+      "instruction": "Diga a frase em inglês. Confira o modelo e depois personalize uma informação.",
+      "items": [
+        [
+          "O que aconteceu ontem?",
+          "What happened yesterday?"
+        ],
+        [
+          "Eu perdi o ônibus.",
+          "I missed the bus."
+        ],
+        [
+          "Fui a pé ao trabalho.",
+          "I walked to work."
+        ],
+        [
+          "Você chegou atrasado?",
+          "Did you arrive late?"
+        ],
+        [
+          "Sim.",
+          "Yes, I did."
+        ],
+        [
+          "Eu não peguei um táxi.",
+          "I didn’t take a taxi."
+        ],
+        [
+          "O que você comprou?",
+          "What did you buy?"
+        ],
+        [
+          "Nós fomos à praia.",
+          "We went to the beach."
+        ],
+        [
+          "Ela viu a Julia.",
+          "She saw Julia."
+        ],
+        [
+          "Finalmente, eles foram para casa.",
+          "Finally, they went home."
+        ]
+      ]
+    },
+    {
+      "id": "expressions",
+      "type": "cards",
+      "title": "Key phrases & expressions",
+      "kicker": "Key phrases & expressions",
+      "instruction": "Use cada expressão como um bloco. Leia o exemplo e crie uma troca curta.",
+      "cards": [
+        [
+          "What happened?",
+          "O que aconteceu? · Pede um relato do evento.",
+          "What happened last night?"
+        ],
+        [
+          "Did you...?",
+          "Você...? · Pergunta sobre ação concluída.",
+          "Did you call me?"
+        ],
+        [
+          "Yes, I did. / No, I didn’t.",
+          "Sim. / Não. · Resposta curta com did.",
+          "Did you go? Yes, I did."
+        ],
+        [
+          "First,...",
+          "Primeiro,... · Inicia uma sequência.",
+          "First, I called Sarah."
+        ],
+        [
+          "Then,...",
+          "Depois,... · Continua a sequência.",
+          "Then, we ate lunch."
+        ],
+        [
+          "After that,...",
+          "Depois disso,... · Liga mais um evento.",
+          "After that, we left."
+        ],
+        [
+          "Finally,...",
+          "Finalmente,... · Fecha a sequência.",
+          "Finally, I got home."
+        ],
+        [
+          "I’m sorry I’m late.",
+          "Desculpe o atraso. · Pedido de desculpas útil.",
+          "I’m sorry I’m late. I missed the bus."
+        ]
+      ]
+    },
+    {
+      "id": "dialogues",
+      "type": "dialogue",
+      "title": "Dialog Samples",
+      "kicker": "Dialog Samples",
+      "instruction": "Leiam as situações e troquem os papéis. Depois alterem uma informação.",
+      "lines": [
+        [
+          "A",
+          "Why are you late today?",
+          "Por que você está atrasado hoje?"
+        ],
+        [
+          "B",
+          "I missed the bus.",
+          "Perdi o ônibus."
+        ],
+        [
+          "A",
+          "What did you do?",
+          "O que você fez?"
+        ],
+        [
+          "B",
+          "I called a taxi, but it arrived late.",
+          "Chamei um táxi, mas ele chegou tarde."
+        ],
+        [
+          "A",
+          "Did you call the office?",
+          "Você ligou para o escritório?"
+        ],
+        [
+          "B",
+          "Yes, I did. I called at eight.",
+          "Sim. Liguei às oito."
+        ],
+        [
+          "A",
+          "What did you do yesterday?",
+          "O que você fez ontem?"
+        ],
+        [
+          "B",
+          "I worked and visited my parents.",
+          "Trabalhei e visitei meus pais."
+        ],
+        [
+          "A",
+          "Did you have dinner with them?",
+          "Você jantou com eles?"
+        ],
+        [
+          "B",
+          "Yes. We cooked dinner together.",
+          "Sim. Preparamos o jantar juntos."
+        ],
+        [
+          "A",
+          "What time did you go home?",
+          "Que horas você foi para casa?"
+        ],
+        [
+          "B",
+          "I went home at ten.",
+          "Fui para casa às dez."
+        ],
+        [
+          "A",
+          "Did you buy the train ticket?",
+          "Você comprou a passagem de trem?"
+        ],
+        [
+          "B",
+          "No, I didn’t.",
+          "Não."
+        ],
+        [
+          "A",
+          "Why not?",
+          "Por que não?"
+        ],
+        [
+          "B",
+          "I forgot my card at home.",
+          "Esqueci meu cartão em casa."
+        ],
+        [
+          "A",
+          "Were you at home last night?",
+          "Você estava em casa ontem à noite?"
+        ],
+        [
+          "B",
+          "Yes, but I didn’t watch TV.",
+          "Sim, mas não assisti TV."
+        ],
+        [
+          "A",
+          "What did you do?",
+          "O que você fez?"
+        ],
+        [
+          "B",
+          "I studied English and listened to music.",
+          "Estudei inglês e ouvi música."
+        ],
+        [
+          "A",
+          "What happened after the flight?",
+          "O que aconteceu depois do voo?"
+        ],
+        [
+          "B",
+          "We collected our bags and looked for a bus.",
+          "Pegamos nossas malas e procuramos um ônibus."
+        ],
+        [
+          "A",
+          "Did you find one?",
+          "Vocês encontraram um?"
+        ],
+        [
+          "B",
+          "No, we didn’t. The buses stopped at eleven.",
+          "Não. Os ônibus pararam às onze."
+        ],
+        [
+          "A",
+          "What happened next?",
+          "O que aconteceu depois?"
+        ],
+        [
+          "B",
+          "We took a taxi and finally arrived at the hotel.",
+          "Pegamos um táxi e finalmente chegamos ao hotel."
+        ]
+      ],
+      "lineTitles": {
+        "0": "Late for work",
+        "6": "A busy day",
+        "12": "The train ticket",
+        "16": "At home last night",
+        "20": "Getting to the hotel"
+      }
+    },
+    {
+      "id": "reading",
+      "type": "reading",
+      "title": "A difficult morning",
+      "kicker": "A difficult morning",
+      "instruction": "O professor lê primeiro. Depois leia e responda às perguntas consultando o texto.",
+      "paragraphs": [
+        "Yesterday, Emma got up at seven and made breakfast. She left home at eight, but she missed her bus. She called Daniel and then walked to the station. Daniel arrived in his car and took her to work. They stopped for coffee, so Emma arrived at nine fifteen. Her meeting was at nine, but her manager didn’t get angry. She smiled and gave Emma a cup of coffee."
+      ],
+      "items": [
+        [
+          "What time did Emma get up?",
+          "At seven."
+        ],
+        [
+          "Why did she walk to the station?",
+          "She missed her bus."
+        ],
+        [
+          "Who took her to work?",
+          "Daniel did."
+        ],
+        [
+          "Did they stop for coffee?",
+          "Yes, they did."
+        ],
+        [
+          "Was her manager angry?",
+          "No, she wasn’t."
+        ],
+        [
+          "What did the manager give her?",
+          "A cup of coffee."
+        ]
+      ],
+      "translations": []
+    },
+    {
+      "id": "talk",
+      "type": "conversation",
+      "title": "Let's Talk",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor usando suas informações ou um perfil inventado.",
+      "tasks": [
+        [
+          "Pergunta 1",
+          "Say five regular past forms."
+        ],
+        [
+          "Pergunta 2",
+          "Say eight irregular past forms."
+        ],
+        [
+          "Pergunta 3",
+          "Tell what you did yesterday morning."
+        ],
+        [
+          "Pergunta 4",
+          "Ask five questions with did."
+        ],
+        [
+          "Pergunta 5",
+          "Answer with full sentences."
+        ],
+        [
+          "Pergunta 6",
+          "Tell one thing you didn’t do."
+        ]
+      ],
+      "goal": "Contar três acontecimentos concluídos e fazer uma pergunta sobre eles.",
+      "challenge": "Depois de responder, faça uma pergunta ao professor."
+    },
+    {
+      "id": "exit",
+      "type": "exit",
+      "title": "Look at your progress.",
+      "kicker": "Look at your progress.",
+      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
+      "checks": [
+        "Contar três acontecimentos concluídos e fazer uma pergunta sobre eles.",
+        "Consegui pedir repetição ou esclarecimento.",
+        "Consigo tentar novamente com menos apoio."
+      ]
+    },
+    {
+      "id": "homework",
+      "type": "homework",
+      "title": "Take it with you.",
+      "kicker": "Take it with you.",
+      "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
+      "options": [
+        [
+          "A",
+          "Speak",
+          "Conte quatro coisas que fez em um passeio ou viagem."
+        ],
+        [
+          "B",
+          "Write",
+          "Escreva um pequeno relato com first, then e finally sobre um dia passado."
+        ],
+        [
+          "C",
+          "Make a Card",
+          "Monte uma linha do tempo com quatro acontecimentos e prepare perguntas com did."
+        ]
+      ]
+    }
+  ],
+  "migration": {
+    "sourceLesson": "a1-v3-22-what-happened",
+    "editorialVersion": "2026.09-a1-38"
+  }
+});}());

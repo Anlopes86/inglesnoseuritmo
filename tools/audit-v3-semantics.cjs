@@ -34,7 +34,7 @@ const fixtureErrors = semanticErrors(
 check(fixtureErrors.length === 1, 'A fixture incompatível não foi rejeitada pela auditoria semântica.');
 
 require(path.join(root, 'a1-v3', 'a1-v3-lesson-registry.js'));
-for (let number = 1; number <= 32; number += 1) {
+for (let number = 1; number <= 38; number += 1) {
     require(path.join(root, 'a1-v3', 'lesson-data', `licao-${String(number).padStart(2, '0')}.js`));
 }
 
@@ -43,22 +43,17 @@ for (const lesson of curriculum.getModule('a1-v3').filter(entry => entry.type ==
     if (source.mission) {
         validate(lesson, {
             ...source.mission,
-            semanticTags: curriculum.languageTagsFor(source.mission.title, source.mission.task, source.mission.focus)
+            semanticTags: source.mission.semanticTags?.length ? source.mission.semanticTags : curriculum.languageTagsFor(source.mission.title, source.mission.task, source.mission.focus)
         }, `A1-V3 L${lesson.number} missão autoral`);
     }
     const mission = curriculum.resolveMission('a1-v3', lesson.number, source);
     validate(lesson, mission, `A1-V3 L${lesson.number} missão resolvida`);
 }
 
-const a1Lesson3 = window.A1V3LessonRegistry.get(3)?.mission;
-const a1Lesson7 = window.A1V3LessonRegistry.get(7)?.mission;
-check(/intervalo|fome|sede/i.test(a1Lesson3?.task || ''), 'A1-V3 L3: a missão atual não trabalha o contexto do intervalo.');
-check(!/família|family|who is who/i.test(a1Lesson3?.task || ''), 'A1-V3 L3: a missão antiga de família ainda está ativa.');
-check(/rotina|preferência|convite|sair/i.test(a1Lesson7?.task || ''), 'A1-V3 L7: a missão atual não trabalha rotina, preferência e convite.');
-check(!/pedido completo|atendente|item indisponível|café order/i.test(a1Lesson7?.task || ''), 'A1-V3 L7: a missão antiga de pedido no café ainda está ativa.');
+const a1Lesson3=window.A1V3LessonRegistry.get(3);
+check(a1Lesson3.lessonKind==='communicative'&&/nome|soletra/i.test(a1Lesson3.mission.task),'A1 L3: primeira interação fora do contexto.');
+check(/preferência|pedido/i.test(window.A1V3LessonRegistry.get(7).mission.task),'A1 L7: café fora do contexto.');
 
-require(path.join(root, 'a2-v3', 'a2-v3-template.js'));
-require(path.join(root, 'a2-v3', 'a2-v3-conversation-template.js'));
 for (const lesson of curriculum.getModule('a2-v3')) {
     const source = window.A2V3ConversationCurriculum?.lessons?.[lesson.number]
         || window.A2V3PremiumCurriculum?.lessons?.[lesson.number]
@@ -88,15 +83,15 @@ for (const lesson of curriculum.getModule('a2-v3')) {
 }
 
 const sessionSource = read('js/v3-session-plan.js');
-const a2PlayerSource = read('a2-v3/a2-v3-lesson-content.js');
+const a2PlayerSource = read('js/v3-presentation.js');
 check(!/const\s+missions\s*=/.test(sessionSource), 'O mapa manual de missões antigas ainda existe no plano de sessão.');
 check(/V3Curriculum\?\.resolveMission/.test(sessionSource), 'O plano de sessão não resolve missões pelo manifesto atual.');
 check(!/musicSelectionsByLesson|getMusicSelection\([\s\S]*specificSelection/.test(a2PlayerSource), 'O player A2 ainda seleciona música pelo número antigo da lição.');
 check(/MusicClozeV3\?\.getPublicEntry/.test(a2PlayerSource), 'O player A2 não consulta o catálogo por curriculumId.');
 
 const renderableMusicSources = [
-    'a1-v3/a1-v3-lesson-content.js',
-    'a2-v3/a2-v3-lesson-content.js',
+    'js/v3-presentation.js',
+    'js/v3-presentation.js',
     'js/b1-v3-lesson-player.js'
 ];
 for (const source of renderableMusicSources) {

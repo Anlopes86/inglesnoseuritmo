@@ -153,3 +153,85 @@ Fora deste recorte:
 - remoção ampla de compatibilidade legada.
 
 Próxima fatia recomendada: consolidar o contrato compartilhado de atividades e executar o piloto A2 L9–10 antes de qualquer migração em massa.
+
+## 2026-09-05 · A1 — recuperação das Conversation Activities e avaliação de qualidade
+
+- Reproduzida exceção em `renderHomework`: registry descartava `themes/checklist` e player ainda chamava `.map` nesses campos. O contador permanecia no estado inicial `1 / 1` porque a aula não era montada.
+- Preservadas instruções, temas e checklist autorais no registry; player aceita também opções com títulos/instruções. Contratos antigos continuam explicitamente marcados como legados, sem simular migração editorial.
+- Criado `tools/audit-a1-v3-browser.cjs`: 32 aulas navegadas até o homework, retorno, contador, erros de runtime, preservação de conteúdo, fixture do formato novo e viewport mobile. Serviços externos são excluídos desse teste.
+- Conversation Activities: L5 15 slides, L10 18, L15/L20/L25/L30 19; consolidações L31/L32 36 cada.
+- Passaram as quatro verificações mínimas V3 e o teste de navegador. Auditoria musical mantém 23 avisos de diversidade de respostas no conjunto dos níveis, 12 deles em A1.
+- Inspeção visual de L5 e avaliação documentada em `docs/a1-v3-quality-review-2026-09-05.md`, com prioridades de conteúdo A1 e apresentação para aula individual online.
+- Mudanças locais; publicação e validação dos serviços externos não realizadas.
+
+## 2026-09-06 · A1 — prévia do ciclo 7–9 para tela compartilhada
+
+- Implementadas três aulas autorais da proposta: At the Café (16 atividades), My Everyday Life (17) e A Day in My Life (13), total de 46 atividades com sequências internas de drills/perguntas.
+- Criados IDs de prévia no manifesto e registro separado no registry; os 32 IDs publicados e a migração de progresso permanecem intactos.
+- Novo player local com revelação individual de modelos, traduções opcionais, ocultação de personagem, destaque de leitura, foco em uma fala/trecho, índice, marcações de retomada, teclado e tela cheia.
+- Homework com escolha única entre três tarefas; autoavaliação de apoio. Posição, marcações e escolhas ficam apenas na sessão da aba, em chave própria da prévia. Recarregar oculta respostas novamente. Não há sincronização com contas de alunos.
+- Conteúdo e interface funcionam sem fontes, áudio ou serviços externos. O professor faz a leitura. Não houve publicação nem alteração do hub atual.
+- Auditoria `tools/audit-a1-preview.cjs` cobre todas as atividades, itens de drills, revelação, papéis, tradução, índice, marcas, sessão, teclado e mobile. As quatro auditorias mínimas V3 passaram, com os avisos musicais preexistentes.
+- Fontes da prévia e isolamento documentados em `docs/v3-content-source-map.md`.
+
+## 2026-09-07 · A1 — página contínua e ampliação do piloto
+
+- Substituída a navegação obrigatória por slides por uma página contínua, com saltos entre seções pelo índice e rodapé. As três aulas têm 12, 11 e 12 seções.
+- Vocabulário, exemplos, formas verbais e Helping You aparecem abertos. Drills mostram todos os enunciados, com revelação individual ou conjunta dos modelos. Estados de resposta são isolados por seção.
+- Incluídos diálogos iniciais nas três aulas; nas duas lexicais, vocabulário ampliado para 20 entradas e expressões para 10, além de explicações e drills adicionais. Textos e perguntas reunidos na mesma seção.
+- Atualizada a auditoria de navegador para página contínua, controles individuais/conjuntos, traduções, papéis, índice, sessão e mobile. Inspeção visual de abertura, vocabulário e exercícios.
+- Alteração restrita ao piloto; demais aulas publicadas não migradas.
+- As quatro auditorias mínimas V3 passaram; permanecem os 23 avisos musicais preexistentes sobre diversidade das lacunas.
+
+## 2026-09-07 · A1 — um slide por seção
+
+- Atendendo à revisão do professor, cada seção volta a ocupar um slide próprio. Mantidos conteúdo ampliado, listas completas, significados abertos e revelação individual/conjunta.
+- Navegação por rodapé, índice e teclado abre a seção no topo; rolagem fica restrita à seção longa. Respostas continuam preservadas ao voltar durante a aula e ocultas após recarregar.
+- Auditoria ajustada para verificar isolamento dos slides, retorno com estado preservado e navegação por teclado.
+- Validação: teste de navegador das três aulas e quatro auditorias mínimas passaram; inspeção visual do slide de exercícios concluída. Permanecem os 23 avisos musicais preexistentes.
+
+## 2026-09-08 · A1 — conversação, tema e música no piloto
+
+- Conversation Activities remodelada em 11 seções com escolhas pessoais, adivinhação por perguntas, narrativa por horários, negociação de pedidos, correção de informação e desafio sem roteiro. Removida a sequência de drills e diálogo de imitação.
+- Tema claro/escuro no hub e nas aulas da prévia, com preferência persistente e preferência do sistema como padrão.
+- Música imediatamente antes do homework nas duas lexicais. Vínculos explícitos por curriculumId no catálogo reutilizam The Coffee Song e Wake Me Up Before You Go-Go, com auditoria de provedor preexistente e alvos semânticos food-drink/routines-habits. Sem novos registros promovidos ou letras comerciais no repositório.
+- Reutilizados MusicCloze, LyricsService e SpotifyEmbed. Player e respostas musicais preservados ao retornar ao slide; acesso direto à faixa, preparação e perguntas disponíveis mesmo sem letra.
+- Quatro auditorias mínimas passaram (23 avisos musicais preexistentes). Testes de navegador cobrem tema, conversação, vínculo/posição musical, contingência offline, teclado e mobile. Consulta real ao serviço de letras retornou lyricsUnavailable neste ambiente; reprodução externa não confirmada.
+
+## 2026-09-08 · A1 — flashcards pessoais na prévia
+
+- Vocabulário, verbos e expressões passam a expor Salvar pelo helper compartilhado lesson-flashcard-save.js. Preservados frente, significado, exemplo e formas verbais. Categoria usa o título da aula; curriculumId explícito isola os IDs da proposta.
+- Reutilizada coleção users/{owner}/myCards consumida pelo portal. Professor usa selectedStudentId; na prévia, ausência de aluno selecionado impede gravar no próprio perfil por engano. Escrita merge com ID determinístico evita duplicar a mesma entrada.
+- Modal revisável, tema compatível e indicação de sucesso somente após confirmação do Firestore. Conta e internet necessárias; nenhum registro real de aluno usado nos testes.
+- Validação: quatro auditorias mínimas V3 passaram; teste de navegador com Firestore simulado verificou três tipos de cartões, payload, proprietário selecionado, IDs estáveis e bloqueio sem aluno. Modal inspecionado visualmente.
+
+## 2026-09-08 · A1 — ouvir ao lado de salvar
+
+- Reutilizado flashcard-pronunciation.js nos termos, verbos e expressões da prévia. Ações Ouvir e Salvar agrupadas lado a lado. Voz nativa en-US, velocidade 0,9; nova reprodução cancela a anterior e mudança de slide interrompe a fala.
+- Auditorias mínimas V3 passaram. Teste de navegador verifica texto/idioma enviado à API de voz e coexistência com o salvamento, usando serviços simulados.
+
+## 2026-09-08 · A1 — infinitivos com to
+
+- Banco de verbos da prévia apresenta to antes de cada verbo, também na pronúncia e nos dados do flashcard. Cabeçalho identifica infinitivo; exemplos, passado e particípio preservados.
+
+
+## 2026-09-09 · A1 — migração integral para 38 aulas
+
+- Decisão do professor: adotar 38 aulas, com duas lexicais e uma Conversation Activities por ciclo, mais duas consolidações. Manifesto versionado 2026.09-a1-38; 24 lexicais, 12 comunicativas e duas consolidações.
+- Fatia curricular: snapshot das 32 aulas anteriores, IDs novos estáveis e equivalências explícitas de conteúdo para progresso histórico. Novas atividades comunicativas e consolidações exigem conclusão própria; nenhum fechamento automático pelo número antigo.
+- Fatia de apresentação: 38 páginas oficiais ligadas ao registry e ao player compartilhado presentation.js; slide por seção, diálogos de abertura completos, bancos de vocabulário/verbos/expressões, explicações, textos e listas de questões. Referência de meses e datas recuperada do campo histórico content.
+- Fatia comunicativa: situações de cadastro, estoque, compra com restrições, achados e perdidos, direções, linha do tempo, atraso e recado. Instruções adaptadas ao atendimento individual; tarefas de casa revisadas com produtos concretos de fala, escrita e cartões.
+- Fatia de integração: tema persistente, Ouvir/Salvar lado a lado, infinitivos com to, finalização por ID e aluno selecionado, hub e contadores do portal atualizados para 38.
+- Música: 24 vínculos explícitos no catálogo, exclusivamente lexicais e imediatamente antes do homework. Preservadas faixas, versões e auditorias de provedor anteriores; perguntas das aulas Travel Updates e I Need Some Help alinhadas à linguagem atual. Não houve inclusão de letras comerciais nem promoção de novos registros.
+- Verificações: quatro auditorias mínimas aprovadas. Navegador percorreu todas as seções das 38 aulas, revelação de respostas, música/homework, infinitivos, conclusão offline e largura responsiva. Testes com Firebase simulado cobriram flashcards e progresso no aluno correto, IDs determinísticos, falta de seleção, vínculo de professor, erro de gravação, 38 cartões, bloqueios do aluno e logout. Nenhum dado real de aluno alterado.
+- Inspeção visual: lexical 1, comunicativa 3, consolidação 37, homework em modo escuro e hub com 38 aulas. Capturas em artifacts/a1-preview/migration-38/.
+- Limites: 23 avisos preexistentes de diversidade de lacunas permanecem. Reprodução Spotify e resposta real dos provedores de letra dependem dos serviços externos e não foram reconfirmadas nesta migração. Alterações locais, sem publicação.
+
+
+## 2026-09-09 · A2 — auditoria para o formato de apresentação
+
+- Professor confirmou a cadência lexical → comunicativa a partir do segundo módulo. Mantidas 32 aulas, 15 pares e duas consolidações; sem migração integral nesta etapa.
+- Inventário dos 15 pares e navegação das 32 páginas. Relatório em docs/a2-v3-format-audit-2026-09-09.md; evidências em artifacts/a2-format-audit/.
+- Corrigidos contador que usava slides anteriores à hidratação, redirecionamento após falha de gravação e instrução de clique herdada indevidamente pelo Quick Start comunicativo.
+- Auditorias mínimas e específicas aprovadas. Novo teste exige contador correto e permanência na aula após conclusão recusada nas 32 páginas; serviços simulados, sem gravações reais.
+- Limitação visual: Tailwind/fontes/ícones externos recusados pelo ambiente. Capturas não aprovam o layout online. Priorizar CSS local na migração e repetir a inspeção com estilos disponíveis.

@@ -1,173 +1,588 @@
-(function () {
-    'use strict';
-    const R = window.A1V3LessonRegistry;
-    const { v, x, p, t, line, dialogue, question, reading, activity, homework } = R.helpers;
-
-    R.register(7, R.lesson({
-        title: 'Let’s Go Out!',
-        objectives: [
-            'Compreender a estrutura do Present Simple com I, you, we e they.',
-            'Formar afirmativas com verbo base e negativas com don’t.',
-            'Formar perguntas com do e produzir respostas curtas.',
-            'Falar de trabalho, estudo, gostos e hábitos de lazer.',
-            'Usar convites como Let’s... depois da base gramatical.'
+(function(){'use strict';window.A1V3LessonRegistry.register(7,{
+  "title": "At the Café",
+  "type": "content",
+  "summary": "Expressar uma preferência, fazer um pedido simples e aceitar uma alternativa.",
+  "mission": {
+    "title": "At the Café",
+    "task": "Expressar uma preferência, fazer um pedido simples e aceitar uma alternativa.",
+    "focus": [
+      "Alimentos e bebidas; like/want/have/eat/drink com I/you; do/don't; What do you want?; Here you are."
+    ],
+    "semanticTags": [
+      "food-drink",
+      "interests-preferences"
+    ]
+  },
+  "slides": [
+    {
+      "id": "opening",
+      "type": "dialogue",
+      "title": "At the Café",
+      "kicker": "Opening dialog · uma pausa para um lanche",
+      "instruction": "Acompanhe a primeira leitura do professor e observe a situação. Depois leiam juntos. As palavras e estruturas do diálogo serão exploradas ao longo da aula.",
+      "lines": [
+        [
+          "A",
+          "Hi, Leo. Do you want a snack?",
+          "Oi, Leo. Você quer um lanche?"
         ],
-        intro: [
-            line('Sarah', 'Do you work on Saturdays?', 'Você trabalha aos sábados?'),
-            line('Emma', 'No, I don’t. I study in the morning.', 'Não. Eu estudo de manhã.'),
-            line('Sarah', 'Do you like movies?', 'Você gosta de filmes?'),
-            line('Emma', 'Yes, I do. We usually go out on Saturday nights.', 'Sim. Nós geralmente saímos nas noites de sábado.'),
-            line('Sarah', 'Great. We have time tonight.', 'Ótimo. Nós temos tempo hoje à noite.'),
-            line('Emma', 'Let’s meet at the movie theater at eight.', 'Vamos nos encontrar no cinema às oito.'),
-            line('Sarah', 'Perfect. See you at eight.', 'Perfeito. Vejo você às oito.')
+        [
+          "B",
+          "Yes. I want a cheese sandwich. What about you?",
+          "Sim. Quero um sanduíche de queijo. E você?"
         ],
-        vocab: [
-            v('work', 'trabalhar', 'Do you work on Saturdays?', 'Você trabalha aos sábados?'),
-            v('study', 'estudar', 'I study in the morning.', 'Eu estudo de manhã.'),
-            v('like', 'gostar', 'We like movies.', 'Nós gostamos de filmes.'),
-            v('have', 'ter', 'We have time tonight.', 'Nós temos tempo hoje à noite.'),
-            v('want', 'querer', 'Do you want coffee?', 'Você quer café?'),
-            v('go out', 'sair', 'We go out on Saturdays.', 'Nós saímos aos sábados.'),
-            v('meet', 'encontrar-se', 'We meet at eight.', 'Nós nos encontramos às oito.'),
-            v('movie theater', 'cinema', 'We meet at the movie theater.', 'Nós nos encontramos no cinema.'),
-            v('restaurant', 'restaurante', 'They go to a restaurant.', 'Eles vão a um restaurante.'),
-            v('café', 'cafeteria', 'We meet at the café.', 'Nós nos encontramos na cafeteria.'),
-            v('park', 'parque', 'They like the park.', 'Eles gostam do parque.'),
-            v('mall', 'shopping center', 'We go to the mall.', 'Nós vamos ao shopping.'),
-            v('movie', 'filme', 'Do you like movies?', 'Você gosta de filmes?'),
-            v('tonight', 'hoje à noite', 'We have time tonight.', 'Nós temos tempo hoje à noite.'),
-            v('weekday', 'dia de semana', 'I work on weekdays.', 'Eu trabalho nos dias de semana.'),
-            v('weekend', 'fim de semana', 'We go out on weekends.', 'Nós saímos nos fins de semana.'),
-            v('free', 'livre; disponível', 'I’m free tonight.', 'Estou livre hoje à noite.'),
-            v('busy', 'ocupado(a)', 'You’re busy today.', 'Você está ocupado hoje.')
+        [
+          "A",
+          "I want a chicken sandwich. Do you like tea?",
+          "Quero um sanduíche de frango. Você gosta de chá?"
         ],
-        grammar: {
-            title: 'Present Simple com I, you, we e they',
-            summary: 'Use o verbo na forma base na afirmativa. Use don’t antes do verbo para negar e do antes do sujeito para perguntar.',
-            spotlight: {
-                formula: [
-                    { text: 'SUBJECT', tone: 'blue' },
-                    { text: 'DO / DON’T', tone: 'red' },
-                    { text: 'BASE VERB', tone: 'green' }
-                ],
-                panels: [
-                    { label: 'Forma afirmativa', tone: 'green', pattern: 'I / YOU / WE / THEY + VERB', examples: ['I work on weekdays.', 'We like movies.'] },
-                    { label: 'Forma negativa', tone: 'red', pattern: 'I / YOU / WE / THEY + DON’T + VERB', examples: ['I don’t work on Saturdays.', 'They don’t like coffee.'] },
-                    { label: 'Forma interrogativa', tone: 'yellow', pattern: 'DO + I / YOU / WE / THEY + VERB?', examples: ['Do you study at night?', 'Do they go out?'] }
-                ],
-                important: {
-                    title: 'Importante',
-                    text: 'Depois de do ou don’t, use sempre o verbo na forma base: Do you work?; I don’t work.'
-                },
-                contrast: {
-                    title: 'Atenção',
-                    correct: 'Do you work here?',
-                    incorrect: 'Do you works here?'
-                }
-            },
-            rows: [
-                ['afirmativa', 'I/You/We/They + base verb', 'We like movies.', 'Nós gostamos de filmes.'],
-                ['negativa', 'I/You/We/They + don’t + base verb', 'I don’t work on Saturdays.', 'Eu não trabalho aos sábados.'],
-                ['pergunta', 'Do + I/you/we/they + base verb?', 'Do you study at night?', 'Você estuda à noite?'],
-                ['resposta positiva', 'Yes, + subject + do.', 'Yes, I do.', 'Sim.'],
-                ['resposta negativa', 'No, + subject + don’t.', 'No, we don’t.', 'Não.'],
-                ['frequência', 'usually + base verb', 'We usually go out on Saturdays.', 'Nós geralmente saímos aos sábados.']
+        [
+          "B",
+          "Yes, I do. I usually drink tea at break.",
+          "Sim. Geralmente bebo chá no intervalo."
+        ],
+        [
+          "A",
+          "I like coffee, but I don’t want coffee today.",
+          "Gosto de café, mas não quero café hoje."
+        ],
+        [
+          "B",
+          "Orange juice?",
+          "Suco de laranja?"
+        ],
+        [
+          "A",
+          "Yes, please. A glass of orange juice.",
+          "Sim, por favor. Um copo de suco de laranja."
+        ],
+        [
+          "B",
+          "Great. Two sandwiches, tea and juice.",
+          "Ótimo. Dois sanduíches, chá e suco."
+        ]
+      ]
+    },
+    {
+      "id": "words-food",
+      "type": "cards",
+      "title": "Vocabulary Expansion",
+      "kicker": "Vocabulary · food & drink",
+      "instruction": "Leia as palavras com os significados e exemplos ao lado. Depois escolha combinações para o seu pedido. Você pode ocultar as traduções para revisar.",
+      "groups": [
+        {
+          "title": "Food · comida",
+          "cards": [
+            [
+              "sandwich",
+              "sanduíche",
+              "I want a sandwich."
             ],
-            notes: [
-                'I, you, we e they usam a mesma forma base: work, study, like, have, want, go e meet.',
-                'Do inicia a pergunta; don’t forma a negativa. Não use am/is/are com esses verbos.',
-                'O -s da terceira pessoa ainda não entra nesta aula; ele será apresentado com he e she mais adiante.'
+            [
+              "cheese",
+              "queijo",
+              "I like cheese."
+            ],
+            [
+              "chicken",
+              "frango",
+              "I want a chicken sandwich."
+            ],
+            [
+              "salad",
+              "salada",
+              "I like salad."
+            ],
+            [
+              "bread",
+              "pão",
+              "I have bread for breakfast."
+            ],
+            [
+              "butter",
+              "manteiga",
+              "I like bread and butter."
+            ],
+            [
+              "ham",
+              "presunto",
+              "I want a ham sandwich."
+            ],
+            [
+              "eggs",
+              "ovos",
+              "I eat eggs for breakfast."
+            ],
+            [
+              "rice",
+              "arroz",
+              "I have rice for lunch."
+            ],
+            [
+              "beans",
+              "feijão",
+              "I like rice and beans."
             ]
+          ]
         },
-        activitySections: [
-            activity('Afirmativa ou negativa?', 'Complete com o verbo base ou com don’t + verbo.', [
-                p('Complete', 'I ___ on weekdays. (work)', 'work'),
-                p('Complete', 'We ___ movies. (like)', 'like'),
-                p('Complete', 'They ___ time tonight. (have)', 'have'),
-                p('Complete', 'I ___ work on Saturdays.', 'don’t'),
-                p('Complete', 'We ___ like that restaurant.', 'don’t'),
-                p('Build', 'study / I / at night', 'I study at night.'),
-                p('Build', 'don’t / They / go out / on weekdays', 'They don’t go out on weekdays.'),
-                p('Correct', 'We likes movies.', 'We like movies.')
-            ], 'Present Simple · Statements'),
-            activity('Perguntas e respostas com do', 'Coloque do no início e mantenha o verbo principal na forma base.', [
-                p('Complete', '___ you work on Saturdays?', 'Do'),
-                p('Complete', 'Do they ___ movies?', 'like'),
-                p('Build', 'you / Do / at night / study / ?', 'Do you study at night?'),
-                p('Build', 'they / Do / go out / ?', 'Do they go out?'),
-                p('Answer', 'Do you like movies? Positive short answer.', 'Yes, I do.'),
-                p('Answer', 'Do you work on Sundays? Negative short answer.', 'No, I don’t.'),
-                p('Correct', 'Do you works here?', 'Do you work here?'),
-                p('Correct', 'You don’t works on Saturdays.', 'You don’t work on Saturdays.')
-            ], 'Present Simple · Questions'),
-            activity('Hábitos e lazer', 'Use as estruturas já montadas para reconhecer tempo e frequência.', [
-                p('Complete', 'I work ___ weekdays.', 'on'),
-                p('Complete', 'We go out ___ weekends.', 'on'),
-                p('Complete', 'I study ___ the morning.', 'in'),
-                p('Complete', 'We meet ___ eight.', 'at'),
-                p('Choose', 'We (usually / are) go out on Saturdays.', 'usually'),
-                p('Build', 'usually / We / go out / on Saturdays', 'We usually go out on Saturdays.'),
-                p('Complete', 'Let’s ___ at the café.', 'meet'),
-                p('Complete', 'See you ___ eight.', 'at')
-            ], 'Time Expressions')
+        {
+          "title": "Drinks & servings · bebidas e recipientes",
+          "cards": [
+            [
+              "coffee",
+              "café",
+              "I want a cup of coffee."
+            ],
+            [
+              "tea",
+              "chá",
+              "I want a cup of tea."
+            ],
+            [
+              "water",
+              "água",
+              "I drink water."
+            ],
+            [
+              "juice",
+              "suco",
+              "I like orange juice."
+            ],
+            [
+              "milk",
+              "leite",
+              "I drink milk at breakfast."
+            ],
+            [
+              "orange juice",
+              "suco de laranja",
+              "I want orange juice."
+            ],
+            [
+              "apple juice",
+              "suco de maçã",
+              "Do you have apple juice?"
+            ],
+            [
+              "a cup",
+              "uma xícara",
+              "A cup of coffee, please."
+            ],
+            [
+              "a glass",
+              "um copo",
+              "I want a glass of water."
+            ],
+            [
+              "a bottle",
+              "uma garrafa",
+              "A bottle of water, please."
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "verbs",
+      "type": "verbs",
+      "title": "Five verbs. Many possibilities.",
+      "kicker": "Verb bank",
+      "instruction": "Base, passado e particípio ficam disponíveis para consulta. Nesta aula, pratique a forma base nos exemplos.",
+      "cards": [
+        [
+          "like",
+          "gostar de",
+          "I like tea.",
+          "liked · liked"
         ],
-        translations: [
-            t('Eu trabalho nos dias de semana.', 'I work on weekdays.'),
-            t('Você estuda de manhã.', 'You study in the morning.'),
-            t('Nós gostamos de filmes.', 'We like movies.'),
-            t('Eles têm tempo hoje à noite.', 'They have time tonight.'),
-            t('Eu não trabalho aos sábados.', 'I don’t work on Saturdays.'),
-            t('Nós não saímos nos dias de semana.', 'We don’t go out on weekdays.'),
-            t('Você trabalha aos domingos?', 'Do you work on Sundays?'),
-            t('Eles gostam de filmes?', 'Do they like movies?'),
-            t('Sim, gosto.', 'Yes, I do.'),
-            t('Não, nós não gostamos.', 'No, we don’t.'),
-            t('Nós geralmente saímos aos sábados.', 'We usually go out on Saturdays.'),
-            t('Vamos nos encontrar às oito.', 'Let’s meet at eight.')
+        [
+          "want",
+          "querer",
+          "I want water.",
+          "wanted · wanted"
         ],
-        expressions: [
-            x('Do you work...?', 'Você trabalha...?', 'Primeiro modelo de pergunta no Present Simple.', 'Do you work on Saturdays?', 'Você trabalha aos sábados?'),
-            x('Do you study...?', 'Você estuda...?', 'Use do + you + verbo base.', 'Do you study at night?', 'Você estuda à noite?'),
-            x('Do you like...?', 'Você gosta de...?', 'Use com substantivo depois de like.', 'Do you like movies?', 'Você gosta de filmes?'),
-            x('Yes, I do. / No, I don’t.', 'Sim. / Não.', 'Respostas curtas para perguntas iniciadas por do.', 'Do you work here? — Yes, I do.', 'Você trabalha aqui? — Sim.'),
-            x('I don’t...', 'Eu não...', 'Use don’t antes do verbo base.', 'I don’t work on Sundays.', 'Eu não trabalho aos domingos.'),
-            x('We usually...', 'Nós geralmente...', 'Usually aparece antes do verbo principal.', 'We usually go out on Saturdays.', 'Nós geralmente saímos aos sábados.'),
-            x('on weekdays/weekends', 'nos dias de semana/fins de semana', 'Use on como parte do bloco de tempo.', 'I work on weekdays.', 'Eu trabalho nos dias de semana.'),
-            x('in the morning/afternoon/evening', 'de manhã/tarde/noite', 'Use in antes dessas partes do dia.', 'I study in the evening.', 'Eu estudo à noite.'),
-            x('at night / at eight', 'à noite / às oito', 'Use at com night e com horários exatos.', 'We meet at eight.', 'Nós nos encontramos às oito.'),
-            x('Let’s...', 'Vamos...', 'Depois de Let’s, use o verbo na forma base sem to.', 'Let’s meet at the café.', 'Vamos nos encontrar na cafeteria.'),
-            x('See you at...', 'Vejo você às...', 'Use at antes do horário.', 'See you at eight.', 'Vejo você às oito.')
+        [
+          "have",
+          "ter; comer ou beber, conforme o contexto",
+          "I have a sandwich for lunch.",
+          "had · had"
         ],
-        dialogues: [
-            dialogue('Work', line('A', 'Do you work on Saturdays?', 'Você trabalha aos sábados?'), line('B', 'No, I don’t.', 'Não.')),
-            dialogue('Study', line('A', 'Do you study at night?', 'Você estuda à noite?'), line('B', 'Yes, I do.', 'Sim.')),
-            dialogue('Movies', line('A', 'Do you like movies?', 'Você gosta de filmes?'), line('B', 'Yes, I do. I like comedies.', 'Sim. Eu gosto de comédias.')),
-            dialogue('Weekend habit', line('A', 'What do you do on weekends?', 'O que você faz nos fins de semana?'), line('B', 'We usually go out.', 'Nós geralmente saímos.')),
-            dialogue('A simple plan', line('A', 'Let’s meet at the movie theater.', 'Vamos nos encontrar no cinema.'), line('B', 'Great. See you at eight.', 'Ótimo. Vejo você às oito.'))
+        [
+          "eat",
+          "comer",
+          "I eat salad.",
+          "ate · eaten"
         ],
-        reading: reading(
-            'Our Saturday routine',
-            'I work on weekdays, but I don’t work on Saturdays. My friends and I like movies. We usually go out on Saturday nights. We meet at the movie theater at eight. Do we have time for coffee? Yes, we do. We have coffee before the movie.',
-            question('Do I work on Saturdays?', 'No, I don’t.'),
-            question('What do we like?', 'We like movies.'),
-            question('When do we usually go out?', 'We usually go out on Saturday nights.'),
-            question('Where do we meet?', 'We meet at the movie theater.'),
-            question('What time do we meet?', 'We meet at eight.'),
-            question('Do we have coffee?', 'Yes, we do.')
-        ),
-        conversation: {
-            questions: ['Do you work on Saturdays?', 'Do you study at night?', 'Do you like movies?', 'What do you do on weekends?', 'Do you usually go out?'],
-            support: ['I work...', 'I don’t work...', 'Do you...?', 'Yes, I do. / No, I don’t.', 'We usually...', 'Let’s...']
+        [
+          "drink",
+          "beber",
+          "I drink coffee.",
+          "drank · drunk"
+        ]
+      ]
+    },
+    {
+      "id": "helping",
+      "type": "patterns",
+      "title": "Helping You",
+      "kicker": "Helping You",
+      "instruction": "Compare afirmação, negação e pergunta. Use as explicações e os exemplos para construir novas frases.",
+      "groups": [
+        {
+          "title": "Build a sentence · monte a frase",
+          "cards": [
+            [
+              "I like coffee.",
+              "Afirmativa: I/you + verbo na forma base.",
+              "You like tea."
+            ],
+            [
+              "I don’t like coffee.",
+              "Negativa: I/you + don’t + verbo na forma base.",
+              "You don’t like tea."
+            ],
+            [
+              "Do you like coffee?",
+              "Pergunta: Do + you + verbo na forma base?",
+              "Yes, I do. / No, I don’t."
+            ],
+            [
+              "I want a sandwich. / Do you want a sandwich?",
+              "Com I/you, want mantém a mesma forma. Na pergunta, acrescente do antes de you. Não use are para perguntar com want.",
+              "Do you want tea? — Yes, I do."
+            ],
+            [
+              "Do you like…? / What do you want?",
+              "A primeira pergunta é sobre gosto; a segunda pede uma escolha. Você pode gostar de algo e escolher outra coisa hoje.",
+              "I like coffee, but I want tea today."
+            ],
+            [
+              "I like tea, but I don’t like coffee.",
+              "Use and para juntar informações e but para apresentar um contraste.",
+              "I want a sandwich and water."
+            ]
+          ]
         },
-        mission: {
-            title: 'Saturday plan',
-            task: 'Compare rotinas e preferências, faça um convite para sair e combine lugar e horário depois de aceitar ou recusar uma opção.',
-            focus: ['Present Simple com do/don’t', 'preferências', 'convite, resposta e combinação final']
-        },
-        homework: homework(
-            'Complete uma rotina-modelo usando as estruturas da aula.',
-            ['Dias de trabalho e estudo', 'Gostos', 'Um hábito de fim de semana'],
-            ['Usei duas afirmativas.', 'Usei uma negativa com don’t.', 'Usei uma pergunta com do e uma resposta curta.']
-        )
-    }));
-}());
+        {
+          "title": "Meaning & combinations · sentido e uso",
+          "cards": [
+            [
+              "We have tea.",
+              "Temos chá disponível. O atendente informa o que há no café.",
+              "Do you have juice?"
+            ],
+            [
+              "I have tea for breakfast.",
+              "Tomo chá no café da manhã. Aqui have indica consumir.",
+              "I have a sandwich for lunch."
+            ],
+            [
+              "a cup of tea · a glass of water",
+              "Uma xícara de chá · um copo de água. Aprenda a combinação completa.",
+              "A glass of water, please."
+            ],
+            [
+              "a sandwich / water",
+              "Use a/an com um item contável no singular. Water é usado sem a neste contexto. Para contar porções, use a glass/bottle of water.",
+              "A sandwich and a glass of water, please."
+            ],
+            [
+              "Please / Thank you / No, thank you",
+              "Please torna o pedido mais educado; thank you agradece; no, thank you recusa uma oferta.",
+              "A cup of tea, please. — Here you are. — Thank you."
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "drill-one",
+      "type": "drill",
+      "title": "Make the sentence yours.",
+      "kicker": "Drill 01 · preferences",
+      "instruction": "Diga a frase em inglês. Confira o modelo e tente mais uma vez.",
+      "items": [
+        [
+          "Eu gosto de chá.",
+          "I like tea."
+        ],
+        [
+          "Eu não gosto de café.",
+          "I don’t like coffee."
+        ],
+        [
+          "Você gosta de queijo?",
+          "Do you like cheese?"
+        ],
+        [
+          "Você gosta de salada? Responda que sim.",
+          "Yes, I do."
+        ],
+        [
+          "Eu quero um sanduíche.",
+          "I want a sandwich."
+        ],
+        [
+          "Eu não quero suco.",
+          "I don’t want juice."
+        ],
+        [
+          "Você quer água?",
+          "Do you want water?"
+        ],
+        [
+          "Eu como frango e bebo água.",
+          "I eat chicken and drink water."
+        ],
+        [
+          "Eu gosto de pão com manteiga.",
+          "I like bread and butter."
+        ],
+        [
+          "Eu não quero leite. Quero água.",
+          "I don’t want milk. I want water."
+        ],
+        [
+          "Você come ovos no café da manhã?",
+          "Do you eat eggs for breakfast?"
+        ],
+        [
+          "Eu gosto de frango, mas não gosto de presunto.",
+          "I like chicken, but I don’t like ham."
+        ]
+      ]
+    },
+    {
+      "id": "expressions",
+      "type": "cards",
+      "title": "Small phrases, useful exchanges.",
+      "kicker": "Key phrases & expressions",
+      "instruction": "Leia a expressão inteira como um bloco. Depois use-a em uma troca curta.",
+      "cards": [
+        [
+          "What do you want?",
+          "O que você quer?",
+          "I want a sandwich, please."
+        ],
+        [
+          "Something to drink?",
+          "Algo para beber?",
+          "A cup of tea, please."
+        ],
+        [
+          "Here you are.",
+          "Aqui está.",
+          "Here you are. — Thank you."
+        ],
+        [
+          "No, thank you.",
+          "Não, obrigado(a).",
+          "Coffee? — No, thank you."
+        ],
+        [
+          "What about you?",
+          "E você?",
+          "I want tea. What about you?"
+        ],
+        [
+          "a cup of coffee",
+          "uma xícara de café",
+          "I usually have a cup of coffee."
+        ],
+        [
+          "a glass of water",
+          "um copo de água",
+          "A glass of water, please."
+        ],
+        [
+          "for breakfast / for lunch",
+          "no café da manhã / no almoço",
+          "I have eggs for breakfast."
+        ],
+        [
+          "I like… but I don’t like…",
+          "Eu gosto de… mas não gosto de…",
+          "I like chicken, but I don’t like ham."
+        ],
+        [
+          "Do you have…?",
+          "Você tem…? / Vocês têm…?",
+          "Do you have apple juice?"
+        ]
+      ]
+    },
+    {
+      "id": "dialogue",
+      "type": "dialogue",
+      "title": "At the counter.",
+      "kicker": "Dialog sample",
+      "instruction": "Leia com o professor. Depois ocultem um papel e reconstruam as falas.",
+      "lines": [
+        [
+          "A",
+          "Hello. What do you want?",
+          "Olá. O que você quer?"
+        ],
+        [
+          "B",
+          "A cheese sandwich, please.",
+          "Um sanduíche de queijo, por favor."
+        ],
+        [
+          "A",
+          "Something to drink?",
+          "Algo para beber?"
+        ],
+        [
+          "B",
+          "Do you have orange juice?",
+          "Vocês têm suco de laranja?"
+        ],
+        [
+          "A",
+          "No, sorry. We have tea and water.",
+          "Não, desculpe. Temos chá e água."
+        ],
+        [
+          "B",
+          "A cup of tea, please.",
+          "Uma xícara de chá, por favor."
+        ]
+      ]
+    },
+    {
+      "id": "drill-two",
+      "type": "drill",
+      "title": "Your next reply.",
+      "kicker": "Drill 02 · in a conversation",
+      "instruction": "Responda à situação em inglês. O modelo é uma resposta possível.",
+      "items": [
+        [
+          "O atendente oferece café. Recuse com educação.",
+          "No, thank you."
+        ],
+        [
+          "Pergunte se há chá.",
+          "Do you have tea?"
+        ],
+        [
+          "Peça um sanduíche de frango.",
+          "A chicken sandwich, please. / I want a chicken sandwich, please."
+        ],
+        [
+          "O atendente entrega o pedido. Agradeça.",
+          "Thank you."
+        ],
+        [
+          "Não há suco. Escolha água.",
+          "Water, please. / I want water, please."
+        ],
+        [
+          "Pergunte ao professor se ele gosta de café.",
+          "Do you like coffee?"
+        ]
+      ]
+    },
+    {
+      "id": "reading",
+      "type": "reading",
+      "title": "A quiet break.",
+      "kicker": "Read together",
+      "instruction": "O professor lê primeiro. Depois leia e responda às perguntas logo abaixo, consultando o texto quando precisar.",
+      "paragraphs": [
+        "Hi! I’m Alex. I work at a school. At break, I eat a cheese sandwich and drink water.",
+        "I like coffee, but I don’t want coffee today. I want a cup of tea.",
+        "My friend and I like this café. We have tea and a sandwich here."
+      ],
+      "translations": [
+        "Olá! Sou Alex. Trabalho em uma escola. No intervalo, como um sanduíche de queijo e bebo água.",
+        "Gosto de café, mas não quero café hoje. Quero uma xícara de chá.",
+        "Meu amigo e eu gostamos deste café. Tomamos chá e comemos um sanduíche aqui."
+      ],
+      "items": [
+        [
+          "What do you eat at break, Alex?",
+          "I eat a cheese sandwich."
+        ],
+        [
+          "Do you want coffee today, Alex?",
+          "No, I don’t. I want a cup of tea."
+        ],
+        [
+          "And you? What do you want at break?",
+          "I want… (use your own choice)."
+        ]
+      ]
+    },
+    {
+      "id": "mission",
+      "type": "mission",
+      "title": "Your order, your choice.",
+      "kicker": "Let’s talk",
+      "instruction": "Você é o cliente. O professor atende. Façam o pedido, respondam a uma mudança e depois troquem os papéis.",
+      "board": [
+        [
+          "To eat",
+          "Cheese sandwich · Chicken sandwich · Salad"
+        ],
+        [
+          "To drink",
+          "Tea · Coffee · Water · Orange juice"
+        ]
+      ],
+      "steps": [
+        "Escolha algo para comer e beber.",
+        "Pergunte se a bebida está disponível.",
+        "Confirme a alternativa e agradeça."
+      ],
+      "support": [
+        "I want…",
+        "Do you have…?",
+        "No, thank you.",
+        "…please."
+      ],
+      "surprise": "Orange juice is not available. Tea, coffee and water are available.",
+      "model": "A: Do you have orange juice? B: No, sorry. We have tea. A: A cup of tea, please."
+    },
+    {
+      "id": "exit",
+      "type": "exit",
+      "title": "What can you do now?",
+      "kicker": "Before you go",
+      "instruction": "Faça uma nova tentativa antes de escolher como foi.",
+      "checks": [
+        "Digo uma preferência e algo de que não gosto.",
+        "Faço um pedido com comida e bebida.",
+        "Respondo quando minha primeira escolha não está disponível."
+      ]
+    },
+    {
+      "id": "homework",
+      "type": "homework",
+      "title": "A little practice for next time.",
+      "kicker": "Homework",
+      "instruction": "Escolha uma opção. Use as palavras desta aula. Tempo sugerido: 5–10 minutos.",
+      "options": [
+        [
+          "A",
+          "Say it",
+          "Prepare um áudio de 20–30 segundos: diga uma preferência, uma negativa e faça um pedido."
+        ],
+        [
+          "B",
+          "Write it",
+          "Escreva quatro falas entre cliente e atendente. Inclua uma pergunta e uma alternativa."
+        ],
+        [
+          "C",
+          "Make it visual",
+          "Desenhe um pedido com dois itens. Prepare três frases para explicar sua escolha."
+        ]
+      ]
+    }
+  ],
+  "migration": {
+    "sourceLesson": null,
+    "editorialVersion": "2026.09-a1-38"
+  }
+});}());

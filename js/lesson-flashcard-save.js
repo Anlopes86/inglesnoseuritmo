@@ -31,6 +31,7 @@
     }
 
     function getLessonContext() {
+        if (window.LessonFlashcardContext) return window.LessonFlashcardContext;
         const match = window.location.pathname.match(/\/([^\/]+)\/licao-(\d+)\.html$/i);
         if (!match) {
             return {
@@ -172,7 +173,7 @@
 
     function init() {
         ensureStyles();
-        if (typeof window.firebase === 'undefined' || typeof window.db === 'undefined') return;
+        if (!window.LessonFlashcardContext && (typeof window.firebase === 'undefined' || typeof window.db === 'undefined')) return;
 
         const context = getLessonContext();
         const modal = ensureModal();
@@ -182,7 +183,7 @@
         const feedback = modal.querySelector('[data-role="feedback"]');
         const cancelBtn = modal.querySelector('[data-role="cancel"]');
         const confirmBtn = modal.querySelector('[data-role="confirm"]');
-        const loginUrl = new URL('../login.html', window.location.href).href;
+        const loginUrl = new URL(context.loginPath || '../login.html', window.location.href).href;
         let activeCard = null;
 
         function setFeedback(message, type) {
@@ -211,11 +212,7 @@
         }
 
         function openSaveModal(card) {
-            const user = firebase.auth().currentUser;
-            if (!user) {
-                window.location.href = loginUrl;
-                return;
-            }
+            const user = window.firebase?.auth().currentUser;
 
             activeCard = card;
             frontInput.value = extractFrontText(card);
@@ -223,6 +220,8 @@
             categoryInput.value = context.defaultCategory;
             resetModal();
             toggleModal(true);
+            if (!window.db || !window.firebase) {setFeedback('Conecte-se à internet para acessar os flashcards do portal.', 'error');confirmBtn.disabled=true;}
+            else if (!user) {setFeedback('Entre na sua conta para salvar no portal.', 'error');confirmBtn.textContent='Entrar na conta';}
         }
 
         async function saveCard() {
@@ -246,8 +245,9 @@
 
             try {
                 const ownerId = getCardOwnerId(user);
+                if(context.requireStudent && ['professor','admin'].includes(localStorage.getItem('loggedInUserRole')) && !localStorage.getItem('selectedStudentId')) throw new Error('Selecione o aluno no painel antes de salvar.');
                 const fingerprint = hashText(`${f.toLowerCase()}|${b.toLowerCase()}`);
-                const documentId = `lesson_${hashText(`${context.moduleId}|${context.lessonNumber}|${f.toLowerCase()}`)}`;
+                const documentId = `lesson_${hashText(`${context.curriculumId || context.moduleId}|${context.lessonNumber}|${f.toLowerCase()}`)}`;
                 await db.collection('users').doc(ownerId).collection('myCards').doc(documentId).set({
                     f,
                     b,
@@ -256,6 +256,7 @@
                     module: context.moduleId,
                     lesson: context.lessonNumber,
                     source: 'lesson-flashcard',
+                    ...(context.curriculumId ? { curriculumId: context.curriculumId, lessonTitle: context.lessonLabel } : {}),
                     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
                 }, { merge: true });
 
@@ -264,6 +265,7 @@
                     if (button) {
                         button.classList.add('saved');
                         button.title = 'Card salvo';
+                        if(context.curriculumId) button.textContent='✓ Salvo';
                     }
                 }
 
@@ -271,7 +273,7 @@
                 window.setTimeout(() => toggleModal(false), 900);
             } catch (error) {
                 console.error('Erro ao salvar card da lição:', error);
-                setFeedback('Não foi possível salvar agora. Tente novamente.', 'error');
+                setFeedback(error.message === 'Selecione o aluno no painel antes de salvar.' ? error.message : 'Não foi possível salvar agora. Tente novamente.', 'error');
                 confirmBtn.disabled = false;
                 confirmBtn.textContent = 'Salvar Card';
             }
@@ -305,7 +307,7 @@
                 button.className = BUTTON_CLASS;
                 button.title = 'Salvar este flashcard';
                 button.setAttribute('aria-label', `Salvar ${frontText} no perfil do aluno`);
-                button.innerHTML = '<i class="fas fa-bookmark"></i>';
+                button.innerHTML = context.curriculumId ? '☆ Salvar' : '<i class="fas fa-bookmark"></i>';
                 button.addEventListener('click', (event) => {
                     event.stopPropagation();
                     openSaveModal(card);
@@ -350,6 +352,7 @@
 
         observer.observe(document.body, { childList: true, subtree: true });
 
+        document.addEventListener('keydown', event => {if(event.key==='Escape'&&!modal.classList.contains('hidden'))toggleModal(false);});
         cancelBtn.addEventListener('click', () => toggleModal(false));
         modal.addEventListener('click', (event) => {
             if (event.target === modal) toggleModal(false);

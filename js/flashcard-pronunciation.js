@@ -76,7 +76,8 @@
         button.className = BUTTON_CLASS;
         button.setAttribute('aria-label', `Ouvir pronúncia de ${text}`);
         button.title = 'Ouvir em inglês';
-        button.innerHTML = '<i class="fas fa-volume-up"></i>';
+        button.innerHTML = window.LessonFlashcardContext ? '♪ Ouvir' : '<i class="fas fa-volume-up"></i>';
+        if (!('speechSynthesis' in window)) {button.disabled=true;button.title='Leitura por voz indisponível neste navegador';}
         button.addEventListener('click', (event) => {
             event.stopPropagation();
             speak(text);

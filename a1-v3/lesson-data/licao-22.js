@@ -1,26 +1,812 @@
-(function(){
-    'use strict';
-    const R=window.A1V3LessonRegistry; const {v,x,p,t,line,dialogue,question,reading,activity,homework}=R.helpers;
-    R.register(22,R.lesson({
-        title:'What Happened?',
-        objectives:['Relatar ações concluídas no passado com verbos regulares e irregulares essenciais.','Formar negativas e perguntas com did.','Organizar uma sequência com yesterday, then, after that e finally.','Distinguir was/were de outros verbos no Past Simple.'],
-        intro:[line('Emma','What happened yesterday?','O que aconteceu ontem?'),line('Daniel','I missed the bus, so I walked to work.','Perdi o ônibus, então fui a pé ao trabalho.'),line('Emma','Did you arrive late?','Você chegou atrasado?'),line('Daniel','Yes, I did. I had a meeting at nine, but I arrived at nine fifteen.','Sim. Eu tinha uma reunião às nove, mas cheguei às nove e quinze.'),line('Emma','What did your manager say?','O que seu gerente disse?'),line('Daniel','She smiled and said, “Good morning.”','Ela sorriu e disse: “Bom dia”.')],
-        vocab:[v('happen','acontecer','What happened?','O que aconteceu?'),v('miss','perder; não pegar','I missed the bus.','Eu perdi o ônibus.'),v('walk','caminhar','I walked to work.','Fui a pé ao trabalho.'),v('arrive','chegar','We arrived at nine.','Chegamos às nove.'),v('call','ligar','She called me.','Ela me ligou.'),v('visit','visitar','They visited a museum.','Eles visitaram um museu.'),v('stay','ficar','I stayed at home.','Fiquei em casa.'),v('go → went','ir → foi','We went to the beach.','Fomos à praia.'),v('have → had','ter → teve','I had a meeting.','Eu tive uma reunião.'),v('get → got','pegar; chegar; obter → pegou','He got home late.','Ele chegou em casa tarde.'),v('see → saw','ver → viu','I saw Julia.','Eu vi a Julia.'),v('eat → ate','comer → comeu','They ate lunch.','Eles almoçaram.'),v('buy → bought','comprar → comprou','She bought a ticket.','Ela comprou uma passagem.'),v('say → said','dizer → disse','He said hello.','Ele disse olá.'),v('take → took','pegar; levar → pegou','We took a taxi.','Pegamos um táxi.'),v('yesterday','ontem','I worked yesterday.','Trabalhei ontem.'),v('then','então; depois','Then I called Sarah.','Depois liguei para Sarah.'),v('finally','finalmente','Finally, we went home.','Finalmente, fomos para casa.')],
-        grammar:{title:'Past Simple',summary:'Use o passado para uma ação concluída. Na negativa e pergunta, did carrega a marca de passado e o verbo volta à forma base.',rows:[['regular','verb + ed','I walked. She visited.','Eu caminhei. Ela visitou.'],['irregular','special past form','go → went; have → had','ir → foi; ter → teve'],['negative','didn’t + base verb','I didn’t walk.','Eu não caminhei.'],['question','Did + subject + base verb?','Did you arrive late?','Você chegou atrasado?'],['short answer','Yes, ... did. / No, ... didn’t.','Yes, I did.','Sim.'],['be','was/were; no did','Were you tired?','Você estava cansado?']],notes:['Regular: work → worked; live → lived; study → studied; stop → stopped.', 'Nunca use did + verbo no passado: Did you go? Não Did you went?', 'Use was/were diretamente: Was she home? Não Did she be home?']},
-        activitySections:[activity('Past forms','Produza as formas passadas antes de usá-las na história.',[p('Write the past','work','worked'),p('Write the past','live','lived'),p('Write the past','study','studied'),p('Write the past','stop','stopped'),p('Write the past','go','went'),p('Write the past','have','had'),p('Write the past','see','saw'),p('Write the past','buy','bought'),p('Write the past','take','took'),p('Complete','Yesterday I ___ the bus. (miss)','missed'),p('Complete','We ___ a taxi. (take)','took'),p('Complete','Sarah ___ a ticket. (buy)','bought')],'Verb Forms'),activity('Questions and negatives','Use did/didn’t sem manter o verbo no passado.',[p('Make negative','I walked to work.','I didn’t walk to work.'),p('Make negative','She bought a ticket.','She didn’t buy a ticket.'),p('Make a question','Daniel arrived late.','Did Daniel arrive late?'),p('Make a question','They went home.','Did they go home?'),p('Answer','Did you work yesterday? positive','Yes, I did.'),p('Answer','Did Emma take a taxi? negative','No, she didn’t.'),p('Build','happen / What / did / ?', 'What happened?'),p('Build','you / What / buy / did / ?', 'What did you buy?'),p('Correct','Did you went to work?','Did you go to work?'),p('Correct','I didn’t saw Julia.','I didn’t see Julia.'),p('Choose','(Was / Did) the hotel clean?','Was'),p('Choose','(Was / Did) you visit the museum?','Did')]),activity('Tell the story','Organize eventos e acrescente conectores para formar uma narrativa curta.',[p('Order','finally went home · first missed bus · then took taxi','First, I missed the bus. Then, I took a taxi. Finally, I went home.'),p('Complete','First, we arrived at the hotel. ___, we ate lunch. ___, we visited the beach.','Then; Finally'),p('Retell','7:00 got up · 8:00 missed bus · 8:15 took taxi · 9:15 arrived','I got up at seven. Then I missed the bus. I took a taxi and arrived at nine fifteen.'),p('Answer','What did you do yesterday morning?','I ...'),p('Answer','Where did you go last weekend?','I went to ...'),p('Answer','Who did you see?','I saw ...'),p('Correct','Yesterday I go to the store and buy food.','Yesterday I went to the store and bought food.'),p('Create','Tell a four-event story with one problem.','First... Then... After that... Finally...')],'Story Builder')],
-        translations:[t('O que aconteceu ontem?','What happened yesterday?'),t('Eu perdi o ônibus.','I missed the bus.'),t('Fui a pé ao trabalho.','I walked to work.'),t('Você chegou atrasado?','Did you arrive late?'),t('Sim.','Yes, I did.'),t('Eu não peguei um táxi.','I didn’t take a taxi.'),t('O que você comprou?','What did you buy?'),t('Nós fomos à praia.','We went to the beach.'),t('Ela viu a Julia.','She saw Julia.'),t('Finalmente, eles foram para casa.','Finally, they went home.')],
-        expressions:[x('What happened?', 'O que aconteceu?', 'Pede um relato do evento.','What happened last night?','O que aconteceu ontem à noite?'),x('Did you...?', 'Você...?', 'Pergunta sobre ação concluída.','Did you call me?','Você me ligou?'),x('Yes, I did. / No, I didn’t.','Sim. / Não.','Resposta curta com did.','Did you go? Yes, I did.','Você foi? Sim.'),x('First,...', 'Primeiro,...','Inicia uma sequência.','First, I called Sarah.','Primeiro, liguei para Sarah.'),x('Then,...', 'Depois,...','Continua a sequência.','Then, we ate lunch.','Depois, almoçamos.'),x('After that,...','Depois disso,...','Liga mais um evento.','After that, we left.','Depois disso, saímos.'),x('Finally,...','Finalmente,...','Fecha a sequência.','Finally, I got home.','Finalmente, cheguei em casa.'),x('I’m sorry I’m late.','Desculpe o atraso.','Pedido de desculpas útil.','I’m sorry I’m late. I missed the bus.','Desculpe o atraso. Perdi o ônibus.')],
-        dialogues:[
-            dialogue('Late for work',line('A','Why are you late today?','Por que você está atrasado hoje?'),line('B','I missed the bus.','Perdi o ônibus.'),line('A','What did you do?','O que você fez?'),line('B','I called a taxi, but it arrived late.','Chamei um táxi, mas ele chegou tarde.'),line('A','Did you call the office?','Você ligou para o escritório?'),line('B','Yes, I did. I called at eight.','Sim. Liguei às oito.')),
-            dialogue('A busy day',line('A','What did you do yesterday?','O que você fez ontem?'),line('B','I worked and visited my parents.','Trabalhei e visitei meus pais.'),line('A','Did you have dinner with them?','Você jantou com eles?'),line('B','Yes. We cooked dinner together.','Sim. Preparamos o jantar juntos.'),line('A','What time did you go home?','Que horas você foi para casa?'),line('B','I went home at ten.','Fui para casa às dez.')),
-            dialogue('The train ticket',line('A','Did you buy the train ticket?','Você comprou a passagem de trem?'),line('B','No, I didn’t.','Não.'),line('A','Why not?','Por que não?'),line('B','I forgot my card at home.','Esqueci meu cartão em casa.')),
-            dialogue('At home last night',line('A','Were you at home last night?','Você estava em casa ontem à noite?'),line('B','Yes, but I didn’t watch TV.','Sim, mas não assisti TV.'),line('A','What did you do?','O que você fez?'),line('B','I studied English and listened to music.','Estudei inglês e ouvi música.')),
-            dialogue('Getting to the hotel',line('A','What happened after the flight?','O que aconteceu depois do voo?'),line('B','We collected our bags and looked for a bus.','Pegamos nossas malas e procuramos um ônibus.'),line('A','Did you find one?','Vocês encontraram um?'),line('B','No, we didn’t. The buses stopped at eleven.','Não. Os ônibus pararam às onze.'),line('A','What happened next?','O que aconteceu depois?'),line('B','We took a taxi and finally arrived at the hotel.','Pegamos um táxi e finalmente chegamos ao hotel.'))
+(function(){'use strict';window.A1V3LessonRegistry.register(22,{
+  "title": "What Is Your Friend Like?",
+  "type": "content",
+  "summary": "Descrever alguém de forma suficiente para o professor identificar o personagem.",
+  "mission": {
+    "title": "What Is Your Friend Like?",
+    "task": "Descrever alguém de forma suficiente para o professor identificar o personagem.",
+    "focus": [
+      "Aparência e traços comuns de personalidade; be/have/be wearing; What…like? e look like em modelos; him/her como apoio."
+    ],
+    "semanticTags": [
+      "family-friendship",
+      "possessives",
+      "describing-people",
+      "interests-preferences"
+    ]
+  },
+  "slides": [
+    {
+      "id": "opening",
+      "type": "dialogue",
+      "title": "What Is Your Friend Like?",
+      "kicker": "What Is Your Friend Like?",
+      "instruction": "Acompanhe a leitura do professor. Depois leiam juntos e identifiquem a situação.",
+      "lines": [
+        [
+          "Emma",
+          "Which person is your friend?",
+          "Qual pessoa é sua amiga?"
         ],
-        dialogueGroups: [[0, 1], [2, 3, 4]],
-        reading:reading('A difficult morning','Yesterday, Emma got up at seven and made breakfast. She left home at eight, but she missed her bus. She called Daniel and then walked to the station. Daniel arrived in his car and took her to work. They stopped for coffee, so Emma arrived at nine fifteen. Her meeting was at nine, but her manager didn’t get angry. She smiled and gave Emma a cup of coffee.',question('What time did Emma get up?','At seven.'),question('Why did she walk to the station?','She missed her bus.'),question('Who took her to work?','Daniel did.'),question('Did they stop for coffee?','Yes, they did.'),question('Was her manager angry?','No, she wasn’t.'),question('What did the manager give her?','A cup of coffee.')),
-        conversation:{questions:['Say five regular past forms.','Say eight irregular past forms.','Tell what you did yesterday morning.','Ask five questions with did.','Answer with full sentences.','Tell one thing you didn’t do.','Retell a difficult day in chronological order.','Change one event and tell the story again.'],support:['Yesterday,...','What happened?','Did you...?', 'I didn’t...', 'First...', 'Then...', 'After that...', 'Finally...']},
-        homework:homework('Escreva e prepare oralmente uma história com oito eventos concluídos.',['Uma manhã difícil','Um passeio','Um dia de sorte'],['Usei verbos regulares e irregulares.','Incluí duas negativas e três perguntas.','Organizei os eventos com conectores.']),
-        mission:{title:'Reconstruct yesterday',task:'Reconstrua um dia a partir de horários e pistas, responda a perguntas e corrija uma informação falsa.',focus:['Past Simple','did/didn’t','story sequence']}
-    }));
-}());
+        [
+          "Sarah",
+          "The tall woman with long curly hair.",
+          "A mulher alta com cabelo longo e cacheado."
+        ],
+        [
+          "Emma",
+          "Is she wearing a green jacket?",
+          "Ela está usando uma jaqueta verde?"
+        ],
+        [
+          "Sarah",
+          "Yes. Her name is Julia. She’s friendly and quiet.",
+          "Sim. O nome dela é Julia. Ela é simpática e quieta."
+        ],
+        [
+          "Emma",
+          "What time is she leaving?",
+          "A que horas ela vai embora?"
+        ],
+        [
+          "Sarah",
+          "At a quarter past six.",
+          "Às seis e quinze."
+        ]
+      ]
+    },
+    {
+      "id": "vocabulary",
+      "type": "cards",
+      "title": "Vocabulary Expansion",
+      "kicker": "Vocabulary Expansion",
+      "instruction": "Leia os significados e exemplos. Escolha palavras para usar durante a conversa.",
+      "cards": [
+        [
+          "tall",
+          "alto(a)",
+          "Julia is tall."
+        ],
+        [
+          "short",
+          "baixo(a)",
+          "Leo is short."
+        ],
+        [
+          "young",
+          "jovem",
+          "He is a young man."
+        ],
+        [
+          "old",
+          "idoso(a); velho(a)",
+          "The old man is smiling."
+        ],
+        [
+          "slim",
+          "magro(a)",
+          "She is tall and slim."
+        ],
+        [
+          "strong",
+          "forte",
+          "He looks strong."
+        ],
+        [
+          "hair",
+          "cabelo",
+          "She has long hair."
+        ],
+        [
+          "long",
+          "longo(a)",
+          "Her hair is long."
+        ],
+        [
+          "short hair",
+          "cabelo curto",
+          "He has short hair."
+        ],
+        [
+          "straight",
+          "liso(a)",
+          "She has straight hair."
+        ],
+        [
+          "curly",
+          "cacheado(a)",
+          "Julia has curly hair."
+        ],
+        [
+          "dark",
+          "escuro(a)",
+          "He has dark hair."
+        ],
+        [
+          "blond",
+          "loiro(a)",
+          "The blond woman is Ana."
+        ],
+        [
+          "beard",
+          "barba",
+          "The man has a beard."
+        ],
+        [
+          "glasses",
+          "óculos",
+          "She is wearing glasses."
+        ],
+        [
+          "friendly",
+          "simpático(a)",
+          "Julia is friendly."
+        ],
+        [
+          "quiet",
+          "quieto(a)",
+          "My friend is quiet."
+        ],
+        [
+          "funny",
+          "engraçado(a)",
+          "Leo is very funny."
+        ],
+        [
+          "o’clock",
+          "em ponto",
+          "It is six o’clock."
+        ],
+        [
+          "half past",
+          "e meia",
+          "It is half past seven."
+        ],
+        [
+          "a quarter past",
+          "e quinze",
+          "It is a quarter past six."
+        ],
+        [
+          "a quarter to",
+          "quinze para",
+          "It is a quarter to nine."
+        ]
+      ]
+    },
+    {
+      "id": "verbs",
+      "type": "verbs",
+      "title": "Verb bank",
+      "kicker": "Verb bank",
+      "instruction": "Consulte o infinitivo, o passado e o particípio. Observe nos exemplos a forma usada na frase.",
+      "cards": [
+        [
+          "be",
+          "ser; estar",
+          "I am here.",
+          "was / were · been"
+        ],
+        [
+          "have",
+          "ter",
+          "She has two brothers.",
+          "had · had"
+        ],
+        [
+          "wear",
+          "vestir; usar",
+          "I wear a blue shirt.",
+          "wore · worn"
+        ],
+        [
+          "look",
+          "olhar",
+          "Look at the room.",
+          "looked · looked"
+        ]
+      ]
+    },
+    {
+      "id": "helping",
+      "type": "patterns",
+      "title": "Helping You",
+      "kicker": "Helping You",
+      "instruction": "Use be com características gerais, have/has com cabelo e barba, e be wearing com roupas ou acessórios visíveis.",
+      "groups": [
+        {
+          "title": "Describing people and telling time",
+          "cards": [
+            [
+              "subject + am/is/are + adjective",
+              "Ela é alta e simpática.",
+              "She is tall and friendly."
+            ],
+            [
+              "subject + have/has + feature",
+              "Ele tem cabelo curto e escuro.",
+              "He has short dark hair."
+            ],
+            [
+              "subject + am/is/are wearing",
+              "Ela está usando óculos.",
+              "She is wearing glasses."
+            ],
+            [
+              "What does ... look like?",
+              "Como é a aparência da Julia?",
+              "What does Julia look like?"
+            ],
+            [
+              "What is ... like?",
+              "Como é a Julia?",
+              "What is Julia like?"
+            ],
+            [
+              "It is + time.",
+              "São sete e meia.",
+              "It is half past seven."
+            ]
+          ]
+        },
+        {
+          "title": "Como usar",
+          "cards": [
+            [
+              "Observe 1",
+              "Ordem comum: comprimento + tipo + cor + hair: long curly dark hair.",
+              ""
+            ],
+            [
+              "Observe 2",
+              "Pergunte What time is it? para a hora atual e What time does ...? para horários.",
+              ""
+            ],
+            [
+              "Observe 3",
+              "Para 6:45: a quarter to seven. Para 6:15: a quarter past six.",
+              ""
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice-0",
+      "type": "drill",
+      "title": "Build a description",
+      "kicker": "Build a description",
+      "instruction": "Escolha be, have/has ou be wearing e organize os adjetivos.",
+      "items": [
+        [
+          "Julia ___ tall and slim.",
+          "is"
+        ],
+        [
+          "She ___ long curly hair.",
+          "has"
+        ],
+        [
+          "She ___ wearing a green jacket.",
+          "is"
+        ],
+        [
+          "Daniel ___ a beard.",
+          "has"
+        ],
+        [
+          "has / dark / short / He / hair",
+          "He has short dark hair."
+        ],
+        [
+          "wearing / glasses / is / She",
+          "She is wearing glasses."
+        ],
+        [
+          "My friend (is / has) friendly.",
+          "is"
+        ],
+        [
+          "My friend (is / has) blue eyes.",
+          "has"
+        ],
+        [
+          "She is long hair.",
+          "She has long hair."
+        ],
+        [
+          "He has tall.",
+          "He is tall."
+        ],
+        [
+          "Julia: tall · slim · long curly hair · glasses",
+          "Julia is tall and slim. She has long curly hair and is wearing glasses."
+        ],
+        [
+          "Leo: short · strong · short dark hair · beard",
+          "Leo is short and strong. He has short dark hair and a beard."
+        ]
+      ]
+    },
+    {
+      "id": "practice-1",
+      "type": "drill",
+      "title": "Identify the person",
+      "kicker": "Identify the person",
+      "instruction": "Faça perguntas e use detalhes suficientes para identificar a pessoa certa.",
+      "items": [
+        [
+          "Pergunta por aparência: (What is she like? / What does she look like?)",
+          "What does she look like?"
+        ],
+        [
+          "Pergunta por personalidade geral: (What is she like? / What does she look like?)",
+          "What is she like?"
+        ],
+        [
+          "What does Julia look like? tall · long curly hair",
+          "She is tall and has long curly hair."
+        ],
+        [
+          "What is Julia like? friendly · quiet",
+          "She is friendly and quiet."
+        ],
+        [
+          "person / Which / friend / your / is / ?",
+          "Which person is your friend?"
+        ],
+        [
+          "Three women; your friend wears green.",
+          "The woman in the green jacket."
+        ],
+        [
+          "Two men; your friend has a beard and glasses.",
+          "The man with a beard and glasses."
+        ],
+        [
+          "What does she like? (aparência)",
+          "What does she look like?"
+        ],
+        [
+          "The woman with a red jacket.",
+          "The woman in the red jacket."
+        ],
+        [
+          "Give four clues so someone can identify one person.",
+          "The ... person with ... / in ..."
+        ]
+      ]
+    },
+    {
+      "id": "practice-2",
+      "type": "drill",
+      "title": "What time is it?",
+      "kicker": "What time is it?",
+      "instruction": "Leia, escreva e use os horários em perguntas reais.",
+      "items": [
+        [
+          "6:00",
+          "six o’clock"
+        ],
+        [
+          "7:30",
+          "half past seven / seven thirty"
+        ],
+        [
+          "8:15",
+          "a quarter past eight / eight fifteen"
+        ],
+        [
+          "9:45",
+          "a quarter to ten / nine forty-five"
+        ],
+        [
+          "10:20",
+          "twenty past ten / ten twenty"
+        ],
+        [
+          "11:50",
+          "ten to twelve / eleven fifty"
+        ],
+        [
+          "time / What / it / is / ?",
+          "What time is it?"
+        ],
+        [
+          "she / What time / leaving / is / ?",
+          "What time is she leaving?"
+        ],
+        [
+          "What time is the class? 6:30",
+          "It is at half past six."
+        ],
+        [
+          "What time do you start work?",
+          "I start work at ..."
+        ],
+        [
+          "It is half seven.",
+          "It is half past seven."
+        ],
+        [
+          "Give a meeting time and identify the person you are meeting.",
+          "I’m meeting the ... person at ..."
+        ]
+      ]
+    },
+    {
+      "id": "drill",
+      "type": "drill",
+      "title": "Say it in English.",
+      "kicker": "Say it in English.",
+      "instruction": "Diga a frase em inglês. Confira o modelo e depois personalize uma informação.",
+      "items": [
+        [
+          "Como é a aparência dela?",
+          "What does she look like?"
+        ],
+        [
+          "Ela é alta e magra.",
+          "She is tall and slim."
+        ],
+        [
+          "Ela tem cabelo longo e cacheado.",
+          "She has long curly hair."
+        ],
+        [
+          "Ela está usando óculos.",
+          "She is wearing glasses."
+        ],
+        [
+          "Como ela é?",
+          "What is she like?"
+        ],
+        [
+          "Ela é simpática e quieta.",
+          "She is friendly and quiet."
+        ],
+        [
+          "Qual pessoa é seu amigo?",
+          "Which person is your friend?"
+        ],
+        [
+          "O homem de barba.",
+          "The man with a beard."
+        ],
+        [
+          "Que horas são?",
+          "What time is it?"
+        ],
+        [
+          "São sete e meia.",
+          "It is half past seven."
+        ],
+        [
+          "São quinze para as nove.",
+          "It is a quarter to nine."
+        ],
+        [
+          "A que horas ela vai embora?",
+          "What time is she leaving?"
+        ]
+      ]
+    },
+    {
+      "id": "expressions",
+      "type": "cards",
+      "title": "Key phrases & expressions",
+      "kicker": "Key phrases & expressions",
+      "instruction": "Use cada expressão como um bloco. Leia o exemplo e crie uma troca curta.",
+      "cards": [
+        [
+          "What does ... look like?",
+          "Como é a aparência de...? · Pergunta por características físicas.",
+          "What does your friend look like?"
+        ],
+        [
+          "What is ... like?",
+          "Como é...? · Pergunta por descrição geral ou personalidade.",
+          "What is Julia like?"
+        ],
+        [
+          "the person with...",
+          "a pessoa com... · Identifica por característica.",
+          "The man with glasses."
+        ],
+        [
+          "the person in...",
+          "a pessoa de... · Identifica pela roupa ou cor.",
+          "The woman in blue."
+        ],
+        [
+          "Which person...?",
+          "Qual pessoa...? · Pede identificação entre opções.",
+          "Which person is Daniel?"
+        ],
+        [
+          "What time is it?",
+          "Que horas são? · Pergunta pela hora.",
+          "What time is it? It’s six."
+        ],
+        [
+          "What time does ...?",
+          "A que horas...? · Pergunta por horário habitual.",
+          "What time does class start?"
+        ],
+        [
+          "What time is ... -ing?",
+          "A que horas ... vai...? · Pergunta por horário de plano atual.",
+          "What time are you leaving?"
+        ]
+      ]
+    },
+    {
+      "id": "dialogues",
+      "type": "dialogue",
+      "title": "Dialog Samples",
+      "kicker": "Dialog Samples",
+      "instruction": "Leiam as situações e troquem os papéis. Depois alterem uma informação.",
+      "lines": [
+        [
+          "A",
+          "Which person is Julia?",
+          "Qual pessoa é a Julia?"
+        ],
+        [
+          "B",
+          "She’s the tall woman with curly hair.",
+          "Ela é a mulher alta de cabelo cacheado."
+        ],
+        [
+          "A",
+          "Is she wearing a green dress?",
+          "Ela está usando um vestido verde?"
+        ],
+        [
+          "B",
+          "Yes, she is. She’s talking to Leo.",
+          "Sim. Ela está conversando com Leo."
+        ],
+        [
+          "A",
+          "Oh, I see her now.",
+          "Ah, agora eu a vejo."
+        ],
+        [
+          "B",
+          "Let’s go and say hello.",
+          "Vamos lá dizer olá."
+        ],
+        [
+          "A",
+          "What does your friend look like?",
+          "Como é a aparência da sua amiga?"
+        ],
+        [
+          "B",
+          "She is short and has long dark hair.",
+          "Ela é baixa e tem cabelo longo e escuro."
+        ],
+        [
+          "A",
+          "Does she wear glasses?",
+          "Ela usa óculos?"
+        ],
+        [
+          "B",
+          "No, she doesn’t.",
+          "Não."
+        ],
+        [
+          "A",
+          "What’s her name?",
+          "Qual é o nome dela?"
+        ],
+        [
+          "B",
+          "Her name is Nina.",
+          "O nome dela é Nina."
+        ],
+        [
+          "A",
+          "What is Leo like?",
+          "Como é o Leo?"
+        ],
+        [
+          "B",
+          "He’s friendly and funny.",
+          "Ele é simpático e engraçado."
+        ],
+        [
+          "A",
+          "Is he talkative too?",
+          "Ele também é comunicativo?"
+        ],
+        [
+          "B",
+          "Yes. He talks to everyone.",
+          "Sim. Ele conversa com todos."
+        ],
+        [
+          "A",
+          "Is Daniel the man in the blue shirt?",
+          "Daniel é o homem de camisa azul?"
+        ],
+        [
+          "B",
+          "No. He’s the man with glasses.",
+          "Não. Ele é o homem de óculos."
+        ],
+        [
+          "A",
+          "The tall man near the door?",
+          "O homem alto perto da porta?"
+        ],
+        [
+          "B",
+          "No, Daniel is short and has a beard.",
+          "Não, Daniel é baixo e tem barba."
+        ],
+        [
+          "A",
+          "Oh, I see him now.",
+          "Ah, agora eu o vejo."
+        ],
+        [
+          "B",
+          "He’s coming this way.",
+          "Ele está vindo para cá."
+        ],
+        [
+          "A",
+          "What time are you meeting Julia?",
+          "A que horas você vai encontrar a Julia?"
+        ],
+        [
+          "B",
+          "At a quarter past six.",
+          "Às seis e quinze."
+        ],
+        [
+          "A",
+          "Where are you meeting her?",
+          "Onde você vai encontrá-la?"
+        ],
+        [
+          "B",
+          "At the café near the station.",
+          "No café perto da estação."
+        ],
+        [
+          "A",
+          "Is she usually on time?",
+          "Ela geralmente chega no horário?"
+        ],
+        [
+          "B",
+          "Yes. She’s never late.",
+          "Sim. Ela nunca se atrasa."
+        ]
+      ],
+      "lineTitles": {
+        "0": "Finding Julia",
+        "6": "Describing a friend",
+        "12": "Leo’s personality",
+        "16": "The right person",
+        "22": "Meeting Julia"
+      }
+    },
+    {
+      "id": "reading",
+      "type": "reading",
+      "title": "Meeting at the station",
+      "kicker": "Meeting at the station",
+      "instruction": "O professor lê primeiro. Depois leia e responda às perguntas consultando o texto.",
+      "paragraphs": [
+        "Sarah is waiting at the station at a quarter to six. She is meeting two friends. Julia is tall and slim. She has long curly hair and is wearing a green jacket. Leo is short and strong. He has short dark hair, a beard and glasses. Julia is quiet and friendly; Leo is funny and talks a lot. Their train leaves at half past six, so they have forty-five minutes."
+      ],
+      "items": [
+        [
+          "What time is Sarah at the station?",
+          "At a quarter to six."
+        ],
+        [
+          "What does Julia look like?",
+          "She is tall and slim and has long curly hair."
+        ],
+        [
+          "What is Julia wearing?",
+          "She is wearing a green jacket."
+        ],
+        [
+          "What does Leo look like?",
+          "He is short and strong and has short dark hair, a beard and glasses."
+        ],
+        [
+          "What are the two friends like?",
+          "Julia is quiet and friendly; Leo is funny and talkative."
+        ],
+        [
+          "What time does the train leave?",
+          "At half past six."
+        ]
+      ],
+      "translations": []
+    },
+    {
+      "id": "talk",
+      "type": "conversation",
+      "title": "Let's Talk",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor usando suas informações ou um perfil inventado.",
+      "tasks": [
+        [
+          "Pergunta 1",
+          "Describe your appearance with four details."
+        ],
+        [
+          "Pergunta 2",
+          "Describe a friend or family member."
+        ],
+        [
+          "Pergunta 3",
+          "Answer What does this person look like?"
+        ],
+        [
+          "Pergunta 4",
+          "Answer What is this person like?"
+        ],
+        [
+          "Pergunta 5",
+          "Identify two people using with and in."
+        ],
+        [
+          "Pergunta 6",
+          "Say the current time."
+        ]
+      ],
+      "goal": "Descrever alguém de forma suficiente para o professor identificar o personagem.",
+      "challenge": "Depois de responder, faça uma pergunta ao professor."
+    },
+    {
+      "id": "exit",
+      "type": "exit",
+      "title": "Look at your progress.",
+      "kicker": "Look at your progress.",
+      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
+      "checks": [
+        "Descrever alguém de forma suficiente para o professor identificar o personagem.",
+        "Consegui pedir repetição ou esclarecimento.",
+        "Consigo tentar novamente com menos apoio."
+      ]
+    },
+    {
+      "id": "homework",
+      "type": "homework",
+      "title": "Take it with you.",
+      "kicker": "Take it with you.",
+      "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
+      "options": [
+        [
+          "A",
+          "Speak",
+          "Descreva uma pessoa que o professor deve identificar em uma foto ou desenho."
+        ],
+        [
+          "B",
+          "Write",
+          "Escreva cinco pistas sobre aparência e personalidade de uma pessoa inventada."
+        ],
+        [
+          "C",
+          "Make a Card",
+          "Prepare dois perfis com aparência e características diferentes. Formule três perguntas para diferenciá-los."
+        ]
+      ]
+    }
+  ],
+  "migration": {
+    "sourceLesson": "a1-v3-19-what-s-your-friend-like",
+    "editorialVersion": "2026.09-a1-38"
+  }
+});}());

@@ -1,103 +1,763 @@
-(function () {
-    'use strict';
-    const R = window.A1V3LessonRegistry;
-    const { v, x, p, t, line, dialogue, question, reading, activity, homework } = R.helpers;
-
-    R.register(19, R.lesson({
-        title: 'What’s Your Friend Like?',
-        objectives: ['Descrever aparência física com be e have/has.', 'Perguntar e responder quem é uma pessoa em uma cena.', 'Distinguir What does ... look like? de What is ... like?', 'Dizer e perguntar as horas em situações cotidianas.'],
-        intro: [
-            line('Emma', 'Which person is your friend?', 'Qual pessoa é sua amiga?'),
-            line('Sarah', 'The tall woman with long curly hair.', 'A mulher alta com cabelo longo e cacheado.'),
-            line('Emma', 'Is she wearing a green jacket?', 'Ela está usando uma jaqueta verde?'),
-            line('Sarah', 'Yes. Her name is Julia. She’s friendly and quiet.', 'Sim. O nome dela é Julia. Ela é simpática e quieta.'),
-            line('Emma', 'What time is she leaving?', 'A que horas ela vai embora?'),
-            line('Sarah', 'At a quarter past six.', 'Às seis e quinze.')
+(function(){'use strict';window.A1V3LessonRegistry.register(19,{
+  "title": "Is It Yours?",
+  "type": "content",
+  "summary": "Identificar o dono de três objetos e confirmar ou corrigir uma hipótese.",
+  "mission": {
+    "title": "Is It Yours?",
+    "task": "Identificar o dono de três objetos e confirmar ou corrigir uma hipótese.",
+    "focus": [
+      "Objetos pessoais; whose; mine/yours/his/hers/ours/theirs; retomada de possessivos; belong to como extensão."
+    ],
+    "semanticTags": [
+      "possessives"
+    ]
+  },
+  "slides": [
+    {
+      "id": "opening",
+      "type": "dialogue",
+      "title": "Is It Yours?",
+      "kicker": "Is It Yours?",
+      "instruction": "Acompanhe a leitura do professor. Depois leiam juntos e identifiquem a situação.",
+      "lines": [
+        [
+          "Emma",
+          "Whose phone is this? Is it yours?",
+          "De quem é este telefone? É seu?"
         ],
-        vocab: [
-            v('tall', 'alto(a)', 'Julia is tall.', 'Julia é alta.'), v('short', 'baixo(a)', 'Leo is short.', 'Leo é baixo.'),
-            v('young', 'jovem', 'He is a young man.', 'Ele é um homem jovem.'), v('old', 'idoso(a); velho(a)', 'The old man is smiling.', 'O senhor idoso está sorrindo.'),
-            v('slim', 'magro(a)', 'She is tall and slim.', 'Ela é alta e magra.'), v('strong', 'forte', 'He looks strong.', 'Ele parece forte.'),
-            v('hair', 'cabelo', 'She has long hair.', 'Ela tem cabelo longo.'), v('long', 'longo(a)', 'Her hair is long.', 'O cabelo dela é longo.'),
-            v('short hair', 'cabelo curto', 'He has short hair.', 'Ele tem cabelo curto.'), v('straight', 'liso(a)', 'She has straight hair.', 'Ela tem cabelo liso.'),
-            v('curly', 'cacheado(a)', 'Julia has curly hair.', 'Julia tem cabelo cacheado.'), v('dark', 'escuro(a)', 'He has dark hair.', 'Ele tem cabelo escuro.'),
-            v('blond', 'loiro(a)', 'The blond woman is Ana.', 'A mulher loira é Ana.'), v('beard', 'barba', 'The man has a beard.', 'O homem tem barba.'),
-            v('glasses', 'óculos', 'She is wearing glasses.', 'Ela está usando óculos.'), v('friendly', 'simpático(a)', 'Julia is friendly.', 'Julia é simpática.'),
-            v('quiet', 'quieto(a)', 'My friend is quiet.', 'Meu amigo é quieto.'), v('funny', 'engraçado(a)', 'Leo is very funny.', 'Leo é muito engraçado.'),
-            v('o’clock', 'em ponto', 'It is six o’clock.', 'São seis horas.'), v('half past', 'e meia', 'It is half past seven.', 'São sete e meia.'),
-            v('a quarter past', 'e quinze', 'It is a quarter past six.', 'São seis e quinze.'), v('a quarter to', 'quinze para', 'It is a quarter to nine.', 'São quinze para as nove.')
+        [
+          "Sarah",
+          "No, mine is black. Maybe it’s Daniel’s.",
+          "Não, o meu é preto. Talvez seja do Daniel."
         ],
-        grammar: {
-            title: 'Describing people and telling time',
-            summary: 'Use be com características gerais, have/has com cabelo e barba, e be wearing com roupas ou acessórios visíveis.',
-            rows: [
-                ['be', 'subject + am/is/are + adjective', 'She is tall and friendly.', 'Ela é alta e simpática.'],
-                ['have/has', 'subject + have/has + feature', 'He has short dark hair.', 'Ele tem cabelo curto e escuro.'],
-                ['wear now', 'subject + am/is/are wearing', 'She is wearing glasses.', 'Ela está usando óculos.'],
-                ['appearance', 'What does ... look like?', 'What does Julia look like?', 'Como é a aparência da Julia?'],
-                ['general description', 'What is ... like?', 'What is Julia like?', 'Como é a Julia?'],
-                ['time', 'It is + time.', 'It is half past seven.', 'São sete e meia.']
+        [
+          "Daniel",
+          "Yes, it’s mine. Thanks.",
+          "Sim, é meu. Obrigado."
+        ],
+        [
+          "Emma",
+          "And are these keys yours too?",
+          "E estas chaves também são suas?"
+        ],
+        [
+          "Daniel",
+          "No. My keys are here. Those are hers.",
+          "Não. Minhas chaves estão aqui. Aquelas são dela."
+        ],
+        [
+          "Sarah",
+          "Yes, they’re mine. I lose them every day!",
+          "Sim, são minhas. Eu as perco todos os dias!"
+        ]
+      ]
+    },
+    {
+      "id": "vocabulary",
+      "type": "cards",
+      "title": "Vocabulary Expansion",
+      "kicker": "Vocabulary Expansion",
+      "instruction": "Leia os significados e exemplos. Escolha palavras para usar durante a conversa.",
+      "cards": [
+        [
+          "belong to",
+          "pertencer a",
+          "The phone belongs to Daniel."
+        ],
+        [
+          "owner",
+          "dono(a)",
+          "Who is the owner?"
+        ],
+        [
+          "mine",
+          "meu/minha",
+          "The black phone is mine."
+        ],
+        [
+          "yours",
+          "seu/sua",
+          "Is this bag yours?"
+        ],
+        [
+          "his",
+          "dele",
+          "The blue jacket is his."
+        ],
+        [
+          "hers",
+          "dela",
+          "Those keys are hers."
+        ],
+        [
+          "ours",
+          "nosso(a)",
+          "The apartment is ours."
+        ],
+        [
+          "theirs",
+          "deles/delas",
+          "The shoes are theirs."
+        ],
+        [
+          "wallet",
+          "carteira",
+          "Whose wallet is this?"
+        ],
+        [
+          "ID card",
+          "documento de identidade",
+          "This ID card is hers."
+        ],
+        [
+          "headphones",
+          "fones de ouvido",
+          "Are the headphones yours?"
+        ],
+        [
+          "charger",
+          "carregador",
+          "My charger is white."
+        ],
+        [
+          "lost and found",
+          "achados e perdidos",
+          "Take it to lost and found."
+        ],
+        [
+          "all",
+          "todos(as)",
+          "All the bags are here."
+        ],
+        [
+          "every",
+          "todo(a); cada",
+          "I check my bag every day."
+        ],
+        [
+          "same",
+          "mesmo(a)",
+          "We have the same phone."
+        ]
+      ]
+    },
+    {
+      "id": "verbs",
+      "type": "verbs",
+      "title": "Verb bank",
+      "kicker": "Verb bank",
+      "instruction": "Consulte o infinitivo, o passado e o particípio. Observe nos exemplos a forma usada na frase.",
+      "cards": [
+        [
+          "belong",
+          "pertencer",
+          "It belongs to Mia.",
+          "belonged · belonged"
+        ],
+        [
+          "find",
+          "encontrar",
+          "I can find my bag.",
+          "found · found"
+        ],
+        [
+          "lose",
+          "perder",
+          "I sometimes lose my keys.",
+          "lost · lost"
+        ],
+        [
+          "have",
+          "ter",
+          "She has two brothers.",
+          "had · had"
+        ]
+      ]
+    },
+    {
+      "id": "helping",
+      "type": "patterns",
+      "title": "Helping You",
+      "kicker": "Helping You",
+      "instruction": "Adjetivos possessivos vêm antes de um substantivo; pronomes possessivos substituem o substantivo.",
+      "groups": [
+        {
+          "title": "Possessive adjectives x possessive pronouns",
+          "cards": [
+            [
+              "my + noun → mine",
+              "Esta é minha bolsa. A bolsa é minha.",
+              "This is my bag. The bag is mine."
             ],
-            notes: ['Ordem comum: comprimento + tipo + cor + hair: long curly dark hair.', 'Pergunte What time is it? para a hora atual e What time does ...? para horários.', 'Para 6:45: a quarter to seven. Para 6:15: a quarter past six.']
+            [
+              "your → yours",
+              "Este telefone é seu?",
+              "Is this your phone? Is it yours?"
+            ],
+            [
+              "his → his",
+              "A jaqueta azul é dele.",
+              "His jacket is blue. The blue jacket is his."
+            ],
+            [
+              "her → hers",
+              "Estas chaves são dela.",
+              "Her keys are here. These keys are hers."
+            ],
+            [
+              "our → ours",
+              "A casa é nossa.",
+              "Our house is small. It is ours."
+            ],
+            [
+              "their → theirs",
+              "Os sapatos são deles.",
+              "Their shoes are black. They are theirs."
+            ]
+          ]
         },
-        activitySections: [
-            activity('Build a description', 'Escolha be, have/has ou be wearing e organize os adjetivos.', [
-                p('Complete', 'Julia ___ tall and slim.', 'is'), p('Complete', 'She ___ long curly hair.', 'has'),
-                p('Complete', 'She ___ wearing a green jacket.', 'is'), p('Complete', 'Daniel ___ a beard.', 'has'),
-                p('Build', 'has / dark / short / He / hair', 'He has short dark hair.'),
-                p('Build', 'wearing / glasses / is / She', 'She is wearing glasses.'),
-                p('Choose', 'My friend (is / has) friendly.', 'is'), p('Choose', 'My friend (is / has) blue eyes.', 'has'),
-                p('Correct', 'She is long hair.', 'She has long hair.'), p('Correct', 'He has tall.', 'He is tall.'),
-                p('Describe', 'Julia: tall · slim · long curly hair · glasses', 'Julia is tall and slim. She has long curly hair and is wearing glasses.'),
-                p('Describe', 'Leo: short · strong · short dark hair · beard', 'Leo is short and strong. He has short dark hair and a beard.')
-            ], 'Appearance'),
-            activity('Identify the person', 'Faça perguntas e use detalhes suficientes para identificar a pessoa certa.', [
-                p('Choose', 'Pergunta por aparência: (What is she like? / What does she look like?)', 'What does she look like?'),
-                p('Choose', 'Pergunta por personalidade geral: (What is she like? / What does she look like?)', 'What is she like?'),
-                p('Answer', 'What does Julia look like? tall · long curly hair', 'She is tall and has long curly hair.'),
-                p('Answer', 'What is Julia like? friendly · quiet', 'She is friendly and quiet.'),
-                p('Build', 'person / Which / friend / your / is / ?', 'Which person is your friend?'),
-                p('Answer', 'Three women; your friend wears green.', 'The woman in the green jacket.'),
-                p('Answer', 'Two men; your friend has a beard and glasses.', 'The man with a beard and glasses.'),
-                p('Correct', 'What does she like? (aparência)', 'What does she look like?'),
-                p('Correct', 'The woman with a red jacket.', 'The woman in the red jacket.'),
-                p('Create', 'Give four clues so someone can identify one person.', 'The ... person with ... / in ...')
-            ], 'Who Is It?'),
-            activity('What time is it?', 'Leia, escreva e use os horários em perguntas reais.', [
-                p('Write', '6:00', 'six o’clock'), p('Write', '7:30', 'half past seven / seven thirty'),
-                p('Write', '8:15', 'a quarter past eight / eight fifteen'), p('Write', '9:45', 'a quarter to ten / nine forty-five'),
-                p('Write', '10:20', 'twenty past ten / ten twenty'), p('Write', '11:50', 'ten to twelve / eleven fifty'),
-                p('Build', 'time / What / it / is / ?', 'What time is it?'),
-                p('Build', 'she / What time / leaving / is / ?', 'What time is she leaving?'),
-                p('Answer', 'What time is the class? 6:30', 'It is at half past six.'),
-                p('Answer', 'What time do you start work?', 'I start work at ...'),
-                p('Correct', 'It is half seven.', 'It is half past seven.'),
-                p('Create', 'Give a meeting time and identify the person you are meeting.', 'I’m meeting the ... person at ...')
-            ], 'Time Practice')
+        {
+          "title": "Como usar",
+          "cards": [
+            [
+              "Observe 1",
+              "Não use substantivo depois de mine, yours, hers, ours ou theirs.",
+              ""
+            ],
+            [
+              "Observe 2",
+              "His tem a mesma forma nas duas funções.",
+              ""
+            ],
+            [
+              "Observe 3",
+              "Whose pergunta posse; who’s é a contração de who is.",
+              ""
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice-0",
+      "type": "drill",
+      "title": "My/mine, your/yours e outras formas",
+      "kicker": "My/mine, your/yours e outras formas",
+      "instruction": "Escolha se a frase precisa de substantivo depois da forma possessiva.",
+      "items": [
+        [
+          "This is (my / mine) phone.",
+          "my"
         ],
-        translations: [t('Como é a aparência dela?', 'What does she look like?'), t('Ela é alta e magra.', 'She is tall and slim.'), t('Ela tem cabelo longo e cacheado.', 'She has long curly hair.'), t('Ela está usando óculos.', 'She is wearing glasses.'), t('Como ela é?', 'What is she like?'), t('Ela é simpática e quieta.', 'She is friendly and quiet.'), t('Qual pessoa é seu amigo?', 'Which person is your friend?'), t('O homem de barba.', 'The man with a beard.'), t('Que horas são?', 'What time is it?'), t('São sete e meia.', 'It is half past seven.'), t('São quinze para as nove.', 'It is a quarter to nine.'), t('A que horas ela vai embora?', 'What time is she leaving?')],
-        expressions: [
-            x('What does ... look like?', 'Como é a aparência de...?', 'Pergunta por características físicas.', 'What does your friend look like?', 'Como é a aparência do seu amigo?'),
-            x('What is ... like?', 'Como é...?', 'Pergunta por descrição geral ou personalidade.', 'What is Julia like?', 'Como é a Julia?'),
-            x('the person with...', 'a pessoa com...', 'Identifica por característica.', 'The man with glasses.', 'O homem de óculos.'),
-            x('the person in...', 'a pessoa de...', 'Identifica pela roupa ou cor.', 'The woman in blue.', 'A mulher de azul.'),
-            x('Which person...?', 'Qual pessoa...?', 'Pede identificação entre opções.', 'Which person is Daniel?', 'Qual pessoa é o Daniel?'),
-            x('What time is it?', 'Que horas são?', 'Pergunta pela hora.', 'What time is it? It’s six.', 'Que horas são? São seis.'),
-            x('What time does ...?', 'A que horas...?', 'Pergunta por horário habitual.', 'What time does class start?', 'A que horas a aula começa?'),
-            x('What time is ... -ing?', 'A que horas ... vai...?', 'Pergunta por horário de plano atual.', 'What time are you leaving?', 'A que horas você vai embora?')
+        [
+          "This phone is (my / mine).",
+          "mine"
         ],
-        dialogues: [
-            dialogue('Finding Julia', line('A', 'Which person is Julia?', 'Qual pessoa é a Julia?'), line('B', 'She’s the tall woman with curly hair.', 'Ela é a mulher alta de cabelo cacheado.'), line('A', 'Is she wearing a green dress?', 'Ela está usando um vestido verde?'), line('B', 'Yes, she is. She’s talking to Leo.', 'Sim. Ela está conversando com Leo.'), line('A', 'Oh, I see her now.', 'Ah, agora eu a vejo.'), line('B', 'Let’s go and say hello.', 'Vamos lá dizer olá.')),
-            dialogue('Describing a friend', line('A', 'What does your friend look like?', 'Como é a aparência da sua amiga?'), line('B', 'She is short and has long dark hair.', 'Ela é baixa e tem cabelo longo e escuro.'), line('A', 'Does she wear glasses?', 'Ela usa óculos?'), line('B', 'No, she doesn’t.', 'Não.'), line('A', 'What’s her name?', 'Qual é o nome dela?'), line('B', 'Her name is Nina.', 'O nome dela é Nina.')),
-            dialogue('Leo’s personality', line('A', 'What is Leo like?', 'Como é o Leo?'), line('B', 'He’s friendly and funny.', 'Ele é simpático e engraçado.'), line('A', 'Is he talkative too?', 'Ele também é comunicativo?'), line('B', 'Yes. He talks to everyone.', 'Sim. Ele conversa com todos.')),
-            dialogue('The right person', line('A', 'Is Daniel the man in the blue shirt?', 'Daniel é o homem de camisa azul?'), line('B', 'No. He’s the man with glasses.', 'Não. Ele é o homem de óculos.'), line('A', 'The tall man near the door?', 'O homem alto perto da porta?'), line('B', 'No, Daniel is short and has a beard.', 'Não, Daniel é baixo e tem barba.'), line('A', 'Oh, I see him now.', 'Ah, agora eu o vejo.'), line('B', 'He’s coming this way.', 'Ele está vindo para cá.')),
-            dialogue('Meeting Julia', line('A', 'What time are you meeting Julia?', 'A que horas você vai encontrar a Julia?'), line('B', 'At a quarter past six.', 'Às seis e quinze.'), line('A', 'Where are you meeting her?', 'Onde você vai encontrá-la?'), line('B', 'At the café near the station.', 'No café perto da estação.'), line('A', 'Is she usually on time?', 'Ela geralmente chega no horário?'), line('B', 'Yes. She’s never late.', 'Sim. Ela nunca se atrasa.'))
+        [
+          "Is this (your / yours) bag?",
+          "your"
         ],
-        dialogueGroups: [[0, 1], [2, 3, 4]],
-        reading: reading('Meeting at the station', 'Sarah is waiting at the station at a quarter to six. She is meeting two friends. Julia is tall and slim. She has long curly hair and is wearing a green jacket. Leo is short and strong. He has short dark hair, a beard and glasses. Julia is quiet and friendly; Leo is funny and talks a lot. Their train leaves at half past six, so they have forty-five minutes.',
-            question('What time is Sarah at the station?', 'At a quarter to six.'), question('What does Julia look like?', 'She is tall and slim and has long curly hair.'), question('What is Julia wearing?', 'She is wearing a green jacket.'), question('What does Leo look like?', 'He is short and strong and has short dark hair, a beard and glasses.'), question('What are the two friends like?', 'Julia is quiet and friendly; Leo is funny and talkative.'), question('What time does the train leave?', 'At half past six.')),
-        conversation: { questions: ['Describe your appearance with four details.', 'Describe a friend or family member.', 'Answer What does this person look like?', 'Answer What is this person like?', 'Identify two people using with and in.', 'Say the current time.', 'Give three important times in your routine.', 'Arrange to meet a described person at a specific time.'], support: ['He/She is...', 'He/She has...', 'He/She is wearing...', 'the person with...', 'the person in...', 'at half past...', 'at a quarter to...'] },
-        homework: homework('Prepare dois perfis completos e uma agenda de encontro.', ['Dois amigos', 'Duas pessoas da família', 'Duas personagens imaginárias'], ['Descrevi aparência e personalidade sem confundir as perguntas.', 'Usei be, have/has e be wearing.', 'Incluí pelo menos seis horários diferentes.']),
-        mission: { title: 'Find the right person', task: 'Use pistas de aparência, roupa, personalidade e horário para identificar e encontrar a pessoa certa.', focus: ['descrição precisa', 'look like x be like', 'horários'] }
-    }));
-}());
+        [
+          "Is this bag (your / yours)?",
+          "yours"
+        ],
+        [
+          "These are (her / hers) keys.",
+          "her"
+        ],
+        [
+          "These keys are (her / hers).",
+          "hers"
+        ],
+        [
+          "That is (our / ours) house.",
+          "our"
+        ],
+        [
+          "That house is (our / ours).",
+          "ours"
+        ],
+        [
+          "Those are (their / theirs) shoes.",
+          "their"
+        ],
+        [
+          "Those shoes are (their / theirs).",
+          "theirs"
+        ],
+        [
+          "This is mine phone.",
+          "This is my phone."
+        ],
+        [
+          "The jacket is her.",
+          "The jacket is hers."
+        ]
+      ]
+    },
+    {
+      "id": "practice-1",
+      "type": "drill",
+      "title": "Whose is it?",
+      "kicker": "Whose is it?",
+      "instruction": "Forme perguntas de posse e responda com o pronome adequado.",
+      "items": [
+        [
+          "phone / Whose / this / is / ?",
+          "Whose phone is this?"
+        ],
+        [
+          "keys / are / Whose / these / ?",
+          "Whose keys are these?"
+        ],
+        [
+          "Whose wallet is this? Owner: Daniel",
+          "It is Daniel’s. / It is his."
+        ],
+        [
+          "Whose headphones are these? Owner: Sarah",
+          "They are Sarah’s. / They are hers."
+        ],
+        [
+          "Is this your charger? Positive.",
+          "Yes, it’s mine."
+        ],
+        [
+          "Are these your keys? Negative.",
+          "No, they aren’t mine."
+        ],
+        [
+          "This is Emma’s bag. → possessive pronoun",
+          "This bag is hers."
+        ],
+        [
+          "Those are our books. → possessive pronoun",
+          "Those books are ours."
+        ],
+        [
+          "Who’s phone is this?",
+          "Whose phone is this?"
+        ],
+        [
+          "These keys are my.",
+          "These keys are mine."
+        ],
+        [
+          "Phone: Daniel · keys: Sarah · bags: Emma and Sarah",
+          "The phone is his. The keys are hers. The bags are theirs."
+        ]
+      ]
+    },
+    {
+      "id": "practice-2",
+      "type": "drill",
+      "title": "All e every em contexto",
+      "kicker": "All e every em contexto",
+      "instruction": "Use all antes de um grupo e every antes de singular.",
+      "items": [
+        [
+          "(All / Every) the bags are here.",
+          "All"
+        ],
+        [
+          "I check my bag (all / every) day.",
+          "every"
+        ],
+        [
+          "(All / Every) student has an ID card.",
+          "Every"
+        ],
+        [
+          "(All / Every) the phones are black.",
+          "All"
+        ],
+        [
+          "We have the ___ charger.",
+          "same"
+        ],
+        [
+          "Take the wallet to lost and ___.",
+          "found"
+        ],
+        [
+          "Every the bags are here.",
+          "All the bags are here."
+        ],
+        [
+          "I check my phone all day. (cada dia)",
+          "I check my phone every day."
+        ],
+        [
+          "Say one thing you do every day.",
+          "I ... every day."
+        ],
+        [
+          "Say something true about all the items in an imaginary box.",
+          "All the ... are ..."
+        ]
+      ]
+    },
+    {
+      "id": "drill",
+      "type": "drill",
+      "title": "Say it in English.",
+      "kicker": "Say it in English.",
+      "instruction": "Diga a frase em inglês. Confira o modelo e depois personalize uma informação.",
+      "items": [
+        [
+          "De quem é este telefone?",
+          "Whose phone is this?"
+        ],
+        [
+          "É seu?",
+          "Is it yours?"
+        ],
+        [
+          "Não, o meu é preto.",
+          "No, mine is black."
+        ],
+        [
+          "O telefone é dele.",
+          "The phone is his."
+        ],
+        [
+          "Estas chaves são dela.",
+          "These keys are hers."
+        ],
+        [
+          "A casa é nossa.",
+          "The house is ours."
+        ],
+        [
+          "Aqueles sapatos são deles.",
+          "Those shoes are theirs."
+        ],
+        [
+          "Todas as bolsas estão aqui.",
+          "All the bags are here."
+        ],
+        [
+          "Eu confiro minha bolsa todos os dias.",
+          "I check my bag every day."
+        ],
+        [
+          "Leve para achados e perdidos.",
+          "Take it to lost and found."
+        ]
+      ]
+    },
+    {
+      "id": "expressions",
+      "type": "cards",
+      "title": "Key phrases & expressions",
+      "kicker": "Key phrases & expressions",
+      "instruction": "Use cada expressão como um bloco. Leia o exemplo e crie uma troca curta.",
+      "cards": [
+        [
+          "Whose ... is this?",
+          "De quem é este/esta...? · Pergunta por dono singular.",
+          "Whose wallet is this?"
+        ],
+        [
+          "Whose ... are these?",
+          "De quem são estes/estas...? · Pergunta por dono plural.",
+          "Whose keys are these?"
+        ],
+        [
+          "Is it yours?",
+          "É seu/sua? · Confirma posse singular.",
+          "Is this phone yours?"
+        ],
+        [
+          "Are they yours?",
+          "São seus/suas? · Confirma posse plural.",
+          "Are these headphones yours?"
+        ],
+        [
+          "It’s mine/his/hers.",
+          "É meu/dele/dela. · Resposta sem repetir o objeto.",
+          "The wallet is hers."
+        ],
+        [
+          "They’re ours/theirs.",
+          "São nossos/deles. · Resposta plural de posse.",
+          "The books are ours."
+        ],
+        [
+          "It belongs to...",
+          "Pertence a... · Outra forma de identificar o dono.",
+          "It belongs to Daniel."
+        ],
+        [
+          "Maybe it’s...",
+          "Talvez seja... · Hipótese simples sobre o dono.",
+          "Maybe it’s Sarah’s."
+        ],
+        [
+          "lost and found",
+          "achados e perdidos · Local para objetos encontrados.",
+          "Take it to lost and found."
+        ]
+      ]
+    },
+    {
+      "id": "dialogues",
+      "type": "dialogue",
+      "title": "Dialog Samples",
+      "kicker": "Dialog Samples",
+      "instruction": "Leiam as situações e troquem os papéis. Depois alterem uma informação.",
+      "lines": [
+        [
+          "A",
+          "Whose phone is this?",
+          "De quem é este telefone?"
+        ],
+        [
+          "B",
+          "Let me see. The black phone is mine.",
+          "Deixe-me ver. O telefone preto é meu."
+        ],
+        [
+          "A",
+          "This one is blue. Is it Julia’s?",
+          "Este é azul. É da Julia?"
+        ],
+        [
+          "B",
+          "Yes, it’s hers.",
+          "Sim, é dela."
+        ],
+        [
+          "A",
+          "Can you give it to her?",
+          "Você pode entregá-lo a ela?"
+        ],
+        [
+          "B",
+          "Sure.",
+          "Claro."
+        ],
+        [
+          "A",
+          "Are these keys yours?",
+          "Estas chaves são suas?"
+        ],
+        [
+          "B",
+          "No. Mine are here in my bag.",
+          "Não. As minhas estão aqui na minha bolsa."
+        ],
+        [
+          "A",
+          "Maybe they’re Leo’s.",
+          "Talvez sejam do Leo."
+        ],
+        [
+          "B",
+          "No, his are on a red key ring.",
+          "Não, as dele estão em um chaveiro vermelho."
+        ],
+        [
+          "A",
+          "Then let’s ask Sarah.",
+          "Então vamos perguntar à Sarah."
+        ],
+        [
+          "A",
+          "Maybe this wallet is Daniel’s.",
+          "Talvez esta carteira seja do Daniel."
+        ],
+        [
+          "B",
+          "No, his is brown. This one is black.",
+          "Não, a dele é marrom. Esta é preta."
+        ],
+        [
+          "A",
+          "Is your wallet black?",
+          "Sua carteira é preta?"
+        ],
+        [
+          "B",
+          "Yes, but mine is in my pocket.",
+          "Sim, mas a minha está no meu bolso."
+        ],
+        [
+          "A",
+          "Let’s take this one to lost and found.",
+          "Vamos levar esta para os achados e perdidos."
+        ],
+        [
+          "B",
+          "Good idea.",
+          "Boa ideia."
+        ],
+        [
+          "A",
+          "Whose headphones are these?",
+          "De quem são estes fones?"
+        ],
+        [
+          "B",
+          "They belong to Sarah. They’re hers.",
+          "Pertencem à Sarah. São dela."
+        ],
+        [
+          "A",
+          "Are you sure?",
+          "Você tem certeza?"
+        ],
+        [
+          "B",
+          "Yes. Her name is on them.",
+          "Sim. O nome dela está neles."
+        ],
+        [
+          "A",
+          "Excuse me. This ID card isn’t mine.",
+          "Com licença. Este documento não é meu."
+        ],
+        [
+          "B",
+          "Whose is it?",
+          "De quem é?"
+        ],
+        [
+          "A",
+          "I think it’s Ethan’s.",
+          "Acho que é do Ethan."
+        ],
+        [
+          "B",
+          "His photo and name are on it.",
+          "A foto e o nome dele estão nele."
+        ],
+        [
+          "A",
+          "Can I leave it here?",
+          "Posso deixá-lo aqui?"
+        ],
+        [
+          "B",
+          "Yes. We can call him.",
+          "Sim. Podemos ligar para ele."
+        ]
+      ],
+      "lineTitles": {
+        "0": "A phone on the table",
+        "6": "Two sets of keys",
+        "11": "A black wallet",
+        "17": "Sarah’s headphones",
+        "21": "At lost and found"
+      }
+    },
+    {
+      "id": "reading",
+      "type": "reading",
+      "title": "A box of lost items",
+      "kicker": "A box of lost items",
+      "instruction": "O professor lê primeiro. Depois leia e responda às perguntas consultando o texto.",
+      "paragraphs": [
+        "There is a box at the school’s lost and found. The black phone is Daniel’s; it is his. The red wallet belongs to Sarah; it is hers. The white headphones are Emma and Sarah’s; they are theirs. The blue charger is ours because it belongs to the English class. All the items have an owner, but one ID card is still in the box."
+      ],
+      "items": [
+        [
+          "Whose phone is in the box?",
+          "It is Daniel’s. It is his."
+        ],
+        [
+          "What belongs to Sarah?",
+          "The red wallet is hers."
+        ],
+        [
+          "Whose headphones are they?",
+          "They are Emma and Sarah’s. They are theirs."
+        ],
+        [
+          "Why is the charger ours?",
+          "It belongs to the English class."
+        ],
+        [
+          "What is still in the box?",
+          "One ID card is still in the box."
+        ]
+      ],
+      "translations": []
+    },
+    {
+      "id": "talk",
+      "type": "conversation",
+      "title": "Let's Talk",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor usando suas informações ou um perfil inventado.",
+      "tasks": [
+        [
+          "Pergunta 1",
+          "Name five objects you carry every day."
+        ],
+        [
+          "Pergunta 2",
+          "Choose one object and say it is yours."
+        ],
+        [
+          "Pergunta 3",
+          "Ask who owns three imaginary objects."
+        ],
+        [
+          "Pergunta 4",
+          "Answer with mine, yours, his, hers, ours and theirs."
+        ],
+        [
+          "Pergunta 5",
+          "Say something you do every day."
+        ],
+        [
+          "Pergunta 6",
+          "Describe all the items in an imaginary lost-and-found box."
+        ]
+      ],
+      "goal": "Identificar o dono de três objetos e confirmar ou corrigir uma hipótese.",
+      "challenge": "Depois de responder, faça uma pergunta ao professor."
+    },
+    {
+      "id": "exit",
+      "type": "exit",
+      "title": "Look at your progress.",
+      "kicker": "Look at your progress.",
+      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
+      "checks": [
+        "Identificar o dono de três objetos e confirmar ou corrigir uma hipótese.",
+        "Consegui pedir repetição ou esclarecimento.",
+        "Consigo tentar novamente com menos apoio."
+      ]
+    },
+    {
+      "id": "homework",
+      "type": "homework",
+      "title": "Take it with you.",
+      "kicker": "Take it with you.",
+      "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
+      "options": [
+        [
+          "A",
+          "Speak",
+          "Descreva três objetos e diga de quem são usando mine, yours, his ou hers."
+        ],
+        [
+          "B",
+          "Write",
+          "Escreva uma mensagem de achados e perdidos descrevendo um objeto e perguntando pelo dono."
+        ],
+        [
+          "C",
+          "Make a Card",
+          "Desenhe três objetos parecidos com donos diferentes. Prepare perguntas com whose."
+        ]
+      ]
+    }
+  ],
+  "migration": {
+    "sourceLesson": "a1-v3-17-is-it-yours-or-mine",
+    "editorialVersion": "2026.09-a1-38"
+  }
+});}());

@@ -1,159 +1,699 @@
-(function () {
-    'use strict';
-    const R = window.A1V3LessonRegistry;
-    const { v, x, p, t, line, dialogue, question, reading, activity, homework } = R.helpers;
-
-    const alphabet = [
-        ['A', '/eɪ/', 'êi'], ['B', '/biː/', 'bí'], ['C', '/siː/', 'cí'], ['D', '/diː/', 'dí'],
-        ['E', '/iː/', 'í'], ['F', '/ef/', 'éf'], ['G', '/dʒiː/', 'djí'], ['H', '/eɪtʃ/', 'êitch'],
-        ['I', '/aɪ/', 'ái'], ['J', '/dʒeɪ/', 'djêi'], ['K', '/keɪ/', 'kêi'], ['L', '/el/', 'él'],
-        ['M', '/em/', 'ém'], ['N', '/en/', 'én'], ['O', '/oʊ/', 'ôu'], ['P', '/piː/', 'pí'],
-        ['Q', '/kjuː/', 'kiú'], ['R', '/ɑːr/', 'ár'], ['S', '/es/', 'és'], ['T', '/tiː/', 'tí'],
-        ['U', '/juː/', 'iú'], ['V', '/viː/', 'ví'], ['W', '/ˈdʌbəl.juː/', 'dâbol iú'],
-        ['X', '/eks/', 'éks'], ['Y', '/waɪ/', 'uái'], ['Z', '/ziː/ (US) · /zed/ (UK)', 'zí / zéd']
-    ];
-    const numbers = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
-    const audioButton = (text, label) => `<button type="button" class="foundation-audio" data-v3-speak="${text}" aria-label="Ouvir ${label}" title="Ouvir pronúncia"><i class="fas fa-volume-up" aria-hidden="true"></i></button>`;
-    const alphabetSlide = () => `<section class="foundation-reference"><div class="slide-heading"><p class="lesson-panel-title">Alphabet & Pronunciation</p><h2>O alfabeto em inglês</h2><p>Ouça uma letra por vez e repita. A última linha é uma aproximação para falantes de português.</p></div><div class="alphabet-board">${alphabet.map(([letter, ipa, hint]) => `<article class="alphabet-tile"><strong>${letter}</strong><span>${ipa}</span><small>${hint}</small>${audioButton(letter, `a letra ${letter}`)}</article>`).join('')}</div><p class="foundation-note"><strong>Pratique em blocos:</strong> A–F, G–L, M–R e S–Z. Depois, soletre nomes sem consultar o quadro.</p></section>`;
-    const numbersSlide = () => `<section class="foundation-reference"><div class="slide-heading"><p class="lesson-panel-title">Numbers 0–20</p><h2>Números de zero a vinte</h2><p>Leia em voz alta, ouça o modelo e depois pratique em ordem aleatória.</p></div><div class="number-board number-board-foundation">${numbers.map((word, number) => `<article class="number-tile"><strong>${number}</strong><span>${word}</span>${audioButton(word, `o número ${number}`)}</article>`).join('')}</div><div class="number-patterns"><p><strong>13–19:</strong> a maioria termina em <em>-teen</em>.</p><p><strong>Atenção:</strong> thirteen, fifteen e eighteen mudam a escrita.</p></div></section>`;
-
-    R.register(4, R.lesson({
-        title: 'Names Around the Class',
-        objectives: [
-            'Apresentar outra pessoa com he, she, his e her.',
-            'Perguntar nome, origem, nacionalidade e idade em blocos curtos.',
-            'Reconhecer e pronunciar as 26 letras do alfabeto.',
-            'Compreender e produzir números de zero a vinte.'
+(function(){'use strict';window.A1V3LessonRegistry.register(4,{
+  "title": "People at Work",
+  "type": "content",
+  "summary": "Dizer profissão e local de trabalho e corrigir uma informação incorreta.",
+  "mission": {
+    "title": "People at Work",
+    "task": "Dizer profissão e local de trabalho e corrigir uma informação incorreta.",
+    "focus": [
+      "Profissões e locais; a/an; be afirmativo, negativo e pergunta; work in/at/as como combinações; What do you do? como pergunta pronta."
+    ],
+    "semanticTags": [
+      "identity-personal-data",
+      "routines-habits"
+    ]
+  },
+  "slides": [
+    {
+      "id": "opening",
+      "type": "dialogue",
+      "title": "People at Work",
+      "kicker": "People at Work",
+      "instruction": "Acompanhe a leitura do professor. Depois leiam juntos e identifiquem a situação.",
+      "lines": [
+        [
+          "Emma",
+          "Good morning. Are you a new student?",
+          "Bom dia. Você é um aluno novo?"
         ],
-        intro: [
-            line('Emma', 'Who is he?', 'Quem é ele?'),
-            line('Daniel', 'He is Mateo. His last name is Ruiz.', 'Ele é Mateo. O sobrenome dele é Ruiz.'),
-            line('Emma', 'How do you spell his last name?', 'Como se soletra o sobrenome dele?'),
-            line('Daniel', 'R-U-I-Z. He is from Spain. He is Spanish.', 'R-U-I-Z. Ele é da Espanha. Ele é espanhol.'),
-            line('Emma', 'And who is she?', 'E quem é ela?'),
-            line('Daniel', 'She is Olivia. Her nickname is Liv. She is British.', 'Ela é Olivia. O apelido dela é Liv. Ela é britânica.')
+        [
+          "Daniel",
+          "Yes, I am. I’m Daniel.",
+          "Sim. Eu sou Daniel."
         ],
-        vocab: [
-            v('man', 'homem', 'He is a man.', 'Ele é um homem.'),
-            v('woman', 'mulher', 'She is a woman.', 'Ela é uma mulher.'),
-            v('friend', 'amigo(a)', 'She is my friend.', 'Ela é minha amiga.'),
-            v('country', 'país', 'Brazil is a country.', 'O Brasil é um país.'),
-            v('nationality', 'nacionalidade', 'Brazilian is a nationality.', 'Brasileiro é uma nacionalidade.'),
-            v('Brazil / Brazilian', 'Brasil / brasileiro(a)', 'She is from Brazil. She is Brazilian.', 'Ela é do Brasil. Ela é brasileira.'),
-            v('the United States / American', 'Estados Unidos / americano(a)', 'He is from the United States. He is American.', 'Ele é dos Estados Unidos. Ele é americano.'),
-            v('the United Kingdom / British', 'Reino Unido / britânico(a)', 'She is from the United Kingdom. She is British.', 'Ela é do Reino Unido. Ela é britânica.'),
-            v('Spain / Spanish', 'Espanha / espanhol(a)', 'He is from Spain. He is Spanish.', 'Ele é da Espanha. Ele é espanhol.'),
-            v('age', 'idade', 'Her age is twenty.', 'A idade dela é vinte anos.'),
-            v('letter', 'letra', 'The first letter is M.', 'A primeira letra é M.'),
-            v('alphabet', 'alfabeto', 'The English alphabet has twenty-six letters.', 'O alfabeto inglês tem vinte e seis letras.'),
-            v('spell', 'soletrar', 'Please spell your name.', 'Por favor, soletre seu nome.'),
-            v('repeat', 'repetir', 'Please repeat the last letter.', 'Por favor, repita a última letra.')
+        [
+          "Emma",
+          "Nice to meet you. What do you do?",
+          "Prazer em conhecer você. Qual é a sua profissão?"
         ],
-        afterVocabularySlides: [
-            { title: 'Alfabeto e pronúncia', body: alphabetSlide },
-            { title: 'Números de 0 a 20', body: numbersSlide }
+        [
+          "Daniel",
+          "I’m a nurse.",
+          "Eu sou enfermeiro."
         ],
-        grammar: {
-            title: 'He is, she is, his e her',
-            summary: 'Use he/his para um homem ou menino e she/her para uma mulher ou menina.',
-            rows: [
-                ['homem/menino', 'He is... / His name is...', 'He is Mateo. His name is Mateo.', 'Ele é Mateo. O nome dele é Mateo.'],
-                ['mulher/menina', 'She is... / Her name is...', 'She is Olivia. Her name is Olivia.', 'Ela é Olivia. O nome dela é Olivia.'],
-                ['origem', 'He/She is from + country', 'She is from Brazil.', 'Ela é do Brasil.'],
-                ['nacionalidade', 'He/She is + nationality', 'She is Brazilian.', 'Ela é brasileira.'],
-                ['idade', 'He/She is + number + years old', 'He is twenty years old.', 'Ele tem vinte anos.']
+        [
+          "Emma",
+          "Where do you work?",
+          "Onde você trabalha?"
+        ],
+        [
+          "Daniel",
+          "I work in a hospital. What about you?",
+          "Eu trabalho em um hospital. E você?"
+        ],
+        [
+          "Emma",
+          "I’m a teacher. I work at a school.",
+          "Eu sou professora. Eu trabalho em uma escola."
+        ],
+        [
+          "Daniel",
+          "Are you late for class?",
+          "Você está atrasada para a aula?"
+        ],
+        [
+          "Emma",
+          "No, I’m early today.",
+          "Não, hoje eu estou adiantada."
+        ]
+      ]
+    },
+    {
+      "id": "vocabulary",
+      "type": "cards",
+      "title": "Vocabulary Expansion",
+      "kicker": "Vocabulary Expansion",
+      "instruction": "Leia os significados e exemplos. Escolha palavras para usar durante a conversa.",
+      "cards": [
+        [
+          "work",
+          "trabalhar",
+          "I work in a hospital."
+        ],
+        [
+          "school",
+          "escola",
+          "I work at a school."
+        ],
+        [
+          "teacher",
+          "professor(a)",
+          "I’m a teacher."
+        ],
+        [
+          "restaurant",
+          "restaurante",
+          "You work at a restaurant."
+        ],
+        [
+          "waiter",
+          "garçom",
+          "I’m a waiter."
+        ],
+        [
+          "waitress",
+          "garçonete",
+          "I’m a waitress."
+        ],
+        [
+          "office",
+          "escritório",
+          "You work in an office."
+        ],
+        [
+          "secretary",
+          "secretário(a)",
+          "You work as a secretary."
+        ],
+        [
+          "hospital",
+          "hospital",
+          "I work in a hospital."
+        ],
+        [
+          "doctor",
+          "médico(a)",
+          "I’m a doctor."
+        ],
+        [
+          "nurse",
+          "enfermeiro(a)",
+          "You’re a nurse."
+        ],
+        [
+          "hotel",
+          "hotel",
+          "I work at a hotel."
+        ],
+        [
+          "receptionist",
+          "recepcionista",
+          "I work as a receptionist."
+        ],
+        [
+          "store",
+          "loja",
+          "You work at a store."
+        ],
+        [
+          "salesperson",
+          "vendedor(a)",
+          "You’re a salesperson."
+        ],
+        [
+          "company",
+          "empresa",
+          "I work for a company."
+        ],
+        [
+          "early",
+          "adiantado(a); cedo",
+          "I’m early today."
+        ],
+        [
+          "late",
+          "atrasado(a)",
+          "You’re late for class."
+        ]
+      ]
+    },
+    {
+      "id": "verbs",
+      "type": "verbs",
+      "title": "Verb bank",
+      "kicker": "Verb bank",
+      "instruction": "Consulte o infinitivo, o passado e o particípio. Observe nos exemplos a forma usada na frase.",
+      "cards": [
+        [
+          "be",
+          "ser; estar",
+          "I am here.",
+          "was / were · been"
+        ],
+        [
+          "work",
+          "trabalhar",
+          "I work at a school.",
+          "worked · worked"
+        ]
+      ]
+    },
+    {
+      "id": "helping",
+      "type": "patterns",
+      "title": "Helping You",
+      "kicker": "Helping You",
+      "instruction": "Use am com I e are com you. Para falar de trabalho, aprenda I/You work com in, at ou as dentro de blocos prontos.",
+      "groups": [
+        {
+          "title": "I am, you are e work",
+          "cards": [
+            [
+              "I am / I’m + information",
+              "Eu sou professor.",
+              "I’m a teacher."
             ],
-            notes: [
-                'His e her aparecem antes da informação: his name, her country, his age.',
-                'Não use a/an antes de nacionalidades: She is Brazilian.',
-                'Em inglês, a idade usa be: She is twenty years old.'
+            [
+              "You are / You’re + information",
+              "Você é enfermeiro.",
+              "You’re a nurse."
+            ],
+            [
+              "Are you + information?",
+              "Você é médico?",
+              "Are you a doctor?"
+            ],
+            [
+              "I/You work in + place",
+              "Eu trabalho em um hospital.",
+              "I work in a hospital."
+            ],
+            [
+              "I/You work at + workplace",
+              "Você trabalha em uma escola.",
+              "You work at a school."
+            ],
+            [
+              "I/You work as + a/an + job",
+              "Você trabalha como enfermeiro.",
+              "You work as a nurse."
+            ],
+            [
+              "I’m early. / I’m late.",
+              "Estou atrasado para o trabalho.",
+              "I’m late for work."
             ]
+          ]
         },
-        activitySections: [
-            activity('He, she, his ou her?', 'Observe a pessoa mencionada e escolha o pronome ou possessivo adequado.', [
-                p('Choose', 'Mateo is a man. (He / She) is Spanish.', 'He'),
-                p('Choose', 'Olivia is a woman. (He / She) is British.', 'She'),
-                p('Choose', 'Mateo: (His / Her) last name is Ruiz.', 'His'),
-                p('Choose', 'Olivia: (His / Her) nickname is Liv.', 'Her'),
-                p('Complete', '___ is from Brazil. Her name is Laura.', 'She'),
-                p('Complete', '___ name is Ethan. He is American.', 'His'),
-                p('Correct', 'She name is Olivia.', 'Her name is Olivia.'),
-                p('Correct', 'His is from Spain.', 'He is from Spain.'),
-                p('Transform', 'Mateo is Spanish. → pronoun', 'He is Spanish.'),
-                p('Transform', 'Olivia’s nickname is Liv. → possessive adjective', 'Her nickname is Liv.')
-            ]),
-            activity('Soletre e confirme nomes', 'Leia as letras, escreva o nome e depois soletre a resposta em voz alta.', [
-                p('Spell', 'M-A-T-E-O', 'Mateo'),
-                p('Spell', 'O-L-I-V-I-A', 'Olivia'),
-                p('Spell', 'R-U-I-Z', 'Ruiz'),
-                p('Spell', 'S-I-L-V-A', 'Silva'),
-                p('Build', 'spell / do / How / Olivia / you / ?', 'How do you spell Olivia?'),
-                p('Answer', 'How do you spell “Ana”?', 'A-N-A.'),
-                p('Answer', 'You did not understand the last letter.', 'Please repeat the last letter.'),
-                p('Correct', 'How you spell your name?', 'How do you spell your name?')
-            ], 'Spelling Practice'),
-            activity('Números, idade e perfis', 'Escreva números por extenso e use-os em informações pessoais.', [
-                p('Number', '0', 'zero'),
-                p('Number', '7', 'seven'),
-                p('Number', '11', 'eleven'),
-                p('Number', '12', 'twelve'),
-                p('Number', '13', 'thirteen'),
-                p('Number', '15', 'fifteen'),
-                p('Number', '18', 'eighteen'),
-                p('Number', '20', 'twenty'),
-                p('Answer', 'How old is Mateo? Age: 19', 'He is nineteen years old.'),
-                p('Answer', 'How old is Olivia? Age: 20', 'She is twenty years old.'),
-                p('Describe', 'Laura Silva · Brazil · Brazilian · 18', 'She is Laura Silva. She is from Brazil. She is Brazilian. She is eighteen years old.'),
-                p('Describe', 'Ethan Clark · United States · American · 20', 'He is Ethan Clark. He is from the United States. He is American. He is twenty years old.')
-            ], 'Numbers 0–20')
+        {
+          "title": "Como usar",
+          "cards": [
+            [
+              "Observe 1",
+              "I am contrai para I’m; you are contrai para you’re.",
+              ""
+            ],
+            [
+              "Observe 2",
+              "Use a/an antes de profissão singular: a teacher, a nurse, an engineer.",
+              ""
+            ],
+            [
+              "Observe 3",
+              "Aprenda What do you do? e Where do you work? como perguntas completas; o Present Simple será explicado neste percurso.",
+              ""
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice-0",
+      "type": "drill",
+      "title": "Profissão e local de trabalho",
+      "kicker": "Profissão e local de trabalho",
+      "instruction": "Relacione cada profissão ao local mais provável e leia o par completo.",
+      "items": [
+        [
+          "teacher → school / hospital",
+          "teacher → school"
         ],
-        translations: [
-            t('Quem é ele?', 'Who is he?'),
-            t('Ele é Mateo.', 'He is Mateo.'),
-            t('O sobrenome dele é Ruiz.', 'His last name is Ruiz.'),
-            t('Quem é ela?', 'Who is she?'),
-            t('O apelido dela é Liv.', 'Her nickname is Liv.'),
-            t('Ela é do Brasil.', 'She is from Brazil.'),
-            t('Ela é brasileira.', 'She is Brazilian.'),
-            t('Ele tem dezenove anos.', 'He is nineteen years old.'),
-            t('Como se soletra o nome dela?', 'How do you spell her name?'),
-            t('Por favor, repita a última letra.', 'Please repeat the last letter.')
+        [
+          "waiter or waitress → restaurant / office",
+          "waiter or waitress → restaurant"
         ],
-        expressions: [
-            x('Who is he/she?', 'Quem é ele/ela?', 'Pergunta para identificar outra pessoa.', 'Who is she? She is Olivia.', 'Quem é ela? Ela é Olivia.'),
-            x('His/Her name is...', 'O nome dele/dela é...', 'Use his ou her antes de name.', 'Her name is Olivia.', 'O nome dela é Olivia.'),
-            x('Where is he/she from?', 'De onde ele/ela é?', 'Pergunta sobre país de origem.', 'Where is he from? He is from Spain.', 'De onde ele é? Ele é da Espanha.'),
-            x('He/She is from...', 'Ele/Ela é de...', 'Use antes do país.', 'She is from the United Kingdom.', 'Ela é do Reino Unido.'),
-            x('He/She is...', 'Ele/Ela é...', 'Use diretamente antes da nacionalidade.', 'He is American.', 'Ele é americano.'),
-            x('How do you spell...?', 'Como se soletra...?', 'Pergunta por uma sequência de letras.', 'How do you spell Ruiz?', 'Como se soletra Ruiz?'),
-            x('Please repeat.', 'Por favor, repita.', 'Pedido simples quando algo não ficou claro.', 'Please repeat the letter.', 'Por favor, repita a letra.'),
-            x('How old is he/she?', 'Quantos anos ele/ela tem?', 'Pergunta memorizada sobre idade.', 'How old is she? She is twenty.', 'Quantos anos ela tem? Ela tem vinte anos.')
+        [
+          "secretary → office / school",
+          "secretary → office"
         ],
-        dialogues: [
-            dialogue('A Brazilian student', line('A', 'Who is she?', 'Quem é ela?'), line('B', 'She is Laura Silva.', 'Ela é Laura Silva.'), line('A', 'Where is she from?', 'De onde ela é?'), line('B', 'She is from Brazil. She is Brazilian.', 'Ela é do Brasil. Ela é brasileira.')),
-            dialogue('Spelling a last name', line('A', 'What’s his last name?', 'Qual é o sobrenome dele?'), line('B', 'Ruiz.', 'Ruiz.'), line('A', 'How do you spell it?', 'Como se soletra?'), line('B', 'R-U-I-Z.', 'R-U-I-Z.')),
-            dialogue('An American friend', line('A', 'Who is he?', 'Quem é ele?'), line('B', 'He is Ethan.', 'Ele é Ethan.'), line('A', 'Is he British?', 'Ele é britânico?'), line('B', 'No. He is American.', 'Não. Ele é americano.')),
-            dialogue('Age', line('A', 'How old is Olivia?', 'Quantos anos Olivia tem?'), line('B', 'She is twenty years old.', 'Ela tem vinte anos.'), line('A', 'And Mateo?', 'E Mateo?'), line('B', 'He is nineteen.', 'Ele tem dezenove.')),
-            dialogue('Repeat, please', line('A', 'Her name is Siobhan.', 'O nome dela é Siobhan.'), line('B', 'Please repeat.', 'Por favor, repita.'), line('A', 'Siobhan. S-I-O-B-H-A-N.', 'Siobhan. S-I-O-B-H-A-N.'))
+        [
+          "doctor or nurse → hospital / store",
+          "doctor or nurse → hospital"
         ],
-        reading: reading(
-            'Four names on the class list',
-            'Laura Silva is from Brazil. She is Brazilian and she is eighteen. Ethan Clark is from the United States. He is American and he is twenty. Mateo Ruiz is from Spain. He is Spanish and he is nineteen. Olivia Reed is from the United Kingdom. She is British and she is twenty.',
-            question('Where is Laura from?', 'She is from Brazil.'),
-            question('What is Ethan’s nationality?', 'He is American.'),
-            question('How old is Mateo?', 'He is nineteen.'),
-            question('What is Olivia’s last name?', 'Her last name is Reed.'),
-            question('Who is British?', 'Olivia is British.')
-        ),
-        conversation: {
-            questions: ['Spell your first name.', 'Spell your last name.', 'Choose and say three numbers from zero to twenty.', 'Create a Brazilian profile.', 'Create an American or British profile.', 'Ask about one person’s name and origin.', 'Ask the teacher to repeat and spell a name.', 'Present two people using he, she, his and her.'],
-            support: ['Who is he/she?', 'His/Her name is...', 'He/She is from...', 'He/She is...', 'How do you spell...?', 'He/She is... years old.']
-        },
-        homework: homework(
-            'Crie quatro cartões de identificação usando países e nacionalidades diferentes.',
-            ['Uma lista de novos alunos', 'Quatro pessoas em uma conferência', 'Dois amigos e dois professores'],
-            ['Incluí nome, sobrenome, país, nacionalidade e idade.', 'Usei he/his e she/her corretamente.', 'Consigo soletrar os quatro sobrenomes e dizer as idades.']
-        ),
-        mission: { title: 'Class list check', task: 'Identifique duas pessoas, confirme nome, origem, nacionalidade e idade e peça a soletração de um sobrenome.', focus: ['he/she e his/her', 'soletração compreensível', 'números 0–20'] }
-    }));
-}());
+        [
+          "receptionist → hotel / restaurant",
+          "receptionist → hotel"
+        ],
+        [
+          "salesperson → store / hospital",
+          "salesperson → store"
+        ],
+        [
+          "school · teacher · restaurant · waiter · office · secretary",
+          "places: school, restaurant, office; jobs: teacher, waiter, secretary"
+        ],
+        [
+          "You are ahead of time: (early / late)",
+          "early"
+        ]
+      ]
+    },
+    {
+      "id": "practice-1",
+      "type": "drill",
+      "title": "I’m ou you’re?",
+      "kicker": "I’m ou you’re?",
+      "instruction": "Complete com a forma apresentada na aula.",
+      "items": [
+        [
+          "I ___ a teacher.",
+          "am"
+        ],
+        [
+          "You ___ a nurse.",
+          "are"
+        ],
+        [
+          "I___ early today.",
+          "’m"
+        ],
+        [
+          "You___ late for class.",
+          "’re"
+        ],
+        [
+          "a receptionist / I / am",
+          "I am a receptionist."
+        ],
+        [
+          "a salesperson / You / are",
+          "You are a salesperson."
+        ],
+        [
+          "___ you a doctor? (Am / Are)",
+          "Are"
+        ],
+        [
+          "I are a teacher.",
+          "I am a teacher."
+        ]
+      ]
+    },
+    {
+      "id": "practice-2",
+      "type": "drill",
+      "title": "Blocos com work",
+      "kicker": "Blocos com work",
+      "instruction": "Complete ou organize os modelos sem analisar do/does nesta etapa.",
+      "items": [
+        [
+          "I work ___ a hospital.",
+          "in"
+        ],
+        [
+          "You work ___ a school.",
+          "at"
+        ],
+        [
+          "I work ___ a receptionist.",
+          "as"
+        ],
+        [
+          "work / I / an office / in",
+          "I work in an office."
+        ],
+        [
+          "as / You / a nurse / work",
+          "You work as a nurse."
+        ],
+        [
+          "What do you do? Use: teacher",
+          "I’m a teacher."
+        ],
+        [
+          "Where do you work? Use: hospital",
+          "I work in a hospital."
+        ],
+        [
+          "I work as teacher.",
+          "I work as a teacher."
+        ]
+      ]
+    },
+    {
+      "id": "drill",
+      "type": "drill",
+      "title": "Say it in English.",
+      "kicker": "Say it in English.",
+      "instruction": "Diga a frase em inglês. Confira o modelo e depois personalize uma informação.",
+      "items": [
+        [
+          "Eu sou professor.",
+          "I’m a teacher."
+        ],
+        [
+          "Você é enfermeira.",
+          "You’re a nurse."
+        ],
+        [
+          "Você é médico?",
+          "Are you a doctor?"
+        ],
+        [
+          "Sim, sou.",
+          "Yes, I am."
+        ],
+        [
+          "Qual é a sua profissão?",
+          "What do you do?"
+        ],
+        [
+          "Onde você trabalha?",
+          "Where do you work?"
+        ],
+        [
+          "Eu trabalho em um hospital.",
+          "I work in a hospital."
+        ],
+        [
+          "Você trabalha em uma escola.",
+          "You work at a school."
+        ],
+        [
+          "Eu trabalho como recepcionista.",
+          "I work as a receptionist."
+        ],
+        [
+          "Você trabalha como enfermeiro.",
+          "You work as a nurse."
+        ],
+        [
+          "Estou atrasado para o trabalho.",
+          "I’m late for work."
+        ],
+        [
+          "Hoje estou adiantado.",
+          "I’m early today."
+        ]
+      ]
+    },
+    {
+      "id": "expressions",
+      "type": "cards",
+      "title": "Key phrases & expressions",
+      "kicker": "Key phrases & expressions",
+      "instruction": "Use cada expressão como um bloco. Leia o exemplo e crie uma troca curta.",
+      "cards": [
+        [
+          "What do you do?",
+          "Qual é a sua profissão? · Aprenda esta pergunta como um bloco pronto nesta etapa.",
+          "What do you do? — I’m a nurse."
+        ],
+        [
+          "Where do you work?",
+          "Onde você trabalha? · Aprenda a pergunta inteira; do será explicado com o Present Simple na Lição 7.",
+          "Where do you work? — I work in a hospital."
+        ],
+        [
+          "I’m a/an...",
+          "Eu sou... · Use a antes de som consonantal e an antes de som vocálico.",
+          "I’m an engineer."
+        ],
+        [
+          "I work in...",
+          "Eu trabalho em... · Use in para falar do interior ou do tipo de lugar.",
+          "I work in an office."
+        ],
+        [
+          "I work at...",
+          "Eu trabalho em... · Use at para apresentar o local de trabalho como um ponto específico.",
+          "I work at a school."
+        ],
+        [
+          "I work as...",
+          "Eu trabalho como... · Use as antes da função; mantenha a/an: work as a nurse.",
+          "I work as a receptionist."
+        ],
+        [
+          "You work in/at...",
+          "Você trabalha em... · Use o mesmo verbo work com you.",
+          "You work at a restaurant."
+        ],
+        [
+          "You work as...",
+          "Você trabalha como... · Use para falar diretamente da função da outra pessoa.",
+          "You work as a secretary."
+        ],
+        [
+          "I’m early.",
+          "Estou adiantado(a). · Use quando chega antes do horário.",
+          "I’m early for class."
+        ],
+        [
+          "I’m late.",
+          "Estou atrasado(a). · Use late for + compromisso.",
+          "I’m late for work."
+        ],
+        [
+          "What about you?",
+          "E você? · Devolve a pergunta sem repeti-la.",
+          "I’m a teacher. What about you?"
+        ]
+      ]
+    },
+    {
+      "id": "dialogues",
+      "type": "dialogue",
+      "title": "Dialog Samples",
+      "kicker": "Dialog Samples",
+      "instruction": "Leiam as situações e troquem os papéis. Depois alterem uma informação.",
+      "lines": [
+        [
+          "A",
+          "What do you do?",
+          "Qual é a sua profissão?"
+        ],
+        [
+          "B",
+          "I’m a teacher.",
+          "Sou professor."
+        ],
+        [
+          "A",
+          "Where do you work?",
+          "Onde você trabalha?"
+        ],
+        [
+          "B",
+          "I work at a school.",
+          "Trabalho em uma escola."
+        ],
+        [
+          "A",
+          "Are you a waiter?",
+          "Você é garçom?"
+        ],
+        [
+          "B",
+          "Yes, I am. I work at a restaurant.",
+          "Sim. Trabalho em um restaurante."
+        ],
+        [
+          "A",
+          "What do you do?",
+          "Qual é a sua profissão?"
+        ],
+        [
+          "B",
+          "I’m a nurse. I work in a hospital.",
+          "Sou enfermeira. Trabalho em um hospital."
+        ],
+        [
+          "A",
+          "Where do you work?",
+          "Onde você trabalha?"
+        ],
+        [
+          "B",
+          "I work in an office.",
+          "Trabalho em um escritório."
+        ],
+        [
+          "A",
+          "You work as a secretary, right?",
+          "Você trabalha como secretário, certo?"
+        ],
+        [
+          "B",
+          "Yes.",
+          "Sim."
+        ],
+        [
+          "A",
+          "Are you late for class?",
+          "Você está atrasado para a aula?"
+        ],
+        [
+          "B",
+          "No, I’m early today.",
+          "Não, estou adiantado hoje."
+        ]
+      ],
+      "lineTitles": {
+        "0": "At school",
+        "4": "At a restaurant",
+        "6": "At a hospital",
+        "8": "At an office",
+        "12": "Early or late"
+      }
+    },
+    {
+      "id": "reading",
+      "type": "reading",
+      "title": "Two jobs, two places",
+      "kicker": "Two jobs, two places",
+      "instruction": "O professor lê primeiro. Depois leia e responda às perguntas consultando o texto.",
+      "paragraphs": [
+        "“I’m Laura. I’m a teacher. I work at a school.” “I’m Ben. I’m a nurse. I work in a hospital.” Laura asks, “Are you late for work?” Ben says, “No, I’m early today.”"
+      ],
+      "items": [
+        [
+          "Complete Laura’s model: I’m a ___.",
+          "teacher"
+        ],
+        [
+          "Complete Laura’s model: I work ___ a school.",
+          "at"
+        ],
+        [
+          "Complete Ben’s model: I’m a ___.",
+          "nurse"
+        ],
+        [
+          "Complete Ben’s model: I work ___ a hospital.",
+          "in"
+        ],
+        [
+          "Complete Ben’s model: I’m ___ today.",
+          "early"
+        ],
+        [
+          "Laura asks: Are you ___ for work?",
+          "late"
+        ]
+      ],
+      "translations": []
+    },
+    {
+      "id": "talk",
+      "type": "conversation",
+      "title": "Let's Talk",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor usando suas informações ou um perfil inventado.",
+      "tasks": [
+        [
+          "Pergunta 1",
+          "Usar I am/I’m e you are/you’re em apresentações simples."
+        ],
+        [
+          "Pergunta 2",
+          "Aprender os verbos be e work como os primeiros verbos do curso."
+        ],
+        [
+          "Pergunta 3",
+          "Relacionar profissões aos locais de trabalho mais comuns."
+        ],
+        [
+          "Pergunta 4",
+          "Usar What do you do? e Where do you work? como perguntas prontas."
+        ],
+        [
+          "Pergunta 5",
+          "Dizer I’m early e I’m late em situações reais."
+        ]
+      ],
+      "goal": "Dizer profissão e local de trabalho e corrigir uma informação incorreta.",
+      "challenge": "Depois de responder, faça uma pergunta ao professor."
+    },
+    {
+      "id": "exit",
+      "type": "exit",
+      "title": "Look at your progress.",
+      "kicker": "Look at your progress.",
+      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
+      "checks": [
+        "Dizer profissão e local de trabalho e corrigir uma informação incorreta.",
+        "Consegui pedir repetição ou esclarecimento.",
+        "Consigo tentar novamente com menos apoio."
+      ]
+    },
+    {
+      "id": "homework",
+      "type": "homework",
+      "title": "Take it with you.",
+      "kicker": "Take it with you.",
+      "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
+      "options": [
+        [
+          "A",
+          "Speak",
+          "Diga onde mora, o que faz e onde trabalha ou estuda."
+        ],
+        [
+          "B",
+          "Write",
+          "Escreva quatro frases sobre você: duas verdadeiras e duas inventadas, para o professor descobrir."
+        ],
+        [
+          "C",
+          "Make a Card",
+          "Escolha três profissões. Anote uma pessoa e um local de trabalho para cada uma."
+        ]
+      ]
+    }
+  ],
+  "migration": {
+    "sourceLesson": "a1-v3-02-a-few-days-later",
+    "editorialVersion": "2026.09-a1-38"
+  }
+});}());

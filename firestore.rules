@@ -45,6 +45,34 @@ service cloud.firestore {
         );
     }
 
+    function auraClass(classId) {
+      return get(/databases/$(database)/documents/auraClasses/$(classId)).data;
+    }
+
+    function auraClassAfter(classId) {
+      return getAfter(/databases/$(database)/documents/auraClasses/$(classId)).data;
+    }
+
+    function canReadAuraClass(classId) {
+      return isAdmin()
+        || isProfessor()
+        || (
+          signedIn()
+          && auraClass(classId).viewerUids is list
+          && request.auth.uid in auraClass(classId).viewerUids
+        );
+    }
+
+    function canManageAuraClass(classId) {
+      return isAdmin()
+        || (isProfessor() && auraClass(classId).ownerId == request.auth.uid);
+    }
+
+    function canManageAuraClassAfter(classId) {
+      return isAdmin()
+        || (isProfessor() && auraClassAfter(classId).ownerId == request.auth.uid);
+    }
+
     function validFlashcard() {
       return request.resource.data.f is string
         && request.resource.data.f.size() > 0
@@ -93,6 +121,54 @@ service cloud.firestore {
     match /users/{userId}/ratings/{ratingId} {
       allow read, delete: if canManageStudyData(userId);
       allow create, update: if canManageStudyData(userId) && validRating();
+    }
+
+    match /auraClasses/{classId} {
+      allow read: if isAdmin()
+        || isProfessor()
+        || (
+          signedIn()
+          && resource.data.viewerUids is list
+          && request.auth.uid in resource.data.viewerUids
+        );
+
+      allow create: if isProfessor()
+        && request.resource.data.ownerId == request.auth.uid
+        && request.resource.data.viewerUids is list;
+
+      allow update: if isAdmin()
+        || (
+          isProfessor()
+          && resource.data.ownerId == request.auth.uid
+          && request.resource.data.ownerId == resource.data.ownerId
+        );
+      allow delete: if isAdmin()
+        || (isProfessor() && resource.data.ownerId == request.auth.uid);
+
+      match /students/{studentId} {
+        allow read: if canReadAuraClass(classId);
+        allow create, update: if canManageAuraClassAfter(classId)
+          && request.resource.data.name is string
+          && request.resource.data.name.size() > 0
+          && request.resource.data.name.size() <= 120
+          && request.resource.data.score is int
+          && request.resource.data.week is int;
+        allow delete: if canManageAuraClassAfter(classId);
+      }
+
+      match /events/{eventId} {
+        allow read: if canManageAuraClass(classId);
+        allow create: if canManageAuraClassAfter(classId)
+          && request.resource.data.studentId is int
+          && request.resource.data.delta is int
+          && request.resource.data.delta != 0
+          && request.resource.data.delta >= -1000
+          && request.resource.data.delta <= 1000
+          && request.resource.data.reason is string
+          && request.resource.data.reason.size() <= 120
+          && request.resource.data.createdBy == request.auth.uid;
+        allow delete: if canManageAuraClassAfter(classId);
+      }
     }
   }
 }

@@ -916,6 +916,7 @@
     }
 
     const syncHeader = () => {
+        const slides = Array.from(document.querySelectorAll('.slide'));
         const activeSlide = slides.find((slide) => slide.classList.contains('active'));
         const activeTitle = activeSlide?.dataset.title;
         const slideCounter = document.getElementById('slide-counter');
@@ -931,9 +932,7 @@
     syncHeader();
 
     const observer = new MutationObserver(syncHeader);
-    slides.forEach((slide) => {
-        observer.observe(slide, { attributes: true, attributeFilter: ['class'] });
-    });
+    observer.observe(document.querySelector('main'), { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
 
     const backLink = document.querySelector('header a[href="a2-v3.html"]');
     if (backLink) {

@@ -1,96 +1,751 @@
-(function () {
-    'use strict';
-    const R = window.A1V3LessonRegistry;
-    const { v, x, p, t, line, dialogue, question, reading, activity, homework } = R.helpers;
-
-    R.register(13, R.lesson({
-        title: 'Let’s Go Shopping',
-        objectives: ['Distinguir substantivos contáveis e não contáveis frequentes.', 'Usar some e any em listas, perguntas e negativas.', 'Perguntar quantidade com how many e how much.', 'Usar a lot of em quantidades grandes sem contar exatamente.'],
-        intro: [
-            line('Sarah', 'Do we have any eggs?', 'Nós temos ovos?'),
-            line('Emma', 'No, we don’t. We need some eggs and some milk.', 'Não. Precisamos de ovos e leite.'),
-            line('Sarah', 'How many eggs do we need?', 'Quantos ovos precisamos?'),
-            line('Emma', 'Six. We also need a lot of fruit.', 'Seis. Também precisamos de muita fruta.'),
-            line('Sarah', 'How much rice do we have?', 'Quanto arroz temos?'),
-            line('Emma', 'Not much. Let’s buy some rice too.', 'Não muito. Vamos comprar arroz também.')
+(function(){'use strict';window.A1V3LessonRegistry.register(13,{
+  "title": "At Home",
+  "type": "content",
+  "summary": "Localizar quatro objetos em uma planta ou cena e fazer duas perguntas.",
+  "mission": {
+    "title": "At Home",
+    "task": "Localizar quatro objetos em uma planta ou cena e fazer duas perguntas.",
+    "focus": [
+      "Cômodos, móveis e objetos; there is/are; in/on/under/next to/between; Where is/are…?"
+    ],
+    "semanticTags": [
+      "home-location"
+    ]
+  },
+  "slides": [
+    {
+      "id": "opening",
+      "type": "dialogue",
+      "title": "At Home",
+      "kicker": "At Home",
+      "instruction": "Acompanhe a leitura do professor. Depois leiam juntos e identifiquem a situação.",
+      "lines": [
+        [
+          "Sarah",
+          "This is the living room. There is a sofa near the window.",
+          "Esta é a sala. Há um sofá perto da janela."
         ],
-        vocab: [
-            v('shopping list', 'lista de compras', 'The shopping list is on my phone.', 'A lista de compras está no meu telefone.'), v('cart', 'carrinho', 'The cart is full.', 'O carrinho está cheio.'),
-            v('basket', 'cesta', 'We need a basket.', 'Precisamos de uma cesta.'), v('egg', 'ovo', 'We need six eggs.', 'Precisamos de seis ovos.'),
-            v('apple', 'maçã', 'There are four apples.', 'Há quatro maçãs.'), v('banana', 'banana', 'Buy some bananas.', 'Compre algumas bananas.'),
-            v('tomato', 'tomate', 'How many tomatoes do we need?', 'Quantos tomates precisamos?'), v('bottle', 'garrafa', 'We need two bottles of water.', 'Precisamos de duas garrafas de água.'),
-            v('milk', 'leite', 'We need some milk.', 'Precisamos de leite.'), v('rice', 'arroz', 'There is some rice at home.', 'Há arroz em casa.'),
-            v('bread', 'pão', 'Do we have any bread?', 'Temos pão?'), v('cheese', 'queijo', 'There isn’t any cheese.', 'Não há queijo.'),
-            v('coffee', 'café', 'We have a lot of coffee.', 'Temos muito café.'), v('fruit', 'fruta', 'We need a lot of fruit.', 'Precisamos de muita fruta.'),
-            v('vegetables', 'legumes e verduras', 'They buy a lot of vegetables.', 'Eles compram muitos legumes.'), v('need', 'precisar', 'What do we need?', 'Do que precisamos?'),
-            v('buy', 'comprar', 'Let’s buy some rice.', 'Vamos comprar arroz.'), v('enough', 'suficiente', 'We have enough water.', 'Temos água suficiente.')
+        [
+          "Emma",
+          "Are there chairs in the room?",
+          "Há cadeiras no cômodo?"
         ],
-        grammar: {
-            title: 'Countable, uncountable e quantifiers',
-            summary: 'Contáveis aceitam número e plural. Não contáveis aparecem como massa ou substância e não recebem plural neste uso.',
-            rows: [
-                ['contável', 'number + plural noun', 'six eggs; four apples', 'seis ovos; quatro maçãs'],
-                ['não contável', 'some + noun', 'some milk; some rice', 'um pouco de leite; arroz'],
-                ['pergunta/negativa', 'any + noun', 'Do we have any bread?', 'Temos pão?'],
-                ['quantidade contável', 'How many + plural noun?', 'How many eggs?', 'Quantos ovos?'],
-                ['quantidade não contável', 'How much + noun?', 'How much rice?', 'Quanto arroz?'],
-                ['quantidade grande', 'a lot of + noun', 'a lot of fruit/vegetables', 'muita fruta/muitos legumes']
+        [
+          "Sarah",
+          "Yes, there are two chairs next to the table.",
+          "Sim, há duas cadeiras ao lado da mesa."
+        ],
+        [
+          "Emma",
+          "Where is your blue jacket?",
+          "Onde está sua jaqueta azul?"
+        ],
+        [
+          "Sarah",
+          "It is on the chair, under the bag.",
+          "Ela está sobre a cadeira, embaixo da bolsa."
+        ],
+        [
+          "Emma",
+          "Your house is very nice.",
+          "Sua casa é muito bonita."
+        ]
+      ]
+    },
+    {
+      "id": "vocabulary",
+      "type": "cards",
+      "title": "Vocabulary Expansion",
+      "kicker": "Vocabulary Expansion",
+      "instruction": "Leia os significados e exemplos. Escolha palavras para usar durante a conversa.",
+      "cards": [
+        [
+          "living room",
+          "sala de estar",
+          "There is a sofa in the living room."
+        ],
+        [
+          "bedroom",
+          "quarto",
+          "My bedroom is small."
+        ],
+        [
+          "kitchen",
+          "cozinha",
+          "There is a table in the kitchen."
+        ],
+        [
+          "bathroom",
+          "banheiro",
+          "The bathroom is next to the bedroom."
+        ],
+        [
+          "dining room",
+          "sala de jantar",
+          "There are six chairs in the dining room."
+        ],
+        [
+          "sofa",
+          "sofá",
+          "The sofa is near the window."
+        ],
+        [
+          "armchair",
+          "poltrona",
+          "There is an armchair by the door."
+        ],
+        [
+          "table",
+          "mesa",
+          "The keys are on the table."
+        ],
+        [
+          "chair",
+          "cadeira",
+          "The jacket is on the chair."
+        ],
+        [
+          "bed",
+          "cama",
+          "There is a bed in the bedroom."
+        ],
+        [
+          "desk",
+          "escrivaninha",
+          "The laptop is on the desk."
+        ],
+        [
+          "closet",
+          "guarda-roupa",
+          "The clothes are in the closet."
+        ],
+        [
+          "window",
+          "janela",
+          "The sofa is near the window."
+        ],
+        [
+          "door",
+          "porta",
+          "The bag is behind the door."
+        ],
+        [
+          "shirt",
+          "camisa",
+          "The shirt is in the closet."
+        ],
+        [
+          "jacket",
+          "jaqueta",
+          "Her jacket is on the chair."
+        ],
+        [
+          "shoes",
+          "sapatos",
+          "The shoes are under the bed."
+        ],
+        [
+          "clothes",
+          "roupas",
+          "There are clothes on the bed."
+        ]
+      ]
+    },
+    {
+      "id": "verbs",
+      "type": "verbs",
+      "title": "Verb bank",
+      "kicker": "Verb bank",
+      "instruction": "Consulte o infinitivo, o passado e o particípio. Observe nos exemplos a forma usada na frase.",
+      "cards": [
+        [
+          "have",
+          "ter",
+          "She has two brothers.",
+          "had · had"
+        ],
+        [
+          "sit",
+          "sentar-se",
+          "I sit on this chair.",
+          "sat · sat"
+        ],
+        [
+          "put",
+          "colocar",
+          "Put the book on the desk.",
+          "put · put"
+        ],
+        [
+          "look",
+          "olhar",
+          "Look at the room.",
+          "looked · looked"
+        ]
+      ]
+    },
+    {
+      "id": "helping",
+      "type": "patterns",
+      "title": "Helping You",
+      "kicker": "Helping You",
+      "instruction": "Use there is para uma coisa e there are para mais de uma. Depois, acrescente lugar com uma preposição.",
+      "groups": [
+        {
+          "title": "There is, there are e localização",
+          "cards": [
+            [
+              "There is + a/an + singular noun",
+              "Há um sofá na sala.",
+              "There is a sofa in the room."
             ],
-            notes: ['Use some em afirmações e listas.', 'Use any em perguntas de disponibilidade e negativas.', 'A lot of funciona com contáveis e não contáveis.']
+            [
+              "There are + number/plural noun",
+              "Há duas cadeiras.",
+              "There are two chairs."
+            ],
+            [
+              "Is there...?",
+              "Há uma escrivaninha?",
+              "Is there a desk?"
+            ],
+            [
+              "Are there...?",
+              "Há cadeiras?",
+              "Are there chairs?"
+            ],
+            [
+              "in/on/under/next to/behind/near",
+              "Os sapatos estão embaixo da cama.",
+              "The shoes are under the bed."
+            ]
+          ]
         },
-        activitySections: [
-            activity('Contável ou não contável?', 'Classifique os alimentos e use uma combinação natural.', [
-                p('Classify', 'eggs · milk · apples · rice · tomatoes · bread · bananas · cheese', 'countable: eggs, apples, tomatoes, bananas; uncountable: milk, rice, bread, cheese'),
-                p('Choose', '(three / some) eggs', 'three eggs'), p('Choose', '(two / some) milk', 'some milk'), p('Choose', '(four / some) apples', 'four apples'),
-                p('Choose', '(six / some) rice', 'some rice'), p('Complete', 'two ___ of water', 'bottles'), p('Complete', 'a lot of ___ (vegetable)', 'vegetables'),
-                p('Correct', 'three breads', 'some bread / three loaves of bread'), p('Correct', 'two milks', 'some milk / two bottles of milk'),
-                p('Describe', 'List: eggs 6 · milk · apples 4 · rice', 'We need six eggs, some milk, four apples and some rice.')
-            ], 'Countability'),
-            activity('Some, any ou a lot of?', 'Decida se a frase é lista, pergunta, negativa ou quantidade grande.', [
-                p('Choose', 'We need (some / any) milk.', 'some'), p('Choose', 'Do we have (some / any) eggs?', 'any'), p('Choose', 'We don’t have (some / any) cheese.', 'any'),
-                p('Choose', 'They buy (a lot of / any) vegetables every week.', 'a lot of'), p('Complete', 'There are ___ apples in the cart.', 'some'),
-                p('Complete', 'There isn’t ___ coffee.', 'any'), p('Complete', 'We have ___ rice, but we need more.', 'some'),
-                p('Build', 'bread / any / Do / have / we / ?', 'Do we have any bread?'), p('Correct', 'We need any eggs.', 'We need some eggs.'),
-                p('Correct', 'Do we have some cheese?', 'Do we have any cheese?'), p('Create', 'Say two things you have and one thing you do not have.', 'We have some... and some... We don’t have any...')
-            ]),
-            activity('How many ou how much?', 'Observe se o substantivo pode ser contado diretamente.', [
-                p('Choose', '(How many / How much) eggs do we need?', 'How many'), p('Choose', '(How many / How much) rice do we have?', 'How much'),
-                p('Choose', '(How many / How much) bottles of water?', 'How many'), p('Choose', '(How many / How much) coffee?', 'How much'),
-                p('Build', 'apples / many / How / need / we / do / ?', 'How many apples do we need?'), p('Build', 'milk / much / How / have / we / do / ?', 'How much milk do we have?'),
-                p('Answer', 'How many eggs do we need? Quantity: 6', 'We need six eggs.'), p('Answer', 'How much rice do we need?', 'We need some rice. / We need a lot of rice.'),
-                p('Correct', 'How much apples do we need?', 'How many apples do we need?'), p('Correct', 'How many milk do we have?', 'How much milk do we have?'),
-                p('Create', 'Ask about two countable and two uncountable items.', 'How many...? How much...?')
-            ], 'Quantity Questions')
+        {
+          "title": "Como usar",
+          "cards": [
+            [
+              "Observe 1",
+              "There is pode contrair para there’s.",
+              ""
+            ],
+            [
+              "Observe 2",
+              "Use are com substantivo plural.",
+              ""
+            ],
+            [
+              "Observe 3",
+              "Não traduza preposições isoladamente; memorize o bloco com o objeto.",
+              ""
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice-0",
+      "type": "drill",
+      "title": "Cômodos, móveis e roupas",
+      "kicker": "Cômodos, móveis e roupas",
+      "instruction": "Relacione cada item ao lugar mais provável.",
+      "items": [
+        [
+          "sofa · bed · shower · table · closet → living room · bedroom · bathroom · dining room · bedroom",
+          "sofa—living room; bed—bedroom; shower—bathroom; table—dining room; closet—bedroom"
         ],
-        translations: [
-            t('Precisamos de alguns ovos.', 'We need some eggs.'), t('Temos leite?', 'Do we have any milk?'), t('Não temos queijo.', 'We don’t have any cheese.'),
-            t('Quantas maçãs precisamos?', 'How many apples do we need?'), t('Quanto arroz temos?', 'How much rice do we have?'),
-            t('Precisamos de muitas frutas.', 'We need a lot of fruit.'), t('Há quatro tomates no carrinho.', 'There are four tomatoes in the cart.'),
-            t('Vamos comprar um pouco de pão.', 'Let’s buy some bread.'), t('Temos água suficiente.', 'We have enough water.'), t('Do que precisamos?', 'What do we need?')
+        [
+          "sofa · shirt · chair · shoes · bed · jacket · desk · clothes",
+          "furniture: sofa, chair, bed, desk; clothes: shirt, shoes, jacket, clothes"
         ],
-        expressions: [
-            x('What do we need?', 'Do que precisamos?', 'Inicia uma lista de compras.', 'What do we need from the store?', 'O que precisamos comprar na loja?'),
-            x('Do we have any...?', 'Temos...?', 'Pergunta sobre disponibilidade.', 'Do we have any eggs?', 'Temos ovos?'),
-            x('We need some...', 'Precisamos de...', 'Afirmação de necessidade.', 'We need some milk.', 'Precisamos de leite.'),
-            x('We don’t have any...', 'Não temos...', 'Negativa de disponibilidade.', 'We don’t have any cheese.', 'Não temos queijo.'),
-            x('How many...?', 'Quantos/quantas...?', 'Quantidade de item contável.', 'How many apples do we need?', 'Quantas maçãs precisamos?'),
-            x('How much...?', 'Quanto/quanta...?', 'Quantidade de item não contável.', 'How much rice do we have?', 'Quanto arroz temos?'),
-            x('a lot of', 'muito(a); muitos(as)', 'Quantidade grande.', 'We buy a lot of vegetables.', 'Compramos muitos legumes.'),
-            x('That’s enough.', 'É suficiente.', 'Indica que a quantidade basta.', 'Six eggs? That’s enough.', 'Seis ovos? É suficiente.'),
-            x('We need more...', 'Precisamos de mais...', 'Indica quantidade insuficiente.', 'We need more water.', 'Precisamos de mais água.')
+        [
+          "The sofa is in the ___ room.",
+          "living"
         ],
-        dialogues: [
-            dialogue('Eggs for breakfast', line('A', 'Do we have any eggs?', 'Temos ovos?'), line('B', 'No. We need some eggs.', 'Não. Precisamos de ovos.'), line('A', 'How many do we need?', 'De quantos precisamos?'), line('B', 'Six eggs.', 'Seis ovos.'), line('A', 'Okay. Six eggs on the list.', 'Certo. Seis ovos na lista.'), line('B', 'Thank you.', 'Obrigado.')),
-            dialogue('Rice for dinner', line('A', 'How much rice do we have?', 'Quanto arroz temos?'), line('B', 'Not much. We need more rice.', 'Não muito. Precisamos de mais arroz.'), line('A', 'Do we need one bag or two?', 'Precisamos de um pacote ou dois?'), line('B', 'One bag is enough.', 'Um pacote é suficiente.'), line('A', 'And do we have any beans?', 'E temos feijão?'), line('B', 'Yes, we have a lot of beans.', 'Sim, temos bastante feijão.')),
-            dialogue('Fruit for the week', line('A', 'How many apples do we need?', 'Quantas maçãs precisamos?'), line('B', 'Four apples and some bananas.', 'Quatro maçãs e algumas bananas.'), line('A', 'Do we need oranges too?', 'Precisamos de laranjas também?'), line('B', 'Yes, but only a few.', 'Sim, mas apenas algumas.')),
-            dialogue('Water at home', line('A', 'Do we have enough water?', 'Temos água suficiente?'), line('B', 'Yes. We have two bottles.', 'Sim. Temos duas garrafas.'), line('A', 'Great. We don’t need more today.', 'Ótimo. Não precisamos de mais hoje.'), line('B', 'That’s right.', 'Isso mesmo.')),
-            dialogue('The complete list', line('A', 'What do we need from the market?', 'Do que precisamos do mercado?'), line('B', 'Some milk, some bread and a lot of vegetables.', 'Leite, pão e muitos legumes.'), line('A', 'Do we need any cheese?', 'Precisamos de queijo?'), line('B', 'Yes, and we need a few tomatoes too.', 'Sim, e precisamos de alguns tomates também.'), line('A', 'Is that all?', 'É só isso?'), line('B', 'Yes. The list is complete.', 'Sim. A lista está completa.'))
+        [
+          "The bed is in the ___.",
+          "bedroom"
         ],
-        dialogueGroups: [[0, 1], [2, 3, 4]],
-        reading: reading('A list for dinner', 'Sarah and Emma need food for dinner. They have some rice and a lot of vegetables, but they don’t have any cheese or bread. They need six eggs, two bottles of water, some milk and four tomatoes. They have enough coffee, so coffee is not on the shopping list.',
-            question('Do they have rice?', 'Yes, they have some rice.'), question('Do they have any cheese?', 'No, they don’t.'), question('How many eggs do they need?', 'They need six eggs.'), question('How many bottles of water do they need?', 'They need two bottles.'), question('Is coffee on the list?', 'No. They have enough coffee.')),
-        conversation: { questions: ['What food do you have at home?', 'Do you have any eggs?', 'How much coffee do you have?', 'How many bottles of water do you need?', 'Create a shopping list with ten items.', 'Ask four questions about the list.', 'Remove two items because you have enough.', 'Explain the final list in complete sentences.'], support: ['We need some...', 'Do we have any...?', 'We don’t have any...', 'How many...?', 'How much...?', 'a lot of', 'enough'] },
-        homework: homework('Prepare uma lista de compras detalhada para uma refeição.', ['Café da manhã para quatro pessoas', 'Jantar em família', 'Compras para uma semana'], ['Classifiquei itens contáveis e não contáveis.', 'Usei some, any e a lot of.', 'Preparei perguntas com how many e how much.']),
-        mission: { title: 'Build the shopping list', task: 'Verifique o que já existe, decida quantidades e explique uma lista final sem comprar itens desnecessários.', focus: ['some/any', 'how many/how much', 'decisão de quantidade'] }
-    }));
-}());
+        [
+          "The shirt is in the ___.",
+          "closet"
+        ],
+        [
+          "Name two items in a kitchen.",
+          "A possible answer: a table and chairs."
+        ],
+        [
+          "Name three items in a bedroom.",
+          "A possible answer: a bed, a desk and a closet."
+        ],
+        [
+          "Room: sofa · armchair · two chairs",
+          "The room has a sofa, an armchair and two chairs."
+        ]
+      ]
+    },
+    {
+      "id": "practice-1",
+      "type": "drill",
+      "title": "There is ou there are?",
+      "kicker": "There is ou there are?",
+      "instruction": "Observe singular ou plural antes de completar.",
+      "items": [
+        [
+          "There ___ a sofa in the room.",
+          "is"
+        ],
+        [
+          "There ___ two chairs.",
+          "are"
+        ],
+        [
+          "There ___ an armchair near the window.",
+          "is"
+        ],
+        [
+          "There ___ clothes on the bed.",
+          "are"
+        ],
+        [
+          "a desk / There / is / in the bedroom",
+          "There is a desk in the bedroom."
+        ],
+        [
+          "three chairs / are / There / in the kitchen",
+          "There are three chairs in the kitchen."
+        ],
+        [
+          "there / Is / a closet / ?",
+          "Is there a closet?"
+        ],
+        [
+          "shoes / there / Are / under the bed / ?",
+          "Are there shoes under the bed?"
+        ],
+        [
+          "There are a sofa.",
+          "There is a sofa."
+        ],
+        [
+          "There is two windows.",
+          "There are two windows."
+        ],
+        [
+          "Is there a bed in a bedroom?",
+          "Yes, there is."
+        ],
+        [
+          "Are there two sofas? Negative.",
+          "No, there aren’t."
+        ]
+      ]
+    },
+    {
+      "id": "practice-2",
+      "type": "drill",
+      "title": "Localize os objetos",
+      "kicker": "Localize os objetos",
+      "instruction": "Escolha a preposição e produza uma frase completa.",
+      "items": [
+        [
+          "The keys are (in / on) the table.",
+          "on"
+        ],
+        [
+          "The shoes are (under / on) the bed.",
+          "under"
+        ],
+        [
+          "The clothes are (in / behind) the closet.",
+          "in"
+        ],
+        [
+          "The chair is (next to / in) the desk.",
+          "next to"
+        ],
+        [
+          "The bag is (behind / on) the door.",
+          "behind"
+        ],
+        [
+          "near / sofa / window / the / is / The",
+          "The sofa is near the window."
+        ],
+        [
+          "on / jacket / chair / the / is / The",
+          "The jacket is on the chair."
+        ],
+        [
+          "Where are the shoes? bed ↓",
+          "They are under the bed."
+        ],
+        [
+          "Where is the laptop? desk ↑",
+          "It is on the desk."
+        ],
+        [
+          "Bedroom: bed; desk next to bed; shoes under bed; jacket on chair",
+          "There is a bed. The desk is next to the bed. The shoes are under the bed. The jacket is on the chair."
+        ]
+      ]
+    },
+    {
+      "id": "drill",
+      "type": "drill",
+      "title": "Say it in English.",
+      "kicker": "Say it in English.",
+      "instruction": "Diga a frase em inglês. Confira o modelo e depois personalize uma informação.",
+      "items": [
+        [
+          "Há um sofá na sala.",
+          "There is a sofa in the living room."
+        ],
+        [
+          "Há duas cadeiras ao lado da mesa.",
+          "There are two chairs next to the table."
+        ],
+        [
+          "Há uma escrivaninha no quarto?",
+          "Is there a desk in the bedroom?"
+        ],
+        [
+          "Há sapatos embaixo da cama?",
+          "Are there shoes under the bed?"
+        ],
+        [
+          "A jaqueta está sobre a cadeira.",
+          "The jacket is on the chair."
+        ],
+        [
+          "As roupas estão no guarda-roupa.",
+          "The clothes are in the closet."
+        ],
+        [
+          "A bolsa está atrás da porta.",
+          "The bag is behind the door."
+        ],
+        [
+          "O banheiro fica ao lado do quarto.",
+          "The bathroom is next to the bedroom."
+        ],
+        [
+          "Onde estão as chaves?",
+          "Where are the keys?"
+        ],
+        [
+          "Elas estão sobre a mesa.",
+          "They are on the table."
+        ]
+      ]
+    },
+    {
+      "id": "expressions",
+      "type": "cards",
+      "title": "Key phrases & expressions",
+      "kicker": "Key phrases & expressions",
+      "instruction": "Use cada expressão como um bloco. Leia o exemplo e crie uma troca curta.",
+      "cards": [
+        [
+          "There is/There’s...",
+          "Há... · Use com uma coisa.",
+          "There’s a sofa near the window."
+        ],
+        [
+          "There are...",
+          "Há... · Use com duas ou mais coisas.",
+          "There are two chairs."
+        ],
+        [
+          "Is there...?",
+          "Há...? · Pergunta sobre uma coisa.",
+          "Is there a bathroom?"
+        ],
+        [
+          "Are there...?",
+          "Há...? · Pergunta sobre mais de uma coisa.",
+          "Are there chairs?"
+        ],
+        [
+          "Where is/are...?",
+          "Onde está/estão...? · Pergunta por localização.",
+          "Where are my shoes?"
+        ],
+        [
+          "It is... / They are...",
+          "Está... / Estão... · Resposta sobre localização.",
+          "They are under the bed."
+        ],
+        [
+          "next to",
+          "ao lado de · Objetos próximos lateralmente.",
+          "The chair is next to the desk."
+        ],
+        [
+          "behind",
+          "atrás de · Objeto na parte de trás.",
+          "The bag is behind the door."
+        ],
+        [
+          "near",
+          "perto de · Proximidade sem posição exata.",
+          "The sofa is near the window."
+        ]
+      ]
+    },
+    {
+      "id": "dialogues",
+      "type": "dialogue",
+      "title": "Dialog Samples",
+      "kicker": "Dialog Samples",
+      "instruction": "Leiam as situações e troquem os papéis. Depois alterem uma informação.",
+      "lines": [
+        [
+          "A",
+          "Is there a sofa in the living room?",
+          "Há um sofá na sala?"
+        ],
+        [
+          "B",
+          "Yes. It is near the window.",
+          "Sim. Ele fica perto da janela."
+        ],
+        [
+          "A",
+          "Is there a TV too?",
+          "Há uma televisão também?"
+        ],
+        [
+          "B",
+          "Yes. The TV is opposite the sofa.",
+          "Sim. A televisão fica em frente ao sofá."
+        ],
+        [
+          "A",
+          "It’s a comfortable room.",
+          "É uma sala confortável."
+        ],
+        [
+          "B",
+          "Yes, we relax there every night.",
+          "Sim, nós relaxamos lá todas as noites."
+        ],
+        [
+          "A",
+          "Are there chairs in the bedroom?",
+          "Há cadeiras no quarto?"
+        ],
+        [
+          "B",
+          "Yes, there is one chair next to the desk.",
+          "Sim, há uma cadeira ao lado da escrivaninha."
+        ],
+        [
+          "A",
+          "And where is the closet?",
+          "E onde fica o guarda-roupa?"
+        ],
+        [
+          "B",
+          "It is between the desk and the bed.",
+          "Ele fica entre a escrivaninha e a cama."
+        ],
+        [
+          "A",
+          "Where are my shoes?",
+          "Onde estão meus sapatos?"
+        ],
+        [
+          "B",
+          "Are they in the closet?",
+          "Eles estão no guarda-roupa?"
+        ],
+        [
+          "A",
+          "No, they aren’t.",
+          "Não."
+        ],
+        [
+          "B",
+          "Look under the bed.",
+          "Olhe embaixo da cama."
+        ],
+        [
+          "A",
+          "Here they are! Thank you.",
+          "Aqui estão! Obrigado."
+        ],
+        [
+          "B",
+          "You’re welcome.",
+          "De nada."
+        ],
+        [
+          "A",
+          "Is my jacket in the closet?",
+          "Minha jaqueta está no guarda-roupa?"
+        ],
+        [
+          "B",
+          "No. It is on the chair.",
+          "Não. Ela está sobre a cadeira."
+        ],
+        [
+          "A",
+          "Is it next to my bag?",
+          "Ela está ao lado da minha bolsa?"
+        ],
+        [
+          "B",
+          "Yes, it is.",
+          "Sim."
+        ],
+        [
+          "A",
+          "Is there a dining room?",
+          "Há uma sala de jantar?"
+        ],
+        [
+          "B",
+          "Yes. There is a table and there are six chairs.",
+          "Sim. Há uma mesa e seis cadeiras."
+        ],
+        [
+          "A",
+          "What is next to the dining room?",
+          "O que fica ao lado da sala de jantar?"
+        ],
+        [
+          "B",
+          "The kitchen is next to it.",
+          "A cozinha fica ao lado dela."
+        ],
+        [
+          "A",
+          "Great. And where is the bathroom?",
+          "Ótimo. E onde fica o banheiro?"
+        ],
+        [
+          "B",
+          "It is across from the kitchen.",
+          "Ele fica em frente à cozinha."
+        ]
+      ],
+      "lineTitles": {
+        "0": "In the living room",
+        "6": "The bedroom",
+        "10": "Missing shoes",
+        "16": "A jacket",
+        "20": "A quick house tour"
+      }
+    },
+    {
+      "id": "reading",
+      "type": "reading",
+      "title": "Sarah’s small apartment",
+      "kicker": "Sarah’s small apartment",
+      "instruction": "O professor lê primeiro. Depois leia e responda às perguntas consultando o texto.",
+      "paragraphs": [
+        "Sarah’s apartment is small but comfortable. There is a living room, a kitchen, one bedroom and one bathroom. There is a blue sofa near the living room window. There are two chairs next to a small table. In the bedroom, there is a bed and a desk. Her shoes are under the bed, and her clothes are in the closet. Her red jacket is behind the door."
+      ],
+      "items": [
+        [
+          "Is Sarah’s apartment large?",
+          "No, it is small."
+        ],
+        [
+          "How many bedrooms are there?",
+          "There is one bedroom."
+        ],
+        [
+          "Where is the sofa?",
+          "It is near the window."
+        ],
+        [
+          "Where are the shoes?",
+          "They are under the bed."
+        ],
+        [
+          "Where is the red jacket?",
+          "It is behind the door."
+        ]
+      ],
+      "translations": []
+    },
+    {
+      "id": "talk",
+      "type": "conversation",
+      "title": "Let's Talk",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor usando suas informações ou um perfil inventado.",
+      "tasks": [
+        [
+          "Pergunta 1",
+          "What rooms are in your home?"
+        ],
+        [
+          "Pergunta 2",
+          "Is there a sofa in your living room?"
+        ],
+        [
+          "Pergunta 3",
+          "How many chairs are there?"
+        ],
+        [
+          "Pergunta 4",
+          "Where are your shoes?"
+        ],
+        [
+          "Pergunta 5",
+          "Where is your favorite jacket?"
+        ],
+        [
+          "Pergunta 6",
+          "Describe one room in five sentences."
+        ]
+      ],
+      "goal": "Localizar quatro objetos em uma planta ou cena e fazer duas perguntas.",
+      "challenge": "Depois de responder, faça uma pergunta ao professor."
+    },
+    {
+      "id": "exit",
+      "type": "exit",
+      "title": "Look at your progress.",
+      "kicker": "Look at your progress.",
+      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
+      "checks": [
+        "Localizar quatro objetos em uma planta ou cena e fazer duas perguntas.",
+        "Consegui pedir repetição ou esclarecimento.",
+        "Consigo tentar novamente com menos apoio."
+      ]
+    },
+    {
+      "id": "homework",
+      "type": "homework",
+      "title": "Take it with you.",
+      "kicker": "Take it with you.",
+      "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
+      "options": [
+        [
+          "A",
+          "Speak",
+          "Descreva um cômodo com there is, there are e três expressões de lugar."
+        ],
+        [
+          "B",
+          "Write",
+          "Escreva cinco pistas para localizar objetos em uma casa."
+        ],
+        [
+          "C",
+          "Make a Card",
+          "Desenhe um cômodo, posicione seis objetos e prepare três perguntas sobre eles."
+        ]
+      ]
+    }
+  ],
+  "migration": {
+    "sourceLesson": "a1-v3-12-at-home",
+    "editorialVersion": "2026.09-a1-38"
+  }
+});}());

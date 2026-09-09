@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             grid.innerHTML = '';
             lessonCards.forEach((cardModel, index) => {
-                const isCompleted = window.V3Curriculum?.isLessonComplete(allProgress, moduleId, cardModel.curriculumId) || progress[`lesson_${cardModel.number}`] === true;
+                const isCompleted = window.V3Curriculum?.isLessonComplete(allProgress, moduleId, cardModel.curriculumId);
                 const state = isCompleted ? 'completed' : index === firstUncompletedIndex ? 'next' : 'locked';
                 grid.appendChild(buildLessonCard(cardModel, state, isProfessor));
             });
@@ -217,6 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (user) {
             loadLessons();
         } else {
+            grid.innerHTML = '';
+            grid.classList.add('hidden');
+            loadingDiv.classList.remove('hidden');
             loadingDiv.textContent = 'Faça login para ver as lições.';
         }
     });

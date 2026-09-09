@@ -1,80 +1,782 @@
-(function () {
-    'use strict';
-    const R=window.A1V3LessonRegistry; const {v,x,p,t,line,dialogue,question,reading,activity,homework}=R.helpers;
-    R.register(16,R.lesson({
-        title:'Which One?',
-        objectives:['Nomear cores e peças de roupa frequentes.','Evitar repetição com one e ones.','Usar object pronouns em pedidos e respostas simples.','Usar still e not yet em situações de compra.'],
-        intro:[
-            line('Clerk','Which jacket do you prefer, the black one or the blue one?','Qual jaqueta você prefere, a preta ou a azul?'),
-            line('Emma','I like the blue one. Can you show it to me?','Gosto da azul. Pode mostrá-la para mim?'),
-            line('Clerk','Of course. Do you want to try it on?','Claro. Você quer experimentá-la?'),
-            line('Emma','Yes, but I still need a shirt.','Sim, mas ainda preciso de uma camisa.'),
-            line('Clerk','What about these white ones?','Que tal estas brancas?'),
-            line('Emma','I’m not sure yet.','Ainda não tenho certeza.')
+(function(){'use strict';window.A1V3LessonRegistry.register(16,{
+  "title": "At the Store",
+  "type": "content",
+  "summary": "Comprar dois itens, confirmar o total e perguntar a forma de pagamento.",
+  "mission": {
+    "title": "At the Store",
+    "task": "Comprar dois itens, confirmar o total e perguntar a forma de pagamento.",
+    "focus": [
+      "Produtos, preços, quantidades e pagamento; números acima de 100 em preços; How much is/are…?; I'd like… como bloco."
+    ],
+    "semanticTags": [
+      "numbers-quantities",
+      "shopping-money",
+      "interests-preferences"
+    ]
+  },
+  "slides": [
+    {
+      "id": "opening",
+      "type": "dialogue",
+      "title": "At the Store",
+      "kicker": "At the Store",
+      "instruction": "Acompanhe a leitura do professor. Depois leiam juntos e identifiquem a situação.",
+      "lines": [
+        [
+          "Clerk",
+          "Can I help you?",
+          "Posso ajudar?"
         ],
-        vocab:[
-            v('black','preto(a)','I like the black jacket.','Gosto da jaqueta preta.'),v('white','branco(a)','These white shirts are on sale.','Estas camisas brancas estão em promoção.'),
-            v('blue','azul','The blue one is nice.','A azul é bonita.'),v('red','vermelho(a)','Show me the red dress.','Mostre-me o vestido vermelho.'),
-            v('green','verde','He has a green sweater.','Ele tem um suéter verde.'),v('yellow','amarelo(a)','Those yellow socks are small.','Aquelas meias amarelas são pequenas.'),
-            v('gray','cinza','The gray pants are expensive.','A calça cinza é cara.'),v('brown','marrom','I prefer the brown shoes.','Prefiro os sapatos marrons.'),
-            v('shirt','camisa','I need a shirt.','Preciso de uma camisa.'),v('T-shirt','camiseta','This T-shirt is comfortable.','Esta camiseta é confortável.'),
-            v('sweater','suéter','The sweater is warm.','O suéter é quente.'),v('dress','vestido','She likes the red dress.','Ela gosta do vestido vermelho.'),
-            v('skirt','saia','The black skirt is short.','A saia preta é curta.'),v('pants','calça','These pants are large.','Esta calça é grande.'),
-            v('shorts','shorts','The blue shorts are cheap.','O shorts azul é barato.'),v('socks','meias','I need new socks.','Preciso de meias novas.'),
-            v('size','tamanho','What size do you need?','De que tamanho você precisa?'),v('prefer','preferir','I prefer the blue one.','Prefiro a azul.')
+        [
+          "Emma",
+          "Yes. How much is this jacket?",
+          "Sim. Quanto custa esta jaqueta?"
         ],
-        grammar:{title:'One, ones e object pronouns',summary:'Use one para substituir um substantivo singular e ones para plural. Object pronouns recebem a ação.',rows:[
-            ['singular','the + adjective + one','the blue one','o/a azul'],['plural','the + adjective + ones','the white ones','os/as brancos(as)'],
-            ['coisa singular','it','Try it on.','Experimente-a.'],['pessoas/coisas plurais','them','Show them to me.','Mostre-os para mim.'],
-            ['pessoa que fala','me','Can you help me?','Pode me ajudar?'],['outras pessoas','him/her/us','Show him/her/us the jacket.','Mostre a jaqueta a ele/ela/nós.']
-        ],notes:['One/ones substitui o substantivo; não use os dois juntos.', 'It e them aparecem depois do verbo ou preposição.', 'Still = ainda continua; not yet = ainda não.']},
-        activitySections:[
-            activity('Cores e roupas','Combine cor e peça e produza descrições completas.',[
-                p('Match','shirt · dress · shoes · sweater · socks → white · red · brown · green · yellow','white shirt; red dress; brown shoes; green sweater; yellow socks'),
-                p('Complete','a ___ jacket (azul)','blue'),p('Complete','___ pants (cinza)','gray'),p('Complete','a ___ skirt (preta)','black'),
-                p('Classify','shirt · pants · dress · socks · sweater · skirt','singular: shirt, dress, sweater, skirt; plural form: pants, socks'),
-                p('Describe','Jacket: blue · size M · $80','It is a blue jacket. It is size M and it is eighty dollars.'),
-                p('Describe','Shoes: brown · size 9 · $120','They are brown shoes. They are size nine and cost one hundred twenty dollars.'),
-                p('Answer','Choose two colors you wear often.','I often wear ... and ...')
-            ],'Clothes & Colors'),
-            activity('One ou ones?','Substitua o substantivo repetido sem perder singular ou plural.',[
-                p('Complete','I like the blue jacket, not the black ___.','one'),p('Complete','These shirts are small. Show me the large ___.','ones'),
-                p('Transform','the red dress','the red one'),p('Transform','the white shirts','the white ones'),
-                p('Answer','Which jacket do you prefer: black or blue?','I prefer the ... one.'),p('Answer','Which shirts do you prefer: white or green?','I prefer the ... ones.'),
-                p('Correct','I like the blue one jacket.','I like the blue jacket. / I like the blue one.'),p('Correct','Show me the black ones shirt.','Show me the black shirt. / Show me the black one.'),
-                p('Build','prefer / one / I / blue / the','I prefer the blue one.'),p('Build','about / What / white / ones / the / ?','What about the white ones?')
-            ]),
-            activity('It, them, me, him, her ou us?','Escolha o pronome que recebe a ação e use still/not yet em contexto.',[
-                p('Complete','This jacket is nice. I want to try ___ on.','it'),p('Complete','These shoes are nice. Show ___ to me.','them'),
-                p('Complete','Can you help ___? I need a size M.','me'),p('Complete','Sarah likes the dress. Show it to ___.','her'),
-                p('Complete','Leo likes the jacket. Show it to ___.','him'),p('Complete','We need two shirts. Please show ___ the blue ones.','us'),
-                p('Complete','I ___ need a shirt.','still'),p('Complete','I’m not ready ___.','yet'),
-                p('Correct','I want to try them on. (one jacket)','I want to try it on.'),p('Correct','Show she the blue shirt.','Show her the blue shirt.'),
-                p('Create','You need a jacket but are not sure about the color.','I still need a jacket, but I’m not sure about the color yet.')
-            ],'Pronoun Practice')
+        [
+          "Clerk",
+          "It’s one hundred twenty dollars.",
+          "Custa cento e vinte dólares."
         ],
-        translations:[t('Qual jaqueta você prefere?','Which jacket do you prefer?'),t('Eu prefiro a azul.','I prefer the blue one.'),t('Eu prefiro as brancas.','I prefer the white ones.'),t('Pode mostrá-la para mim?','Can you show it to me?'),t('Eu quero experimentá-la.','I want to try it on.'),t('Mostre-os para ela.','Show them to her.'),t('Ainda preciso de uma camisa.','I still need a shirt.'),t('Ainda não tenho certeza.','I’m not sure yet.'),t('De que tamanho você precisa?','What size do you need?'),t('Estas calças cinzas são caras.','These gray pants are expensive.')],
-        expressions:[
-            x('Which one?', 'Qual deles/delas?', 'Pergunta por uma opção singular.','Which one do you prefer?','Qual você prefere?'),
-            x('Which ones?', 'Quais deles/delas?', 'Pergunta por opções plurais.','Which ones do you like?','Quais você gosta?'),
-            x('the ... one/ones','o/a ...; os/as ...','Evita repetir o substantivo.','I prefer the black ones.','Prefiro os pretos.'),
-            x('Can you show it/them to me?','Pode mostrar para mim?','Pedido por um ou vários itens.','Can you show them to me?','Pode mostrá-los para mim?'),
-            x('I’d like to try it on.','Gostaria de experimentar.','Pedido para provar roupa.','I’d like to try the blue one on.','Gostaria de experimentar a azul.'),
-            x('What size do you need?','De que tamanho você precisa?','Pergunta comum em loja.','What size do you need? Size M.','De que tamanho precisa? M.'),
-            x('I still need...','Ainda preciso de...','Necessidade que continua.','I still need shoes.','Ainda preciso de sapatos.'),
-            x('I’m not sure yet.','Ainda não tenho certeza.','Decisão ainda não concluída.','Blue or black? I’m not sure yet.','Azul ou preto? Ainda não tenho certeza.')
+        [
+          "Emma",
+          "And how much are those shirts?",
+          "E quanto custam aquelas camisas?"
         ],
-        dialogues:[
-            dialogue('Choosing a jacket',line('A','Which jacket do you prefer?','Qual jaqueta você prefere?'),line('B','The blue one.','A azul.'),line('A','Would you like to try it on?','Gostaria de experimentá-la?'),line('B','Yes, please. Do you have a medium?','Sim, por favor. Vocês têm tamanho médio?'),line('A','Yes. Here it is.','Sim. Aqui está.'),line('B','Thank you. I really like it.','Obrigado. Eu gostei muito dela.')),
-            dialogue('White or green shirts',line('A','Do you like these white shirts?','Você gosta destas camisas brancas?'),line('B','They’re nice, but I prefer the green ones.','Elas são bonitas, mas prefiro as verdes.'),line('A','Do you want to try them on?','Você quer experimentá-las?'),line('B','Yes. Show me a small one, please.','Sim. Mostre-me uma pequena, por favor.')),
-            dialogue('The brown shoes',line('A','Can you show me the brown shoes?','Pode me mostrar os sapatos marrons?'),line('B','Of course. Here they are.','Claro. Aqui estão.'),line('A','They’re nice. How much are they?','Eles são bonitos. Quanto custam?'),line('B','They’re eighty dollars.','Custam oitenta dólares.'),line('A','Do you have them in black?','Vocês os têm em preto?'),line('B','Yes. I can show them to you.','Sim. Posso mostrá-los para você.')),
-            dialogue('Still shopping',line('A','Are you ready to pay?','Você está pronto para pagar?'),line('B','Not yet. I still need a sweater.','Ainda não. Ainda preciso de um suéter.'),line('A','What color do you want?','Que cor você quer?'),line('B','Gray or black.','Cinza ou preto.'),line('A','How about this gray one?','Que tal este cinza?'),line('B','Perfect. I’ll take it.','Perfeito. Vou levá-lo.')),
-            dialogue('A dress for Sarah',line('A','Sarah likes this dress.','Sarah gosta deste vestido.'),line('B','Show it to her.','Mostre-o para ela.'),line('A','Do you think she likes the red one?','Você acha que ela gosta do vermelho?'),line('B','Yes, but show her the blue one too.','Sim, mas mostre o azul para ela também.'),line('A','Good idea.','Boa ideia.'))
+        [
+          "Clerk",
+          "They’re forty-five dollars each. We have only a few blue shirts.",
+          "Elas custam quarenta e cinco dólares cada. Temos apenas algumas camisas azuis."
         ],
-        dialogueGroups: [[0, 1], [2, 3, 4]],
-        reading:reading('Emma’s choices','Emma needs a jacket, two shirts and new shoes. She likes the blue jacket, but she is not sure yet. The black one is cheaper. The white shirts are small, so she asks for the green ones. The clerk shows them to her. Emma still needs shoes. She likes the brown ones and tries them on.',question('What does Emma need?','She needs a jacket, two shirts and shoes.'),question('Which jacket is cheaper?','The black one is cheaper.'),question('Why doesn’t she choose the white shirts?','They are small.'),question('Which shirts does she ask for?','She asks for the green ones.'),question('Which shoes does she like?','She likes the brown ones.')),
-        conversation:{questions:['What colors do you wear often?','Which color do you prefer for a jacket?','Name six pieces of clothing.','Choose between two shirts using one or ones.','Ask to see an item.','Say what you still need.','Say one decision you have not made yet.','Create a full store exchange with three choices.'],support:['Which one/ones?','I prefer the ... one/ones.','Show it/them to me.','I’d like to try it on.','I still need...','Not yet.']},
-        homework:homework('Crie três conjuntos de roupas e prepare decisões de compra.',['Roupas para o trabalho','Roupas para uma viagem','Compras com três cores e tamanhos'],['Incluí pelo menos dez peças e oito cores.','Usei one/ones e object pronouns.','Incluí still e not yet em situações naturais.']),
-        mission:{title:'Choose the outfit',task:'Escolha roupas para uma situação, peça para ver e experimentar itens e explique as escolhas.',focus:['one/ones','object pronouns','decisão clara']}
-    }));
-}());
+        [
+          "Emma",
+          "Okay. I have a little time, so I’d like to try one on.",
+          "Certo. Tenho um pouco de tempo, então gostaria de experimentar uma."
+        ]
+      ]
+    },
+    {
+      "id": "vocabulary",
+      "type": "cards",
+      "title": "Vocabulary Expansion",
+      "kicker": "Vocabulary Expansion",
+      "instruction": "Leia os significados e exemplos. Escolha palavras para usar durante a conversa.",
+      "cards": [
+        [
+          "store",
+          "loja",
+          "The store is at the mall."
+        ],
+        [
+          "price",
+          "preço",
+          "The price is on the tag."
+        ],
+        [
+          "tag",
+          "etiqueta",
+          "Check the price tag."
+        ],
+        [
+          "cashier",
+          "caixa; pessoa do caixa",
+          "The cashier is near the door."
+        ],
+        [
+          "cash",
+          "dinheiro em espécie",
+          "I pay in cash."
+        ],
+        [
+          "card",
+          "cartão",
+          "Can I pay by card?"
+        ],
+        [
+          "cost",
+          "custar",
+          "How much does it cost?"
+        ],
+        [
+          "each",
+          "cada",
+          "The shirts are forty dollars each."
+        ],
+        [
+          "cheap",
+          "barato(a)",
+          "This shirt is cheap."
+        ],
+        [
+          "expensive",
+          "caro(a)",
+          "That jacket is expensive."
+        ],
+        [
+          "sale",
+          "promoção",
+          "The shoes are on sale."
+        ],
+        [
+          "change",
+          "troco",
+          "Here is your change."
+        ],
+        [
+          "few",
+          "poucos; insuficientes",
+          "There are few shirts left."
+        ],
+        [
+          "a few",
+          "alguns; quantidade pequena",
+          "We have a few blue shirts."
+        ],
+        [
+          "little",
+          "pouco; insuficiente",
+          "We have little time."
+        ],
+        [
+          "a little",
+          "um pouco; quantidade pequena",
+          "I have a little time."
+        ],
+        [
+          "try on",
+          "experimentar roupa",
+          "I’d like to try it on."
+        ],
+        [
+          "pay",
+          "pagar",
+          "Where can I pay?"
+        ]
+      ]
+    },
+    {
+      "id": "reference-0",
+      "type": "reference",
+      "title": "Preços e números maiores",
+      "kicker": "Preços e números maiores",
+      "instruction": "Consulte estes exemplos durante a prática.",
+      "body": "<section><div class=\"slide-heading\"><p class=\"lesson-panel-title\">Prices & Larger Numbers</p><h2>Números acima de cem</h2><p>Em preços, ouça primeiro a moeda e depois confirme o valor completo.</p></div><div class=\"large-number-grid\"><button type=\"button\" class=\"hundred-card\" data-v3-speak=\"one hundred\"><strong>100</strong><span>one hundred</span><i class=\"fas fa-volume-up\"></i></button><button type=\"button\" class=\"hundred-card\" data-v3-speak=\"one hundred fifty\"><strong>150</strong><span>one hundred fifty</span><i class=\"fas fa-volume-up\"></i></button><button type=\"button\" class=\"hundred-card\" data-v3-speak=\"two hundred\"><strong>200</strong><span>two hundred</span><i class=\"fas fa-volume-up\"></i></button><button type=\"button\" class=\"hundred-card\" data-v3-speak=\"three hundred fifty\"><strong>350</strong><span>three hundred fifty</span><i class=\"fas fa-volume-up\"></i></button><button type=\"button\" class=\"hundred-card\" data-v3-speak=\"five hundred\"><strong>500</strong><span>five hundred</span><i class=\"fas fa-volume-up\"></i></button><button type=\"button\" class=\"hundred-card\" data-v3-speak=\"seven hundred fifty\"><strong>750</strong><span>seven hundred fifty</span><i class=\"fas fa-volume-up\"></i></button><button type=\"button\" class=\"hundred-card\" data-v3-speak=\"one thousand\"><strong>1,000</strong><span>one thousand</span><i class=\"fas fa-volume-up\"></i></button><button type=\"button\" class=\"hundred-card\" data-v3-speak=\"one thousand five hundred\"><strong>1,500</strong><span>one thousand five hundred</span><i class=\"fas fa-volume-up\"></i></button><button type=\"button\" class=\"hundred-card\" data-v3-speak=\"two thousand\"><strong>2,000</strong><span>two thousand</span><i class=\"fas fa-volume-up\"></i></button><button type=\"button\" class=\"hundred-card\" data-v3-speak=\"ten thousand\"><strong>10,000</strong><span>ten thousand</span><i class=\"fas fa-volume-up\"></i></button></div><div class=\"grammar-notes\"><p><strong>US$ 125:</strong> one hundred twenty-five dollars.</p><p><strong>R$ 1,250:</strong> one thousand two hundred fifty reais.</p></div></section>"
+    },
+    {
+      "id": "verbs",
+      "type": "verbs",
+      "title": "Verb bank",
+      "kicker": "Verb bank",
+      "instruction": "Consulte o infinitivo, o passado e o particípio. Observe nos exemplos a forma usada na frase.",
+      "cards": [
+        [
+          "buy",
+          "comprar",
+          "I buy bread here.",
+          "bought · bought"
+        ],
+        [
+          "pay",
+          "pagar",
+          "Can I pay by card?",
+          "paid · paid"
+        ],
+        [
+          "cost",
+          "custar",
+          "It costs ten dollars.",
+          "cost · cost"
+        ],
+        [
+          "choose",
+          "escolher",
+          "Choose a color.",
+          "chose · chosen"
+        ]
+      ]
+    },
+    {
+      "id": "helping",
+      "type": "patterns",
+      "title": "Helping You",
+      "kicker": "Helping You",
+      "instruction": "How much is pergunta preço singular; How much are pergunta preço plural. A few acompanha contáveis e a little acompanha não contáveis.",
+      "groups": [
+        {
+          "title": "How much e pequenas quantidades",
+          "cards": [
+            [
+              "How much is this/that + noun?",
+              "Quanto custa esta jaqueta?",
+              "How much is this jacket?"
+            ],
+            [
+              "How much are these/those + plural?",
+              "Quanto custam aquelas camisas?",
+              "How much are those shirts?"
+            ],
+            [
+              "a few + plural noun",
+              "algumas camisas",
+              "a few shirts"
+            ],
+            [
+              "few + plural noun",
+              "poucas camisas",
+              "few shirts"
+            ],
+            [
+              "a little + noun",
+              "um pouco de tempo",
+              "a little time"
+            ],
+            [
+              "little + noun",
+              "pouco dinheiro",
+              "little money"
+            ]
+          ]
+        },
+        {
+          "title": "Como usar",
+          "cards": [
+            [
+              "Observe 1",
+              "A em a few/a little transmite uma pequena quantidade disponível.",
+              ""
+            ],
+            [
+              "Observe 2",
+              "Sem a, few/little frequentemente destaca insuficiência.",
+              ""
+            ],
+            [
+              "Observe 3",
+              "Use they’re para responder sobre itens plurais.",
+              ""
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice-0",
+      "type": "drill",
+      "title": "Leia preços e números maiores",
+      "kicker": "Leia preços e números maiores",
+      "instruction": "Escreva o valor por extenso antes de revelar o modelo.",
+      "items": [
+        [
+          "105",
+          "one hundred five"
+        ],
+        [
+          "120",
+          "one hundred twenty"
+        ],
+        [
+          "245",
+          "two hundred forty-five"
+        ],
+        [
+          "500",
+          "five hundred"
+        ],
+        [
+          "750",
+          "seven hundred fifty"
+        ],
+        [
+          "999",
+          "nine hundred ninety-nine"
+        ],
+        [
+          "1,000",
+          "one thousand"
+        ],
+        [
+          "1,250",
+          "one thousand two hundred fifty"
+        ],
+        [
+          "2,500",
+          "two thousand five hundred"
+        ],
+        [
+          "Price: $45",
+          "forty-five dollars"
+        ],
+        [
+          "Price: $120",
+          "one hundred twenty dollars"
+        ],
+        [
+          "Price: R$1,500",
+          "one thousand five hundred reais"
+        ]
+      ]
+    },
+    {
+      "id": "practice-1",
+      "type": "drill",
+      "title": "Pergunte o preço correto",
+      "kicker": "Pergunte o preço correto",
+      "instruction": "Escolha is para um item e are para itens plurais.",
+      "items": [
+        [
+          "How much ___ this jacket?",
+          "is"
+        ],
+        [
+          "How much ___ those shirts?",
+          "are"
+        ],
+        [
+          "How much ___ these shoes?",
+          "are"
+        ],
+        [
+          "is / How much / bag / this / ?",
+          "How much is this bag?"
+        ],
+        [
+          "those / How much / are / jackets / ?",
+          "How much are those jackets?"
+        ],
+        [
+          "How much is the jacket? $120",
+          "It’s one hundred twenty dollars."
+        ],
+        [
+          "How much are the shirts? $45 each",
+          "They’re forty-five dollars each."
+        ],
+        [
+          "How many is this shirt?",
+          "How much is this shirt?"
+        ],
+        [
+          "How much is those shoes?",
+          "How much are those shoes?"
+        ],
+        [
+          "Ask about one singular and one plural item.",
+          "How much is...? How much are...?"
+        ]
+      ]
+    },
+    {
+      "id": "practice-2",
+      "type": "drill",
+      "title": "Few, a few, little ou a little?",
+      "kicker": "Few, a few, little ou a little?",
+      "instruction": "Observe se o substantivo é contável e se a quantidade é suficiente.",
+      "items": [
+        [
+          "We have (a few / a little) shirts.",
+          "a few"
+        ],
+        [
+          "I have (a few / a little) time.",
+          "a little"
+        ],
+        [
+          "There are (few / little) shoes left.",
+          "few"
+        ],
+        [
+          "I have (few / little) money today.",
+          "little"
+        ],
+        [
+          "We have ___ blue jackets. You can choose one.",
+          "a few"
+        ],
+        [
+          "I have ___ time. I can try it on.",
+          "a little"
+        ],
+        [
+          "There are ___ items left. The store is almost empty.",
+          "few"
+        ],
+        [
+          "I have ___ money. I cannot buy the jacket.",
+          "little"
+        ],
+        [
+          "I have a few money.",
+          "I have a little money."
+        ],
+        [
+          "There is a little shirts.",
+          "There are a few shirts."
+        ],
+        [
+          "Store: blue shirts 3 available · time 10 minutes available",
+          "There are a few blue shirts, and I have a little time."
+        ]
+      ]
+    },
+    {
+      "id": "drill",
+      "type": "drill",
+      "title": "Say it in English.",
+      "kicker": "Say it in English.",
+      "instruction": "Diga a frase em inglês. Confira o modelo e depois personalize uma informação.",
+      "items": [
+        [
+          "Quanto custa esta jaqueta?",
+          "How much is this jacket?"
+        ],
+        [
+          "Ela custa cento e vinte dólares.",
+          "It’s one hundred twenty dollars."
+        ],
+        [
+          "Quanto custam aquelas camisas?",
+          "How much are those shirts?"
+        ],
+        [
+          "Elas custam quarenta e cinco dólares cada.",
+          "They’re forty-five dollars each."
+        ],
+        [
+          "Temos algumas camisas azuis.",
+          "We have a few blue shirts."
+        ],
+        [
+          "Há poucas jaquetas restantes.",
+          "There are few jackets left."
+        ],
+        [
+          "Tenho um pouco de tempo.",
+          "I have a little time."
+        ],
+        [
+          "Tenho pouco dinheiro hoje.",
+          "I have little money today."
+        ],
+        [
+          "Posso pagar com cartão?",
+          "Can I pay by card?"
+        ],
+        [
+          "Eu gostaria de experimentar.",
+          "I’d like to try it on."
+        ]
+      ]
+    },
+    {
+      "id": "expressions",
+      "type": "cards",
+      "title": "Key phrases & expressions",
+      "kicker": "Key phrases & expressions",
+      "instruction": "Use cada expressão como um bloco. Leia o exemplo e crie uma troca curta.",
+      "cards": [
+        [
+          "Can I help you?",
+          "Posso ajudar? · Abertura frequente em lojas.",
+          "Hello. Can I help you?"
+        ],
+        [
+          "How much is this/that...?",
+          "Quanto custa este/aquele...? · Pergunta por um preço singular.",
+          "How much is this jacket?"
+        ],
+        [
+          "How much are these/those...?",
+          "Quanto custam estes/aqueles...? · Pergunta por preço plural.",
+          "How much are those shoes?"
+        ],
+        [
+          "It’s... / They’re...",
+          "Custa... / Custam... · Resposta singular ou plural.",
+          "They’re forty dollars each."
+        ],
+        [
+          "I’d like to try it on.",
+          "Eu gostaria de experimentar. · Pedido para experimentar uma peça.",
+          "This looks nice. I’d like to try it on."
+        ],
+        [
+          "It’s on sale.",
+          "Está em promoção. · Indica preço promocional.",
+          "The jacket is on sale."
+        ],
+        [
+          "Can I pay by card?",
+          "Posso pagar com cartão? · Pergunta sobre forma de pagamento.",
+          "Can I pay by card?"
+        ],
+        [
+          "Here is your change.",
+          "Aqui está seu troco. · Fala comum no caixa.",
+          "Thank you. Here is your change."
+        ],
+        [
+          "That’s too expensive.",
+          "Isso é caro demais. · Recusa baseada em preço.",
+          "One thousand dollars? That’s too expensive."
+        ]
+      ]
+    },
+    {
+      "id": "dialogues",
+      "type": "dialogue",
+      "title": "Dialog Samples",
+      "kicker": "Dialog Samples",
+      "instruction": "Leiam as situações e troquem os papéis. Depois alterem uma informação.",
+      "lines": [
+        [
+          "A",
+          "Excuse me. How much is this jacket?",
+          "Com licença. Quanto custa esta jaqueta?"
+        ],
+        [
+          "B",
+          "It’s one hundred twenty dollars.",
+          "Custa cento e vinte dólares."
+        ],
+        [
+          "A",
+          "Do you have it in blue?",
+          "Vocês têm esta peça em azul?"
+        ],
+        [
+          "B",
+          "Yes, but we have only a few.",
+          "Sim, mas temos apenas algumas."
+        ],
+        [
+          "A",
+          "Great. I’d like to try on the blue one.",
+          "Ótimo. Eu gostaria de experimentar a azul."
+        ],
+        [
+          "B",
+          "Of course. The fitting room is over there.",
+          "Claro. O provador fica ali."
+        ],
+        [
+          "A",
+          "How much are those shirts?",
+          "Quanto custam aquelas camisas?"
+        ],
+        [
+          "B",
+          "They’re forty-five dollars each.",
+          "Elas custam quarenta e cinco dólares cada."
+        ],
+        [
+          "A",
+          "And how much are two shirts?",
+          "E quanto custam duas camisas?"
+        ],
+        [
+          "B",
+          "They’re ninety dollars.",
+          "Elas custam noventa dólares."
+        ],
+        [
+          "A",
+          "Is this bag expensive?",
+          "Esta bolsa é cara?"
+        ],
+        [
+          "B",
+          "No. It’s on sale.",
+          "Não. Está em promoção."
+        ],
+        [
+          "A",
+          "How much is it?",
+          "Quanto custa?"
+        ],
+        [
+          "B",
+          "It’s fifty dollars.",
+          "Custa cinquenta dólares."
+        ],
+        [
+          "A",
+          "That’s a good price.",
+          "É um bom preço."
+        ],
+        [
+          "B",
+          "Yes, the regular price is eighty dollars.",
+          "Sim, o preço normal é oitenta dólares."
+        ],
+        [
+          "A",
+          "Do you have blue shirts?",
+          "Vocês têm camisas azuis?"
+        ],
+        [
+          "B",
+          "Yes, but we have only a few.",
+          "Sim, mas temos apenas algumas."
+        ],
+        [
+          "A",
+          "Can you show me a medium?",
+          "Pode me mostrar uma de tamanho médio?"
+        ],
+        [
+          "B",
+          "Sure. Here you are.",
+          "Claro. Aqui está."
+        ],
+        [
+          "A",
+          "Can I pay by card?",
+          "Posso pagar com cartão?"
+        ],
+        [
+          "B",
+          "Yes, of course.",
+          "Sim, claro."
+        ],
+        [
+          "A",
+          "Great. I’ll take the jacket and the bag.",
+          "Ótimo. Vou levar a jaqueta e a bolsa."
+        ],
+        [
+          "B",
+          "That’s one hundred seventy dollars.",
+          "São cento e setenta dólares."
+        ],
+        [
+          "A",
+          "Here is my card.",
+          "Aqui está meu cartão."
+        ],
+        [
+          "B",
+          "Thank you. Have a nice day.",
+          "Obrigado. Tenha um bom dia."
+        ]
+      ],
+      "lineTitles": {
+        "0": "Trying on a jacket",
+        "6": "Two shirts",
+        "10": "A bag on sale",
+        "16": "A few blue shirts",
+        "20": "At the register"
+      }
+    },
+    {
+      "id": "reading",
+      "type": "reading",
+      "title": "The weekend sale",
+      "kicker": "The weekend sale",
+      "instruction": "O professor lê primeiro. Depois leia e responda às perguntas consultando o texto.",
+      "paragraphs": [
+        "The store has a weekend sale. There are a few blue shirts for thirty-five dollars each and a few black jackets for one hundred dollars. There are few red jackets left. Sarah has a little time before work and a little money for shopping. She buys one blue shirt. She does not buy a jacket because one hundred dollars is too expensive for her today."
+      ],
+      "items": [
+        [
+          "What is on sale?",
+          "Shirts and jackets are on sale."
+        ],
+        [
+          "How much are the blue shirts?",
+          "They are thirty-five dollars each."
+        ],
+        [
+          "Are there many red jackets?",
+          "No. There are few red jackets left."
+        ],
+        [
+          "Does Sarah have time to shop?",
+          "She has a little time."
+        ],
+        [
+          "What does she buy?",
+          "She buys one blue shirt."
+        ],
+        [
+          "Why doesn’t she buy a jacket?",
+          "It is too expensive for her."
+        ]
+      ],
+      "translations": []
+    },
+    {
+      "id": "talk",
+      "type": "conversation",
+      "title": "Let's Talk",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor usando suas informações ou um perfil inventado.",
+      "tasks": [
+        [
+          "Pergunta 1",
+          "How much is a typical shirt where you live?"
+        ],
+        [
+          "Pergunta 2",
+          "How much are typical shoes?"
+        ],
+        [
+          "Pergunta 3",
+          "Name one cheap and one expensive item."
+        ],
+        [
+          "Pergunta 4",
+          "Ask the price of three items."
+        ],
+        [
+          "Pergunta 5",
+          "Say two prices above one hundred."
+        ],
+        [
+          "Pergunta 6",
+          "Use a few and a little in two sentences."
+        ]
+      ],
+      "goal": "Comprar dois itens, confirmar o total e perguntar a forma de pagamento.",
+      "challenge": "Depois de responder, faça uma pergunta ao professor."
+    },
+    {
+      "id": "exit",
+      "type": "exit",
+      "title": "Look at your progress.",
+      "kicker": "Look at your progress.",
+      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
+      "checks": [
+        "Comprar dois itens, confirmar o total e perguntar a forma de pagamento.",
+        "Consegui pedir repetição ou esclarecimento.",
+        "Consigo tentar novamente com menos apoio."
+      ]
+    },
+    {
+      "id": "homework",
+      "type": "homework",
+      "title": "Take it with you.",
+      "kicker": "Take it with you.",
+      "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
+      "options": [
+        [
+          "A",
+          "Speak",
+          "Simule uma compra: pergunte o preço, confira a quantidade e confirme o pedido."
+        ],
+        [
+          "B",
+          "Write",
+          "Escreva um diálogo de seis falas entre cliente e vendedor."
+        ],
+        [
+          "C",
+          "Make a Card",
+          "Monte uma vitrine com quatro produtos e preços. Prepare perguntas e duas opções de compra."
+        ]
+      ]
+    }
+  ],
+  "migration": {
+    "sourceLesson": "a1-v3-14-at-the-store",
+    "editorialVersion": "2026.09-a1-38"
+  }
+});}());

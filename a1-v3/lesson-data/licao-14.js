@@ -1,102 +1,771 @@
-(function () {
-    'use strict';
-    const R = window.A1V3LessonRegistry;
-    const { v, x, p, t, line, dialogue, question, reading, activity, homework } = R.helpers;
-
-    function priceNumbersSlide() {
-        const values = [['100','one hundred'],['150','one hundred fifty'],['200','two hundred'],['350','three hundred fifty'],['500','five hundred'],['750','seven hundred fifty'],['1,000','one thousand'],['1,500','one thousand five hundred'],['2,000','two thousand'],['10,000','ten thousand']];
-        return `<section><div class="slide-heading"><p class="lesson-panel-title">Prices & Larger Numbers</p><h2>Números acima de cem</h2><p>Em preços, ouça primeiro a moeda e depois confirme o valor completo.</p></div><div class="large-number-grid">${values.map(([value,word]) => `<button type="button" class="hundred-card" data-v3-speak="${word}"><strong>${value}</strong><span>${word}</span><i class="fas fa-volume-up"></i></button>`).join('')}</div><div class="grammar-notes"><p><strong>US$ 125:</strong> one hundred twenty-five dollars.</p><p><strong>R$ 1,250:</strong> one thousand two hundred fifty reais.</p></div></section>`;
-    }
-
-    R.register(14, R.lesson({
-        title: 'At the Store',
-        objectives: ['Perguntar e informar preços no singular e plural.', 'Compreender números e preços acima de cem.', 'Usar a few/a little para pequenas quantidades suficientes.', 'Distinguir few/little quando a quantidade é insuficiente.'],
-        intro: [
-            line('Clerk', 'Can I help you?', 'Posso ajudar?'),
-            line('Emma', 'Yes. How much is this jacket?', 'Sim. Quanto custa esta jaqueta?'),
-            line('Clerk', 'It’s one hundred twenty dollars.', 'Custa cento e vinte dólares.'),
-            line('Emma', 'And how much are those shirts?', 'E quanto custam aquelas camisas?'),
-            line('Clerk', 'They’re forty-five dollars each. We have only a few blue shirts.', 'Elas custam quarenta e cinco dólares cada. Temos apenas algumas camisas azuis.'),
-            line('Emma', 'Okay. I have a little time, so I’d like to try one on.', 'Certo. Tenho um pouco de tempo, então gostaria de experimentar uma.')
+(function(){'use strict';window.A1V3LessonRegistry.register(14,{
+  "title": "What's in the Kitchen?",
+  "type": "content",
+  "summary": "Verificar ingredientes e preparar uma lista curta de compras.",
+  "mission": {
+    "title": "What's in the Kitchen?",
+    "task": "Verificar ingredientes e preparar uma lista curta de compras.",
+    "focus": [
+      "Comida e embalagens; contável/não contável em contexto; some/any; how much/how many; need."
+    ],
+    "semanticTags": [
+      "numbers-quantities",
+      "food-drink"
+    ]
+  },
+  "slides": [
+    {
+      "id": "opening",
+      "type": "dialogue",
+      "title": "What's in the Kitchen?",
+      "kicker": "What's in the Kitchen?",
+      "instruction": "Acompanhe a leitura do professor. Depois leiam juntos e identifiquem a situação.",
+      "lines": [
+        [
+          "Sarah",
+          "Do we have any eggs?",
+          "Nós temos ovos?"
         ],
-        vocab: [
-            v('store', 'loja', 'The store is at the mall.', 'A loja fica no shopping.'), v('price', 'preço', 'The price is on the tag.', 'O preço está na etiqueta.'),
-            v('tag', 'etiqueta', 'Check the price tag.', 'Confira a etiqueta de preço.'), v('cashier', 'caixa; pessoa do caixa', 'The cashier is near the door.', 'O caixa fica perto da porta.'),
-            v('cash', 'dinheiro em espécie', 'I pay in cash.', 'Eu pago em dinheiro.'), v('card', 'cartão', 'Can I pay by card?', 'Posso pagar com cartão?'),
-            v('cost', 'custar', 'How much does it cost?', 'Quanto custa?'), v('each', 'cada', 'The shirts are forty dollars each.', 'As camisas custam quarenta dólares cada.'),
-            v('cheap', 'barato(a)', 'This shirt is cheap.', 'Esta camisa é barata.'), v('expensive', 'caro(a)', 'That jacket is expensive.', 'Aquela jaqueta é cara.'),
-            v('sale', 'promoção', 'The shoes are on sale.', 'Os sapatos estão em promoção.'), v('change', 'troco', 'Here is your change.', 'Aqui está seu troco.'),
-            v('few', 'poucos; insuficientes', 'There are few shirts left.', 'Restam poucas camisas.'), v('a few', 'alguns; quantidade pequena', 'We have a few blue shirts.', 'Temos algumas camisas azuis.'),
-            v('little', 'pouco; insuficiente', 'We have little time.', 'Temos pouco tempo.'), v('a little', 'um pouco; quantidade pequena', 'I have a little time.', 'Tenho um pouco de tempo.'),
-            v('try on', 'experimentar roupa', 'I’d like to try it on.', 'Eu gostaria de experimentar.'), v('pay', 'pagar', 'Where can I pay?', 'Onde posso pagar?')
+        [
+          "Emma",
+          "No, we don’t. We need some eggs and some milk.",
+          "Não. Precisamos de ovos e leite."
         ],
-        afterVocabularySlides: [{ title: 'Preços e números maiores', body: priceNumbersSlide }],
-        grammar: {
-            title: 'How much e pequenas quantidades',
-            summary: 'How much is pergunta preço singular; How much are pergunta preço plural. A few acompanha contáveis e a little acompanha não contáveis.',
-            rows: [
-                ['preço singular', 'How much is this/that + noun?', 'How much is this jacket?', 'Quanto custa esta jaqueta?'],
-                ['preço plural', 'How much are these/those + plural?', 'How much are those shirts?', 'Quanto custam aquelas camisas?'],
-                ['pequena quantidade contável', 'a few + plural noun', 'a few shirts', 'algumas camisas'],
-                ['quantidade contável insuficiente', 'few + plural noun', 'few shirts', 'poucas camisas'],
-                ['pequena quantidade não contável', 'a little + noun', 'a little time', 'um pouco de tempo'],
-                ['quantidade não contável insuficiente', 'little + noun', 'little money', 'pouco dinheiro']
+        [
+          "Sarah",
+          "How many eggs do we need?",
+          "Quantos ovos precisamos?"
+        ],
+        [
+          "Emma",
+          "Six. We also need a lot of fruit.",
+          "Seis. Também precisamos de muita fruta."
+        ],
+        [
+          "Sarah",
+          "How much rice do we have?",
+          "Quanto arroz temos?"
+        ],
+        [
+          "Emma",
+          "Not much. Let’s buy some rice too.",
+          "Não muito. Vamos comprar arroz também."
+        ]
+      ]
+    },
+    {
+      "id": "vocabulary",
+      "type": "cards",
+      "title": "Vocabulary Expansion",
+      "kicker": "Vocabulary Expansion",
+      "instruction": "Leia os significados e exemplos. Escolha palavras para usar durante a conversa.",
+      "cards": [
+        [
+          "shopping list",
+          "lista de compras",
+          "The shopping list is on my phone."
+        ],
+        [
+          "cart",
+          "carrinho",
+          "The cart is full."
+        ],
+        [
+          "basket",
+          "cesta",
+          "We need a basket."
+        ],
+        [
+          "egg",
+          "ovo",
+          "We need six eggs."
+        ],
+        [
+          "apple",
+          "maçã",
+          "There are four apples."
+        ],
+        [
+          "banana",
+          "banana",
+          "Buy some bananas."
+        ],
+        [
+          "tomato",
+          "tomate",
+          "How many tomatoes do we need?"
+        ],
+        [
+          "bottle",
+          "garrafa",
+          "We need two bottles of water."
+        ],
+        [
+          "milk",
+          "leite",
+          "We need some milk."
+        ],
+        [
+          "rice",
+          "arroz",
+          "There is some rice at home."
+        ],
+        [
+          "bread",
+          "pão",
+          "Do we have any bread?"
+        ],
+        [
+          "cheese",
+          "queijo",
+          "There isn’t any cheese."
+        ],
+        [
+          "coffee",
+          "café",
+          "We have a lot of coffee."
+        ],
+        [
+          "fruit",
+          "fruta",
+          "We need a lot of fruit."
+        ],
+        [
+          "vegetables",
+          "legumes e verduras",
+          "They buy a lot of vegetables."
+        ],
+        [
+          "need",
+          "precisar",
+          "What do we need?"
+        ],
+        [
+          "buy",
+          "comprar",
+          "Let’s buy some rice."
+        ],
+        [
+          "enough",
+          "suficiente",
+          "We have enough water."
+        ]
+      ]
+    },
+    {
+      "id": "verbs",
+      "type": "verbs",
+      "title": "Verb bank",
+      "kicker": "Verb bank",
+      "instruction": "Consulte o infinitivo, o passado e o particípio. Observe nos exemplos a forma usada na frase.",
+      "cards": [
+        [
+          "need",
+          "precisar",
+          "We need some milk.",
+          "needed · needed"
+        ],
+        [
+          "buy",
+          "comprar",
+          "I buy bread here.",
+          "bought · bought"
+        ],
+        [
+          "have",
+          "ter",
+          "She has two brothers.",
+          "had · had"
+        ],
+        [
+          "eat",
+          "comer",
+          "I eat rice for lunch.",
+          "ate · eaten"
+        ],
+        [
+          "drink",
+          "beber",
+          "I drink water.",
+          "drank · drunk"
+        ]
+      ]
+    },
+    {
+      "id": "helping",
+      "type": "patterns",
+      "title": "Helping You",
+      "kicker": "Helping You",
+      "instruction": "Contáveis aceitam número e plural. Não contáveis aparecem como massa ou substância e não recebem plural neste uso.",
+      "groups": [
+        {
+          "title": "Countable, uncountable e quantifiers",
+          "cards": [
+            [
+              "number + plural noun",
+              "seis ovos; quatro maçãs",
+              "six eggs; four apples"
             ],
-            notes: ['A em a few/a little transmite uma pequena quantidade disponível.', 'Sem a, few/little frequentemente destaca insuficiência.', 'Use they’re para responder sobre itens plurais.']
+            [
+              "some + noun",
+              "um pouco de leite; arroz",
+              "some milk; some rice"
+            ],
+            [
+              "any + noun",
+              "Temos pão?",
+              "Do we have any bread?"
+            ],
+            [
+              "How many + plural noun?",
+              "Quantos ovos?",
+              "How many eggs?"
+            ],
+            [
+              "How much + noun?",
+              "Quanto arroz?",
+              "How much rice?"
+            ],
+            [
+              "a lot of + noun",
+              "muita fruta/muitos legumes",
+              "a lot of fruit/vegetables"
+            ]
+          ]
         },
-        activitySections: [
-            activity('Leia preços e números maiores', 'Escreva o valor por extenso antes de revelar o modelo.', [
-                p('Number', '105', 'one hundred five'), p('Number', '120', 'one hundred twenty'), p('Number', '245', 'two hundred forty-five'),
-                p('Number', '500', 'five hundred'), p('Number', '750', 'seven hundred fifty'), p('Number', '999', 'nine hundred ninety-nine'),
-                p('Number', '1,000', 'one thousand'), p('Number', '1,250', 'one thousand two hundred fifty'), p('Number', '2,500', 'two thousand five hundred'),
-                p('Answer', 'Price: $45', 'forty-five dollars'), p('Answer', 'Price: $120', 'one hundred twenty dollars'), p('Answer', 'Price: R$1,500', 'one thousand five hundred reais')
-            ], 'Price Reading'),
-            activity('Pergunte o preço correto', 'Escolha is para um item e are para itens plurais.', [
-                p('Complete', 'How much ___ this jacket?', 'is'), p('Complete', 'How much ___ those shirts?', 'are'), p('Complete', 'How much ___ these shoes?', 'are'),
-                p('Build', 'is / How much / bag / this / ?', 'How much is this bag?'), p('Build', 'those / How much / are / jackets / ?', 'How much are those jackets?'),
-                p('Answer', 'How much is the jacket? $120', 'It’s one hundred twenty dollars.'), p('Answer', 'How much are the shirts? $45 each', 'They’re forty-five dollars each.'),
-                p('Correct', 'How many is this shirt?', 'How much is this shirt?'), p('Correct', 'How much is those shoes?', 'How much are those shoes?'),
-                p('Create', 'Ask about one singular and one plural item.', 'How much is...? How much are...?')
-            ]),
-            activity('Few, a few, little ou a little?', 'Observe se o substantivo é contável e se a quantidade é suficiente.', [
-                p('Choose', 'We have (a few / a little) shirts.', 'a few'), p('Choose', 'I have (a few / a little) time.', 'a little'),
-                p('Choose', 'There are (few / little) shoes left.', 'few'), p('Choose', 'I have (few / little) money today.', 'little'),
-                p('Complete', 'We have ___ blue jackets. You can choose one.', 'a few'), p('Complete', 'I have ___ time. I can try it on.', 'a little'),
-                p('Complete', 'There are ___ items left. The store is almost empty.', 'few'), p('Complete', 'I have ___ money. I cannot buy the jacket.', 'little'),
-                p('Correct', 'I have a few money.', 'I have a little money.'), p('Correct', 'There is a little shirts.', 'There are a few shirts.'),
-                p('Describe', 'Store: blue shirts 3 available · time 10 minutes available', 'There are a few blue shirts, and I have a little time.')
-            ], 'Quantity Nuance')
+        {
+          "title": "Como usar",
+          "cards": [
+            [
+              "Observe 1",
+              "Use some em afirmações e listas.",
+              ""
+            ],
+            [
+              "Observe 2",
+              "Use any em perguntas de disponibilidade e negativas.",
+              ""
+            ],
+            [
+              "Observe 3",
+              "A lot of funciona com contáveis e não contáveis.",
+              ""
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice-0",
+      "type": "drill",
+      "title": "Contável ou não contável?",
+      "kicker": "Contável ou não contável?",
+      "instruction": "Classifique os alimentos e use uma combinação natural.",
+      "items": [
+        [
+          "eggs · milk · apples · rice · tomatoes · bread · bananas · cheese",
+          "countable: eggs, apples, tomatoes, bananas; uncountable: milk, rice, bread, cheese"
         ],
-        translations: [
-            t('Quanto custa esta jaqueta?', 'How much is this jacket?'), t('Ela custa cento e vinte dólares.', 'It’s one hundred twenty dollars.'),
-            t('Quanto custam aquelas camisas?', 'How much are those shirts?'), t('Elas custam quarenta e cinco dólares cada.', 'They’re forty-five dollars each.'),
-            t('Temos algumas camisas azuis.', 'We have a few blue shirts.'), t('Há poucas jaquetas restantes.', 'There are few jackets left.'),
-            t('Tenho um pouco de tempo.', 'I have a little time.'), t('Tenho pouco dinheiro hoje.', 'I have little money today.'),
-            t('Posso pagar com cartão?', 'Can I pay by card?'), t('Eu gostaria de experimentar.', 'I’d like to try it on.')
+        [
+          "(three / some) eggs",
+          "three eggs"
         ],
-        expressions: [
-            x('Can I help you?', 'Posso ajudar?', 'Abertura frequente em lojas.', 'Hello. Can I help you?', 'Olá. Posso ajudar?'),
-            x('How much is this/that...?', 'Quanto custa este/aquele...?', 'Pergunta por um preço singular.', 'How much is this jacket?', 'Quanto custa esta jaqueta?'),
-            x('How much are these/those...?', 'Quanto custam estes/aqueles...?', 'Pergunta por preço plural.', 'How much are those shoes?', 'Quanto custam aqueles sapatos?'),
-            x('It’s... / They’re...', 'Custa... / Custam...', 'Resposta singular ou plural.', 'They’re forty dollars each.', 'Eles custam quarenta dólares cada.'),
-            x('I’d like to try it on.', 'Eu gostaria de experimentar.', 'Pedido para experimentar uma peça.', 'This looks nice. I’d like to try it on.', 'Isto parece bonito. Eu gostaria de experimentar.'),
-            x('It’s on sale.', 'Está em promoção.', 'Indica preço promocional.', 'The jacket is on sale.', 'A jaqueta está em promoção.'),
-            x('Can I pay by card?', 'Posso pagar com cartão?', 'Pergunta sobre forma de pagamento.', 'Can I pay by card?', 'Posso pagar com cartão?'),
-            x('Here is your change.', 'Aqui está seu troco.', 'Fala comum no caixa.', 'Thank you. Here is your change.', 'Obrigado. Aqui está seu troco.'),
-            x('That’s too expensive.', 'Isso é caro demais.', 'Recusa baseada em preço.', 'One thousand dollars? That’s too expensive.', 'Mil dólares? Isso é caro demais.')
+        [
+          "(two / some) milk",
+          "some milk"
         ],
-        dialogues: [
-            dialogue('Trying on a jacket', line('A', 'Excuse me. How much is this jacket?', 'Com licença. Quanto custa esta jaqueta?'), line('B', 'It’s one hundred twenty dollars.', 'Custa cento e vinte dólares.'), line('A', 'Do you have it in blue?', 'Vocês têm esta peça em azul?'), line('B', 'Yes, but we have only a few.', 'Sim, mas temos apenas algumas.'), line('A', 'Great. I’d like to try on the blue one.', 'Ótimo. Eu gostaria de experimentar a azul.'), line('B', 'Of course. The fitting room is over there.', 'Claro. O provador fica ali.')),
-            dialogue('Two shirts', line('A', 'How much are those shirts?', 'Quanto custam aquelas camisas?'), line('B', 'They’re forty-five dollars each.', 'Elas custam quarenta e cinco dólares cada.'), line('A', 'And how much are two shirts?', 'E quanto custam duas camisas?'), line('B', 'They’re ninety dollars.', 'Elas custam noventa dólares.')),
-            dialogue('A bag on sale', line('A', 'Is this bag expensive?', 'Esta bolsa é cara?'), line('B', 'No. It’s on sale.', 'Não. Está em promoção.'), line('A', 'How much is it?', 'Quanto custa?'), line('B', 'It’s fifty dollars.', 'Custa cinquenta dólares.'), line('A', 'That’s a good price.', 'É um bom preço.'), line('B', 'Yes, the regular price is eighty dollars.', 'Sim, o preço normal é oitenta dólares.')),
-            dialogue('A few blue shirts', line('A', 'Do you have blue shirts?', 'Vocês têm camisas azuis?'), line('B', 'Yes, but we have only a few.', 'Sim, mas temos apenas algumas.'), line('A', 'Can you show me a medium?', 'Pode me mostrar uma de tamanho médio?'), line('B', 'Sure. Here you are.', 'Claro. Aqui está.')),
-            dialogue('At the register', line('A', 'Can I pay by card?', 'Posso pagar com cartão?'), line('B', 'Yes, of course.', 'Sim, claro.'), line('A', 'Great. I’ll take the jacket and the bag.', 'Ótimo. Vou levar a jaqueta e a bolsa.'), line('B', 'That’s one hundred seventy dollars.', 'São cento e setenta dólares.'), line('A', 'Here is my card.', 'Aqui está meu cartão.'), line('B', 'Thank you. Have a nice day.', 'Obrigado. Tenha um bom dia.'))
+        [
+          "(four / some) apples",
+          "four apples"
         ],
-        dialogueGroups: [[0, 1], [2, 3, 4]],
-        reading: reading('The weekend sale', 'The store has a weekend sale. There are a few blue shirts for thirty-five dollars each and a few black jackets for one hundred dollars. There are few red jackets left. Sarah has a little time before work and a little money for shopping. She buys one blue shirt. She does not buy a jacket because one hundred dollars is too expensive for her today.',
-            question('What is on sale?', 'Shirts and jackets are on sale.'), question('How much are the blue shirts?', 'They are thirty-five dollars each.'), question('Are there many red jackets?', 'No. There are few red jackets left.'), question('Does Sarah have time to shop?', 'She has a little time.'), question('What does she buy?', 'She buys one blue shirt.'), question('Why doesn’t she buy a jacket?', 'It is too expensive for her.')),
-        conversation: { questions: ['How much is a typical shirt where you live?', 'How much are typical shoes?', 'Name one cheap and one expensive item.', 'Ask the price of three items.', 'Say two prices above one hundred.', 'Use a few and a little in two sentences.', 'You have little money. What do you choose?', 'Complete a store conversation from greeting to payment.'], support: ['Can I help you?', 'How much is/are...?', 'It’s/They’re...', 'a few', 'a little', 'I’d like to try it on.', 'Can I pay by card?'] },
-        homework: homework('Crie uma pequena loja com pelo menos dez itens e preços.', ['Uma loja de roupas', 'Uma loja com promoção', 'Compras com orçamento limitado'], ['Incluí preços abaixo e acima de cem.', 'Preparei perguntas no singular e plural.', 'Usei a few/a little e few/little em contexto.']),
-        mission: { title: 'Shop with a budget', task: 'Descubra preços, experimente uma opção e escolha o que comprar com dinheiro e tempo limitados.', focus: ['preços claros', 'singular/plural', 'decisão com quantidade'] }
-    }));
-}());
+        [
+          "(six / some) rice",
+          "some rice"
+        ],
+        [
+          "two ___ of water",
+          "bottles"
+        ],
+        [
+          "a lot of ___ (vegetable)",
+          "vegetables"
+        ],
+        [
+          "three breads",
+          "some bread / three loaves of bread"
+        ],
+        [
+          "two milks",
+          "some milk / two bottles of milk"
+        ],
+        [
+          "List: eggs 6 · milk · apples 4 · rice",
+          "We need six eggs, some milk, four apples and some rice."
+        ]
+      ]
+    },
+    {
+      "id": "practice-1",
+      "type": "drill",
+      "title": "Some, any ou a lot of?",
+      "kicker": "Some, any ou a lot of?",
+      "instruction": "Decida se a frase é lista, pergunta, negativa ou quantidade grande.",
+      "items": [
+        [
+          "We need (some / any) milk.",
+          "some"
+        ],
+        [
+          "Do we have (some / any) eggs?",
+          "any"
+        ],
+        [
+          "We don’t have (some / any) cheese.",
+          "any"
+        ],
+        [
+          "They buy (a lot of / any) vegetables every week.",
+          "a lot of"
+        ],
+        [
+          "There are ___ apples in the cart.",
+          "some"
+        ],
+        [
+          "There isn’t ___ coffee.",
+          "any"
+        ],
+        [
+          "We have ___ rice, but we need more.",
+          "some"
+        ],
+        [
+          "bread / any / Do / have / we / ?",
+          "Do we have any bread?"
+        ],
+        [
+          "We need any eggs.",
+          "We need some eggs."
+        ],
+        [
+          "Do we have some cheese?",
+          "Do we have any cheese?"
+        ],
+        [
+          "Say two things you have and one thing you do not have.",
+          "We have some... and some... We don’t have any..."
+        ]
+      ]
+    },
+    {
+      "id": "practice-2",
+      "type": "drill",
+      "title": "How many ou how much?",
+      "kicker": "How many ou how much?",
+      "instruction": "Observe se o substantivo pode ser contado diretamente.",
+      "items": [
+        [
+          "(How many / How much) eggs do we need?",
+          "How many"
+        ],
+        [
+          "(How many / How much) rice do we have?",
+          "How much"
+        ],
+        [
+          "(How many / How much) bottles of water?",
+          "How many"
+        ],
+        [
+          "(How many / How much) coffee?",
+          "How much"
+        ],
+        [
+          "apples / many / How / need / we / do / ?",
+          "How many apples do we need?"
+        ],
+        [
+          "milk / much / How / have / we / do / ?",
+          "How much milk do we have?"
+        ],
+        [
+          "How many eggs do we need? Quantity: 6",
+          "We need six eggs."
+        ],
+        [
+          "How much rice do we need?",
+          "We need some rice. / We need a lot of rice."
+        ],
+        [
+          "How much apples do we need?",
+          "How many apples do we need?"
+        ],
+        [
+          "How many milk do we have?",
+          "How much milk do we have?"
+        ],
+        [
+          "Ask about two countable and two uncountable items.",
+          "How many...? How much...?"
+        ]
+      ]
+    },
+    {
+      "id": "drill",
+      "type": "drill",
+      "title": "Say it in English.",
+      "kicker": "Say it in English.",
+      "instruction": "Diga a frase em inglês. Confira o modelo e depois personalize uma informação.",
+      "items": [
+        [
+          "Precisamos de alguns ovos.",
+          "We need some eggs."
+        ],
+        [
+          "Temos leite?",
+          "Do we have any milk?"
+        ],
+        [
+          "Não temos queijo.",
+          "We don’t have any cheese."
+        ],
+        [
+          "Quantas maçãs precisamos?",
+          "How many apples do we need?"
+        ],
+        [
+          "Quanto arroz temos?",
+          "How much rice do we have?"
+        ],
+        [
+          "Precisamos de muitas frutas.",
+          "We need a lot of fruit."
+        ],
+        [
+          "Há quatro tomates no carrinho.",
+          "There are four tomatoes in the cart."
+        ],
+        [
+          "Vamos comprar um pouco de pão.",
+          "Let’s buy some bread."
+        ],
+        [
+          "Temos água suficiente.",
+          "We have enough water."
+        ],
+        [
+          "Do que precisamos?",
+          "What do we need?"
+        ]
+      ]
+    },
+    {
+      "id": "expressions",
+      "type": "cards",
+      "title": "Key phrases & expressions",
+      "kicker": "Key phrases & expressions",
+      "instruction": "Use cada expressão como um bloco. Leia o exemplo e crie uma troca curta.",
+      "cards": [
+        [
+          "What do we need?",
+          "Do que precisamos? · Inicia uma lista de compras.",
+          "What do we need from the store?"
+        ],
+        [
+          "Do we have any...?",
+          "Temos...? · Pergunta sobre disponibilidade.",
+          "Do we have any eggs?"
+        ],
+        [
+          "We need some...",
+          "Precisamos de... · Afirmação de necessidade.",
+          "We need some milk."
+        ],
+        [
+          "We don’t have any...",
+          "Não temos... · Negativa de disponibilidade.",
+          "We don’t have any cheese."
+        ],
+        [
+          "How many...?",
+          "Quantos/quantas...? · Quantidade de item contável.",
+          "How many apples do we need?"
+        ],
+        [
+          "How much...?",
+          "Quanto/quanta...? · Quantidade de item não contável.",
+          "How much rice do we have?"
+        ],
+        [
+          "a lot of",
+          "muito(a); muitos(as) · Quantidade grande.",
+          "We buy a lot of vegetables."
+        ],
+        [
+          "That’s enough.",
+          "É suficiente. · Indica que a quantidade basta.",
+          "Six eggs? That’s enough."
+        ],
+        [
+          "We need more...",
+          "Precisamos de mais... · Indica quantidade insuficiente.",
+          "We need more water."
+        ]
+      ]
+    },
+    {
+      "id": "dialogues",
+      "type": "dialogue",
+      "title": "Dialog Samples",
+      "kicker": "Dialog Samples",
+      "instruction": "Leiam as situações e troquem os papéis. Depois alterem uma informação.",
+      "lines": [
+        [
+          "A",
+          "Do we have any eggs?",
+          "Temos ovos?"
+        ],
+        [
+          "B",
+          "No. We need some eggs.",
+          "Não. Precisamos de ovos."
+        ],
+        [
+          "A",
+          "How many do we need?",
+          "De quantos precisamos?"
+        ],
+        [
+          "B",
+          "Six eggs.",
+          "Seis ovos."
+        ],
+        [
+          "A",
+          "Okay. Six eggs on the list.",
+          "Certo. Seis ovos na lista."
+        ],
+        [
+          "B",
+          "Thank you.",
+          "Obrigado."
+        ],
+        [
+          "A",
+          "How much rice do we have?",
+          "Quanto arroz temos?"
+        ],
+        [
+          "B",
+          "Not much. We need more rice.",
+          "Não muito. Precisamos de mais arroz."
+        ],
+        [
+          "A",
+          "Do we need one bag or two?",
+          "Precisamos de um pacote ou dois?"
+        ],
+        [
+          "B",
+          "One bag is enough.",
+          "Um pacote é suficiente."
+        ],
+        [
+          "A",
+          "And do we have any beans?",
+          "E temos feijão?"
+        ],
+        [
+          "B",
+          "Yes, we have a lot of beans.",
+          "Sim, temos bastante feijão."
+        ],
+        [
+          "A",
+          "How many apples do we need?",
+          "Quantas maçãs precisamos?"
+        ],
+        [
+          "B",
+          "Four apples and some bananas.",
+          "Quatro maçãs e algumas bananas."
+        ],
+        [
+          "A",
+          "Do we need oranges too?",
+          "Precisamos de laranjas também?"
+        ],
+        [
+          "B",
+          "Yes, but only a few.",
+          "Sim, mas apenas algumas."
+        ],
+        [
+          "A",
+          "Do we have enough water?",
+          "Temos água suficiente?"
+        ],
+        [
+          "B",
+          "Yes. We have two bottles.",
+          "Sim. Temos duas garrafas."
+        ],
+        [
+          "A",
+          "Great. We don’t need more today.",
+          "Ótimo. Não precisamos de mais hoje."
+        ],
+        [
+          "B",
+          "That’s right.",
+          "Isso mesmo."
+        ],
+        [
+          "A",
+          "What do we need from the market?",
+          "Do que precisamos do mercado?"
+        ],
+        [
+          "B",
+          "Some milk, some bread and a lot of vegetables.",
+          "Leite, pão e muitos legumes."
+        ],
+        [
+          "A",
+          "Do we need any cheese?",
+          "Precisamos de queijo?"
+        ],
+        [
+          "B",
+          "Yes, and we need a few tomatoes too.",
+          "Sim, e precisamos de alguns tomates também."
+        ],
+        [
+          "A",
+          "Is that all?",
+          "É só isso?"
+        ],
+        [
+          "B",
+          "Yes. The list is complete.",
+          "Sim. A lista está completa."
+        ]
+      ],
+      "lineTitles": {
+        "0": "Eggs for breakfast",
+        "6": "Rice for dinner",
+        "12": "Fruit for the week",
+        "16": "Water at home",
+        "20": "The complete list"
+      }
+    },
+    {
+      "id": "reading",
+      "type": "reading",
+      "title": "A list for dinner",
+      "kicker": "A list for dinner",
+      "instruction": "O professor lê primeiro. Depois leia e responda às perguntas consultando o texto.",
+      "paragraphs": [
+        "Sarah and Emma need food for dinner. They have some rice and a lot of vegetables, but they don’t have any cheese or bread. They need six eggs, two bottles of water, some milk and four tomatoes. They have enough coffee, so coffee is not on the shopping list."
+      ],
+      "items": [
+        [
+          "Do they have rice?",
+          "Yes, they have some rice."
+        ],
+        [
+          "Do they have any cheese?",
+          "No, they don’t."
+        ],
+        [
+          "How many eggs do they need?",
+          "They need six eggs."
+        ],
+        [
+          "How many bottles of water do they need?",
+          "They need two bottles."
+        ],
+        [
+          "Is coffee on the list?",
+          "No. They have enough coffee."
+        ]
+      ],
+      "translations": []
+    },
+    {
+      "id": "talk",
+      "type": "conversation",
+      "title": "Let's Talk",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor usando suas informações ou um perfil inventado.",
+      "tasks": [
+        [
+          "Pergunta 1",
+          "What food do you have at home?"
+        ],
+        [
+          "Pergunta 2",
+          "Do you have any eggs?"
+        ],
+        [
+          "Pergunta 3",
+          "How much coffee do you have?"
+        ],
+        [
+          "Pergunta 4",
+          "How many bottles of water do you need?"
+        ],
+        [
+          "Pergunta 5",
+          "Create a shopping list with ten items."
+        ],
+        [
+          "Pergunta 6",
+          "Ask four questions about the list."
+        ]
+      ],
+      "goal": "Verificar ingredientes e preparar uma lista curta de compras.",
+      "challenge": "Depois de responder, faça uma pergunta ao professor."
+    },
+    {
+      "id": "exit",
+      "type": "exit",
+      "title": "Look at your progress.",
+      "kicker": "Look at your progress.",
+      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
+      "checks": [
+        "Verificar ingredientes e preparar uma lista curta de compras.",
+        "Consegui pedir repetição ou esclarecimento.",
+        "Consigo tentar novamente com menos apoio."
+      ]
+    },
+    {
+      "id": "homework",
+      "type": "homework",
+      "title": "Take it with you.",
+      "kicker": "Take it with you.",
+      "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
+      "options": [
+        [
+          "A",
+          "Speak",
+          "Diga o que há e o que não há na sua geladeira usando some e any."
+        ],
+        [
+          "B",
+          "Write",
+          "Faça uma lista de compras e escreva quatro perguntas com how much ou how many."
+        ],
+        [
+          "C",
+          "Make a Card",
+          "Monte dois cartões: o que já temos e o que precisamos comprar para uma refeição."
+        ]
+      ]
+    }
+  ],
+  "migration": {
+    "sourceLesson": "a1-v3-13-let-s-go-shopping",
+    "editorialVersion": "2026.09-a1-38"
+  }
+});}());
