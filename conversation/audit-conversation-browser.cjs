@@ -156,8 +156,9 @@ async function auditPage(browser, baseUrl, lessonNumber, profile, capture = fals
         if (structural.nestedFlashcardButtons !== 0) errors.push(`flashcards contain ${structural.nestedFlashcardButtons} invalid nested interactive controls`);
         if (structural.debates.some((count) => count !== 4)) errors.push(`debate counts are ${structural.debates.join('/')}`);
         if (structural.contexts !== 2 || structural.practiceZones !== 6) errors.push('context or practice contract missing');
-        if (lessonNumber <= 48 && (!structural.homeworkModel || structural.homeworkMode !== 'modeled' || structural.homeworkOptions !== 0)) errors.push(`modeled homework contract failed: ${JSON.stringify(structural)}`);
-        if (lessonNumber >= 49 && (structural.homeworkMode !== 'options' || structural.homeworkOptions !== 3 || structural.homeworkModel)) errors.push(`three-option homework contract failed: ${JSON.stringify(structural)}`);
+        const expectsHomeworkOptions = lessonNumber === 42 || lessonNumber === 47 || lessonNumber >= 49;
+        if (!expectsHomeworkOptions && (!structural.homeworkModel || structural.homeworkMode !== 'modeled' || structural.homeworkOptions !== 0)) errors.push(`modeled homework contract failed: ${JSON.stringify(structural)}`);
+        if (expectsHomeworkOptions && (structural.homeworkMode !== 'options' || structural.homeworkOptions !== 3 || structural.homeworkModel)) errors.push(`three-option homework contract failed: ${JSON.stringify(structural)}`);
         structural.flashcardSemantics.forEach((card, index) => {
             if (card.terms !== 1 || card.meanings !== 1 || card.examples !== 1) errors.push(`flashcard ${index + 1}: semantic selectors are not exclusive`);
             if (card.pronounce !== card.term) errors.push(`flashcard ${index + 1}: pronunciation target differs from term`);

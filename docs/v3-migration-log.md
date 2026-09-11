@@ -235,3 +235,28 @@ Próxima fatia recomendada: consolidar o contrato compartilhado de atividades e 
 - Corrigidos contador que usava slides anteriores à hidratação, redirecionamento após falha de gravação e instrução de clique herdada indevidamente pelo Quick Start comunicativo.
 - Auditorias mínimas e específicas aprovadas. Novo teste exige contador correto e permanência na aula após conclusão recusada nas 32 páginas; serviços simulados, sem gravações reais.
 - Limitação visual: Tailwind/fontes/ícones externos recusados pelo ambiente. Capturas não aprovam o layout online. Priorizar CSS local na migração e repetir a inspeção com estilos disponíveis.
+
+## 2026-09-09 · A2 — migração integral para apresentação por seção
+
+- Fatia de infraestrutura: player, CSS local e tema compartilhados em js/v3-presentation.js, css/v3-presentation.css e js/v3-presentation-theme.js. A1 e A2 usam a mesma implementação, preservando os dados canônicos de cada módulo.
+- Fatia lexical: 15 aulas com diálogo inicial completo, 14–19 palavras, 8–10 expressões, exemplos, explicações, verbos, leitura e prática. Slides representam seções completas.
+- Fatia comunicativa: 15 aulas ligadas à lexical anterior, documentos e diálogos completos, papéis alternáveis, nova mensagem com questões e mudança de situação. Consolidações 31 e 32 com quatro missões cada. Homework com três alternativas.
+- Fatia de integração: 32 páginas e hub atualizados; professor acessa todas as aulas, aluno mantém progressão. Ouvir/Salvar, infinitivos com to, tema persistente e conclusão por aluno selecionado preservados. Música exclusivamente lexical antes do homework; catálogo e estados de provedor preservados.
+- Verificação: auditorias V3, semântica, música, conversação e contrato de apresentação aprovadas. Todas as seções das 32 aulas percorridas no navegador, incluindo respostas, papéis, tema, largura responsiva e falha de conclusão offline. Flashcards e portal testados com serviços simulados, sem gravações reais. Prévia A1 aprovada como regressão do player compartilhado.
+- Inspeção visual: vocabulário lexical e abertura comunicativa com CSS local; capturas em artifacts/a2-presentation/migration-32/.
+- Limites: alterações locais, sem publicação. Mantidos 23 avisos preexistentes da auditoria musical; reprodução e provedores externos não reconfirmados nesta migração.
+
+## 2026-09-09 · B1 — auditoria para o padrão A2
+
+- Analisados manifesto, fontes autorais, adaptador curricular ativo, player e 32 páginas; 393 seções percorridas. Relatório em docs/b1-v3-format-audit-2026-09-09.md e evidências em artifacts/b1-format-audit/.
+- Manter 15 pares lexical/comunicativa mais oficina e avaliação. Prioridades: 15 leituras repetidas nas CAs, missões genéricas, listening de preenchimento em L2/L6/L14, duplicação integral L31/L32 e organização do repertório lexical.
+- Quatro auditorias mínimas aprovadas, com 23 avisos musicais anteriores. Inspeção offline com recursos externos bloqueados; autenticação, gravações e reprodução externa não avaliadas. Nenhuma aula ou integração de produção alterada.
+
+## 2026-09-09 · B1 — primeiro par no padrão compartilhado
+
+- Aulas 1 e 2 migradas como fatia vertical. IDs, dependência lexical/comunicativa e catálogo musical preservados; aulas 3–32 ainda no formato anterior.
+- Lexical: 16 entradas de vocabulário, seis verbos com formas e exemplos, dez expressões, diálogo inicial e leitura canônica.
+- Comunicativa autoral: perfil de Maya, reconstrução cronológica, entrevista com Alex, nova mensagem e recomendação que muda com informação adicional. Sem listening genérico ou leitura duplicada da lexical.
+- Player compartilhado com A2: seções completas, índice, Retomar, tema, Ouvir/Salvar e música lexical antes do homework.
+- Verificação: 23 seções percorridas, respostas, papéis, infinitivos, tema persistente, largura responsiva e falha de conclusão offline aprovados. Flashcards testados com aluno selecionado, exemplos/formas, ID determinístico e falta de seleção; serviços simulados, sem gravações reais. Quatro auditorias mínimas passaram, mantendo 23 avisos musicais anteriores.
+- Inspeção visual da abertura comunicativa e vocabulário lexical; evidências em artifacts/b1-presentation/pair-01/. Sem publicação ou nova validação dos provedores musicais.

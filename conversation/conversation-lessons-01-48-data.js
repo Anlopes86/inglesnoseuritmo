@@ -8455,13 +8455,13 @@
         "icon": "fa-comments",
         "accent": "green",
         "warmupTitle": "Warm-up: Ethics of Biohacking",
-        "warmupIntro": "Let's discuss the intersection of biology, technology, and ethics.",
+        "warmupIntro": "Biohacking means using habits, data, products, or technology to change how your body feels or looks.",
         "warmups": [
-            "Let's discuss the intersection of biology, technology, and ethics. Is it time to upgrade ourselves?",
-            "Would you ever consider a chip implant to pay for things with a wave of your hand?",
-            "If technology could double your memory or focus, would you use it even if it was expensive?",
-            "If biohacking could make humans live for 200 years, would that be a good thing for society?",
-            "Where is the line between 'healing' a disease and 'enhancing' a healthy human?"
+            "Do you use a watch, app, or routine to track your sleep, exercise, food, or stress?",
+            "Have you ever changed a health habit because you wanted to look or feel better?",
+            "Which would you trust more: advice from a doctor, an app, or an influencer?",
+            "Would you try a beauty device, supplement, or treatment if the results were not guaranteed?",
+            "Which trend seems useful, and which one goes too far: filters, skin apps, daily supplements, or body implants?"
         ],
         "expressions": [
             {
@@ -8503,17 +8503,17 @@
         ],
         "songs": [
             {
-                "title": "I Am Machine",
-                "artist": "Three Days Grace",
-                "sourceEmbed": "https://open.spotify.com/embed/track/6LvQRDyjrsnmFVjfZPdUy4",
-                "spotifyId": "6LvQRDyjrsnmFVjfZPdUy4",
-                "angle": "Theme: the tension between efficiency without limits and the feelings that make someone human.",
-                "discussionTitle": "I Am Machine - Enhancement and Human Identity",
+                "title": "You're So Vain",
+                "artist": "Carly Simon",
+                "sourceEmbed": "https://open.spotify.com/embed/track/2cAIeXENjfBIDF9A6A3O5q",
+                "spotifyId": "2cAIeXENjfBIDF9A6A3O5q",
+                "angle": "Theme: vanity, appearance, confidence, and the attention people give to their image.",
+                "discussionTitle": "You're So Vain - Appearance and Self-Image",
                 "questions": [
-                    "What does the contrast between being human and being a machine suggest about enhancement?",
-                    "Which human feeling would you never trade for greater efficiency?",
-                    "If an implant removed physical pain, what could be gained and what could be lost?",
-                    "At what point could an enhancement change a person's identity?"
+                    "The title calls someone 'vain.' What kind of behavior makes a person seem vain?",
+                    "Can beauty treatments improve confidence, or do they create more pressure to look perfect?",
+                    "Would you use technology to change your skin, hair, or body if the result looked natural?",
+                    "Should influencers say when a photo, treatment, or device has changed their appearance?"
                 ]
             },
             {
@@ -8524,10 +8524,10 @@
                 "angle": "Theme: transformation, awakening, and the feeling of entering a new, powerful era.",
                 "discussionTitle": "Radioactive - A New Biological Era",
                 "questions": [
-                    "Are you excited or scared about the fast pace of technological change in biology?",
-                    "What are the hidden risks of merging our biology with technology?",
-                    "Should people have the right to modify their own DNA if they want to?",
-                    "If we can 'hack' our bodies, who should control the data? The person or the company?"
+                    "The song suggests a powerful transformation. Does biohacking feel exciting or a little dangerous to you?",
+                    "Would you follow an app's advice if it disagreed with how your body felt?",
+                    "Would you use a small device under your skin if it could warn you about a health problem?",
+                    "What would you want to know before testing a new biohacking product?"
                 ]
             },
             {
@@ -8538,60 +8538,60 @@
                 "angle": "Theme: the desire to repair, heal, and the vulnerability of being human.",
                 "discussionTitle": "Fix You - Healing vs. Enhancing",
                 "questions": [
-                    "If biohacking could fix a physical limitation you have, would you do it immediately?",
-                    "Is there a difference between 'curing' a disability and 'fixing' a human being?",
-                    "Can technology ever truly 'fix' emotional pain or psychological problems?",
-                    "Should biohacking only be allowed for medical reasons, never for vanity or competition?"
+                    "The title says 'Fix You.' Who should decide whether something about a person's body needs to be fixed?",
+                    "Should cosmetic treatments and body-enhancing products have a minimum age?",
+                    "Would you tell a friend if you thought a beauty or health experiment was unsafe?",
+                    "What matters most when trying something new on your body: safety, evidence, price, or results?"
                 ]
             }
         ],
         "contexts": [
             {
-                "title": "The Focus Implant Trial",
-                "kicker": "Evaluate enhancement when long-term evidence is limited.",
-                "intro": "A company offers employees a voluntary implant that may improve concentration but continuously collects neural data.",
-                "prompt": "Could consent be genuinely free in this workplace, and what safeguards would be essential?",
+                "title": "Beauty Biohack Challenge",
+                "kicker": "Choose one experiment for 30 days.",
+                "intro": "Imagine that you can test one beauty biohack for free. There is no perfect option, but all four are easy to understand.",
+                "prompt": "Which one would you test for 30 days, and what result would make you continue?",
                 "cards": [
                     {
-                        "title": "Pressure",
-                        "text": "Consider career advantages for participants."
+                        "title": "Sleep Tracker",
+                        "text": "Follow a regular sleep schedule and compare how your skin and energy feel."
                     },
                     {
-                        "title": "Evidence",
-                        "text": "Separate early results from long-term safety."
+                        "title": "LED Mask",
+                        "text": "Use a light-based face mask three times a week."
                     },
                     {
-                        "title": "Data",
-                        "text": "Define ownership, access, and deletion."
+                        "title": "Skin App",
+                        "text": "Take one daily selfie and receive personalized skincare suggestions."
                     },
                     {
-                        "title": "Exit",
-                        "text": "Guarantee removal without professional penalty."
+                        "title": "No-Filter Month",
+                        "text": "Post photos without beauty filters and observe how it affects your confidence."
                     }
                 ],
                 "icon": "fa-brain"
             },
             {
-                "title": "Gene Editing for Muscle Recovery",
-                "kicker": "Draw a line between treatment and advantage.",
-                "intro": "A sports clinic can edit a gene to repair a rare disorder, with a possible extra performance benefit.",
-                "prompt": "Who should receive the procedure, and how should sport regulators respond?",
+                "title": "Yes, No, or Maybe?",
+                "kicker": "Give a quick reaction to four real-life biohacks.",
+                "intro": "For each option, say yes, no, or maybe. Then compare your answers with your teacher's answers.",
+                "prompt": "Which option seems most useful, and which one would be hardest to convince you to try?",
                 "cards": [
                     {
-                        "title": "Treatment",
-                        "text": "Define the medical condition being addressed."
+                        "title": "Smart Ring",
+                        "text": "Wear a ring that tracks your sleep, heart rate, and daily activity."
                     },
                     {
-                        "title": "Advantage",
-                        "text": "Estimate effects beyond normal recovery."
+                        "title": "Personalized Vitamins",
+                        "text": "Take daily vitamins selected from the results of a health test."
                     },
                     {
-                        "title": "Access",
-                        "text": "Consider cost and unequal availability."
+                        "title": "Glucose Monitor",
+                        "text": "Wear a sensor to discover how different foods affect your body."
                     },
                     {
-                        "title": "Rule",
-                        "text": "Create a review process as evidence changes."
+                        "title": "Payment Implant",
+                        "text": "Use a tiny chip under your skin to pay or open doors."
                     }
                 ],
                 "icon": "fa-dna"
@@ -8624,13 +8624,13 @@
             }
         ],
         "speaking": {
-            "title": "Speak: Ethics of Biohacking",
+            "title": "A Friend Asks for Advice",
             "icon": "fa-microphone-lines",
             "prompts": [
-                "Evaluate a proposed enhancement for health, privacy, and fairness?",
-                "Who benefits first and who carries the risk?",
-                "Could consent remain voluntary under competitive pressure?",
-                "Which rule should be revisited when long-term evidence arrives?"
+                "I always feel tired, so I want to buy an expensive smart ring. What should I check before buying it?",
+                "I found five beauty supplements on social media and want to start all of them tomorrow. Is that a good idea?",
+                "A skin app says I look tired and recommends several expensive products. How much should I trust it?",
+                "I enjoy tracking my health, but I check my scores all day. How can I use the data without becoming anxious?"
             ],
             "support": [
                 "To push the boundaries",
@@ -8639,14 +8639,11 @@
                 "The cutting edge"
             ]
         },
-        "homework": {
-            "task": "Evaluate one biohacking proposal in 120-180 words. Consider its health benefit, risk, privacy impact, and fairness.",
-            "model": "To test or extend the limits of what is possible or acceptable. \"Biohackers are constantly pushing the boundaries of what the human body can do. Something that brings advantages and disadvantages at the same time. \"Genetic engineering is a double-edged sword; it can cure diseases but also create ethical dilemmas.",
-            "requiredExpressions": [
-                "To push the boundaries",
-                "A mixed blessing"
-            ]
-        },
+        "homework": [
+            "Describe one health or beauty biohack you would consider trying. Explain how it works, the result you would expect, and one possible concern.",
+            "Compare a simple habit, such as better sleep or regular exercise, with a technological solution, such as a wearable device or skin app. Which would you choose and why?",
+            "Write advice to a friend who wants to try a beauty device, supplement, or health tracker. Include three questions the friend should ask before deciding."
+        ],
         "closing": "\"Technology is a useful servant but a dangerous master.\"",
         "migration": {
             "source": "licao-42.html",
@@ -9074,13 +9071,13 @@
         "icon": "fa-comments",
         "accent": "amber",
         "warmupTitle": "Warm-up: Travel Dreams & Curious Destinations",
-        "warmupIntro": "Let's travel to the most unique, mysterious, and beautiful corners of our planet.",
+        "warmupIntro": "Let's talk about the places and small discoveries that make travel interesting.",
         "warmups": [
-            "Let's travel to the most unique, mysterious, and beautiful corners of our planet. Where does your heart want to go?",
-            "What is the most beautiful natural landscape you have ever seen in person?",
-            "If you could live in any city in the world for one year, which one would you choose?",
-            "Are you more attracted to famous tourist landmarks or 'hidden' places that nobody knows about?",
-            "What is the one thing you absolutely must carry with you when you travel?"
+            "Which place have you visited that surprised you, and what was surprising about it?",
+            "Before visiting a new city, what do you usually search for online?",
+            "Would you enjoy a guided tour, or do you prefer discovering places by yourself?",
+            "What unusual local food would you be willing to try on a trip?",
+            "When you travel, are you more curious about famous sights or everyday local life?"
         ],
         "expressions": [
             {
@@ -9129,10 +9126,10 @@
                 "angle": "Theme: the dream of finding a perfect place and the need to escape the ordinary world.",
                 "discussionTitle": "Paradise - Defining Paradise",
                 "questions": [
-                    "What does your personal 'paradise' look like? A beach, a forest, or a busy city?",
-                    "Why do humans have such a strong need to 'escape' their daily lives through travel?",
-                    "Do famous destinations usually live up to the 'paradise' we imagine in our heads?",
-                    "Is mass tourism destroying the very 'paradises' that people are trying to visit?"
+                    "What does a perfect vacation place look like to you?",
+                    "Can a place be beautiful but still be a bad vacation destination?",
+                    "Have you ever visited a place that looked different from its photos?",
+                    "Would you return to the same favorite place or always choose somewhere new?"
                 ]
             },
             {
@@ -9143,10 +9140,10 @@
                 "angle": "Theme: using a famous destination to tell a playful story about what we value enough to leave behind.",
                 "discussionTitle": "Choose one: a free weekend in a famous city or a quiet hidden town. Describe your plan.",
                 "questions": [
-                    "What would you be willing to give up for a meaningful trip?",
-                    "How can a place name become a symbol rather than a realistic destination?",
-                    "Would you choose a luxurious short trip or a simpler, longer journey? Why?",
-                    "Hot take: the best travel memories often come from plans that did not work. Do you agree?"
+                    "Which city would you like to know better, and what makes you curious about it?",
+                    "Would you rather visit a famous attraction or a place recommended by a local person?",
+                    "What is one thing you always want to learn about a city you visit?",
+                    "Would you choose a comfortable hotel far away or a simple room in the city center?"
                 ]
             },
             {
@@ -9157,60 +9154,60 @@
                 "angle": "Theme: the longing for a vast, ancient continent and the call of the wild.",
                 "discussionTitle": "Africa - The Call of the Wild",
                 "questions": [
-                    "What is the most 'exotic' place you have ever dreamed of visiting?",
-                    "Why are humans fascinated by wide, open landscapes and wild animals?",
-                    "Is it more impressive to see ancient ruins (like the Pyramids) or modern architecture (like the Burj Khalifa)?",
-                    "Can you really 'know' a place if you only stay there for a week as a tourist?"
+                    "Would you prefer to visit a large city, a historical site, or a nature reserve?",
+                    "Which wild animal would you most like to see in its natural environment?",
+                    "What would you ask a local guide about daily life in the country?",
+                    "Can a short trip teach you much about a place, or do you need more time?"
                 ]
             }
         ],
         "contexts": [
             {
-                "title": "Build a Responsible Itinerary",
-                "kicker": "Turn a travel dream into informed choices.",
-                "intro": "You are planning a visit to a place you mostly know through music, films, and social media.",
-                "prompt": "Which local sources, cultural expectations, environmental limits, and spending choices should shape the plan?",
+                "title": "Choose Your Weekend Trip",
+                "kicker": "Compare three realistic destinations.",
+                "intro": "You have a free weekend and enough money for one short trip. You can choose a beach town, a mountain town, or a large city you have never visited.",
+                "prompt": "Which destination would you choose for this weekend, and what would you like to discover there?",
                 "cards": [
                     {
-                        "title": "Voices",
-                        "text": "Consult people and organizations based in the destination."
+                        "title": "Beach Town",
+                        "text": "Warm weather, fresh seafood, and a busy waterfront."
                     },
                     {
-                        "title": "Culture",
-                        "text": "Learn how to visit important places respectfully."
+                        "title": "Mountain Town",
+                        "text": "Cool weather, walking trails, and a quiet local festival."
                     },
                     {
-                        "title": "Impact",
-                        "text": "Reduce waste, crowding, and avoidable disruption."
+                        "title": "Large City",
+                        "text": "Museums, different neighborhoods, and many food options."
                     },
                     {
-                        "title": "Spending",
-                        "text": "Choose how more money can stay in the local community."
+                        "title": "Your Priority",
+                        "text": "Choose relaxation, nature, culture, food, or nightlife."
                     }
                 ],
                 "icon": "fa-map-location-dot"
             },
             {
-                "title": "A Popular Place Under Pressure",
-                "kicker": "Negotiate the cost of overtourism.",
-                "intro": "Residents depend on tourism income but face rising rents, congestion, and damage to shared spaces.",
-                "prompt": "Which visitor limits, fees, or community protections would you support?",
+                "title": "A Rainy Day Plan",
+                "kicker": "Save a day of the trip when plans change.",
+                "intro": "You planned to walk around the city, but it starts raining heavily. The main museum is closed, your phone battery is low, and you have four hours before dinner.",
+                "prompt": "What would you do to enjoy the afternoon without spending too much money?",
                 "cards": [
                     {
-                        "title": "Resident",
-                        "text": "Name a daily-life impact that needs attention."
+                        "title": "Local Café",
+                        "text": "Ask the staff about nearby places that residents enjoy."
                     },
                     {
-                        "title": "Traveler",
-                        "text": "Explain what information and alternatives would help."
+                        "title": "Covered Market",
+                        "text": "Try a local snack and look for an inexpensive souvenir."
                     },
                     {
-                        "title": "Business",
-                        "text": "Protect livelihoods while reducing harm."
+                        "title": "Bus Ride",
+                        "text": "See different neighborhoods while staying dry."
                     },
                     {
-                        "title": "Policy",
-                        "text": "Propose one measurable compromise."
+                        "title": "Hotel Advice",
+                        "text": "Return to the hotel and ask for a simple indoor recommendation."
                     }
                 ],
                 "icon": "fa-people-group"
@@ -9246,10 +9243,10 @@
             "title": "Speak: Travel Dreams & Curious Destinations",
             "icon": "fa-microphone-lines",
             "prompts": [
-                "Present a three-day trip based on local rather than viral sources?",
-                "Which cultural expectation should a visitor learn?",
-                "How will spending benefit people in the destination?",
-                "What lower-impact alternative would you choose if a site is overcrowded?"
+                "Where would you go for a simple three-day trip, and who would go with you?",
+                "How would you travel, and where would you stay?",
+                "Which famous place and which local place would you visit?",
+                "What food, custom, or everyday detail would you like to discover?"
             ],
             "support": [
                 "A hidden gem",
@@ -9486,13 +9483,13 @@
         "icon": "fa-comments",
         "accent": "cyan",
         "warmupTitle": "Warm-up: Humor & The Power of Laughter",
-        "warmupIntro": "Let's discuss laughter, connection, and social boundaries.",
+        "warmupIntro": "Let's talk about the small things that make us laugh in real life.",
         "warmups": [
-            "Why does humor reduce tension?",
-            "Where is the line between funny and offensive?",
-            "Can humor help in difficult conversations?",
-            "What does someone's humor reveal about them?",
-            "Who makes you laugh most in everyday life, and what kind of humor do they use?"
+            "What is a small mistake you can laugh about now?",
+            "Do you laugh when you feel nervous or embarrassed?",
+            "Which makes you laugh more: funny stories, memes, videos, or stand-up comedy?",
+            "Who is the funniest person you know, and what do they do?",
+            "Are you good at telling jokes, or do you usually forget the punchline?"
         ],
         "expressions": [
             {
@@ -9539,12 +9536,12 @@
                 "sourceEmbed": "https://open.spotify.com/embed/track/43v5F0LQ6Le8XaCfx5bwD3",
                 "spotifyId": "43v5F0LQ6Le8XaCfx5bwD3",
                 "angle": "Theme: humor, lightness, and using simplicity to reduce stress.",
-                "discussionTitle": "Dont Worry Be Happy - humor as coping",
+                "discussionTitle": "Make ’Em Laugh - the pressure to be funny",
                 "questions": [
-                    "The song names everyday problems but answers them with extreme simplicity. Is that wisdom, denial, or comedy?",
-                    "How does the cheerful tone change the way we hear serious problems?",
-                    "When can laughter reduce stress without ignoring reality?",
-                    "Would this attitude help during conflict, or could it make people feel unheard?"
+                    "The title says 'Make ’Em Laugh.' Do funny people enjoy this role, or can it feel like pressure?",
+                    "What can someone do when a joke gets no reaction?",
+                    "Is physical comedy funny to you, or do you prefer clever jokes?",
+                    "Can a person be funny without telling jokes?"
                 ]
             },
             {
@@ -9555,10 +9552,10 @@
                 "angle": "Theme: humor through contrast, frustration, and unexpected situations.",
                 "discussionTitle": "Ironic - bad timing and comic frustration",
                 "questions": [
-                    "The song builds humor from situations that arrive at exactly the wrong time. Which type of bad luck feels most relatable?",
-                    "How does repetition of unfortunate examples make frustration feel funny?",
-                    "Do the examples need to be technically ironic, or is the emotional pattern more important?",
-                    "Why do people often laugh at problems only after they have survived them?"
+                    "The song turns bad timing into humor. What kind of bad timing has happened to you recently?",
+                    "Why do annoying situations sometimes become funny later?",
+                    "Which is worse: missing a bus by one minute or getting on the wrong bus?",
+                    "Do you usually laugh at yourself when something goes wrong?"
                 ]
             },
             {
@@ -9569,60 +9566,60 @@
                 "angle": "Theme: dark humor, optimism, and the boundary between funny and uncomfortable.",
                 "discussionTitle": "Always Look On The Bright Side Of Life - dark humor and optimism",
                 "questions": [
-                    "The song uses a cheerful attitude in an extremely bleak situation. Why does that contrast create humor?",
-                    "How does dark humor help people face fear, pain, or absurdity?",
-                    "Where is the line between comforting someone and making light of suffering?",
-                    "Can optimism be rebellious when the situation seems hopeless?"
+                    "The song uses humor in a very difficult moment. Can a joke really help when you are having a bad day?",
+                    "When should people be serious instead of trying to be funny?",
+                    "Does saying 'look on the bright side' usually help or annoy people?",
+                    "What ordinary problem is easier to handle with a sense of humor?"
                 ]
             }
         ],
         "contexts": [
             {
-                "title": "A Joke That Missed",
-                "kicker": "Repair the moment without ending the conversation.",
-                "intro": "In a one-to-one conversation, a joke reduces tension for one person but makes the other feel dismissed.",
-                "prompt": "How should each person explain their intention, impact, and boundary?",
+                "title": "The Message Went to the Wrong Person",
+                "kicker": "Handle an embarrassing but harmless mistake.",
+                "intro": "You send a funny message about being bored in a meeting. Unfortunately, you send it to the person leading the meeting instead of your friend.",
+                "prompt": "What would you do next, and could humor help you explain the mistake?",
                 "cards": [
                     {
-                        "title": "Speaker",
-                        "text": "Acknowledge impact without arguing that it was only a joke."
+                        "title": "Immediate Reaction",
+                        "text": "Delete it, apologize, explain, or wait for a response."
                     },
                     {
-                        "title": "Listener",
-                        "text": "Explain the boundary and what would help now."
+                        "title": "Tone",
+                        "text": "Decide whether to be serious or make a light joke."
                     },
                     {
-                        "title": "Repair",
-                        "text": "Choose an apology or clarification that fits."
+                        "title": "The Next Meeting",
+                        "text": "Think about how you would feel when you see the person again."
                     },
                     {
-                        "title": "Next Time",
-                        "text": "Agree on a better way to use humor under stress."
+                        "title": "Later",
+                        "text": "Decide when the story might become funny to tell."
                     }
                 ],
                 "icon": "fa-face-smile"
             },
             {
-                "title": "Humor Across Contexts",
-                "kicker": "Adapt a story for a different audience.",
-                "intro": "A funny story works among close friends but may not work with a colleague or someone from another culture.",
-                "prompt": "Which details, assumptions, or punchline would you change, and why?",
+                "title": "Funny Would You Rather?",
+                "kicker": "Choose between two awkward but harmless options.",
+                "intro": "Choose one option from each pair. Give a reason, then compare your choices with your teacher's choices.",
+                "prompt": "Which choice would be the funniest to watch but the worst to experience?",
                 "cards": [
                     {
-                        "title": "Relationship",
-                        "text": "Consider trust and shared history."
+                        "title": "Bad Timing",
+                        "text": "Laugh at the wrong moment or understand every joke five minutes late?"
                     },
                     {
-                        "title": "Culture",
-                        "text": "Explain knowledge the joke assumes."
+                        "title": "Phone Trouble",
+                        "text": "Send a silly text to your boss or a serious text to the family group?"
                     },
                     {
-                        "title": "Setting",
-                        "text": "Decide what is appropriate here."
+                        "title": "Public Moment",
+                        "text": "Trip in front of ten strangers or forget a friend's name at a party?"
                     },
                     {
-                        "title": "Alternative",
-                        "text": "Retell it without targeting a vulnerable person."
+                        "title": "Comedy Problem",
+                        "text": "Always forget the punchline or always laugh before finishing your own joke?"
                     }
                 ],
                 "icon": "fa-comments"
@@ -9658,10 +9655,10 @@
             "title": "Speak: Humor & The Power of Laughter",
             "icon": "fa-microphone-lines",
             "prompts": [
-                "Retell a joke that failed without making the listener the problem?",
-                "What assumption did the setup depend on?",
-                "How would you acknowledge the impact?",
-                "Which alternative could release tension without dismissing anyone?"
+                "What funny or embarrassing thing happened to you or someone you know?",
+                "Where were you, who was there, and what went wrong?",
+                "How did people react at the time?",
+                "Why is the story funny now, even if it was not funny then?"
             ],
             "support": [
                 "To crack a joke",
@@ -9670,15 +9667,11 @@
                 "Punchline"
             ]
         },
-        "homework": {
-            "task": "Write a short text (120-180 words) explaining a joke, scene, or funny moment without translating it directly.",
-            "model": "I tried to crack a joke as comic relief, but it did not match the moment. I apologized instead of laughing the reaction off.",
-            "requiredExpressions": [
-                "To crack a joke",
-                "Comic relief",
-                "To laugh something off"
-            ]
-        },
+        "homework": [
+            "Tell a true funny or embarrassing story. Set the scene, explain what went wrong, describe people's reactions, and say why you can laugh about it now.",
+            "Tell a joke. Translate a funny joke you know into English, then explain whether it has the same effect as it does in Portuguese and what was difficult to translate.",
+            "Write a humor profile of someone who always makes you laugh. Describe their sense of humor, the situations in which they are funniest, and why their humor works so well with you."
+        ],
         "closing": "\"Great conversations begin where certainty ends.\"",
         "migration": {
             "source": "licao-47.html",

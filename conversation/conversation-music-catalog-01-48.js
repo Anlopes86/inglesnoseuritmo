@@ -11705,78 +11705,78 @@
             "exact recording/version and five occurrences require human playback audit"
         ],
         "song": {
-            "title": "I Am Machine",
-            "artist": "Three Days Grace",
-            "displayTitle": "I Am Machine",
-            "displayArtist": "Three Days Grace",
-            "version": "I Am Machine",
-            "album": "Human",
-            "releaseDate": "2014-09-30T00:00:00Z",
-            "durationSeconds": 200,
-            "spotifyId": "6LvQRDyjrsnmFVjfZPdUy4",
+            "title": "You're So Vain (2006 Remastered LP Version)",
+            "artist": "Carly Simon",
+            "displayTitle": "You're So Vain",
+            "displayArtist": "Carly Simon",
+            "version": "2006 Remastered LP Version",
+            "album": "Billboard #1s: The '70s",
+            "releaseDate": "2006-08-01T00:00:00Z",
+            "durationSeconds": 259,
+            "spotifyId": "2cAIeXENjfBIDF9A6A3O5q",
             "spotifyEmbedPlayableAtCheck": true,
             "brAvailabilityConfirmed": false
         },
         "lyrics": {
             "provider": "lrclib",
-            "lrclibId": 879393,
-            "providerTrackName": "I Am Machine",
-            "providerArtistName": "Three Days Grace",
-            "providerDurationSeconds": 200,
+            "lrclibId": 36841714,
+            "providerTrackName": "You're So Vain",
+            "providerArtistName": "Carly Simon",
+            "providerDurationSeconds": 258,
             "fallback": "lyricsovh",
             "cache": "sessionStorage",
-            "checkedAt": "2026-09-02"
+            "checkedAt": "2026-09-10"
         },
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "wish",
-                "providerAnswer": "wish",
+                "answer": "partner",
+                "providerAnswer": "partner",
                 "occurrence": 2,
                 "acceptedAnswers": [
-                    "wish"
+                    "partner"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "broken",
-                "providerAnswer": "broken",
+                "answer": "dreams",
+                "providerAnswer": "dreams",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "broken"
+                    "dreams"
                 ]
             },
             {
                 "id": "gap-3",
-                "answer": "find",
-                "providerAnswer": "find",
+                "answer": "probably",
+                "providerAnswer": "probably",
                 "occurrence": 2,
                 "acceptedAnswers": [
-                    "find"
+                    "probably"
                 ]
             },
             {
                 "id": "gap-4",
-                "answer": "something",
-                "providerAnswer": "something",
-                "occurrence": 5,
+                "answer": "bet",
+                "providerAnswer": "bet",
+                "occurrence": 3,
                 "acceptedAnswers": [
-                    "something"
+                    "bet"
                 ]
             },
             {
                 "id": "gap-5",
-                "answer": "part",
-                "providerAnswer": "part",
-                "occurrence": 5,
+                "answer": "friend",
+                "providerAnswer": "friend",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "part"
+                    "friend"
                 ]
             }
         ],
         "pedagogy": {
             "maxAttempts": 3,
-            "application": "I Am Machine - Enhancement and Human Identity"
+            "application": "You're So Vain - Appearance and Self-Image"
         },
         "verification": {
             "spotifyRecordingConfirmed": false,

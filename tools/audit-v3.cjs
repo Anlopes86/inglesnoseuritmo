@@ -58,6 +58,8 @@ for (const moduleId of modules) {
             check(html.includes('../js/advanced-v3-lessons-data.js'), `${moduleId}/${file}: dados avançados ausentes.`);
             check(html.includes('../js/advanced-v3-lesson-player.js'), `${moduleId}/${file}: player avançado ausente.`);
             check(html.includes('../css/advanced-v3.css'), `${moduleId}/${file}: tema avançado ausente.`);
+        } else if(moduleId === 'b1-v3' && index < 2) {
+            check(html.includes('../js/v3-presentation.js') && html.includes('b1-v3-presentation-data.js'), `${moduleId}/${file}: apresentação do primeiro par ausente.`);
         } else if(!['a1-v3','a2-v3'].includes(moduleId)) {
             check(html.includes('../js/v3-session-plan.js'), `${moduleId}/${file}: plano de 60 minutos ausente.`);
         }

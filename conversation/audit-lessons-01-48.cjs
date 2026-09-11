@@ -61,7 +61,11 @@ Object.values(lessons).forEach((lesson) => {
     if (lesson.contexts?.some((block) => block.cards?.length !== 4 || !String(block.prompt).trim().endsWith('?'))) errors.push(`${prefix}: malformed transfer context.`);
     if (lesson.practice?.length !== 6) errors.push(`${prefix}: practice must recover six expressions.`);
     if (lesson.speaking?.prompts?.length !== 4) errors.push(`${prefix}: oral production needs four supports/prompts.`);
-    if (!lesson.homework?.task || !lesson.homework?.model || lesson.homework?.requiredExpressions?.length < 2) errors.push(`${prefix}: homework task, model, or two-expression target missing.`);
+    if (Array.isArray(lesson.homework)) {
+        if (lesson.homework.length !== 3 || lesson.homework.some((option) => !String(option).trim())) errors.push(`${prefix}: homework must offer exactly three complete text options.`);
+    } else if (!lesson.homework?.task || !lesson.homework?.model || lesson.homework?.requiredExpressions?.length < 2) {
+        errors.push(`${prefix}: homework task, model, or two-expression target missing.`);
+    }
     if (!lesson.closing) errors.push(`${prefix}: closing missing.`);
     const serialized = JSON.stringify(lesson);
     if (forbiddenEditorial.test(serialized)) errors.push(`${prefix}: generic editorial filler remains.`);

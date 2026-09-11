@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
             grid.innerHTML = '';
             lessonCards.forEach((cardModel, index) => {
                 const isCompleted = window.V3Curriculum?.isLessonComplete(allProgress, moduleId, cardModel.curriculumId);
-                const state = isCompleted ? 'completed' : index === firstUncompletedIndex ? 'next' : 'locked';
+                const state = isCompleted ? 'completed' : (isProfessor || index === firstUncompletedIndex) ? 'next' : 'locked';
                 grid.appendChild(buildLessonCard(cardModel, state, isProfessor));
             });
 
