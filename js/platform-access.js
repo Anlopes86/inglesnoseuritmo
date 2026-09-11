@@ -230,7 +230,7 @@
         if (!uid) return null;
 
         const doc = await db.collection('students').doc(uid).get();
-        return buildProfile(uid, doc.exists ? doc.data() : {});
+        return doc.exists ? buildProfile(uid, doc.data()) : null;
     }
 
     async function getCurrentProfile(auth, db) {

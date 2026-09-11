@@ -8,6 +8,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const resetPasswordBtn = document.getElementById('reset-password-btn');
     const loginError = document.getElementById('login-error');
     const loginStatus = document.getElementById('login-status');
+    let redirectInFlight = null;
+
+    function withTimeout(promise, milliseconds) {
+        let timer;
+        const deadline = new Promise((_, reject) => {
+            timer = setTimeout(() => {
+                const error = new Error('Login request timed out');
+                error.code = 'login/timeout';
+                reject(error);
+            }, milliseconds);
+        });
+        return Promise.race([promise, deadline]).finally(() => clearTimeout(timer));
+    }
+
+    function accessErrorMessage(error, profileStage = false) {
+        if (error?.code === 'permission-denied') return 'Sua conta foi autenticada, mas o acesso ao perfil foi recusado. É necessário revisar as permissões do cadastro.';
+        if (['login/timeout', 'auth/network-request-failed', 'unavailable'].includes(error?.code)) return 'A conexão demorou ou ficou indisponível. Verifique sua internet e tente entrar novamente.';
+        if (error?.code === 'auth/too-many-requests') return 'Houve muitas tentativas. Aguarde um pouco antes de tentar novamente.';
+        if (error?.code === 'auth/user-disabled') return 'Este acesso está desativado. Entre em contato com o responsável pela plataforma.';
+        if (profileStage) return 'Não foi possível carregar seu perfil agora. Tente entrar novamente.';
+        return 'Usuário ou senha inválidos.';
+    }
 
     function setLoginError(message) {
         if (!loginError) return;
@@ -56,28 +78,35 @@ document.addEventListener('DOMContentLoaded', () => {
             : `${userInput.toLowerCase()}@inglesnoseuritmo.com`;
     }
 
-    async function handleUserRedirect(user) {
-        if (!user) return;
+    function handleUserRedirect(user) {
+        if (!user) return Promise.resolve();
+        if (redirectInFlight) return redirectInFlight;
+        redirectInFlight = loadProfileAndRedirect(user).finally(() => { redirectInFlight = null; });
+        return redirectInFlight;
+    }
 
-        localStorage.setItem('loggedInUserId', user.uid);
+    async function loadProfileAndRedirect(user) {
+        if (!user) return;
+        setLoginStatus('Carregando seu perfil…');
 
         try {
-            let profile = platformAccess
-                ? await platformAccess.fetchProfileById(firebaseDb, user.uid)
+            const profile = platformAccess
+                ? await withTimeout(platformAccess.fetchProfileById(firebaseDb, user.uid), 15000)
                 : null;
 
-            if (profile && platformAccess) {
-                profile = await platformAccess.ensureInitialAdmin(firebaseDb, profile);
-            }
+            // Signing in only reads the user's profile. Administrative migrations
+            // must not run here or require a professor to list other accounts.
 
             if (!profile) {
                 console.error('Usuario nao encontrado no banco de dados.');
-                await firebaseAuth.signOut();
+                await withTimeout(firebaseAuth.signOut(), 15000);
+                setLoginStatus('');
                 setLoginError('Seu perfil ainda nao esta configurado para acesso.');
                 resetButton();
                 return;
             }
 
+            localStorage.setItem('loggedInUserId', user.uid);
             localStorage.setItem('loggedInUserRole', profile.role);
 
             if (profile.role === 'aluno') {
@@ -96,10 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             setLoginError('Seu perfil ainda nao possui um tipo de acesso valido.');
+            setLoginStatus('');
             resetButton();
         } catch (error) {
             console.error('Erro ao buscar dados do usuario:', error);
-            setLoginError('Nao foi possivel carregar seu perfil agora.');
+            setLoginStatus('');
+            setLoginError(accessErrorMessage(error, true));
             resetButton();
         }
     }
@@ -123,12 +154,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
                 }
 
-                await firebaseAuth.signInWithEmailAndPassword(email, password);
+                setLoginStatus('Verificando seu acesso…');
+                const credential = await withTimeout(firebaseAuth.signInWithEmailAndPassword(email, password), 20000);
+                // A retry with the same signed-in user need not emit another auth
+                // event. Explicitly retry profile loading; concurrent calls coalesce.
+                await handleUserRedirect(credential.user);
             } catch (error) {
                 console.error('Erro de login:', error);
-                setLoginError('Usuario ou senha invalidos.');
+                setLoginStatus('');
+                const message = accessErrorMessage(error);
+                setLoginError(message);
                 if (typeof showToast === 'function') {
-                    showToast('Confira seus dados e tente novamente.', 'error', 'Falha no acesso');
+                    showToast(message, 'error', 'Falha no acesso');
                 }
                 resetButton();
             }
