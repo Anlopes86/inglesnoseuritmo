@@ -11,7 +11,7 @@ const section=page.locator('.lesson-section'),id=await page.locator('#stage').ge
 assert(!(await section.innerText()).includes('undefined'),'undefined L'+n);
 if(await section.locator('[data-key="item-0"]').count()){await section.locator('[data-key="item-0"]').click();assert(await section.locator('.answer:visible').count());}
 if(id==='roleplay'){const roles=section.locator('[data-action="select-role"]');assert.equal(await roles.count(),2);const first=await section.locator('.board').innerText();await roles.nth(1).click();assert.notEqual(await section.locator('.board').innerText(),first);await roles.nth(0).click();assert.equal(await section.locator('.board').innerText(),first);}
-if(['vocabulary','verbs','expressions','recycle','toolbox'].includes(id)){assert(await section.locator('.lesson-flashcard-save-btn').count()>0,'Save '+id);assert(await section.locator('.flashcard-pronounce-btn').count()>0,'Hear '+id);}
+if(['cards','verbs'].includes(await page.locator('#stage').getAttribute('data-slide-type'))){assert(await section.locator('.lesson-flashcard-save-btn').count()>0,'Save '+id);assert(await section.locator('.flashcard-pronounce-btn').count()>0,'Hear '+id);}
 if(id==='verbs'){const verbs=await section.locator('tbody tr td:first-child').allTextContents();assert(verbs.every(t=>t.trim().startsWith('to ')),'Infinitives L'+n);}
 if(data.manifest.lessonKind==='lexical'&&i===count-2)assert.equal(id,'music');
 if([1,2,17,18,29,30,31,32].includes(n)&&[0,1,count-1].includes(i))await page.screenshot({path:path.join(out,'lesson-'+n+'-'+id+'.png')});

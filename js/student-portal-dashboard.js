@@ -129,7 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ui.summaryModule.textContent = module.label;
         ui.summaryLessons.textContent = `${state.completed} de ${module.total}`;
         [ui.lessonsLink, ui.mobileLessonsLink].forEach((link) => {
-            link.href = module.href;
+            const destination = new URL(module.href, window.location.href);
+            destination.searchParams.set('studentId', studentId);
+            link.href = destination.href;
             link.classList.remove('is-disabled');
             link.removeAttribute('aria-disabled');
         });
@@ -211,6 +213,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? 'Você está vendo exatamente a experiência deste aluno. Escolha a trilha e abra a aula que será aplicada.'
                 : 'Continue pela aula recomendada ou faça uma revisão rápida nos flashcards salvos.';
 
+            document.querySelectorAll('a[href*="flashcards-app.html"]').forEach(link => {
+                const url = new URL(link.getAttribute('href'), window.location.href);
+                if (managerView) url.searchParams.set('studentId', studentId);
+                else url.searchParams.delete('studentId');
+                link.href = url.href;
+            });
             renderPackage(studentData);
             if (activeModuleId) selectModule(activeModuleId);
             renderModules(modules);

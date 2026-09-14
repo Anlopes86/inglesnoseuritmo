@@ -102,7 +102,7 @@ assert(/fallback explícito/.test(warnings[0].message), 'O warning do fallback n
 async function auditRenderedLinks() {
     const documents = {
         teacher: { role: 'professor' },
-        student: { teacherId: 'teacher', progress: {} }
+        student: { role: 'aluno', teacherId: 'teacher', progress: {} }
     };
     window.db = {
         collection(collectionName) {
@@ -131,6 +131,13 @@ async function auditRenderedLinks() {
         }
     };
     global.firebase = { auth: () => auth };
+    window.firebase = global.firebase;
+    window.location = new URL('http://localhost/a2-v3/a2-v3.html?studentId=student');
+    window.history = { state: null, replaceState() {} };
+    window.StudentContextSeed = { studentId: 'student' };
+    document.querySelectorAll = () => [];
+    require(path.join(root, 'js', 'student-context.js'));
+    window.StudentContextReady = Promise.resolve(window.StudentContext);
 
     assert.strictEqual(typeof onDomReady, 'function', 'O inicializador do hub A2 não foi registrado.');
     onDomReady();
@@ -143,7 +150,8 @@ async function auditRenderedLinks() {
         const entry = curriculumEntries[index];
         const expected = expectedPresentation[entry.lessonKind];
         const padded = String(entry.number).padStart(2, '0');
-        assert.strictEqual(card.href, `licao-${padded}.html`, `L${entry.number}: link da aula foi alterado.`);
+        assert.strictEqual(new URL(card.href).pathname, `/a2-v3/licao-${padded}.html`, `L${entry.number}: destino da aula foi alterado.`);
+        assert.strictEqual(new URL(card.href).searchParams.get('studentId'), 'student', `L${entry.number}: vínculo do aluno foi perdido.`);
         assert.strictEqual(card.dataset.lesson, String(entry.number), `L${entry.number}: data-lesson divergente.`);
         assert.strictEqual(card.dataset.curriculumId, entry.id, `L${entry.number}: curriculumId não chegou ao DOM.`);
         assert(/\blesson-card\b/.test(card.className), `L${entry.number}: classe visual principal removida.`);

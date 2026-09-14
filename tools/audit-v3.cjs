@@ -58,8 +58,9 @@ for (const moduleId of modules) {
             check(html.includes('../js/advanced-v3-lessons-data.js'), `${moduleId}/${file}: dados avançados ausentes.`);
             check(html.includes('../js/advanced-v3-lesson-player.js'), `${moduleId}/${file}: player avançado ausente.`);
             check(html.includes('../css/advanced-v3.css'), `${moduleId}/${file}: tema avançado ausente.`);
-        } else if(moduleId === 'b1-v3' && index < 2) {
-            check(html.includes('../js/v3-presentation.js') && html.includes('b1-v3-presentation-data.js'), `${moduleId}/${file}: apresentação do primeiro par ausente.`);
+        } else if(moduleId === 'b1-v3' && (index === 0 || (index < 30 && index % 2 === 1))) {
+            check(html.includes('../js/v3-presentation.js') && html.includes('b1-v3-presentation-data.js'), `${moduleId}/${file}: apresentação compartilhada ausente.`);
+            if (lessons[index].lessonKind === 'communicative') check(html.includes('b1-v3-communicative-data.js'), `${moduleId}/${file}: fonte comunicativa atual ausente.`);
         } else if(!['a1-v3','a2-v3'].includes(moduleId)) {
             check(html.includes('../js/v3-session-plan.js'), `${moduleId}/${file}: plano de 60 minutos ausente.`);
         }
@@ -90,7 +91,7 @@ check(a1Lessons.filter(l=>l.lessonKind==='communicative').length===12,'A1: esper
 check(a1Lessons.filter(l=>l.lessonKind==='consolidation').length===2,'A1: esperadas duas consolidações.');
 for(const lesson of a1Lessons){
  const slides=lesson.slides||[], m=curriculum.getLesson('a1-v3',lesson.number);
- check(slides.length>=8,'A1 L'+lesson.number+': seções insuficientes.');
+ check(slides.length>=(m.lessonKind==='communicative'?5:8),'A1 L'+lesson.number+': seções insuficientes.');
  check(new Set(slides.map(s=>s.id)).size===slides.length,'A1: IDs de seção duplicados.');
  check(slides.every(s=>s.title&&s.instruction),'A1: seção sem orientação.');
  check(slides.at(-1)?.type==='homework'&&slides.at(-1).options?.length===3,'A1: homework deve encerrar com três opções.');
@@ -105,8 +106,12 @@ for(const lesson of a1Lessons){
   check(slides.some(s=>s.id==='expressions'&&s.cards.length>=6),'A1: expressões ausentes.');
   check(slides.some(s=>s.type==='reading'&&s.items.length>=3),'A1: leitura com perguntas ausente.');
  }else{
-  check(!slides.some(s=>['verbs','cards','drill','patterns'].includes(s.type)),'A1: CA não deve repetir lista lexical ou drills.');
-  check(slides.filter(s=>['conversation','mission'].includes(s.type)).length>=5,'A1: tarefas comunicativas insuficientes.');
+  if(m.lessonKind==='communicative'){
+   check(slides.some(s=>['reading','dialogue','cloze'].includes(s.type)),'A1: CA precisa de entrada contextualizada.');
+   check(slides.some(s=>['conversation','mission','roleplay','survey'].includes(s.type)),'A1: CA precisa de produção pessoal.');
+   check(new Set(slides.filter(s=>s.type!=='homework').map(s=>s.type)).size>=3,'A1: variedade de ações insuficiente.');
+   check(slides.filter(s=>['verbs','patterns','drill'].includes(s.type)).length<=1,'A1: CA dominada por apresentação lexical.');
+  }
   check(m.requireExplicitCompletion,'A1: nova CA não pode ser concluída por inferência.');
  }
 }
@@ -115,6 +120,7 @@ check(/MusicClozeV3/.test(a1RendererSource),'A1: música não integrada.');
 check(/saveAttrs/.test(a1RendererSource)&&/data-pronounce-text/.test(a1RendererSource),'A1: salvar e ouvir ausentes.');
 
 try { console.log(require('child_process').execFileSync(process.execPath, [path.join(root, 'tools/audit-a2-v3-presentation.cjs')], {encoding:'utf8'}).trim()); } catch(error) { check(false, 'A2 presentation audit: '+error.message); }
+try { console.log(require('child_process').execFileSync(process.execPath, [path.join(root, 'tools/audit-v3-communicative-variety.cjs')], {encoding:'utf8'}).trim()); } catch(error) { check(false, 'Active communicative sources: '+error.message); }
 
 const b1Lessons = window.B1_V3_LESSONS || [];
 check(b1Lessons.length === 32, 'B1-V3: adaptador não produziu 32 lições.');

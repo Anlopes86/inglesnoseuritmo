@@ -15,194 +15,167 @@
   "slides": [
     {
       "id": "opening",
-      "type": "conversation",
-      "title": "A message about next week",
+      "type": "cloze",
+      "title": "A phone message with missing pieces",
       "kicker": "Conversation Activities",
-      "instruction": "Observe as pistas. Diga o que entende e escolha por onde começar.",
-      "tasks": [
-        [
-          "Old schedule",
-          "Tuesday · English at 6:00 · work until 5:00"
-        ],
-        [
-          "New schedule",
-          "Tuesday · work until 7:00 · free on Wednesday at 6:00"
-        ],
-        [
-          "Call",
-          "Teacher unavailable · leave name, reason and callback time"
-        ]
+      "instruction": "Leia o texto completo. Diga o que cabe em cada espaço e confira depois.",
+      "bank": [
+        "Tuesday",
+        "six",
+        "Nora",
+        "back"
       ],
-      "goal": "Your mission",
-      "challenge": "Deixe uma mensagem e escreva uma confirmação curta do novo compromisso."
-    },
-    {
-      "id": "detective",
-      "type": "conversation",
-      "title": "Take the message",
-      "kicker": "Conversation Activities",
-      "instruction": "O professor faz uma ligação. Você anota quem ligou, o motivo e o próximo passo; repita os dados para confirmar o recado.",
-      "tasks": [
-        [
-          "Old schedule",
-          "Tuesday · English at 6:00 · work until 5:00"
-        ],
-        [
-          "New schedule",
-          "Tuesday · work until 7:00 · free on Wednesday at 6:00"
-        ],
-        [
-          "Call",
-          "Teacher unavailable · leave name, reason and callback time"
-        ]
-      ],
-      "goal": "Find and confirm.",
-      "challenge": "Can I speak to the teacher? / Can I leave a message? / Can we meet on Wednesday?"
-    },
-    {
-      "id": "reading",
-      "type": "reading",
-      "title": "A message to work with",
-      "kicker": "A message to work with",
-      "instruction": "O professor lê a mensagem; depois leia e responda. Use as informações na próxima tarefa.",
       "paragraphs": [
-        "This is Ana. I work until seven on Tuesday, so I need to change my English class. I am free on Wednesday at six. Please call me after five. Thank you."
+        "Hi, this is (1) ____. The English club starts at (2) ____ on (3) ____. Please call me (4) ____."
       ],
       "items": [
         [
-          "Why does Ana need to change the class?",
-          "She works until seven on Tuesday."
+          "1",
+          "Nora"
         ],
         [
-          "When can the teacher call?",
-          "After five."
+          "2",
+          "six"
+        ],
+        [
+          "3",
+          "Tuesday"
+        ],
+        [
+          "4",
+          "back"
+        ]
+      ]
+    },
+    {
+      "id": "schedule",
+      "type": "reading",
+      "title": "A week with room to breathe",
+      "kicker": "Conversation Activities",
+      "instruction": "O professor lê; depois leia e responda. Procure as pistas no texto.",
+      "paragraphs": [
+        "Nora works from nine to five on Monday and Tuesday. On Wednesday, she finishes at three. She studies English on Tuesday at six. On Thursday, she visits her grandmother. Friday evening is free.",
+        "New voicemail: “Hi, Nora. It is Eli from the English club. The room is not available on Tuesday. Can we meet on Wednesday at six instead? Please call me before five today.”"
+      ],
+      "items": [
+        [
+          "When does Nora finish work on Wednesday?",
+          "At three."
+        ],
+        [
+          "Why is the club changing the day?",
+          "The room is not available on Tuesday."
+        ],
+        [
+          "Does Wednesday at six clash with Nora’s work?",
+          "No. She finishes at three."
+        ],
+        [
+          "When should Nora call Eli?",
+          "Before five today."
         ]
       ],
       "translations": []
     },
     {
-      "id": "interview",
-      "type": "conversation",
-      "title": "Now it is about you.",
+      "id": "balance",
+      "type": "survey",
+      "title": "Time for myself",
       "kicker": "Conversation Activities",
-      "instruction": "Responda com dados reais ou inventados. Depois faça as perguntas ao professor.",
-      "tasks": [
-        [
-          "Pergunta 1",
-          "Can I speak to the teacher?"
-        ],
-        [
-          "Pergunta 2",
-          "Can I leave a message?"
-        ],
-        [
-          "Pergunta 3",
-          "Can we meet on Wednesday?"
-        ]
+      "instruction": "Escolha suas respostas. Não há gabarito: desenvolva duas delas na conversa.",
+      "prompts": [
+        "I turn off my phone at dinner.",
+        "I take a break when I study.",
+        "I have a free evening during the week.",
+        "I go to bed before midnight."
       ],
-      "goal": "Find one new detail.",
-      "challenge": "Faça uma pergunta de acompanhamento e conte o que descobriu."
+      "options": [
+        "Usually",
+        "Sometimes",
+        "Never"
+      ],
+      "followUp": "Which habit do you want to change?",
+      "support": "I want to… / I am going to…"
     },
     {
-      "id": "solve",
-      "type": "mission",
-      "title": "Make it happen.",
-      "kicker": "Make it happen.",
-      "instruction": "Deixe uma mensagem e escreva uma confirmação curta do novo compromisso.",
-      "board": [
-        [
-          "Old schedule",
-          "Tuesday · English at 6:00 · work until 5:00"
-        ],
-        [
-          "New schedule",
-          "Tuesday · work until 7:00 · free on Wednesday at 6:00"
-        ],
-        [
-          "Call",
-          "Teacher unavailable · leave name, reason and callback time"
-        ]
-      ],
-      "steps": [
-        "Inicie a conversa.",
-        "Descubra e confirme as informações.",
-        "Cheguem a uma solução."
-      ],
-      "support": [
-        "Can I speak to the teacher?",
+      "id": "phone",
+      "type": "matching",
+      "title": "What do you say on the phone?",
+      "kicker": "Conversation Activities",
+      "instruction": "Diga o número e a letra. Depois explique a combinação em uma frase.",
+      "options": [
         "Can I leave a message?",
-        "Can we meet on Wednesday?"
+        "Could you repeat, please?",
+        "This is Nora.",
+        "I will call you back."
       ],
-      "model": "This is Ana. I work until seven on Tuesday, so I need to change my English class. I am free on Wednesday at six. Please call me after five. Thank you.",
-      "surprise": "A pessoa que atende anotou Thursday. Corrija o dia e repita o horário."
-    },
-    {
-      "id": "repair",
-      "type": "conversation",
-      "title": "Something changes.",
-      "kicker": "Conversation Activities",
-      "instruction": "Retomem a conversa e resolvam esta mudança.",
-      "tasks": [
+      "items": [
         [
-          "Nova situação",
-          "A pessoa que atende anotou Thursday. Corrija o dia e repita o horário."
-        ]
-      ],
-      "goal": "Confirm the new result.",
-      "challenge": "Troquem quem pergunta e quem responde. Não é preciso repetir todas as falas anteriores."
-    },
-    {
-      "id": "final",
-      "type": "conversation",
-      "title": "Your turn, without a script.",
-      "kicker": "Conversation Activities",
-      "instruction": "Inventem novos nomes e detalhes para a mesma situação.",
-      "tasks": [
-        [
-          "Objetivo",
-          "Deixe uma mensagem e escreva uma confirmação curta do novo compromisso."
+          "1. Say who is calling.",
+          "C — This is Nora."
         ],
         [
-          "Apoio opcional",
-          "Can I speak to the teacher? / Can I leave a message? / Can we meet on Wednesday?"
+          "2. You cannot hear the time.",
+          "B — Could you repeat, please?"
+        ],
+        [
+          "3. The person is not available.",
+          "A — Can I leave a message?"
+        ],
+        [
+          "4. You promise to call later.",
+          "D — I will call you back."
         ]
-      ],
-      "goal": "Complete the conversation.",
-      "challenge": "Na segunda tentativa, use menos apoio e acrescente uma pergunta."
+      ]
     },
     {
-      "id": "exit",
-      "type": "exit",
-      "title": "Look at your progress.",
-      "kicker": "Look at your progress.",
-      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
-      "checks": [
-        "Resolver uma ligação com mudança de compromisso e enviar uma confirmação escrita curta.",
-        "Consegui pedir repetição ou esclarecimento.",
-        "Consigo tentar novamente com menos apoio."
-      ]
+      "id": "message",
+      "type": "conversation",
+      "title": "Can you pass the message?",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor. Use os apoios quando precisar.",
+      "tasks": [
+        [
+          "Listen",
+          "O professor escolhe um compromisso e dita nome, dia e horário."
+        ],
+        [
+          "Check",
+          "Confirme os dados e peça repetição se necessário."
+        ],
+        [
+          "Change",
+          "Proponha outro horário compatível com a agenda de Nora."
+        ],
+        [
+          "Send",
+          "Dite uma confirmação curta para o professor anotar."
+        ]
+      ],
+      "goal": "A clear message in your own words.",
+      "challenge": "The meeting is… / Can we…? / Please confirm…"
     },
     {
       "id": "homework",
       "type": "homework",
-      "title": "Take it with you.",
-      "kicker": "Take it with you.",
+      "title": "One thing to try",
+      "kicker": "Conversation Activities",
       "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
       "options": [
         [
           "A",
-          "Speak",
-          "Deixe um recado que inclua um acontecimento passado e um plano futuro."
+          "Create",
+          "Monte uma agenda simples de três dias, com um horário livre."
         ],
         [
           "B",
-          "Write",
-          "Escreva uma conversa por mensagens para resolver uma mudança de horário."
+          "Talk",
+          "Ensaie um recado com nome, dia e horário e uma confirmação."
         ],
         [
           "C",
-          "Make a Card",
-          "Crie uma situação de comunicação com um dado faltando e prepare perguntas para completá-lo."
+          "Notice",
+          "Escolha uma parte da sua semana que você quer mudar e prepare três frases sobre o plano."
         ]
       ]
     }
@@ -210,5 +183,14 @@
   "migration": {
     "sourceLesson": null,
     "editorialVersion": "2026.09-a1-38"
-  }
-});}());
+  },
+  "editorialRevision": "2026-09-10-varied-communication",
+  "activityFormats": [
+    "cloze",
+    "reading",
+    "survey",
+    "matching",
+    "conversation",
+    "homework"
+  ]
+});})();

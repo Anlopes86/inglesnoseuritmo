@@ -16,271 +16,163 @@
   "slides": [
     {
       "id": "opening",
-      "type": "conversation",
-      "title": "Choose your kind of day.",
+      "type": "survey",
+      "title": "Early bird or late breakfast?",
       "kicker": "Conversation Activities",
-      "instruction": "Escolha uma opção de cada par. O professor faz uma pergunta sobre cada escolha; depois troquem os papéis.",
-      "tasks": [
-        [
-          "Morning",
-          "Breakfast at home / Breakfast at a café"
-        ],
-        [
-          "A break",
-          "Tea and a sandwich / Coffee and salad"
-        ],
-        [
-          "Evening",
-          "Study English / Watch TV"
-        ]
+      "instruction": "Escolha suas respostas. Não há gabarito: desenvolva duas delas na conversa.",
+      "prompts": [
+        "I get up early.",
+        "I have coffee for breakfast.",
+        "I study at night.",
+        "I eat lunch at home."
       ],
-      "goal": "Find one thing in common.",
-      "challenge": "Compare suas escolhas: I like… / I usually… / What about you?"
-    },
-    {
-      "id": "detective",
-      "type": "conversation",
-      "title": "Who am I?",
-      "kicker": "Conversation Activities",
-      "instruction": "O professor escolhe uma pessoa sem dizer qual. Faça perguntas de sim ou não para descobrir. Depois escolha você.",
-      "tasks": [
-        [
-          "Alex",
-          "Breakfast: 7:00 · coffee · work: 8:00 · English: at night"
-        ],
-        [
-          "Sam",
-          "Breakfast: 8:00 · tea · work: 9:00 · English: in the morning"
-        ],
-        [
-          "Jo",
-          "Breakfast: 7:00 · tea · work: 8:00 · English: at night"
-        ]
+      "options": [
+        "Yes",
+        "No",
+        "Sometimes"
       ],
-      "goal": "Discover the person in four questions.",
-      "challenge": "Do you drink coffee? / Do you study at night? Não vale perguntar o nome antes de concluir."
+      "followUp": "What time do you get up?",
+      "support": "I get up at… / I have… for breakfast."
     },
     {
       "id": "story",
-      "type": "conversation",
-      "title": "Put the day together.",
+      "type": "reading",
+      "title": "Breakfast when everyone is asleep",
       "kicker": "Conversation Activities",
-      "instruction": "Estas anotações estão fora de ordem. Conte o dia de Ana em primeira pessoa, como se você fosse ela.",
-      "tasks": [
+      "instruction": "O professor lê; depois leia e responda. Procure as pistas no texto.",
+      "paragraphs": [
+        "Hi, I am Max. I work at a café. I get up at four in the morning and start work at five. I make sandwiches. I have breakfast at six: bread, cheese and tea. I do not drink coffee.",
+        "I finish work at one in the afternoon. I have lunch at home and study English at three. At eight in the evening, I go to bed. My friend Zoe starts work at eight in the evening. Our days are very different!"
+      ],
+      "items": [
         [
-          "12:00",
-          "lunch · rice and beans"
+          "What time does Max start work?",
+          "At five in the morning."
         ],
         [
-          "7:00",
-          "wake up · shower"
+          "What does Max drink for breakfast?",
+          "Tea."
         ],
         [
-          "18:00",
-          "English class"
+          "Does Max have lunch at the café?",
+          "No, at home."
         ],
         [
-          "8:00",
-          "breakfast · bread and coffee"
+          "Are Max and Zoe at work at the same time at eight in the evening?",
+          "No. Zoe starts work; Max goes to bed."
         ]
       ],
-      "goal": "Tell the story, then change it.",
-      "challenge": "O professor muda um horário ou alimento. Reconte só a parte que mudou. Depois conte duas diferenças da sua rotina."
+      "translations": []
     },
     {
-      "id": "interview",
-      "type": "mission",
-      "title": "Your day, my day.",
-      "kicker": "Interview",
-      "instruction": "Primeiro você pergunta; depois o professor pergunta. Usem informações reais ou inventadas.",
-      "board": [
-        [
-          "Ask about time",
-          "breakfast · start work · finish work · English"
-        ],
-        [
-          "Ask about preferences",
-          "tea · coffee · sandwiches · salad"
-        ]
-      ],
-      "steps": [
-        "Faça duas perguntas sobre horários.",
-        "Faça duas perguntas sobre preferências.",
-        "Encontre uma informação em comum."
-      ],
-      "support": [
-        "What time do you…?",
-        "Do you like…?",
-        "I usually…",
-        "What about you?"
-      ],
-      "model": "A: Do you like tea? B: Yes, I do. A: Me too. We like tea."
-    },
-    {
-      "id": "choices",
-      "type": "conversation",
-      "title": "Plan a break for three.",
+      "id": "clock",
+      "type": "matching",
+      "title": "Put Max’s day together",
       "kicker": "Conversation Activities",
-      "instruction": "Leiam os pedidos e escolham uma combinação para cada pessoa. Negociem as escolhas em inglês.",
-      "tasks": [
+      "instruction": "Diga o número e a letra. Depois explique a combinação em uma frase.",
+      "options": [
+        "breakfast",
+        "English",
+        "work starts",
+        "bed"
+      ],
+      "items": [
         [
-          "Mia",
-          "I like cheese. I don’t drink coffee."
+          "1. 5:00 a.m.",
+          "C — Work starts."
         ],
         [
-          "Ben",
-          "I want chicken and a cold drink."
+          "2. 6:00 a.m.",
+          "A — Breakfast."
         ],
         [
-          "You",
-          "Escolha algo que você realmente gosta."
+          "3. 3:00 p.m.",
+          "B — English."
         ],
         [
-          "Menu",
-          "Cheese sandwich · chicken sandwich · salad · tea · coffee · water · orange juice"
+          "4. 8:00 p.m.",
+          "D — Bed."
         ]
-      ],
-      "goal": "Agree on three orders.",
-      "challenge": "Um faz sugestões e o outro confirma ou propõe outra opção. Depois resumam o pedido completo."
-    },
-    {
-      "id": "plan",
-      "type": "mission",
-      "title": "Find a time that works.",
-      "kicker": "Mission · 1 / 3",
-      "instruction": "Escolham um horário livre para os dois. Perguntem e confirmem em inglês.",
-      "board": [
-        [
-          "You",
-          "3:00 · work / 4:00 · free / 5:00 · English"
-        ],
-        [
-          "Your teacher",
-          "3:00 · work / 4:00 · free / 5:00 · work"
-        ]
-      ],
-      "steps": [
-        "Pergunte sobre trabalho e estudo.",
-        "Proponha um lanche no horário livre.",
-        "Confirme o horário escolhido."
-      ],
-      "support": [
-        "Do you work at…?",
-        "Do you study at…?",
-        "Do you want a snack at…?",
-        "At four."
-      ],
-      "model": "A: Do you work at four? B: No, I don’t. A: Do you want a snack at four? B: Yes."
-    },
-    {
-      "id": "order",
-      "type": "mission",
-      "title": "Choose your snack.",
-      "kicker": "Mission · 2 / 3",
-      "instruction": "Um de vocês atende no café. O outro faz o pedido. Depois revelem a mudança.",
-      "board": [
-        [
-          "Food",
-          "Cheese sandwich · Chicken sandwich · Salad"
-        ],
-        [
-          "Drinks",
-          "Tea · Coffee · Water · Orange juice"
-        ]
-      ],
-      "steps": [
-        "Diga o que quer comer e beber.",
-        "Pergunte sobre uma opção do cardápio.",
-        "Responda à mudança e confirme o pedido."
-      ],
-      "support": [
-        "I want…",
-        "Do you have…?",
-        "No, thank you.",
-        "…please."
-      ],
-      "surprise": "No cheese sandwiches today. Chicken sandwiches and salad are available.",
-      "model": "A: A cheese sandwich, please. B: Sorry. We have chicken sandwiches. A: A chicken sandwich, please."
-    },
-    {
-      "id": "repair",
-      "type": "conversation",
-      "title": "That’s not my order!",
-      "kicker": "Conversation Activities",
-      "instruction": "Escolha um pedido. O professor repete com dois erros de propósito. Corrija sem ler um diálogo pronto.",
-      "tasks": [
-        [
-          "Order A",
-          "4:00 · cheese sandwich · tea"
-        ],
-        [
-          "Order B",
-          "3:00 · chicken sandwich · orange juice"
-        ],
-        [
-          "Order C",
-          "5:00 · salad · water"
-        ]
-      ],
-      "goal": "Listen, correct and confirm.",
-      "challenge": "Troquem os papéis e inventem um novo pedido. No, … please. / Yes, that’s right."
-    },
-    {
-      "id": "final",
-      "type": "conversation",
-      "title": "Your next break: make it happen.",
-      "kicker": "Conversation Activities",
-      "instruction": "Conversem sem roteiro. Usem sua rotina real ou inventada e combinem uma pausa juntos.",
-      "tasks": [
-        [
-          "Find a time",
-          "Pergunte quando o outro trabalha e estuda."
-        ],
-        [
-          "Choose together",
-          "Descubra uma preferência e faça uma sugestão."
-        ],
-        [
-          "Confirm",
-          "Repita o horário e os dois pedidos."
-        ]
-      ],
-      "goal": "Finish with a plan you both accept.",
-      "challenge": "Na segunda rodada, o professor muda o horário disponível ou retira um item do cardápio. Adaptem o plano."
-    },
-    {
-      "id": "exit",
-      "type": "exit",
-      "title": "You made it happen.",
-      "kicker": "Reflect & repeat",
-      "instruction": "Escolha um ponto para repetir. Depois registre quanto apoio você precisou.",
-      "checks": [
-        "Perguntei e respondi sobre horários e preferências.",
-        "Combinei um horário e fiz um pedido compreensível.",
-        "Corrigi uma informação e respondi a uma mudança."
       ]
+    },
+    {
+      "id": "snack",
+      "type": "cloze",
+      "title": "A short café conversation",
+      "kicker": "Conversation Activities",
+      "instruction": "Leia o texto completo. Diga o que cabe em cada espaço e confira depois.",
+      "bank": [
+        "water",
+        "sandwich",
+        "have",
+        "please"
+      ],
+      "paragraphs": [
+        "A: Do you (1) ____ cheese sandwiches? B: Yes. A: A cheese (2) ____, please. B: Something to drink? A: A glass of (3) ____, (4) ____."
+      ],
+      "items": [
+        [
+          "1",
+          "have"
+        ],
+        [
+          "2",
+          "sandwich"
+        ],
+        [
+          "3",
+          "water"
+        ],
+        [
+          "4",
+          "please"
+        ]
+      ]
+    },
+    {
+      "id": "break",
+      "type": "conversation",
+      "title": "A break we both enjoy",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor. Use os apoios quando precisar.",
+      "tasks": [
+        [
+          "Your day",
+          "Conte seus horários de trabalho/estudo e refeição."
+        ],
+        [
+          "A time together",
+          "Compare com o professor e escolha um horário livre."
+        ],
+        [
+          "Your order",
+          "Escolha um lanche e uma bebida. Diga também algo de que não gosta."
+        ]
+      ],
+      "goal": "What time is our break, and what do we have?",
+      "challenge": "I am free at… / I like… but I do not like…"
     },
     {
       "id": "homework",
       "type": "homework",
-      "title": "Confirm your next break.",
-      "kicker": "Homework",
-      "instruction": "Escolha uma opção. Inclua horário, comida e bebida. Tempo sugerido: 5–10 minutos.",
+      "title": "One thing to try",
+      "kicker": "Conversation Activities",
+      "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
       "options": [
         [
           "A",
-          "Say it",
-          "Prepare um áudio de 30 segundos confirmando seu lanche e fazendo uma pergunta."
+          "Create",
+          "Faça uma linha do tempo com quatro momentos do seu dia."
         ],
         [
           "B",
-          "Write it",
-          "Escreva uma mensagem de quatro frases com o horário, uma preferência e seu pedido."
+          "Talk",
+          "Conte a rotina de Max e diga duas diferenças da sua."
         ],
         [
           "C",
-          "Make it visual",
-          "Faça um cartão com horário e pedido. Na próxima aula, confirme os detalhes oralmente."
+          "Notice",
+          "Observe o que você come em uma refeição e prepare um pedido em inglês."
         ]
       ]
     }
@@ -288,5 +180,14 @@
   "migration": {
     "sourceLesson": null,
     "editorialVersion": "2026.09-a1-38"
-  }
-});}());
+  },
+  "editorialRevision": "2026-09-10-varied-communication",
+  "activityFormats": [
+    "survey",
+    "reading",
+    "matching",
+    "cloze",
+    "conversation",
+    "homework"
+  ]
+});})();

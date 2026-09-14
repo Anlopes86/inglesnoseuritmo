@@ -37,7 +37,12 @@ assert(records.every(entry => entry.song.regionChecked === 'BR' && entry.song.sp
 assert(records.every(entry => Number.isInteger(entry.lyrics.lrclibId) && entry.lyrics.candidateCheckedAt >= '2026-08-23'), 'toda atividade deve ter candidato LRCLIB auditado');
 assert(records.every(entry => entry.lyrics.gapAudit === '5-of-5-distinct'), 'toda atividade deve registrar cinco posições distintas');
 assert(records.every(entry => catalog.isPublishable(entry) && catalog.getForCurriculumId(entry.curriculumId)?.id === entry.id), 'toda atividade validada deve chegar à Student View');
-assert.deepEqual(a1Records.map(entry => entry.lessonNumber), [1, 2, 3, 4, 6, 7, 8, 9, 11, 12, 13, 14, 16, 17, 18, 19, 21, 22, 23, 24, 26, 27, 28, 29], 'as 24 músicas A1 devem corresponder às aulas lexicais publicadas');
+const a1LexicalLessons = context.window.V3Curriculum.getModule('a1-v3').filter(lesson => lesson.lessonKind === 'lexical');
+assert.deepEqual(Array.from(a1Records, entry => entry.curriculumId).sort(), Array.from(a1LexicalLessons, lesson => lesson.id).sort(), 'as 24 músicas A1 devem cobrir exatamente os IDs lexicais do currículo atual');
+for (const entry of a1Records) {
+    const lesson = context.window.V3Curriculum.getLesson('a1-v3', entry.curriculumId);
+    assert.equal(entry.lessonNumber, lesson.number, 'a numeração musical deve acompanhar seu ID curricular');
+}
 for (const [label, moduleRecords] of [['A1', a1Records], ['A2', a2Records]]) {
     assert(moduleRecords.every(entry => entry.pedagogy.transferPrompts.length === 3 && entry.pedagogy.transferPrompts.every(prompt => String(prompt || '').trim())), `cada música ${label} deve ter três perguntas pós-música`);
 }

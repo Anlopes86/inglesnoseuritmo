@@ -10,6 +10,8 @@ assert.equal(await page.locator('.lesson-section').count(),1,'one section L'+n);
 const section=page.locator('.lesson-section'),id=await page.locator('#stage').getAttribute('data-slide-id');
 assert(!(await section.innerText()).includes('undefined'),'undefined L'+n);
 if(await section.locator('[data-key="item-0"]').count()){await section.locator('[data-key="item-0"]').click();assert(await section.locator('.answer:visible').count());}
+if(await section.locator('[data-action="survey-choice"]').count()){const choice=section.locator('[data-action="survey-choice"]').first();await choice.click();assert.equal(await choice.getAttribute('aria-pressed'),'true');}
+if(['matching','cloze'].includes(await page.locator('#stage').getAttribute('data-slide-type'))){await section.locator('[data-action="all-models"]').click();assert.equal(await section.locator('.answer:visible').count(),await section.locator('.exercise-row').count());}
 if(id==='verbs'){const verbs=await section.locator('tbody tr td:first-child').allTextContents();assert(verbs.every(t=>t.trim().startsWith('to ')),'Infinitives L'+n);}
 if(data.manifest.lessonKind==='lexical'&&i===count-2)assert.equal(id,'music');
 if([1,3,7,23,29,32,37,38].includes(n)&&[0,1,count-1].includes(i))await page.screenshot({path:path.join(out,'lesson-'+n+'-'+id+'.png')});

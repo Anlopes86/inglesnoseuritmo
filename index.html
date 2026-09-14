@@ -307,6 +307,7 @@
             }
         }
     </style>
+    <link href="css/teacher-dashboard-refinement.css" rel="stylesheet">
 </head>
 <body class="app-shell">
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-white text-blue-700 font-semibold px-4 py-2 rounded-lg shadow-lg z-[60]">
@@ -325,10 +326,6 @@
             <div class="flex flex-wrap items-center gap-3">
                 <span id="manager-plan-chip" class="manager-context-chip hidden"><i class="fas fa-box" aria-hidden="true"></i> <span>Plano</span></span>
                 <span id="manager-capacity-chip" class="manager-context-chip hidden"><i class="fas fa-users" aria-hidden="true"></i> <span>0 alunos</span></span>
-                <a href="aura/aura.html" class="app-button-secondary" aria-label="Abrir Aura do 7º ano">
-                    <i class="fas fa-bolt" aria-hidden="true"></i>
-                    Aura
-                </a>
                 <a id="admin-panel-link" href="admin.html" class="app-button-secondary hidden">
                     <i class="fas fa-shield-halved" aria-hidden="true"></i>
                     Admin
@@ -365,9 +362,7 @@
                         <div>
                             <label for="student-select" class="block text-sm font-semibold muted-label mb-2">Selecionar aluno</label>
                             <div class="student-select-shell">
-                                <select id="student-select" class="app-select" aria-label="Selecionar aluno">
-                                    <option value="">Selecione um aluno...</option>
-                                </select>
+                                <select id="student-select" class="app-select"><option value="">Selecione um aluno...</option></select>
                             </div>
                         </div>
                     </div>
@@ -412,21 +407,13 @@
                     </div>
 
                     <div class="grid gap-4 mt-6">
-                        <div class="mini-stat">
-                            <p class="kpi-label">Ajuste r&aacute;pido</p>
-                            <div class="flex items-center justify-center gap-4 mt-5">
-                                <button id="remove-class-btn" class="hour-step-button hour-step-remove" aria-label="Remover uma hora utilizada">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <div class="text-center">
-                                    <p class="text-sm font-semibold muted-label">Horas utilizadas</p>
-                                    <p class="text-4xl font-black tracking-tight strong-text mt-2"><span id="class-count-display-secondary">0</span><span class="hour-unit">h</span></p>
-                                    <p id="last-class-registered-secondary" class="text-xs font-semibold muted-label mt-2">Nenhuma aula registrada neste pacote.</p>
-                                </div>
-                                <button id="add-class-btn" class="hour-step-button hour-step-add" aria-label="Adicionar uma hora utilizada">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
+                        <div class="package-session-actions">
+                            <p class="kpi-helper" id="session-balance">Confira as horas do pacote.</p>
+                            <button type="button" id="record-session-btn" class="app-button w-full"><i class="fas fa-calendar-plus" aria-hidden="true"></i> Registrar encontro</button>
+                            <details class="session-history" id="session-history">
+                                <summary>Histórico de encontros</summary>
+                                <div id="session-history-content"></div>
+                            </details>
                         </div>
 
                         <div class="mini-stat">
@@ -616,13 +603,13 @@
                 </div>
                 <div>
                     <label for="package-value-input" class="block text-sm font-semibold muted-label mb-2">Valor pago (R$)</label>
-                    <input type="number" id="package-value-input" class="app-input" placeholder="Ex: 700" inputmode="decimal" required>
+                    <input type="number" id="package-value-input" class="app-input" placeholder="Ex: 700" inputmode="decimal" min="0" step="0.01" required>
                 </div>
                 <div>
                     <label for="package-date-input" class="block text-sm font-semibold muted-label mb-2">Data de in&iacute;cio</label>
                     <input type="date" id="package-date-input" class="app-input" required>
                 </div>
-                <p class="section-copy">Ao iniciar um novo pacote, apenas o contador de horas volta para zero. O progresso das lições é preservado.</p>
+                <p class="section-copy">O pacote atual ficará no histórico. O novo começa com zero horas utilizadas; o progresso das lições é preservado.</p>
                 <div class="flex flex-col-reverse md:flex-row md:justify-end gap-3 pt-2">
                     <button type="button" id="cancel-package-btn" class="app-button-secondary">Cancelar</button>
                     <button type="submit" id="confirm-package-btn" class="app-button">Confirmar pacote</button>
@@ -631,6 +618,16 @@
         </div>
     </div>
 
+    <dialog id="session-dialog" class="session-dialog" aria-labelledby="session-dialog-title">
+        <form id="session-form">
+            <div class="session-dialog-head"><div><p class="kpi-label" id="session-student-name"></p><h2 id="session-dialog-title" class="section-title">Registrar encontro</h2></div><button type="button" class="app-button-ghost" data-close-session aria-label="Fechar registro de encontro">×</button></div>
+            <label for="session-date">Data e horário</label><input id="session-date" type="datetime-local" class="app-input" required>
+            <label for="session-duration">Duração</label><select id="session-duration" class="app-select"><option value="15" >15 minutos</option><option value="30" >30 minutos</option><option value="45" >45 minutos</option><option value="60" selected>60 minutos</option><option value="75" >75 minutos</option><option value="90" >90 minutos</option><option value="120" >120 minutos</option><option value="150" >150 minutos</option><option value="180" >180 minutos</option><option value="240" >240 minutos</option></select>
+            <label for="session-note">Observação <span class="muted-label">(opcional)</span></label><textarea id="session-note" class="app-input" rows="3" maxlength="500" placeholder="Ex.: praticamos o diálogo e revisamos o homework."></textarea>
+            <p id="session-error" role="alert" class="session-error" hidden></p>
+            <div class="session-dialog-actions"><button type="button" class="app-button-secondary" data-close-session>Cancelar</button><button type="submit" id="save-session-btn" class="app-button">Salvar encontro</button></div>
+        </form>
+    </dialog>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -639,8 +636,9 @@
     <script src="js/v3-curriculum.js"></script>
     <script src="js/theme-toggle.js"></script>
     <script src="js/ui-feedback.js"></script>
+    <script src="js/class-session-ledger.js"></script>
+    <script src="js/teacher-sessions.js"></script>
     <script src="js/app.js"></script>
     <script src="js/student-management.js"></script>
 </body>
 </html>
-

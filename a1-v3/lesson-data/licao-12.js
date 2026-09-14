@@ -16,193 +16,152 @@
     {
       "id": "opening",
       "type": "conversation",
-      "title": "People behind the names",
+      "title": "A family puzzle",
       "kicker": "Conversation Activities",
-      "instruction": "Observe as pistas. Diga o que entende e escolha por onde começar.",
+      "instruction": "Converse com o professor. Use os apoios quando precisar.",
       "tasks": [
         [
-          "Rita",
-          "Mia’s mother · teacher · starts at 8:00 · lives in Recife"
+          "Sam",
+          "Sam is Jo’s father."
         ],
         [
-          "Dan",
-          "Mia’s brother · student · studies at night · lives in Recife"
+          "Jo",
+          "Jo is Mia’s mother."
         ],
         [
           "Mia",
-          "Dan’s sister · nurse · works at night · lives in Olinda"
+          "Mia is Sam’s…?"
         ]
       ],
-      "goal": "Your mission",
-      "challenge": "Entreviste o professor sobre uma pessoa e apresente três informações e uma relação familiar."
+      "goal": "Complete the family connection.",
+      "challenge": "granddaughter = neta · father · mother · grandfather"
     },
     {
-      "id": "detective",
-      "type": "conversation",
-      "title": "Find the relative",
-      "kicker": "Conversation Activities",
-      "instruction": "O professor interpreta uma das pessoas dos perfis. Pergunte sobre parentesco, idade e rotina até identificá-la.",
-      "tasks": [
-        [
-          "Rita",
-          "Mia’s mother · teacher · starts at 8:00 · lives in Recife"
-        ],
-        [
-          "Dan",
-          "Mia’s brother · student · studies at night · lives in Recife"
-        ],
-        [
-          "Mia",
-          "Dan’s sister · nurse · works at night · lives in Olinda"
-        ]
-      ],
-      "goal": "Find and confirm.",
-      "challenge": "Who is Rita? / Where does Dan live? / Does Mia work at night?"
-    },
-    {
-      "id": "reading",
+      "id": "family",
       "type": "reading",
-      "title": "A message to work with",
-      "kicker": "A message to work with",
-      "instruction": "O professor lê a mensagem; depois leia e responda. Use as informações na próxima tarefa.",
+      "title": "The family café",
+      "kicker": "Conversation Activities",
+      "instruction": "O professor lê; depois leia e responda. Procure as pistas no texto.",
       "paragraphs": [
-        "Rita is my mother. She is a teacher and starts work at eight. Dan is my brother. He studies at night. We live in Recife, but my sister Mia lives in Olinda."
+        "Mia lives with her mother, Jo, and her brother, Leo. Jo works at a café. She starts work at seven. Mia’s grandfather, Sam, visits the café on Saturdays. He likes tea and sandwiches.",
+        "Leo studies in the morning. In the afternoon, he plays soccer with his cousin, Ava. Ava’s mother is Jo’s sister. On Sundays, everyone has lunch at Sam’s house."
       ],
       "items": [
         [
-          "Who is Rita?",
-          "She is the speaker’s mother."
+          "Who is Leo’s mother?",
+          "Jo."
         ],
         [
-          "Where does Mia live?",
-          "She lives in Olinda."
+          "Who is Ava’s aunt?",
+          "Jo."
+        ],
+        [
+          "When does Sam visit the café?",
+          "On Saturdays."
+        ],
+        [
+          "Where do they have lunch on Sundays?",
+          "At Sam’s house."
         ]
       ],
       "translations": []
     },
     {
-      "id": "interview",
-      "type": "conversation",
-      "title": "Now it is about you.",
+      "id": "connections",
+      "type": "matching",
+      "title": "Names on the family tree",
       "kicker": "Conversation Activities",
-      "instruction": "Responda com dados reais ou inventados. Depois faça as perguntas ao professor.",
-      "tasks": [
+      "instruction": "Diga o número e a letra. Depois explique a combinação em uma frase.",
+      "options": [
+        "Mia’s brother",
+        "Jo’s father",
+        "Leo’s cousin",
+        "Ava’s aunt"
+      ],
+      "items": [
         [
-          "Pergunta 1",
-          "Who is Rita?"
+          "1. Ava",
+          "C — Leo’s cousin."
         ],
         [
-          "Pergunta 2",
-          "Where does Dan live?"
+          "2. Sam",
+          "B — Jo’s father."
         ],
         [
-          "Pergunta 3",
-          "Does Mia work at night?"
+          "3. Jo",
+          "D — Ava’s aunt."
+        ],
+        [
+          "4. Leo",
+          "A — Mia’s brother."
         ]
-      ],
-      "goal": "Find one new detail.",
-      "challenge": "Faça uma pergunta de acompanhamento e conte o que descobriu."
-    },
-    {
-      "id": "solve",
-      "type": "mission",
-      "title": "Make it happen.",
-      "kicker": "Make it happen.",
-      "instruction": "Entreviste o professor sobre uma pessoa e apresente três informações e uma relação familiar.",
-      "board": [
-        [
-          "Rita",
-          "Mia’s mother · teacher · starts at 8:00 · lives in Recife"
-        ],
-        [
-          "Dan",
-          "Mia’s brother · student · studies at night · lives in Recife"
-        ],
-        [
-          "Mia",
-          "Dan’s sister · nurse · works at night · lives in Olinda"
-        ]
-      ],
-      "steps": [
-        "Inicie a conversa.",
-        "Descubra e confirme as informações.",
-        "Cheguem a uma solução."
-      ],
-      "support": [
-        "Who is Rita?",
-        "Where does Dan live?",
-        "Does Mia work at night?"
-      ],
-      "model": "Rita is my mother. She is a teacher and starts work at eight. Dan is my brother. He studies at night. We live in Recife, but my sister Mia lives in Olinda.",
-      "surprise": "Dan agora estuda de manhã. Atualize o perfil sem mudar os outros dados."
-    },
-    {
-      "id": "repair",
-      "type": "conversation",
-      "title": "Something changes.",
-      "kicker": "Conversation Activities",
-      "instruction": "Retomem a conversa e resolvam esta mudança.",
-      "tasks": [
-        [
-          "Nova situação",
-          "Dan agora estuda de manhã. Atualize o perfil sem mudar os outros dados."
-        ]
-      ],
-      "goal": "Confirm the new result.",
-      "challenge": "Troquem quem pergunta e quem responde. Não é preciso repetir todas as falas anteriores."
-    },
-    {
-      "id": "final",
-      "type": "conversation",
-      "title": "Your turn, without a script.",
-      "kicker": "Conversation Activities",
-      "instruction": "Inventem novos nomes e detalhes para a mesma situação.",
-      "tasks": [
-        [
-          "Objetivo",
-          "Entreviste o professor sobre uma pessoa e apresente três informações e uma relação familiar."
-        ],
-        [
-          "Apoio opcional",
-          "Who is Rita? / Where does Dan live? / Does Mia work at night?"
-        ]
-      ],
-      "goal": "Complete the conversation.",
-      "challenge": "Na segunda tentativa, use menos apoio e acrescente uma pergunta."
-    },
-    {
-      "id": "exit",
-      "type": "exit",
-      "title": "Look at your progress.",
-      "kicker": "Look at your progress.",
-      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
-      "checks": [
-        "Entrevistar o professor sobre uma pessoa e depois apresentar um perfil curto dela.",
-        "Consegui pedir repetição ou esclarecimento.",
-        "Consigo tentar novamente com menos apoio."
       ]
+    },
+    {
+      "id": "riddles",
+      "type": "questions",
+      "title": "Listen to the relative",
+      "kicker": "Conversation Activities",
+      "instruction": "Responda oralmente antes de conferir. Algumas perguntas aceitam outras respostas.",
+      "items": [
+        [
+          "“Jo is my daughter.” Who am I?",
+          "Sam."
+        ],
+        [
+          "“Leo is my brother.” Who am I?",
+          "Mia."
+        ],
+        [
+          "“Sam is my father. I work at a café.” Who am I?",
+          "Jo."
+        ]
+      ]
+    },
+    {
+      "id": "someone",
+      "type": "conversation",
+      "title": "Someone important to you",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor. Use os apoios quando precisar.",
+      "tasks": [
+        [
+          "Choose",
+          "Escolha um familiar, amigo ou personagem."
+        ],
+        [
+          "Find out",
+          "Pergunte ao professor sobre uma pessoa importante para ele."
+        ],
+        [
+          "Introduce",
+          "Apresente essa pessoa com nome, relação e rotina."
+        ]
+      ],
+      "goal": "What do you have in common?",
+      "challenge": "He/She lives… / works… / likes… / You may invent a person."
     },
     {
       "id": "homework",
       "type": "homework",
-      "title": "Take it with you.",
-      "kicker": "Take it with you.",
+      "title": "One thing to try",
+      "kicker": "Conversation Activities",
       "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
       "options": [
         [
           "A",
-          "Speak",
-          "Apresente uma pessoa a partir de um perfil. Diga seu parentesco, trabalho e rotina."
+          "Create",
+          "Crie uma pequena árvore de personagens e três pistas."
         ],
         [
           "B",
-          "Write",
-          "Escreva uma mensagem apresentando duas pessoas que o professor ainda não conhece."
+          "Talk",
+          "Apresente alguém em cinco frases, usando he ou she."
         ],
         [
           "C",
-          "Make a Card",
-          "Crie três perfis familiares com diferenças de idade, trabalho e rotina para um jogo de perguntas."
+          "Notice",
+          "Escolha uma foto e descreva duas relações entre as pessoas, reais ou inventadas."
         ]
       ]
     }
@@ -210,5 +169,13 @@
   "migration": {
     "sourceLesson": null,
     "editorialVersion": "2026.09-a1-38"
-  }
-});}());
+  },
+  "editorialRevision": "2026-09-10-varied-communication",
+  "activityFormats": [
+    "conversation",
+    "reading",
+    "matching",
+    "questions",
+    "homework"
+  ]
+});})();

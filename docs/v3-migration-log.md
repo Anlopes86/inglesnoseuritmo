@@ -260,3 +260,80 @@ Próxima fatia recomendada: consolidar o contrato compartilhado de atividades e 
 - Player compartilhado com A2: seções completas, índice, Retomar, tema, Ouvir/Salvar e música lexical antes do homework.
 - Verificação: 23 seções percorridas, respostas, papéis, infinitivos, tema persistente, largura responsiva e falha de conclusão offline aprovados. Flashcards testados com aluno selecionado, exemplos/formas, ID determinístico e falta de seleção; serviços simulados, sem gravações reais. Quatro auditorias mínimas passaram, mantendo 23 avisos musicais anteriores.
 - Inspeção visual da abertura comunicativa e vocabulário lexical; evidências em artifacts/b1-presentation/pair-01/. Sem publicação ou nova validação dos provedores musicais.
+
+## 2026-09-10 · A2 — liberação específica do V3
+
+- Corrigido o hub A2 V3: consultava a permissão a2 em vez de a2-v3. Agora usa o ID do próprio módulo; o resolvedor compartilhado preserva a compatibilidade com liberação geral a2.
+- Regressão no navegador cobre liberação a2-v3 e a2, recusa de a2-v2 isolado, outros módulos e ausência de permissão. Aluno liberado vê 32 aulas com a progressão preservada. Serviços simulados, sem mudar cadastro ou gravar dados reais.
+- Captura de inspeção visual em artifacts/a2-access-fix/student-v3-grant.png. Correção local.
+
+## 2026-09-10/11 · Comunicativas — variedade desde o A1
+
+- Fatia A1: revisão das 12 comunicativas nos arquivos individuais. Novos textos, pistas, cartões, enquetes, associações, lacunas, descrição e conversa pessoal. Cores/objetos na L21 e mapa na L24 como estímulos visuais. Preservados manifesto, IDs e dependências.
+- Fatia A2: 15 sequências autorais em `variedActivities` na fonte canônica. O adaptador consome `activities` diretamente. Reaproveitados documentos/diálogos adequados, com novas mensagens, leituras e dinâmicas. Sem obrigatoriedade de roleplay, mudança de situação ou missão final.
+- Fatia B1: 15 comunicativas migradas para o player compartilhado com fonte em `b1-v3/b1-v3-communicative-data.js`. Leituras próprias e assuntos de conhecimento geral com referências primárias visíveis. L1 lexical mantém o primeiro par; demais lexicais e L31/L32 permanecem no formato anterior.
+- Fatia do player: associação com opções completas, textos com lacunas e pesquisa de opinião sem gabarito. Revelação individual/coletiva e escolhas independentes preservadas ao navegar. Fontes factuais opcionais junto à leitura. Conteúdo autoral inspirado nos formatos das imagens, sem cópia dos exercícios ou uso das imagens do livro.
+- Verificação: quatro auditorias obrigatórias aprovadas; teste das 42 fontes ativas integrado ao audit-v3. Navegador percorreu 38 páginas A1, 32 A2 e 16 B1. Seis amostras adicionais cobrem mapa inserido depois, novas interações, respostas, fontes, modo escuro e largura de todas as seções em celular. Inspeção visual A1 L24, A2 L22 e B1 L24, com capturas em artifacts/communicative-redesign/.
+- Relatório e matriz das aulas: docs/v3-communicative-redesign-2026-09-11.md. Alterações locais, sem publicação ou gravação em cadastros reais. Permanecem 23 avisos musicais preexistentes; provedores externos não reconfirmados nesta revisão.
+
+## 2026-09-11 · Correção do login durante a análise do painel
+
+- Retirada a chamada de migração/promoção administrativa do login: professor pode entrar consultando somente seu perfil. Perfil inexistente retorna null; tentativas após falha não dependem de novo evento de autenticação. Adicionados prazo limite e feedback específico de conexão/permissões.
+- `tools/audit-login-flow.cjs` cobre os três papéis, leitura apenas do próprio perfil, ausência de promoção, eventos concorrentes, nova tentativa, perfil ausente e erros. Teste e quatro auditorias obrigatórias aprovados. Sessão real abriu o painel local.
+- Publicados exclusivamente js/login.js, js/platform-access.js e o teste em 00bd3f5beb2df9e0e9661fcca2c8cb4228757cd7. GitHub Pages concluído e arquivos públicos conferidos. Regras, permissões e cadastros preservados; revisão das aulas e análise do painel permanecem locais.
+- Análise visual e de usabilidade em docs/teacher-panel-review-2026-09-11.md; nenhuma reformulação do painel aplicada nesta etapa.
+# 2026-09-11 — Painel do professor: revisão local dos itens 3–6
+
+Atualização após avaliação: restaurado o dropdown de alunos com busca, removendo a lista clicável. Registro de encontros e demais ajustes mantidos; prévia e verificações atualizadas, sem publicação.
+
+- Busca com alunos clicáveis, resumo compacto, ajustes de celular e encontros com data, duração, observação, edição e arquivo de pacotes.
+- Sem alteração curricular ou dos players; preservados os fluxos de acesso aos módulos e o progresso. Propostas 1–2 não implementadas, conforme escolha do usuário.
+- Testes do histórico e quatro auditorias V3 aprovados. Conferência visual e testes interativos somente em prévia com dados fictícios. Sem publicação nesta etapa.
+- Detalhes e limites em `docs/teacher-panel-review-2026-09-11.md`.
+
+
+## 2026-09-12 · Portal do aluno e estudo pessoal — revisão local
+
+- Portal com título e link direto da próxima lição V3, atalhos para cards pessoais e progresso/pacote recolhível.
+- Nova biblioteca de flashcards e sessão separada, retomada no mesmo navegador, produção sem exemplo exposto, intervalos progressivos e recuperação idempotente de falhas. IDs dos cards e metadados de origem preservados.
+- Fontes ativas: js/flashcards-study-app.js, js/flashcards-study-core.js e js/flashcards-extra-library.js; flashcards-app.html não carrega o aplicativo antigo.
+- Teste de estudo e quatro auditorias obrigatórias aprovados. Conferência visual/interativa em dados fictícios; nenhuma publicação ou alteração em contas reais.
+- Detalhes em docs/student-portal-flashcards-review-2026-09-11.md; prévia em artifacts/student-study-audit/.
+
+
+## 2026-09-12 · Reversão da proposta de portal e flashcards
+
+A pedido do usuário, restaurados integralmente home-aluno.html, flashcards-app.html, css/student-portal.css e js/student-portal-dashboard.js à versão anterior à proposta. Removidos os novos arquivos de estudo e os seus testes/gerador. As prévias foram regeneradas com a interface anterior. Correção publicada do login, painel do professor, aulas e registros reais preservados. Nenhum push necessário: a proposta descartada não havia sido publicada.
+
+
+## 2026-09-12 · Correções funcionais do estudo, sem reformulação visual
+
+Aplicadas as quatro prioridades altas aprovadas: impedir dupla avaliação, recuperar falha sem avançar, respeitar a data de revisão difícil e preservar/validar o aluno do portal nos flashcards. CSS e estrutura visual anterior mantidos. Testes isolados e quatro auditorias V3 passaram; conferência com dados fictícios. Sem publicação. Detalhes em docs/flashcards-functional-fixes-2026-09-12.md.
+
+## 2026-09-13 · Contexto do aluno e permissões do cadastro
+
+- Primeira fatia funcional da auditoria comercial: contexto validado por aba em js/student-context.js; painel/portal, hubs A1–C1, conclusão e salvamento de palavras transportam o aluno correto. Revalidação antes de gravar, sem confiar no papel do armazenamento local. Visual preservado.
+- Regras locais restringem autoedição do aluno ao mapa progress. Módulos, pacote, contagem e demais campos administrativos deixam de ser autoeditáveis. Permissões do professor responsável e administrador preservadas.
+- Testes de contexto, login, flashcards, encontros, cards/acesso A2 e quatro auditorias V3 aprovados. Navegador confirmou 166 links, progressão do aluno e salvamento para A após selecionar B em outra aba, usando somente serviços fictícios.
+- Pendente: executar o novo teste de autorização no emulador. Java 21 necessário; consulta ao fornecedor bloqueada pela revisão automática por limite de uso. Não houve implantação de regras nem push. Detalhes e comandos em docs/student-context-security-fixes-2026-09-13.md.
+
+## 2026-09-13 · Validação das permissões concluída
+
+- Retomada autorizada: Java 21 oficial extraído apenas na pasta temporária, integridade conferida. Firestore Emulator 1.20.4 executou as regras locais com projeto demo-insr-security: 33 verificações de autorização aprovadas.
+- Falha inicial de mensagens pt_BR do emulador resolvida iniciando somente o processo de teste com locale en_US. Aluno, professor responsável, outro professor, administrador, usuário sem perfil e acesso anônimo incluídos. Progresso/cards/avaliações permitidos conforme o perfil e campos administrativos protegidos.
+- Pendência de validação do registro anterior encerrada. Resultado e hash das regras em artifacts/student-context-security/rules-result.json. Nenhuma publicação nem alteração em dados reais.
+
+## 2026-09-14 · Flashcards — produção, edição, exclusão e acessibilidade
+
+- Significado separado de formas/exemplos na produção; gravação estruturada dos novos cards das aulas, com compatibilidade dos versos antigos. IDs e conteúdo histórico preservados.
+- Edição conserva procedência curricular, fila e tentativa quando o termo não muda. Exclusão pessoal remove também a avaliação de modo atômico; estatísticas desconsideram órfãos identificáveis.
+- Faces acessíveis sincronizadas, Enter sem dupla virada e botões independentes. Visual anterior preservado.
+- Testes funcionais e quatro auditorias V3 aprovados; 36 verificações de autorização no emulador. Conferência visual e interativa em largura móvel com dados fictícios. Permanecem os 23 avisos musicais anteriores.
+- Detalhes e limites em docs/flashcards-maintenance-2026-09-14.md. Sem publicação ou alterações em contas reais; decks legados e retomada completa da sessão ficam para outra fatia.
+
+## 2026-09-14 · Preparação do envio completo para main
+
+- Envio de todas as alterações locais solicitado pelo usuário, incluindo aulas comunicativas, painel do professor, correções de acesso/contexto, flashcards, testes e documentação.
+- Teste musical de A1 atualizado para comparar IDs e números com o manifesto de 38 aulas, eliminando a lista fixa do currículo antigo. Catálogo e seleção de músicas preservados; ambos os testes musicais aprovados.
+- Login, registro de aulas, acesso A2 e auditorias finais A2 aprovados novamente antes do envio. Regras do Firestore versionadas; push no GitHub não equivale à implantação dessas regras no Firebase.
+

@@ -9,10 +9,10 @@
         const loading = document.getElementById('loading');
         const db = typeof globalScope.db !== 'undefined' ? globalScope.db : globalScope.firebase?.firestore?.();
 
-        function card(lesson, state, canOpen) {
+        function card(lesson, state, canOpen, owner) {
             const link = document.createElement('a');
             const number = String(lesson.number).padStart(2, '0');
-            link.href = canOpen ? `licao-${number}.html` : '#';
+            link.href = canOpen ? globalScope.StudentContext.link(`licao-${number}.html`, owner) : '#';
             link.className = `module-lesson-card ${state} ${lesson.type}`;
             link.setAttribute('aria-disabled', String(!canOpen));
             link.innerHTML = `
@@ -28,13 +28,13 @@
             return link;
         }
 
-        function render(progress, isManager) {
+        function render(progress, isManager, owner) {
             const firstPending = lessons.find(lesson => !curriculum.isLessonComplete(progress, moduleId, lesson.id))?.number || lessons.length + 1;
             grid.innerHTML = '';
             lessons.forEach(lesson => {
                 const complete = curriculum.isLessonComplete(progress, moduleId, lesson.id);
                 const state = complete ? 'complete' : lesson.number === firstPending ? 'next' : 'locked';
-                grid.appendChild(card(lesson, state, isManager || state !== 'locked'));
+                grid.appendChild(card(lesson, state, isManager || state !== 'locked', owner));
             });
             loading.hidden = true;
             grid.hidden = false;
@@ -47,12 +47,12 @@
                 return;
             }
             try {
-                const viewer = await db.collection('students').doc(user.uid).get();
-                const viewerData = viewer.exists ? viewer.data() : {};
-                const role = viewerData.role || localStorage.getItem('loggedInUserRole') || 'aluno';
+                const context = await globalScope.StudentContextReady;
+                if (!context) throw new Error('Recarregue a página para validar o aluno.');
+                const owner = await context.resolve(db, user);
+                context.wireLinks(owner);
+                const {role, studentId} = owner;
                 const isManager = role === 'professor' || role === 'admin';
-                const studentId = isManager ? localStorage.getItem('selectedStudentId') : user.uid;
-                if (!studentId) throw new Error('Selecione um aluno antes de abrir o módulo.');
                 const studentDoc = await db.collection('students').doc(studentId).get();
                 const student = studentDoc.exists ? studentDoc.data() : {};
                 if (role === 'professor' && student.teacherId !== user.uid) throw new Error('Acesso negado ao aluno selecionado.');
@@ -62,7 +62,7 @@
                 if (globalScope.PlatformAccess && !globalScope.PlatformAccess.canAccessModule(products, moduleId)) {
                     throw new Error(`Este aluno não possui acesso ao módulo ${moduleId.toUpperCase()}.`);
                 }
-                render(student.progress || {}, isManager);
+                render(student.progress || {}, isManager, owner);
             } catch (error) {
                 console.error(`Erro ao carregar ${moduleId}:`, error);
                 loading.textContent = error.message || 'Não foi possível carregar as lições.';

@@ -28,40 +28,9 @@ function getModuleLandingPage(moduleId) {
 }
 
 async function resolveProgressViewerContext() {
-    const db = firebase.firestore();
-    const auth = firebase.auth();
-    const currentUser = auth.currentUser;
-    if (!currentUser) {
-        return { role: 'aluno', studentId: null };
-    }
-
-    const viewerDoc = await db.collection('students').doc(currentUser.uid).get();
-    const viewerData = viewerDoc.exists ? viewerDoc.data() : {};
-    const role = viewerData.role || localStorage.getItem('loggedInUserRole') || 'aluno';
-
-    if (role === 'professor') {
-        const studentId = localStorage.getItem('selectedStudentId');
-        if (!studentId) {
-            return { role, studentId: null };
-        }
-
-        const studentDoc = await db.collection('students').doc(studentId).get();
-        if (!studentDoc.exists) {
-            throw new Error('Aluno selecionado nao foi encontrado.');
-        }
-
-        if (studentDoc.data().teacherId !== currentUser.uid) {
-            throw new Error('Acesso negado ao aluno selecionado.');
-        }
-
-        return { role, studentId, viewerId: currentUser.uid };
-    }
-
-    if (role !== 'aluno') {
-        throw new Error('Perfil sem permissao para salvar progresso.');
-    }
-
-    return { role, studentId: currentUser.uid, viewerId: currentUser.uid };
+    const context = await window.StudentContextReady;
+    if (!context) throw new Error('Recarregue a página para validar o aluno.');
+    return context.resolve(firebase.firestore(), firebase.auth().currentUser);
 }
 
 async function markLessonAsComplete(moduleId, lessonId) {
@@ -79,7 +48,7 @@ async function markLessonAsComplete(moduleId, lessonId) {
     } catch (error) {
         console.error('Erro ao validar contexto do progresso:', error);
         if (typeof showToast === 'function') {
-            showToast('Nao foi possivel validar seu acesso a este aluno.', 'error', 'Acesso negado');
+            showToast(error.message || 'Nao foi possivel validar seu acesso a este aluno.', 'error', 'Acesso negado');
         }
         return false;
     }
@@ -110,7 +79,7 @@ async function markLessonAsComplete(moduleId, lessonId) {
         const path = window.location.pathname;
         const lastSlashIndex = path.lastIndexOf('/');
         const basePath = path.substring(0, lastSlashIndex + 1);
-        window.location.href = basePath + getModuleLandingPage(moduleId);
+        window.location.href = window.StudentContext.link(basePath + getModuleLandingPage(moduleId), viewerContext);
         return true;
     } catch (error) {
         console.error('Erro ao salvar progresso:', error);

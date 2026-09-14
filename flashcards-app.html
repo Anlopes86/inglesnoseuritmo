@@ -24,6 +24,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <script src="js/firebase-config.js"></script>
+    <script src="js/platform-access.js"></script>
 </head>
 <body class="flashcards-shell" data-screen="menu">
     <a href="#main-content" class="skip-link">Ir para o conteúdo</a>
@@ -220,7 +221,7 @@
                 </button>
 
                 <div id="card-area" class="study-card-wrap">
-                    <div id="study-card" class="study-card" role="button" tabindex="0">
+                    <div id="study-card" class="study-card" role="group" aria-label="Card de estudo">
                         <div class="card-actions" aria-label="Ações do card">
                             <div class="card-action-group">
                                 <button type="button" class="card-action" data-card-action="speak" data-action="speak" aria-label="Ouvir pronúncia" title="Ouvir pronúncia">
@@ -241,14 +242,14 @@
                         </div>
                         <div id="difficulty-pill" class="difficulty-pill">Novo</div>
 
-                        <div class="study-card-inner">
-                            <div class="study-card-face study-card-front">
+                        <div id="card-flip-control" class="study-card-inner" role="button" tabindex="0" aria-labelledby="card-front-language card-front-copy">
+                            <div id="card-front-face" class="study-card-face study-card-front" aria-hidden="false">
                                 <span id="card-context-front" class="card-context">Lição</span>
                                 <span id="card-front-language" class="card-language">Inglês</span>
                                 <h2 id="card-front-copy" class="card-copy">Ready?</h2>
                                 <span id="card-hint" class="card-hint">Clique para revelar</span>
                             </div>
-                            <div class="study-card-face study-card-back">
+                            <div id="card-back-face" class="study-card-face study-card-back" aria-hidden="true" inert>
                                 <span id="card-context-back" class="card-context">Lição</span>
                                 <span id="card-back-language" class="card-language">Português</span>
                                 <p id="card-back-copy" class="card-copy">Pronto?</p>
@@ -267,6 +268,7 @@
 
                     <div id="rating-panel" class="rating-panel is-hidden">
                         <p class="rating-heading">Como este card está para você?</p>
+                        <div id="review-save-error" class="is-hidden" role="alert"><p>Não foi possível salvar esta avaliação. Tente novamente para continuar.</p><button id="retry-review-save" type="button" class="flash-button flash-button-secondary">Tentar salvar novamente</button></div>
                         <div class="rating-grid">
                             <button type="button" class="rating-button" data-rating="hard" data-level="hard"><i class="fas fa-rotate-left" aria-hidden="true"></i> Revisar</button>
                             <button type="button" class="rating-button" data-rating="medium" data-level="medium"><i class="fas fa-chart-line" aria-hidden="true"></i> Em progresso</button>

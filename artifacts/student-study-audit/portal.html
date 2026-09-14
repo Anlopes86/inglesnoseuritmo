@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Portal de estudos do aluno — aulas, progresso e revisão em um só lugar.">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Meu Inglês | Inglês no seu Ritmo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="css/app-theme.css" rel="stylesheet">
+    <link href="css/student-portal.css" rel="stylesheet">
+</head>
+<body class="app-shell student-portal-shell">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-white text-blue-700 font-semibold px-4 py-2 rounded-lg shadow-lg z-[70]">
+        Ir para o conteúdo principal
+    </a>
+
+    <header class="glass-header student-header">
+        <div class="app-container student-header-inner">
+            <a href="home-aluno.html" class="brand-mark" aria-label="Inglês no seu Ritmo — início">
+                <span class="brand-dot"></span>
+                <span>Inglês no seu Ritmo</span>
+            </a>
+            <div class="student-header-actions">
+                <span id="header-student-name" class="header-profile-chip hidden" aria-live="polite"></span>
+                <button type="button" class="theme-toggle" data-theme-toggle aria-label="Alternar tema"></button>
+                <button id="logout-btn" class="app-button-ghost compact-header-button" type="button">
+                    <i class="fas fa-right-from-bracket" aria-hidden="true"></i>
+                    <span>Sair</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="app-container student-main">
+        <section class="student-hero" aria-labelledby="student-greeting">
+            <div class="student-hero-copy">
+                <div class="student-hero-topline">
+                    <span id="module-chip" class="eyebrow"><i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Preparando sua trilha</span>
+                    <a id="back-btn" href="index.html" class="manager-back-link hidden">
+                        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                        <span id="back-btn-label">Voltar ao painel</span>
+                    </a>
+                </div>
+                <h1 id="student-greeting" class="student-title">Seu próximo passo já está sendo preparado.</h1>
+                <p id="hub-helper-text" class="student-lead">Aguarde um instante enquanto organizamos sua aula e seu progresso.</p>
+
+                <div class="next-step-card" id="next-step-card">
+                    <div class="next-step-icon"><i class="fas fa-play" aria-hidden="true"></i></div>
+                    <div class="next-step-copy">
+                        <p class="kpi-label">Próxima aula</p>
+                        <h2 id="next-lesson-name">Carregando…</h2>
+                        <p id="next-lesson-helper">Vamos encontrar o ponto certo para continuar.</p>
+                    </div>
+                    <div class="next-step-actions">
+                        <a id="lessons-link" href="#" class="app-button is-disabled" aria-disabled="true">
+                            <span>Continuar</span>
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                        <a href="flashcards-app.html" class="app-button-secondary hero-flashcards-button">
+                            <i class="fas fa-layer-group" aria-hidden="true"></i>
+                            <span>Flashcards</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="journey-snapshot" aria-label="Resumo da jornada">
+                <div class="snapshot-heading">
+                    <div>
+                        <p class="kpi-label">Seu ritmo</p>
+                        <h2>Resumo da jornada</h2>
+                    </div>
+                    <span id="package-status-badge" class="snapshot-status">Carregando</span>
+                </div>
+
+                <div class="snapshot-grid">
+                    <div class="snapshot-metric snapshot-metric-wide">
+                        <span class="snapshot-icon snapshot-icon-blue"><i class="fas fa-route" aria-hidden="true"></i></span>
+                        <div>
+                            <p>Módulo selecionado</p>
+                            <strong id="summary-module">Carregando</strong>
+                        </div>
+                    </div>
+                    <div class="snapshot-metric">
+                        <span class="snapshot-icon snapshot-icon-green"><i class="fas fa-circle-check" aria-hidden="true"></i></span>
+                        <div>
+                            <p>Lições concluídas</p>
+                            <strong id="summary-lessons">0 de 0</strong>
+                        </div>
+                    </div>
+                    <div class="snapshot-metric">
+                        <span class="snapshot-icon snapshot-icon-amber"><i class="fas fa-clock" aria-hidden="true"></i></span>
+                        <div>
+                            <p>Horas usadas</p>
+                            <strong id="summary-hours">0h</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="package-progress-block">
+                    <div class="package-progress-meta">
+                        <span id="summary-package-label">Pacote ainda não informado</span>
+                        <strong id="summary-package-percent">0%</strong>
+                    </div>
+                    <div class="progress-track" role="progressbar" aria-label="Horas usadas do pacote" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                        <div id="summary-package-progress" class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <p id="last-class-note" class="package-note">O registro de horas é independente das lições concluídas.</p>
+                </div>
+            </aside>
+        </section>
+
+        <section class="portal-section" aria-labelledby="modules-title">
+            <div class="section-heading-row">
+                <div>
+                    <p class="kpi-label">Sua biblioteca</p>
+                    <h2 id="modules-title" class="portal-section-title">Módulos liberados</h2>
+                    <p id="journey-copy" class="section-copy">Carregando suas trilhas e versões disponíveis.</p>
+                </div>
+                <span id="modules-count-badge" class="info-chip bg-slate-100 text-slate-700">0 módulos</span>
+            </div>
+            <div id="module-selector-list" class="student-module-grid" aria-live="polite">
+                <div class="module-skeleton"></div>
+                <div class="module-skeleton"></div>
+                <div class="module-skeleton"></div>
+            </div>
+        </section>
+
+        <section id="error-actions" class="portal-error hidden" role="alert">
+            <span class="portal-error-icon"><i class="fas fa-triangle-exclamation" aria-hidden="true"></i></span>
+            <div>
+                <h2>Não foi possível carregar sua trilha.</h2>
+                <p id="error-message">Tente novamente em instantes.</p>
+            </div>
+            <button id="retry-btn" class="app-button-secondary" type="button"><i class="fas fa-rotate-right" aria-hidden="true"></i> Tentar novamente</button>
+        </section>
+    </main>
+
+    <nav class="student-mobile-nav" aria-label="Navegação rápida">
+        <a href="home-aluno.html" class="is-active"><i class="fas fa-house" aria-hidden="true"></i><span>Início</span></a>
+        <a id="mobile-lessons-link" href="#" aria-disabled="true"><i class="fas fa-book-open" aria-hidden="true"></i><span>Aulas</span></a>
+        <a href="flashcards-app.html"><i class="fas fa-layer-group" aria-hidden="true"></i><span>Flashcards</span></a>
+    </nav>
+
+    
+    
+    
+    <script>(function(){
+    if(location.port!=='8769') throw Error('Prévia isolada');
+    const teacher = new URLSearchParams(location.search).get('as')==='teacher';
+    const user={uid:teacher?'qa-teacher':'qa-student'};
+    const profiles={'qa-teacher':{role:'professor',name:'Professor de teste'},'qa-student':{role:'aluno',name:'Marina de teste',teacherId:'qa-teacher',studentType:'a1-v3',modules:['a1-v3'],classCount:4,pacoteContratado:16,progress:{}}};
+    let data;try{data=JSON.parse(sessionStorage.getItem('flashcards-reliability-fixture'));}catch{}
+    data=data||{myCards:{one:{f:'to order',b:'pedir — Formas: to order · ordered · ordered — Exemplo: I would like to order a coffee.',l:'Café',module:'a1-v3',source:'lesson-flashcard',curriculumId:'qa-cafe'},two:{f:'receipt',b:'recibo',l:'Café',module:'a1-v3'},three:{f:'bill',b:'conta',l:'Café',module:'a1-v3'}},ratings:{lesson_deleted:{level:'hard',module:'a1-v3'}}};
+    let failNext=false;
+    const save=()=>sessionStorage.setItem('flashcards-reliability-fixture',JSON.stringify(data));
+    const snap=(id,value)=>({id,exists:!!value,data:()=>structuredClone(value)});
+    const ref=(kind,id)=>({id,kind,get:async()=>snap(id,data[kind][id]),set:async value=>{data[kind][id]={...data[kind][id],...value};save();},delete:async()=>{delete data[kind][id];save();}});
+    const collection=kind=>({doc:id=>ref(kind,id),get:async()=>{const docs=Object.entries(data[kind]).map(([id,value])=>snap(id,value));return {docs,size:docs.length,forEach:cb=>docs.forEach(cb)};}});
+    const db={collection:name=>({doc:id=>({get:async()=>snap(id,profiles[id]),collection})}),runTransaction:async cb=>{await new Promise(r=>setTimeout(r,250));if(failNext){failNext=false;document.getElementById('qa-failure').textContent='Simular falha no próximo salvamento';throw Error('Falha simulada');}const writes=[];await cb({get:r=>r.get(),set:(r,value)=>writes.push([r,value])});for(const [r,value] of writes)await r.set(value);}};
+    const auth={currentUser:user,onAuthStateChanged:cb=>Promise.resolve().then(()=>cb(user)),signOut:async()=>{}};
+    db.batch=()=>{const pending=[];return {delete:r=>pending.push(r),commit:async()=>{if(failNext){failNext=false;throw Error('Falha simulada');}for(const r of pending)delete data[r.kind][r.id];save();}};};
+    function firestore(){return db;}firestore.FieldValue={serverTimestamp:()=>new Date().toISOString()};window.firebase={apps:[{}],auth:()=>auth,firestore};window.db=db;
+    document.addEventListener('DOMContentLoaded',()=>{
+        const banner=document.createElement('aside');banner.style.cssText='padding:10px;text-align:center;background:#e0f2fe;color:#075985;font:13px sans-serif;';banner.textContent='Prévia com dados fictícios · nenhum aluno real é alterado. ';
+        const button=document.createElement('button');button.id='qa-failure';button.textContent='Simular falha no próximo salvamento';button.onclick=()=>{failNext=true;button.textContent='Falha simulada preparada';};banner.append(button);document.body.prepend(banner);
+        const rewrite=()=>document.querySelectorAll('a[href]').forEach(a=>{const u=new URL(a.href);if(u.origin!==location.origin)return;const page=u.pathname.endsWith('/home-aluno.html')?'portal.html':u.pathname.endsWith('/flashcards-app.html')?'flashcards.html':null;if(!page)return;u.pathname='/artifacts/student-study-audit/'+page;if(teacher)u.searchParams.set('as','teacher');a.href=u.href;});
+        setTimeout(()=>{rewrite();const observer=new MutationObserver(rewrite);observer.observe(document.body,{subtree:true,attributes:true,attributeFilter:['href']});},0);
+    });
+})();</script>
+    <script src="js/platform-access.js"></script>
+    <script src="js/v3-curriculum.js"></script>
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/ui-feedback.js"></script>
+    <script src="js/student-portal-dashboard.js"></script>
+</body>
+</html>

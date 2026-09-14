@@ -99,8 +99,8 @@ service cloud.firestore {
         || (
           resource.data.role == 'aluno'
           && isOwnDocument(userId)
-          && request.resource.data.role == resource.data.role
-          && request.resource.data.teacherId == resource.data.teacherId
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['progress'])
+          && request.resource.data.progress is map
         )
         || (
           resource.data.role == 'aluno'

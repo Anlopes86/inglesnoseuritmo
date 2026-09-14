@@ -52,6 +52,10 @@
     const state = {
         user: null,
         ownerId: null,
+        profile: null,
+        ready: false,
+        savingReview: false,
+        pendingReview: null,
         deckId: null,
         mode: readStorage(STORAGE_KEYS.mode) || 'recognition',
         cards: [],
@@ -68,6 +72,9 @@
         loading: false,
         editingCardId: null,
         pendingDeleteId: null,
+        savingCard: false,
+        deletingCard: false,
+        dialogCard: null,
         touchActive: false
     };
 
@@ -94,7 +101,7 @@
             'screen-menu', 'screen-study', 'menu-back-link', 'study-close-link', 'continue-session',
             'reviewed-count', 'due-count', 'custom-count', 'library-owner-label', 'deck-grid',
             'study-deck-name', 'study-deck-meta', 'session-progress-label', 'session-progress-bar', 'custom-card-cta',
-            'card-area', 'study-card', 'card-front-copy', 'card-back-copy', 'card-front-language',
+            'card-area', 'study-card', 'card-flip-control', 'card-front-face', 'card-back-face', 'card-front-copy', 'card-back-copy', 'card-front-language',
             'card-back-language', 'card-context-front', 'card-context-back', 'card-hint',
             'difficulty-pill', 'card-save-button', 'card-edit-button', 'card-delete-button',
             'answer-panel', 'answer-input', 'answer-feedback', 'check-answer-button', 'rating-panel',
@@ -103,23 +110,23 @@
             'study-status', 'restart-session-button', 'card-dialog', 'card-dialog-title',
             'card-front-input', 'card-back-input', 'card-category-input', 'card-dialog-feedback',
             'save-card-button', 'delete-dialog', 'delete-card-confirm', 'toast-region',
-            'cloud-status', 'cloud-status-label'
+            'cloud-status', 'cloud-status-label', 'review-save-error', 'retry-review-save'
         ].forEach((id) => {
             elements[id] = document.getElementById(id);
         });
     }
 
-    function roleFromStorage() {
-        return readStorage('loggedInUserRole') || 'aluno';
-    }
-
-    function getManagedOwnerId(user) {
-        const role = roleFromStorage();
-        const selectedStudentId = readStorage('selectedStudentId');
-        if ((role === 'professor' || role === 'admin') && selectedStudentId) {
-            return selectedStudentId;
-        }
-        return user?.uid || null;
+    async function getManagedOwnerId(user) {
+        const access = window.PlatformAccess;
+        const profile = await access.getCurrentProfile(firebase.auth(), db);
+        if (!profile) throw new Error('Não encontramos seu perfil. Entre novamente.');
+        state.profile = profile;
+        if (!access.isManager(profile)) return user.uid;
+        const requested = new URLSearchParams(window.location.search).get('studentId') || readStorage('selectedStudentId');
+        if (!requested) throw new Error('Selecione um aluno no painel antes de abrir os flashcards.');
+        const permission = await access.assertStudentAccess(db, profile, requested);
+        if (!permission.ok) throw new Error('Você não tem acesso aos flashcards deste aluno.');
+        return requested;
     }
 
     function normalizeForSearch(value) {
@@ -200,6 +207,8 @@
     function normalizeRating(data) {
         const safeData = data || {};
         return {
+            module: safeData.module || null,
+            deckId: safeData.deckId || null,
             level: ['hard', 'medium', 'easy'].includes(safeData.level) ? safeData.level : null,
             reviewCount: Number(safeData.reviewCount) || 0,
             lastReviewedAt: toDate(safeData.lastReviewedAt),
@@ -217,8 +226,7 @@
 
     function isDue(rating) {
         if (!rating?.level) return false;
-        if (rating.level === 'hard') return true;
-        if (!rating.nextReviewAt) return false;
+        if (!rating.nextReviewAt) return rating.level === 'hard';
         return rating.nextReviewAt.getTime() <= Date.now();
     }
 
@@ -288,6 +296,7 @@
     }
 
     function setMode(mode, options = {}) {
+        if (state.savingReview || state.pendingReview) return;
         if (!['recognition', 'production'].includes(mode)) return;
         state.mode = mode;
         writeStorage(STORAGE_KEYS.mode, mode);
@@ -298,9 +307,9 @@
     }
 
     function updateReturnLinks() {
-        const role = roleFromStorage();
-        const href = role === 'professor' || role === 'admin' ? 'index.html' : 'home-aluno.html';
-        const label = role === 'professor' || role === 'admin' ? 'Voltar ao painel' : 'Voltar ao portal';
+        const managed = state.profile && window.PlatformAccess.isManager(state.profile);
+        const href = managed && state.ownerId ? 'home-aluno.html?studentId=' + encodeURIComponent(state.ownerId) : 'home-aluno.html';
+        const label = 'Voltar ao portal';
         [elements['menu-back-link'], elements['study-close-link']].forEach((link) => {
             if (!link) return;
             link.href = href;
@@ -370,7 +379,12 @@
     }
 
     function renderOverviewStats() {
-        const ratingList = Object.values(state.ratings);
+        const personalIds = new Set(state.customCards.map(card => card.key));
+        const ratingList = Object.entries(state.ratings).filter(([key, rating]) => {
+            const personal = rating.deckId === 'CUSTOM' || rating.module === 'CUSTOM'
+                || /^(lesson_|card_)/.test(key) || /^(a1|a2|b1|b2|c1)-v3$/.test(rating.module || '');
+            return !personal || personalIds.has(key);
+        }).map(([, rating]) => rating);
         const reviewed = ratingList.filter((rating) => rating.level).length;
         const due = ratingList.filter((rating) => isDue(rating)).length;
         elements['reviewed-count'].textContent = String(reviewed);
@@ -497,7 +511,7 @@
     }
 
     function showMenuScreen() {
-        if (state.loading) return;
+        if (state.loading || state.savingReview || state.pendingReview) return;
         window.speechSynthesis?.cancel();
         elements['screen-study'].classList.add('is-hidden');
         elements['screen-menu'].classList.remove('is-hidden');
@@ -507,6 +521,7 @@
     }
 
     async function startDeck(deckId) {
+        if (!state.ready || state.savingReview || state.pendingReview) return;
         if (!state.user) {
             window.location.href = 'login.html';
             return;
@@ -542,6 +557,7 @@
 
     function populateLessonFilter() {
         const select = elements['lesson-filter'];
+        const selected = select.value;
         const categories = [...new Set(state.cards.map((card) => card.l).filter(Boolean))]
             .sort((first, second) => first.localeCompare(second, 'pt-BR', { numeric: true }));
         select.innerHTML = '<option value="all">Todas as lições</option>';
@@ -551,9 +567,11 @@
             option.textContent = category;
             select.appendChild(option);
         });
+        select.value = categories.includes(selected) ? selected : 'all';
     }
 
     function applyFilters() {
+        if (state.savingReview || state.pendingReview) return;
         const query = normalizeForSearch(elements['search-filter'].value);
         const difficulty = elements['difficulty-filter'].value;
         const lesson = elements['lesson-filter'].value;
@@ -571,6 +589,7 @@
     }
 
     function resetSession() {
+        if (state.savingReview || state.pendingReview) return;
         const smartQueue = buildSmartQueue(state.filteredCards);
         const requestedSize = elements['session-size-filter'].value;
         const sessionLimit = requestedSize === 'all' ? smartQueue.length : Number(requestedSize) || 10;
@@ -586,6 +605,7 @@
     }
 
     function showNextCard(options = {}) {
+        if (state.savingReview || state.pendingReview) return;
         if (state.currentCard && options.preserveHistory !== false) {
             state.history.push(state.currentCard);
         }
@@ -604,6 +624,7 @@
     }
 
     function showPreviousCard() {
+        if (state.savingReview || state.pendingReview) return;
         if (!state.history.length) return;
         if (state.currentCard) state.queue.unshift(state.currentCard);
         state.currentCard = state.history.pop();
@@ -631,9 +652,30 @@
         return { label: 'Dominado', className: 'easy' };
     }
 
+    function getProductionMeaning(card) {
+        // Old lesson cards stored examples and verb forms in b. Keep them for
+        // recognition, but do not expose them as the production prompt.
+        return String(card.meaning || card.b || '').split(/\s*(?:[—–]\s*)?(?:Formas|Exemplo|Example):\s*/i)[0].trim();
+    }
+
+    function syncCardFaces() {
+        const control = elements['card-flip-control'];
+        const front = elements['card-front-face'], back = elements['card-back-face'];
+        front?.setAttribute('aria-hidden', String(state.revealed));
+        back?.setAttribute('aria-hidden', String(!state.revealed));
+        if (front) front.inert = state.revealed;
+        if (back) back.inert = !state.revealed;
+        if (control) {
+            control.setAttribute('role', state.mode === 'production' ? 'group' : 'button');
+            control.tabIndex = state.mode === 'production' ? -1 : 0;
+            control.setAttribute('aria-labelledby', state.revealed ? 'card-back-language card-back-copy' : 'card-front-language card-front-copy');
+        }
+    }
+
     function renderCurrentCard() {
         const card = state.currentCard;
         if (!card) return;
+        state.revealed = false;
         clearStudyStatus();
 
         const isProduction = state.mode === 'production';
@@ -641,13 +683,11 @@
         const meta = difficultyMeta(rating);
         elements['study-card'].classList.remove('is-flipped');
         elements['study-card'].dataset.difficulty = meta.className;
-        elements['study-card'].setAttribute('aria-label', isProduction
-            ? 'Card de produção. Digite a resposta em inglês.'
-            : 'Flashcard. Pressione Enter ou espaço para revelar a resposta.');
-        elements['card-front-copy'].textContent = isProduction ? card.b : card.f;
+        elements['card-front-copy'].textContent = isProduction ? getProductionMeaning(card) : card.f;
         elements['card-back-copy'].textContent = isProduction ? card.f : card.b;
         elements['card-front-language'].textContent = isProduction ? 'Português · produza em inglês' : 'Inglês';
         elements['card-back-language'].textContent = isProduction ? 'Resposta em inglês' : 'Português';
+        syncCardFaces();
         elements['card-context-front'].textContent = card.l;
         elements['card-context-back'].textContent = card.l;
         elements['card-hint'].textContent = isProduction
@@ -692,16 +732,19 @@
         if (!state.currentCard || state.revealed) return;
         state.revealed = true;
         elements['study-card'].classList.add('is-flipped');
+        syncCardFaces();
         elements['rating-panel'].classList.remove('is-hidden');
         elements['card-hint'].textContent = 'Avalie sua confiança para organizar a próxima revisão';
     }
 
     function toggleCard() {
+        if (state.savingReview || state.pendingReview) return;
         if (state.mode === 'production' || !state.currentCard) return;
         if (!state.revealed) revealCard();
         else {
             state.revealed = false;
             elements['study-card'].classList.remove('is-flipped');
+            syncCardFaces();
             elements['rating-panel'].classList.add('is-hidden');
             elements['card-hint'].textContent = isTouchFirstDevice()
                 ? 'Toque para revelar · deslize para navegar'
@@ -750,36 +793,107 @@
         return nextDate;
     }
 
-    async function rateCurrentCard(level) {
-        if (!state.currentCard || !['hard', 'medium', 'easy'].includes(level)) return;
-        const card = state.currentCard;
-        const existing = getRating(card) || { reviewCount: 0 };
-        const rating = {
-            level,
-            reviewCount: existing.reviewCount + 1,
-            lastReviewedAt: new Date(),
-            nextReviewAt: nextReviewDate(level)
-        };
-        state.ratings[card.key] = rating;
-        state.sessionRatings[level] += 1;
-        hapticFeedback(level === 'easy' ? 16 : 9);
-        updateSessionStats();
+    const reviewControlStates = new Map();
+    function lockReviewControls(locked) {
+        const selectors = '[data-rating], [data-study-mode], [data-deck], #next-card-button, #previous-card-button, #back-to-decks, #restart-session-button, #search-filter, #difficulty-filter, #lesson-filter, #session-size-filter, #new-card-button, #card-edit-button, #card-delete-button, #card-save-button';
+        document.querySelectorAll(selectors).forEach(control => {
+            if (locked) {
+                if (!reviewControlStates.has(control)) reviewControlStates.set(control, control.disabled);
+                control.disabled = true;
+            } else if (reviewControlStates.has(control)) {
+                control.disabled = reviewControlStates.get(control);
+            }
+        });
+        if (!locked) reviewControlStates.clear();
+        elements['retry-review-save'].disabled = state.savingReview;
+    }
 
+    function pendingReviewKey() { return 'flashcardsPendingReview:' + state.ownerId; }
+    function persistPendingReview() {
         try {
-            await userCollection('ratings').doc(card.key).set({
-                level,
-                reviewCount: rating.reviewCount,
-                lastReviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
-                nextReviewAt: rating.nextReviewAt,
-                module: card.module || state.deckId,
-                lesson: card.lesson || card.l || null,
-                cardFingerprint: card.fingerprint
-            }, { merge: true });
-        } catch (error) {
-            console.error('Falha ao salvar dificuldade:', error);
-            notify('A avaliação ficou nesta sessão, mas não sincronizou com a nuvem.', 'error');
+            if (state.pendingReview) sessionStorage.setItem(pendingReviewKey(), JSON.stringify(state.pendingReview));
+            else sessionStorage.removeItem(pendingReviewKey());
+        } catch (_) {
+            if (state.pendingReview) notify('Mantenha esta aba aberta até salvar a avaliação.', 'error');
         }
-        showNextCard();
+    }
+
+    function restorePendingReview() {
+        let pending;
+        try { pending = JSON.parse(sessionStorage.getItem(pendingReviewKey()) || 'null'); } catch (_) { return; }
+        if (!pending?.card?.key || !deckCatalog[pending.deckId] || !pending.eventId) return;
+        state.pendingReview = pending;
+        state.deckId = pending.deckId;
+        state.currentCard = pending.card;
+        state.cards = [pending.card];
+        state.filteredCards = [pending.card];
+        populateLessonFilter();
+        state.queue = [];
+        state.sessionTotal = 1;
+        state.seen = new Set([pending.card.key]);
+        state.mode = pending.mode;
+        syncModeControls();
+        showStudyScreen();
+        elements['study-deck-name'].textContent = deckCatalog[state.deckId].label;
+        elements['study-deck-meta'].textContent = 'Avaliação pendente de salvamento';
+        elements['custom-card-cta'].classList.toggle('is-hidden', state.deckId !== 'CUSTOM');
+        renderCurrentCard();
+        revealCard();
+        updateSessionStats();
+        elements['review-save-error'].classList.remove('is-hidden');
+        elements['cloud-status-label'].textContent = 'Avaliação pendente';
+        lockReviewControls(true);
+    }
+
+    async function rateCurrentCard(level) {
+        if (!state.ready || state.savingReview || !state.currentCard || !state.revealed || !['hard', 'medium', 'easy'].includes(level)) return;
+        const card = state.currentCard;
+        state.pendingReview = state.pendingReview || {
+            eventId: crypto.randomUUID(), level, card, deckId: state.deckId, mode: state.mode,
+            nextReviewAt: nextReviewDate(level).toISOString()
+        };
+        const pending = state.pendingReview;
+        if (pending.card.key !== card.key) return;
+        persistPendingReview();
+        state.savingReview = true;
+        lockReviewControls(true);
+        elements['review-save-error'].classList.add('is-hidden');
+        elements['cloud-status-label'].textContent = 'Salvando avaliação…';
+        try {
+            let saved;
+            const ref = userCollection('ratings').doc(card.key);
+            await db.runTransaction(async transaction => {
+                const snapshot = await transaction.get(ref);
+                const legacy = !snapshot.exists && card.legacyKey && card.legacyKey !== card.key
+                    ? await transaction.get(userCollection('ratings').doc(card.legacyKey)) : null;
+                const previous = snapshot.exists ? snapshot.data() : legacy?.exists ? legacy.data() : {};
+                if (previous.lastReviewEventId === pending.eventId) { saved = previous; return; }
+                saved = {
+                    level: pending.level, reviewCount: (Number(previous.reviewCount) || 0) + 1,
+                    lastReviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    nextReviewAt: new Date(pending.nextReviewAt), lastReviewEventId: pending.eventId,
+                    module: card.module || state.deckId, lesson: card.lesson || card.l || null,
+                    deckId: pending.deckId,
+                    cardFingerprint: card.fingerprint
+                };
+                transaction.set(ref, saved, { merge: true });
+            });
+            state.ratings[card.key] = normalizeRating({...saved, lastReviewedAt: new Date()});
+            state.sessionRatings[pending.level] += 1;
+            state.pendingReview = null;
+            persistPendingReview();
+            state.savingReview = false;
+            lockReviewControls(false);
+            elements['cloud-status-label'].textContent = 'Avaliação salva';
+            updateSessionStats();
+            showNextCard();
+        } catch (error) {
+            state.savingReview = false;
+            lockReviewControls(true);
+            elements['review-save-error'].classList.remove('is-hidden');
+            elements['cloud-status-label'].textContent = 'Avaliação pendente';
+            console.error('Falha ao salvar dificuldade:', error);
+        }
     }
 
     function isCardSaved(card) {
@@ -793,6 +907,8 @@
     }
 
     function openCardDialog(card = null, options = {}) {
+        if (state.savingReview || state.pendingReview || state.savingCard) return;
+        state.dialogCard = card;
         state.editingCardId = card?.id || null;
         elements['card-dialog-title'].textContent = state.editingCardId
             ? 'Editar card'
@@ -808,6 +924,7 @@
     }
 
     function closeCardDialog() {
+        if (state.savingCard) return;
         if (elements['card-dialog'].open) elements['card-dialog'].close();
         state.editingCardId = null;
     }
@@ -818,6 +935,7 @@
     }
 
     async function saveCardFromDialog() {
+        if (state.savingReview || state.pendingReview || state.savingCard) return;
         const front = elements['card-front-input'].value.trim();
         const back = elements['card-back-input'].value.trim();
         const category = elements['card-category-input'].value.trim() || 'Geral';
@@ -831,27 +949,36 @@
         const documentId = state.editingCardId || existingByFingerprint?.id || `card_${fingerprint}`;
         const wasEditing = Boolean(state.editingCardId);
         const isExisting = Boolean(state.customCards.some((card) => card.id === documentId));
+        const original = state.customCards.find(card => card.id === documentId) || state.dialogCard || {};
         const payload = {
             f: front,
             b: back,
             l: category,
             fingerprint,
-            source: elements['card-dialog'].dataset.favorite === 'true' ? 'favorite' : 'custom',
+            source: isExisting && original.source ? original.source : elements['card-dialog'].dataset.favorite === 'true' ? 'favorite' : 'custom',
+            meaning: getProductionMeaning({ b: back }),
+            example: back === original.b ? original.example || '' : '',
+            forms: back === original.b ? original.forms || '' : '',
             updatedAt: serverTimestamp()
         };
+        for (const field of ['module', 'lesson', 'curriculumId', 'lessonTitle']) {
+            if (original[field] != null) payload[field] = original[field];
+        }
         if (!isExisting) payload.createdAt = serverTimestamp();
 
         elements['save-card-button'].disabled = true;
+        state.savingCard = true;
         elements['save-card-button'].textContent = 'Salvando…';
         try {
             await userCollection('myCards').doc(documentId).set(payload, { merge: true });
+            const savedCard = normalizeCard({ ...original, ...payload, id: documentId, updatedAt: new Date() }, { module: 'CUSTOM' });
+            state.customCards = [savedCard, ...state.customCards.filter(card => card.id !== documentId)];
+            state.savingCard = false;
             closeCardDialog();
-            await reloadCustomCards();
+            renderOverviewStats();
             notify(existingByFingerprint && !wasEditing ? 'Este card já estava salvo.' : 'Card salvo na biblioteca.', 'success');
             if (state.deckId === 'CUSTOM') {
-                state.cards = [...state.customCards];
-                populateLessonFilter();
-                applyFilters();
+                refreshPersonalSession();
             } else if (state.currentCard) {
                 renderCurrentCard();
             }
@@ -859,6 +986,7 @@
             console.error('Falha ao salvar card:', error);
             setDialogFeedback('Não foi possível salvar agora. Tente novamente.');
         } finally {
+            state.savingCard = false;
             elements['save-card-button'].disabled = false;
             elements['save-card-button'].textContent = 'Salvar card';
         }
@@ -890,34 +1018,77 @@
     }
 
     function requestDeleteCurrentCard() {
+        if (state.savingReview || state.pendingReview) return;
         if (state.deckId !== 'CUSTOM' || !state.currentCard) return;
         state.pendingDeleteId = state.currentCard.id;
         elements['delete-dialog'].showModal();
     }
 
     async function confirmDeleteCard() {
+        if (state.savingReview || state.pendingReview || state.deletingCard) return;
         if (!state.pendingDeleteId) return;
         const documentId = state.pendingDeleteId;
         elements['delete-card-confirm'].disabled = true;
+        state.deletingCard = true;
         try {
-            await userCollection('myCards').doc(documentId).delete();
+            const batch = db.batch();
+            batch.delete(userCollection('myCards').doc(documentId));
+            batch.delete(userCollection('ratings').doc(documentId));
+            await batch.commit();
             state.customCards = state.customCards.filter((card) => card.id !== documentId);
-            state.cards = state.cards.filter((card) => card.id !== documentId);
+            delete state.ratings[documentId];
             elements['delete-dialog'].close();
             state.pendingDeleteId = null;
-            populateLessonFilter();
-            applyFilters();
+            refreshPersonalSession(documentId);
             renderOverviewStats();
             notify('Card removido da biblioteca.', 'success');
         } catch (error) {
             console.error('Falha ao excluir card:', error);
             notify('Não foi possível excluir o card.', 'error');
         } finally {
+            state.deletingCard = false;
             elements['delete-card-confirm'].disabled = false;
         }
     }
 
+    function refreshPersonalSession(removedId = null) {
+        const previousCard = state.currentCard;
+        const answerState = ['answer-input', 'answer-feedback', 'check-answer-button'].map(id => ({
+            id, value: elements[id].value, text: elements[id].textContent,
+            className: elements[id].className, disabled: elements[id].disabled
+        }));
+        const cards = new Map(state.customCards.map(card => [card.key, card]));
+        const inSession = removedId && [state.currentCard, ...state.queue, ...state.history].some(card => card?.key === removedId);
+        state.cards = [...state.customCards];
+        elements['study-deck-meta'].textContent = `${state.cards.length} cards disponíveis`;
+        state.filteredCards = state.filteredCards.map(card => cards.get(card.key)).filter(Boolean);
+        state.queue = state.queue.map(card => cards.get(card.key)).filter(Boolean);
+        state.history = state.history.map(card => cards.get(card.key)).filter(Boolean);
+        state.currentCard = cards.get(state.currentCard?.key) || null;
+        if (inSession) { state.sessionTotal = Math.max(0, state.sessionTotal - 1); state.seen.delete(removedId); }
+        populateLessonFilter();
+        if (state.currentCard) {
+            const wasRevealed = state.revealed;
+            state.revealed = false;
+            renderCurrentCard();
+            if (wasRevealed && previousCard?.f === state.currentCard.f) {
+                revealCard();
+                if (state.mode === 'production') answerState.forEach(saved => {
+                    const element = elements[saved.id];
+                    element.value = saved.value; element.textContent = saved.text;
+                    element.className = saved.className; element.disabled = saved.disabled;
+                });
+            }
+        } else if (!removedId && !state.sessionTotal) applyFilters();
+        else showNextCard({ preserveHistory: false });
+        updateSessionStats();
+    }
+
     function handleKeyboard(event) {
+        if (event.defaultPrevented) return;
+        const focusedControl = event.target?.closest?.('button, a, [role="button"], [contenteditable="true"]');
+        if (focusedControl && focusedControl !== elements['card-flip-control']) return;
+        if (state.savingReview || state.pendingReview) return;
         const activeTag = document.activeElement?.tagName?.toLowerCase();
         const isTyping = ['input', 'textarea', 'select'].includes(activeTag);
         if (isTyping || elements['card-dialog']?.open || elements['delete-dialog']?.open) return;
@@ -941,6 +1112,9 @@
     }
 
     function bindEvents() {
+        elements['retry-review-save'].addEventListener('click', () => {
+            if (state.pendingReview) rateCurrentCard(state.pendingReview.level);
+        });
         let touchStart = null;
         let suppressCardTap = false;
 
@@ -989,13 +1163,6 @@
                 showPreviousCard();
             }
         }, { passive: true });
-        elements['study-card'].addEventListener('keydown', (event) => {
-            if ((event.key === 'Enter' || event.key === ' ') && state.mode === 'recognition') {
-                event.preventDefault();
-                toggleCard();
-            }
-        });
-
         document.querySelectorAll('[data-card-action]').forEach((button) => {
             button.addEventListener('click', (event) => {
                 event.stopPropagation();
@@ -1035,6 +1202,8 @@
         document.querySelectorAll('[data-dialog-close]').forEach((button) => {
             button.addEventListener('click', () => {
                 const dialog = button.closest('dialog');
+                if (dialog === elements['card-dialog'] && state.savingCard) return;
+                if (dialog === elements['delete-dialog'] && state.deletingCard) return;
                 dialog?.close();
             });
         });
@@ -1042,11 +1211,14 @@
         elements['delete-card-confirm'].addEventListener('click', confirmDeleteCard);
         elements['card-dialog'].addEventListener('close', () => {
             state.editingCardId = null;
+            state.dialogCard = null;
             elements['card-dialog'].dataset.favorite = 'false';
         });
         elements['delete-dialog'].addEventListener('close', () => {
             state.pendingDeleteId = null;
         });
+        elements['card-dialog'].addEventListener('cancel', event => { if (state.savingCard) event.preventDefault(); });
+        elements['delete-dialog'].addEventListener('cancel', event => { if (state.deletingCard) event.preventDefault(); });
         document.addEventListener('keydown', handleKeyboard);
     }
 
@@ -1072,10 +1244,29 @@
                 window.location.href = 'login.html';
                 return;
             }
-            state.user = user;
-            state.ownerId = getManagedOwnerId(user);
-            updateReturnLinks();
-            await Promise.all([loadCloudOverview(), loadOwnerLabel()]);
+            state.ready = false;
+            try {
+                state.user = user;
+                state.ownerId = await getManagedOwnerId(user);
+                const url = new URL(window.location.href);
+                if (window.PlatformAccess.isManager(state.profile)) url.searchParams.set('studentId', state.ownerId);
+                else url.searchParams.delete('studentId');
+                window.history.replaceState(null, '', url.href);
+                document.querySelectorAll('a[href*="flashcards-app.html"]').forEach(link => {
+                    const target = new URL(link.getAttribute('href'), window.location.href);
+                    if (window.PlatformAccess.isManager(state.profile)) target.searchParams.set('studentId', state.ownerId);
+                    else target.searchParams.delete('studentId');
+                    link.href = target.href;
+                });
+                updateReturnLinks();
+                await Promise.all([loadCloudOverview(), loadOwnerLabel()]);
+                state.ready = true;
+                restorePendingReview();
+            } catch (error) {
+                state.ownerId = null;
+                elements['cloud-status-label'].textContent = 'Acesso indisponível';
+                notify(error.message || 'Não foi possível carregar os flashcards.', 'error');
+            }
         });
     }
 

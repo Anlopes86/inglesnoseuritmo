@@ -16,194 +16,166 @@
   "slides": [
     {
       "id": "opening",
-      "type": "conversation",
-      "title": "Can we meet another day?",
+      "type": "survey",
+      "title": "A good day outside?",
       "kicker": "Conversation Activities",
-      "instruction": "Observe as pistas. Diga o que entende e escolha por onde começar.",
-      "tasks": [
-        [
-          "First plan",
-          "Saturday · park · 3:00"
-        ],
-        [
-          "Problem",
-          "Rainy weather · you feel tired and need to rest"
-        ],
-        [
-          "Alternatives",
-          "Sunday at 4:00 · Monday at 6:00"
-        ]
+      "instruction": "Escolha suas respostas. Não há gabarito: desenvolva duas delas na conversa.",
+      "prompts": [
+        "A sunny picnic",
+        "A rainy movie afternoon",
+        "A cold morning walk",
+        "A windy day at the beach"
       ],
-      "goal": "Your mission",
-      "challenge": "Explique uma necessidade, recuse o plano com educação e combine outra data."
+      "options": [
+        "Yes, please",
+        "Maybe",
+        "No, thanks"
+      ],
+      "followUp": "Choose one and invite the professor.",
+      "support": "Would you like to…? / I would love to. / Sorry, I cannot."
     },
     {
-      "id": "detective",
-      "type": "conversation",
-      "title": "Find a new time",
-      "kicker": "Conversation Activities",
-      "instruction": "Comparem os compromissos e a situação de saúde. Sugira um novo horário, explique o motivo e confirme um plano possível para os dois.",
-      "tasks": [
-        [
-          "First plan",
-          "Saturday · park · 3:00"
-        ],
-        [
-          "Problem",
-          "Rainy weather · you feel tired and need to rest"
-        ],
-        [
-          "Alternatives",
-          "Sunday at 4:00 · Monday at 6:00"
-        ]
-      ],
-      "goal": "Find and confirm.",
-      "challenge": "How do you feel? / Are you going to stay home? / How about Sunday at four?"
-    },
-    {
-      "id": "reading",
+      "id": "messages",
       "type": "reading",
-      "title": "A message to work with",
-      "kicker": "A message to work with",
-      "instruction": "O professor lê a mensagem; depois leia e responda. Use as informações na próxima tarefa.",
+      "title": "The picnic group chat",
+      "kicker": "Conversation Activities",
+      "instruction": "O professor lê; depois leia e responda. Procure as pistas no texto.",
       "paragraphs": [
-        "Hi! I feel tired today and I need to rest. I am not going to the park. Can we meet on Sunday at four? I will call you tomorrow."
+        "Lia: Would you like to have a picnic on Saturday at twelve? It is going to be sunny. I can bring sandwiches.",
+        "Ben: I would love to, but I have a sore throat. I am going to stay home on Saturday.",
+        "Lia: Sorry to hear that. What about Sunday afternoon?",
+        "Ben: Let’s talk on Sunday morning. I do not know how I will feel.",
+        "Lia: OK. I will call you at ten."
       ],
       "items": [
         [
-          "Why is the person staying home?",
-          "The person feels tired and needs to rest."
+          "What is the weather forecast for Saturday?",
+          "Sunny."
         ],
         [
-          "What is the new suggestion?",
-          "Sunday at four."
+          "Why can Ben not go on Saturday?",
+          "He has a sore throat."
+        ],
+        [
+          "Is the Sunday picnic confirmed?",
+          "No. They will talk on Sunday morning."
+        ],
+        [
+          "When will Lia call?",
+          "At ten on Sunday."
         ]
       ],
       "translations": []
     },
     {
-      "id": "interview",
-      "type": "conversation",
-      "title": "Now it is about you.",
+      "id": "replies",
+      "type": "matching",
+      "title": "A reply that fits",
       "kicker": "Conversation Activities",
-      "instruction": "Responda com dados reais ou inventados. Depois faça as perguntas ao professor.",
-      "tasks": [
+      "instruction": "Diga o número e a letra. Depois explique a combinação em uma frase.",
+      "options": [
+        "I would love to! What time?",
+        "Sorry, I cannot. I am not feeling well.",
+        "Let’s meet inside.",
+        "Sunday at three? Yes, that works."
+      ],
+      "items": [
         [
-          "Pergunta 1",
-          "How do you feel?"
+          "1. You accept an invitation but need the time.",
+          "A — I would love to! What time?"
         ],
         [
-          "Pergunta 2",
-          "Are you going to stay home?"
+          "2. You feel sick and decline.",
+          "B — Sorry, I cannot. I am not feeling well."
         ],
         [
-          "Pergunta 3",
-          "How about Sunday at four?"
+          "3. It is going to rain.",
+          "C — Let’s meet inside."
+        ],
+        [
+          "4. You confirm a new day and time.",
+          "D — Sunday at three? Yes, that works."
         ]
-      ],
-      "goal": "Find one new detail.",
-      "challenge": "Faça uma pergunta de acompanhamento e conte o que descobriu."
-    },
-    {
-      "id": "solve",
-      "type": "mission",
-      "title": "Make it happen.",
-      "kicker": "Make it happen.",
-      "instruction": "Explique uma necessidade, recuse o plano com educação e combine outra data.",
-      "board": [
-        [
-          "First plan",
-          "Saturday · park · 3:00"
-        ],
-        [
-          "Problem",
-          "Rainy weather · you feel tired and need to rest"
-        ],
-        [
-          "Alternatives",
-          "Sunday at 4:00 · Monday at 6:00"
-        ]
-      ],
-      "steps": [
-        "Inicie a conversa.",
-        "Descubra e confirme as informações.",
-        "Cheguem a uma solução."
-      ],
-      "support": [
-        "How do you feel?",
-        "Are you going to stay home?",
-        "How about Sunday at four?"
-      ],
-      "model": "Hi! I feel tired today and I need to rest. I am not going to the park. Can we meet on Sunday at four? I will call you tomorrow.",
-      "surprise": "O professor não pode no domingo. Escolham a outra data e confirmem."
-    },
-    {
-      "id": "repair",
-      "type": "conversation",
-      "title": "Something changes.",
-      "kicker": "Conversation Activities",
-      "instruction": "Retomem a conversa e resolvam esta mudança.",
-      "tasks": [
-        [
-          "Nova situação",
-          "O professor não pode no domingo. Escolham a outra data e confirmem."
-        ]
-      ],
-      "goal": "Confirm the new result.",
-      "challenge": "Troquem quem pergunta e quem responde. Não é preciso repetir todas as falas anteriores."
-    },
-    {
-      "id": "final",
-      "type": "conversation",
-      "title": "Your turn, without a script.",
-      "kicker": "Conversation Activities",
-      "instruction": "Inventem novos nomes e detalhes para a mesma situação.",
-      "tasks": [
-        [
-          "Objetivo",
-          "Explique uma necessidade, recuse o plano com educação e combine outra data."
-        ],
-        [
-          "Apoio opcional",
-          "How do you feel? / Are you going to stay home? / How about Sunday at four?"
-        ]
-      ],
-      "goal": "Complete the conversation.",
-      "challenge": "Na segunda tentativa, use menos apoio e acrescente uma pergunta."
-    },
-    {
-      "id": "exit",
-      "type": "exit",
-      "title": "Look at your progress.",
-      "kicker": "Look at your progress.",
-      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
-      "checks": [
-        "Explicar que não pode comparecer, propor outra data e confirmar o novo plano.",
-        "Consegui pedir repetição ou esclarecimento.",
-        "Consigo tentar novamente com menos apoio."
       ]
+    },
+    {
+      "id": "forecast",
+      "type": "cloze",
+      "title": "Two plans for the weekend",
+      "kicker": "Conversation Activities",
+      "instruction": "Leia o texto completo. Diga o que cabe em cada espaço e confira depois.",
+      "bank": [
+        "inside",
+        "rain",
+        "bring",
+        "sunny"
+      ],
+      "paragraphs": [
+        "If it is (1) ____, we are going to eat outside. Please (2) ____ some water. If it is going to (3) ____, we can meet (4) ____."
+      ],
+      "items": [
+        [
+          "1",
+          "sunny"
+        ],
+        [
+          "2",
+          "bring"
+        ],
+        [
+          "3",
+          "rain"
+        ],
+        [
+          "4",
+          "inside"
+        ]
+      ]
+    },
+    {
+      "id": "weekend",
+      "type": "conversation",
+      "title": "Your weather menu",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor. Use os apoios quando precisar.",
+      "tasks": [
+        [
+          "Plan A",
+          "Escolha uma atividade para um dia de sol."
+        ],
+        [
+          "Plan B",
+          "Escolha outra para chuva."
+        ],
+        [
+          "A message",
+          "Você não pode ir no dia combinado. Explique brevemente e proponha outro dia ao professor."
+        ]
+      ],
+      "goal": "Is the new plan confirmed or still a possibility?",
+      "challenge": "I cannot… / What about…? / I will call you…"
     },
     {
       "id": "homework",
       "type": "homework",
-      "title": "Take it with you.",
-      "kicker": "Take it with you.",
+      "title": "One thing to try",
+      "kicker": "Conversation Activities",
       "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
       "options": [
         [
           "A",
-          "Speak",
-          "Reorganize um compromisso porque alguém não se sente bem. Sugira outra data."
+          "Create",
+          "Escreva duas mensagens: cancelar com educação e combinar outro dia."
         ],
         [
           "B",
-          "Write",
-          "Escreva um convite, uma recusa com motivo e uma nova combinação."
+          "Talk",
+          "Convide o professor para uma atividade imaginária usando uma previsão do tempo."
         ],
         [
           "C",
-          "Make a Card",
-          "Crie dois cartões com horários disponíveis e escolha um plano que funcione para ambos."
+          "Notice",
+          "Observe uma previsão e diga um plano compatível com ela, sem precisar sair de casa."
         ]
       ]
     }
@@ -211,5 +183,14 @@
   "migration": {
     "sourceLesson": null,
     "editorialVersion": "2026.09-a1-38"
-  }
-});}());
+  },
+  "editorialRevision": "2026-09-10-varied-communication",
+  "activityFormats": [
+    "survey",
+    "reading",
+    "matching",
+    "cloze",
+    "conversation",
+    "homework"
+  ]
+});})();

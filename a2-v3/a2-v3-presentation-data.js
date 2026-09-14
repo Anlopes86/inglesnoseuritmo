@@ -26,6 +26,7 @@ function lexicalSlides(l){
  ];
 }
 function communicativeSlides(l){
+ if(l.activities) return l.activities;
  const source=lexical[l.sourceLesson],cards=[...source.vocab,...expressionCards(source)].filter(x=>l.recycle.includes(x[0]));
  const docs=l.realWorld.documents.map(d=>d.heading+'\n'+d.body);
  const opening=slide('opening','conversation',l.title,'Observe as situações e escolha uma resposta pessoal para começar.',{tasks:l.quickStart,goal:l.outcome,challenge:l.mission});
@@ -49,7 +50,7 @@ for(const m of window.V3Curriculum.getModule('a2-v3')){
  const l=m.lessonKind==='lexical'?lexical[m.number]:conversations[m.number];
  const slides=l?(m.lessonKind==='lexical'?lexicalSlides(l):communicativeSlides(l)):window.A2V3ConsolidationCurriculum.lessons[m.number];
  if(!slides)throw Error('A2 presentation missing '+m.id);
- lessons[m.number]={...m,summary:l?.outcome||m.linguisticFocus,slides};
+ lessons[m.number]={...m,summary:l?.outcome||m.linguisticFocus,editorialRevision:l?.editorialRevision,slides};
 }
 window.V3PresentationRegistry={get:n=>lessons[n]};
 window.A2V3PresentationRegistry=window.V3PresentationRegistry;

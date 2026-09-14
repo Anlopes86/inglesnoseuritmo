@@ -8,7 +8,8 @@
 | A2 lexical | `a2-v3/a2-v3-template.js` | `a2-v3/a2-v3-presentation-data.js` + `js/v3-presentation.js` | perfis legados quando `disableLegacyEditorial` está ativo |
 | A2 conversação | `a2-v3/a2-v3-conversation-template.js`, ligado por `sourceLesson` | `a2-v3/a2-v3-presentation-data.js` + `js/v3-presentation.js` | pares deduzidos por uma numeração antiga |
 | Música A1/A2/B1 | `js/music-catalog-v3.js`, por `curriculumId` | `js/lyrics-service-v3.js` + `js/spotify-embed-v3.js` + `js/music-cloze-v3.js` | `music.lines`, mapas por número, letra persistida |
-| B1 | `js/b1-v3-lessons-data.js` e `js/b1-v3-lessons-block*.js` | `js/b1-v3-lesson-player.js` | texto autoral apresentado como letra comercial |
+| B1 lexical e consolidações | `js/b1-v3-lessons-data.js` e `js/b1-v3-lessons-block*.js`; L1 expandida em `b1-v3/b1-v3-presentation-data.js` | L1: `js/v3-presentation.js`; demais: `js/b1-v3-lesson-player.js` | texto autoral apresentado como letra comercial |
+| B1 conversação | `b1-v3/b1-v3-communicative-data.js`, com vínculo ao manifesto; perfil de L2 reaproveitado de `b1-v3/b1-v3-presentation-data.js` | `js/v3-presentation.js` | reviews geradas, blocos e adaptador antigo nas páginas comunicativas |
 | B2/C1 | `js/advanced-v3-lessons-data.js` | `js/advanced-v3-lesson-player.js` | conteúdo copiado de outro nível sem contrato |
 
 ## Regra de resolução
@@ -38,4 +39,19 @@ As 32 páginas oficiais usam o player, CSS e tema compartilhados com A1. O adapt
 
 ## B1: primeira fatia de apresentação — aulas 1 e 2
 
-As páginas licao-01.html e licao-02.html usam js/v3-presentation.js, CSS/tema compartilhados e b1-v3/b1-v3-presentation-data.js. Esse arquivo contém a expansão lexical e a comunicativa autoral; reaproveita a lexical canônica de js/b1-v3-lessons-data.js, resolvida pelo vínculo explícito legacyLessons do manifesto. Não carrega v3-curriculum-adapters.js nem o player antigo. Aulas 3–32 continuam nas fontes block e no adaptador curricular ativo, renderizadas por js/b1-v3-lesson-player.js. Não aplicar o gerador de revisão legado às duas aulas migradas.
+Na primeira fatia, as páginas licao-01.html e licao-02.html passaram a usar js/v3-presentation.js, CSS/tema compartilhados e b1-v3/b1-v3-presentation-data.js. Esse arquivo contém a expansão lexical e o perfil autoral de Maya; reaproveita a lexical canônica de js/b1-v3-lessons-data.js, resolvida pelo vínculo explícito legacyLessons do manifesto.
+
+## Comunicativas A1/A2/B1 — revisão 2026-09-10/11
+
+As 42 comunicativas têm sequências autorais próprias. Não regenerar a partir dos roteiros antigos de missão, roleplay e mudança obrigatória.
+
+- A1: editar os 12 arquivos individuais (L3 a L36, múltiplos de três). Os demais arquivos individuais mantêm seu contrato atual.
+- A2: `variedActivities` em `a2-v3/a2-v3-conversation-template.js` fornece `activities`, que o adaptador de apresentação consome diretamente. Os campos anteriores de realWorld/model fornecem textos e diálogos selecionados; rolePlay/challenge/followUp permanecem apenas por compatibilidade e não determinam a sequência atual.
+- B1: todas as 15 comunicativas (L2 a L30, pares) carregam `b1-v3/b1-v3-communicative-data.js` depois de `b1-v3/b1-v3-presentation-data.js`. O registry final resolve essas aulas e preserva L1 no registry anterior. As páginas comunicativas não carregam o player, blocos ou adaptador curricular antigos. As lexicais L3–29 e as consolidações L31–32 ainda usam o formato anterior.
+- O player compartilhado oferece associação (`matching`), texto com lacunas (`cloze`) e pesquisa de opinião (`survey`). Texto e opções aparecem completos; gabaritos têm revelação individual e em conjunto. Pesquisas não têm gabarito e mantêm escolhas enquanto se navega na aula. Referências factuais podem ser exibidas no próprio texto via `sources`.
+- Verificar a fonte que o navegador efetivamente usa com `tools/audit-v3-communicative-variety.cjs`. O relatório `docs/v3-communicative-redesign-2026-09-11.md` registra a matriz das atividades e as referências de conhecimento geral.
+
+
+## Portal e flashcards — estado após avaliação de 2026-09-12
+
+A proposta de reformulação foi revertida a pedido do usuário. Permanecem home-aluno.html com js/student-portal-dashboard.js e css/student-portal.css; flashcards-app.html carrega js/flashcards-app.js e css/flashcards-app.css, na versão anterior. O helper js/lesson-flashcard-save.js e os registros existentes foram preservados.

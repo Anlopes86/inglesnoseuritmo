@@ -67,8 +67,11 @@
    else {
     if(['cards','verbs','patterns'].includes(s.type))content=cards(s);
     else if(['drill','questions'].includes(s.type))content=exercise(s);
+    else if(s.type==='matching')content='<section class="activity-bank" aria-label="Opções para associar"><h2>Combine as opções</h2><div class="conversation-cards">'+s.options.map((x,i)=>'<article class="conversation-card"><span class="eyebrow">'+String.fromCharCode(65+i)+'</span><p lang="en">'+escape(x)+'</p></article>').join('')+'</div></section>'+exercise(s);
+    else if(s.type==='cloze')content=(s.bank?.length?'<div class="support" aria-label="Banco de palavras">'+s.bank.map(x=>'<span lang="en">'+escape(x)+'</span>').join('')+'</div>':'')+'<div class="reading">'+s.paragraphs.map(p=>'<article class="paragraph"><p lang="en">'+escape(p)+'</p></article>').join('')+'</div>'+exercise(s);
+    else if(s.type==='survey'){const st=stateFor(s);content='<div class="exercise-list">'+s.prompts.map((q,i)=>'<article class="exercise-row"><h3 lang="en">'+escape(q)+'</h3><div class="ratings" role="group" aria-label="'+escape(q)+'">'+s.options.map((label,j)=>button(escape(label),'survey-choice',`data-question="${i}" data-choice="${j}" aria-pressed="${st.choices?.[i]===j}"`,'small-button')).join('')+'</div></article>').join('')+'</div><div class="conversation-goal"><h2>'+escape(s.followUp)+'</h2><p>'+escape(s.support||'')+'</p></div>';}
     else if(s.type==='dialogue')content=dialogue(s);
-    else if(s.type==='reading')content=reading(s);
+    else if(s.type==='reading')content=reading(s)+(s.sources?.length?'<p class="reading-sources">Saiba mais: '+s.sources.map(([label,url])=>'<a href="'+escape(url)+'" target="_blank" rel="noopener">'+escape(label)+'</a>').join(' · ')+'</p>':'');
     else if(s.type==='mission')content=mission(s);
     else if(s.type==='roleplay'){const st=stateFor(s),index=st.roleIndex||0,role=s.roles[index];content='<div class="toolbar">'+s.roles.map((r,i)=>button(escape(r.name),'select-role',`data-role-index="${i}" aria-pressed="${i===index}"`,'small-button')).join('')+'</div>'+mission({...s,board:[[role.name,role.goal],['Your information',role.details.join(' · ')]]});}
     else if(s.type==='reference')content='<div class="reference-content">'+s.body+'</div>';
@@ -104,6 +107,7 @@
    else if(a==='bookmark'){marks.has(s.id)?marks.delete(s.id):marks.add(s.id);}
    else if(a==='all-models'){const all=s.items.every((_,i)=>st.reveals.has('item-'+i));s.items.forEach((_,i)=>all?st.reveals.delete('item-'+i):st.reveals.add('item-'+i));}
    else if(a==='meanings')st.meanings=!st.meanings;
+   else if(a==='survey-choice'){st.choices=st.choices||{};st.choices[el.dataset.question]=Number(el.dataset.choice);}
    else if(a==='item-prev')st.cursor=Math.max(0,st.cursor-1);
    else if(a==='single')st.single=!st.single;
    else if(a==='translations')st.translation=!st.translation;

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="Central inteligente de revisão de vocabulário do Inglês no seu Ritmo.">
+    <meta name="theme-color" content="#07101f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Flashcards">
+    <title>Flashcards | Inglês no seu Ritmo</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="img/flash-icon.png">
+    <link rel="icon" type="image/png" href="img/flash-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="css/flashcards-app.css" rel="stylesheet">
+
+    
+    
+    
+    <script>(function(){
+    if(location.port!=='8769') throw Error('Prévia isolada');
+    const teacher = new URLSearchParams(location.search).get('as')==='teacher';
+    const user={uid:teacher?'qa-teacher':'qa-student'};
+    const profiles={'qa-teacher':{role:'professor',name:'Professor de teste'},'qa-student':{role:'aluno',name:'Marina de teste',teacherId:'qa-teacher',studentType:'a1-v3',modules:['a1-v3'],classCount:4,pacoteContratado:16,progress:{}}};
+    let data;try{data=JSON.parse(sessionStorage.getItem('flashcards-reliability-fixture'));}catch{}
+    data=data||{myCards:{one:{f:'to order',b:'pedir — Formas: to order · ordered · ordered — Exemplo: I would like to order a coffee.',l:'Café',module:'a1-v3',source:'lesson-flashcard',curriculumId:'qa-cafe'},two:{f:'receipt',b:'recibo',l:'Café',module:'a1-v3'},three:{f:'bill',b:'conta',l:'Café',module:'a1-v3'}},ratings:{lesson_deleted:{level:'hard',module:'a1-v3'}}};
+    let failNext=false;
+    const save=()=>sessionStorage.setItem('flashcards-reliability-fixture',JSON.stringify(data));
+    const snap=(id,value)=>({id,exists:!!value,data:()=>structuredClone(value)});
+    const ref=(kind,id)=>({id,kind,get:async()=>snap(id,data[kind][id]),set:async value=>{data[kind][id]={...data[kind][id],...value};save();},delete:async()=>{delete data[kind][id];save();}});
+    const collection=kind=>({doc:id=>ref(kind,id),get:async()=>{const docs=Object.entries(data[kind]).map(([id,value])=>snap(id,value));return {docs,size:docs.length,forEach:cb=>docs.forEach(cb)};}});
+    const db={collection:name=>({doc:id=>({get:async()=>snap(id,profiles[id]),collection})}),runTransaction:async cb=>{await new Promise(r=>setTimeout(r,250));if(failNext){failNext=false;document.getElementById('qa-failure').textContent='Simular falha no próximo salvamento';throw Error('Falha simulada');}const writes=[];await cb({get:r=>r.get(),set:(r,value)=>writes.push([r,value])});for(const [r,value] of writes)await r.set(value);}};
+    const auth={currentUser:user,onAuthStateChanged:cb=>Promise.resolve().then(()=>cb(user)),signOut:async()=>{}};
+    db.batch=()=>{const pending=[];return {delete:r=>pending.push(r),commit:async()=>{if(failNext){failNext=false;throw Error('Falha simulada');}for(const r of pending)delete data[r.kind][r.id];save();}};};
+    function firestore(){return db;}firestore.FieldValue={serverTimestamp:()=>new Date().toISOString()};window.firebase={apps:[{}],auth:()=>auth,firestore};window.db=db;
+    document.addEventListener('DOMContentLoaded',()=>{
+        const banner=document.createElement('aside');banner.style.cssText='padding:10px;text-align:center;background:#e0f2fe;color:#075985;font:13px sans-serif;';banner.textContent='Prévia com dados fictícios · nenhum aluno real é alterado. ';
+        const button=document.createElement('button');button.id='qa-failure';button.textContent='Simular falha no próximo salvamento';button.onclick=()=>{failNext=true;button.textContent='Falha simulada preparada';};banner.append(button);document.body.prepend(banner);
+        const rewrite=()=>document.querySelectorAll('a[href]').forEach(a=>{const u=new URL(a.href);if(u.origin!==location.origin)return;const page=u.pathname.endsWith('/home-aluno.html')?'portal.html':u.pathname.endsWith('/flashcards-app.html')?'flashcards.html':null;if(!page)return;u.pathname='/artifacts/student-study-audit/'+page;if(teacher)u.searchParams.set('as','teacher');a.href=u.href;});
+        setTimeout(()=>{rewrite();const observer=new MutationObserver(rewrite);observer.observe(document.body,{subtree:true,attributes:true,attributeFilter:['href']});},0);
+    });
+})();</script>
+    <script src="js/platform-access.js"></script>
+</head>
+<body class="flashcards-shell" data-screen="menu">
+    <a href="#main-content" class="skip-link">Ir para o conteúdo</a>
+
+    <div id="screen-menu">
+        <header class="flash-topbar">
+            <div class="flash-container flash-topbar-inner">
+                <a id="menu-back-link" href="home-aluno.html" class="flash-back-link" aria-label="Voltar ao portal">
+                    <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                    <span class="back-link-label">Voltar ao portal</span>
+                </a>
+
+                <a href="flashcards-app.html" class="flash-brand" aria-label="Flashcards do Inglês no seu Ritmo">
+                    <span class="brand-mark"><i class="fas fa-bolt" aria-hidden="true"></i></span>
+                    <span class="brand-copy">
+                        <span class="brand-title">Flash-English</span>
+                        <span class="brand-subtitle">Inglês no seu Ritmo</span>
+                    </span>
+                </a>
+
+                <span id="cloud-status" class="flash-back-link" role="status">
+                    <i class="fas fa-cloud-arrow-down" aria-hidden="true"></i>
+                    <span id="cloud-status-label" class="back-link-label">Conectando</span>
+                </span>
+            </div>
+        </header>
+
+        <main id="main-content" class="flash-container menu-main">
+            <section class="menu-hero" aria-labelledby="flashcards-title">
+                <div class="hero-main">
+                    <h1 id="flashcards-title" class="hero-title">Transforme vocabulário em <span>memória ativa.</span></h1>
+                    <p id="library-owner-label" class="visually-hidden">Sua biblioteca pessoal</p>
+                </div>
+
+                <div class="hero-stats is-hidden" aria-label="Resumo da sua biblioteca">
+                    <article class="hero-stat">
+                        <span class="hero-stat-label">Cards avaliados</span>
+                        <strong id="reviewed-count" class="hero-stat-value">0</strong>
+                    </article>
+                    <article class="hero-stat">
+                        <span class="hero-stat-label">Para reforçar</span>
+                        <strong id="due-count" class="hero-stat-value">0</strong>
+                    </article>
+                    <article class="hero-stat">
+                        <span class="hero-stat-label">Meus cards</span>
+                        <strong id="custom-count" class="hero-stat-value">0</strong>
+                    </article>
+                </div>
+            </section>
+
+            <section aria-labelledby="decks-title">
+                <div class="study-preferences">
+                    <div>
+                        <h2 id="decks-title" class="section-heading">Escolha como revisar</h2>
+                    </div>
+                    <div class="review-controls">
+                        <button id="continue-session" type="button" class="flash-button flash-button-primary is-hidden" data-deck="A1">
+                            <i class="fas fa-play" aria-hidden="true"></i>
+                            <span data-continue-label>Continuar revisão</span>
+                        </button>
+                        <div class="mode-switch" role="group" aria-label="Modo de estudo">
+                            <button type="button" class="mode-option is-active" data-study-mode="recognition" aria-pressed="true">
+                                <i class="fas fa-eye" aria-hidden="true"></i> Reconhecer
+                            </button>
+                            <button type="button" class="mode-option" data-study-mode="production" aria-pressed="false">
+                                <i class="fas fa-pen" aria-hidden="true"></i> Produzir em inglês
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="deck-grid" class="deck-grid">
+                    <button type="button" class="deck-card" data-deck="CUSTOM" data-accent="yellow">
+                        <span class="deck-card-top">
+                            <span class="deck-icon"><i class="fas fa-layer-group" aria-hidden="true"></i></span>
+                            <i class="fas fa-arrow-right deck-arrow" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <span class="deck-name">Meus Cards & Favoritos</span>
+                            <span class="deck-description">Cards salvos nas aulas e criados por você.</span>
+                        </span>
+                        <span class="deck-card-footer"><span class="deck-meta" data-custom-count>0 cards salvos</span><span class="deck-meta">Gerenciar</span></span>
+                    </button>
+
+                    <button type="button" class="deck-card" data-deck="AULAS_CONV" data-accent="yellow">
+                        <span class="deck-card-top">
+                            <span class="deck-icon"><i class="fas fa-comments" aria-hidden="true"></i></span>
+                            <i class="fas fa-arrow-right deck-arrow" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <span class="deck-name">Aulas de Conversação</span>
+                            <span class="deck-description">Expressões e linguagem das aulas temáticas.</span>
+                        </span>
+                        <span class="deck-card-footer"><span class="deck-meta">64 aulas</span><span class="deck-meta">Revisar</span></span>
+                    </button>
+
+                    <button type="button" class="deck-card" data-deck="A1" data-accent="green">
+                        <span class="deck-card-top">
+                            <span class="deck-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></span>
+                            <i class="fas fa-arrow-right deck-arrow" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <span class="deck-name">Módulo A1 / A2</span>
+                            <span class="deck-description">Vocabulário, expressões e verbos da base.</span>
+                        </span>
+                        <span class="deck-card-footer"><span class="deck-meta">32 lições</span><span class="deck-meta">Revisar</span></span>
+                    </button>
+
+                    <button type="button" class="deck-card" data-deck="TRAVEL" data-accent="blue">
+                        <span class="deck-card-top">
+                            <span class="deck-icon"><i class="fas fa-plane" aria-hidden="true"></i></span>
+                            <i class="fas fa-arrow-right deck-arrow" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <span class="deck-name">Viagem</span>
+                            <span class="deck-description">Comunicação prática para situações de viagem.</span>
+                        </span>
+                        <span class="deck-card-footer"><span class="deck-meta">3 níveis</span><span class="deck-meta">Revisar</span></span>
+                    </button>
+
+                    <button type="button" class="deck-card" data-deck="RESTAURANT" data-accent="orange">
+                        <span class="deck-card-top">
+                            <span class="deck-icon"><i class="fas fa-utensils" aria-hidden="true"></i></span>
+                            <i class="fas fa-arrow-right deck-arrow" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <span class="deck-name">Restaurante</span>
+                            <span class="deck-description">Peça, converse e resolva situações com segurança.</span>
+                        </span>
+                        <span class="deck-card-footer"><span class="deck-meta">3 níveis</span><span class="deck-meta">Revisar</span></span>
+                    </button>
+
+                    <button type="button" class="deck-card" data-deck="VOC_CONV" data-accent="violet">
+                        <span class="deck-card-top">
+                            <span class="deck-icon"><i class="fas fa-book-open" aria-hidden="true"></i></span>
+                            <i class="fas fa-arrow-right deck-arrow" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <span class="deck-name">Vocabulário de conversação</span>
+                            <span class="deck-description">Expressões variadas para ganhar naturalidade.</span>
+                        </span>
+                        <span class="deck-card-footer"><span class="deck-meta">18 temas</span><span class="deck-meta">Revisar</span></span>
+                    </button>
+
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <section id="screen-study" class="study-screen is-hidden" aria-label="Sessão de flashcards">
+        <header class="study-topbar">
+            <div class="flash-container study-topbar-row">
+                <div class="study-topbar-actions">
+                    <button id="back-to-decks" type="button" class="flash-icon-button" aria-label="Voltar aos decks" title="Voltar aos decks">
+                        <i class="fas fa-table-cells-large" aria-hidden="true"></i>
+                    </button>
+                    <a id="study-close-link" href="home-aluno.html" class="flash-icon-button is-danger" aria-label="Sair dos flashcards" title="Sair dos flashcards">
+                        <i class="fas fa-xmark" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+                <div class="study-deck-heading">
+                    <span id="study-deck-name" class="study-deck-name">Flashcards</span>
+                    <span id="study-deck-meta" class="study-deck-meta">Preparando sessão</span>
+                </div>
+
+                <span id="session-progress-label" class="progress-badge" aria-label="Progresso da sessão">0/0</span>
+            </div>
+            <div class="session-progress-track" aria-hidden="true">
+                <div id="session-progress-bar" class="session-progress-bar"></div>
+            </div>
+        </header>
+
+        <main class="study-main">
+            <section id="custom-card-cta" class="custom-card-cta is-hidden" aria-labelledby="custom-card-cta-title">
+                <span class="custom-card-cta-icon" aria-hidden="true">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <div class="custom-card-cta-copy">
+                    <span class="custom-card-cta-eyebrow">Meus Cards &amp; Favoritos</span>
+                    <h1 id="custom-card-cta-title">Crie seu próprio flashcard</h1>
+                    <p>Adicione uma palavra ou expressão e ela já entra na sua biblioteca de revisão.</p>
+                </div>
+                <button id="new-card-button" type="button" class="flash-button flash-button-primary custom-card-cta-button">
+                    <i class="fas fa-plus" aria-hidden="true"></i>
+                    <span>Adicionar novo flashcard</span>
+                </button>
+            </section>
+
+            <section class="study-stage" aria-label="Card atual">
+                <div id="study-status" class="status-card is-hidden" role="status" aria-live="polite"></div>
+                <button id="restart-session-button" type="button" class="flash-button flash-button-primary is-hidden" style="margin-top: 1rem;">
+                    <i class="fas fa-rotate-right" aria-hidden="true"></i> Reiniciar sessão
+                </button>
+
+                <div id="card-area" class="study-card-wrap">
+                    <div id="study-card" class="study-card" role="group" aria-label="Card de estudo">
+                        <div class="card-actions" aria-label="Ações do card">
+                            <div class="card-action-group">
+                                <button type="button" class="card-action" data-card-action="speak" data-action="speak" aria-label="Ouvir pronúncia" title="Ouvir pronúncia">
+                                    <i class="fas fa-volume-high" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div class="card-action-group">
+                                <button id="card-save-button" type="button" class="card-action" data-card-action="save" data-action="save" aria-label="Salvar nos meus cards" title="Salvar nos meus cards">
+                                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                                </button>
+                                <button id="card-edit-button" type="button" class="card-action is-hidden" data-card-action="edit" data-action="edit" aria-label="Editar card" title="Editar card">
+                                    <i class="fas fa-pen" aria-hidden="true"></i>
+                                </button>
+                                <button id="card-delete-button" type="button" class="card-action is-hidden" data-card-action="delete" data-action="delete" aria-label="Excluir card" title="Excluir card">
+                                    <i class="fas fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="difficulty-pill" class="difficulty-pill">Novo</div>
+
+                        <div id="card-flip-control" class="study-card-inner" role="button" tabindex="0" aria-labelledby="card-front-language card-front-copy">
+                            <div id="card-front-face" class="study-card-face study-card-front" aria-hidden="false">
+                                <span id="card-context-front" class="card-context">Lição</span>
+                                <span id="card-front-language" class="card-language">Inglês</span>
+                                <h2 id="card-front-copy" class="card-copy">Ready?</h2>
+                                <span id="card-hint" class="card-hint">Clique para revelar</span>
+                            </div>
+                            <div id="card-back-face" class="study-card-face study-card-back" aria-hidden="true" inert>
+                                <span id="card-context-back" class="card-context">Lição</span>
+                                <span id="card-back-language" class="card-language">Português</span>
+                                <p id="card-back-copy" class="card-copy">Pronto?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="answer-panel" class="answer-panel is-hidden">
+                        <label for="answer-input" class="tool-label">Escreva a resposta em inglês</label>
+                        <div class="answer-row">
+                            <input id="answer-input" type="text" class="flash-input" placeholder="Digite em inglês…" autocomplete="off" autocapitalize="sentences">
+                            <button id="check-answer-button" type="button" class="answer-button">Conferir</button>
+                        </div>
+                        <p id="answer-feedback" class="answer-feedback" aria-live="polite"></p>
+                    </div>
+
+                    <div id="rating-panel" class="rating-panel is-hidden">
+                        <p class="rating-heading">Como este card está para você?</p>
+                        <div id="review-save-error" class="is-hidden" role="alert"><p>Não foi possível salvar esta avaliação. Tente novamente para continuar.</p><button id="retry-review-save" type="button" class="flash-button flash-button-secondary">Tentar salvar novamente</button></div>
+                        <div class="rating-grid">
+                            <button type="button" class="rating-button" data-rating="hard" data-level="hard"><i class="fas fa-rotate-left" aria-hidden="true"></i> Revisar</button>
+                            <button type="button" class="rating-button" data-rating="medium" data-level="medium"><i class="fas fa-chart-line" aria-hidden="true"></i> Em progresso</button>
+                            <button type="button" class="rating-button" data-rating="easy" data-level="easy"><i class="fas fa-check" aria-hidden="true"></i> Dominei</button>
+                        </div>
+                    </div>
+
+                    <div class="study-navigation">
+                        <button id="previous-card-button" type="button" class="flash-icon-button is-hidden" aria-label="Card anterior" title="Card anterior">
+                            <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                        </button>
+                        <button id="next-card-button" type="button" class="flash-button flash-button-primary">Próximo <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <details id="study-tools" class="study-tools" open>
+                <summary><span><i class="fas fa-sliders" aria-hidden="true"></i> Filtros e modo de estudo</span></summary>
+                <div class="study-tools-inner">
+                    <div class="tool-section">
+                        <span class="tool-label">Modo de estudo</span>
+                        <div class="mode-switch" role="group" aria-label="Modo de estudo da sessão">
+                            <button type="button" class="mode-option is-active" data-study-mode="recognition" aria-pressed="true">Reconhecer</button>
+                            <button type="button" class="mode-option" data-study-mode="production" aria-pressed="false">Produzir</button>
+                        </div>
+                    </div>
+
+                    <div class="tool-section tool-grid">
+                        <div>
+                            <label for="search-filter" class="tool-label">Buscar</label>
+                            <input id="search-filter" type="search" class="flash-input" placeholder="Palavra ou expressão">
+                        </div>
+                        <div>
+                            <label for="difficulty-filter" class="tool-label">Dificuldade</label>
+                            <select id="difficulty-filter" class="flash-select">
+                                <option value="all">Todas</option>
+                                <option value="new">Novos</option>
+                                <option value="hard">Revisar</option>
+                                <option value="medium">Em progresso</option>
+                                <option value="easy">Dominados</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lesson-filter" class="tool-label">Lição ou categoria</label>
+                            <select id="lesson-filter" class="flash-select">
+                                <option value="all">Todas as lições</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="session-size-filter" class="tool-label">Tamanho da sessão</label>
+                            <select id="session-size-filter" class="flash-select">
+                                <option value="5">5 cards · revisão expressa</option>
+                                <option value="10" selected>10 cards · recomendado</option>
+                                <option value="20">20 cards</option>
+                                <option value="30">30 cards</option>
+                                <option value="all">Todos os cards filtrados</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="tool-section">
+                        <span class="tool-label">Esta sessão</span>
+                        <div class="session-stats">
+                            <div class="session-stat"><strong id="session-seen">0</strong><span>vistos</span></div>
+                            <div class="session-stat"><strong id="session-review">0</strong><span>revisar</span></div>
+                            <div class="session-stat"><strong id="session-mastered">0</strong><span>dominados</span></div>
+                        </div>
+                    </div>
+
+                    <div class="tool-section shortcut-section">
+                        <p class="shortcut-copy">Atalhos: espaço revela; setas navegam; 1, 2 e 3 avaliam a dificuldade.</p>
+                    </div>
+                </div>
+            </details>
+        </main>
+    </section>
+
+    <dialog id="card-dialog" class="flash-dialog" aria-labelledby="card-dialog-title">
+        <div class="dialog-content">
+            <div class="dialog-header">
+                <div>
+                    <h2 id="card-dialog-title" class="dialog-title">Criar novo card</h2>
+                    <p class="dialog-copy">Personalize a frente, o significado e a categoria.</p>
+                </div>
+                <button type="button" class="flash-icon-button" data-dialog-close aria-label="Fechar">
+                    <i class="fas fa-xmark" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="dialog-fields">
+                <div>
+                    <label for="card-front-input" class="tool-label">Frente em inglês</label>
+                    <input id="card-front-input" type="text" class="flash-input" autocomplete="off">
+                </div>
+                <div>
+                    <label for="card-back-input" class="tool-label">Tradução ou significado</label>
+                    <input id="card-back-input" type="text" class="flash-input" autocomplete="off">
+                </div>
+                <div>
+                    <label for="card-category-input" class="tool-label">Categoria</label>
+                    <input id="card-category-input" type="text" class="flash-input" placeholder="Ex.: Favoritos · A1" autocomplete="off">
+                </div>
+            </div>
+            <p id="card-dialog-feedback" class="dialog-feedback is-hidden" role="alert"></p>
+            <div class="dialog-actions">
+                <button type="button" class="flash-button flash-button-secondary" data-dialog-close>Cancelar</button>
+                <button id="save-card-button" type="button" class="flash-button flash-button-primary">Salvar card</button>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="delete-dialog" class="flash-dialog" aria-labelledby="delete-dialog-title">
+        <div class="dialog-content">
+            <div class="dialog-header">
+                <div>
+                    <h2 id="delete-dialog-title" class="dialog-title">Excluir este card?</h2>
+                    <p class="dialog-copy">Essa ação remove o card da biblioteca do aluno e não pode ser desfeita.</p>
+                </div>
+            </div>
+            <div class="dialog-actions">
+                <button type="button" class="flash-button flash-button-secondary" data-dialog-close>Cancelar</button>
+                <button id="delete-card-confirm" type="button" class="flash-button" style="background: #fb7185; color: #111827;">Excluir card</button>
+            </div>
+        </div>
+    </dialog>
+
+    <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+    <script src="js/flashcards-app.js"></script>
+</body>
+</html>

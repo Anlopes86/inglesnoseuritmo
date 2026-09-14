@@ -16,193 +16,160 @@
     {
       "id": "opening",
       "type": "conversation",
-      "title": "Three moments from a trip",
+      "title": "Three souvenirs, one trip",
       "kicker": "Conversation Activities",
-      "instruction": "Observe as pistas. Diga o que entende e escolha por onde começar.",
+      "instruction": "Converse com o professor. Use os apoios quando precisar.",
       "tasks": [
         [
-          "Friday",
-          "Arrived in Salvador · stayed at a hotel"
+          "A ticket",
+          "A bus ticket from Friday."
         ],
         [
-          "Saturday",
-          "Visited a museum · had lunch by the beach"
+          "A photo",
+          "A photo of a rainy beach on Saturday."
         ],
         [
-          "Sunday",
-          "Saw a friend · went home by bus"
+          "A postcard",
+          "A postcard from a museum on Sunday."
         ]
       ],
-      "goal": "Your mission",
-      "challenge": "Conte três acontecimentos em ordem e entreviste o professor sobre uma viagem."
+      "goal": "Was it a good trip? Guess before reading.",
+      "challenge": "I think… / Maybe…"
     },
     {
-      "id": "detective",
-      "type": "conversation",
-      "title": "Rebuild the trip",
-      "kicker": "Conversation Activities",
-      "instruction": "Reconstruam os acontecimentos da viagem. Faça perguntas para confirmar a ordem, os lugares e como cada momento foi.",
-      "tasks": [
-        [
-          "Friday",
-          "Arrived in Salvador · stayed at a hotel"
-        ],
-        [
-          "Saturday",
-          "Visited a museum · had lunch by the beach"
-        ],
-        [
-          "Sunday",
-          "Saw a friend · went home by bus"
-        ]
-      ],
-      "goal": "Find and confirm.",
-      "challenge": "Where were you on Friday? / What did you do on Saturday? / Did you see a friend?"
-    },
-    {
-      "id": "reading",
+      "id": "postcards",
       "type": "reading",
-      "title": "A message to work with",
-      "kicker": "A message to work with",
-      "instruction": "O professor lê a mensagem; depois leia e responda. Use as informações na próxima tarefa.",
+      "title": "The sunny plan and the rainy day",
+      "kicker": "Conversation Activities",
+      "instruction": "O professor lê; depois leia e responda. Procure as pistas no texto.",
       "paragraphs": [
-        "Last weekend I was in Salvador. I arrived on Friday and stayed at a hotel. On Saturday I visited a museum. On Sunday I saw a friend and went home by bus."
+        "Friday — Hi, Ana! We arrived this afternoon. The hotel is small, but our room is nice. Tomorrow we want to go to the beach. I am here with my sister. — Lu",
+        "Sunday — Hi again! It rained yesterday. We went to the beach for ten minutes and then had lunch in a little café. Today we visited a museum and took a lot of photos. It was a good weekend! We are going home by bus tonight. — Lu"
       ],
       "items": [
         [
-          "Where did the person stay?",
-          "At a hotel."
+          "Who did Lu travel with?",
+          "Her sister."
         ],
         [
-          "When did the person see a friend?",
-          "On Sunday."
+          "Did they stay on the beach all day?",
+          "No, only ten minutes."
+        ],
+        [
+          "What did they do on Sunday?",
+          "They visited a museum and took photos."
+        ],
+        [
+          "Was Lu unhappy about the whole weekend?",
+          "No. She said it was a good weekend."
         ]
       ],
       "translations": []
     },
     {
-      "id": "interview",
-      "type": "conversation",
-      "title": "Now it is about you.",
+      "id": "order",
+      "type": "matching",
+      "title": "A weekend out of order",
       "kicker": "Conversation Activities",
-      "instruction": "Responda com dados reais ou inventados. Depois faça as perguntas ao professor.",
-      "tasks": [
+      "instruction": "Diga o número e a letra. Depois explique a combinação em uma frase.",
+      "options": [
+        "Sunday",
+        "Friday",
+        "Saturday"
+      ],
+      "items": [
         [
-          "Pergunta 1",
-          "Where were you on Friday?"
+          "1. They arrived at the hotel.",
+          "B — Friday."
         ],
         [
-          "Pergunta 2",
-          "What did you do on Saturday?"
+          "2. They had lunch at a café after the beach.",
+          "C — Saturday."
         ],
         [
-          "Pergunta 3",
-          "Did you see a friend?"
+          "3. They visited a museum.",
+          "A — Sunday."
         ]
-      ],
-      "goal": "Find one new detail.",
-      "challenge": "Faça uma pergunta de acompanhamento e conte o que descobriu."
-    },
-    {
-      "id": "solve",
-      "type": "mission",
-      "title": "Make it happen.",
-      "kicker": "Make it happen.",
-      "instruction": "Conte três acontecimentos em ordem e entreviste o professor sobre uma viagem.",
-      "board": [
-        [
-          "Friday",
-          "Arrived in Salvador · stayed at a hotel"
-        ],
-        [
-          "Saturday",
-          "Visited a museum · had lunch by the beach"
-        ],
-        [
-          "Sunday",
-          "Saw a friend · went home by bus"
-        ]
-      ],
-      "steps": [
-        "Inicie a conversa.",
-        "Descubra e confirme as informações.",
-        "Cheguem a uma solução."
-      ],
-      "support": [
-        "Where were you on Friday?",
-        "What did you do on Saturday?",
-        "Did you see a friend?"
-      ],
-      "model": "Last weekend I was in Salvador. I arrived on Friday and stayed at a hotel. On Saturday I visited a museum. On Sunday I saw a friend and went home by bus.",
-      "surprise": "A viagem terminou na segunda-feira. Acrescente um acontecimento de domingo à noite."
-    },
-    {
-      "id": "repair",
-      "type": "conversation",
-      "title": "Something changes.",
-      "kicker": "Conversation Activities",
-      "instruction": "Retomem a conversa e resolvam esta mudança.",
-      "tasks": [
-        [
-          "Nova situação",
-          "A viagem terminou na segunda-feira. Acrescente um acontecimento de domingo à noite."
-        ]
-      ],
-      "goal": "Confirm the new result.",
-      "challenge": "Troquem quem pergunta e quem responde. Não é preciso repetir todas as falas anteriores."
-    },
-    {
-      "id": "final",
-      "type": "conversation",
-      "title": "Your turn, without a script.",
-      "kicker": "Conversation Activities",
-      "instruction": "Inventem novos nomes e detalhes para a mesma situação.",
-      "tasks": [
-        [
-          "Objetivo",
-          "Conte três acontecimentos em ordem e entreviste o professor sobre uma viagem."
-        ],
-        [
-          "Apoio opcional",
-          "Where were you on Friday? / What did you do on Saturday? / Did you see a friend?"
-        ]
-      ],
-      "goal": "Complete the conversation.",
-      "challenge": "Na segunda tentativa, use menos apoio e acrescente uma pergunta."
-    },
-    {
-      "id": "exit",
-      "type": "exit",
-      "title": "Look at your progress.",
-      "kicker": "Look at your progress.",
-      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
-      "checks": [
-        "Entrevistar o professor sobre uma viagem e organizar três informações em sequência.",
-        "Consegui pedir repetição ou esclarecimento.",
-        "Consigo tentar novamente com menos apoio."
       ]
+    },
+    {
+      "id": "diary",
+      "type": "cloze",
+      "title": "A tiny travel diary",
+      "kicker": "Conversation Activities",
+      "instruction": "Leia o texto completo. Diga o que cabe em cada espaço e confira depois.",
+      "bank": [
+        "went",
+        "visited",
+        "was",
+        "arrived"
+      ],
+      "paragraphs": [
+        "We (1) ____ on Friday. On Saturday, we (2) ____ to the beach. On Sunday, we (3) ____ a museum. The weekend (4) ____ fun."
+      ],
+      "items": [
+        [
+          "1",
+          "arrived"
+        ],
+        [
+          "2",
+          "went"
+        ],
+        [
+          "3",
+          "visited"
+        ],
+        [
+          "4",
+          "was"
+        ]
+      ]
+    },
+    {
+      "id": "trip",
+      "type": "conversation",
+      "title": "A trip in three objects",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor. Use os apoios quando precisar.",
+      "tasks": [
+        [
+          "Your objects",
+          "Escolha três objetos que representam uma viagem real ou inventada."
+        ],
+        [
+          "Ask",
+          "Entreviste o professor sobre uma viagem: onde, quando e o que fez."
+        ],
+        [
+          "Retell",
+          "Conte três informações em ordem e diga qual parte parece mais interessante."
+        ]
+      ],
+      "goal": "What story do the objects tell?",
+      "challenge": "First… / Then… / On… / It was…"
     },
     {
       "id": "homework",
       "type": "homework",
-      "title": "Take it with you.",
-      "kicker": "Take it with you.",
+      "title": "One thing to try",
+      "kicker": "Conversation Activities",
       "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
       "options": [
         [
           "A",
-          "Speak",
-          "Conte uma viagem seguindo uma linha do tempo e responda duas perguntas que você mesmo preparou."
+          "Create",
+          "Escreva um cartão de 40–60 palavras de uma viagem inventada."
         ],
         [
           "B",
-          "Write",
-          "Escreva uma mensagem sobre o melhor momento de uma viagem real ou inventada."
+          "Talk",
+          "Conte uma viagem usando três objetos como pistas."
         ],
         [
           "C",
-          "Make a Card",
-          "Crie quatro cartões de acontecimentos fora de ordem para reconstruir uma história com o professor."
+          "Notice",
+          "Escolha uma foto e prepare três frases sobre aquele dia."
         ]
       ]
     }
@@ -210,5 +177,13 @@
   "migration": {
     "sourceLesson": null,
     "editorialVersion": "2026.09-a1-38"
-  }
-});}());
+  },
+  "editorialRevision": "2026-09-10-varied-communication",
+  "activityFormats": [
+    "conversation",
+    "reading",
+    "matching",
+    "cloze",
+    "homework"
+  ]
+});})();

@@ -16,193 +16,184 @@
     {
       "id": "opening",
       "type": "conversation",
-      "title": "A welcome desk",
+      "title": "A name with a secret",
       "kicker": "Conversation Activities",
-      "instruction": "Observe as pistas. Diga o que entende e escolha por onde começar.",
+      "instruction": "Converse com o professor. Use os apoios quando precisar.",
       "tasks": [
         [
-          "Ana",
-          "first name: Ana · last name: Silva · nickname: Ana"
+          "Card 1",
+          "I am Alexander. My nickname is Alex."
         ],
         [
-          "Leo",
-          "first name: Leonardo · last name: Costa · nickname: Leo"
+          "Card 2",
+          "I am Elizabeth. My nickname is Liz."
         ],
         [
-          "Mia",
-          "first name: Mia · last name: Green · nickname: Mia"
+          "Card 3",
+          "I am Rafael. My nickname is Rafa."
         ]
       ],
-      "goal": "Your mission",
-      "challenge": "Apresente a si e a outra pessoa, soletrando os sobrenomes."
+      "goal": "What is your nickname?",
+      "challenge": "My name is… / My nickname is…"
     },
     {
-      "id": "detective",
-      "type": "conversation",
-      "title": "Who am I?",
+      "id": "names",
+      "type": "matching",
+      "title": "Who is speaking?",
       "kicker": "Conversation Activities",
-      "instruction": "O professor escolhe Ana, Leo ou Mia. Faça perguntas sobre nome e apelido para descobrir quem é.",
-      "tasks": [
-        [
-          "Ana",
-          "first name: Ana · last name: Silva · nickname: Ana"
-        ],
-        [
-          "Leo",
-          "first name: Leonardo · last name: Costa · nickname: Leo"
-        ],
-        [
-          "Mia",
-          "first name: Mia · last name: Green · nickname: Mia"
-        ]
-      ],
-      "goal": "Find and confirm.",
-      "challenge": "What’s your name? / How do you spell your last name? / What’s your nickname?"
-    },
-    {
-      "id": "reading",
-      "type": "reading",
-      "title": "A message to work with",
-      "kicker": "A message to work with",
-      "instruction": "O professor lê a mensagem; depois leia e responda. Use as informações na próxima tarefa.",
-      "paragraphs": [
-        "Hello! I’m Mia Green. My nickname is Mia. This is Leo. His last name is Costa."
+      "instruction": "Diga o número e a letra. Depois explique a combinação em uma frase.",
+      "options": [
+        "Her first name is May.",
+        "His nickname is Dan.",
+        "Her last name is Green.",
+        "His first name is Ben."
       ],
       "items": [
         [
-          "What is Mia’s last name?",
-          "Green."
+          "1. Daniel: “Please call me Dan.”",
+          "B — His nickname is Dan."
         ],
         [
-          "What is his nickname?",
-          "Leo."
+          "2. Anna Green: “Green is my last name.”",
+          "C — Her last name is Green."
+        ],
+        [
+          "3. May Brown: “May is my first name.”",
+          "A — Her first name is May."
+        ],
+        [
+          "4. Ben Silva: “I am Ben.”",
+          "D — His first name is Ben."
+        ]
+      ]
+    },
+    {
+      "id": "messages",
+      "type": "reading",
+      "title": "Three new friends",
+      "kicker": "Conversation Activities",
+      "instruction": "O professor lê; depois leia e responda. Procure as pistas no texto.",
+      "paragraphs": [
+        "Hi! I am Lia. I am from Brazil. My last name is Costa.",
+        "Hello! My name is Tom. I am from the United Kingdom. I am twenty.",
+        "Hi! I am Ana. I am from Spain. My nickname is Ani."
+      ],
+      "items": [
+        [
+          "Who is from Spain?",
+          "Ana is from Spain."
+        ],
+        [
+          "What is Lia’s last name?",
+          "Her last name is Costa."
+        ],
+        [
+          "How old is Tom?",
+          "He is twenty."
+        ],
+        [
+          "How do you spell Ani?",
+          "A–N–I."
         ]
       ],
       "translations": []
     },
     {
-      "id": "interview",
+      "id": "guess",
       "type": "conversation",
-      "title": "Now it is about you.",
+      "title": "Choose a secret person",
       "kicker": "Conversation Activities",
-      "instruction": "Responda com dados reais ou inventados. Depois faça as perguntas ao professor.",
+      "instruction": "Converse com o professor. Use os apoios quando precisar.",
       "tasks": [
         [
-          "Pergunta 1",
-          "What’s your name?"
+          "Your clue",
+          "Escolha Lia, Tom ou Ana. Diga o país, a idade ou uma parte do nome."
         ],
         [
-          "Pergunta 2",
-          "How do you spell your last name?"
+          "My question",
+          "O professor tenta descobrir: Is it Tom? Is she from Spain?"
         ],
         [
-          "Pergunta 3",
-          "What’s your nickname?"
+          "Swap",
+          "Depois, adivinhe a pessoa escolhida pelo professor."
         ]
       ],
-      "goal": "Find one new detail.",
-      "challenge": "Faça uma pergunta de acompanhamento e conte o que descobriu."
+      "goal": "Who is it?",
+      "challenge": "He/She is from… / His/Her name is…"
     },
     {
-      "id": "solve",
-      "type": "mission",
-      "title": "Make it happen.",
-      "kicker": "Make it happen.",
-      "instruction": "Apresente a si e a outra pessoa, soletrando os sobrenomes.",
-      "board": [
-        [
-          "Ana",
-          "first name: Ana · last name: Silva · nickname: Ana"
-        ],
-        [
-          "Leo",
-          "first name: Leonardo · last name: Costa · nickname: Leo"
-        ],
-        [
-          "Mia",
-          "first name: Mia · last name: Green · nickname: Mia"
-        ]
-      ],
-      "steps": [
-        "Inicie a conversa.",
-        "Descubra e confirme as informações.",
-        "Cheguem a uma solução."
-      ],
-      "support": [
-        "What’s your name?",
-        "How do you spell your last name?",
-        "What’s your nickname?"
-      ],
-      "model": "Hello! I’m Mia Green. My nickname is Mia. This is Leo. His last name is Costa.",
-      "surprise": "O professor soletra uma letra errada. Peça repetição e confirme o sobrenome."
-    },
-    {
-      "id": "repair",
-      "type": "conversation",
-      "title": "Something changes.",
+      "id": "hello",
+      "type": "dialogue",
+      "title": "A name I did not hear",
       "kicker": "Conversation Activities",
-      "instruction": "Retomem a conversa e resolvam esta mudança.",
-      "tasks": [
+      "instruction": "Leiam o diálogo completo. Troquem os papéis e personalize uma informação.",
+      "lines": [
         [
-          "Nova situação",
-          "O professor soletra uma letra errada. Peça repetição e confirme o sobrenome."
-        ]
-      ],
-      "goal": "Confirm the new result.",
-      "challenge": "Troquem quem pergunta e quem responde. Não é preciso repetir todas as falas anteriores."
-    },
-    {
-      "id": "final",
-      "type": "conversation",
-      "title": "Your turn, without a script.",
-      "kicker": "Conversation Activities",
-      "instruction": "Inventem novos nomes e detalhes para a mesma situação.",
-      "tasks": [
-        [
-          "Objetivo",
-          "Apresente a si e a outra pessoa, soletrando os sobrenomes."
+          "Jo",
+          "Hi! I am Jo. What is your name?"
         ],
         [
-          "Apoio opcional",
-          "What’s your name? / How do you spell your last name? / What’s your nickname?"
+          "Lee",
+          "My name is Lee."
+        ],
+        [
+          "Jo",
+          "Please repeat."
+        ],
+        [
+          "Lee",
+          "Lee. L–E–E."
+        ],
+        [
+          "Jo",
+          "Thank you, Lee. Nice to meet you."
+        ],
+        [
+          "Lee",
+          "Nice to meet you, too."
         ]
-      ],
-      "goal": "Complete the conversation.",
-      "challenge": "Na segunda tentativa, use menos apoio e acrescente uma pergunta."
-    },
-    {
-      "id": "exit",
-      "type": "exit",
-      "title": "Look at your progress.",
-      "kicker": "Look at your progress.",
-      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
-      "checks": [
-        "Descobrir e confirmar nome e soletração de duas pessoas reais ou fictícias.",
-        "Consegui pedir repetição ou esclarecimento.",
-        "Consigo tentar novamente com menos apoio."
       ]
+    },
+    {
+      "id": "your-card",
+      "type": "conversation",
+      "title": "Your tiny introduction",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor. Use os apoios quando precisar.",
+      "tasks": [
+        [
+          "One person",
+          "Apresente-se e confirme como se escreve o nome do professor."
+        ],
+        [
+          "Another person",
+          "Escolha um nome fictício e apresente essa pessoa."
+        ]
+      ],
+      "goal": "Name, spelling and country.",
+      "challenge": "I am… / This is… / How do you spell…?"
     },
     {
       "id": "homework",
       "type": "homework",
-      "title": "Take it with you.",
-      "kicker": "Take it with you.",
+      "title": "One thing to try",
+      "kicker": "Conversation Activities",
       "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
       "options": [
         [
           "A",
-          "Speak",
-          "Apresente-se e soletre seu sobrenome. Depois apresente uma pessoa real ou inventada."
+          "Create",
+          "Crie um cartão com nome, sobrenome, apelido e país de uma pessoa inventada."
         ],
         [
           "B",
-          "Write",
-          "Crie um crachá e escreva três perguntas para conhecer a pessoa que o usa."
+          "Talk",
+          "Ensaie duas apresentações com nomes diferentes e soletração."
         ],
         [
           "C",
-          "Make a Card",
-          "Monte dois perfis com nome, sobrenome e apelido. Prepare perguntas para descobrir qual deles o professor escolheu."
+          "Notice",
+          "Escolha três nomes que conhece e pratique soletrá-los em inglês."
         ]
       ]
     }
@@ -210,5 +201,13 @@
   "migration": {
     "sourceLesson": null,
     "editorialVersion": "2026.09-a1-38"
-  }
-});}());
+  },
+  "editorialRevision": "2026-09-10-varied-communication",
+  "activityFormats": [
+    "conversation",
+    "matching",
+    "reading",
+    "dialogue",
+    "homework"
+  ]
+});})();

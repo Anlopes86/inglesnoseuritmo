@@ -17,193 +17,165 @@
     {
       "id": "opening",
       "type": "conversation",
-      "title": "Lunch is almost ready",
+      "title": "The picnic basket",
       "kicker": "Conversation Activities",
-      "instruction": "Observe as pistas. Diga o que entende e escolha por onde começar.",
+      "instruction": "Converse com o professor. Use os apoios quando precisar.",
       "tasks": [
         [
-          "Kitchen",
-          "On the table: two plates, one glass · In the fridge: eggs, cheese, milk"
+          "Basket A",
+          "bread · cheese · apples · water"
         ],
         [
-          "Living room",
-          "Under the chair: a bag with bread · On the desk: two bottles of water"
+          "Basket B",
+          "rice · eggs · milk · tomatoes"
         ],
         [
-          "Shopping",
-          "For lunch: bread, cheese, water, tomatoes · We have no tomatoes"
+          "Your choice",
+          "Which basket is good for a picnic? Why?"
         ]
       ],
-      "goal": "Your mission",
-      "challenge": "Localize os itens, confirme o que há e faça uma lista de compras curta."
+      "goal": "What do you like to eat outside?",
+      "challenge": "I like… / We need…"
     },
     {
-      "id": "detective",
-      "type": "conversation",
-      "title": "What can we make?",
-      "kicker": "Conversation Activities",
-      "instruction": "Usem o estoque para escolher uma refeição. Pergunte o que há, diga o que falta e negociem uma lista curta de compras.",
-      "tasks": [
-        [
-          "Kitchen",
-          "On the table: two plates, one glass · In the fridge: eggs, cheese, milk"
-        ],
-        [
-          "Living room",
-          "Under the chair: a bag with bread · On the desk: two bottles of water"
-        ],
-        [
-          "Shopping",
-          "For lunch: bread, cheese, water, tomatoes · We have no tomatoes"
-        ]
-      ],
-      "goal": "Find and confirm.",
-      "challenge": "Where is the bread? / Do we have any cheese? / How many bottles of water are there?"
-    },
-    {
-      "id": "reading",
+      "id": "note",
       "type": "reading",
-      "title": "A message to work with",
-      "kicker": "A message to work with",
-      "instruction": "O professor lê a mensagem; depois leia e responda. Use as informações na próxima tarefa.",
+      "title": "The picnic is in the kitchen",
+      "kicker": "Conversation Activities",
+      "instruction": "O professor lê; depois leia e responda. Procure as pistas no texto.",
       "paragraphs": [
-        "The bread is in the bag under the chair. We have some cheese and two bottles of water. There aren’t any tomatoes. Please put the plates on the table."
+        "The picnic is at twelve. There are four people. There is bread on the table and cheese in the fridge. There are six apples in the basket, but there is no water.",
+        "The plates are next to the sink. The cups are in the cupboard. There are only three cups. The big blanket is on the sofa in the living room."
       ],
       "items": [
         [
-          "Where is the bag?",
-          "Under the chair."
+          "Where is the cheese?",
+          "In the fridge."
         ],
         [
-          "What do we need to buy?",
-          "Tomatoes."
+          "Is there enough fruit for four people?",
+          "Yes. There are six apples."
+        ],
+        [
+          "What do they need to drink?",
+          "Water."
+        ],
+        [
+          "How many more cups do they need?",
+          "One."
         ]
       ],
       "translations": []
     },
     {
-      "id": "interview",
-      "type": "conversation",
-      "title": "Now it is about you.",
+      "id": "locations",
+      "type": "matching",
+      "title": "Where do we look?",
       "kicker": "Conversation Activities",
-      "instruction": "Responda com dados reais ou inventados. Depois faça as perguntas ao professor.",
-      "tasks": [
+      "instruction": "Diga o número e a letra. Depois explique a combinação em uma frase.",
+      "options": [
+        "on the sofa",
+        "in the cupboard",
+        "next to the sink",
+        "on the table"
+      ],
+      "items": [
         [
-          "Pergunta 1",
-          "Where is the bread?"
+          "1. plates",
+          "C — next to the sink"
         ],
         [
-          "Pergunta 2",
-          "Do we have any cheese?"
+          "2. bread",
+          "D — on the table"
         ],
         [
-          "Pergunta 3",
-          "How many bottles of water are there?"
+          "3. blanket",
+          "A — on the sofa"
+        ],
+        [
+          "4. cups",
+          "B — in the cupboard"
         ]
-      ],
-      "goal": "Find one new detail.",
-      "challenge": "Faça uma pergunta de acompanhamento e conte o que descobriu."
-    },
-    {
-      "id": "solve",
-      "type": "mission",
-      "title": "Make it happen.",
-      "kicker": "Make it happen.",
-      "instruction": "Localize os itens, confirme o que há e faça uma lista de compras curta.",
-      "board": [
-        [
-          "Kitchen",
-          "On the table: two plates, one glass · In the fridge: eggs, cheese, milk"
-        ],
-        [
-          "Living room",
-          "Under the chair: a bag with bread · On the desk: two bottles of water"
-        ],
-        [
-          "Shopping",
-          "For lunch: bread, cheese, water, tomatoes · We have no tomatoes"
-        ]
-      ],
-      "steps": [
-        "Inicie a conversa.",
-        "Descubra e confirme as informações.",
-        "Cheguem a uma solução."
-      ],
-      "support": [
-        "Where is the bread?",
-        "Do we have any cheese?",
-        "How many bottles of water are there?"
-      ],
-      "model": "The bread is in the bag under the chair. We have some cheese and two bottles of water. There aren’t any tomatoes. Please put the plates on the table.",
-      "surprise": "Agora há quatro pessoas para o almoço. Decidam o que mais precisam."
-    },
-    {
-      "id": "repair",
-      "type": "conversation",
-      "title": "Something changes.",
-      "kicker": "Conversation Activities",
-      "instruction": "Retomem a conversa e resolvam esta mudança.",
-      "tasks": [
-        [
-          "Nova situação",
-          "Agora há quatro pessoas para o almoço. Decidam o que mais precisam."
-        ]
-      ],
-      "goal": "Confirm the new result.",
-      "challenge": "Troquem quem pergunta e quem responde. Não é preciso repetir todas as falas anteriores."
-    },
-    {
-      "id": "final",
-      "type": "conversation",
-      "title": "Your turn, without a script.",
-      "kicker": "Conversation Activities",
-      "instruction": "Inventem novos nomes e detalhes para a mesma situação.",
-      "tasks": [
-        [
-          "Objetivo",
-          "Localize os itens, confirme o que há e faça uma lista de compras curta."
-        ],
-        [
-          "Apoio opcional",
-          "Where is the bread? / Do we have any cheese? / How many bottles of water are there?"
-        ]
-      ],
-      "goal": "Complete the conversation.",
-      "challenge": "Na segunda tentativa, use menos apoio e acrescente uma pergunta."
-    },
-    {
-      "id": "exit",
-      "type": "exit",
-      "title": "Look at your progress.",
-      "kicker": "Look at your progress.",
-      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
-      "checks": [
-        "Descobrir onde estão os itens de uma refeição e quais precisam ser comprados.",
-        "Consegui pedir repetição ou esclarecimento.",
-        "Consigo tentar novamente com menos apoio."
       ]
+    },
+    {
+      "id": "list",
+      "type": "cloze",
+      "title": "Finish the shopping note",
+      "kicker": "Conversation Activities",
+      "instruction": "Leia o texto completo. Diga o que cabe em cada espaço e confira depois.",
+      "bank": [
+        "some",
+        "any",
+        "one",
+        "four"
+      ],
+      "paragraphs": [
+        "There are (1) ____ people. We need (2) ____ water. We do not have (3) ____ water now. We also need (4) ____ more cup."
+      ],
+      "items": [
+        [
+          "1",
+          "four"
+        ],
+        [
+          "2",
+          "some"
+        ],
+        [
+          "3",
+          "any"
+        ],
+        [
+          "4",
+          "one"
+        ]
+      ]
+    },
+    {
+      "id": "basket",
+      "type": "conversation",
+      "title": "Your own picnic",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor. Use os apoios quando precisar.",
+      "tasks": [
+        [
+          "Keep three",
+          "Escolha três alimentos da leitura para levar."
+        ],
+        [
+          "Add two",
+          "Acrescente duas coisas e diga a quantidade."
+        ],
+        [
+          "Find them",
+          "Diga onde esses itens estão na sua casa ou em uma cozinha inventada."
+        ]
+      ],
+      "goal": "What is in our basket?",
+      "challenge": "There is… / There are… / We need some…"
     },
     {
       "id": "homework",
       "type": "homework",
-      "title": "Take it with you.",
-      "kicker": "Take it with you.",
+      "title": "One thing to try",
+      "kicker": "Conversation Activities",
       "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
       "options": [
         [
           "A",
-          "Speak",
-          "Explique o que pode preparar com os ingredientes disponíveis e o que falta comprar."
+          "Create",
+          "Desenhe uma cesta e descreva cinco itens e quantidades."
         ],
         [
           "B",
-          "Write",
-          "Escreva uma mensagem combinando um almoço: prato, ingredientes disponíveis e compras necessárias."
+          "Talk",
+          "Conte onde estão três objetos na sua cozinha."
         ],
         [
           "C",
-          "Make a Card",
-          "Crie um estoque de seis alimentos. Prepare três perguntas para decidir uma refeição com o professor."
+          "Notice",
+          "Verifique o que falta para preparar um lanche e faça uma lista curta em inglês."
         ]
       ]
     }
@@ -211,5 +183,13 @@
   "migration": {
     "sourceLesson": null,
     "editorialVersion": "2026.09-a1-38"
-  }
-});}());
+  },
+  "editorialRevision": "2026-09-10-varied-communication",
+  "activityFormats": [
+    "conversation",
+    "reading",
+    "matching",
+    "cloze",
+    "homework"
+  ]
+});})();

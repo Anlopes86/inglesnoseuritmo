@@ -15,206 +15,162 @@
   "slides": [
     {
       "id": "opening",
-      "type": "conversation",
-      "title": "One item, two choices",
+      "type": "matching",
+      "title": "Guess the gift",
       "kicker": "Conversation Activities",
-      "instruction": "Observe as pistas. Diga o que entende e escolha por onde começar.",
-      "tasks": [
-        [
-          "Blue T-shirt",
-          "Size M · $18 · available"
-        ],
-        [
-          "Red T-shirt",
-          "Size M · $15 · sold out"
-        ],
-        [
-          "Green T-shirt",
-          "Size L · $20 · available"
-        ],
-        [
-          "Customer",
-          "You want size M. You have $20."
-        ]
-      ],
-      "goal": "Your mission",
-      "challenge": "Escolha uma peça, pergunte preço e tamanho e confirme como pagar."
-    },
-    {
-      "id": "detective",
-      "type": "conversation",
-      "title": "Stay within the budget",
-      "kicker": "Conversation Activities",
-      "instruction": "Você é o cliente e o professor é o vendedor. Descubra quais opções servem no tamanho e no orçamento antes de escolher.",
-      "tasks": [
-        [
-          "Blue T-shirt",
-          "Size M · $18 · available"
-        ],
-        [
-          "Red T-shirt",
-          "Size M · $15 · sold out"
-        ],
-        [
-          "Green T-shirt",
-          "Size L · $20 · available"
-        ],
-        [
-          "Customer",
-          "You want size M. You have $20."
-        ]
-      ],
-      "goal": "Find and confirm.",
-      "challenge": "How much is the blue one? / Do you have it in size M? / Can I pay by card?"
-    },
-    {
-      "id": "reading",
-      "type": "reading",
-      "title": "A message to work with",
-      "kicker": "A message to work with",
-      "instruction": "O professor lê a mensagem; depois leia e responda. Use as informações na próxima tarefa.",
-      "paragraphs": [
-        "Hello. I want a T-shirt in size M. I like red, but the red one is not available. The blue one is eighteen dollars. I have twenty dollars."
+      "instruction": "Diga o número e a letra. Depois explique a combinação em uma frase.",
+      "options": [
+        "a notebook",
+        "a jacket",
+        "a mug",
+        "headphones"
       ],
       "items": [
         [
-          "Which color is unavailable?",
-          "Red."
+          "1. You wear it when it is cold.",
+          "B — a jacket"
         ],
         [
-          "Which shirt can the customer buy?",
-          "The blue T-shirt."
+          "2. You write in it.",
+          "A — a notebook"
+        ],
+        [
+          "3. You listen to music with them.",
+          "D — headphones"
+        ],
+        [
+          "4. You drink tea from it.",
+          "C — a mug"
+        ]
+      ]
+    },
+    {
+      "id": "catalog",
+      "type": "reading",
+      "title": "Four gifts, one friend",
+      "kicker": "Conversation Activities",
+      "instruction": "O professor lê; depois leia e responda. Procure as pistas no texto.",
+      "paragraphs": [
+        "Nora likes music, green things and tea. She does not like writing by hand. You have $25 for a gift.",
+        "Our imaginary shop: green mug $9; blue notebook $6; black headphones $24; green jacket $38. The shop has two mugs, five notebooks and one jacket. The headphones are not available today."
+      ],
+      "items": [
+        [
+          "Which item is too expensive?",
+          "The jacket."
+        ],
+        [
+          "Which item does Nora probably not want?",
+          "The notebook: she does not like writing by hand."
+        ],
+        [
+          "Can you buy the headphones today?",
+          "No. They are not available."
+        ],
+        [
+          "Which available gift fits her interests and your budget?",
+          "The green mug."
         ]
       ],
       "translations": []
     },
     {
-      "id": "interview",
-      "type": "conversation",
-      "title": "Now it is about you.",
+      "id": "preferences",
+      "type": "survey",
+      "title": "What is a good gift?",
       "kicker": "Conversation Activities",
-      "instruction": "Responda com dados reais ou inventados. Depois faça as perguntas ao professor.",
-      "tasks": [
-        [
-          "Pergunta 1",
-          "How much is the blue one?"
-        ],
-        [
-          "Pergunta 2",
-          "Do you have it in size M?"
-        ],
-        [
-          "Pergunta 3",
-          "Can I pay by card?"
-        ]
+      "instruction": "Escolha suas respostas. Não há gabarito: desenvolva duas delas na conversa.",
+      "prompts": [
+        "A useful gift is a good gift.",
+        "I like clothes as gifts.",
+        "I like choosing my own gift.",
+        "A small gift can be special."
       ],
-      "goal": "Find one new detail.",
-      "challenge": "Faça uma pergunta de acompanhamento e conte o que descobriu."
+      "options": [
+        "Yes",
+        "No",
+        "It depends"
+      ],
+      "followUp": "Give an example of a gift you like.",
+      "support": "I like… / I prefer… / For me,…"
     },
     {
-      "id": "solve",
-      "type": "mission",
-      "title": "Make it happen.",
-      "kicker": "Make it happen.",
-      "instruction": "Escolha uma peça, pergunte preço e tamanho e confirme como pagar.",
-      "board": [
+      "id": "shop",
+      "type": "dialogue",
+      "title": "The color I want",
+      "kicker": "Conversation Activities",
+      "instruction": "Leiam o diálogo completo. Troquem os papéis e personalize uma informação.",
+      "lines": [
         [
-          "Blue T-shirt",
-          "Size M · $18 · available"
+          "Customer",
+          "How much is the green mug?"
         ],
         [
-          "Red T-shirt",
-          "Size M · $15 · sold out"
-        ],
-        [
-          "Green T-shirt",
-          "Size L · $20 · available"
+          "Assistant",
+          "Nine dollars."
         ],
         [
           "Customer",
-          "You want size M. You have $20."
-        ]
-      ],
-      "steps": [
-        "Inicie a conversa.",
-        "Descubra e confirme as informações.",
-        "Cheguem a uma solução."
-      ],
-      "support": [
-        "How much is the blue one?",
-        "Do you have it in size M?",
-        "Can I pay by card?"
-      ],
-      "model": "Hello. I want a T-shirt in size M. I like red, but the red one is not available. The blue one is eighteen dollars. I have twenty dollars.",
-      "surprise": "A loja só aceita dinheiro. Você tem $15 em dinheiro. Combine outra forma de resolver a compra."
-    },
-    {
-      "id": "repair",
-      "type": "conversation",
-      "title": "Something changes.",
-      "kicker": "Conversation Activities",
-      "instruction": "Retomem a conversa e resolvam esta mudança.",
-      "tasks": [
-        [
-          "Nova situação",
-          "A loja só aceita dinheiro. Você tem $15 em dinheiro. Combine outra forma de resolver a compra."
-        ]
-      ],
-      "goal": "Confirm the new result.",
-      "challenge": "Troquem quem pergunta e quem responde. Não é preciso repetir todas as falas anteriores."
-    },
-    {
-      "id": "final",
-      "type": "conversation",
-      "title": "Your turn, without a script.",
-      "kicker": "Conversation Activities",
-      "instruction": "Inventem novos nomes e detalhes para a mesma situação.",
-      "tasks": [
-        [
-          "Objetivo",
-          "Escolha uma peça, pergunte preço e tamanho e confirme como pagar."
+          "Do you have a blue one?"
         ],
         [
-          "Apoio opcional",
-          "How much is the blue one? / Do you have it in size M? / Can I pay by card?"
+          "Assistant",
+          "No, sorry. We have a green one and a white one."
+        ],
+        [
+          "Customer",
+          "The green one, please. Can I pay by card?"
+        ],
+        [
+          "Assistant",
+          "Yes, of course."
         ]
-      ],
-      "goal": "Complete the conversation.",
-      "challenge": "Na segunda tentativa, use menos apoio e acrescente uma pergunta."
+      ]
     },
     {
-      "id": "exit",
-      "type": "exit",
-      "title": "Look at your progress.",
-      "kicker": "Look at your progress.",
-      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
-      "checks": [
-        "Concluir uma compra quando a primeira opção está indisponível.",
-        "Consegui pedir repetição ou esclarecimento.",
-        "Consigo tentar novamente com menos apoio."
-      ]
+      "id": "your-gift",
+      "type": "conversation",
+      "title": "Describe it, do not name it",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor. Use os apoios quando precisar.",
+      "tasks": [
+        [
+          "Describe",
+          "Escolha um item do catálogo. Diga cor, uso e preço sem dizer o nome."
+        ],
+        [
+          "Guess",
+          "O professor adivinha e faz uma pergunta."
+        ],
+        [
+          "Buy",
+          "Troquem os papéis e façam uma compra usando outra opção disponível."
+        ]
+      ],
+      "goal": "Which one is it?",
+      "challenge": "It is… / It costs… / Do you have…?"
     },
     {
       "id": "homework",
       "type": "homework",
-      "title": "Take it with you.",
-      "kicker": "Take it with you.",
+      "title": "One thing to try",
+      "kicker": "Conversation Activities",
       "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
       "options": [
         [
           "A",
-          "Speak",
-          "Escolha uma roupa para uma ocasião dentro de um orçamento e explique sua decisão."
+          "Create",
+          "Crie um anúncio de um presente imaginário com cor e preço."
         ],
         [
           "B",
-          "Write",
-          "Escreva uma conversa em que a primeira opção não está disponível e você escolhe outra."
+          "Talk",
+          "Prepare três pistas sobre um objeto para o professor adivinhar."
         ],
         [
           "C",
-          "Make a Card",
-          "Monte três ofertas com tamanho, cor e preço. Prepare uma alternativa caso seu tamanho acabe."
+          "Notice",
+          "Escolha dois objetos seus e explique qual prefere."
         ]
       ]
     }
@@ -222,5 +178,14 @@
   "migration": {
     "sourceLesson": null,
     "editorialVersion": "2026.09-a1-38"
-  }
-});}());
+  },
+  "editorialRevision": "2026-09-10-varied-communication",
+  "activityFormats": [
+    "matching",
+    "reading",
+    "survey",
+    "dialogue",
+    "conversation",
+    "homework"
+  ]
+});})();

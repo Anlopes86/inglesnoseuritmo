@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('lessons-grid');
 
     const moduleId = 'a2-v3';
-    const accessModuleId = 'a2';
+    const accessModuleId = moduleId;
     const curriculumEntries = window.V3Curriculum?.getModule(moduleId) || [];
     const expectedLessonCount = 32;
     if (curriculumEntries.length !== expectedLessonCount) {
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const lessonCards = curriculumEntries.map(entry => window.A2V3ModuleCards.getCardModel(entry));
 
-    function buildLessonCard(cardModel, state, isProfessor) {
+    function buildLessonCard(cardModel, state, isProfessor, owner) {
         const { curriculumId, number: lessonNumber, title, label, materials } = cardModel;
         const padded = String(lessonNumber).padStart(2, '0');
         const canOpen = isProfessor || state !== 'locked';
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .join('');
 
         const card = document.createElement('a');
-        card.href = canOpen ? `licao-${padded}.html` : '#';
+        card.href = canOpen ? window.StudentContext.link(`licao-${padded}.html`, owner) : '#';
         card.className = `lesson-card ${state}`;
         card.dataset.lesson = String(lessonNumber);
         if (curriculumId) card.dataset.curriculumId = curriculumId;
@@ -135,38 +135,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function resolveViewerContext() {
-        const user = firebase.auth().currentUser;
-        if (!user) {
-            return { role: 'aluno', studentId: null };
-        }
-
-        const viewerDoc = await db.collection('students').doc(user.uid).get();
-        const viewerData = viewerDoc.exists ? viewerDoc.data() : {};
-        const role = viewerData.role || localStorage.getItem('loggedInUserRole') || 'aluno';
-
-        if (role === 'professor' || role === 'admin') {
-            const studentId = localStorage.getItem('selectedStudentId');
-            if (!studentId) {
-                return { role, studentId: null };
-            }
-
-            const studentDoc = await db.collection('students').doc(studentId).get();
-            if (!studentDoc.exists) {
-                return { role, studentId: null };
-            }
-
-            if (role === 'professor' && studentDoc.data().teacherId !== user.uid) {
-                throw new Error('Acesso negado ao aluno selecionado.');
-            }
-
-            return { role, studentId };
-        }
-
-        if (role !== 'aluno') {
-            throw new Error('Perfil sem acesso ao módulo.');
-        }
-
-        return { role, studentId: user.uid };
+        const context = await window.StudentContextReady;
+        if (!context) throw new Error('Recarregue a página para validar o aluno.');
+        const result = await context.resolve(db, firebase.auth().currentUser);
+        context.wireLinks(result);
+        return result;
     }
 
     async function loadLessons() {
@@ -175,7 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error('Manifesto curricular A2 V3 indisponível ou incompleto.');
             }
 
-            const { role, studentId } = await resolveViewerContext();
+            const owner = await resolveViewerContext();
+            const { role, studentId } = owner;
             if (!studentId) throw new Error('Usuário não identificado.');
 
             const isProfessor = role === 'professor' || role === 'admin';
@@ -202,14 +176,14 @@ document.addEventListener('DOMContentLoaded', () => {
             lessonCards.forEach((cardModel, index) => {
                 const isCompleted = window.V3Curriculum?.isLessonComplete(allProgress, moduleId, cardModel.curriculumId);
                 const state = isCompleted ? 'completed' : (isProfessor || index === firstUncompletedIndex) ? 'next' : 'locked';
-                grid.appendChild(buildLessonCard(cardModel, state, isProfessor));
+                grid.appendChild(buildLessonCard(cardModel, state, isProfessor, owner));
             });
 
             loadingDiv.classList.add('hidden');
             grid.classList.remove('hidden');
         } catch (error) {
             console.error('Erro ao carregar lições A2 V3:', error);
-            loadingDiv.textContent = 'Erro ao carregar lições.';
+            loadingDiv.textContent = error.message || 'Erro ao carregar lições. Recarregue a página.';
         }
     }
 

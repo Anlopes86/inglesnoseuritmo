@@ -15,194 +15,158 @@
   "slides": [
     {
       "id": "opening",
-      "type": "conversation",
-      "title": "The gate has changed",
-      "kicker": "Conversation Activities",
-      "instruction": "Observe as pistas. Diga o que entende e escolha por onde começar.",
-      "tasks": [
-        [
-          "Original plan",
-          "Flight 218 · gate 3 · departure 9:00"
-        ],
-        [
-          "New screen",
-          "Flight 218 · gate 8 · departure 10:30"
-        ],
-        [
-          "Your friend",
-          "At the café near gate 3 · waiting for you"
-        ]
-      ],
-      "goal": "Your mission",
-      "challenge": "Avise sobre a mudança, combinem onde se encontrar e confirmem os detalhes."
-    },
-    {
-      "id": "detective",
-      "type": "conversation",
-      "title": "Confirm the change",
-      "kicker": "Conversation Activities",
-      "instruction": "Você está em viagem e liga para o professor. Confirme o horário e o ponto de encontro e resolvam a mudança indicada no painel.",
-      "tasks": [
-        [
-          "Original plan",
-          "Flight 218 · gate 3 · departure 9:00"
-        ],
-        [
-          "New screen",
-          "Flight 218 · gate 8 · departure 10:30"
-        ],
-        [
-          "Your friend",
-          "At the café near gate 3 · waiting for you"
-        ]
-      ],
-      "goal": "Find and confirm.",
-      "challenge": "What is the new gate? / What time is departure? / Where are you waiting?"
-    },
-    {
-      "id": "reading",
       "type": "reading",
-      "title": "A message to work with",
-      "kicker": "A message to work with",
-      "instruction": "O professor lê a mensagem; depois leia e responda. Use as informações na próxima tarefa.",
+      "title": "The airport photo mix-up",
+      "kicker": "Conversation Activities",
+      "instruction": "O professor lê; depois leia e responda. Procure as pistas no texto.",
       "paragraphs": [
-        "Our flight is delayed. Departure is at ten thirty and the new gate is eight. I am waiting at the café near gate three. Please call me when you are ready."
+        "At nine, Dan was waiting near gate 3. His sister was buying coffee. A man in a green coat was sleeping beside a blue bag. Dan took a photo and sent it to his friend.",
+        "At nine thirty, the screen changed. Flight 218: departure 10:30, gate 8. Dan was still at gate 3. His friend sent a message: “I am at gate 8. Where are you?”"
       ],
       "items": [
         [
-          "What time is departure now?",
-          "At ten thirty."
+          "What was Dan’s sister doing?",
+          "She was buying coffee."
         ],
         [
-          "Where is the friend?",
-          "At the café near gate three."
+          "What was the man in green doing?",
+          "He was sleeping."
+        ],
+        [
+          "What changed on the screen?",
+          "The flight was at gate 8, departing at 10:30."
+        ],
+        [
+          "Where was Dan’s friend?",
+          "At gate 8."
         ]
       ],
       "translations": []
     },
     {
-      "id": "interview",
-      "type": "conversation",
-      "title": "Now it is about you.",
+      "id": "captions",
+      "type": "matching",
+      "title": "Choose the right caption",
       "kicker": "Conversation Activities",
-      "instruction": "Responda com dados reais ou inventados. Depois faça as perguntas ao professor.",
+      "instruction": "Diga o número e a letra. Depois explique a combinação em uma frase.",
+      "options": [
+        "Dan’s sister was buying coffee.",
+        "The man was sleeping.",
+        "Dan was waiting at gate 3."
+      ],
+      "items": [
+        [
+          "1. A person with a cup at the café",
+          "A — Dan’s sister was buying coffee."
+        ],
+        [
+          "2. A person with closed eyes beside a bag",
+          "B — The man was sleeping."
+        ],
+        [
+          "3. A person beside the old gate number",
+          "C — Dan was waiting at gate 3."
+        ]
+      ]
+    },
+    {
+      "id": "spot",
+      "type": "questions",
+      "title": "The message has two mistakes",
+      "kicker": "Conversation Activities",
+      "instruction": "Responda oralmente antes de conferir. Algumas perguntas aceitam outras respostas.",
+      "items": [
+        [
+          "“Flight 218 leaves at 9:30 from gate 3.” Correct the message.",
+          "Flight 218 leaves at 10:30 from gate 8."
+        ],
+        [
+          "“Your friend is buying coffee.” Is that in the text?",
+          "No. Dan’s sister was buying coffee. His friend is at gate 8."
+        ],
+        [
+          "What can Dan say to his friend now?",
+          "I am at gate 3. I am coming to gate 8. See you there."
+        ]
+      ]
+    },
+    {
+      "id": "freeze",
+      "type": "conversation",
+      "title": "Freeze the scene",
+      "kicker": "Conversation Activities",
+      "instruction": "Converse com o professor. Use os apoios quando precisar.",
       "tasks": [
         [
-          "Pergunta 1",
-          "What is the new gate?"
+          "Imagine",
+          "Imagine três pessoas num aeroporto, estação ou ponto de ônibus."
         ],
         [
-          "Pergunta 2",
-          "What time is departure?"
+          "Describe",
+          "Diga o que elas estavam fazendo quando você chegou."
         ],
         [
-          "Pergunta 3",
-          "Where are you waiting?"
+          "Guess",
+          "O professor escolhe uma pessoa e você descobre com perguntas."
         ]
       ],
-      "goal": "Find one new detail.",
-      "challenge": "Faça uma pergunta de acompanhamento e conte o que descobriu."
+      "goal": "What was happening?",
+      "challenge": "He/She was… / Were they…?"
     },
     {
-      "id": "solve",
-      "type": "mission",
-      "title": "Make it happen.",
-      "kicker": "Make it happen.",
-      "instruction": "Avise sobre a mudança, combinem onde se encontrar e confirmem os detalhes.",
-      "board": [
-        [
-          "Original plan",
-          "Flight 218 · gate 3 · departure 9:00"
-        ],
-        [
-          "New screen",
-          "Flight 218 · gate 8 · departure 10:30"
-        ],
-        [
-          "Your friend",
-          "At the café near gate 3 · waiting for you"
-        ]
-      ],
-      "steps": [
-        "Inicie a conversa.",
-        "Descubra e confirme as informações.",
-        "Cheguem a uma solução."
-      ],
-      "support": [
-        "What is the new gate?",
-        "What time is departure?",
-        "Where are you waiting?"
-      ],
-      "model": "Our flight is delayed. Departure is at ten thirty and the new gate is eight. I am waiting at the café near gate three. Please call me when you are ready.",
-      "surprise": "O amigo não ouviu o número do portão. Repita e confirme sem recomeçar toda a conversa."
-    },
-    {
-      "id": "repair",
-      "type": "conversation",
-      "title": "Something changes.",
+      "id": "call",
+      "type": "dialogue",
+      "title": "Meet me at the new gate",
       "kicker": "Conversation Activities",
-      "instruction": "Retomem a conversa e resolvam esta mudança.",
-      "tasks": [
+      "instruction": "Leiam o diálogo completo. Troquem os papéis e personalize uma informação.",
+      "lines": [
         [
-          "Nova situação",
-          "O amigo não ouviu o número do portão. Repita e confirme sem recomeçar toda a conversa."
-        ]
-      ],
-      "goal": "Confirm the new result.",
-      "challenge": "Troquem quem pergunta e quem responde. Não é preciso repetir todas as falas anteriores."
-    },
-    {
-      "id": "final",
-      "type": "conversation",
-      "title": "Your turn, without a script.",
-      "kicker": "Conversation Activities",
-      "instruction": "Inventem novos nomes e detalhes para a mesma situação.",
-      "tasks": [
-        [
-          "Objetivo",
-          "Avise sobre a mudança, combinem onde se encontrar e confirmem os detalhes."
+          "Dan",
+          "The gate changed. Are you at gate 8?"
         ],
         [
-          "Apoio opcional",
-          "What is the new gate? / What time is departure? / Where are you waiting?"
+          "Friend",
+          "Yes. I am waiting near the door."
+        ],
+        [
+          "Dan",
+          "My sister is at the café. I will call her."
+        ],
+        [
+          "Friend",
+          "The flight leaves at ten thirty."
+        ],
+        [
+          "Dan",
+          "OK. We will meet you at gate 8."
+        ],
+        [
+          "Friend",
+          "See you here."
         ]
-      ],
-      "goal": "Complete the conversation.",
-      "challenge": "Na segunda tentativa, use menos apoio e acrescente uma pergunta."
-    },
-    {
-      "id": "exit",
-      "type": "exit",
-      "title": "Look at your progress.",
-      "kicker": "Look at your progress.",
-      "instruction": "Diga o que conseguiu fazer e escolha um ponto para retomar.",
-      "checks": [
-        "Reorganizar um encontro após uma mudança no voo, confirmando lugar e horário.",
-        "Consegui pedir repetição ou esclarecimento.",
-        "Consigo tentar novamente com menos apoio."
       ]
     },
     {
       "id": "homework",
       "type": "homework",
-      "title": "Take it with you.",
-      "kicker": "Take it with you.",
+      "title": "One thing to try",
+      "kicker": "Conversation Activities",
       "instruction": "Escolha uma opção para praticar antes do próximo encontro.",
       "options": [
         [
           "A",
-          "Speak",
-          "Avise uma mudança de viagem e combine onde e quando encontrar alguém."
+          "Create",
+          "Crie duas legendas para uma cena: o que acontecia antes e o que acontece agora."
         ],
         [
           "B",
-          "Write",
-          "Escreva uma troca de mensagens sobre um atraso com uma confirmação final."
+          "Talk",
+          "Ensaie uma ligação confirmando novo lugar e horário."
         ],
         [
           "C",
-          "Make a Card",
-          "Prepare um painel com destino, portão e horário. Altere um dado para praticar a comunicação da mudança."
+          "Notice",
+          "Observe uma cena cotidiana e depois conte o que duas pessoas estavam fazendo."
         ]
       ]
     }
@@ -210,5 +174,14 @@
   "migration": {
     "sourceLesson": null,
     "editorialVersion": "2026.09-a1-38"
-  }
-});}());
+  },
+  "editorialRevision": "2026-09-10-varied-communication",
+  "activityFormats": [
+    "reading",
+    "matching",
+    "questions",
+    "conversation",
+    "dialogue",
+    "homework"
+  ]
+});})();

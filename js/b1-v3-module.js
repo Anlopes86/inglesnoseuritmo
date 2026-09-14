@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         unitLabels.splice(0, unitLabels.length, ...curriculumEntries.map(entry => entry.type === 'content' ? 'Conteúdo integrado' : entry.type === 'review' ? 'Missão comunicativa' : 'Projeto'));
     }
 
-    function buildLessonCard(title, lessonNumber, state, isProfessor) {
+    function buildLessonCard(title, lessonNumber, state, isProfessor, owner) {
         const padded = String(lessonNumber).padStart(2, '0');
         const canOpen = isProfessor || state !== 'locked';
         const iconClass = state === 'completed'
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 : 'Bloqueada';
 
         const card = document.createElement('a');
-        card.href = canOpen ? `licao-${padded}.html` : '#';
+        card.href = canOpen ? window.StudentContext.link(`licao-${padded}.html`, owner) : '#';
         card.className = `lesson-card ${state}`;
         card.dataset.lesson = String(lessonNumber);
         card.setAttribute('aria-disabled', canOpen ? 'false' : 'true');
@@ -70,43 +70,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function resolveViewerContext() {
-        const user = firebase.auth().currentUser;
-        if (!user) {
-            return { role: 'aluno', studentId: null };
-        }
-
-        const viewerDoc = await db.collection('students').doc(user.uid).get();
-        const viewerData = viewerDoc.exists ? viewerDoc.data() : {};
-        const role = viewerData.role || localStorage.getItem('loggedInUserRole') || 'aluno';
-
-        if (role === 'professor' || role === 'admin') {
-            const studentId = localStorage.getItem('selectedStudentId');
-            if (!studentId) {
-                return { role, studentId: null };
-            }
-
-            const studentDoc = await db.collection('students').doc(studentId).get();
-            if (!studentDoc.exists) {
-                return { role, studentId: null };
-            }
-
-            if (role === 'professor' && studentDoc.data().teacherId !== user.uid) {
-                throw new Error('Acesso negado ao aluno selecionado.');
-            }
-
-            return { role, studentId };
-        }
-
-        if (role !== 'aluno') {
-            throw new Error('Perfil sem acesso ao modulo.');
-        }
-
-        return { role, studentId: user.uid };
+        const context = await window.StudentContextReady;
+        if (!context) throw new Error('Recarregue a página para validar o aluno.');
+        const result = await context.resolve(db, firebase.auth().currentUser);
+        context.wireLinks(result);
+        return result;
     }
 
     async function loadLessons() {
         try {
-            const { role, studentId } = await resolveViewerContext();
+            const owner = await resolveViewerContext();
+            const { role, studentId } = owner;
             if (!studentId) throw new Error('Usuario nao identificado.');
 
             const isProfessor = role === 'professor' || role === 'admin';
@@ -135,14 +109,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const lessonNumber = index + 1;
                 const isCompleted = window.V3Curriculum?.isLessonComplete(allProgress, 'b1-v3', lessonNumber) || progress[`lesson_${lessonNumber}`] === true;
                 const state = isCompleted ? 'completed' : lessonNumber === firstUncompleted ? 'next' : 'locked';
-                grid.appendChild(buildLessonCard(title, lessonNumber, state, isProfessor));
+                grid.appendChild(buildLessonCard(title, lessonNumber, state, isProfessor, owner));
             });
 
             loadingDiv.classList.add('hidden');
             grid.classList.remove('hidden');
         } catch (error) {
             console.error('Erro ao carregar licoes B1-V3:', error);
-            loadingDiv.textContent = 'Erro ao carregar licoes.';
+            loadingDiv.textContent = error.message || 'Erro ao carregar lições. Recarregue a página.';
         }
     }
 

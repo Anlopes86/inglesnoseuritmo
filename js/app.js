@@ -323,7 +323,7 @@
                     </div>
                 ` : ''}
                 <div class="mt-auto space-y-3">
-                    <a href="${module.href}" class="app-button w-full">
+                    <a href="${module.href}${hasStudent ? `?studentId=${encodeURIComponent(studentId)}` : ''}" class="app-button w-full">
                         <i class="fas ${isPlacement ? 'fa-clipboard-check' : 'fa-book-open'}"></i>
                         ${module.buttonText || 'Abrir módulo'}
                     </a>
@@ -647,6 +647,7 @@
 
         if (platformAccess && currentProfile) {
             const accessResult = await platformAccess.assertStudentAccess(db, currentProfile, studentId);
+            if (localStorage.getItem('selectedStudentId') !== studentId) return;
             if (!accessResult.ok) {
                 if (typeof showToast === 'function') {
                     showToast('Este aluno nao pertence ao seu espaco de trabalho.', 'error', 'Acesso negado');
@@ -681,12 +682,14 @@
             if (!studentDoc.exists) return;
 
             const data = studentDoc.data();
+            if (localStorage.getItem('selectedStudentId') !== studentId) return;
+            document.dispatchEvent(new CustomEvent('teacher:package-loaded', {detail:{studentId, data}}));
             const classCount = data.classCount || 0;
             const packageSize = data.pacoteContratado || 0;
             const packageValue = data.valorPacote ? data.valorPacote.toFixed(2).replace('.', ',') : '0,00';
 
-            classCountDisplay.textContent = classCount;
-            classCountDisplaySecondary.textContent = classCount;
+            classCountDisplay.textContent = new Intl.NumberFormat("pt-BR", {maximumFractionDigits:2}).format(classCount);
+            if (classCountDisplaySecondary) classCountDisplaySecondary.textContent = classCount;
             updateLastClassRegistration(data.lastClassRegisteredAt, classCount);
 
             if (packageSize > 0) {
@@ -694,7 +697,7 @@
                 packageDetails.classList.remove('hidden');
                 const percentage = Math.round((classCount / packageSize) * 100);
                 packageProgressBar.style.width = `${Math.min(100, percentage)}%`;
-                packageProgressText.textContent = `${classCount} / ${packageSize} horas`;
+                packageProgressText.textContent = `${classCountDisplay.textContent} / ${packageSize} horas`;
                 packageValueDisplay.textContent = `R$ ${packageValue}`;
                 packageDateDisplay.textContent = data.dataInicioPacote || '--/--/----';
                 packageStatusChip.textContent = percentage >= 100 ? 'Pacote conclu\u00eddo' : 'Pacote ativo';
@@ -731,6 +734,7 @@
 
             const studentDoc = accessResult.doc;
             const studentData = studentDoc.exists ? studentDoc.data() : {};
+            if (localStorage.getItem('selectedStudentId') !== studentId) return;
             const progressData = studentData.progress || {};
             const studentType = studentData.studentType || 'a1';
             const assignedModules = getAssignedModules(studentData);
@@ -824,61 +828,9 @@
         }
     }
 
-    async function changeClassCount(amount) {
-        const studentId = localStorage.getItem('selectedStudentId');
-        if (!studentId) return;
-
-        const studentRef = db.collection('students').doc(studentId);
-        try {
-            if (platformAccess && currentProfile) {
-                const accessResult = await platformAccess.assertStudentAccess(db, currentProfile, studentId);
-                if (!accessResult.ok) throw new Error('Acesso negado ao aluno selecionado.');
-            }
-
-            await db.runTransaction(async (transaction) => {
-                const doc = await transaction.get(studentRef);
-                if (!doc.exists) throw new Error('Aluno n\u00e3o encontrado.');
-                const studentData = doc.data();
-                const currentCount = studentData.classCount || 0;
-                const newCount = currentCount + amount;
-                if (newCount < 0) throw new Error('O contador j\u00e1 est\u00e1 zerado.');
-
-                const registrationHistory = Array.isArray(studentData.classRegistrationHistory)
-                    ? [...studentData.classRegistrationHistory]
-                    : [];
-                let lastClassRegisteredAt = studentData.lastClassRegisteredAt || null;
-
-                if (amount > 0) {
-                    const registeredAt = firebase.firestore.Timestamp.now();
-                    registrationHistory.push(registeredAt);
-                    lastClassRegisteredAt = registeredAt;
-                } else if (amount < 0) {
-                    registrationHistory.pop();
-                    lastClassRegisteredAt = registrationHistory.length
-                        ? registrationHistory[registrationHistory.length - 1]
-                        : null;
-                }
-
-                transaction.update(studentRef, {
-                    classCount: newCount,
-                    classRegistrationHistory: registrationHistory.slice(-100),
-                    lastClassRegisteredAt
-                });
-            });
-            await updatePackageInfo(studentId);
-            if (typeof showToast === 'function') {
-                showToast('Hora registrada no pacote do aluno.', 'success', 'Carga horária atualizada');
-            }
-        } catch (error) {
-            console.error('Erro ao atualizar contador:', error);
-            if (typeof showToast === 'function') {
-                showToast('N\u00e3o foi poss\u00edvel atualizar o contador agora.', 'error', 'Falha ao salvar');
-            }
-        }
-    }
-
-    if (addClassBtn) addClassBtn.addEventListener('click', () => changeClassCount(1));
-    if (removeClassBtn) removeClassBtn.addEventListener('click', () => changeClassCount(-1));
+    document.addEventListener('teacher:refresh-package', event => {
+        if (localStorage.getItem('selectedStudentId') === event.detail.studentId) updatePackageInfo(event.detail.studentId);
+    });
 
     if (newPackageBtn) {
         newPackageBtn.addEventListener('click', () => {
@@ -897,6 +849,7 @@
     if (newPackageForm) {
         newPackageForm.addEventListener('submit', async (event) => {
             event.preventDefault();
+            if (confirmPackageBtn.disabled) return;
             const studentId = localStorage.getItem('selectedStudentId');
             const packageSize = parseInt(document.getElementById('package-type').value, 10);
             const packageValue = parseFloat(document.getElementById('package-value-input').value);
@@ -921,13 +874,12 @@
                     if (!accessResult.ok) throw new Error('Acesso negado ao aluno selecionado.');
                 }
 
-                await db.collection('students').doc(studentId).update({
-                    pacoteContratado: packageSize,
-                    valorPacote: packageValue,
-                    dataInicioPacote: formattedDate,
-                    classCount: 0,
-                    classRegistrationHistory: [],
-                    lastClassRegisteredAt: null
+                const ref = db.collection('students').doc(studentId);
+                const packageId = crypto.randomUUID();
+                await db.runTransaction(async transaction => {
+                    const snapshot = await transaction.get(ref);
+                    if (!snapshot.exists) throw Error('Aluno não encontrado.');
+                    transaction.update(ref, window.ClassSessionLedger.startPackage(snapshot.data(), {id:packageId, hours:packageSize, value:packageValue, startDate:formattedDate}));
                 });
                 closeModal(newPackageModal);
                 newPackageForm.reset();
@@ -1003,6 +955,4 @@
         }
     });
 });
-
-
 

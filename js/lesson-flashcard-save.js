@@ -14,20 +14,10 @@
         return (hash >>> 0).toString(36);
     }
 
-    function getCardOwnerId(user) {
-        let role = 'aluno';
-        let selectedStudentId = null;
-        try {
-            role = localStorage.getItem('loggedInUserRole') || 'aluno';
-            selectedStudentId = localStorage.getItem('selectedStudentId');
-        } catch (error) {
-            // The authenticated user remains the safe fallback.
-        }
-
-        if ((role === 'professor' || role === 'admin') && selectedStudentId) {
-            return selectedStudentId;
-        }
-        return user.uid;
+    async function getCardOwnerId(user) {
+        const context = await window.StudentContextReady;
+        if (!context) throw new Error('Recarregue a página para validar o aluno.');
+        return (await context.resolve(firebase.firestore(), user)).studentId;
     }
 
     function getLessonContext() {
@@ -133,6 +123,14 @@
         }
 
         return back.textContent.replace(/\s+/g, ' ').trim();
+    }
+
+    function studyFields(back) {
+        return {
+            meaning: back.split(/\s*(?:[—–]\s*)?(?:Formas|Exemplo|Example):\s*/i)[0].trim(),
+            example: back.match(/(?:Exemplo|Example):\s*([\s\S]*)$/i)?.[1]?.trim() || '',
+            forms: back.match(/Formas:\s*([\s\S]*?)(?:\s+[—–]\s*(?:Exemplo|Example):|$)/i)?.[1]?.trim() || ''
+        };
     }
 
     function ensureModal() {
@@ -244,14 +242,14 @@
             confirmBtn.textContent = 'Salvando...';
 
             try {
-                const ownerId = getCardOwnerId(user);
-                if(context.requireStudent && ['professor','admin'].includes(localStorage.getItem('loggedInUserRole')) && !localStorage.getItem('selectedStudentId')) throw new Error('Selecione o aluno no painel antes de salvar.');
+                const ownerId = await getCardOwnerId(user);
                 const fingerprint = hashText(`${f.toLowerCase()}|${b.toLowerCase()}`);
                 const documentId = `lesson_${hashText(`${context.curriculumId || context.moduleId}|${context.lessonNumber}|${f.toLowerCase()}`)}`;
                 await db.collection('users').doc(ownerId).collection('myCards').doc(documentId).set({
                     f,
                     b,
                     l,
+                    ...studyFields(b),
                     fingerprint,
                     module: context.moduleId,
                     lesson: context.lessonNumber,
@@ -273,7 +271,7 @@
                 window.setTimeout(() => toggleModal(false), 900);
             } catch (error) {
                 console.error('Erro ao salvar card da lição:', error);
-                setFeedback(error.message === 'Selecione o aluno no painel antes de salvar.' ? error.message : 'Não foi possível salvar agora. Tente novamente.', 'error');
+                setFeedback(error.name === 'StudentContextError' ? error.message : 'Não foi possível salvar agora. Tente novamente.', 'error');
                 confirmBtn.disabled = false;
                 confirmBtn.textContent = 'Salvar Card';
             }
