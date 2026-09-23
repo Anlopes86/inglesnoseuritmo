@@ -33,9 +33,19 @@
     .track { height: 10px; border-radius: 99px; background: #334a74; margin: 14px 0 36px; overflow: hidden; }
     .fill { height: 100%; background: #69dec0; transition: width .25s; }
     .answers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
-    .answer { min-height: 112px; border: 2px solid #647a9e; border-radius: 18px; background: #22365b; color: white; padding: 15px; text-align: left; font-weight: 800; font-size: clamp(1rem, 1.6vw, 1.22rem); }
+    .answer { border: 1px solid #647a9e; border-radius: 18px; background: #22365b; padding: 16px; text-align: center; font-weight: 800; font-size: clamp(1rem, 1.6vw, 1.22rem); }
     .answer small { display: block; margin-top: 8px; color: #c5d3e6; font-size: .83rem; font-weight: 500; }
-    .answer[aria-pressed="true"] { border-color: #69dec0; background: #215568; box-shadow: inset 0 0 0 2px #69dec0; }
+    .key-table { width: 100%; border-collapse: collapse; font-size: clamp(.85rem, 1.35vw, 1.05rem); }
+    .key-table th, .key-table td { padding: 10px 9px; border-bottom: 1px solid #647a9e; text-align: center; }
+    .key-table th:first-child, .key-table td:first-child { text-align: left; }
+    .key-table th { color: #73e0c4; }
+    .key-table td:first-child { font-weight: 800; }
+    .key-table tr:nth-child(even) { background: #ffffff0b; }
+    .band-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 18px; }
+    .band { background: #22365b; border: 1px solid #647a9e; border-radius: 16px; padding: 15px; }
+    .band strong { display: block; color: #73e0c4; font-size: 1.25rem; }
+    .band b { display: block; margin: 5px 0; }
+    .band span { display: block; color: #d1dded; font-size: .86rem; line-height: 1.4; }
     .result-top { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 28px; }
     .score { width: 160px; height: 160px; border-radius: 50%; display: grid; place-content: center; text-align: center; background: #215568; border: 8px solid #69dec0; }
     .score strong { font-size: 3rem; line-height: 1; } .score span { color: #d4deef; }
@@ -47,8 +57,8 @@
     .detail p { color: #d1dded; margin-bottom: 8px; line-height: 1.55; }
     .detail .chosen { color: white; font-weight: 700; }
     .subheading { font-size: 1.7rem; margin: 40px 0 10px; }
-    @media (max-width: 780px) { .answers { grid-template-columns: 1fr; } .answer { min-height: 68px; display: flex; justify-content: space-between; align-items: center; } .answer small { margin: 0; } .result-top { grid-template-columns: 1fr; } .score { width: 130px; height: 130px; } }
-    @media (max-height: 720px) and (min-width: 781px) { .panel { padding: 30px 46px; } .answer { min-height: 90px; } h2 { margin: 14px 0 22px; } }
+    @media (max-width: 780px) { .answers { grid-template-columns: 1fr; } .answer { display: flex; justify-content: space-between; align-items: center; } .answer small { margin: 0; } .band-grid { grid-template-columns: 1fr 1fr; } .table-wrap { overflow-x: auto; } .key-table { min-width: 600px; } }
+    @media (max-height: 900px) and (min-width: 781px) { .panel { padding: 22px 36px; } .key-table th, .key-table td { padding: 5px 8px; } .band { padding: 9px; } .band span { font-size: .77rem; } .subheading { margin: 15px 0 8px; } h2 { margin: 14px 0 22px; } }
     @media print { body { background: white; color: black; } header, .actions { display: none; } main { display: block; padding: 0; } .panel { background: white; color: black; border: 0; box-shadow: none; padding: 0; } .detail { break-inside: avoid; } .detail p, .note { color: #333; } .points { border: 1px solid black; color: black; background: white; } }
   </style>
 </head>
@@ -80,45 +90,37 @@
       { max: 45, title: 'Diversity Explorer', description: 'Suas respostas sugerem curiosidade e abertura frequentes diante de experiências diferentes.' },
       { max: 50, title: 'Bridge Builder', description: 'Suas respostas sugerem forte disposição para compreender diferenças e incluir outras pessoas.' }
     ];
-    const answers = Array(questions.length).fill(null);
     let page = -1;
     const app = document.getElementById('app');
     const make = (tag, className, content) => { const el = document.createElement(tag); if (className) el.className = className; if (content !== undefined) el.textContent = content; return el; };
     const button = (label, action, primary = false) => { const el = make('button', 'btn' + (primary ? ' primary' : ''), label); el.type = 'button'; el.addEventListener('click', action); return el; };
     const panel = () => { app.replaceChildren(); const el = make('section', 'panel'); app.append(el); return el; };
-    const points = (index) => questions[index].reverse ? 5 - answers[index] : answers[index] + 1;
     function renderIntro() {
-      const el = panel(); el.append(make('div', 'eyebrow', 'Interactive reflection · 10 statements'), make('h1', '', 'How Open Are You to Diversity?'), make('p', 'lead', 'Leia cada afirmação em inglês e escolha a resposta que melhor representa você. Ao final, veja seus pontos e o motivo de cada questão.'));
-      el.append(make('p', 'note', 'Responda com sinceridade. A pontuação é privada e serve apenas para reflexão em aula; não é uma avaliação psicológica.'));
+      const el = panel(); el.append(make('div', 'eyebrow', 'Interactive reflection · 10 statements'), make('h1', '', 'How Open Are You to Diversity?'), make('p', 'lead', 'Leia cada afirmação em inglês e anote sua resposta no caderno. Ao final, confira a pontuação de cada questão e encontre sua faixa de resultado.'));
+      el.append(make('p', 'note', 'Anote SA, A, NS, D ou SD para cada questão. É uma atividade de reflexão; a pontuação é privada e não é uma avaliação psicológica.'));
       const actions = make('div', 'actions'); actions.append(button('Começar o quiz →', () => { page = 0; renderQuestion(); }, true)); el.append(actions);
     }
     function renderQuestion() {
       const el = panel();
-      const progress = make('div', 'progress-top'); progress.append(make('span', '', `Question ${page + 1} / ${questions.length}`), make('span', '', `${Math.round((page / questions.length) * 100)}% concluído`)); el.append(progress);
+      const progress = make('div', 'progress-top'); progress.append(make('span', '', `Question ${page + 1} / ${questions.length}`), make('span', '', `${Math.round((page / questions.length) * 100)}%`)); el.append(progress);
       const track = make('div', 'track'); const fill = make('div', 'fill'); fill.style.width = `${(page / questions.length) * 100}%`; track.append(fill); el.append(track);
-      el.append(make('div', 'eyebrow', 'Choose your answer'), make('h2', '', questions[page].text));
-      const options = make('div', 'answers');
-      labels.forEach((label, index) => {
-        const option = make('button', 'answer'); option.type = 'button'; option.setAttribute('aria-pressed', String(answers[page] === index)); option.append(document.createTextNode(label), make('small', '', short[index]));
-        option.addEventListener('click', () => { answers[page] = index; options.querySelectorAll('button').forEach((item, i) => item.setAttribute('aria-pressed', String(i === index))); next.disabled = false; }); options.append(option);
-      }); el.append(options);
+      el.append(make('div', 'eyebrow', 'Write your answer in your notebook'), make('h2', '', questions[page].text));
+      const options = make('div', 'answers'); labels.forEach((label, index) => { const option = make('div', 'answer'); option.append(document.createTextNode(label), make('small', '', short[index])); options.append(option); }); el.append(options);
       const actions = make('div', 'actions'); if (page > 0) actions.append(button('← Anterior', () => { page--; renderQuestion(); }));
-      const next = button(page === questions.length - 1 ? 'Ver meu resultado →' : 'Próxima →', () => { if (answers[page] === null) return; page++; page === questions.length ? renderResult() : renderQuestion(); }, true); next.disabled = answers[page] === null; actions.append(next); el.append(actions);
+      actions.append(button(page === questions.length - 1 ? 'Ver tabela de pontos →' : 'Próxima →', () => { page++; page === questions.length ? renderResult() : renderQuestion(); }, true)); el.append(actions);
     }
     function renderResult() {
-      const total = answers.reduce((sum, _, index) => sum + points(index), 0);
-      const band = bands.find(item => total <= item.max);
-      const el = panel(); el.append(make('div', 'eyebrow', 'Your diversity openness score'));
-      const top = make('div', 'result-top'); const score = make('div', 'score'); score.append(make('strong', '', String(total)), make('span', '', '/ 50 points')); top.append(score);
-      const summary = make('div'); summary.append(make('h1', 'result-title', band.title), make('p', 'lead', band.description)); top.append(summary); el.append(top);
-      el.append(make('p', 'note', 'Este resultado depende das suas respostas de hoje. Não define seu caráter nem mede sua abertura de forma científica. A pontuação individual não precisa ser compartilhada com a turma.'));
-      el.append(make('h2', 'subheading', 'Pontuação por questão'));
-      questions.forEach((question, index) => {
-        const detail = make('article', 'detail'); const head = make('div', 'detail-head'); head.append(make('h3', '', `${index + 1}. ${question.text}`), make('span', 'points', `${points(index)} / 5`)); detail.append(head);
-        detail.append(make('p', 'chosen', `Your answer: ${labels[answers[index]]}`), make('p', '', `Pontuação ${question.reverse ? 'invertida' : 'direta'}: ${question.reverse ? 'Strongly Disagree = 5; Strongly Agree = 1' : 'Strongly Agree = 5; Strongly Disagree = 1'}. Not Sure = 3.`), make('p', '', question.explanation)); el.append(detail);
-      });
-      el.append(make('h2', 'subheading', 'Para conversar'), make('p', 'lead', 'Qual afirmação foi mais difícil? Sua pontuação surpreendeu você? É possível respeitar alguém e discordar das ideias dessa pessoa?'));
-      const actions = make('div', 'actions'); actions.append(button('Rever respostas', () => { page = 0; renderQuestion(); }), button('Imprimir resultado', () => window.print()), button('Refazer quiz', () => { answers.fill(null); page = -1; renderIntro(); }, true)); el.append(actions);
+      const el = panel(); el.append(make('div', 'eyebrow', 'Check your score'));
+      el.append(make('h2', 'subheading', 'Tabela de pontuação'));
+      const wrap = make('div', 'table-wrap'); const table = make('table', 'key-table');
+      const head = make('thead'); const row = make('tr'); ['Questão', 'SA', 'A', 'NS', 'D', 'SD'].forEach(label => row.append(make('th', '', label))); head.append(row); table.append(head);
+      const body = make('tbody'); questions.forEach((question, index) => { const line = make('tr'); line.append(make('td', '', `${index + 1}${question.reverse ? ' ↶' : ''}`)); [4, 3, 2, 1, 0].forEach(answer => line.append(make('td', '', String(question.reverse ? 5 - answer : answer + 1)))); body.append(line); }); table.append(body); wrap.append(table); el.append(wrap);
+      el.append(make('p', 'note', 'SA = Strongly Agree · A = Agree · NS = Not Sure · D = Disagree · SD = Strongly Disagree. ↶ indica pontuação invertida. Some os 10 valores: mínimo 10, máximo 50.'));
+      el.append(make('h2', 'subheading', 'Encontre sua faixa de resultado'));
+      const grid = make('div', 'band-grid'); const ranges = ['10–19', '20–29', '30–39', '40–45', '46–50'];
+      bands.forEach((band, index) => { const card = make('div', 'band'); card.append(make('strong', '', ranges[index]), make('b', '', band.title), make('span', '', band.description)); grid.append(card); }); el.append(grid);
+      el.append(make('p', 'note', 'O resultado mostra apenas um padrão nas respostas dadas hoje. Não define o caráter de ninguém. Quais questões fizeram você pensar mais?'));
+      const actions = make('div', 'actions'); actions.append(button('← Voltar à questão 10', () => { page = 9; renderQuestion(); }), button('Imprimir tabela', () => window.print()), button('Recomeçar', () => { page = -1; renderIntro(); }, true)); el.append(actions);
     }
     renderIntro();
   </script>
