@@ -35,17 +35,17 @@
     .answers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
     .answer { border: 1px solid #647a9e; border-radius: 18px; background: #22365b; padding: 16px; text-align: center; font-weight: 800; font-size: clamp(1rem, 1.6vw, 1.22rem); }
     .answer small { display: block; margin-top: 8px; color: #c5d3e6; font-size: .83rem; font-weight: 500; }
-    .key-table { width: 100%; border-collapse: collapse; font-size: clamp(.85rem, 1.35vw, 1.05rem); }
-    .key-table th, .key-table td { padding: 10px 9px; border-bottom: 1px solid #647a9e; text-align: center; }
+    .key-table { width: 100%; border-collapse: collapse; font-size: clamp(1.3rem, 2.3vw, 2rem); }
+    .key-table th, .key-table td { padding: 11px 12px; border-bottom: 1px solid #647a9e; text-align: center; }
     .key-table th:first-child, .key-table td:first-child { text-align: left; }
     .key-table th { color: #73e0c4; }
     .key-table td:first-child { font-weight: 800; }
     .key-table tr:nth-child(even) { background: #ffffff0b; }
-    .band-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 18px; }
-    .band { background: #22365b; border: 1px solid #647a9e; border-radius: 16px; padding: 15px; }
-    .band strong { display: block; color: #73e0c4; font-size: 1.25rem; }
-    .band b { display: block; margin: 5px 0; }
-    .band span { display: block; color: #d1dded; font-size: .86rem; line-height: 1.4; }
+    .band-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 22px; }
+    .band { background: #22365b; border: 1px solid #647a9e; border-radius: 18px; padding: 22px; }
+    .band strong { display: block; color: #73e0c4; font-size: clamp(1.8rem, 3vw, 2.4rem); }
+    .band b { display: block; margin: 6px 0; font-size: clamp(1.25rem, 2vw, 1.65rem); }
+    .band span { display: block; color: #d1dded; font-size: clamp(1.05rem, 1.5vw, 1.3rem); line-height: 1.4; }
     .result-top { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 28px; }
     .score { width: 160px; height: 160px; border-radius: 50%; display: grid; place-content: center; text-align: center; background: #215568; border: 8px solid #69dec0; }
     .score strong { font-size: 3rem; line-height: 1; } .score span { color: #d4deef; }
@@ -56,9 +56,10 @@
     .points { flex: none; color: #10203b; background: #69dec0; padding: 7px 12px; border-radius: 12px; font-weight: 800; }
     .detail p { color: #d1dded; margin-bottom: 8px; line-height: 1.55; }
     .detail .chosen { color: white; font-weight: 700; }
-    .subheading { font-size: 1.7rem; margin: 40px 0 10px; }
-    @media (max-width: 780px) { .answers { grid-template-columns: 1fr; } .answer { display: flex; justify-content: space-between; align-items: center; } .answer small { margin: 0; } .band-grid { grid-template-columns: 1fr 1fr; } .table-wrap { overflow-x: auto; } .key-table { min-width: 600px; } }
-    @media (max-height: 900px) and (min-width: 781px) { .panel { padding: 22px 36px; } .key-table th, .key-table td { padding: 5px 8px; } .band { padding: 9px; } .band span { font-size: .77rem; } .subheading { margin: 15px 0 8px; } h2 { margin: 14px 0 22px; } }
+    .subheading { font-size: clamp(2rem, 4vw, 3.2rem); margin: 10px 0 22px; }
+    .result-note { font-size: clamp(1.1rem, 1.7vw, 1.4rem); line-height: 1.4; margin: 18px 0 0; }
+    @media (max-width: 780px) { .answers { grid-template-columns: 1fr; } .answer { display: flex; justify-content: space-between; align-items: center; } .answer small { margin: 0; } .band-grid { grid-template-columns: 1fr; } .table-wrap { overflow-x: auto; } .key-table { min-width: 600px; } }
+    @media (max-height: 900px) and (min-width: 781px) { .panel { padding: 20px 36px; } .key-table th, .key-table td { padding: 6px 8px; } .band { padding: 16px; } .subheading { margin: 6px 0 12px; } h2 { margin: 14px 0 22px; } }
     @media print { body { background: white; color: black; } header, .actions { display: none; } main { display: block; padding: 0; } .panel { background: white; color: black; border: 0; box-shadow: none; padding: 0; } .detail { break-inside: avoid; } .detail p, .note { color: #333; } .points { border: 1px solid black; color: black; background: white; } }
   </style>
 </head>
@@ -107,20 +108,24 @@
       el.append(make('div', 'eyebrow', 'Write your answer in your notebook'), make('h2', '', questions[page].text));
       const options = make('div', 'answers'); labels.forEach((label, index) => { const option = make('div', 'answer'); option.append(document.createTextNode(label), make('small', '', short[index])); options.append(option); }); el.append(options);
       const actions = make('div', 'actions'); if (page > 0) actions.append(button('← Anterior', () => { page--; renderQuestion(); }));
-      actions.append(button(page === questions.length - 1 ? 'Ver tabela de pontos →' : 'Próxima →', () => { page++; page === questions.length ? renderResult() : renderQuestion(); }, true)); el.append(actions);
+      actions.append(button(page === questions.length - 1 ? 'Ver tabela de pontos →' : 'Próxima →', () => { page++; page === questions.length ? renderScoreKey() : renderQuestion(); }, true)); el.append(actions);
     }
-    function renderResult() {
+    function renderScoreKey() {
       const el = panel(); el.append(make('div', 'eyebrow', 'Check your score'));
       el.append(make('h2', 'subheading', 'Tabela de pontuação'));
       const wrap = make('div', 'table-wrap'); const table = make('table', 'key-table');
       const head = make('thead'); const row = make('tr'); ['Questão', 'SA', 'A', 'NS', 'D', 'SD'].forEach(label => row.append(make('th', '', label))); head.append(row); table.append(head);
       const body = make('tbody'); questions.forEach((question, index) => { const line = make('tr'); line.append(make('td', '', `${index + 1}${question.reverse ? ' ↶' : ''}`)); [4, 3, 2, 1, 0].forEach(answer => line.append(make('td', '', String(question.reverse ? 5 - answer : answer + 1)))); body.append(line); }); table.append(body); wrap.append(table); el.append(wrap);
-      el.append(make('p', 'note', 'SA = Strongly Agree · A = Agree · NS = Not Sure · D = Disagree · SD = Strongly Disagree. ↶ indica pontuação invertida. Some os 10 valores: mínimo 10, máximo 50.'));
-      el.append(make('h2', 'subheading', 'Encontre sua faixa de resultado'));
+      el.append(make('p', 'result-note', 'SA = Strongly Agree · A = Agree · NS = Not Sure · D = Disagree · SD = Strongly Disagree. ↶ = pontuação invertida. Some os 10 valores.'));
+      const actions = make('div', 'actions'); actions.append(button('← Questão 10', () => { page = 9; renderQuestion(); }), button('Ver resultados →', renderResultBands, true)); el.append(actions);
+    }
+    function renderResultBands() {
+      const el = panel(); el.append(make('div', 'eyebrow', 'Your diversity openness score'));
+      el.append(make('h2', 'subheading', 'Qual foi seu resultado?'));
       const grid = make('div', 'band-grid'); const ranges = ['10–19', '20–29', '30–39', '40–45', '46–50'];
       bands.forEach((band, index) => { const card = make('div', 'band'); card.append(make('strong', '', ranges[index]), make('b', '', band.title), make('span', '', band.description)); grid.append(card); }); el.append(grid);
-      el.append(make('p', 'note', 'O resultado mostra apenas um padrão nas respostas dadas hoje. Não define o caráter de ninguém. Quais questões fizeram você pensar mais?'));
-      const actions = make('div', 'actions'); actions.append(button('← Voltar à questão 10', () => { page = 9; renderQuestion(); }), button('Imprimir tabela', () => window.print()), button('Recomeçar', () => { page = -1; renderIntro(); }, true)); el.append(actions);
+      el.append(make('p', 'result-note', 'Este resultado reflete suas respostas de hoje. Não define seu caráter nem é um teste científico. Qual questão fez você pensar mais?'));
+      const actions = make('div', 'actions'); actions.append(button('← Tabela de pontos', renderScoreKey), button('Recomeçar', () => { page = -1; renderIntro(); }, true)); el.append(actions);
     }
     renderIntro();
   </script>
