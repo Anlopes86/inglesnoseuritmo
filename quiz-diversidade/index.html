@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101a35">
+  <title>How Open Are You to Diversity? | Inglês no seu Ritmo</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, Segoe UI, sans-serif; color: #f8fafc; background: #101a35; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: radial-gradient(circle at 85% 10%, #314b88 0, transparent 38%), radial-gradient(circle at 5% 90%, #204c59 0, transparent 42%), #101a35; }
+    button { font: inherit; cursor: pointer; }
+    button:focus-visible { outline: 3px solid #facc15; outline-offset: 3px; }
+    .shell { width: min(1120px, calc(100% - 32px)); min-height: 100vh; margin: auto; display: flex; flex-direction: column; }
+    header { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 24px 0; }
+    .brand { font-weight: 800; letter-spacing: -.025em; font-size: clamp(1rem, 2vw, 1.3rem); }
+    .brand b { color: #73e0c4; }
+    .tag { color: #cbd5e1; font-size: .9rem; text-align: right; }
+    main { flex: 1; display: grid; place-items: center; padding: 24px 0 48px; }
+    .panel { width: 100%; border: 1px solid #6681ae70; border-radius: 32px; padding: clamp(24px, 5vw, 64px); background: #18274ce8; box-shadow: 0 28px 70px #050b2170; }
+    .eyebrow { color: #73e0c4; font-size: .9rem; letter-spacing: .15em; text-transform: uppercase; font-weight: 800; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { font-size: clamp(2.6rem, 6vw, 5.4rem); letter-spacing: -.06em; line-height: 1.07; margin: 22px 0; max-width: 920px; }
+    h2 { font-size: clamp(2rem, 4.6vw, 4.1rem); letter-spacing: -.045em; line-height: 1.15; margin: 20px 0 34px; }
+    .lead { font-size: clamp(1.1rem, 2vw, 1.45rem); color: #d4deef; line-height: 1.55; max-width: 760px; }
+    .note { color: #becbe0; font-size: 1rem; line-height: 1.5; }
+    .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+    .btn { border: 1px solid #8ba4ca; border-radius: 16px; padding: 16px 26px; color: white; background: #263b65; font-weight: 800; min-height: 56px; }
+    .btn.primary { background: #69dec0; color: #10203b; border-color: #69dec0; }
+    .btn:hover { filter: brightness(1.12); }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .progress-top { display: flex; justify-content: space-between; color: #bdd0e7; font-weight: 700; gap: 12px; }
+    .track { height: 10px; border-radius: 99px; background: #334a74; margin: 14px 0 36px; overflow: hidden; }
+    .fill { height: 100%; background: #69dec0; transition: width .25s; }
+    .answers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .answer { min-height: 112px; border: 2px solid #647a9e; border-radius: 18px; background: #22365b; color: white; padding: 15px; text-align: left; font-weight: 800; font-size: clamp(1rem, 1.6vw, 1.22rem); }
+    .answer small { display: block; margin-top: 8px; color: #c5d3e6; font-size: .83rem; font-weight: 500; }
+    .answer[aria-pressed="true"] { border-color: #69dec0; background: #215568; box-shadow: inset 0 0 0 2px #69dec0; }
+    .result-top { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 28px; }
+    .score { width: 160px; height: 160px; border-radius: 50%; display: grid; place-content: center; text-align: center; background: #215568; border: 8px solid #69dec0; }
+    .score strong { font-size: 3rem; line-height: 1; } .score span { color: #d4deef; }
+    .result-title { font-size: clamp(2rem, 4vw, 3.4rem); margin: 8px 0; }
+    .detail { border-top: 1px solid #647a9e; padding: 22px 0; }
+    .detail-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; }
+    .detail h3 { font-size: 1.25rem; line-height: 1.4; margin-bottom: 10px; }
+    .points { flex: none; color: #10203b; background: #69dec0; padding: 7px 12px; border-radius: 12px; font-weight: 800; }
+    .detail p { color: #d1dded; margin-bottom: 8px; line-height: 1.55; }
+    .detail .chosen { color: white; font-weight: 700; }
+    .subheading { font-size: 1.7rem; margin: 40px 0 10px; }
+    @media (max-width: 780px) { .answers { grid-template-columns: 1fr; } .answer { min-height: 68px; display: flex; justify-content: space-between; align-items: center; } .answer small { margin: 0; } .result-top { grid-template-columns: 1fr; } .score { width: 130px; height: 130px; } }
+    @media (max-height: 720px) and (min-width: 781px) { .panel { padding: 30px 46px; } .answer { min-height: 90px; } h2 { margin: 14px 0 22px; } }
+    @media print { body { background: white; color: black; } header, .actions { display: none; } main { display: block; padding: 0; } .panel { background: white; color: black; border: 0; box-shadow: none; padding: 0; } .detail { break-inside: avoid; } .detail p, .note { color: #333; } .points { border: 1px solid black; color: black; background: white; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header><div class="brand">Inglês <b>no seu Ritmo</b></div><div class="tag">Diversity, Equity & Inclusion · 3º ano</div></header>
+    <main id="app" aria-live="polite"></main>
+  </div>
+  <script>
+    'use strict';
+    const questions = [
+      { text: 'I can become close friends with someone whose beliefs and values are very different from mine.', reverse: false, explanation: 'Considera a disposição para criar vínculos apesar de diferenças de valores. Respeitar a pessoa não exige concordar com todas as ideias dela.' },
+      { text: 'When I meet someone with a lifestyle I don’t understand, I usually want to know more before judging them.', reverse: false, explanation: 'Valoriza a curiosidade antes de tirar conclusões sobre experiências diferentes das suas.' },
+      { text: 'I sometimes feel uncomfortable when people around me speak a language I don’t understand.', reverse: true, explanation: 'Explora uma reação de desconforto. Sentir isso não define quem você é; a questão é como você lida com a situação.' },
+      { text: 'I can strongly disagree with someone’s choices and still respect that person.', reverse: false, explanation: 'Distingue discordância de desrespeito. É possível defender seus valores e tratar outra pessoa com dignidade.' },
+      { text: 'I would probably avoid spending time with someone whose opinions are completely opposite to mine.', reverse: true, explanation: 'Observa a disposição para conviver com opiniões opostas. Você não precisa manter toda conversa, especialmente se houver hostilidade.' },
+      { text: 'If a new student came from a very different culture, I would make an effort to include them in my group.', reverse: false, explanation: 'Examina uma ação concreta de inclusão: convidar alguém a participar e facilitar sua chegada ao grupo.' },
+      { text: 'I am willing to change my opinion after listening to someone whose life experience is very different from mine.', reverse: false, explanation: 'Mede a disposição para reconsiderar uma ideia após ouvir uma experiência que você não viveu.' },
+      { text: 'Some people are simply too different from me for us to become good friends.', reverse: true, explanation: 'Questiona se a diferença, por si só, impede uma amizade. Afinidade também depende de respeito, confiança e convivência.' },
+      { text: 'If I realized that something I said was offensive to a group of people, I would think about changing the way I express myself.', reverse: false, explanation: 'Examina a capacidade de ouvir o impacto do que foi dito e ajustar a forma de se comunicar.' },
+      { text: 'People would get along better if they adapted to the majority instead of expecting society to adapt to their differences.', reverse: true, explanation: 'Põe em debate quem deve fazer ajustes para que todos participem. A situação concreta pode exigir responsabilidade de ambos os lados.' }
+    ];
+    const labels = ['Strongly Disagree', 'Disagree', 'Not Sure', 'Agree', 'Strongly Agree'];
+    const short = ['SD', 'D', 'NS', 'A', 'SA'];
+    const bands = [
+      { max: 19, title: 'Comfort Zone', description: 'Você pode se sentir mais à vontade com pessoas e ideias familiares. Observe quais diferenças despertaram resistência e por quê.' },
+      { max: 29, title: 'Opening the Door', description: 'Você mostra abertura em algumas situações, enquanto outras ainda desafiam sua zona de conforto. Vale examinar os motivos.' },
+      { max: 39, title: 'Open-Minded', description: 'Suas respostas sugerem disposição geral para conviver com diferenças e ouvir outras perspectivas.' },
+      { max: 45, title: 'Diversity Explorer', description: 'Suas respostas sugerem curiosidade e abertura frequentes diante de experiências diferentes.' },
+      { max: 50, title: 'Bridge Builder', description: 'Suas respostas sugerem forte disposição para compreender diferenças e incluir outras pessoas.' }
+    ];
+    const answers = Array(questions.length).fill(null);
+    let page = -1;
+    const app = document.getElementById('app');
+    const make = (tag, className, content) => { const el = document.createElement(tag); if (className) el.className = className; if (content !== undefined) el.textContent = content; return el; };
+    const button = (label, action, primary = false) => { const el = make('button', 'btn' + (primary ? ' primary' : ''), label); el.type = 'button'; el.addEventListener('click', action); return el; };
+    const panel = () => { app.replaceChildren(); const el = make('section', 'panel'); app.append(el); return el; };
+    const points = (index) => questions[index].reverse ? 5 - answers[index] : answers[index] + 1;
+    function renderIntro() {
+      const el = panel(); el.append(make('div', 'eyebrow', 'Interactive reflection · 10 statements'), make('h1', '', 'How Open Are You to Diversity?'), make('p', 'lead', 'Leia cada afirmação em inglês e escolha a resposta que melhor representa você. Ao final, veja seus pontos e o motivo de cada questão.'));
+      el.append(make('p', 'note', 'Responda com sinceridade. A pontuação é privada e serve apenas para reflexão em aula; não é uma avaliação psicológica.'));
+      const actions = make('div', 'actions'); actions.append(button('Começar o quiz →', () => { page = 0; renderQuestion(); }, true)); el.append(actions);
+    }
+    function renderQuestion() {
+      const el = panel();
+      const progress = make('div', 'progress-top'); progress.append(make('span', '', `Question ${page + 1} / ${questions.length}`), make('span', '', `${Math.round((page / questions.length) * 100)}% concluído`)); el.append(progress);
+      const track = make('div', 'track'); const fill = make('div', 'fill'); fill.style.width = `${(page / questions.length) * 100}%`; track.append(fill); el.append(track);
+      el.append(make('div', 'eyebrow', 'Choose your answer'), make('h2', '', questions[page].text));
+      const options = make('div', 'answers');
+      labels.forEach((label, index) => {
+        const option = make('button', 'answer'); option.type = 'button'; option.setAttribute('aria-pressed', String(answers[page] === index)); option.append(document.createTextNode(label), make('small', '', short[index]));
+        option.addEventListener('click', () => { answers[page] = index; options.querySelectorAll('button').forEach((item, i) => item.setAttribute('aria-pressed', String(i === index))); next.disabled = false; }); options.append(option);
+      }); el.append(options);
+      const actions = make('div', 'actions'); if (page > 0) actions.append(button('← Anterior', () => { page--; renderQuestion(); }));
+      const next = button(page === questions.length - 1 ? 'Ver meu resultado →' : 'Próxima →', () => { if (answers[page] === null) return; page++; page === questions.length ? renderResult() : renderQuestion(); }, true); next.disabled = answers[page] === null; actions.append(next); el.append(actions);
+    }
+    function renderResult() {
+      const total = answers.reduce((sum, _, index) => sum + points(index), 0);
+      const band = bands.find(item => total <= item.max);
+      const el = panel(); el.append(make('div', 'eyebrow', 'Your diversity openness score'));
+      const top = make('div', 'result-top'); const score = make('div', 'score'); score.append(make('strong', '', String(total)), make('span', '', '/ 50 points')); top.append(score);
+      const summary = make('div'); summary.append(make('h1', 'result-title', band.title), make('p', 'lead', band.description)); top.append(summary); el.append(top);
+      el.append(make('p', 'note', 'Este resultado depende das suas respostas de hoje. Não define seu caráter nem mede sua abertura de forma científica. A pontuação individual não precisa ser compartilhada com a turma.'));
+      el.append(make('h2', 'subheading', 'Pontuação por questão'));
+      questions.forEach((question, index) => {
+        const detail = make('article', 'detail'); const head = make('div', 'detail-head'); head.append(make('h3', '', `${index + 1}. ${question.text}`), make('span', 'points', `${points(index)} / 5`)); detail.append(head);
+        detail.append(make('p', 'chosen', `Your answer: ${labels[answers[index]]}`), make('p', '', `Pontuação ${question.reverse ? 'invertida' : 'direta'}: ${question.reverse ? 'Strongly Disagree = 5; Strongly Agree = 1' : 'Strongly Agree = 5; Strongly Disagree = 1'}. Not Sure = 3.`), make('p', '', question.explanation)); el.append(detail);
+      });
+      el.append(make('h2', 'subheading', 'Para conversar'), make('p', 'lead', 'Qual afirmação foi mais difícil? Sua pontuação surpreendeu você? É possível respeitar alguém e discordar das ideias dessa pessoa?'));
+      const actions = make('div', 'actions'); actions.append(button('Rever respostas', () => { page = 0; renderQuestion(); }), button('Imprimir resultado', () => window.print()), button('Refazer quiz', () => { answers.fill(null); page = -1; renderIntro(); }, true)); el.append(actions);
+    }
+    renderIntro();
+  </script>
+</body>
+</html>
