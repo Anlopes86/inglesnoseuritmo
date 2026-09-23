@@ -14,12 +14,14 @@
             type: 'conversation'
         },
         A1: {
-            label: 'Módulo A1 / A2',
-            shortLabel: 'A1 / A2',
-            description: 'Vocabulário, expressões e verbos da base do curso.',
+            label: 'Acervo A1 / A2',
+            shortLabel: 'Acervo A1 / A2',
+            description: 'Vocabulário das edições anteriores do curso.',
             type: 'vocabulary',
             file: 'js/vocabulary.js'
         },
+        A1_V3: { label: 'Módulo A1 V3', shortLabel: 'A1 V3', type: 'curriculum', moduleId: 'a1-v3', file: 'js/a1-v3-flashcards.json' },
+        A2_V3: { label: 'Módulo A2 V3', shortLabel: 'A2 V3', type: 'curriculum', moduleId: 'a2-v3', file: 'js/a2-v3-flashcards.json' },
         TRAVEL: {
             label: 'Viagem',
             shortLabel: 'Viagem',
@@ -70,6 +72,12 @@
         sessionRatings: { hard: 0, medium: 0, easy: 0 },
         revealed: false,
         loading: false,
+        sessionActive: false,
+        restoringSession: false,
+        sessionStorageWarning: false,
+        sessionFilters: null,
+        sessionModeChoice: null,
+        customCardsLoaded: false,
         editingCardId: null,
         pendingDeleteId: null,
         savingCard: false,
@@ -94,6 +102,88 @@
         } catch (_) {
             // Persistence is helpful, but the study flow must keep working without it.
         }
+    }
+
+    function sessionIndexKey() {
+        return `flashcardsSessionV1:${state.user?.uid || ''}:${state.ownerId || ''}`;
+    }
+
+    function lastSessionDeck() {
+        return readStorage(sessionIndexKey()) || readStorage(STORAGE_KEYS.lastDeck);
+    }
+
+    function readSavedSession(deckId) {
+        if (!state.user?.uid || !state.ownerId) return null;
+        try {
+            const saved = JSON.parse(localStorage.getItem(`${sessionIndexKey()}:${deckId}`) || 'null');
+            if (!saved || saved.version !== 1 || saved.actorId !== state.user.uid || saved.ownerId !== state.ownerId || saved.deckId !== deckId) return null;
+            if (!['recognition', 'production'].includes(saved.mode) || !saved.filters) return null;
+            if (!['queue', 'history', 'seen', 'filtered'].every(field => Array.isArray(saved[field]) && saved[field].length <= 10000 && saved[field].every(id => typeof id === 'string'))) return null;
+            if (saved.current !== null && typeof saved.current !== 'string') return null;
+            return saved;
+        } catch (_) { return null; }
+    }
+
+    function persistStudySession() {
+        if (!state.ready || !state.sessionActive || state.restoringSession || !state.user?.uid || !state.ownerId || !state.deckId) return;
+        const pending = state.pendingReview;
+        const saved = {
+            version: 1, actorId: state.user.uid, ownerId: state.ownerId, deckId: state.deckId, mode: state.mode,
+            current: state.currentCard?.key || null, queue: state.queue.map(card => card.key), history: state.history.map(card => card.key),
+            seen: [...state.seen], filtered: state.filteredCards.map(card => card.key), sessionRatings: state.sessionRatings,
+            filters: state.sessionFilters || { query: '', difficulty: 'all', lesson: 'all', size: '10' },
+            answer: { value: elements['answer-input']?.value || '', checked: Boolean(elements['check-answer-button']?.disabled),
+                revealed: state.revealed, fingerprint: state.currentCard ? getCardFingerprint(state.currentCard) : '' },
+            pending: pending ? { eventId: pending.eventId, level: pending.level, cardKey: pending.card.key, nextReviewAt: pending.nextReviewAt } : null
+        };
+        try {
+            localStorage.setItem(`${sessionIndexKey()}:${state.deckId}`, JSON.stringify(saved));
+            localStorage.setItem(sessionIndexKey(), state.deckId);
+        } catch (_) {
+            if (!state.sessionStorageWarning) notify('Seu navegador não permitiu guardar a sessão. Você pode continuar estudando, mas a posição pode não ser recuperada.', 'error');
+            state.sessionStorageWarning = true;
+        }
+    }
+
+    function restoreStudySession(saved) {
+        if (!saved) return false;
+        state.restoringSession = true;
+        try {
+            const cards = new Map(state.cards.map(card => [card.key, card]));
+            const picked = new Set();
+            const take = ids => ids.filter(id => cards.has(id) && !picked.has(id) && picked.add(id)).map(id => cards.get(id));
+            state.currentCard = take(saved.current ? [saved.current] : [])[0] || null;
+            state.history = take(saved.history);
+            state.queue = take(saved.queue);
+            state.sessionTotal = picked.size;
+            state.seen = new Set(saved.seen.filter(id => picked.has(id)));
+            state.filteredCards = [...new Set(saved.filtered)].map(id => cards.get(id)).filter(Boolean);
+            state.sessionRatings = Object.fromEntries(['hard', 'medium', 'easy'].map(level => [level, Math.max(0, Math.min(100000, Number(saved.sessionRatings?.[level]) || 0))]));
+            state.mode = saved.mode;
+            syncModeControls();
+            const filters = saved.filters;
+            elements['search-filter'].value = String(filters.query || '');
+            elements['difficulty-filter'].value = ['all', 'new', 'hard', 'medium', 'easy'].includes(filters.difficulty) ? filters.difficulty : 'all';
+            elements['lesson-filter'].value = state.cards.some(card => card.l === filters.lesson) ? filters.lesson : 'all';
+            elements['session-size-filter'].value = ['5', '10', '20', '30', 'all'].includes(filters.size) ? filters.size : '10';
+            state.sessionFilters = { query: elements['search-filter'].value, difficulty: elements['difficulty-filter'].value, lesson: elements['lesson-filter'].value, size: elements['session-size-filter'].value };
+            state.sessionActive = true;
+            if (!state.currentCard && state.queue.length) {
+                state.currentCard = state.queue.shift();
+                state.seen.add(state.currentCard.key);
+            }
+            if (state.currentCard) {
+                renderCurrentCard();
+                if (state.currentCard.key === saved.current && saved.answer?.fingerprint === getCardFingerprint(state.currentCard)) {
+                    if (state.mode === 'production') {
+                        elements['answer-input'].value = String(saved.answer.value || '');
+                        if (saved.answer.checked) checkAnswer();
+                    } else if (saved.answer.revealed) revealCard();
+                }
+            } else renderSessionComplete();
+            updateSessionStats();
+            return true;
+        } finally { state.restoringSession = false; }
     }
 
     function cacheElements() {
@@ -299,6 +389,7 @@
         if (state.savingReview || state.pendingReview) return;
         if (!['recognition', 'production'].includes(mode)) return;
         state.mode = mode;
+        state.sessionModeChoice = mode;
         writeStorage(STORAGE_KEYS.mode, mode);
         syncModeControls();
         if (options.restart !== false && state.deckId && state.cards.length) {
@@ -358,6 +449,7 @@
         }
 
         state.customCards = [];
+        state.customCardsLoaded = cardsResult.status === 'fulfilled';
         if (cardsResult.status === 'fulfilled') {
             state.customCards = cardsResult.value.docs
                 .map((documentSnapshot) => normalizeCard({ id: documentSnapshot.id, ...documentSnapshot.data() }, { module: 'CUSTOM' }))
@@ -382,7 +474,7 @@
         const personalIds = new Set(state.customCards.map(card => card.key));
         const ratingList = Object.entries(state.ratings).filter(([key, rating]) => {
             const personal = rating.deckId === 'CUSTOM' || rating.module === 'CUSTOM'
-                || /^(lesson_|card_)/.test(key) || /^(a1|a2|b1|b2|c1)-v3$/.test(rating.module || '');
+                || /^(lesson_|card_)/.test(key) || (!rating.deckId && !key.startsWith('v3fc_') && /^(a1|a2|b1|b2|c1)-v3$/.test(rating.module || ''));
             return !personal || personalIds.has(key);
         }).map(([, rating]) => rating);
         const reviewed = ratingList.filter((rating) => rating.level).length;
@@ -396,7 +488,7 @@
             customMeta.textContent = `${state.customCards.length} ${state.customCards.length === 1 ? 'card salvo' : 'cards salvos'}`;
         }
 
-        const lastDeck = readStorage(STORAGE_KEYS.lastDeck);
+        const lastDeck = lastSessionDeck();
         const canContinue = Boolean(lastDeck && deckCatalog[lastDeck]);
         elements['continue-session'].classList.toggle('is-hidden', !canContinue);
         if (canContinue) {
@@ -497,7 +589,17 @@
     async function loadDeckCards(deckId) {
         const deck = deckCatalog[deckId];
         if (!deck) throw new Error('Deck inexistente.');
-        if (deck.type === 'custom') return [...state.customCards];
+        if (deck.type === 'curriculum') {
+            const response = await fetch(deck.file);
+            if (!response.ok) throw new Error('Não foi possível carregar o vocabulário deste módulo.');
+            const data = await response.json();
+            if (data.moduleId !== deck.moduleId || data.schemaVersion !== 1 || !Array.isArray(data.cards) || !data.cards.length) throw new Error('Deck curricular inválido.');
+            return data.cards;
+        }
+        if (deck.type === 'custom') {
+            if (!state.customCardsLoaded) throw new Error('A biblioteca pessoal ainda não foi sincronizada. Recarregue para tentar novamente.');
+            return [...state.customCards];
+        }
         if (deck.type === 'conversation') return loadConversationCards();
         const data = await parseVocabularyFile(deck.file);
         return vocabularyDataToCards(data, deckId);
@@ -512,6 +614,7 @@
 
     function showMenuScreen() {
         if (state.loading || state.savingReview || state.pendingReview) return;
+        persistStudySession();
         window.speechSynthesis?.cancel();
         elements['screen-study'].classList.add('is-hidden');
         elements['screen-menu'].classList.remove('is-hidden');
@@ -528,6 +631,8 @@
         }
         if (state.loading || !deckCatalog[deckId]) return;
 
+        persistStudySession();
+        state.sessionActive = false;
         state.loading = true;
         state.deckId = deckId;
         writeStorage(STORAGE_KEYS.lastDeck, deckId);
@@ -542,7 +647,11 @@
             populateLessonFilter();
             elements['search-filter'].value = '';
             elements['difficulty-filter'].value = 'all';
-            applyFilters();
+            const saved = readSavedSession(deckId);
+            const compatibleMode = !state.sessionModeChoice || saved?.mode === state.sessionModeChoice;
+            if (!compatibleMode || !restoreStudySession(saved)) applyFilters();
+            state.sessionModeChoice = null;
+            persistStudySession();
             elements['study-deck-meta'].textContent = `${state.cards.length} cards disponíveis`;
         } catch (error) {
             console.error(`Erro ao abrir o deck ${deckId}:`, error);
@@ -590,6 +699,8 @@
 
     function resetSession() {
         if (state.savingReview || state.pendingReview) return;
+        state.sessionActive = true;
+        state.sessionFilters = { query: elements['search-filter'].value, difficulty: elements['difficulty-filter'].value, lesson: elements['lesson-filter'].value, size: elements['session-size-filter'].value };
         const smartQueue = buildSmartQueue(state.filteredCards);
         const requestedSize = elements['session-size-filter'].value;
         const sessionLimit = requestedSize === 'all' ? smartQueue.length : Number(requestedSize) || 10;
@@ -726,6 +837,7 @@
         elements['session-seen'].textContent = String(seen);
         elements['session-review'].textContent = String(state.sessionRatings.hard);
         elements['session-mastered'].textContent = String(state.sessionRatings.easy);
+        persistStudySession();
     }
 
     function revealCard() {
@@ -735,6 +847,7 @@
         syncCardFaces();
         elements['rating-panel'].classList.remove('is-hidden');
         elements['card-hint'].textContent = 'Avalie sua confiança para organizar a próxima revisão';
+        persistStudySession();
     }
 
     function toggleCard() {
@@ -749,6 +862,7 @@
             elements['card-hint'].textContent = isTouchFirstDevice()
                 ? 'Toque para revelar · deslize para navegar'
                 : 'Clique ou pressione espaço para revelar';
+            persistStudySession();
         }
     }
 
@@ -808,36 +922,68 @@
         elements['retry-review-save'].disabled = state.savingReview;
     }
 
-    function pendingReviewKey() { return 'flashcardsPendingReview:' + state.ownerId; }
+    function pendingReviewKey() { return 'flashcardsPendingReview:' + (state.user?.uid ? state.user.uid + ':' : '') + state.ownerId; }
     function persistPendingReview() {
         try {
             if (state.pendingReview) sessionStorage.setItem(pendingReviewKey(), JSON.stringify(state.pendingReview));
-            else sessionStorage.removeItem(pendingReviewKey());
+            else {
+                sessionStorage.removeItem(pendingReviewKey());
+                sessionStorage.removeItem('flashcardsPendingReview:' + state.ownerId);
+            }
         } catch (_) {
             if (state.pendingReview) notify('Mantenha esta aba aberta até salvar a avaliação.', 'error');
         }
     }
 
-    function restorePendingReview() {
+    async function restorePendingReview() {
         let pending;
-        try { pending = JSON.parse(sessionStorage.getItem(pendingReviewKey()) || 'null'); } catch (_) { return; }
+        try { pending = JSON.parse(sessionStorage.getItem(pendingReviewKey()) || sessionStorage.getItem('flashcardsPendingReview:' + state.ownerId) || 'null'); } catch (_) {}
+        const saved = readSavedSession(pending?.deckId || lastSessionDeck());
+        let fullSession = false;
+        if (saved?.pending && deckCatalog[saved.deckId]) {
+            const attempt = saved.pending;
+            if (!attempt.eventId || !['hard', 'medium', 'easy'].includes(attempt.level) || !Number.isFinite(Date.parse(attempt.nextReviewAt)) || attempt.cardKey !== saved.current) return;
+            state.deckId = saved.deckId;
+            state.cards = (await loadDeckCards(saved.deckId)).map(card => normalizeCard(card, { module: saved.deckId }));
+            populateLessonFilter();
+            fullSession = restoreStudySession(saved);
+            const card = state.cards.find(item => item.key === attempt.cardKey);
+            if (!card) {
+                state.pendingReview = null;
+                persistPendingReview();
+                persistStudySession();
+                notify('O card da avaliação pendente foi removido da biblioteca. Sua sessão foi preservada com os cards disponíveis.');
+                return;
+            }
+            if (saved.answer?.fingerprint !== getCardFingerprint(card)) {
+                state.pendingReview = null;
+                persistPendingReview();
+                persistStudySession();
+                notify('O card foi atualizado. Ao retomar, confira a nova versão antes de avaliá-lo.');
+                return;
+            }
+            pending = { eventId: attempt.eventId, level: attempt.level, nextReviewAt: attempt.nextReviewAt, card, deckId: saved.deckId, mode: saved.mode };
+        }
         if (!pending?.card?.key || !deckCatalog[pending.deckId] || !pending.eventId) return;
         state.pendingReview = pending;
         state.deckId = pending.deckId;
-        state.currentCard = pending.card;
-        state.cards = [pending.card];
-        state.filteredCards = [pending.card];
-        populateLessonFilter();
-        state.queue = [];
-        state.sessionTotal = 1;
-        state.seen = new Set([pending.card.key]);
+        if (!fullSession) {
+            state.sessionActive = true;
+            state.currentCard = pending.card;
+            state.cards = [pending.card];
+            state.filteredCards = [pending.card];
+            populateLessonFilter();
+            state.queue = [];
+            state.sessionTotal = 1;
+            state.seen = new Set([pending.card.key]);
+        }
         state.mode = pending.mode;
         syncModeControls();
         showStudyScreen();
         elements['study-deck-name'].textContent = deckCatalog[state.deckId].label;
         elements['study-deck-meta'].textContent = 'Avaliação pendente de salvamento';
         elements['custom-card-cta'].classList.toggle('is-hidden', state.deckId !== 'CUSTOM');
-        renderCurrentCard();
+        if (!fullSession) renderCurrentCard();
         revealCard();
         updateSessionStats();
         elements['review-save-error'].classList.remove('is-hidden');
@@ -855,6 +1001,7 @@
         const pending = state.pendingReview;
         if (pending.card.key !== card.key) return;
         persistPendingReview();
+        persistStudySession();
         state.savingReview = true;
         lockReviewControls(true);
         elements['review-save-error'].classList.add('is-hidden');
@@ -885,6 +1032,7 @@
             state.savingReview = false;
             lockReviewControls(false);
             elements['cloud-status-label'].textContent = 'Avaliação salva';
+            elements['study-deck-meta'].textContent = `${state.cards.length} cards disponíveis`;
             updateSessionStats();
             showNextCard();
         } catch (error) {
@@ -909,7 +1057,7 @@
     function openCardDialog(card = null, options = {}) {
         if (state.savingReview || state.pendingReview || state.savingCard) return;
         state.dialogCard = card;
-        state.editingCardId = card?.id || null;
+        state.editingCardId = options.favorite ? null : card?.id || null;
         elements['card-dialog-title'].textContent = state.editingCardId
             ? 'Editar card'
             : options.favorite ? 'Salvar nos meus cards' : 'Criar novo card';
@@ -1112,6 +1260,9 @@
     }
 
     function bindEvents() {
+        elements['answer-input'].addEventListener('input', persistStudySession);
+        window.addEventListener('pagehide', persistStudySession);
+        document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') persistStudySession(); });
         elements['retry-review-save'].addEventListener('click', () => {
             if (state.pendingReview) rateCurrentCard(state.pendingReview.level);
         });
@@ -1245,6 +1396,7 @@
                 return;
             }
             state.ready = false;
+            state.sessionActive = false;
             try {
                 state.user = user;
                 state.ownerId = await getManagedOwnerId(user);
@@ -1261,7 +1413,7 @@
                 updateReturnLinks();
                 await Promise.all([loadCloudOverview(), loadOwnerLabel()]);
                 state.ready = true;
-                restorePendingReview();
+                await restorePendingReview();
             } catch (error) {
                 state.ownerId = null;
                 elements['cloud-status-label'].textContent = 'Acesso indisponível';

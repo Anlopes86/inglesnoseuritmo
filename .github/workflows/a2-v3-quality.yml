@@ -4,6 +4,13 @@ on:
   pull_request:
     paths:
       - "a2-v3/**"
+      - "a1-v3/lesson-data/**"
+      - "a1-v3/a1-v3-lesson-registry.js"
+      - "js/*-v3-flashcards.json"
+      - "js/flashcards-app.js"
+      - "flashcards-app.html"
+      - "tools/build-v3-flashcard-decks.cjs"
+      - "tools/audit-flashcards-*.cjs"
       - "css/v3-session.css"
       - "js/a2-v3-module.js"
       - "js/music-catalog-v3.js"
@@ -20,6 +27,13 @@ on:
     branches: [main]
     paths:
       - "a2-v3/**"
+      - "a1-v3/lesson-data/**"
+      - "a1-v3/a1-v3-lesson-registry.js"
+      - "js/*-v3-flashcards.json"
+      - "js/flashcards-app.js"
+      - "flashcards-app.html"
+      - "tools/build-v3-flashcard-decks.cjs"
+      - "tools/audit-flashcards-*.cjs"
       - "css/v3-session.css"
       - "js/a2-v3-module.js"
       - "js/music-catalog-v3.js"
@@ -65,6 +79,13 @@ jobs:
 
       - name: Run music unit tests
         run: npm run test:music
+
+      - name: Check current flashcard decks and saved-card reliability
+        run: |
+          node tools/audit-v3-flashcard-decks.cjs
+          node tools/audit-flashcards-maintenance.cjs
+          node tools/audit-flashcards-reliability.cjs
+          node tools/audit-flashcards-session.cjs
 
       - name: Run the portable A2 browser audit
         run: npm run test:a2-browser

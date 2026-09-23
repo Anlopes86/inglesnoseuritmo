@@ -4,21 +4,37 @@ const lexical=window.A2V3PremiumCurriculum.lessons,conversations=window.A2V3Conv
 const slide=(id,type,title,instruction,rest={})=>({id,type,title,kicker:type==='conversation'?'Conversation Activities':title,instruction,...rest});
 const textItems=items=>(items||[]).map(x=>Array.isArray(x)?x:[x.question,x.answer]);
 const expressionCards=l=>l.expressions.map(([term,pt,note,example])=>[term,pt,example||note]);
+const expressionOheCards=l=>l.expressions.map(([term,meaning,note,example])=>{
+ const lab=l.expressionLab?.[term];
+ if(!lab)throw Error('A2 OHE expression lab missing: '+term);
+ return {term,meaning,note,examples:[example,...lab.examples].filter(Boolean),promptPt:lab.promptPt,answer:lab.answer};
+});
 const reading=(id,title,paragraphs,items,instruction='O professor lê; depois leia e responda. Use o texto para justificar suas respostas.')=>slide(id,'reading',title,instruction,{paragraphs,items:textItems(items),translations:[]});
 const hw=options=>slide('homework','homework','Take it with you.','Escolha uma opção para praticar antes do próximo encontro.',{options});
 function lexicalSlides(l){
  const examples=[...l.examples,...l.vocab.map(x=>x[2]),...l.expressions.map(x=>x[3]),...l.introDialogue.map(x=>x[1]),...l.dialogues.flat().map(x=>x[1])].filter(Boolean);
  const verbCards=l.verbRows.map(([base,past,participle,pt])=>[base,pt,examples.find(s=>[base,past,participle].some(v=>s.toLowerCase().split(/[^a-z'-]+/).includes(v.toLowerCase())))||'',past+' · '+participle]);
  const groups=[{title:l.grammarTable.title,cards:l.grammarTable.rows.map(([use,form,example])=>[form,use,example])},{title:'Como usar',cards:l.grammar.map(([title,rule],i)=>[title,rule,l.examples[i]||''])},{title:'Observe estes detalhes',cards:l.helpingYou}];
+ const translationPractice=slide('practice','drill',l.expressionLab?'Transfer · Say it in English':'Say it in English','Traduza as novas situações em voz alta. Elas retomam a estrutura da aula sem copiar os modelos dos flashcards.',{items:l.translations.map(x=>[x.pt,x.en])});
+ const dialogueSamples=slide('dialogues','dialogue','Dialog Samples','Leiam os papéis. Depois troquem pelo menos dois detalhes da situação para criar uma nova versão do diálogo.',{lines:l.dialogues.flat(),lineTitles:Object.fromEntries(l.dialogues.map((d,i)=>[l.dialogues.slice(0,i).reduce((a,x)=>a+x.length,0),'Situation '+(i+1)]))});
+ const expressionSequence=l.expressionLab
+  ? [
+   slide('expressions','ohe-flashcards','Key Phrases & Expressions','Observe a expressão no exemplo e formule uma hipótese. Depois vire o card, confira a explicação e experimente traduzir uma nova frase.',{kicker:'OHE · Observe · Hypothesize · Experiment',cards:expressionOheCards(l)}),
+   dialogueSamples,
+   translationPractice
+  ]
+  : [
+   translationPractice,
+   slide('expressions','cards','Key Phrases & Expressions','Leia os blocos completos e use dois deles em uma situação sua.',{cards:expressionCards(l)}),
+   slide('expression-notes','patterns','Expressions in context','Observe as combinações e os detalhes de uso.',{cards:l.expressions.map(([front,pt,note,example])=>[front,note||pt,example||''])}),
+   dialogueSamples
+  ];
  return [
  slide('opening','dialogue',l.title,'Acompanhe a leitura do professor. Depois leia um dos papéis e identifique o assunto.',{lines:l.introDialogue}),
  slide('vocabulary','cards','Vocabulary Expansion','Veja os significados e os exemplos. Escolha palavras úteis para sua vida e salve as que quiser praticar.',{cards:l.vocab}),
  slide('verbs','verbs','Verb bank','Observe as formas e o uso nas frases. Ouça ou salve o verbo para praticar depois.',{cards:verbCards}),
  slide('helping','patterns','Helping You','Leia os exemplos e observe como a forma muda o sentido.',{groups}),
- slide('practice','drill','Say it in English','Diga cada frase em inglês. O professor revela uma resposta possível depois da sua tentativa.',{items:l.translations.map(x=>[x.pt,x.en])}),
- slide('expressions','cards','Key Phrases & Expressions','Leia os blocos completos e use dois deles em uma situação sua.',{cards:expressionCards(l)}),
- slide('expression-notes','patterns','Expressions in context','Observe as combinações e os detalhes de uso.',{cards:l.expressions.map(([front,pt,note,example])=>[front,note||pt,example||''])}),
- slide('dialogues','dialogue','Dialog Samples','Leiam os papéis. Depois troquem uma informação e respondam de outra forma.',{lines:l.dialogues.flat(),lineTitles:Object.fromEntries(l.dialogues.map((d,i)=>[l.dialogues.slice(0,i).reduce((a,x)=>a+x.length,0),'Situation '+(i+1)]))}),
+ ...expressionSequence,
  reading('reading',l.readingTitle,[l.reading],l.readingQuestions),
  slide('personal','conversation','Now it is about you.','Responda e explique um motivo ou exemplo. Depois faça uma pergunta ao professor.',{tasks:l.guidedConversation.questions.map((q,i)=>['Question '+(i+1),q]),goal:'Keep the conversation going.',challenge:l.guidedConversation.support.join(' · ')}),
  slide('exit','exit','What can you do now?','Escolha quanto apoio precisou. Retome uma resposta com uma dica do professor.',{checks:l.objectives.slice(0,3).map(x=>x[0].toUpperCase()+x.slice(1))}),

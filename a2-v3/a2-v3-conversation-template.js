@@ -211,50 +211,503 @@
         const docs=()=>R('documents',l.realWorld.title,l.realWorld.documents.map(d=>d.heading+'. '+d.body),l.realWorld.questions.map(q=>Array.isArray(q)?q:[q.question,q.answer]));
         const home=(a,b,c)=>S('homework','homework','Take an idea with you','Escolha uma opção.',{options:[['A','Create',a],['B','Speak',b],['C','Explore',c]]});
         const plans={
-        2:()=>[
-            T('opening','The souvenir mystery',[['Ticket','A boat ticket.'],['Photo','A photo of fog over a bridge.'],['Receipt','Hot chocolate for two.']],'Invent a possible day from these three objects.'),
-            R('postcards','Two messages from the same trip',['Monday: We arrived in a small coastal town yesterday. It was foggy, so we could not see the island from our hotel. We took pictures of the boats and had hot chocolate in a café. The owner told us about a castle on the island. We want to visit it tomorrow.','Wednesday: We finally went to the island! The boat was late, and it rained during the crossing, but the castle was terrific. We stayed inside most of the time. My favorite part was a tiny room with old maps. We came back tired, but happy.'],[['What could they not see on arrival?','The island.'],['How did they hear about the castle?','The café owner told them.'],['What went wrong on the second part of the trip?','The boat was late and it rained.'],['Did the problems ruin the visit? Give evidence.','No. They called the castle terrific and came back happy.']]),
-            M('expressions','How did they feel?',['It was worth it.','We could not see a thing.','We took our time.'],[['1. There was very heavy fog.','B — We could not see a thing.'],['2. The journey was difficult, but the visit was fantastic.','A — It was worth it.'],['3. We walked slowly and enjoyed each room.','C — We took our time.']]),
-            U('travel','Your kind of trip',['A rainy trip can still be fun.','I like visiting famous places.','I enjoy taking pictures more than buying souvenirs.','I like traveling without a detailed plan.'],'Tell us about one memorable moment.'),
-            T('objects','Your trip in three clues',[['Choose','Escolha três objetos ou detalhes de uma viagem real ou inventada.'],['Guess','Dê pistas para o professor imaginar o lugar e as atividades.'],['Tell','Conte o dia em sequência e responda às perguntas.']],'What made this trip memorable?'),
-            home('Escreva duas mensagens de momentos diferentes da mesma viagem.','Conte uma viagem em 90 segundos, incluindo clima e uma surpresa.','Escolha uma foto de viagem e descreva detalhes que normalmente passam despercebidos.')],
-        4:()=>[
-            M('opening','Which place am I?',['a station','a pharmacy','a library','a square'],[['1. People wait for trains here.','A — a station'],['2. You can borrow books here.','C — a library'],['3. An open place with buildings around it.','D — a square'],['4. You can buy medicine here.','B — a pharmacy']]),docs(),
-            C('directions','The missing directions',['past','opposite','right','between'],['Walk (1) ____ the station and turn (2) ____ at the clock tower. The small museum is (3) ____ the bank and the café. The entrance is (4) ____ the square.'],[['1','past'],['2','right'],['3','between'],['4','opposite']]),
-            T('draw','A street only you can see',[['Imagine','Imagine quatro lugares numa rua.'],['Describe','Descreva a posição; o professor faz um esboço.'],['Compare','Compare o desenho com sua ideia e esclareça diferenças.']],'Does the drawing match your street?','Use landmarks and positions, not street numbers alone.'),
-            U('city','Getting around',['I use landmarks more than street names.','I enjoy getting lost in a new place.','I ask people for directions.'],'What helps you find a place?'),
-            home('Crie uma rua com quatro lugares e um trajeto descrito.','Explique como ir de um ponto conhecido a outro próximo.','Encontre um ponto de referência do seu bairro e explique por que é útil.')],
-        6:()=>[
-            U('opening','What counts as exercise?',['Dancing in the kitchen is exercise.','Walking to a store is part of a workout.','I prefer activities without a score.','I enjoy being part of a team.'],'Which activity is easy to include in your week?'),
-            R('story','The club with no winners',['A group of neighbors wanted to get in shape, but nobody wanted a competition. They started a Saturday club. Each week, a different person chooses an activity: a walk, a dance session or a simple ball game.','Rui likes being a teammate, but he does not enjoy running. Eva prefers to exercise alone, yet she comes to the dance sessions. Their rule is simple: explain what you enjoy and try something new if you want to. Rest days are part of their week, too.'],[['Why did they start their own club?','They wanted activity without competition.'],['Does everyone attend every activity?','No. Eva comes to dance sessions.'],['What does Rui enjoy?','Being a teammate.'],['What makes this club different from a competition?','There are no winners; people choose activities and preferences matter.']]),
-            M('activities','Find a good fit',['a quiet walk','a dance session','a team ball game'],[['1. I like music and moving indoors.','B — a dance session'],['2. I want to talk to one friend outside.','A — a quiet walk'],['3. I like playing with teammates.','C — a team ball game']]),docs(),
-            T('club','Invent a club we want to join',[['Name','Dê um nome ao clube.'],['Try','Escolha duas atividades bem diferentes.'],['Tell us','Explique para quem é, quando acontece e por que seria divertido.']],'Would you join the professor’s club?'),
-            home('Crie um convite curto para seu clube imaginário.','Compare uma atividade que gosta com outra que não gosta.','Observe movimentos presentes no seu dia e descreva três em inglês.')],
-        8:()=>[
-            T('opening','The title is missing',[['Title A','A podcast about sounds you hear every day.'],['Title B','A film with no spoken dialogue.'],['Title C','A book told through short messages.']],'Give each one a title. Which would you try?'),docs(),
-            M('reviews','Read between the lines',['enthusiastic','mixed','not interested'],[['1. The first episode was slow, but the story became fantastic.','B — mixed'],['2. I watched it twice. I cannot wait for more!','A — enthusiastic'],['3. It is probably good, but this topic is not for me.','C — not interested']]),
-            model(),
-            T('pitch','Sell me the idea in thirty seconds',[['Choose','Escolha um livro, filme, jogo ou podcast, real ou inventado.'],['Describe','Conte a ideia sem revelar título ou final.'],['Guess','O professor tenta identificar o gênero e diz se quer experimentar.']],'What makes a recommendation useful?'),
-            home('Escreva uma recomendação curta com um ponto bom e uma limitação.','Descreva uma obra sem dizer seu nome.','Observe uma manchete e diga que assunto espera encontrar no texto.')],
-        10:()=>[
-            M('opening','A menu without names',['a creamy soup','a crispy snack','a fruit salad','a mild sauce'],[['1. Soft fruit pieces, served cold.','C — a fruit salad'],['2. Smooth, warm and eaten with a spoon.','A — a creamy soup'],['3. It makes a little noise when you bite it.','B — a crispy snack'],['4. It adds flavor, but is not very spicy.','D — a mild sauce']]),
-            docs(),
-            U('taste','Would you try it?',['A familiar food with an unfamiliar sauce.','A meal without meat.','A dish with ingredients you have never seen.','Sharing several small portions.'],'Describe a food using texture, flavor or temperature.'),
-            C('review','Finish the food review',['portion','crispy','ingredients','mild'],['The vegetables were (1) ____ and fresh. The sauce was (2) ____, so it was not too spicy. The (3) ____ was large enough to share. I asked about the (4) ____ because I wanted a vegetarian meal.'],[['1','crispy'],['2','mild'],['3','portion'],['4','ingredients']]),
-            T('dish','Invent a dish for us',[['Choose','Escolha três ingredientes e um modo de servir.'],['Describe','Descreva sabor, textura e tamanho da porção.'],['Compare','O professor cria outro prato. Escolham qual gostariam de provar e expliquem.']],'A name that makes us curious.'),
-            home('Crie uma descrição de prato sem citar seu nome.','Conte uma experiência com comida que surpreendeu você.','Leia ingredientes de um alimento em casa e prepare perguntas em inglês.')],
-        12:()=>[model(),docs(),
-            M('reply','What does the customer need?',['a correction','a recommendation','the bill','information about ingredients'],[['1. Does this have any milk in it?','D — information about ingredients'],['2. I ordered the soup, not the salad.','A — a correction'],['3. What would you suggest?','B — a recommendation'],['4. Could we pay, please?','C — the bill']]),
-            Q('ticket','The server’s memory test',[['Order: two soups, one salad, tap water. Ticket: one soup, two salads, soda. Find all the differences.','There should be two soups, one salad and tap water.'],['Tell the server about one mistake politely.','Excuse me, we ordered tap water, not soda.'],['What can the server say?','I am sorry. I will bring the right order.']]),
-            T('restaurant','A restaurant with a strange name',[['Create','Invente nome e três pratos para um restaurante.'],['Visit','O professor lê o seu menu e pede algo.'],['Swap','Visite o restaurante dele. Faça uma pergunta sobre ingredientes e peça a conta.']],'Would you come back? Why?'),
-            home('Escreva um menu curto e uma pergunta de cliente.','Ensaie uma correção educada de pedido.','Pense num restaurante de que gosta e explique três motivos.')],
-        14:()=>[
-            T('opening','One message, three possible moods',[['Message','“Fine. See you later.”'],['Possibility','Happy? Tired? Annoyed?'],['Clues','What information is missing?']],'Can we know a mood from this message alone?'),
-            R('story','The quiet person in the room',['At work, Lena rarely starts a conversation. Her new colleague thinks she is unfriendly. One afternoon, he loses an important notebook. Lena stays after work to help him look for it.','The next day, they talk over lunch. Lena explains that she is shy with new people. Her colleague realizes that being quiet and being unkind are different things. He also learns that she loves telling funny stories once she feels comfortable.'],[['What was the first impression?','That Lena was unfriendly.'],['Which action challenges that impression?','She stayed to help find the notebook.'],['Why is she quiet with new people?','She is shy.'],['What did the colleague learn about her?','She likes telling funny stories when comfortable.']]),
-            M('traits','Actions say something',['thoughtful','calm','rude','reliable'],[['1. Keeps a promise even on a busy day.','D — reliable'],['2. Remembers that a friend needs help.','A — thoughtful'],['3. Interrupts and laughs at another person’s answer.','C — rude'],['4. Speaks slowly and clearly during a problem.','B — calm']]),
-            U('impressions','First impressions',['I am quiet with new people.','Messages can sound different from what a person means.','My friends see a different side of me.'],'Describe someone through an action, not just an adjective.'),
-            T('friend','Someone who surprised you',[['Before','Descreva uma primeira impressão real ou fictícia.'],['After','Conte algo que mudou essa impressão.'],['Now','Diga uma qualidade que admira e dê um exemplo.']],'Can the professor guess the quality from your example?'),
-            home('Escreva um retrato de alguém com duas qualidades e exemplos.','Conte uma história curta sobre uma impressão que mudou.','Escolha uma mensagem curta e imagine duas interpretações possíveis.')],
+        2:()=>{
+            const targets=[['foggy','required'],['at least','required'],['take a picture','required'],['different','required'],['most of the time','bonus'],['the whole time','bonus'],['take a trip','bonus'],['have a picnic','bonus']];
+            return [
+                S('baggage-claim','luggage-mystery','Baggage claim · Which suitcase is it?','O sistema sorteia uma mala sem mostrar a resposta. O aluno observa as três malas e faz até três perguntas curtas antes de escolher.',{
+                    bags:[
+                        {id:'maya',label:'BAG 18',traveler:'Maya',place:'Scotland',duration:'three weeks',weather:'cool and foggy',art:'castle-camera',items:[{icon:'📷',label:'camera'},{icon:'🏰',label:'castle postcard'},{icon:'🧣',label:'warm scarf'}],facts:{trip:'It was terrific.',weather:'It was cool and foggy.',pictures:'Yes, I took many pictures.',castle:'Yes, I visited a famous castle.',camping:'No, I stayed at a hotel.'},summary:'Maya took a trip to Scotland. It was cool and foggy, and she took many pictures.'},
+                        {id:'leo',label:'BAG 24',traveler:'Leo',place:'the coast',duration:'four days',weather:'warm most of the time',art:'picnic-fishing',items:[{icon:'🧺',label:'picnic basket'},{icon:'🎣',label:'fishing rod'},{icon:'🧢',label:'sun hat'}],facts:{trip:'It was fantastic.',weather:'It was warm most of the time.',pictures:'No, I did not take many pictures.',castle:'No, I did not visit a castle.',camping:'No. I stayed at a small hotel.'},summary:'Leo took a trip to the coast. It was warm most of the time, and he had a picnic.'},
+                        {id:'nia',label:'BAG 31',traveler:'Nia',place:'the mountains',duration:'two days',weather:'snowy the whole time',art:'snow-camp',items:[{icon:'⛺',label:'tent'},{icon:'🧤',label:'winter glove'},{icon:'🏔️',label:'mountain photo'}],facts:{trip:'It was terrific.',weather:'It was snowy the whole time.',pictures:'Yes, I took a picture of the snow.',castle:'No, I did not visit a castle.',camping:'Yes, I went camping.'},summary:'Nia took a trip to the mountains. It was snowy the whole time, and she went camping.'}
+                    ],
+                    questions:[
+                        {id:'trip',label:'Ask about the trip',text:'How was your trip?'},
+                        {id:'weather',label:'Ask about the weather',text:'What was the weather like?'},
+                        {id:'pictures',label:'Ask about pictures',text:'Did you take many pictures?'},
+                        {id:'castle',label:'Ask about a castle',text:'Did you visit a castle?'},
+                        {id:'camping',label:'Ask about camping',text:'Did you go camping?'}
+                    ],
+                    support:['How was your trip?','What was the weather like?','Did you take many pictures?','Did you visit a castle?','Did you go camping?'],
+                    targets
+                }),
+                S('weather-rescue','weather-rescue','Weather changed · Save the day','Abra um cartão de clima. O aluno escolhe um plano B e diz uma frase com at least. O professor interpreta o viajante e reage.',{
+                    rounds:[
+                        {id:'picnic',plan:'Have a picnic by the river',planIcon:'🧺',weather:'heavy rain',weatherIcon:'🌧️',need:'The traveler wants to see one famous place before the 4 p.m. train.',options:[{id:'castle',icon:'🏰',label:'Visit the castle'},{id:'picnic',icon:'🧺',label:'Have the picnic outside'},{id:'hotel',icon:'🏨',label:'Stay at the hotel'}],answer:'castle',model:'There was heavy rain, so we visited the castle. At least it was open.',reaction:'Good idea! The castle was terrific.'},
+                        {id:'fishing',plan:'Go fishing in the morning',planIcon:'🎣',weather:'foggy',weatherIcon:'🌫️',need:'The traveler can wait until noon and still use the afternoon.',options:[{id:'wait',icon:'☕',label:'Wait at the hotel'},{id:'fish',icon:'🎣',label:'Go fishing in the fog'},{id:'leave',icon:'🧳',label:'End the trip'}],answer:'wait',model:'It was foggy, so we waited at the hotel. At least it was warm.',reaction:'Yes. We can go fishing later.'},
+                        {id:'camping',plan:'Go camping for two nights',planIcon:'⛺',weather:'snowy the whole time',weatherIcon:'🌨️',need:'The traveler must stay for two nights and has no winter camping equipment.',options:[{id:'hotel',icon:'🏨',label:'Stay at a hotel'},{id:'camp',icon:'⛺',label:'Camp in the snow'},{id:'picnic',icon:'🧺',label:'Have a picnic'}],answer:'hotel',model:'It was snowy the whole time, so we stayed at a hotel. At least it was warm.',reaction:'Perfect. The hotel is different from the pictures, but it is comfortable.'}
+                    ],
+                    support:['It was ___.','It was ___ most of the time.','At least we ___.'],
+                    targets
+                }),
+                S('model','dialogue','One photo, one good story','Primeiro identifique o clima, o lugar e a atividade. Depois leiam os papéis, ocultem um personagem e troquem.',{
+                    lines:[
+                        ['Julia','Hey, Ben! Welcome back. How was your trip?','Oi, Ben! Bem-vindo de volta. Como foi sua viagem?'],
+                        ['Ben','It was terrific. I took a trip to a small town by the sea.','Foi maravilhosa. Fiz uma viagem para uma cidade pequena perto do mar.'],
+                        ['Julia','What was the weather like?','Como estava o tempo?'],
+                        ['Ben','It was cool and foggy most of the time.','Estava fresco e com neblina na maior parte do tempo.'],
+                        ['Julia','Were you at the hotel the whole time?','Você ficou no hotel o tempo todo?'],
+                        ['Ben','No. At least the fog was light on Saturday, so we had a picnic.','Não. Pelo menos a neblina estava fraca no sábado, então fizemos um piquenique.'],
+                        ['Julia','Did you take many pictures?','Você tirou muitas fotos?'],
+                        ['Ben','You bet. I really enjoyed taking pictures of the boats.','Com certeza. Gostei muito de tirar fotos dos barcos.']
+                    ],
+                    focus:[['Trip','a small town by the sea'],['Weather','cool and foggy'],['Activity','had a picnic'],['Enjoy + -ing','enjoyed taking pictures']],
+                    targets
+                }),
+                S('camera-check','photo-caption-check','Camera roll · Fix the caption','Observe cada foto ilustrada. Uma informação da legenda está errada. Toque no detalhe, corrija a frase em voz alta e aprove a foto.',{
+                    photos:[
+                        {id:'castle',art:'foggy-castle',stamp:'SAT 09:12',visual:['fog','castle','scarf'],caption:'It was hot at the famous castle.',wrong:'hot',choices:['hot','cool and foggy','snowy'],answer:'cool and foggy',correction:'It was cool and foggy at the famous castle.'},
+                        {id:'hotel',art:'snow-hotel',stamp:'SUN 08:40',visual:['snow','hotel window','winter weather'],caption:'It was warm and sunny at the hotel.',wrong:'warm and sunny',choices:['warm and sunny','snowy','cool and foggy'],answer:'snowy',correction:'It was snowy at the hotel.'},
+                        {id:'picnic',art:'river-picnic',stamp:'MON 13:05',visual:['river','picnic basket','camera'],caption:'We went fishing by the river.',wrong:'went fishing',choices:['went fishing','had a picnic','went camping'],answer:'had a picnic',correction:'We had a picnic by the river and took a picture.'}
+                    ],
+                    support:['No, it was ___.','We were ___ most of the time.','We had / took ___.'],
+                    finish:'CAMERA ROLL CHECKED · 3 CAPTIONS READY',
+                    targets
+                }),
+                S('voice-postcard','voice-postcard','Send a 20-second voice postcard','Monte quatro partes da mensagem. Leia o resultado sem correr; o professor abre uma pergunta surpresa e o aluno responde com uma frase curta.',{
+                    steps:[
+                        {id:'place',label:'1 · PLACE',prompt:'Where did you go?',options:[{id:'scotland',label:'Scotland',value:'Scotland'},{id:'coast',label:'the coast',value:'the coast'},{id:'mountains',label:'the mountains',value:'the mountains'}]},
+                        {id:'weather',label:'2 · WEATHER',prompt:'What was the weather like?',options:[{id:'foggy',label:'cool + foggy',value:'cool and foggy most of the time'},{id:'warm',label:'warm',value:'warm most of the time'},{id:'snowy',label:'snowy',value:'snowy the whole time'}]},
+                        {id:'activity',label:'3 · ACTIVITY',prompt:'What did you enjoy?',options:[{id:'pictures',label:'taking pictures',value:'taking pictures'},{id:'camping',label:'going camping',value:'going camping'},{id:'fishing',label:'going fishing',value:'going fishing'},{id:'picnic',label:'having a picnic',value:'having a picnic'}]},
+                        {id:'ending',label:'4 · ENDING',prompt:'How was it?',options:[{id:'terrific',label:'terrific',value:'The trip was terrific.'},{id:'fantastic',label:'fantastic',value:'The trip was fantastic.'},{id:'different',label:'different',value:'The place was completely different from my city.'}]}
+                    ],
+                    template:'Hi! I took a trip to {place}. It was {weather}. I really enjoyed {activity}. {ending}',
+                    followUps:[
+                        {question:'Were you there the whole time?',answers:['Yes, I was there the whole time.','No. I took a day trip.']},
+                        {question:'Did you take many pictures?',answers:['Yes, I took many pictures.','No, I did not take many pictures.']},
+                        {question:'How was your trip?',answers:['It was terrific.','It was fantastic.']}
+                    ],
+                    finish:'VOICE POSTCARD READY',
+                    targets
+                }),
+                home('Escreva uma legenda de foto com lugar, clima e uma atividade.','Grave uma mensagem de 20–30 segundos usando I took a trip…, It was… e I enjoyed…ing.','Escolha uma foto real ou inventada e prepare duas respostas curtas para as perguntas do professor.')
+            ];
+        },
+        4:()=>{
+            const targets=[['How do I get to...?','required'],['go straight','required'],['walk past','required'],['across from','required'],['How long does it take?','bonus'],['on foot','bonus']];
+            const cityMap={
+                viewBox:[0,0,730,450],
+                description:'Main Street and Garden Road run from west to east. Pine Street connects them on the west side, and King Street connects them on the east side. North of Main Street, from west to east, are the pharmacy, the café and the bank. Between Main Street and Garden Road are the bus station, the park and the library. South of Garden Road are the supermarket in the west and the clinic in the east.',
+                streets:[['main','Main Street',0,120,730,50,'horizontal'],['garden','Garden Road',0,280,730,50,'horizontal'],['pine','Pine Street',220,120,50,330,'vertical'],['king','King Street',460,120,50,330,'vertical']],
+                landmarks:[['pharmacy','Pharmacy',25,20,170,90],['cafe','Café',280,20,170,90],['bank','Bank',535,20,170,90],['bus','Bus station',25,180,170,90],['park','Park',280,180,170,90,'park'],['library','Library',535,180,170,90],['supermarket','Supermarket',25,340,170,90],['clinic','Clinic',535,340,170,90]]
+            };
+            const routes=[
+                {id:'a',label:'Pharmacy → Bank',from:'pharmacy',to:'bank',streets:['main'],waypoints:[[110,110],[110,145],[620,145],[620,110]],model:'How do I get to the bank? Go to Main Street and turn left. Go straight and walk past the café. The bank is across from the library. It takes about six minutes on foot.'},
+                {id:'b',label:'Supermarket → Café',from:'supermarket',to:'cafe',streets:['garden','pine','main'],waypoints:[[110,340],[110,305],[245,305],[245,145],[365,145],[365,110]],model:'How do I get to the café? Go straight to Garden Road and turn right. Go to Pine Street and turn left. Walk past the bus station. Turn right at Main Street. The café is across from the park. It takes about eight minutes on foot.'},
+                {id:'c',label:'Clinic → Pharmacy',from:'clinic',to:'pharmacy',streets:['garden','king','main'],waypoints:[[620,340],[620,305],[485,305],[485,145],[110,145],[110,110]],model:'How do I get to the pharmacy? Go straight to Garden Road and turn left. Go to King Street and turn right. Walk past the library. Turn left at Main Street. Go straight and walk past the café. The pharmacy is across from the bus station. It takes about twelve minutes on foot.'}
+            ];
+            return [
+                S('polite-help','polite-repair','Make them stop and help','O professor interpreta a pessoa na rua. O aluno transforma o pedido inadequado em uma abordagem educada; só depois compara com o modelo.',{cases:[
+                    {person:'Busy commuter',prompt:'Bank?',model:'Excuse me. Could you tell me how to get to the bank?',reaction:'Sure. Go straight and turn right at the café.'},
+                    {person:'Shop owner',prompt:'Tell me the way to the pharmacy.',model:'Excuse me. Could you help me? How do I get to the pharmacy?',reaction:'Of course. It is across from the bus station.'},
+                    {person:'Person at the bus stop',prompt:'Where is the café?',model:'Excuse me. Is there a café near here?',reaction:'Yes. Walk past the bank. It is on your left.'}
+                ],support:['Excuse me.','Could you help me?','How do I get to the ___?','Is there a ___ near here?','Thank you.'],targets}),
+                S('voice-note','voice-note','Information desk · Listen and complete the ticket','O professor toca a mensagem sem mostrar a transcrição. O aluno ouve, diz três informações curtas e completa o cartão de atendimento.',{cases:[
+                    {from:'Maya',transcript:'Hi. I need the pharmacy. I am at the bus station, and I think it is across from here. I want to walk. How long does it take on foot?',fields:[
+                        {id:'destination',label:'She needs…',options:['the pharmacy','the bank','the café'],answer:0},
+                        {id:'landmark',label:'She is at…',options:['the library','the bus station','the park'],answer:1},
+                        {id:'question',label:'She asks about…',options:['the price','the walking time','the bus number'],answer:1}
+                    ],model:'Maya needs the pharmacy. She is at the bus station. She asks how long it takes on foot.'},
+                    {from:'Leo',transcript:'Hello. I am looking for the bank. I am outside the library. Is the bank across from here? I can go on foot.',fields:[
+                        {id:'destination',label:'He needs…',options:['the clinic','the bank','the supermarket'],answer:1},
+                        {id:'landmark',label:'He is at…',options:['the library','the café','the pharmacy'],answer:0},
+                        {id:'transport',label:'He can go…',options:['by taxi','by bus','on foot'],answer:2}
+                    ],model:'Leo needs the bank. He is outside the library. He can go on foot.'}
+                ],support:['She needs the ___.','He is at the ___.','She asks: “How long does it take?”','Could you repeat that, please?']}),
+                S('secret-place','secret-place','Secret meeting spot · Ask, do not guess','O professor vê um lugar secreto enquanto o aluno fecha os olhos. Depois responde apenas yes ou no. O aluno tem até três perguntas para descobrir o lugar.',{street:[
+                    {id:'pharmacy',label:'Pharmacy',icon:'✚',detail:'on the corner'},
+                    {id:'cafe',label:'Café',icon:'☕',detail:'tables outside'},
+                    {id:'bank',label:'Bank',icon:'$',detail:'ATM by the door'},
+                    {id:'library',label:'Library',icon:'▤',detail:'between two stores'},
+                    {id:'market',label:'Supermarket',icon:'▣',detail:'green awning'}
+                ],rounds:[
+                    {secret:'bank',teacherClues:['It is next to the café.','It has an ATM.','It is not on the corner.'],model:'Is it next to the café? Is it the bank?'},
+                    {secret:'pharmacy',teacherClues:['It is on the corner.','It is next to the café.','You can buy medicine there.'],model:'Is it on the corner? Is it the pharmacy?'},
+                    {secret:'library',teacherClues:['It is next to the bank.','It is not on the corner.','You can borrow books there.'],model:'Is it next to the bank? Is it the library?'}
+                ],support:['Is it next to the ___?','Is it near the ___?','Is it on the corner?','Is it the ___?']}),
+                S('city-map','map-route','Map challenge · From A to B','O professor escolhe uma rota e pergunta como chegar. O aluno guia o professor pelo mapa, dando uma instrução curta por vez.',{map:cityMap,routes,trackTargets:false,steps:['O professor escolhe a rota 1, 2 ou 3 e pergunta: “How do I get to the ___?”','O aluno dá uma instrução curta por vez; o professor acompanha com o cursor.','O professor faz um movimento errado e pergunta “Here?”; o aluno corrige a rota.','O aluno completa a rota e diz o tempo. Só então revelem a resposta.'],support:['How do I get to the ___?','Go straight to ___ Road.','Go straight on ___ Street.','Turn left / right at ___.','Walk past the ___.','It is across from the ___.','How long does it take on foot?'],targets}),
+                S('travel-desk','travel-time','Will they arrive on time?','O aluno pergunta quanto demora cada opção. O professor revela somente a informação pedida; depois o aluno escolhe e dá uma recomendação curta.',{cases:[
+                    {situation:'Nina has a clinic appointment in 15 minutes.',goal:'Arrive before the appointment.',options:[{id:'walk',label:'Walk',icon:'WALK',time:'25 minutes'},{id:'bus',label:'Bus',icon:'BUS',time:'18 minutes'},{id:'taxi',label:'Taxi',icon:'TAXI',time:'8 minutes'}],answer:'taxi',outcome:'On time · seven minutes early',model:'How long does it take by taxi? It takes eight minutes. Take a taxi.'},
+                    {situation:'Sam has 25 minutes and wants to save money.',goal:'Choose the cheapest option that arrives on time.',options:[{id:'walk',label:'Walk',icon:'WALK',time:'16 minutes'},{id:'bus',label:'Bus',icon:'BUS',time:'12 minutes · $4'},{id:'taxi',label:'Taxi',icon:'TAXI',time:'6 minutes · $18'}],answer:'walk',outcome:'On time · free trip',model:'How long does it take on foot? It takes sixteen minutes. Walk there.'},
+                    {situation:'It is raining. Jo has 20 minutes and no money for a taxi.',goal:'Stay dry and arrive on time.',options:[{id:'walk',label:'Walk',icon:'WALK',time:'17 minutes'},{id:'bus',label:'Bus',icon:'BUS',time:'11 minutes · $4'},{id:'taxi',label:'Taxi',icon:'TAXI',time:'7 minutes · $20'}],answer:'bus',outcome:'On time · dry and within budget',model:'How long does it take by bus? It takes eleven minutes. Take the bus.'}
+                ],support:['How long does it take on foot?','How long does it take by bus?','It takes ___ minutes.','Walk there.','Take the bus / a taxi.']}),
+                S('meeting-message','meeting-message','Send a message the teacher can act on','O professor olha para o lado enquanto o aluno lê o cartão. O aluno esconde o cartão e transmite os detalhes. O professor escolhe o compromisso que entendeu.',{cases:[
+                    {student:{person:'Maya',place:'Café Luna',landmark:'across from the library',time:'6:20',journey:'ten minutes on foot'},options:[
+                        {title:'Maya · Café Luna · 6:20',detail:'Across from the library · ten minutes on foot'},
+                        {title:'Maya · Café Luna · 6:40',detail:'Across from the park · ten minutes on foot'},
+                        {title:'Leo · City Bank · 6:20',detail:'Across from the library · six minutes on foot'}
+                    ],answer:0,model:'Meet Maya at Café Luna at 6:20. It is across from the library. It takes ten minutes on foot.'},
+                    {student:{person:'Leo',place:'Green Pharmacy',landmark:'across from the bus station',time:'4:15',journey:'eight minutes on foot'},options:[
+                        {title:'Leo · Green Pharmacy · 4:50',detail:'Across from the bus station · eight minutes on foot'},
+                        {title:'Leo · Green Pharmacy · 4:15',detail:'Across from the bus station · eight minutes on foot'},
+                        {title:'Maya · Green Pharmacy · 4:15',detail:'Next to the bus station · twelve minutes on foot'}
+                    ],answer:1,model:'Meet Leo at Green Pharmacy at 4:15. It is across from the bus station. It takes eight minutes on foot.'}
+                ],support:['Meet ___ at ___.','It is across from ___.','The time is ___.','It takes ___ minutes on foot.','Could you repeat the time, please?']}),
+                home('Grave uma mensagem de 20–30 segundos com um lugar, um ponto de referência, um horário e o tempo a pé.','Crie três perguntas para descobrir um lugar secreto sem perguntar o nome diretamente.','Escolha um trajeto real e prepare quatro instruções curtas para usar na próxima aula.')
+            ];
+        },
+        6:()=>{
+            const targets=[['How good are you at...?','required'],['twice a week','required'],['warm up','required'],['at my own pace','required'],['not bad at all','bonus'],['take a break','bonus']];
+            return [
+                S('sports-radar','sports-radar','Sports radar · Play, go or do?','Diga a expressão completa antes de colocar cada cartão na área correta. Depois confira o painel.',{
+                    categories:[
+                        {id:'play',label:'PLAY',subtitle:'sports and games'},
+                        {id:'go',label:'GO + -ING',subtitle:'movement activities'},
+                        {id:'do',label:'DO',subtitle:'exercise and activities'}
+                    ],
+                    items:[
+                        {id:'volleyball',label:'volleyball',icon:'🏐',category:'play',phrase:'play volleyball'},
+                        {id:'tennis',label:'tennis',icon:'🎾',category:'play',phrase:'play tennis'},
+                        {id:'running',label:'running',icon:'🏃',category:'go',phrase:'go running'},
+                        {id:'swimming',label:'swimming',icon:'🏊',category:'go',phrase:'go swimming'},
+                        {id:'yoga',label:'yoga',icon:'🧘',category:'do',phrase:'do yoga'},
+                        {id:'workout',label:'a workout',icon:'🏋️',category:'do',phrase:'do a workout'}
+                    ],
+                    support:['play volleyball','go swimming','do yoga','do a workout'],
+                    targets
+                }),
+                S('culture-workouts','culture-workouts','Two ways to make movement easier','Leia os dois cartões. Em cada um, encontre a pista, escolha uma resposta e descubra uma expressão útil.',{
+                    cards:[
+                        {
+                            place:'Japan',
+                            title:'Three minutes with the radio',
+                            text:'In Japan, many people follow rajio taiso: a short workout with radio instructions and music. It takes about three minutes, gently moves the whole body and is used to warm up before some school sports activities.',
+                            question:'What makes it easy to include in a morning?',
+                            options:['a long match','about three minutes','a big team'],
+                            answer:1,
+                            expression:'warm up',
+                            meaning:'prepare the body before an activity · aquecer antes da atividade',
+                            transfer:'They warm up with a short radio workout.',
+                            source:{label:'Web Japan · Working Out to the Radio',url:'https://web-japan.org/jvt/summary.html'}
+                        },
+                        {
+                            place:'parkrun communities',
+                            title:'Nobody has to hurry',
+                            text:'At parkrun events, people can walk, jog or run. Walkers are welcome, there is no cut-off time, and a volunteer called the Tail Walker stays at the back to support them.',
+                            question:'Which person can join?',
+                            options:['only fast runners','a beginner who wants to walk','only team players'],
+                            answer:1,
+                            expression:'at your own pace',
+                            meaning:'move at a comfortable speed · seguir no seu próprio ritmo',
+                            transfer:'A beginner can walk at their own pace.',
+                            source:{label:'parkrun Volunteer Hub · Walkers',url:'https://volunteer.parkrun.com/hc/en-us/articles/16857824613266-2-9-Walkers'}
+                        }
+                    ],
+                    bridge:'Both activities make movement accessible to people who are not professional athletes.',
+                    targets
+                }),
+                S('model','dialogue','A first week that is not too much','Primeiro descubra o que Nia procura. Depois leiam os papéis, ocultem um deles e troquem de função.',{
+                    lines:[
+                        ['Coach','Welcome. Is this your first training session?'],
+                        ['Nia','Yes. I am a beginner and a little out of shape.'],
+                        ['Coach','What activities do you enjoy?'],
+                        ['Nia','I do yoga at home, and I like volleyball.'],
+                        ['Coach','How good are you at playing volleyball?'],
+                        ['Nia','I am not bad at all, but I need practice.'],
+                        ['Coach','Great. Warm up with the team and train at your own pace.'],
+                        ['Nia','Perfect. Can I come twice a week?']
+                    ],
+                    targets
+                }),
+                S('coach-console','coach-console','Coach console · Keep the member moving','O professor lê a fala do participante. O aluno responde como treinador com uma frase curta. Revelem o modelo e avancem até terminar a sessão.',{
+                    moments:[
+                        {label:'Before class',member:'I am ready. Can I start?',model:'Warm up first.',reaction:'Good. I am warming up.'},
+                        {label:'Minute 8',member:'The group is fast. I cannot follow.',model:'Train at your own pace.',reaction:'Okay. I will slow down.'},
+                        {label:'Minute 18',member:'I am tired.',model:'Take a break.',reaction:'Good idea. I need a break.'}
+                    ],
+                    support:['Warm up first.','Train at your own pace.','Take a break.','You are doing well.'],
+                    outcome:'SESSION FINISHED',
+                    targets
+                }),
+                S('workout-planner','workout-planner','Build Camila’s two-day plan','O professor abre o cartão privado e interpreta Camila. O aluno entrevista, consulta as aulas e escolhe exatamente duas sessões. Depois precisa adaptar o plano a uma mudança.',{
+                    profile:{
+                        name:'Camila',
+                        lines:['I am a beginner, a little out of shape, and I want to get in shape.','I like music and activities without a team.','I am free on Tuesday, Thursday and Saturday.','I want to train twice a week, with a rest day between sessions.']
+                    },
+                    sessions:[
+                        {id:'yoga',name:'Easy Yoga',day:'Monday',time:'18:00',phrase:'do yoga',level:'beginner',detail:'quiet · mat provided',icon:'🧘'},
+                        {id:'dance',name:'Dance Workout',day:'Tuesday',time:'18:30',phrase:'do a dance workout',level:'beginner',detail:'music · no team',icon:'🎵'},
+                        {id:'swim',name:'Swim Start',day:'Thursday',time:'19:00',phrase:'go swimming',level:'beginner',detail:'individual · equipment provided',icon:'🏊'},
+                        {id:'volleyball',name:'Volleyball Practice',day:'Friday',time:'18:30',phrase:'play volleyball',level:'beginner',detail:'team · ball provided',icon:'🏐'},
+                        {id:'walk',name:'Park Walk',day:'Saturday',time:'09:00',phrase:'go walking',level:'beginner',detail:'outdoors · at your own pace',icon:'🚶'}
+                    ],
+                    validPlans:[['dance','swim'],['dance','walk']],
+                    change:{message:'Tuesday dance workout is full.',unavailable:'dance',validPlans:[['swim','walk']]},
+                    questions:['When are you free?','Do you prefer a team activity?','Do you like music?','How good are you at...?','Is it for beginners?'],
+                    support:['Camila can ___ on ___.','She can train twice a week.','There is a rest day between sessions.','She can train at her own pace.'],
+                    model:'Camila can go swimming on Thursday and go walking on Saturday. She can train twice a week at her own pace.',
+                    outcome:'MEMBER PLAN CONFIRMED',
+                    targets
+                }),
+                home('Crie um cartão de aula com nome, dia, nível e uma expressão com play, go ou do.','Grave uma resposta de treinador de 20–30 segundos usando warm up, at your own pace ou take a break.','Escolha uma pessoa real ou fictícia e monte uma rotina de dois dias com um dia de descanso.')
+            ];
+        },
+        8:()=>{
+            const targets=[['What kind of...?','required'],['be interested in','required'],['What is it about?','required'],['give it a try','required'],['kind of','bonus'],['be into','bonus'],['keep up with','bonus'],['in my free time','bonus']];
+            return [
+                S('my-feed','interest-feed','Build your free-time feed','Escolha um cartão de cada linha. Antes de clicar, diga a frase do cartão.',{
+                    groups:[
+                        {id:'format',label:'1 · Choose a format',options:[
+                            {id:'watch',label:'WATCH',detail:'documentaries',art:'screen',sentence:'In my free time, I watch documentaries.'},
+                            {id:'listen',label:'LISTEN',detail:'podcasts',art:'headphones',sentence:'In my free time, I listen to podcasts.'},
+                            {id:'read',label:'READ',detail:'articles',art:'article',sentence:'In my free time, I read articles.'}
+                        ]},
+                        {id:'topic',label:'2 · Choose a subject',options:[
+                            {id:'places',label:'PEOPLE & PLACES',art:'city',sentence:'I am interested in people and places.'},
+                            {id:'ideas',label:'SCIENCE & TECHNOLOGY',art:'lightbulb',sentence:'I am interested in science and technology.'},
+                            {id:'now',label:'WHAT IS HAPPENING NOW',art:'newspaper',sentence:'I keep up with current events.'}
+                        ]},
+                        {id:'style',label:'3 · Choose a style',options:[
+                            {id:'short',label:'SHORT',art:'timer',sentence:'I like short episodes.'},
+                            {id:'visual',label:'VISUAL',art:'camera',sentence:'I am into visual stories.'},
+                            {id:'simple',label:'SIMPLE LANGUAGE',art:'speech',sentence:'I find technical language kind of difficult.'}
+                        ]}
+                    ],
+                    fictionalPreset:{label:'Usar um perfil fictício',choices:{format:'listen',topic:'places',style:'short'}},
+                    outputLabel:'MY FEED IS READY',
+                    teacherPrompt:'What kind of content do you like?'
+                }),
+                S('slow-tv','slow-tv-story','Would you watch 134 hours of TV?','Faça uma previsão, descubra a história e dê uma reação de duas frases.',{
+                    badge:'NORWAY · 2011',
+                    headline:'One program. Almost six days.',
+                    paragraphs:['In 2011, NRK showed a ship journey live.','The program followed MS Nordnorge from Bergen to Kirkenes.','It continued for 134 hours — almost six days.','Viewers saw the Norwegian coast minute by minute.'],
+                    runtime:'134 h · 42 min · 45 sec',
+                    hypothesis:{question:'What does “minute by minute” mean here?',options:['Only the most exciting moments.','The complete journey as it happened.','A short review after the trip.'],answer:1},
+                    reactions:['I find the idea fascinating.','It sounds kind of slow.','I find it kind of boring.'],
+                    tryChoices:['I want to give it a try.','I only want to watch a short part.','It is not for me.'],
+                    sources:[
+                        {label:'National Library of Norway · Hurtigruten minute by minute',url:'https://www.nb.no/dokumentarv-i-nasjonalbiblioteket/hurtigruten-minutt-for-minutt/'},
+                        {label:'Guinness World Records · Longest live TV documentary broadcast',url:'https://www.guinnessworldrecords.com/world-records/longest-live-tv-documentary-broadcast'}
+                    ]
+                }),
+                S('model','dialogue','A six-day recommendation','Primeiro identifique os interesses. Depois escolham os papéis e troquem.',{
+                    lines:[
+                        ['Maya','What do you do in your free time?','O que você faz no seu tempo livre?'],
+                        ['Theo','I listen to podcasts. I like to keep up with current events.','Eu escuto podcasts. Gosto de acompanhar as atualidades.'],
+                        ['Maya','What kind of podcasts do you like?','De que tipo de podcast você gosta?'],
+                        ['Theo','Short ones with simple language. What are you interested in?','Dos curtos, com linguagem simples. Pelo que você se interessa?'],
+                        ['Maya','I am into travel documentaries, but some are kind of slow.','Eu curto documentários de viagem, mas alguns são meio lentos.'],
+                        ['Theo','Then try Coast Live. It follows a ship in Norway.','Então experimente Coast Live. Ele acompanha um navio na Noruega.'],
+                        ['Maya','What is it about?','Sobre o que é?'],
+                        ['Theo','The Norwegian coast. The views are fascinating. Give it a try.','A costa norueguesa. As paisagens são fascinantes. Experimente.']
+                    ]
+                }),
+                S('review-desk','review-editor','The fair-review desk','Leia os fatos. Monte uma resenha justa, diga a frase e publique.',{
+                    cases:[
+                        {id:'city-podcast',rawTitle:'BORING FROM START TO FINISH!',facts:['The first two minutes are slow.','Then the host tells three fascinating city stories.'],slots:[['The whole episode','The beginning'],['is kind of slow','is terrible'],['and there is nothing interesting.','but the stories are fascinating.']],answer:[1,0,1],model:'The beginning is kind of slow, but the stories are fascinating.'},
+                        {id:'science-article',rawTitle:'ONLY FOR EXPERTS!',facts:['The article uses two technical words.','The pictures are clear.','The explanations are short.'],slots:[['Some words','Every sentence'],['are impossible','are kind of technical'],['but the pictures help.','and nobody can understand it.']],answer:[0,1,0],model:'Some words are kind of technical, but the pictures help.'},
+                        {id:'travel-documentary',rawTitle:'BEST DOCUMENTARY EVER!',facts:['The images are beautiful.','Two parts repeat the same idea.'],slots:[['I find the images','I find every part'],['perfect','fascinating'],['so the program has no problems.','but two parts are kind of boring.']],answer:[0,1,1],model:'I find the images fascinating, but two parts are kind of boring.'}
+                    ],
+                    teacherPrompt:'Which fact supports your review?',
+                    outcome:'3 FAIR REVIEWS PUBLISHED'
+                }),
+                S('recommendation-desk','recommendation-studio','Help Luca choose','Faça as três perguntas, recomende uma opção e adapte quando a situação mudar.',{
+                    caller:{name:'Luca',opening:'I need something for my bus ride, but I do not know what to choose.',questions:[
+                        {prompt:'What kind of content do you like?',answer:'I like documentaries and photo articles.'},
+                        {prompt:'What are you interested in?',answer:'Food, travel, and how people live.'},
+                        {prompt:'How much time do you have?',answer:'About twenty minutes.'}
+                    ]},
+                    catalogue:[
+                        {id:'city-ten',title:'City in Ten',kind:'podcast',about:'local news and current events',length:'10 min',level:'simple',access:'FREE',art:'city-headphones'},
+                        {id:'future-everyday',title:'Future Everyday',kind:'podcast',about:'science and technology',length:'25 min',level:'kind of technical',access:'FREE',art:'future-microphone'},
+                        {id:'people-plates',title:'People & Plates',kind:'documentary',about:'food, travel and family restaurants',length:'20 min',level:'simple',access:'FREE PREVIEW',art:'food-screen'},
+                        {id:'night-lens',title:'Night Lens',kind:'photo article',about:'people and street photography in different cities',length:'5 min',level:'simple',access:'FREE',art:'night-camera'}
+                    ],
+                    firstAnswer:'people-plates',
+                    teacherFollowUp:'That sounds interesting. What is it about?',
+                    firstModel:'You are into travel and food, so try People & Plates. It is a short documentary about family restaurants. Give it a try.',
+                    change:'The free preview has ended. This documentary now needs a subscription.',
+                    alternativeAnswer:'night-lens',
+                    alternativeModel:'Then try Night Lens. It is a free photo article about people in different cities. It is short. Give it a try.',
+                    outcome:'LUCA SAVED IT FOR THE BUS RIDE',
+                    targets
+                }),
+                home('Crie um card visual para um podcast, documentário ou artigo fictício. Inclua título, tipo, assunto e uma frase de recomendação.','Grave 20–30 segundos: diga o que faz no tempo livre, mencione um interesse, use fascinating ou kind of e termine com “Give it a try.”','Escolha algo real que você já conhece. Anote título, tipo, assunto e uma resposta curta para “What is it about?”.')
+            ];
+        },
+        10:()=>{
+            const targets=[['feel like','required'],['So do I.','required'],['Neither do I.','required'],['rather than','required'],['be in the mood for','bonus'],['That sounds good.','bonus'],['share a dish','bonus']];
+            return [
+                S('flavor-lens','flavor-lens','Flavor lens · How would you describe it?','Observe a ilustração e as pistas. Diga sua hipótese, escolha uma palavra e confira a frase.',{
+                    cards:[
+                        {id:'curry',icon:'🌶️',clues:['red sauce','strong flavor','with chili'],options:['sweet','spicy','sour'],answer:'spicy',model:'The curry tastes spicy.'},
+                        {id:'chips',icon:'🍟',clues:['fried potato','salt on top','served hot'],options:['salty','bitter','sour'],answer:'salty',model:'The chips taste salty.'},
+                        {id:'cake',icon:'🍰',clues:['dessert','with honey','with tea'],options:['sweet','salty','bitter'],answer:'sweet',model:'The cake tastes sweet.'},
+                        {id:'lemon',icon:'🍋',clues:['yellow fruit','often in drinks','strong taste'],options:['fresh','sour','spicy'],answer:'sour',model:'The lemon tastes sour.'},
+                        {id:'coffee',icon:'☕',clues:['dark drink','no milk','no sugar'],options:['bitter','sweet','salty'],answer:'bitter',model:'Black coffee can taste bitter.'},
+                        {id:'salad',icon:'🥗',clues:['lettuce and tomato','made today','served cold'],options:['fresh','bitter','spicy'],answer:'fresh',model:'The salad is fresh.'}
+                    ],
+                    finale:{prompt:'Choose two foods. Which would you choose?',frame:'I would choose ___ rather than ___.'},
+                    support:['It may be ___.','It tastes ___.','I prefer ___ rather than ___.']
+                }),
+                S('food-history','food-history-strip','The travelling dish · Build the story','Leia os três cartões ilustrados e coloque a história em ordem. Depois descubra dois sabores possíveis.',{
+                    intro:'Fish and chips is famous in Britain, but its story connects different communities.',
+                    cards:[
+                        {id:'fish',date:'1500s',icon:'🐟',title:'Fried fish travels',text:'People from Jewish communities in Portugal and Spain probably brought a way of frying fish to London.'},
+                        {id:'workers',date:'1800s',icon:'🐟 + 🥔',title:'Two foods meet',text:'Fried fish and potatoes became popular with London workers.'},
+                        {id:'shop',date:'around 1860',icon:'🏪',title:'A chippy opens',text:'Joseph Malin, a Jewish migrant, opened one of London’s first fish-and-chip shops.'}
+                    ],
+                    order:['fish','workers','shop'],
+                    languageNote:{title:'What does “chips” mean here?',text:'In this British dish, chips means fries.'},
+                    tasteCheck:[
+                        {question:'With salt, the chips taste...',options:['salty','sweet'],answer:0},
+                        {question:'With vinegar, they can taste...',options:['bitter','sour'],answer:1}
+                    ],
+                    conclusion:'It is a British dish with a multicultural history.',
+                    source:{label:'London Museum · How London got hooked on fish & chips',url:'https://www.londonmuseum.org.uk/collections/london-stories/how-london-got-hooked-on-fish-chips/'}
+                }),
+                S('model','dialogue','Dinner at the night market','Leiam os papéis. Depois oculte um personagem e troquem apenas duas preferências.',{
+                    lines:[
+                        ['Maya','Do you feel like eating out tonight?'],
+                        ['Leo','Yes. I love spicy food, and I want to try something new.'],
+                        ['Maya','So do I. I do not like very salty dishes.'],
+                        ['Leo','Neither do I. What about the fresh curry?'],
+                        ['Maya','It looks good. Does the sauce taste sour?'],
+                        ['Leo','A little. Let’s choose it rather than the fried noodles.'],
+                        ['Maya','Great. Let’s order one curry and one sweet dessert to share.'],
+                        ['Leo','Perfect. We can try two different flavors.']
+                    ]
+                }),
+                S('agreement-chain','agreement-chain','Same table? · Build the agreement chain','Alterne quem começa. O ouvinte escolhe SAME ou DIFFERENT e responde com uma frase curta.',{
+                    rounds:[
+                        {speaker:'Teacher',listener:'Student',statements:[{text:'I love trying spicy dishes.',polarity:'positive'}]},
+                        {speaker:'Teacher',listener:'Student',statements:[{text:'I do not like bitter coffee.',polarity:'negative'}]},
+                        {speaker:'Student',listener:'Teacher',statements:[{text:'I love sweet food.',polarity:'positive'},{text:'I prefer fresh food.',polarity:'positive'}]},
+                        {speaker:'Student',listener:'Teacher',statements:[{text:'I do not like salty snacks.',polarity:'negative'},{text:'I do not like sour drinks.',polarity:'negative'}]}
+                    ],
+                    responseMap:{positive:{same:'So do I.',different:'I do not.'},negative:{same:'Neither do I.',different:'I do.'}},
+                    outcome:'FOUR REACTIONS CONNECTED'
+                }),
+                S('shared-tray','shared-tray','Night-market tray · One order for two','Cada pessoa memoriza seu cartão privado. Depois conversem e coloquem exatamente dois pratos na bandeja.',{
+                    profiles:[
+                        {id:'student',label:'Student ticket',lines:['I feel like something sweet.','I love fresh food.','I do not like bitter flavors.']},
+                        {id:'teacher',label:'Teacher ticket',lines:['I am in the mood for something spicy.','I want a dish with fruit.','I do not like food that is too salty.']}
+                    ],
+                    items:[
+                        {id:'mango',name:'Chili Mango Bowl',icon:'🥭',flavors:['fresh','spicy','sour'],fruit:true},
+                        {id:'berry',name:'Berry Cup',icon:'🫐',flavors:['fresh','sweet'],fruit:true},
+                        {id:'noodles',name:'Fire Noodles',icon:'🍜',flavors:['spicy','salty'],fruit:false},
+                        {id:'fish',name:'Lemon Fish',icon:'🐟',flavors:['sour','salty'],fruit:false},
+                        {id:'cocoa',name:'Cocoa Bites',icon:'🍫',flavors:['sweet','bitter'],fruit:false},
+                        {id:'wrap',name:'Green Wrap',icon:'🌯',flavors:['fresh','sour'],fruit:false}
+                    ],
+                    slots:2,
+                    validTrays:[['mango','berry']],
+                    questions:['What do you feel like eating?','Do you like spicy food?','Which flavor do you prefer?','Do you like bitter food?','Would you rather have ___ or ___?'],
+                    support:['I feel like ___.','I love / do not like ___.','So do I. / Neither do I.','Let’s choose ___ rather than ___.'],
+                    model:'Let’s order the Chili Mango Bowl and the Berry Cup. One is fresh and spicy, and the other is sweet.',
+                    outcome:'SHARED TRAY READY',
+                    targets
+                }),
+                home('Desenhe ou fotografe três alimentos, identifique os sabores e escreva uma comparação com rather than.','Grave 20–30 segundos respondendo “What do you feel like eating?” com dois sabores.','Prepare duas preferências positivas e duas negativas para um jogo de So do I / Neither do I.')
+            ];
+        },
+        12:()=>{
+            const targets=[['I would like...','required'],['without','required'],['There is a mistake with my order.','required'],['Could we have the bill?','required'],['Would you like...?','bonus'],['anything else','bonus'],['allergy','bonus'],['separate bills','bonus']];
+            return [
+                S('table-ready','table-ready','Table 4 · Ready for the guests?','Observe a reserva e a mesa. O aluno diz o que falta; o professor só adiciona o item depois de ouvir o pedido em inglês.',{
+                    booking:{name:'Nia Costa',time:'7:00 p.m.',party:'table for two'},
+                    checklist:['two chairs','two menus','two water glasses'],
+                    initial:{chairs:2,menus:1,waterGlasses:1},
+                    items:[
+                        {id:'menu',label:'one more menu',art:'menu',phrase:'One more menu, please.',required:true},
+                        {id:'water',label:'one more water glass',art:'water',phrase:'Tap water for two, please.',required:true},
+                        {id:'dessert',label:'dessert',art:'dessert',phrase:'Would you like dessert?',required:false,feedback:'Too early. The guests have not ordered.'},
+                        {id:'bill',label:'the bill',art:'bill',phrase:'Could we have the bill?',required:false,feedback:'Too early. The meal has not started.'}
+                    ],
+                    required:['menu','water'],
+                    teacherPrompt:'Host: Is table 4 ready?',
+                    finalModel:'Yes. The table for two is ready.',
+                    outcome:'TABLE 4 READY'
+                }),
+                S('model','dialogue','Before the order goes to the kitchen','Identifique qual pedido é apenas uma preferência e qual informação exige verificação. Depois leiam os papéis, ocultem um deles e troquem.',{
+                    lines:[
+                        ['Server','Good evening. I have your booking for two.','Boa noite. Tenho sua reserva para duas pessoas.'],
+                        ['Nia','Thank you. We would like some tap water, please.','Obrigada. Gostaríamos de água, por favor.'],
+                        ['Server','Of course. Are you ready to order?','Claro. Vocês estão prontos para pedir?'],
+                        ['Nia','Yes. I would like the vegetable pasta without cheese.','Sim. Eu gostaria da massa com vegetais sem queijo.'],
+                        ['Server','Is that a preference or an allergy?','Isso é uma preferência ou uma alergia?'],
+                        ['Nia','A preference. My friend has a peanut allergy.','Uma preferência. Minha amiga tem alergia a amendoim.'],
+                        ['Server','Thank you for telling me. I will note the allergy and check with the kitchen before I confirm any food.','Obrigada por avisar. Vou registrar a alergia e verificar com a cozinha antes de confirmar qualquer alimento.'],
+                        ['Nia','Great. We will wait before we order dessert.','Ótimo. Vamos esperar antes de pedir a sobremesa.']
+                    ]
+                }),
+                S('allergy-checkpoint','allergy-checkpoint','Allergy checkpoint · Never guess from a short menu','O professor lê a fala do cliente. O aluno responde como atendente e escolhe somente a ação sustentada pelas informações disponíveis.',{
+                    rule:'A short menu description is not a complete allergy check.',
+                    menu:{name:'Sunset Cake',description:'Chocolate cake · cream · berries',price:'$7',warning:'Short description — not a complete ingredient or cross-contact record.'},
+                    guest:'I have a peanut allergy. Is the Sunset Cake safe for me?',
+                    firstStep:{prompt:'What can the server honestly do now?',actions:[
+                        {id:'guess',label:'Guess from the short menu',correct:false,feedback:'The menu is incomplete. Do not promise safety.'},
+                        {id:'check',label:'Check with the kitchen',correct:true,model:'I cannot confirm that from this menu. I will check with the kitchen.'}
+                    ]},
+                    kitchen:{message:'This cake is prepared in an area that also handles peanuts. We cannot confirm it is safe for this guest.'},
+                    finalStep:{prompt:'Tell the guest only what the kitchen confirmed.',actions:[
+                        {id:'promise-another',label:'Promise that another dessert is safe',correct:false,feedback:'That dessert was not checked either.'},
+                        {id:'explain-and-check',label:'Explain the uncertainty and offer another check',correct:true,model:'We cannot confirm that this cake is safe. I can check another dessert for you.'}
+                    ]},
+                    preferenceCompare:{guest:'I do not like onions. Could you leave them out?',kitchen:'Yes. The onions can be left out before cooking.',model:'Yes, we can leave out the onions.',note:'The kitchen confirmed this preference change. That does not confirm allergy safety.'},
+                    outcome:'COMMUNICATION CHECK PASSED · DISH NOT CONFIRMED SAFE',
+                    sources:[
+                        {label:'Food Standards Agency · Ordering allergy-safe food',url:'https://www.food.gov.uk/print/pdf/node/22196'},
+                        {label:'FDA · Food Allergies and cross-contact',url:'https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies'}
+                    ]
+                }),
+                S('ticket-decoder','ticket-decoder','The kitchen printer speaks in code','Estes são códigos fictícios deste restaurante. O aluno decifra cada bloco em voz alta; o professor vira o bloco somente depois de ouvir.',{
+                    notice:'Fictional house codes — real restaurants use different systems.',
+                    legend:[['TS','tomato soup'],['VP','vegetable pasta'],['TW','tap water'],['NO','without'],['CHZ','cheese'],['D/L','dessert later']],
+                    ticket:{table:'T4',tokens:[
+                        {id:'starter',code:'1 TS',answer:'one tomato soup'},
+                        {id:'main',code:'1 VP',answer:'one vegetable pasta'},
+                        {id:'change',code:'NO CHZ',answer:'without cheese'},
+                        {id:'drink',code:'2 TW',answer:'two tap waters'},
+                        {id:'dessert',code:'D/L',answer:'dessert later'}
+                    ]},
+                    teacherPrompt:'What does the complete ticket say?',
+                    model:'Table four would like one tomato soup and one vegetable pasta without cheese. They would like two tap waters, and dessert later.',
+                    outcome:'ORDER CONFIRMED BEFORE COOKING'
+                }),
+                S('bill-audit','bill-audit','Table 4 · Stop the wrong bill','Primeiro peça a conta. Depois compare o pedido confirmado com o recibo. O aluno diz a correção e o professor marca somente as cobranças erradas.',{
+                    openModel:'Could we have the bill, please?',
+                    confirmedOrder:[
+                        {id:'soup',label:'Tomato soup',quantity:1,amount:6},
+                        {id:'pasta',label:'Vegetable pasta without cheese',quantity:1,amount:15},
+                        {id:'tap-water',label:'Tap water',quantity:2,amount:0},
+                        {id:'dessert-later',label:'Dessert',status:'later'}
+                    ],
+                    receipt:[
+                        {id:'soup',label:'Tomato soup',quantity:1,amount:6},
+                        {id:'pasta',label:'Vegetable pasta without cheese',quantity:1,amount:15},
+                        {id:'sparkling-water',label:'Sparkling water',quantity:1,amount:3},
+                        {id:'cake',label:'Chocolate cake',quantity:1,amount:7}
+                    ],
+                    printedTotal:31,
+                    errorIds:['sparkling-water','cake'],
+                    repairModel:'Excuse me. There is a mistake with my order. We ordered tap water, and we did not order cake.',
+                    correctedReceipt:[
+                        {label:'Tomato soup',quantity:1,amount:6},
+                        {label:'Vegetable pasta without cheese',quantity:1,amount:15},
+                        {label:'Tap water',quantity:2,amount:0}
+                    ],
+                    correctedTotal:21,
+                    removedAmount:10,
+                    tip:{printed:'TIP NOT INCLUDED',question:'Is the tip included?',answer:'No. The tip is not included.'},
+                    closePrompt:'Ask for two bills.',
+                    closeModel:'Could we have separate bills, please?',
+                    splitBills:[{label:'Bill A',items:['Tomato soup'],total:6},{label:'Bill B',items:['Vegetable pasta without cheese'],total:15}],
+                    outcome:'BILL CORRECTED · $10 REMOVED · TWO BILLS PRINTED',
+                    targets
+                }),
+                home('Crie um ticket fictício com quatro códigos, uma legenda e a confirmação completa em inglês.','Grave 20–30 segundos como atendente: reconheça uma alergia, diga que precisa verificar com a cozinha e não confirme que um prato é seguro sem informação completa.','Crie um pedido e uma conta fictícia com um erro. Escreva a correção, o total certo e um pedido de contas separadas.')
+            ];
+        },
+        14:()=>{const targets=[['upset','required'],['patient','required'],['give someone space','required'],['Is everything okay?','required'],['be in a good mood','bonus'],['cheer up','bonus']];return [
+            S('targets','target-tracker','Your language mission','Use os quatro alvos obrigatórios ao longo da aula. Uma frase curta lida ou adaptada conta.',{targets}),
+            S('tone-detective','decision','What does Kai need?','Leia a mensagem e escolha a informação correta. Depois complete duas frases com o banco de palavras.',{scenario:'Kai: “I am upset. I do not want to talk now.”',options:[['A','Advice now','Kai wants advice now.'],['B','Some space','Kai wants some space.'],['C','A celebration','Kai is in a good mood.']],followUp:'Complete: Kai is ____. Kai wants some ____.',support:'upset · space',choicePrompt:'Escolha a informação que aparece na mensagem.',targets}),
+            S('model','dialogue','A short supportive response','Primeiro identifique: Kai quer conversar agora? Depois leiam os papéis. Na segunda vez, troquem os nomes.',{lines:[['Ana','You seem upset. Is everything okay?'],['Kai','I had a difficult day. I do not want to talk now.'],['Ana','Okay. I can give you some space.'],['Kai','Thank you.'],['Ana','I can send you a message later.'],['Kai','That is good. Thank you for being patient.']]}),
+            S('round-1','roleplay','Round 1 · Talk or space?','O professor escolhe um cartão sem mostrar. O aluno ouve e responde em apenas duas ou três frases.',{roles:[{name:'Student · Friend',goal:'Ask one question and choose one short response.',details:['ask: Is everything okay?','listen for TALK or SPACE','choose one reply card','finish with one next step']},{name:'Teacher · Kai',goal:'Read one mood card and choose TALK or SPACE.',details:['I am upset. I want to talk.','I am upset. I need some space.','I am tired, but I am okay.','answer with one short sentence']}],steps:['Listen to the teacher’s card.','Ask: “Is everything okay?”','Listen for TALK or SPACE.','Choose and read one short response.'],support:['You seem upset.','Is everything okay?','I can listen.','Okay. I can give you some space.','No problem. I can be patient.'],model:'Is everything okay? Okay. I can give you some space. I can message you later.',targets}),
+            S('support-replay','mission','Round 2 · Cheer Kai up','Leia a nova mensagem. Faça uma pergunta e escolha uma atividade. Depois troque somente a atividade quando a resposta mudar.',{board:[['New message','Kai: “I feel better now. I want to do something fun at home.”'],['Your result','Ask one question and offer one simple activity.']],steps:['Read the new message.','Ask if Kai is in a good mood now.','Offer one activity.','Reveal the change and replace only the activity.'],support:['Are you in a good mood now?','Let’s watch a video to cheer you up.','Do you want to play a game?','Okay. Let’s talk for five minutes.'],model:'Are you in a good mood now? Let’s watch a video to cheer you up.',surprise:'Kai does not want to watch a video. Kai wants to talk for five minutes. Change only the last sentence.',targets}),
+            S('exit','exit','TALK or SPACE','O professor diz TALK ou SPACE. Responda com duas ou três frases usando o banco de apoio.',{checks:['Usei “upset” para reconhecer o humor.','Perguntei “Is everything okay?”','Usei “patient” ou “give someone space” numa resposta curta.'],targets}),
+            home('Complete três respostas usando o banco de palavras.','Grave duas respostas de 15–20 segundos: uma para TALK e outra para SPACE.','Classifique três mensagens como TALK, SPACE ou CHEER UP.')
+        ];},
         16:()=>[docs(),
             M('opening','Who does this information help?',['a witness','a receptionist','a person describing an injury'],[['1. Where does it hurt?','C — a person describing an injury'],['2. What did you see before the person fell?','A — a witness'],['3. What is your emergency contact’s phone number?','B — a receptionist']]),
             Q('report','The report writer made mistakes',[['Note: 4 p.m., wet entrance, left arm. Report: “At 5 p.m., he fell in the kitchen and hurt his right arm.” Correct it.','At 4 p.m., he fell at the wet entrance and hurt his left arm.'],['What can you say if you did not see how it started?','I did not see how it started.'],['Why should you separate what you saw from what you guessed?','So the listener knows which details are certain.']]),
@@ -284,12 +737,16 @@
             Q('packing','The suitcase mistake',[['Trip: a cold weekend with a long walk. Bag: sandals, thin shirt, shorts. What is missing?','Possible answers: warm clothes, a jacket and suitable walking shoes.'],['Why might a fashionable item be the wrong choice for this trip?','It may not be warm or comfortable enough.']]),
             T('describe','The invisible outfit',[['Choose','Imagine uma roupa completa e a ocasião.'],['Describe','Descreva sem dizer para onde está indo.'],['Guess','O professor adivinha a ocasião e explica quais pistas usou.']],'How many different occasions fit the same clothes?'),
             home('Crie uma lista de roupas para uma ocasião e explique as escolhas.','Descreva uma roupa sem usar o nome das cores; use ocasião, textura ou combinação.','Observe uma peça de roupa e prepare uma descrição de padrão e tamanho.')],
-        26:()=>[
-            R('advice','The advice box',['Message 1: I said yes to helping two friends on the same afternoon. I do not want to disappoint anyone. Should I try to do both things and hope nobody notices?','Message 2: My friend shared a photo of me without asking. I do not like the photo, but I do not want an argument. Should I say something?','Message 3: I want to try a new hobby, but I am worried about being the worst person in the group. Should I wait until I am better?'],[['Which person has a problem involving privacy?','The person in Message 2.'],['Which person has conflicting commitments?','The person in Message 1.'],['Which person is worried about starting something?','The person in Message 3.']]),
-            M('reply','Which response helps?',['Explain the conflict and offer another time.','Ask your friend to remove it and explain how you feel.','Try a beginner group and ask for support.'],[['1. The unwanted photo','B — Ask your friend to remove it.'],['2. The new hobby','C — Try a beginner group.'],['3. Two promises at once','A — Explain the conflict.']]),
-            U('advice-style','How do you give advice?',['I ask questions before giving advice.','I prefer suggestions to orders.','I can disagree with advice and still appreciate it.'],'Give an example of helpful wording.'),
-            T('column','Write the next question',[['Invent','Crie um pequeno dilema cotidiano, sem expor ninguém.'],['Ask','Apresente-o ao professor, que faz uma pergunta antes de sugerir.'],['React','Diga qual sugestão serve para a situação e por quê.']],'There can be more than one helpful answer.','You could… / Why don’t you…? / I think you should…'),
-            home('Escreva uma pergunta e duas sugestões possíveis para uma coluna fictícia.','Conte um conselho útil que recebeu ou imagine um.','Reformule uma ordem como sugestão educada.')],
+        26:()=>{const targets=[['What should I do?','required'],['tell the truth','required'],['think it over','required'],['consequence','required'],['advice','bonus'],['truth','bonus']];return [
+            R('reservation-story','The dinner reservation',['Lucas planned a birthday dinner for Emma. He said, “I booked a table for 8 p.m.” But he forgot to call the restaurant. When they arrived, there was no table.','Lucas felt embarrassed. He said, “The restaurant lost our reservation.” Ten minutes later, a table became free. Emma smiled and said, “It was not your fault.” Lucas now feels worse. Should he tell her the truth?'],[['What did Lucas forget?','He forgot to book the table.'],['What did he tell Emma?','He said the restaurant lost the reservation.'],['Does Emma know the truth?','No, she does not.']]),
+            S('first-decision','decision','What would you do?','Não existe uma resposta única. Escolha o que você faria e use apenas um motivo do banco.',{scenario:'You are Lucas. Emma still believes the restaurant made the mistake. What do you do?',options:[['A','Tell her now','“I forgot the reservation. I am sorry.”'],['B','Tell her after dinner','Enjoy the dinner, then speak to her privately.'],['C','Say nothing','Keep the story about the restaurant.']],followUp:'Complete: I would choose ____. Because it is ____.',support:'honest · kind · a better moment · a possible problem later',choicePrompt:'Escolha A, B ou C. Depois dê um motivo curto.',targets}),
+            S('model','dialogue','Lucas asks for advice','Leiam o diálogo. Depois oculte Maya e o aluno completa as falas de conselho com o apoio.',{lines:[['Lucas','I need your advice. I lied to Emma about the reservation.'],['Maya','Why did you lie?'],['Lucas','I was embarrassed. What should I do?'],['Maya','I think you should tell the truth.'],['Lucas','Now or after dinner?'],['Maya','Think it over, but do not wait too long. A small lie can have a bigger consequence.']]}),
+            S('advice-clinic','roleplay','Give Lucas some advice','O professor interpreta Lucas. O aluno faz uma pergunta e dá um conselho de duas ou três frases. Pode ler o apoio.',{roles:[{name:'Student · Friend',goal:'Listen to Lucas and give short, practical advice.',details:['ask one question','choose now or after dinner','use should','add one consequence']},{name:'Teacher · Lucas',goal:'Tell the problem and react to the advice.',details:['I forgot the reservation','I blamed the restaurant','Emma does not know','But Emma may be angry']}],steps:['O professor conta o problema em duas frases.','O aluno escolhe uma pergunta do apoio.','O aluno dá um conselho de duas frases.','O professor diz “But Emma may be angry”; o aluno responde mais uma vez.'],support:['Why did you lie?','Does Emma know the truth?','You should tell the truth.','You can tell her after dinner.','Think it over, but…','One consequence is…'],model:'You should tell the truth and say sorry. She may be upset, but another lie can have a bigger consequence.',targets}),
+            S('advice-replay','mission','A kind truth','Leia a nova situação e diga o que você falaria. Depois, responda à nova informação sem recomeçar toda a resposta.',{board:[['Real-life situation','Maria’s friend cooked dinner for her. Maria does not like the food. Her friend is very happy and asks, “Do you like it?”'],['Your choice','Lie, give a very direct answer, or be kind and honest?']],steps:['Escolha uma das três possibilidades.','Complete: “I would say…”','Dê um conselho curto para Maria.','Revele a nova informação e acrescente apenas uma frase.'],support:['Thank you for dinner.','It is not my favorite, but…','I want to be honest.','You should be kind.','Think it over before you answer.'],model:'Thank you for dinner. I want to be honest: it is not my favorite, but I am happy to be here. Maybe we can try a different dish next time.',surprise:'Her friend says: “Great! I will cook the same dish again next week.” Add one kind and honest sentence.',targets}),
+            S('privacy','conversation','Privacy is not a lie','Pratiquem uma conversa curta. O professor é o colega curioso; o aluno responde sem inventar uma história.',{tasks:[['Situation','Sofia missed work yesterday. A coworker asks why. The reason is personal.'],['First answer','Choose: invent a reason · tell everything · protect her privacy politely.'],['Second turn','The coworker asks again: “But what happened?” Repeat the limit politely.']],goal:'What should Sofia say?',challenge:'It is personal, but everything is okay. / I prefer not to talk about it. / Thank you for asking.'}),
+            S('exit','exit','Your real-life answer','O professor escolhe uma das três histórias. Diga três frases curtas: o que você faria, um conselho e uma possível consequência. Pode ler os alvos.',{checks:['Disse “I would…” para dar minha opinião.','Dei um conselho curto com “should”.','Usei “truth”, “think it over” ou “consequence”.'],targets}),
+            home('Escolha uma história e escreva uma resposta de três frases.','Grave uma opinião de 20 segundos usando “I would…” e “You should…”.','Crie uma situação fictícia curta e duas opções de conselho.')
+        ];},
         28:()=>[
             U('opening','Best for whom?',['A crowded place can be exciting.','The most famous place is always the best.','I prefer a peaceful afternoon to a busy tour.'],'Compare your answers with the professor’s.'),docs(),
             R('opinions','One place, opposite reviews',['Review A: The market was the highlight of my trip. There were people everywhere, music in every street and lots of food to try. I loved it.','Review B: The market was too crowded for me. The queues were long, and I could not find a peaceful place to sit. The quiet garden nearby was much better.'],[['Do the reviews necessarily disagree about the facts?','No. Both describe a busy market.'],['What is different?','The visitors’ preferences and reactions.'],['Which reviewer might recommend the market to someone who likes lively places?','Reviewer A.']]),
@@ -311,13 +768,13 @@
         2: lesson({
             sourceLesson: 1,
             title: 'A Trip Abroad',
-            mission: 'Entrevistar alguém sobre uma viagem e reconstruir os principais acontecimentos.',
-            outcome: 'Ao final, o aluno conta uma viagem em sequência e mantém a conversa com perguntas de continuação.',
+            mission: 'Descobrir pistas de uma viagem, lidar com uma mudança de clima e enviar uma mensagem curta sobre a experiência.',
+            outcome: 'Ao final, o aluno faz até três perguntas sobre uma viagem e conta lugar, clima e atividade em quatro frases curtas.',
             quickStart: [
-                ['Weather snapshot', 'Choose three words to describe the weather on a trip.'],
-                ['One memorable place', 'Name a place you visited and say why it was memorable.'],
-                ['Trip timeline', 'Say where you went, how long you stayed, and one thing you did.'],
-                ['Natural reaction', 'React to good travel news with a short expression.']
+                ['One question', 'Ask: How was your trip?'],
+                ['Weather icon', 'Choose cool, warm, hot, foggy or snowy.'],
+                ['One activity', 'Choose take a picture, go camping, go fishing or have a picnic.'],
+                ['One positive detail', 'Complete: At least…']
             ],
             model: {
                 title: 'Back from Scotland',
@@ -336,23 +793,23 @@
                 questions: [['Why is the traveler visiting a museum?', 'Because it is cool and foggy.'], ['What is planned for the next day?', 'A train trip to Edinburgh.'], ['Which activities are mentioned after the trip?', 'Visiting a castle, taking pictures, and trying local food.'], ['How was the weather different?', 'It was completely different from the weather at home.']]
             },
             frames: [['Ask about place', 'Where did you spend your vacation?', 'Onde você passou suas férias?'], ['Ask about duration', 'How long were you away?', 'Quanto tempo você ficou fora?'], ['Ask for detail', 'What was the weather like?', 'Como estava o tempo?'], ['Develop the answer', 'I enjoyed visiting... because...', 'Eu gostei de visitar... porque...']],
-            recycle: ['foggy', 'terrific', 'the whole time', 'at least', 'take a trip', 'take a picture'],
+            recycle: ['foggy', 'at least', 'take a picture', 'different', 'most of the time', 'the whole time', 'take a trip', 'have a picnic'],
             rolePlay: { title: 'Travel interview', instruction: 'O aluno é o viajante; o professor é o entrevistador. Depois, troquem os papéis.', roles: [{ name: 'Traveler', goal: 'Tell a clear vacation story.', details: ['destination and duration', 'weather', 'two activities', 'one memorable detail'] }, { name: 'Interviewer', goal: 'Keep the conversation moving.', details: ['ask where and how long', 'ask about weather', 'ask two follow-ups', 'react naturally'] }], outcome: 'The interviewer gives a 30-second summary of the traveler’s trip.' },
             guided: { questions: ['Where did you go on your last vacation or day trip?', 'How long were you there?', 'Who did you go with?', 'What did you do there?', 'What was the weather and food like?', 'Did you take pictures or buy anything?', 'Would you like to go there again? Why?'], followUps: ['What happened next?', 'What was the best part?', 'Was it like that the whole time?', 'How was it different from home?'], support: ['I was away for...', 'Most of the time...', 'At least...', 'I really enjoyed...ing'] },
-            challenge: { title: 'A complete trip story', prompt: 'Tell a 60–90 second travel story, then answer two unexpected follow-up questions.', steps: ['Open with place and time.', 'Add weather and two activities.', 'Include one contrast or problem.', 'Close with an opinion.'], mustUse: ['one Past Simple question', 'at least or the whole time', 'enjoy + -ing', 'one natural reaction'], model: 'I spent four days in Curitiba last winter. It was cool most of the time, but at least it was sunny on Saturday. I visited the botanical garden and really enjoyed walking downtown. The city was different from mine, and I would definitely go back.' },
-            homework: ['Write a short travel update with 6–8 connected sentences.', 'Prepare answers to five questions from the guided conversation.', 'Record a one-minute trip story without reading the complete text.']
+            challenge: { title: 'A 20-second voice postcard', prompt: 'Say four short sentences, then answer one question from the teacher.', steps: ['Say the place.', 'Describe the weather.', 'Say one activity with enjoyed + -ing.', 'Finish with terrific, fantastic or at least.'], mustUse: ['take a trip', 'weather word', 'enjoyed + -ing', 'at least or most of the time'], model: 'I took a trip to the coast. It was warm most of the time. I enjoyed taking pictures. The trip was terrific.' },
+            homework: ['Write one photo caption with place, weather and activity.', 'Prepare two short answers about a real or invented trip.', 'Record a 20–30 second voice postcard.']
         }),
 
         4: lesson({
             sourceLesson: 3,
             title: 'In the Middle of Nowhere',
-            mission: 'Pedir, dar e confirmar direções quando o mapa do celular não funciona.',
-            outcome: 'Ao final, o aluno explica uma rota com pontos de referência e confirma se o ouvinte entendeu.',
+            mission: 'Pedir e seguir direções com frases curtas quando o mapa do celular não funciona.',
+            outcome: 'Ao final, o aluno pede uma rota, entende instruções curtas e repete dois ou três passos com apoio.',
             quickStart: [['Landmark check', 'Name four places people use as landmarks.'], ['One clear instruction', 'Give one route instruction with an imperative.'], ['Distance guess', 'Estimate how long a nearby route takes.'], ['Clarify', 'Ask the speaker to repeat one step.']],
             model: { title: 'No signal on Lake Road', setting: 'Two travelers stop at a gas station to ask for help.', lines: [['Traveler', 'Excuse me. Could you help us? We are looking for Pine Lake.'], ['Attendant', 'Sure. Go back to the roundabout and take the third exit.'], ['Traveler', 'Do we turn before or after the bridge?'], ['Attendant', 'After the bridge. Then continue straight for about eight kilometers.'], ['Traveler', 'Is the entrance easy to see?'], ['Attendant', 'Yes. It is across from a small hotel, next to a red gate.'], ['Traveler', 'How long does it take from here?'], ['Attendant', 'About fifteen minutes by car.']], questions: [['Where do the travelers want to go?', 'They want to go to Pine Lake.'], ['Which exit should they take?', 'The third exit.'], ['When should they turn?', 'After the bridge.'], ['Where is the entrance?', 'Across from a hotel, next to a red gate.']] },
             realWorld: { genre: 'Route card', title: 'Find the community center', instruction: 'Leia o cartão de rota e transforme as notas curtas em instruções completas.', documents: [{ label: 'Start', heading: 'Central Station', body: 'Exit through the main entrance. Turn right at the traffic light. Walk two blocks and cross the bridge.' }, { label: 'Finish', heading: 'Community Center', body: 'After the bridge, walk past the pharmacy. The center is on the corner, across from the park. The trip takes about twelve minutes on foot.' }], questions: [['Where does the route start?', 'At Central Station.'], ['What should you do at the traffic light?', 'Turn right.'], ['Which place do you walk past?', 'The pharmacy.'], ['How long does the route take?', 'About twelve minutes on foot.']] },
             frames: [['Ask for directions', 'How do I get to the community center?', 'Como chego ao centro comunitário?'], ['Check one step', 'Do I turn before or after the bridge?', 'Eu viro antes ou depois da ponte?'], ['Give a route', 'Go straight and walk past the bank.', 'Siga reto e passe pelo banco.'], ['Ask about time', 'How long does it take on foot?', 'Quanto tempo leva a pé?']],
-            recycle: ['corner', 'traffic light', 'bridge', 'How do I get to...?', 'walk past', 'across from'],
+            recycle: ['How do I get to...?', 'go straight', 'walk past', 'across from', 'How long does it take?', 'on foot'],
             rolePlay: { title: 'Information gap · Find the destination', instruction: 'Cada pessoa possui apenas parte da informação. Não mostrem os cartões; façam perguntas.', roles: [{ name: 'Student · Visitor', goal: 'Find the art center.', details: ['you are at the bus terminal', 'your phone has no signal', 'ask about distance and travel time', 'repeat the final route'] }, { name: 'Teacher · Local', goal: 'Guide the visitor.', details: ['two blocks straight', 'left after the bank', 'across from the library', 'eight minutes on foot'] }], outcome: 'The visitor repeats the full route without help.' },
             guided: { questions: ['How do I get from your home to a supermarket?', 'What is on the corner near your school or workplace?', 'Which places are across from each other in your neighborhood?', 'How long does your usual commute take?', 'When was the last time you asked for directions?', 'Which instruction is easiest to misunderstand?'], followUps: ['What happens after that?', 'Which landmark will I see?', 'Is it before or after the intersection?', 'Can you say the complete route again?'], support: ['Go straight...', 'Turn at...', 'Walk past...', 'It takes about...'] },
             challenge: { title: 'Route rescue', prompt: 'A visitor has no internet and must arrive before a building closes. Give the route and solve one misunderstanding.', steps: ['Identify the starting point.', 'Give 4–5 ordered instructions.', 'Use two landmarks.', 'Confirm the route and travel time.'], mustUse: ['at least three movement expressions', 'before or after', 'one clarification question', 'It takes...'], model: 'Go straight for two blocks and turn left after the bank. Walk past the pharmacy and cross the small bridge. The center is across from the library. It takes about ten minutes on foot.' },
@@ -362,32 +819,32 @@
         6: lesson({
             sourceLesson: 5,
             title: 'Couch Potato or Soccer Fanatic?',
-            mission: 'Conversar sobre esportes, rotina de exercícios e nível de habilidade sem exagerar.',
-            outcome: 'Ao final, o aluno recomenda uma rotina de treino adequada a um perfil.',
+            mission: 'Usar play, go e do para falar de habilidade, frequência e uma rotina possível para um iniciante.',
+            outcome: 'Ao final, o aluno entrevista um perfil, escolhe duas sessões e adapta o plano a uma mudança.',
             quickStart: [['Go, do or play?', 'Give one activity with each verb.'], ['Frequency', 'Say how often you exercise.'], ['Skill check', 'Describe one activity you are good or bad at.'], ['Goal', 'Say one reason to get in shape.']],
-            model: { title: 'A routine that actually fits', setting: 'Mia asks Rafael about his weekly workout.', lines: [['Mia', 'Do you play any sports?'], ['Rafael', 'I play volleyball on Fridays, and I go running twice a week.'], ['Mia', 'How good are you at volleyball?'], ['Rafael', 'I am not bad at all, but I still need practice.'], ['Mia', 'Do you work out at a gym?'], ['Rafael', 'Sometimes. I prefer exercising outside. What about you?'], ['Mia', 'I do yoga, but I am a beginner at swimming.'], ['Rafael', 'There is a beginner class at my gym. You should try it.']], questions: [['Which sport does Rafael play?', 'He plays volleyball.'], ['How often does he go running?', 'Twice a week.'], ['Where does he prefer exercising?', 'Outside.'], ['What is Mia a beginner at?', 'Swimming.']] },
-            realWorld: { genre: 'Weekly workout board', title: 'Choose the right class', instruction: 'Compare the schedule with the two member profiles.', documents: [{ label: 'Gym schedule', heading: 'Tuesday to Saturday', body: 'Tue 7 p.m.: beginner yoga. Thu 6 p.m.: circuit workout. Fri 7 p.m.: volleyball practice. Sat 9 a.m.: swimming for beginners.' }, { label: 'Member A', heading: 'Lucas', body: 'Lucas is out of shape and dislikes team sports. He is free on Tuesday and Saturday.' }, { label: 'Member B', heading: 'Nina', body: 'Nina plays volleyball well, wants more practice, and is only free on Friday evening.' }], questions: [['Which two classes fit Lucas’s schedule?', 'Beginner yoga and beginner swimming.'], ['Why is circuit workout not ideal for Lucas?', 'He is out of shape and the class may be too intense.'], ['Which class is best for Nina?', 'Volleyball practice.'], ['What should each person do before exercising?', 'They should warm up.']] },
+            model: { title: 'A routine that actually fits', setting: 'Mia asks Rafael about his weekly workout.', lines: [['Mia', 'Do you play any sports?'], ['Rafael', 'I play volleyball on Fridays, and I go running twice a week.'], ['Mia', 'How good are you at volleyball?'], ['Rafael', 'I am not bad at all, but I still need practice.'], ['Mia', 'Do you work out at a gym?'], ['Rafael', 'Sometimes. I prefer exercising outside. What about you?'], ['Mia', 'I do yoga, but I am a beginner at swimming.'], ['Rafael', 'There is a beginner class twice a week. You can train at your own pace.']], questions: [['Which sport does Rafael play?', 'He plays volleyball.'], ['How often does he go running?', 'Twice a week.'], ['Where does he prefer exercising?', 'Outside.'], ['What is Mia a beginner at?', 'Swimming.']] },
+            realWorld: { genre: 'Weekly workout board', title: 'Choose the right class', instruction: 'Compare the schedule with the two member profiles.', documents: [{ label: 'Gym schedule', heading: 'Tuesday to Saturday', body: 'Tue 7 p.m.: beginner yoga. Thu 6 p.m.: circuit workout. Fri 7 p.m.: volleyball practice. Sat 9 a.m.: swimming for beginners.' }, { label: 'Member A', heading: 'Lucas', body: 'Lucas is out of shape and dislikes team sports. He is free on Tuesday and Saturday.' }, { label: 'Member B', heading: 'Nina', body: 'Nina plays volleyball well, wants more practice, and is only free on Friday evening.' }], questions: [['Which two classes fit Lucas’s schedule?', 'Beginner yoga and beginner swimming.'], ['Why is circuit workout not ideal for Lucas?', 'He is a beginner and wants a gentler activity.'], ['Which class is best for Nina?', 'Volleyball practice.'], ['What can each person do before exercising?', 'They can warm up.']] },
             frames: [['Ask about routine', 'What do you do to stay active?', 'O que você faz para se manter ativo?'], ['Ask about skill', 'How good are you at swimming?', 'Quão bom você é em natação?'], ['Describe frequency', 'I work out twice a week.', 'Eu treino duas vezes por semana.'], ['Give a modest answer', 'I am not bad at all, but I need practice.', 'Não sou nada mal, mas preciso praticar.']],
-            recycle: ['workout', 'beginner', 'practice', 'How good are you at...?', 'get in shape', 'warm up'],
+            recycle: ['How good are you at...?', 'not bad at all', 'get in shape', 'twice a week', 'warm up', 'at my own pace', 'take a break', 'beginner'],
             rolePlay: { title: 'Coach and new member', instruction: 'O professor entrevista; o aluno explica objetivos e limites. Depois, escolham uma rotina.', roles: [{ name: 'New member', goal: 'Find a realistic activity.', details: ['available twice a week', 'beginner at team sports', 'enjoys being outdoors', 'wants to get in shape'] }, { name: 'Coach', goal: 'Recommend a safe routine.', details: ['ask about preferences', 'ask about ability', 'offer two options', 'explain warm-up and frequency'] }], outcome: 'Agree on a two-day weekly plan and explain why it fits.' },
             guided: { questions: ['What do you do to stay active?', 'Which sports do you play or watch?', 'How good are you at one activity?', 'How often do you work out?', 'Do you prefer exercising alone or with a team?', 'What activity would you like to try?'], followUps: ['How long have you done that?', 'What equipment do you need?', 'What makes it difficult?', 'What would be a realistic first step?'], support: ['I play...', 'I go + -ing', 'I do...', 'I am good at + -ing'] },
-            challenge: { title: 'Build a balanced week', prompt: 'Create a realistic exercise plan for a busy beginner and defend your choices.', steps: ['Ask about time and preferences.', 'Choose two activities.', 'Set a realistic frequency.', 'Add one safety instruction.'], mustUse: ['go, do and play correctly', 'good at + -ing', 'twice a week', 'warm up'], model: 'I recommend doing yoga on Tuesday and going swimming on Saturday. Both classes are for beginners, and two workouts a week are realistic. You should warm up first and increase the intensity slowly.' },
+            challenge: { title: 'Build a realistic week', prompt: 'Choose two beginner activities for a fictional member and present the plan in three short sentences.', steps: ['Ask about free days and preferences.', 'Choose two activities.', 'Say twice a week.', 'Add warm up or at your own pace.'], mustUse: ['one phrase with go, do or play', 'How good are you at...?', 'twice a week', 'warm up or at your own pace'], model: 'Camila can go swimming on Thursday and go walking on Saturday. She can train twice a week. She can warm up first and train at her own pace.' },
             homework: ['Create a seven-day activity calendar.', 'Write five questions for a fitness interview.', 'Record a one-minute recommendation for a beginner.']
         }),
 
         8: lesson({
             sourceLesson: 7,
             title: 'Free-Time Activities',
-            mission: 'Descobrir interesses, reagir a opiniões e recomendar conteúdo ou atividades.',
-            outcome: 'Ao final, o aluno sustenta uma conversa sobre interesses e faz uma recomendação justificada.',
+            mission: 'Fazer perguntas curtas sobre interesses, reagir a uma opinião e recomendar um conteúdo possível.',
+            outcome: 'Ao final, o aluno monta um perfil, melhora uma resenha e adapta uma recomendação a uma nova informação.',
             quickStart: [['Three interests', 'Name three things you are interested in.'], ['Strong opinion', 'Describe something fascinating or boring.'], ['Media habit', 'Say what you read, watch, or listen to.'], ['Soft opinion', 'Use kind of before an adjective.']],
             model: { title: 'A podcast recommendation', setting: 'Lena and Sam compare what they follow in their free time.', lines: [['Lena', 'What kind of podcasts do you listen to?'], ['Sam', 'Mostly science and technology. I find them fascinating.'], ['Lena', 'I like them too, but some episodes are kind of technical.'], ['Sam', 'True. What are you interested in?'], ['Lena', 'Travel stories and local news.'], ['Sam', 'Are you into documentaries as well?'], ['Lena', 'Sometimes, especially when they show how people live.'], ['Sam', 'Then I have a great recommendation for you.']], questions: [['What kind of podcasts does Sam follow?', 'Science and technology podcasts.'], ['What does Lena find difficult?', 'Some episodes are kind of technical.'], ['Which subjects interest Lena?', 'Travel stories and local news.'], ['What will Sam probably do?', 'Recommend something to Lena.']] },
             realWorld: { genre: 'Event and media cards', title: 'Match the person to the activity', instruction: 'Leia os perfis e escolha a melhor opção para cada pessoa.', documents: [{ label: 'Option A', heading: 'City Stories Live', body: 'A local journalist shares surprising stories about the city. The talk is informal and includes audience questions.' }, { label: 'Option B', heading: 'Future Lab Podcast', body: 'A detailed weekly podcast about technology, science, and new research. Some episodes are technical.' }, { label: 'Option C', heading: 'Street Food Documentary', body: 'A short documentary about food, travel, and the people behind family restaurants.' }], questions: [['Which option is best for someone into technology?', 'Future Lab Podcast.'], ['Which option includes audience interaction?', 'City Stories Live.'], ['Which option combines travel and food?', 'Street Food Documentary.'], ['Which option may be difficult for a beginner?', 'Future Lab Podcast because it can be technical.']] },
             frames: [['Ask the category', 'What kind of documentaries do you watch?', 'Que tipo de documentário você assiste?'], ['Ask about interest', 'What are you interested in?', 'No que você tem interesse?'], ['Soften an opinion', 'It is kind of technical.', 'É meio técnico.'], ['Recommend', 'If you are into travel, you might like this.', 'Se você curte viagens, talvez goste disto.']],
-            recycle: ['podcast', 'documentary', 'fascinating', 'What kind of...?', 'be into', 'keep up with'],
+            recycle: ['What kind of...?', 'be interested in', 'kind of', 'be into', 'keep up with', 'in my free time', 'give it a try', 'What is it about?'],
             rolePlay: { title: 'Recommendation exchange', instruction: 'Cada pessoa recebe um perfil diferente e deve recomendar uma opção adequada.', roles: [{ name: 'Student', goal: 'Find something for a quiet evening.', details: ['likes travel stories', 'does not enjoy technical language', 'has only one hour', 'wants something relaxing'] }, { name: 'Teacher / Partner', goal: 'Recommend and justify.', details: ['ask two interest questions', 'offer two options', 'compare them', 'explain the final choice'] }], outcome: 'The student accepts or rejects the recommendation and gives a reason.' },
             guided: { questions: ['What are you interested in these days?', 'What kind of news do you follow?', 'Which podcast or documentary do you recommend?', 'What do you find fascinating?', 'What is kind of boring for you?', 'How do you keep up with your interests?'], followUps: ['What do you like about it?', 'Who would also enjoy it?', 'How often do you follow it?', 'Can you give me one example?'], support: ['I am interested in...', 'I find it...', 'It is kind of...', 'You might like...'] },
-            challenge: { title: 'Plan a free-time hour', prompt: 'Choose content and an activity for someone’s free hour, then persuade the person to try your plan.', steps: ['Ask about interests.', 'Rule out one poor match.', 'Recommend one main option.', 'Add a clear reason and follow-up question.'], mustUse: ['What kind of...?', 'interested in + -ing', 'kind of', 'one recommendation'], model: 'Since you are interested in travel, I recommend the street food documentary. It is informative but not too technical. After that, you could read one short article about the city. What kind of travel stories do you usually enjoy?' },
+            challenge: { title: 'One useful recommendation', prompt: 'Ask three short questions, choose one item and adapt it if the listener cannot access it.', steps: ['Ask about kind.', 'Ask about topic.', 'Check the time.', 'Recommend and adapt one detail.'], mustUse: ['What kind of...?', 'interested in', 'What is it about?', 'give it a try'], model: 'You are interested in travel, so try this short documentary. It is about family restaurants. Give it a try.' },
             homework: ['Write a short review of a podcast, article, or documentary.', 'Prepare three recommendations for different interests.', 'Record a 60-second free-time recommendation.']
         }),
 
@@ -400,39 +857,39 @@
             model: { title: 'What are you in the mood for?', setting: 'Two friends choose dinner after work.', lines: [['Ana', 'Do you feel like eating out tonight?'], ['Ben', 'Yes. I am in the mood for something spicy.'], ['Ana', 'So am I, but I do not want anything too salty.'], ['Ben', 'What about the new Thai place?'], ['Ana', 'The curry looks good. I would choose that rather than fried food.'], ['Ben', 'Me too. Do you like sour flavors?'], ['Ana', 'Not very much. I prefer fresh, mild dishes.'], ['Ben', 'Then we can order two dishes and share.']], questions: [['What does Ben feel like eating?', 'Something spicy.'], ['What does Ana want to avoid?', 'Anything too salty.'], ['Which food does she prefer?', 'Curry rather than fried food.'], ['How do they solve the difference?', 'They decide to order two dishes and share.']] },
             realWorld: { genre: 'Food app reviews', title: 'Choose a place for both diners', instruction: 'Compare the reviews and find a restaurant that respects both profiles.', documents: [{ label: 'Review A', heading: 'Fire Bowl', body: 'Very spicy noodles and excellent service. The portions are large, but several dishes are quite salty.' }, { label: 'Review B', heading: 'Fresh Table', body: 'Fresh salads, mild soups, and homemade desserts. Good for people who prefer light flavors.' }, { label: 'Review C', heading: 'Market Kitchen', body: 'A mixed menu with spicy curry, fresh fish, rice dishes, and sweet desserts. Most dishes can be adjusted.' }], questions: [['Which restaurant is best for very spicy food?', 'Fire Bowl.'], ['Which place offers mostly mild food?', 'Fresh Table.'], ['Which place is easiest for different preferences?', 'Market Kitchen.'], ['Why is adjustment useful?', 'Because diners can choose the flavor intensity.']] },
             frames: [['Ask the immediate preference', 'What do you feel like eating?', 'O que você está com vontade de comer?'], ['Agree', 'So do I.', 'Eu também.'], ['Agree with a negative', 'Neither do I.', 'Eu também não.'], ['State a choice', 'I would choose fish rather than pasta.', 'Eu escolheria peixe em vez de massa.']],
-            recycle: ['spicy', 'fresh', 'flavor', 'feel like', 'Neither do I.', 'rather than'],
+            recycle: ['spicy', 'fresh', 'feel like', 'So do I.', 'Neither do I.', 'rather than', 'be in the mood for', 'share a dish'],
             rolePlay: { title: 'One dinner, two preferences', instruction: 'Não escolham antes de conversar. Descubram as preferências e negociem.', roles: [{ name: 'Student', goal: 'Choose a light meal.', details: ['likes fresh food', 'does not like bitter flavors', 'wants a small dessert', 'budget is flexible'] }, { name: 'Teacher / Partner', goal: 'Choose a flavorful meal.', details: ['likes spicy food', 'does not want fried food', 'prefers eating out', 'wants to share one dish'] }], outcome: 'Agree on a restaurant and a two-dish order.' },
             guided: { questions: ['What food do you feel like eating today?', 'Which flavors do you enjoy most?', 'What food is too salty or sweet for you?', 'Do you prefer eating out or cooking?', 'Which dish would you choose rather than fast food?', 'What is a good meal for people with different tastes?'], followUps: ['What does it taste like?', 'How is it prepared?', 'Who usually eats it with you?', 'What would you order with it?'], support: ['I feel like...', 'So do I.', 'Neither do I.', 'I would rather...'] },
-            challenge: { title: 'The shared-table decision', prompt: 'Use three restaurant cards and two preference profiles to agree on dinner.', steps: ['Ask about flavors and restrictions.', 'Compare at least two places.', 'Reject one option politely.', 'Choose the place and dishes.'], mustUse: ['feel like', 'So do I or Neither do I', 'rather than', 'two flavor adjectives'], model: 'I feel like eating something fresh, but I also enjoy spicy food. Market Kitchen is better for us because the dishes can be adjusted. I would order the fish rather than the fried noodles, and we can share a curry.' },
+            challenge: { title: 'One tray for two', prompt: 'Use two short preference tickets and choose two dishes that work together.', steps: ['Ask what the other person feels like eating.', 'React with So do I or Neither do I.', 'Choose two dishes.', 'Say the final order.'], mustUse: ['feel like', 'So do I or Neither do I', 'rather than', 'two flavor adjectives'], model: 'I feel like something fresh. Let’s choose the mango bowl rather than the noodles. We can share the berry cup too.' },
             homework: ['Create a five-item menu with flavor descriptions.', 'Write a dialogue between two diners with different preferences.', 'Record the final restaurant recommendation in one minute.']
         }),
 
         12: lesson({
             sourceLesson: 11,
             title: 'In a Restaurant',
-            mission: 'Fazer um pedido, esclarecer opções e resolver pequenas mudanças durante uma refeição.',
-            outcome: 'Ao final, o aluno participa de uma interação completa entre cliente e atendente.',
+            mission: 'Conduzir uma interação simples de restaurante, verificar uma alergia sem adivinhar e corrigir pedido e conta.',
+            outcome: 'Ao final, o aluno prepara a mesa, confirma o pedido e corrige duas cobranças com frases curtas.',
             quickStart: [['Menu order', 'Put starter, main course, side dish, and dessert in order.'], ['Polite request', 'Ask for a menu politely.'], ['One restriction', 'Say one ingredient you want a dish without.'], ['Close the meal', 'Ask for the bill.']],
             model: { title: 'A small change to the order', setting: 'A customer asks questions before ordering lunch.', lines: [['Server', 'Good afternoon. Are you ready to order?'], ['Customer', 'Almost. What comes with the grilled fish?'], ['Server', 'It comes with rice and a side salad.'], ['Customer', 'Could I have vegetables instead of rice?'], ['Server', 'Of course. Would you like a starter?'], ['Customer', 'No, thank you. I would like the fish without onions, please.'], ['Server', 'Anything else?'], ['Customer', 'Sparkling water, please. We will decide about dessert later.']], questions: [['What is the main course?', 'Grilled fish.'], ['What change does the customer request?', 'Vegetables instead of rice.'], ['Which ingredient should be removed?', 'Onions.'], ['Do they order dessert now?', 'No, they decide later.']] },
             realWorld: { genre: 'Menu and order ticket', title: 'Check the order before it goes to the kitchen', instruction: 'Leia o cardápio e compare com o pedido registrado.', documents: [{ label: 'Lunch menu', heading: 'Riverside Café', body: 'Tomato soup $6 · Grilled fish with rice and salad $18 · Pasta with vegetables $15 · Chocolate cake $7 · Fruit salad $6.' }, { label: 'Order ticket', heading: 'Table 4', body: '1 tomato soup · 1 grilled fish without onions · replace rice with vegetables · 1 sparkling water · dessert later.' }], questions: [['How much is the grilled fish?', '$18.'], ['Which starter was ordered?', 'Tomato soup.'], ['What substitution is on the ticket?', 'Vegetables instead of rice.'], ['When will the customer choose dessert?', 'Later.']] },
             frames: [['Offer', 'Would you like a starter?', 'Você gostaria de uma entrada?'], ['Order', 'I would like the grilled fish.', 'Eu gostaria do peixe grelhado.'], ['Check readiness', 'Are you ready to order?', 'Você está pronto para pedir?'], ['Request the bill', 'Could we have the bill, please?', 'Poderíamos receber a conta, por favor?']],
-            recycle: ['menu', 'side dish', 'bill', 'I would like...', 'anything else', 'without'],
+            recycle: ['I would like...', 'without', 'There is a mistake with my order.', 'Could we have the bill?', 'Would you like...?', 'anything else', 'allergy', 'separate bills'],
             rolePlay: { title: 'Restaurant service', instruction: 'Façam a cena inteira: chegada, pedido, alteração, sobremesa e conta.', roles: [{ name: 'Student · Customer', goal: 'Order a complete meal.', details: ['ask what comes with one dish', 'replace one side dish', 'remove one ingredient', 'ask for the bill'] }, { name: 'Teacher · Server', goal: 'Guide the order politely.', details: ['offer a starter', 'clarify the side dish', 'confirm the change', 'offer dessert'] }], outcome: 'The server repeats the complete order and the customer confirms it.' },
             guided: { questions: ['What do you usually order as a main course?', 'Do you normally have a starter or dessert?', 'Which ingredient do you often ask for a dish without?', 'What makes restaurant service good?', 'How do you ask for a change politely?', 'When do you usually leave a tip?'], followUps: ['What comes with it?', 'Would you change the side dish?', 'Anything else?', 'Was the service worth the tip?'], support: ['I would like...', 'Could I have...instead of...?', 'without...', 'Could we have the bill?'] },
-            challenge: { title: 'A complete table interaction', prompt: 'Handle a restaurant visit with one question, one change, one extra request, and the bill.', steps: ['Ask about the menu.', 'Place the main order.', 'Change or remove one item.', 'Close the meal politely.'], mustUse: ['Would you like...?', 'I would like...', 'instead of or without', 'anything else'], model: 'I would like the grilled fish, please. What comes with it? Could I have vegetables instead of rice and the salad without onions? That is all for now. Could we have the bill after dessert?' },
+            challenge: { title: 'Table 4 in four short moves', prompt: 'Use one short sentence at each moment: order, allergy check, bill correction and split.', steps: ['Order one dish.', 'Say that an allergy must be checked.', 'Point out one bill mistake.', 'Ask for separate bills.'], mustUse: ['I would like...', 'allergy', 'There is a mistake with my order.', 'separate bills'], model: 'I would like the vegetable pasta without cheese. My friend has an allergy, so please check with the kitchen. There is a mistake with my order. Could we have separate bills, please?' },
             homework: ['Design a short menu with prices and side dishes.', 'Write a complete server–customer dialogue.', 'Practice the customer role without reading.']
         }),
 
         14: lesson({
             sourceLesson: 13,
             title: 'True Friends or False Friends?',
-            mission: 'Descrever personalidade e humor para decidir como apoiar alguém em uma situação delicada.',
-            outcome: 'Ao final, o aluno interpreta sinais sociais e responde com empatia e justificativa.',
+            mission: 'Reconhecer quando alguém diz que está chateado e responder com uma pergunta e uma opção simples.',
+            outcome: 'Ao final, o aluno responde em duas ou três frases: pergunta como a pessoa está e oferece conversar ou dar espaço.',
             quickStart: [['Personality trio', 'Choose three adjectives for a good friend.'], ['Mood contrast', 'Say one sign of a good mood and one sign of a bad mood.'], ['Support', 'Say one way to cheer someone up.'], ['Respect', 'Explain when a person may need space.']],
             model: { title: 'Give her space or cheer her up?', setting: 'Two friends notice that Carla is unusually quiet.', lines: [['Leo', 'Carla seems upset today. She did not smile at anyone.'], ['Nina', 'I noticed that too. She is usually cheerful and talkative.'], ['Leo', 'Should we ask what happened?'], ['Nina', 'Maybe, but she is shy about personal problems.'], ['Leo', 'We could tell her we are here if she wants to talk.'], ['Nina', 'Good idea. Then we can give her some space.'], ['Leo', 'You are always patient with people.'], ['Nina', 'A good friend listens without forcing a conversation.']], questions: [['How is Carla acting today?', 'She is quiet and upset.'], ['How is she usually?', 'Cheerful and talkative.'], ['What do Leo and Nina decide to do?', 'Offer support and give her space.'], ['Which quality does Leo see in Nina?', 'Patience.']] },
             realWorld: { genre: 'Message thread', title: 'Read the mood behind the messages', instruction: 'Leia a conversa e identifique o problema, o tom e a resposta mais adequada.', documents: [{ label: '11:05 · Maya', heading: 'Group chat', body: 'I am sorry, but I do not feel like going out tonight. I had a difficult day and need some quiet time.' }, { label: '11:08 · Alex', heading: 'Reply', body: 'No problem. Take care of yourself. If you want to talk later, I am here.' }, { label: '11:09 · Chris', heading: 'Reply', body: 'Come on! Do not be boring. You always cancel our plans.' }], questions: [['What mood does Maya seem to be in?', 'She seems upset or tired.'], ['Which reply is more supportive?', 'Alex’s reply.'], ['Why may Chris’s reply make things worse?', 'It criticizes Maya and ignores her feelings.'], ['What could a friend do next?', 'Give her space and check on her later.']] },
             frames: [['Describe a person', 'She is usually cheerful and patient.', 'Ela geralmente é alegre e paciente.'], ['Describe a mood', 'He is in a bad mood today.', 'Ele está de mau humor hoje.'], ['Offer support', 'I am here if you want to talk.', 'Estou aqui se você quiser conversar.'], ['Respect a limit', 'Let’s give her some space.', 'Vamos dar um pouco de espaço para ela.']],
-            recycle: ['patient', 'honest', 'upset', 'be in a good mood', 'give someone space', 'cheer up'],
+            recycle: ['upset', 'patient', 'give someone space', 'Is everything okay?', 'be in a good mood', 'cheer up'],
             rolePlay: { title: 'Supportive friend', instruction: 'O aluno apresenta o problema; o professor reage. Depois, troquem e comparem as respostas.', roles: [{ name: 'Friend A', goal: 'Explain why you are upset.', details: ['a plan changed suddenly', 'you do not want advice yet', 'you may want to talk later', 'state one clear limit'] }, { name: 'Friend B', goal: 'Respond with empathy.', details: ['notice the mood', 'ask one gentle question', 'offer support', 'respect the limit'] }], outcome: 'Choose one sentence that helped and explain why.' },
             guided: { questions: ['Which qualities matter most in a friend?', 'How can you tell when someone is upset?', 'Do you prefer advice or space when you are in a bad mood?', 'How do you cheer a friend up?', 'Is honesty always easy in a friendship?', 'What makes someone supportive?'], followUps: ['Can you give an example?', 'How would the other person feel?', 'What could you say instead?', 'Would that work for everyone?'], support: ['She is usually...', 'He seems...', 'I am here if...', 'Let’s give...space'] },
             challenge: { title: 'Choose the supportive response', prompt: 'Respond to three short friendship situations and justify the best response.', steps: ['Identify the person’s mood.', 'Choose a respectful response.', 'Add one gentle question.', 'Explain why the response helps.'], mustUse: ['two personality adjectives', 'in a good/bad mood', 'give someone space or cheer up', 'one reason'], model: 'Maya seems upset, so I would not pressure her. I would say, “I am here if you want to talk.” Then I would give her some space because patient friends respect limits.' },
@@ -522,8 +979,8 @@
         26: lesson({
             sourceLesson: 25,
             title: 'To Lie or Not to Lie',
-            mission: 'Pedir e dar conselhos sobre uma escolha difícil, considerando verdade e consequências.',
-            outcome: 'Ao final, o aluno recomenda uma ação responsável e explica possíveis consequências.',
+            mission: 'Ler histórias curtas do cotidiano, dizer o que faria e dar um conselho simples aos personagens.',
+            outcome: 'Ao final, o aluno expressa uma escolha, dá um conselho curto e menciona uma possível consequência com apoio.',
             quickStart: [['Advice opener', 'Ask what you should do.'], ['Responsible action', 'Give one suggestion with should.'], ['Alternative', 'Use instead of to replace a poor choice.'], ['Pause', 'Tell someone to think it over.']],
             model: { title: 'Tell the truth now or later?', setting: 'A student damaged a friend’s headphones and asks for advice.', lines: [['Rafa', 'I made a mistake and I do not know what to do.'], ['Bia', 'What happened?'], ['Rafa', 'I borrowed Leo’s headphones and broke them. He has not noticed yet.'], ['Bia', 'You should tell him the truth.'], ['Rafa', 'I am afraid he will be angry.'], ['Bia', 'He may be upset, but lying could make the consequence worse.'], ['Rafa', 'Should I buy new headphones first?'], ['Bia', 'Think it over, but talk to him instead of hiding the mistake.']], questions: [['What did Rafa damage?', 'Leo’s headphones.'], ['What advice does Bia give?', 'Tell Leo the truth.'], ['Why is Rafa afraid?', 'Leo may be angry.'], ['What should Rafa avoid?', 'Hiding the mistake or lying.']] },
             realWorld: { genre: 'Advice column', title: 'Three possible responses', instruction: 'Leia o problema e compare as respostas antes de escolher o conselho mais responsável.', documents: [{ label: 'Problem', heading: 'I saw my friend cheating', body: 'My close friend copied answers during a test. The teacher asked whether I noticed anything. I care about my friend, but I do not want to lie.' }, { label: 'Reply A', heading: 'Say nothing', body: 'Protect the friendship and pretend you did not see anything.' }, { label: 'Reply B', heading: 'Talk first', body: 'Tell your friend privately that the choice was serious. Encourage the person to be honest with the teacher.' }, { label: 'Reply C', heading: 'Tell everyone', body: 'Post the story in the class group so other students know what happened.' }], questions: [['What is the central conflict?', 'Honesty versus protecting a friend.'], ['Which reply suggests a private conversation?', 'Reply B.'], ['Which reply may create a larger problem?', 'Reply C.'], ['Why is Reply B responsible?', 'It values truth and gives the friend a chance to act honestly.']] },

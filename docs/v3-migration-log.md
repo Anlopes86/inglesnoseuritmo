@@ -337,3 +337,98 @@ Aplicadas as quatro prioridades altas aprovadas: impedir dupla avaliação, recu
 - Teste musical de A1 atualizado para comparar IDs e números com o manifesto de 38 aulas, eliminando a lista fixa do currículo antigo. Catálogo e seleção de músicas preservados; ambos os testes musicais aprovados.
 - Login, registro de aulas, acesso A2 e auditorias finais A2 aprovados novamente antes do envio. Regras do Firestore versionadas; push no GitHub não equivale à implantação dessas regras no Firebase.
 
+## 2026-09-14 · Decks A1/A2 V3 e atualização do teste de navegador
+
+- Adicionados decks atuais com 744/397 cards extraídos das fontes canônicas. Filtro por aula atual, verbos com to, metadados curriculares e significado separado de exemplos. Acervo anterior preservado, sem migração de avaliações.
+- Favoritos usam ID pessoal independente do catálogo; estatísticas reconhecem avaliações dos novos decks. Testes específicos, regressões de estudo/contexto e quatro auditorias V3 aprovados. Conferência em navegador isolado e largura móvel.
+- Publicação de b7d5ba4 confirmada. Falha da checagem A2 identificada no teste do player antigo; entrada atualizada para a auditoria das seções atuais e Chromium portátil. Nova execução integral no GitHub pendente de envio.
+- Registro completo em docs/v3-flashcard-decks-2026-09-14.md. Alterações desta fatia locais; sem alteração em cadastros reais ou novo push.
+
+## 2026-09-14 · Retomada de sessão dos flashcards
+
+- Sessão durável no navegador por usuário/aluno/deck: posição, fila, histórico, filtros, modo, contagem e tentativa. Biblioteca recarregada por IDs, removendo cards excluídos e invalidando respostas de cards editados.
+- Pendência de avaliação recupera a fila completa e conserva o identificador da tentativa. Biblioteca indisponível não apaga a sessão. Estado antigo de pendência continua legível.
+- Testes locais de sessão/manutenção/confiabilidade e conferência no navegador com recarga, falha de salvamento e fechamento/reabertura da aba. Detalhes e limites em docs/flashcards-session-resume-2026-09-14.md. Sem mudança visual, publicação ou escrita em cadastros reais.
+
+## 2026-09-18 · A2 — expansão OHE para todas as aulas lexicais
+
+Escopo concluído:
+
+- replicado nas 15 aulas lexicais o ciclo `Observe → Hypothesize → Experiment` dos flashcards de expressões;
+- cada expressão passa a reunir três exemplos contextualizados, uma explicação de uso e uma frase inédita em português para teste com resposta revelável;
+- os `Dialog Samples` passam a vir antes da atividade de transferência e trazem duas situações desenvolvidas por aula, com pelo menos oito falas em cada uma;
+- preservadas oito frases adicionais e diferentes na atividade `Transfer · Say it in English`, evitando a repetição dos testes dos flashcards;
+- ampliadas as auditorias de conteúdo e de navegador para verificar o contrato OHE, a ordem didática, a extensão dos diálogos, a interação dos cards e o contraste dos personagens em modo escuro em todas as aulas lexicais.
+
+## 2026-09-18 · A2 L3 — piloto OHE nas expressões
+
+- A lição 3 passou a tratar as oito expressões como flashcards interativos em uma sequência Observe → Hypothesize → Experiment: exemplo inicial na frente; significado, regra e dois exemplos adicionais no verso; desafio em português com resposta revelável.
+- O antigo slide redundante `Expressions in context` foi removido apenas desta fatia. O componente OHE entrou no player compartilhado de forma opt-in e as demais aulas continuam com o contrato anterior até receberem conteúdo autoral equivalente.
+- Os dois diálogos de duas falas foram substituídos por duas situações de oito falas, cobrindo pedido de ajuda, rota, confirmação, pontos de referência, alternativa de transporte e duração. A sequência agora é OHE → Dialog Samples → transferência.
+- O slide de tradução recebeu oito situações diferentes dos modelos e experimentos do OHE, funcionando como transferência do padrão para novos contextos.
+- O tema escuro do player compartilhado passou a vincular as cores ao papel do personagem, com fundos verde e laranja escuros e texto claro de alto contraste; o segundo personagem não herda mais o fundo claro da alternância por linha. O ajuste vale para todos os diálogos renderizados pelo player.
+- A auditoria de contrato verifica os oito cards completos, os 16 turnos de diálogo, ausência da duplicação, ordem pedagógica e não repetição das frases. A auditoria de navegador cobre virar card, revelar resposta, salvar/ouvir, diálogos, largura móvel e as 32 aulas A2. Evidências visuais em `artifacts/a2-presentation/migration-32/lesson-3-*.png`.
+
+## 2026-09-18 · A2 — pilotos de prática comunicativa online
+
+- Reestruturadas como pilotos as comunicativas 4, 14 e 26, escolhidas para testar três dinâmicas diferentes: lacuna de informação e rota, interpretação de tom e resposta de apoio, e aconselhamento com consequências.
+- Cada piloto agora começa com seis alvos recuperados da lição lexical anterior — quatro obrigatórios e dois bônus — e mantém um placar clicável durante as atividades. O progresso permanece ao navegar entre os slides.
+- As sequências passaram a incluir decisões guiadas, papéis separados entre aluno e professor, mudança inesperada de situação, segunda rodada para reformular uma resposta curta e saída com evidências observáveis de desempenho.
+- Após a primeira revisão, os três pilotos foram recalibrados explicitamente para A1 em transição ao A2: leitura dos apoios permitida, turnos de uma a três frases, decisões por escolha, lacunas prontas e repetição com troca de apenas um detalhe. Foram removidas exigências de defender opiniões, justificar decisões longamente, improvisar sem apoio ou produzir respostas de 30–90 segundos.
+- O player compartilhado recebeu componentes opt-in para o placar de linguagem e painéis de decisão; as demais comunicativas mantêm a sequência atual enquanto os pilotos são avaliados.
+- As auditorias verificam a correspondência entre alvos e reciclagem lexical, a estrutura dos papéis, as mudanças de situação, as interações e a responsividade. Conferência visual realizada em desktop, celular e modo escuro; alterações locais, sem publicação.
+
+## 2026-09-19 · A2 — numeração comunicativa e reconstrução de To Lie or Not to Lie
+
+- Removida dos títulos a contagem paralela `Conversation Activities 1–15`. O módulo conserva apenas a numeração curricular: lexicais ímpares e comunicativas pares; a página agora identifica esta aula como `A2 · Aula 26` e `Conversation Activities · To Lie or Not to Lie`.
+- A aula 26 passa a abrir diretamente com uma história curta sobre uma reserva esquecida. O aluno verifica fatos, escolhe o que faria, usa um motivo curto e aconselha o personagem interpretado pelo professor.
+- Acrescentadas duas situações adultas e plausíveis: sinceridade gentil ao responder sobre uma refeição e proteção de privacidade diante de um colega insistente. A mudança de informação exige adaptar somente uma frase.
+- Mantidos os seis itens de reciclagem lexical e o apoio visível, sem debate longo, resposta moral única ou exposição pessoal obrigatória. A auditoria rejeita os cenários escolares e mecânicos descartados e confirma história, escolha, role-play, nova informação e transferência.
+
+## 2026-09-19 · A2 L4 — mapa interativo de direções
+
+- A prática abstrata de rotas foi substituída por um mapa de cidade com oito pontos de referência, quatro ruas e três percursos numerados. As letras A e B ficam reservadas exclusivamente para origem e destino.
+- O professor escolhe o percurso e pergunta como chegar; o aluno guia uma instrução curta por vez enquanto o professor acompanha com o cursor, testa um movimento incorreto e pede confirmação. Depois da tentativa, a dupla revela e compara uma rota-modelo coerente com todas as ruas percorridas.
+- A linha da solução permanece oculta durante a produção. Pharmacy → Bank, Supermarket → Café e Clinic → Pharmacy variam extensão, curvas e pontos de referência, reciclando o vocabulário da lição lexical anterior com apoio visível.
+- O componente compartilhado `map-route` recebeu seleção de percurso, estado reiniciado ao trocar a rota, descrição estrutural para tecnologia assistiva, identificação de idioma, layout responsivo e contraste específico no modo escuro.
+- As auditorias agora verificam correspondência entre linha e resposta falada, reset do gabarito, numeração sem ambiguidade, descrição acessível, legibilidade dos nomes das ruas no celular e contraste/contornos no modo escuro. A sequência completa de 32 aulas passou em desktop, celular e tema escuro; alterações locais, sem publicação.
+
+## 2026-09-19 · A2 L4 — reconstrução integral como simulação de cidade
+
+- Removidos da aula 4 o placar isolado, o diálogo-modelo curto, a missão genérica e o checklist final. O mesmo mapa passou a sustentar uma experiência contínua, em vez de aparecer como uma boa atividade cercada por slides abstratos.
+- A sequência agora propõe sete operações diferentes e adequadas ao A1 em transição ao A2: localizar um visitante por pistas, ordenar uma rota, guiar o professor de A até B, interromper e corrigir um caminho errado, contornar uma rua bloqueada para entregar remédio, seguir instruções em áudio sem ler a transcrição e chegar ao último ônibus antes do horário.
+- Cada desafio exige uma ação oral curta e produz uma mudança visível: lugar encontrado, cartões ordenados, trajeto revelado, marcador corrigido, entrega concluída, destino identificado ou viajante deslocado. Apoios permanecem disponíveis sem exigir opinião longa ou improvisação avançada.
+- O player compartilhado recebeu componentes opt-in para as sete mecânicas, síntese de voz para o desafio auditivo, estados de erro/acerto, cronômetro por movimentos e resultados responsivos. No modo escuro, marcadores e estados de sucesso têm contraste próprio.
+- A auditoria de navegador cobre todas as interações e percorre novamente as 32 aulas em desktop, celular e tema escuro. A mudança continua local, sem publicação.
+
+## 2026-09-19 · A2 L4 — correção de falsa variedade
+
+- A versão anterior foi reavaliada após feedback: telefone, cartões, bloqueio, áudio e relógio mudavam a aparência, mas seis atividades repetiam a mesma operação de localizar ou percorrer um caminho no mapa.
+- A aula passa a ter somente uma atividade de mapa. As demais cinco mudam informação recebida, operação mental, papel social e produto oral: reformular um pedido inadequado, extrair dados de uma mensagem de voz, investigar um estabelecimento secreto com perguntas, decidir o transporte usando duração e restrições, e transmitir um compromisso que o professor precisa identificar.
+- A sequência ativa agora é `polite-help → voice-note → secret-place → city-map → travel-desk → meeting-message → homework`. Os seis tipos de atividade de sala são diferentes; o mapa não é reutilizado como fundo para listening, correção, decisão ou fechamento.
+- Os novos componentes mantêm turnos curtos adequados ao A1 em transição ao A2, apoio visível, papéis claros para professor e aluno e resultados observáveis. Áudio tem contingência textual; tarefas secretas orientam quem deve desviar o olhar; nenhuma exige opinião longa.
+- As auditorias rejeitam explicitamente os antigos reskins de mapa na L4, exigem exatamente um `map-route`, exercitam cada interação e verificam celular, tema escuro e contraste. Alterações locais, sem publicação.
+
+## 2026-09-20 · A2 L6 — MoveLab de esportes e rotina possível
+
+- Reconstruída a aula comunicativa 6 como uma sequência de cinco operações diferentes, sem repetir as estruturas genéricas de enquete, leitura, associação e conversa aberta: classificar `play / go / do`, interpretar duas curiosidades reais, representar um diálogo, responder como treinador e montar uma agenda de duas sessões.
+- Os textos curtos apresentam o `rajio taiso` no Japão e a participação de caminhantes no parkrun, com perguntas de evidência, inferência de `warm up` e `at your own pace`, transferência para outra frase e links para as fontes oficiais.
+- O diálogo passou a ter oito falas curtas. O desafio de treinador limita cada resposta do aluno a uma frase e mostra a reação do participante; a agenda cria uma lacuna real de informação entre professor e aluno, aceita mais de um primeiro plano e exige replanejamento quando a aula de terça fica lotada.
+- A produção foi calibrada para A1 em transição ao A2: apoios visíveis, personagem fictícia, escolhas verificáveis, ausência de `should` antes de sua introdução curricular e resultado final de três frases. A aula recicla oito itens da L5, incluindo `How good are you at...?`, `twice a week`, `warm up`, `get in shape` e `take a break`.
+- O player compartilhado recebeu quatro componentes opt-in, com cartão privado, feedback, progressão, estados acessíveis e layouts responsivos em modo claro e escuro. As auditorias de apresentação, variedade, semântica, música e conversação passaram; a auditoria das 32 aulas percorreu todos os novos cliques, celular e tema escuro sem erro de JavaScript ou overflow. Alterações locais, sem publicação.
+
+## 2026-09-21 · A2 L8, L10 e L12 — mídia, sabores e serviço de restaurante
+
+- A aula 8 foi reconstruída como um pequeno estúdio de mídia: o aluno monta um feed de interesses, formula uma hipótese sobre o fenômeno norueguês de *slow TV*, lê um diálogo de oito falas, edita três resenhas exageradas com evidências e recomenda uma opção para um perfil que muda. O relato cultural traz links para a Biblioteca Nacional da Noruega e o Guinness World Records.
+- A aula 10 agora alterna percepção visual de seis sabores, reconstrução de uma história cultural curta do fish and chips, diálogo, corrente oral de concordância e uma negociação com cartões privados para montar uma bandeja compartilhada. A história tem fonte do London Museum e as ilustrações vetoriais são locais, sem depender de imagens externas.
+- A aula 12 passou a formar uma única experiência de restaurante: preparar a mesa, distinguir preferência de alergia, consultar a cozinha sem prometer segurança, decodificar um ticket fictício e corrigir duas cobranças antes de pedir contas separadas. O resultado do checkpoint avalia a comunicação e mantém explicitamente o prato como não confirmado; as orientações estão ligadas à Food Standards Agency e à FDA.
+- Nas três aulas, cada slide de sala executa uma operação diferente, usa fala curta e apoio visível para A1 em transição ao A2 e produz uma mudança observável na tela. Diálogos têm oito turnos e recuperam o léxico da aula ímpar anterior.
+- O player recebeu doze componentes opt-in com estado, reset, feedback e ilustrações SVG; as auditorias estruturais e de variedade foram ampliadas para os contratos das três aulas. Alterações locais, sem publicação.
+
+## 2026-09-21 · A2 L2 — viagem contada por pistas e imagens
+
+- Substituída a sequência genérica de conversa, leitura, associação e enquete por cinco operações: investigar uma mala secreta, adaptar um passeio à mudança do clima, observar um diálogo bilíngue de oito falas, corrigir legendas que contradizem as imagens e montar um cartão-postal de voz de vinte segundos.
+- O primeiro desafio cria uma lacuna de informação real sem expor um gabarito na tela compartilhada: o sistema sorteia a mala internamente, libera somente as respostas das perguntas feitas pelo aluno e revela o dono apenas depois do palpite. O aluno tem até três perguntas curtas antes de identificar a mala. As atividades seguintes usam escolhas visíveis e falas-modelo, sem exigir relato pessoal ou resposta longa.
+- A linguagem recuperada vem da L1, incluindo `trip`, `foggy`, `at least`, `take a picture`, `most of the time`, `the whole time`, `take a trip` e `have a picnic`; perguntas sobre viagem e clima permanecem como estruturas de apoio já apresentadas na aula lexical.
+- Todos os cenários e imagens são autorais e fictícios. O player usa ilustrações SVG locais de malas, clima, fotos e cartão-postal, sem dependência de mídia externa. A auditoria de navegador confirma que os nomes dos três viajantes não aparecem antes do palpite e que as 32 aulas continuam funcionais em desktop, celular e modo escuro. Alterações locais, sem publicação.
+

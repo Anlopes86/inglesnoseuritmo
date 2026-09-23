@@ -3,6 +3,7 @@ const path = require('path');
 const vm = require('vm');
 
 const root = path.resolve(__dirname, '..');
+require('node:child_process').execFileSync(process.execPath, [path.join(__dirname, 'build-v3-flashcard-decks.cjs'), '--check'], { stdio: 'inherit' });
 const errors = [];
 const check = (condition, message) => { if (!condition) errors.push(message); };
 const read = relative => fs.readFileSync(path.join(root, relative), 'utf8');

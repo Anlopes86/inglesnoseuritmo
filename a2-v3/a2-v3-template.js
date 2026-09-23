@@ -864,10 +864,246 @@
   }
 };
 
+    const OHE_ENRICHMENT = {
+        1: {
+            lab: [
+                ['How are you doing?', ['How are you doing after the long flight?', 'Hi, Paula! How are you doing?'], 'Como você está depois da viagem?', 'How are you doing after the trip?'],
+                ['most of the time', ['We stayed outdoors most of the time.', 'Most of the time, the weather was pleasant.'], 'Na maior parte do tempo, nós caminhamos pela cidade.', 'Most of the time, we walked around the city.'],
+                ['the whole time', ['The children slept the whole time.', 'It was windy the whole time we were there.'], 'Ela ficou no hotel o tempo todo.', 'She stayed at the hotel the whole time.'],
+                ['at least', ['The train was late, but at least it was comfortable.', 'At least we had one sunny afternoon.'], 'Pelo menos nós não perdemos o voo.', 'At least we did not miss the flight.'],
+                ['as usual', ['The beach was crowded, as usual.', 'He arrived early, as usual.'], 'Como de costume, fez frio à noite.', 'It was cold at night, as usual.'],
+                ['take a picture', ['Can you take a picture of us?', 'She took a picture from the top of the hill.'], 'Você tirou uma foto do castelo?', 'Did you take a picture of the castle?'],
+                ['take a trip', ['They are going to take a trip in October.', 'We took a short trip to the coast.'], 'Nós fizemos uma viagem curta no fim de semana.', 'We took a short trip on the weekend.'],
+                ['go camping', ['My cousins go camping every summer.', 'We went camping near a lake.'], 'Você quer ir acampar nas férias?', 'Do you want to go camping on vacation?'],
+                ['go fishing', ['My grandfather goes fishing on Sundays.', 'They went fishing before breakfast.'], 'Nós fomos pescar perto do rio.', 'We went fishing near the river.'],
+                ['have a picnic', ['Let us have a picnic in the park.', 'We had a picnic despite the cool weather.'], 'Eles fizeram um piquenique perto do lago.', 'They had a picnic near the lake.']
+            ],
+            dialogues: [
+                [['Friend', 'Welcome back! How are you doing after the long flight?'], ['Traveler', 'Pretty well, thanks. I am tired, but the trip was fantastic.'], ['Friend', 'What was the weather like in Scotland?'], ['Traveler', 'It was cool most of the time and foggy in the mornings.'], ['Friend', 'Did you stay in Glasgow the whole time?'], ['Traveler', 'No. I took a short trip to Edinburgh and visited the castle.'], ['Friend', 'Did you take many pictures?'], ['Traveler', 'Yes, and at least one of them is good enough to frame.']],
+                [['Friend', 'What do you usually do on vacation?'], ['Traveler', 'I usually go camping with my cousins.'], ['Friend', 'Do you stay at the campsite the whole time?'], ['Traveler', 'Not always. We go fishing or take a trip to a nearby town.'], ['Friend', 'What do you do when the weather is warm?'], ['Traveler', 'We have a picnic by the lake, as usual.'], ['Friend', 'That sounds relaxing. Can I come next summer?'], ['Traveler', 'Of course. At least you already have a tent!']]
+            ]
+        },
+        5: {
+            lab: [
+                ['How good are you at...?', ['How good are you at playing volleyball?', 'How good is Mia at running long distances?'], 'Quão bom você é em andar de bicicleta?', 'How good are you at cycling?'],
+                ['not bad at all', ['Your serve is not bad at all.', 'For a beginner, I am not bad at all.'], 'Meu tempo não foi nada mal.', 'My time was not bad at all.'],
+                ['be out of shape', ['I felt out of shape after the holidays.', 'He is out of shape because he stopped training.'], 'Estou um pouco fora de forma agora.', 'I am a little out of shape now.'],
+                ['get in shape', ['Walking every day helped me get in shape.', 'She joined a gym to get in shape.'], 'Ele quer entrar em forma antes da corrida.', 'He wants to get in shape before the race.'],
+                ['twice a week', ['We play basketball twice a week.', 'She goes swimming twice a week.'], 'Eu faço ioga duas vezes por semana.', 'I do yoga twice a week.'],
+                ['warm up', ['The team warmed up before the game.', 'Warm up for five minutes before you run.'], 'Precisamos aquecer antes do treino.', 'We need to warm up before the workout.'],
+                ['at my own pace', ['I learn the exercises at my own pace.', 'Let me run at my own pace today.'], 'Prefiro treinar no meu próprio ritmo.', 'I prefer to work out at my own pace.'],
+                ['take a break', ['You look tired. Take a break.', 'We took a short break between games.'], 'Vamos fazer uma pausa depois desta série.', 'Let us take a break after this set.']
+            ],
+            dialogues: [
+                [['Maya', 'What do you usually do to stay active?'], ['Leo', 'I go running twice a week, but I am a little out of shape.'], ['Maya', 'That is a good start. Do you warm up before you run?'], ['Leo', 'Not always. I usually start slowly and continue at my own pace.'], ['Maya', 'A short warm-up can help prevent injuries.'], ['Leo', 'Good point. How long should I exercise today?'], ['Maya', 'Try twenty minutes, then take a break and see how you feel.'], ['Leo', 'Great. I want to get in shape without doing too much too soon.']],
+                [['Maya', 'How good are you at volleyball?'], ['Leo', 'I am not bad at all, but my serve needs work.'], ['Maya', 'We practice at the community center twice a week.'], ['Leo', 'Is the group okay for beginners?'], ['Maya', 'Yes. Everyone can train at their own pace.'], ['Leo', 'Do you warm up together before practice?'], ['Maya', 'We do, and we take a break halfway through.'], ['Leo', 'That sounds perfect. Can I join you on Thursday?']]
+            ]
+        },
+        7: {
+            lab: [
+                ['What kind of...?', ['What kind of books do you read?', 'What kind of podcasts does she enjoy?'], 'Que tipo de série você assiste?', 'What kind of series do you watch?'],
+                ['be interested in', ['He is interested in learning about history.', 'Are you interested in joining the book club?'], 'Ela tem interesse em fotografia de rua.', 'She is interested in street photography.'],
+                ['kind of', ['I am kind of tired tonight.', 'The first episode was kind of slow.'], 'Esse livro é meio difícil.', 'This book is kind of difficult.'],
+                ['be into', ['I am really into science fiction.', 'They are into playing board games.'], 'Meu irmão curte música eletrônica.', 'My brother is into electronic music.'],
+                ['keep up with', ['It is hard to keep up with all the new films.', 'She keeps up with her favorite artists online.'], 'Eu acompanho as notícias de tecnologia.', 'I keep up with technology news.'],
+                ['in my free time', ['In my free time, I draw and listen to music.', 'He studies Italian in his free time.'], 'Eu gosto de cozinhar no meu tempo livre.', 'I like cooking in my free time.'],
+                ['give it a try', ['The class is free, so give it a try.', 'I was unsure about the game, but I gave it a try.'], 'Esse podcast parece bom; vou experimentar.', 'That podcast sounds good; I will give it a try.'],
+                ['What is it about?', ['You recommended that book. What is it about?', 'This film looks unusual. What is it about?'], 'Você gosta dessa série. Sobre o que é?', 'You like that series. What is it about?']
+            ],
+            dialogues: [
+                [['Nina', 'What kind of podcasts do you listen to?'], ['Omar', 'Mostly science and technology. I like to keep up with new ideas.'], ['Nina', 'I am kind of new to podcasts. Which one should I start with?'], ['Omar', 'There is a short series called Future Everyday.'], ['Nina', 'What is it about?'], ['Omar', 'It explains how technology changes ordinary life.'], ['Nina', 'That sounds interesting. I will give it a try.'], ['Omar', 'Great. Tell me what you think after the first episode.']],
+                [['Omar', 'What do you do in your free time?'], ['Nina', 'I am into street photography, especially at night.'], ['Omar', 'How did you become interested in that?'], ['Nina', 'A friend invited me on a photo walk last year.'], ['Omar', 'Do I need an expensive camera to start?'], ['Nina', 'Not at all. You can use your phone and learn at your own pace.'], ['Omar', 'The technical side seems kind of difficult.'], ['Nina', 'Come with us on Saturday and give it a try.']]
+            ]
+        },
+        9: {
+            lab: [
+                ['feel like', ['Do you feel like cooking tonight?', 'I feel like something warm and spicy.'], 'Estou com vontade de comer massa.', 'I feel like having pasta.'],
+                ['So do I.', ['I enjoy Thai food. — So do I.', 'I usually order tea. — So do I.'], 'Eu adoro sobremesas. — Eu também.', 'I love desserts. — So do I.'],
+                ['Neither do I.', ['I do not drink soda. — Neither do I.', 'I do not like raw onions. — Neither do I.'], 'Eu não como carne. — Eu também não.', 'I do not eat meat. — Neither do I.'],
+                ['rather than', ['Let us walk rather than take a taxi.', 'She ordered fruit rather than cake.'], 'Vou pedir arroz em vez de batata frita.', 'I will have rice rather than fries.'],
+                ['be in the mood for', ['Are you in the mood for pizza?', 'I am not in the mood for anything heavy.'], 'Estamos a fim de comida mexicana.', 'We are in the mood for Mexican food.'],
+                ['eat out', ['We rarely eat out during the week.', 'They ate out to celebrate her birthday.'], 'Vamos comer fora hoje à noite.', 'Let us eat out tonight.'],
+                ['That sounds good.', ['We could share a pizza. — That sounds good.', 'How about soup and bread? — That sounds good.'], 'Podemos pedir um curry suave. — Isso parece bom.', 'We can order a mild curry. — That sounds good.'],
+                ['share a dish', ['Would you like to share a dish?', 'We shared a dish because the portions were large.'], 'Podemos dividir um prato principal.', 'We can share a main dish.']
+            ],
+            dialogues: [
+                [['Lena', 'Do you feel like eating out tonight?'], ['Ravi', 'Yes. I am in the mood for something spicy.'], ['Lena', 'So am I. How about the new Thai restaurant?'], ['Ravi', 'That sounds good, but I do not eat seafood.'], ['Lena', 'Neither do I. They have several vegetable dishes.'], ['Ravi', 'Great. We could share a curry rather than order two.'], ['Lena', 'Good idea. The portions look large.'], ['Ravi', 'Let us book a table for seven, then.']],
+                [['Ravi', 'What do you feel like having for lunch?'], ['Lena', 'Something light. I am not in the mood for a big meal.'], ['Ravi', 'Neither am I. Would you like soup or salad?'], ['Lena', 'Soup sounds better, especially on a cold day.'], ['Ravi', 'There is a café nearby that makes tomato soup.'], ['Lena', 'Perfect. Do they have fresh bread too?'], ['Ravi', 'Yes. We can share a sandwich rather than order two.'], ['Lena', 'That sounds good. Let us go before it gets busy.']]
+            ]
+        },
+        11: {
+            lab: [
+                ['Would you like...?', ['Would you like a table by the window?', 'Would you like to hear today\'s specials?'], 'Você gostaria de água com gás?', 'Would you like sparkling water?'],
+                ['I would like...', ['I would like the vegetable curry.', 'I would like to make a reservation for two.'], 'Eu gostaria da sopa do dia.', 'I would like the soup of the day.'],
+                ['Are you ready to order?', ['Are you ready to order, or do you need more time?', 'I will come back when you are ready to order.'], 'Vocês estão prontos para pedir?', 'Are you ready to order?'],
+                ['anything else', ['Can I bring you anything else?', 'We do not need anything else, thank you.'], 'Vocês precisam de mais alguma coisa?', 'Do you need anything else?'],
+                ['Could we have the bill?', ['Could we have the bill when you have a moment?', 'Excuse me, could we have the bill, please?'], 'Poderia trazer a conta separada?', 'Could we have separate bills?'],
+                ['without', ['I will have the sandwich without cheese.', 'Can I get the sauce without garlic?'], 'Quero a salada sem tomate.', 'I would like the salad without tomatoes.'],
+                ['There is a mistake with my order.', ['There is a mistake with my order; I asked for soup.', 'Excuse me, there is a mistake with our order.'], 'Há um erro no meu pedido: pedi peixe.', 'There is a mistake with my order: I ordered fish.'],
+                ['Could you leave out...?', ['Could you leave out the chili?', 'Could you leave out the nuts, please?'], 'Você poderia tirar o queijo?', 'Could you leave out the cheese?']
+            ],
+            dialogues: [
+                [['Server', 'Good evening. Would you like a table by the window?'], ['Guest', 'Yes, please. A table for two would be perfect.'], ['Server', 'Here are the menus. Would you like something to drink?'], ['Guest', 'I would like sparkling water, please.'], ['Server', 'Of course. Are you ready to order, or do you need more time?'], ['Guest', 'We are ready. I would like the grilled fish without the cream sauce.'], ['Server', 'Certainly. Would you like anything else?'], ['Guest', 'A green salad, please. Could you leave out the onions?']],
+                [['Guest', 'Excuse me, there is a mistake with my order.'], ['Server', 'I am sorry. What did you order?'], ['Guest', 'I ordered the vegetable pasta, but this one has chicken.'], ['Server', 'You are right. I will replace it immediately.'], ['Guest', 'Thank you. Could you also bring some water?'], ['Server', 'Of course. Is there anything else I can do?'], ['Guest', 'No, thank you. Could we have the bill after the pasta arrives?'], ['Server', 'Certainly, and I will remove the wrong dish from the bill.']]
+            ]
+        },
+        13: {
+            lab: [
+                ['be in a good mood', ['The whole team is in a good mood today.', 'I am usually in a good mood after a walk.'], 'Ela está de bom humor esta manhã.', 'She is in a good mood this morning.'],
+                ['be in a bad mood', ['Do not take it personally; he is in a bad mood.', 'I was in a bad mood after the long meeting.'], 'Por que você está de mau humor?', 'Why are you in a bad mood?'],
+                ['be in the mood for', ['We are in the mood for a comedy.', 'He is not in the mood for a long conversation.'], 'Estou a fim de uma noite tranquila.', 'I am in the mood for a quiet evening.'],
+                ['smile at', ['The baby smiled at everyone.', 'She smiled at me across the room.'], 'Ele sorriu para a nova colega.', 'He smiled at the new coworker.'],
+                ['give someone space', ['She looks overwhelmed, so give her some space.', 'Sometimes I need to give myself space to think.'], 'Vamos dar um pouco de espaço a ele.', 'Let us give him some space.'],
+                ['cheer up', ['A funny message cheered me up.', 'Cheer up! Tomorrow will be easier.'], 'Esse filme sempre me anima.', 'This movie always cheers me up.'],
+                ['Is everything okay?', ['You seem distracted. Is everything okay?', 'Is everything okay at home?'], 'Você está muito quieta. Está tudo bem?', 'You are very quiet. Is everything okay?'],
+                ['Do you want to talk about it?', ['You look worried. Do you want to talk about it?', 'I am here if you want to talk about it.'], 'Você parece chateado. Quer conversar sobre isso?', 'You seem upset. Do you want to talk about it?']
+            ],
+            dialogues: [
+                [['Alex', 'You have been very quiet today. Is everything okay?'], ['Clara', 'I had a difficult morning, and I am in a bad mood.'], ['Alex', 'I am sorry. Do you want to talk about it?'], ['Clara', 'Not right now. I think I need a little space.'], ['Alex', 'Of course. I will be in the kitchen if you need me.'], ['Clara', 'Thanks for understanding and not taking it personally.'], ['Alex', 'No problem. Maybe we can watch a comedy later to cheer you up.'], ['Clara', 'That might help. I may be in the mood for one after dinner.']],
+                [['Clara', 'Your new coworker smiled at everyone during the meeting.'], ['Alex', 'Yes, Sam is usually cheerful and easy to talk to.'], ['Clara', 'Was Sam in a good mood even during the busy afternoon?'], ['Alex', 'Mostly, but I could see that the pressure was difficult.'], ['Clara', 'Did you ask if everything was okay?'], ['Alex', 'I did. Sam wanted to finish the task before talking.'], ['Clara', 'It was thoughtful of you to give Sam some space.'], ['Alex', 'Later we had coffee, and the conversation cheered us both up.']]
+            ]
+        },
+        15: {
+            lab: [
+                ['What happened?', ['You look worried. What happened?', 'What happened near the entrance?'], 'Você está mancando. O que aconteceu?', 'You are limping. What happened?'],
+                ['What happened to...?', ['What happened to your shoulder?', 'What happened to the bicycle?'], 'O que aconteceu com o braço dela?', 'What happened to her arm?'],
+                ['Have you ever...?', ['Have you ever needed stitches?', 'Have you ever fallen off a bike?'], 'Você já machucou o tornozelo?', 'Have you ever hurt your ankle?'],
+                ['Be careful!', ['Be careful! That knife is sharp.', 'Be careful when you walk down the wet stairs.'], 'Cuidado! O chão está escorregadio.', 'Be careful! The floor is slippery.'],
+                ['hurt yourself', ['He hurt himself while lifting a box.', 'Be careful not to hurt yourself.'], 'Ela se machucou durante o treino.', 'She hurt herself during practice.'],
+                ['call for help', ['Call for help if the pain gets worse.', 'A neighbor heard the noise and called for help.'], 'Ele caiu e pediu ajuda.', 'He fell and called for help.'],
+                ['Are you all right?', ['That was a hard fall. Are you all right?', 'Are you all right, or should I call someone?'], 'Você bateu a cabeça. Está bem?', 'You hit your head. Are you all right?'],
+                ['Stay where you are.', ['Stay where you are; I am coming to you.', 'If you feel dizzy, stay where you are.'], 'Fique onde está; vou buscar ajuda.', 'Stay where you are; I will get help.']
+            ],
+            dialogues: [
+                [['Riley', 'Excuse me, could you help me? I fell near the bridge.'], ['Sam', 'Of course. Are you all right?'], ['Riley', 'I think so, but my ankle hurts when I stand.'], ['Sam', 'Stay where you are. Do not try to walk yet.'], ['Riley', 'Should we call for help?'], ['Sam', 'Yes. I will call the park office and explain what happened.'], ['Riley', 'Thank you. I was running too fast on the wet path.'], ['Sam', 'The ground is slippery today. Be careful when you move your foot.']],
+                [['Riley', 'What happened to your hand?'], ['Sam', 'I cut myself while I was preparing dinner.'], ['Riley', 'That looks painful. Have you ever had a cut like that before?'], ['Sam', 'No, but I cleaned it and put on a bandage right away.'], ['Riley', 'Are you all right now?'], ['Sam', 'Yes. It is not deep, but I need to be more careful.'], ['Riley', 'Do you want me to finish cutting the vegetables?'], ['Sam', 'Please. I do not want to hurt myself again tonight.']]
+            ]
+        },
+        17: {
+            lab: [
+                ['How much does it cost?', ['How much does the larger suitcase cost?', 'This lamp has no price tag. How much does it cost?'], 'Quanto custa este par de sapatos?', 'How much does this pair of shoes cost?'],
+                ['pay for', ['Who is going to pay for the tickets?', 'I paid for the repair by card.'], 'Ela pagou pelo presente.', 'She paid for the gift.'],
+                ['both of us', ['This table is big enough for both of us.', 'The store gave both of us a discount.'], 'Esse horário funciona para nós dois.', 'This time works for both of us.'],
+                ['on sale', ['All winter coats are on sale.', 'I bought this laptop when it was on sale.'], 'A mochila azul está em promoção.', 'The blue backpack is on sale.'],
+                ['good value', ['The basic model is good value.', 'This hotel is good value for families.'], 'Esse casaco parece ter bom custo-benefício.', 'This coat looks like good value.'],
+                ['try on', ['Where can I try on this jacket?', 'She tried the shoes on before buying them.'], 'Posso experimentar o tamanho menor?', 'Can I try on the smaller size?'],
+                ['Does that include delivery?', ['The desk costs two hundred dollars. Does that include delivery?', 'Does that price include delivery and installation?'], 'Custa oitenta reais. Isso inclui a entrega?', 'It costs eighty reais. Does that include delivery?'],
+                ['I will take it.', ['The size is right, so I will take it.', 'If the warranty is included, I will take it.'], 'Está dentro do meu orçamento. Vou levar.', 'It is within my budget. I will take it.']
+            ],
+            dialogues: [
+                [['Mia', 'Excuse me, how much does this blue jacket cost?'], ['Noah', 'It is eighty dollars, and it is on sale today.'], ['Mia', 'Can I try on the medium size?'], ['Noah', 'Certainly. The fitting rooms are next to the mirrors.'], ['Mia', 'The fit is good, but is the fabric durable?'], ['Noah', 'Yes. It is more durable than the gray one and good value.'], ['Mia', 'Great. Can I pay by card?'], ['Noah', 'Of course.'], ['Mia', 'Then I will take it.']],
+                [['Mia', 'Which desk do you think is better for our office?'], ['Noah', 'The larger one works for both of us, but it costs more.'], ['Mia', 'How much does it cost?'], ['Noah', 'It is two hundred and forty dollars.'], ['Mia', 'Does that include delivery?'], ['Noah', 'No, delivery is another twenty dollars.'], ['Mia', 'The smaller desk is on sale and includes delivery.'], ['Noah', 'Then it may be better value. Let us take that one.']]
+            ]
+        },
+        19: {
+            lab: [
+                ['Can I borrow...?', ['Can I borrow your notes after class?', 'Could I borrow this book for the weekend?'], 'Posso pegar seu guarda-chuva emprestado?', 'Can I borrow your umbrella?'],
+                ['lend someone something', ['My neighbor lent me a ladder.', 'Could you lend Ana your dictionary?'], 'Você pode me emprestar dez reais?', 'Could you lend me ten reais?'],
+                ['Neither of them', ['Neither of them has the correct charger.', 'I tried two coats, but neither of them fit.'], 'Nenhum dos dois está disponível hoje.', 'Neither of them is available today.'],
+                ['None of them', ['I checked four stores, but none of them had it.', 'None of them wants to wait.'], 'Nenhum deles aceita cartão.', 'None of them accepts cards.'],
+                ['I do not mind + -ing', ['I do not mind sharing the room.', 'She does not mind waiting a few minutes.'], 'Eu não me importo de devolver amanhã.', 'I do not mind returning it tomorrow.'],
+                ['pay back', ['I can pay you back on Friday.', 'He paid me back as soon as he got his salary.'], 'Vou te pagar de volta depois do almoço.', 'I will pay you back after lunch.'],
+                ['Could you do me a favor?', ['Could you do me a favor and hold this bag?', 'Could you do me a favor before you leave?'], 'Você poderia me fazer um favor e imprimir isto?', 'Could you do me a favor and print this?'],
+                ['by the end of the day', ['Please send the file by the end of the day.', 'I can return the keys by the end of the day.'], 'Vou devolver o carregador até o fim do dia.', 'I will return the charger by the end of the day.']
+            ],
+            dialogues: [
+                [['Ben', 'Could you do me a favor? My phone battery is almost dead.'], ['Aisha', 'Sure. What do you need?'], ['Ben', 'Can I borrow your charger during the meeting?'], ['Aisha', 'Of course. I do not mind lending it to you.'], ['Ben', 'Thanks. I will return it by the end of the day.'], ['Aisha', 'That is fine, but please leave it on my desk.'], ['Ben', 'I will. Do you need your power bank too?'], ['Aisha', 'No. I brought two, and neither of them is empty.']],
+                [['Aisha', 'Could you lend me twenty dollars for lunch?'], ['Ben', 'I only have ten in cash, but you can borrow that.'], ['Aisha', 'Thanks. I will pay you back tomorrow morning.'], ['Ben', 'No hurry. I do not mind waiting until Friday.'], ['Aisha', 'I checked three payment apps, but none of them is working.'], ['Ben', 'The café may accept a bank transfer.'], ['Aisha', 'I asked. Neither of the two accounts worked.'], ['Ben', 'Then take the cash. We can solve the rest later.']]
+            ]
+        },
+        21: {
+            lab: [
+                ['used to', ['My sister and I used to share a room.', 'Did you use to visit your grandparents every weekend?'], 'Nós costumávamos conversar por horas.', 'We used to talk for hours.'],
+                ['be used to', ['He is used to living alone.', 'I am not used to such a large family dinner.'], 'Ela está acostumada com o barulho das crianças.', 'She is used to the noise from the children.'],
+                ['get used to', ['You will get used to the new routine.', 'It took me time to get used to sharing an office.'], 'Estou me acostumando a morar longe da família.', 'I am getting used to living far from my family.'],
+                ['grow up together', ['We grew up together in a small town.', 'They grew up together and still meet every month.'], 'Meus primos e eu crescemos juntos.', 'My cousins and I grew up together.'],
+                ['keep in touch', ['Let us keep in touch after the course.', 'I keep in touch with my childhood friends online.'], 'Você ainda mantém contato com ela?', 'Do you still keep in touch with her?'],
+                ['be there for someone', ['My best friend was there for me during a difficult year.', 'Families can be there for one another in different ways.'], 'Quero estar presente para meu irmão.', 'I want to be there for my brother.'],
+                ['We have a lot in common.', ['We both love old films; we have a lot in common.', 'Although we have a lot in common, we do not agree on everything.'], 'Nós dois gostamos de viajar. Temos muito em comum.', 'We both like traveling. We have a lot in common.'],
+                ['We lost touch.', ['We lost touch when she moved abroad.', 'After college, we lost touch for several years.'], 'Nós perdemos contato depois da escola.', 'We lost touch after school.']
+            ],
+            dialogues: [
+                [['Maya', 'How do you know Sofia?'], ['Daniel', 'We grew up together and used to live on the same street.'], ['Maya', 'Do you still keep in touch?'], ['Daniel', 'Yes. We message each other every week.'], ['Maya', 'You must have a lot in common.'], ['Daniel', 'We do, especially music and hiking.'], ['Maya', 'Has she always been there for you?'], ['Daniel', 'Absolutely. She supported me when I moved to a new city.']],
+                [['Daniel', 'I saw a photo of your cousin online. Are you close?'], ['Maya', 'We used to be, but we lost touch after university.'], ['Daniel', 'Would you like to contact her again?'], ['Maya', 'Yes, but I am not used to starting conversations after so long.'], ['Daniel', 'You will get used to it once you send the first message.'], ['Maya', 'Maybe I can mention that we grew up together.'], ['Daniel', 'Exactly. Tell her you would like to keep in touch again.'], ['Maya', 'I will. It is important to be there for family.']]
+            ]
+        },
+        23: {
+            lab: [
+                ['in fashion', ['Bright colors are in fashion this season.', 'Are leather jackets still in fashion?'], 'Calças largas estão na moda novamente.', 'Wide pants are in fashion again.'],
+                ['out of fashion', ['That cut went out of fashion years ago.', 'Some trends go out of fashion very quickly.'], 'Esse tipo de chapéu está fora de moda.', 'That kind of hat is out of fashion.'],
+                ['come back into fashion', ['Old sneakers have come back into fashion.', 'That pattern may come back into fashion next year.'], 'As jaquetas curtas voltaram à moda.', 'Short jackets have come back into fashion.'],
+                ['try on', ['I would like to try on the black dress.', 'Try these trousers on and check the length.'], 'Ela experimentou três casacos.', 'She tried on three coats.'],
+                ['go with', ['This belt goes with your shoes.', 'Which shirt goes with these trousers?'], 'Essa bolsa combina com o vestido azul.', 'This bag goes with the blue dress.'],
+                ['instead of', ['I wore sneakers instead of formal shoes.', 'Repair the zipper instead of replacing the jacket.'], 'Vou usar uma saia em vez de calça.', 'I will wear a skirt instead of trousers.'],
+                ['Does this suit me?', ['I like the color, but does it suit me?', 'Does this shorter haircut suit me?'], 'Este estilo combina comigo?', 'Does this style suit me?'],
+                ['dress up', ['We need to dress up for the wedding.', 'He enjoys dressing up for special events.'], 'Vamos nos vestir de forma elegante para o jantar.', 'We are going to dress up for dinner.']
+            ],
+            dialogues: [
+                [['Lia', 'Excuse me, can I try on this green jacket?'], ['Tom', 'Of course. The fitting room is on your left.'], ['Lia', 'I like the color, but does this style suit me?'], ['Tom', 'Yes, and it goes well with the trousers you are wearing.'], ['Lia', 'Are shorter jackets still in fashion?'], ['Tom', 'They have come back into fashion this year.'], ['Lia', 'Maybe I will choose this instead of the longer one.'], ['Tom', 'Good choice. The shorter one also fits you better.']],
+                [['Lia', 'Do we need to dress up for the company dinner?'], ['Tom', 'A little. I am going to wear a dark shirt and smart trousers.'], ['Lia', 'I was thinking of wearing sneakers instead of heels.'], ['Tom', 'That could work if the sneakers go with your dress.'], ['Lia', 'They are simple and white. Are those still in fashion?'], ['Tom', 'Yes, and comfort never really goes out of fashion.'], ['Lia', 'True. I will try the whole outfit on tonight.'], ['Tom', 'Send me a picture if you want a second opinion.']]
+            ]
+        },
+        25: {
+            lab: [
+                ['What should I do?', ['I made a mistake at work. What should I do?', 'The two options are good. What should I do?'], 'Perdi o prazo. O que eu deveria fazer?', 'I missed the deadline. What should I do?'],
+                ['You should...', ['You should speak to her in person.', 'You should write down the advantages and disadvantages.'], 'Você deveria pedir desculpas primeiro.', 'You should apologize first.'],
+                ['care about', ['I care about keeping our friendship strong.', 'He cares about what his team thinks.'], 'Ela se importa em fazer um trabalho honesto.', 'She cares about doing honest work.'],
+                ['tell the truth', ['It is difficult, but you need to tell the truth.', 'He finally told the truth about the mistake.'], 'Você deveria contar a verdade ao seu chefe.', 'You should tell your boss the truth.'],
+                ['instead of', ['Call her instead of sending another text.', 'Let us look for a solution instead of blaming someone.'], 'Converse com ele em vez de discutir.', 'Talk to him instead of arguing.'],
+                ['think it over', ['You do not have to decide today; think it over.', 'She thought the offer over before answering.'], 'Vou pensar melhor antes de responder.', 'I will think it over before I answer.'],
+                ['If I were you,...', ['If I were you, I would ask for more time.', 'If I were you, I would listen before giving advice.'], 'Se eu fosse você, falaria com ela amanhã.', 'If I were you, I would talk to her tomorrow.'],
+                ['It is up to you.', ['I can share my opinion, but it is up to you.', 'You can stay or leave; it is up to you.'], 'A decisão é sua.', 'It is up to you.']
+            ],
+            dialogues: [
+                [['Ana', 'I forgot my friend\'s birthday. What should I do?'], ['Luis', 'If I were you, I would call her and tell the truth.'], ['Ana', 'Should I send a message instead of calling?'], ['Luis', 'A call feels more personal, especially if you care about the friendship.'], ['Ana', 'You are right. I should apologize without making excuses.'], ['Luis', 'Exactly, and you could invite her to lunch this weekend.'], ['Ana', 'I will think it over and call her tonight.'], ['Luis', 'Good plan, but the final choice is up to you.']],
+                [['Luis', 'My manager offered me a new position, but it means longer hours.'], ['Ana', 'That is a big decision. What matters most to you?'], ['Luis', 'I care about growing professionally, but I also need family time.'], ['Ana', 'You should ask whether the schedule is flexible.'], ['Luis', 'Should I answer today or ask for more time?'], ['Ana', 'If I were you, I would ask for two days to think it over.'], ['Luis', 'That sounds sensible instead of deciding under pressure.'], ['Ana', 'Exactly. Gather the facts, and then it is up to you.']]
+            ]
+        },
+        27: {
+            lab: [
+                ['the best...in', ['This is the best bakery in the neighborhood.', 'Which is the best beach in the region?'], 'É o melhor hotel da cidade.', 'It is the best hotel in the city.'],
+                ['the worst part', ['The worst part was waiting in the rain.', 'What was the worst part of the journey?'], 'O barulho foi a pior parte.', 'The noise was the worst part.'],
+                ['one of the best', ['That was one of the best concerts I have seen.', 'It is one of the best parks for children.'], 'Este é um dos melhores cafés da região.', 'This is one of the best cafés in the area.'],
+                ['by far', ['The morning tour was by far the least crowded.', 'This is by far the most comfortable chair.'], 'Foi de longe a melhor opção.', 'It was by far the best option.'],
+                ['the least', ['Monday is the least busy day.', 'Which route is the least expensive?'], 'Esta sala é a menos barulhenta.', 'This room is the least noisy.'],
+                ['worth it', ['The tickets were expensive, but the show was worth it.', 'Is the longer tour worth it?'], 'A subida foi difícil, mas valeu a pena.', 'The climb was difficult, but it was worth it.'],
+                ['What would you recommend?', ['I only have two hours. What would you recommend?', 'What would you recommend for a first visit?'], 'Quero experimentar comida local. O que você recomendaria?', 'I want to try local food. What would you recommend?'],
+                ['avoid the crowds', ['Visit early to avoid the crowds.', 'We took a side street to avoid the crowds.'], 'Vamos durante a semana para evitar as multidões.', 'Let us go during the week to avoid the crowds.']
+            ],
+            dialogues: [
+                [['Visitor', 'I have one free afternoon. What would you recommend?'], ['Local', 'The science museum is one of the best places in the city.'], ['Visitor', 'Is it usually crowded?'], ['Local', 'Go after three o\'clock to avoid the crowds.'], ['Visitor', 'Which exhibit is the most interesting?'], ['Local', 'The space exhibit is by far the most popular.'], ['Visitor', 'The ticket is a little expensive. Is it worth it?'], ['Local', 'Definitely. The only bad part is that two hours may feel too short.']],
+                [['Local', 'How was your weekend at the coast?'], ['Visitor', 'Wonderful. It was one of the best short trips I have taken.'], ['Local', 'Which beach did you like most?'], ['Visitor', 'North Beach was by far the quietest and cleanest.'], ['Local', 'What was the worst part of the trip?'], ['Visitor', 'The traffic. Next time I will leave earlier to avoid the crowds.'], ['Local', 'Was the long drive worth it?'], ['Visitor', 'Yes. Sunday morning was the best part of the whole weekend.']]
+            ]
+        },
+        29: {
+            lab: [
+                ['I hope so.', ['Do you think the interview will go well? — I hope so.', 'Will we finish on time? — I hope so.'], 'Você acha que o tempo vai melhorar? — Espero que sim.', 'Do you think the weather will improve? — I hope so.'],
+                ['It depends on...', ['It depends on how much time we have.', 'The final date depends on the client.'], 'Depende do meu novo horário.', 'It depends on my new schedule.'],
+                ['right away', ['Please tell me right away if anything changes.', 'She answered the email right away.'], 'Vou começar o projeto imediatamente.', 'I will start the project right away.'],
+                ['right after', ['We will celebrate right after the exam.', 'Call me right after you arrive.'], 'Vou caminhar logo depois do trabalho.', 'I will go for a walk right after work.'],
+                ['right before', ['I checked the address right before I left.', 'Do not drink coffee right before bed.'], 'Ela revisa as notas logo antes da reunião.', 'She reviews her notes right before the meeting.'],
+                ['look forward to', ['We look forward to seeing you again.', 'I am looking forward to starting the course.'], 'Estou ansioso para conhecer a nova equipe.', 'I look forward to meeting the new team.'],
+                ['one step at a time', ['Let us solve the problem one step at a time.', 'She is rebuilding her routine one step at a time.'], 'Vou aprender isso um passo de cada vez.', 'I will learn this one step at a time.'],
+                ['stick to the plan', ['We can reach the goal if we stick to the plan.', 'It was difficult to stick to the plan during the holidays.'], 'Quero seguir o plano desta vez.', 'I want to stick to the plan this time.']
+            ],
+            dialogues: [
+                [['Mina', 'What are you hoping to change next year?'], ['Carlos', 'I want to exercise regularly and improve my English.'], ['Mina', 'That sounds ambitious. How are you going to begin?'], ['Carlos', 'One step at a time. I will start with two short study sessions a week.'], ['Mina', 'When will you exercise?'], ['Carlos', 'Right after work on Tuesdays and Thursdays.'], ['Mina', 'Do you think you can stick to the plan?'], ['Carlos', 'I hope so. It depends on keeping the routine realistic.']],
+                [['Carlos', 'Are you looking forward to starting your new job?'], ['Mina', 'Yes, but I am also a little nervous.'], ['Carlos', 'When do you begin?'], ['Mina', 'Next Monday. I will review my notes right before the first meeting.'], ['Carlos', 'What will you do if you do not understand something?'], ['Mina', 'I will ask right away instead of pretending I understand.'], ['Carlos', 'That is a good plan. Do you think the team will be supportive?'], ['Mina', 'I hope so. It depends on the project, but everyone seems friendly.']]
+            ]
+        }
+    };
+
+    const expressionLabFromRows = rows => Object.fromEntries(rows.map(([term, examples, promptPt, answer]) => [term, { examples, promptPt, answer }]));
+
     const lesson = (lessonNumber, config) => {
         const { routeOptions, ...authored } = config;
         const expansion = PRESENTATION_EXPANSION[lessonNumber];
         if (expansion) { authored.vocab = [...authored.vocab, ...expansion.vocab]; authored.expressions = [...authored.expressions, ...expansion.expressions]; }
+        const oheEnrichment = OHE_ENRICHMENT[lessonNumber];
+        if (oheEnrichment) {
+            authored.expressionLab = expressionLabFromRows(oheEnrichment.lab);
+            authored.dialogues = oheEnrichment.dialogues;
+        }
         const homeworkTasks = HOMEWORK_TASKS[lessonNumber];
         if (!homeworkTasks) throw new Error(`A2-V3 L${lessonNumber}: missing authored homework tasks.`);
         return Object.freeze({
@@ -1004,8 +1240,71 @@
             examples: ['Could you help me?', 'Walk past the bank.', 'How long does it take on foot?', 'It takes about fifteen minutes.'],
             helpingYou: [['At the corner', 'Use at quando a esquina é o ponto de ação.', 'Turn left at the corner.'], ['On the corner', 'Use on para dizer onde um prédio fica localizado.', 'The bank is on the corner.'], ['On foot', 'Para dizer “a pé”, use on foot, nunca by foot.', 'It takes ten minutes on foot.']],
             expressions: [['Excuse me.', 'Com licença.', 'Use para iniciar o contato com educação.', 'Excuse me. Could you help me?'], ['How do I get to...?', 'Como chego a...?', 'Use get to antes do destino.', 'How do I get to the station?'], ['go straight', 'seguir reto', 'Bloco de instrução no imperativo.', 'Go straight for two blocks.'], ['walk past', 'passar por', 'Past indica movimento além de um ponto.', 'Walk past the pharmacy.'], ['across from', 'em frente a', 'Across from indica lados opostos.', 'It is across from the bank.'], ['on foot', 'a pé', 'Aprenda a preposição on como parte do bloco.', 'I usually go on foot.']],
-            translations: [{ pt: 'Com licença. Você poderia me ajudar?', en: 'Excuse me. Could you help me?' }, { pt: 'Como eu chego à estação?', en: 'How do I get to the station?' }, { pt: 'Siga reto por dois quarteirões.', en: 'Go straight for two blocks.' }, { pt: 'Passe pelo banco e vire à esquerda.', en: 'Walk past the bank and turn left.' }, { pt: 'O museu fica em frente ao parque.', en: 'The museum is across from the park.' }, { pt: 'Quanto tempo leva de ônibus?', en: 'How long does it take by bus?' }, { pt: 'Leva cerca de quinze minutos.', en: 'It takes about fifteen minutes.' }, { pt: 'Não é longe daqui.', en: 'It is not far from here.' }],
-            dialogues: [[['A', 'Is there a bank nearby?'], ['B', 'Yes. It is on the corner, across from the café.']], [['A', 'How long does it take to get downtown?'], ['B', 'About twenty minutes by subway.']]],
+            expressionLab: {
+                'Excuse me.': {
+                    examples: ['Excuse me. Is there a bus stop near here?', 'Excuse me. I think I am lost.'],
+                    promptPt: 'Com licença. Você poderia me ajudar a encontrar a estação?',
+                    answer: 'Excuse me. Could you help me find the station?'
+                },
+                'How do I get to...?': {
+                    examples: ['How do I get to the city center from here?', 'How do I get to the nearest subway station?'],
+                    promptPt: 'Como eu chego ao hospital?',
+                    answer: 'How do I get to the hospital?'
+                },
+                'go straight': {
+                    examples: ['Go straight until you reach the square.', 'Go straight and cross the bridge.'],
+                    promptPt: 'Siga reto até chegar ao semáforo.',
+                    answer: 'Go straight until you reach the traffic light.'
+                },
+                'walk past': {
+                    examples: ['Walk past the park and turn right.', 'Walk past the hotel; the station is on your left.'],
+                    promptPt: 'Passe pela padaria e vire à esquerda.',
+                    answer: 'Walk past the bakery and turn left.'
+                },
+                'across from': {
+                    examples: ['The bus stop is across from the hotel.', 'The café is across from the main entrance.'],
+                    promptPt: 'A biblioteca fica em frente ao café.',
+                    answer: 'The library is across from the café.'
+                },
+                'on foot': {
+                    examples: ['The museum is only ten minutes away on foot.', 'Can we get there on foot?'],
+                    promptPt: 'Leva cerca de quinze minutos a pé.',
+                    answer: 'It takes about fifteen minutes on foot.'
+                },
+                'Am I going the right way?': {
+                    examples: ['Am I going the right way to the station?', 'Excuse me, am I going the right way to the bridge?'],
+                    promptPt: 'Estou indo pelo caminho certo para o centro?',
+                    answer: 'Am I going the right way to the city center?'
+                },
+                'How long does it take?': {
+                    examples: ['How long does it take by subway?', 'How long does it take to walk there?'],
+                    promptPt: 'Quanto tempo leva de carro?',
+                    answer: 'How long does it take by car?'
+                }
+            },
+            translations: [{ pt: 'Você poderia me ajudar a encontrar o museu?', en: 'Could you help me find the museum?' }, { pt: 'Existe uma farmácia por perto?', en: 'Is there a pharmacy nearby?' }, { pt: 'Vire à direita na esquina.', en: 'Turn right at the corner.' }, { pt: 'Atravesse a ponte e continue reto.', en: 'Cross the bridge and continue straight.' }, { pt: 'A entrada fica ao lado do café.', en: 'The entrance is next to the café.' }, { pt: 'O banco fica na esquina.', en: 'The bank is on the corner.' }, { pt: 'A viagem leva cerca de vinte minutos de metrô.', en: 'The trip takes about twenty minutes by subway.' }, { pt: 'Não é longe daqui.', en: 'It is not far from here.' }],
+            dialogues: [
+                [
+                    ['Tourist', 'Excuse me. Is there a bank nearby?'],
+                    ['Local', 'Yes. Go straight for one block and turn right at the traffic light.'],
+                    ['Tourist', 'Is it on the corner?'],
+                    ['Local', 'Not exactly. It is across from the café, next to the pharmacy.'],
+                    ['Tourist', 'Am I going the right way if I walk past the square?'],
+                    ['Local', 'Yes. The bank will be on your left after the square.'],
+                    ['Tourist', 'Great. How long does it take on foot?'],
+                    ['Local', 'About seven minutes from here.']
+                ],
+                [
+                    ['Tourist', 'Could you help me? How do I get to the City Museum?'],
+                    ['Local', 'Take the number twelve bus from the station and get off at the stop after the bridge.'],
+                    ['Tourist', 'How long does it take by bus?'],
+                    ['Local', 'About fifteen minutes, but the next bus does not arrive for twenty minutes.'],
+                    ['Tourist', 'Can I get there on foot instead?'],
+                    ['Local', 'Yes, but it takes about thirty minutes. Cross the bridge and walk past the park.'],
+                    ['Tourist', 'Is the museum entrance across from the café?'],
+                    ['Local', 'Exactly. You will see the main entrance straight ahead.']
+                ]
+            ],
             readingTitle: 'A Clear Route to the Museum',
             reading: 'Nina asks a local for help because her phone has no signal. The local tells her to go straight for two blocks, cross a small bridge, and turn right at the traffic light. The museum entrance is across from a café. The route takes about twelve minutes on foot, and Nina repeats the directions before she leaves.',
             readingQuestions: [{ question: 'Why does Nina ask for help?', answer: 'Because her phone has no signal.' }, { question: 'What does she cross?', answer: 'She crosses a small bridge.' }, { question: 'Where is the entrance?', answer: 'It is across from a café.' }, { question: 'How long does the route take?', answer: 'It takes about twelve minutes on foot.' }],

@@ -8,6 +8,7 @@
 | A2 lexical | `a2-v3/a2-v3-template.js` | `a2-v3/a2-v3-presentation-data.js` + `js/v3-presentation.js` | perfis legados quando `disableLegacyEditorial` está ativo |
 | A2 conversação | `a2-v3/a2-v3-conversation-template.js`, ligado por `sourceLesson` | `a2-v3/a2-v3-presentation-data.js` + `js/v3-presentation.js` | pares deduzidos por uma numeração antiga |
 | Música A1/A2/B1 | `js/music-catalog-v3.js`, por `curriculumId` | `js/lyrics-service-v3.js` + `js/spotify-embed-v3.js` + `js/music-cloze-v3.js` | `music.lines`, mapas por número, letra persistida |
+| Decks de flashcards A1/A2 V3 | Seções cards/verbs das fontes canônicas acima; geração com `tools/build-v3-flashcard-decks.cjs` | `js/a1-v3-flashcards.json`, `js/a2-v3-flashcards.json` + `js/flashcards-app.js` | editar JSON gerado manualmente ou usar `js/vocabulary.js` como currículo V3 |
 | B1 lexical e consolidações | `js/b1-v3-lessons-data.js` e `js/b1-v3-lessons-block*.js`; L1 expandida em `b1-v3/b1-v3-presentation-data.js` | L1: `js/v3-presentation.js`; demais: `js/b1-v3-lesson-player.js` | texto autoral apresentado como letra comercial |
 | B1 conversação | `b1-v3/b1-v3-communicative-data.js`, com vínculo ao manifesto; perfil de L2 reaproveitado de `b1-v3/b1-v3-presentation-data.js` | `js/v3-presentation.js` | reviews geradas, blocos e adaptador antigo nas páginas comunicativas |
 | B2/C1 | `js/advanced-v3-lessons-data.js` | `js/advanced-v3-lesson-player.js` | conteúdo copiado de outro nível sem contrato |

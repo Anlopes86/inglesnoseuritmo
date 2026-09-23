@@ -13,9 +13,9 @@ function harness() {
         firebase:{firestore:{FieldValue:{serverTimestamp:()=>new Date()}}},window:{setTimeout(){},matchMedia:()=>({matches:false})}});
     const source=fs.readFileSync('js/flashcards-app.js','utf8');
     const end=source.lastIndexOf("    if (document.readyState === 'loading')");
-    vm.runInContext(source.slice(0,end)+`globalThis.test={state,elements,normalizeCard,normalizeRating,getProductionMeaning,renderCurrentCard,revealCard,toggleCard,handleKeyboard,saveCardFromDialog,confirmDeleteCard,renderOverviewStats,setup(){populateLessonFilter=()=>{};notify=()=>{};}};})();`,context);
+    vm.runInContext(source.slice(0,end)+`globalThis.test={state,elements,normalizeCard,normalizeRating,getProductionMeaning,openCardDialog,renderCurrentCard,revealCard,toggleCard,handleKeyboard,saveCardFromDialog,confirmDeleteCard,renderOverviewStats,setup(){populateLessonFilter=()=>{};notify=()=>{};}};})();`,context);
     const a=context.test;a.setup();a.elements['study-deck-meta']=elements['study-deck-meta'];
-    for(const id of ['study-card','card-flip-control','card-front-face','card-back-face','card-front-copy','card-back-copy','card-front-language','card-back-language','card-context-front','card-context-back','card-hint','difficulty-pill','rating-panel','answer-panel','answer-input','answer-feedback','check-answer-button','previous-card-button','next-card-button','card-save-button','card-edit-button','card-delete-button','session-progress-label','session-progress-bar','session-seen','session-review','session-mastered','card-dialog','card-front-input','card-back-input','card-category-input','card-dialog-feedback','save-card-button','delete-dialog','delete-card-confirm','reviewed-count','due-count','custom-count','continue-session','screen-study','study-status','card-area','restart-session-button'])a.elements[id]=elements[id];
+    for(const id of ['study-card','card-flip-control','card-front-face','card-back-face','card-front-copy','card-back-copy','card-front-language','card-back-language','card-context-front','card-context-back','card-hint','difficulty-pill','rating-panel','answer-panel','answer-input','answer-feedback','check-answer-button','previous-card-button','next-card-button','card-save-button','card-edit-button','card-delete-button','session-progress-label','session-progress-bar','session-seen','session-review','session-mastered','card-dialog','card-dialog-title','card-front-input','card-back-input','card-category-input','card-dialog-feedback','save-card-button','delete-dialog','delete-card-confirm','reviewed-count','due-count','custom-count','continue-session','screen-study','study-status','card-area','restart-session-button'])a.elements[id]=elements[id];
     Object.assign(a.state,{ready:true,ownerId:'owner',deckId:'CUSTOM',mode:'recognition'});
     const card=a.normalizeCard({id:'lesson_one',f:'to order',b:'pedir — Formas: to order · ordered · ordered — Exemplo: I order lunch.',l:'Café',source:'lesson-flashcard',module:'a1-v3',curriculumId:'stable-id',lesson:7});
     const next=a.normalizeCard({id:'card_two',f:'bill',b:'conta',l:'Café'});
@@ -35,7 +35,8 @@ function harness() {
     a.handleKeyboard({key:'Enter',target:{closest:()=>e['card-flip-control']},preventDefault(){prevented++;}});assert(a.state.revealed);assert.equal(prevented,1);
     a.handleKeyboard({key:'Enter',target:{closest:()=>({tagName:'BUTTON'})},preventDefault(){throw Error('Native button was hijacked');}});assert(a.state.revealed);
     a.state.ratings={lesson_one:a.normalizeRating({level:'hard',deckId:'CUSTOM'}),lesson_orphan:a.normalizeRating({level:'hard',module:'a1-v3'}),fc_stock:a.normalizeRating({level:'easy',module:'A1'})};
-    a.renderOverviewStats();assert.equal(e['reviewed-count'].textContent,'2');assert.equal(e['due-count'].textContent,'1');
+    a.state.ratings.v3fc_example=a.normalizeRating({level:'easy',module:'a1-v3',deckId:'A1_V3'});
+    a.renderOverviewStats();assert.equal(e['reviewed-count'].textContent,'3');assert.equal(e['due-count'].textContent,'1');
     a.state.editingCardId='lesson_one';e['card-front-input'].value='to order';e['card-back-input'].value='pedir comida';e['card-category-input'].value='Pedidos';
     h.fail(true);await a.saveCardFromDialog();assert.equal(a.state.currentCard.b.includes('Formas:'),true);assert.equal(h.writes(),0);
     h.fail(false);await a.saveCardFromDialog();
@@ -48,5 +49,11 @@ function harness() {
     const helper=fs.readFileSync('js/lesson-flashcard-save.js','utf8');const begin=helper.indexOf('    function studyFields('),end=helper.indexOf('    function ensureModal',begin);
     vm.runInContext(helper.slice(begin,end)+'globalThis.splitBack=studyFields;',h.context);
     const fields=h.context.splitBack('pedir — Formas: to order · ordered · ordered — Exemplo: I order lunch.');assert.equal(fields.meaning,'pedir');assert.equal(fields.forms,'to order · ordered · ordered');assert.equal(fields.example,'I order lunch.');
+    const favorite=harness();favorite.a.state.deckId='A1_V3';
+    const stock=favorite.a.normalizeCard({id:'v3fc_stable',f:'to want',b:'querer',meaning:'querer',module:'a1-v3',curriculumId:'lesson-stable',lesson:7});
+    favorite.a.openCardDialog(stock,{favorite:true});assert.equal(favorite.a.state.editingCardId,null);
+    await favorite.a.saveCardFromDialog();
+    const personal=favorite.a.state.customCards.find(card=>card.f==='to want');assert(personal.id.startsWith('card_'));assert.notEqual(personal.id,stock.id);assert.equal(personal.curriculumId,'lesson-stable');assert.equal(personal.module,'a1-v3');assert.equal(personal.source,'favorite');
+    favorite.documents.set('ratings/v3fc_stable',{level:'easy'});favorite.a.state.pendingDeleteId=personal.id;await favorite.a.confirmDeleteCard();assert(favorite.documents.has('ratings/v3fc_stable'),'deleting a favorite must preserve the stock rating');
     console.log('PASS: production prompts, structured/legacy cards, face accessibility, keyboard controls, orphan statistics, provenance, preserved queue, failed edit, atomic deletion and failed deletion.');
 })().catch(error=>{console.error(error);process.exitCode=1;});

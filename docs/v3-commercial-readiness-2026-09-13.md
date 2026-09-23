@@ -6,7 +6,7 @@ Esta etapa produziu diagnóstico, inventário e reproduções isoladas. Não alt
 
 ## 1. Critério utilizado
 
-A referência é o método aprovado: aula particular conduzida pelo professor por compartilhamento de tela; seções em slides, conteúdo completo dentro da seção, leitura pelo professor e depois pelo aluno, respostas reveladas após a tentativa. A1 tem duas lexicais e uma comunicativa por ciclo; do A2 em diante, uma lexical seguida de uma comunicativa. As comunicativas precisam oferecer assuntos interessantes, repertório cultural e tarefas variadas, com textos originais e reaproveitamento da linguagem anterior.
+A referência é o método continue: aula particular conduzida pelo professor por compartilhamento de tela; seções em slides, conteúdo completo dentro da seção, leitura pelo professor e depois pelo aluno, respostas reveladas após a tentativa. A1 tem duas lexicais e uma comunicativa por ciclo; do A2 em diante, uma lexical seguida de uma comunicativa. As comunicativas precisam oferecer assuntos interessantes, repertório cultural e tarefas variadas, com textos originais e reaproveitamento da linguagem anterior.
 
 Também fazem parte do produto: diálogo inicial, vocabulário e explicações substanciais, verbos no infinitivo com “to”, ouvir e salvar, modo escuro, música nas lexicais imediatamente antes do homework e flashcards utilizáveis no celular. O desenho atual do portal deve ser preservado.
 
