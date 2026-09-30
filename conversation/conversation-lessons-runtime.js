@@ -3,7 +3,8 @@
 
     const lessonNumber = Number(document.body.dataset.lesson);
     const lesson = window.CONVERSATION_LESSONS_01_48?.[lessonNumber]
-        || window.CONVERSATION_LESSONS_49_64?.[lessonNumber];
+        || window.CONVERSATION_LESSONS_49_64?.[lessonNumber]
+        || window.CONVERSATION_SPECIAL_LESSONS?.[lessonNumber];
     if (!lesson) {
         document.body.innerHTML = '<main class="p-10 text-white"><h1>Lesson unavailable</h1><p>This lesson could not be loaded.</p></main>';
         return;
@@ -15,7 +16,9 @@
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
-    const catalogFor = (number) => number <= 48 ? window.ConversationMusicCatalog0148 : window.ConversationMusicCatalog;
+    const catalogFor = (number) => window.CONVERSATION_SPECIAL_LESSONS?.[number]
+        ? window.ConversationSpecialMusicCatalog
+        : number <= 48 ? window.ConversationMusicCatalog0148 : window.ConversationMusicCatalog;
     const catalogEntry = (songIndex) => catalogFor(lessonNumber)?.get(lessonNumber, songIndex) || null;
     const accent = lesson.accent || 'fuchsia';
     const accentText = `text-${accent}-400`;
@@ -130,7 +133,7 @@
                 <div class="text-center">
                     <h2 class="text-4xl font-bold mb-5 ${accentText}"><i class="fas ${escapeHtml(lesson.speaking.icon)}" aria-hidden="true"></i> ${escapeHtml(lesson.speaking.title)}</h2>
                     <div class="bg-gray-800 p-7 rounded-2xl shadow-xl max-w-4xl mx-auto text-left">
-                        <p class="text-xl mb-5"><b class="${accentText}">Choose one prompt.</b> Speak for 2–3 minutes, support your answer with an example, and respond to a counterpoint.</p>
+                        <p class="text-xl mb-5">${lesson.speaking.instruction ? escapeHtml(lesson.speaking.instruction) : `<b class="${accentText}">Choose one prompt.</b> Speak for 2–3 minutes, support your answer with an example, and respond to a counterpoint.`}</p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${lesson.speaking.prompts.map((prompt, index) => `<article class="p-4 bg-gray-700 rounded-xl border-l-4 ${index % 2 ? 'border-amber-500' : accentBorder}"><p class="text-xl"><b>${index + 1}.</b> ${escapeHtml(prompt)}</p></article>`).join('')}</div>
                         <div class="mt-6 bg-gray-700 p-4 rounded-lg border border-gray-600"><p class="text-lg"><i class="fas fa-language ${accentText} mr-2" aria-hidden="true"></i><b>Conversation support:</b> ${lesson.speaking.support.map(escapeHtml).join(' • ')}</p></div>
                     </div>
@@ -168,8 +171,9 @@
             </section>`;
     }
 
-    document.title = `Conversation Class — Lesson ${lessonNumber}: ${lesson.title}`;
-    document.getElementById('lesson-heading').textContent = `Lesson ${lessonNumber}: ${lesson.title}`;
+    const lessonLabel = lesson.label || `Lesson ${lessonNumber}`;
+    document.title = `Conversation Class — ${lessonLabel}: ${lesson.title}`;
+    document.getElementById('lesson-heading').textContent = `${lessonLabel}: ${lesson.title}`;
     document.getElementById('lesson-main').innerHTML = `
         <section class="slide active" data-slide-kind="warmup"><div class="text-center"><h2 class="text-4xl font-bold mb-5 ${accentText}"><i class="fas ${escapeHtml(lesson.icon)}" aria-hidden="true"></i> ${escapeHtml(lesson.warmupTitle)}</h2><div class="bg-gray-800 p-7 rounded-2xl shadow-xl max-w-3xl mx-auto space-y-5 text-2xl"><p class="font-semibold text-gray-300">${escapeHtml(lesson.warmupIntro)}</p>${lesson.warmups.map((question, index) => `<p><i class="fas ${iconFor(index)} mr-2 ${accentText}" aria-hidden="true"></i>${escapeHtml(question)}</p>`).join('')}</div></div></section>
         <section class="slide" data-slide-kind="expressions"><div class="text-center"><h2 class="text-4xl font-bold mb-5 ${accentText}"><i class="fas fa-book-open" aria-hidden="true"></i> Six Useful Expressions</h2><div class="flashcard-grid max-w-6xl mx-auto">${expressionCards()}</div></div></section>

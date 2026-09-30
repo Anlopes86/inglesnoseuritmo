@@ -251,10 +251,11 @@
         if (!root || instances.has(root)) return instances.get(root) || null;
         const lessonNumber = Number(root.dataset.lessonNumber);
         const songIndex = Number(root.dataset.songIndex);
-        const catalog = lessonNumber <= 48
+        const specialEntry = globalScope.ConversationSpecialMusicCatalog?.get?.(lessonNumber, songIndex) || null;
+        const catalog = specialEntry ? globalScope.ConversationSpecialMusicCatalog : lessonNumber <= 48
             ? globalScope.ConversationMusicCatalog0148
             : globalScope.ConversationMusicCatalog;
-        const entry = catalog?.get(lessonNumber, songIndex);
+        const entry = specialEntry || catalog?.get(lessonNumber, songIndex);
         const activity = new ConversationMusicActivity(root, entry);
         instances.set(root, activity);
         activity.start();

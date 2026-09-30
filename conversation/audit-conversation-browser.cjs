@@ -15,9 +15,11 @@ function loadMusicEntries() {
     vm.createContext(context);
     vm.runInContext(fs.readFileSync(path.join(root, 'conversation', 'conversation-music-catalog-01-48.js'), 'utf8'), context);
     vm.runInContext(fs.readFileSync(path.join(root, 'conversation', 'conversation-music-catalog-49-64.js'), 'utf8'), context);
+    vm.runInContext(fs.readFileSync(path.join(root, 'conversation', 'conversation-special-iceland-music-catalog.js'), 'utf8'), context);
     return [
         ...(context.window.ConversationMusicCatalog0148?.records || []),
-        ...(context.window.ConversationMusicCatalog?.records || [])
+        ...(context.window.ConversationMusicCatalog?.records || []),
+        ...(context.window.ConversationSpecialMusicCatalog?.records || [])
     ];
 }
 
@@ -116,7 +118,8 @@ async function auditPage(browser, baseUrl, lessonNumber, profile, capture = fals
         if (message.type() === 'error' && !/favicon|ERR_BLOCKED_BY_CLIENT/i.test(message.text())) errors.push(`console: ${message.text()}`);
     });
     const padded = String(lessonNumber).padStart(2, '0');
-    const url = `${baseUrl}/conversation/licao-${padded}.html`;
+    const lessonFile = lessonNumber === 9001 ? 'licao-especial-islandia.html' : `licao-${padded}.html`;
+    const url = `${baseUrl}/conversation/${lessonFile}`;
     try {
         await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
         await page.waitForSelector('.slide', { timeout: 20000 });
@@ -210,7 +213,7 @@ async function auditPage(browser, baseUrl, lessonNumber, profile, capture = fals
             if (state.overflow > 1) errors.push(`slide ${index + 1}: horizontal overflow ${state.overflow}px`);
             if (!state.footerVisible) errors.push(`slide ${index + 1}: footer not visible`);
             if (state.kind === 'music') {
-                const expectedPublicationStatus = lessonNumber <= 48 ? 'draft-until-provider-match' : 'provider-verified';
+                const expectedPublicationStatus = lessonNumber <= 48 || lessonNumber === 9001 ? 'draft-until-provider-match' : 'provider-verified';
                 if (state.iframes !== 1 || state.cloze !== 1 || state.unavailable !== 0) errors.push(`slide ${index + 1}: music UI failed (iframe ${state.iframes}, cloze ${state.cloze}, unavailable ${state.unavailable})`);
                 if (state.publicationStatus !== expectedPublicationStatus) errors.push(`slide ${index + 1}: publication status is ${state.publicationStatus}; expected ${expectedPublicationStatus}`);
                 if (state.musicState !== 'ready' || state.musicGaps !== 5) errors.push(`slide ${index + 1}: lyrics activity is ${state.musicState} with ${state.musicGaps} gaps`);
@@ -244,7 +247,7 @@ async function auditPage(browser, baseUrl, lessonNumber, profile, capture = fals
 
         if (capture) {
             const targetSlide = lessonNumber === 48 ? 12 : lessonNumber === 39 ? 10 : lessonNumber === 17 || lessonNumber === 35 || lessonNumber === 45 || lessonNumber === 47 ? 2 : 3;
-            const targetSlides = lessonNumber === 31 ? [1, 2, 10] : [targetSlide];
+            const targetSlides = lessonNumber === 9001 ? [0, 4, 7, 11, 12] : lessonNumber === 31 ? [1, 2, 10] : [targetSlide];
             for (const captureSlide of targetSlides) {
                 while (Number((await page.locator('#slide-counter').textContent()).split('/')[0].trim()) - 1 > captureSlide) await page.locator('#prev-btn').click();
                 while (Number((await page.locator('#slide-counter').textContent()).split('/')[0].trim()) - 1 < captureSlide) await page.locator('#next-btn').click();
@@ -273,15 +276,17 @@ async function main() {
     const requestedProfile = process.env.CONVERSATION_BROWSER_PROFILE;
     const profiles = requestedProfile ? allProfiles.filter((profile) => profile.name === requestedProfile) : allProfiles;
     if (!profiles.length) throw new Error(`Unknown CONVERSATION_BROWSER_PROFILE: ${requestedProfile}`);
-    const critical = new Set([3, 13, 17, 24, 31, 35, 39, 43, 45, 47, 48, 49, 56, 64]);
+    const critical = new Set([3, 13, 17, 24, 31, 35, 39, 43, 45, 47, 48, 49, 56, 64, 9001]);
     const requestedLessons = process.env.CONVERSATION_BROWSER_LESSONS
         ? new Set(process.env.CONVERSATION_BROWSER_LESSONS.split(',').map(Number))
         : null;
     const results = [];
     try {
+        const lessonNumbers = requestedLessons
+            ? [...requestedLessons].filter((lesson) => (lesson >= 1 && lesson <= 64) || lesson === 9001).sort((left, right) => left - right)
+            : Array.from({ length: 64 }, (_, index) => index + 1);
         for (const profile of profiles) {
-            for (let lessonNumber = 1; lessonNumber <= 64; lessonNumber += 1) {
-                if (requestedLessons && !requestedLessons.has(lessonNumber)) continue;
+            for (const lessonNumber of lessonNumbers) {
                 const result = await auditPage(browser, baseUrl, lessonNumber, profile, critical.has(lessonNumber));
                 results.push(result);
                 process.stdout.write(`${profile.name} L${String(lessonNumber).padStart(2, '0')} ${result.errors.length ? `FAIL ${result.errors.length}` : 'PASS'}\n`);
@@ -292,7 +297,7 @@ async function main() {
         await close(server);
     }
     const failures = results.filter((result) => result.errors.length);
-    const expectedLessons = requestedLessons ? [...requestedLessons].filter((lesson) => lesson >= 1 && lesson <= 64).length : 64;
+    const expectedLessons = requestedLessons ? [...requestedLessons].filter((lesson) => (lesson >= 1 && lesson <= 64) || lesson === 9001).length : 64;
     const expectedPages = expectedLessons * profiles.length;
     if (results.length !== expectedPages) failures.push({ lessonNumber: null, profile: 'coverage', errors: [`expected ${expectedPages} pagesOpened, found ${results.length}`] });
     const screenshots = fs.readdirSync(artifactDir).filter((name) => name.endsWith('.png')).sort();
