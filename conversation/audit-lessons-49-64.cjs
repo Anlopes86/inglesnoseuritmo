@@ -53,7 +53,7 @@ const invalid = keys.filter((key) => {
     return lesson.expressions.length !== 6
         || lesson.songs.length !== 3
         || lesson.songs.some((song) => song.questions.length !== 4 || song.listening.length !== 3)
-        || lesson.contexts.length !== 2
+        || lesson.contexts.length !== (key === '52' ? 1 : 2)
         || lesson.contexts.some((context) => context.cards.length !== 4 || !context.prompt.trim().endsWith('?'))
         || lesson.practice.length !== 6
         || lesson.speaking.prompts.length !== 4

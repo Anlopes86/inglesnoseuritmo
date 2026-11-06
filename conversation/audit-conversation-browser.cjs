@@ -154,16 +154,18 @@ async function auditPage(browser, baseUrl, lessonNumber, profile, capture = fals
             horizontalOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
         }));
         const expectedKinds = ['warmup', 'expressions', 'music', 'debate', 'context', 'music', 'debate', 'context', 'music', 'debate', 'practice', 'speaking', 'homework', 'closing'];
-        if (structural.count !== 14) errors.push(`expected 14 slides, found ${structural.count}`);
+        if (lessonNumber === 52) expectedKinds.splice(expectedKinds.lastIndexOf('context'), 1);
+        const expectedCount = expectedKinds.length;
+        if (structural.count !== expectedCount) errors.push(`expected ${expectedCount} slides, found ${structural.count}`);
         if (structural.active !== 1) errors.push(`expected one active slide, found ${structural.active}`);
         if (JSON.stringify(structural.kinds) !== JSON.stringify(expectedKinds)) errors.push(`slide order mismatch: ${structural.kinds.join(',')}`);
-        if (structural.counter !== '1 / 14') errors.push(`initial counter is ${structural.counter}`);
+        if (structural.counter !== `1 / ${expectedCount}`) errors.push(`initial counter is ${structural.counter}`);
         const expectedWarmups = lessonNumber <= 48 ? 5 : 4;
         if (structural.warmups !== expectedWarmups) errors.push(`warm-up count is ${structural.warmups}; expected ${expectedWarmups}`);
         if (structural.flashcards !== 6) errors.push(`flashcard count is ${structural.flashcards}`);
         if (structural.nestedFlashcardButtons !== 0) errors.push(`flashcards contain ${structural.nestedFlashcardButtons} invalid nested interactive controls`);
         if (structural.debates.some((count) => count !== 4)) errors.push(`debate counts are ${structural.debates.join('/')}`);
-        if (structural.contexts !== 2 || structural.practiceZones !== 6) errors.push('context or practice contract missing');
+        if (structural.contexts !== expectedKinds.filter((kind) => kind === 'context').length || structural.practiceZones !== 6) errors.push('context or practice contract missing');
         const expectsHomeworkOptions = lessonNumber === 42 || lessonNumber === 47 || lessonNumber >= 49;
         if (!expectsHomeworkOptions && (!structural.homeworkModel || structural.homeworkMode !== 'modeled' || structural.homeworkOptions !== 0)) errors.push(`modeled homework contract failed: ${JSON.stringify(structural)}`);
         if (expectsHomeworkOptions && (structural.homeworkMode !== 'options' || structural.homeworkOptions !== 3 || structural.homeworkModel)) errors.push(`three-option homework contract failed: ${JSON.stringify(structural)}`);
@@ -174,7 +176,7 @@ async function auditPage(browser, baseUrl, lessonNumber, profile, capture = fals
         });
         if (structural.horizontalOverflow > 1) errors.push(`initial horizontal overflow ${structural.horizontalOverflow}px`);
 
-        for (let index = 1; index < 14; index += 1) {
+        for (let index = 1; index < expectedCount; index += 1) {
             await page.evaluate(() => window.scrollTo(0, 0));
             await page.locator('#next-btn').click();
             const activeKind = await page.locator('.slide.active').getAttribute('data-slide-kind');
@@ -214,7 +216,7 @@ async function auditPage(browser, baseUrl, lessonNumber, profile, capture = fals
                     footerTop: footer?.top || window.innerHeight
                 };
             });
-            if (state.counter !== `${index + 1} / 14`) errors.push(`slide ${index + 1}: counter is ${state.counter}`);
+            if (state.counter !== `${index + 1} / ${expectedCount}`) errors.push(`slide ${index + 1}: counter is ${state.counter}`);
             if (state.overflow > 1) errors.push(`slide ${index + 1}: horizontal overflow ${state.overflow}px`);
             if (!state.footerVisible) errors.push(`slide ${index + 1}: footer not visible`);
             if (state.kind === 'music') {
@@ -246,13 +248,14 @@ async function auditPage(browser, baseUrl, lessonNumber, profile, capture = fals
             finishVisible: Boolean(document.getElementById('finish-lesson-btn-main')?.offsetParent),
             progress: document.getElementById('progress-bar')?.getAttribute('aria-valuenow')
         }));
-        if (!closingState.nextHidden || !closingState.finishVisible || closingState.progress !== '14') errors.push(`closing controls invalid: ${JSON.stringify(closingState)}`);
+        if (!closingState.nextHidden || !closingState.finishVisible || closingState.progress !== String(expectedCount)) errors.push(`closing controls invalid: ${JSON.stringify(closingState)}`);
         await page.locator('#prev-btn').click();
-        if ((await page.locator('#slide-counter').textContent()).trim() !== '13 / 14') errors.push('Previous button did not return to homework.');
+        if ((await page.locator('#slide-counter').textContent()).trim() !== `${expectedCount - 1} / ${expectedCount}`) errors.push('Previous button did not return to homework.');
 
         if (capture) {
             const targetSlide = lessonNumber === 48 ? 12 : lessonNumber === 39 ? 10 : lessonNumber === 17 || lessonNumber === 35 || lessonNumber === 45 || lessonNumber === 47 ? 2 : 3;
             const targetSlides = lessonNumber === 9001 || lessonNumber === 9002 ? [0, 4, 7, 11, 12] : lessonNumber === 31 ? [1, 2, 10] : [targetSlide];
+            if (lessonNumber === 52) targetSlides.push(expectedKinds.indexOf('context'), expectedKinds.indexOf('speaking'));
             for (const captureSlide of targetSlides) {
                 while (Number((await page.locator('#slide-counter').textContent()).split('/')[0].trim()) - 1 > captureSlide) await page.locator('#prev-btn').click();
                 while (Number((await page.locator('#slide-counter').textContent()).split('/')[0].trim()) - 1 < captureSlide) await page.locator('#next-btn').click();
@@ -286,7 +289,7 @@ async function main() {
     const requestedProfile = process.env.CONVERSATION_BROWSER_PROFILE;
     const profiles = requestedProfile ? allProfiles.filter((profile) => profile.name === requestedProfile) : allProfiles;
     if (!profiles.length) throw new Error(`Unknown CONVERSATION_BROWSER_PROFILE: ${requestedProfile}`);
-    const critical = new Set([3, 13, 17, 24, 31, 35, 39, 43, 45, 47, 48, 49, 56, 64, 9001, 9002]);
+    const critical = new Set([3, 13, 17, 24, 31, 35, 39, 43, 45, 47, 48, 49, 52, 56, 64, 9001, 9002]);
     const requestedLessons = process.env.CONVERSATION_BROWSER_LESSONS
         ? new Set(process.env.CONVERSATION_BROWSER_LESSONS.split(',').map(Number))
         : null;

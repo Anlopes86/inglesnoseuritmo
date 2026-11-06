@@ -432,3 +432,10 @@ Escopo concluído:
 - A linguagem recuperada vem da L1, incluindo `trip`, `foggy`, `at least`, `take a picture`, `most of the time`, `the whole time`, `take a trip` e `have a picnic`; perguntas sobre viagem e clima permanecem como estruturas de apoio já apresentadas na aula lexical.
 - Todos os cenários e imagens são autorais e fictícios. O player usa ilustrações SVG locais de malas, clima, fotos e cartão-postal, sem dependência de mídia externa. A auditoria de navegador confirma que os nomes dos três viajantes não aparecem antes do palpite e que as 32 aulas continuam funcionais em desktop, celular e modo escuro. Alterações locais, sem publicação.
 
+## 2026-11-05 · Conversation L52 — sons, memória e convivência
+
+- Revisada a lição *Noise, Silence & Everyday Soundscapes* do módulo Conversation. Três slides repetitivos deram lugar a duas discussões abertas sobre sons que marcam gerações e cenários imaginários que mudam o que se ouve no dia a dia.
+- A abertura, os exemplos das expressões, as perguntas ligadas às músicas e o homework foram ajustados para distribuir os assuntos entre percepção, memória, silêncio nas relações, excesso de estímulos, música compartilhada e convivência.
+- A sequência da L52 passa a ter 13 slides. O segundo contexto pode ser omitido nos dados do player de Conversation. As outras aulas mantêm seus dois contextos.
+- O slide final exibe a frase fornecida pelo professor sobre ter algo a dizer.
+- O subtítulo e as quatro perguntas originais de *Song 1 Conversation* foram restaurados a pedido do professor.

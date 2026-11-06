@@ -182,7 +182,7 @@
         ${contextSlide(lesson.contexts[0], 0)}
         ${songSlide(lesson.songs[1], 1)}
         ${debateSlide(lesson.songs[1], 1)}
-        ${contextSlide(lesson.contexts[1], 1)}
+        ${lesson.contexts[1] ? contextSlide(lesson.contexts[1], 1) : ''}
         ${songSlide(lesson.songs[2], 2)}
         ${debateSlide(lesson.songs[2], 2)}
         ${practiceSlide()}

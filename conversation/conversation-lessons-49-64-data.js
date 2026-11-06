@@ -172,28 +172,55 @@
 
         52: lesson({
             title: 'Noise, Silence & Everyday Soundscapes', icon: 'fa-ear-listen', accent: 'pink',
-            warmupTitle: 'Warm-up: What Can You Hear?', warmupIntro: 'Every place has a soundtrack: traffic, birds, keyboards, neighbors, coffee machines, and one mysterious beep nobody can locate.',
-            warmups: ['Which everyday sound do you find especially satisfying?', 'Do you need background sound when you work or study?', 'What harmless noise annoys you more than it should?', 'Where can you go when you genuinely need silence?'],
+            warmupTitle: 'Warm-up: Sounds You Know by Heart',
+            warmupIntro: 'Think of the click of a key in a lock or the hiss of a kettle. Some sounds tell you what is happening before you can see it.',
+            warmups: ['What sound tells you that something is about to happen?', 'Which everyday sound do you find oddly satisfying?', 'What can you sleep through that wakes other people up?', 'What sounds do you notice when you walk somewhere alone?'],
             expressions: [
-                E('Background noise', 'Sound that is present but not the main focus.', 'The café has gentle background noise.', 'Soft conversation created comfortable {gap}.'),
+                E('Background noise', 'Sound you can hear while paying attention to something else.', 'There was so much background noise that I could barely hear her on the phone.', 'The microphone picked up a lot of {gap}, mostly traffic from the street.'),
                 E('Peace and quiet', 'A calm situation without unwanted noise.', 'I went to the library for some peace and quiet.', 'After the festival, everyone wanted {gap}.'),
-                E('To hear yourself think', 'To have enough quiet to concentrate.', 'The office was so loud that I could not hear myself think.', 'You need a quieter room {gap}.'),
+                E('To hear yourself think', 'To have enough quiet to concentrate. Usually used in the negative.', 'I can’t hear myself think with the TV that loud.', 'Turn off the TV if you want {gap}.'),
                 E('A deafening silence', 'A silence that feels unusually strong or meaningful.', 'After the strange announcement, a deafening silence filled the room.', 'The failed joke was followed by {gap}.'),
-                E('To fall on deaf ears', 'To be ignored or not considered.', 'Our requests for a quieter machine fell on deaf ears.', 'Another unexplained warning is likely {gap}.'),
-                E('Noise pollution', 'Harmful or disturbing environmental sound.', 'Late-night traffic creates serious noise pollution.', 'Better building design can reduce {gap}.')
+                E('To fall on deaf ears', 'To be ignored. Used about a request, suggestion, or warning.', 'Our requests for quieter equipment fell on deaf ears.', 'The manager ignored two complaints. A third is likely {gap}, too.'),
+                E('Noise pollution', 'Unwanted sound in the environment that disturbs people or animals.', 'Residents say late-night traffic causes noise pollution.', 'Diverting trucks away from homes could reduce {gap}.')
             ],
             songs: [
-                S('The Sound of Silence', 'Simon & Garfunkel', null, 'Folk rock gives silence a presence and asks what happens when communication becomes sound without connection.', 'When silence says something', ['silence', 'haunting', 'attention'], ['When does silence feel comfortable rather than awkward?', 'Do you prefer silence or soft music when you need to concentrate?', 'Have you ever misunderstood someone’s silence?', 'Are you comfortable sitting quietly with another person?']),
-                S('Noise', 'Kenny Chesney', null, 'Country rock describes a world crowded by alerts, voices, advertising, engines, and nonstop information.', 'Living inside constant noise', ['noise', 'restless', 'overload'], ['Which modern sound would you most like to mute for one day?', 'Do phone notifications interrupt you often?', 'Where is the noisiest place in your routine?', 'Have you ever left a place because it was too noisy?']),
-                S('Listen to the Music', 'The Doobie Brothers', null, 'Classic rock treats shared listening as an invitation to relax, gather, and pay attention together.', 'Listening as a social act', ['listening', 'upbeat', 'connection'], ['Which place has the most recognizable sounds in your routine?', 'Do you listen to music while working or travelling?', 'Which sounds help you relax?', 'Are you good at listening when there are distractions around you?'])
+                S('The Sound of Silence', 'Simon & Garfunkel', null, 'Listen for the mood the voices create. What kind of silence does the performance make you imagine?', 'When silence says something', ['silence', 'haunting', 'attention'], ['When does silence feel comfortable rather than awkward?', 'Do you prefer silence or soft music when you need to concentrate?', 'Have you ever misunderstood someone’s silence?', 'Are you comfortable sitting quietly with another person?']),
+                S('Noise', 'Kenny Chesney', null, 'As you listen, notice how the song makes a crowded world feel. Think about what gets lost when everything competes for your attention.', 'Who gets your attention?', ['noise', 'restless', 'overload'], ['What gives you a stronger sense of overload in the song: the words, the voice, or the instruments?', 'Which phone alert would you keep if you could only have one?', 'How could an app get your attention without making a sound?', 'Have you ever turned something off and only then noticed how much noise it was making?']),
+                S('Listen to the Music', 'The Doobie Brothers', null, 'Listen for the moment when you most want to tap along or join in.', 'When music brings people in', ['listening', 'upbeat', 'connection'], ['What makes this song easy or hard to sing along to?', 'How does a familiar song change the mood when strangers start singing along?', 'What music could you and someone with very different taste agree on for a long drive?', 'How does hearing a favorite song in a crowd change the experience compared with listening to it alone?'])
             ],
             contexts: [
-                C('The Everyday Sound Audit', 'Listen to the place you are actually in.', 'Listen for twenty seconds. Identify three sounds, describe their sources and qualities, and explain how each one affects your concentration or mood.', 'Which sound affects you most, and what would you change?', [{title:'Source',text:'What object, person, animal, or activity produces it?'},{title:'Distance',text:'Is it near, far away, constant, or moving?'},{title:'Effect',text:'Does it calm, distract, alert, or annoy you?'},{title:'Response',text:'Would you keep it, reduce it, move away, or use headphones?'}], 'fa-map-location-dot'),
-                C('Improve a Noisy Place', 'Start with a place you actually know.', 'Choose a café, waiting room, office, classroom, or form of transport where noise makes concentration or conversation difficult. Explain the problem and suggest realistic changes.', 'Which change would improve this place most?', [{title:'Materials',text:'Could soft surfaces reduce echoes and sharp sounds?'},{title:'Zones',text:'Could conversation and quiet receive separate spaces?'},{title:'Signals',text:'Would clear signs work better than personal complaints?'},{title:'Choice',text:'Could people select lively, calm, or silent areas?'}], 'fa-volume-low')
+                C(
+                    'Sounds We Don’t Hear Much Anymore',
+                    'The sounds that mark a generation.',
+                    'A phone ringing in the hallway. A DVD tray sliding shut. An ice cream truck turning the corner. Some familiar sounds fade so gradually that we barely notice.',
+                    'What everyday sound from today might be hard to explain to someone growing up twenty years from now?',
+                    [
+                        { title: 'A sound you remember', text: 'What did you hear all the time growing up that you rarely hear now?' },
+                        { title: 'Sounds we traded', text: 'What everyday sound has technology replaced with a new one? Which do you prefer?' },
+                        { title: 'A neighborhood signature', text: 'Is there a sound that feels specific to where you grew up, like a street vendor’s call or a school bell?' },
+                        { title: 'Glad it’s gone', text: 'Which sound are you glad you don’t hear as often anymore?' }
+                    ],
+                    'fa-clock-rotate-left'
+                )
             ],
-            speaking: { title: 'The Sound Designer’s Booth', icon: 'fa-sliders', prompts: ['What sounds can you hear right now?', 'Which place in your routine is noisier than you would like?', 'Do you prefer a quiet café or a lively one?', 'Which sound brings back a strong memory for you?'], support: ['In the background, you can hear…', 'The sound is rhythmic/sharp/distant…', 'Without that noise…', 'The space needs more peace and quiet because…'] },
-            homework: ['Record a written sound diary for three different places.', 'Compare how the same place sounds at two different times of day.', 'Write a practical quiet-zone proposal for one noisy environment you know.'],
-            closing: 'A soundscape tells the story of a place before anyone explains it.'
+            speaking: {
+                title: 'What If the World Sounded Different?',
+                icon: 'fa-volume-high',
+                instruction: 'Start with any question and see where the conversation goes.',
+                prompts: [
+                    'Would you rather never hear music again or never have a moment of complete silence? Which would you miss more?',
+                    'What if you could hear through walls for a day? When would you be tempted to listen, and when would you rather not know?',
+                    'What if engines and loudspeakers went quiet for an hour every day? What would you notice that usually gets drowned out?',
+                    'Would you rather live on a lively street that gets loud on weekends or on a quiet street where everything closes early? What could change your answer?'
+                ],
+                support: ['I’d miss… the most.', 'I’d put up with it if…', 'I might feel differently if…', 'I hadn’t thought about…']
+            },
+            homework: [
+                'Write about a time someone’s silence meant something different from what you first assumed. What helped you understand it?',
+                'Compare two places with different expectations about noise. What is perfectly normal in one place and surprising in the other?',
+                'Write about a sound you rarely hear anymore. Describe the memory it brings back and say whether you miss hearing it.'
+            ],
+            closing: 'The wise man speaks because he has something to say; the fool speaks because he has to say something.'
         }),
 
         53: lesson({
