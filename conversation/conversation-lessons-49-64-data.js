@@ -174,7 +174,7 @@
             title: 'Noise, Silence & Everyday Soundscapes', icon: 'fa-ear-listen', accent: 'pink',
             warmupTitle: 'Warm-up: Sounds You Know by Heart',
             warmupIntro: 'Think of the click of a key in a lock or the hiss of a kettle. Some sounds tell you what is happening before you can see it.',
-            warmups: ['What sound tells you that something is about to happen?', 'Which everyday sound do you find oddly satisfying?', 'What can you sleep through that wakes other people up?', 'What sounds do you notice when you walk somewhere alone?'],
+            warmups: ['Which everyday sound do you find especially satisfying?', 'Do you need background sound when you work or study?', 'What harmless noise annoys you more than it should?', 'Where can you go when you genuinely need silence?'],
             expressions: [
                 E('Background noise', 'Sound you can hear while paying attention to something else.', 'There was so much background noise that I could barely hear her on the phone.', 'The microphone picked up a lot of {gap}, mostly traffic from the street.'),
                 E('Peace and quiet', 'A calm situation without unwanted noise.', 'I went to the library for some peace and quiet.', 'After the festival, everyone wanted {gap}.'),

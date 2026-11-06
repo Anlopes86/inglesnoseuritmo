@@ -439,3 +439,4 @@ Escopo concluído:
 - A sequência da L52 passa a ter 13 slides. O segundo contexto pode ser omitido nos dados do player de Conversation. As outras aulas mantêm seus dois contextos.
 - O slide final exibe a frase fornecida pelo professor sobre ter algo a dizer.
 - O subtítulo e as quatro perguntas originais de *Song 1 Conversation* foram restaurados a pedido do professor.
+- Em 2026-11-06, foram restauradas as quatro perguntas originais do aquecimento.
