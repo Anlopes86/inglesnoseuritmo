@@ -58,9 +58,11 @@ Object.values(lessons).forEach((lesson) => {
     if (lesson.songs?.length !== 3) errors.push(`${prefix}: expected three songs.`);
     if (lesson.songs?.some((song) => song.questions?.length !== 4)) errors.push(`${prefix}: every song needs exactly four discussion questions.`);
     if (lesson.contexts?.length !== 2) errors.push(`${prefix}: expected two transfer contexts.`);
-    if (lesson.contexts?.some((block) => block.cards?.length !== 4 || !String(block.prompt).trim().endsWith('?'))) errors.push(`${prefix}: malformed transfer context.`);
+    if (lesson.contexts?.some((block) => block.cards?.length !== 4
+        || !String(block.prompt).trim().endsWith('?')
+        || block.cards.some((card) => !card.title?.trim() || (block.revealCards && !card.text?.trim())))) errors.push(`${prefix}: malformed transfer context.`);
     if (lesson.practice?.length !== 6) errors.push(`${prefix}: practice must recover six expressions.`);
-    if (lesson.speaking?.prompts?.length !== 4) errors.push(`${prefix}: oral production needs four supports/prompts.`);
+    if (lesson.speaking?.prompts?.length !== 4 || lesson.speaking.prompts.some((prompt) => !prompt.trim())) errors.push(`${prefix}: oral production needs four supports/prompts.`);
     if (Array.isArray(lesson.homework)) {
         if (lesson.homework.length !== 3 || lesson.homework.some((option) => !String(option).trim())) errors.push(`${prefix}: homework must offer exactly three complete text options.`);
     } else if (!lesson.homework?.task || !lesson.homework?.model || lesson.homework?.requiredExpressions?.length < 2) {
@@ -89,11 +91,12 @@ Object.values(lessons).forEach((lesson) => {
         if ((song.questions || []).some((question) => genericMusicQuestion.test(question))) errors.push(`${prefix}: song ${songIndex + 1} retains generated debate filler.`);
     });
     lesson.contexts?.forEach((block, index) => {
-        const signature = normalize([block.title, block.intro, block.prompt, ...(block.cards || []).map((card) => `${card.title} ${card.text}`)].join(' '));
+        const cardTexts = (block.cards || []).map((card) => normalize(`${card.title} ${card.text || ''}`));
+        const signature = normalize([block.title, block.intro, block.prompt, ...cardTexts].join(' '));
         const owner = contextSignatures.get(signature);
         if (owner) errors.push(`${prefix}: context ${index + 1} duplicates ${owner}.`);
         contextSignatures.set(signature, `${prefix} context ${index + 1}`);
-        if (new Set((block.cards || []).map((card) => normalize(`${card.title} ${card.text}`))).size !== 4) errors.push(`${prefix}: context ${index + 1} cards are not distinct.`);
+        if (new Set(cardTexts).size !== 4) errors.push(`${prefix}: context ${index + 1} cards are not distinct.`);
     });
     if (/clear example|useful expression|write about one of the following/i.test(lesson.homework?.model || '')) errors.push(`${prefix}: homework model is generic.`);
     collectSentences(serialized, prefix);
@@ -101,7 +104,7 @@ Object.values(lessons).forEach((lesson) => {
         ...(lesson.warmups || []),
         ...(lesson.songs || []).flatMap((song) => song.questions || []),
         ...(lesson.contexts || []).map((block) => block.prompt),
-        ...(lesson.speaking?.prompts || [])
+        ...(lesson.speaking?.instruction ? [] : lesson.speaking?.prompts || [])
     ];
     prompts.forEach((prompt) => {
         if (!String(prompt).trim().endsWith('?')) errors.push(`${prefix}: non-question conversation prompt: ${prompt}`);

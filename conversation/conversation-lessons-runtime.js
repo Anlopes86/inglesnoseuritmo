@@ -97,6 +97,20 @@
     }
 
     function contextSlide(block, index) {
+        const cards = block.cards.map((card, cardIndex) => {
+            const cardClass = `p-4 bg-gray-700 rounded-lg border-l-4 ${cardIndex % 2 ? 'border-purple-500' : 'border-blue-500'}`;
+            const title = escapeHtml(card.title);
+            const text = escapeHtml(card.text);
+            if (block.revealCards) {
+                return `<details class="${cardClass} text-xl">
+                    <summary class="cursor-pointer font-semibold">${title}</summary>
+                    <p class="mt-2 text-gray-200">${text}</p>
+                </details>`;
+            }
+            return text
+                ? `<article class="${cardClass}"><b>${title}:</b> ${text}</article>`
+                : `<article class="${cardClass} text-xl font-semibold">${title}</article>`;
+        }).join('');
         return `
             <section class="slide" data-slide-kind="context" data-context-index="${index}">
                 <div class="text-center">
@@ -104,7 +118,7 @@
                     <div class="bg-gray-800 p-7 rounded-2xl shadow-xl max-w-4xl mx-auto text-left">
                         <p class="text-xl mb-3 ${accentText} font-bold">${escapeHtml(block.kicker)}</p>
                         <p class="text-xl mb-5">${escapeHtml(block.intro)}</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${block.cards.map((card, cardIndex) => `<article class="p-4 bg-gray-700 rounded-lg border-l-4 ${cardIndex % 2 ? 'border-purple-500' : 'border-blue-500'}"><b>${escapeHtml(card.title)}:</b> ${escapeHtml(card.text)}</article>`).join('')}</div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${cards}</div>
                         <p class="mt-6 text-2xl text-center font-semibold italic">${escapeHtml(block.prompt)}</p>
                     </div>
                 </div>

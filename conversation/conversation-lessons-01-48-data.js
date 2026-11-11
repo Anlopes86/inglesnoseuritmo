@@ -2688,7 +2688,7 @@
         "warmupTitle": "Warm-up: Food & Culture",
         "warmupIntro": "Let's start our conversation:",
         "warmups": [
-            "What is the best meal you have ever had?",
+            "What's the best thing you ate this week?",
             "If you had to eat only one type of food for the rest of your life, what would it be?",
             "How does food connect to your country's culture?",
             "Which food tradition is important in your family?",
@@ -2699,37 +2699,37 @@
                 "term": "A foodie",
                 "meaning": "A person who loves and is very interested in food.",
                 "example": "As a foodie, Lena plans trips around markets rather than famous landmarks.",
-                "practice": "As a _____, Lena plans trips around markets rather than famous landmarks. → {gap}"
+                "practice": "{gap} like my sister will drive across town just to try a new ramen place."
             },
             {
                 "term": "To have a sweet tooth",
                 "meaning": "To have a strong liking for sweet foods.",
                 "example": "I have a sweet tooth, so I share dessert instead of ordering two.",
-                "practice": "I _____ a _____ _____, so I share dessert instead of ordering two. → {gap}"
+                "practice": "{gap} is one thing. Eating half a birthday cake by yourself is another."
             },
             {
                 "term": "A picky eater",
                 "meaning": "Someone who is very selective about what they eat.",
                 "example": "The restaurant offered a simple tasting plate for the picky eater in our group.",
-                "practice": "The restaurant offered a simple tasting plate for the _____ _____ in our group. → {gap}"
+                "practice": "{gap} like my brother will send a burger back if it has even one leaf of lettuce on it."
             },
             {
                 "term": "Comfort food",
                 "meaning": "Food that provides a feeling of well-being.",
                 "example": "Rice and beans are comfort food for me because they remind me of home.",
-                "practice": "Rice and beans are _____ _____ for me because they remind me of home. → {gap}"
+                "practice": "{gap} can be as simple as the soup my dad made whenever I had a bad day."
             },
             {
-                "term": "To wine and dine",
-                "meaning": "To entertain someone with a fancy meal.",
-                "example": "The company tried to wine and dine the visiting clients at a local restaurant.",
-                "practice": "The company tried to _____ and _____ the visiting clients at a local restaurant. → {gap}"
+                "term": "I'm craving",
+                "meaning": "I really want to eat or drink something.",
+                "example": "I'm craving warm pão de queijo and a cup of coffee.",
+                "practice": "{gap} something salty. Want to split some fries?"
             },
             {
                 "term": "My mouth is watering",
                 "meaning": "Said when you see or smell delicious food.",
                 "example": "My mouth is watering just from the smell of bread leaving the oven.",
-                "practice": "My _____ is _____ just from the smell of bread leaving the oven. → {gap}"
+                "practice": "I can smell those cinnamon rolls from here. {gap}!"
             }
         ],
         "songs": [
@@ -2738,13 +2738,12 @@
                 "artist": "Don McLean",
                 "sourceEmbed": "https://open.spotify.com/embed/track/1fDsrQ23eTAVFElUMaf38X",
                 "spotifyId": "1fDsrQ23eTAVFElUMaf38X",
-                "angle": "A cultural classic where food and drink become symbols of memory, identity, nostalgia, and American life.",
-                "discussionTitle": "American Pie\" - Food, memory, and national symbols",
+                "angle": "Listen to the opening verse for all five gaps. Notice how the mood changes.",
                 "questions": [
-                    "Why do some foods become national symbols, even when people do not eat them every day?",
-                    "What Brazilian food or drink could represent home, childhood, or tradition for you?",
-                    "Can a taste or smell bring back memories more strongly than a photo or a song?",
-                    "Is food one of the best ways to understand a culture, or can it create stereotypes?"
+                    "What snack takes you straight back to your school days, and what do you remember about it?",
+                    "A friend from abroad is coming to a Brazilian birthday party. What do they have to try first?",
+                    "Would you rather hear your favorite song for the first time again or taste your favorite dish for the first time again?",
+                    "A bakery charges R$25 for a gourmet pão de queijo. What would make it worth the price?"
                 ]
             },
             {
@@ -2753,12 +2752,11 @@
                 "sourceEmbed": "https://open.spotify.com/embed/track/6UelLqGlWMcVH1E5c4H7lY",
                 "spotifyId": "6UelLqGlWMcVH1E5c4H7lY",
                 "angle": "A sensory pop song that uses taste, fruit, summer, and warmth to describe a feeling rather than a literal recipe.",
-                "discussionTitle": "Watermelon Sugar\" - Senses, summer, and metaphor",
                 "questions": [
-                    "Why do artists often use food and fruit as metaphors for emotions or relationships?",
-                    "Which taste, smell, or dish immediately reminds you of summer?",
-                    "How would you describe a perfect summer day using only sensory words?",
-                    "Should song lyrics be clear and direct, or is it better when they leave room for interpretation?"
+                    "It's 35°C outside and you're meeting friends. What cold snack or drink are you going for?",
+                    "What's a food trend you saw online that you and your friends would actually try?",
+                    "If this song were an ice cream flavor, what would it taste like and what would you call it?",
+                    "When someone says fruit counts as dessert, are you with them or are you still waiting for cake?"
                 ]
             },
             {
@@ -2767,62 +2765,58 @@
                 "sourceEmbed": "https://open.spotify.com/embed/track/4uOKFydzAejjSFqYbv1XPt",
                 "spotifyId": "4uOKFydzAejjSFqYbv1XPt",
                 "angle": "A reggae-pop version of a heartbreak song where a drink represents escape, memory, and emotional comfort.",
-                "discussionTitle": "Red Red Wine\" - Comfort, memory, and emotional habits",
                 "questions": [
-                    "Why do people often connect drinks, meals, or places with heartbreak and memories?",
-                    "Can comfort food or comfort drinks help people heal, or can they become a way to avoid problems?",
-                    "What drink from your region carries a strong cultural or social meaning?",
-                    "Why are food and drinks so present in songs about love, celebration, and sadness?"
+                    "It's been a rough day and you just got home. What are you making or ordering to eat?",
+                    "After a concert or a night out, where do people go for a late-night snack in your town?",
+                    "Your friend just got dumped. Are you bringing ice cream, taking them out for burgers, or sending them a playlist?",
+                    "One friend eats most of the fries you ordered to share. Should everyone still pay the same amount?"
                 ]
             }
         ],
         "contexts": [
             {
-                "title": "Dinner with Two Traditions",
-                "kicker": "Design a menu that respects both families.",
-                "intro": "A couple is hosting relatives with different food traditions, allergies, and ideas about celebration.",
-                "prompt": "What menu would feel generous without pretending every preference can be satisfied?",
+                "title": "Guess the Dish",
+                "kicker": "Give one clue at a time.",
+                "intro": "Try the example. Then take turns choosing a dish from home or your region. Ask yes/no questions before you guess.",
+                "prompt": "Where do you get the best version of this dish in town?",
+                "revealCards": true,
                 "cards": [
                     {
-                        "title": "Tradition",
-                        "text": "Include one meaningful dish from each family."
+                        "title": "Clue 1",
+                        "text": "It's crispy on the outside."
                     },
                     {
-                        "title": "Safety",
-                        "text": "Separate allergens and explain ingredients."
+                        "title": "Clue 2",
+                        "text": "It usually has chicken inside."
                     },
                     {
-                        "title": "Choice",
-                        "text": "Provide a complete alternative, not a side dish."
+                        "title": "Clue 3",
+                        "text": "You often see it at birthday parties."
                     },
                     {
-                        "title": "Story",
-                        "text": "Invite each family to explain one recipe."
+                        "title": "Reveal the dish",
+                        "text": "Coxinha"
                     }
                 ],
                 "icon": "fa-utensils"
             },
             {
-                "title": "The Viral Street-Food Stall",
-                "kicker": "Protect a local business from sudden popularity.",
-                "intro": "A small stall becomes famous online and now faces long lines, waste, and complaints from neighbors.",
-                "prompt": "How should the owner grow without losing quality or community support?",
+                "title": "Would You Eat That?",
+                "kicker": "Love it  ·  I'd try it  ·  Hard pass",
+                "intro": "Vote out loud at the same time. If you disagree, say why.",
+                "prompt": "What food combo is totally normal in your family but weird to everyone else?",
                 "cards": [
                     {
-                        "title": "Capacity",
-                        "text": "Set a realistic daily quantity."
+                        "title": "Ketchup on pizza"
                     },
                     {
-                        "title": "Neighbors",
-                        "text": "Manage queues, noise, and rubbish."
+                        "title": "Raisins in rice"
                     },
                     {
-                        "title": "Price",
-                        "text": "Avoid exploiting short-term demand."
+                        "title": "Fries dipped in ice cream"
                     },
                     {
-                        "title": "Identity",
-                        "text": "Keep the dish and service recognizable."
+                        "title": "Cold pizza for breakfast"
                     }
                 ],
                 "icon": "fa-bowl-food"
@@ -2830,54 +2824,51 @@
         ],
         "practice": [
             {
-                "text": "As a _____, Lena plans trips around markets rather than famous landmarks. → {gap}",
+                "text": "{gap} like my sister will drive across town just to try a new ramen place.",
                 "answer": "A foodie"
             },
             {
-                "text": "I _____ a _____ _____, so I share dessert instead of ordering two. → {gap}",
+                "text": "{gap} is one thing. Eating half a birthday cake by yourself is another.",
                 "answer": "To have a sweet tooth"
             },
             {
-                "text": "The restaurant offered a simple tasting plate for the _____ _____ in our group. → {gap}",
+                "text": "{gap} like my brother will send a burger back if it has even one leaf of lettuce on it.",
                 "answer": "A picky eater"
             },
             {
-                "text": "Rice and beans are _____ _____ for me because they remind me of home. → {gap}",
+                "text": "{gap} can be as simple as the soup my dad made whenever I had a bad day.",
                 "answer": "Comfort food"
             },
             {
-                "text": "The company tried to _____ and _____ the visiting clients at a local restaurant. → {gap}",
-                "answer": "To wine and dine"
+                "text": "{gap} something salty. Want to split some fries?",
+                "answer": "I'm craving"
             },
             {
-                "text": "My _____ is _____ just from the smell of bread leaving the oven. → {gap}",
+                "text": "I can smell those cinnamon rolls from here. {gap}!",
                 "answer": "My mouth is watering"
             }
         ],
         "speaking": {
-            "title": "Speak: Food & Culture",
+            "title": "Food Confessions",
             "icon": "fa-microphone-lines",
+            "instruction": "Pick a card and tell a short story. Your partner asks a follow-up question. Then switch roles.",
             "prompts": [
-                "Which family dish would you introduce to someone from another culture?",
-                "What part of the recipe could change without losing its identity?",
-                "How would you accommodate an allergy without isolating the guest?",
-                "What can food reveal that a history book may miss?"
+                "A food I hated as a kid",
+                "My biggest cooking disaster",
+                "A dish my family makes differently",
+                "A food I always miss when I travel"
             ],
             "support": [
-                "A foodie",
-                "To have a sweet tooth",
-                "A picky eater",
-                "Comfort food"
+                "I was a picky eater as a kid.",
+                "That's my ultimate comfort food.",
+                "What changed your mind?"
             ]
         },
-        "homework": {
-            "task": "Describe your favorite food and why you love it. Is it a family recipe? Is it comfort food?",
-            "model": "My favorite food is... It's a type of comfort food for me because...",
-            "requiredExpressions": [
-                "A foodie",
-                "To have a sweet tooth"
-            ]
-        },
+        "homework": [
+            "A taste of home. Pick a dish that reminds you of someone or somewhere. Describe it and tell the story behind it.",
+            "One food stop in your town. Recommend a place to a visitor, tell them what to order, and explain why it's worth a stop.",
+            "A bite that surprised you. Describe a surprising dish or food combo you tried, what it tasted like, and whether you'd have it again."
+        ],
         "closing": "\"One cannot think well, love well, sleep well, if one has not dined well.\" - Virginia Woolf",
         "migration": {
             "source": "licao-14.html",

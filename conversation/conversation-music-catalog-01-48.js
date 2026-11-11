@@ -3746,47 +3746,47 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "bye-bye",
-                "providerAnswer": "bye-bye",
+                "answer": "smile",
+                "providerAnswer": "smile",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "bye-bye"
+                    "smile"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "started",
-                "providerAnswer": "started",
+                "answer": "dance",
+                "providerAnswer": "dance",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "started"
+                    "dance"
                 ]
             },
             {
                 "id": "gap-3",
-                "answer": "players",
-                "providerAnswer": "players",
+                "answer": "shiver",
+                "providerAnswer": "shiver",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "players"
+                    "shiver"
                 ]
             },
             {
                 "id": "gap-4",
-                "answer": "Jack",
-                "providerAnswer": "Jack",
-                "occurrence": 3,
+                "answer": "doorstep",
+                "providerAnswer": "doorstep",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "Jack"
+                    "doorstep"
                 ]
             },
             {
                 "id": "gap-5",
-                "answer": "cried",
-                "providerAnswer": "cried",
-                "occurrence": 2,
+                "answer": "bride",
+                "providerAnswer": "bride",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "cried"
+                    "bride"
                 ]
             }
         ],
