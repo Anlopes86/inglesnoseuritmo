@@ -26,7 +26,9 @@
             listening: patterns.map((text, index) => ({ text, answer: lens[index] }))
         };
     };
-    const C = (title, kicker, intro, prompt, cards, icon) => ({ title, kicker, intro, prompt, cards, icon });
+    const C = (title, kicker, intro, prompt, cards, icon, { revealCards = false } = {}) => ({
+        title, kicker, intro, prompt, cards, icon, revealCards
+    });
     const P = (expressions) => expressions.map((item) => ({ text: item.practice, answer: item.term }));
     const lesson = (config) => ({ ...config, practice: P(config.expressions) });
 
@@ -37,7 +39,7 @@
             warmupIntro: 'A name can carry history, start a conversation, or become completely irrelevant when a perfect nickname arrives.',
             warmups: [
                 'Do you know why your name was chosen?',
-                'Do your friends and family use the same name for you?',
+                'Who calls you something that would sound strange coming from anyone else?',
                 'Have you ever wanted to change or shorten your name?',
                 'Which names are easiest for you to remember?'
             ],
@@ -60,7 +62,7 @@
                     'Do different groups of people call you by different names?',
                     'Have you ever forgotten someone’s name immediately after meeting them?',
                     'Which kinds of nicknames sound friendly to you?',
-                    'Would you feel comfortable asking someone how to pronounce their name?'
+                    'How would you introduce a friend whose real name you almost never use?'
                 ]),
                 S('Name', 'Goo Goo Dolls', null, 'Alternative rock treats a name as something personal that can remain private even when the world asks for a label.', 'Names, privacy, and recognition', ['name', 'reflective', 'privacy'], [
                     'Which version of your name feels most natural to you?',
@@ -70,20 +72,34 @@
                 ])
             ],
             contexts: [
-                C('Your Nickname Stories', 'Real nicknames carry real relationships.', 'Choose a name or nickname used by family, friends, colleagues, or classmates. Explain who uses it, how it began, and whether it still feels right.', 'How did the name start, and how do you feel when people use it?', [
-                    { title: 'Who', text: 'Which people use this version of your name?' },
-                    { title: 'Origin', text: 'What event, habit, or relationship produced it?' },
-                    { title: 'Context', text: 'Does it belong at home, at work, online, or everywhere?' },
-                    { title: 'Feeling', text: 'Does it make you feel close, embarrassed, recognized, or misunderstood?' }
-                ], 'fa-tags'),
-                C('One Name, Different Settings', 'The same person may introduce themselves differently.', 'Compare the name you use with relatives, at work or school, online, and when speaking English. Discuss when adapting a name feels convenient and when it feels uncomfortable.', 'Which version fits each setting, and when should people ask before changing it?', [
-                    { title: 'Family', text: 'A full name, childhood nickname, or family-only version.' },
-                    { title: 'Work or School', text: 'The name used in introductions, email, and formal records.' },
-                    { title: 'Online', text: 'A real name, username, or shortened form chosen for privacy.' },
-                    { title: 'English', text: 'Your usual pronunciation, an adapted pronunciation, or a preferred short form.' }
-                ], 'fa-user-secret')
+                C(
+                    'Who Gets to Call You That?',
+                    'A name with a story',
+                    'Pick one card and tell me about a name you’ve actually been called. Who said it first, and how did it stick?',
+                    'Which name would take you back to a specific person or place?',
+                    [
+                        { title: 'Just One Person', text: 'A name that would sound strange coming from anyone else.' },
+                        { title: 'A Lucky Mistake', text: 'A name that started when someone got yours wrong.' },
+                        { title: 'From Another Time', text: 'A name you used to hear all the time.' },
+                        { title: 'The One That Almost Stuck', text: 'A nickname someone tried to give you.' }
+                    ],
+                    'fa-id-card'
+                ),
+                C(
+                    'What Would You Say?',
+                    'A quick reply',
+                    'Pick a situation and say exactly what you’d say in the moment. Then switch roles and try a different card.',
+                    'When would you just let a name mistake go?',
+                    [
+                        { title: 'Coffee for Who?', text: 'The barista calls out a version of your name you barely recognize.' },
+                        { title: 'A New Nickname', text: 'A new classmate shortens your name the first time you meet.' },
+                        { title: 'Say It Again', text: 'Someone asks how to pronounce your name in English.' },
+                        { title: 'Wait, That’s You?', text: 'Someone recognizes you by your online username.' }
+                    ],
+                    'fa-comments'
+                )
             ],
-            speaking: { title: 'The Naming Agency', icon: 'fa-signature', prompts: [
+            speaking: { title: 'The Stories Behind Our Names', icon: 'fa-signature', instruction: 'Start with any question and tell the story behind your answer.', prompts: [
                 'What do people usually call you, and why?',
                 'Have you ever given someone a nickname that stayed?',
                 'Which names or nicknames are difficult for you to remember?',
@@ -96,7 +112,7 @@
         50: lesson({
             title: 'Games, Puzzles & Escape Rooms', icon: 'fa-puzzle-piece', accent: 'indigo',
             warmupTitle: 'Warm-up: Your Move', warmupIntro: 'A good game can reveal logic, creativity, patience, and who becomes suspiciously competitive over a plastic sheep.',
-            warmups: ['Which game can you happily play more than once?', 'Do you prefer solving a puzzle alone or thinking aloud with a team?', 'How competitive are you when you play with other people?', 'Have you ever stopped playing a game because the rules were confusing?'],
+            warmups: ['If you could get the same people together to play one game again, what would you play?', 'Do you prefer solving a puzzle alone or thinking aloud with a team?', 'How competitive are you when you play with other people?', 'Have you ever stopped playing a game because the rules were confusing?'],
             expressions: [
                 E('To take turns', 'To act one after another in an agreed order.', 'Players take turns moving one piece.', 'With only one clue card, everyone needs {gap}.'),
                 E('To play by the rules', 'To follow the agreed instructions of a game.', 'The match stays fair when everyone plays by the rules.', 'Even a creative player should agree {gap}.'),
@@ -116,7 +132,7 @@
                     'Do you enjoy riddles and logic puzzles?',
                     'Have you ever spent too long trying to solve one puzzle?',
                     'Do you usually ask for a hint or keep trying alone?',
-                    'Are puzzles more fun alone or with other people?'
+                    'Who would you bring to an escape room, and what would they be good at?'
                 ]),
                 S('The Logical Song', 'Supertramp', null, 'Progressive pop-rock questions what it means to be logical, practical, and certain.', 'Logic versus imagination', ['logic', 'reflective', 'certainty'], [
                     'When do you trust logic more than intuition?',
@@ -126,20 +142,34 @@
                 ])
             ],
             contexts: [
-                C('The Escape-Room Briefing', 'Four locks, sixty minutes, one suspicious lamp.', 'Your team enters a room with a map, a broken clock, five postcards, a locked suitcase, and a plant that may be a clue or simply a plant.', 'Which object should the team examine first?', [
-                    { title: 'Pattern', text: 'The postcards show times instead of places.' },
-                    { title: 'Sound', text: 'The clock makes one extra click every minute.' },
-                    { title: 'Language', text: 'The map labels one street in a different alphabet.' },
-                    { title: 'Teamwork', text: 'Two clues must be viewed at the same time.' }
-                ], 'fa-key'),
-                C('The House-Rule Court', 'Every group eventually invents its own version.', 'Choose which rules improve a game and which create chaos: trading cards, time limits, second chances, secret partnerships, bonus points, or a punishment for checking your phone.', 'Which house rule would you keep?', [
-                    { title: 'Speed', text: 'Every turn lasts no more than forty seconds.' },
-                    { title: 'Mercy', text: 'A new player receives one free mistake.' },
-                    { title: 'Chaos', text: 'A mystery rule appears halfway through.' },
-                    { title: 'Story', text: 'Every move needs a dramatic explanation.' }
-                ], 'fa-gavel')
+                C(
+                    'The Locked Suitcase',
+                    'Three digits from 1 to 5, with no repeats',
+                    'Open the clues one at a time. Say the code you’d try before opening the last card.',
+                    'Which clue helped you narrow it down the most?',
+                    [
+                        { title: 'Clue 1', text: 'The first digit is double the last digit.' },
+                        { title: 'Clue 2', text: 'The last digit is odd.' },
+                        { title: 'Clue 3', text: 'The middle digit is one more than the first digit.' },
+                        { title: 'Check the Code', text: '231. The first digit is 2, the last is 1, and the middle is 3.' }
+                    ],
+                    'fa-lock', { revealCards: true }
+                ),
+                C(
+                    'Would This Ruin Game Night?',
+                    'One game, one new rule',
+                    'Think of a game you’ve played with friends. Pick one new rule you’d try and tell me how it would change the game.',
+                    'Which rule would your friends argue about the most?',
+                    [
+                        { title: 'One Do-Over', text: 'Everyone gets one chance to undo their own move.' },
+                        { title: 'Phones Down', text: 'Check your phone during the game and you miss a turn.' },
+                        { title: 'Catch Up', text: 'The player in last place gets an extra turn halfway through.' },
+                        { title: 'Score Swap', text: 'On the last turn, draw two names. Those players swap scores.' }
+                    ],
+                    'fa-dice'
+                )
             ],
-            speaking: { title: 'The Game Designer’s Table', icon: 'fa-dice', prompts: ['What game do you usually play with friends or family?', 'Have you ever tried an escape room? What was it like?', 'Which game rule do people often misunderstand?', 'Do you prefer games based on luck, skill, or conversation?'], support: ['Players take turns…', 'The goal is to…', 'The clue suggests…', 'This keeps a level playing field because…'] },
+            speaking: { title: 'Game Night Stories', icon: 'fa-dice', instruction: 'Pick a question that makes you think of a game you’ve actually played.', prompts: ['What game do you usually play with friends or family?', 'Have you ever tried an escape room? What was it like?', 'Which game rule do people often misunderstand?', 'Do you prefer games based on luck, skill, or conversation?'], support: ['Players take turns…', 'The goal is to…', 'The clue suggests…', 'This keeps a level playing field because…'] },
             homework: ['Explain the rules of a game you know well to a new player.', 'Describe a puzzle or escape-room experience and how you approached it.', 'Review a game by comparing fun, fairness, strategy, and replay value.'],
             closing: 'A good game gives every player a reason to think, react, and talk.'
         }),
@@ -147,7 +177,7 @@
         51: lesson({
             title: 'Weather, Seasons & Mood', icon: 'fa-cloud-sun', accent: 'orange',
             warmupTitle: 'Warm-up: Today’s Emotional Forecast', warmupIntro: 'Weather changes clothes, plans, conversations, and the universal mystery of people who carry umbrellas only when it is sunny.',
-            warmups: ['Which kind of weather gives you the most energy?', 'Do you check the weather forecast every day?', 'What do you usually do on a rainy afternoon?', 'Does the weather affect your mood?'],
+            warmups: ['Which kind of weather gives you the most energy?', 'When did the weather turn a normal day into one you still remember?', 'What do you usually do on a rainy afternoon?', 'Does the weather affect your mood?'],
             expressions: [
                 E('Come rain or shine', 'No matter what the weather or difficulty is.', 'The market opens every Sunday, come rain or shine.', 'They walk the dog at seven, {gap}.'),
                 E('To take a rain check', 'To politely postpone an invitation or plan.', 'Can I take a rain check on dinner tonight?', 'If the storm gets worse, we may need {gap}.'),
@@ -158,14 +188,38 @@
             ],
             songs: [
                 S('Here Comes the Sun', 'The Beatles', null, 'Gentle pop-rock makes returning sunlight feel like relief, energy, and a fresh beginning.', 'Why better weather changes the atmosphere', ['sunlight', 'warm', 'relief'], ['Do sunny days change your plans?', 'What outdoor activity do you enjoy most?', 'Have you ever cancelled a plan because of bad weather?', 'Do you prefer very sunny days or mild, cloudy days?']),
-                S('Rain on Me', 'Lady Gaga & Ariana Grande', null, 'Dance-pop turns rain into an energetic image of accepting discomfort and continuing to move.', 'Turning bad weather into momentum', ['rain', 'energetic', 'acceptance'], ['Do you enjoy going out when it is raining?', 'What is your favorite rainy-day plan?', 'Have you ever been caught in heavy rain without an umbrella?', 'Does rain make your city feel calmer or more stressful?']),
+                S('Rain on Me', 'Lady Gaga & Ariana Grande', null, 'Dance-pop turns rain into an energetic image of accepting discomfort and continuing to move.', 'Turning bad weather into momentum', ['rain', 'energetic', 'acceptance'], ['Do you enjoy going out when it is raining?', 'When has rain made something more fun than you expected?', 'Have you ever been caught in heavy rain without an umbrella?', 'Does rain make your city feel calmer or more stressful?']),
                 S('Colder Weather', 'Zac Brown Band', null, 'Country storytelling connects cold weather, movement, distance, and the pull between staying and leaving.', 'Weather as part of a decision', ['cold', 'reflective', 'movement'], ['Which season changes your routine the most?', 'Do you prefer hot weather or cold weather?', 'Have you ever visited a place with a very different climate?', 'Would you move to another city because of the weather?'])
             ],
             contexts: [
-                C('Your Weather Routine', 'A forecast changes more than your clothes.', 'Compare what you actually do on hot, cold, rainy, and windy days. Explain which parts of your routine change and which continue come rain or shine.', 'Which weather condition changes your day most, and how?', [{title:'Clothes',text:'What do you add, remove, or carry?'},{title:'Transport',text:'Does the journey become slower, harder, or more expensive?'},{title:'Plans',text:'Which activity moves indoors or needs a rain check?'},{title:'Mood',text:'Does your energy or concentration change?'}], 'fa-temperature-half'),
-                C('When the Forecast Changed the Plan', 'Use a real Plan B.', 'Recall an outing, journey, appointment, or celebration affected by the weather. Explain the original plan, what changed, and whether the alternative was better or worse.', 'What would you do differently if the same forecast appeared again?', [{title:'Heat',text:'How did you manage shade, water, and timing?'},{title:'Cold',text:'Were the place, clothes, and transport suitable?'},{title:'Rain',text:'Did you postpone, move indoors, or continue anyway?'},{title:'Wind',text:'Which part of the route or activity became difficult?'}], 'fa-cloud-showers-heavy')
+                C(
+                    'Your Perfect Day Off',
+                    'The forecast is in',
+                    'Pick two forecasts. For each one, tell me what you’d actually do if you had the whole afternoon free.',
+                    'Which forecast would get you out the door fastest?',
+                    [
+                        { title: 'Warm and Sunny', text: 'It’s 25°C, and you don’t need a jacket.' },
+                        { title: 'Rain All Afternoon', text: 'You can hear the rain from inside.' },
+                        { title: 'Cold but Clear', text: 'The sun is out, and it’s 5°C.' },
+                        { title: 'Warm and Windy', text: 'It’s warm enough to go out, but the wind keeps picking up.' }
+                    ],
+                    'fa-cloud-sun'
+                ),
+                C(
+                    'Would You Still Go?',
+                    'Your plans meet the forecast',
+                    'Pick a plan and decide whether to go, change it, or reschedule. Say the first message you’d send your friend.',
+                    'Which of these plans would you stick to even if the forecast got worse?',
+                    [
+                        { title: 'Outdoor Concert', text: 'You already have tickets, and it’s starting to drizzle.' },
+                        { title: 'Birthday Picnic', text: 'You’ve packed the food, but the wind is getting stronger.' },
+                        { title: 'Long Walk', text: 'You planned to meet at noon, and it’s already 32°C.' },
+                        { title: 'Breakfast Outside', text: 'Your favorite café only has outdoor seats today, and it’s 6°C.' }
+                    ],
+                    'fa-umbrella'
+                )
             ],
-            speaking: { title: 'The Weather Studio', icon: 'fa-satellite-dish', prompts: ['How does today’s weather affect your plans?', 'What do you usually do when the forecast changes suddenly?', 'Which season fits your personality best?', 'Have you ever experienced weather that genuinely surprised you?'], support: ['The forecast calls for…', 'If it clears up…', 'Come rain or shine…', 'Our Plan B would be…'] },
+            speaking: { title: 'When the Weather Changed Your Plans', icon: 'fa-satellite-dish', instruction: 'Start with the question that brings a particular day or trip to mind.', prompts: ['How does today’s weather affect your plans?', 'What do you usually do when the forecast changes suddenly?', 'Which season fits your personality best?', 'Have you ever experienced weather that genuinely surprised you?'], support: ['The forecast calls for…', 'If it clears up…', 'Come rain or shine…', 'Our Plan B would be…'] },
             homework: ['Write a weather diary that includes mood, clothes, plans, and one observation.', 'Compare how your routine changes in two different seasons.', 'Describe a time when the weather changed an important plan and explain your Plan B.'],
             closing: 'Weather gives every ordinary plan a setting, a mood, and occasionally a surprise ending.'
         }),
@@ -190,17 +244,17 @@
             ],
             contexts: [
                 C(
-                    'Sounds We Don’t Hear Much Anymore',
-                    'The sounds that mark a generation.',
-                    'A phone ringing in the hallway. A DVD tray sliding shut. An ice cream truck turning the corner. Some familiar sounds fade so gradually that we barely notice.',
-                    'What everyday sound from today might be hard to explain to someone growing up twenty years from now?',
+                    'Name That Sound',
+                    'Two clues, one guess',
+                    'Pick a card and think of a real sound. Give two clues or imitate it so the other person can guess.',
+                    'Which sound would take you back to a specific place the fastest?',
                     [
-                        { title: 'A sound you remember', text: 'What did you hear all the time growing up that you rarely hear now?' },
-                        { title: 'Sounds we traded', text: 'What everyday sound has technology replaced with a new one? Which do you prefer?' },
-                        { title: 'A neighborhood signature', text: 'Is there a sound that feels specific to where you grew up, like a street vendor’s call or a school bell?' },
-                        { title: 'Glad it’s gone', text: 'Which sound are you glad you don’t hear as often anymore?' }
+                        { title: 'A Sound You Rarely Hear Now', text: 'Something you used to hear all the time, like an old phone or a school bell.' },
+                        { title: 'Your Neighborhood', text: 'A sound you hear from your window or on your street.' },
+                        { title: 'Oddly Satisfying', text: 'A sound you’d happily hear again and again.' },
+                        { title: 'Please Mute That', text: 'A sound you wish had a volume button.' }
                     ],
-                    'fa-clock-rotate-left'
+                    'fa-ear-listen'
                 )
             ],
             speaking: {
@@ -226,7 +280,7 @@
         53: lesson({
             title: 'Birthdays, Gifts & Celebration Personalities', icon: 'fa-cake-candles', accent: 'indigo',
             warmupTitle: 'Warm-up: Make a Wish', warmupIntro: 'Some people want a room full of balloons. Others want cake, two friends, and no public singing whatsoever.',
-            warmups: ['What kind of birthday celebration suits your personality?', 'Do you enjoy organizing celebrations for other people?', 'Have you ever received a simple but thoughtful gift?', 'Do you prefer choosing your gift or being surprised?'],
+            warmups: ['If you could relive one birthday just for the food or the company, which one would it be?', 'Do you enjoy organizing celebrations for other people?', 'Have you ever received a simple but thoughtful gift?', 'Do you prefer choosing your gift or being surprised?'],
             expressions: [
                 E('To mark the occasion','To do something special for an important event.','We took a group photo to mark the occasion.','A handwritten note is a simple way {gap}.'),
                 E('To make a fuss of someone','To give someone warm attention on a special day.','Her friends made a fuss of her at breakfast.','On birthdays, some families love {gap}.'),
@@ -236,15 +290,39 @@
                 E('It’s the thought that counts','Good intentions matter more than price or perfection.', 'The cake leaned to one side, but it’s the thought that counts.', 'The card arrived late; still, {gap}.')
             ],
             songs: [
-                S('Birthday', 'The Beatles', null, 'Straightforward rock turns the occasion into an energetic invitation to celebrate together.', 'What makes a celebration feel alive', ['birthday', 'energetic', 'togetherness'], ['Do you usually enjoy your birthday?', 'Which birthday tradition do you like most?', 'Have you ever had or attended a surprise party?', 'Do you prefer a small celebration or a large one?']),
+                S('Birthday', 'The Beatles', null, 'Straightforward rock turns the occasion into an energetic invitation to celebrate together.', 'What makes a celebration feel alive', ['birthday', 'energetic', 'togetherness'], ['Do you usually enjoy your birthday?', 'Which birthday tradition do you like most?', 'Have you ever had or attended a surprise party?', 'What song would get people out of their seats at a birthday party you were throwing?']),
                 S("It's My Party", 'Lesley Gore', null, 'Classic pop adds emotional drama to a party that is supposed to be joyful and public.', 'When the celebration does not follow the plan', ['party', 'dramatic', 'expectations'], ['Do you usually enjoy going to parties?', 'Have you ever left a party earlier than planned?', 'What helps you feel comfortable at a social event?', 'Do you prefer being the host or being a guest?']),
                 S('My Wish', 'Rascal Flatts', null, 'Country-pop turns a gift into words of encouragement for someone beginning another year or chapter.', 'Giving wishes instead of objects', ['wish', 'warm', 'encouragement'], ['Do you usually send personal birthday messages?', 'Which gift do you still remember clearly?', 'Do you prefer receiving experiences or physical gifts?', 'Have you ever received a gift that showed someone understood you well?'])
             ],
             contexts: [
-                C('The Gift Interview','Match the gift to a real person, not the price.', 'Choose someone you genuinely know. Your partner asks about the person’s interests, routine, needs, and preferences before suggesting a gift. Then evaluate whether the suggestion fits.', 'Which detail about the person should guide the choice most?', [{title:'Relationship',text:'How well do you know the person, and what do you share?'},{title:'Interests',text:'What do they actually enjoy doing or talking about?'},{title:'Avoid',text:'What do they already own, dislike, or have no time to use?'},{title:'Budget',text:'Would an experience, useful object, or personal message fit best?'}], 'fa-gift'),
-                C('Your Celebration Style','Not everyone wants the same amount of attention.', 'Compare celebrations you have enjoyed and disliked. Discuss whether you prefer something quiet, social, active, or traditional, and what a good host should ask before planning.', 'Which kind of celebration makes you feel most comfortable?', [{title:'Quiet',text:'A favorite meal and time with a few close people.'},{title:'Social',text:'A flexible gathering with room to move and talk.'},{title:'Active',text:'A shared activity followed by relaxed food.'},{title:'Traditional',text:'Familiar food, messages, photos, and family customs.'}], 'fa-champagne-glasses')
+                C(
+                    'I’d Get You This',
+                    'A gift for someone you know',
+                    'Think of a real person and tell me one thing they love. Pick a card and say what you’d give them.',
+                    'Which gift would make them feel you really know them?',
+                    [
+                        { title: 'Something Useful', text: 'Something they’d use every week.' },
+                        { title: 'An Experience', text: 'Something you could do together.' },
+                        { title: 'An Inside Joke', text: 'Something they’d laugh at as soon as they opened it.' },
+                        { title: 'Made by You', text: 'Something you could cook, make, or put together yourself.' }
+                    ],
+                    'fa-gift'
+                ),
+                C(
+                    'The Birthday I’d Actually Want',
+                    'Pick your invitation',
+                    'Choose the birthday you’d be happiest to have. Tell me one detail you’d change to make it yours.',
+                    'What would you still be talking about the next day?',
+                    [
+                        { title: 'Come Over', text: 'A few friends, your favorite snacks, and something to play or watch.' },
+                        { title: 'Let’s Go Out to Eat', text: 'Dinner with one person at a place you’ve been wanting to try.' },
+                        { title: 'A Day Away', text: 'A day trip with time to stop wherever you want.' },
+                        { title: 'A Day to Yourself', text: 'Your favorite food, no schedule, and the whole day free.' }
+                    ],
+                    'fa-cake-candles'
+                )
             ],
-            speaking: {title:'The Celebration Planner',icon:'fa-calendar-check',prompts:['How do you usually celebrate your birthday?', 'What is the most thoughtful gift you have received?', 'Have you ever helped organize a surprise?', 'Do adults make too much or too little fuss about birthdays?'],support:['To mark the occasion…', 'This gift is thoughtful because…', 'The guest of honor would prefer…', 'Our surprise Plan B is…']},
+            speaking: {title:'Birthdays Worth Remembering',icon:'fa-calendar-check', instruction: 'Start with one birthday, gift, or surprise you still remember.', prompts:['How do you usually celebrate your birthday?', 'What is the most thoughtful gift you have received?', 'Have you ever helped organize a surprise?', 'Do adults make too much or too little fuss about birthdays?'],support:['To mark the occasion…', 'This gift is thoughtful because…', 'The guest of honor would prefer…', 'Our surprise Plan B is…']},
             homework: ['Recommend a thoughtful gift for a real person and explain the details that guided your choice.', 'Plan a celebration for someone you know, using their preferences and a realistic budget.', 'Write a birthday message that is specific, warm, and natural.'],
             closing: 'The best celebration fits the person, not a standard formula.'
         }),
@@ -252,7 +330,7 @@
         54: lesson({
             title: 'Amusement Parks & Visitor Experience', icon: 'fa-ticket', accent: 'purple',
             warmupTitle: 'Warm-up: Welcome to the Park', warmupIntro: 'A theme park is where people wait ninety minutes to be frightened for ninety seconds—and then immediately join another line.',
-            warmups: ['Have you ever visited a large amusement park?', 'Which kind of attraction do you enjoy most?', 'What ride would you refuse even if the line were empty?', 'How long are you willing to wait for a popular attraction?'],
+            warmups: ['If you could go back to a park, fair, or carnival for just one thing, what would you do again?', 'Which kind of attraction do you enjoy most?', 'What ride would you refuse even if the line were empty?', 'How long are you willing to wait for a popular attraction?'],
             expressions: [
                 E('A thrill seeker','Someone who enjoys exciting and slightly frightening experiences.','Maya is a thrill seeker who loves the fastest rides.', 'The new upside-down coaster was designed for {gap}.'),
                 E('Not for the faint-hearted','Too intense or frightening for easily nervous people.', 'The haunted tunnel is not for the faint-hearted.', 'A ride through total darkness is {gap}.'),
@@ -263,14 +341,38 @@
             ],
             songs: [
                 S('Rollercoaster', 'Bleachers', null, 'Energetic pop-rock uses the motion of a rollercoaster to create speed, anticipation, and emotional momentum.', 'Why controlled thrills feel exciting', ['motion', 'energetic', 'anticipation'], ['Do you enjoy rollercoasters?', 'Have you ever been scared before a ride but enjoyed it afterward?', 'Which type of ride gives you the right amount of excitement?', 'Do you prefer fast rides or smooth, scenic rides?']),
-                S('Fun, Fun, Fun', 'The Beach Boys', null, 'Fast pop-rock celebrates movement, freedom, and the pure attraction of an exciting machine.', 'When the ride becomes the event', ['fun', 'bright', 'movement'], ['Which attraction makes you feel like a child again?', 'Who would you most enjoy visiting a theme park with?', 'Do you spend more time on rides, shows, or food?', 'Can a park be fun without fast or frightening attractions?']),
+                S('Fun, Fun, Fun', 'The Beach Boys', null, 'Fast pop-rock celebrates movement, freedom, and the pure attraction of an exciting machine.', 'When the ride becomes the event', ['fun', 'bright', 'movement'], ['Which attraction makes you feel like a child again?', 'Who would you most enjoy visiting a theme park with?', 'Do you spend more time on rides, shows, or food?', 'What’s the first thing you’d spend money on after getting through the gate?']),
                 S('On Top of the World', 'Imagine Dragons', null, 'Upbeat pop-rock turns height into a feeling of achievement, wonder, and seeing everything differently.', 'Views, heights, and perspective', ['height', 'uplifting', 'perspective'], ['Are you comfortable with heights?', 'Have you ever ridden a Ferris wheel or observation ride?', 'Which high place gave you a memorable view?', 'Do clear safety explanations help you relax on a ride?'])
             ],
             contexts: [
-                C('A Ride Worth the Wait','Different visitors want different experiences.', 'Compare four common types of attraction. Say which one you would queue up for, which one you would avoid, and what information you would want before deciding.', 'Which attraction would be worth the longest wait for you?', [{title:'Thrill Ride',text:'High speed, drops, inversions, and a clear intensity warning.'},{title:'Classic Ride',text:'A familiar attraction with simple movement and broad appeal.'},{title:'Immersive Ride',text:'A story-led experience using sets, sound, and special effects.'},{title:'Scenic Ride',text:'A slower attraction focused on views and atmosphere.'}], 'fa-person-chalkboard'),
-                C('Plan a Day at the Park','One group, different comfort levels.', 'A group includes a thrill seeker, someone afraid of heights, a child, and a person who dislikes long queues. Agree on a realistic route that gives everyone something to enjoy.', 'What should the group do first, and where will it compromise?', [{title:'Thrill',text:'Choose one intense ride with clear safety information.'},{title:'Classic',text:'Include an attraction the whole group can enjoy together.'},{title:'Break',text:'Plan water, food, shade, and time away from crowds.'},{title:'Queue',text:'Decide which attraction is worth waiting for and set a limit.'}], 'fa-map')
+                C(
+                    'One Ride Left',
+                    'The park closes in 45 minutes',
+                    'Pick your last ride and tell me what makes it worth the wait. Then hear the other person’s pick.',
+                    'What would you pick if your friend was scared of heights?',
+                    [
+                        { title: 'Big Drop', text: '40 minutes in line for the tallest drop in the park.' },
+                        { title: 'Ferris Wheel', text: '15 minutes in line for a view of the park as the lights come on.' },
+                        { title: 'Indoor Story Ride', text: '25 minutes in line for a ride through a set with actors.' },
+                        { title: 'River Rafts', text: '20 minutes in line for a ride that might leave you soaked.' }
+                    ],
+                    'fa-ticket'
+                ),
+                C(
+                    'What Would Get You Through the Gate?',
+                    'Bring a friend to the park',
+                    'Think of a friend who hates roller coasters. Pick the thing they’d most enjoy and tell them what you’d do together.',
+                    'What would you want to do again on your next visit?',
+                    [
+                        { title: 'Live Show', text: 'See a stunt show with music and a surprise ending.' },
+                        { title: 'Snack Break', text: 'Split a snack you can only get at the park.' },
+                        { title: 'Carnival Games', text: 'Try to win something ridiculous to take home.' },
+                        { title: 'Night Lights', text: 'Walk around after dark and find the best spot for a photo.' }
+                    ],
+                    'fa-star'
+                )
             ],
-            speaking: {title:'The Park Visitor Roundtable',icon:'fa-compass-drafting',prompts:['Which amusement park experience do you remember most clearly?', 'What makes waiting in a long line more tolerable?', 'Would you visit a park if you did not like rollercoasters?', 'Can a simple classic ride be better than an expensive high-tech one?'],support:['The main attraction is…', 'Visitors queue up to…', 'I would avoid it because…', 'It is worth the wait because…']},
+            speaking: {title:'A Day at the Park',icon:'fa-compass-drafting', instruction: 'Pick a question and think of a park, fair, or carnival you know.', prompts:['Which amusement park experience do you remember most clearly?', 'What makes waiting in a long line more tolerable?', 'Would you visit a park if you did not like rollercoasters?', 'Can a simple classic ride be better than an expensive high-tech one?'],support:['The main attraction is…', 'Visitors queue up to…', 'I would avoid it because…', 'It is worth the wait because…']},
             homework: ['Plan a realistic day at a park for people with different preferences.', 'Write a clear safety announcement for a familiar type of ride.', 'Review an attraction using atmosphere, comfort, originality, and excitement.'],
             closing: 'A memorable attraction gives people a story before, during, and after the ride.'
         }),
@@ -278,7 +380,7 @@
         55: lesson({
             title: 'What If…? Absurd Scenarios', icon: 'fa-circle-question', accent: 'cyan',
             warmupTitle: 'Warm-up: Reality Has Left the Chat', warmupIntro: 'Logic is welcome, but today it must wear a ridiculous hat.',
-            warmups: ['Do you enjoy absurd or nonsensical humor?', 'Which “what if” question has made you laugh?', 'Have you ever created a silly story with friends?', 'Do serious people sometimes enjoy the strangest jokes?'],
+            warmups: ['If your phone could complain about one thing you do, what would it say?', 'Which “what if” question has made you laugh?', 'Have you ever created a silly story with friends?', 'Do serious people sometimes enjoy the strangest jokes?'],
             expressions: [
                 E('Hypothetically speaking','Used to introduce an imagined situation.','Hypothetically speaking, what if gravity stopped at lunchtime?','{gap}, could a penguin run a hotel?'),
                 E('In the unlikely event that','If something improbable happens.','In the unlikely event that aliens call, be polite.','{gap} the moon disappears, we need a backup plan.'),
@@ -290,11 +392,35 @@
             songs: [
                 S('Particle Man','They Might Be Giants',null,'Alternative rock creates tiny characters with unexplained powers, problems, and wonderfully strange logic.','When nonsense has its own rules',['characters','quirky','rules'],['Do you enjoy fictional characters with strange powers?', 'Which unusual fictional character do you remember well?', 'Have you ever enjoyed a story without fully understanding it?', 'Does an imaginary world need logical rules to be enjoyable?']),
                 S('The Fox (What Does the Fox Say?)','Ylvis',null,'A simple unanswered question becomes a completely committed musical mystery.','Taking nonsense seriously',['mystery','energetic','sound'],['Do you know the sounds of many different animals?', 'Which unusual animal do you find most interesting?', 'Do silly songs stay in your memory easily?', 'Can a nonsense song improve your mood?']),
-                S('Rock Lobster',"The B-52's",null,'New-wave rock commits completely to a surreal beach scene and turns nonsense into a dance-floor world.','Building an absurd world',['surreal','playful','imagination'],['Have you heard “Rock Lobster” before?', 'Do you enjoy songs with strange or surreal lyrics?', 'Which novelty song do you still remember?', 'Does a funny song need a clear meaning?'])
+                S('Rock Lobster',"The B-52's",null,'New-wave rock commits completely to a surreal beach scene and turns nonsense into a dance-floor world.','Building an absurd world',['surreal','playful','imagination'],['If you had to turn this song into a ten-second video, what would we see?', 'Do you enjoy songs with strange or surreal lyrics?', 'Which novelty song do you still remember?', 'Does a funny song need a clear meaning?'])
             ],
             contexts: [
-                C('The Absurd City Council','Serious meeting, impossible problem.','The city must respond to clouds that park illegally, pigeons that demand salaries, and a fountain that predicts embarrassing moments.','Which problem should receive the emergency budget?',[{title:'Transport',text:'All buses now move sideways.'},{title:'Housing',text:'Every apartment grows one extra room at midnight.'},{title:'Animals',text:'Squirrels have formed a local government.'},{title:'Weather',text:'It rains soup every Thursday.'}],'fa-building-columns'),
-                C('One Tiny Change','Small rules can transform everything.','Imagine a world where names expire, chairs choose their owners, or every question must be answered with a drawing. Follow the consequences.','Which tiny change creates the biggest chaos?',[{title:'Language',text:'People can use only ten words per day.'},{title:'Food',text:'Dessert must legally come first.'},{title:'Time',text:'Everyone gets one personal Tuesday.'},{title:'Objects',text:'Lost socks return with souvenirs.'}],'fa-shuffle')
+                C(
+                    'Tomorrow, One Weird Rule',
+                    'What would you do first?',
+                    'Pick the weird rule you’d most like to wake up to. Tell me what you’d do with it in the first hour.',
+                    'Who in your life would have the most fun with that rule?',
+                    [
+                        { title: 'Talking Pets', text: 'Every pet can talk for one day.' },
+                        { title: 'An Elevator With Questions', text: 'The elevator moves only after you answer a question about yourself.' },
+                        { title: 'Shoes With Plans', text: 'Your shoes decide where you walk next.' },
+                        { title: 'A Peek at Tomorrow', text: 'Everyone gets to see ten seconds of their own day tomorrow.' }
+                    ],
+                    'fa-wand-magic-sparkles'
+                ),
+                C(
+                    'Yes, and Then…',
+                    'One sentence each',
+                    'Open one card. Take turns adding one sentence to the story. After four new sentences, give the story a title.',
+                    'Which sentence changed the story the most?',
+                    [
+                        { title: 'A Visitor', text: 'A pigeon with a tiny suitcase knocks on your window.' },
+                        { title: 'Five More Minutes', text: 'Your alarm asks you to let it sleep in today.' },
+                        { title: 'Wrong Order', text: 'You open a takeout bag and find a map of your own apartment.' },
+                        { title: 'Out of Office', text: 'Your houseplant asks if it can take Friday off.' }
+                    ],
+                    'fa-book-open', { revealCards: true }
+                )
             ],
             speaking: {title:'The What-If Machine',icon:'fa-gears',prompts:['Do you enjoy discussing impossible “what if” questions?', 'If animals could speak, which one would be most interesting?', 'What everyday rule would become funny if everyone followed it literally?', 'Have you ever enjoyed a story even though it made no logical sense?'],support:['Hypothetically speaking…','The first consequence would be…','The strangest part is…','Against all logic, it might…']},
             homework: ['Write five connected consequences of one absurd change.','Create an advertisement for a product nobody should need.','Interview an imaginary creature about an ordinary job.'],
@@ -304,7 +430,7 @@
         56: lesson({
             title: 'Books, Bookshops & Reading Personalities', icon: 'fa-book-open-reader', accent: 'amber',
             warmupTitle: 'Warm-up: Between the Covers', warmupIntro: 'Some readers finish a novel overnight. Others buy it, admire the cover, and give it a meaningful home on the unread shelf.',
-            warmups: ['How often do you read books?', 'What kind of book can keep your attention?', 'Do you prefer print, ebooks, or audiobooks?', 'How do you usually choose your next book?'],
+            warmups: ['Which book, comic, or audiobook would you love to start again for the first time?', 'What kind of book can keep your attention?', 'Do you prefer print, ebooks, or audiobooks?', 'How do you usually choose your next book?'],
             expressions: [
                 E('A bookworm','A person who loves reading.', 'Maya is a bookworm who always carries a novel.', 'The library café was designed for {gap}.'),
                 E('A page-turner','A book that is extremely difficult to stop reading.', 'The mystery was a real page-turner.', 'Short chapters helped make the novel {gap}.'),
@@ -316,11 +442,35 @@
             songs: [
                 S('Paperback Writer','The Beatles',null,'Pop-rock turns the dream of writing and publishing a book into a concise, energetic request for a reader’s attention.', 'Writing a book and finding readers',['writing','publishing','readers'],['If you wrote a book, what kind of book would it be?', 'Would starting the story or finishing it be more difficult for you?', 'Who would you ask to read the first draft?', 'What makes someone want to keep reading after the first page?']),
                 S('The Book I Read','Talking Heads',null,'Art rock presents reading as a personal encounter: a book can feel connected to a reader’s own life and emotions.', 'When a book feels personal',['reading','personal','connection'],['Has a book ever felt closely connected to your own life?', 'What helps you identify with a narrator or character?', 'Do you remember a book’s plot or the feeling it gave you more clearly?', 'Can reading a book change the way you understand yourself?']),
-                S('Ramble On','Led Zeppelin',null,'Rock turns a journey into a fantasy narrative and brings characters and places from Tolkien’s writing into the song.', "Tolkien's world inside a rock song",['literature','fantasy','references'],['Which topic could you read several books about?', 'Do you enjoy discussing books with other people?', 'Have you ever loved a book that someone else disliked?', 'Do you reread books for comfort or discovery?'])
+                S('Ramble On','Led Zeppelin',null,'Rock turns a journey into a fantasy narrative and brings characters and places from Tolkien’s writing into the song.', "Tolkien's world inside a rock song",['literature','fantasy','references'],['Which topic could you read several books about?', 'What place from a book or story would you spend one afternoon in?', 'Have you ever loved a book that someone else disliked?', 'Do you reread books for comfort or discovery?'])
             ],
             contexts: [
-                C('Who Are You in a Bookshop?','Everyone browses differently.','Think about what you actually do when you enter a bookshop. Choose the option that sounds most like you, explain why, and describe what happened on your most recent visit.', 'Do you browse every section, go straight to one section, ask a bookseller for help, or pick up whatever catches your eye?', [{title:'The Browser',text:'Walks through several sections before making a decision.'},{title:'The Direct Shopper',text:'Goes straight to a favorite genre or a specific title.'},{title:'The Advice Seeker',text:'Asks a bookseller for a recommendation.'},{title:'The Impulse Reader',text:'Starts with displays, covers, or whatever catches the eye.'}], 'fa-store'),
-                C('One Book Everywhere?','Reading choices can depend on place and situation.', 'Compare what you read at home, during a commute, in a café, and on holiday. Explain whether the place changes the book, format, or amount of attention you can give it.', 'Do you have different books for different places or situations, or do you carry the same book everywhere?', [{title:'At Home',text:'Longer reading sessions, comfort, and fewer practical limits.'},{title:'On a Commute',text:'Portability, interruptions, and a predictable amount of time.'},{title:'In a Café',text:'Background noise, people around you, and a shorter visit.'},{title:'On Holiday',text:'More free time, limited luggage, and a different mood.'}], 'fa-book-open')
+                C(
+                    'Would You Read Page Two?',
+                    'Pick a first line',
+                    'Read the four openings and pick the one you’d keep reading. Tell me what you hope to find out on the next page.',
+                    'Which opening would you send to a friend who rarely reads?',
+                    [
+                        { title: 'Mystery', text: 'The key I’d lost last summer was in the pocket of a coat I’d bought that morning.' },
+                        { title: 'Comedy', text: 'My dog gave me two weeks’ notice on a Tuesday.' },
+                        { title: 'Romance', text: 'We’d taken the same train for a year, but that morning there was only one seat left.' },
+                        { title: 'Adventure', text: 'The last bus out of town had a sign that said Anywhere.' }
+                    ],
+                    'fa-book-open'
+                ),
+                C(
+                    'A Book for Right Now',
+                    'A recommendation for the moment',
+                    'Pick a situation and recommend something you’ve read or listened to. A book, comic, or audiobook all count.',
+                    'What would you tell someone who isn’t sure they’d like your pick?',
+                    [
+                        { title: 'A Long Trip', text: 'You have five hours before you arrive.' },
+                        { title: 'Ten Minutes to Kill', text: 'You’re early and waiting for a friend.' },
+                        { title: 'A Long Day', text: 'You want to switch off and think about something else.' },
+                        { title: 'One More Page', text: 'It’s bedtime, but you want something you’ll struggle to put down.' }
+                    ],
+                    'fa-book'
+                )
             ],
             speaking: {title:'Your Reading Life',icon:'fa-book-bookmark',prompts:['Have you ever taken part in a book club? What was the experience like? If not, would you consider joining one?', 'Which book would you recommend to a friend, and why?', 'When is an audiobook more convenient than a printed book?', 'Do you usually finish every book you start?'],support:['It is a real page-turner because…', 'This format works well when…', 'Reading between the lines…', 'I could/could not put it down because…']},
             homework: ['Write a concise, spoiler-free recommendation for a book you have read.', 'Compare what, where, and how you read in two real situations.', 'Describe the kind of book club you would consider joining and explain what would keep you interested.'],
@@ -341,12 +491,36 @@
             ],
             songs: [
                 S("You Don't Own Me",'Lesley Gore',null,'Classic pop uses a confident voice to reject control and state a personal point of view.', 'Speaking clearly without asking permission',['autonomy','confident','control'],['When is it easiest for you to express a different opinion?', 'Has friendly advice ever started to feel like control?', 'Do you usually ask for other people’s opinions before deciding?', 'Is it easy for you to say no clearly?']),
-                S('We Can Work It Out','The Beatles',null,'Pop-rock turns disagreement into an invitation to slow down, listen, and search for a solution.', 'From argument to common ground',['disagreement','hopeful','compromise'],['What helps you stay calm during a disagreement?', 'Have you ever solved a disagreement through conversation?', 'Do you compromise easily?', 'Are some disagreements better left unresolved?']),
+                S('We Can Work It Out','The Beatles',null,'Pop-rock turns disagreement into an invitation to slow down, listen, and search for a solution.', 'From argument to common ground',['disagreement','hopeful','compromise'],['What helps you stay calm during a disagreement?', 'You and a friend want to watch different things tonight. How would you settle it?', 'Do you compromise easily?', 'Are some disagreements better left unresolved?']),
                 S('My Life','Billy Joel',null,'An assertive pop-rock narrator listens to outside opinions but keeps control of his own decisions.', 'Advice, independence, and personal choices',['independence','assertive','advice'],['Which personal choice do people often comment on unnecessarily?', 'Do people sometimes give you advice without asking?', 'Have you ever ignored advice and been happy with the result?', 'Whose advice do you trust most?'])
             ],
             contexts: [
-                C('The Friendly-Debate Café','The opinions are strong; the stakes are deliciously low.','Choose a table and defend one side. Your goal is not to win immediately—it is to ask a good question, give an example, and understand the opposite view.', 'Which debate would create the best conversation?', [{title:'Food',text:'Sweet breakfast versus savory breakfast.'},{title:'Time',text:'Early birds versus night owls.'},{title:'Stories',text:'Books versus screen adaptations.'},{title:'Travel',text:'Detailed itinerary versus spontaneous exploration.'}], 'fa-mug-hot'),
-                C('The Disagreement Toolkit','Good conversation needs more than “yes” or “no.”','Useful disagreement separates the person from the idea, checks understanding, gives reasons, and leaves room for humor or uncertainty.', 'Which move changes the tone most quickly?', [{title:'Clarify',text:'“Do you mean that in every situation?”'},{title:'Acknowledge',text:'“I can see why that matters to you.”'},{title:'Example',text:'“Here is the situation that changed my mind.”'},{title:'Common Ground',text:'“At least we both want the same result.”'}], 'fa-toolbox')
+                C(
+                    'Pick a Hot Take',
+                    'Agree, disagree, or it depends',
+                    'Pick a take you have an opinion about. Say where you stand and give one example from your life. Then ask what the other person thinks.',
+                    'Which take would split your group chat?',
+                    [
+                        { title: 'Breakfast at Night', text: 'Breakfast food tastes better at dinner.' },
+                        { title: 'One More Episode', text: 'It’s better to wait and watch a whole season at once.' },
+                        { title: 'Skip the Itinerary', text: 'The best trips have no day-by-day plan.' },
+                        { title: 'Go for a Walk', text: 'A long walk beats an hour at the gym.' }
+                    ],
+                    'fa-comment-dots'
+                ),
+                C(
+                    'Say It Another Way',
+                    'Same opinion, better wording',
+                    'Pick a blunt reply and say how you’d put it to a friend. Then let the other person answer.',
+                    'What could you ask next to keep the conversation going?',
+                    [
+                        { title: 'A Movie They Loved', text: 'That movie was a waste of time.' },
+                        { title: 'A Weekend Plan', text: 'That sounds boring.' },
+                        { title: 'A Food Recommendation', text: 'I can’t believe you like that place.' },
+                        { title: 'A Popular Café', text: 'Only a fool would wait an hour for a table there.' }
+                    ],
+                    'fa-comments'
+                )
             ],
             speaking: {title:'The Friendly Debate Club',icon:'fa-scale-balanced',prompts:['Which harmless opinion of yours do people disagree with?', 'How do you react when a friend strongly disagrees with you?', 'Do you find it easy to see another person’s point?', 'When is it better to agree to disagree?'],support:['Hear me out…', 'I see your point, but…', 'To play devil’s advocate…', 'We can find common ground on…']},
             homework: ['Write both sides of a low-stakes debate.', 'Turn three blunt disagreements into curious responses.', 'Create a dialogue in which two people agree to disagree pleasantly.'],
@@ -356,7 +530,7 @@
         58: lesson({
             title: 'Useless Talents & Hidden Skills', icon: 'fa-medal', accent: 'lime',
             warmupTitle: 'Warm-up: Surprisingly Impressive', warmupIntro: 'Not every talent belongs on a résumé. Some belong at a party at exactly 9:17 p.m.',
-            warmups: ['What tiny task are you unusually good at?', 'Do you have a hidden talent?', 'What skill looks easy until you try it?', 'How do you usually learn a new skill?'],
+            warmups: ['What tiny task are you unusually good at?', 'Which friend would you bet on to win a completely random challenge? What would the challenge be?', 'What skill looks easy until you try it?', 'How do you usually learn a new skill?'],
             expressions: [
                 E('To have a knack for something','To have a natural skill for something.','He has a knack for remembering voices.','Maya seems {gap}: she can fold fitted sheets perfectly.'),
                 E('A hidden talent','An ability that most people do not know about.','Mimicking bird sounds is her hidden talent.','At karaoke, we discovered that singing was {gap}.'),
@@ -367,12 +541,36 @@
             ],
             songs: [
                 S('Rockstar','Nickelback',null,'Rock fantasy exaggerates fame, image, luxury, and the dream of becoming effortlessly impressive.','Talent, image, and imaginary fame',['fame','comic','image'],['Which performer skill would you love to have?', 'Do you follow the lives of famous musicians or actors?', 'Have you ever been impressed by someone who was not famous?', 'Would you rather be highly skilled and unknown or famous for an average ability?']),
-                S('One Week','Barenaked Ladies',null,'Rapid pop-rock delivery and dense references turn verbal agility into part of the fun.','Skills that look effortless',['speed','playful','wordplay'],['Which fast song or tongue twister is difficult for you?', 'Have you ever practiced something until it looked easy?', 'Do you usually pick up new skills quickly?', 'Is regular practice more important than natural talent?']),
+                S('One Week','Barenaked Ladies',null,'Rapid pop-rock delivery and dense references turn verbal agility into part of the fun.','Skills that look effortless',['speed','playful','wordplay'],['Which fast song or tongue twister is difficult for you?', 'Have you ever practiced something until it looked easy?', 'If you had a week to learn one trick for a bet, what would you try?', 'Is regular practice more important than natural talent?']),
                 S('Tribute','Tenacious D',null,'Comedy rock turns an impossible performance into a proudly exaggerated legend.', 'The funniest way to describe greatness',['performance','dramatic','legend'],['Which ordinary achievement are you secretly proud of?', 'Has someone ever complimented an unexpected skill of yours?', 'Do you exaggerate stories to make them funnier?', 'Does a talent need to be useful to be valuable?'])
             ],
             contexts: [
-                C('Where Small Skills Come In Handy','A minor ability can solve a real problem.','Choose a small skill you genuinely have or have seen someone use. Describe the last situation in which it saved time, reduced stress, or helped another person.','Which small skill has been more useful than you expected?',[{title:'Social',text:'Remembering names, introducing people, or calming an awkward moment.'},{title:'Home',text:'Repairing, organizing, cooking, or handling a repetitive task efficiently.'},{title:'Work or Study',text:'Explaining clearly, spotting errors, or learning a tool quickly.'},{title:'Travel',text:'Packing, navigating, communicating, or staying calm when plans change.'}],'fa-gavel'),
-                C('How You Learned It','Useful skills have a real history.','Choose one ability you learned outside a formal class. Explain how you started, what mistake slowed you down, who helped, and what you can do now.','Which part of the learning process made the skill stick?',[{title:'Beginning',text:'What situation made you want or need the skill?'},{title:'Practice',text:'What did you repeat until it became easier?'},{title:'Mistake',text:'Which early error taught you the most?'},{title:'Use',text:'When did the ability first come in handy?'}],'fa-star')
+                C(
+                    'Tiny Skills I’d Borrow',
+                    'I wish I could do that',
+                    'Pick a skill you’d love to have. Tell me about a real moment when it would’ve come in handy.',
+                    'Who do you know who’s weirdly good at one of these?',
+                    [
+                        { title: 'Name That Tune', text: 'Name a song after hearing two seconds of it.' },
+                        { title: 'Packing Tetris', text: 'Fit a week’s worth of clothes into one small bag.' },
+                        { title: 'Find Anything', text: 'Spot the thing everyone else missed in a messy drawer.' },
+                        { title: 'The Popcorn Guess', text: 'Know how much popcorn to make to fill the bowl exactly.' }
+                    ],
+                    'fa-lightbulb'
+                ),
+                C(
+                    'Teach Me in 30 Seconds',
+                    'Show me your trick',
+                    'Pick a trick you know, or choose one of your own. Explain how you do it and let the other person ask a question.',
+                    'What’s the easiest part of your trick to get wrong?',
+                    [
+                        { title: 'Fold It Fast', text: 'Fold a T-shirt in just a few moves.' },
+                        { title: 'Remember That Name', text: 'Make a new name stick after hearing it once.' },
+                        { title: 'One Long Peel', text: 'Peel an orange without breaking the peel.' },
+                        { title: 'A Paper Plane', text: 'Make a plane that flies across the room.' }
+                    ],
+                    'fa-hand'
+                )
             ],
             speaking: {title:'The Low-Stakes Talent Show',icon:'fa-trophy',prompts:['What small skill comes naturally to you?', 'Which useful skill would you like to learn next?', 'Have you ever learned something unexpectedly quickly?', 'Which skill of a friend or relative impresses you?'],support:['I have a knack for…','It first came in handy when…','The trickiest part is…','It looks useless, but actually…']},
             homework: ['Practice and explain one small skill to another person.','Describe a time when an unexpected ability came in handy.','List three abilities you learned outside a classroom and how you learned them.'],
@@ -382,7 +580,7 @@
         59: lesson({
             title: 'Sleep, Dreams & Nighttime Mysteries', icon: 'fa-moon', accent: 'emerald',
             warmupTitle: 'Warm-up: Lights Out', warmupIntro: 'Sleep is a daily activity nobody fully controls, featuring strange plots, missing hours, and an alarm that always enters as the villain.',
-            warmups: ['What helps your mind understand that the day is over?', 'Do you usually remember your dreams?', 'How many hours of sleep do you normally need?', 'Do you have a regular bedtime routine?'],
+            warmups: ['What helps your mind understand that the day is over?', 'Do you usually remember your dreams?', 'How many hours of sleep do you normally need?', 'What would tempt you to stay up for one more hour tonight?'],
             expressions: [
                 E('To drift off','To gradually fall asleep.', 'The sound of rain helped me drift off.', 'After reading two pages, she began {gap}.'),
                 E('To sleep like a log','To sleep very deeply.', 'After the long day, he slept like a log.', 'A quiet room helps Maya {gap}.'),
@@ -392,49 +590,133 @@
                 E('A vivid dream','A dream that feels especially clear and detailed.', 'She woke up remembering a vivid dream.', 'The talking elevator appeared in {gap}.')
             ],
             songs: [
-                S('Mr. Sandman','The Chordettes',null,'Classic pop turns sleep into a playful request for a dream delivered by a mysterious nighttime visitor.', 'Ordering the perfect dream',['dream','playful','request'],['What kind of dreams do you remember most often?', 'Have you ever had a funny or confusing dream?', 'Do familiar people often appear in your dreams?', 'Would you prefer to control your dreams or keep them unpredictable?']),
+                S('Mr. Sandman','The Chordettes',null,'Classic pop turns sleep into a playful request for a dream delivered by a mysterious nighttime visitor.', 'Ordering the perfect dream',['dream','playful','request'],['What kind of dreams do you remember most often?', 'If Mr. Sandman took requests, what would you ask him to leave out of your next dream?', 'Do familiar people often appear in your dreams?', 'Would you prefer to control your dreams or keep them unpredictable?']),
                 S("I'm Only Sleeping",'The Beatles',null,'Psychedelic rock celebrates staying in bed and watching the world move without joining its urgency.', 'The appeal of doing absolutely nothing',['sleep','dreamy','slowness'],['When does extra sleep feel genuinely restorative?', 'Do you usually press the snooze button?', 'Can you take a short nap without feeling worse afterward?', 'Does your schedule match your natural sleeping habits?']),
                 S('Daydream Believer','The Monkees',null,'Pop-rock moves between sleep, waking, imagination, and the cheerful identity of a daydreamer.', 'Dreaming while awake',['daydream','bright','imagination'],['What situation makes your mind begin to wander?', 'Do you daydream during boring tasks?', 'Has a daydream ever helped you solve a problem?', 'When does daydreaming become distracting for you?'])
             ],
             contexts: [
-                C('A Dream You Remember','Dreams often preserve one detail and lose everything else.', 'Describe a dream you actually remember, even if only one image, person, place, or feeling remains. Explain what made it vivid and how you felt after waking up.', 'Which detail stayed with you, and why do you think you remembered it?', [{title:'Setting',text:'Where did the dream seem to take place?'},{title:'People',text:'Who appeared, and did they behave normally?'},{title:'Detail',text:'Which object, sound, color, or event was especially vivid?'},{title:'Aftereffect',text:'Did you feel amused, confused, relieved, or unsettled afterward?'}], 'fa-clapperboard'),
-                C('Your Sleep-Friendly Room','Start with the way you really sleep.', 'Assess your current bedroom and bedtime routine. Explain which element already helps, which one interferes with sleep, and one realistic change you could test for a week.', 'Which small change would be most likely to improve your sleep?', [{title:'Light',text:'How bright is the room before bed and during sleep?'},{title:'Sound',text:'Do you need silence, steady sound, or ear protection?'},{title:'Comfort',text:'How do temperature, bedding, and ventilation affect you?'},{title:'Routine',text:'Where are your phone, worries, and tomorrow’s tasks before bed?'}], 'fa-bed')
+                C(
+                    'The Weirdest Dream Detail',
+                    'Tell one bit you remember',
+                    'Pick a card and tell me one detail from a dream. If you can’t think of one, make it up. I’ll ask what happened next.',
+                    'What title would you give that dream if it were a movie?',
+                    [
+                        { title: 'A Place', text: 'Somewhere familiar that looked different in the dream.' },
+                        { title: 'A Person', text: 'Someone you didn’t expect to see there.' },
+                        { title: 'An Object', text: 'Something ordinary that did something strange.' },
+                        { title: 'A Feeling', text: 'A feeling that stayed with you after you woke up.' }
+                    ],
+                    'fa-cloud-moon'
+                ),
+                C(
+                    'The Hotel Room at Midnight',
+                    'You can fix one thing',
+                    'You’ve just checked in after a long trip. Pick the first thing you’d deal with and tell me what you’d do.',
+                    'Which of these would bother you most on a real trip?',
+                    [
+                        { title: 'Too Warm', text: 'You open the door and the room feels stuffy.' },
+                        { title: 'Hallway Noise', text: 'People keep walking by and talking outside your door.' },
+                        { title: 'Too Bright', text: 'A streetlight shines through a gap in the curtains.' },
+                        { title: 'The Pillow', text: 'The only pillow is much taller than the one you use at home.' }
+                    ],
+                    'fa-bed'
+                )
             ],
-            speaking: {title:'The Dream & Sleep Lab',icon:'fa-cloud-moon',prompts:['What usually helps you drift off?', 'Have you ever slept badly before an important day?', 'Which part of your bedroom helps you relax?', 'Do you think dreams need to have a meaning?'],support:['I began to drift off when…', 'The vivid detail was…', 'The strangest transition happened when…', 'A better nighttime routine would…']},
+            speaking: {title:'Dreams and Late Nights',icon:'fa-cloud-moon', instruction: 'Pick a question that brings a particular night to mind. Tell me what happened.', prompts:['What usually helps you drift off?', 'Have you ever slept badly before an important day?', 'Which part of your bedroom helps you relax?', 'Do you think dreams need to have a meaning?'],support:['I began to drift off when…', 'The vivid detail was…', 'The strangest transition happened when…', 'A better nighttime routine would…']},
             homework: ['Write about a dream you remember or a night when you could not sleep.', 'Describe your current bedroom and one realistic change that could improve your sleep.', 'Compare two evening habits and explain which one helps you drift off more easily.'],
             closing: 'Sleep closes the day, but imagination often keeps the lights on.'
         }),
 
         60: lesson({
             title: 'Lists, Rankings & Top-Five Debates', icon: 'fa-ranking-star', accent: 'orange',
-            warmupTitle: 'Warm-up: Make the List', warmupIntro: 'People rank restaurants, songs, cities, snacks, and sometimes pens with the seriousness of an international committee.',
-            warmups: ['What is one category you could rank confidently?', 'Do you enjoy reading top-ten lists?', 'Do you prefer choosing one favorite or creating a top five?', 'Have you ever disagreed strongly with a popular ranking?'],
+            warmupTitle: "Warm-up: I'd Go Back for That",
+            warmupIntro: 'Think of the meals and snacks you still crave from your trips.',
+            warmups: [
+                'If you could go back today just to eat something you tried on a trip, what would be your top three places?',
+                'What would you order at your number one?',
+                'Which of the three has the best story behind it?',
+                'If you could take me to just one of the three, where would we go?'
+            ],
             expressions: [
-                E('A top pick','One of the most preferred choices.', 'The quiet café is my top pick for conversation.', 'After testing every chair, the blue one became {gap}.'),
-                E('To rank something from best to worst','To place options in order of preference or quality.', 'We ranked the desserts from best to worst.', 'The judges need {gap} using the same criteria.'),
-                E('To make the shortlist','To enter a smaller group of the strongest options.', 'Three designs made the shortlist.', 'A clear requirement helped the unusual idea {gap}.'),
-                E('To tie for first place','To receive the same highest position as another option.', 'The two songs tied for first place.', 'With equal points, both cafés managed {gap}.'),
-                E('At the bottom of the list','In the least preferred or lowest position.', 'Long queues are at the bottom of my list.', 'For the night owl, a 6 a.m. meeting belongs {gap}.'),
-                E('To compare apples and oranges','To compare things that are too different for a fair judgment.', 'Ranking a bicycle against a sofa means comparing apples and oranges.', 'Without shared criteria, we begin {gap}.')
+                E('my top pick', 'The option I would choose first.', 'The bakery near the station was my top pick.', 'Of all the places we tried, the little café by the station was {gap}.'),
+                E("I'd put", 'A way to say where something belongs in a ranking.', "I'd put that street market above the mall.", 'We only have half an hour. {gap} the café above the museum.'),
+                E('make my top three', 'Earn one of the three highest spots on my list.', "The rooftop café didn't make my top three.", "The view was beautiful, but the long line meant the tower didn't {gap}."),
+                E('worth the hype', 'As good as people say it is.', 'The cinnamon rolls were worth the hype.', 'I finally tried the bakery everyone talks about. It was definitely {gap}.'),
+                E("I'd go back just for", 'One thing alone would make me want to return.', "I'd go back just for the dumplings.", 'That bakery was tiny, but {gap} those pastries.'),
+                E('a close call', 'A hard decision between options that are almost equally good.', 'Choosing between the two beaches was a close call.', 'Both bakeries were excellent, so picking a winner was {gap}.')
             ],
             songs: [
-                S('One','U2',null,'Rock uses the idea of “one” to explore unity without pretending that people or perspectives are identical.','What deserves the number-one position',['one','reflective','unity'],['Which category has an unquestionable number one for you?', 'Is it difficult for you to choose one favorite song or film?', 'Do ratings influence what you watch or buy?', 'Have you ever changed your number-one choice?']),
-                S('Two Princes','Spin Doctors',null,'Alternative rock presents two competing options and invites a choice based on more than status.','Choosing between two strong options',['choice','playful','criteria'],['Which two everyday options are difficult for you to choose between?', 'Do you usually compare price, quality, or convenience first?', 'Are you comfortable saying that two options are equally good?', 'Do you sometimes avoid ranking things you enjoy?']),
-                S('50 Ways to Leave Your Lover','Paul Simon',null,'Pop-rock uses the language of a long list to make one complicated situation sound almost systematic.','Why lists make ideas memorable',['list','witty','options'],['Do you make lists to organize your ideas?', 'Do you use a daily to-do list?', 'Can too many options make a decision harder for you?', 'Do you trust articles with titles like “ten best ways”?'])
+                S('One', 'U2', null, 'Listen for the tension between feeling close to someone and seeing things differently.', 'One more day there', ['one', 'reflective', 'unity'], [
+                    "If you could spend one more day anywhere you've been, which three places would you choose?",
+                    'Which famous place lived up to the hype when you finally saw it?',
+                    'If you could relive just one hour from any trip, which one would it be?',
+                    'Which trip would you put first just for the people you shared it with?'
+                ]),
+                S('Two Princes', 'Spin Doctors', null, 'Two people make their case. Listen for what each one has to offer.', 'Two favorites, one ticket', ['choice', 'playful', 'criteria'], [
+                    'Which of your two favorite cities would you go back to this weekend?',
+                    'Which two neighborhoods would you put at the top of a list of places to wander with no plan?',
+                    'Which place would you go back to with friends, and which would you rather revisit on your own?',
+                    'If you could go back for either your favorite view or your favorite meal from a trip, which would you pick?'
+                ]),
+                S('50 Ways to Leave Your Lover', 'Paul Simon', null, 'Paul Simon turns an awkward decision into a playful list of ways out.', 'Travel lists worth making', ['list', 'witty', 'options'], [
+                    'What are the three best things you found by chance while traveling?',
+                    "What have you seen abroad that would top a list of things you'd love to have back home?",
+                    "If you made a 'Never Again' list from your trips, what would go straight to number one?",
+                    'What would be the first story in a Top 5 of your funniest travel moments?'
+                ])
             ],
             contexts: [
-                C('The Top-Five Challenge','Five places, no ties, clear reasons.', 'Rank options using one criterion at a time. A café may win for atmosphere and lose for speed; a film may win for dialogue and lose for rewatch value.', 'Which criterion changes a ranking most?', [{title:'Quality',text:'How well does the option do its main job?'},{title:'Value',text:'What does it offer for the time, effort, or price?'},{title:'Originality',text:'Does it provide something difficult to replace?'},{title:'Personal Fit',text:'Would this be right for you, not only impressive generally?'}], 'fa-list-ol'),
-                C('One Ranking, Two People','A useful ranking depends on who will use it.', 'Choose a real category such as cafés, phones, holiday destinations, films, or weekend activities. Rank the options for yourself, then change the order for someone with different needs.','Which priority changes the order most?', [{title:'Budget',text:'What moves up the list when price matters most?'},{title:'Time',text:'Which option works best for someone in a hurry?'},{title:'Quality',text:'What remains near the top when performance matters most?'},{title:'Personal Fit',text:'How do age, routine, taste, or accessibility change the result?'}], 'fa-scale-unbalanced-flip')
+                {
+                    title: 'Blind Top Five', icon: 'fa-list-ol', blindRanking: true,
+                    kicker: 'Little things that make your day',
+                    intro: 'Reveal one surprise at a time and place it in an open spot from best to worst. At the end, you can swap two spots once.',
+                    prompt: "Which surprise might have ranked higher if you'd seen it sooner?",
+                    cards: [
+                        { title: 'You find R$50 in your jacket pocket.' },
+                        { title: 'You wake up and realize you can sleep for two more hours.' },
+                        { title: 'A friend shows up with your favorite food.' },
+                        { title: 'A plan you were dreading gets canceled.' },
+                        { title: 'Your phone makes it home on 1% battery.' }
+                    ]
+                },
+                {
+                    title: 'Your Travel Top 3', icon: 'fa-earth-americas', revealCards: true,
+                    kicker: "Say where each pick is and what you'd go back for.",
+                    intro: 'Open a category and put three picks from your trips in order. You can mix countries. If a name slips your mind, describe the place.',
+                    prompt: 'If you were back at your number one right now, what would you do first?',
+                    cards: [
+                        { title: "Places I'd Revisit", text: 'Which three cities would you happily spend a whole weekend in again?' },
+                        { title: 'Best Landmarks', text: 'Which three landmarks made you stop and stare when you saw them in person?' },
+                        { title: 'Favorite Cafés', text: 'If you could go back to any café from your trips for coffee or dessert, which three would make your list?' },
+                        { title: 'Best Snacks', text: 'Which three snacks would make you go back to the exact spot where you tried them?' },
+                        { title: 'Hidden Gems', text: "Which three places did you stumble across that you'd make a trip for now?" },
+                        { title: 'Best Views', text: 'If you could see three views again at sunset, where would you be standing?' }
+                    ]
+                }
             ],
-            speaking: {title:'The Ranking Committee',icon:'fa-clipboard-list',prompts:['What would be at the top of your weekend activity list?', 'Which product ratings do you check before buying?', 'Have you ever loved something that received poor reviews?', 'Do ratings help you choose or make every choice feel the same?'],support:['My top pick is…', 'It makes the shortlist because…', 'These two tie for…', 'That comparison is apples and oranges because…']},
-            homework: ['Create a top-five list with one sentence of evidence for each position.', 'Compare two published rankings and identify the criteria each one uses.', 'Reorder one ranking for a person with different priorities and explain every change.'],
+            speaking: {
+                title: 'Where Should I Go?', icon: 'fa-ranking-star',
+                instruction: "Pick one of your travel Top 3 lists. Pretend I'm planning a trip and want your advice. Tell me what I'd miss if I skipped each place.",
+                prompts: [
+                    'If I could go to only one of your three picks, where would you send me?',
+                    "What's the one thing I should do, see, or order there?",
+                    'Which of your other picks would you recommend if I wanted somewhere quieter?',
+                    'Which one would you still choose for yourself?'
+                ],
+                support: ['My top pick is…', "I'd go back just for…", "I'd put … above … because…", 'It was worth the hype.']
+            },
+            homework: [
+                "Make a Top 3 of things you ate on trips that you'd go back for. Say where you had them and tell the story of your favorite.",
+                "Make a Top 3 for a friend visiting a city you know. Include one thing to see, one thing to try, and one spot they might miss. Say where you'd send them first.",
+                "Make a Top 5 of moments from your trips you'd like to live again. Put them in order and tell the story behind your number one."
+            ],
             closing: 'A ranking becomes a conversation when the reasons matter more than the numbers.'
         }),
 
         61: lesson({
             title: 'Gardens, Houseplants & Green Thumbs', icon: 'fa-seedling', accent: 'teal',
             warmupTitle: 'Warm-up: How Does Your Garden Grow?', warmupIntro: 'Plants ask for light, water, patience, and somehow still develop strong opinions about exactly one window.',
-            warmups: ['Do you have any plants at home?', 'Are you good at keeping plants alive?', 'Which plant or flower do you like most?', 'Do you prefer gardens that are decorative or useful?'],
+            warmups: ['If you could grow anything at home and it was guaranteed to thrive, what would you grow?', 'Are you good at keeping plants alive?', 'Which plant or flower do you like most?', 'Do you prefer gardens that are decorative or useful?'],
             expressions: [
                 E('To have a green thumb','To be naturally good at growing plants.', 'My neighbor has a green thumb; everything flowers.', 'After saving three difficult orchids, she seems {gap}.'),
                 E('In full bloom','At the stage when flowers are completely open.', 'The garden is in full bloom in September.', 'Visitors arrive when the roses are {gap}.'),
@@ -445,12 +727,36 @@
             ],
             songs: [
                 S('Garden Party','Ricky Nelson',null,'Country rock uses a garden party as the setting for expectations, performance, and doing things in your own way.','What people bring to a shared garden',['garden','easygoing','expectations'],['Do you enjoy meeting people in gardens or other outdoor spaces?', 'Have you ever attended an outdoor party?', 'Do you find it easier to talk to people outdoors?', 'Would you join a community garden?']),
-                S('Flowers','Miley Cyrus',null,'Pop uses flowers as a simple symbol of care, independence, and giving something pleasant to yourself.', 'Why flowers carry messages',['flowers','confident','care'],['Do you ever buy flowers for yourself or other people?', 'Which flower or plant is especially memorable to you?', 'Have you ever received a plant as a gift?', 'Would you prefer a living plant or cut flowers?']),
+                S('Flowers','Miley Cyrus',null,'Pop uses flowers as a simple symbol of care, independence, and giving something pleasant to yourself.', 'Why flowers carry messages',['flowers','confident','care'],['Do you ever buy flowers for yourself or other people?', 'Which flower or plant is especially memorable to you?', 'What small thing would you buy yourself to make an ordinary day better?', 'Would you prefer a living plant or cut flowers?']),
                 S('Where the Green Grass Grows','Tim McGraw',null,'Country music imagines a greener, slower setting as the ideal place to build a satisfying daily life.', 'The appeal of green space',['grass','warm','space'],['Which green space do you use most often?', 'Do you spend enough time outdoors?', 'Has a small garden or park improved your neighborhood?', 'Should cities protect more space for gardens and parks?'])
             ],
             contexts: [
-                C('What Is Your Plant Telling You?','Common symptoms point to practical questions.', 'Choose a plant you own, have owned, or regularly see. Describe its condition and work through the most likely causes before suggesting a change in care.', 'Which clue should you check before adding more water?', [{title:'Drooping',text:'Is the soil dry, wet, compacted, or draining poorly?'},{title:'Brown Edges',text:'Could heat, dry air, strong sun, or irregular watering be responsible?'},{title:'Leaning',text:'Does the plant receive enough light from more than one direction?'},{title:'Slow Growth',text:'Are the season, pot size, nutrients, and plant type being considered?'}], 'fa-stethoscope'),
-                C('A Garden for a Real Space','A small area requires priorities.', 'Choose a balcony, window, yard, workplace, or shared area you know. Decide which plants and features would fit its actual light, available time, and purpose.', 'Which goal deserves the most space in this location?', [{title:'Food',text:'Herbs and vegetables that people nearby would actually use.'},{title:'Color',text:'Plants suited to the light that bloom at different times.'},{title:'Rest',text:'Shade, scent, and somewhere comfortable to sit.'},{title:'Wildlife',text:'Water and flowers that can support local birds and insects.'}], 'fa-leaf')
+                C(
+                    'A Spot I’d Actually Use',
+                    'Make a little room for plants',
+                    'Pick a spot and tell me what you’d grow there. Think of one thing you’d like to see, smell, or pick.',
+                    'Where have you seen plants that made you want to stop and look?',
+                    [
+                        { title: 'A Tiny Balcony', text: 'There’s room for two pots and one chair.' },
+                        { title: 'A Kitchen Window', text: 'There’s an empty ledge right by the sink.' },
+                        { title: 'A Shared Courtyard', text: 'You and a neighbor have an empty corner.' },
+                        { title: 'A Front Step', text: 'There’s room for one pot next to the door.' }
+                    ],
+                    'fa-seedling'
+                ),
+                C(
+                    'A Plant as a Gift',
+                    'Think of someone you know',
+                    'Pick one person and choose a plant you’d give them. Tell me what made you think of that plant.',
+                    'Which plant would you be tempted to keep for yourself?',
+                    [
+                        { title: 'The Home Cook', text: 'They love trying new recipes on weekends.' },
+                        { title: 'The New Neighbor', text: 'They’ve just moved in and their place still feels empty.' },
+                        { title: 'The Forgetful Friend', text: 'They love plants and often forget to water them.' },
+                        { title: 'You', text: 'You get to pick something you’d enjoy seeing every day.' }
+                    ],
+                    'fa-leaf'
+                )
             ],
             speaking: {title:'Your Life with Plants',icon:'fa-trowel',prompts:['How do you usually care for a houseplant?', 'Which low-maintenance plant would you recommend?', 'Would you like to grow herbs or vegetables at home?', 'What makes a public garden pleasant for you?'],support:['The plant may need…', 'It is low-maintenance because…', 'The garden would be in full bloom…', 'We should weed out…']},
             homework: ['Create a care card for a real plant you own or would realistically keep.', 'Plan a small garden for a real space, considering light, time, and purpose.', 'Describe a plant problem you have seen and the steps you would take before changing its care.'],
@@ -471,12 +777,36 @@
             ],
             songs: [
                 S("Why Can't We Be Friends",'War',null,'A relaxed rock groove makes cooperation sound simple even when people are not identical.','Getting along without agreeing on everything',['friendship','relaxed','difference'],['Which minor disagreement should never ruin a friendship?', 'Have you ever laughed about a disagreement later?', 'Is humor helpful when a conversation becomes awkward?', 'Do you find it easy to disagree with friends politely?']),
-                S("You're So Vain",'Carly Simon',null,'Witty pop-rock turns one memorable personality into a portrait of extreme self-importance.','When confidence becomes self-centeredness',['vanity','witty','behavior'],['Which conversation habit makes someone seem self-centered?', 'Do you know someone who talks much more than they listen?', 'Have you ever realized you were talking too much?', 'How do you change the subject politely?']),
+                S("You're So Vain",'Carly Simon',null,'Witty pop-rock turns one memorable personality into a portrait of extreme self-importance.','When confidence becomes self-centeredness',['vanity','witty','behavior'],['Which conversation habit makes someone seem self-centered?', 'What would a good listener do in the first minute of meeting you?', 'Have you ever realized you were talking too much?', 'How do you change the subject politely?']),
                 S('Yakety Yak','The Coasters',null,'Rock-and-roll turns household commands and teenage resistance into playful conflict.','Why rules sound different depending on who says them',['rules','comic','chores'],['Which household rule causes the most arguments?', 'Which chore do you dislike most?', 'Do people in your home divide chores fairly?', 'Is it easy for you to ask someone to do something politely?'])
             ],
             contexts: [
-                C('The Annoyance Court','Is it rude, unfortunate, or just your preference?','A pet peeve may involve real inconvenience, cultural difference, or a personal sensitivity. Before delivering a dramatic verdict, classify the offense.','Which case deserves the strongest response?',[{title:'Public Audio',text:'A phone plays videos on a quiet train.'},{title:'Late Arrival',text:'A friend arrives twelve minutes late.'},{title:'Slow Walking',text:'A group fills the entire sidewalk.'},{title:'Long Voice Note',text:'Someone sends eight minutes instead of two lines.'}],'fa-scale-balanced'),
-                C('Manners Across Maps','Polite behavior needs context.','Eye contact, punctuality, tipping, personal space, greetings, shoes, and directness can carry different meanings. Curiosity is safer than assuming your rule is universal.','Which custom should travelers research first?',[{title:'Observe',text:'Notice what local people consistently do.'},{title:'Ask',text:'A respectful question prevents confident mistakes.'},{title:'Adapt',text:'Follow local norms when the cost is small.'},{title:'Explain',text:'Clarify your own needs without declaring them superior.'}],'fa-earth-americas')
+                C(
+                    'Would You Say Something?',
+                    'One real-life reply',
+                    'Pick a situation. Say the words you’d actually use, or tell me what would make you let it go.',
+                    'Which one would bother you enough to speak up right away?',
+                    [
+                        { title: 'On the Bus', text: 'Someone is watching videos out loud on an otherwise quiet bus.' },
+                        { title: 'In the Doorway', text: 'Two people stop to chat, and you’re trying to get through.' },
+                        { title: 'Over Lunch', text: 'A friend keeps looking at their phone while you’re telling a story.' },
+                        { title: 'In Line', text: 'Someone steps in front of you and acts as if they’ve been there all along.' }
+                    ],
+                    'fa-comment'
+                ),
+                C(
+                    'At Someone Else’s Place',
+                    'You’re visiting for the first time',
+                    'Pick a moment and say what you’d do or ask. Then tell me what usually happens in your own home.',
+                    'Which of these moments feels most awkward when you’re somewhere new?',
+                    [
+                        { title: 'At the Door', text: 'You see shoes by the entrance as your host waves you in.' },
+                        { title: 'Early Arrival', text: 'You get there 20 minutes before they’re expecting you.' },
+                        { title: 'The Last Slice', text: 'There’s one slice of pizza left and nobody’s touching it.' },
+                        { title: 'Time to Go', text: 'You want to leave, but everyone is still deep in conversation.' }
+                    ],
+                    'fa-door-open'
+                )
             ],
             speaking: {title:'Your Social Habits',icon:'fa-phone',prompts:['Which social situation makes you feel awkward?', 'What is your biggest harmless pet peeve?', 'Do you politely call someone out when they skip a line?', 'Which unwritten rule should everyone know?'],support:['Would you mind…?','I may be overreacting, but…','The unwritten rule here is…','I would let it slide unless…']},
             homework: ['Collect three unwritten rules from different places.','Describe a cultural manners surprise without judging it.','Turn one complaint into a polite, specific request.'],
@@ -486,7 +816,7 @@
         63: lesson({
             title: 'Lost, Found & Unexpected Objects', icon: 'fa-magnifying-glass', accent: 'rose',
             warmupTitle: 'Warm-up: Where Did I Put It?', warmupIntro: 'Lost objects travel through pockets, sofas, taxis, and mysterious dimensions before reappearing exactly where someone already checked twice.',
-            warmups: ['What object do you misplace most often?', 'Where do your lost things usually turn up?', 'Have you ever found something valuable?', 'Do you normally return objects that you find?'],
+            warmups: ['What object do you misplace most often?', 'Where do your lost things usually turn up?', 'What’s the strangest thing you’ve ever found in a pocket or bag you hadn’t used in a while?', 'Do you normally return objects that you find?'],
             expressions: [
                 E('To misplace something','To put an object somewhere and temporarily forget where.', 'I misplaced my glasses again.', 'It is surprisingly easy {gap} during a busy morning.'),
                 E('To turn up','To be found or appear unexpectedly.', 'The missing receipt turned up inside a cookbook.', 'Lost keys are likely {gap} in the last place anyone expects.'),
@@ -496,13 +826,37 @@
                 E('Hidden in plain sight','Easy to see but unnoticed.', 'The remote was hidden in plain sight on the black table.', 'The final clue remained {gap}.')
             ],
             songs: [
-                S('Lost in the Supermarket','The Clash',null,'Rock places disorientation inside an extremely ordinary public place full of signs, products, and choices.', 'Feeling lost in a familiar place',['lost','restless','surroundings'],['Where is it easy for you to lose your sense of direction?', 'Have you ever become lost in a familiar place?', 'Do you use signs, maps, or your phone to find your way?', 'Are large supermarkets easy or confusing for you?']),
+                S('Lost in the Supermarket','The Clash',null,'Rock places disorientation inside an extremely ordinary public place full of signs, products, and choices.', 'Feeling lost in a familiar place',['lost','restless','surroundings'],['Where is it easy for you to lose your sense of direction?', 'Have you ever become lost in a familiar place?', 'Do you use signs, maps, or your phone to find your way?', 'Which sign would you add to a place where you always get turned around?']),
                 S('Return to Sender','Elvis Presley',null,'Rock-and-roll turns a returned letter into a repeated physical clue that something has gone wrong.', 'When an object cannot reach its destination',['return','playful','message'],['What item have you had to return or send back?', 'Have you ever received a package meant for someone else?', 'Do you double-check an address before sending something?', 'What do you usually do when you find someone’s lost item?']),
                 S("I Still Haven't Found What I'm Looking For",'U2',null,'Rock uses an unfinished search as a powerful image of continuing to look beyond the obvious.', 'Why searching can become a story',['search','expansive','persistence'],['What object took you too long to find?', 'Do you retrace your steps when something disappears?', 'Have you ever found something after you stopped searching?', 'Which lost object would be most difficult for you to replace?'])
             ],
             contexts: [
-                C('Describe It to the Lost and Found','A useful description is specific without being confusing.', 'Choose something you have lost before or could realistically lose. Role-play reporting it at a hotel, station, shop, or event. The employee asks questions before checking the lost and found.', 'Which details would help someone identify the object quickly?', [{title:'Appearance',text:'Give the color, size, material, brand, and any visible damage.'},{title:'Last Location',text:'Explain where you remember using or seeing it.'},{title:'Time',text:'Say when it disappeared and when you noticed.'},{title:'Proof',text:'Mention one detail only the rightful owner is likely to know.'}], 'fa-box-open'),
-                C('Retrace Your Steps','Start with the last moment you are sure about.', 'Describe a real occasion when you misplaced something. Reconstruct the route, the actions you repeated, the places you checked, and where the object eventually turned up.', 'Which step of your search was most useful, and which one wasted time?', [{title:'Last Certain Moment',text:'Where and when do you clearly remember having the item?'},{title:'Route',text:'Which rooms, shops, vehicles, or streets did you pass through?'},{title:'Actions',text:'What did you carry, change, pay for, or put away?'},{title:'Result',text:'Was it returned, hidden in plain sight, replaced, or never found?'}], 'fa-suitcase')
+                C(
+                    'Which One Is Yours?',
+                    'At the lost and found',
+                    'Pick an item silently. Describe it to the clerk in your own words without naming it, and say where you last had it. The clerk guesses.',
+                    'What detail would make your own bag or phone easy to recognize?',
+                    [
+                        { title: 'Umbrella', text: 'The handle is bent, and you had it on the bus.' },
+                        { title: 'Earbuds', text: 'There’s a blue sticker on the case. You last used them at the gym.' },
+                        { title: 'Notebook', text: 'There’s a doodle on the cover. You last had it at a café.' },
+                        { title: 'Water Bottle', text: 'It has a dent near the bottom. You left it by a park bench.' }
+                    ],
+                    'fa-magnifying-glass'
+                ),
+                C(
+                    'Where Would You Look First?',
+                    'Your keys have disappeared',
+                    'You opened the door, carried in the groceries, and sat down. Now your keys are gone. Pick your first place to look and tell me why.',
+                    'Where’s the weirdest place you’ve actually found something you’d lost?',
+                    [
+                        { title: 'The Front Door', text: 'You might have left the keys in the lock.' },
+                        { title: 'The Kitchen Counter', text: 'You might have set them down while unpacking.' },
+                        { title: 'The Sofa', text: 'They might have slipped out of your pocket.' },
+                        { title: 'The Fridge', text: 'You might have put them down while putting the food away.' }
+                    ],
+                    'fa-key'
+                )
             ],
             speaking: {title:'Your Lost-and-Found Stories',icon:'fa-user-secret',prompts:['What is the most important thing you have lost?', 'How do you usually retrace your steps?', 'Have you ever used a lost-and-found service?', 'What should happen to objects nobody claims?'],support:['It last turned up…', 'I would retrace my steps from…', 'The detail only the owner knows is…', 'It may be hidden in plain sight…']},
             homework: ['Write about a real occasion when you lost or found an object.', 'Write a clear description that could be given to a lost-and-found employee.', 'Describe the step-by-step search for something that was hidden in plain sight.'],
@@ -512,7 +866,7 @@
         64: lesson({
             title: 'Customer Service, Complaints & Five-Star Reviews', icon: 'fa-headset', accent: 'green',
             warmupTitle: 'Warm-up: How Can I Help?', warmupIntro: 'Customer service is where patience, clear details, and a seventeen-digit reference number meet music that promises your call is important.',
-            warmups: ['Do you usually complain when an order is wrong?', 'Have you ever received excellent customer service?', 'Do you write online reviews of products or services?', 'Do you read reviews before buying something?'],
+            warmups: ['Do you usually complain when an order is wrong?', 'Who would get five stars from you for helping you solve a problem? What did they do?', 'Do you write online reviews of products or services?', 'Do you read reviews before buying something?'],
             expressions: [
                 E('To hold the line','To wait on the telephone without ending the call.', 'Please hold the line while I check the order.', 'The recorded voice asked everyone {gap}.'),
                 E('To get through to someone','To successfully contact a person by phone or message.', 'I finally got through to the delivery team.', 'It took three attempts {gap} who could help.'),
@@ -524,11 +878,35 @@
             songs: [
                 S('Hold the Line','Toto',null,'Rock turns waiting for a response into an urgent, memorable command familiar to anyone who has used a telephone.', 'The emotional experience of waiting',['waiting','urgent','response'],['Are you patient when waiting for customer service?', 'Have you ever spent a long time on hold?', 'Do you prefer waiting on the phone or receiving a callback?', 'What do you usually do while you are waiting?']),
                 S('Call Me','Blondie',null,'New-wave pop makes direct contact sound immediate, confident, and available at any time.', 'How easy should contact be?',['contact','energetic','availability'],['Do you prefer contacting a company by phone, chat, or email?', 'Have you ever had difficulty reaching a real person?', 'Do you explain problems more easily in writing or by phone?', 'Do chatbots usually help you?']),
-                S('I Want It That Way','Backstreet Boys',null,'Pop repeats a direct statement of preference—exactly the language behind many requests, expectations, and complaints.', 'Stating what you want clearly',['preference','polished','clarity'],['Is it easy for you to explain exactly what you want?', 'Do you usually complain when a restaurant order is wrong?', 'Have you ever asked for a refund or replacement?', 'Do you stay polite when a problem takes a long time to solve?'])
+                S('I Want It That Way','Backstreet Boys',null,'Pop repeats a direct statement of preference—exactly the language behind many requests, expectations, and complaints.', 'Stating what you want clearly',['preference','polished','clarity'],['Is it easy for you to explain exactly what you want?', 'Would you choose an instant refund or wait two days for a replacement? What would make you switch?', 'Have you ever asked for a refund or replacement?', 'Do you stay polite when a problem takes a long time to solve?'])
             ],
             contexts: [
-                C('The Service Counter','Real problems, clear questions, practical solutions.', 'Choose a familiar situation and role-play it twice: first as the customer, then as the employee. Say what happened, ask for a solution, and agree on the next step.', 'Which situation would you complain about immediately?', [{title:'Wrong Order',text:'The restaurant delivered a meal you did not order.'},{title:'Late Delivery',text:'A birthday gift arrived after the party.'},{title:'Damaged Product',text:'An online order arrived with a visible defect.'},{title:'Incorrect Charge',text:'A service charged you twice for the same purchase.'}], 'fa-comments'),
-                C('Your Review Habits','Talk about the reviews you read and write.', 'Choose a familiar product or service. Say whether you would leave a review, what rating you would give, and which detail you would mention. Your partner asks one follow-up question.', 'Which experience would make you write a review?', [{title:'Restaurant',text:'The food was good, but the service was very slow.'},{title:'Online Order',text:'The product looked different from the photos.'},{title:'Hotel',text:'The room was clean, but the street was noisy.'},{title:'App or Service',text:'It was useful, but cancelling the subscription was difficult.'}], 'fa-star')
+                C(
+                    'What Would You Actually Text?',
+                    'Your first message to customer service',
+                    'Pick a problem and say the first message you’d send. The other person is customer support and offers you a fix.',
+                    'What reply would make you want to give that business another chance?',
+                    [
+                        { title: 'Missing Fries', text: 'The food just arrived, and part of your order is missing.' },
+                        { title: 'Charged Twice', text: 'You paid once, but the same charge shows up twice.' },
+                        { title: 'Late Birthday Gift', text: 'The gift is still on its way, and the birthday is tomorrow.' },
+                        { title: 'Broken Zip', text: 'The zip broke the first time you used your new bag.' }
+                    ],
+                    'fa-headset'
+                ),
+                C(
+                    'Give It a Star Rating',
+                    'Your review in one line',
+                    'Pick an experience. Give it one to five stars and say one line you’d actually leave in a review.',
+                    'What would make you change your rating by one star?',
+                    [
+                        { title: 'The Cold Pizza', text: 'They replaced it quickly and brought you a free dessert.' },
+                        { title: 'The Hotel Stay', text: 'The room was great, and construction outside started at 7 a.m.' },
+                        { title: 'The Useful App', text: 'It worked well, but it took you 20 minutes to find out how to cancel.' },
+                        { title: 'The Sold-Out Item', text: 'The clerk called another shop to check if they had it for you.' }
+                    ],
+                    'fa-star'
+                )
             ],
             speaking: {title:'Your Customer-Service Experiences',icon:'fa-headset',prompts:['What was your most recent customer-service experience?', 'Do you usually leave online reviews?', 'Which type of service problem annoys you most?', 'Do you prefer speaking to a person or using a chatbot?'],support:['I’m calling about…', 'What I expected was…', 'Could you help me sort out…?', 'A reasonable solution would be…']},
             homework: ['Write one poor complaint and then improve it.', 'Compare two real online reviews and explain which one is more useful.', 'Write a customer-service policy for a business or service you know.'],

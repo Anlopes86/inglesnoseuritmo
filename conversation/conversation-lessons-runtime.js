@@ -96,7 +96,24 @@
             </section>`;
     }
 
-    function contextSlide(block, index) {
+    function blindRankingBoard(count) {
+        return `
+            <div class="blind-ranking" data-blind-ranking>
+                <div class="blind-ranking-draw">
+                    <p class="blind-ranking-message" data-ranking-message role="status"></p>
+                    <button type="button" class="blind-ranking-action" data-ranking-reveal></button>
+                </div>
+                <ol class="blind-ranking-board" aria-label="Your top five">
+                    ${Array.from({ length: count }, (_, index) => `
+                        <li><button type="button" class="blind-ranking-position" data-ranking-position disabled>
+                            <span class="blind-ranking-number" aria-hidden="true">#${index + 1}</span>
+                            <span data-ranking-label></span>
+                        </button></li>`).join('')}
+                </ol>
+            </div>`;
+    }
+
+    function contextCards(block) {
         const cards = block.cards.map((card, cardIndex) => {
             const cardClass = `p-4 bg-gray-700 rounded-lg border-l-4 ${cardIndex % 2 ? 'border-purple-500' : 'border-blue-500'}`;
             const title = escapeHtml(card.title);
@@ -111,6 +128,11 @@
                 ? `<article class="${cardClass}"><b>${title}:</b> ${text}</article>`
                 : `<article class="${cardClass} text-xl font-semibold">${title}</article>`;
         }).join('');
+        const columns = block.cards.length >= 6 ? 'lg:grid-cols-3' : '';
+        return `<div class="grid grid-cols-1 md:grid-cols-2 ${columns} gap-4">${cards}</div>`;
+    }
+
+    function contextSlide(block, index) {
         return `
             <section class="slide" data-slide-kind="context" data-context-index="${index}">
                 <div class="text-center">
@@ -118,11 +140,81 @@
                     <div class="bg-gray-800 p-7 rounded-2xl shadow-xl max-w-4xl mx-auto text-left">
                         <p class="text-xl mb-3 ${accentText} font-bold">${escapeHtml(block.kicker)}</p>
                         <p class="text-xl mb-5">${escapeHtml(block.intro)}</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${cards}</div>
+                        ${block.blindRanking ? blindRankingBoard(block.cards.length) : contextCards(block)}
                         <p class="mt-6 text-2xl text-center font-semibold italic">${escapeHtml(block.prompt)}</p>
                     </div>
                 </div>
             </section>`;
+    }
+
+    function mountBlindRanking(root, cards) {
+        const message = root.querySelector('[data-ranking-message]');
+        const reveal = root.querySelector('[data-ranking-reveal]');
+        const positions = Array.from(root.querySelectorAll('[data-ranking-position]'));
+        const labels = positions.map((position) => position.querySelector('[data-ranking-label]'));
+        const ranked = Array(cards.length).fill(null);
+        let placed = 0;
+        let cardRevealed = false;
+        let swapFrom = null;
+        let swapUsed = false;
+
+        function render() {
+            const complete = placed === cards.length;
+            if (complete) {
+                reveal.textContent = 'Reset game';
+                if (swapUsed) message.textContent = 'Your top five is set.';
+                else if (swapFrom === null) message.textContent = 'You can swap two spots once.';
+                else message.textContent = `Choose a spot to swap with #${swapFrom + 1}.`;
+            } else {
+                reveal.textContent = placed ? 'Reveal next surprise' : 'Reveal first surprise';
+                message.textContent = cardRevealed ? cards[placed].title : `${placed} of ${cards.length} ranked`;
+            }
+            reveal.disabled = cardRevealed;
+            positions.forEach((position, index) => {
+                const label = ranked[index] ?? 'Open spot';
+                labels[index].textContent = label;
+                position.setAttribute('aria-label', `Rank ${index + 1}, ${label}`);
+                position.disabled = complete ? swapUsed : !cardRevealed || ranked[index] !== null;
+                if (complete && !swapUsed) position.setAttribute('aria-pressed', String(index === swapFrom));
+                else position.removeAttribute('aria-pressed');
+            });
+        }
+
+        reveal.addEventListener('click', () => {
+            if (placed === cards.length) {
+                ranked.fill(null);
+                placed = 0;
+                swapFrom = null;
+                swapUsed = false;
+            } else {
+                cardRevealed = true;
+            }
+            render();
+            if (cardRevealed) positions.find((position) => !position.disabled)?.focus({ preventScroll: true });
+        });
+
+        positions.forEach((position, index) => position.addEventListener('click', () => {
+            if (cardRevealed) {
+                ranked[index] = cards[placed].title;
+                placed += 1;
+                cardRevealed = false;
+                render();
+                (placed === cards.length ? positions[0] : reveal).focus({ preventScroll: true });
+                return;
+            }
+            if (swapFrom === null) swapFrom = index;
+            else {
+                if (swapFrom !== index) {
+                    [ranked[swapFrom], ranked[index]] = [ranked[index], ranked[swapFrom]];
+                    swapUsed = true;
+                }
+                swapFrom = null;
+            }
+            render();
+            if (swapUsed) reveal.focus({ preventScroll: true });
+        }));
+
+        render();
     }
 
     function practiceSlide() {
@@ -205,6 +297,11 @@
         <section class="slide" data-slide-kind="closing"><div class="text-center flex flex-col items-center justify-center h-full"><i class="fas ${escapeHtml(lesson.icon)} ${accentText} text-7xl mb-6" aria-hidden="true"></i><h2 class="text-5xl font-bold mb-4 text-gray-100">Well Done!</h2><p class="text-3xl italic text-gray-400 max-w-3xl mx-auto border-t border-gray-700 pt-8 mt-4">“${escapeHtml(lesson.closing)}”</p><div class="pt-8"><button type="button" id="finish-lesson-btn-main" class="${accentBg} ${accentHover} text-white text-2xl font-bold py-4 px-12 rounded-full transition shadow-lg">Finish lesson <i class="fas fa-check-circle ml-2" aria-hidden="true"></i></button></div></div></section>`;
 
     const slides = Array.from(document.querySelectorAll('.slide'));
+    lesson.contexts.forEach((block, index) => {
+        if (block.blindRanking) {
+            mountBlindRanking(document.querySelector(`[data-context-index="${index}"] [data-blind-ranking]`), block.cards);
+        }
+    });
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
     const counter = document.getElementById('slide-counter');
