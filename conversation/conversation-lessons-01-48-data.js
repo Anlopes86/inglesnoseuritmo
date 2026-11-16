@@ -2081,37 +2081,37 @@
                 "term": "To send shivers down your spine",
                 "meaning": "To make you feel very frightened or excited.",
                 "example": "The unexplained footsteps in the empty hallway sent shivers down my spine.",
-                "practice": "The unexplained footsteps in the empty hallway sent _____ _____ my _____. → {gap}"
+                "practice": "Seeing the doll blink in the shop window sent _____ _____ my _____. → {gap}"
             },
             {
                 "term": "An unsolved mystery",
                 "meaning": "A mystery that has not been solved.",
                 "example": "The missing painting remains an unsolved mystery in the town museum.",
-                "practice": "The missing painting remains an _____ _____ in the town museum. → {gap}"
+                "practice": "Nobody knows who leaves a white rose at the train station every Monday. It’s an _____ _____. → {gap}"
             },
             {
                 "term": "To have a sixth sense",
                 "meaning": "To have a special intuition or perception.",
                 "example": "My aunt claims to have a sixth sense about when relatives will call.",
-                "practice": "My aunt claims to _____ a _____ _____ about when relatives will call. → {gap}"
+                "practice": "Leo always knows when someone is planning to surprise him. He seems to _____ a _____ _____. → {gap}"
             },
             {
                 "term": "A gut feeling",
                 "meaning": "An instinctive feeling, without a logical reason.",
                 "example": "I had a gut feeling that the apparently perfect offer contained a hidden condition.",
-                "practice": "I had a _____ _____ that the apparently perfect offer contained a hidden condition. → {gap}"
+                "practice": "I had a _____ _____ that my friend was about to show up, so I ordered a second coffee. → {gap}"
             },
             {
                 "term": "To debunk a myth",
                 "meaning": "To prove that a popular belief is false.",
                 "example": "The science presenter used a simple experiment to debunk a myth about the Moon.",
-                "practice": "The science presenter used a simple experiment to _____ a _____ about the Moon. → {gap}"
+                "practice": "The librarian used a security video to _____ a _____ about books moving by themselves. → {gap}"
             },
             {
                 "term": "An urban legend",
                 "meaning": "A modern, scary story that is told as if it were true.",
                 "example": "Every school seems to have an urban legend about a locked room.",
-                "practice": "Every school seems to have an _____ _____ about a locked room. → {gap}"
+                "practice": "There’s an _____ _____ about a woman who boards the last bus and vanishes before her stop. → {gap}"
             }
         ],
         "songs": [
@@ -2121,12 +2121,12 @@
                 "sourceEmbed": "https://open.spotify.com/embed/track/3S2R0EVwBSAVMd5UMgKTL0",
                 "spotifyId": "3S2R0EVwBSAVMd5UMgKTL0",
                 "angle": "A cinematic song that builds suspense with darkness, fear, and the feeling that danger is slowly getting closer.",
-                "discussionTitle": "Thriller\" - Fear, atmosphere, and suspense",
+                "discussionTitle": "Scary stories we remember",
                 "questions": [
-                    "What elements make this song feel scary or mysterious?",
-                    "Why do people enjoy songs, movies, and stories that scare them?",
-                    "Have you ever felt \"paralyzed\" by fear? What happened?",
-                    "Is fear more powerful when it is shown directly, or when it is only suggested?"
+                    "What story did kids at your school tell to scare each other?",
+                    "What’s a scare you can laugh about now?",
+                    "What ordinary sound gets a lot creepier when you’re home alone?",
+                    "Which place you’ve been to would make a great setting for a horror movie?"
                 ]
             },
             {
@@ -2135,12 +2135,12 @@
                 "sourceEmbed": "https://open.spotify.com/embed/track/1Yhxmnxo9C5g6rYkM5FRUM",
                 "spotifyId": "1Yhxmnxo9C5g6rYkM5FRUM",
                 "angle": "A playful supernatural anthem that turns fear into fun by making the unknown feel catchy instead of terrifying.",
-                "discussionTitle": "Ghostbusters\" - Humor, mystery, and pop culture fear",
+                "discussionTitle": "Unexpected encounters",
                 "questions": [
-                    "Why is this song much more fun and less scary than \"Thriller\"?",
-                    "Why do funny supernatural stories appeal to people just as much as scary ones?",
-                    "If you could call a team of \"ghostbusters\" for any problem, what would you call them for?",
-                    "Is humor one of the best ways to deal with fear and uncertainty?"
+                    "Who in your group chat would stay calm if everyone else thought they’d seen a ghost? What would they say?",
+                    "What’s the pettiest thing a bored ghost could do around your house?",
+                    "A hotel offers you a free night in a room guests say is haunted. What would make you say yes?",
+                    "If you could ask a ghost to settle one mystery from the past, what would you ask?"
                 ]
             },
             {
@@ -2149,90 +2149,91 @@
                 "sourceEmbed": "https://open.spotify.com/embed/track/1h2xVEoJORqrg71HocgqXd",
                 "spotifyId": "1h2xVEoJORqrg71HocgqXd",
                 "angle": "A groove-driven warning about blind belief, showing how superstition can shape behavior when people stop questioning what they hear.",
-                "discussionTitle": "Superstition\" - Belief, doubt, and irrational fear",
+                "discussionTitle": "Lucky habits and superstitions",
                 "questions": [
-                    "Which superstitions are still common where you live?",
-                    "Why do people keep believing in things they cannot prove?",
-                    "Do you consider yourself a superstitious person?",
-                    "Can superstition ever be harmless fun, or does it always distort reality?"
+                    "What’s one small ritual you’ve seen someone follow before a big day?",
+                    "Your friend says you jinxed their team by celebrating too early. What do you say back?",
+                    "You find a cheap flight for Friday the 13th. What would make you pay more to go a day later?",
+                    "If you could invent a superstition your friends would actually follow, what would it be?"
                 ]
             }
         ],
         "contexts": [
             {
-                "title": "Footsteps in the Apartment",
-                "kicker": "Test an eerie claim before accepting it.",
-                "intro": "A tenant hears footsteps every night in an old building and a neighbor says the apartment is haunted.",
-                "prompt": "What ordinary explanations should be investigated, and what evidence would change your mind?",
+                "title": "Who’s in the Photo?",
+                "kicker": "Pick one detail to add to the story.",
+                "intro": "A friend sends you a photo from last night. There’s someone in the background neither of you remembers seeing. What would you check first?",
+                "prompt": "Would you investigate or leave it alone?",
                 "cards": [
                     {
-                        "title": "Timing",
-                        "text": "Record when the sound occurs."
+                        "title": "The Reflection",
+                        "text": "You can only see the person in the window’s reflection."
                     },
                     {
-                        "title": "Building",
-                        "text": "Check pipes, floors, and neighboring units."
+                        "title": "The Next Photo",
+                        "text": "Your friend took another photo a second later. The person is gone."
                     },
                     {
-                        "title": "Witness",
-                        "text": "Compare independent observations."
+                        "title": "A Familiar Face",
+                        "text": "Your friend thinks the person looks like someone you both know."
                     },
                     {
-                        "title": "Threshold",
-                        "text": "Define evidence stronger than a feeling."
+                        "title": "People Passing By",
+                        "text": "The photo was taken outside a busy café."
                     }
                 ],
-                "icon": "fa-ghost"
+                "icon": "fa-camera"
             },
             {
-                "title": "The Mystery Podcast",
-                "kicker": "Tell a suspenseful story responsibly.",
-                "intro": "A podcast wants to cover a local disappearance that still affects the person's family.",
-                "prompt": "How can it create suspense without turning real pain into entertainment?",
+                "title": "The Footsteps Upstairs",
+                "kicker": "Open one clue at a time.",
+                "intro": "You hear what sounds like footsteps in the apartment above yours. Your upstairs neighbors are away. Give your best guess before opening the last card.",
+                "prompt": "Which clue made the biggest difference to your guess?",
                 "cards": [
                     {
-                        "title": "Family",
-                        "text": "Seek consent and respect boundaries."
+                        "title": "Clue 1",
+                        "text": "The noise starts at exactly 2:13 a.m. three nights in a row."
                     },
                     {
-                        "title": "Evidence",
-                        "text": "Separate confirmed facts from rumor."
+                        "title": "Clue 2",
+                        "text": "Just before the first thump, you hear a quiet buzzing sound."
                     },
                     {
-                        "title": "Tone",
-                        "text": "Avoid sensational descriptions."
+                        "title": "Clue 3",
+                        "text": "Your neighbor texts that they left a device on a timer."
                     },
                     {
-                        "title": "Purpose",
-                        "text": "Explain what public value the episode serves."
+                        "title": "Reveal",
+                        "text": "It was a robot vacuum running on a timer. It made a thump each time it went over the raised strip in the doorway."
                     }
                 ],
-                "icon": "fa-podcast"
+                "icon": "fa-ghost",
+                "revealCards": true
             }
         ],
         "practice": [
             {
-                "text": "The unexplained footsteps in the empty hallway sent _____ _____ my _____. → {gap}",
+                "text": "Seeing the doll blink in the shop window sent _____ _____ my _____. → {gap}",
                 "answer": "To send shivers down your spine"
             },
             {
-                "text": "The missing painting remains an _____ _____ in the town museum. → {gap}",
+                "text": "Nobody knows who leaves a white rose at the train station every Monday. It’s an _____ _____. → {gap}",
                 "answer": "An unsolved mystery"
             },
             {
-                "text": "My aunt claims to _____ a _____ _____ about when relatives will call. → {gap}",
+                "text": "Leo always knows when someone is planning to surprise him. He seems to _____ a _____ _____. → {gap}",
                 "answer": "To have a sixth sense"
             },
             {
-                "text": "I had a _____ _____ that the apparently perfect offer contained a hidden condition. → {gap}",
+                "text": "I had a _____ _____ that my friend was about to show up, so I ordered a second coffee. → {gap}",
                 "answer": "A gut feeling"
             },
             {
-                "text": "The science presenter used a simple experiment to _____ a _____ about the Moon. → {gap}",
+                "text": "The librarian used a security video to _____ a _____ about books moving by themselves. → {gap}",
                 "answer": "To debunk a myth"
             },
             {
-                "text": "Every school seems to have an _____ _____ about a locked room. → {gap}",
+                "text": "There’s an _____ _____ about a woman who boards the last bus and vanishes before her stop. → {gap}",
                 "answer": "An urban legend"
             }
         ],
@@ -2252,14 +2253,11 @@
                 "A gut feeling"
             ]
         },
-        "homework": {
-            "task": "Write a short paragraph (3-4 sentences) about a supernatural story or mystery you know. Do you believe it's true?",
-            "model": "I know the urban legend about... It says that... I think it's not true because...",
-            "requiredExpressions": [
-                "To send shivers down your spine",
-                "An unsolved mystery"
-            ]
-        },
+        "homework": [
+            "A story from your town. Retell an urban legend you heard at school or where you grew up. Say who told you and how you felt the first time you heard it.",
+            "The photo mystery. Write the messages two friends exchange after spotting someone unexpected in the background of a photo. Give the friends different theories and show what they decide to do.",
+            "A little good luck. Pick a superstition you’ve heard. Imagine a day when you’d be tempted to follow it and explain what you’d do and why."
+        ],
         "closing": "\"The world is full of obvious things which nobody by any chance ever observes.\" - Sherlock Holmes",
         "migration": {
             "source": "licao-11.html",
