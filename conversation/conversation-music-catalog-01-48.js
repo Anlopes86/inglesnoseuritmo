@@ -1819,78 +1819,78 @@
             "exact recording/version and five occurrences require human playback audit"
         ],
         "song": {
-            "title": "Runnin' Down A Dream",
-            "artist": "Tom Petty",
-            "displayTitle": "Runnin' Down a Dream",
-            "displayArtist": "Tom Petty",
-            "version": "Runnin' Down A Dream",
-            "album": null,
-            "releaseDate": "1989-01-01T00:00:00Z",
-            "durationSeconds": 292,
-            "spotifyId": "4AiMaeCXwsldpwvA5wu5gM",
+            "title": "Holiday",
+            "artist": "Madonna",
+            "displayTitle": "Holiday",
+            "displayArtist": "Madonna",
+            "version": "Holiday",
+            "album": "Madonna",
+            "releaseDate": "1983-07-27T00:00:00Z",
+            "durationSeconds": 370,
+            "spotifyId": "3ibAzRj9JnowdoLkyllk3n",
             "spotifyEmbedPlayableAtCheck": true,
             "brAvailabilityConfirmed": false
         },
         "lyrics": {
             "provider": "lrclib",
-            "lrclibId": 34644749,
-            "providerTrackName": "Runnin' Down A Dream",
-            "providerArtistName": "Tom Petty",
-            "providerDurationSeconds": 292,
+            "lrclibId": 3732264,
+            "providerTrackName": "Holiday",
+            "providerArtistName": "Madonna",
+            "providerDurationSeconds": 370,
             "fallback": "lyricsovh",
             "cache": "sessionStorage",
-            "checkedAt": "2026-09-02"
+            "checkedAt": "2026-11-18"
         },
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "running",
-                "providerAnswer": "running",
-                "occurrence": 1,
+                "answer": "celebrate",
+                "providerAnswer": "celebrate",
+                "occurrence": 3,
                 "acceptedAnswers": [
-                    "running"
+                    "celebrate"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "wherever",
-                "providerAnswer": "wherever",
+                "answer": "world",
+                "providerAnswer": "world",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "wherever"
+                    "world"
                 ]
             },
             {
                 "id": "gap-3",
-                "answer": "Working",
-                "providerAnswer": "Working",
-                "occurrence": 2,
+                "answer": "pressure",
+                "providerAnswer": "pressure",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "Working"
+                    "pressure"
                 ]
             },
             {
                 "id": "gap-4",
-                "answer": "good",
-                "providerAnswer": "good",
-                "occurrence": 2,
+                "answer": "troubles",
+                "providerAnswer": "troubles",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "good"
+                    "troubles"
                 ]
             },
             {
                 "id": "gap-5",
-                "answer": "never",
-                "providerAnswer": "never",
-                "occurrence": 4,
+                "answer": "together",
+                "providerAnswer": "together",
+                "occurrence": 3,
                 "acceptedAnswers": [
-                    "never"
+                    "together"
                 ]
             }
         ],
         "pedagogy": {
             "maxAttempts": 3,
-            "application": "Runnin' Down a Dream\" - Adventure and purpose"
+            "application": "Can you really switch off?"
         },
         "verification": {
             "spotifyRecordingConfirmed": false,

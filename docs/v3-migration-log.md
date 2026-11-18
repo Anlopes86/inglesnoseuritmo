@@ -440,3 +440,15 @@ Escopo concluído:
 - O slide final exibe a frase fornecida pelo professor sobre ter algo a dizer.
 - O subtítulo e as quatro perguntas originais de *Song 1 Conversation* foram restaurados a pedido do professor.
 - Em 2026-11-06, foram restauradas as quatro perguntas originais do aquecimento.
+
+## 2026-11-18 · Conversation L7 — companhia, hábitos e viagens com uma condição
+
+- Comparada a lição *Travel & Adventure* com a L45, *Travel Dreams & Curious Destinations*. A L7 passa a enfatizar companhia, comportamento nas férias, escolhas imaginárias e histórias de viagem; os passeios, destinos e roteiros da L45 serviram de referência para evitar sobreposição.
+- Substituídos *A Missed Connection* e *The Famous Trail* por *Your Holiday Alter Ego* e *Free Trip, One Catch*. Os cartões trazem perguntas abertas sobre manias e condições curiosas para aceitar uma viagem, adequadas à conversa entre professor e aluno.
+- Reescritas as doze perguntas ligadas às músicas e seus subtítulos. Corrigida a apresentação de *Don't Stop Me Now*, que continha um fragmento de letra no campo editorial.
+- Ajustados três itens do aquecimento, o fechamento oral e o homework para desenvolver relatos e opiniões, com exemplos de uso das expressões.
+- Acrescentadas perguntas sobre voo atrasado ou cancelado, momentos constrangedores na segurança ou alfândega e mala perdida antes de um casamento. As perguntas admitem relato pessoal e situação imaginária.
+- Substituída a segunda música por *Holiday*, de Madonna, com quatro perguntas sobre descanso e rotina. O player usa a gravação do álbum *Madonna* (Spotify 3ibAzRj9JnowdoLkyllk3n). A letra usa LRCLIB 3732264, com a mesma duração aproximada de 370 segundos. Cinco palavras diferentes e suas ocorrências foram conferidas na resposta do provedor e no exercício. O registro conserva as pendências de auditoria humana de gravação, reprodução e região BR.
+- As três propostas de homework tratam de perrengue de aeroporto, hábitos que mudam nas férias e viagem gratuita com uma condição. O aluno escolhe uma. Usado o formato de opções já disponível no player.
+- No teste específico de *Holiday*, foi usada a resposta real do LRCLIB. Os cinco campos vazios, a revelação e ocultação das respostas e a correção para 5/5 passaram no computador e no celular. As três opções de homework também tiveram conferência visual e de navegação.
+- Verificação: passaram as quatro auditorias V3 e as auditorias de conteúdo e música de Conversation 1–48. As lições 7 e 45 foram percorridas em computador e celular; os novos slides da L7 tiveram conferência visual. O teste de navegador usou respostas fictícias dos provedores musicais. Alterações locais.

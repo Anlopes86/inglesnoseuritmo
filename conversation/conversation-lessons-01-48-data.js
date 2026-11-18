@@ -1244,13 +1244,13 @@
         "icon": "fa-comments",
         "accent": "blue",
         "warmupTitle": "Warm-up: Travel & Adventure",
-        "warmupIntro": "Let's start our conversation:",
+        "warmupIntro": "The bags are packed. Are you already in holiday mode, or still checking that you locked the door?",
         "warmups": [
-            "What’s the most interesting place you’ve visited?",
-            "If you could go anywhere tomorrow, where would you go?",
+            "When does a trip start to feel like a holiday to you?",
+            "Do you enjoy long journeys, or do you just want to get there?",
             "Do you prefer traveling alone or with others?",
-            "What part of planning a trip do you enjoy most?",
-            "When has a travel plan gone wrong but still produced a good memory?"
+            "Are you the person who packs a week early or five minutes before leaving?",
+            "Have you ever had a delayed or cancelled flight? What made the wait better or worse?"
         ],
         "expressions": [
             {
@@ -1297,26 +1297,26 @@
                 "sourceEmbed": "https://open.spotify.com/embed/track/7Gpr3kKk4BMgItz6UbI73q",
                 "spotifyId": "7Gpr3kKk4BMgItz6UbI73q",
                 "angle": "A reflective road-trip song about escape, friendship, and the quiet freedom that travel can create.",
-                "discussionTitle": "Road Trippin'\" - Escape and companionship",
+                "discussionTitle": "Good company, open road",
                 "questions": [
-                    "What makes a road trip feel more personal and memorable than other types of travel?",
-                    "What qualities matter most in the people you choose to travel with?",
-                    "Is getting lost part of the fun in a trip, or something that ruins the experience?",
-                    "Is travel more valuable for relaxation or for personal growth?"
+                    "Who would you happily spend eight hours in a car with, and who would test your patience?",
+                    "Why do you think people sometimes argue more on holiday than they do at home?",
+                    "On a road trip, would you rather stop whenever something catches your eye or keep driving until you get there?",
+                    "Could you enjoy a whole day on the road if you never reached anywhere special?"
                 ]
             },
             {
-                "title": "Runnin' Down a Dream",
-                "artist": "Tom Petty",
-                "sourceEmbed": "https://open.spotify.com/embed/track/4AiMaeCXwsldpwvA5wu5gM",
-                "spotifyId": "4AiMaeCXwsldpwvA5wu5gM",
-                "angle": "A song about movement, momentum, and the thrill of chasing something meaningful without knowing exactly where it will lead.",
-                "discussionTitle": "Runnin' Down a Dream\" - Adventure and purpose",
+                "title": "Holiday",
+                "artist": "Madonna",
+                "sourceEmbed": "https://open.spotify.com/embed/track/3ibAzRj9JnowdoLkyllk3n",
+                "spotifyId": "3ibAzRj9JnowdoLkyllk3n",
+                "angle": "Think about whether a proper break means a change of place, fewer responsibilities, or a reason to celebrate.",
+                "discussionTitle": "Can you really switch off?",
                 "questions": [
-                    "How is a journey similar to chasing a dream in real life?",
-                    "Why are people attracted to uncertainty when they want adventure?",
-                    "Do the best trips come from planning carefully or following impulse?",
-                    "Is the destination the most important part of travel, or the movement itself?"
+                    "Which everyday responsibility would you most like a holiday from?",
+                    "Do you feel expected to answer messages while you’re on holiday? Who finds it hardest to leave you alone?",
+                    "Would you rather take all your holiday days in one long break or spread them across lots of short breaks?",
+                    "Should everyone get their birthday off, even if they have no plans?"
                 ]
             },
             {
@@ -1324,66 +1324,66 @@
                 "artist": "Queen",
                 "sourceEmbed": "https://open.spotify.com/embed/track/5T8EDUDqKcs6OSOwEsfqG7",
                 "spotifyId": "5T8EDUDqKcs6OSOwEsfqG7",
-                "angle": "I feel alive, and the I'll turn it inside out, yeah",
-                "discussionTitle": "Don't Stop Me Now\" - Freedom and momentum",
+                "angle": "Think of a holiday moment when you were having too much fun to want the day to end.",
+                "discussionTitle": "Too much fun to stop",
                 "questions": [
-                    "How does intense energy connect to freedom and adventure in this song?",
-                    "What does it mean to feel like a \"shooting star\" in real life?",
-                    "Is spontaneous joy more valuable than careful control sometimes?",
-                    "Can living intensely in the moment be sustainable, or is it only temporary?"
+                    "When was the last time you were having so much fun that you forgot to check the time?",
+                    "Why do some people need another holiday to recover from their holiday?",
+                    "Would you join a holiday activity you’re terrible at if everyone else was having fun?",
+                    "Would you rather have one unforgettable day or a whole week of small pleasures?"
                 ]
             }
         ],
         "contexts": [
             {
-                "title": "A Missed Connection",
-                "kicker": "Rebuild an itinerary under pressure.",
-                "intro": "A delayed bus makes a traveler miss the final train in a town where few people speak English.",
-                "prompt": "What should the traveler do first, and which risk should not be ignored?",
+                "title": "Your Holiday Alter Ego",
+                "kicker": "Same person, different habits.",
+                "intro": "At home you’re in bed by ten. On holiday you’re ordering dinner at midnight. A change of scenery can bring out a different side of you.",
+                "prompt": "If a friend joined you on holiday for the first time, what habit of yours might surprise them?",
                 "cards": [
                     {
-                        "title": "Information",
-                        "text": "Confirm the next safe route."
+                        "title": "No alarm",
+                        "text": "Do you stick to your usual routine on holiday, or does breakfast sometimes become lunch?"
                     },
                     {
-                        "title": "Communication",
-                        "text": "Ask for help with simple, clear language."
+                        "title": "Chatting to strangers",
+                        "text": "Do you talk to strangers more when you travel? What makes it easier or harder?"
                     },
                     {
-                        "title": "Budget",
-                        "text": "Compare a hotel with a late taxi."
+                        "title": "Full tourist mode",
+                        "text": "Would you wear a silly souvenir T-shirt on holiday that you’d never wear at home?"
                     },
                     {
-                        "title": "Safety",
-                        "text": "Tell someone where the traveler will stay."
+                        "title": "A day of doing nothing",
+                        "text": "Can you spend a holiday afternoon doing nothing without feeling you’re wasting the trip?"
                     }
                 ],
-                "icon": "fa-route"
+                "icon": "fa-person-walking-luggage"
             },
             {
-                "title": "The Famous Trail",
-                "kicker": "Plan adventure without damaging the place.",
-                "intro": "A mountain trail has become crowded after appearing in viral travel videos.",
-                "prompt": "Which limits would preserve access while protecting residents and the landscape?",
+                "title": "Free Trip, One Catch",
+                "kicker": "Everything is paid for. Would you say yes?",
+                "intro": "You’re offered a free, week-long trip you would love. Each offer has just one catch. Which conditions could you live with?",
+                "prompt": "Which offer would you accept most easily, and which would you refuse even if everything were free?",
                 "cards": [
                     {
-                        "title": "Visitors",
-                        "text": "Consider reservations or daily limits."
+                        "title": "No photos",
+                        "text": "You can’t photograph or film any of it. Would you still want to go?"
                     },
                     {
-                        "title": "Residents",
-                        "text": "Protect roads, water, and privacy."
+                        "title": "The surprise suitcase",
+                        "text": "Someone you know packs all your clothes. You can’t change anything. Who would you trust to do it?"
                     },
                     {
-                        "title": "Nature",
-                        "text": "Identify the most vulnerable area."
+                        "title": "A different language",
+                        "text": "You can’t speak your own language all week, even with your travel companion. Would that be fun or exhausting?"
                     },
                     {
-                        "title": "Alternative",
-                        "text": "Promote another route or season."
+                        "title": "Early starts",
+                        "text": "Every day begins with a 5 a.m. activity. Would the free trip be worth a week of early mornings?"
                     }
                 ],
-                "icon": "fa-mountain-sun"
+                "icon": "fa-ticket"
             }
         ],
         "practice": [
@@ -1413,29 +1413,27 @@
             }
         ],
         "speaking": {
-            "title": "Speak: Travel & Adventure",
+            "title": "Worth Telling When You Get Home",
             "icon": "fa-microphone-lines",
+            "instruction": "Start with whichever question brings a story to mind. You can use a trip of your own or a story you’ve heard.",
             "prompts": [
-                "Which unfamiliar destination would test your independence?",
-                "How would you prepare without planning away every surprise?",
-                "What local advice would you seek on arrival?",
-                "Which travel risk is worth accepting and which is not?"
+                "Which small moment from a journey do you remember more clearly than the big attractions?",
+                "Have you ever had an awkward moment at airport security or customs? What happened, or what situation would make you nervous?",
+                "Your suitcase goes missing before a wedding abroad. Would you buy new clothes, borrow an outfit, or wear your travel clothes?",
+                "If one of your trips became a film, what would its title be, and which scene would everyone talk about?"
             ],
             "support": [
-                "To hit the road",
-                "Wanderlust",
-                "Off the beaten path",
-                "A change of scenery"
+                "We’d only just hit the road when…",
+                "We ended up off the beaten path…",
+                "All I wanted was a change of scenery, but…",
+                "The part everyone still talks about is…"
             ]
         },
-        "homework": {
-            "task": "Describe your dream vacation. Where would you go and what would you do? Use at least one expression from this lesson.",
-            "model": "My dream vacation is to... I have a real wanderlust for... I would travel light and go...",
-            "requiredExpressions": [
-                "To hit the road",
-                "Wanderlust"
-            ]
-        },
+        "homework": [
+            "Tell a real or imagined airport story involving a delayed flight, airport security, customs, or a missing suitcase. Explain what happened, how you reacted, and whether you can laugh about it afterwards.",
+            "Describe your holiday alter ego and how your habits change when you travel. Give one example that would surprise someone who knows you at home, and explain what helps you switch off.",
+            "Choose one condition for the free trip from today’s discussion. Explain what you would enjoy, what would annoy you, and whether you would accept the offer."
+        ],
         "closing": "\"I haven't been everywhere, but it's on my list.\"",
         "migration": {
             "source": "licao-07.html",
