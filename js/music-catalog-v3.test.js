@@ -28,6 +28,7 @@ const nonPilots = records.filter(entry => !entry.rollout.pilot);
 const published = records.filter(entry => entry.status === 'provider-verified');
 const a1Records = records.filter(entry => entry.moduleId === 'a1-v3');
 const a2Records = records.filter(entry => entry.moduleId === 'a2-v3');
+const b1Records = records.filter(entry => entry.moduleId === 'b1-v3');
 assert.equal(pilots.length, 12, 'piloto deve ter 12 aulas');
 assert.equal(nonPilots.length, 42, 'o rollout completo deve preservar a identificação dos 42 registros posteriores ao piloto');
 assert.equal(published.length, 54, 'as 54 atividades auditadas devem estar publicadas');
@@ -43,7 +44,7 @@ for (const entry of a1Records) {
     const lesson = context.window.V3Curriculum.getLesson('a1-v3', entry.curriculumId);
     assert.equal(entry.lessonNumber, lesson.number, 'a numeração musical deve acompanhar seu ID curricular');
 }
-for (const [label, moduleRecords] of [['A1', a1Records], ['A2', a2Records]]) {
+for (const [label, moduleRecords] of [['A1', a1Records], ['A2', a2Records], ['B1', b1Records]]) {
     assert(moduleRecords.every(entry => entry.pedagogy.transferPrompts.length === 3 && entry.pedagogy.transferPrompts.every(prompt => String(prompt || '').trim())), `cada música ${label} deve ter três perguntas pós-música`);
 }
 assert.equal(new Set(a1Records.flatMap(entry => entry.pedagogy.transferPrompts)).size, 72, 'as perguntas pós-música A1 devem ser personalizadas, sem cópias exatas');
@@ -69,4 +70,4 @@ const fashion = records.find(entry => entry.id === 'a2-v3-l23-song-01');
 assert(new Set(fashion.gaps.map(gap => gap.answer.toLowerCase())).size >= 3, 'Fashion deve usar ao menos três respostas reais diferentes');
 assert.equal(fashion.lyrics.candidateCheckedAt, '2026-08-30', 'Fashion deve registrar a nova auditoria de ocorrências no LRCLIB');
 
-console.log('music-catalog-v3.test.js passed: 54 published lexical activities, exact providers, five distinct gaps and three post-song prompts in every A1 and A2 song.');
+console.log('music-catalog-v3.test.js passed: 54 lexical activities, exact provider references, five distinct gaps and three post-song prompts per song.');

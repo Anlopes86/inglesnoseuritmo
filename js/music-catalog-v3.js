@@ -349,9 +349,88 @@
         ]]
     ]);
 
+    const B1_TRANSFER_PROMPTS = new Map([
+        [1, [
+            'What kind of change does the song suggest?',
+            'Tell your teacher when a character took a risk. Use the past simple for the event.',
+            'What has changed for that character since then? Give one result that matters now.'
+        ]],
+        [3, [
+            'What words in the song suggest change or progress?',
+            'Imagine a project you have been working on for two weeks. Say what you have been doing.',
+            'Give a progress update with one result, one activity in progress and one next step.'
+        ]],
+        [5, [
+            'What relationship is the singer looking back on?',
+            'Use used to to compare a fictional habit with what the person does now.',
+            'Imagine a new routine. Say what someone is already used to and what they are still getting used to.'
+        ]],
+        [7, [
+            'Which events in the song help you build a timeline?',
+            'Tell your teacher what happened and what was happening at the time.',
+            'Invent one event that had happened earlier and use it to explain a later decision.'
+        ]],
+        [9, [
+            'What happens to the plans in the song?',
+            'Give one intention and one arrangement with a confirmed time.',
+            'Your teacher changes a detail. State a new plan and make a prediction.'
+        ]],
+        [11, [
+            'What kind of support do you hear in the song?',
+            'Give your teacher one condition for helping with a plan.',
+            'Choose one thing to bring in case the plan changes. Explain when you will need it.'
+        ]],
+        [13, [
+            'How certain does the singer sound? Which modal gives you that impression?',
+            'Imagine a light on inside a closed café. Suggest what might be happening now.',
+            'Ask your teacher for a clue. Use must or can’t to update a conclusion and explain why.'
+        ]],
+        [15, [
+            'What do the signs tell people to do?',
+            'Explain a rule to a visitor who needs help.',
+            'Invent a sign for a shared space. Explain what is required, what is forbidden and what is optional.'
+        ]],
+        [17, [
+            'How do the speakers respond to disagreement?',
+            'State a preference and acknowledge a different opinion from your teacher.',
+            'Ask one clarifying question, then reformulate your position in one or two sentences.'
+        ]],
+        [19, [
+            'What is the difference between wanting and needing something in the song?',
+            'Suggest a practical alternative when your first choice is unavailable.',
+            'Agree on a compromise with your teacher and say what each person gives up.'
+        ]],
+        [21, [
+            'What does the relative clause in the title tell you about the person?',
+            'Describe an object using a clause with that or which. Let your teacher identify it.',
+            'Give a short factual update about an object. Say how it is used or where it was found.'
+        ]],
+        [23, [
+            'Who seems to be speaking, and who is reporting what was said?',
+            'Your teacher gives you a short message. Report what the speaker said.',
+            'Ask an indirect question to check one missing detail before passing on a message.'
+        ]],
+        [25, [
+            'What problem or need do you notice in the song?',
+            'Give your teacher one sentence that acknowledges a problem and one that offers a practical next step.',
+            'Role-play a service complaint. Agree on what will happen and when.'
+        ]],
+        [27, [
+            'What kind of effort or success does the song emphasize?',
+            'Describe a fictional achievement using a concession with although or despite.',
+            'Suggest a realistic next step when your teacher adds an obstacle.'
+        ]],
+        [29, [
+            'What makes the situation in the song hypothetical?',
+            'Describe one change you would make if a situation were different.',
+            'Tell your teacher one thing you wish were different. Explain what would improve if it changed.'
+        ]]
+    ]);
+
     const TRANSFER_PROMPTS_BY_MODULE = new Map([
         ['a1-v3', A1_TRANSFER_PROMPTS],
-        ['a2-v3', A2_TRANSFER_PROMPTS]
+        ['a2-v3', A2_TRANSFER_PROMPTS],
+        ['b1-v3', B1_TRANSFER_PROMPTS]
     ]);
 
     // Explicit editorial bindings retain the audited audio and provider occurrences.
@@ -386,6 +465,14 @@
         const sourceRecordId = `${moduleId}-l${String(lessonNumber).padStart(2, '0')}-song-01`;
         const lesson = curriculum?.getLesson(moduleId, moduleId === 'a1-v3' ? A1_38_MUSIC_BINDINGS[sourceRecordId] : lessonNumber);
         const migratedPedagogy = {
+            'a1-v3-38-22-what-is-your-friend-like': {
+                application: 'A música retoma a hora. A dupla combina o encontro e descreve como reconhecer alguém.',
+                prompts: ['Which time do you hear?', 'Tell your teacher where and when to meet you.', 'Describe a friend you can recognize at the meeting place.']
+            },
+            'a1-v3-38-23-around-town': {
+                application: 'A música abre um convite. A dupla indica o lugar e orienta como chegar.',
+                prompts: ['Does the song suggest going out or staying home?', 'Ask your teacher where you can meet tonight.', 'Give one direction to a café: “Turn left at the ___.”']
+            },
             'a1-v3-38-29-travel-updates': {application: 'Reconhecer walking e descrever uma ação durante a viagem; was walking como extensão opcional.', prompts: ['Which action word do you hear in the song?', 'Describe your trip now: "I am walking to ___."', 'Where are you now, and what are you doing?']},
             'a1-v3-38-32-i-need-some-help': {application: 'Reconhecer fever, explicar como se sente e pedir ajuda prática.', prompts: ['Which health word do you hear in the song?', 'Ask for practical help: "I feel sick. Can you ___?"', 'Offer help: "I will bring you some water." What else can you offer?']}
         }[lesson?.id];
@@ -561,6 +648,14 @@
             if (!lesson || lesson.lessonKind !== 'lexical' || !binding.tags.some(tag => lesson.languageTags.includes(tag)) || !isPublishable(source) || !isRolloutEnabled(source)) return null;
             const entry = includeDraft ? clone(source) : publicView(source);
             return { ...entry, id: curriculumId + '-song-01', curriculumId, semanticTags: binding.tags, sourceRecordId: source.id, pedagogy: { ...entry.pedagogy, transferPrompts: binding.prompts } };
+        }
+        const pilot = curriculum?.a1CadencePilot?.find(item => item.id === curriculumId);
+        if (pilot) {
+            const source = byCurriculumId.get(pilot.sourceCurriculumId);
+            if (pilot.lessonKind !== 'lexical' || !isPublishable(source) || !isRolloutEnabled(source)
+                || !curriculum.hasSemanticIntersection(pilot, source)) return null;
+            const entry = includeDraft ? clone(source) : publicView(source);
+            return { ...entry, id: curriculumId + '-song-01', curriculumId, sourceRecordId: source.id };
         }
         const entry = byCurriculumId.get(String(curriculumId || ''));
         if (!entry) return null;

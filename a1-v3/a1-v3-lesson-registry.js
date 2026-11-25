@@ -243,7 +243,9 @@
 
     const previewEntries = new Map();
     function registerPreview(id, content) {
-        const manifest = globalScope.V3Curriculum?.a1PreviewLessons.find(item => item.id === id);
+        const curriculum = globalScope.V3Curriculum;
+        const manifest = curriculum?.a1PreviewLessons.find(item => item.id === id)
+            || curriculum?.a1CadencePilot?.find(item => item.id === id);
         if (!manifest) throw new Error(`Manifesto de prévia ausente: ${id}`);
         if (!content.slides?.length || new Set(content.slides.map(item => item.id)).size !== content.slides.length) throw new Error(`Slides inválidos: ${id}`);
         if (!content.mission?.semanticTags?.some(tag => manifest.languageTags.includes(tag))) throw new Error(`Missão incompatível: ${id}`);

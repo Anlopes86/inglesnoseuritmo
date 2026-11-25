@@ -1819,78 +1819,78 @@
             "exact recording/version and five occurrences require human playback audit"
         ],
         "song": {
-            "title": "Runnin' Down A Dream",
-            "artist": "Tom Petty",
-            "displayTitle": "Runnin' Down a Dream",
-            "displayArtist": "Tom Petty",
-            "version": "Runnin' Down A Dream",
-            "album": null,
-            "releaseDate": "1989-01-01T00:00:00Z",
-            "durationSeconds": 292,
-            "spotifyId": "4AiMaeCXwsldpwvA5wu5gM",
+            "title": "Holiday",
+            "artist": "Madonna",
+            "displayTitle": "Holiday",
+            "displayArtist": "Madonna",
+            "version": "Holiday",
+            "album": "Madonna",
+            "releaseDate": "1983-07-27T00:00:00Z",
+            "durationSeconds": 370,
+            "spotifyId": "3ibAzRj9JnowdoLkyllk3n",
             "spotifyEmbedPlayableAtCheck": true,
             "brAvailabilityConfirmed": false
         },
         "lyrics": {
             "provider": "lrclib",
-            "lrclibId": 34644749,
-            "providerTrackName": "Runnin' Down A Dream",
-            "providerArtistName": "Tom Petty",
-            "providerDurationSeconds": 292,
+            "lrclibId": 3732264,
+            "providerTrackName": "Holiday",
+            "providerArtistName": "Madonna",
+            "providerDurationSeconds": 370,
             "fallback": "lyricsovh",
             "cache": "sessionStorage",
-            "checkedAt": "2026-09-02"
+            "checkedAt": "2026-11-18"
         },
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "running",
-                "providerAnswer": "running",
-                "occurrence": 1,
+                "answer": "celebrate",
+                "providerAnswer": "celebrate",
+                "occurrence": 3,
                 "acceptedAnswers": [
-                    "running"
+                    "celebrate"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "wherever",
-                "providerAnswer": "wherever",
+                "answer": "world",
+                "providerAnswer": "world",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "wherever"
+                    "world"
                 ]
             },
             {
                 "id": "gap-3",
-                "answer": "Working",
-                "providerAnswer": "Working",
-                "occurrence": 2,
+                "answer": "pressure",
+                "providerAnswer": "pressure",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "Working"
+                    "pressure"
                 ]
             },
             {
                 "id": "gap-4",
-                "answer": "good",
-                "providerAnswer": "good",
-                "occurrence": 2,
+                "answer": "troubles",
+                "providerAnswer": "troubles",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "good"
+                    "troubles"
                 ]
             },
             {
                 "id": "gap-5",
-                "answer": "never",
-                "providerAnswer": "never",
-                "occurrence": 4,
+                "answer": "together",
+                "providerAnswer": "together",
+                "occurrence": 3,
                 "acceptedAnswers": [
-                    "never"
+                    "together"
                 ]
             }
         ],
         "pedagogy": {
             "maxAttempts": 3,
-            "application": "Runnin' Down a Dream\" - Adventure and purpose"
+            "application": "Can you really switch off?"
         },
         "verification": {
             "spotifyRecordingConfirmed": false,
@@ -3746,47 +3746,47 @@
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "bye-bye",
-                "providerAnswer": "bye-bye",
+                "answer": "smile",
+                "providerAnswer": "smile",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "bye-bye"
+                    "smile"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "started",
-                "providerAnswer": "started",
+                "answer": "dance",
+                "providerAnswer": "dance",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "started"
+                    "dance"
                 ]
             },
             {
                 "id": "gap-3",
-                "answer": "players",
-                "providerAnswer": "players",
+                "answer": "shiver",
+                "providerAnswer": "shiver",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "players"
+                    "shiver"
                 ]
             },
             {
                 "id": "gap-4",
-                "answer": "Jack",
-                "providerAnswer": "Jack",
-                "occurrence": 3,
+                "answer": "doorstep",
+                "providerAnswer": "doorstep",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "Jack"
+                    "doorstep"
                 ]
             },
             {
                 "id": "gap-5",
-                "answer": "cried",
-                "providerAnswer": "cried",
-                "occurrence": 2,
+                "answer": "bride",
+                "providerAnswer": "bride",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "cried"
+                    "bride"
                 ]
             }
         ],
@@ -12347,7 +12347,7 @@
         ],
         "pedagogy": {
             "maxAttempts": 3,
-            "application": "Cinema - Life as a Movie Scene"
+            "application": "Same film, different age"
         },
         "verification": {
             "spotifyRecordingConfirmed": false,
@@ -12442,7 +12442,7 @@
         ],
         "pedagogy": {
             "maxAttempts": 3,
-            "application": "A Thousand Years - Romanticized Reality"
+            "application": "Should they end up together?"
         },
         "verification": {
             "spotifyRecordingConfirmed": false,
@@ -12466,78 +12466,78 @@
             "exact recording/version and five occurrences require human playback audit"
         ],
         "song": {
-            "title": "Live And Let Die - Remastered",
-            "artist": "Paul McCartney, Wings",
-            "displayTitle": "Live and Let Die",
-            "displayArtist": "Paul McCartney, Wings",
-            "version": "Live And Let Die - Remastered",
-            "album": null,
-            "releaseDate": "2016-04-01T00:00:00Z",
-            "durationSeconds": 195,
-            "spotifyId": "0OfIsdoRyBXtRXBqiBlX2A",
+            "title": "Sunflower - Spider-Man: Into the Spider-Verse",
+            "artist": "Post Malone, Swae Lee",
+            "displayTitle": "Sunflower",
+            "displayArtist": "Post Malone, Swae Lee",
+            "version": "Sunflower - Spider-Man: Into the Spider-Verse",
+            "album": "Spider-Man: Into the Spider-Verse (Soundtrack From & Inspired by the Motion Picture)",
+            "releaseDate": "2018-12-14T00:00:00Z",
+            "durationSeconds": 158,
+            "spotifyId": "3KkXRkHbMCARz0aVfEt68P",
             "spotifyEmbedPlayableAtCheck": true,
             "brAvailabilityConfirmed": false
         },
         "lyrics": {
             "provider": "lrclib",
-            "lrclibId": 38103014,
-            "providerTrackName": "Live And Let Die (Remastered)",
-            "providerArtistName": "Paul McCartney",
-            "providerDurationSeconds": 193,
+            "lrclibId": 997233,
+            "providerTrackName": "Sunflower",
+            "providerArtistName": "Post Malone",
+            "providerDurationSeconds": 158,
             "fallback": "lyricsovh",
             "cache": "sessionStorage",
-            "checkedAt": "2026-09-02"
+            "checkedAt": "2026-11-24"
         },
         "gaps": [
             {
                 "id": "gap-1",
-                "answer": "used",
-                "providerAnswer": "used",
+                "answer": "check",
+                "providerAnswer": "check",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "used"
+                    "check"
                 ]
             },
             {
                 "id": "gap-2",
-                "answer": "cry",
-                "providerAnswer": "cry",
+                "answer": "dust",
+                "providerAnswer": "dust",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "cry"
+                    "dust"
                 ]
             },
             {
                 "id": "gap-3",
-                "answer": "matter",
-                "providerAnswer": "matter",
+                "answer": "reason",
+                "providerAnswer": "reason",
                 "occurrence": 1,
                 "acceptedAnswers": [
-                    "matter"
+                    "reason"
                 ]
             },
             {
                 "id": "gap-4",
-                "answer": "know",
-                "providerAnswer": "know",
-                "occurrence": 4,
+                "answer": "trust",
+                "providerAnswer": "trust",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "know"
+                    "trust"
                 ]
             },
             {
                 "id": "gap-5",
-                "answer": "say",
-                "providerAnswer": "say",
-                "occurrence": 4,
+                "answer": "unknown",
+                "providerAnswer": "unknown",
+                "occurrence": 1,
                 "acceptedAnswers": [
-                    "say"
+                    "unknown"
                 ]
             }
         ],
         "pedagogy": {
             "maxAttempts": 3,
-            "application": "Live and Let Die - Drama, Contrast, and Bond Energy"
+            "application": "Who gets to be the hero?"
         },
         "verification": {
             "spotifyRecordingConfirmed": false,

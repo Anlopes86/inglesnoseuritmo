@@ -458,6 +458,7 @@
       "id": "extension",
       "type": "patterns",
       "title": "Extra · a moment yesterday",
+      "routeTier": "extra",
       "kicker": "Helping You",
       "instruction": "Extensão opcional. Compare agora com um momento do passado.",
       "cards": [

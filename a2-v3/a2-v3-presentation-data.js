@@ -14,7 +14,7 @@ const hw=options=>slide('homework','homework','Take it with you.','Escolha uma o
 function lexicalSlides(l){
  const examples=[...l.examples,...l.vocab.map(x=>x[2]),...l.expressions.map(x=>x[3]),...l.introDialogue.map(x=>x[1]),...l.dialogues.flat().map(x=>x[1])].filter(Boolean);
  const verbCards=l.verbRows.map(([base,past,participle,pt])=>[base,pt,examples.find(s=>[base,past,participle].some(v=>s.toLowerCase().split(/[^a-z'-]+/).includes(v.toLowerCase())))||'',past+' · '+participle]);
- const groups=[{title:l.grammarTable.title,cards:l.grammarTable.rows.map(([use,form,example])=>[form,use,example])},{title:'Como usar',cards:l.grammar.map(([title,rule],i)=>[title,rule,l.examples[i]||''])},{title:'Observe estes detalhes',cards:l.helpingYou}];
+ const groups=[{title:l.grammarTable.title,cards:l.grammarTable.rows.map(([use,form,example])=>[form,use,example])},{title:'Como usar',cards:l.grammar},{title:'Observe estes detalhes',cards:l.helpingYou}];
  const translationPractice=slide('practice','drill',l.expressionLab?'Transfer · Say it in English':'Say it in English','Traduza as novas situações em voz alta. Elas retomam a estrutura da aula sem copiar os modelos dos flashcards.',{items:l.translations.map(x=>[x.pt,x.en])});
  const dialogueSamples=slide('dialogues','dialogue','Dialog Samples','Leiam os papéis. Depois troquem pelo menos dois detalhes da situação para criar uma nova versão do diálogo.',{lines:l.dialogues.flat(),lineTitles:Object.fromEntries(l.dialogues.map((d,i)=>[l.dialogues.slice(0,i).reduce((a,x)=>a+x.length,0),'Situation '+(i+1)]))});
  const expressionSequence=l.expressionLab

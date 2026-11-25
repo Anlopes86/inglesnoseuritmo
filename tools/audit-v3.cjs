@@ -86,6 +86,15 @@ window.A1V3_DATA = registeredA1Data;
 
 const a1Lessons=curriculum.getModule('a1-v3').map(m=>window.A1V3LessonRegistry.get(m.number));
 const a1RendererSource=read('js/v3-presentation.js');
+require(path.join(root, 'a1-v3', 'lesson-data', 'preview-cadence.js'));
+const pilot = curriculum.a1CadencePilot;
+check(pilot.length === 5 && pilot.slice(0, 4).every(item => item.lessonKind === 'lexical'), 'A1: piloto deve abrir com quatro conteúdos.');
+check(pilot[4].lessonKind === 'communicative' && pilot[4].dependencies.join() === pilot.slice(0, 4).map(item => item.id).join(), 'A1: revisão do piloto deve reunir as quatro fontes.');
+check(pilot.every(item => !curriculum.getLesson('a1-v3', item.id) && window.A1V3LessonRegistry.getPreview(item.id)?.slides.length), 'A1: piloto deve renderizar em IDs isolados.');
+const a2Manifest = curriculum.getModule('a2-v3');
+for (const [review, start, end] of [[31, 1, 16], [32, 17, 30]]) {
+    check(a2Manifest[review - 1].reviewOf.join() === a2Manifest.slice(start - 1, end).map(item => item.id).join(), `A2 L${review}: revisão deve conter pares inteiros.`);
+}
 check(a1Lessons.length===38,'A1: esperadas 38 aulas.');
 check(a1Lessons.filter(l=>l.lessonKind==='lexical').length===24,'A1: esperadas 24 lexicais.');
 check(a1Lessons.filter(l=>l.lessonKind==='communicative').length===12,'A1: esperadas 12 conversações.');
@@ -125,6 +134,21 @@ try { console.log(require('child_process').execFileSync(process.execPath, [path.
 
 const b1Lessons = window.B1_V3_LESSONS || [];
 check(b1Lessons.length === 32, 'B1-V3: adaptador não produziu 32 lições.');
+const grammarTitles = {
+    21: ['Essential or Additional Detail?', 'Report the Event, Not an Assumption'],
+    23: ['Move the Viewpoint, Keep the Meaning', 'A Question inside a Question'],
+    29: ['Step Away from Reality']
+};
+for (const [number, expected] of Object.entries(grammarTitles)) {
+    const lesson = b1Lessons.find(item => item.number === Number(number));
+    const actual = lesson.slides.filter(slide => slide.type === 'grammar' && slide.routeTier !== 'extra').map(slide => slide.title);
+    check(actual.join() === expected.join(), `B1 L${number}: foco gramatical do percurso essencial incompleto.`);
+}
+const workshop = b1Lessons.find(lesson => lesson.number === 31);
+const assessment = b1Lessons.find(lesson => lesson.number === 32);
+check(workshop?.slides.some(slide => slide.title === 'Final Project Rehearsal'), 'B1: ensaio do projeto ausente.');
+check(assessment?.slides[1]?.type === 'speaking' && assessment.slides[2]?.criteria?.length === 4
+    && assessment.slides.at(-1)?.title === 'Next-Step Portfolio', 'B1: desempenho e rubrica próprios ausentes da L32.');
 for (const lesson of b1Lessons) {
     check(lesson.curriculumId === curriculum.getLesson('b1-v3', lesson.number).id, `B1-V3 L${lesson.number}: ID curricular divergente.`);
     if (lesson.type === 'review') {

@@ -25,9 +25,14 @@ for (const file of ['js/lyrics-service-v3.js', 'js/spotify-embed-v3.js', 'js/mus
 
 const service = context.window.LyricsServiceV3;
 const musicClozeSource = fs.readFileSync(path.join(root, 'js/music-cloze-v3.js'), 'utf8');
-assert(/aria-label="Revelar resposta da lacuna \$\{field\.index \+ 1\}" aria-pressed="false" title="Revelar resposta"><i class="fas fa-eye" aria-hidden="true"><\/i><\/button>/.test(musicClozeSource), 'cada lacuna deve exibir um botão alternável com ícone de olho desde o carregamento');
+const musicStyles = fs.readFileSync(path.join(root, 'css/music-cloze-v3.css'), 'utf8');
+assert(musicClozeSource.includes('const EYE_ICON = \'<svg'), 'o olho deve funcionar sem fonte externa');
+assert(musicClozeSource.includes('title="Revelar resposta">${EYE_ICON}</button>'), 'cada lacuna começa com um controle de revelação');
 assert(!/data-music-reveal="\$\{field\.index\}"[^>]*\shidden>/.test(musicClozeSource), 'o botão Revelar não pode começar oculto');
-assert(/icon\?\.classList\.toggle\('fa-eye-slash', showingAnswer\)/.test(musicClozeSource), 'o controle deve trocar para olho riscado enquanto exibe a resposta');
+assert(musicStyles.includes('[aria-pressed="false"] .music-eye-slash'), 'o controle deve trocar para olho riscado enquanto exibe a resposta');
+for (const stylesheet of ['css/v3-presentation.css', 'css/v3-session.css']) {
+    assert(fs.readFileSync(path.join(root, stylesheet), 'utf8').includes('@import url("music-cloze-v3.css")'), stylesheet + ' carrega os estilos da música');
+}
 assert(!/feedback\.textContent = `Resposta: \$\{answer\}`/.test(musicClozeSource), 'a resposta revelada deve aparecer somente dentro do campo');
 assert(/payload\.transferPrompts\?\.length/.test(musicClozeSource), 'o componente deve preferir transferPrompts quando o array existe');
 assert(/payload\.transferPrompt \|\|/.test(musicClozeSource), 'o componente deve preservar fallback retrocompatível para transferPrompt');
@@ -44,11 +49,16 @@ const model = service.buildFiveGapModel(providerText, gapSpecs);
 assert.equal(model.gaps.length, 5, 'exactGapCount');
 assert.equal(new Set(Array.from(model.gaps, gap => gap.absoluteTokenIndex)).size, 5, 'distinctPositions');
 assert.equal(model.lines.flatMap(line => Array.from(line.segments)).filter(segment => segment.type === 'gap').length, 5, 'DOM model deve conter cinco inputs');
+assert.deepEqual(Array.from(model.gaps, gap => gap.id), ['g1', 'g2', 'g5', 'g3', 'g4'], 'numeração segue a ordem real da letra');
+const shuffledResponses = gapSpecs.slice().reverse().map(gap => ({ gapId: gap.id, value: gap.answer }));
+assert(service.gradeResponses(model.gaps, shuffledResponses).every(item => item.status === 'correct'), 'corrigir pela identidade de cada lacuna');
 assert.equal(service.normalizeAnswer(' “CAN’T!” '), "can't", 'normalização de caixa, apóstrofo e pontuação');
 assert.equal(service.gradeAnswer('WORK', gapSpecs[0]), 'correct');
 assert.notEqual(service.gradeAnswer('working', gapSpecs[0]), 'correct', 'flexão não declarada continua incorreta');
 assert.throws(() => service.buildFiveGapModel(providerText, gapSpecs.slice(0, 4)), error => error.code === 'invalid-gap-count');
 assert.throws(() => service.buildFiveGapModel(providerText, [...gapSpecs.slice(0, 4), { ...gapSpecs[0], id: 'duplicate' }]), error => error.code === 'duplicate-gap-position');
+const overlapping = [...gapSpecs.slice(0, 2), { id: 'phrase', answer: 'a name', occurrence: 1 }, ...gapSpecs.slice(3)];
+assert.throws(() => service.buildFiveGapModel(providerText, overlapping), error => error.code === 'duplicate-gap-position');
 
 const phoneGapSpecs = [
     { id: 'n1', answer: 'eight', providerAnswer: '8', occurrence: 1, acceptedAnswers: ['eight', '8'] },
@@ -102,6 +112,23 @@ const fetchImpl = async url => {
     assert.equal(adapterLoaded.state, 'ready', 'o adapter deve preparar a atividade com prompts pós-música');
     assert.deepEqual(Array.from(adapterLoaded.payload.transferPrompts), syntheticTransferPrompts, 'o adapter deve preservar as três perguntas autorais');
     assert.equal(adapterLoaded.payload.transferPrompt, 'Legacy prompt.', 'o adapter deve preservar o prompt singular retrocompatível');
+
+    const recoveryEntry = { ...syntheticEntry, id: 'test-recovery', lyrics: { lrclibId: 1, fallback: 'lyricsovh' } };
+    const badFallback = async url => url.includes('lrclib')
+        ? { ok: false, status: 504 }
+        : { ok: true, status: 200, json: async () => ({ lyrics: 'An incompatible test recording with different words.' }) };
+    await assert.rejects(
+        service.getLyrics(recoveryEntry, { fetchImpl: badFallback, storage: context.window.sessionStorage, timeoutMs: 100 }),
+        error => error.code === 'gap-not-found'
+    );
+    assert.equal(service.readSessionCache(recoveryEntry.id, context.window.sessionStorage), null, 'letra incompatível fica fora do cache');
+    const recovered = await service.getLyrics(recoveryEntry, {
+        fetchImpl: async () => ({ ok: true, status: 200, json: async () => ({
+            id: 1, trackName: 'Test Track', artistName: 'Test Artist', plainLyrics: providerText
+        }) }),
+        storage: context.window.sessionStorage, timeoutMs: 100
+    });
+    assert.equal(recovered.source, 'lrclib', 'nova tentativa usa a gravação quando o provedor volta');
     context.window.MusicCatalogV3.getForCurriculumId = () => syntheticEntry;
     const ordered = cloze.prepareSlides([{ type: 'content' }, { type: 'homework' }], { curriculumId: 'test', lessonKind: 'lexical' });
     assert.deepEqual(Array.from(ordered, slide => slide.type), ['content', 'musicCloze', 'homework'], 'blockOrder');

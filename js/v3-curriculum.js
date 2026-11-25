@@ -330,8 +330,8 @@
             ['Conversation Activities · Honeymoon in New York', 'revisão comunicativa da lição 27: melhores, piores e extremos'],
             ['Hopes and Predictions', 'depend on, will/going to, right away e right after', [29]],
             ['Conversation Activities · Rick and His Dreams for the New Year', 'revisão comunicativa da lição 29: esperanças, planos e previsões'],
-            ['A2 Consolidation · Part 1', 'grande revisão das lições 1–15'],
-            ['A2 Consolidation · Part 2', 'grande revisão das lições 16–30']
+            ['A2 Consolidation · Part 1', 'grande revisão das lições 1–16'],
+            ['A2 Consolidation · Part 2', 'grande revisão das lições 17–30']
         ],
         'b1-v3': [
             ['Defining Moments', 'Present Perfect versus passado concluído; decisões, oportunidades e consequências', [1]],
@@ -354,18 +354,18 @@
             ['Communicative Lab · Clear Communication', 'discordância polida e reparo comunicativo'],
             ['Suggestions, Trade-Offs and Negotiation', 'sugestões, comparação de alternativas e negociação', [11, 12]],
             ['Communicative Lab · Reach an Agreement', 'trade-offs, concessões e consenso justificado'],
-            ['Detail and Factual Reporting', 'relative clauses, voz passiva e relato factual', [14, 15]],
+            ['Detail and Factual Reporting', 'relative clauses, voz passiva e relato factual', [14, 15], { supplementaryGrammarSource: 'Crime in the News: Passive Voice' }],
             ['Communicative Lab · Explain and Report', 'detalhamento, processo e relato de fatos'],
-            ['Reported Speech and Indirect Questions', 'discurso relatado, perguntas indiretas e pedidos polidos', [17, 18]],
+            ['Reported Speech and Indirect Questions', 'discurso relatado, perguntas indiretas e pedidos polidos', [17, 18], { supplementaryGrammarSource: 'Indirect Questions and Polite Requests' }],
             ['Communicative Lab · Message Relay', 'mediação e retransmissão de mensagens'],
             ['Problems, Complaints and Social Repair', 'problemas, reclamações e recuperação de serviço', [19, 20]],
             ['Communicative Lab · Service Recovery', 'reclamação, resposta e solução negociada'],
             ['Real-World Progress and Challenges', 'imprevistos em viagem, saúde, estudo e trabalho', [21, 22, 23]],
             ['Communicative Lab · Solve the Challenge', 'solução integrada de problema real'],
-            ['Hypotheses and Wishes', 'Second Conditional, wishes e reparação social', [28, 29]],
+            ['Hypotheses and Wishes', 'Second Conditional, wishes e reparação social', [28, 29], { contentSource: 'Second Conditional and Wishes' }],
             ['Communicative Lab · If Things Were Different', 'hipóteses, desejos e resposta social'],
-            ['B1 Project Workshop', 'planejamento e ensaio do projeto', [31]],
-            ['B1 Performance Assessment', 'apresentação, perguntas e avaliação', [31, 32]]
+            ['B1 Project Workshop', 'planejamento e ensaio do projeto', [31], { contentSource: 'Final Project Workshop' }],
+            ['B1 Performance Assessment', 'apresentação, perguntas e avaliação', [31, 32], { contentSource: 'B1 Final Project' }]
         ],
         'b2-v3': [
             ['Narrative Perspective and Time Control', 'tempos narrativos, perspectiva e enquadramento'],
@@ -493,7 +493,7 @@
         const level = levelFor(moduleId);
         const profile = LEVEL_PROFILES[level];
 
-        modules[moduleId] = definitions.map(([title, linguisticFocus, legacyLessons = []], index) => {
+        modules[moduleId] = definitions.map(([title, linguisticFocus, legacyLessons = [], authoring = {}], index) => {
             const number = index + 1;
             const type = projectSet.has(number) ? 'project' : reviewSet.has(number) ? 'review' : 'content';
             const previousBoundary = [...reviewPositions[moduleId]].filter(position => position < number).pop() || 0;
@@ -502,9 +502,9 @@
                 : moduleId === 'a1-v3' && number === 38
                     ? definitions.map((_, candidate) => candidate + 1).filter(candidate => candidate >= 16 && candidate <= 30 && !reviewSet.has(candidate))
                     : moduleId === 'a2-v3' && number === 31
-                        ? definitions.map((_, candidate) => candidate + 1).filter(candidate => candidate <= 15 && !reviewSet.has(candidate))
+                        ? definitions.map((_, candidate) => candidate + 1).filter(candidate => candidate <= 16)
                         : moduleId === 'a2-v3' && number === 32
-                            ? definitions.map((_, candidate) => candidate + 1).filter(candidate => candidate >= 16 && candidate <= 30 && !reviewSet.has(candidate))
+                            ? definitions.map((_, candidate) => candidate + 1).filter(candidate => candidate >= 17 && candidate <= 30)
                     : type === 'review' || (type === 'project' && number === 32)
                         ? Array.from({ length: number - previousBoundary - 1 }, (_, offset) => previousBoundary + offset + 1)
                             .filter(candidate => candidate < number)
@@ -541,7 +541,8 @@
                     : moduleId === 'a2-v3'
                         ? (a2PreviousEquivalents[number] || []).map(([legacyNumber, legacyTitle]) => stableId(moduleId, legacyNumber, legacyTitle))
                         : [],
-                actionOriented: type !== 'content'
+                actionOriented: type !== 'content',
+                ...authoring
             };
         });
     });
@@ -663,9 +664,36 @@
         { id: 'a1-preview-day', slug: 'a-day-in-my-life', number: 9, title: 'A Day in My Life', lessonKind: 'communicative', languageTags: ['routines-habits', 'food-drink', 'interests-preferences'], dependencies: ['a1-preview-cafe', 'a1-preview-routine'], prerequisite: 'Repertório das duas aulas deste ciclo.' }
     ].map(item => Object.freeze({ ...item, languageTags: Object.freeze(item.languageTags), dependencies: Object.freeze(item.dependencies), version: '2026.09-a1-preview-38', disableLegacyEditorial: true })));
 
+    const a1CadencePilot = Object.freeze([
+        ['hello', 'a1-v3-38-01-hello-i-m'],
+        ['names', 'a1-v3-38-02-names-and-people'],
+        ['work', 'a1-v3-38-04-people-at-work'],
+        ['contact', 'a1-v3-38-05-stay-in-touch'],
+        ['registration', 'a1-v3-38-06-a-new-registration']
+    ].map(([slug, sourceCurriculumId], index, cycle) => {
+        const source = getLesson('a1-v3', sourceCurriculumId);
+        const dependencies = source.lessonKind === 'communicative'
+            ? cycle.slice(0, index).map(([previousSlug]) => `a1-pilot-${previousSlug}`)
+            : [];
+        return Object.freeze({
+            id: `a1-pilot-${slug}`,
+            slug,
+            number: index + 1,
+            title: source.title,
+            lessonKind: source.lessonKind,
+            sourceCurriculumId,
+            languageTags: Object.freeze([...source.languageTags]),
+            dependencies: Object.freeze(dependencies),
+            reviewOf: Object.freeze([...dependencies]),
+            version: '2026.11-a1-pilot-4-plus-1',
+            disableLegacyEditorial: true
+        });
+    }));
+
     globalScope.V3Curriculum = Object.freeze({
         a1HistoricalManifest,
         a1PreviewLessons,
+        a1CadencePilot,
         version: VERSION,
         moduleVersions: { ...MODULE_VERSIONS },
         skills: [...SKILLS],

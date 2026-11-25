@@ -155,8 +155,10 @@
         const resolved = gapSpecs.map((spec, index) => resolveOccurrence(tokens, { id: spec.id || `gap-${index + 1}`, ...spec }));
         const missingIndex = resolved.findIndex(item => !item);
         if (missingIndex >= 0) throw new GapNotFoundError(gapSpecs[missingIndex]?.id || `gap-${missingIndex + 1}`);
-        const positions = new Set(resolved.map(item => item.absoluteTokenIndex));
-        if (positions.size !== 5) throw new DuplicateGapPositionError();
+        resolved.sort((left, right) => left.startTokenIndex - right.startTokenIndex);
+        if (resolved.some((gap, index) => index > 0 && resolved[index - 1].endTokenIndex >= gap.startTokenIndex)) {
+            throw new DuplicateGapPositionError();
+        }
         return {
             lines: maskResolvedTokens(tokens, resolved),
             gaps: resolved.map(({ startTokenIndex, endTokenIndex, ...gap }) => gap)
@@ -335,8 +337,15 @@
     }
 
     async function getLyrics(entry, { signal, fetchImpl = globalScope.fetch?.bind(globalScope), timeoutMs = DEFAULT_TIMEOUT_MS, storage = getSessionStorage() } = {}) {
+        const validateGaps = result => {
+            if (Array.isArray(entry?.gaps)) buildFiveGapModel(result.plainLyrics, entry.gaps);
+            return result;
+        };
         const cached = readSessionCache(entry?.id, storage);
-        if (cached) return cached;
+        if (cached) {
+            try { return validateGaps(cached); }
+            catch { /* Retry with a provider if the cached lyrics cannot build the exercise. */ }
+        }
         if (!entry?.song?.title || !entry?.song?.artist) throw new LyricsMatchError('Metadados da faixa incompletos.');
         const requestOptions = { fetchImpl, signal, timeoutMs };
         let primaryError = null;
@@ -346,7 +355,7 @@
                 ? await lrclibGetById(entry.lyrics.lrclibId, requestOptions)
                 : await lrclibBestMatch(entry.song, requestOptions);
             const matched = validateProviderMatch(candidate, entry.song);
-            const result = sanitizedResult(matched, 'lrclib');
+            const result = validateGaps(sanitizedResult(matched, 'lrclib'));
             writeSessionCache(entry.id, result, storage);
             return result;
         } catch (error) {
@@ -357,14 +366,15 @@
             try {
                 const fallback = await lyricsOvhFallback(entry.song, requestOptions);
                 if (hasUsablePlainLyrics(fallback)) {
-                    const result = sanitizedResult(fallback, 'lyricsovh-fallback');
+                    const result = validateGaps(sanitizedResult(fallback, 'lyricsovh-fallback'));
                     writeSessionCache(entry.id, result, storage);
                     return result;
                 }
-            } catch {
-                // The typed error below intentionally hides provider internals from students.
+            } catch (error) {
+                if (error instanceof GapNotFoundError || error instanceof DuplicateGapPositionError || error instanceof InvalidGapCountError) throw error;
             }
         }
+        if (primaryError instanceof GapNotFoundError || primaryError instanceof DuplicateGapPositionError || primaryError instanceof InvalidGapCountError) throw primaryError;
         throw new LyricsUnavailableError(primaryError);
     }
 
@@ -396,9 +406,10 @@
     }
 
     function gradeResponses(gaps, responses, { reveal = false } = {}) {
+        const responsesById = new Map(responses.filter(response => response?.gapId).map(response => [response.gapId, response.value]));
         return gaps.map((gap, index) => ({
             id: gap.id,
-            status: gradeAnswer(responses[index]?.value, gap),
+            status: gradeAnswer(responsesById.size ? responsesById.get(gap.id) : responses[index]?.value, gap),
             reveal: reveal ? gap.answer : null
         }));
     }

@@ -7,6 +7,7 @@
         'loading', 'ready', 'checking', 'submitted', 'partial', 'complete', 'correct',
         'lyricsUnavailable', 'audioUnavailable', 'draft', 'rightsBlocked', 'syncMismatch'
     ]);
+    const EYE_ICON = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="2.5"/><path class="music-eye-slash" d="M4 4l16 16" stroke-linecap="round"/></svg>';
 
     function escapeHtml(value) {
         return String(value ?? '')
@@ -15,6 +16,10 @@
             .replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#039;');
+    }
+
+    function renderPromptList(prompts) {
+        return `<ol class="music-cloze-transfer-list" lang="en">${prompts.map((prompt, index) => `<li><span>${index + 1}</span><p>${escapeHtml(prompt)}</p></li>`).join('')}</ol>`;
     }
 
     class ProviderLyricsAdapter {
@@ -96,7 +101,7 @@
         setState(state, message) {
             this.root.dataset.musicState = STATES.includes(state) ? state : 'lyricsUnavailable';
             const status = this.root.querySelector('[data-music-status]');
-            if (status) status.textContent = message || state;
+            if (status) status.textContent = message ?? state;
         }
 
         goToHomework(reason = 'complete') {
@@ -109,18 +114,26 @@
 
         renderFailure(state) {
             const messages = {
-                lyricsUnavailable: 'A letra não carregou agora. Você pode seguir para o homework.',
-                audioUnavailable: 'O player não está disponível agora. Você pode seguir sem penalidade.',
+                lyricsUnavailable: 'A letra não carregou. Tente novamente ou faça a conversa da aula.',
+                audioUnavailable: 'O player não carregou. Você pode abrir a faixa no Spotify.',
                 draft: 'Atividade aguardando revisão do professor.',
                 rightsBlocked: 'A exibição da letra está bloqueada. A aula continua normalmente.',
-                syncMismatch: 'A gravação e as cinco ocorrências não coincidem. A atividade foi enviada para revisão.'
+                syncMismatch: 'A letra disponível não corresponde às cinco lacunas. Tente novamente ou faça a conversa da aula.'
             };
             const body = this.root.querySelector('[data-music-body]');
             if (body) {
-                body.innerHTML = `<div class="music-cloze-notice" role="alert"><i class="fas fa-circle-exclamation" aria-hidden="true"></i><span>${escapeHtml(messages[state] || messages.lyricsUnavailable)}</span></div><button type="button" class="music-cloze-secondary" data-music-skip>Ir para o homework</button>`;
+                const canRetry = state === 'lyricsUnavailable' || state === 'syncMismatch';
+                const prompt = canRetry ? this.entry.pedagogy?.transferPrompts?.at(-1) : '';
+                body.innerHTML = `<div class="music-cloze-notice" role="status">${escapeHtml(messages[state] || messages.lyricsUnavailable)}</div>
+                    ${prompt ? `<section class="music-cloze-transfer"><strong>Conversa da aula</strong>${renderPromptList([prompt])}</section>` : ''}
+                    <div class="music-cloze-actions">
+                        ${canRetry ? '<button type="button" class="music-cloze-primary" data-music-retry>Tentar carregar de novo</button>' : ''}
+                        <button type="button" class="music-cloze-secondary" data-music-skip>Ir para o homework</button>
+                    </div>`;
+                body.querySelector('[data-music-retry]')?.addEventListener('click', () => this.start());
                 body.querySelector('[data-music-skip]')?.addEventListener('click', () => this.goToHomework('skip'));
             }
-            this.setState(state, messages[state]);
+            this.setState(state, '');
         }
 
         renderReady(payload) {
@@ -134,7 +147,11 @@
                     if (segment.type !== 'gap') return escapeHtml(segment.text || '');
                     const field = fields.get(segment.gapPosition);
                     if (!field) return '';
-                    return `<span class="music-cloze-gap" data-gap-wrap="${field.index}"><label><span class="sr-only">Lacuna ${field.index + 1} de 5</span><input type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-music-gap="${field.index}" data-gap-id="${escapeHtml(field.id || `gap-${field.index + 1}`)}" aria-label="Lacuna ${field.index + 1} de 5" aria-describedby="music-gap-feedback-${field.index}"></label><button type="button" class="music-gap-reveal" data-music-reveal="${field.index}" aria-label="Revelar resposta da lacuna ${field.index + 1}" aria-pressed="false" title="Revelar resposta"><i class="fas fa-eye" aria-hidden="true"></i></button><span id="music-gap-feedback-${field.index}" class="music-gap-feedback" data-gap-feedback="${field.index}" aria-live="polite"></span></span>`;
+                    return `<span class="music-cloze-gap" data-gap-wrap="${field.index}">
+                        <label><span class="sr-only">Lacuna ${field.index + 1} de 5</span><input type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-music-gap="${field.index}" data-gap-id="${escapeHtml(field.id || `gap-${field.index + 1}`)}" aria-label="Lacuna ${field.index + 1} de 5" aria-describedby="music-gap-feedback-${field.index}"></label>
+                        <button type="button" class="music-gap-reveal" data-music-reveal="${field.index}" aria-label="Revelar resposta da lacuna ${field.index + 1}" aria-pressed="false" title="Revelar resposta">${EYE_ICON}</button>
+                        <span id="music-gap-feedback-${field.index}" class="music-gap-feedback" data-gap-feedback="${field.index}" aria-live="polite"></span>
+                    </span>`;
                 }).join('');
                 return `<p class="music-cloze-line">${content}</p>`;
             }).join('');
@@ -142,10 +159,20 @@
                 ? payload.transferPrompts
                 : [payload.transferPrompt || 'Use duas palavras reconhecidas para comentar o tema da lição.'];
 
-            body.innerHTML = `<div class="music-cloze-instructions"><span>1. Preveja</span><span>2. Ouça</span><span>3. Complete</span><span>4. Confira</span><span>5. Converse</span></div><div class="music-cloze-lines" aria-label="Letra da música com cinco lacunas">${lines}</div><div class="music-cloze-actions"><button type="button" class="music-cloze-primary" data-music-submit>Verificar respostas</button><button type="button" class="music-cloze-secondary" data-music-replay>Ouvir novamente</button></div><div class="music-cloze-transfer hidden" data-music-transfer><strong>Conversation after the song</strong><ol class="music-cloze-transfer-list">${transferPrompts.map((prompt, index) => `<li><span>${index + 1}</span><p>${escapeHtml(prompt)}</p></li>`).join('')}</ol><button type="button" class="music-cloze-primary" data-music-finish>Ir para o homework</button></div>`;
+            const jumps = payload.gaps.map((_, index) => `<button type="button" data-music-jump="${index}" aria-label="Ir à lacuna ${index + 1}">${index + 1}</button>`).join('');
+            body.innerHTML = `<div class="music-cloze-instructions"><span>1. Ouça para entender</span><span>2. Ouça e complete</span><span>3. Confira e converse</span></div>
+                <div class="music-cloze-jumps" role="group" aria-label="Ir a uma lacuna"><span>Lacunas</span>${jumps}</div>
+                <div class="music-cloze-lines" lang="en" aria-label="Letra da música com cinco lacunas">${lines}</div>
+                <div class="music-cloze-actions">
+                    <button type="button" class="music-cloze-primary" data-music-submit>Verificar respostas</button>
+                    <button type="button" class="music-cloze-secondary" data-music-replay>Voltar ao player</button>
+                </div>
+                <section class="music-cloze-transfer hidden" data-music-transfer>
+                    <strong>Conversation after the song</strong>${renderPromptList(transferPrompts)}
+                    <button type="button" class="music-cloze-primary" data-music-finish>Ir para o homework</button>
+                </section>`;
             this.setState('ready', 'Ouça e complete as 5 palavras. Progresso: 0 de 5.');
             this.wire();
-            body.querySelector('[data-music-gap="0"]')?.focus({ preventScroll: true });
         }
 
         wire() {
@@ -159,7 +186,18 @@
             });
             this.root.querySelector('[data-music-submit]')?.addEventListener('click', () => this.submit(inputs));
             this.root.querySelector('[data-music-replay]')?.addEventListener('click', () => {
-                this.setState('ready', 'Use o controle do player oficial para ouvir novamente.');
+                const player = this.root.querySelector('[data-music-player]');
+                player?.scrollIntoView({ block: 'center' });
+                player?.focus({ preventScroll: true });
+            });
+            this.root.querySelectorAll('[data-music-jump]').forEach(button => {
+                button.addEventListener('click', () => {
+                    const input = inputs[Number(button.dataset.musicJump)];
+                    const lines = input.closest('.music-cloze-lines');
+                    const line = input.closest('.music-cloze-line');
+                    lines.scrollTop += line.getBoundingClientRect().top - lines.getBoundingClientRect().top - 8;
+                    if (!input.disabled) input.focus({ preventScroll: true });
+                });
             });
             this.root.querySelectorAll('[data-music-reveal]').forEach(button => {
                 button.addEventListener('click', () => this.revealGap(Number(button.dataset.musicReveal), inputs));
@@ -217,9 +255,6 @@
             button.setAttribute('aria-pressed', String(showingAnswer));
             button.setAttribute('aria-label', `${action} resposta da lacuna ${index + 1}`);
             button.title = `${action} resposta`;
-            const icon = button.querySelector('i');
-            icon?.classList.toggle('fa-eye', !showingAnswer);
-            icon?.classList.toggle('fa-eye-slash', showingAnswer);
         }
 
         finishIfResolved(inputs) {
@@ -314,7 +349,17 @@
         }
 
         async start() {
+            this.attempt = 0;
+            this.revealed.clear();
+            this.revealSnapshots.clear();
+            const score = this.root.querySelector('.music-cloze-score');
+            if (score) {
+                score.textContent = '0/5';
+                score.setAttribute('aria-label', '0 de 5 respostas corretas');
+            }
             this.setState('loading', 'Carregando música e letra…');
+            const body = this.root.querySelector('[data-music-body]');
+            if (body) body.innerHTML = '<div class="music-cloze-skeleton" aria-hidden="true"></div>';
             try {
                 const result = await this.adapter.load(this.entry, { signal: this.abortController.signal });
                 if (result.state !== 'ready') {
@@ -338,10 +383,22 @@
         }
     }
 
-    function renderShell(entry, lesson) {
+    function renderShell(entry) {
         const player = globalScope.SpotifyEmbedV3?.render(entry.song)
             || '<div class="music-cloze-notice" role="status">O player não está disponível agora.</div>';
-        return `<div class="music-cloze-v3" data-music-cloze-v3 data-entry-id="${escapeHtml(entry.id)}" data-curriculum-id="${escapeHtml(entry.curriculumId)}" data-music-state="loading"><div class="music-cloze-head"><div><p class="lesson-panel-title">MusicCloze V3</p><h3>${escapeHtml(entry.song.title)}</h3><p>${escapeHtml(entry.song.artist)}</p></div><span class="music-cloze-score" aria-label="0 de 5 respostas corretas">0/5</span></div>${player}<div class="music-cloze-objective">Ouça e complete 5 palavras da aula · ${escapeHtml(lesson?.title || '')}</div><div class="music-cloze-body" data-music-body><div class="music-cloze-skeleton" aria-hidden="true"></div></div><p class="music-cloze-status" data-music-status role="status" aria-live="polite">Carregando música e letra…</p></div>`;
+        const trackId = entry.song.spotifyTrackId;
+        const trackLink = globalScope.SpotifyEmbedV3?.isValidTrackId(trackId)
+            ? `<a class="music-cloze-secondary" href="https://open.spotify.com/track/${trackId}" target="_blank" rel="noopener">Abrir faixa no Spotify ↗</a>`
+            : '';
+        return `<div class="music-cloze-v3" data-music-cloze-v3 data-entry-id="${escapeHtml(entry.id)}" data-curriculum-id="${escapeHtml(entry.curriculumId)}" data-music-state="loading">
+            <div class="music-cloze-head">
+                <div><p class="lesson-panel-title">Escuta e conversa</p><h3>${escapeHtml(entry.song.title)}</h3><p>${escapeHtml(entry.song.artist)}</p></div>
+                <span class="music-cloze-score" aria-label="0 de 5 respostas corretas">0/5</span>
+            </div>
+            <div class="music-cloze-player" data-music-player tabindex="-1" role="group" aria-label="Player do Spotify">${player}${trackLink}</div>
+            <div class="music-cloze-body" data-music-body><div class="music-cloze-skeleton" aria-hidden="true"></div></div>
+            <p class="music-cloze-status" data-music-status role="status" aria-live="polite">Carregando música e letra…</p>
+        </div>`;
     }
 
     function getPublicEntry(lesson) {

@@ -40,6 +40,56 @@ document.addEventListener('DOMContentLoaded', () => {
     const slideTitleHeader = document.getElementById('slide-title-header');
     let currentSlide = 0;
 
+    const indexButton = document.createElement('button');
+    indexButton.type = 'button';
+    indexButton.className = 'b1-index-button';
+    indexButton.textContent = '☰ Atividades';
+    nextBtn.before(indexButton);
+
+    const indexDialog = document.createElement('dialog');
+    indexDialog.className = 'b1-index-dialog';
+    indexDialog.setAttribute('aria-labelledby', 'b1-index-title');
+    indexDialog.innerHTML = `
+        <header><h2 id="b1-index-title">Atividades da aula</h2><form method="dialog"><button class="b1-index-button">Fechar ×</button></form></header>
+        <label><input type="checkbox"> Mostrar apenas o percurso essencial</label>
+        <nav aria-label="Índice de atividades"></nav>`;
+    document.body.append(indexDialog);
+    const coreOnly = indexDialog.querySelector('input');
+    const indexItems = indexDialog.querySelector('nav');
+    const extensionTypes = new Set(['translation', 'reading', 'teacherListening', 'languageBank', 'reviewGame']);
+    function renderIndex() {
+        indexItems.replaceChildren();
+        lesson.slides.forEach((slide, index) => {
+            const extra = slide.routeTier ? slide.routeTier === 'extra' : extensionTypes.has(slide.type);
+            if (coreOnly.checked && extra) return;
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.dataset.index = index;
+            button.className = 'b1-index-item';
+            if (index === currentSlide) button.setAttribute('aria-current', 'step');
+            const title = document.createElement('strong');
+            title.textContent = `${String(index + 1).padStart(2, '0')} · ${slide.title}`;
+            const tier = document.createElement('span');
+            tier.textContent = extra ? 'Extensão' : 'Essencial';
+            button.append(title, tier);
+            indexItems.append(button);
+        });
+    }
+    indexButton.addEventListener('click', () => {
+        renderIndex();
+        indexDialog.showModal();
+    });
+    coreOnly.addEventListener('change', renderIndex);
+    indexItems.addEventListener('click', event => {
+        const button = event.target.closest('button[data-index]');
+        if (!button) return;
+        indexDialog.close();
+        showSlide(Number(button.dataset.index));
+        const heading = slideEls[currentSlide].querySelector('h2');
+        heading?.setAttribute('tabindex', '-1');
+        heading?.focus({ preventScroll: true });
+    });
+
     function showSlide(index) {
         if (!slideEls[index]) return;
 
@@ -58,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const isLast = index === total - 1;
         nextBtn.classList.toggle('hidden', isLast);
         finishLessonBtn.classList.toggle('hidden', !isLast);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: 'instant' });
     }
 
     root.addEventListener('click', event => {
@@ -100,6 +150,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     nextBtn.addEventListener('click', () => {
         if (currentSlide < slideEls.length - 1) showSlide(currentSlide + 1);
+    });
+
+    document.addEventListener('keydown', event => {
+        if (indexDialog.open || document.querySelector('#lesson-flashcard-save-modal:not(.hidden)')
+            || event.altKey || event.ctrlKey || event.metaKey
+            || event.target.closest?.('input, textarea, select, [contenteditable]')) return;
+        const step = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0;
+        if (!step || !slideEls[currentSlide + step]) return;
+        event.preventDefault();
+        showSlide(currentSlide + step);
     });
 
     showSlide(0);
@@ -377,11 +437,19 @@ function renderPracticeSlide(slide, lesson, slideIndex) {
     return slideSection(slide, slideIndex, `
         <div class="lesson-stage">
             ${renderSlideHeading('fa-pen-to-square', 'Activation', slide.title, slide.intro)}
-            <div class="practice-grid mt-7">
-                ${items.map((item, itemIndex) => renderPracticeItem(item, lesson.number, slideIndex, itemIndex)).join('')}
-            </div>
+            ${renderPrecisionItems(items, 'practice-grid', (item, index) => renderPracticeItem(item, lesson.number, slideIndex, index))}
         </div>
     `);
+}
+
+function renderPrecisionItems(items, className, renderItem) {
+    const rows = items.map(renderItem);
+    const extra = rows.slice(4);
+    return `<div class="${className} mt-7">${rows.slice(0, 4).join('')}</div>
+        ${extra.length ? `<details class="b1-practice-extra">
+            <summary>Mais itens de prática (${extra.length})</summary>
+            <div class="${className} mt-4">${extra.join('')}</div>
+        </details>` : ''}`;
 }
 
 function renderPracticeItem(item, lessonNumber, slideIndex, itemIndex) {
@@ -548,8 +616,7 @@ function renderTranslationSlide(slide, lesson, slideIndex) {
     return slideSection(slide, slideIndex, `
         <div class="lesson-stage">
             ${renderSlideHeading('fa-language', 'Oral translation', slide.title, 'O aluno traduz oralmente a frase completa. Use o botão apenas depois da tentativa.')}
-            <div class="translation-list mt-7">
-                ${items.map((item, index) => {
+                ${renderPrecisionItems(items, 'translation-list', (item, index) => {
                     const answerId = `translation-answer-${lesson.number}-${slideIndex}-${index}`;
                     return `
                         <article class="translation-row">
@@ -566,8 +633,7 @@ function renderTranslationSlide(slide, lesson, slideIndex) {
                             </div>
                         </article>
                     `;
-                }).join('')}
-            </div>
+                })}
         </div>
     `);
 }
@@ -640,7 +706,7 @@ function renderSpeakingSlide(slide, lesson, slideIndex) {
 }
 
 function renderMusicClozeSlide(slide, lesson, slideIndex) {
-    const markup = globalThis.MusicClozeV3?.renderShell(slide.entry, lesson) || '';
+    const markup = globalThis.MusicClozeV3?.renderShell(slide.entry) || '';
     return slideSection(slide, slideIndex, `
         <div class="lesson-stage">
             ${renderSlideHeading('fa-music', 'Music moment', slide.title, 'Listen and complete five words from the lesson.')}
@@ -654,7 +720,7 @@ function renderAssessmentSlide(slide, lesson, slideIndex) {
 
     return slideSection(slide, slideIndex, `
         <div class="lesson-stage">
-            ${renderSlideHeading('fa-chart-line', 'Teacher assessment', slide.title, slide.intro)}
+            ${renderSlideHeading('fa-chart-line', 'Performance & Feedback', slide.title, slide.intro)}
             <div class="assessment-scale mt-6">
                 <span><strong>1</strong> precisa de apoio</span>
                 <span><strong>2</strong> em desenvolvimento</span>
@@ -669,7 +735,6 @@ function renderAssessmentSlide(slide, lesson, slideIndex) {
                             <p class="text-slate-600 mt-2">${escapeHtml(criterion.descriptor)}</p>
                         </div>
                         <label>
-                            <span class="sr-only">Pontuação de ${escapeHtml(criterion.name)}</span>
                             <select class="response-input assessment-select" aria-label="Pontuação de ${escapeAttribute(criterion.name)}">
                                 <option value="">Nota</option>
                                 <option value="1">1</option>

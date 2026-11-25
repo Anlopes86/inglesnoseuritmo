@@ -440,3 +440,45 @@ Escopo concluído:
 - O slide final exibe a frase fornecida pelo professor sobre ter algo a dizer.
 - O subtítulo e as quatro perguntas originais de *Song 1 Conversation* foram restaurados a pedido do professor.
 - Em 2026-11-06, foram restauradas as quatro perguntas originais do aquecimento.
+
+## 2026-11-08 · A2 e B1 — gramática e fechamento
+
+- As 45 regras de “Como usar” do A2 agora têm exemplos autorais ligados à própria regra. As consolidações foram alinhadas aos pares completos das aulas 1–16 e 17–30.
+- No B1, a L32 recupera a apresentação, as perguntas e a adaptação do projeto, seguidas de quatro critérios de feedback. A L31 continua como oficina de preparação. O vínculo editorial foi separado das referências usadas para migrar progresso.
+- Recuperadas voz passiva e perguntas indiretas no percurso essencial das L21 e L23. A L29 abre com Second Conditional e wish; reparação social fica como extensão. Os pares seguintes aplicam essas formas em novas situações.
+
+## 2026-11-08 · Práticas A2 e B1 — produção em aula
+
+- No A2, a L16 reúne pergunta de experiência, passado concluído e retransmissão de fatos fictícios. A L24 diferencia os dois sentidos de stop. As L18, L20, L22, L28 e L30 explicitam os alvos do par na comparação, no empréstimo, na mudança de hábitos, no superlativo e na distinção entre plano e previsão.
+- No B1, o aluno formula hipóteses e pede nova evidência na L14. A L24 abre a atualização de um recado depois da pergunta indireta e mostra uma resposta possível após a tentativa de retransmissão. As demais revisões editadas mantêm os gêneros autorais e especificam o que o aluno precisa fazer e dizer.
+
+## 2026-11-08 · Tela compartilhada e percurso de aula
+
+- Mapa da A2 L4 e conferência da conta da L12 priorizam o material e os controles da tarefa em janela compacta. A agenda da L6 revela uma resposta de Camila por vez e mantém o replanejamento após o fechamento da aula de dança.
+- Os índices distinguem essenciais e extensões no player compartilhado e no B1. As práticas longas começam com quatro itens; os restantes ficam disponíveis em uma expansão. Perguntas abertas admitem comparação com uma resposta possível.
+
+## 2026-11-08 · A1 — cadastro e piloto de cadência
+
+- A ficha da L6 ganhou preenchimento, conferência oral e troca de papéis. A L9 mantém a produção em primeira pessoa e a L30 oferece o passado contínuo como extensão após a revisão de ações no presente.
+- O piloto 4 + 1 está em `a1-v3/preview/cadencia.html`, com quatro conteúdos vinculados pelo ID curricular, retomadas curtas e revisão de cadastro. A grade de 38 encontros segue como referência para testar a cadência antes da reorganização.
+
+Verificação desta rodada: as quatro auditorias V3 passaram. A navegação foi exercitada nas 38 aulas do A1 e nas 32 do A2, além do piloto e de aulas afetadas nos dois players do B1. Foram conferidos a revelação e o reinício das novas tarefas, mapa e conta em 1024 × 640, índice e navegação no celular, e a separação entre oficina e avaliação. Testes locais com serviços externos isolados.
+
+## 2026-11-09 · Música V3 — correção e tela compartilhada
+
+- Ordenadas as lacunas pela letra e vinculada a correção ao ID de cada campo. Letras incompatíveis ficam fora do cache da sessão. Se o provedor falhar, o professor pode recarregar a letra ou usar uma pergunta da aula antes de seguir.
+- Player e letra lado a lado em janela larga, ícone de revelação local, atalhos para as cinco lacunas e retorno ao player oficial. O slide faz parte do percurso essencial das lexicais e apresenta os alvos na atividade, com conversa depois da escuta.
+- Adicionadas três perguntas autorais a cada música do B1 e ajustada a transferência de A1 L22 e L23 ao foco atual. O catálogo conserva as mesmas gravações e posições auditadas.
+- A conferência com provedores confirmou 54 referências e cinco lacunas por faixa após retestes. A comparação no navegador usou texto fictício para verificar pontuação, revelação, recuperação, navegação e largura. Permanecem como pendências editoriais a variedade de respostas e a distância entre lacunas registradas no mapa de cobertura.
+
+## 2026-11-18 · Conversation L7 — companhia, hábitos e viagens com uma condição
+
+- Comparada a lição *Travel & Adventure* com a L45, *Travel Dreams & Curious Destinations*. A L7 passa a enfatizar companhia, comportamento nas férias, escolhas imaginárias e histórias de viagem; os passeios, destinos e roteiros da L45 serviram de referência para evitar sobreposição.
+- Substituídos *A Missed Connection* e *The Famous Trail* por *Your Holiday Alter Ego* e *Free Trip, One Catch*. Os cartões trazem perguntas abertas sobre manias e condições curiosas para aceitar uma viagem, adequadas à conversa entre professor e aluno.
+- Reescritas as doze perguntas ligadas às músicas e seus subtítulos. Corrigida a apresentação de *Don't Stop Me Now*, que continha um fragmento de letra no campo editorial.
+- Ajustados três itens do aquecimento, o fechamento oral e o homework para desenvolver relatos e opiniões, com exemplos de uso das expressões.
+- Acrescentadas perguntas sobre voo atrasado ou cancelado, momentos constrangedores na segurança ou alfândega e mala perdida antes de um casamento. As perguntas admitem relato pessoal e situação imaginária.
+- Substituída a segunda música por *Holiday*, de Madonna, com quatro perguntas sobre descanso e rotina. O player usa a gravação do álbum *Madonna* (Spotify 3ibAzRj9JnowdoLkyllk3n). A letra usa LRCLIB 3732264, com a mesma duração aproximada de 370 segundos. Cinco palavras diferentes e suas ocorrências foram conferidas na resposta do provedor e no exercício. O registro conserva as pendências de auditoria humana de gravação, reprodução e região BR.
+- As três propostas de homework tratam de perrengue de aeroporto, hábitos que mudam nas férias e viagem gratuita com uma condição. O aluno escolhe uma. Usado o formato de opções já disponível no player.
+- No teste específico de *Holiday*, foi usada a resposta real do LRCLIB. Os cinco campos vazios, a revelação e ocultação das respostas e a correção para 5/5 passaram no computador e no celular. As três opções de homework também tiveram conferência visual e de navegação.
+- Verificação: passaram as quatro auditorias V3 e as auditorias de conteúdo e música de Conversation 1–48. As lições 7 e 45 foram percorridas em computador e celular; os novos slides da L7 tiveram conferência visual. O teste de navegador usou respostas fictícias dos provedores musicais. Alterações locais.

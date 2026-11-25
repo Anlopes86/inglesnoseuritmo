@@ -316,21 +316,37 @@
     }
 
     function mergeB1Content(entry, sourceLessons) {
-        const base = clone(sourceLessons[0]);
+        const primary = entry.contentSource
+            ? sourceLessons.find(source => source.title === entry.contentSource)
+            : sourceLessons[0];
+        if (!primary) throw new Error(`Fonte editorial ausente para ${entry.id}.`);
+        const base = clone(primary);
         attachMetadata(base, entry);
-        base.unit = `B1 Action Cycle · ${Math.ceil(entry.number / 3)}`;
+        base.unit = `B1 · Aula ${entry.number}`;
+        first(base, 'opening').title = entry.title;
         base.objective = `Integrar ${entry.linguisticFocus} em compreensão, diálogo e produção.`;
         base.focus = entry.linguisticFocus;
         base.cefr = entry.cefrObjectives.map(item => item.descriptor).join(' ');
 
         if (sourceLessons.length > 1) {
-            const extras = sourceLessons.slice(1);
+            const extras = sourceLessons.filter(source => source !== primary);
+            if (entry.supplementaryGrammarSource) {
+                const source = extras.find(lesson => lesson.title === entry.supplementaryGrammarSource);
+                if (!source) throw new Error(`Gramática complementar ausente para ${entry.id}.`);
+                const grammar = clone(first(source, 'grammar'));
+                const practice = clone(first(source, 'practice'));
+                practice.title = `Try it · ${grammar.title}`;
+                practice.items = practice.items.slice(0, 4);
+                const practiceIndex = base.slides.findIndex(slide => slide.type === 'practice');
+                base.slides.splice(practiceIndex + 1, 0, grammar, practice);
+            }
             const extraSlides = [
+                ...(entry.contentSource ? all(extras, 'grammar') : []),
                 ...all(extras, 'languageBank'),
                 ...all(extras, 'reading'),
                 ...all(extras, 'teacherListening'),
                 ...all(extras, 'speaking')
-            ].map(clone);
+            ].map(slide => ({ ...clone(slide), routeTier: 'extra' }));
             const homeworkIndex = base.slides.findIndex(slide => slide.type === 'homework');
             base.slides.splice(homeworkIndex < 0 ? base.slides.length : homeworkIndex, 0, ...extraSlides);
         }
@@ -423,12 +439,14 @@
             }
 
             if (entry.type === 'project') {
-                const source = oldByNumber.get(entry.legacyLessons[0] || entry.number);
-                if (!source) return;
+                const source = [...oldByNumber.values()].find(lesson => lesson.title === entry.contentSource);
+                if (!source) throw new Error(`Fonte do projeto ausente para ${entry.id}.`);
                 const project = attachMetadata(clone(source), entry);
                 project.title = entry.title;
-                project.objective = `Produzir e defender o projeto B1 com evidências das competências previstas no manifesto.`;
                 project.reviewContract = reviewContract(entry, 'CEFR B1');
+                project.slides.forEach(slide => {
+                    slide.routeTier ||= ['opening', 'speaking', 'assessment', 'homework'].includes(slide.type) ? 'core' : 'extra';
+                });
                 project.slides = globalScope.MusicClozeV3?.prepareSlides(project.slides, project)
                     || project.slides.filter(slide => slide.type !== 'music');
                 rebuilt.push(project);

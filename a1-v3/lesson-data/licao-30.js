@@ -20,24 +20,24 @@
       "kicker": "Conversation Activities",
       "instruction": "O professor lê; depois leia e responda. Procure as pistas no texto.",
       "paragraphs": [
-        "At nine, Dan was waiting near gate 3. His sister was buying coffee. A man in a green coat was sleeping beside a blue bag. Dan took a photo and sent it to his friend.",
-        "At nine thirty, the screen changed. Flight 218: departure 10:30, gate 8. Dan was still at gate 3. His friend sent a message: “I am at gate 8. Where are you?”"
+        "Dan took a photo at nine and sent it to his friend. Photo caption: “I am waiting at gate 3. My sister is buying coffee. A man in a green coat is sleeping beside a blue bag.”",
+        "At nine thirty, the screen changed. Flight 218: departure 10:30, gate 8. Dan is still at gate 3. His friend sends a message: “I am at gate 8. Where are you?”"
       ],
       "items": [
         [
-          "What was Dan’s sister doing?",
-          "She was buying coffee."
+          "What is Dan’s sister doing in the photo?",
+          "She is buying coffee."
         ],
         [
-          "What was the man in green doing?",
-          "He was sleeping."
+          "What is the man in green doing?",
+          "He is sleeping."
         ],
         [
           "What changed on the screen?",
-          "The flight was at gate 8, departing at 10:30."
+          "The gate changed to gate 8. The flight leaves at 10:30."
         ],
         [
-          "Where was Dan’s friend?",
+          "Where is Dan’s friend now?",
           "At gate 8."
         ]
       ],
@@ -50,22 +50,22 @@
       "kicker": "Conversation Activities",
       "instruction": "Diga o número e a letra. Depois explique a combinação em uma frase.",
       "options": [
-        "Dan’s sister was buying coffee.",
-        "The man was sleeping.",
-        "Dan was waiting at gate 3."
+        "Dan’s sister is buying coffee.",
+        "The man is sleeping.",
+        "Dan is waiting at gate 3."
       ],
       "items": [
         [
           "1. A person with a cup at the café",
-          "A — Dan’s sister was buying coffee."
+          "A — Dan’s sister is buying coffee."
         ],
         [
           "2. A person with closed eyes beside a bag",
-          "B — The man was sleeping."
+          "B — The man is sleeping."
         ],
         [
           "3. A person beside the old gate number",
-          "C — Dan was waiting at gate 3."
+          "C — Dan is waiting at gate 3."
         ]
       ]
     },
@@ -82,7 +82,7 @@
         ],
         [
           "“Your friend is buying coffee.” Is that in the text?",
-          "No. Dan’s sister was buying coffee. His friend is at gate 8."
+          "No. In the photo, Dan’s sister is buying coffee. His friend is at gate 8."
         ],
         [
           "What can Dan say to his friend now?",
@@ -103,15 +103,15 @@
         ],
         [
           "Describe",
-          "Diga o que elas estavam fazendo quando você chegou."
+          "Descreva o que cada pessoa está fazendo agora."
         ],
         [
           "Guess",
           "O professor escolhe uma pessoa e você descobre com perguntas."
         ]
       ],
-      "goal": "What was happening?",
-      "challenge": "He/She was… / Were they…?"
+      "goal": "What are they doing now?",
+      "challenge": "He/She is… / Are they…?"
     },
     {
       "id": "call",
@@ -147,6 +147,26 @@
       ]
     },
     {
+      "id": "freeze-past",
+      "type": "conversation",
+      "title": "Extra · The scene at nine",
+      "kicker": "Extra practice",
+      "instruction": "Use esta rodada se você já praticou a extensão da aula anterior.",
+      "routeTier": "extra",
+      "tasks": [
+        [
+          "Past scene",
+          "Volte à foto das nove. Diga o que uma pessoa estava fazendo naquele momento."
+        ],
+        [
+          "Ask",
+          "Pergunte ao professor sobre outra pessoa na foto."
+        ]
+      ],
+      "goal": "What was happening at nine?",
+      "challenge": "She was buying coffee. / What was Dan doing?"
+    },
+    {
       "id": "homework",
       "type": "homework",
       "title": "One thing to try",
@@ -156,7 +176,7 @@
         [
           "A",
           "Create",
-          "Crie duas legendas para uma cena: o que acontecia antes e o que acontece agora."
+          "Crie uma legenda para a foto e uma mensagem curta com o novo portão."
         ],
         [
           "B",
@@ -166,7 +186,7 @@
         [
           "C",
           "Notice",
-          "Observe uma cena cotidiana e depois conte o que duas pessoas estavam fazendo."
+          "Observe ou imagine uma cena. Descreva o que duas pessoas estão fazendo agora."
         ]
       ]
     }
@@ -175,7 +195,7 @@
     "sourceLesson": null,
     "editorialVersion": "2026.09-a1-38"
   },
-  "editorialRevision": "2026-09-10-varied-communication",
+  "editorialRevision": "2026-11-08-live-lesson",
   "activityFormats": [
     "reading",
     "matching",

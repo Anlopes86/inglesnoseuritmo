@@ -1244,13 +1244,13 @@
         "icon": "fa-comments",
         "accent": "blue",
         "warmupTitle": "Warm-up: Travel & Adventure",
-        "warmupIntro": "Let's start our conversation:",
+        "warmupIntro": "The bags are packed. Are you already in holiday mode, or still checking that you locked the door?",
         "warmups": [
-            "What’s the most interesting place you’ve visited?",
-            "If you could go anywhere tomorrow, where would you go?",
+            "When does a trip start to feel like a holiday to you?",
+            "Do you enjoy long journeys, or do you just want to get there?",
             "Do you prefer traveling alone or with others?",
-            "What part of planning a trip do you enjoy most?",
-            "When has a travel plan gone wrong but still produced a good memory?"
+            "Are you the person who packs a week early or five minutes before leaving?",
+            "Have you ever had a delayed or cancelled flight? What made the wait better or worse?"
         ],
         "expressions": [
             {
@@ -1297,26 +1297,26 @@
                 "sourceEmbed": "https://open.spotify.com/embed/track/7Gpr3kKk4BMgItz6UbI73q",
                 "spotifyId": "7Gpr3kKk4BMgItz6UbI73q",
                 "angle": "A reflective road-trip song about escape, friendship, and the quiet freedom that travel can create.",
-                "discussionTitle": "Road Trippin'\" - Escape and companionship",
+                "discussionTitle": "Good company, open road",
                 "questions": [
-                    "What makes a road trip feel more personal and memorable than other types of travel?",
-                    "What qualities matter most in the people you choose to travel with?",
-                    "Is getting lost part of the fun in a trip, or something that ruins the experience?",
-                    "Is travel more valuable for relaxation or for personal growth?"
+                    "Who would you happily spend eight hours in a car with, and who would test your patience?",
+                    "Why do you think people sometimes argue more on holiday than they do at home?",
+                    "On a road trip, would you rather stop whenever something catches your eye or keep driving until you get there?",
+                    "Could you enjoy a whole day on the road if you never reached anywhere special?"
                 ]
             },
             {
-                "title": "Runnin' Down a Dream",
-                "artist": "Tom Petty",
-                "sourceEmbed": "https://open.spotify.com/embed/track/4AiMaeCXwsldpwvA5wu5gM",
-                "spotifyId": "4AiMaeCXwsldpwvA5wu5gM",
-                "angle": "A song about movement, momentum, and the thrill of chasing something meaningful without knowing exactly where it will lead.",
-                "discussionTitle": "Runnin' Down a Dream\" - Adventure and purpose",
+                "title": "Holiday",
+                "artist": "Madonna",
+                "sourceEmbed": "https://open.spotify.com/embed/track/3ibAzRj9JnowdoLkyllk3n",
+                "spotifyId": "3ibAzRj9JnowdoLkyllk3n",
+                "angle": "Think about whether a proper break means a change of place, fewer responsibilities, or a reason to celebrate.",
+                "discussionTitle": "Can you really switch off?",
                 "questions": [
-                    "How is a journey similar to chasing a dream in real life?",
-                    "Why are people attracted to uncertainty when they want adventure?",
-                    "Do the best trips come from planning carefully or following impulse?",
-                    "Is the destination the most important part of travel, or the movement itself?"
+                    "Which everyday responsibility would you most like a holiday from?",
+                    "Do you feel expected to answer messages while you’re on holiday? Who finds it hardest to leave you alone?",
+                    "Would you rather take all your holiday days in one long break or spread them across lots of short breaks?",
+                    "Should everyone get their birthday off, even if they have no plans?"
                 ]
             },
             {
@@ -1324,66 +1324,66 @@
                 "artist": "Queen",
                 "sourceEmbed": "https://open.spotify.com/embed/track/5T8EDUDqKcs6OSOwEsfqG7",
                 "spotifyId": "5T8EDUDqKcs6OSOwEsfqG7",
-                "angle": "I feel alive, and the I'll turn it inside out, yeah",
-                "discussionTitle": "Don't Stop Me Now\" - Freedom and momentum",
+                "angle": "Think of a holiday moment when you were having too much fun to want the day to end.",
+                "discussionTitle": "Too much fun to stop",
                 "questions": [
-                    "How does intense energy connect to freedom and adventure in this song?",
-                    "What does it mean to feel like a \"shooting star\" in real life?",
-                    "Is spontaneous joy more valuable than careful control sometimes?",
-                    "Can living intensely in the moment be sustainable, or is it only temporary?"
+                    "When was the last time you were having so much fun that you forgot to check the time?",
+                    "Why do some people need another holiday to recover from their holiday?",
+                    "Would you join a holiday activity you’re terrible at if everyone else was having fun?",
+                    "Would you rather have one unforgettable day or a whole week of small pleasures?"
                 ]
             }
         ],
         "contexts": [
             {
-                "title": "A Missed Connection",
-                "kicker": "Rebuild an itinerary under pressure.",
-                "intro": "A delayed bus makes a traveler miss the final train in a town where few people speak English.",
-                "prompt": "What should the traveler do first, and which risk should not be ignored?",
+                "title": "Your Holiday Alter Ego",
+                "kicker": "Same person, different habits.",
+                "intro": "At home you’re in bed by ten. On holiday you’re ordering dinner at midnight. A change of scenery can bring out a different side of you.",
+                "prompt": "If a friend joined you on holiday for the first time, what habit of yours might surprise them?",
                 "cards": [
                     {
-                        "title": "Information",
-                        "text": "Confirm the next safe route."
+                        "title": "No alarm",
+                        "text": "Do you stick to your usual routine on holiday, or does breakfast sometimes become lunch?"
                     },
                     {
-                        "title": "Communication",
-                        "text": "Ask for help with simple, clear language."
+                        "title": "Chatting to strangers",
+                        "text": "Do you talk to strangers more when you travel? What makes it easier or harder?"
                     },
                     {
-                        "title": "Budget",
-                        "text": "Compare a hotel with a late taxi."
+                        "title": "Full tourist mode",
+                        "text": "Would you wear a silly souvenir T-shirt on holiday that you’d never wear at home?"
                     },
                     {
-                        "title": "Safety",
-                        "text": "Tell someone where the traveler will stay."
+                        "title": "A day of doing nothing",
+                        "text": "Can you spend a holiday afternoon doing nothing without feeling you’re wasting the trip?"
                     }
                 ],
-                "icon": "fa-route"
+                "icon": "fa-person-walking-luggage"
             },
             {
-                "title": "The Famous Trail",
-                "kicker": "Plan adventure without damaging the place.",
-                "intro": "A mountain trail has become crowded after appearing in viral travel videos.",
-                "prompt": "Which limits would preserve access while protecting residents and the landscape?",
+                "title": "Free Trip, One Catch",
+                "kicker": "Everything is paid for. Would you say yes?",
+                "intro": "You’re offered a free, week-long trip you would love. Each offer has just one catch. Which conditions could you live with?",
+                "prompt": "Which offer would you accept most easily, and which would you refuse even if everything were free?",
                 "cards": [
                     {
-                        "title": "Visitors",
-                        "text": "Consider reservations or daily limits."
+                        "title": "No photos",
+                        "text": "You can’t photograph or film any of it. Would you still want to go?"
                     },
                     {
-                        "title": "Residents",
-                        "text": "Protect roads, water, and privacy."
+                        "title": "The surprise suitcase",
+                        "text": "Someone you know packs all your clothes. You can’t change anything. Who would you trust to do it?"
                     },
                     {
-                        "title": "Nature",
-                        "text": "Identify the most vulnerable area."
+                        "title": "A different language",
+                        "text": "You can’t speak your own language all week, even with your travel companion. Would that be fun or exhausting?"
                     },
                     {
-                        "title": "Alternative",
-                        "text": "Promote another route or season."
+                        "title": "Early starts",
+                        "text": "Every day begins with a 5 a.m. activity. Would the free trip be worth a week of early mornings?"
                     }
                 ],
-                "icon": "fa-mountain-sun"
+                "icon": "fa-ticket"
             }
         ],
         "practice": [
@@ -1413,29 +1413,27 @@
             }
         ],
         "speaking": {
-            "title": "Speak: Travel & Adventure",
+            "title": "Worth Telling When You Get Home",
             "icon": "fa-microphone-lines",
+            "instruction": "Start with whichever question brings a story to mind. You can use a trip of your own or a story you’ve heard.",
             "prompts": [
-                "Which unfamiliar destination would test your independence?",
-                "How would you prepare without planning away every surprise?",
-                "What local advice would you seek on arrival?",
-                "Which travel risk is worth accepting and which is not?"
+                "Which small moment from a journey do you remember more clearly than the big attractions?",
+                "Have you ever had an awkward moment at airport security or customs? What happened, or what situation would make you nervous?",
+                "Your suitcase goes missing before a wedding abroad. Would you buy new clothes, borrow an outfit, or wear your travel clothes?",
+                "If one of your trips became a film, what would its title be, and which scene would everyone talk about?"
             ],
             "support": [
-                "To hit the road",
-                "Wanderlust",
-                "Off the beaten path",
-                "A change of scenery"
+                "We’d only just hit the road when…",
+                "We ended up off the beaten path…",
+                "All I wanted was a change of scenery, but…",
+                "The part everyone still talks about is…"
             ]
         },
-        "homework": {
-            "task": "Describe your dream vacation. Where would you go and what would you do? Use at least one expression from this lesson.",
-            "model": "My dream vacation is to... I have a real wanderlust for... I would travel light and go...",
-            "requiredExpressions": [
-                "To hit the road",
-                "Wanderlust"
-            ]
-        },
+        "homework": [
+            "Tell a real or imagined airport story involving a delayed flight, airport security, customs, or a missing suitcase. Explain what happened, how you reacted, and whether you can laugh about it afterwards.",
+            "Describe your holiday alter ego and how your habits change when you travel. Give one example that would surprise someone who knows you at home, and explain what helps you switch off.",
+            "Choose one condition for the free trip from today’s discussion. Explain what you would enjoy, what would annoy you, and whether you would accept the offer."
+        ],
         "closing": "\"I haven't been everywhere, but it's on my list.\"",
         "migration": {
             "source": "licao-07.html",
@@ -2081,37 +2079,37 @@
                 "term": "To send shivers down your spine",
                 "meaning": "To make you feel very frightened or excited.",
                 "example": "The unexplained footsteps in the empty hallway sent shivers down my spine.",
-                "practice": "The unexplained footsteps in the empty hallway sent _____ _____ my _____. → {gap}"
+                "practice": "Seeing the doll blink in the shop window sent _____ _____ my _____. → {gap}"
             },
             {
                 "term": "An unsolved mystery",
                 "meaning": "A mystery that has not been solved.",
                 "example": "The missing painting remains an unsolved mystery in the town museum.",
-                "practice": "The missing painting remains an _____ _____ in the town museum. → {gap}"
+                "practice": "Nobody knows who leaves a white rose at the train station every Monday. It’s an _____ _____. → {gap}"
             },
             {
                 "term": "To have a sixth sense",
                 "meaning": "To have a special intuition or perception.",
                 "example": "My aunt claims to have a sixth sense about when relatives will call.",
-                "practice": "My aunt claims to _____ a _____ _____ about when relatives will call. → {gap}"
+                "practice": "Leo always knows when someone is planning to surprise him. He seems to _____ a _____ _____. → {gap}"
             },
             {
                 "term": "A gut feeling",
                 "meaning": "An instinctive feeling, without a logical reason.",
                 "example": "I had a gut feeling that the apparently perfect offer contained a hidden condition.",
-                "practice": "I had a _____ _____ that the apparently perfect offer contained a hidden condition. → {gap}"
+                "practice": "I had a _____ _____ that my friend was about to show up, so I ordered a second coffee. → {gap}"
             },
             {
                 "term": "To debunk a myth",
                 "meaning": "To prove that a popular belief is false.",
                 "example": "The science presenter used a simple experiment to debunk a myth about the Moon.",
-                "practice": "The science presenter used a simple experiment to _____ a _____ about the Moon. → {gap}"
+                "practice": "The librarian used a security video to _____ a _____ about books moving by themselves. → {gap}"
             },
             {
                 "term": "An urban legend",
                 "meaning": "A modern, scary story that is told as if it were true.",
                 "example": "Every school seems to have an urban legend about a locked room.",
-                "practice": "Every school seems to have an _____ _____ about a locked room. → {gap}"
+                "practice": "There’s an _____ _____ about a woman who boards the last bus and vanishes before her stop. → {gap}"
             }
         ],
         "songs": [
@@ -2121,12 +2119,12 @@
                 "sourceEmbed": "https://open.spotify.com/embed/track/3S2R0EVwBSAVMd5UMgKTL0",
                 "spotifyId": "3S2R0EVwBSAVMd5UMgKTL0",
                 "angle": "A cinematic song that builds suspense with darkness, fear, and the feeling that danger is slowly getting closer.",
-                "discussionTitle": "Thriller\" - Fear, atmosphere, and suspense",
+                "discussionTitle": "Scary stories we remember",
                 "questions": [
-                    "What elements make this song feel scary or mysterious?",
-                    "Why do people enjoy songs, movies, and stories that scare them?",
-                    "Have you ever felt \"paralyzed\" by fear? What happened?",
-                    "Is fear more powerful when it is shown directly, or when it is only suggested?"
+                    "What story did kids at your school tell to scare each other?",
+                    "What’s a scare you can laugh about now?",
+                    "What ordinary sound gets a lot creepier when you’re home alone?",
+                    "Which place you’ve been to would make a great setting for a horror movie?"
                 ]
             },
             {
@@ -2135,12 +2133,12 @@
                 "sourceEmbed": "https://open.spotify.com/embed/track/1Yhxmnxo9C5g6rYkM5FRUM",
                 "spotifyId": "1Yhxmnxo9C5g6rYkM5FRUM",
                 "angle": "A playful supernatural anthem that turns fear into fun by making the unknown feel catchy instead of terrifying.",
-                "discussionTitle": "Ghostbusters\" - Humor, mystery, and pop culture fear",
+                "discussionTitle": "Unexpected encounters",
                 "questions": [
-                    "Why is this song much more fun and less scary than \"Thriller\"?",
-                    "Why do funny supernatural stories appeal to people just as much as scary ones?",
-                    "If you could call a team of \"ghostbusters\" for any problem, what would you call them for?",
-                    "Is humor one of the best ways to deal with fear and uncertainty?"
+                    "Who in your group chat would stay calm if everyone else thought they’d seen a ghost? What would they say?",
+                    "What’s the pettiest thing a bored ghost could do around your house?",
+                    "A hotel offers you a free night in a room guests say is haunted. What would make you say yes?",
+                    "If you could ask a ghost to settle one mystery from the past, what would you ask?"
                 ]
             },
             {
@@ -2149,90 +2147,91 @@
                 "sourceEmbed": "https://open.spotify.com/embed/track/1h2xVEoJORqrg71HocgqXd",
                 "spotifyId": "1h2xVEoJORqrg71HocgqXd",
                 "angle": "A groove-driven warning about blind belief, showing how superstition can shape behavior when people stop questioning what they hear.",
-                "discussionTitle": "Superstition\" - Belief, doubt, and irrational fear",
+                "discussionTitle": "Lucky habits and superstitions",
                 "questions": [
-                    "Which superstitions are still common where you live?",
-                    "Why do people keep believing in things they cannot prove?",
-                    "Do you consider yourself a superstitious person?",
-                    "Can superstition ever be harmless fun, or does it always distort reality?"
+                    "What’s one small ritual you’ve seen someone follow before a big day?",
+                    "Your friend says you jinxed their team by celebrating too early. What do you say back?",
+                    "You find a cheap flight for Friday the 13th. What would make you pay more to go a day later?",
+                    "If you could invent a superstition your friends would actually follow, what would it be?"
                 ]
             }
         ],
         "contexts": [
             {
-                "title": "Footsteps in the Apartment",
-                "kicker": "Test an eerie claim before accepting it.",
-                "intro": "A tenant hears footsteps every night in an old building and a neighbor says the apartment is haunted.",
-                "prompt": "What ordinary explanations should be investigated, and what evidence would change your mind?",
+                "title": "Who’s in the Photo?",
+                "kicker": "Pick one detail to add to the story.",
+                "intro": "A friend sends you a photo from last night. There’s someone in the background neither of you remembers seeing. What would you check first?",
+                "prompt": "Would you investigate or leave it alone?",
                 "cards": [
                     {
-                        "title": "Timing",
-                        "text": "Record when the sound occurs."
+                        "title": "The Reflection",
+                        "text": "You can only see the person in the window’s reflection."
                     },
                     {
-                        "title": "Building",
-                        "text": "Check pipes, floors, and neighboring units."
+                        "title": "The Next Photo",
+                        "text": "Your friend took another photo a second later. The person is gone."
                     },
                     {
-                        "title": "Witness",
-                        "text": "Compare independent observations."
+                        "title": "A Familiar Face",
+                        "text": "Your friend thinks the person looks like someone you both know."
                     },
                     {
-                        "title": "Threshold",
-                        "text": "Define evidence stronger than a feeling."
+                        "title": "People Passing By",
+                        "text": "The photo was taken outside a busy café."
                     }
                 ],
-                "icon": "fa-ghost"
+                "icon": "fa-camera"
             },
             {
-                "title": "The Mystery Podcast",
-                "kicker": "Tell a suspenseful story responsibly.",
-                "intro": "A podcast wants to cover a local disappearance that still affects the person's family.",
-                "prompt": "How can it create suspense without turning real pain into entertainment?",
+                "title": "The Footsteps Upstairs",
+                "kicker": "Open one clue at a time.",
+                "intro": "You hear what sounds like footsteps in the apartment above yours. Your upstairs neighbors are away. Give your best guess before opening the last card.",
+                "prompt": "Which clue made the biggest difference to your guess?",
                 "cards": [
                     {
-                        "title": "Family",
-                        "text": "Seek consent and respect boundaries."
+                        "title": "Clue 1",
+                        "text": "The noise starts at exactly 2:13 a.m. three nights in a row."
                     },
                     {
-                        "title": "Evidence",
-                        "text": "Separate confirmed facts from rumor."
+                        "title": "Clue 2",
+                        "text": "Just before the first thump, you hear a quiet buzzing sound."
                     },
                     {
-                        "title": "Tone",
-                        "text": "Avoid sensational descriptions."
+                        "title": "Clue 3",
+                        "text": "Your neighbor texts that they left a device on a timer."
                     },
                     {
-                        "title": "Purpose",
-                        "text": "Explain what public value the episode serves."
+                        "title": "Reveal",
+                        "text": "It was a robot vacuum running on a timer. It made a thump each time it went over the raised strip in the doorway."
                     }
                 ],
-                "icon": "fa-podcast"
+                "icon": "fa-ghost",
+                "revealCards": true
             }
         ],
         "practice": [
             {
-                "text": "The unexplained footsteps in the empty hallway sent _____ _____ my _____. → {gap}",
+                "text": "Seeing the doll blink in the shop window sent _____ _____ my _____. → {gap}",
                 "answer": "To send shivers down your spine"
             },
             {
-                "text": "The missing painting remains an _____ _____ in the town museum. → {gap}",
+                "text": "Nobody knows who leaves a white rose at the train station every Monday. It’s an _____ _____. → {gap}",
                 "answer": "An unsolved mystery"
             },
             {
-                "text": "My aunt claims to _____ a _____ _____ about when relatives will call. → {gap}",
+                "text": "Leo always knows when someone is planning to surprise him. He seems to _____ a _____ _____. → {gap}",
                 "answer": "To have a sixth sense"
             },
             {
-                "text": "I had a _____ _____ that the apparently perfect offer contained a hidden condition. → {gap}",
+                "text": "I had a _____ _____ that my friend was about to show up, so I ordered a second coffee. → {gap}",
                 "answer": "A gut feeling"
             },
             {
-                "text": "The science presenter used a simple experiment to _____ a _____ about the Moon. → {gap}",
+                "text": "The librarian used a security video to _____ a _____ about books moving by themselves. → {gap}",
                 "answer": "To debunk a myth"
             },
             {
-                "text": "Every school seems to have an _____ _____ about a locked room. → {gap}",
+                "text": "There’s an _____ _____ about a woman who boards the last bus and vanishes before her stop. → {gap}",
                 "answer": "An urban legend"
             }
         ],
@@ -2252,14 +2251,11 @@
                 "A gut feeling"
             ]
         },
-        "homework": {
-            "task": "Write a short paragraph (3-4 sentences) about a supernatural story or mystery you know. Do you believe it's true?",
-            "model": "I know the urban legend about... It says that... I think it's not true because...",
-            "requiredExpressions": [
-                "To send shivers down your spine",
-                "An unsolved mystery"
-            ]
-        },
+        "homework": [
+            "A story from your town. Retell an urban legend you heard at school or where you grew up. Say who told you and how you felt the first time you heard it.",
+            "The photo mystery. Write the messages two friends exchange after spotting someone unexpected in the background of a photo. Give the friends different theories and show what they decide to do.",
+            "A little good luck. Pick a superstition you’ve heard. Imagine a day when you’d be tempted to follow it and explain what you’d do and why."
+        ],
         "closing": "\"The world is full of obvious things which nobody by any chance ever observes.\" - Sherlock Holmes",
         "migration": {
             "source": "licao-11.html",
@@ -2688,7 +2684,7 @@
         "warmupTitle": "Warm-up: Food & Culture",
         "warmupIntro": "Let's start our conversation:",
         "warmups": [
-            "What is the best meal you have ever had?",
+            "What's the best thing you ate this week?",
             "If you had to eat only one type of food for the rest of your life, what would it be?",
             "How does food connect to your country's culture?",
             "Which food tradition is important in your family?",
@@ -2699,37 +2695,37 @@
                 "term": "A foodie",
                 "meaning": "A person who loves and is very interested in food.",
                 "example": "As a foodie, Lena plans trips around markets rather than famous landmarks.",
-                "practice": "As a _____, Lena plans trips around markets rather than famous landmarks. → {gap}"
+                "practice": "{gap} like my sister will drive across town just to try a new ramen place."
             },
             {
                 "term": "To have a sweet tooth",
                 "meaning": "To have a strong liking for sweet foods.",
                 "example": "I have a sweet tooth, so I share dessert instead of ordering two.",
-                "practice": "I _____ a _____ _____, so I share dessert instead of ordering two. → {gap}"
+                "practice": "{gap} is one thing. Eating half a birthday cake by yourself is another."
             },
             {
                 "term": "A picky eater",
                 "meaning": "Someone who is very selective about what they eat.",
                 "example": "The restaurant offered a simple tasting plate for the picky eater in our group.",
-                "practice": "The restaurant offered a simple tasting plate for the _____ _____ in our group. → {gap}"
+                "practice": "{gap} like my brother will send a burger back if it has even one leaf of lettuce on it."
             },
             {
                 "term": "Comfort food",
                 "meaning": "Food that provides a feeling of well-being.",
                 "example": "Rice and beans are comfort food for me because they remind me of home.",
-                "practice": "Rice and beans are _____ _____ for me because they remind me of home. → {gap}"
+                "practice": "{gap} can be as simple as the soup my dad made whenever I had a bad day."
             },
             {
-                "term": "To wine and dine",
-                "meaning": "To entertain someone with a fancy meal.",
-                "example": "The company tried to wine and dine the visiting clients at a local restaurant.",
-                "practice": "The company tried to _____ and _____ the visiting clients at a local restaurant. → {gap}"
+                "term": "I'm craving",
+                "meaning": "I really want to eat or drink something.",
+                "example": "I'm craving warm pão de queijo and a cup of coffee.",
+                "practice": "{gap} something salty. Want to split some fries?"
             },
             {
                 "term": "My mouth is watering",
                 "meaning": "Said when you see or smell delicious food.",
                 "example": "My mouth is watering just from the smell of bread leaving the oven.",
-                "practice": "My _____ is _____ just from the smell of bread leaving the oven. → {gap}"
+                "practice": "I can smell those cinnamon rolls from here. {gap}!"
             }
         ],
         "songs": [
@@ -2738,13 +2734,12 @@
                 "artist": "Don McLean",
                 "sourceEmbed": "https://open.spotify.com/embed/track/1fDsrQ23eTAVFElUMaf38X",
                 "spotifyId": "1fDsrQ23eTAVFElUMaf38X",
-                "angle": "A cultural classic where food and drink become symbols of memory, identity, nostalgia, and American life.",
-                "discussionTitle": "American Pie\" - Food, memory, and national symbols",
+                "angle": "Listen to the opening verse for all five gaps. Notice how the mood changes.",
                 "questions": [
-                    "Why do some foods become national symbols, even when people do not eat them every day?",
-                    "What Brazilian food or drink could represent home, childhood, or tradition for you?",
-                    "Can a taste or smell bring back memories more strongly than a photo or a song?",
-                    "Is food one of the best ways to understand a culture, or can it create stereotypes?"
+                    "What snack takes you straight back to your school days, and what do you remember about it?",
+                    "A friend from abroad is coming to a Brazilian birthday party. What do they have to try first?",
+                    "Would you rather hear your favorite song for the first time again or taste your favorite dish for the first time again?",
+                    "A bakery charges R$25 for a gourmet pão de queijo. What would make it worth the price?"
                 ]
             },
             {
@@ -2753,12 +2748,11 @@
                 "sourceEmbed": "https://open.spotify.com/embed/track/6UelLqGlWMcVH1E5c4H7lY",
                 "spotifyId": "6UelLqGlWMcVH1E5c4H7lY",
                 "angle": "A sensory pop song that uses taste, fruit, summer, and warmth to describe a feeling rather than a literal recipe.",
-                "discussionTitle": "Watermelon Sugar\" - Senses, summer, and metaphor",
                 "questions": [
-                    "Why do artists often use food and fruit as metaphors for emotions or relationships?",
-                    "Which taste, smell, or dish immediately reminds you of summer?",
-                    "How would you describe a perfect summer day using only sensory words?",
-                    "Should song lyrics be clear and direct, or is it better when they leave room for interpretation?"
+                    "It's 35°C outside and you're meeting friends. What cold snack or drink are you going for?",
+                    "What's a food trend you saw online that you and your friends would actually try?",
+                    "If this song were an ice cream flavor, what would it taste like and what would you call it?",
+                    "When someone says fruit counts as dessert, are you with them or are you still waiting for cake?"
                 ]
             },
             {
@@ -2767,62 +2761,58 @@
                 "sourceEmbed": "https://open.spotify.com/embed/track/4uOKFydzAejjSFqYbv1XPt",
                 "spotifyId": "4uOKFydzAejjSFqYbv1XPt",
                 "angle": "A reggae-pop version of a heartbreak song where a drink represents escape, memory, and emotional comfort.",
-                "discussionTitle": "Red Red Wine\" - Comfort, memory, and emotional habits",
                 "questions": [
-                    "Why do people often connect drinks, meals, or places with heartbreak and memories?",
-                    "Can comfort food or comfort drinks help people heal, or can they become a way to avoid problems?",
-                    "What drink from your region carries a strong cultural or social meaning?",
-                    "Why are food and drinks so present in songs about love, celebration, and sadness?"
+                    "It's been a rough day and you just got home. What are you making or ordering to eat?",
+                    "After a concert or a night out, where do people go for a late-night snack in your town?",
+                    "Your friend just got dumped. Are you bringing ice cream, taking them out for burgers, or sending them a playlist?",
+                    "One friend eats most of the fries you ordered to share. Should everyone still pay the same amount?"
                 ]
             }
         ],
         "contexts": [
             {
-                "title": "Dinner with Two Traditions",
-                "kicker": "Design a menu that respects both families.",
-                "intro": "A couple is hosting relatives with different food traditions, allergies, and ideas about celebration.",
-                "prompt": "What menu would feel generous without pretending every preference can be satisfied?",
+                "title": "Guess the Dish",
+                "kicker": "Give one clue at a time.",
+                "intro": "Try the example. Then take turns choosing a dish from home or your region. Ask yes/no questions before you guess.",
+                "prompt": "Where do you get the best version of this dish in town?",
+                "revealCards": true,
                 "cards": [
                     {
-                        "title": "Tradition",
-                        "text": "Include one meaningful dish from each family."
+                        "title": "Clue 1",
+                        "text": "It's crispy on the outside."
                     },
                     {
-                        "title": "Safety",
-                        "text": "Separate allergens and explain ingredients."
+                        "title": "Clue 2",
+                        "text": "It usually has chicken inside."
                     },
                     {
-                        "title": "Choice",
-                        "text": "Provide a complete alternative, not a side dish."
+                        "title": "Clue 3",
+                        "text": "You often see it at birthday parties."
                     },
                     {
-                        "title": "Story",
-                        "text": "Invite each family to explain one recipe."
+                        "title": "Reveal the dish",
+                        "text": "Coxinha"
                     }
                 ],
                 "icon": "fa-utensils"
             },
             {
-                "title": "The Viral Street-Food Stall",
-                "kicker": "Protect a local business from sudden popularity.",
-                "intro": "A small stall becomes famous online and now faces long lines, waste, and complaints from neighbors.",
-                "prompt": "How should the owner grow without losing quality or community support?",
+                "title": "Would You Eat That?",
+                "kicker": "Love it  ·  I'd try it  ·  Hard pass",
+                "intro": "Vote out loud at the same time. If you disagree, say why.",
+                "prompt": "What food combo is totally normal in your family but weird to everyone else?",
                 "cards": [
                     {
-                        "title": "Capacity",
-                        "text": "Set a realistic daily quantity."
+                        "title": "Ketchup on pizza"
                     },
                     {
-                        "title": "Neighbors",
-                        "text": "Manage queues, noise, and rubbish."
+                        "title": "Raisins in rice"
                     },
                     {
-                        "title": "Price",
-                        "text": "Avoid exploiting short-term demand."
+                        "title": "Fries dipped in ice cream"
                     },
                     {
-                        "title": "Identity",
-                        "text": "Keep the dish and service recognizable."
+                        "title": "Cold pizza for breakfast"
                     }
                 ],
                 "icon": "fa-bowl-food"
@@ -2830,54 +2820,51 @@
         ],
         "practice": [
             {
-                "text": "As a _____, Lena plans trips around markets rather than famous landmarks. → {gap}",
+                "text": "{gap} like my sister will drive across town just to try a new ramen place.",
                 "answer": "A foodie"
             },
             {
-                "text": "I _____ a _____ _____, so I share dessert instead of ordering two. → {gap}",
+                "text": "{gap} is one thing. Eating half a birthday cake by yourself is another.",
                 "answer": "To have a sweet tooth"
             },
             {
-                "text": "The restaurant offered a simple tasting plate for the _____ _____ in our group. → {gap}",
+                "text": "{gap} like my brother will send a burger back if it has even one leaf of lettuce on it.",
                 "answer": "A picky eater"
             },
             {
-                "text": "Rice and beans are _____ _____ for me because they remind me of home. → {gap}",
+                "text": "{gap} can be as simple as the soup my dad made whenever I had a bad day.",
                 "answer": "Comfort food"
             },
             {
-                "text": "The company tried to _____ and _____ the visiting clients at a local restaurant. → {gap}",
-                "answer": "To wine and dine"
+                "text": "{gap} something salty. Want to split some fries?",
+                "answer": "I'm craving"
             },
             {
-                "text": "My _____ is _____ just from the smell of bread leaving the oven. → {gap}",
+                "text": "I can smell those cinnamon rolls from here. {gap}!",
                 "answer": "My mouth is watering"
             }
         ],
         "speaking": {
-            "title": "Speak: Food & Culture",
+            "title": "Food Confessions",
             "icon": "fa-microphone-lines",
+            "instruction": "Pick a card and tell a short story. Your partner asks a follow-up question. Then switch roles.",
             "prompts": [
-                "Which family dish would you introduce to someone from another culture?",
-                "What part of the recipe could change without losing its identity?",
-                "How would you accommodate an allergy without isolating the guest?",
-                "What can food reveal that a history book may miss?"
+                "A food I hated as a kid",
+                "My biggest cooking disaster",
+                "A dish my family makes differently",
+                "A food I always miss when I travel"
             ],
             "support": [
-                "A foodie",
-                "To have a sweet tooth",
-                "A picky eater",
-                "Comfort food"
+                "I was a picky eater as a kid.",
+                "That's my ultimate comfort food.",
+                "What changed your mind?"
             ]
         },
-        "homework": {
-            "task": "Describe your favorite food and why you love it. Is it a family recipe? Is it comfort food?",
-            "model": "My favorite food is... It's a type of comfort food for me because...",
-            "requiredExpressions": [
-                "A foodie",
-                "To have a sweet tooth"
-            ]
-        },
+        "homework": [
+            "A taste of home. Pick a dish that reminds you of someone or somewhere. Describe it and tell the story behind it.",
+            "One food stop in your town. Recommend a place to a visitor, tell them what to order, and explain why it's worth a stop.",
+            "A bite that surprised you. Describe a surprising dish or food combo you tried, what it tasted like, and whether you'd have it again."
+        ],
         "closing": "\"One cannot think well, love well, sleep well, if one has not dined well.\" - Virginia Woolf",
         "migration": {
             "source": "licao-14.html",
@@ -8917,13 +8904,13 @@
                 "artist": "Carmen Twillie, Lebo M.",
                 "sourceEmbed": "https://open.spotify.com/embed/track/0H2960m5fFKxfEsOvJgI3W",
                 "spotifyId": "0H2960m5fFKxfEsOvJgI3W",
-                "angle": "An opening number can establish a fictional world, its scale, and its central ideas before the plot begins.",
-                "discussionTitle": "Cinema - Life as a Movie Scene",
+                "angle": "Would you still watch the films you loved as a kid?",
+                "discussionTitle": "Same film, different age",
                 "questions": [
-                    "Which film opening immediately pulls you into its world, and what creates that effect?",
-                    "How do soundtracks help stories travel across languages and generations?",
-                    "What matters most in an opening sequence: music, visual scale, character, or information, and why?",
-                    "Hot take: a memorable soundtrack can make an ordinary film seem culturally important. How would you test that claim?"
+                    "As a kid, did you like films that made you laugh or films that scared you a little?",
+                    "If a friend invited you to see an animated film tonight, would you go? What would make you say yes?",
+                    "In a family film, a kid breaks a rule to help a friend. Whose side are you on: the kid’s or the parents’?",
+                    "Would you show a child a film with a really sad ending, or save it for when they’re older?"
                 ]
             },
             {
@@ -8931,77 +8918,77 @@
                 "artist": "Christina Perri",
                 "sourceEmbed": "https://open.spotify.com/embed/track/2UxT6MB4rniAoHccm17kWB",
                 "spotifyId": "2UxT6MB4rniAoHccm17kWB",
-                "angle": "Theme: epic romance and how pop culture creates iconic 'love stories' that last for generations.",
-                "discussionTitle": "A Thousand Years - Romanticized Reality",
+                "angle": "Imagine this song playing as two characters get back together. Are you smiling or yelling at the screen?",
+                "discussionTitle": "Should they end up together?",
                 "questions": [
-                    "Who is your favorite fictional couple from a movie or series?",
-                    "Do romantic movies create unrealistic expectations for real-life relationships?",
-                    "Why are book-to-movie adaptations so often disappointing for fans?",
-                    "Have you ever lived a 'movie romance'?"
+                    "In a love story, do you like knowing who ends up together, or do you want to be surprised?",
+                    "Someone shows up at their ex’s wedding to say ‘I still love you.’ Romantic or selfish?",
+                    "Two best friends in a series start dating. Are you excited, or do you wish the writers had let them stay friends?",
+                    "Can a breakup be a happy ending? When would you actually want the couple to split up?"
                 ]
             },
             {
-                "title": "Live and Let Die",
-                "artist": "Paul McCartney, Wings",
-                "sourceEmbed": "https://open.spotify.com/embed/track/0OfIsdoRyBXtRXBqiBlX2A",
-                "spotifyId": "0OfIsdoRyBXtRXBqiBlX2A",
-                "angle": "Theme: dramatic contrasts, explosive action-movie energy, and a title phrase that challenges passive acceptance.",
-                "discussionTitle": "Live and Let Die - Drama, Contrast, and Bond Energy",
+                "title": "Sunflower",
+                "artist": "Post Malone, Swae Lee",
+                "sourceEmbed": "https://open.spotify.com/embed/track/3KkXRkHbMCARz0aVfEt68P",
+                "spotifyId": "3KkXRkHbMCARz0aVfEt68P",
+                "angle": "Miles has homework and a secret identity. Would you want both?",
+                "discussionTitle": "Who gets to be the hero?",
                 "questions": [
-                    "Who would you be in an action movie? The villain, the hero, the sidekick or the love interest?",
-                    "How do you deal with difficult moments? Do you stay calm or do you express your emotions strongly?",
-                    "Which matters more in a Bond movie: the villain, the song, or the guy interpreting Bond?",
-                    "How do you interpret the phrase “live and let die”?"
+                    "If you woke up with Spider-Man’s powers, what’s the first thing you’d try?",
+                    "Would you tell your best friend you were a superhero? What about your family?",
+                    "Do you enjoy watching a hero who always knows what to do, or one who makes it up as they go?",
+                    "Would you still root for a superhero who charged people for rescues? Why or why not?"
                 ]
             }
         ],
         "contexts": [
             {
-                "title": "The Reboot Pitch",
-                "kicker": "Revisit a beloved story for a new audience.",
-                "intro": "A studio wants to remake a childhood classic while changing its setting and main character.",
-                "prompt": "Which elements must remain recognizable, and which deserve reinvention?",
+                "title": "What Would You Watch?",
+                "kicker": "You have the remote.",
+                "intro": "Pick whichever question you feel like answering first.",
+                "prompt": "Which of your answers would your friends disagree with?",
                 "cards": [
                     {
-                        "title": "Core",
-                        "text": "Name the story's essential conflict."
+                        "title": "Ten minutes in",
+                        "text": "You’re bored ten minutes into a film. Do you give it more time or pick something else?"
                     },
                     {
-                        "title": "Audience",
-                        "text": "Identify what a new generation needs."
+                        "title": "Subs or dubs?",
+                        "text": "A new series is in a language you don’t speak. Would you rather read subtitles or hear it in your own language?"
                     },
                     {
-                        "title": "Representation",
-                        "text": "Avoid adding identity as decoration."
+                        "title": "One more season?",
+                        "text": "Your favorite show just had a great ending. Would you be excited or worried if they announced another season?"
                     },
                     {
-                        "title": "Risk",
-                        "text": "Explain one change that may divide fans."
+                        "title": "Bad reviews",
+                        "text": "The trailer looks great, but everyone says the film is awful. Would you still watch it?"
                     }
                 ],
-                "icon": "fa-clapperboard"
+                "icon": "fa-tv"
             },
             {
-                "title": "The Spoiler Agreement",
-                "kicker": "Set expectations before a shared conversation.",
-                "intro": "Two friends watch the same series at different speeds, while their group chat discusses every episode.",
-                "prompt": "What spoiler rule is clear, practical, and fair?",
+                "title": "Movie Night Confessions",
+                "kicker": "Would you admit it?",
+                "intro": "You’re watching a series with a friend. Which of these sounds most like you?",
+                "prompt": "What’s the funniest or most annoying thing someone has done while you were watching something together?",
                 "cards": [
                     {
-                        "title": "Window",
-                        "text": "Choose how long new episodes stay protected."
+                        "title": "One episode ahead",
+                        "text": "Your friend fell asleep during a cliffhanger. Would you pause, wake them up, or finish it and pretend you didn’t?"
                     },
                     {
-                        "title": "Signal",
-                        "text": "Label discussions before revealing details."
+                        "title": "Just one little spoiler",
+                        "text": "Do you ever look up the ending on purpose? What would make you want to know?"
                     },
                     {
-                        "title": "Space",
-                        "text": "Create a separate channel for current viewers."
+                        "title": "The running commentary",
+                        "text": "Your friend keeps guessing the twist out loud. When does that make watching together more fun?"
                     },
                     {
-                        "title": "Exception",
-                        "text": "Decide how to discuss an old classic."
+                        "title": "Lost in the plot",
+                        "text": "You’ve had no idea who someone is for three episodes. Do you finally ask, or hope someone says their name?"
                     }
                 ],
                 "icon": "fa-tv"
@@ -9009,54 +8996,52 @@
         ],
         "practice": [
             {
-                "text": "We _____ the miniseries because every episode ended with a new question. → {gap}",
+                "text": "Since the new season dropped on Friday, Nina plans to _____ all eight episodes by Sunday. → {gap}",
                 "answer": "To binge-watch"
             },
             {
-                "text": "The season closes on a _____ just as the detective opens the letter. → {gap}",
+                "text": "The season finale ends on a _____, so fans have to wait months to find out what happens next. → {gap}",
                 "answer": "A cliffhanger"
             },
             {
-                "text": "A supporting actor can _____ the _____ with only a few memorable scenes. → {gap}",
+                "text": "Although she had only one scene, the guest actor managed to _____ the _____. → {gap}",
                 "answer": "To steal the show"
             },
             {
-                "text": "The studio expected a _____, but audiences preferred the smaller drama. → {gap}",
+                "text": "The superhero film became a _____ after opening in theaters around the world. → {gap}",
                 "answer": "A blockbuster"
             },
             {
-                "text": "The documentary shows the costume team working _____ the _____. → {gap}",
+                "text": "The director thanked the editors and camera crew who worked _____ the _____. → {gap}",
                 "answer": "Behind the scenes"
             },
             {
-                "text": "_____ _____: the trailer reveals a character who was supposed to be a surprise. → {gap}",
+                "text": "Before I tell you who the mysterious guest is, _____ _____! → {gap}",
                 "answer": "Spoiler alert"
             }
         ],
         "speaking": {
-            "title": "Speak: Movies, Series and Pop Culture",
+            "title": "Speak: Your Remake, One Big Change",
             "icon": "fa-microphone-lines",
+            "instruction": "Pick a film or series you know well. Tell your teacher the original idea in one sentence, then play with one change together.",
             "prompts": [
-                "Pitch a remake that preserves one essential element and changes another?",
-                "Who is the new audience?",
-                "Which casting or setting choice changes the story meaningfully?",
-                "How would you answer a fan who sees every change as betrayal?"
+                "What would you change for fun? You could put a horror villain in a romantic comedy or let a side character steal the show.",
+                "Take us into one scene. What happens in the original, and what happens in your version?",
+                "Which detail would you keep because it still makes you laugh, jump, or cry?",
+                "Who do you know who’d have the strongest opinion about your remake? What would they say?"
             ],
             "support": [
-                "To binge-watch",
-                "A cliffhanger",
-                "To steal the show",
-                "A blockbuster"
+                "In the original, …",
+                "In my version, …",
+                "Picture the moment when …",
+                "I can already hear my friend saying, …"
             ]
         },
-        "homework": {
-            "task": "Write a 100-150-word review of a film or series you watched recently. Explain what worked, what did not, and who might enjoy it.",
-            "model": "To watch multiple episodes of a television program in rapid succession. \"I binge-watched the entire season of that new show in just one weekend. A dramatic and exciting ending to an episode that leaves the audience in suspense. \"The season finale ended on such a cliffhanger; I can't wait for next year!",
-            "requiredExpressions": [
-                "To binge-watch",
-                "A cliffhanger"
-            ]
-        },
+        "homework": [
+            "If you could forget one film or series and watch it again for the first time, which would you choose? Describe the moment you’d most like to experience again and why it worked so well on you.",
+            "Was the villain right about anything? Pick a character people are supposed to dislike. Tell us about one decision you understand and where you think they went too far.",
+            "You get to spend a week inside any film or series, but you’re an ordinary person there. Where would you go? Describe your first day and one thing you’d miss about your real life."
+        ],
         "closing": "\"Movies can and do have tremendous influence in shaping young lives.\"",
         "migration": {
             "source": "licao-44.html",

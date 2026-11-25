@@ -4,10 +4,11 @@
  const moduleId = document.body.dataset.module || 'a1-v3';
  const moduleLabel = moduleId.split('-')[0].toUpperCase();
  const published = Boolean(document.body.dataset.module);
- const homeUrl = published ? moduleId+'.html' : 'index.html';
- const manifests = published ? window.V3Curriculum.getModule(moduleId) : window.V3Curriculum.a1PreviewLessons;
+ const cadencePilot = document.body.dataset.preview === 'cadence';
+ const homeUrl = published ? moduleId+'.html' : cadencePilot ? 'cadencia.html' : 'index.html';
+ const manifests = published ? window.V3Curriculum.getModule(moduleId) : cadencePilot ? window.V3Curriculum.a1CadencePilot : window.V3Curriculum.a1PreviewLessons;
  const registry = window.V3PresentationRegistry || window.A1V3LessonRegistry;
- const href = m => `aula.html?aula=${encodeURIComponent(m.slug)}`;
+ const href = m => `${cadencePilot?'cadencia-aula':'aula'}.html?aula=${encodeURIComponent(m.slug)}`;
  const hub = document.getElementById('lesson-list');
  if (hub) {
    hub.innerHTML = manifests.map(m => {const lesson=registry.getPreview(m.id);return `<a class="lesson-card" href="${href(m)}"><span class="number">${String(m.number).padStart(2,'0')}</span><span class="eyebrow">${m.lessonKind==='communicative'?'CONVERSATION ACTIVITIES':'VOCABULÁRIO & PRÁTICA'}</span><h2>${escape(m.title)}</h2><p>${escape(lesson.summary)}</p><span class="open">Abrir aula <span aria-hidden="true">↗</span></span></a>`;}).join('');
@@ -16,11 +17,18 @@
  const slug = new URLSearchParams(location.search).get('aula');
  const manifest = published ? manifests.find(m=>m.number===Number(document.body.dataset.lessonNumber)) : manifests.find(m=>m.slug===slug);
  const stage = document.getElementById('stage');
- if (!manifest) {stage.innerHTML='<section class="error"><h1>Aula não encontrada.</h1><a href="index.html">Voltar ao ciclo de aulas →</a></section>';document.querySelector('.bottombar').hidden=true;return;}
+ if (!manifest) {stage.innerHTML='<section class="error"><h1>Aula não encontrada.</h1><a href="'+homeUrl+'">Voltar ao ciclo de aulas →</a></section>';document.querySelector('.bottombar').hidden=true;return;}
  const sourceLesson = published ? {...registry.get(manifest.number),...manifest,curriculumId:manifest.id} : registry.getPreview(manifest.id);
  const musicEntry = window.MusicClozeV3?.getPublicEntry(sourceLesson);
- const slides = [...sourceLesson.slides];
- if(musicEntry) slides.splice(slides.findIndex(s=>s.type==='homework'),0,{id:'music',type:'music',title:'Music Moment',kicker:'Listen & connect',instruction:'Ouça com o professor. Diga as palavras que reconhece, complete as cinco lacunas e use o vocabulário em uma conversa sua.',entry:musicEntry});
+ let hasDrill=false;
+ const slides=sourceLesson.slides.map(slide=>{
+  const extra=(sourceLesson.lessonKind==='lexical'&&['verbs','reading'].includes(slide.type))
+   || (slide.type==='drill'&&hasDrill) || slide.type==='survey';
+  if(slide.type==='drill')hasDrill=true;
+  const routeTier=slide.routeTier||sourceLesson.route?.authoredSlideTiers?.[slide.id]||(extra?'extra':'core');
+  return {...slide,routeTier};
+ });
+ if(musicEntry) slides.splice(slides.findIndex(s=>s.type==='homework'),0,{id:'music',type:'music',title:'Music Moment',kicker:'Listen & connect',instruction:'Ouça com o professor. Na primeira escuta, identifique a ideia da música. Depois, complete as lacunas e converse sobre o tema.',entry:musicEntry,routeTier:'core'});
  const lesson = {...sourceLesson,slides};
  let musicRoot=null;
  window.LessonFlashcardContext={moduleId,curriculumId:lesson.id,lessonNumber:lesson.number,lessonLabel:lesson.title,defaultCategory:moduleLabel+' · '+lesson.title,loginPath:published?'../login.html':'../../login.html',requireStudent:true};
@@ -33,6 +41,11 @@
  let ratings = saved.ratings && typeof saved.ratings==='object'?saved.ratings:{};
  let homework = typeof saved.homework==='string'?saved.homework:'';
  const dialog=document.getElementById('index-dialog');
+ const coreFilter=document.createElement('label');
+ coreFilter.className='filter';
+ coreFilter.innerHTML='<input id="only-core" type="checkbox"> Mostrar apenas o percurso essencial';
+ document.getElementById('only-marked').closest('label').before(coreFilter);
+ const onlyCore=coreFilter.querySelector('input');
  const button = (label,action,extra='',cls='quiet')=>`<button type="button" class="${cls}" data-action="${action}" ${extra}>${label}</button>`;
  const stateFor = slide => {if(!states.has(slide.id))states.set(slide.id,{reveals:new Set(),cursor:0,highlight:0,role:'',translation:false,single:false,meanings:true});return states.get(slide.id);};
  const save = ()=>{try{sessionStorage.setItem(storageKey,JSON.stringify({current,marks:[...marks],usedTargets:[...usedTargets],ratings,homework}));}catch{}};
@@ -68,8 +81,14 @@
   }).join('')+'</div>';
  }
  function exercise(s){
-  const st=stateFor(s),all=s.items.every((_,i)=>st.reveals.has('item-'+i));
-  return (s.passage?'<div class="passage" lang="en">'+escape(s.passage)+'</div>':'')+'<div class="exercise-toolbar"><span>'+s.items.length+' '+(s.type==='questions'?'perguntas':'frases')+' · responda em voz alta</span>'+button(all?'Ocultar todos os modelos':'Revelar todos os modelos','all-models','aria-expanded="'+all+'"','small-button')+'</div><div class="exercise-list">'+s.items.map(([q,a],i)=>'<article class="exercise-row"><div class="exercise-question"><span class="item-number">'+String(i+1).padStart(2,'0')+'</span><h3>'+escape(q)+'</h3>'+reveal('item-'+i,'Ver modelo')+'</div>'+answer('item-'+i,'<span lang="en">'+escape(a)+'</span>')+'</article>').join('')+'</div>';
+  const st=stateFor(s),items=visibleExerciseItems(s),all=items.every((_,i)=>st.reveals.has('item-'+i));
+  const answerLabel=['matching','cloze'].includes(s.type)?'Ver resposta':'Ver resposta possível';
+  const extra=published&&s.type==='drill'&&s.items.length>4;
+  const toggleExtra=extra?button(st.fullExercise?'Ocultar itens extras':'Mostrar itens extras','exercise-extra',`aria-expanded="${Boolean(st.fullExercise)}"`,'small-button'):'';
+  return (s.passage?'<div class="passage" lang="en">'+escape(s.passage)+'</div>':'')+'<div class="exercise-toolbar"><span>'+items.length+' '+(s.type==='questions'?'perguntas':'itens')+' · responda em voz alta</span>'+button(all?'Ocultar todos os modelos':'Revelar todos os modelos','all-models','aria-expanded="'+all+'"','small-button')+'</div><div class="exercise-list">'+items.map(([q,a],i)=>'<article class="exercise-row"><div class="exercise-question"><span class="item-number">'+String(i+1).padStart(2,'0')+'</span><h3>'+escape(q)+'</h3>'+reveal('item-'+i,answerLabel)+'</div>'+answer('item-'+i,'<span lang="en">'+escape(a)+'</span>')+'</article>').join('')+'</div>'+(toggleExtra?'<div class="mission-actions">'+toggleExtra+'</div>':'');
+ }
+ function visibleExerciseItems(s){
+  return published&&s.type==='drill'&&!stateFor(s).fullExercise?s.items.slice(0,4):s.items;
  }
  function dialogue(s){
   const st=stateFor(s),roles=[...new Set(s.lines.map(line=>line[0]))];
@@ -83,7 +102,73 @@
   const required=targets.filter(item=>item.required!==false),done=required.filter(item=>usedTargets.has(item.term)).length;
   return `<section class="target-tracker ${compact?'target-tracker-compact':''}" aria-label="Expressões-alvo"><div class="target-tracker-heading"><div><span class="eyebrow">Language mission</span><h2>${compact?'Use durante a tarefa':'Use com apoio e marque'}</h2></div><strong>${done} / ${required.length} obrigatórias</strong></div><div class="target-chip-list">${targets.map(item=>{const used=usedTargets.has(item.term),requiredItem=item.required!==false;return `<button type="button" class="target-chip ${used?'is-used':''} ${requiredItem?'is-required':'is-bonus'}" data-action="target" data-target="${escape(item.term)}" aria-pressed="${used}"><small>${requiredItem?'Obrigatória':'Bônus'}</small><span lang="en">${used?'✓ ':''}${escape(item.term)}</span></button>`;}).join('')}</div>${compact?'':'<p class="target-tracker-note">Você pode ler os cartões. Clique em uma expressão depois de usá-la.</p>'}</section>`;
  }
-function decision(s){
+ function liveTargets(s){
+  return `<div class="live-targets">${reveal('live-targets','Mostrar expressões de apoio')}${answer('live-targets',targetTracker(s,true))}</div>`;
+ }
+ function registrationForm(s){
+  const st=stateFor(s),second=Boolean(st.registrationSecond),checked=Boolean(st.registrationChecked),values=st.registrationValues||{};
+  const roles=second
+   ? 'O aluno pergunta os dados. O professor responde como personagem e digita o que o aluno disser. O aluno lê a ficha com um erro para o professor corrigir.'
+   : 'O aluno dita os dados fictícios. O professor digita e lê de volta com um erro para o aluno corrigir.';
+  const fields=s.fields.map(([id,label])=>`
+   <label lang="en">${escape(label)}
+    <input type="text" data-registration-field="${escape(id)}" value="${escape(values[id])}" required maxlength="90" ${checked?'readonly':''}>
+   </label>`).join('');
+  return `<div class="live-workbench">
+   <form class="live-document" data-registration autocomplete="off">
+    <h2 lang="en">Registration card</h2>
+    <div class="registration-fields">${fields}</div>
+    <div class="mission-actions">
+     ${checked
+       ? button(second?'Voltar à rodada 1':'Trocar os papéis','registration-next','','small-button')
+       : '<button type="submit" class="small-button">Conferir ficha após a leitura</button>'}
+     ${button('Limpar ficha','registration-reset','','quiet')}
+    </div>
+    ${checked?'<p class="live-result" role="status" tabindex="-1">Ficha conferida em voz alta.</p>':''}
+   </form>
+   <aside class="live-document">
+    <span class="eyebrow">${second?'Rodada 2':'Rodada 1'}</span>
+    <h2>Escute e confirme</h2>
+    <p>${roles}</p>
+    ${routeToolbox(s.support,'Frases de apoio')}
+   </aside>
+  </div>`;
+ }
+ function messageRelay(s){
+  const st=stateFor(s),round=st.relayRound||0,item=s.cases[round],update=st.reveals.has('relay-update');
+  const tabs=s.cases.map((entry,index)=>button(escape(entry.label),'relay-case',
+   `data-case-index="${index}" aria-pressed="${round===index}"`,'small-button')).join('');
+  const updateText=update
+   ? `<p lang="en">${escape(item.update)}</p><p>Confirme a mudança e passe o recado em duas ou três frases.</p>`
+   : '';
+  const model=update&&st.reveals.has('relay-model')?`<span lang="en">${escape(item.model)}</span>`:'';
+  return `<div class="scenario-tabs" role="group" aria-label="Recados">${tabs}</div>
+   <div class="live-workbench">
+    <article class="live-document">
+     <span class="eyebrow">Original notice</span>
+     <h2 lang="en">${escape(item.subject)}</h2>
+     <p lang="en">${escape(item.notice)}</p>
+     <p lang="en"><strong>${escape(item.alert)}</strong></p>
+    </article>
+    <section class="live-document">
+     <span class="eyebrow">Message desk</span>
+     <h2>Confirme a informação</h2>
+     ${update?'':`<p lang="en">${escape(s.support[0])}</p>`}
+     <div class="mission-actions">${reveal('relay-update','Abrir atualização após a pergunta')}</div>
+     ${answer('relay-update',updateText)}
+    </section>
+   </div>
+   <div class="mission-actions">
+    ${update?reveal('relay-model','Comparar com uma resposta possível'):''}
+    ${button('Recomeçar este recado','relay-reset','','quiet')}
+   </div>
+   ${answer('relay-model',model)}
+   <details class="live-details">
+    <summary>Frases de apoio</summary>
+    ${routeToolbox(s.support,'Pergunte, confirme e retransmita')}
+   </details>`;
+ }
+ function decision(s){
   const st=stateFor(s),choice=Number.isInteger(st.choice)?st.choice:-1;
   return targetTracker(s,true)+`<section class="decision-board"><div class="decision-scenario"><span class="eyebrow">Situation</span><p lang="en">${escape(s.scenario)}</p></div><div class="decision-options">${s.options.map(([label,title,text],i)=>`<button type="button" class="decision-option ${choice===i?'is-selected':''}" data-action="decision-choice" data-choice="${i}" aria-pressed="${choice===i}"><span class="decision-letter">${escape(label)}</span><strong lang="en">${escape(title)}</strong><span lang="en">${escape(text)}</span></button>`).join('')}</div><div class="conversation-goal"><h2>${choice<0?escape(s.choicePrompt||'Escolha uma opção. Depois complete a frase.'):escape(s.followUp)}</h2><p>${escape(s.support||'')}</p></div></section>`;
  }
@@ -101,15 +186,20 @@ function decision(s){
   return targetTracker(s,true)+`<div class="coach-console-layout"><section><div class="coach-progress" aria-label="Progresso da sessão">${moments.map((moment,index)=>`<span class="coach-step ${index<step?'is-complete':index===step?'is-current':''}"><b>${index<step?'✓':index+1}</b><small>${escape(moment.label)}</small></span>`).join('')}</div>${complete?`<div class="coach-success" role="status"><strong>${escape(s.outcome||'SESSION FINISHED')}</strong><span>Você ajudou o aluno nos três momentos.</span></div>`:`<article class="coach-member-card"><span class="eyebrow">${escape(item.label)}</span><small>Member says</small><p lang="en">${escape(item.member)}</p></article>`}</section><section><span class="eyebrow">Coach console</span><h2>${complete?'Missão concluída':'Responda em uma frase curta.'}</h2>${complete?'':`${routeToolbox(s.support||[],'Quick coach language')}<div class="mission-actions">${reveal(modelKey,'Comparar com a fala do coach')}</div>${answer(modelKey,`<div class="speech-bubble is-polite"><small>Coach says</small><p lang="en">${escape(item.model)}</p></div><div class="local-reply"><small>Member reacts</small><p lang="en">${escape(item.reaction)}</p></div>`)}`}<div class="mission-actions">${complete?button('Refazer sessão','coach-reset','','quiet'):button(step===moments.length-1?'Finalizar sessão':'Próximo momento','coach-next',modelOpen?'':'disabled','small-button')}</div></section></div>`;
  }
  function workoutPlanner(s){
-  const st=stateFor(s),profile=s.profile||{},profileKey='workout-teacher',profileOpen=st.reveals.has(profileKey),changed=Boolean(st.workoutChanged),unavailable=changed?s.change?.unavailable:'',selected=Array.isArray(st.workoutSelected)?st.workoutSelected.filter(id=>id!==unavailable):[],checked=Boolean(st.workoutChecked),validPlans=(changed?s.change?.validPlans:s.validPlans)||[],normalized=selected.slice().sort().join('|'),correct=selected.length===2&&validPlans.some(plan=>plan.slice().sort().join('|')===normalized),sessions=s.sessions||[];
+  const st=stateFor(s),profile=s.profile,asked=st.workoutAsked||[],changed=Boolean(st.workoutChanged),unavailable=changed?s.change?.unavailable:'',selected=Array.isArray(st.workoutSelected)?st.workoutSelected.filter(id=>id!==unavailable):[],checked=Boolean(st.workoutChecked),validPlans=(changed?s.change?.validPlans:s.validPlans)||[],normalized=selected.slice().sort().join('|'),correct=selected.length===2&&validPlans.some(plan=>plan.slice().sort().join('|')===normalized),sessions=s.sessions||[];
   const sessionCards=sessions.map(session=>{
    const chosen=selected.includes(session.id),blocked=session.id===unavailable,detailKey='workout-detail-'+session.id;
-   const controls=blocked?'<strong>FULL · indisponível</strong>':reveal(detailKey,'Pergunte e revele os detalhes')+answer(detailKey,`<p><strong>${escape(session.level)}</strong> · ${escape(session.detail||session.details||'')}</p>`)+button(chosen?'✓ Aula escolhida':'Escolher aula','workout-session',`data-session-id="${escape(session.id)}" aria-pressed="${chosen}" ${profileOpen?'disabled':''}`,'small-button');
+   const controls=blocked?'<strong>FULL · indisponível</strong>':reveal(detailKey,'Pergunte e revele os detalhes')+answer(detailKey,`<p><strong>${escape(session.level)}</strong> · ${escape(session.detail||session.details||'')}</p>`)+button(chosen?'✓ Aula escolhida':'Escolher aula','workout-session',`data-session-id="${escape(session.id)}" aria-pressed="${chosen}"`,'small-button');
    return `<article class="workout-session-card ${chosen?'is-selected':''} ${blocked?'is-unavailable':''}"><div><span>${escape(session.icon||'•')}</span><small>${escape(session.day)} · ${escape(session.time)}</small></div><h2 lang="en">${escape(session.name)}</h2><p lang="en">${escape(session.phrase)}</p>${controls}</article>`;
   }).join('');
   const feedback=checked?`<div class="workout-plan-feedback ${correct?'is-correct':'is-wrong'}" role="status"><strong>${correct?(changed?escape(s.outcome||'MEMBER PLAN CONFIRMED'):'The first plan works!'):'The plan misses one clue.'}</strong><span lang="en">${escape(correct?(changed?s.model:'Check the new message before you finish.'):'Ask one more question and change the plan.')}</span>${correct&&!changed&&s.change?`<div class="mission-actions">${button('Revelar mudança','workout-change','','small-button')}</div>`:''}</div>`:'';
   const changeNotice=changed?`<div class="workout-plan-feedback is-change" role="status"><strong>NEW MESSAGE</strong><span lang="en">${escape(s.change.message)}</span></div>`:'';
-  return targetTracker(s,true)+`<div class="workout-planner-layout"><section class="teacher-profile-panel"><span class="eyebrow">Private card · teacher</span><h2>Aluno, olhe para o lado.</h2><p>O professor abre o perfil, memoriza as pistas e fecha o cartão antes da entrevista.</p><div class="mission-actions">${reveal(profileKey,'Professor: abrir perfil secreto')}</div>${answer(profileKey,`<div class="teacher-private"><small>MEMBER PROFILE</small><h2>${escape(profile.name)}</h2><ul>${(profile.lines||[]).map(line=>`<li lang="en">${escape(line)}</li>`).join('')}</ul></div>`)}${routeToolbox(s.questions||s.support||[],'Student interview')}<p class="target-tracker-note">As aulas só podem ser escolhidas com o perfil fechado.</p></section><section><div class="workout-calendar">${sessionCards}</div><div class="mission-actions">${button('Conferir plano','workout-check',selected.length===2&&!profileOpen?'':'disabled','small-button')}${button('Recomeçar','workout-reset','','quiet')}</div>${feedback}${changeNotice}</section></div>`;
+  const clues=profile.interview.map(([question,clue],index)=>{
+   const open=asked.includes(index);
+   return `<article class="workout-clue">${button(escape(question),'workout-clue',`data-clue-index="${index}" aria-expanded="${open}" lang="en" ${open?'disabled':''}`,'small-button')}${open?`<p lang="en">${escape(clue)}</p>`:''}</article>`;
+  }).join('');
+  return `<div class="workout-planner-layout"><section class="teacher-profile-panel"><span class="eyebrow">Student interview</span><h2 lang="en">Meet ${escape(profile.name)}</h2><p>Aluno, faça uma pergunta. Professor, revele e leia só a resposta correspondente.</p><div class="workout-clues">${clues}</div></section><section><div class="workout-calendar">${sessionCards}</div><div class="mission-actions">${button('Conferir plano','workout-check',selected.length===2&&asked.length===profile.interview.length?'':'disabled','small-button')}${button('Recomeçar','workout-reset','','quiet')}</div>${feedback}${changeNotice}${routeToolbox(s.support,'Explique seu plano')}</section></div>`+liveTargets(s);
+
  }
  function activityArt(kind,glyph=''){
   const key=String(kind||'media').toLowerCase(),safe=key.replace(/[^a-z0-9]+/g,'-');
@@ -189,7 +279,7 @@ function decision(s){
   const money=value=>'$'+Number(value||0).toFixed(0),orderRows=(s.confirmedOrder||[]).map(item=>`<li><span lang="en">${escape(item.quantity?`${item.quantity} × ${item.label}`:item.label)}</span><strong>${item.status?escape(item.status.toUpperCase()):money(item.amount)}</strong></li>`).join('');
   const printedRows=(s.receipt||[]).map(item=>{const chosenLine=selected.includes(item.id);return `<button type="button" class="bill-line ${chosenLine?'is-selected':''} ${auditCorrect&&(s.errorIds||[]).includes(item.id)?'is-removed':''}" data-action="bill-line" data-line-id="${escape(item.id)}" aria-pressed="${chosenLine}" ${auditCorrect?'disabled':''}><span lang="en">${escape(`${item.quantity} × ${item.label}`)}</span><strong>${money(item.amount)}</strong></button>`;}).join('');
   const correctedRows=(s.correctedReceipt||[]).map(item=>`<li><span lang="en">${escape(`${item.quantity} × ${item.label}`)}</span><strong>${money(item.amount)}</strong></li>`).join('');
-  return targetTracker(s,true)+`<div class="bill-audit-shell">${opened?'':`<section class="bill-request"><span class="eyebrow">Close the meal</span><h2>Diga o pedido antes de abrir o recibo.</h2><p lang="en">${escape(s.openModel)}</p>${button('Ask for the bill','bill-open','','small-button')}</section>`}${opened?`<div class="bill-audit-layout"><section class="confirmed-order"><span class="eyebrow">Confirmed order</span><h2>Table 4</h2><ul>${orderRows}</ul><p>Compare esta confirmação com o recibo impresso.</p></section><section class="printed-receipt"><div class="receipt-heading"><span>RIVERSIDE CAFÉ</span><strong>TABLE 4</strong></div><div class="bill-line-list" role="group" aria-label="Linhas da conta">${printedRows}</div><div class="receipt-total"><span>PRINTED TOTAL</span><strong>${money(s.printedTotal)}</strong></div><p>Marque exatamente duas cobranças que não pertencem ao pedido.</p><div class="mission-actions">${button('Conferir 2 linhas','bill-check',selected.length===2&&!auditCorrect?'':'disabled','small-button')}${button('Recomeçar','bill-reset','','quiet')}</div>${checked&&!auditCorrect?`<div class="route-feedback is-wrong" role="status"><strong>Compare one more time.</strong><span lang="en">The confirmed order and this bill do not match yet.</span></div>`:''}</section></div>`:''}${auditCorrect?`<section class="corrected-bill" aria-live="polite"><div><span class="eyebrow">Correction accepted</span><h2 lang="en">${escape(s.repairModel)}</h2><ul>${correctedRows}</ul></div><div class="bill-total-change"><span>${money(s.printedTotal)}</span><strong>→ ${money(s.correctedTotal)}</strong><small>${money(s.removedAmount)} removed</small></div></section><section class="bill-tip-step"><span class="eyebrow">One final check</span><p lang="en">${escape(s.tip.question)}</p>${button(tipDone?'Tip checked':'Ask about the tip','bill-tip',tipDone?'disabled':'','small-button')}${tipDone?`<div class="bill-tip-answer" role="status"><strong>${escape(s.tip.printed)}</strong><span lang="en">${escape(s.tip.answer)}</span></div>`:''}</section>`:''}${tipDone?`<section class="bill-split-step"><span class="eyebrow">${escape(s.closePrompt)}</span><p lang="en">${escape(s.closeModel)}</p>${button(splitDone?'Bills printed':'Print separate bills','bill-split',splitDone?'disabled':'','small-button')}</section>`:''}${splitDone?`<section class="split-bills"><div>${s.splitBills.map(bill=>`<article><strong>${escape(bill.label)}</strong><span lang="en">${bill.items.map(escape).join(' · ')}</span><b>${money(bill.total)}</b></article>`).join('')}</div><div class="arrival-success" role="status"><strong>${escape(s.outcome)}</strong></div></section>`:''}</div>`;
+  return `<div class="bill-audit-shell">${opened?'':`<section class="bill-request"><span class="eyebrow">Close the meal</span><h2>Diga o pedido antes de abrir o recibo.</h2><p lang="en">${escape(s.openModel)}</p>${button('Ask for the bill','bill-open','','small-button')}</section>`}${opened?`<div class="bill-audit-layout"><section class="confirmed-order"><span class="eyebrow">Confirmed order</span><h2>Table 4</h2><ul>${orderRows}</ul><p>Compare esta confirmação com o recibo impresso.</p></section><section class="printed-receipt"><div class="receipt-heading"><span>RIVERSIDE CAFÉ</span><strong>TABLE 4</strong></div><div class="bill-line-list" role="group" aria-label="Linhas da conta">${printedRows}</div><div class="receipt-total"><span>PRINTED TOTAL</span><strong>${money(s.printedTotal)}</strong></div><div class="mission-actions">${button('Conferir 2 linhas','bill-check',selected.length===2&&!auditCorrect?'':'disabled','small-button')}${button('Recomeçar','bill-reset','','quiet')}</div>${checked&&!auditCorrect?`<div class="route-feedback is-wrong" role="status"><strong>Compare one more time.</strong><span lang="en">The confirmed order and this bill do not match yet.</span></div>`:''}</section></div>`:''}${auditCorrect?`<section class="corrected-bill" aria-live="polite"><div><span class="eyebrow">Correction accepted</span><h2 lang="en">${escape(s.repairModel)}</h2><ul>${correctedRows}</ul></div><div class="bill-total-change"><span>${money(s.printedTotal)}</span><strong>→ ${money(s.correctedTotal)}</strong><small>${money(s.removedAmount)} removed</small></div></section><section class="bill-tip-step"><span class="eyebrow">One final check</span><p lang="en">${escape(s.tip.question)}</p>${button(tipDone?'Tip checked':'Ask about the tip','bill-tip',tipDone?'disabled':'','small-button')}${tipDone?`<div class="bill-tip-answer" role="status"><strong>${escape(s.tip.printed)}</strong><span lang="en">${escape(s.tip.answer)}</span></div>`:''}</section>`:''}${tipDone?`<section class="bill-split-step"><span class="eyebrow">${escape(s.closePrompt)}</span><p lang="en">${escape(s.closeModel)}</p>${button(splitDone?'Bills printed':'Print separate bills','bill-split',splitDone?'disabled':'','small-button')}</section>`:''}${splitDone?`<section class="split-bills"><div>${s.splitBills.map(bill=>`<article><strong>${escape(bill.label)}</strong><span lang="en">${bill.items.map(escape).join(' · ')}</span><b>${money(bill.total)}</b></article>`).join('')}</div><div class="arrival-success" role="status"><strong>${escape(s.outcome)}</strong></div></section>`:''}</div>`+liveTargets(s);
  }
  function luggageArt(bag){
   const palette={maya:['#355c9b','#f2c36f'],leo:['#ba532e','#f4df9b'],nia:['#477968','#dcebf5']},colors=palette[bag.id]||['#355c9b','#f2c36f'],artId='luggage-'+String(bag.id||'bag').replace(/[^a-z0-9_-]/gi,''),stickers=(bag.items||[]).slice(0,3);
@@ -275,7 +365,7 @@ function decision(s){
  }
  function mapRoute(s){
   const st=stateFor(s),routeIndex=Number.isInteger(st.routeIndex)&&st.routeIndex>=0&&st.routeIndex<s.routes.length?st.routeIndex:0,route=s.routes[routeIndex],key='map-model-'+route.id,revealed=st.reveals.has(key),landmarkById=new Map(s.map.landmarks.map(item=>[item[0],item])),from=landmarkById.get(route.from),to=landmarkById.get(route.to);
-  return (s.trackTargets===false?'':targetTracker(s,true))+`<div class="map-route-controls" role="group" aria-label="Escolha da rota">${s.routes.map((item,index)=>button(`<span>${index+1} · </span><span lang="en">${escape(item.label)}</span>`,'select-map-route',`data-route-index="${index}" aria-pressed="${index===routeIndex}"`,'small-button')).join('')}</div><div class="map-route-summary"><span><strong>A · Start</strong> <span lang="en">${escape(from[1])}</span></span><span><strong>B · Destination</strong> <span lang="en">${escape(to[1])}</span></span></div><div class="map-route-layout"><figure class="route-map">${cityMapSvg(s,s.map,{startId:route.from,destinationId:route.to,route,revealRoute:revealed,title:`Route ${routeIndex+1}: ${route.label}`})}<figcaption>A é o ponto de partida; B é o destino. A linha azul fica oculta durante a tentativa.</figcaption></figure><section class="map-route-task"><ol class="mission-steps">${s.steps.map(step=>`<li>${escape(step)}</li>`).join('')}</ol>${routeToolbox(s.support)}<div class="mission-actions">${reveal(key,'Ver rota e resposta possível')}</div>${answer(key,`<span lang="en">${escape(route.model)}</span>`)}</section></div>`;
+  return `<div class="map-route-controls" role="group" aria-label="Escolha da rota">${s.routes.map((item,index)=>button(`<span>${index+1} · </span><span lang="en">${escape(item.label)}</span>`,'select-map-route',`data-route-index="${index}" aria-pressed="${index===routeIndex}"`,'small-button')).join('')}</div><div class="map-route-layout"><figure class="route-map">${cityMapSvg(s,s.map,{startId:route.from,destinationId:route.to,route,revealRoute:revealed,title:`Route ${routeIndex+1}: ${route.label}`})}<figcaption>A → B · A rota aparece depois da tentativa.</figcaption></figure><section class="map-route-task"><div class="map-route-summary"><span><strong>A</strong> <span lang="en">${escape(from[1])}</span></span><span><strong>B</strong> <span lang="en">${escape(to[1])}</span></span></div>${routeToolbox(s.support.slice(0,3),'Use uma instrução por vez')}<div class="mission-actions">${reveal(key,'Ver rota e resposta possível')}</div>${answer(key,`<span lang="en">${escape(route.model)}</span>`)}<details class="live-details"><summary>Mais frases e como conduzir</summary>${routeToolbox(s.support.slice(3),'Mais opções')}<ol class="mission-steps">${s.steps.map(step=>`<li>${escape(step)}</li>`).join('')}</ol></details></section></div>`+(s.trackTargets===false?'':liveTargets(s));
  }
  function wrongWay(s){
   const st=stateFor(s),caseIndex=Number.isInteger(st.wrongCase)&&st.wrongCase<s.cases.length?st.wrongCase:0,item=s.cases[caseIndex],choice=Number.isInteger(st.wrongChoice)?st.wrongChoice:-1,correct=choice===item.answer,travelerPoint=correct?item.correctPoint:item.wrongPoint;
@@ -317,6 +407,8 @@ function decision(s){
     else if(s.type==='culture-workouts')content=cultureWorkouts(s);
     else if(s.type==='coach-console')content=coachConsole(s);
     else if(s.type==='workout-planner')content=workoutPlanner(s);
+    else if(s.type==='registration-form')content=registrationForm(s);
+    else if(s.type==='message-relay')content=messageRelay(s);
     else if(s.type==='interest-feed')content=interestFeed(s);
     else if(s.type==='slow-tv-story')content=slowTvStory(s);
     else if(s.type==='review-editor')content=reviewEditor(s);
@@ -346,7 +438,7 @@ function decision(s){
     else if(s.type==='mission')content=mission(s);
     else if(s.type==='roleplay'){const st=stateFor(s),index=st.roleIndex||0,role=s.roles[index];content='<div class="toolbar">'+s.roles.map((r,i)=>button(escape(r.name),'select-role',`data-role-index="${i}" aria-pressed="${i===index}"`,'small-button')).join('')+'</div>'+mission({...s,board:[[role.name,role.goal],['Your information',role.details.join(' · ')]]});}
     else if(s.type==='reference')content='<div class="reference-content">'+s.body+'</div>';
-    else if(s.type==='music')content='<div class="music-prelisten"><p>Antes de ouvir: diga uma frase sua com <strong lang="en">'+escape(musicEntry.pedagogy.targetVocabulary.join(' · '))+'</strong>.</p><a class="quiet" href="https://open.spotify.com/track/'+musicEntry.song.spotifyTrackId+'" target="_blank" rel="noopener">Abrir faixa no Spotify ↗</a></div><div id="music-slot"></div><section class="conversation-goal"><h2>After listening · now it’s about you</h2><ol>'+musicEntry.pedagogy.transferPrompts.map(q=>'<li lang="en">'+escape(q)+'</li>').join('')+'</ol></section>';
+    else if(s.type==='music')content='<div id="music-slot"></div>';
     else if(s.type==='conversation')content=conversation(s);
     else if(s.type==='exit')content=targetTracker(s,true)+`<div class="assessment">${s.checks.map((text,i)=>`<article class="assessment-card"><h2>${escape(text)}</h2><div class="ratings" role="group" aria-label="${escape(text)}">${['Com modelo','Com uma dica','Consigo'].map((label,r)=>button(label,'rate',`data-check="${i}" data-rating="${r}" aria-pressed="${ratings[s.id+'-'+i]===r}"`,'small-button')).join('')}</div></article>`).join('')}</div>`;
     else if(s.type==='homework')content=`<div class="homework-grid">${s.options.map(([letter,name,text])=>`<article class="homework-card ${homework===letter?'selected':''}"><span class="homework-letter">${letter}</span><h2 lang="en">${escape(name)}</h2><p>${escape(text)}</p>${button(homework===letter?'✓ Opção escolhida':`Escolher ${letter}`,'homework',`data-option="${letter}" aria-pressed="${homework===letter}"`,'quiet')}</article>`).join('')}</div>`;
@@ -357,26 +449,52 @@ function decision(s){
  }
  function updateNav(){
    const s=lesson.slides[current];stage.dataset.slideId=s.id;stage.dataset.slideType=s.type;
+   stage.classList.toggle('live-stage',['map-route','bill-audit','registration-form','message-relay','workout-planner','music'].includes(s.type));
    document.getElementById('previous').disabled=current===0;
    document.getElementById('next').textContent=current===lesson.slides.length-1?(published?'Concluir aula ✓':'Voltar ao ciclo ↗'):'Próxima seção →';
    document.getElementById('counter').textContent=String(current+1).padStart(2,'0')+' / '+lesson.slides.length;
    document.getElementById('progress').style.width=((current+1)/lesson.slides.length*100)+'%';save();
  }
- function render(){if(musicRoot?.isConnected)musicRoot.remove();stage.innerHTML=renderSection(lesson.slides[current]);document.querySelector('.skip-link').href='#heading-'+lesson.slides[current].id;updateNav();if(lesson.slides[current].type==='music'){if(!musicRoot){const box=document.createElement('div');box.innerHTML=window.MusicClozeV3.renderShell(musicEntry,lesson);musicRoot=box.firstElementChild;musicRoot.querySelector('.lesson-panel-title').textContent='Listen & speak';}document.getElementById('music-slot').append(musicRoot);window.MusicClozeV3.mountAll();}}
+ function render(){if(musicRoot?.isConnected)musicRoot.remove();stage.innerHTML=renderSection(lesson.slides[current]);document.querySelector('.skip-link').href='#heading-'+lesson.slides[current].id;updateNav();if(lesson.slides[current].type==='music'){if(!musicRoot){const box=document.createElement('div');box.innerHTML=window.MusicClozeV3.renderShell(musicEntry);musicRoot=box.firstElementChild;}document.getElementById('music-slot').append(musicRoot);window.MusicClozeV3.mountAll();}}
  function move(index){if(index<0||index>=lesson.slides.length)return;window.speechSynthesis?.cancel();current=index;render();window.scrollTo({top:0,behavior:'instant'});document.getElementById('heading-'+lesson.slides[index].id)?.focus({preventScroll:true});}
  function indexContents(){const markedOnly=document.getElementById('only-marked').checked;
-   const selected=lesson.slides.map((s,i)=>({s,i})).filter(({s})=>!markedOnly||marks.has(s.id));
-   document.getElementById('index-items').innerHTML=selected.map(({s,i})=>`<button type="button" class="index-item" data-index="${i}" ${i===current?'aria-current="step"':''}><small>${String(i+1).padStart(2,'0')}</small><strong>${escape(s.title.replace(/\n/g,' '))}</strong>${marks.has(s.id)?'<span>★ Retomar</span>':''}</button>`).join('');
-   document.getElementById('empty-marks').hidden=selected.length>0;
+   const selected=lesson.slides.map((s,i)=>({s,i})).filter(({s})=>(!markedOnly||marks.has(s.id))&&(!onlyCore.checked||s.routeTier==='core'));
+   document.getElementById('index-items').innerHTML=selected.map(({s,i})=>`<button type="button" class="index-item" data-index="${i}" ${i===current?'aria-current="step"':''}><small>${String(i+1).padStart(2,'0')}</small><strong>${escape(s.title.replace(/\n/g,' '))}</strong><span class="index-route-tier">${s.routeTier==='core'?'Essencial':'Extensão'}${marks.has(s.id)?' · ★ Retomar':''}</span></button>`).join('');
+   const empty=document.getElementById('empty-marks');
+   empty.hidden=selected.length>0;
+   empty.textContent=onlyCore.checked?'Nenhuma atividade essencial corresponde aos filtros.':'Nenhuma atividade marcada. Use “Retomar” durante a aula.';
  }
+ stage.addEventListener('input',event=>{
+  const field=event.target.closest('[data-registration-field]');
+  if(!field)return;
+  const st=stateFor(lesson.slides[current]);
+  field.setCustomValidity('');
+  st.registrationValues={...st.registrationValues,[field.dataset.registrationField]:field.value};
+ });
+ stage.addEventListener('submit',event=>{
+  const form=event.target.closest('form[data-registration]');
+  if(!form)return;
+  event.preventDefault();
+  const fields=[...form.querySelectorAll('[data-registration-field]')];
+  const empty=fields.find(field=>!field.value.trim());
+  if(empty){empty.setCustomValidity('Preencha este campo.');empty.reportValidity();return;}
+  const st=stateFor(lesson.slides[current]);
+  st.registrationValues=Object.fromEntries(fields.map(field=>[field.dataset.registrationField,field.value.trim()]));
+  st.registrationChecked=true;
+  render();
+  stage.querySelector('.live-result')?.focus({preventScroll:true});
+ });
  stage.addEventListener('click',event=>{
    const el=event.target.closest('button[data-action]');if(!el)return;
    current=Number(el.closest('[data-section-index]').dataset.sectionIndex);const anchorTop=el.getBoundingClientRect().top;
    const s=lesson.slides[current],st=stateFor(s),a=el.dataset.action;
    const toggle=key=>st.reveals.has(key)?st.reveals.delete(key):st.reveals.add(key);
-   if(a==='reveal')toggle(el.dataset.key);
+   if(a==='reveal'){toggle(el.dataset.key);if(el.dataset.key==='relay-update'&&!st.reveals.has('relay-update'))st.reveals.delete('relay-model');}
+   else if(a==='registration-next'||a==='registration-reset'){st.registrationValues={};st.registrationChecked=false;if(a==='registration-next')st.registrationSecond=!st.registrationSecond;}
+   else if(a==='relay-case'||a==='relay-reset'){if(a==='relay-case')st.relayRound=Number(el.dataset.caseIndex);st.reveals.clear();}
    else if(a==='bookmark'){marks.has(s.id)?marks.delete(s.id):marks.add(s.id);}
-   else if(a==='all-models'){const all=s.items.every((_,i)=>st.reveals.has('item-'+i));s.items.forEach((_,i)=>all?st.reveals.delete('item-'+i):st.reveals.add('item-'+i));}
+   else if(a==='all-models'){const items=visibleExerciseItems(s),all=items.every((_,i)=>st.reveals.has('item-'+i));items.forEach((_,i)=>all?st.reveals.delete('item-'+i):st.reveals.add('item-'+i));}
+   else if(a==='exercise-extra')st.fullExercise=!st.fullExercise;
    else if(a==='meanings')st.meanings=!st.meanings;
    else if(a==='survey-choice'){st.choices=st.choices||{};st.choices[el.dataset.question]=Number(el.dataset.choice);}
    else if(a==='target'){usedTargets.has(el.dataset.target)?usedTargets.delete(el.dataset.target):usedTargets.add(el.dataset.target);}
@@ -408,10 +526,11 @@ function decision(s){
    else if(a==='culture-choice'){st.cultureChoices=st.cultureChoices||{};st.cultureChoices[Number(el.dataset.cardIndex)]=Number(el.dataset.choice);}
    else if(a==='coach-next'){const coachStep=Math.max(0,Math.min(Number(st.coachStep)||0,(s.moments||[]).length));if(st.reveals.has('coach-model-'+coachStep))st.coachStep=Math.min((s.moments||[]).length,coachStep+1);}
    else if(a==='coach-reset'){st.coachStep=0;[...st.reveals].filter(key=>key.startsWith('coach-model-')).forEach(key=>st.reveals.delete(key));}
-   else if(a==='workout-session'){const profileOpen=st.reveals.has('workout-teacher'),unavailable=st.workoutChanged?s.change?.unavailable:'';if(!profileOpen&&el.dataset.sessionId!==unavailable){st.workoutSelected=Array.isArray(st.workoutSelected)?st.workoutSelected:[];const position=st.workoutSelected.indexOf(el.dataset.sessionId);if(position>=0)st.workoutSelected.splice(position,1);else if(st.workoutSelected.length<2)st.workoutSelected.push(el.dataset.sessionId);st.workoutChecked=false;}}
+   else if(a==='workout-clue'){const index=Number(el.dataset.clueIndex);if(s.profile.interview[index])st.workoutAsked=[...new Set([...(st.workoutAsked||[]),index])];}
+   else if(a==='workout-session'){const unavailable=st.workoutChanged?s.change?.unavailable:'';if(el.dataset.sessionId!==unavailable){st.workoutSelected=Array.isArray(st.workoutSelected)?st.workoutSelected:[];const position=st.workoutSelected.indexOf(el.dataset.sessionId);if(position>=0)st.workoutSelected.splice(position,1);else if(st.workoutSelected.length<2)st.workoutSelected.push(el.dataset.sessionId);st.workoutChecked=false;}}
    else if(a==='workout-check')st.workoutChecked=true;
    else if(a==='workout-change'){st.workoutChanged=true;st.workoutChecked=false;st.workoutSelected=(st.workoutSelected||[]).filter(id=>id!==s.change?.unavailable);}
-   else if(a==='workout-reset'){st.workoutSelected=[];st.workoutChecked=false;st.workoutChanged=false;[...st.reveals].filter(key=>key==='workout-teacher'||key.startsWith('workout-detail-')).forEach(key=>st.reveals.delete(key));}
+   else if(a==='workout-reset'){st.workoutSelected=[];st.workoutChecked=false;st.workoutChanged=false;st.workoutAsked=[];[...st.reveals].filter(key=>key.startsWith('workout-detail-')).forEach(key=>st.reveals.delete(key));}
    else if(a==='feed-choice'){st.feedChoices=st.feedChoices||{};st.feedChoices[el.dataset.groupId]=el.dataset.optionId;}
    else if(a==='feed-preset')st.feedChoices={...(s.fictionalPreset?.choices||{})};
    else if(a==='feed-reset')st.feedChoices={};
@@ -509,10 +628,11 @@ function decision(s){
  document.getElementById('open-index').addEventListener('click',()=>{indexContents();dialog.showModal();});
  document.getElementById('close-index').addEventListener('click',()=>dialog.close());
  document.getElementById('only-marked').addEventListener('change',indexContents);
+ onlyCore.addEventListener('change',indexContents);
  document.getElementById('index-items').addEventListener('click',e=>{const b=e.target.closest('[data-index]');if(b){dialog.close();move(Number(b.dataset.index));}});
  document.getElementById('reset').addEventListener('click',()=>{
   if(!window.confirm('Reiniciar esta aula? As marcações, escolhas e posição desta aula serão apagadas.'))return;
-  states.clear();marks.clear();usedTargets.clear();ratings={};homework='';document.getElementById('only-marked').checked=false;dialog.close();current=0;render();move(0);
+  states.clear();marks.clear();usedTargets.clear();ratings={};homework='';document.getElementById('only-marked').checked=false;onlyCore.checked=false;dialog.close();current=0;render();move(0);
  });
  document.getElementById('fullscreen').addEventListener('click',async()=>{
   try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{document.getElementById('fullscreen').textContent='Use F11 para ampliar';}

@@ -28,6 +28,10 @@ A prévia da proposta de 38 aulas está isolada em `a1-v3/preview/`. O manifesto
 
 Os dados canônicos são `a1-v3/lesson-data/preview-at-the-cafe.js`, `preview-my-everyday-life.js` e `preview-a-day-in-my-life.js`, registrados por `A1V3LessonRegistry.registerPreview`. O player compartilhado é `js/v3-presentation.js` e a entrada para o professor é `a1-v3/preview/index.html`. Nenhum gerador editorial legado é aplicado. As duas aulas lexicais usam vínculos explícitos por curriculumId em `js/music-catalog-v3.js`, reutilizando registros provider-verified pelo ID editorial da faixa e com interseção semântica validada. MusicCloze, LyricsService e SpotifyEmbed compartilhados atendem o slide imediatamente anterior ao homework; a aula comunicativa não recebe música.
 
+## Piloto A1 de cadência 4 + 1 — 2026-11-08
+
+A entrada é `a1-v3/preview/cadencia.html`. O manifesto isolado `V3Curriculum.a1CadencePilot` vincula quatro lexicais e a revisão de cadastro pelos IDs curriculares oficiais. `a1-v3/lesson-data/preview-cadence.js` compõe as retomadas breves com os slides canônicos. Os IDs do piloto são distintos e ficam fora da grade e do progresso oficiais. O catálogo reaproveita somente registros publicáveis semanticamente compatíveis nas quatro lexicais do piloto.
+
 ## A1: currículo de 38 aulas — 2026-09-09
 
 As páginas oficiais licao-01.html até licao-38.html usam js/v3-presentation.js, css/v3-presentation.css e js/v3-presentation-theme.js. O registry fornece slides autorais; o manifesto fornece IDs a1-v3-38-*, títulos, tipos, dependências e tags. São 24 lexicais, 12 comunicativas e duas consolidações. A camada a1-v3-lesson-content.js é histórica e não é carregada pelas páginas atuais. A prévia usa o mesmo player com IDs isolados.
@@ -41,6 +45,8 @@ As 32 páginas oficiais usam o player, CSS e tema compartilhados com A1. O adapt
 ## B1: primeira fatia de apresentação — aulas 1 e 2
 
 Na primeira fatia, as páginas licao-01.html e licao-02.html passaram a usar js/v3-presentation.js, CSS/tema compartilhados e b1-v3/b1-v3-presentation-data.js. Esse arquivo contém a expansão lexical e o perfil autoral de Maya; reaproveita a lexical canônica de js/b1-v3-lessons-data.js, resolvida pelo vínculo explícito legacyLessons do manifesto.
+
+Nas lexicais compostas, o manifesto indica a fonte principal ou a gramática complementar quando a ordem editorial difere da migração histórica. A oficina e a avaliação finais resolvem fontes próprias em `js/b1-v3-lessons-block4b.js` pelo vínculo editorial do manifesto. As páginas com o player B1 têm um índice de essenciais e extensões.
 
 ## Comunicativas A1/A2/B1 — revisão 2026-09-10/11
 

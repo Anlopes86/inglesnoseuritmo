@@ -135,7 +135,7 @@
         }[spec.number] || ['memory', 'matching'];
         const grammarTables = Array.isArray(spec.grammar.tables) ? spec.grammar.tables : [];
         const grammarNotes = Array.isArray(spec.grammar.notes) ? spec.grammar.notes : [];
-        return {
+        const lesson = {
             number: spec.number,
             unit: spec.unit,
             title: spec.title,
@@ -155,6 +155,17 @@
                 { type: "homework", title: spec.homework.title, deliverable: spec.homework.deliverable, options: spec.homework.options, checklist: spec.homework.checklist }
             ]
         };
+        if (spec.assessment) {
+            const [opening, grammar, , precision, choices, reading, listening, translation, speaking, homework] = lesson.slides;
+            lesson.slides = [
+                opening,
+                { ...speaking, label: 'Performance task' },
+                { type: 'assessment', ...spec.assessment },
+                ...[grammar, precision, choices, reading, listening, translation].map(slide => ({ ...slide, routeTier: 'extra' })),
+                homework
+            ];
+        }
+        return lesson;
     }
 
     // BLOCK 1: TIME, CHANGE AND POSSIBILITY

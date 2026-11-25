@@ -1,5 +1,11 @@
 # Prévia A1 — como usar
 
+## Piloto de cadência
+
+Abra `a1-v3/preview/cadencia.html` para testar o bloco de quatro conteúdos e uma revisão. Faça apresentação, nomes, trabalho e contato nessa ordem. Na quinta aula, use a ficha fictícia e troque os papéis depois de conferir os dados em voz alta. Observe se o aluno consegue pedir repetição, soletrar e corrigir um dado. O piloto usa IDs próprios e a conclusão retorna à página do bloco.
+
+## Ciclo de alimentação e rotina
+
 Abra `a1-v3/preview/index.html` no navegador e escolha uma aula. O conteúdo autoral funciona localmente, sem instalação ou login. Música e letras precisam de internet e dos respectivos provedores. A numeração 7–9 corresponde ao currículo oficial de 38 aulas. Esta prévia mantém IDs próprios para comparação.
 
 - Cada slide apresenta uma seção completa. Avance pelo rodapé, pelas setas do teclado ou pelo índice; role quando uma seção for longa. Vocabulário, exemplos e explicações já aparecem abertos; traduções do vocabulário podem ser ocultadas em conjunto.

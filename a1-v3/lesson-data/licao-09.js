@@ -39,7 +39,7 @@
       "type": "reading",
       "title": "Breakfast when everyone is asleep",
       "kicker": "Conversation Activities",
-      "instruction": "O professor lê; depois leia e responda. Procure as pistas no texto.",
+      "instruction": "O professor lê e faz as perguntas. Responda com a hora, a bebida ou o lugar. Você também pode responder como Max, usando “I”.",
       "paragraphs": [
         "Hi, I am Max. I work at a café. I get up at four in the morning and start work at five. I make sandwiches. I have breakfast at six: bread, cheese and tea. I do not drink coffee.",
         "I finish work at one in the afternoon. I have lunch at home and study English at three. At eight in the evening, I go to bed. My friend Zoe starts work at eight in the evening. Our days are very different!"
@@ -59,7 +59,7 @@
         ],
         [
           "Are Max and Zoe at work at the same time at eight in the evening?",
-          "No. Zoe starts work; Max goes to bed."
+          "No. At eight, Zoe is at work and Max is at home."
         ]
       ],
       "translations": []
@@ -69,7 +69,7 @@
       "type": "matching",
       "title": "Put Max’s day together",
       "kicker": "Conversation Activities",
-      "instruction": "Diga o número e a letra. Depois explique a combinação em uma frase.",
+      "instruction": "Diga o número e a letra. Depois fale como Max: “I start work at five.”",
       "options": [
         "breakfast",
         "English",
@@ -79,19 +79,19 @@
       "items": [
         [
           "1. 5:00 a.m.",
-          "C — Work starts."
+          "C — Work starts. I start work at five."
         ],
         [
           "2. 6:00 a.m.",
-          "A — Breakfast."
+          "A — Breakfast. I have breakfast at six."
         ],
         [
           "3. 3:00 p.m.",
-          "B — English."
+          "B — English. I study English at three."
         ],
         [
           "4. 8:00 p.m.",
-          "D — Bed."
+          "D — Bed. I go to bed at eight."
         ]
       ]
     },
@@ -167,7 +167,7 @@
         [
           "B",
           "Talk",
-          "Conte a rotina de Max e diga duas diferenças da sua."
+          "Imagine que você é Max. Diga dois horários da rotina dele usando “I”. Depois diga dois horários da sua rotina."
         ],
         [
           "C",
@@ -181,7 +181,7 @@
     "sourceLesson": null,
     "editorialVersion": "2026.09-a1-38"
   },
-  "editorialRevision": "2026-09-10-varied-communication",
+  "editorialRevision": "2026-11-08-live-lesson",
   "activityFormats": [
     "survey",
     "reading",

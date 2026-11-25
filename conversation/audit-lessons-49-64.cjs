@@ -34,8 +34,21 @@ const contexts = keys.flatMap((key) => data[key].contexts.map((context) => ({ le
 const overlongContextInstructions = contexts
     .filter((context) => context.intro.trim().split(/\s+/).length > 32)
     .map((context) => `${context.lesson}: ${context.title}`);
+
+function isMalformedContext(context) {
+    if (!context.prompt.trim().endsWith('?') || !Array.isArray(context.cards)) return true;
+    if (context.blindRanking) {
+        const choices = context.cards.map((card) => card.title?.trim());
+        return choices.length !== 5 || choices.some((choice) => !choice) || new Set(choices).size !== choices.length;
+    }
+    if (context.revealCards) {
+        return !context.cards.length || context.cards.some((card) => !card.title?.trim() || !card.text?.trim());
+    }
+    return context.cards.length !== 4;
+}
+
 const malformedConversationActivities = contexts
-    .filter((context) => !context.prompt.trim().endsWith('?') || context.cards.length !== 4)
+    .filter(isMalformedContext)
     .map((context) => `${context.lesson}: ${context.title}`);
 
 const existingSongs = [];
@@ -54,7 +67,7 @@ const invalid = keys.filter((key) => {
         || lesson.songs.length !== 3
         || lesson.songs.some((song) => song.questions.length !== 4 || song.listening.length !== 3)
         || lesson.contexts.length !== (key === '52' ? 1 : 2)
-        || lesson.contexts.some((context) => context.cards.length !== 4 || !context.prompt.trim().endsWith('?'))
+        || lesson.contexts.some(isMalformedContext)
         || lesson.practice.length !== 6
         || lesson.speaking.prompts.length !== 4
         || lesson.homework.length !== 3;

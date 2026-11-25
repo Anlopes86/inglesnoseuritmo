@@ -117,26 +117,39 @@
     },
     {
       "id": "registration",
-      "type": "conversation",
+      "type": "registration-form",
       "title": "A new name for the board",
       "kicker": "Conversation Activities",
-      "instruction": "Converse com o professor. Use os apoios quando precisar.",
-      "tasks": [
+      "instruction": "Dite os dados fictícios. Depois escute, confirme ou corrija a ficha.",
+      "fields": [
         [
-          "Invent a person",
-          "Nome, profissão, local de trabalho e email fictício."
+          "name",
+          "Full name"
         ],
         [
-          "Ask and write",
-          "Dite os dados para o professor criar o cadastro."
+          "job",
+          "Job"
         ],
         [
-          "Check",
-          "Ouça a leitura do cadastro e confirme ou corrija."
+          "workplace",
+          "Workplace"
+        ],
+        [
+          "email",
+          "Email"
         ]
       ],
-      "goal": "Does the new card have the right information?",
-      "challenge": "What do you do? / Please repeat. / Is that correct?"
+      "support": [
+        "What’s your name?",
+        "How do you spell that?",
+        "What do you do?",
+        "I work at…",
+        "What’s your email address?",
+        "Please repeat. / That’s correct."
+      ],
+      "semanticTags": [
+        "identity-personal-data"
+      ]
     },
     {
       "id": "homework",
@@ -167,13 +180,13 @@
     "sourceLesson": null,
     "editorialVersion": "2026.09-a1-38"
   },
-  "editorialRevision": "2026-09-10-varied-communication",
+  "editorialRevision": "2026-11-08-live-lesson",
   "activityFormats": [
     "matching",
     "reading",
     "questions",
     "survey",
-    "conversation",
+    "registration-form",
     "homework"
   ]
 });})();
