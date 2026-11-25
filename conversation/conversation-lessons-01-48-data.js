@@ -8904,13 +8904,13 @@
                 "artist": "Carmen Twillie, Lebo M.",
                 "sourceEmbed": "https://open.spotify.com/embed/track/0H2960m5fFKxfEsOvJgI3W",
                 "spotifyId": "0H2960m5fFKxfEsOvJgI3W",
-                "angle": "An opening number can establish a fictional world, its scale, and its central ideas before the plot begins.",
-                "discussionTitle": "Cinema - Life as a Movie Scene",
+                "angle": "Would you still watch the films you loved as a kid?",
+                "discussionTitle": "Same film, different age",
                 "questions": [
-                    "Which film opening immediately pulls you into its world, and what creates that effect?",
-                    "How do soundtracks help stories travel across languages and generations?",
-                    "What matters most in an opening sequence: music, visual scale, character, or information, and why?",
-                    "Hot take: a memorable soundtrack can make an ordinary film seem culturally important. How would you test that claim?"
+                    "As a kid, did you like films that made you laugh or films that scared you a little?",
+                    "If a friend invited you to see an animated film tonight, would you go? What would make you say yes?",
+                    "In a family film, a kid breaks a rule to help a friend. Whose side are you on: the kid’s or the parents’?",
+                    "Would you show a child a film with a really sad ending, or save it for when they’re older?"
                 ]
             },
             {
@@ -8918,77 +8918,77 @@
                 "artist": "Christina Perri",
                 "sourceEmbed": "https://open.spotify.com/embed/track/2UxT6MB4rniAoHccm17kWB",
                 "spotifyId": "2UxT6MB4rniAoHccm17kWB",
-                "angle": "Theme: epic romance and how pop culture creates iconic 'love stories' that last for generations.",
-                "discussionTitle": "A Thousand Years - Romanticized Reality",
+                "angle": "Imagine this song playing as two characters get back together. Are you smiling or yelling at the screen?",
+                "discussionTitle": "Should they end up together?",
                 "questions": [
-                    "Who is your favorite fictional couple from a movie or series?",
-                    "Do romantic movies create unrealistic expectations for real-life relationships?",
-                    "Why are book-to-movie adaptations so often disappointing for fans?",
-                    "Have you ever lived a 'movie romance'?"
+                    "In a love story, do you like knowing who ends up together, or do you want to be surprised?",
+                    "Someone shows up at their ex’s wedding to say ‘I still love you.’ Romantic or selfish?",
+                    "Two best friends in a series start dating. Are you excited, or do you wish the writers had let them stay friends?",
+                    "Can a breakup be a happy ending? When would you actually want the couple to split up?"
                 ]
             },
             {
-                "title": "Live and Let Die",
-                "artist": "Paul McCartney, Wings",
-                "sourceEmbed": "https://open.spotify.com/embed/track/0OfIsdoRyBXtRXBqiBlX2A",
-                "spotifyId": "0OfIsdoRyBXtRXBqiBlX2A",
-                "angle": "Theme: dramatic contrasts, explosive action-movie energy, and a title phrase that challenges passive acceptance.",
-                "discussionTitle": "Live and Let Die - Drama, Contrast, and Bond Energy",
+                "title": "Sunflower",
+                "artist": "Post Malone, Swae Lee",
+                "sourceEmbed": "https://open.spotify.com/embed/track/3KkXRkHbMCARz0aVfEt68P",
+                "spotifyId": "3KkXRkHbMCARz0aVfEt68P",
+                "angle": "Miles has homework and a secret identity. Would you want both?",
+                "discussionTitle": "Who gets to be the hero?",
                 "questions": [
-                    "Who would you be in an action movie? The villain, the hero, the sidekick or the love interest?",
-                    "How do you deal with difficult moments? Do you stay calm or do you express your emotions strongly?",
-                    "Which matters more in a Bond movie: the villain, the song, or the guy interpreting Bond?",
-                    "How do you interpret the phrase “live and let die”?"
+                    "If you woke up with Spider-Man’s powers, what’s the first thing you’d try?",
+                    "Would you tell your best friend you were a superhero? What about your family?",
+                    "Do you enjoy watching a hero who always knows what to do, or one who makes it up as they go?",
+                    "Would you still root for a superhero who charged people for rescues? Why or why not?"
                 ]
             }
         ],
         "contexts": [
             {
-                "title": "The Reboot Pitch",
-                "kicker": "Revisit a beloved story for a new audience.",
-                "intro": "A studio wants to remake a childhood classic while changing its setting and main character.",
-                "prompt": "Which elements must remain recognizable, and which deserve reinvention?",
+                "title": "What Would You Watch?",
+                "kicker": "You have the remote.",
+                "intro": "Pick whichever question you feel like answering first.",
+                "prompt": "Which of your answers would your friends disagree with?",
                 "cards": [
                     {
-                        "title": "Core",
-                        "text": "Name the story's essential conflict."
+                        "title": "Ten minutes in",
+                        "text": "You’re bored ten minutes into a film. Do you give it more time or pick something else?"
                     },
                     {
-                        "title": "Audience",
-                        "text": "Identify what a new generation needs."
+                        "title": "Subs or dubs?",
+                        "text": "A new series is in a language you don’t speak. Would you rather read subtitles or hear it in your own language?"
                     },
                     {
-                        "title": "Representation",
-                        "text": "Avoid adding identity as decoration."
+                        "title": "One more season?",
+                        "text": "Your favorite show just had a great ending. Would you be excited or worried if they announced another season?"
                     },
                     {
-                        "title": "Risk",
-                        "text": "Explain one change that may divide fans."
+                        "title": "Bad reviews",
+                        "text": "The trailer looks great, but everyone says the film is awful. Would you still watch it?"
                     }
                 ],
-                "icon": "fa-clapperboard"
+                "icon": "fa-tv"
             },
             {
-                "title": "The Spoiler Agreement",
-                "kicker": "Set expectations before a shared conversation.",
-                "intro": "Two friends watch the same series at different speeds, while their group chat discusses every episode.",
-                "prompt": "What spoiler rule is clear, practical, and fair?",
+                "title": "Movie Night Confessions",
+                "kicker": "Would you admit it?",
+                "intro": "You’re watching a series with a friend. Which of these sounds most like you?",
+                "prompt": "What’s the funniest or most annoying thing someone has done while you were watching something together?",
                 "cards": [
                     {
-                        "title": "Window",
-                        "text": "Choose how long new episodes stay protected."
+                        "title": "One episode ahead",
+                        "text": "Your friend fell asleep during a cliffhanger. Would you pause, wake them up, or finish it and pretend you didn’t?"
                     },
                     {
-                        "title": "Signal",
-                        "text": "Label discussions before revealing details."
+                        "title": "Just one little spoiler",
+                        "text": "Do you ever look up the ending on purpose? What would make you want to know?"
                     },
                     {
-                        "title": "Space",
-                        "text": "Create a separate channel for current viewers."
+                        "title": "The running commentary",
+                        "text": "Your friend keeps guessing the twist out loud. When does that make watching together more fun?"
                     },
                     {
-                        "title": "Exception",
-                        "text": "Decide how to discuss an old classic."
+                        "title": "Lost in the plot",
+                        "text": "You’ve had no idea who someone is for three episodes. Do you finally ask, or hope someone says their name?"
                     }
                 ],
                 "icon": "fa-tv"
@@ -9021,29 +9021,27 @@
             }
         ],
         "speaking": {
-            "title": "Speak: Movies, Series and Pop Culture",
+            "title": "Speak: Your Remake, One Big Change",
             "icon": "fa-microphone-lines",
+            "instruction": "Pick a film or series you know well. Tell your teacher the original idea in one sentence, then play with one change together.",
             "prompts": [
-                "Pitch a remake that preserves one essential element and changes another?",
-                "Who is the new audience?",
-                "Which casting or setting choice changes the story meaningfully?",
-                "How would you answer a fan who sees every change as betrayal?"
+                "What would you change for fun? You could put a horror villain in a romantic comedy or let a side character steal the show.",
+                "Take us into one scene. What happens in the original, and what happens in your version?",
+                "Which detail would you keep because it still makes you laugh, jump, or cry?",
+                "Who do you know who’d have the strongest opinion about your remake? What would they say?"
             ],
             "support": [
-                "To binge-watch",
-                "A cliffhanger",
-                "To steal the show",
-                "A blockbuster"
+                "In the original, …",
+                "In my version, …",
+                "Picture the moment when …",
+                "I can already hear my friend saying, …"
             ]
         },
-        "homework": {
-            "task": "Write a 100-150-word review of a film or series you watched recently. Explain what worked, what did not, and who might enjoy it.",
-            "model": "To watch multiple episodes of a television program in rapid succession. \"I binge-watched the entire season of that new show in just one weekend. A dramatic and exciting ending to an episode that leaves the audience in suspense. \"The season finale ended on such a cliffhanger; I can't wait for next year!",
-            "requiredExpressions": [
-                "To binge-watch",
-                "A cliffhanger"
-            ]
-        },
+        "homework": [
+            "If you could forget one film or series and watch it again for the first time, which would you choose? Describe the moment you’d most like to experience again and why it worked so well on you.",
+            "Was the villain right about anything? Pick a character people are supposed to dislike. Tell us about one decision you understand and where you think they went too far.",
+            "You get to spend a week inside any film or series, but you’re an ordinary person there. Where would you go? Describe your first day and one thing you’d miss about your real life."
+        ],
         "closing": "\"Movies can and do have tremendous influence in shaping young lives.\"",
         "migration": {
             "source": "licao-44.html",
